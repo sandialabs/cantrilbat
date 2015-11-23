@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+#  Makefile.in: 
+#
+# $Id: Makefile.in,v 1.1 2012/01/31 18:00:33 hkmoffa Exp $
+#
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM =   LiIon_PorousBat
+BPROGRAM = @cta_bindir@/$(PROGRAM)
+RUNTEST = runtest
+BRUNTEST = @top_builddir@/1Delectrode/test_suite/$(RUNTEST)
+
+BLESSED_FILES = good_out.txt BulkDomain1D_0_blessed.dat  BulkDomain1D_2_blessed.dat  \
+                SurDomain1D_0_blessed.dat  SurDomain1D_2_blessed.dat  timeDep_IV_blessed.dat \
+                BulkDomain1D_1_blessed.dat  solution_blessed.xml        SurDomain1D_1_blessed.dat  SurDomain1D_3_blessed.dat
+
+DATA = ECsoln_ion.xml               LiCoO2_Margules_1.xml  MCMBAnode_electrode.xml  metal_Li_LiIon_electrons.xml \
+       LiCoO2Cathode_electrode.xml  Li_Metal.xml           MCMB_RedlichKister.xml   MgO.xml \
+       anode.inp cathode.inp   LiIon_PorousBat.inp
+
+CREATED_FILES = SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
+                solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat  \
+                 $(PROGRAM) out_raw.txt out.txt accumulatedElectricalOutput.txt accumulatedHeatSource.txt \
+                 stepwiseElectricalOutput.txt   stepwiseHeatSource.txt
+
+
+TEST_FILES = diff_* err_out.txt runGood runBad runInProgress.txt $(PROGRAM) 
+
+
+all: $(PROGRAM) $(RUNTEST)
+
+$(PROGRAM) : $(BPROGRAM)
+	/bin/rm -f $(PROGRAM)
+	ln -s $(BPROGRAM) .
+
+$(RUNTEST) : $(BRUNTEST)
+	/bin/rm -f $(RUNTEST)
+	ln -s $(BRUNTEST) .
+
+test: 
+	@ggg=`pwd` ; echo -n 'Checking need to run test ' `pwd` ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+#
+# Executable will be found by runtest so took PROGRAM out
+#
+runGood: $(DATA) Makefile $(BLESSED_FILES)  $(BPROGRAM)
+	@ggg=`pwd` ; echo 'RUNNING TEST ' `basename $$ggg`
+	$(RUNTEST)	
+
+rebaseline:
+	./rebaseline
+
+test_cleanup:
+	$(RM) $(TEST_FILES) $(CREATED_FILES)
+
+cleanup:
+	$(RM) $(TEST_FILES) $(CREATED_FILES)
+
