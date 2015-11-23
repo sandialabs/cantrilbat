@@ -12,7 +12,7 @@
 
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h"
-
+#include "m1d_exception.h"
 using namespace Cantera;
 
 extern m1d::ProblemStatementCell PSinput;
@@ -71,26 +71,15 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
 void
 BDT_porousLiKCl::ReadModelDescriptions()
 {
-     int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
-     if (iph < 0) {
-	 throw CanteraError("BDT_porousLiKCl::ReadModelDescriptions()",
-			    "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
-     }
-     ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-     ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
-     ionicLiquid_ = ionicLiquidIFN_;
 
-     iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
-     if (iph < 0) {
-	 throw CanteraError("BDT_porousLiKCl::ReadModelDescriptions()",
-			    "Can't find the phase in the phase list: " + PSCinput_ptr->separatorPhase_);
+    BDD_porousFlow::ReadModelDescriptions();
+
+ 
+     ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
+     if (!ionicLiquidIFN_) {
+	 throw m1d_Error("BDT_porousLiKCl::ReadModelDescriptions()", 
+			 "ionicLiquidIFN_  failed on dynamic cast");
      }
-     tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
-     if (!tmpPhase) {
-	 throw CanteraError("BDT_porousLiKCl::ReadModelDescriptions()",
-			    "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
-     }
-     solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
 }
 //======================================================================================================================
 void

@@ -136,33 +136,90 @@ porousLiKCl_dom1D::operator=(const porousLiKCl_dom1D &r)
 void
 porousLiKCl_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
-  /*
-   * First call the parent domain prep to get the node information
-   */
-  porousFlow_dom1D::domain_prep(li_ptr);
+    /*
+     * First call the parent domain prep to get the node information
+     */
+    porousFlow_dom1D::domain_prep(li_ptr);
 
-  /*
-   * Figure out what the mass of the separator is
-   * and then figure out its volume fraction to  
-   * determine the cell porosity.
-   *
-   * We should read in the MgO.xml file to get the MgO density
-   */
+    double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
 
-  int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
-  ThermoPhase* solidSkeleton = & (PSCinput_ptr->PhaseList_)->thermo(iph);
+    /*
+     * Figure out what the mass of the separator is
+     * and then figure out its volume fraction to  
+     * determine the cell porosity.
+     *
+     * We should read in the MgO.xml file to get the MgO density
+     */
 
-  BDD_porousFlow *bpf =  dynamic_cast<BDD_porousFlow *>(&BDD_);
-  ThermoPhase* bb = bpf->solidSkeleton_;
-  AssertTrace(bb == solidSkeleton);
+    int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
+    ThermoPhase* solidSkeleton = & (PSCinput_ptr->PhaseList_)->thermo(iph);
 
-  AssertTrace(bb == solidSkeleton_);
+    BDD_porousFlow *bpf =  dynamic_cast<BDD_porousFlow *>(&BDD_);
+    ThermoPhase* bb = bpf->solidSkeleton_;
+    AssertTrace(bb != 0);
+    AssertTrace(solidSkeleton_ != 0);
+    AssertTrace(solidSkeleton != 0);
 
-  double volumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
-  double volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton->density() ;
-  double porosity = 1.0 - volumeInert / volumeSeparator;
+    double grossVolumeSeparator = PSCinput_ptr->separatorArea_ * PSCinput_ptr->separatorThickness_;
+    double porosity = 1.0;
+    double volumeInert = 0.0;
+    double volumeFractionInert = 0.0;
+    if (solidSkeleton_) {
+	if (PSCinput_ptr->separatorMass_ > 0.0) {
+	    volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
+	    volumeFractionInert = volumeInert / grossVolumeSeparator;
+	} else if (PSCinput_ptr->separatorSolid_vf_ > 0.0) {
+	    volumeFractionInert = PSCinput_ptr->separatorSolid_vf_;
+	}
+	if (volumeFractionInert >= 1.0) {
+	    throw m1d_Error("porousLiKCl_dom1D::domain_prep()",
+			    "Volume fraction of separator solid more than 1.0: " + fp2str(volumeFractionInert));
+	}
+    }
+    //
+    // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
+    // We'll keep the mole number and volume fraction in the extra phases lists.
+    //
 
-  std::cout << "Separator volume is " << volumeSeparator << " m^3 with "
+    if (numExtraCondensedPhases_ > 0) {
+        for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+            int  index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+            NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+            NodalVars* nodeLeft = nodeCent;
+            NodalVars* nodeRight = nodeCent;
+            if (iCell !=0) {
+                   int index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+               nodeLeft =  LI_ptr_->NodalVars_LcNode[ index_LeftLcNode];
+            }
+            if ((int) iCell !=NumLcCells - 1) {
+                   int index_RightLcNode = Index_RightLcNode_LCO[iCell];
+               nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
+            }
+            double cellThickness = 0.5*(nodeRight->xNodePos() - nodeLeft->xNodePos());
+            porosity = 1.0;
+            for (size_t k = 0; k < ExtraPhaseList_.size(); ++k) {
+                ExtraPhase* ep = ExtraPhaseList_[k];
+                ThermoPhase* tp = ep->tp_ptr;
+                tp->setState_TP(temp_Curr_, pres_Curr_);
+                double mvp = tp->molarVolume();
+                volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction;
+                volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction;
+                moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction * cellThickness * mvp ;
+                moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + k] = ep->volFraction * cellThickness * mvp;
+                porosity -= ep->volFraction;
+            }
+            porosity_Cell_[iCell] = porosity;
+            porosity_Cell_old_[iCell] = porosity;
+        }
+    } else {
+        for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
+            porosity_Cell_[iCell] = 1.0;
+            porosity_Cell_old_[iCell] = 1.0;
+        }
+    }
+
+
+  std::cout << "Separator volume is " << grossVolumeSeparator << " m^3 with "
             << volumeInert << " m^3 solidSkeleton and porosity " << porosity <<  std::endl;
 
   for (int i = 0; i < NumLcCells; i++) {
