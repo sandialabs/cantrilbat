@@ -480,34 +480,54 @@ Electrode& Electrode::operator=(const Electrode& right)
     molarAtol_ = right.molarAtol_;
 
     SAFE_DELETE(xmlTimeIncrementData_);
-    xmlTimeIncrementData_ = new XML_Node(*right.xmlTimeIncrementData_);
+    if (right.xmlTimeIncrementData_) {
+        xmlTimeIncrementData_ = new XML_Node(*right.xmlTimeIncrementData_);
+   }
 
     SAFE_DELETE(xmlTimeIncrementIntermediateData_);
-    xmlTimeIncrementIntermediateData_ = new XML_Node(*right.xmlTimeIncrementIntermediateData_);
+    if (right.xmlTimeIncrementIntermediateData_) {
+        xmlTimeIncrementIntermediateData_ = new XML_Node(*right.xmlTimeIncrementIntermediateData_);
+    }
 
     SAFE_DELETE(xmlExternalData_init_init_);
-    xmlExternalData_init_init_ = new XML_Node(*right.xmlExternalData_init_init_);
+    if (right.xmlExternalData_init_init_) {
+        xmlExternalData_init_init_ = new XML_Node(*right.xmlExternalData_init_init_);
+    }
 
     SAFE_DELETE(xmlExternalData_init_);
-    xmlExternalData_init_ = new XML_Node(*right.xmlExternalData_init_);
+    if (right.xmlExternalData_init_) {
+        xmlExternalData_init_ = new XML_Node(*right.xmlExternalData_init_);
+    }
 
     SAFE_DELETE(xmlExternalData_final_);
-    xmlExternalData_final_ = new XML_Node(*right.xmlExternalData_final_);
+    if (right.xmlExternalData_final_) {
+        xmlExternalData_final_ = new XML_Node(*right.xmlExternalData_final_);
+    }
 
     SAFE_DELETE(xmlExternalData_final_final_);
-    xmlExternalData_final_final_ = new XML_Node(*right.xmlExternalData_final_final_);
+    if (right.xmlExternalData_final_final_) {
+        xmlExternalData_final_final_ = new XML_Node(*right.xmlExternalData_final_final_);
+    }
 
     SAFE_DELETE(xmlStateData_init_init_);
-    xmlStateData_init_init_ = new XML_Node(*right.xmlStateData_init_init_);
+    if (right.xmlStateData_init_init_) {
+        xmlStateData_init_init_ = new XML_Node(*right.xmlStateData_init_init_);
+    }
 
     SAFE_DELETE(xmlStateData_init_);
-    xmlStateData_init_ = new XML_Node(*right.xmlStateData_init_);
+    if (right.xmlStateData_init_) {
+        xmlStateData_init_ = new XML_Node(*right.xmlStateData_init_);
+    }
 
     SAFE_DELETE(xmlStateData_final_);
-    xmlStateData_final_ = new XML_Node(*right.xmlStateData_final_);
+    if (right.xmlStateData_final_) {
+        xmlStateData_final_ = new XML_Node(*right.xmlStateData_final_);
+    }
 
     SAFE_DELETE(xmlStateData_final_final_);
-    xmlStateData_final_final_ = new XML_Node(*right.xmlStateData_final_final_);
+    if (right.xmlStateData_final_final_) {
+        xmlStateData_final_final_ = new XML_Node(*right.xmlStateData_final_final_);
+    }
 
     SAFE_DELETE(eState_final_);
     eState_final_ = new EState();
@@ -547,10 +567,13 @@ Electrode::~Electrode()
         m_EGRList[i] = 0;
     }
 
+    if (RSD_List_.size() > 0) {
     for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
+       
         if (RSD_List_[i]) {
             delete RSD_List_[i];
         }
+    }
     }
     //m_rSurDomain = 0;
 
@@ -1611,10 +1634,12 @@ void Electrode::resizeSurfaceAreasToGeometry()
             surfaceAreaRS_init_init_[i] = totalSurfArea;
             surfaceAreaRS_final_final_[i] = totalSurfArea;
 
+            if (RSD_List_.size() > 0) {
             if (RSD_List_[i]) {
                 ActiveKineticsSurf_[i] = 1;
             } else {
                 ActiveKineticsSurf_[i] = 0;
+            }
             }
         }
     } else {
@@ -1626,8 +1651,10 @@ void Electrode::resizeSurfaceAreasToGeometry()
             surfaceAreaRS_final_final_[i] = surfaceAreaRS_final_[i];
             ActiveKineticsSurf_[i] = 0;
             if (surfaceAreaRS_final_[i] > 0.0) {
+                if (RSD_List_.size() > 0) {
                 if (RSD_List_[i]) {
                     ActiveKineticsSurf_[i] = 1;
+                }
                 }
             }
         }

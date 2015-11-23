@@ -88,6 +88,12 @@ public:
   virtual void
   domain_prep(LocalNodeIndices *li_ptr);
 
+  virtual void instantiateElectrodeCells();
+
+  virtual void advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                                             const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                                             const double t, const double t_old);
+
   //! Basic function to calculate the residual for the domain.
   /*!
    *  All residual terms are written with the following sign convention

@@ -71,57 +71,11 @@ BDT_infPorCathode_LiKCl::operator=(const BDT_infPorCathode_LiKCl &r)
 void
 BDT_infPorCathode_LiKCl::ReadModelDescriptions()
 {
-     int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
-     if (iph < 0) {
-	 throw CanteraError("BDT_infPorCathode_LiKCl::ReadModelDescriptions()",
-			    "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
-     }
-     ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-     ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
-     ionicLiquid_ = ionicLiquidIFN_;
+    BDD_porousElectrode::ReadModelDescriptions();
 
-  /*
-   *   Initialize the electrode model
-   */
-  ProblemStatementCell *psc_ptr = &PSinput;
-  ELECTRODE_KEY_INPUT *ci = psc_ptr->cathode_input_;
-  Electrode_  = newElectrodeObject(ci->electrodeModelName);
-  if (!Electrode_) {
-      throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()",
-		       "Electrode factory method failed");
-  }
-  ELECTRODE_KEY_INPUT *ci_new = newElectrodeKeyInputObject(ci->electrodeModelName);  
-  string commandFile = ci->commandFile_;
-  BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
+    ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
 
-  /*
-   *  Parse the complete child input file
-   */
-  int retn = ci_new->electrode_input_child(commandFile, cfC);
-  if (retn == -1) {
-    throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()",
-                     "Electrode input child method failed");
-  }
-  /*
-   * Switch the pointers around so that the child input file is returned.
-   * Delete the original pointer.
-   */
-  delete ci;
-  psc_ptr->cathode_input_ = ci_new;
-
-  retn = Electrode_->electrode_model_create(PSinput.cathode_input_);
-  if (retn == -1) {
-    throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()", 
-                     "Electrode model create method failed");
-  }
-  retn = Electrode_->setInitialConditions(PSinput.cathode_input_);
-  if (retn == -1) {
-    throw  m1d_Error("BDT_infPorCathode_LiKCl::BDT_infPorCathode_LiKCl()", 
-                     "Electrode::setInitialConditions method failed");
-  }
-
-  delete cfC;
-
+   
 }
 //=====================================================================================================================
 void

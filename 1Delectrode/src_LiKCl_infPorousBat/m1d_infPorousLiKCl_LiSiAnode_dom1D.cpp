@@ -252,7 +252,245 @@ infPorousLiKCl_LiSiAnode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
    *  mole-averaged velocities as the basis.
    */
   trans_->setVelocityBasis(ivb_);
+
+  instantiateElectrodeCells();
 }
+//==================================================================================================================================
+void
+infPorousLiKCl_LiSiAnode_dom1D::instantiateElectrodeCells()
+{ 
+    /*
+     * Indices and nodes used to determine the volume of each cell.
+     */
+    int index_RightLcNode;
+    int index_LeftLcNode;
+    int index_CentLcNode;
+    NodalVars* nodeLeft = 0;
+    NodalVars* nodeCent = 0;
+    NodalVars* nodeRight = 0;
+
+    double xCellBoundaryL; //cell boundary left
+    double xCellBoundaryR; //cell boundary right
+
+    porousElectrode_dom1D::instantiateElectrodeCells();
+
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	//Get the index for the center node
+
+
+        index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+        // Get the pointer to the NodalVars object for the center node
+        nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+
+        /*
+         *  ------------------- Get the index for the left node -----------------------------
+         *    There may not be a left node if we are on the left boundary. In that case
+         *    set the pointer to zero and the index to -1. Hopefully, we will get a segfault on an error.
+         */
+        index_LeftLcNode = Index_LeftLcNode_LCO[iCell];
+        if (index_LeftLcNode < 0) {
+            nodeLeft = 0;
+        } else {
+            // get the node structure for the left node
+            nodeLeft = LI_ptr_->NodalVars_LcNode[index_LeftLcNode];
+        }
+        /*
+         * ------------------------ Get the indexes for the right node ------------------------------------
+         */
+        index_RightLcNode = Index_RightLcNode_LCO[iCell];
+        if (index_RightLcNode < 0) {
+            nodeRight = 0;
+        } else {
+            // get the node structure for the right node
+            nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
+        }
+	/*
+         * CALCULATE POSITION AND DELTA_X Variables
+         */
+        if (nodeLeft) {
+            xCellBoundaryL = 0.5 * (nodeLeft->xNodePos() + nodeCent->xNodePos());
+        } else {
+            xCellBoundaryL = nodeCent->xNodePos();
+        }
+        if (nodeRight == 0) {
+            xCellBoundaryR = nodeCent->xNodePos();
+        } else {
+            xCellBoundaryR = 0.5 * (nodeRight->xNodePos() + nodeCent->xNodePos());
+        }
+        /*
+         * Calculate the cell width
+         */
+        xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
+
+
+	Cantera::Electrode* ee  = Electrode_->duplMyselfAsElectrode();
+	Electrode_Cell_[iCell] = ee;
+
+	//
+        // Compute total electrode volume
+        //
+        double totalElectrodeGrossVolume = -1.0;;
+        double electrodeGrossArea = -1.0;
+        double porosity = -1.0;
+        double nonElectrodeVF = -1.0;
+	//
+        // Calculate the volume fraction of other phases than the electrode.
+        // - Here we assume that the cells are all uniform. we can do this because we are in domain_prep()
+        //
+        double vfOther = volumeFractionOther(0);
+
+	//
+        // Calculate the gross electrode area
+        //
+
+        if (PSinput.anode_input_->electrodeGrossArea > 0.0) {
+            electrodeGrossArea = PSinput.anode_input_->electrodeGrossArea;
+        } else if (PSinput.anode_input_->electrodeGrossDiameter > 0.0) {
+            electrodeGrossArea = Pi * 0.25 * PSinput.anode_input_->electrodeGrossDiameter *
+                                 PSinput.anode_input_->electrodeGrossDiameter;
+        }
+        /*
+         *  Save the cross-sectional area of the electrode to use throughout the code. It does not change within
+         *  this calculation
+         */
+        if (electrodeGrossArea > 0.0) {
+            if (!doubleEqual(crossSectionalArea_, electrodeGrossArea, 1.0E-30, 9)) {
+                throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells())",
+                                "crossSectional Area, " + fp2str(crossSectionalArea_) +
+                                ", differs from cross sectional area input from anode file, " + fp2str(electrodeGrossArea));
+            }
+            electrodeGrossArea = crossSectionalArea_;
+        } else {
+            electrodeGrossArea = crossSectionalArea_;
+        }
+	/*
+         * If we have input the porosity directly, then we will honor that and calculate the electrode solid volume.
+         * If we have input the electrode solid volume, then we will honor that calculation and calculate the resultant porosity.
+         */
+        if (PSinput.anode_input_->porosity > 0.0) {
+            porosity = PSinput.anode_input_->porosity;
+        } else {
+            if (PSinput.anode_input_->electrodeGrossThickness > 0.0 && electrodeGrossArea > 0.0) {
+                totalElectrodeGrossVolume = electrodeGrossArea * PSinput.anode_input_->electrodeGrossThickness;
+                double totalSolidGrossVolume =  ee->SolidVol();
+                porosity = 1.0 - totalSolidGrossVolume / totalElectrodeGrossVolume - vfOther;
+                //printf("Anode porosity is %f with %g m^3 solid gross volume and %g m^3 electrode gross volume.\n",
+                //       porosity, ee->SolidVol(), totalElectrodeGrossVolume);
+                if (porosity <= 0.0) {
+                    throw CanteraError("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "Computed porosity is not positive.");
+                }
+            } else {
+		porosity = 0.2;
+            }
+        }
+
+        nonElectrodeVF = porosity + vfOther;
+        if (nonElectrodeVF < 0.0) {
+            throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "nonElectrodeVF < 0");
+        }        if (nonElectrodeVF > 1.0) {
+            throw m1d_Error("porousLiIon_Anode_dom1D::instantiateElectrodeCells()", "nonElectrodeVF > 1");
+        }
+	/*
+         * Reset the moles in the electrode using the computed porosity
+         * and the electrodeWidth FOR THIS node.
+         */
+        ee->setElectrodeSizeParams(electrodeGrossArea, xdelCell_Cell_[iCell], nonElectrodeVF);
+
+    }
+}
+void
+infPorousLiKCl_LiSiAnode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                                             const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                                             const double t, const double t_old)
+{
+    const Epetra_Vector& soln = *soln_ptr;
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+        cIndex_cc_ = iCell;
+        /*
+         *  ---------------- Get the index for the center node ---------------------------------
+         */
+        int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+        /*
+         *   Get the pointer to the NodalVars object for the center node
+         */
+        NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+        /*
+         *  Index of the first equation in the bulk domain of center node
+         */
+        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+
+        SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
+
+        concTot_Cell_old_[iCell] = concTot_Curr_;
+        //
+        //  Advance the value of the old cell porosity
+        //
+        porosity_Cell_old_[iCell] = porosity_Curr_;
+        //
+        //  Advance the value of the old cell temperature
+        //
+        Temp_Cell_old_[iCell] = temp_Curr_;
+
+        /*
+         * Tell the electrode object to accept the current step and prep for the next step.
+         *
+         * We might at this point do a final integration to make sure we nailed the conditions of the last step.
+         * However, we will hold off at implementing this right now
+         */
+        Electrode* ee = Electrode_Cell_[iCell];
+
+        //ee->resetStartingCondition(t);
+        /*
+         *  Store the Amount of Li element in each cell, for later use by conservation
+         *  checking routines
+         */
+        size_t neSolid = ee->nElements();
+        for (size_t elem = 0; elem < neSolid; ++elem) {
+            elem_Solid_Old_Cell_(elem,iCell) = ee->elementSolidMoles("Li");
+        }
+
+        //ee->updateState();
+
+        //ee->setInitStateFromFinal(true);
+
+        if (energyEquationProbType_ == 3) {
+            double volCellNew = xdelCell_Cell_[iCell];
+            // double volElectrodeCell = solidVolCell / crossSectionalArea_;
+            double solidEnthalpy = ee->SolidEnthalpy() / crossSectionalArea_;
+            double solidEnthalpyNew = solidEnthalpy;
+
+            double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+            double volLyteNew = porosity_Curr_ * volCellNew;
+            double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+            double nEnthalpyInertNew = 0.0;
+            for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
+                ExtraPhase* ep = ExtraPhaseList_[jPhase];
+                ThermoPhase* tp = ep->tp_ptr;
+                tp->setState_TP(temp_Curr_, pres_Curr_);
+                double mEnth = tp->enthalpy_mole();
+                double mn = moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase];
+                nEnthalpyInertNew += mEnth * mn;
+            }
+            double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew + nEnthalpyInertNew;
+
+            nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New_Cell_[iCell];
+            nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
+        }
+
+        nVol_zeroStress_Electrode_Old_Cell_[iCell] = nVol_zeroStress_Electrode_Old_Cell_[iCell];
+
+        if (numExtraCondensedPhases_ > 0) {
+        for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; jPhase++) {
+            moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =
+              moleNumber_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+            volumeFraction_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase] =
+              volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase];
+        }
+        }
+    }
+}
+
+
 //=====================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
