@@ -1329,15 +1329,18 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	}
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0 ) {
-	  if(iCell>0) {
-	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	    NodalVars* nodeLeft  = cTmps.nvLeft_; 
-	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	    double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
-	    nodeLeft->changeNodePosition(new_node_position);
-	    double &stmp = (double&) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
-	    stmp = 0.0;
+	  if(iCell > 0) {
+	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	  NodalVars* nodeLeft  = cTmps.nvLeft_; 
+	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	  int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	  double newnode_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	  std::cout << " changing separator position "<<iCell<<" / "<< NumLcCells<<" from "<<  nodeLeft->xNodePos()<<" to "<<newnode_position<<std::endl;
+	  std::cout.flush();
+	  nodeLeft->changeNodePosition(newnode_position);
+	  double &stmp = (double&) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	  stmp = 0.0;
+	  // right hand boundary node, that is not addressed in this loop, will be set by the Cathode icell==0  loop
 	  }
 	}
 #endif
@@ -2850,6 +2853,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	}
 
 #ifdef MECH_MODEL
+<<<<<<< HEAD
 
     // if (do0Write) {
     //   drawline0(indentSpaces, 80);
@@ -2857,6 +2861,14 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     //   ss.print0("\n");
     //   drawline(indentSpaces, 80);
 
+=======
+    // if (do0Write) {
+    //   drawline0(indentSpaces, 80);
+    //   ss.print0("%s    CellBound    SolidStressAxial ", ind);
+    //   ss.print0("\n");
+    //   drawline(indentSpaces, 80);
+
+>>>>>>> 79acc16... Adjusted the
     //   const Epetra_Vector& soln = *soln_ptr;
      
     //   for (int iCell = 1; iCell < NumLcCells; iCell++) {
@@ -2871,6 +2883,10 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     //   }
       
     // }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79acc16... Adjusted the
 #endif 
         drawline(indentSpaces, 80);
         // ----------------------------------------------------

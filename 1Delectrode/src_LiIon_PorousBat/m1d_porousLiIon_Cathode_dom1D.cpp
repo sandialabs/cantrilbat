@@ -840,7 +840,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     // Theoretical Analysis of Stresses in a Lithium Ion Cell
     double poisson = 0.2; 
     // US Patent http://www.google.com/patents/US6242129
-    double Particle_SFS_v_Porosity_Factor = 1.0;
+
     double Thermal_Expansion = 4.5e-6/1.80; // of solid material, not of matrix, and conversion of F to C
     //	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
     double Eyoung=3*BulkMod*(1.0 - 2*poisson);
@@ -1573,6 +1573,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 				  (nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]));
 	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 		0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
+<<<<<<< HEAD
 	    }
 	    else if (nodeLeft && nodeRight){
 	      vol_lc_now = 0.5* ((nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
@@ -1582,6 +1583,17 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 				   
 
 	    }
+=======
+	    }
+	    else if (nodeLeft && nodeRight){
+	      vol_lc_now = 0.5* ((nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
+				 (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
+				    Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
+				   
+
+	    }
+>>>>>>> 79acc16... Adjusted the
 	    else if (nodeLeft && (!nodeRight) ) {
 	      vol_lc_now = 0.5* ( (nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
 				  (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
@@ -1851,15 +1863,26 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	}
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0) {
-	  if(iCell>0) {
+	  // CBL for iCell == 1, the left node is the left most node in the cathode, and is shared with the separator. The separator code
+	  // does not set this position. 
+	  if(iCell > 0) {
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodalVars* nodeLeft  = cTmps.nvLeft_; 
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	    int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	    double new_node_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
-	    nodeLeft->changeNodePosition(new_node_position);
-	     double & stmp=(double &) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	    double newnode_position = nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	    std::cout << " changing cathode position "<<iCell<<" / "<< NumLcCells<<" from "<<  nodeLeft->xNodePos()<<" to "<<newnode_position<<std::endl;
+	    std::cout.flush();
+	    nodeLeft->changeNodePosition(newnode_position);
+	    double & stmp=(double &) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	    stmp = 0.0;
+	    if(iCell == NumLcCells-1) { // this is the right most cell, so we must set the center position
+	      double new_rightmost_node_x = nodeCent->xNodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
+	      std::cout << " changing cathode position rightmost"<<iCell<<" / "<< NumLcCells<<" from "<<  nodeCent->xNodePos()<<" to "<<new_rightmost_node_x<<std::endl;
+	      nodeCent->changeNodePosition(new_rightmost_node_x);
+	      double & stmp=(double &) soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
 	      stmp = 0.0;
+	    }
 	  }
 	}
 #endif

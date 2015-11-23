@@ -1562,6 +1562,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 		0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
 	      
+<<<<<<< HEAD
 	    }
 	    else  if (nodeLeft && nodeRight){
 	      vol_lc_now = 0.5* ( (nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
@@ -1575,6 +1576,21 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	      gross_vol_now =  0.5*Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 		 Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
 	    }
+=======
+	    }
+	    else  if (nodeLeft && nodeRight){
+	      vol_lc_now = 0.5* ( (nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
+				  (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
+		       Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
+	    }
+	    else if (nodeLeft && (!nodeRight) ) {
+	      vol_lc_now = 0.5* ( (nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
+				  (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      gross_vol_now =  0.5*Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
+		 Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
+	    }
+>>>>>>> 79acc16... Adjusted the
 	    else {
 
   std::cout << " iCell "<<iCell<<" nodeLeft "<<(int)(nodeLeft==NULL) <<" nodeCent "<<(int)(nodeCent==NULL)<<" nodeRight "<<(int)(nodeRight == NULL)<<std::endl;
@@ -1832,7 +1848,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	  double new_node_position = nodeCent->xNodePos() ;
 	  new_node_position += soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
 	  
-	  std::cout << " anode preCalc oldLeftNodePos "<<nodeCent->xNodePos()<<" soln "<< soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]<<"  new "<< new_node_position<<std::endl;
+	  std::cout << " anode preCalc oldLeftNodePos "<<iCell<<"/"<<NumLcCells<<" old "<< nodeCent->xNodePos()<<" soln "<< soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]<<"  new "<< new_node_position<<std::endl;
 	  
 	  nodeCent->changeNodePosition(new_node_position);
 	  double & stmp=(double &) soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
