@@ -77,6 +77,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     }
     Porosity_prob_type_        = BDT_ptr_->Porosity_prob_type_;
     porosityEquationProbType_  = BDT_ptr_->porosityEquationProbType_;
+    crossSectionalArea_ = PSinput.crossSectionalArea_;
 }
 //=====================================================================================================================
 porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
@@ -240,9 +241,6 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     // If there is a solidSkeleton ThermoPhase, then identify that with the first volume fraction of the extra condensed phases.
     // We'll keep the mole number and volume fraction in the extra phases lists.
     //
-    if (solidSkeleton_) {
-	offS = 1;
-    }
     numExtraCondensedPhases_ = ExtraPhaseList_.size();
 
     porosity_Cell_.resize(NumLcCells, porosity);
