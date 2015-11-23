@@ -14,7 +14,7 @@
 .SUFFIXES: .d
 
 PROGRAM =   LiIon_PorousBat
-BPROGRAM = @cta_bindir@/$(PROGRAM)
+BPROGRAM =  @top_builddir@/1Delectrode/src_LiIon_PorousBat/$(PROGRAM)
 RUNTEST = runtest
 BRUNTEST = @top_builddir@/1Delectrode/test_suite/$(RUNTEST)
 
