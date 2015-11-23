@@ -68,9 +68,7 @@ enum EQ_Name_Enum
   Current_Specification,
   Voltage_Specification,
   Dirichlet_Specification,
-#ifdef MECH_MODEL
   Mechanical_Model_Axial,
-#endif
   Species_Eqn_Offset,   //! Special equation name representing the first species equation offset
   Max_Eqn_Name
 //! must be last in the list
