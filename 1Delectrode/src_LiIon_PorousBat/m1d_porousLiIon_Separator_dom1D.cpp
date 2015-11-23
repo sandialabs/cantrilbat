@@ -2853,22 +2853,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	}
 
 #ifdef MECH_MODEL
-<<<<<<< HEAD
-
     // if (do0Write) {
     //   drawline0(indentSpaces, 80);
     //   ss.print0("%s    CellBound    SolidStressAxial ", ind);
     //   ss.print0("\n");
     //   drawline(indentSpaces, 80);
-
-=======
-    // if (do0Write) {
-    //   drawline0(indentSpaces, 80);
-    //   ss.print0("%s    CellBound    SolidStressAxial ", ind);
-    //   ss.print0("\n");
-    //   drawline(indentSpaces, 80);
-
->>>>>>> 79acc16... Adjusted the
     //   const Epetra_Vector& soln = *soln_ptr;
      
     //   for (int iCell = 1; iCell < NumLcCells; iCell++) {
@@ -2883,10 +2872,6 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     //   }
       
     // }
-<<<<<<< HEAD
-=======
-
->>>>>>> 79acc16... Adjusted the
 #endif 
         drawline(indentSpaces, 80);
         // ----------------------------------------------------
