@@ -2412,6 +2412,19 @@ porousLiIon_Separator_dom1D::writeSolutionTecplotHeader()
 	    std::string name = vt.VariableName(15);
 	    fprintf(ofp, "\"%s\" \t", name.c_str() );
 	}
+
+        // print porosity, specific surface area, thickness for each control volume
+	fprintf(ofp, "\"Porosity []\" \t");
+	fprintf(ofp, "\"Control volume thickness [m]\" \t");
+
+        //
+        // volume fractions of control volume
+        //
+        for (size_t i = 0; i < numExtraCondensedPhases_; i++) {
+            ExtraPhase* ep = ExtraPhaseList_[i];
+            fprintf(ofp, "\"volFrac %s []\" \t", ep->phaseName.c_str());
+        }
+
 	//print thermal source terms
 	// check dimensions!!
 	fprintf(ofp, "\"qHeat_accum [J/m3]\" \t");
@@ -2486,6 +2499,15 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 	    fprintf(ofp, "%g \t", (*soln_GlAll_ptr)[istart + ibulk + iVar]);	
 	}
 	fprintf(ofp, "\n");
+	// print porosity, specific surface area, thickness for each control volume
+	fprintf(ofp, "%g \t", porosity_Cell_[iCell]);
+	fprintf(ofp, "%g \t", xdelCell_Cell_[iCell]);
+	//
+	// volume fractions of control volume
+	//
+	for (size_t i = 0; i < numExtnumExtraCondensedPhases_; i++) {
+	    fprintf(ofp, "%g \t", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + i]);
+	}
 	// print thermal source terms
 	int iCell = iGbNode - firstGbNode;
 	fprintf(ofp, "%g \t", qSource_Cell_accumul_[iCell] / xdelCell_Cell_[iCell] );
@@ -2528,6 +2550,30 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 	}
 	fwriteTecplotVector(ofp, vars, 13, 10);
     }
+    //
+    // Porosity of control volume
+    //
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+	vars[iCell] = porosity_Cell_[iCell];
+    }
+    fwriteTecplotVector(ofp, vars, 13);
+    //
+    // Thickness of each control volume units = m
+    //
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+	vars[iCell] = xdelCell_Cell_[iCell];
+    }
+    fwriteTecplotVector(ofp, vars, 13);
+    //
+    // volume fractions of control volume
+    //
+    for (size_t i = 0; i < numExtraCondensedPhases_; i++) {
+	for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+	    vars[iCell] = volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + i];
+	}
+	fwriteTecplotVector(ofp, vars, 13);
+    }
+
     //
     // Print the qSource_Cell_accumul_ field
     //

@@ -3285,6 +3285,10 @@ porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
         fprintf(ofp, "\"Surface Area [m2/m2] (area per area)\" \n");
         fprintf(ofp, "\"Specific current (per particle area) [A/m^2]\" \n");
         fprintf(ofp, "\"Control volume thickness [m]\" \n");
+	for (size_t i = 0; i < numExtraCondensedPhases_; i++) {
+	    ExtraPhase* ep = ExtraPhaseList_[i];
+	    fprintf(ofp, "\"volFrac %s []\" \t", ep->phaseName.c_str());
+	}
 
         //set up Electrode objects so that we can plot moles of active materials
         Electrode* ee0 = Electrode_Cell_[0];
@@ -3417,6 +3421,12 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
             fprintf(ofp, "%g \t", surfaceArea_Cell_[iCell]);
             fprintf(ofp, "%g \t", icurrInterfacePerSurfaceArea_Cell_[iCell]);
             fprintf(ofp, "%g \t", xdelCell_Cell_[iCell]);
+	    //
+	    // volume fractions of control volume
+	    //
+	    for (size_t i = 0; i < numExtnumExtraCondensedPhases_; i++) {
+		fprintf(ofp, "%g \t", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + i];
+	    }
             fprintf(ofp, "\n");
 
             // print the properties of the electrode particles
@@ -3606,6 +3616,16 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
 	    vars[iCell] = xdelCell_Cell_[iCell];
 	}
 	fwriteTecplotVector(ofp, vars, 13);
+	//
+	// volume fractions of control volume
+	//
+	for (size_t i = 0; i < numExtraCondensedPhases_; i++) {
+	    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+		vars[iCell] = volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + i];
+	    }
+	    fwriteTecplotVector(ofp, vars, 13);
+        }
+
 	//
 	// Gather the species moles in the electrode object
 	//  Output moles of species -> 

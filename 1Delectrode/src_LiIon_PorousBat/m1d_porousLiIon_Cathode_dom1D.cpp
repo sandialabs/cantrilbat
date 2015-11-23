@@ -3325,9 +3325,14 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplotHeader()
 
         // print porosity, specific surface area, thickness for each control volume
         fprintf(ofp, "\"Porosity []\" \t");
+
         fprintf(ofp, "\"Surface Area [m2/m2] (area per area)\" \t");
         fprintf(ofp, "\"Specific current (per particle area) [A/m^2]\" \t");
         fprintf(ofp, "\"Control volume thickness [m]\" \t");
+	for (size_t i = 0; i < numExtraCondensedPhases_; i++) {
+	    ExtraPhase* ep = ExtraPhaseList_[i];
+	    fprintf(ofp, "\"volFrac %s []\" \t", ep->phaseName.c_str());
+	}
         fprintf(ofp, "\n");
 
         //set up Electrode objects so that we can plot moles of active materials
@@ -3459,6 +3464,13 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
             fprintf(ofp, "%g \t", surfaceArea_Cell_[iCell]);
             fprintf(ofp, "%g \t", icurrInterfacePerSurfaceArea_Cell_[iCell]);
             fprintf(ofp, "%g \t", xdelCell_Cell_[iCell]);
+	    //
+	    // volume fractions of control volume
+	    //
+	    for (size_t i = 0; i < numExtnumExtraCondensedPhases_; i++) {
+		fprintf(ofp, "%g \t", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + i]);
+	    }
+
             fprintf(ofp, "\n");
 
             // print the properties of the electrode particles
@@ -3629,6 +3641,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
 	    vars[iCell] = porosity_Cell_[iCell];
 	}
 	fwriteTecplotVector(ofp, vars, 13);
+
 	//
 	// Surface area of control volume  units = m2 / m2. surface area per cross sectional area in each CV
 	//
@@ -3650,6 +3663,16 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
 	    vars[iCell] = xdelCell_Cell_[iCell];
 	}
 	fwriteTecplotVector(ofp, vars, 13);
+	//
+	// volume fractions of control volume
+	//
+	for (size_t i = 0; i < numExtraCondensedPhases_; i++) {
+	    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
+		vars[iCell] = volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + i];
+	    }
+	    fwriteTecplotVector(ofp, vars, 13);
+        }
+
 	//
 	// Gather the species moles in the electrode object
 	//  Output moles of species -> 
@@ -4468,7 +4491,6 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid, Ep
 	//                  current conditions and the store it in the porosity_Cell_[] vector
         //
 	double solidVolCell = ee->SolidVol();
-        int offS = 0;
         double vfe = solidVolCell / (xdelCell_Cell_[iCell] * crossSectionalArea_);
         porosity_Curr_ = 1.0 - vfe;
 
