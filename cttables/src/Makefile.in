@@ -61,8 +61,7 @@ PURIFY=@PURIFY@
 #############################################################################
 
 OBJ_CTTABLES= cttables.o cttables_kin.o cttables_vol.o  \
-              cttInput.o sortAlgorithms.o cttables_thermo.o \
-              ExtraGlobalRxn.o
+              cttInput.o sortAlgorithms.o cttables_thermo.o 
 
 OBJ_CANTERA_ADDONS =  IdealReactingGas.o ReactingVolDomain.o
 
@@ -72,7 +71,7 @@ ATOFCHECKER_EXE=atofChecker$(EXE_EXT)
 all:  $(CTTABLES_EXE) $(ATOFCHECKER_EXE) .depends
 
 clean:
-	$(RM) *.o  *.d .depends atofChecker ${PROG}  *~
+	$(RM) *.o  *.d .depends cttables ${PROG}  *~
 
 ############################################################################
 # section to set up compiler rules
