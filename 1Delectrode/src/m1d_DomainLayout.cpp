@@ -447,10 +447,12 @@ DomainLayout::SetEquationsVariablesList()
   for (int ibd = 0; ibd < NumBulkDomains; ibd++) {
     BulkDomainDescription *bdd = BulkDomainDesc_global[ibd];
     bdd->SetEquationsVariablesList();
+    bdd->ReorderVariablesEquations();
   }
   for (int isd = 0; isd < NumSurfDomains; isd++) {
     SurfDomainDescription *sdd = SurfDomainDesc_global[isd];
     sdd->SetEquationsVariablesList();
+    sdd->ReorderVariablesEquations();
   }
 }
 //======================================================================================================================

@@ -100,6 +100,11 @@ public:
   virtual void
   DetermineConstitutiveModels();
 
+  //! Reorder the variables and equations on this domain
+  /*!
+   *  this is a necessary step for the nodal vars step
+   */
+  virtual void ReorderVariablesEquations();
 
   // -------------------------------------------------------------------------------
   //               DATA

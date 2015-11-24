@@ -111,6 +111,52 @@ DomainDescription::SetEquationDescription()
   throw m1d_Error("DomainDescription::SetEquationDescription()", "Base class implementation called");
 }
 //===================================================================================================================================
+//! Reorder the variables and equations on this domain
+/*!
+ *  this is a necessary step
+ */
+void DomainDescription::ReorderVariablesEquations()
+{
+    VarType varJ, varBest;
+    size_t nvars = VariableNameList.size();
+    if (nvars > 1) {
+	std::vector<size_t> order(nvars, npos);
+	std::vector<int> taken(nvars, 0);
+	for (size_t i = 0; i < nvars; ++i) {
+	    varBest = VarType(Max_Var_Name);
+	    VarType varI = VarType(Max_Var_Name);
+	    size_t iBest = npos;
+	    for (size_t j = 0; j < nvars; ++j) {
+		if (! taken[j]) {
+		    varJ = VariableNameList[j];
+		    if (varJ.VariableType < varBest.VariableType) {
+			iBest = j;
+			varBest = varJ;
+		    }
+		}
+	    }
+	    if (iBest != npos) {
+		taken[iBest] = 1;
+		order[i] = iBest;
+	    } else {
+		throw m1d_Error("DomainDescription::ReorderVariablesEquations()", "unknown index problem");
+	    }
+	}
+	std::vector<int> IsArithmeticScaled_NE_copy = IsArithmeticScaled_NE;
+	std::vector<int> IsAlgebraic_NE_copy = IsAlgebraic_NE;
+	std::vector<VarType>  VariableNameList_copy = VariableNameList;
+	std::vector<EqnType> EquationNameList_copy = EquationNameList;
+	
+	for (size_t i = 0; i < nvars; ++i) {
+	    size_t iC = order[i];
+	    VariableNameList[i] = VariableNameList_copy[iC];
+	    EquationNameList[i] = EquationNameList_copy[iC];
+	    IsAlgebraic_NE[i] =  IsAlgebraic_NE_copy[iC];
+	    IsArithmeticScaled_NE[i] = IsArithmeticScaled_NE_copy[iC];
+	}
+    }
+}
+//===================================================================================================================================
 void
 DomainDescription::DetermineConstitutiveModels()
 {
