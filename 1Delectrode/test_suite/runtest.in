@@ -211,7 +211,7 @@ fi
 xmlSolnDiff_exec=$XMLSOLNDIFF
 if test -z $xmlSolnDiff_exec
 then
-  XMLSOLNDIFF=${CANTERA_APPS_INSTALL_BINDIR}/xmlSolnDiff
+  XMLSOLNDIFF=@abs_top_builddir@/1Delectrode/src_test/xmlSolnDiff
   if test ! -x ${XMLSOLNDIFF} 
   then
      echo 'Fatal error. file xmlSolnDiff, ' ${XMLSOLNDIFF} ', doesn't exist or isn't executable'
