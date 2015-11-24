@@ -44,7 +44,6 @@ infPorousLiKCl_LiSiAnode_dom1D::infPorousLiKCl_LiSiAnode_dom1D(BDT_infPorAnode_L
       Electrode_(0), 
       nph_(0), nsp_(0), concTot_cent_(0.0),
       concTot_cent_old_(0.0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0),
-      xdelCell_Cell_(0),
       concTot_Cell_(0), concTot_Cell_old_(0), 
       Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
       Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
@@ -84,7 +83,6 @@ infPorousLiKCl_LiSiAnode_dom1D::infPorousLiKCl_LiSiAnode_dom1D(const infPorousLi
     Electrode_(0),
     nph_(0), nsp_(0), concTot_cent_(0.0),
     concTot_cent_old_(0.0), surfaceAreaDensity_Cell_(0), icurrInterfacePerSurfaceArea_Cell_(0), 
-    xdelCell_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0), 
     Fleft_cc_(0.0), Fright_cc_(0.0), Vleft_cc_(0.0),
       Vcent_cc_(0.0), Vright_cc_(0.0), VElectrodeLeft_cc_(0.0), VElectrodeCent_cc_(0.0), VElectrodeRight_cc_(0.0),
@@ -124,7 +122,6 @@ infPorousLiKCl_LiSiAnode_dom1D::operator=(const infPorousLiKCl_LiSiAnode_dom1D &
   concTot_cent_old_ = r.concTot_cent_old_;
   surfaceAreaDensity_Cell_ = r.surfaceAreaDensity_Cell_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
-  xdelCell_Cell_ = r.xdelCell_Cell_;
   concTot_Cell_ = r.concTot_Cell_;
   concTot_Cell_old_ = r.concTot_Cell_old_;
   capacityDischarged_Cell_ = r.capacityDischarged_Cell_;
@@ -202,7 +199,6 @@ infPorousLiKCl_LiSiAnode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
    */
   surfaceAreaDensity_Cell_.resize(NumLcCells, 1.0E5);
   icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
-  xdelCell_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_old_.resize(NumLcCells, 0.0);
   capacityDischarged_Cell_.resize(NumLcCells, 0.0);

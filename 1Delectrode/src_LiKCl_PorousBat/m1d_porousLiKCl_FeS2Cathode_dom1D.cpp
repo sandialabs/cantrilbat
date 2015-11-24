@@ -52,7 +52,6 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(BDT_porCathode_LiKC
     BDT_ptr_(0),
     nph_(0), nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0), 
-    xdelCell_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(0),
   capacityDischargedPA_Cell_(0),
@@ -91,7 +90,7 @@ porousLiKCl_FeS2Cathode_dom1D::porousLiKCl_FeS2Cathode_dom1D(const porousLiKCl_F
     porousElectrode_dom1D((BDT_porCathode_LiKCl &) r.BDD_), 
     BDT_ptr_(0),
     nph_(0), nsp_(0), 
-  icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
+  icurrInterfacePerSurfaceArea_Cell_(0),
   concTot_Cell_(0), 
   concTot_Cell_old_(0),
   electrodeCrossSectionalArea_(0),
@@ -141,7 +140,6 @@ porousLiKCl_FeS2Cathode_dom1D::operator=(const porousLiKCl_FeS2Cathode_dom1D &r)
   nph_ = r.nph_;
   nsp_ = r.nsp_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
-  xdelCell_Cell_ = r.xdelCell_Cell_;
   concTot_Cell_old_ = r.concTot_Cell_old_;
   electrodeCrossSectionalArea_ = r.electrodeCrossSectionalArea_;
 
@@ -239,7 +237,6 @@ porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
   //porosity_Cell_old_.resize(NumLcCells, 0.5);
   //surfaceArea_Cell_.resize(NumLcCells, 1.0E5);
   icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
-  xdelCell_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_old_.resize(NumLcCells, 0.0);
   capacityDischargedPA_Cell_.resize(NumLcCells, 0.0);
@@ -406,7 +403,6 @@ porousLiKCl_FeS2Cathode_dom1D::instantiateElectrodeCells()
      * Calculate the cell width
      */
     xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
-  
 
     // Compute total electrode volume 
     double totalElectrodeVolume;

@@ -401,13 +401,6 @@ protected:
    */
   std::vector<double> icurrInterfacePerSurfaceArea_Cell_;
 
-  //! delta X for the current cell
-  /*!
-   *  Length is number of cells on the processor
-   *  units = m
-   */
-  std::vector<double> xdelCell_Cell_;
-
   //! Total concentration of the electrolyte at cell centers
   /*!
    *  Length is number of cells on the processor.

@@ -129,7 +129,6 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     ionicLiquid_                          = r.ionicLiquid_;
     nph_                                  = r.nph_;
     nsp_                                  = r.nsp_;
-    xdelCell_Cell_                        = r.xdelCell_Cell_;
     concTot_Cell_                         = r.concTot_Cell_;
     concTot_Cell_old_                     = r.concTot_Cell_old_;
 
@@ -242,7 +241,6 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     /*
      * Porous electrode domain prep
      */
-    xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
 

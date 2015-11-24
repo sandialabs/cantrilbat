@@ -1,7 +1,6 @@
 /*
  * m1d_infPorousLiKCl_FeS2Cathode_dom1D.cpp
  *
- 
  */
 
 //  This is a heavyweight base class that provides the function
@@ -47,7 +46,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::infPorousLiKCl_FeS2Cathode_dom1D(BDT_infPorCat
   Electrode_(0),
   nph_(0), nsp_(0), 
   surfaceAreaDensity_Cell_(0), 
-  icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
+  icurrInterfacePerSurfaceArea_Cell_(0), 
   concTot_Cell_(0), concTot_Cell_old_(0),
   capacityDischarged_Cell_(0),
   depthOfDischarge_Cell_(0),
@@ -91,7 +90,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::infPorousLiKCl_FeS2Cathode_dom1D(const infPoro
     Electrode_(0),
     nph_(0), nsp_(0),
     surfaceAreaDensity_Cell_(0), 
-  icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
+  icurrInterfacePerSurfaceArea_Cell_(0),
   concTot_Cell_(0), concTot_Cell_old_(0),
   capacityDischarged_Cell_(0),
   depthOfDischarge_Cell_(0),
@@ -132,7 +131,6 @@ infPorousLiKCl_FeS2Cathode_dom1D::operator=(const infPorousLiKCl_FeS2Cathode_dom
   nsp_ = r.nsp_;
   surfaceAreaDensity_Cell_ = r.surfaceAreaDensity_Cell_;
   icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
-  xdelCell_Cell_ = r.xdelCell_Cell_;
   concTot_Cell_ = r.concTot_Cell_;
   concTot_Cell_old_ = r.concTot_Cell_old_;
   capacityDischarged_Cell_ = r.capacityDischarged_Cell_;
@@ -211,7 +209,6 @@ infPorousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
   //porosity_Cell_old_.resize(NumLcCells, 0.5);
   surfaceAreaDensity_Cell_.resize(NumLcCells, 1.0E5); 
   icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
-  xdelCell_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_.resize(NumLcCells, 0.0);
   concTot_Cell_old_.resize(NumLcCells, 0.0);
   capacityDischarged_Cell_.resize(NumLcCells, 0.0);
@@ -325,7 +322,6 @@ infPorousLiKCl_FeS2Cathode_dom1D::instantiateElectrodeCells()
          * Calculate the cell width
          */
         xdelCell_Cell_[iCell] = xCellBoundaryR - xCellBoundaryL;
-
 
 	Cantera::Electrode* ee  = Electrode_->duplMyselfAsElectrode();
 	Electrode_Cell_[iCell] = ee;

@@ -277,6 +277,17 @@ protected:
      */
     std::vector<double> Temp_Cell_old_;
 
+    //! Mesh Values
+    
+
+    //! Control Volume thickenss for all cells
+    /*!
+     *  Length is number of cells on the processor
+     *  units = m
+     */
+    std::vector<double> xdelCell_Cell_;
+
+
     //!  Number of extra condensed phases
     /*!
      *   The first phase refers to the ThermoPhase solidSkeleton. Other phases are problem dependent.

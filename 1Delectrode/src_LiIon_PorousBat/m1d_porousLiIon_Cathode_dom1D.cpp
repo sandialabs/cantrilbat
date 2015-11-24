@@ -62,7 +62,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) 
     porousElectrode_dom1D(bdd),
     BDT_ptr_(0), 
     nph_(0), nsp_(0),
-    icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
+    icurrInterfacePerSurfaceArea_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     capacityDischargedPA_Cell_(0),
     depthOfDischargePA_Cell_(0),
@@ -114,7 +114,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_d
     porousElectrode_dom1D((m1d::BDD_porousElectrode&)   r.BDD_),
     BDT_ptr_(0), 
     nph_(0), nsp_(0),
-    icurrInterfacePerSurfaceArea_Cell_(0), xdelCell_Cell_(0),
+    icurrInterfacePerSurfaceArea_Cell_(0),
     concTot_Cell_(0),
     concTot_Cell_old_(0),
     capacityDischargedPA_Cell_(0),
@@ -164,7 +164,6 @@ porousLiIon_Cathode_dom1D::operator=(const porousLiIon_Cathode_dom1D& r)
     nph_ = r.nph_;
     nsp_ = r.nsp_;
     icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
-    xdelCell_Cell_ = r.xdelCell_Cell_;
     concTot_Cell_old_ = r.concTot_Cell_old_;
 
     capacityDischargedPA_Cell_ = r.capacityDischargedPA_Cell_;
@@ -270,7 +269,6 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      * Porous electrode domain prep
      */
     icurrInterfacePerSurfaceArea_Cell_.resize(NumLcCells, 0.0);
-    xdelCell_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_.resize(NumLcCells, 0.0);
     concTot_Cell_old_.resize(NumLcCells, 0.0);
     capacityDischargedPA_Cell_.resize(NumLcCells, 0.0);

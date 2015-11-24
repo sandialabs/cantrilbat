@@ -38,6 +38,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     Temp_Cell_old_(0),
+    xdelCell_Cell_(0),
     numExtraCondensedPhases_(0),
     volumeFraction_Phases_Cell_(0),
     volumeFraction_Phases_Cell_old_(0),
@@ -86,6 +87,7 @@ porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     Temp_Cell_old_(0),
+    xdelCell_Cell_(0),
     numExtraCondensedPhases_(0),
     volumeFraction_Phases_Cell_(0),
     volumeFraction_Phases_Cell_old_(0),
@@ -136,6 +138,7 @@ porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
     porosity_Cell_            = r.porosity_Cell_;
     porosity_Cell_old_        = r.porosity_Cell_old_;
     Temp_Cell_old_            = r.Temp_Cell_old_;
+    xdelCell_Cell_            = r.xdelCell_Cell_;
     numExtraCondensedPhases_  = r.numExtraCondensedPhases_;
     volumeFraction_Phases_Cell_=r.volumeFraction_Phases_Cell_;
     volumeFraction_Phases_Cell_old_=r.volumeFraction_Phases_Cell_old_;
@@ -246,6 +249,7 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     porosity_Cell_.resize(NumLcCells, porosity);
     porosity_Cell_old_.resize(NumLcCells, porosity);
     Temp_Cell_old_.resize(NumLcCells, TemperatureReference_);
+    xdelCell_Cell_.resize(NumLcCells, -1.0);
     volumeFraction_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
     volumeFraction_Phases_Cell_old_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
     moleNumber_Phases_Cell_.resize(NumLcCells*numExtraCondensedPhases_, 0.0);
@@ -267,6 +271,7 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
                nodeRight = LI_ptr_->NodalVars_LcNode[index_RightLcNode];
             }
             cellThickness = 0.5*(nodeRight->xNodePos() - nodeLeft->xNodePos());
+            xdelCell_Cell_[iCell] = cellThickness;
       
 	    porosity = 1.0;
 	    /*
