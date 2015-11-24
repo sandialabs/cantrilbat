@@ -88,7 +88,7 @@ Electrolyte Phase = ECDMC_LiPF6
 !  due to a global elastic stress-strain relationship.
 !
 !--------------------------------------------------------------------------------------------------------
-Solid Mechanics Problem Type = Linear Elastic
+Solid Mechanics Problem Type = ChemEx
 !--------------------------------------------------------------------------------------------------------
 !
 !     Heat Source Tracking - int (optional) (default = 0)
