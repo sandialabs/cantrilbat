@@ -1693,7 +1693,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
       	nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
 
       	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	  new_node_pos[iCell] - nodeCent->x0NodePos() - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
+	  new_node_pos[iCell] 
+	  - nodeCent->x0NodePos() 
+	  - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
 	if(iCell==1) { // set the residual for left most node to zero, as we want the position to be fixed. 
 	  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]  = 0.0;
 	}

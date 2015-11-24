@@ -1252,7 +1252,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
 	    // res[ left ] has already been set by the Anode code; hence start at iCell==1
 	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	      (new_node_pos[iCell] - nodeCent->xNodePos()) 
+	      new_node_pos[iCell] 
+	      - nodeCent->x0NodePos() 
 	      - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 
 	  std::cout << " separator::residEval iCell "<<iCell<<"  soln "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
