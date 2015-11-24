@@ -789,9 +789,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     // youngs mod == E =  3K(1-2v) 
     // shear mod G = 3*K(1-2v)/2(1+v)
     //
- // for the porous matrix, assume grain locking, and use the same values. 
-    double Particle_SFS_v_Porosity_Factor = 1.0;
-    double Thermal_Expansion = 50e-6;
+    // for the porous matrix, assume grain locking, and use the same values. 
+    //    double Thermal_Expansion = 50e-6;
     double poisson = 0.45;
     double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
     double Eyoung = 3*BulkMod*(1.0 - 2*poisson);
@@ -1548,61 +1547,47 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
   // 	      if(iCell ==1 ) xratio[iCell-1]=1.0;
   // 	    }
 
-	    // volume of a control volume is 1/2*(x_n_1-X_n_0) + 1/2((x_n_2 - x_n_1) == 1/2(x_n_2-x_n_0)
-	    // vol of C0 control folume = 1/2(x_n_1-x_n_0)
-	    
-	    double vol_lc_now = -9e9;
+	    double thick_lc_now = -9e9;
 	    double gross_vol_now = -9e9;
-	    if(iCell == 0) {
-	      vol_lc_now = 0.5* (nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] -
-			    nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]);
-	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
+	    if(iCell == 0 ) {
+	      thick_lc_now =  (  nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ] - 
+				 nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] );
+  	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 		0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
-	      
+
+	      //	      std::cout << " 00iCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
 	    }
 	    else  if (nodeLeft && nodeRight){
-	      vol_lc_now = 0.5* ( (nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
-				  (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      thick_lc_now = 0.5* ( (nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
+				    ( nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
 	      gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
-		       Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
+                		    Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
+	      if(iCell == NumLcCells-2) {
+		gross_vol_now+= 0.5*Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
+	      }
+	      //	      std::cout << " biCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
 	    }
 	    else if (nodeLeft && (!nodeRight) ) {
-	      vol_lc_now = 0.5* ( (nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
-				  (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
-	      gross_vol_now =  0.5*Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
-		 Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
+	      thick_lc_now =  ( (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
+				(nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
+	 	           0.5*Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
+
+	      //	      std::cout << " nriCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
 	    }
-
 	    else {
-
-  std::cout << " iCell "<<iCell<<" nodeLeft "<<(int)(nodeLeft==NULL) <<" nodeCent "<<(int)(nodeCent==NULL)<<" nodeRight "<<(int)(nodeRight == NULL)<<std::endl;
 	      std::cout.flush();
 	      throw m1d_Error("porousLiIon_Anode_dom1D:: ERROR",
-			      "vol_lc_now Contact Developer, unexpected nodeRight nodeLeft null / non-null error." );
-
-	    }
-	    double vol_lc_old = -9e9;
-	    if(iCell == 0) 
-	      vol_lc_old = 0.5* (nodeCent->xNodePos() -	nodeRight->xNodePos());
-	    else  if(nodeLeft && nodeRight) 
-	      vol_lc_old = 0.5* (nodeRight->xNodePos() - nodeLeft->xNodePos());
-	    else  if (nodeLeft && !nodeRight)
-	      vol_lc_old = 0.5* (nodeCent->xNodePos() -	nodeLeft->xNodePos());
-	    else {
-	      std::cout << " iCell "<<iCell<<" nodeLeft "<<(int)(nodeLeft==NULL) <<" nodeCent "<<(int)(nodeCent==NULL)<<" nodeRight "<<(int)(nodeRight == NULL)<<std::endl;
-	      std::cout.flush();
-
-	       throw m1d_Error("porousLiIon_Anode_dom1D:: ERROR",
-			  "vol_lc_old Contact Developer, unexpected nodeRight nodeLeft null / non-null error." );
+			      "thick_lc_now Contact Developer, unexpected nodeRight nodeLeft null / non-null error." );
 	    }
 
 	    xratio[iCell]=1.0;
+	  
 	    // All on or ChemEx expansion is turned on. 
 	    if ( (Domain1D::ChemEx | Domain1D::All)  & solidMechanicsProbType_) {
-	      xratio[iCell] *= gross_vol_now/vol_lc_now;
-
+	      xratio[iCell] *= gross_vol_now/(thick_lc_now * crossSectionalArea_);
 	    }
-	    
+
 	    // the divergence of the pressure == the trace of the STRESS tensor
 	    // HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
 	    // SO the below result may need to be modified by the non-solid-volume ratio. 
@@ -1663,16 +1648,16 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 #endif
     }
 
-#ifdef MECH_MODEL
-  
+#ifdef MECH_MODEL  
     if (solidMechanicsProbType_ > 0) {
-      //  We have node[0] pinned so it never moves. 
+      //  node[0] is pinned so it never moves, hence start at iCell=1
       for (int iCell = 1; iCell < NumLcCells; iCell++) {
 	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	NodalVars* nodeCent  = cTmps.nvCent_;
-	NodalVars* nodeLeft  = cTmps.nvLeft_;
+	NodalVars*nodeCent  = cTmps.nvCent_;
+	NodalVars*nodeLeft  = cTmps.nvLeft_;
+	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	if(iCell ==1) {
 	  new_node_pos[0] = nodeLeft->x0NodePos(); 
 	  // Left most node is pinned at zero displacement
@@ -1681,9 +1666,13 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	nodeLeft = cTmps.nvLeft_;
 	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	double delta_0 = nodeCent->xNodePos() - nodeLeft->xNodePos();
-	double new_delta = delta_0 *  xratio[iCell]; // 
+	double delta_0 = (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
+	  - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
+	double new_delta = delta_0 *  xratio[iCell-1]; 
 	new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
+
+	std::cout << " anode new-thickness "<<new_delta<<" newpos "<<new_node_pos[iCell]<<" diff  "<<new_node_pos[iCell]-(nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial])<<std::endl;
+	
 	// stress
 	// double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
 	// double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
@@ -1696,16 +1685,21 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
       for (int iCell = 1; iCell < NumLcCells; iCell++) {
       	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
       	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-      	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+      	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;	
+	NodalVars* nodeCent = cTmps.nvCent_;
+	NodalVars* nodeLeft = cTmps.nvLeft_;
+	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
       	nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
       	nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
-      	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
-	if(iCell==1) {
+
+      	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
+	  new_node_pos[iCell] - nodeCent->x0NodePos() - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
+	if(iCell==1) { // set the residual for left most node to zero, as we want the position to be fixed. 
 	  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]  = 0.0;
 	}
 
-	if(soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]!=0) 
-	  std::cout << " Anode::residEval iCell "<<iCell<<"  MechDisplacementAxial "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<std::endl;
+	  std::cout << " anode::residEval iCell "<<iCell<<"  DisplacementAxial "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
+
 
       }
       //impose that -grad trace Solid_Stress == the average across this part of the battery.
@@ -1821,23 +1815,6 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 
 	    EnthalpyMolar_lyte_Cell_[iCell] = ionicLiquid_->enthalpy_mole();
 	}
-    
-
-
-#ifdef MECH_MODEL
-	// update the node position at the beginning of the time step. 
-	if (solidMechanicsProbType_ > 0) {
-	  double new_node_position = nodeCent->xNodePos() ;
-	  new_node_position += soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
-	  
-	  std::cout << " anode preCalc oldLeftNodePos "<<iCell<<"/"<<NumLcCells<<" old "<< nodeCent->xNodePos()<<" soln "<< soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]<<"  new "<< new_node_position<<std::endl;
-	  
-	  nodeCent->changeNodePosition(new_node_position);
-	  double & stmp=(double &) soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
-	  stmp = 0.0;
-	  
-	}
-#endif
     } // loop over cell
 }
 //==================================================================================================================================
@@ -3826,7 +3803,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
 	  NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 	  double diff = nv->xNodePos() -nv->x0NodePos();
-	  ss.print0("%s                                         : Node[ %d ] MechDisplacement %g\n", ind, iGbNode,diff);
+	  ss.print0("%s                                         : Node[ %d ] Displacement %g\n", ind, iGbNode,diff);
 	}
 #endif 
     }

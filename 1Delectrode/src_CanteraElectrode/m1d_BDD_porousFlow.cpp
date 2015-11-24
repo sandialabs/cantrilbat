@@ -337,6 +337,13 @@ BDD_porousFlow::SetEquationsVariablesList()
         IsAlgebraic_NE[eqnIndex] = 0;
         IsArithmeticScaled_NE[eqnIndex] = 0;
         eqnIndex++;
+#ifdef SSA
+	EquationNameList.push_back(EqnType(Mechanical_Stress_Axial, 0, "Solid Stress Axial"));
+	VariableNameList.push_back(VarType(Solid_Stress_Axial, 0, 0));
+        IsAlgebraic_NE[eqnIndex] = 0;
+        IsArithmeticScaled_NE[eqnIndex] = 0;
+        eqnIndex++;
+#endif
     }
 #endif
 }

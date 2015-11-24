@@ -34,12 +34,8 @@ enum Var_Name_Enum
   Voltage,                 // 10
   Temperature,             // 11      //!< Temperature
 #ifdef MECH_MODEL
-
-  // Note that the above Displacement_Axial will also be used for the Mechanical Displacement. 
-
-  //  Solid_Stress_Axial, // scalar, for 1 d
-  // things like Bulk Modulus, Poisson's Ratio, Cv/Cp, thermal expansion coeffs
-  //  are stored in hard coded functions, for anode/spacer/cathode materials   
+  // re-use Displacement_Axial
+  Solid_Stress_Axial, // scalar, for 1 d
 #endif // MECH_MODEL
   Max_Var_Name                   //!< Max_Var_Name
 //! must be last in the list
@@ -69,6 +65,7 @@ enum EQ_Name_Enum
   Voltage_Specification,
   Dirichlet_Specification,
   Mechanical_Model_Axial,
+  Mechanical_Stress_Axial,
   Species_Eqn_Offset,   //! Special equation name representing the first species equation offset
   Max_Eqn_Name
 //! must be last in the list

@@ -20,7 +20,7 @@ NodeTmps::NodeTmps() :
     Offset_Temperature(npos),
     Offset_Pressure(npos),
 #ifdef MECH_MODEL
-    //    Offset_Solid_Stress_Axial(npos),
+    Offset_Solid_Stress_Axial(npos),
 #endif
     RO_Current_Conservation(npos),
     RO_Electrolyte_Continuity(npos),
@@ -41,7 +41,7 @@ NodeTmps::NodeTmps(const NodeTmps & r) :
     Offset_Temperature(r.Offset_Temperature),
     Offset_Pressure(r.Offset_Pressure),
 #ifdef MECH_MODEL
-    //    Offset_Solid_Stress_Axial(r.Offset_Solid_Stress_Axial),
+    Offset_Solid_Stress_Axial(r.Offset_Solid_Stress_Axial),
 #endif
     RO_Current_Conservation(r.RO_Current_Conservation),
     RO_Electrolyte_Continuity(r.RO_Electrolyte_Continuity),
@@ -71,7 +71,7 @@ NodeTmps& NodeTmps::operator=(const NodeTmps &r)
     Offset_Temperature = r.Offset_Temperature;
     Offset_Pressure    = r.Offset_Pressure;
 #ifdef MECH_MODEL
-    //    Offset_Solid_Stress_Axial = r.Offset_Solid_Stress_Axial,
+    Offset_Solid_Stress_Axial = r.Offset_Solid_Stress_Axial,
 #endif
     RO_Current_Conservation = r.RO_Current_Conservation;
     RO_Electrolyte_Continuity = r.RO_Electrolyte_Continuity;

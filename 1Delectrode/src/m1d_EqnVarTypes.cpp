@@ -62,12 +62,10 @@ VarType::VarMainName(const VAR_TYPE variableType)
     case Voltage:
       return string("Volt");
       break;
- 
 #ifdef MECH_MODEL
-      //note that we will use the Displacement_Axial variable already defined. 
-    // case Solid_Stress_Axial:
-    //   return string("S_Stress_Axial");
-    //   break;
+    case Solid_Stress_Axial:
+      return string("Solid_Stress_Axial");
+      break;
 #endif
     case Max_Var_Name:
       return string("Max_Variable");
@@ -138,9 +136,12 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
       return std::string("Species_Eqn_Offset");
       break;
 #ifdef MECH_MODEL
-    case Mechanical_Model_Axial:
-      return std::string("Mechanical_Model_Axial");
-      break;
+  case Mechanical_Model_Axial:
+    return std::string("Mechanical_Model_Axial");
+    break;
+  case Mechanical_Stress_Axial:
+    return std::string("Mechanical_Stress_Axial");
+    break;
 #endif 
     case Max_Eqn_Name:
       return std::string("Max_Eqn_Name");
@@ -423,7 +424,7 @@ EqnToVarEnum(EQ_TYPE eqType)
     return Velocity_Axial;
   } else if (eqType == Momentum_Swirl) {
     return Velocity_Swirl;
-  } else if (eqType == MeshDisplacement_Axial ||eqType == Mechanical_Model_Axial ) {
+  } else if (eqType == MeshDisplacement_Axial ) {
     return Displacement_Axial; 
   } else if (eqType == Enthalpy_Conservation) {
     return Temperature;
@@ -453,6 +454,12 @@ EqnToVarEnum(EQ_TYPE eqType)
     return Variable_Type_Unspecified;
   } else if (eqType == Species_Eqn_Offset) {
     return Concentration_Species;
+#ifdef MECH_MODEL
+  } else if (eqType == Mechanical_Model_Axial) {
+    return Displacement_Axial;
+ } else if (eqType == Mechanical_Stress_Axial) {
+    return Solid_Stress_Axial;
+#endif
   } else {
     m1d_Error("EqnToVarEnum", "Unknown Conversion");
   }

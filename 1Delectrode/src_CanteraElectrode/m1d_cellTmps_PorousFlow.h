@@ -57,11 +57,7 @@ public:
     size_t Offset_Pressure;
 
 #ifdef MECH_MODEL  
-    // **** Reusing the Displacement_Axial from above.
-
-    //    size_t Offset_Displacement_Axial;
-    //! Offset of the stress equation wrt the start of the nodal solution vector
-    //    size_t Offset_Solid_Stress_Axial;
+    size_t Offset_Solid_Stress_Axial;
 #endif
 
     //!  Offset of Residual for the current conservation equation
@@ -75,8 +71,6 @@ public:
 
     //!  Offset of Residual for the Enthalpy Conservation equation
     size_t RO_Enthalpy_Conservation;
-
-    //! Offset of Residual for the Mechanical Model
 
 };
 // --------------------------------------------------------------------------------------------------
