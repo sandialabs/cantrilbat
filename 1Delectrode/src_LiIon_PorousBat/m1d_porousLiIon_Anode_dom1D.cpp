@@ -1508,45 +1508,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	}
 
-
-	// Residual for MECH_MODEL
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0) {
-
  	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	    //**** 
-	    //	    The new porosity function should include thermal expansion of the solid matrix, so this section is depricated. 
-	    //***
-
-
-  // we compute the mass and [ in the future heat capacity] 
-  // weighted temperture of the volume between the nodes,
-	  
-  // 	    // NOTE!!! This assumes that density of the SolidVol is constant. 
-  // 	    double leftTempM = valTmps.Temperature.center*
-  // 	      Electrode_Cell_[iCell-1]->SolidVol()*
-  // 	      Electrode_Cell_[iCell-1]->SolidHeatCapacityCV();
-  // 	    double rightTempM = valTmps.Temperature.center*
-  // 	      Electrode_Cell_[iCell]->SolidVol()*
-  // 	      Electrode_Cell_[iCell]->SolidHeatCapacityCV();
-  // 	    // need to add the non-solid contribution. 	    // ????;
-
-  // 	    double leftMass = Electrode_Cell_[iCell-1]->SolidVol();
-  // 	    double rightMass = Electrode_Cell_[iCell]->SolidVol();
-
-  // 	    double aveTempE = leftTempM+rightTempM;
-  // 	    double aveMass     = leftMass+rightMass;
-  // 	    aveTempE/=aveMass; 
-  // // All on or Temperature expansion is turned on. 
-  // 	    if ( (Domain1D::TempEx | Domain1D::All) & solidMechanicsProbType_) { 
-  // 	      xratio[iCell] =  (Thermal_Expansion+1.0)*(aveTempE/ TemperatureReference_);
-  // 	      if(iCell == 1) xratio[iCell-1] =  (Thermal_Expansion+1.0)*((leftTempM/leftMass)/ TemperatureReference_);
-  // 	      }
-  // 	    else {
-  // 	      xratio[iCell] = 1.0;
-  // 	      if(iCell ==1 ) xratio[iCell-1]=1.0;
-  // 	    }
-
 	    double thick_lc_now = -9e9;
 	    double gross_vol_now = -9e9;
 	    if(iCell == 0 ) {
@@ -1657,7 +1621,11 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	NodalVars*nodeCent  = cTmps.nvCent_;
 	NodalVars*nodeLeft  = cTmps.nvLeft_;
+	nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
 	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+
 	if(iCell ==1) {
 	  new_node_pos[0] = nodeLeft->x0NodePos(); 
 	  // Left most node is pinned at zero displacement
@@ -1667,12 +1635,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	nodeLeft = cTmps.nvLeft_;
 	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 	double delta_0 = (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
-	  - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
+                       - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
 	double new_delta = delta_0 *  xratio[iCell-1]; 
 	new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
 
-	std::cout << " anode new-thickness "<<new_delta<<" newpos "<<new_node_pos[iCell]<<" diff  "<<new_node_pos[iCell]-(nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial])<<std::endl;
-	
 	// stress
 	// double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
 	// double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;

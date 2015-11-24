@@ -1207,16 +1207,12 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-
 	    NodalVars* nodeCent   = cTmps.nvCent_;
 	    NodalVars* nodeLeft   = cTmps.nvLeft_;
-
-	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-
 	    nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
 	    nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
-
+	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 
 	    // NOTE new_node_pos[0] must be set, using the information from the Anode
 	    // this is a bit tortured, but on the anode, the right most node residual is set to
