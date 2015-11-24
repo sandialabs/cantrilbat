@@ -335,7 +335,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
     //
 #ifdef MECH_MODEL
     if (PSCinput_ptr->Solid_Mechanics_prob_type_ >= 1) {
-	// EquationNameList.push_back(EqnType(Mechanical_Model_Axial, 0, "Mech Strain"));
+	// EquationNameList.push_back(EqnType(Mechanical_Model_Axial, 0, "Mech Stress Axial"));
         // VariableNameList.push_back(VarType(Solid_Stress_Axial, 0, 0));
         // IsAlgebraic_NE[eqnIndex] = 0;
         // IsArithmeticScaled_NE[eqnIndex] = 0;

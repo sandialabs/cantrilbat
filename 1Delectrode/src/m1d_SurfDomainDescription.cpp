@@ -169,7 +169,6 @@ SurfDomainDescription::SetEquationDescription()
     //   IsArithmeticScaled_NE[iEqn] = 1;
     } else if (eqnT.EquationType ==  Mechanical_Model_Axial) {
       VarType varN(Displacement_Axial); 
-      //      VarType varN(Solid_Stress_Axial);
       AssertTrace(varT == varN);
       IsArithmeticScaled_NE[iEqn] = 1;
 #endif

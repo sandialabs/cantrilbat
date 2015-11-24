@@ -1521,9 +1521,17 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	}
     
+
+
 #ifdef MECH_MODEL
 
+	if(nodeLeft)  cout << " calcResid nL "<<iCell<<" "<<nodeLeft->xNodePos();
+	if(nodeCent)  cout << " calcResid nC "<<iCell<<" "<<nodeCent->xNodePos();
+	if(nodeRight) cout << " calcResid nR "<<iCell<<" "<<nodeRight->xNodePos();
+	cout<<endl;
+
 	if (solidMechanicsProbType_ > 0) {
+	
 	  // use the average temp of the center and right nodes. 
 	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 
@@ -1636,7 +1644,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  } // pressure exists
 	  double pressure_strain = pressure_STRESS/Eyoung;
 	  if ( (Domain1D::FluidPr | Domain1D::All) & solidMechanicsProbType_) {
-	    if(iCell ==1) xratio[iCell-1]*= (1.0+pressure_strain); 
 	    xratio[iCell] *= (1+pressure_strain);
 	  }
 
@@ -1666,6 +1673,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	 //  since we have the half control volumes at the right and left hand boundaries the divisor is NumLcCells-1
 	  // avg_delta_matrix_pressure /= (NumLcCells-1);
 	}	
+
 #endif
 
     } // end of iCell loop 
@@ -1703,7 +1711,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	    // the node at the Anode-Seperator boundary needs it's residual summed, not replaced.  
+	    // the node at the Anode-Separator boundary needs it's residual summed, not replaced.  
 	    if(iCell == 0) 
 	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] += new_node_pos[iCell]-  soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    else 	      
@@ -1847,12 +1855,23 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	if (energyEquationProbType_) {
 	    CpMolar_total_Cell_[iCell] = getCellHeatCapacity(nodeCent, &(soln[indexCent_EqnStart]));
 	}
+
+
+
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0) {
 	  // CBL for iCell == 1, the left node is the left most node in the cathode, and is shared with the separator. The separator code
 	  // does not set this position. 
+
+	{
+	  NodalVars* nodeLeft  = cTmps.nvLeft_;
+	  if(nodeLeft) {
+	    std::cout << " recalc cathode position "<<iCell<<" / "<< NumLcCells<<" from "<<  nodeLeft->xNodePos()<<std::endl;
+	    std::cout.flush();
+	  }
+	}
+
 	  if(iCell > 0) {
-	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodalVars* nodeLeft  = cTmps.nvLeft_; 
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	    int indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;

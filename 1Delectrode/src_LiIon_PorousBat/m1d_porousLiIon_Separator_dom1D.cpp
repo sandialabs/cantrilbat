@@ -1099,28 +1099,77 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     if (solidMechanicsProbType_ > 0) {
       valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
       // need the average temp to get the correct K
-      double AverageTemperature =    valTmps.Temperature.center;
+     
+      double ReferenceTemperature =    valTmps.Temperature.center;
       
       double BulkMod=-1;
-      if(AverageTemperature < 28.5+273.15 ) BulkMod = 615;
-      else if(AverageTemperature > 80+273.15 ) BulkMod = 327;
-      else if( AverageTemperature < 55+273.15) {
-	double low = AverageTemperature - (28.5+273.14);
+      if(ReferenceTemperature < 28.5+273.15 ) BulkMod = 615;
+      else if(ReferenceTemperature > 80+273.15 ) BulkMod = 327;
+      else if( ReferenceTemperature < 55+273.15) {
+	double low = ReferenceTemperature - (28.5+273.14);
 	BulkMod= 615 - ((615-481)*low/(55-28.5));
       }
-      else if (AverageTemperature >= 55+273.15) {
-	double low = AverageTemperature - (55+273.15);
+      else if (ReferenceTemperature >= 55+273.15) {
+	double low = ReferenceTemperature - (55+273.15);
 	BulkMod = 481 - (481-327)*low/(80-55);
       }
+
       BulkMod*=1.0e6; // in MPa
       Eyoung =       3*BulkMod*(1.0 - 2*poisson);
 
-#ifndef CHEM_EX_ONLY
-      if(iCell !=  NumLcCells-1)
-	xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.right)*0.5/ TemperatureReference_;
-      else 
-	xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.left)*0.5/ TemperatureReference_;
-#endif
+      // double vol_lc_now = -9e9;
+      // double gross_vol_now = -9e9;
+      // if(iCell == 0) {
+      // 	vol_lc_now = 0.5* ( (nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
+      // 			    (nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]));
+      // 	gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
+      // 	  0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
+      // }
+      // else if (nodeLeft && nodeRight){
+      // 	vol_lc_now = 0.5* ((nodeRight->xNodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
+      // 			   (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+      // 	gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
+      // 			      Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
+      // }
+      // else if (nodeLeft && (!nodeRight) ) {
+      // 	vol_lc_now = 0.5* ( (nodeCent->xNodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
+      // 			    (nodeLeft->xNodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+      // 	gross_vol_now =  0.5*Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
+      // 	  Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
+      // }
+      // else 
+      // 	throw m1d_Error("porousLiIon_Cathode_dom1D:: ERROR",
+      // 			"vol_lc_now Contact Developer, unexpected nodeRight nodeLeft null / non-null error." );
+
+      // double vol_lc_old = -9e9;
+      // if(iCell == 0) 
+      // 	vol_lc_old = 0.5* (nodeRight->xNodePos() -nodeCent->xNodePos() );
+      // else if(nodeLeft && nodeRight)  
+      // 	vol_lc_old = 0.5* (nodeRight->xNodePos() - nodeLeft->xNodePos());
+      // else if (nodeLeft && ( !nodeRight))
+      // 	vol_lc_old = 0.5* (nodeCent->xNodePos() -	nodeLeft->xNodePos());
+      // else 
+      // 	throw m1d_Error("porousLiIon_Cathode_dom1D:: ERROR",
+      // 			"vol_lc_old Contact Developer, unexpected nodeRight nodeLeft null / non-null error." );
+
+      xratio[iCell] = 1.0;
+
+      // CBL:: There is no change in the solid volume of the separator other than temperature effects???? \todo
+      if ( (Domain1D::ChemEx | Domain1D::TempEx | Domain1D::All)  & solidMechanicsProbType_) {
+	if(iCell !=  NumLcCells-1)
+	  xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center)/ TemperatureReference_;
+	else 
+	  xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.left)*0.5/ TemperatureReference_;
+      }
+
+      // All on or ChemEx expansion is turned on. 
+      //    if ( (Domain1D::ChemEx | Domain1D::All)  & solidMechanicsProbType_) {
+	//	xratio[iCell] *= gross_vol_now/vol_lc_now;
+	// CBL There are no chemical effects that will change the volume of the cell
+      //	xratio[iCell] *=1.0;
+	//      }
+
+
       // the divergence of the pressure == - the trace of the STRESS tensor No factor of 3 as we are 1 d
 
       // HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
@@ -1147,10 +1196,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
 	}
       }
+
       double pressure_strain = pressure_STRESS/Eyoung;
-#ifndef CHEM_EX_ONLY
-      xratio[iCell]*= (1.0+pressure_strain);
-#endif
+      if ( (Domain1D::FluidPr | Domain1D::All) & solidMechanicsProbType_) {
+	xratio[iCell]*= (1.0+pressure_strain);
+      }
       // // now do the Solid Stess calculation
       // nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
       // if(nodeLeft) 
@@ -1209,9 +1259,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
 	    // the node at the Anode-Seperator boundary needs it's residual summed, not replaced.  
 	    if(iCell == 0) 
-	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] += new_node_pos[iCell]- nodeCent->xNodePos();
+	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] += new_node_pos[iCell]-  soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    else 	      
-	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell]- nodeCent->xNodePos();
+	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell]- soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	  }
 	}
 #endif
@@ -1340,7 +1390,7 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 	  nodeLeft->changeNodePosition(newnode_position);
 	  double &stmp = (double&) soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
 	  stmp = 0.0;
-	  // right hand boundary node, that is not addressed in this loop, will be set by the Cathode icell==0  loop
+	  //	  right hand boundary node, that is not addressed in this loop, will be set by the Cathode icell==0  loop
 	  }
 	}
 #endif
