@@ -15,7 +15,16 @@ However, we must come up with the absolute entropy of the ion in solution. Here,
 answer. 
 
 
+HKM  11/23/2015
+--------------------------------------------------------------------------------------------------------------------
 
+We've created an initial guess at the values of Li+ thermodynamics.  We have no data.
+So we've decided to make sure that DeltaS for the Li+ + e- = Li(S) reaction is 
+relatively near zero. So, we have pegged the values of Li+ to be close to Li(S) - e-,
+so that the delta S and delta Cp values for the reference electrode reaction is
+near zero. Absent actual data on this, this seems to be a good compromise.
+This means that the temperature dependence of the reference electrode is near
+zero.
 
 
 
