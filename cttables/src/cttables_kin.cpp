@@ -978,7 +978,7 @@ RxnMolChangeLocal::RxnMolChangeLocal(Kinetics *kinPtr, int irxn) :
   }
 
 }
-
+//==================================================================================================================================
 RxnMolChangeLocal::RxnMolChangeLocal(Kinetics *kinPtr, ExtraGlobalRxn *egr) :
   m_nPhases(0),
   m_kinBase(kinPtr),
@@ -1043,8 +1043,8 @@ RxnMolChangeLocal::RxnMolChangeLocal(Kinetics *kinPtr, ExtraGlobalRxn *egr) :
 RxnMolChangeLocal::~RxnMolChangeLocal() {
 
 }
+//==================================================================================================================================
 
-/*************************************************************************/
 void processCurrentVsPotTable(RxnMolChange *rmc,
 			      PhaseList *pl, int irxn,
 			      TemperatureTable &TT,
@@ -1124,7 +1124,14 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
       }
     }
   }
- 
+  //
+  //  Set State back to reference conditions
+  //
+  for (iph = 0; iph < nPhases; iph++) {
+      ThermoPhase &gRef = kin.thermo(iph);
+      int kstart = pl->getGlobalSpeciesIndex(&gRef); 
+      gRef.setState_TPX(BG.Temperature, BG.Pressure, BG.XmolPLSpecVec +kstart);
+    } 
   tp = &(iK->thermo(iMetal));
 
   double phi0Metal = (iK->thermo(iMetal)).electricPotential();   

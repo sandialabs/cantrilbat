@@ -9,7 +9,7 @@ Cantera File Name = Li_Metal.xml
 #
 #
 !Debugging = true
-Bath Temperature = 700.
+Bath Temperature = 298.15
 Bath Pressure =  1 atm
 !-----------------------------------------------------------------
 !  Add Chemical Potential Column = [ true ] [ false ]
