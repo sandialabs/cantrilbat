@@ -14,7 +14,7 @@ TESTNAME = cttables_LiMetal_LiIon_electrode_rxn
 
 BLESSED_FILES = good_cout.txt
 
-DATA =  problem_setup.sh \
+DATA =  problem_setup.sh cttables.inp \
         ECsoln_ion_abs.xml  Li_electrode.xml  Li_Metal.xml  cu_Li_LiIon_electrons.xml
 
 ##########################################################################

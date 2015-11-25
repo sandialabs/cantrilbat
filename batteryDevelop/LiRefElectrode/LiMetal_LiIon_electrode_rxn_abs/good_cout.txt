@@ -8,7 +8,7 @@ States Government.
       Bath Composition for Phase id, "Li(S)_surface", with name, "Li(S)_surface", with eosType, "Surface"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = li_site
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -56,7 +56,7 @@ INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "Li(S)_surface"
       Bath Composition for Phase id, "cu_Li_LiIon_electrons", with name, "cu_Li_LiIon_electrons", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = cu_electron_Li_LiIon
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -110,7 +110,7 @@ INFORMATION TABLE FOR SPECIES "cu_electron_Li_LiIon" IN PHASE "cu_Li_LiIon_elect
       Bath Composition for Phase id, "ECDMC_LiPF6", with name, "ECDMC_LiPF6", with eosType, "UnknownPhaseType"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = ECDMC
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -239,7 +239,7 @@ INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
       Bath Composition for Phase id, "Li(S)", with name, "Li(S)", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = Li(S)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -339,10 +339,10 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "cu_Li_LiIon_electrons"
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage = phi_Metal - phi_Soln  = 0 Volts
                nStoichElectrons (product electrons - reactant electrons) = 1 
-               Delta G (rxn)   =   -1.4051e+07 J/kmol   --->                  E    = -0.145624 Volts
-               Delta G_SS (rxn)=    6.4949e+05 J/kmol   --->                  E_SS = 0.00673146 Volts
+               Delta G (rxn)   =   -6.2612e+06 J/kmol   --->                  E    = -0.0648925 Volts
+               Delta G_SS (rxn)=             0 J/kmol   --->                  E_SS = 0 Volts
                Bath Gas conditions:
-                  T = 700 K
+                  T = 298.15 K
                   P = 101325 Pascal
                        SurfSpecName         Theta_k_Bath
                            li_site            1
@@ -351,43 +351,43 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "cu_Li_LiIon_electrons"
                |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
                |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
                ---------------------------------------------------------------------------------------------
-               !        -1 |   8.09e-06         11.5        -11.5 |       0.078    -1.11e+05     -1.11e+05 |
-               !      -0.8 |   4.24e-05         2.18        -2.18 |       0.409    -2.11e+04     -2.11e+04 |
-               !      -0.6 |   0.000223        0.416       -0.416 |        2.15    -4.01e+03     -4.01e+03 |
-               !      -0.4 |    0.00117       0.0793      -0.0781 |        11.3         -765          -754 |
-               !      -0.2 |    0.00613       0.0151     -0.00897 |        59.2         -146         -86.6 |
-               !   -0.1456 |    0.00962      0.00962    -1.73e-18 |        92.9        -92.9     -1.67e-14 |
-               !         0 |     0.0322      0.00288       0.0293 |         311        -27.8           283 |
-               !       0.2 |      0.169     0.000549        0.168 |    1.63e+03        -5.29      1.62e+03 |
-               !       0.4 |      0.886     0.000105        0.886 |    8.55e+03        -1.01      8.55e+03 |
-               !       0.6 |       4.65     1.99e-05         4.65 |    4.49e+04       -0.192      4.49e+04 |
-               !       0.8 |       24.4      3.8e-06         24.4 |    2.35e+05      -0.0366      2.35e+05 |
-               !         1 |        128     7.23e-07          128 |    1.24e+06     -0.00698      1.24e+06 |
+               !        -1 |   1.11e-12      7.1e+03     -7.1e+03 |    1.07e-08    -6.85e+07     -6.85e+07 |
+               !      -0.8 |   5.43e-11          145         -145 |    5.24e-07     -1.4e+06      -1.4e+06 |
+               !      -0.6 |   2.66e-09         2.95        -2.95 |    2.57e-05    -2.85e+04     -2.85e+04 |
+               !      -0.4 |    1.3e-07       0.0602      -0.0602 |     0.00126         -581          -581 |
+               !      -0.2 |   6.39e-06      0.00123     -0.00122 |      0.0617        -11.9         -11.8 |
+               !  -0.06489 |   8.87e-05     8.87e-05     1.36e-20 |       0.855       -0.855      1.31e-16 |
+               !         0 |   0.000313     2.51e-05     0.000288 |        3.02       -0.242          2.78 |
+               !       0.2 |     0.0154     5.12e-07       0.0154 |         148     -0.00494           148 |
+               !       0.4 |      0.753     1.04e-08        0.753 |    7.27e+03    -0.000101      7.27e+03 |
+               !       0.6 |       36.9     2.13e-10         36.9 |    3.56e+05    -2.05e-06      3.56e+05 |
+               !       0.8 |   1.81e+03     4.34e-12     1.81e+03 |    1.75e+07    -4.19e-08      1.75e+07 |
+               !         1 |   8.87e+04     8.86e-14     8.87e+04 |    8.56e+08    -8.55e-10      8.56e+08 |
                ---------------------------------------------------------------------------------------------
                 TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
                -----------------------------------------------------------------
                |  Voltage  |       Ifwd         Irev        Inet  |    li_site |
                |   Volts   |               (amps/cm2)             |            |
                -----------------------------------------------------------------
-               !        -1 |      0.078    -1.11e+05    -1.11e+05 |         1  |
-               !      -0.8 |      0.409    -2.11e+04    -2.11e+04 |         1  |
-               !      -0.6 |       2.15    -4.01e+03    -4.01e+03 |         1  |
-               !      -0.4 |       11.3         -765         -754 |         1  |
-               !      -0.2 |       59.2         -146        -86.6 |         1  |
-               !   -0.1456 |       92.9        -92.9    -1.67e-14 |         1  |
-               !         0 |        311        -27.8          283 |         1  |
-               !       0.2 |   1.63e+03        -5.29     1.62e+03 |         1  |
-               !       0.4 |   8.55e+03        -1.01     8.55e+03 |         1  |
-               !       0.6 |   4.49e+04       -0.192     4.49e+04 |         1  |
-               !       0.8 |   2.35e+05      -0.0366     2.35e+05 |         1  |
-               !         1 |   1.24e+06     -0.00698     1.24e+06 |         1  |
+               !        -1 |   1.07e-08    -6.85e+07    -6.85e+07 |         1  |
+               !      -0.8 |   5.24e-07     -1.4e+06     -1.4e+06 |         1  |
+               !      -0.6 |   2.57e-05    -2.85e+04    -2.85e+04 |         1  |
+               !      -0.4 |    0.00126         -581         -581 |         1  |
+               !      -0.2 |     0.0617        -11.9        -11.8 |         1  |
+               !  -0.06489 |      0.855       -0.855     1.31e-16 |         1  |
+               !         0 |       3.02       -0.242         2.78 |         1  |
+               !       0.2 |        148     -0.00494          148 |         1  |
+               !       0.4 |   7.27e+03    -0.000101     7.27e+03 |         1  |
+               !       0.6 |   3.56e+05    -2.05e-06     3.56e+05 |         1  |
+               !       0.8 |   1.75e+07    -4.19e-08     1.75e+07 |         1  |
+               !         1 |   8.56e+08    -8.55e-10     8.56e+08 |         1  |
                -----------------------------------------------------------------
         ----------------------------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "cu_Li_LiIon_electrons", with name, "cu_Li_LiIon_electrons", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = cu_electron_Li_LiIon
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -398,7 +398,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "cu_Li_LiIon_electrons"
       Bath Composition for Phase id, "ECDMC_LiPF6", with name, "ECDMC_LiPF6", with eosType, "UnknownPhaseType"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = ECDMC
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -411,7 +411,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "cu_Li_LiIon_electrons"
       Bath Composition for Phase id, "Li(S)", with name, "Li(S)", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = Li(S)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -422,7 +422,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "cu_Li_LiIon_electrons"
       Bath Composition for Phase id, "Li(S)_surface", with name, "Li(S)_surface", with eosType, "Surface"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = li_site
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -477,10 +477,10 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "cu_Li_LiIon_
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage                         = 0 Volts
                nStoicElectrons (product electrons - reactant electrons) = -1 
-               Delta G (rxn)   =    1.4051e+07 J/kmol   --->                  E    = -0.145624 Volts
-               Delta G_SS (rxn)=   -6.4949e+05 J/kmol   --->                  E_SS = 0.00673146 Volts
+               Delta G (rxn)   =    6.2612e+06 J/kmol   --->                  E    = -0.0648925 Volts
+               Delta G_SS (rxn)=             0 J/kmol   --->                  E_SS = -0 Volts
                Bath Conditions:
-                  T = 700 K
+                  T = 298.15 K
                   P = 101325 Pascal
                        SurfSpecName         Theta_k_Bath
                            li_site            1
@@ -490,17 +490,17 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "cu_Li_LiIon_
                |  Voltage  |       Ifwd   Iexchange_f   Beta_f   |       Irev   Iexchange_r   Beta_r   |    Inet     |    li_site |
                |   Volts   |         (amps/cm2)                  |         (amps/cm2)                  |             |            |
                -------------------------------------------------------------------------------------------------------------------
-               !        -1 | -1.1053e+05     -92.864         0.5 |    0.078024     -92.864         0.5 | -1.1053e+05 |         1  |
-               !      -0.8 |      -21062     -92.864         0.5 |     0.40945     -92.864         0.5 |      -21062 |         1  |
-               !      -0.6 |     -4013.6     -92.864         0.5 |      2.1487     -92.864         0.5 |     -4011.4 |         1  |
-               !      -0.4 |     -764.83     -92.864         0.5 |      11.275     -92.864         0.5 |     -753.55 |         1  |
-               !      -0.2 |     -145.75     -92.864         0.5 |       59.17     -92.864         0.5 |     -86.575 |         1  |
-               !   -0.1456 |     -92.864     -92.864         0.5 |      92.864     -92.864         0.5 | -1.6738e-14 |         1  |
-               !         0 |     -27.773     -92.864         0.5 |      310.51     -92.864         0.5 |      282.73 |         1  |
-               !       0.2 |     -5.2925     -92.864         0.5 |      1629.4     -92.864         0.5 |      1624.2 |         1  |
-               !       0.4 |     -1.0085     -92.864         0.5 |      8550.8     -92.864         0.5 |      8549.8 |         1  |
-               !       0.6 |    -0.19219     -92.864         0.5 |       44872     -92.864         0.5 |       44872 |         1  |
-               !       0.8 |   -0.036623     -92.864         0.5 |  2.3548e+05     -92.864         0.5 |  2.3548e+05 |         1  |
-               !         1 |  -0.0069789     -92.864         0.5 |  1.2357e+06     -92.864         0.5 |  1.2357e+06 |         1  |
+               !        -1 | -6.8463e+07    -0.85538         0.5 |  1.0687e-08    -0.85538         0.5 | -6.8463e+07 |         1  |
+               !      -0.8 | -1.3967e+06    -0.85538         0.5 |  5.2386e-07    -0.85538         0.5 | -1.3967e+06 |         1  |
+               !      -0.6 |      -28494    -0.85538         0.5 |  2.5678e-05    -0.85538         0.5 |      -28494 |         1  |
+               !      -0.4 |      -581.3    -0.85538         0.5 |   0.0012587    -0.85538         0.5 |      -581.3 |         1  |
+               !      -0.2 |     -11.859    -0.85538         0.5 |    0.061697    -0.85538         0.5 |     -11.797 |         1  |
+               !  -0.06489 |    -0.85538    -0.85538         0.5 |     0.85538    -0.85538         0.5 |  1.3076e-16 |         1  |
+               !         0 |    -0.24194    -0.85538         0.5 |      3.0242    -0.85538         0.5 |      2.7823 |         1  |
+               !       0.2 |  -0.0049357    -0.85538         0.5 |      148.24    -0.85538         0.5 |      148.23 |         1  |
+               !       0.4 | -0.00010069    -0.85538         0.5 |      7266.3    -0.85538         0.5 |      7266.3 |         1  |
+               !       0.6 | -2.0542e-06    -0.85538         0.5 |  3.5617e+05    -0.85538         0.5 |  3.5617e+05 |         1  |
+               !       0.8 | -4.1909e-08    -0.85538         0.5 |  1.7459e+07    -0.85538         0.5 |  1.7459e+07 |         1  |
+               !         1 | -8.5497e-10    -0.85538         0.5 |  8.5578e+08    -0.85538         0.5 |  8.5578e+08 |         1  |
                -------------------------------------------------------------------------------------------------------------------
         ----------------------------------------------------------------------------------------------------
