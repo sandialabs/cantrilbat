@@ -1526,16 +1526,18 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  double thick_lc_now = -9e9;
 	  double gross_vol_now = -9e9;
 	  if(iCell == 0) {
-	    thick_lc_now = (  (nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
-			      (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ])
-			      );
+	    // thick_lc_now = (  (nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
+	    // 		      (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ])
+	    // 		      );
+	    thick_lc_now = nodeRight->x0NodePos()-nodeCent->x0NodePos();
 	    gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 	      0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
 
 	  }
 	  else if (nodeLeft && nodeRight){
-	    thick_lc_now = 0.5* ((nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
-				 (nodeLeft->x0NodePos() +soln[indexLeft_EqnStart  + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	    // thick_lc_now = 0.5* ((nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
+	    // 			 (nodeLeft->x0NodePos() +soln[indexLeft_EqnStart  + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	    thick_lc_now = 0.5* (nodeRight->x0NodePos()-nodeLeft->x0NodePos());
 	    gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
 				  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
 	    // The iCell == NumLcCells-2 is calculateing the volume of the next to last cell, but the volume of the last cell is 1/2 
@@ -1545,8 +1547,9 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	  else if (nodeLeft && (!nodeRight) ) {
 	    // Note that this calculation is redundent to the iCell == NumLcCells-2 calculation. only the first  NumLcCells-1 values of xratio
 	    // have any meaning, the xratio[NumLcCells-1] == xratio[NumLcCells-1]
-	    thick_lc_now = ( (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
-			     (nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	    // thick_lc_now = ( (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
+	    // 		     (nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	    thick_lc_now = nodeCent->x0NodePos()-nodeLeft->x0NodePos();
 	    gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 	      0.5*Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
 	  }

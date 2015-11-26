@@ -1133,11 +1133,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	if(iCell <  NumLcCells-1) {
 	  nodeTmpsRight.Offset_Displacement_Axial    = nodeRight->indexBulkDomainVar0((size_t) Displacement_Axial);
 	  xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.right)*0.5/ TemperatureReference_;
-	  xratio[iCell] = 
-	    ( (nodeRight->xNodePos() + soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) 
-	      - (nodeCent->xNodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ])) 
-	    /
-	     ( nodeRight->xNodePos() - nodeCent->xNodePos() )  ;
+	  xratio[iCell] *= 
+	    // ( (nodeRight->xNodePos() + soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) 
+	    //   - (nodeCent->xNodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ])) 
+	    ( nodeRight->x0NodePos() - nodeCent->x0NodePos()) 
+	    / ( nodeRight->xNodePos() - nodeCent->xNodePos() )  ;
 	}
 	else
 	  xratio[iCell] = -9e9; // should never be used. 

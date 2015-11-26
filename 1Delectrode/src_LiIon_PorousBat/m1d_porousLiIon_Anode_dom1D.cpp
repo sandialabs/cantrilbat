@@ -1514,26 +1514,31 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double thick_lc_now = -9e9;
 	    double gross_vol_now = -9e9;
 	    if(iCell == 0 ) {
-	      thick_lc_now =  (  nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ] - 
-				 nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] );
+	      // thick_lc_now =  (  nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ] - 
+	      // 			 nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] );
+	      thick_lc_now =  (  nodeRight->x0NodePos() - nodeCent->x0NodePos() );
   	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 		0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
 
 	      //	      std::cout << " 00iCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
 	    }
 	    else  if (nodeLeft && nodeRight){
-	      thick_lc_now = 0.5* ( (nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
-				    ( nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      // thick_lc_now = 0.5* ( (nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
+	      // 			    ( nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      thick_lc_now = 0.5* ( nodeRight->x0NodePos() - nodeLeft->x0NodePos());
 	      gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
                 		    Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
+
 	      if(iCell == NumLcCells-2) {
 		gross_vol_now+= 0.5*Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
 	      }
 	      //	      std::cout << " biCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
+	      if(iCell==4) gross_vol_now *=2;
 	    }
 	    else if (nodeLeft && (!nodeRight) ) {
-	      thick_lc_now =  ( (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
-				(nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      // thick_lc_now =  ( (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
+	      // 			(nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
+	      thick_lc_now =  nodeCent->x0NodePos() - nodeLeft->x0NodePos();
 	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
 	 	           0.5*Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
 
