@@ -21,7 +21,6 @@
 namespace m1d
 {
 // Forward declarations
-class NodalVars;
 class LocalNodeIndices;
 
 
@@ -449,8 +448,7 @@ public:
    */
   int Index_LcNode;
 
-  //! Pointer to the NodalVars object for the node that contains this
-  //! surface domain
+  //! Pointer to the NodalVars object for the node that contains this surface domain
   /*!
    * This is set even if the processor doesn't own the node.
    */

@@ -2433,8 +2433,7 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
 		  
                     double nui = overPotentialHeat_Cell_curr_[iCell];
                     double idels = deltaSHeat_Cell_curr_[iCell];
-		    printf(" % 12.6E | % 12.6E  % 12.6E % 12.6E  ", 
-			   HeatIn, rxnEnt,  nui, idels);
+		    printf(" % 12.6E | % 12.6E  % 12.6E % 12.6E  ", HeatIn, rxnEnt,  nui, idels);
 		    printf("\n");
 		}
 	    }

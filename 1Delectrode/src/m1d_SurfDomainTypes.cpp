@@ -284,7 +284,7 @@ SDT_Mixed::addFluxCondition(const EqnType & equationID, const VarType& variableI
  * @param  value  Value to apply
  */
 void
-SDT_Mixed::addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition *BC_timeDep)
+SDT_Mixed::addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition *BC_timeDep, int bc_type)
 {
   NumConditions++;
   EquationID.push_back(equationID);
@@ -292,7 +292,7 @@ SDT_Mixed::addRobinCondition(EqnType equationID, VarType variableID, BoundaryCon
   Value.push_back(0.0);
   TimeDep.push_back(0);
   BC_TimeDep_.push_back(BC_timeDep);
-  BC_Type_.push_back(10);
+  BC_Type_.push_back(bc_type);
 }
 //=====================================================================================================================
 // Malloc and Return the object that will calculate the residual efficiently

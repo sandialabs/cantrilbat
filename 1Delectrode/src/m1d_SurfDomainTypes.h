@@ -244,7 +244,7 @@ public:
      * @param  variableID  VariableID to apply the flux condition to
      * @param  value  Value to apply
      */
-    void addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition *BC_timeDep);
+    void addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition *BC_timeDep, int bc_type=10);
 	
     //! Malloc and Return the object that will calculate the residual efficiently
     /*!

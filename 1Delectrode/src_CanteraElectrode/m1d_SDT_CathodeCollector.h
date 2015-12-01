@@ -114,11 +114,25 @@ public:
   //!  Thickness of the anode current collector
   double cathodeCCThickness_;
 
-  //! Extra resistance
+  //! Extra resistance attached to the entire battery that is still included in heat buildup
   /*!
+   *    Note this is not cross section based. This is for the entire battery. Therefore, the
+   *    cross section must be multiplied in
+   *
    *    units ohms
    */
   double extraResistanceCathode_;
+
+  //! Load resistance attached to the entire battery 
+  /*!
+   *    Note this is not cross section based. This is for the entire battery. Therefore, the
+   *    cross section must be multiplied in
+   *
+   *    units ohms
+   */
+  double ResistanceLoad_;
+  double VoltageLoad_;
+
 
   //!  Type of the temperature boundary condition
   /*!

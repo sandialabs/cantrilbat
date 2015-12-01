@@ -39,7 +39,8 @@ public:
       phiLyte(0.0),
       jouleHeat_lyte(0.0),
       enthalpyIVfluxRight(0.0),
-      enthalpyIVfluxLeft(0.0)
+      enthalpyIVfluxLeft(0.0),
+      sourceTermExtra(0.0)
       {
 	  
       }
@@ -63,6 +64,7 @@ public:
         jouleHeat_lyte = 0.0;
         enthalpyIVfluxRight = 0.0;
         enthalpyIVfluxLeft = 0.0;
+        sourceTermExtra = 0.0;
 	size_t nsp =  species_Lyte_New_Total.size();
 	for (size_t k = 0; k < nsp; k++) {
 	    species_Lyte_New_Total[k] = 0.0;
@@ -117,6 +119,8 @@ public:
     double jouleHeat_lyte;
     double enthalpyIVfluxRight;
     double enthalpyIVfluxLeft;
+
+    double sourceTermExtra;
 
     std::vector<double> elem_Lyte_New;
     std::vector<double> elem_Solid_New;

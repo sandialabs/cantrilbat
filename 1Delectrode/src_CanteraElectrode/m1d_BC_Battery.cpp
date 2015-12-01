@@ -12,11 +12,6 @@
  * exp_BoundaryCondition.h
  */
 
-/*  $Author: hkmoffa $
- *  $Revision: 540 $
- *  $Date: 2013-02-27 15:18:26 -0700 (Wed, 27 Feb 2013) $
- *
- */
 
 #include "cantera/base/ct_defs.h" 
 #include "cantera/base/ctexceptions.h"
@@ -110,6 +105,62 @@ double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval)
     double denom = resistivity * thickness_ + extraResistance_ * electrodeCrossSectionalArea_;
     denom = std::max(denom, 1.0E-11);
     double val = (voltsCathode - cathodeCC_volts_) / denom;
+    //  returns the current on a cross-sectional basis
+    //  units = amps / m2
+    return val;
+}
+//=====================================================================================================================
+//=====================================================================================================================
+
+BC_cathodeCCLoad::BC_cathodeCCLoad(double thickness, double extraResistance, double electrodeCrossSectionalArea,
+				   double cathodeCC_volts, double resistanceLoad, double voltageLoad) :
+        BoundaryCondition(),
+        cathodeCC_volts_(cathodeCC_volts),
+        thickness_(thickness),
+        extraResistance_(extraResistance),
+        electrodeCrossSectionalArea_(electrodeCrossSectionalArea),
+	resistanceLoad_(resistanceLoad),
+	voltageLoad_(voltageLoad)
+{
+}
+//=====================================================================================================================
+BC_cathodeCCLoad::~BC_cathodeCCLoad()
+{
+}
+//=====================================================================================================================
+BC_cathodeCCLoad::BC_cathodeCCLoad(const BC_cathodeCCLoad& right) :
+   BoundaryCondition(right),
+   cathodeCC_volts_(right.cathodeCC_volts_),
+   thickness_(right.thickness_),
+   extraResistance_(right.extraResistance_),
+   electrodeCrossSectionalArea_(right.electrodeCrossSectionalArea_),
+   resistanceLoad_(right.resistanceLoad_),
+   voltageLoad_(right.voltageLoad_)
+{
+}
+//=====================================================================================================================
+BC_cathodeCCLoad& BC_cathodeCCLoad::operator=(const BC_cathodeCCLoad& right)
+{
+   if (&right == this) {
+     return *this;
+   }
+   BoundaryCondition::operator=(right);
+   cathodeCC_volts_=right.cathodeCC_volts_;
+   thickness_=right.thickness_;
+   extraResistance_ = right.extraResistance_;
+   electrodeCrossSectionalArea_ = right.electrodeCrossSectionalArea_;
+   resistanceLoad_ = right.resistanceLoad_;
+   voltageLoad_ = right.voltageLoad_;
+
+   return *this;
+}
+//=====================================================================================================================
+double BC_cathodeCCLoad::valueAtTime(double time, double voltsCathode, int interval)
+{
+    double resistivity = resistivity_aluminum(298.);
+    double denom = resistivity * thickness_ + (extraResistance_ + resistanceLoad_) * electrodeCrossSectionalArea_;
+    denom = std::max(denom, 1.0E-11);
+    double val = (voltsCathode - voltageLoad_) / denom;
     //  returns the current on a cross-sectional basis
     //  units = amps / m2
     return val;

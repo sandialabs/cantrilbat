@@ -28,7 +28,9 @@ SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const 
     icurrCathodeSpecified_(0.0), 
     voltageCathodeSpecified_(1.9),
     cathodeCCThickness_(0.0),
-    extraResistanceCathode_(0.0) 
+    extraResistanceCathode_(0.0) ,
+    ResistanceLoad_(0.0) ,
+    VoltageLoad_(0.0)
 {
 
   voltageVarBCType_ = PSCinput_ptr->cathodeBCType_;
@@ -38,6 +40,8 @@ SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const 
   cathodeCCThickness_ = PSCinput_ptr->cathodeCCThickness_;
   extraResistanceCathode_ = PSCinput_ptr->extraCathodeResistance_;
   cathodeTempBCType_ = PSCinput_ptr->cathodeTempBCType_;
+  ResistanceLoad_ = PSCinput_ptr->ResistanceLoad_;
+  VoltageLoad_ = PSCinput_ptr->VoltageLoad_;
 
   /*
    *  Add an equation for this surface domain
@@ -48,7 +52,11 @@ SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const 
 }
 //=====================================================================================================================
 SDT_CathodeCollector::SDT_CathodeCollector(const SDT_CathodeCollector &r) :
-  SDT_Mixed(r.DL_ptr_), m_position(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0), voltageCathodeSpecified_(1.9)
+  SDT_Mixed(r.DL_ptr_), m_position(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0), voltageCathodeSpecified_(1.9),
+    cathodeCCThickness_(0.0),
+    extraResistanceCathode_(0.0) ,
+    ResistanceLoad_(0.0) ,
+    VoltageLoad_(0.0)
 {
   *this = r;
 }
@@ -71,6 +79,10 @@ SDT_CathodeCollector::operator=(const SDT_CathodeCollector &r)
   voltageVarBCType_ = r.voltageVarBCType_;
   icurrCathodeSpecified_ = r.icurrCathodeSpecified_;
   voltageCathodeSpecified_ = r.voltageCathodeSpecified_;
+  cathodeCCThickness_ = r.cathodeCCThickness_;
+  extraResistanceCathode_ = r.extraResistanceCathode_;
+  ResistanceLoad_ = r.ResistanceLoad_;
+  VoltageLoad_ = r.VoltageLoad_;
 
   return *this;
 }
@@ -118,6 +130,11 @@ SDT_CathodeCollector::SetEquationDescription()
 	BC_timeDep = new BC_cathodeCC(cathodeCCThickness_, extraResistanceCathode_,
 				      area, voltageCathodeSpecified_);
     }
+    if (voltageVarBCType_ == 11) { 
+	delete BC_timeDep;
+	BC_timeDep = new BC_cathodeCCLoad(cathodeCCThickness_, extraResistanceCathode_,
+				          area, voltageCathodeSpecified_, ResistanceLoad_, VoltageLoad_);
+    }
     
     switch (voltageVarBCType_)
     {
@@ -144,8 +161,12 @@ SDT_CathodeCollector::SetEquationDescription()
 	addFluxCondition(e1, v1, voltageVarBCType_, BC_timeDep);
 	break;
     case 10:
-	addRobinCondition(e1, v1, BC_timeDep);
+	addRobinCondition(e1, v1, BC_timeDep, 10);
 	break;
+    case 11:
+        addRobinCondition(e1, v1, BC_timeDep, 11);
+        break;
+
     default:
 	throw m1d_Error("SDT_CathodeCollector::SetEquationDescription", 
 			"voltageVarBCType not 0, 1, 2 for Dirichlet, Neumann, or Diriclet with sin oscillation" );
@@ -185,7 +206,7 @@ SDT_CathodeCollector::SetEquationDescription()
 	    double tref =  PSCinput_ptr->cathodeTempRef_;
 	    double area = PSCinput_ptr->crossSectionalArea_;
 	    BoundaryCondition* BC_timeDep = new BC_heatTransfer(ht, tref, area);
-	    addRobinCondition(et, vt, BC_timeDep);
+	    addRobinCondition(et, vt, BC_timeDep, cathodeTempBCType_);
 	}
     }
 

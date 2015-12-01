@@ -50,6 +50,7 @@ SurDomain_CathodeCollector::SurDomain_CathodeCollector(SurfDomainDescription& sd
     phiElectrolyte_(0.0),
     phiCathode_(0.0),
     phiCathodeCC_(0.0),
+    phiLoad_(0.0),
     icurrCollector_(0.0),
     CCThickness_(0.0),
     extraCathodeResistance_(0.0)
@@ -73,6 +74,7 @@ SurDomain_CathodeCollector::SurDomain_CathodeCollector(const SurDomain_CathodeCo
     phiElectrolyte_(0.0),
     phiCathode_(0.0),
     phiCathodeCC_(0.0),
+    phiLoad_(0.0),
     icurrCollector_(0.0),
     CCThickness_(0.0),
     extraCathodeResistance_(0.0)
@@ -104,13 +106,14 @@ SurDomain_CathodeCollector::operator=(const SurDomain_CathodeCollector& r)
     phiElectrolyte_                = r.phiElectrolyte_;
     phiCathode_                    = r.phiCathode_;
     phiCathodeCC_                  = r.phiCathodeCC_;
+    phiLoad_                       = r.phiLoad_;
     icurrCollector_                = r.icurrCollector_;
     CCThickness_                   = r.CCThickness_;
     extraCathodeResistance_        = r.extraCathodeResistance_;
 
     return *this;
 }
-//=====================================================================================================================
+//===================================================================================================================================
 // Prepare all of the indices for fast calculation of the residual
 /*
  *  Here we collect all of the information necessary to
@@ -134,6 +137,7 @@ void SurDomain_CathodeCollector::domain_prep(LocalNodeIndices* li_ptr)
 
     phiCathodeCC_   =  PSCinput_ptr->CathodeVoltageSpecified_;
     phiCathode_ =  phiCathodeCC_;
+    phiLoad_ =  phiCathodeCC_;
 
     // TODO: In SurBC_Dirichlet::domain_prep() is is presumed that the
     // voltage/current BC is specified by a Dirichlet condition (specified voltage)
@@ -277,7 +281,8 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                 res[ieqn] += res_contrib;
                 break;
 
-            case 10:  // Collector constant current with collector plat resistance
+            case 10:
+            case 11:  // Collector constant current with collector plat resistance
                 /*
                  *     current_dens dot n = (V_cathode - V_cathCC) / Resistance_CC
                  *
@@ -300,7 +305,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 		 *     Therefore, we substitute (3) into (1) to get the signs correct, which is a + for anode
                  *
 		 */
-		res_contrib =  BC_TimeDep_NE[i]->valueAtTime(t, solnVal, timeRegion);
+		res_contrib = BC_TimeDep_NE[i]->valueAtTime(t, solnVal, timeRegion);
                 res[ieqn] += res_contrib;
                 break;
 
@@ -340,11 +345,26 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                    SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_;
     double phiCathodeCCcalc = phiCathode_ - icurrCollector_ * denom;
 
-    if ((SDD_cathode_ptr->voltageVarBCType_ != 1) && (SDD_cathode_ptr->voltageVarBCType_ != 10)) {
+    if ((SDD_cathode_ptr->voltageVarBCType_ != 1) && (SDD_cathode_ptr->voltageVarBCType_ != 10) && (SDD_cathode_ptr->voltageVarBCType_ != 11)) {
         phiCathodeCC_  = phiCathodeCCcalc;
     }
 
+   
 
+    if (energyEquationProbType_ == 3) {
+	size_t offsetTemp = NodalVarPtr->indexBulkDomainVar0((size_t) Temperature);
+        if (offsetTemp != npos) {
+	    res_contrib =  icurrCollector_ * denom;
+	    res[index_EqnStart + offsetTemp] -= res_contrib;
+	    DomainResidVector_LastResid_NE[offsetTemp] -= res_contrib;
+        }
+    }
+    if (residType_Curr_ == Base_ShowSolution) {
+	if (SDD_cathode_ptr->voltageVarBCType_ == 11) {
+	    phiCathodeCC_ =  phiCathodeCCcalc;
+	    phiLoad_ = phiCathodeCCcalc -  icurrCollector_ * (SDD_cathode_ptr->ResistanceLoad_ * crossSectionalArea_);
+	}
+    }
 
 #undef DAKOTAOUT
 #ifdef  DAKOTAOUT
@@ -439,7 +459,7 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
             VarType& vt = variableNameListNode[k];
             string name = vt.VariableName(20);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
-            ss.print0("%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
+            ss.print0("%s   %-20s   % -10.4E ", ind, name.c_str(), sval);
             if (SpecFlag_NE[k] != 0) {
 		if (BC_Type_NE[k] == 0) {
 		    ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
@@ -450,14 +470,20 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
             }
             ss.print0("\n");
             if (vt.VariableType == Voltage && vt.VariableSubType == 2) {
-                if (BC_Type_NE[k] == 10) {
-                    ss.print0("%s   Volts(CathodeCurrentCollector) %-10.4E (thickness = %-10.4E)\n",
-                              ind, phiCathodeCC_, CCThickness_);
+                if (BC_Type_NE[k] == 10 || BC_Type_NE[k] == 11) {
+		    SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
+                    ss.print0("%s   Volts(CathodeCC)        %-10.4E  (thickness = %-10.4E resistCC = % -10.4E ohm m2)\n",
+                              ind, phiCathodeCC_, CCThickness_, SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_);
+                    if (BC_Type_NE[k] == 11) {
+                        ss.print0("%s   Volts(Load)            % -10.4E  (resisLoad =  % -10.4E ohm m2, voltLoad =  % -10.4E volts)\n",
+				  ind, phiLoad_, SDD_cathode_ptr->ResistanceLoad_ * crossSectionalArea_,
+				  SDD_cathode_ptr->VoltageLoad_);
+                    }
                 }
             }
         }
 	drawline0(ss, indentSpaces + 2, 60);
-	ss.print0("%s   %-20s   %-10.4E \n", ind, "Current", icurrCollector_);
+	ss.print0("%s   %-20s    %-10.4E \n", ind, "Current", icurrCollector_);
 
 
         drawline0(ss, indentSpaces + 2, 60);
@@ -605,6 +631,18 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
      dValsBat_ptr->JHelecRight =   jfluxR;
      dValsBat_ptr->phiSolid = phiCathode_;
 
+     SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
+     double resistivity = resistivity_aluminum(298.);
+     double denom = resistivity * SDD_cathode_ptr->cathodeCCThickness_ + SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_;
+
+     if (energyEquationProbType_ == 3) {
+	 size_t offsetTemp = NodalVarPtr->indexBulkDomainVar0((size_t) Temperature);
+	 if (offsetTemp != npos) {
+	     double res_contrib = icurrCollector_ * denom;
+	     dValsBat_ptr->sourceTermExtra = res_contrib;
+	 }
+     }
+
  }
 //==================================================================================================================================
 // Generate the initial conditions
@@ -740,6 +778,6 @@ void SurDomain_CathodeCollector::saveDomain(Cantera::XML_Node& oNode, const Epet
     ctml::addFloat(inlt, nm, phiCathodeCC_, "", "", Cantera::Undef, Cantera::Undef);
 
 }
-//=====================================================================================================================
+//===================================================================================================================================
 } /* End of Namespace */
-//=====================================================================================================================
+//===================================================================================================================================

@@ -240,11 +240,22 @@ public:
 
   //! Extra resistance put in series with the cathode (ohms)
   /*!
-   *  Note the effective resistance for the battery stack is
+   *  Note the effective resistance for the battery stack on a per cross sectional basis is:
    *
-   *     extraCathodeResistance_ * crossSectionalArea_
+   *     extraCathodeResistance_ / crossSectionalArea_
    */
   double extraCathodeResistance_;
+
+  //! Resistance that is attached as a load for the battery (ohms)
+  /*!
+   *  Note Note the effective resistance/m2 for the battery stack on a per cross sectional basis is:
+   *
+   *    resistanceLoad_ / crossSectionalArea_
+   */
+  double ResistanceLoad_;
+
+  //! Voltage that is attached to the load. Acts as a battery element in the circuit.
+  double VoltageLoad_;
 
   //! Flag to use Dakota I/O
   bool useDakota_;

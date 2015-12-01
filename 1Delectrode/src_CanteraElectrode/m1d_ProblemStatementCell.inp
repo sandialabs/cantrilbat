@@ -70,6 +70,12 @@ Resistance Tracking = 0
 !     7 - Specify time dependent current BoundaryCondition BCsteptable
 !     8 - Specify time dependent voltage BoundaryCondition BClineartable
 !     9 - Specify time dependent current BoundaryCondition BClineartable
+!    10 - Set a Robin boundary condition on cathode i_cath = (V_cath - V_cath_Specified) / (R_ohms crossSectArea)
+!             Heat from R_ohms is added to the battery
+!    11 - Set a Robin boundary condition on cathode i_cath = (V_cath - V_cath_outer) / (R_ohms crossSectArea)
+!                                nd i_cath =  (V_cath_outer - V_load) / (R_load crossSectArea)                             
+!           there is a load condition with resistance R_load and V_load where the heat output from R_load is
+!           not added to the battery.
 !
 !---------------------------------------------------------------------------------------------------------
 Cathode BC Type = 0
@@ -238,7 +244,7 @@ Separator Solid Skeleton Volume Fraction = 0.5
 !
 !       When this option is selected a resistor is put in series with the cathode current collector.
 !       The resistor is in terms of ohms. Therefore, the cross sectional area of the battery is multiplied
-!       into this number within the battery.
+!       into this number within the battery. The heat output is added to the Battery at the cathode
 !
 !     icurr = (Vcath - V_cathCC) / ((resistivity_al * cc_thick) + ExtraResistance * crossSectionArea)
 !
@@ -246,6 +252,27 @@ Separator Solid Skeleton Volume Fraction = 0.5
 !
 !---------------------------------------------------------------------------------------------------------
 ! Extra Resistance in Series with Cathode = 0.0 ohms
+!---------------------------------------------------------------------------------------------------------
+!
+!   Load resistance - double [ohms] optional (default = 0.0)
+!
+!       When this option is selected a resistor is put in series with the cathode current collector.
+!       The resistor is in terms of ohms. Therefore, the cross sectional area of the battery is multiplied
+!       into this number within the battery. The heat output is not added to the Battery at the cathode
+!
+!     icurr = (Vcath - V_cathCC) / ((resistivity_al * cc_thick) + ExtraResistance * crossSectionArea)
+!
+!       If a closed loop condition is required, then set V_cathCC to zero.
+!---------------------------------------------------------------------------------------------------------
+Load Resistance = 0.0 ohms
+!---------------------------------------------------------------------------------------------------------
+!   Load Voltage = double [ohms] optional (default = 0.0)
+!
+!       When this option is selected (Cathdode Bc = 11) the voltage is put in series with the
+!       load resistor to determine the battery current conditions.
+!
+!---------------------------------------------------------------------------------------------------------
+Load Voltage = 0.0 volts
 !---------------------------------------------------------------------------------------------------------
 !
 !     Separator Diameter - double [m] optional (default = -1.0)

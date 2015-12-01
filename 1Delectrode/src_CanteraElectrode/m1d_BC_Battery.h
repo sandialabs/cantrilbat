@@ -63,14 +63,55 @@ protected:
 
     double thickness_;
 
+    //! Extra resistance attached to the battery (ohms)
     double extraResistance_;
 
     //! Cross sectional area of domain
     /*!
-     *  Not needed
+     *  (m2)
      */
     double electrodeCrossSectionalArea_;
 };
+
+
+//!  Boundary condition to apply to the current equation that takes into
+//!  account of the resistance of the current collector
+class BC_cathodeCCLoad: public BoundaryCondition
+{
+
+public:
+
+    BC_cathodeCCLoad(double thickness, double extraResistance, double electrodeCrossSectionalArea,
+		     double cathodeCC_volts, double resistanceLoad, double voltageLoad);
+    BC_cathodeCCLoad(const BC_cathodeCCLoad& right);
+    virtual ~BC_cathodeCCLoad();
+    BC_cathodeCCLoad& operator=(const BC_cathodeCCLoad& right);
+    
+    //! Returns the current on a cross-sectional basis
+    /*!
+     *  @return  units = amps / m2
+     */
+    virtual double valueAtTime(double time, double voltsCathode, int interval);
+
+protected:
+
+    double cathodeCC_volts_;
+
+    double thickness_;
+
+    //! Extra resistance attached to the battery (ohms)
+    double extraResistance_;
+
+    //! Cross sectional area of domain
+    /*!
+     *  (m2)
+     */
+    double electrodeCrossSectionalArea_;
+
+    double resistanceLoad_;
+    double voltageLoad_;
+};
+
 
 //!  Boundary condition to apply  a heat transfer flux formulation
 class BC_heatTransfer: public BoundaryCondition

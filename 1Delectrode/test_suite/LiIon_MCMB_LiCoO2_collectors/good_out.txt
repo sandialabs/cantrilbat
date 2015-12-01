@@ -816,15 +816,15 @@ Solution saved to file solution.xml as solution 0.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              0.0000E+00 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
+         Vel_axial               0.0000E+00 
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
          Volt(Electrolyte)      -7.0000E-02 
-         Volt(CathodeVoltage)   3.8000E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         Volt(CathodeVoltage)    3.8000E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                2.3826E-01 
+         Current                 2.3826E-01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -1376,14 +1376,14 @@ Solution saved to file solution.xml as solution 1.
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
          Vel_axial              -3.6321E-12 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -1780,14 +1780,14 @@ Solution saved to file solution.xml as solution 2.
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
          Vel_axial              -7.0826E-12 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -2183,15 +2183,15 @@ Solution saved to file solution.xml as solution 3.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              1.6344E-12 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         Vel_axial               1.6344E-12 
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -2587,14 +2587,14 @@ Solution saved to file solution.xml as solution 4.
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
          Vel_axial              -2.5425E-12 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -2989,15 +2989,15 @@ Solution saved to file solution.xml as solution 5.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              2.5425E-12 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         Vel_axial               2.5425E-12 
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -3393,14 +3393,14 @@ Solution saved to file solution.xml as solution 6.
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
          Vel_axial              -1.6950E-12 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -3795,15 +3795,15 @@ Solution saved to file solution.xml as solution 7.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              6.9951E-13 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         Vel_axial               6.9951E-13 
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -4199,14 +4199,14 @@ Solution saved to file solution.xml as solution 8.
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
          Vel_axial              -6.4570E-13 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -4601,15 +4601,15 @@ Solution saved to file solution.xml as solution 9.
       --------------------------------------------------------------------------------
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
-         Vel_axial              8.6094E-13 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         Vel_axial               8.6094E-13 
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -5005,14 +5005,14 @@ Solution saved to file solution.xml as solution 10.
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
          Vel_axial              -1.5943E-13 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------
@@ -5383,14 +5383,14 @@ TIME INTEGRATION ROUTINE HAS FINISHED:  IT WAS A SUCCESS
            VariableName         Value        DirichletCondition
         ------------------------------------------------------------
          Vel_axial              -1.5943E-13 
-         MF_sp(ECDMC)           9.2000E-01 
-         MF_sp(Li+)             4.0000E-02 
-         MF_sp(PF6-)            4.0000E-02 
-         Volt(Electrolyte)      3.5028E-02 
-         Volt(CathodeVoltage)   3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
-         Volts(CathodeCurrentCollector) 3.8000E+00 (thickness = 0.0000E+00)
+         MF_sp(ECDMC)            9.2000E-01 
+         MF_sp(Li+)              4.0000E-02 
+         MF_sp(PF6-)             4.0000E-02 
+         Volt(Electrolyte)       3.5028E-02 
+         Volt(CathodeVoltage)    3.8417E+00  (BC 0 Type 10 val = 0.0000E+00)
+         Volts(CathodeCC)        3.8000E+00  (thickness = 0.0000E+00 resistCC =  2.5063E-03 ohm m2)
         ------------------------------------------------------------
-         Current                1.4943E+01 
+         Current                 1.4943E+01 
         ------------------------------------------------------------
       --------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------

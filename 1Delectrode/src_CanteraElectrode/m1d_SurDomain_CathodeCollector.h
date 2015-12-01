@@ -194,6 +194,8 @@ public:
 
     double phiCathodeCC_;
 
+    double phiLoad_;
+
     //! current at the collector
     double icurrCollector_;
 

@@ -81,6 +81,8 @@ ProblemStatementCell::ProblemStatementCell() :
   anodeCCThickness_(0.0),
   cathodeCCThickness_(0.0),
   extraCathodeResistance_(0.0),
+  ResistanceLoad_(0.0),
+  VoltageLoad_(0.0),
   useDakota_(false),
   maxSubgridTimeStepsPerGlobalTimeStep_(100),
   fromDakotaFileName_("params.in"), toDakotaFileName_("results.out"),
@@ -379,11 +381,12 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
    *     8 - specify time dependent voltage BoundaryCondition BClineartable
    *     9 - specify time dependent current BoundaryCondition BClineartable
    *    10 - Extra resistance or closed-loop boundary condition
+   *    11 - External Load
    */
   reqd = 1;
   LE_OneInt *i2 = new LE_OneInt("Cathode BC Type", &(cathodeBCType_), reqd, "cathode_bc_type");
   i2->set_default(0);
-  i2->set_limits(9, 0);
+  i2->set_limits(11, 0);
   cf->addLineEntry(i2);
 
   /* ------------------------------------------------------------------------
@@ -599,6 +602,25 @@ ProblemStatementCell::setup_input_pass3(BlockEntry *cf)
 					    &(extraCathodeResistance_), reqd, "extraCathodeResistance");
   derc->set_default(0.0);
   cf->addLineEntry(derc);
+
+  /* ------------------------------------------------------------------------------------------------------------------
+   *  Extra Resistance characterized by load
+   */
+  reqd = 0;
+  LE_OneDblUnits *derl = new LE_OneDblUnits("Load Resistance",
+                                            &(ResistanceLoad_), reqd, "ResistanceLoad");
+  derl->set_default(0.0);
+  cf->addLineEntry(derl);
+
+  /* ------------------------------------------------------------------------------------------------------------------
+   *  Extra Resistance characterized by load
+   */
+  reqd = 0;
+  LE_OneDblUnits *devl = new LE_OneDblUnits("Load Voltage",
+                                            &(VoltageLoad_), reqd, "VoltageLoad");
+  devl->set_default(0.0);
+  cf->addLineEntry(devl);
+
 
   /* -------------------------------------------------------------------------------------------------------------------
    * Number of control volumes in anode
