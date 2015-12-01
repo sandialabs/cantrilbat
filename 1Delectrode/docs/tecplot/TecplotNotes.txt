@@ -12,14 +12,10 @@ Right now each zone is a different time slice
 
 Mapping Style -> The choice of what variables to be plotted is made here.
 
-
    You can create a map num for each time in your data set for one variable
 You can create a map num for each time in your data set for one variable. You
 do this with the "CreateMap" command at the bottom of MappingStyle.
 Then, you can select which ones will individually appear on the plot
-
-
-
 
 
 View command
@@ -35,7 +31,6 @@ To Export a Plot
      export MWF formatted data.
 
 
-
 To Compare data Y2 axis - setup 
     makes a double- y plot
 
@@ -46,8 +41,6 @@ To add subscripts and superscripts and greek
          <greek> </greek>
 
 
-
-
 Broken:  The time dial on the left seems to be broken. It doesn't actually change the data that you are looking at. You need to go into
   MappingStyle and change the zone in order to change the time
 
@@ -56,23 +49,5 @@ To bring in more than one zone, you need to add the data sets after you have
 created the map num's.   Then they will be duplicated. Then, you have to go
 through the map num's and select them individually for plotting. Yes, this is
 arduous.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
