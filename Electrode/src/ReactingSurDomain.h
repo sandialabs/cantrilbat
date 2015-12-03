@@ -145,7 +145,33 @@ public:
 
     const std::vector<double>& calcNetLimitedSurfaceProductionRateDensities(const double* n);
 
-    void limitROP(const double* n);
+    //!  Apply smooth limiter to ROP
+    /*!
+     *   Given the distance towards getting rid of a phase, this routine will limit the rate of progress
+     *   vectors within the Electrode object.
+     * 
+     *   @param[in]    n            n is a vector of species mole numbers for all species in the phase list
+     *
+     *         Seems to basically satisfy the needs of turning interfacial kinetics into homogeneous kinetics.
+     *         There is a basic exponential decay algorithm created out of the interfacial kinetics, which is
+     *         not exponential decay.
+     *
+     *  HKM -> several problems. One is that the surface area doesn't enter into this limiter. Therefore, the
+     *         limiter doesn't have the correct units, and will fail as surface area scales to different values
+     *         than what it was set up to be. That way you could also talk about the algorithm setting a minimum "time
+     *         constant" for phase removal.
+     *
+     *         Second is that rate turns off for phase_moles = 1.0E-20. There's no reason for that as this is straight
+     *         exponential decay. The 1.0E-20 value has to be reconciled with other small numbers in the algorithm
+     *         to see if there isn't a conflict.
+     *
+     *         Third, the algorithm only works for phase_moles > 0.0. Phase pop problems typically have times when
+     *         phase_moles < 0.0. What happens in these cases. Also non-max principle algorithms will have problems.
+     *
+     *         Fourth, algorithm should maybe not be based on phase_moles, but individual moles. One really wants
+     *         all moles to stay positive, not just the phase moles.
+     */
+    void limitROP(const double* const n);
 
     //! Returns a constant reference to the vector of reaction rates of progress
     /*!

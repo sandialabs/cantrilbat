@@ -313,7 +313,7 @@ void ReactingSurDomain::limitROP(const double* n)
 		      m_ropr[j] = m_ropf[j];
 		  }
 		  else if (phase_moles < 1e-7) {
-		      m_ropr[j] = std::min(m_ropr[j],m_ropf[j]+tanh(1.0e9*phase_moles) * netRev);
+		      m_ropr[j] = std::min(m_ropr[j], m_ropf[j]+tanh(1.0e9*phase_moles) * netRev);
 		  }
 	    }
 	    else if (m_rxnPhaseIsReactant[j][p] && netFwd > 0.0) {
