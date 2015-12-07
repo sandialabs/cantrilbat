@@ -338,14 +338,14 @@ BDD_porousElectrode::SetEquationsVariablesList()
 
 	EquationNameList.push_back(EqnType(Mechanical_Model_Axial, 0, "Mechanical Displacement Axial"));
         VariableNameList.push_back(VarType(Displacement_Axial, 0, 0));
-        IsAlgebraic_NE[eqnIndex] = 0;
-        IsArithmeticScaled_NE[eqnIndex] = 0;
+        IsAlgebraic_NE[eqnIndex] = 1;
+        IsArithmeticScaled_NE[eqnIndex] = 1;
         eqnIndex++;
 #ifdef SSA
 	EquationNameList.push_back(EqnType(Mechanical_Stress_Axial, 0, "Mechanical Stress Axial"));
         VariableNameList.push_back(VarType(Solid_Stress_Axial, 0, 0));
-        IsAlgebraic_NE[eqnIndex] = 0;
-        IsArithmeticScaled_NE[eqnIndex] = 0;
+        IsAlgebraic_NE[eqnIndex] = 1;
+        IsArithmeticScaled_NE[eqnIndex] = 1;
         eqnIndex++;
 #endif
     }
