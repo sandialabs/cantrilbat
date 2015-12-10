@@ -126,11 +126,9 @@ BDD_porousFlow::ReadModelDescriptions()
 	}
 	solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
 	double thickness = Xpos_end -Xpos_start;
-	double porosity = -1.0;
 	double volumeSeparator = PSCinput_ptr->separatorArea_ * thickness;
 	double volumeInert = 0.0;
 	double volumeFractionInert = 0.0;
-	double mv = 0.0;
 	if (solidSkeleton_) {
 	    if (PSCinput_ptr->separatorMass_ > 0.0) {
 		volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
@@ -369,7 +367,8 @@ BDD_porousFlow::DetermineConstitutiveModels()
   /*
    *  Create and Store a pointer to the Transport Manager
    */
-  trans_ = Cantera::newTransportMgr("Simple", ionicLiquid_, 1);
+  int loglvl = 0;
+  trans_ = Cantera::newDefaultTransportMgr(ionicLiquid_, loglvl);
 }
 //=====================================================================================================================
 } /* End of Namespace */

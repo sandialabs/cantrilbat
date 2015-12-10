@@ -272,7 +272,7 @@ const std::vector<double>& ReactingSurDomain::calcNetSurfaceProductionRateDensit
     return speciesProductionRates_;
 }
 //==================================================================================================================================
-void ReactingSurDomain::limitROP(const double* n)
+void ReactingSurDomain::limitROP(const double* const n)
 {
     // Apply smooth limiter to ROP
     /*
