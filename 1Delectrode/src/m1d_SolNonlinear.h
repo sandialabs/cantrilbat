@@ -19,7 +19,7 @@
 
 namespace m1d
 {
-
+//==================================================================================================================================
 /**
  * Exception class thrown when a BEuler error is encountered.
  */
@@ -123,12 +123,12 @@ public:
    * Columns scaling is turned on by default
    * @param onoff  toggle
    * @param colScaleUpdateFrequency column scale update frequency
+   *
    *        0 never
    *        1 once at the start
    *        2 after every jac update
    */
-   virtual void
-  setColScaling(bool onoff, int colScaleUpdateFrequency);
+   virtual void setColScaling(bool onoff, int colScaleUpdateFrequency);
 
   //! Set the toggles for solution damping
   /*!
@@ -137,8 +137,7 @@ public:
    * @param deltaDamping
    * @param highLowDamping
    */
-   virtual void
-  setDampingToggles(const bool residSolnDamping, const bool deltaDamping, const bool highLowDamping);
+   virtual void setDampingToggles(const bool residSolnDamping, const bool deltaDamping, const bool highLowDamping);
 
   //! Set the vectors for lower and upper boundaries.
   /*!
@@ -367,12 +366,8 @@ public:
    * @param loglevel
    */
   virtual void
-  doNewtonSolve(Epetra_Vector_Owned &delta_soln,
-                const Epetra_Vector &y_curr,
-                const Epetra_Vector &ydot_curr,
-                const double time_curr,
-                const double rdelta_t,
-                int loglevel);
+  doNewtonSolve(Epetra_Vector_Owned &delta_soln, const Epetra_Vector &y_curr, const Epetra_Vector &ydot_curr, 
+                const double time_curr, const double rdelta_t, int loglevel);
 
   //! Attempt to find a damping step
   /*!
@@ -414,6 +409,9 @@ public:
            double &s1,
            int& loglevel,
            int& num_backtracks);
+
+ int dampStep_alt(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double &s1, int& loglevel, int& num_backtracks);
+
 
   //! Set the column scales used in the program
   /*!
@@ -468,20 +466,11 @@ public:
   //! Get the Residual Weights
   /*!
    *  The residual weights are defined here to be equal to the inverse of the row scaling factors used to
-   *  row scale the matrix, after column scaling is used. They are multiplied by 10-3 because the column
-   *  weights are also multiplied by that same quantity.
-   *
-   *  The basic idea is that a change in the solution vector on the order of the convergence tolerance
-   *  multiplied by  [RJC] which is of order one after row scaling should give you the relative weight
-   *  of the row. Values of the residual for that row can then be normalized by the value of this weight.
-   *  When the tolerance in delta x is achieved, the tolerance in the residual is also achieved.
-   *
-   *  this routine reports the weights.
+   *  row scale the matrix, after column scaling is used. This routine returns the residual weights.
    *
    * @param residWts  Returns the residual weights in a vector of length 
    */
-  virtual void
-  getResidWts(Epetra_Vector_Owned &residWts);
+  virtual void getResidWts(Epetra_Vector_Owned &residWts);
 
   //! Print a solution-like vector in a form that is easy to interpret
   /*!

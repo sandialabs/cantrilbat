@@ -150,8 +150,7 @@ SolNonlinear::~SolNonlinear() {
  *   @param printLargest if True a table is printed of the largest contributors.
  */
 double
-SolNonlinear::soln_error_norm(const Epetra_Vector_Owned &delta_y, const bool printLargest,
-                              const char *title,
+SolNonlinear::soln_error_norm(const Epetra_Vector_Owned &delta_y, const bool printLargest, const char *title,
                               const int typeYsoln,
                               const double dampFactor) const
 {
@@ -432,7 +431,7 @@ SolNonlinear::get_jac(EpetraJac &jac,
   }
   return 0;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::get_res(const double time_curr,
                       const double rdelta_t,
@@ -478,8 +477,7 @@ SolNonlinear::scaleMatrix(Epetra_Vector_Owned &delta_soln,
 
   /*
    * row sum scaling -> Note, this is an unequivocal success
-   *      at keeping the small numbers well balanced and
-   *      nonnegative.
+   *      at keeping the small numbers well balanced and nonnegative.
    */
   if (m_rowScaling) {
     if (!jac.m_rowScaled) {
@@ -508,7 +506,7 @@ SolNonlinear::scaleMatrix(Epetra_Vector_Owned &delta_soln,
     }
   }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 //  Compute the undamped Newton step.
 /*
  * The residual function is
@@ -634,11 +632,10 @@ SolNonlinear::doNewtonSolve(Epetra_Vector_Owned &delta_soln,
 
   m_numTotalLinearSolves++;
 }
-//=====================================================================================================================
+//===================================================================================================================================
 //  Do a hard bounds on the step size
 /*
- * We apply this before other terms, by decreasing the size of the original
- * step size.
+ * We apply this before other terms, by decreasing the size of the initial step size, step[].
  */
 int
 SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted &y_old, Epetra_Vector_Owned &step, double &fbound)
@@ -695,8 +692,7 @@ SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted &y_old, Epetra_Vector_Own
     return -3;
   }
   /*
-   * Scale the step size to the correct value to ensure that the bounds
-   * are satisfied.
+   * Scale the step size to the correct value to ensure that the bounds are satisfied.
    */
   if (fbound < 1.0) {
     step.Scale(fbound);
@@ -706,8 +702,9 @@ SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted &y_old, Epetra_Vector_Own
     print_line("-", 90);
 
   }
-  if (fbound < 1.0)
-    return 0;
+  if (fbound < 1.0) {
+      return 0;
+  }
   return 1;
 }
 //=====================================================================================================================
@@ -1002,11 +999,8 @@ SolNonlinear::highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vect
  *          -2 Unsuccessful step.
  */
 int
-SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,
-                       const Epetra_Vector_Ghosted* ydot0_ptr,
-                       double &s1,
-                       int& loglevel,
-                       int& num_backtracks)
+SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,  const Epetra_Vector_Ghosted* ydot0_ptr,
+                       double &s1, int& loglevel, int& num_backtracks)
 {
   Epetra_Vector_Owned& step0 = *m_stp;
   Epetra_Vector_Owned& step1 = *m_step_2;
@@ -1043,7 +1037,7 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,
   
  
     /*
-     *  Compute the next residualthat would result if m_y_new[] were accepted.
+     *  Compute the next residual that would result if m_y_new[] were accepted.
      *  This is computed and storred in the vector m_resid[].
      *  The norm of this new residual is storred in m_normResidTrial and in m_normResidFRaw if
      *  this is the first iteration and therefore represents the raw Newton step.
@@ -1099,7 +1093,7 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,
       break;
     }
     /*
-     *  Compute the next undamped step, step1[], that would resultif y1[] were accepted.
+     *  Compute the next undamped step, step1[], that would result if y1[] were accepted.
      *  This is computed and storred in the vector m_resid
      */
     doNewtonSolve(step1, *m_y_new, *m_ydot_new, time_curr, rdelta_t, loglevel);
@@ -1148,6 +1142,214 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,
         printf("\n");
       }
     }
+    num_backtracks++;
+    m_fdamp /= DampFactor;
+  }
+
+  // If a damping coefficient was found, return 1 if the
+  // solution after stepping by the damped step would represent
+  // a converged solution, and return 0 otherwise. If no damping
+  // coefficient could be found, return -2.
+  if (m < NDAMP) {
+    if (loglevel >= 4 && !mypid_) {
+      printf("\t  dampStep(): current trial step accepted retnTrial = %d, its = %d, damp = %g\n", retnTrial, m+1, m_fdamp);
+    }
+    return retnTrial;
+  } else {
+    if (s1 < 0.5 && (s0 < 0.5)) {
+      if (loglevel >= 4 && !mypid_) {
+        printf("\t  dampStep(): current trial step accepted kindof retnTrial = %d, its = %d, damp = %g\n", 2, m+1, m_fdamp);
+      }
+      return 2;
+    }
+    if (s1 < 1.0) {
+      if (loglevel >= 4 && !mypid_) {
+        printf("\t  dampStep(): current trial step accepted and soln converged retnTrial = %d, its = %d, damp = %g\n", 0, m+1, m_fdamp);
+      }
+      return 0;
+    }
+    if (loglevel >= 4 && !mypid_) {
+      printf("\t  dampStep(): current direction is rejected! retnTrial = %d, its = %d, damp = %g\n", -2, m+1, m_fdamp);
+    }
+    return -2;
+  }
+}
+//=====================================================================================================================
+/*
+ * On entry, step0 must contain an undamped Newton step for the
+ * solution x0. This method attempts to find a damping coefficient
+ * such that the next undamped step would have a norm smaller than
+ * that of step0. If successful, the new solution after taking the
+ * damped step is returned in y_new, and the undamped step at y_new is
+ * returned in step1.
+ *
+ * @return   1 Successful step was taken: Next step was less than previous step.
+ *                                        s1 is calculated
+ *           2 Successful step: Next step's norm is less than 0.8
+ *           3 Success:  The final residual is less than 1.0
+ *                        A predicted deltaSoln is not produced however. s1 is estimated.
+ *           4 Success:  The final residual is less than the residual
+ *                       from the previous step.
+ *                        A predicted deltaSoln is not produced however. s1 is estimated.
+ *           0 Uncertain Success: s1 is about the same as s0
+ *          -2 Unsuccessful step.
+ */
+int
+SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, const Epetra_Vector_Ghosted* ydot0_ptr,
+			   double &s1, int& loglevel, int& num_backtracks)
+{
+  Epetra_Vector_Owned& step0 = *m_stp;
+  Epetra_Vector_Owned& step1 = *m_step_2;
+  int retnTrial = 0;
+
+  // Compute the weighted norm of the undamped step size step0
+  double s0 = m_normSolnFRaw;
+  string ResS;
+
+  double rdelta_t = 0.0;
+  if (delta_t_n > 1.0E-300) {
+    rdelta_t = 1.0 / delta_t_n;
+  }
+  //--------------------------------------------
+  //           Attempt damped step
+  //--------------------------------------------
+
+  // damping coefficient starts at 1.0
+  m_fdamp = 1.0;
+  int m;
+  double ff;
+  num_backtracks = 0;
+  bool raccepted = false;
+  for (m = 0; m < NDAMP; m++) {
+
+    ff = m_fdamp * m_fbound;
+
+    // step the solution by the damped step size, updating the time derivative
+    /*
+     *  New solution is put into m_y_new and  m_ydot_new
+     */
+    updateSoln(y0, ydot0_ptr, m_fdamp, step0);
+  
+    /*
+     *  Compute the next residual that would result if m_y_new[] were accepted.
+     *  This is computed and storred in the vector m_resid[].
+     *  The norm of this new residual is storred in m_normResidTrial and in m_normResidFRaw if
+     *  this is the first iteration and therefore represents the raw Newton step.
+     */
+    get_res(time_curr, rdelta_t, m_y_new, m_ydot_new);
+
+    if (m_print_flag >= 6) {
+      ResS = "Residual For Damping Trial " + Cantera::int2str(m) + " with Damping Coeff " + Cantera::fp2str(m_fdamp);
+      m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), 10);
+    } else if (m_print_flag == 4 || m_print_flag == 5) {
+      ResS = "Residual For Damp Trial " + Cantera::int2str(m) + " with Damping Coeff " + Cantera::fp2str(m_fdamp);
+      m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), true);
+    } else {
+      m_normResidTrial = res_error_norm(*m_resid);
+    }
+
+    if (m == 0) {
+      m_normResidFRaw = m_normResidTrial;
+    }
+    //
+    // Calculate an estimate of the next solution update
+    //
+    // s1 = s0 * m_normResidTrial / m_normResid0;
+    s1 = s0;
+    //
+    //  We accept the step if the Residual is less than one, or if the residual is less than the initial residual
+    //  
+    double rtest =   m_normResid0 * (0.2 * (1.0 - ff) * (1.0 - ff) * (1.0 - ff) * (1.0 - ff) + 0.8);
+    bool steepEnough = (m_normResidTrial < rtest);
+
+    bool atEnd = false;
+    if (m_normResidTrial < 1.0) {
+	if (s0 < 0.5 && s1 < 0.5) {
+	    atEnd = true;
+	}
+    }
+
+   
+    if (atEnd || steepEnough || !doResidSolnDamping_) {
+	raccepted = true;
+      if (loglevel >= 5 && !mypid_) {
+	  if (m_normResidTrial < m_normResid0) {
+	      printf("\t  dampStep(): Current trial step and damping"
+		     " coefficient accepted because resid0 > residTrial < resid0:\n");
+	      printf("\t              resid0 = %g, residTrial = %g\n", m_normResid0, m_normResidTrial);
+	  } else if (m_normResidTrial < 1.0) {
+	      printf("\t  dampStep(): Current trial step and damping"
+		     " coefficient accepted because residTrial test step < 1:\n");
+	      printf("\t              resid0 = %g, residTrial = %g\n", m_normResid0, m_normResidTrial);
+	  } else {
+	      printf("\t  dampStep(): Current trial step and damping"
+		     " coefficient accepted because residual solution damping is turned off:\n");
+	      printf("\t              resid0 = %g, residTrial = %g\n", m_normResid0, m_normResidTrial);
+	  }
+      }
+      /*
+       *  We aren't going to solve the system if we don't need to. Therefore, return an estimate
+       *  of the next solution update based on the ratio of the residual reduction.
+       */
+      if (m_normResid0 < 1.0E-10) {
+	if (m_normResidTrial < 1.0E-5) {
+	  s1 = 0.1 * s0;
+	}
+      }
+      if (m_normResidTrial < 1.0) {
+        retnTrial = 3;
+      } else {
+        retnTrial = 4;
+      }
+ 
+    }
+
+    // xxxxx
+    if (loglevel==3) {
+	printf("              %11.4E      |                  |%11.4E | %6.2E | %10.4E  | %10.2E %2d |                  %11.4E\n", 
+	       m_normResid0, s0, m_fbound,  m_normResidFRaw, m_fdamp, m, m_normResidTrial);
+    }
+    
+  
+    // write log information
+    if (loglevel >= 4) {
+      print_solnDelta_norm_contrib(step0, "DeltaSoln", step1, "DeltaSolnTrialTest",
+          "dampNewt: Important Entries for Weighted Soln Updates:", y0, *m_y_new, ff, 5);
+    }
+    if (loglevel >= 4 && !mypid_) {
+      printf("\t\t\tdampStep(): s0 = %g, s1 = %g, damp = %g\n", s0, s1, m_fdamp);
+    }
+
+    
+
+    if (raccepted) {
+	if (m_normResidTrial < 1.0) {
+	    retnTrial = 3;
+	} else {
+	    retnTrial = 4;
+	} 
+	break;
+    } else {
+	if (s1 > s0) {
+	    retnTrial = 2;
+	} else {
+	    retnTrial = 1;
+	}
+    }
+    if (raccepted) {
+	break;
+    }
+   
+    if (loglevel >= 4 && !mypid_) {
+        printf("\t\t\tdampStep(): current step rejected: (ResNorm = %g ResNorm0 = %g s0 = %g)", m_normResidTrial,  m_normResid0, s0);
+        if (m < (NDAMP - 1)) {
+	    printf(" Decreasing damping factor and retrying");
+        } else {
+	    printf(" Giving up!!!");
+        }
+        printf("\n");
+    }
+  
     num_backtracks++;
     m_fdamp /= DampFactor;
   }
@@ -1579,7 +1781,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
       } else {
         printf("\tSolve_Nonlinear_Problem:\n\n");
       }
-      printf("\t    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   ResidFinal  DeltaSolnFinal \n");
+      printf("\t    Iter Resid0 NewJac |  LinearIts  Ax-b |DeltaSolnRaw|  FBound  |ResidAftBound| Fdamp DampIts |   DeltaSolnFinal  ResidFinal \n");
       printf("\t--------------------------------------------------------------------------------------------------------------------------------\n");
     }
   }
@@ -1675,6 +1877,9 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
         m_fbound = 1.0;
       }
     }
+    //
+    //  On return m_stp is reduced by the factor, m_fbound
+    //
     retn = doHardBounds(*m_y_curr, *m_stp, m_fbound);
     if (retn < 0) {
       m = retn;
@@ -1688,8 +1893,22 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
      *          m_y_dot_new
      *  The estimate of the solution update norm for the next step is located in
      *          s1
+     * @return   1 Successful step was taken: Next step was less than previous step.
+     *                                        s1 is calculated
+     *           2 Successful step: Next step's norm is less than 0.8
+     *           3 Success:  The final residual is less than 1.0
+     *                        A predicted deltaSoln is not produced however. s1 is estimated.
+     *           4 Success:  The final residual is less than the residual
+     *                       from the previous step.
+     *                        A predicted deltaSoln is not produced however. s1 is estimated.
+     *           0 Uncertain Success: s1 is about the same as s0
+     *          -2 Unsuccessful step.
      */
+#ifdef DOOLD
     m = dampStep(time_curr, *m_y_curr, m_ydot_curr, s1, m_print_flag, i_backtracks);
+#else
+    m = dampStep_alt(time_curr, *m_y_curr, m_ydot_curr, s1, m_print_flag, i_backtracks);
+#endif
     num_backtracks += i_backtracks;
     /*
      *  If we had to damp the step because of a hard bounds, then we can not be considered as converged
@@ -1707,13 +1926,17 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
     /*
      * Impose the minimum number of newton iterations critera
      */
+    bool minNewItsCondition = false;
     if (m_num_newt_its < m_min_newt_its) {
-      if (m > 0) {
-	if (m_print_flag > 2 && !mypid_) {
-	  printf("\t     ... Minimum newton iterations not attained ...\n");
+	if (m == 3 || m == 2) {
+	    minNewItsCondition = true;
+	    if (m_print_flag > 3 && !mypid_) {
+		printf("\t   ... Minimum newton iterations not attained ...\n");
+	    }
 	}
-        m = 0;
-      }
+	if (m > 0) {
+	    m = 0;
+	}
     }
     /*
      * Impose max newton iteration
@@ -1773,7 +1996,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
     }
     // Write new solution into the curr solutions
     if (m >= 0) {
-      if (solnType_ ==  DAESystemInitial_Solve) {
+      if (solnType_ == DAESystemInitial_Solve) {
 	mdpUtil::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*m_y_new)[0], m_NumLcEqns);
 	mdpUtil::mdp_copy_dbl_1(&(*m_ydot_curr)[0], &(*m_ydot_new)[0], m_NumLcEqns);
       } else {
@@ -1783,22 +2006,29 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
 	}
       }
     }
-
+    //
+    // Print out the Table values
+    //
     if (m_print_flag == 2 || m_print_flag == 3) {
       if (!mypid_) {
 	//printf("\t    Iter Resid0 NewJac |  LinearIts  Ax-b  | Fbound | ResidBound | Fdamp DampIts |   DeltaSolnF     ResidFinal\n");
-        printf("\t%4d %11.3E", m_num_newt_its, m_normResid0);
+        printf("\t%4d  %11.4E", m_num_newt_its, m_normResid0);
         if (!m_jacAge) {
-          printf("   Y   ");
+          printf("  Y   ");
         } else {
-          printf("   N   ");
+          printf("  N   ");
         }
-        printf("|%5d %11.3E |%10.3E  |", m_curr_linearIts, m_curr_normLin,  m_normSolnFRaw);
-	printf("%10.3E|", m_fbound);
-	printf("%11.3E  ", m_normResidFRaw);
-	printf("| %10.2E %2d | %11.3E %11.3E ", m_fdamp, i_backtracks, m_normSolnFRaw * m_fbound * m_fdamp, m_normResidTrial);
+	// xxxxx
+        printf("|%5d %11.4E | %10.4E |", m_curr_linearIts, m_curr_normLin,  m_normSolnFRaw);
+	printf("%9.2E |", m_fbound);
+	printf(" %10.4E  ", m_normResidFRaw);
+	printf("| %10.2E %2d |    %11.4E   %11.4E", m_fdamp, i_backtracks, m_normSolnFRaw * m_fbound * m_fdamp, m_normResidTrial);
         printf("\n");
-
+	if (minNewItsCondition) {
+	    if (m_print_flag > 2) {
+		printf("\t     ... Minimum newton iterations not attained ...\n");
+	    }
+	}
       }
     }
 
@@ -1821,9 +2051,9 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
   if (m_print_flag == 2 || m_print_flag == 3) {
     if (convRes > 0) {
       if (convRes == 3) {
-        printf("\t                       |                  |(%9.3E) |          |             | converged = 3 |              (%9.3E) \n", s1, s1);
+        printf("\t                       |                  |(%10.4E)|          |             | converged = 3 |    (%10.4E) \n", s1, s1);
       } else {
-        printf("\t                       |                  |(%9.3E) |          |             | converged = %1d | %11.3E %11.3E \n", s1, convRes,
+        printf("\t                       |                  |(%10.4E)|          |             | converged = %1d |     %10.4E %11.4E \n", s1, convRes,
             s1, m_normResidTrial);
       }
     }
@@ -1939,7 +2169,7 @@ SolNonlinear::calc_ydot(int order, const Epetra_Vector &y_curr, Epetra_Vector &y
     return;
   }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 
 void
 SolNonlinear::print_solnDelta_norm_contrib(const Epetra_Vector &solnDelta0, const char * const s0,
@@ -2025,6 +2255,8 @@ SolNonlinear::print_solnDelta_norm_contrib(const Epetra_Vector &solnDelta0, cons
  *                              The residual norm can be anything.
  *           3 Success:  The final residual is less than 1.0
  *                        The predicted deltaSoln is below 1.0.
+ *           4 Success:  The final residual is less than 1.0
+ *                        The predicted deltaSoln is above 1.0.
  *           0 Not converged yet
  */
 int
@@ -2198,7 +2430,7 @@ SolNonlinear::setPreviousTimeStep(const double timeStep_comm, const Epetra_Vecto
   mdpUtil::mdp_copy_dbl_1(&(*m_y_nm1)[0], &(y_nm1[0]), m_NumLcEqns);
   mdpUtil::mdp_copy_dbl_1(&(*m_ydot_nm1)[0], &(ydot_nm1[0]), m_NumLcEqns);
 }
-//=====================================================================================================================
+//===================================================================================================================================
 // Compute the Residual Weights
 /*
  *  The residual weights are defined here to be equal to the inverse of the row scaling factors used to
@@ -2217,10 +2449,10 @@ SolNonlinear::computeResidWts()
     (*m_residWts)[i] = 1.0 / (*m_rowScales)[i];
   }
   if (m_print_flag >= 3 && m_num_newt_its > 1) {
-    printf("             ... Computing New residual weights ...\n");
+    printf("           ... Computing New residual weights ...\n");
   }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::getResidWts(Epetra_Vector_Owned &residWts)
 {
