@@ -84,7 +84,7 @@ clockID& clockID::operator=(const clockID& right)
 //===============================================================================================================================
 void clockID::startTime()
 {  
- #ifdef DEBUG_MODE
+#ifdef DEBUG_MODE
     if (running_) {
 	throw std::logic_error("Clock is already running");
     }
