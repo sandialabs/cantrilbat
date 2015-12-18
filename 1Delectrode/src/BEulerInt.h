@@ -267,20 +267,29 @@ public:
 
     //! Set the maximum time step size allowed in the calculation
     /*!
-     * @param hmax value of the maximum time step size
+     * @param    hmax              value of the maximum time step size
      */
-    virtual void
-    setMaxStep(doublereal hmax);
+    void  setMaxStep(doublereal hmax);
 
+ 
     //! Set the minimum time step size allowed in the calculation
     /*!
      * @param hmin value of the maximum time step size
      */
-    virtual void
-    setMinStep(doublereal hmin);
+    void setMinStep(doublereal hmin);
 
-    virtual void
-    setMaxNumTimeSteps(int maxTimeSteps);
+    //! Set the time step for algebraic discontinuities
+    /*!
+     * @param h_AUD                 Delta_t at which the algebraic constraints are linearly removed from the time step 
+     *                              truncation error tolerance criteria
+     */
+    void setTimeStep_AUD(doublereal h_AUD);
+
+    //! Set the maximum number of time steps
+    /*!
+     * @param[in]   maxTimeStep     the maximum number of time steps
+     */
+    void setMaxNumTimeSteps(int maxTimeSteps);
 
     //! Set the number of constant initial delta T steps
     /*!
@@ -728,6 +737,12 @@ protected:
      *   No time step is allowed to be smaller than this value
      */
     double delta_t_min;
+
+    //!  Time step at which algebraic constraints are starting to have discontinuities
+    /*!
+     *  Their importance is minimized below this time step.
+     */
+    double delta_t_AUD_;
 
     /****************************************************************************
      *    METHOD OPTIONS FOR THE NONLINEAR SOLVER

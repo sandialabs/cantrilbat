@@ -2743,7 +2743,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     if (do0Write) {
         for (iBlock = 0; iBlock < nn; iBlock++) {
             drawline(indentSpaces, 80);
-            ss.print0("%s        z   ", ind);
+            ss.print0("%s   iGbNode  z   ", ind);
             for (n = 0; n < 5; n++) {
                 int ivar = iBlock * 5 + n;
                 VarType vt = variableNameList[ivar];
@@ -2756,7 +2756,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
-                ss.print0("\n%s    % -10.4E ", ind, x);
+                ss.print0("\n%s   %4d  % -10.4E ", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
@@ -2798,7 +2798,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         int nrem = NumDomainEqns - 5 * nn;
         if (nrem > 0) {
             drawline(indentSpaces, 80);
-            ss.print0("%s        z   ", ind);
+            ss.print0("%s    iGbNode  z   ", ind);
             Cantera::writelog(buf);
             for (n = 0; n < nrem; n++) {
                 int ivar = nn * 5 + n;
@@ -2813,7 +2813,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
-                ss.print0("%s    %-10.4E ", ind, x);
+                ss.print0("%s   %4d  %-10.4E ", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;
@@ -2853,7 +2853,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	    // -----------------------------------------------------------------------------------------------------------------
 	    ss.print0("\n");
 	    drawline0(indentSpaces, 80);
-	    ss.print0("%s        z      Porosity  ", ind);
+	    ss.print0("%s  iGbNode     z      Porosity  ", ind);
 	    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
 		ExtraPhase* ep = ExtraPhaseList_[jPhase];
 		ss.print0("%-11.11s ", ep->phaseName.c_str());
@@ -2868,7 +2868,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 		int iCell = iGbNode - BDD_.FirstGbNode;
 		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 		double x = nv->xNodePos();
-		ss.print0("%s    %-10.4E ", ind, x);
+		ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
 		ss.print0("%11.4E ", porosity_Cell_[iCell]);
 		for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
 		    ss.print0("%11.4E ", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase]);
@@ -2948,7 +2948,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 
             ss.print0("\n");
             drawline0(indentSpaces, 80);
-            ss.print0("%s        z     qHeat_step    qHeat_accum Joule_Lyte Joule_Solid ", ind);
+            ss.print0("%s   iGbNode  z     qHeat_step    qHeat_accum Joule_Lyte Joule_Solid ", ind);
             ss.print0("\n");
             drawline0(indentSpaces, 80);
         }
@@ -2960,7 +2960,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 iCell = iGbNode - BDD_.FirstGbNode;
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 x = nv->xNodePos();
-                ss.print0("%s    %-10.4E ", ind, x);
+                ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
                 //Electrode* ee = Electrode_Cell_[iCell];
                 ss.print0("% -11.4E ", qSource_Cell_curr_[iCell]);
                 ss.print0("% -11.4E ",  qSource_Cell_accumul_[iCell]);

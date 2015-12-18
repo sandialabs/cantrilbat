@@ -425,6 +425,8 @@ main(int argc, char** argv)
         t1.setPrintFlag(PSinput.TimeStepper_printLvl_, PSinput.NonlinSolver_printLvl_);
         t1.setMaxNumTimeSteps(PSinput.maxNumTimeSteps_);
         t1.setMaxStep(PSinput.MaxTimeStep_);
+        t1.setMinStep(PSinput.MinTimeStep_);
+        t1.setTimeStep_AUD(PSinput.TimeStep_AUD_);
 
         /*
          * Start the simulation

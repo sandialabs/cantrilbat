@@ -564,6 +564,7 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
                                              const double t, const double t_old)
 {
     const Epetra_Vector& soln = *soln_ptr;
+    bool assumedAdvance = (t > t_old);
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
         cIndex_cc_ = iCell;
         /*
@@ -603,7 +604,7 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
          * However, we will hold off at implementing this right now
          */
         Electrode* ee = Electrode_Cell_[iCell];
-        ee->resetStartingCondition(t);
+        ee->resetStartingCondition(t, assumedAdvance);
 	/*
 	 *  Store the Amount of Li element in each cell, for later use by conservation
 	 *  checking routines
@@ -3794,7 +3795,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     if (do0Write) {
         for (iBlock = 0; iBlock < nn; iBlock++) {
             drawline0(indentSpaces, 80);
-            ss.print0("%s        z   ", ind);
+            ss.print0("%s iGbNode  z   ", ind);
             for (n = 0; n < 5; n++) {
                 int ivar = iBlock * 5 + n;
                 VarType vt = variableNameList[ivar];
@@ -3810,7 +3811,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
-                ss.print0("\n%s    %-10.4E ", ind, x);
+                ss.print0("\n%s %4d  %-10.4E ", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
                     int ivar = iBlock * 5 + n;
@@ -3850,7 +3851,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         int nrem = NumDomainEqns - 5 * nn;
         if (nrem > 0) {
             drawline(indentSpaces, 80);
-            ss.print0("%s        z   ", ind);
+            ss.print0("%s  iGbNode  z   ", ind);
             for (n = 0; n < nrem; n++) {
                 int ivar = nn * 5 + n;
                 VarType vt = variableNameList[ivar];
@@ -3865,7 +3866,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
-                ss.print0("%s    % -10.4E ", ind, x);
+                ss.print0("%s %4d   % -10.4E ", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
                     int ivar = iBlock * 5 + n;
@@ -3910,7 +3911,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         // ----------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 80);
-        ss.print0("%s        z       Delta_V        Ess    Overpotential icurrRxnCell", ind);
+        ss.print0("%s  iGbNode  z       Delta_V        Ess    Overpotential icurrRxnCell", ind);
         ss.print0("\n");
         drawline0(indentSpaces, 80);
     }
@@ -3923,7 +3924,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             iCell = iGbNode - BDD_.FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
-            ss.print0("%s    %-10.4E ", ind, x);
+            ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
             ss.print0("%11.4E ", deltaV_Cell_[iCell]);
             ss.print0("%11.4E ", Ess_Surf_Cell_[nSurfsElectrode_ * iCell]);
             ss.print0("%11.4E ", overpotential_Surf_Cell_[nSurfsElectrode_ * iCell]);
@@ -3940,7 +3941,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         // -----------------------------------------------------------------------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 80);
-        ss.print0("%s        z      Porosity    VF_Electrode", ind);
+        ss.print0("%s  iGbNode  z      Porosity    VF_Electrode", ind);
 	for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
 	    ExtraPhase* ep = ExtraPhaseList_[jPhase];
 	    ss.print0("%-11.11s ", ep->phaseName.c_str());
@@ -3956,7 +3957,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 	    double volCell =  crossSectionalArea_ * xdelCell_Cell_[iCell];
             x = nv->xNodePos();
-            ss.print0("%s    %-10.4E ", ind, x);
+            ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
             ss.print0("%11.4E ", porosity_Cell_[iCell]);
 	    double vole = nVol_zeroStress_Electrode_Cell_[iCell];
 	    double vfE = vole / volCell;
@@ -3976,7 +3977,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         // -----------------------------------------------------------------------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 80);
-        ss.print0("%s        z     SurfaceArea  SurfAreaDens  currPerSA  DeltaZ", ind);
+        ss.print0("%s   iGbNode  z     SurfaceArea  SurfAreaDens  currPerSA  DeltaZ", ind);
         ss.print0("\n");
         drawline0(indentSpaces, 80);
     }
@@ -3987,7 +3988,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             iCell = iGbNode - BDD_.FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
-            ss.print0("%s    %-10.4E ", ind, x);
+            ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
             ss.print0("%11.4E ", surfaceArea_Cell_[iCell]);
             ss.print0("%11.4E ", surfaceArea_Cell_[iCell] / xdelCell_Cell_[iCell]);
             ss.print0("%11.4E ", icurrInterfacePerSurfaceArea_Cell_[iCell]);
@@ -4040,7 +4041,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         // -----------------------------------------------------------------------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 120);
-        ss.print0("%s        z       ", ind);
+        ss.print0("%s   iGbNode  z       ", ind);
 
         for (int vph = 0; vph < numVolPhasesE; vph++) {
             ThermoPhase* tp = &(ee0->volPhase(vph));
@@ -4065,7 +4066,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             iCell = iGbNode - BDD_.FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
-            ss.print0("%s    %-10.4E ", ind, x);
+            ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
             Electrode* ee = Electrode_Cell_[iCell];
             ee->getMoleNumSpecies(DATA_PTR(spmoles));
             for (int vph = 0; vph < numVolPhasesE; vph++) {

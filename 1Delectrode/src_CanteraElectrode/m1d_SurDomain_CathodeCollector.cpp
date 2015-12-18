@@ -176,8 +176,6 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
         return;
     }
 
-
-
     /*
      * Find the current time region
      */
@@ -187,21 +185,17 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 
     /*
      *  Figure out the equation start for this node
-     *   We start at the start of the equations for this node
-     *   because we will be applying dirichlet conditions on the bulk
-     *   equations.
+     *   We start at the start of the equations for this node because we will be applying dirichlet conditions on the bulk equations.
      */
     size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-
     //
     //  Store the entrance residual for later processing in balancing applications
     //
     if (residType == Base_ResidEval || residType == Base_ShowSolution) {
 	for (size_t i = 0; i < (size_t) NumNodeEqns; i++) {
-	    Resid_BeforeSurDomain_NE[i] = res[ index_EqnStart + i];
+	    Resid_BeforeSurDomain_NE[i] = res[index_EqnStart + i];
 	}
     }
-
     /*
      * get the offsets for the BulkDomain and the surface domain.
      */
@@ -345,7 +339,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                    SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_;
     double phiCathodeCCcalc = phiCathode_ - icurrCollector_ * denom;
 
-    if ((SDD_cathode_ptr->voltageVarBCType_ != 1) && (SDD_cathode_ptr->voltageVarBCType_ != 10) && (SDD_cathode_ptr->voltageVarBCType_ != 11)) {
+    if ((SDD_cathode_ptr->voltageVarBCType_ != 10)) {
         phiCathodeCC_  = phiCathodeCCcalc;
     }
 
@@ -360,10 +354,12 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
         }
     }
     if (residType_Curr_ == Base_ShowSolution) {
-	if (SDD_cathode_ptr->voltageVarBCType_ == 11) {
+	//if (SDD_cathode_ptr->voltageVarBCType_ == 11) {
+	if (SDD_cathode_ptr->voltageVarBCType_ != 10) {
 	    phiCathodeCC_ =  phiCathodeCCcalc;
-	    phiLoad_ = phiCathodeCCcalc -  icurrCollector_ * (SDD_cathode_ptr->ResistanceLoad_ * crossSectionalArea_);
 	}
+	phiLoad_ = phiCathodeCCcalc -  icurrCollector_ * (SDD_cathode_ptr->ResistanceLoad_ * crossSectionalArea_);
+	//}
     }
 
 #undef DAKOTAOUT
@@ -469,17 +465,19 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
                 jDir++;
             }
             ss.print0("\n");
+	    SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
             if (vt.VariableType == Voltage && vt.VariableSubType == 2) {
-                if (BC_Type_NE[k] == 10 || BC_Type_NE[k] == 11) {
-		    SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
-                    ss.print0("%s   Volts(CathodeCC)        %-10.4E  (thickness = %-10.4E resistCC = % -10.4E ohm m2)\n",
-                              ind, phiCathodeCC_, CCThickness_, SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_);
-                    if (BC_Type_NE[k] == 11) {
-                        ss.print0("%s   Volts(Load)            % -10.4E  (resisLoad =  % -10.4E ohm m2, voltLoad =  % -10.4E volts)\n",
-				  ind, phiLoad_, SDD_cathode_ptr->ResistanceLoad_ * crossSectionalArea_,
-				  SDD_cathode_ptr->VoltageLoad_);
-                    }
-                }
+                if (BC_Type_NE[k] == 10 || BC_Type_NE[k] == 11 || 
+		    (CCThickness_ != 0.0 ) || (SDD_cathode_ptr->extraResistanceCathode_ != 0.0) || 
+		    (SDD_cathode_ptr->ResistanceLoad_ != 0.0)) {
+			ss.print0("%s   Volts(CathodeCC)        %-10.4E  (thickness = %-10.4E resistCC = % -10.4E ohm m2)\n",
+				  ind, phiCathodeCC_, CCThickness_, SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_);
+		}
+		if ((BC_Type_NE[k] == 10) || (BC_Type_NE[k] == 11) || (SDD_cathode_ptr->ResistanceLoad_ != 0.0)) {
+		    ss.print0("%s   Volts(Load)            % -10.4E  (resisLoad =  % -10.4E ohm m2, voltLoad =  % -10.4E volts)\n",
+			      ind, phiLoad_, SDD_cathode_ptr->ResistanceLoad_ * crossSectionalArea_,
+			      SDD_cathode_ptr->VoltageLoad_);
+		}
             }
         }
 	drawline0(ss, indentSpaces + 2, 60);

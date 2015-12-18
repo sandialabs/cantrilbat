@@ -80,6 +80,7 @@ BEulerInt::BEulerInt() :
         m_maxord(1),
         delta_t_max(1.0E300),
         delta_t_min(1.0E-300),
+        delta_t_AUD_(1.0E-300),
         m_min_newt_its(0),
         m_time_step_num(0),
         m_time_step_attempts(0),
@@ -151,6 +152,9 @@ BEulerInt::operator=(const BEulerInt &r)
         return *this;
     }
     Cantera::Integrator::operator=(r);
+
+    m_currentTimeRegion = r.m_currentTimeRegion;
+    m_timeRegionBoundaries = r.m_timeRegionBoundaries;
 
     return *this;
 }
@@ -286,6 +290,11 @@ void BEulerInt::setMaxStep(doublereal hmax)
 void BEulerInt::setMinStep(doublereal hmin)
 {
     delta_t_min = hmin;
+}
+//=====================================================================================================================
+void BEulerInt::setTimeStep_AUD(doublereal h_AUD)
+{
+    delta_t_AUD_ = h_AUD;
 }
 //=====================================================================================================================
 void BEulerInt::setMaxNumTimeSteps(int maxNumTimeSteps)
@@ -1197,16 +1206,25 @@ double BEulerInt::time_error_norm() const
     double gbSum = 0.0, gmax1;
     int i;
     double sum_norm, error, tfac;
+    //  Algebraic constraints get reduced if the time step is cut down.
+    //  -> their values can have jump discontinuities when time steps are reduced.
     double dd = MAX(delta_t_nm1, delta_t_nm2);
     tfac = delta_t_n / dd;
     if (tfac > 1.0)
         tfac = 1.0;
     double afac = tfac * tfac;
+    //  Algebraic constraints can have finite changes when the delta_t gets really low.
+    //  -> This is an experimental treatment that can be changed from the input file.
+    //  -> basically below a delta_t, the algebraic constraints are increasingly ignored when picking a time step parameter.
+    double bfac = 1.0;
+    if (delta_t_AUD_ > 0.0) {
+        bfac = min(1.0, delta_t_n / delta_t_AUD_);
+    }
     sum_norm = 0.0;
     for (i = 0; i < m_NumLcOwnedEqns; i++) {
         error = ( (*m_y_n)[i] - (*m_y_pred_n)[i]) / (*m_ewt)[i];
         if ( (*m_isAlgebraic)[i]) {
-            error *= afac;
+            error *= afac * bfac;
         }
         sum_norm += (error * error);
     }
@@ -1226,7 +1244,7 @@ double BEulerInt::time_error_norm() const
             int *imax = mdpUtil::mdp_alloc_int_1(num_entries, -1);
             print0_sync_start(false, ss, *Comm_ptr_);
             if (!mypid_) {
-                printf("\t\tTime step truncation error contributors\n");
+                printf("\t\tTime step truncation error contributors: Algebraic Afac = %9.3E, Bfac = %9.3E\n", afac, bfac);
                 printf(
                         "\t\t    I               VarName  LcNode       entry    |   y_actual     y_predicted      weight       ydot\n");
                 printf("\t\t");
