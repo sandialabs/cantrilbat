@@ -193,6 +193,16 @@ Maximum Time Step = 1.0
 Minimum Time Step = 1.0E-12
 !---------------------------------------------------------------------------------------
 !
+! Time Step for Algebraic Unknown Discontinuities - double (optional)
+!
+!   Time step below which the time step truncation errors for  algebraic unknowns 
+!   are linearly reduced by a factor. The idea here is to reduce their importance
+!   severely for small time steps. error *= min(1.0, deltaT / TimeStepAUD)
+! 
+!---------------------------------------------------------------------------------------
+Time Step for Algebraic Unknown Discontinuities = 1.0E-4
+!---------------------------------------------------------------------------------------
+!
 !     Number of initial time steps to take where the
 !     time truncation error tolerances are not checked. Instead
 !     the delta T is uniform

@@ -400,6 +400,14 @@ ProblemStatement::setup_input_pass3(BlockEntry *cf)
   LE_OneDbl *dmin = new LE_OneDbl("Minimum Time Step", &(MinTimeStep_), reqd, "MinTimeStep_");
   dmin->set_default(1e-15);
   cf->addLineEntry(dmin);
+  /* ------------------------------------------------------------------
+   * Line Input For Algebraic Unknown Discontinuities of the Time Step
+   *
+   */
+  reqd = 0;
+  LE_OneDbl *daud = new LE_OneDbl("Time Step for Algebraic Unknown Discontinuities", &(TimeStep_AUD_), reqd, "TimeStep_AUD_");
+  daud->set_default(0.0);
+  cf->addLineEntry(daud);
 
   /* ------------------------------------------------------------------
    *     Number of initial time steps to take where the

@@ -249,6 +249,10 @@ public:
 	//! Minimum value of the time step
 	double MinTimeStep_;
 
+        //! Time step for algebraic discontinuities. Below this time step algebraic unknowns start
+        //! to matter less to the time step truncation error.
+        double TimeStep_AUD_;
+
 	//!  Number of initial time steps to take where the
 	//!  time truncation error tolerances are not checked. Instead
 	//! the delta T is uniform
