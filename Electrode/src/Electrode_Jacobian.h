@@ -96,6 +96,16 @@ protected:
   // Store the desired Jacobian contributions as a map from [dof, source] -> result
   std::map< DOF_SOURCE_PAIR, double > jacobian;
 
+  //! Jacobian centerpoint storage
+  std::vector<double> jac_centerpoint;
+
+  //! Jacobian delta_t
+  double jac_dt;
+
+  //! Jacobian t_init_init;
+  double jac_t_init_init;
+
+
 private:
  
 };

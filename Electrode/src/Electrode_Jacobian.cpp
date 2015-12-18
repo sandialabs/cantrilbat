@@ -10,13 +10,17 @@ namespace Cantera {
 
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
-    electrode(elect)
+    electrode(elect),
+    jac_dt(0.0),
+    jac_t_init_init(0.0)
 {
     electrolytePhaseSpeciesStart = electrode->getGlobalSpeciesIndex(electrode->solnPhaseIndex());
 }
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(const Electrode_Jacobian& right) :
-    electrode(right.electrode)
+    electrode(right.electrode),
+    jac_dt(0.0),
+    jac_t_init_init(0.0)
 {
     operator=(right);
 }
@@ -30,6 +34,9 @@ Electrode_Jacobian& Electrode_Jacobian::operator=(const Electrode_Jacobian& righ
     electrode = right.electrode;
     electrolytePhaseSpeciesStart = right.electrolytePhaseSpeciesStart; 
     jacobian = right.jacobian;
+    jac_centerpoint = right.jac_centerpoint;
+    jac_dt = right.jac_dt;
+    jac_t_init_init = right.jac_t_init_init;
 
     return *this;
 }
