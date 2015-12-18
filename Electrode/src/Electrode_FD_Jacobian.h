@@ -26,6 +26,10 @@ class Electrode_FD_Jacobian : public Electrode_Jacobian {
 public:
     Electrode_FD_Jacobian(Electrode* elect, double baseDelta);
 
+    Electrode_FD_Jacobian(const Electrode_FD_Jacobian& right);
+
+    Electrode_FD_Jacobian& operator=(const Electrode_FD_Jacobian& right);
+
   virtual ~Electrode_FD_Jacobian();
 
   virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt);
@@ -39,11 +43,10 @@ protected:
   std::list<DOFS> dofs_to_fd;
   std::map<DOFS, int> num_sources_using_dof;
 
+  //! Relative delta to use to create the jacobian
   double base_delta;
 
 private:
-  Electrode_FD_Jacobian(const Electrode_FD_Jacobian& right);
-  Electrode_FD_Jacobian& operator=(const Electrode_FD_Jacobian& right);
 
   // This helper function handles running a single electrode->integrate call at
   // a given set of dof values.

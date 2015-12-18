@@ -35,13 +35,23 @@ class Electrode_Jacobian {
 
 public:
 
-  //! This pair definition marries an independent variable specififed by a DOF enum
-  //! with a source term specified by the SOURCES enum. The two of them together
-  //! signifies a Jacobian term (i.e., an entry in a 2D matrix). 
-  typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR ;
+  //! This pair definition marries an independent variable specififed by a DOF enum with a source term specified by the SOURCES enum.
+  //!  The two of them together signifies a Jacobian term (i.e., an entry in a 2D matrix). 
+  typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR;
 
+  //! Constructor
+  /*!
+   *  @param[in]   elect               Takes a pointer to the underlying electrode object
+   */
   Electrode_Jacobian(Electrode* elect);
 
+  //! Copy Constructor
+  Electrode_Jacobian(const Electrode_Jacobian& right);
+
+  //! Assignment Operator
+  Electrode_Jacobian& operator=(const Electrode_Jacobian& right);
+
+  //! Destructor
   virtual ~Electrode_Jacobian();
 
   //! Compute the Jacobian at the point specified by centerpoint
@@ -58,11 +68,13 @@ public:
   /*!
    * Return the partial derivative of the requested source term with respect to the requested dof,
    * requested source and dof are specifed by dof_source_pair
+   *
+   *  @param[in]   dof_source_pair                  DOF_SOURCE_PAIR pair representing the row and variable
    */
   double get_jacobian_value(const DOF_SOURCE_PAIR &dof_source_pair)
   {
-    if( jacobian.find(dof_source_pair) == jacobian.end() ) {
-      throw CanteraError("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed" );
+    if (jacobian.find(dof_source_pair) == jacobian.end()) {
+	throw CanteraError("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed" );
     }
     return jacobian[dof_source_pair];
   }
@@ -74,16 +86,18 @@ public:
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
 protected:
-  Electrode* const electrode;
+
+  //! Pointer to the electrode object
+  Electrode*  electrode;
+
+  //! Index within the electrode object for the start of the electrolyte species
   int electrolytePhaseSpeciesStart;
 
   // Store the desired Jacobian contributions as a map from [dof, source] -> result
   std::map< DOF_SOURCE_PAIR, double > jacobian;
 
 private:
-  // Disallow copies
-  Electrode_Jacobian(const Electrode_Jacobian& right);
-  Electrode_Jacobian& operator=(const Electrode_Jacobian& right);
+ 
 };
 
 }
