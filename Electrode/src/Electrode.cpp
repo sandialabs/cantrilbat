@@ -4091,7 +4091,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
      * We have already advanced the time step to the new time.
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doTestsAlways) {
         resetToInitInit = true;
     }
 
@@ -4101,7 +4101,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     tbase = std::max(Tinitial, tbase);
     tbase = std::max(tbase, t_final_final_);
     if (!resetToInitInit) {
-	if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
+	if (fabs(Tinitial - t_final_final_) > (1.0E-13 * tbase)) {
 	    throw CanteraError("Electrode::resetStartingCondition()",
 			       "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
 	}
@@ -4110,7 +4110,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     /*
      *  Make sure that tfinal and tfinal_final_ are the same. This is a comfort condition
      */
-    if (fabs(tfinal_ - t_final_final_) > (1.0E-9 * tbase)) {
+    if (fabs(tfinal_ - t_final_final_) > (1.0E-13 * tbase)) {
         throw CanteraError("Electrode::resetStartingCondition()",
                            "tfinal_ " + fp2str(tfinal_) + " is not equal to t_final_final_ " + fp2str(t_final_final_) + 
                            " This condition is needed for some transfers.");
@@ -4246,11 +4246,25 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
 
     // Reset the particle size
     if (setInitInit) {
-        if (fabs(tfinal_ - t_init_init_) > 1.0E-40) {
-        if (pendingIntegratedStep_) {
-            throw CanteraError("Electrode::setInitStateFromFinal(true)",
-                               "Function called to overwrite init_init during a pending step");
+#ifdef DEBUG_MODE
+        if (tfinal_ != t_init_init_) {
+        if (pendingIntegratedStep_ ) {
+            printf("ElectrodesetInitStateFromFinal(): t_final_ = %20.13E, t_init_init_ = %20.13E\n",
+                        tfinal_ , t_init_init_);
         }
+        }
+        if (pendingIntegratedStep_ ) {
+        if (tfinal_ != t_init_init_) {
+            printf("ElectrodesetInitStateFromFinal(): t_final_ = %20.13E, t_init_init_ = %20.13E\n",
+                        tfinal_ , t_init_init_);
+        }
+        }
+#endif
+        if (fabs(tfinal_ - t_init_init_) > 1.0E-40) {
+            if (pendingIntegratedStep_) {
+                throw CanteraError("Electrode::setInitStateFromFinal(true)",
+                                   "Function called to overwrite init_init during a pending step");
+            }
         }
         Radius_exterior_init_init_ = Radius_exterior_final_;
     }
@@ -4278,7 +4292,7 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
             xmlExternalData_init_init_ = new XML_Node(*xmlExternalData_final_);
         }
     }
-
+    // Set the times to the final time
     tinit_ = tfinal_;
     //t_final_final_ = tfinal_;
     if (setInitInit) {

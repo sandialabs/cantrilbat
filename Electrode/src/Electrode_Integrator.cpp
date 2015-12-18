@@ -666,7 +666,7 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
      * If the initial time is input, then the code doesn't advance
      */
     double tbase = MAX(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doResetAlways) {
         resetToInitInit = true;
         //return;
     }

@@ -45,23 +45,37 @@ namespace Cantera
 //!  more widely in the future later.
 enum SOURCES
 {
-    CURRENT_SOURCE,
+    //! Source of the current
+    CURRENT_SOURCE = 0,
     ELECTROLYTE_PHASE_SOURCE,
     ENTHALPY_SOURCE,
     SPECIES_SOURCE,
+    VOLUME_SOURCE,
+
+    //! End of the Source list
     MAX_SOURCE
 };
 
-//!  The DOFS enum lists the independent degrees of freedom that the electrode object can
-//!  handle. This is currently only used in the Jacobian wrapper. However, it may be used
-//!  more widely in the future later.
+//!  The DOFS enum lists the independent degrees of freedom that the electrode object can handle. 
+//!  This is currently only used in the Jacobian wrapper. However, it may be used more widely in the future.
 enum DOFS
 {
-    SOLID_VOLTAGE,
+    //! Electrode electric (Galvani) potential within the electrode
+    SOLID_VOLTAGE = 0,
+
+    //! Electrolyte electric (Galvani) potential within the electrode
     LIQUID_VOLTAGE,
+
+    //! Temperature within the local cell
     TEMPERATURE,
+ 
+    //! Pressure within the electrolyte (Pascals)
     PRESSURE,
+
+    //! Species
     SPECIES,
+
+    //! End of the dolf list
     MAX_DOF
 };
 
@@ -728,8 +742,12 @@ public:
      *  This function advances the initial state to the final state that was calculated
      *  in the last integration step.
      *
-     * @param Tinitial   This is the new initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
+     * @param[in]      Tinitial        This is the new initial time. This time is compared against the "old"
+     *                                 final time, to see if there is any problem.
+     *
+     * @param[in]      doTestsAlways   Assume that we are resetting the current time step after a successful new
+     *                                 time step
+     *                                 
      */
     virtual void resetStartingCondition(double Tinitial, bool doTestsAlways = false);
 
