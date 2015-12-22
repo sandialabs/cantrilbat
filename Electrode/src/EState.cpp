@@ -311,7 +311,7 @@ XML_Node* EState::write_electrodeState_ToXML() const
     ctml::addFloat(*x, "relativeElectronsDischargedPerMole", relativeElectronsDischargedPerMole_, "");
     ctml::addFloat(*x, "relativeDepthOfDischarge", relativeDepthOfDischarge_, "");
     ctml::addFloat(*x, "capacityDischargedToDate", capacityDischargedToDate_, "coulomb");
-    ctml::addFloat(*x, "electronKmolDischargedToDate", electronKmolDischargedToDate_, "kmol");
+    //ctml::addFloat(*x, "electronKmolDischargedToDate", electronKmolDischargedToDate_, "kmol");
     ctml::addFloat(*x, "deltaTsubcycle_init_next", deltaTsubcycle_init_next_, "s");
 
     return x;
@@ -437,11 +437,14 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     relativeElectronsDischargedPerMole_ = ctml::getFloat(xmlEState, "relativeElectronsDischargedPerMole", "toSI");
     relativeDepthOfDischarge_ = ctml::getFloat(xmlEState, "relativeDepthOfDischarge", "toSI");
     capacityDischargedToDate_ = ctml::getFloat(xmlEState, "capacityDischargedToDate", "toSI");
-    if (xmlEState.hasChild("electronKmolDischargedToDate")) {
-	electronKmolDischargedToDate_ = ctml::getFloat(xmlEState, "electronKmolDischargedToDate", "toSI");
-    } else {
-	electronKmolDischargedToDate_ =  capacityDischargedToDate_ / Cantera::Faraday;
+    // if (xmlEState.hasChild("electronKmolDischargedToDate")) {
+    //	electronKmolDischargedToDate_ = ctml::getFloat(xmlEState, "electronKmolDischargedToDate", "toSI");
+    //  } else {
+    electronKmolDischargedToDate_ =  capacityDischargedToDate_ / Cantera::Faraday;
+    if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
+	electronKmolDischargedToDate_ *= -1.0;
     }
+    
     deltaTsubcycle_init_next_ = ctml::getFloat(xmlEState, "deltaTsubcycle_init_next", "toSI");
 }
 //======================================================================================================================
@@ -518,7 +521,7 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     e->Radius_exterior_final_             = radiusExterior_;
     e->surfaceAreaRS_final_               = surfaceAreaRS_;
     e->depthOfDischargeStarting_          = depthOfDischargeStarting_;
-    e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Cantera::Faraday;
+    // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Cantera::Faraday;
     e->electronKmolDischargedToDate_      = electronKmolDischargedToDate_;
     e->setCapacityType(electrodeCapacityType_);
 
