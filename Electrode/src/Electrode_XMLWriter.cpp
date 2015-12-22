@@ -165,6 +165,7 @@ void Electrode::addtoXML_TI_final(bool notDone)
 //  Returns true if the step was successful, and false otherwise
 bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
 {
+    std::string fmt = "%22.14E";
     //
     //   There may be situations when we haven't created the state data. When that happens we will create the
     //   the state data right here. This currently occurs for writing out initial conditions.
@@ -179,7 +180,7 @@ bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
 	ts.addAttribute("type", "t_final");
 	ts.addAttribute("domain", electrodeDomainNumber_);
 	ts.addAttribute("cellNumber", electrodeCellNumber_);
-	ts.addChild("time", tfinal_);
+	ts.addChild("time", tfinal_, fmt);
 	//
 	//  Add information from the saved solution to the record. (Lengthy operation)
 	//
