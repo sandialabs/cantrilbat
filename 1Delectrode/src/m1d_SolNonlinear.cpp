@@ -444,7 +444,7 @@ SolNonlinear::get_res(const double time_curr,
   m_resid_scaled = false;
 }
 
-//=====================================================================================================================
+//===================================================================================================================================
 void
 SolNonlinear::scaleMatrix(Epetra_Vector_Owned &delta_soln,
                           const Epetra_Vector_Ghosted &y_curr,

@@ -147,11 +147,9 @@ public:
 
   //! Get the row scales for the matrix
   /*!
-   * In this calculation we sum up the absolute value of
-   * all elements on a row. Then take the inverse.
+   * In this calculation we sum up the absolute value of all elements on a row. Then take the inverse.
    *
-   * @param rowScales  Epetra_Vector of length num local
-   *                   equations on the processor.
+   * @param rowScales  Epetra_Vector of length num local  equations on the processor.
    */
   void
   getRowScales(Epetra_Vector * const rowScales) const;

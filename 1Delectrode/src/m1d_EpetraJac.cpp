@@ -445,11 +445,9 @@ EpetraJac::fillVbr()
 //=====================================================================================================================
 // Get the row scales for the matrix
 /*
- * In this calculation we sum up the absolute value of
- * all elements on a row. Then take the inverse.
+ * In this calculation we sum up the absolute value of all elements on a row. Then take the inverse.
  *
- * @param rowScales  Epetra_Vector of length num local
- *                   equations on the processor.
+ * @param rowScales  Epetra_Vector of length num local equations on the processor.
  */
 void
 EpetraJac::getRowScales(Epetra_Vector * const rowScales) const
@@ -478,6 +476,7 @@ EpetraJac::rowScale(const Epetra_Vector * const rowScales)
   if (m_factored) {
     throw m1d_Error("EpetraJac::rowScale", "matrix is factored");
   }
+  // multiply each row of the matrix by a single scale.
   A_->LeftScale(*rowScales);
   m_rowScaled = true;
 }

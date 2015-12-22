@@ -3872,7 +3872,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                         oldVaxial = newVaxial;
                     }
 
-                    ss.print0(" %-11.5E ", v);
+                    ss.print0(" %-11.4E ", v);
                 }
             }
             ss.print0("\n");
@@ -3927,7 +3927,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                         oldVaxial = newVaxial;
                     }
 
-                    ss.print0(" %-11.5E ", v);
+                    ss.print0(" % -11.4E ", v);
                 }
                 ss.print0("\n");
             }
@@ -3954,10 +3954,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
             ss.print0("%s    %-10.4E ", ind, x);
-            ss.print0("%11.4E ", deltaV_Cell_[iCell]);
-            ss.print0("%11.4E ", Ess_Surf_Cell_[nSurfsElectrode_ * iCell]);
-            ss.print0("%11.4E ", overpotential_Surf_Cell_[nSurfsElectrode_ * iCell]);
-            ss.print0("%11.4E ", icurrRxn_Cell_[iCell]);
+            ss.print0("% -11.4E ", deltaV_Cell_[iCell]);
+            ss.print0("% -11.4E ", Ess_Surf_Cell_[nSurfsElectrode_ * iCell]);
+            ss.print0("% -11.4E ", overpotential_Surf_Cell_[nSurfsElectrode_ * iCell]);
+            ss.print0("% -11.4E ", icurrRxn_Cell_[iCell]);
             ss.print0("\n");
         }
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
@@ -3986,12 +3986,12 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	    double volCell =  crossSectionalArea_ * xdelCell_Cell_[iCell];
             x = nv->xNodePos();
             ss.print0("%s  %4d  %-10.4E ", ind, iGbNode, x);
-            ss.print0("%11.4E ", porosity_Cell_[iCell]);
+            ss.print0("% -11.4E ", porosity_Cell_[iCell]);
 	    double vole = nVol_zeroStress_Electrode_Cell_[iCell];
 	    double vfE = vole / volCell;
-	    ss.print0("%11.4E ", vfE);
+	    ss.print0("% -11.4E ", vfE);
 	    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
-		ss.print0("%11.4E ", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase]);
+		ss.print0("% -11.4E ", volumeFraction_Phases_Cell_[numExtraCondensedPhases_ * iCell + jPhase]);
 	    }
             ss.print0("\n");
         }
@@ -4015,10 +4015,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
             ss.print0("%s    %-10.4E ", ind, x);
-            ss.print0("%11.4E ", surfaceArea_Cell_[iCell]);
-            ss.print0("%11.4E ", surfaceArea_Cell_[iCell] / xdelCell_Cell_[iCell]);
-            ss.print0("%11.4E ", icurrInterfacePerSurfaceArea_Cell_[iCell]);
-            ss.print0("%11.4E ", xdelCell_Cell_[iCell]);
+            ss.print0("% -11.4E ", surfaceArea_Cell_[iCell]);
+            ss.print0("% -11.4E ", surfaceArea_Cell_[iCell] / xdelCell_Cell_[iCell]);
+            ss.print0("% -11.4E ", icurrInterfacePerSurfaceArea_Cell_[iCell]);
+            ss.print0("% -11.4E ", xdelCell_Cell_[iCell]);
             ss.print0("\n");
         }
         print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
@@ -4041,10 +4041,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
             ss.print0("%s  %4d  %-10.4E ", ind, iGbNode, x);
-            ss.print0("%11.4E ", capacityDischargedPA_Cell_[iCell]);
-            ss.print0("%11.4E ", depthOfDischargePA_Cell_[iCell]);
-            ss.print0("%11.4E ", capacityLeftPA_Cell_[iCell]);
-            ss.print0("%11.4E ", capacityPA_Cell_[iCell]);
+            ss.print0("% -11.4E ", capacityDischargedPA_Cell_[iCell]);
+            ss.print0("% -11.4E ", depthOfDischargePA_Cell_[iCell]);
+            ss.print0("% -11.4E ", capacityLeftPA_Cell_[iCell]);
+            ss.print0("% -11.4E ", capacityPA_Cell_[iCell]);
 
             ss.print0("\n");
         }
@@ -4124,7 +4124,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     //   	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
     //   	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
     //   	double Solid_Stress_Axial = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial];
-    //   	ss.print0("%s %d-%d   %11.4E ",ind,iCell-1,iCell, Solid_Stress_Axial);
+    //   	ss.print0("%s %d-%d   % -11.4E ",ind,iCell-1,iCell, Solid_Stress_Axial);
     //   	ss.print0("\n");
     //   }
       
@@ -4152,24 +4152,24 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                 nvr = gi->NodalVars_GbNode[BDD_.FirstGbNode];
                 x = nvr->xNodePos();
                 ss.print0("Lft-0     %11.4E ", x);
-                ss.print0("%11.4E ", icurrElectrolyte_CBL_[0]);
-                ss.print0("%11.4E", icurrElectrode_CBL_[0]);
+                ss.print0("% -11.4E ", icurrElectrolyte_CBL_[0]);
+                ss.print0("% -11.4E", icurrElectrode_CBL_[0]);
 
             } else if (iGbNode == BDD_.LastGbNode) {
                 iCell = BDD_.LastGbNode - BDD_.FirstGbNode;
                 nvr = gi->NodalVars_GbNode[BDD_.LastGbNode];
                 x = nvr->xNodePos();
                 ss.print0("%3d-Rgt   %11.4E ", iCell, x);
-                ss.print0("%11.4E ", icurrElectrolyte_CBR_[iCell]);
-                ss.print0("%11.4E ", icurrElectrode_CBR_[iCell]);
+                ss.print0("% -11.4E ", icurrElectrolyte_CBR_[iCell]);
+                ss.print0("% -11.4E ", icurrElectrode_CBR_[iCell]);
             } else {
                 iCell = iGbNode - BDD_.FirstGbNode;
                 nvl = gi->NodalVars_GbNode[iGbNode];
                 nvr = gi->NodalVars_GbNode[iGbNode + 1];
                 x = 0.5 * (nvl->xNodePos() + nvr->xNodePos());
-                ss.print0("%3d-%-3d   %11.4E ", iCell, iCell + 1, x);
-                ss.print0("%11.4E ", icurrElectrolyte_CBR_[iCell]);
-                ss.print0("%11.4E ", icurrElectrode_CBR_[iCell]);
+                ss.print0("%3d-%-3d   % -11.4E ", iCell, iCell + 1, x);
+                ss.print0("% -11.4E ", icurrElectrolyte_CBR_[iCell]);
+                ss.print0("% -11.4E ", icurrElectrode_CBR_[iCell]);
             }
             ss.print0("\n");
         }
