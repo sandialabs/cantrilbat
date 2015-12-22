@@ -469,11 +469,27 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& SimulationNode,
        ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
        for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
           NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
+	  size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
+          int istart = nv->EqnStart_GbEqnIndex;
+          (*soln_GLALL_ptr)[istart + offset] =  varContig[i];
+       }
+    }
+
+/*
+
+    for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
+       VarType vt = variableNameList[iVar];
+       i = 0;
+       std::string nmm = vt.VariableName(200);
+       ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
+       for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
+          NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
           int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
           int istart = nv->EqnStart_GbEqnIndex;
           (*soln_GLALL_ptr)[istart + ibulk + iVar] =  varContig[i];
        }
     }
+*/
 
 }
 //====================================================================================================================
