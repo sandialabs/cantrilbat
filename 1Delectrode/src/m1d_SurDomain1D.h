@@ -182,7 +182,7 @@ public:
   virtual void 
   readDomain(const Cantera::XML_Node& domainNode,
              Epetra_Vector * const soln_GlAll_ptr,
-             Epetra_Vector * const solnDot_GlAll_ptr);
+             Epetra_Vector * const solnDot_GlAll_ptr, double globalTimeRead);
 
 
   //!  Fill the vector isAlgebraic with the values from the DomainDescription

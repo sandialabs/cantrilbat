@@ -235,7 +235,7 @@ public:
     virtual void 
       readDomain(const Cantera::XML_Node& domainNode,
 		 Epetra_Vector* const soln_GlAll_ptr,
-		 Epetra_Vector* const solnDot_GlAll_ptr);
+		 Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 
     //! Fill up a vector indicating whether an unknown is an algebraic condition or not
     /*!

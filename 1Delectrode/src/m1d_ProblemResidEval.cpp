@@ -1257,7 +1257,7 @@ ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &
     //
     Domain1D *d_ptr = DL.SurDomain1D_List[0];
     do {
-	d_ptr->readDomain(*simulRecord, &y_n_ghosted, ydot_n_ghosted);
+	d_ptr->readDomain(*simulRecord, &y_n_ghosted, ydot_n_ghosted, t_read);
 
 
 	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);

@@ -321,12 +321,14 @@ public:
    * @param domainNode          Reference to the XML_Node to read the solution from
    * @param soln_GLALL_ptr      Pointer to the Global-All solution vector
    * @param solnDot_ptr         Pointer to the time derivative of the Global-All solution vector
+   * @param[in] globalTimeRead      Value of the global time that is read in. This is used for 
+   *                               comparison and quality control purposes
    *
    */
   virtual void 
   readDomain(const Cantera::XML_Node& domainNode,
              Epetra_Vector * const soln_GlAll_ptr,
-             Epetra_Vector * const solnDot_GlAll_ptr);
+             Epetra_Vector * const solnDot_GlAll_ptr, double globalTimeRead);
 
 
   //! Method for writing the header for the surface domain to a tecplot file.

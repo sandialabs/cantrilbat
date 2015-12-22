@@ -512,7 +512,7 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
 void
 SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
                         Epetra_Vector * const soln_GLALL_ptr,
-                        Epetra_Vector * const solnDot_GLALL_ptr)
+                        Epetra_Vector * const solnDot_GLALL_ptr, double globalTimeRead)
 {
     /*
      *   Find the global node number of the node where this surface domain resides

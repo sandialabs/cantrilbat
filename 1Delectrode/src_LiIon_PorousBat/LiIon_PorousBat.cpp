@@ -427,6 +427,7 @@ main(int argc, char** argv)
         t1.setMaxStep(PSinput.MaxTimeStep_);
         t1.setMinStep(PSinput.MinTimeStep_);
         t1.setTimeStep_AUD(PSinput.TimeStep_AUD_);
+        //t1.setInitialTimeStep(PSinput.initialTimeStep_);
 
         /*
          * Start the simulation
@@ -454,7 +455,6 @@ main(int argc, char** argv)
 
         for (step = stepTimes.begin(); step != stepTimes.end(); step++)  {
 
-            //t1.setInitialTimeStep(PSinput.initialTimeStep_);
 
             fprintf(stderr, "BOUNDARY CONDITION time step until %f\n", *step);
 

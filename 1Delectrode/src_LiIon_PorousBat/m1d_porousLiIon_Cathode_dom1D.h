@@ -306,7 +306,7 @@ public:
     virtual void
     readDomain(const Cantera::XML_Node& domainNode,
                Epetra_Vector* const soln_GlAll_ptr,
-               Epetra_Vector* const solnDot_GlAll_ptr);
+               Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 
     //! Base class for saving the solution on the domain in an xml node.
     /*!

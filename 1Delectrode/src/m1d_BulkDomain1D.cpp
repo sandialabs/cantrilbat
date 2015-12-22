@@ -412,7 +412,7 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
 //     
 void
 BulkDomain1D::readDomain(const Cantera::XML_Node& SimulationNode,
-                         Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr)
+                         Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr, double globalTimeRead)
 {
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;

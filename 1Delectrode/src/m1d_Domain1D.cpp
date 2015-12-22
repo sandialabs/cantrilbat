@@ -320,13 +320,13 @@ Domain1D::readSimulation(const Cantera::XML_Node& simulationNode,
     if (!domainNode) {
 	throw m1d_Error("Domain1D::readSimulation()", "cant find domain node" + ida);
     }
-    readDomain(*domainNode, soln_GLALL_ptr, solnDot_GLALL_ptr);
+    readDomain(*domainNode, soln_GLALL_ptr, solnDot_GLALL_ptr, -1.0);
 }
 //====================================================================================================================
 void
 Domain1D::readDomain(const Cantera::XML_Node& oNode,
                      Epetra_Vector * const soln_GLALL_ptr,
-                     Epetra_Vector * const solnDot_GLALL_ptr)
+                     Epetra_Vector * const solnDot_GLALL_ptr, double globalTimeRead)
 {
   err("readDomain()");
 }

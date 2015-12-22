@@ -324,7 +324,7 @@ public:
     virtual void
     readDomain(const Cantera::XML_Node& domainNode,
 	       Epetra_Vector* const soln_GlAll_ptr,
-	       Epetra_Vector* const solnDot_GlAll_ptr);
+	       Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 
     //! Method for writing the header for the surface domain to a tecplot file.
     /*!

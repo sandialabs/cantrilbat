@@ -172,6 +172,8 @@ End Time = 100.0
 ! Initial Time Step - double (required)
 !
 !  Simulation initial time step
+!  Note, that if you set it to zero or negative on restart runs, the time step chosen
+!  for the first restart delta T will be the time step from the restart solution file.
 !
 !---------------------------------------------------------------------------------------
 Initial Time Step = 1.0E-8

@@ -3134,7 +3134,8 @@ porousLiIon_Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
 //     
 void
 porousLiIon_Cathode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
-				      Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr)
+				      Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr, 
+                                      double globalTimeRead)
 {
    // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
@@ -3209,7 +3210,12 @@ porousLiIon_Cathode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
                             "Can't find cell number " + int2str(cellNum));
         }
         //  Read the state into the electrode object
-        ee->loadTimeStateFinal(*xCell);
+        double timeE = ee->loadTimeStateFinal(*xCell);
+	if (globalTimeRead >= 0.0) {
+	    if (globalTimeRead != timeE) {
+		ee->setTime(globalTimeRead);
+            }
+	}
     }
 }
 
