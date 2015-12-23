@@ -1,0 +1,166 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Electrode Name
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiCoO2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+!-------------------------------------------------------------------------
+!   Electrode Model Name
+!
+!--------------------------------------------------------------------------
+!  Electrode Model Name = CSTR_LiCoO2Cathode
+Electrode Model Name = SimpleDiff
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 4
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+Cantera File Name = LiCoO2_Margules_1.xml
+Cantera File Name = LiCoO2Cathode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+!   This is Rad3 input in dualfoil.in input deck
+!
+Particle Diameter = 10 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+! Particle Number to Follow = 2.0E8 
+!-------------------------------------------------------------------------
+!
+!  This is ep3 volume fraction of electrolyte in positive electrode
+!
+Electrode Porosity = 0.36
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Area - [m^2]
+!
+Electrode Gross Area = 1.0E-4  m2
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Diameter - [m]
+! 
+! Electrode Gross Diameter = 0.05652 m
+!
+!-------------------------------------------------------------------------
+! 
+! Electrode Gross Thickness - [m]
+!
+!   This is h3 in the Dualfoil5 input deck
+!
+Electrode Gross Thickness = 60.0E-6 m
+!
+!-------------------------------------------------------------------------
+!
+!      BLOCK:  Open Circuit voltage Override for interface   [optional] [unique block]
+!
+!         Inclusion of this block means that the open circuit voltage for the reactions involving one
+!         species is replaced by an analytical expression that is supplied via utility routines.
+!         What this means in practice is that the thermodynamic expression for one species is
+!         replaced with a value which creates that desired OCV.
+!
+!         In the common case of an intercalated solid, the thermo of one of the intercalated species
+!         is replaced with the thermo dictated by the OCV. This means that the particular species to be
+!         replaced must be identified, as well as the particular reaction, whose OCV expression
+!         (deltaG) is to be specified, must be identified.
+!
+!         Note, in most cases there will only be one reaction on these surfaces, due to the incomplete
+!         thermo representation.
+!
+!start block Open Circuit Potential Override for interface  cathode_surface
+!   Open Circuit Voltage Model = CoO2_dualfoil
+!   Replaced Species = LiCoO2
+!   Identify Reaction for OCV Model = 0
+!   Temperature Derivative =  MODEL
+!   Temperature for OCV = 298.15
+!   Open Circuit Voltage Temperature Derivative Model = Constant 0.0
+! end block Open Circuit Potential Override for interface cathode_surface
+!
+!--------------------------------------------------------------------------------------------------------------
+!
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.0780266
+       PF6-  = 0.0780266
+       ECDMC = 0.8439468
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase ECDMC_LiPF6
+
+
+Number of Regions = 1
+
+start block Radial Diffusion Region = simple_whole
+  Index of the Region = 0
+  Number of Cells in Region = 3
+  Phase Names within distributed region = LiCoO2_Margules_1
+!  dfs3 in dualfoil input deck
+  Default Diffusion Coefficient = 1.0E-13
+end block Radial Diffusion Region
+
+
+start block Bath Specification for Phase LiCoO2_Margules_1
+   Phase Moles = 1.0E-10
+   start block Bath Species Mole Fraction
+       CoO2   = 0.4
+       LiCoO2 = 0.6
+   End block Bath Species Mole Fraction
+
+   Start block Capacity Left Coefficients
+       CoO2   = 1.0
+       LiCoO2 = 0.0
+   End block Capacity Left Coefficients
+
+   Start block Capacity At Zero DoD Coefficients
+       CoO2   = 1.0
+       LiCoO2 = 1.0
+   End block Capacity At Zero DoD Coefficients
+end block Bath Specification for Phase LiCoO2_Margules_1
+
+!-------------------------------------------------------------------------
+diffusive Flux Model = 1
+!-------------------------------------------------------------------------
+
+
+
+# Capacity Discharged Per Initial Mole = 0.0
+
+
+
