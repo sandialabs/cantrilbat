@@ -1084,7 +1084,7 @@ public:
 	 */
         integrate_ResidJacEval(Electrode* ee);
 
-        //! Evaluate the residual function
+        //! Evaluate the residual function using a numerical jacobian
         /*!
          * @param t             Time                    (input)
          * @param delta_t       The current value of the time step (input)
@@ -1128,6 +1128,10 @@ public:
         //! Pointer that is used as a self-reference
         Electrode* ee_;
     };
+
+
+
+
     // -----------------------------------------------------------------------------------------------------------------
 
 // Deprecate
@@ -1711,7 +1715,7 @@ public:
      *
      *   @return                        Returns the OCV (volts)
      */
-    virtual double  openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
+    virtual double openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
 
     //! Returns the vector of OCV's for all reactions on the selected ReactingSurfaceDomain for the
     //! current conditions.
