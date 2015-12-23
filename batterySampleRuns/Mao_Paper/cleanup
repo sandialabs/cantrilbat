@@ -1,0 +1,5 @@
+/bin/rm -rf *.diff *.ddiff *.testout *.testdout vcs_equilibrate_res.csv err* \
+  out.txt \
+  dout.txt \
+  douta.txt \
+  outa.txt diff*

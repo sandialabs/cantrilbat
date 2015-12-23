@@ -1,0 +1,98 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+
+  <phase dim="3" id="LiCoO2_Interstitials_cathode">
+    <elementArray datasrc="elements.xml">
+       Li Co  O
+    </elementArray>
+    <speciesArray datasrc="#species_LiCoO2"> 
+        LiCoO2 CoO2
+    </speciesArray>
+    <thermo model="Redlich-Kister">
+      <activityCoefficients model="Redlich-Kister" TempModel="constant">
+         <binaryNeutralSpeciesParameters speciesA="LiCoO2" speciesB="CoO2">
+            <excessEnthalpy model="poly_Xb" terms="8" units="J/kmol">
+                6.483E09,
+               -6.517E09,
+                6.566E09,
+               -6.579E09,
+                6.302E09,
+               -5.047E09,
+                2.711E09,
+               -6.905E08
+            </excessEnthalpy>
+            <excessEntropy  model="poly_Xb" terms="8" units="J/kmol/K">
+                   0.0,
+                   0.0,
+                   0.0,
+                   0.0,
+                   0.0,
+                   0.0,
+                   0.0,
+                   0.0,
+            </excessEntropy>
+          </binaryNeutralSpeciesParameters>
+       </activityCoefficients> 
+       <density units="kg/m3"> 1.0 </density>
+    </thermo>
+    <kinetics model="none"/>
+    <state>
+       <temperature> 298.15 </temperature>
+       <pressure units="atm"> 1.0 </pressure>
+       <moleFractions> 
+         LiCoO2:0.676  CoO2:0.324 
+       </moleFractions>
+    </state>
+    <realNumberRangeBehavior>
+        DONOTHING
+    </realNumberRangeBehavior>
+
+  </phase>
+
+  <!-- species definitions     -->
+  <speciesData id="species_LiCoO2">
+
+    <species name="LiCoO2">
+      <atomArray> Li:1 Co:1 O:2 </atomArray>
+      <thermo>     
+        <const_cp Tmax="5000.0" Tmin="100.0">
+           <t0 units="K">298.14999999999998</t0>
+           <!--  Adjustment to um_li = 0.0 basis -->
+           <!-- <h0 units="kJ/mol">    2.857E3  </h0> -->
+           <!--  Adjustment to H_li = 0.0 basis is below -->
+           <h0 units="kJ/mol">    2848.328304 </h0>
+           <s0 units="J/mol/K">   0.0   </s0>
+           <cp0 units="J/kmol/K"> 0.0   </cp0>
+        </const_cp>
+      </thermo>
+      <!-- molar volumes
+        Molar volumes are from dualfoil and other sources, which put 5010 kg / m3 as the
+        density. (Others put it as 5.06 gm cm-3.
+        Then using 97 kg / kmol gets you to the Vbar value.
+        unit cell is = 3/2 a**2 sqrt(3) c , which contains 3 formula units of LiCoO2.
+      -->
+      <standardState  model="constant_incompressible">
+          <molarVolume units="m3/kmol"> 0.01947544 </molarVolume>
+      </standardState>
+    </species>
+
+    <species name="CoO2">
+      <atomArray>  Co:1 O:2 </atomArray>
+      <thermo>
+        <const_cp Tmax="5000.0" Tmin="100.0">
+           <t0 units="K">298.14999999999998</t0>
+           <h0 units="kJ/mol">    0.0   </h0>
+           <s0 units="J/mol/K">   0.0   </s0>
+           <cp0 units="J/kmol/K"> 0.0   </cp0>
+        </const_cp>
+      </thermo>
+      <standardState  model="constant_incompressible">
+          <molarVolume units="m3/kmol"> 0.01947544 </molarVolume>
+      </standardState>
+    </species>
+
+  </speciesData>
+
+</ctml>
