@@ -337,6 +337,12 @@ protected:
      */
     Cantera::Array2D elem_Solid_Old_Cell_;
 
+    //! Counter to calculate the number of electrode subcycles
+    /*!
+     *  Vector is over the number of electrode objects
+     */
+    std::vector<int> numElectrodeSubCycles_Cell_;
+
 };
 //======================================================================================================================
 }

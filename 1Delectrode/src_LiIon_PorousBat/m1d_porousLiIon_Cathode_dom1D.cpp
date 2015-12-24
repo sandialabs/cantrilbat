@@ -1806,6 +1806,7 @@ porousLiIon_Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
          */
         int numSubcycles = calcElectrode();
         maxElectrodeSubIntegrationSteps_ = std::max(maxElectrodeSubIntegrationSteps_, numSubcycles);
+        numElectrodeSubCycles_Cell_[iCell] = numSubcycles;
 	//
 	//  Get the total lyte, total solid and total cell heat capacity of the current cell
 	//  Store them in vectors for later use.
@@ -4044,7 +4045,9 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         // -----------------------------------------------------------------------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 80);
-        ss.print0("%s  iGbNode  z    capDischarged DepthDischge  capLeft  capZeroDOD  ", ind);
+        ss.print0("%s  iGbNode  z    capDischarged DepthDischge  capLeft  capZeroDOD  numSubSteps", ind);
+        ss.print0("\n");
+        ss.print0("%s          (m)      (coul/m2)   (coul/m2)   (coul/m2)   (coul/m2)", ind);
         ss.print0("\n");
         drawline0(indentSpaces, 80);
     }
@@ -4059,6 +4062,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ss.print0("% -11.4E ", depthOfDischargePA_Cell_[iCell]);
             ss.print0("% -11.4E ", capacityLeftPA_Cell_[iCell]);
             ss.print0("% -11.4E ", capacityPA_Cell_[iCell]);
+            ss.print0("  %6d  ", numElectrodeSubCycles_Cell_[iCell]);
 
             ss.print0("\n");
         }

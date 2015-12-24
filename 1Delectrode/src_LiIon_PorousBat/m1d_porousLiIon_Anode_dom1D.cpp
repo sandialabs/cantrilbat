@@ -792,9 +792,11 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     //
     // for the porous matrix, assume grain locking, and use the same values. 
     //    double Thermal_Expansion = 50e-6;
+#ifdef MECH_MODEL
     double poisson = 0.45;
     double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
     double Eyoung = 3*BulkMod*(1.0 - 2*poisson);
+#endif
     //    double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
     
     //mole fraction fluxes
@@ -1780,6 +1782,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
          */
         int numSubcycles = calcElectrode();
         maxElectrodeSubIntegrationSteps_ = std::max(maxElectrodeSubIntegrationSteps_, numSubcycles);
+        numElectrodeSubCycles_Cell_[iCell] = numSubcycles;
 	//
 	//  Get the total lyte, total solid and total cell heat capacity of the current cell
 	//  Store them in vectors for later use.
@@ -3311,6 +3314,7 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid ; //only proc 0 should write
 
+#define NEW_TECPLOTA
     if (doWrite) {
 
         double deltaTime = t_final_ - t_init_;
@@ -3324,7 +3328,9 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
         //! Last Global node of this bulk domain
         int lastGbNode = BDD_.LastGbNode;
         int numNodes = lastGbNode - firstGbNode + 1;
+#ifndef NEW_TECPLOTA
 	std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+#endif
 	std::vector<double> vars(numNodes);
         //
         //use SetupThermoShop methods to prepare for thermo model evaluation
@@ -3336,7 +3342,6 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
         char filename[20];
         sprintf(filename,"%s%s",sss.c_str(),".dat");
         ofp = fopen(filename, "a");
-#define NEW_TECPLOTA
 #ifndef NEW_TECPLOTA
         fprintf(ofp, "ZONE T = \"t = %g [s]\" I = %d SOLUTIONTIME = %19.13E\n", t, numNodes, t);
 
@@ -4019,7 +4024,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         // -----------------------------------------------------------------------------------------------------------------
         ss.print0("\n");
         drawline0(indentSpaces, 80);
-        ss.print0("%s        z    capDischarged DepthDischged capLeft    capZeroDOD", ind);
+        ss.print0("%s        z    capDischarged DepthDischged capLeft    capZeroDOD  numSubSteps", ind);
         ss.print0("\n");
         ss.print0("%s       (m)      (coul/m2)   (coul/m2)   (coul/m2)   (coul/m2)", ind);
         ss.print0("\n");
@@ -4038,6 +4043,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ss.print0("% -11.4E ", depthOfDischargePA_Cell_[iCell]);
             ss.print0("% -11.4E ", capacityLeftPA_Cell_[iCell]);
             ss.print0("% -11.4E ", capacityPA_Cell_[iCell]);
+	    ss.print0("  %6d  ", numElectrodeSubCycles_Cell_[iCell]);
 
             ss.print0("\n");
         }

@@ -90,6 +90,7 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     EnthalpyPhiPM_metal_Curr_        = r.EnthalpyPhiPM_metal_Curr_;
     metalPhase_                      = r.metalPhase_;
     elem_Solid_Old_Cell_             = r.elem_Solid_Old_Cell_;
+    numElectrodeSubCycles_Cell_      = r.numElectrodeSubCycles_Cell_;
     
     return *this;
 }
@@ -131,6 +132,8 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     Electrode* ee = bdde->Electrode_;
     int neSolid = ee->nElements();
     elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
+    numElectrodeSubCycles_Cell_.resize(NumLcCells, 0.0);
+
     /*
      *  Note, in child objects we would call instantiate_ElectrodeCells(). However, we don't have enough
      *  information to create electrode objects here.
