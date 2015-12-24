@@ -2020,8 +2020,11 @@ ProblemResidEval::deltaSolnComp(const Epetra_Vector & soln, const int ieqn)
    *  a serious algorithm.
    */
   double base = soln[ieqn];
-  double delta = 1.0E-6 * fabs(base) + 1.0E-9;
+  // Base treatment.
+  //double delta = 1.0E-6 * fabs(base) + 1.0E-9;
   //double delta = 1.0E-3 * fabs(base) + 1.0E-3;
+  double delta = 1.0E-4 * fabs(base) + 1.0E-9 + (*m_atolVector)[ieqn];
+
   return (base + delta);
 }
 //======================================================================================================================

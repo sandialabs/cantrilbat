@@ -1413,8 +1413,11 @@ topConvergence:
                 deltaTsubcycleNext_ = relativeLocalToGlobalTimeStepMinimum_ * deltaT;
             }
         }
-
+        /*
+         *  Find the deltaTsubcycleNext_ for delta jacobians calculations 
+         */
        	if (subIntegrationType == FVDELTA_TIMEINTEGRATION_SIR || subIntegrationType == FIXEDSUBCYCLENUMBER_TIMEINTEGRATION_SIR) {
+            // Check this out
 	    double tbase = timeHistory_base_.getNextRegularTime(tfinal_);
 	    if (tfinal_ > tbase * 1.00000000001) {
 		timeHistory_base_.advanceTimeStepCounter();
@@ -1424,7 +1427,7 @@ topConvergence:
 	    
 	    // we may compare the calculated deltaTnew with the base deltaTnew here if we want.
 	    if (dtNew >  deltaTsubcycleNext_ * 1.001) {
-		printf("Warning\n");
+		//printf("Warning\n");
 	    }
 	    // Right now, let's just assign it.
 	    deltaTsubcycleNext_ = dtNew;
@@ -1841,7 +1844,7 @@ void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
  *   There is a default algorithm provided.
  *
  *        delta_y[i] = atol[i] + 1.0E-6 ysoln[i]
- *        delta_y[i] = atol[i] + MAX(1.0E-6 ysoln[i] * 0.01 * solnWeights[i])
+ *        delta_y[i] = atol[i] + MAX(1.0E-6 ysoln[i] , 0.01 * solnWeights[i])
  *
  * @param t             Time                    (input)
  * @param y             Solution vector (input, do not modify)
@@ -1857,7 +1860,7 @@ int Electrode_Integrator::calcDeltaSolnVariables(const doublereal t, const doubl
         const doublereal* const ySolnDot, doublereal* const deltaYSoln,
         const doublereal* const solnWeights)
 {
-    int retn = ResidJacEval::calcDeltaSolnVariables(t, ySoln, ySolnDot,deltaYSoln,solnWeights);
+    int retn = ResidJacEval::calcDeltaSolnVariables(t, ySoln, ySolnDot, deltaYSoln, solnWeights);
     return retn;
 }
 //==================================================================================================================
