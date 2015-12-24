@@ -1547,7 +1547,11 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
  
+#ifdef DEBUG_PRINT_CELL_TABLES
     int doPrint = 1;
+#else
+    int doPrint = 0;
+#endif
     int doTimes = 2;
     int nColsTable = 173;
 
@@ -1836,7 +1840,9 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 	    dVals.oldNEnthalpy += nEnthalpy_Old_Cell_[iCell];
 	    dVals.newNEnthalpy += nEnthalpy_New_Cell_[iCell];
 	}
-	drawline(1, nColsTable);
+        if (doPrint) {
+	    drawline(1, nColsTable);
+        }
     }
 }
 //==================================================================================================================================
@@ -1859,7 +1865,11 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     double xdelL; // Distance from the center node to the left node
     double xdelR; // Distance from the center node to the right node
     double xdelCell;
+#ifdef DEBUG_PRINT_CELL_TABLES
     int doPrint = 1;
+#else
+    int doPrint = 0;
+#endif
 
     // Initially, we'll limit it to Li transport, PF6- bal, and solvent balance
     int doTimes = 1;
