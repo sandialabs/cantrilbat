@@ -204,6 +204,8 @@ public:
     //! Thickness of the copper anode current collector
     double CCThickness_;
 
+    double TempCollector_;
+
 };
 
 //==================================================================================

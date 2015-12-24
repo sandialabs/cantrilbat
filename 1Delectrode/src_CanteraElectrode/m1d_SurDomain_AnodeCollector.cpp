@@ -168,6 +168,13 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
      *   equations.
      */
     int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    //
+    //  Store the entrance residual for later processing in balancing applications
+    //
+    if (residType == Base_ResidEval || residType == Base_ShowSolution) {
+        size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
+        TempCollector_ = soln[index_EqnStart + ieqnTemp];
+    }
 
     /*
      * get the offsets for the BulkDomain and the surface domain.

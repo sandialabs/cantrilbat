@@ -195,6 +195,8 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 	for (size_t i = 0; i < (size_t) NumNodeEqns; i++) {
 	    Resid_BeforeSurDomain_NE[i] = res[index_EqnStart + i];
 	}
+	size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
+	TempCollector =	soln[index_EqnStart + ieqnTemp];
     }
     /*
      * get the offsets for the BulkDomain and the surface domain.
@@ -516,6 +518,7 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
      // get the offset of the temperature
      //
      size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
+     
 
      /*
       * get the offsets for the BulkDomain and the surface domain.

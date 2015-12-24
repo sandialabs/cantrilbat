@@ -970,7 +970,7 @@ porousFlow_dom1D::thermalCondCalc_PorMatrix()
     //   Thermal conductivity of copper = 400. Watts m-1 K-1
     //   Thermal conductivity of aluminum = 200. Watts m-1 K-1
     //                        of olive oil = 0.16 Watts m-1 K-1
-    //                        of gravel = 0.7  .7  .7  .7  .7  .7  .7  Watts m-1 K-1
+    //                        of gravel = 0.7  Watts m-1 K-1
     // temp value
     //  Judging from above, we are not more that a factor of 2-3 off here. This may not be necessary to go into much
     //  more detail.

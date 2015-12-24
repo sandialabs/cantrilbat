@@ -750,6 +750,7 @@ BatteryResidEval::write_IV(const int ievent,
 
     double c_icurr = c_ptr->icurrCollector_;
     double phiCath = c_ptr->phiCathode_;
+    double TempCathodeCollector = c_ptr->TempCollector;
 
     //
     // The first domain is the surface anode collector
@@ -820,15 +821,16 @@ BatteryResidEval::write_IV(const int ievent,
 		fprintf(fp, "\"Discharged Anode Capacity [A-s/m2] \"\n");
 		fprintf(fp, "\"Anode Capacity Left [A-s/m2] \"\n");
 		fprintf(fp, "\"OCV_Quick [volts] \"\n");
+                fprintf(fp, "\"TemperatureCathode [K]\"\n");
 
 	    } else {
 		fp = fopen("timeDep_IV.dat", "a");
 	    }
 	    fprintf(fp, "   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E,   %15.5E ,  %15.5E ,"
-		    "  %15.5E,  %15.5E, %15.5E ,  %15.5E\n", 
+		    "  %15.5E,  %15.5E, %15.5E ,  %15.5E,   %15.5E\n", 
 		    time_current, phiCath, c_icurr, capacityCathodePA_, dodCathodePA_,
 		    capacityDischargedCathodePA_, capacityLeftCathodePA_, a_icurr,
-		    capacityAnodePA_, dodAnodePA_, capacityDischargedAnodePA_, capacityLeftAnodePA_, ocvQuick);
+		    capacityAnodePA_, dodAnodePA_, capacityDischargedAnodePA_, capacityLeftAnodePA_, ocvQuick, TempCathodeCollector);
 	}
 	fclose(fp);
 	//
