@@ -173,7 +173,11 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
     //
     if (residType == Base_ResidEval || residType == Base_ShowSolution) {
         size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
-        TempCollector_ = soln[index_EqnStart + ieqnTemp];
+        if (ieqnTemp != npos) {
+            TempCollector_ = soln[index_EqnStart + ieqnTemp];
+        } else {
+            TempCollector_ = TemperatureReference_;
+        }
     }
 
     /*
