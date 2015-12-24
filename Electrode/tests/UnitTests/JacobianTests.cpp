@@ -12,6 +12,16 @@
 namespace Cantera
 {
 
+class MockThermoPhase_lyte : public Cantera::ThermoPhase
+{
+public:
+  MockThermoPhase_lyte() : 
+    ThermoPhase()
+  {
+     m_kk = 3;
+  }
+};
+
 //! A mock electrode object to use in unit testing of Electrode_FD_Jacobian
 class MockElectrode : public Electrode
 {
@@ -26,6 +36,8 @@ public:
     metalPhase_ = 1;
     phaseVoltages_.resize(2);
     fake_electrolyte_mole_nums.resize(3);
+    NumVolPhases_ = 1;
+    VolPhaseList.push_back( new MockThermoPhase_lyte());
   }
 
   virtual ~MockElectrode() {}

@@ -1360,7 +1360,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =      -2.3444 coulombs = -0.000651222 Ah
+          Capacity Discharged Since Start =       2.3444 coulombs =  0.000651222 Ah
           Depth of Discharge (Current)    =      2.67479 coulombs
           Capacity Left                   =     0.100492 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.909584
@@ -1458,7 +1458,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =      -2.3475 coulombs = -0.000652084 Ah
+          Capacity Discharged Since Start =      2.34129 coulombs =   0.00065036 Ah
           Depth of Discharge (Current)    =      2.67789 coulombs
           Capacity Left                   =    0.0973881 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.910523
@@ -1556,7 +1556,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.35208 coulombs = -0.000653354 Ah
+          Capacity Discharged Since Start =      2.33672 coulombs =  0.000649089 Ah
           Depth of Discharge (Current)    =      2.68247 coulombs
           Capacity Left                   =    0.0928142 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.911908
@@ -1654,7 +1654,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.35875 coulombs = -0.000655209 Ah
+          Capacity Discharged Since Start =      2.33004 coulombs =  0.000647234 Ah
           Depth of Discharge (Current)    =      2.68914 coulombs
           Capacity Left                   =    0.0861356 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.913929
@@ -1752,7 +1752,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.36836 coulombs = -0.000657877 Ah
+          Capacity Discharged Since Start =      2.32044 coulombs =  0.000644566 Ah
           Depth of Discharge (Current)    =      2.69875 coulombs
           Capacity Left                   =    0.0765323 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.916836
@@ -1851,7 +1851,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.38179 coulombs =  -0.00066161 Ah
+          Capacity Discharged Since Start =        2.307 coulombs =  0.000640834 Ah
           Depth of Discharge (Current)    =      2.71219 coulombs
           Capacity Left                   =    0.0630952 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.920903
@@ -1950,7 +1950,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.39185 coulombs = -0.000664403 Ah
+          Capacity Discharged Since Start =      2.29695 coulombs =  0.000638041 Ah
           Depth of Discharge (Current)    =      2.72224 coulombs
           Capacity Left                   =    0.0530403 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.923946
@@ -2041,7 +2041,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.39185 coulombs = -0.000664403 Ah
+          Capacity Discharged Since Start =      2.29695 coulombs =  0.000638041 Ah
           Depth of Discharge (Current)    =      2.72224 coulombs
           Capacity Left                   =    0.0530403 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.923946
@@ -2140,7 +2140,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.40121 coulombs = -0.000667004 Ah
+          Capacity Discharged Since Start =      2.28758 coulombs =   0.00063544 Ah
           Depth of Discharge (Current)    =       2.7316 coulombs
           Capacity Left                   =    0.0436766 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.92678
@@ -2239,7 +2239,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.40987 coulombs = -0.000669407 Ah
+          Capacity Discharged Since Start =      2.27893 coulombs =  0.000633036 Ah
           Depth of Discharge (Current)    =      2.74026 coulombs
           Capacity Left                   =    0.0350246 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.929399
@@ -2338,7 +2338,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =      -2.4178 coulombs = -0.000671611 Ah
+          Capacity Discharged Since Start =        2.271 coulombs =  0.000630832 Ah
           Depth of Discharge (Current)    =      2.74819 coulombs
           Capacity Left                   =    0.0270891 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.931801
@@ -2436,7 +2436,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.42159 coulombs = -0.000672663 Ah
+          Capacity Discharged Since Start =      2.26721 coulombs =   0.00062978 Ah
           Depth of Discharge (Current)    =      2.75198 coulombs
           Capacity Left                   =    0.0233026 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.932947
@@ -2535,7 +2535,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.42687 coulombs = -0.000674131 Ah
+          Capacity Discharged Since Start =      2.26192 coulombs =  0.000628312 Ah
           Depth of Discharge (Current)    =      2.75726 coulombs
           Capacity Left                   =    0.0180184 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.934546
@@ -2633,7 +2633,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.42699 coulombs = -0.000674164 Ah
+          Capacity Discharged Since Start =      2.26181 coulombs =  0.000628279 Ah
           Depth of Discharge (Current)    =      2.75738 coulombs
           Capacity Left                   =    0.0178987 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.934583
@@ -2724,7 +2724,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.42699 coulombs = -0.000674164 Ah
+          Capacity Discharged Since Start =      2.26181 coulombs =  0.000628279 Ah
           Depth of Discharge (Current)    =      2.75738 coulombs
           Capacity Left                   =    0.0178987 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.934583
@@ -2823,7 +2823,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.43188 coulombs = -0.000675524 Ah
+          Capacity Discharged Since Start =      2.25691 coulombs =   0.00062692 Ah
           Depth of Discharge (Current)    =      2.76228 coulombs
           Capacity Left                   =     0.013005 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.936064
@@ -2922,7 +2922,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.43641 coulombs = -0.000676782 Ah
+          Capacity Discharged Since Start =      2.25238 coulombs =  0.000625662 Ah
           Depth of Discharge (Current)    =      2.76681 coulombs
           Capacity Left                   =   0.00847502 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.937435
@@ -3021,7 +3021,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =      -2.4406 coulombs = -0.000677945 Ah
+          Capacity Discharged Since Start =       2.2482 coulombs =  0.000624499 Ah
           Depth of Discharge (Current)    =      2.77099 coulombs
           Capacity Left                   =   0.00428866 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.938702
@@ -3119,7 +3119,7 @@ oc[0] = -0.023098
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44447 coulombs = -0.000679018 Ah
+          Capacity Discharged Since Start =      2.24433 coulombs =  0.000623425 Ah
           Depth of Discharge (Current)    =      2.77486 coulombs
           Capacity Left                   =  0.000424073 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.939872
@@ -3218,7 +3218,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -3317,7 +3317,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -3418,7 +3418,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -3512,7 +3512,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -3612,7 +3612,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -3713,7 +3713,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -3814,7 +3814,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -3908,7 +3908,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -4009,7 +4009,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -4110,7 +4110,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -4204,7 +4204,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -4305,7 +4305,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -4399,7 +4399,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -4500,7 +4500,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -4594,7 +4594,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -4695,7 +4695,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -4789,7 +4789,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -4890,7 +4890,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -4984,7 +4984,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -5085,7 +5085,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -5179,7 +5179,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -5280,7 +5280,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -5374,7 +5374,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -5475,7 +5475,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -5569,7 +5569,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -5670,7 +5670,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -5764,7 +5764,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -5865,7 +5865,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -5959,7 +5959,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -6060,7 +6060,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -6154,7 +6154,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -6255,7 +6255,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -6349,7 +6349,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -6450,7 +6450,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -6544,7 +6544,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -6645,7 +6645,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -6739,7 +6739,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -6840,7 +6840,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -6934,7 +6934,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -7035,7 +7035,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -7129,7 +7129,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -7230,7 +7230,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -7324,7 +7324,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -7425,7 +7425,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -7519,7 +7519,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -7620,7 +7620,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -7714,7 +7714,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -7815,7 +7815,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -7909,7 +7909,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -8010,7 +8010,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -8104,7 +8104,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -8205,7 +8205,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -8299,7 +8299,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -8400,7 +8400,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -8494,7 +8494,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -8595,7 +8595,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -8689,7 +8689,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -8790,7 +8790,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -8884,7 +8884,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -8985,7 +8985,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -9079,7 +9079,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -9180,7 +9180,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -9274,7 +9274,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -9375,7 +9375,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -9469,7 +9469,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -9570,7 +9570,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -9664,7 +9664,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -9765,7 +9765,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -9859,7 +9859,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -9960,7 +9960,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -10054,7 +10054,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -10155,7 +10155,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -10249,7 +10249,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -10350,7 +10350,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -10444,7 +10444,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -10545,7 +10545,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -10639,7 +10639,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -10740,7 +10740,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -10834,7 +10834,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -10935,7 +10935,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -11029,7 +11029,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -11130,7 +11130,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -11224,7 +11224,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -11325,7 +11325,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -11419,7 +11419,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -11520,7 +11520,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -11614,7 +11614,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -11715,7 +11715,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -11809,7 +11809,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
@@ -11910,7 +11910,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final              = 0.94        onRegionBoundaryFinal = 1
@@ -12004,7 +12004,7 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 3.36642e-07
 
-          Capacity Discharged Since Start =     -2.44489 coulombs = -0.000679136 Ah
+          Capacity Discharged Since Start =      2.24391 coulombs =  0.000623307 Ah
           Depth of Discharge (Current)    =      2.77528 coulombs
           Capacity Left                   =            0 coulombs         Capacity at Zero DOD =      2.77528 coulombs
           RelativeExtentRxn_final_final         = 0.94        onRegionBoundary_final_final = 1
