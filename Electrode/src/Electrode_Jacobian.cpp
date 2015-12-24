@@ -5,16 +5,27 @@
 #include "Electrode_Jacobian.h"
 
 #include <map>
+#include <vector>
 
 namespace Cantera {
 
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
     electrode(elect),
+    electrolytePhaseSpeciesStart(0),
     jac_dt(0.0),
-    jac_t_init_init(0.0)
+    jac_t_init_init(0.0),
+    tp_solnPhase(0),
+    jac_numSubs_Max(0),
+    jac_numSubs_Min(0),
+    jac_energySource(0.0),
+    jac_electrolytePhaseSource(0.0),
+    jac_electronSource(0.0)
 {
+    size_t solnPhaseIndex = electrode->solnPhaseIndex();
     electrolytePhaseSpeciesStart = electrode->getGlobalSpeciesIndex(electrode->solnPhaseIndex());
+    tp_solnPhase = & electrode->phase(solnPhaseIndex);
+    jac_lyteSpeciesSource.resize(tp_solnPhase->nSpecies(), 0.0);
 }
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(const Electrode_Jacobian& right) :
@@ -37,12 +48,41 @@ Electrode_Jacobian& Electrode_Jacobian::operator=(const Electrode_Jacobian& righ
     jac_centerpoint = right.jac_centerpoint;
     jac_dt = right.jac_dt;
     jac_t_init_init = right.jac_t_init_init;
+    tp_solnPhase = right.tp_solnPhase;
+    jac_numSubs_Max = right.jac_numSubs_Max;
+    jac_numSubs_Min = right.jac_numSubs_Min;
+
+    jac_energySource = right.jac_energySource;
+    jac_electrolytePhaseSource = right.jac_electrolytePhaseSource;
+    jac_electronSource = right.jac_electronSource;
+    jac_lyteSpeciesSource = right.jac_lyteSpeciesSource;
 
     return *this;
 }
 //====================================================================================================================
 Electrode_Jacobian::~Electrode_Jacobian()
 {
+}
+//====================================================================================================================
+std::string Electrode_Jacobian::dofsString(enum DOFS dd) const
+{
+    std::string ss;
+    size_t nsp = tp_solnPhase->nSpecies();
+    if (dd == SOLID_VOLTAGE) {
+	ss = "SOLID_VOLTAGE";
+    } else if (dd == LIQUID_VOLTAGE) {
+	ss = "LYTE_VOLTAGE";
+    } else if (dd == TEMPERATURE) {
+	ss = "TEMPERATURE";
+    } else if (dd == PRESSURE) {
+	ss = "PRESSURE";
+    } else if (dd >= SPECIES && dd < SPECIES + nsp) {
+	size_t k = (size_t) (dd - SPECIES);
+	ss = "C_" +  tp_solnPhase->speciesName(k);
+    } else {
+	throw CanteraError("Electrode_Jacobian::dofsString", "unknown DOF value" + int(dd)); 
+    }
+    return ss; 
 }
 //====================================================================================================================
 void Electrode_Jacobian::add_entries_to_compute(const std::vector<DOF_SOURCE_PAIR> &entries)

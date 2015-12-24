@@ -54,6 +54,8 @@ public:
   //! Destructor
   virtual ~Electrode_Jacobian();
 
+  std::string dofsString(enum DOFS dd) const;
+
   //! Compute the Jacobian at the point specified by centerpoint
   /*!
    *  The array centerpoint should contain the value of each dof where
@@ -65,18 +67,25 @@ public:
    */
   virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt) = 0;
 
+  //! Print the jacobian out as a table to stdout
+  /*!
+   *  @param[in]  indentSpaces      Number of indent spaces
+   */
+  virtual void print_jacobian(int indentSpaces = 0) const = 0;
+
   /*!
    * Return the partial derivative of the requested source term with respect to the requested dof,
    * requested source and dof are specifed by dof_source_pair
    *
    *  @param[in]   dof_source_pair                  DOF_SOURCE_PAIR pair representing the row and variable
    */
-  double get_jacobian_value(const DOF_SOURCE_PAIR &dof_source_pair)
+  double get_jacobian_value(const DOF_SOURCE_PAIR &dof_source_pair) const
   {
-    if (jacobian.find(dof_source_pair) == jacobian.end()) {
-	throw CanteraError("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed" );
-    }
-    return jacobian[dof_source_pair];
+      std::map< DOF_SOURCE_PAIR, double >::const_iterator it = jacobian.find(dof_source_pair);
+      if (it == jacobian.end()) {
+	  throw CanteraError("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed");
+      }
+      return it->second;
   }
 
   // These 3 functions enable the user to specify which Jacobian entries need to be
@@ -96,6 +105,7 @@ protected:
   // Store the desired Jacobian contributions as a map from [dof, source] -> result
   std::map< DOF_SOURCE_PAIR, double > jacobian;
 
+
   //! Jacobian centerpoint storage
   std::vector<double> jac_centerpoint;
 
@@ -104,6 +114,16 @@ protected:
 
   //! Jacobian t_init_init;
   double jac_t_init_init;
+
+  ThermoPhase* tp_solnPhase;
+
+  int jac_numSubs_Max;
+  int jac_numSubs_Min;
+
+  double jac_energySource;
+  double jac_electrolytePhaseSource;
+  double  jac_electronSource;
+  std::vector<double> jac_lyteSpeciesSource;
 
 
 private:

@@ -10,6 +10,17 @@
 namespace Cantera {
 
 //====================================================================================================================
+static void drawline(int sp, int ll)
+{
+  for (int i = 0; i < sp; i++) printf(" ");
+  for (int i = 0; i < ll; i++) printf("-");
+  printf("\n");
+}
+//====================================================================================================================
+static void indent(int sp) {
+    for (int i = 0; i < sp; i++) printf(" ");
+}
+//====================================================================================================================
   Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode * elect, double baseDelta)
     : Electrode_Jacobian(elect),
       base_delta(baseDelta)
@@ -52,6 +63,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
     double energySource[2];
     double electrolytePhaseSource[2];
     double individualSpeciesSource[2];
+    int numSubs;
 
     int electronIndex = electrode->kSpecElectron();
 
@@ -59,6 +71,8 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
     jac_dt = dt;
     jac_t_init_init = electrode->timeInitInit();
     std::vector<double> perturbed_point = centerpoint;
+    jac_numSubs_Max = -1;
+    jac_numSubs_Min = 10000000;
 
     // Iterate over the list of dofs that need to be finite differenced with respect to
     // For each dof store the source term values with the dof perturbed +- its centerpoint value.
@@ -84,24 +98,114 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
 	    // Store off the source term results in temporary storage
 	    energySource[negative] = electrode->getIntegratedSourceTerm(Cantera::ENTHALPY_SOURCE);
 	    electrolytePhaseSource[negative] = electrode->getIntegratedSourceTerm(Cantera::ELECTROLYTE_PHASE_SOURCE);
-	    electrode->integratedSpeciesSourceTerm(&speciesSources[negative][0]);
+	    numSubs = electrode->integratedSpeciesSourceTerm(&speciesSources[negative][0]);
 
 	    perturbed_point[*dof_it] = centerpoint[*dof_it];
+	    jac_numSubs_Max = std::max( jac_numSubs_Max, numSubs);
+	    jac_numSubs_Min = std::min( jac_numSubs_Min, numSubs);
 	}
 
 	// Use set_jacobian_entry to store the various sensitivities based on a centered difference.
+
+        jac_energySource = 0.5 *( energySource[0] + energySource[1]);
 	set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, ENTHALPY_SOURCE), energySource, dof_delta);
+
+        jac_electrolytePhaseSource = 0.5 *( electrolytePhaseSource[0] + electrolytePhaseSource[1]);
 	set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, ELECTROLYTE_PHASE_SOURCE), electrolytePhaseSource, dof_delta);
+
 	individualSpeciesSource[0] = (speciesSources[0])[electronIndex];
 	individualSpeciesSource[1] = speciesSources[1][electronIndex];
+
+        jac_electronSource =  0.5 *(  individualSpeciesSource[0] + individualSpeciesSource[1]);
 	set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, CURRENT_SOURCE), individualSpeciesSource, dof_delta);
-	for (int sp=0; sp < electrode->numSolnPhaseSpecies(); ++sp) {
+
+	for (int sp = 0; sp < electrode->numSolnPhaseSpecies(); ++sp) {
 	    int idx = sp + electrolytePhaseSpeciesStart;
 	    individualSpeciesSource[0] = speciesSources[0][idx];
 	    individualSpeciesSource[1] = speciesSources[1][idx];
+            jac_lyteSpeciesSource[sp] = 0.5 *(  individualSpeciesSource[0] + individualSpeciesSource[1]);
 	    set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, (SOURCES)(SPECIES_SOURCE + sp)), individualSpeciesSource, dof_delta);
 	}
     }
+}
+
+//====================================================================================================================
+void Electrode_FD_Jacobian::print_jacobian(int indentSpaces) const
+{
+    double val;
+    std::vector<bool> electrodeSpeciesSrcInc(electrode->nSpecies(), false);
+    std::vector<bool> lyteSpeciesSrcInc(tp_solnPhase->nSpecies(), true);
+
+    indent(indentSpaces);
+    int cellNumber = electrode->electrodeCellNumber_;
+    int domainNumber = electrode->electrodeDomainNumber_;
+    printf(" Electrode jacobian: %d %d, Time_init = %g, Time_final = %g dt = %g",
+	   cellNumber, domainNumber, jac_t_init_init,  jac_t_init_init + jac_dt, jac_dt);
+    if (  jac_numSubs_Max ==   jac_numSubs_Min) {
+	printf(" Equal numSub = %d\n",  jac_numSubs_Max);
+    } else {
+	printf(" Unequal numSub = %d <= num <= %d\n",  jac_numSubs_Min,  jac_numSubs_Max);
+    }
+
+    printf("   Entry      | ");
+    printf("   DOF_Value  | ");
+    printf("%14.14s|", " CURRENT_SOURCE");
+    printf("%14.14s|", " ENTHALPY_SOURCE");
+    printf("%14.14s|", " LYTE_PHASE_SRC");
+    int cCount = 5 * 17;
+    for (size_t i = 0; i < (size_t) electrode->nSpecies(); i++) {
+	if (electrodeSpeciesSrcInc[i]) {
+	    std::string ss = electrode->speciesName(i);
+	    printf("%14.14s|", ss.c_str());
+	    cCount += 17;
+	}
+    }
+    for (size_t i = 0; i < tp_solnPhase->nSpecies(); i++) {
+	if (lyteSpeciesSrcInc[i]) {
+	    std::string ss = tp_solnPhase->speciesName(i);
+	    printf("%16.16s|", ss.c_str());
+	    cCount += 17;
+	}
+    }
+    drawline(indentSpaces, cCount + 5);
+    indent(indentSpaces);
+    printf("              | ");
+    printf("              | ");
+    printf("% -12.5E |", jac_electronSource);
+    printf("% -12.5E |", jac_energySource);
+    printf("% -12.5E |", jac_electrolytePhaseSource);
+    for (size_t i = 0; i < tp_solnPhase->nSpecies(); i++) {
+	if (lyteSpeciesSrcInc[i]) {
+	    printf("% -12.5E |", jac_lyteSpeciesSource[i]);
+	}
+    }
+    drawline(indentSpaces, cCount + 5);
+
+    std::list<DOFS>::const_iterator dof_it = dofs_to_fd.begin();
+    int iDof = 0;
+    for ( ; dof_it != dofs_to_fd.end(); ++dof_it ) {
+	for (int i = 0; i < indentSpaces; i++) printf(" ");
+	std::string ss = dofsString(*dof_it);
+	printf("%14.14s|", ss.c_str());
+	val = jac_centerpoint[iDof];
+	printf("% -12.5E |", val);
+	val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, CURRENT_SOURCE) );
+	printf("% -12.5E |", val);
+	val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, ENTHALPY_SOURCE) );
+	printf("% -12.5E |", val);
+	val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, ELECTROLYTE_PHASE_SOURCE) );
+	printf("% -12.5E |", val);
+  
+	for (size_t i = 0; i < tp_solnPhase->nSpecies(); i++) {
+	    if (lyteSpeciesSrcInc[i]) {
+		val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, (SOURCES)(SPECIES_SOURCE + i)) );
+		printf("% -12.5E |", val);
+	    }
+	}
+	printf("\n");
+	iDof++;
+    }
+    drawline(indentSpaces, cCount + 5);
 }
 //====================================================================================================================
 void Electrode_FD_Jacobian::add_entry_to_compute(DOF_SOURCE_PAIR entry)
@@ -131,14 +235,15 @@ void Electrode_FD_Jacobian::remove_entry_to_compute(DOF_SOURCE_PAIR entry)
     }
 }
 //====================================================================================================================
-void Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> & dof_values, double dt)
+int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> & dof_values, double dt)
 {
     electrode->revertToInitialTime(true);
     electrode->setState_TP(dof_values[TEMPERATURE], dof_values[PRESSURE]);
     electrode->setVoltages(dof_values[SOLID_VOLTAGE], dof_values[LIQUID_VOLTAGE]);
     electrode->setFinalStateFromInit();
     electrode->setElectrolyteMoleNumbers(&dof_values[SPECIES], true);
-    electrode->integrate(dt);
+    int numSubs = electrode->integrate(dt);
+    return numSubs;
 }
 //====================================================================================================================
 void Electrode_FD_Jacobian::set_jacobian_entry(const DOF_SOURCE_PAIR & entry, double source_values[2], double delta)

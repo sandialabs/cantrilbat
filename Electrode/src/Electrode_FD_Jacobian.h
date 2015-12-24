@@ -37,6 +37,9 @@ public:
   virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
+  //! @copydoc Electrode_Jacobian::print_jacobian
+  virtual void print_jacobian(int indentSpaces = 0) const;
+
 protected:
   // These variables are used to determine which dofs we need to finite
   // difference with respect to.
@@ -50,7 +53,10 @@ private:
 
   // This helper function handles running a single electrode->integrate call at
   // a given set of dof values.
-  void run_electrode_integration(const std::vector<double> & dof_values, double dt);
+  /*!
+   *  @return              Returns the number of subintegration steps
+   */
+  int run_electrode_integration(const std::vector<double> & dof_values, double dt);
 
   // This helper function sets a specific jacobian entry using a centered difference formula
   // based on the specified source values and delta in the dof.
