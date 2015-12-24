@@ -49,11 +49,11 @@ enum SOURCES
     CURRENT_SOURCE = 0,
     ELECTROLYTE_PHASE_SOURCE,
     ENTHALPY_SOURCE,
-    SPECIES_SOURCE,
-    VOLUME_SOURCE,
+    SPECIES_SOURCE = 100,
+    VOLUME_SOURCE = 200,
 
     //! End of the Source list
-    MAX_SOURCE
+    MAX_SOURCE = 300
 };
 
 //!  The DOFS enum lists the independent degrees of freedom that the electrode object can handle. 
@@ -73,7 +73,7 @@ enum DOFS
     PRESSURE,
 
     //! Species
-    SPECIES,
+    SPECIES  ,
 
     //! End of the dolf list
     MAX_DOF

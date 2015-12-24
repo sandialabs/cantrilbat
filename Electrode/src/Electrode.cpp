@@ -5299,6 +5299,11 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
   case SPECIES_SOURCE:
     result = spMoleIntegratedSourceTerm_[solnSpeciesStart + species_index];
     break;
+  case VOLUME_SOURCE:
+    // For the volume source, we report the extrinsic volume of the solid portion of the electrode as it exists right now
+    //  units = m^3
+    result = SolidVol();
+    break;
   case MAX_SOURCE:
     result = 0.0;
     break;
