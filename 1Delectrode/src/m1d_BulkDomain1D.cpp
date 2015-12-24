@@ -1419,10 +1419,10 @@ BulkDomain1D::getPointTemperature(const NodalVars* const nv,
      * Get the temperature: Check to see if the temperature is in the solution vector.
      *   If it is not, then use the reference temperature
      */
-    const static size_t tempS = (size_t) Temperature;
-    int iTemp = nv->indexBulkDomainVar0(tempS);
-    if (iTemp >= 0) {
-        return solutionPoint[iTemp];
+    std::map<m1d::Var_Name_Enum, size_t>::const_iterator it = nv->Offset_VarType.find(Temperature);
+    size_t ieqnTemp = it->second;
+    if (ieqnTemp != npos) {
+        return solutionPoint[ieqnTemp];
     }
     return TemperatureReference_;
 }
