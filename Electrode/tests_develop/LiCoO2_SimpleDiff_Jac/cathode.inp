@@ -1,0 +1,145 @@
+###################################################################
+#  vcs_Cantera   Command File
+#
+#   Master input file describing all of the options in the file
+##################################################################
+!-------------------------------------------------------------------------
+! Title
+!
+!
+!-------------------------------------------------------------------------
+Electrode Name = LiCoO2
+!
+!
+!-------------------------------------------------------------------------
+Electrode Type = cathode
+!--------------------------------------------------------------------
+!  Specification of the Electrode Model Name
+!
+!
+!  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
+!                          "MultiPlateau_NoDiff", "SimpleDiff",
+!                          "SimplePhaseChangeDiffusion"]
+!             required = not now but later
+!             default = ""
+!
+!--------------------------------------------------------------------------
+Electrode Model Name = SimpleDiff
+!-------------------------------------------------------------------------
+! Number of Cantera Files = int
+!
+!   Number of cantera files.  
+!
+!-------------------------------------------------------------------------
+Number of Cantera Files = 5
+!-------------------------------------------------------------------------
+! Cantera File Name = [string] [ required ]
+!
+!  Must have a number of lines equal to the number entered on the
+!  line "Number of Cantera Files"
+!   Note, all phases found in each file will be included in the 
+!   equilibrium calculation.
+!-------------------------------------------------------------------------
+!
+Cantera File Name = metal_Li_LiIon_electrons.xml
+Cantera File Name = ECsoln_ion.xml
+Cantera File Name = LiCoO2_RedlichKister.xml
+Cantera File Name = LiCoO2Cathode_electrode_extra.xml
+Cantera File Name = Li_Metal.xml
+!Cantera File Name = LiCoO2Cathode_electrode.xml
+!
+!-------------------------------------------------------------------------
+! Temperature - double (no default) (required)
+! 
+!-------------------------------------------------------------------------
+Temperature = 298.15
+!-------------------------------------------------------------------------
+!
+! Pressure - double [Pressure_unit] (no default) (required)
+!
+Pressure = 1.0 atm
+!-------------------------------------------------------------------------
+!
+!   Maximum number of Subglobal time steps - int (default 1000) (not-required)
+!
+!          Maximum number of subglobal time steps. This is weakly enforced, because if there are
+!          convergence errors more time steps may be taken.
+!
+!-----------------------------------------------------------------------------------------------------------
+Maximum number of Subglobal time steps = 10
+!----------------------------------------------------------------------------------------
+!
+! Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
+!
+Particle Diameter = 20 microns
+!-------------------------------------------------------------------------
+!
+! Particle Number to Follow - double [unitless] (default 1) (optional)
+!
+Particle Number to Follow = 1.671126E6
+!-------------------------------------------------------------------------
+!
+Electrode Porosity = 0.30
+!
+!--------------------------------------------------------------------------------------------------------------
+!
+!      BLOCK:  Open Circuit voltage Override for interface   [optional] [unique block]
+!
+!         Inclusion of this block means that the open circuit voltage for the reactions involving one
+!         species is replaced by an analytical expression that is supplied via utility routines.
+!         What this means in practice is that the thermodynamic expression for one species is
+!         replaced with a value which creates that desired OCV.
+!
+!         In the common case of an intercalated solid, the thermo of one of the intercalated species
+!         is replaced with the thermo dictated by the OCV. This means that the particular species to be
+!         replaced must be identified, as well as the particular reaction, whose OCV expression 
+!         (deltaG) is to be specified, must be identified.
+!
+!         Note, in most cases there will only be one reaction on these surfaces, due to the incomplete
+!         thermo representation.
+!
+start block Open Circuit Potential Override for interface  cathode_surface
+   Open Circuit Voltage Model = CoO2_dualfoil
+   Replaced Species = LiCoO2
+   Identify Reaction for OCV Model = 0
+   Identify Full Cell Reaction for OCV Model = 1
+   Temperature Derivative =  MODEL
+   Temperature for OCV = 298.15
+   Open Circuit Voltage Temperature Derivative Model = CATHODE_CONSTANT 0.0
+end block Open Circuit Potential Override for interface cathode_surface
+
+
+start block Radial Diffusion Region = simple_whole
+  Number of Cells in Region = 3
+  Phase Names within distributed region = LiCoO2_Interstitials_cathode
+  Default Diffusion Coefficient = 1.0E-13
+end block Radial Diffusion Region
+
+
+start block Bath Specification for Phase ECDMC_LiPF6
+   Phase Moles = 1.0E-10
+   start block Bath Species Mole Fraction
+       Li+   = 0.0780266
+       PF6-  = 0.0780266
+       ECDMC = 0.8439468
+   End block Bath Species Mole Fraction
+end block Bath Specification for Phase ECDMC_LiPF6
+
+start block Bath Specification for Phase LiCoO2_Interstitials_cathode
+   Phase Moles = 1.0E-10
+   start block Bath Species Mole Fraction
+       CoO2 = 0.5
+       LiCoO2 =  0.5
+   End block Bath Species Mole Fraction
+   Start block Capacity Left Coefficients
+       CoO2 = 1.0
+       LiCoO2 = 0.0
+   End block Capacity Left Coefficients
+   Start block Capacity At Zero DoD Coefficients
+       CoO2 = 1.0
+       LiCoO2 =  1.0
+   End block Capacity At Zero DoD Coefficients
+end block Bath Specification for Phase LiCoO2_Interstitials_cathode 
+
+Number of Regions = 1
+
