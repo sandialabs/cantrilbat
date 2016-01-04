@@ -2,11 +2,11 @@
 #
 #     Problem setup for runtest_Electrode
 #
-TEST_NAME=MCMBAnode_LiIon_SimpleDiff_Dualfoil
+TEST_NAME=LiCoO2_SimpleDiff_Jac
 #
 #  Name of the program to run
 #
-PROGRAM=MCMBAnode_SimpleDiff_3
+PROGRAM=LiCoO2_SimpleDiff_Jac
 #
 #  Any other program options
 #
@@ -26,10 +26,10 @@ DIFF_REQ="           True          "
 #
 #  CSV file to compare against
 #
-BLESSED_CSV_FILES=" MCMB_intResults_blessed_0_0.csv  outputTable_blessed.csv "
-CSV_FILES="         MCMB_intResults_0_0.csv          outputTable.csv "
-DIFF_CSV_NAMES="     diff_csv.txt                    diff_tcsv.txt "
-DIFF_CSV_REQ="       True                            True "
+BLESSED_CSV_FILES="  LiCoO2_globalResults_0_0_blessed.csv   outputTable_blessed.csv "
+CSV_FILES="          LiCoO2_globalResults_0_0.csv           outputTable.csv "
+DIFF_CSV_NAMES="     diff_csv.txt                           diff_tcsv.txt "
+DIFF_CSV_REQ="       True                                   True "
 #
 #  Extra files to be removed before the test starts
 #

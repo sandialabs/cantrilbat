@@ -140,16 +140,14 @@ test:
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
-	../runtest_Electrode
+	../../tests/runtest_Electrode
 
 rebaseline:
 	cp out.txt good_out.txt
-	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed_0_0.csv
-	cp  LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_blessed_0_0.csv 
-	cp  LiCoO2Thermo.out   LiCoO2Thermo_blessed.out 
-	cp ccout.txt good_ccout.txt
-	cp  LiCoO2_CC_globalResults_0_0.csv  LiCoO2_CC_globalResults_blessed_0_0.csv 
-	cp LiCoO2_CC_intResults_0_0.csv LiCoO2_CC_intResults_blessed_0_0.csv
+	cp LiCoO2_intResults_0_0.csv      LiCoO2_intResults_blessed_0_0.csv
+	cp LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_blessed_0_0.csv 
+	cp outputTable.csv                outputTable_blessed.csv
+	cp soln_0_0.xml                   soln_0_0_blessed.xml
 
 ##############################################################################
 
