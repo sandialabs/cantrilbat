@@ -81,6 +81,15 @@ Temperature = 723.15
 !-----------------------------------------------------------------------------------------------------------
 Pressure = 1.0 atm
 !-----------------------------------------------------------------------------------------------------------
+! 
+!   Maximum number of Subglobal time steps - int (default 1000) (not-required)
+!
+!          Maximum number of subglobal time steps. This is weakly enforced, because if there are
+!          convergence errors more time steps may be taken.
+!
+!-----------------------------------------------------------------------------------------------------------
+Maximum number of Subglobal time steps = 1000
+!-----------------------------------------------------------------------------------------------------------
 !
 !    Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !

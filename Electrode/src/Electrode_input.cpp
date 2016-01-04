@@ -189,7 +189,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     nTotSpecies(0),
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
-    m_pl(0)
+    m_pl(0),
+    MaxNumberSubGlobalTimeSteps(1000)
 {
     m_BG = new ElectrodeBath();
     m_pl = new PhaseList();
@@ -238,7 +239,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     nTotSpecies(0),
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
-    m_pl(0)
+    m_pl(0),
+    MaxNumberSubGlobalTimeSteps(1000)
 {   
     ELECTRODE_KEY_INPUT::operator=(right);
 }
@@ -438,6 +440,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      m_pl = new Cantera::PhaseList(*(right.m_pl));
 
+     MaxNumberSubGlobalTimeSteps         = right.MaxNumberSubGlobalTimeSteps;
    
      return *this;
  }
@@ -694,6 +697,16 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
     b5->set_limits(1.E20, 0.0);
     cf->addLineEntry(b5);
 
+    /* ------------------------------------------------------------------
+     * Maximum number of subGlobal time steps -
+     *  
+     *     defaults to 1000.
+     */
+    LE_OneInt* m1 = new LE_OneInt("Maximum number of Subglobal time steps", &(MaxNumberSubGlobalTimeSteps), 0,
+				  "MaxNumberSubGlobalTimeSteps");
+    m1->set_default(1000);
+    m1->set_limits(10000, 1);
+    cf->addLineEntry(m1);
 
     BaseEntry::set_SkipUnknownEntries(3);
 }

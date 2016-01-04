@@ -124,7 +124,7 @@ struct OCV_Override_input {
 class EGRInput;
 
 
-//! storage for Command file input
+//! Storage for Command file input
 /*!
  * This is the current command file specification of the problem statement.
  */
@@ -377,7 +377,7 @@ public:
      *       2 - Write global time step information
      *       3 - Can write intermediate and global time step information
      */
-    int   xmlStateInfoLevel;
+    int xmlStateInfoLevel;
 
     //! Electrode Model Name
     /*!
@@ -480,6 +480,10 @@ public:
      */
     Cantera::PhaseList* m_pl;
 
+    //! Maximum number of subGlobal time step iterations
+    int MaxNumberSubGlobalTimeSteps;
+
+    
 
 };
 
