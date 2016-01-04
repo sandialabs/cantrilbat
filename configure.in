@@ -832,10 +832,14 @@ AC_OUTPUT(Makefile \
           batteryDevelop/LiRefElectrode/LiMetal_LiIon_electrode_rxn/Makefile \
           batteryDevelop/LiRefElectrode/LiMetal_LiIon_electrode_rxn_abs/Makefile \
           batterySampleRuns/Mao_Paper/Makefile \
+          changeHf/Makefile \
           ctpadds/Makefile \
           ctpadds/src/Makefile \
           ctpadds/tests/Makefile \
           ctpadds/tests/SolidKinTests/Makefile \
+	  cttables/Makefile \
+	  cttables/src/Makefile \
+	  cttables/tests/Makefile \
           doc/doxygen/Makefile \
           Electrode/Makefile \
           Electrode/examples/Makefile \
@@ -879,28 +883,9 @@ AC_OUTPUT(Makefile \
           Electrode/tests_develop/LiCoO2_Complex_LiIonCathode_SimpleDiff_cV/Makefile \
           Electrode/tests_develop/MCMB_OCVOverride_ConstTemp/Makefile \
           Electrode/tests_develop/RadialDistrib_ReadCompareSoln/Makefile \
-	  cttables/Makefile \
-	  cttables/src/Makefile \
-	  cttables/tests/Makefile \
-          changeHf/Makefile \
-          fitShomate/Makefile \
-          fitShomate/src/Makefile \
-          mpequil/Makefile \
-          mpequil/src/Makefile \
-          mpequil/tests/Makefile \
-          mpequil/tests/CO2_solubility_test/Makefile \
-          mpequil/tests/ex_gri/Makefile \
-          mpequil/failures/Makefile \
-          mpequil/failures/LiFeS/Makefile \
+          Electrode/tests_develop/LiCoO2_SimpleDiff_Jac/Makefile \
           electrodeCell/Makefile \
           electrodeCell/src/Makefile \
-          imt_model/Makefile \
-	  imt_model/src/Makefile \
-	  imt_model/tests/Makefile \
-	  imt_model/tests/AtoB/Makefile \
-          imt_model/tests/TBP_NoDiff/Makefile \
-          imt_model/tests/TBP_Diff/Makefile \
-          imt_model/tests/TBP_Water_HeteroCSTR/Makefile \
           epequil/Makefile \
           epequil/src/Makefile \
           epequil/tests/Makefile \
@@ -919,6 +904,24 @@ AC_OUTPUT(Makefile \
           epequil/tests/ex_gri/Makefile \
           epequil/tests/ionizedGasEquil/Makefile \
           epequil/tests/ionizedGasEquil/runtest \
+	  Experiment/Makefile \
+	  Experiment/src/Makefile \
+          fitShomate/Makefile \
+          fitShomate/src/Makefile \
+          mpequil/Makefile \
+          mpequil/src/Makefile \
+          mpequil/tests/Makefile \
+          mpequil/tests/CO2_solubility_test/Makefile \
+          mpequil/tests/ex_gri/Makefile \
+          mpequil/failures/Makefile \
+          mpequil/failures/LiFeS/Makefile \
+          imt_model/Makefile \
+	  imt_model/src/Makefile \
+	  imt_model/tests/Makefile \
+	  imt_model/tests/AtoB/Makefile \
+          imt_model/tests/TBP_NoDiff/Makefile \
+          imt_model/tests/TBP_Diff/Makefile \
+          imt_model/tests/TBP_Water_HeteroCSTR/Makefile \
 	  oneDSims/Makefile \
 	  oneDSims/ndflame_test1/Makefile \
 	  oneDSims/catcomb_stagflow_test1/Makefile \
@@ -965,8 +968,6 @@ AC_OUTPUT(Makefile \
           util_src/tests/basicMultiBlock/Makefile \
           util_src/tests/test_BE/Makefile \
           util_src/tests/test_timer/Makefile \
-	  Experiment/Makefile \
-	  Experiment/src/Makefile \
           )
 #
 chmod +x  epequil/tests/ionizedGasEquil/runtest
