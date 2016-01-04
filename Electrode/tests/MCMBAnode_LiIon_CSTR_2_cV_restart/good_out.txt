@@ -1341,9 +1341,10 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 oc[0] = -0.023098
    ==============================================================================================
-      Electrode at time final = 1
-                   time init  = 1                         deltaTglobal = 0
+      Electrode at time final_final =  1.00000E+00
+                   time init_init   =  1.00000E+00        deltaTglobal =  0.00000E+00
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1439,8 +1440,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.01161
-                   intermediate-step time init  = 1                deltaT = 0.0116117
+      Electrode at intermediate-step time final =  1.01161E+00
+                   intermediate-step time init  =  1.00000E+00     deltaT =  1.16117E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
 
@@ -1537,8 +1538,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.02903
-                   intermediate-step time init  = 1.01161                deltaT = 0.0174175
+      Electrode at intermediate-step time final =  1.02903E+00
+                   intermediate-step time init  =  1.01161E+00     deltaT =  1.74175E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
 
@@ -1635,8 +1636,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.05516
-                   intermediate-step time init  = 1.02903                deltaT = 0.0261262
+      Electrode at intermediate-step time final =  1.05516E+00
+                   intermediate-step time init  =  1.02903E+00     deltaT =  2.61262E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
 
@@ -1733,8 +1734,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.09434
-                   intermediate-step time init  = 1.05516                deltaT = 0.0391894
+      Electrode at intermediate-step time final =  1.09434E+00
+                   intermediate-step time init  =  1.05516E+00     deltaT =  3.91894E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
 
@@ -1832,8 +1833,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.15313
-                   intermediate-step time init  = 1.09434                deltaT = 0.058784
+      Electrode at intermediate-step time final =  1.15313E+00
+                   intermediate-step time init  =  1.09434E+00     deltaT =  5.87840E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
 
@@ -1931,8 +1932,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.2
-                   intermediate-step time init  = 1.15313                deltaT = 0.0468712
+      Electrode at intermediate-step time final =  1.20000E+00
+                   intermediate-step time init  =  1.15313E+00     deltaT =  4.68712E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
 
@@ -2022,9 +2023,10 @@ oc[0] = -0.023098
      ============================================================================================
             1.2       0.237257
    ==============================================================================================
-      Electrode at time final = 1.2
-                   time init  = 1                         deltaTglobal = 0.2
+      Electrode at time final_final =  1.20000E+00
+                   time init_init   =  1.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                numIntegrationSubCycles = 6, SubIntegrationCounter = 6
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2121,8 +2123,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.24687
-                   intermediate-step time init  = 1.2                deltaT = 0.0468712
+      Electrode at intermediate-step time final =  1.24687E+00
+                   intermediate-step time init  =  1.20000E+00     deltaT =  4.68712E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
 
@@ -2220,8 +2222,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.29374
-                   intermediate-step time init  = 1.24687                deltaT = 0.0468712
+      Electrode at intermediate-step time final =  1.29374E+00
+                   intermediate-step time init  =  1.24687E+00     deltaT =  4.68712E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
 
@@ -2319,8 +2321,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.34061
-                   intermediate-step time init  = 1.29374                deltaT = 0.0468712
+      Electrode at intermediate-step time final =  1.34061E+00
+                   intermediate-step time init  =  1.29374E+00     deltaT =  4.68712E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
 
@@ -2417,8 +2419,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.36405
-                   intermediate-step time init  = 1.34061                deltaT = 0.0234356
+      Electrode at intermediate-step time final =  1.36405E+00
+                   intermediate-step time init  =  1.34061E+00     deltaT =  2.34356E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
 
@@ -2516,8 +2518,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.3992
-                   intermediate-step time init  = 1.36405                deltaT = 0.0351534
+      Electrode at intermediate-step time final =  1.39920E+00
+                   intermediate-step time init  =  1.36405E+00     deltaT =  3.51534E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
    ==============================================================================================
 
@@ -2614,8 +2616,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.4
-                   intermediate-step time init  = 1.3992                deltaT = 0.000797344
+      Electrode at intermediate-step time final =  1.40000E+00
+                   intermediate-step time init  =  1.39920E+00     deltaT =  7.97344E-04
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
    ==============================================================================================
 
@@ -2705,9 +2707,10 @@ oc[0] = -0.023098
      ============================================================================================
             1.4       0.175708
    ==============================================================================================
-      Electrode at time final = 1.4
-                   time init  = 1.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  1.40000E+00
+                   time init_init   =  1.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+                numIntegrationSubCycles = 6, SubIntegrationCounter = 12
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -2804,8 +2807,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.43515
-                   intermediate-step time init  = 1.4                deltaT = 0.0351534
+      Electrode at intermediate-step time final =  1.43515E+00
+                   intermediate-step time init  =  1.40000E+00     deltaT =  3.51534E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
    ==============================================================================================
 
@@ -2903,8 +2906,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.47031
-                   intermediate-step time init  = 1.43515                deltaT = 0.0351534
+      Electrode at intermediate-step time final =  1.47031E+00
+                   intermediate-step time init  =  1.43515E+00     deltaT =  3.51534E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
    ==============================================================================================
 
@@ -3002,8 +3005,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.50546
-                   intermediate-step time init  = 1.47031                deltaT = 0.0351534
+      Electrode at intermediate-step time final =  1.50546E+00
+                   intermediate-step time init  =  1.47031E+00     deltaT =  3.51534E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
    ==============================================================================================
 
@@ -3100,8 +3103,8 @@ oc[0] = -0.023098
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.54061
-                   intermediate-step time init  = 1.50546                deltaT = 0.0351534
+      Electrode at intermediate-step time final =  1.54061E+00
+                   intermediate-step time init  =  1.50546E+00     deltaT =  3.51534E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
    ==============================================================================================
 
@@ -3199,8 +3202,8 @@ oc[0] = -0.023098
 	Nonlinear problem solved successfully in 1 its
 deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.54451
-                   intermediate-step time init  = 1.54061                deltaT = 0.00389326
+      Electrode at intermediate-step time final =  1.54451E+00
+                   intermediate-step time init  =  1.54061E+00     deltaT =  3.89326E-03
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
    ==============================================================================================
 
@@ -3298,8 +3301,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.59724
-                   intermediate-step time init  = 1.54451                deltaT = 0.0527301
+      Electrode at intermediate-step time final =  1.59724E+00
+                   intermediate-step time init  =  1.54451E+00     deltaT =  5.27301E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
    ==============================================================================================
 
@@ -3399,8 +3402,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.6
-                   intermediate-step time init  = 1.59724                deltaT = 0.00276299
+      Electrode at intermediate-step time final =  1.60000E+00
+                   intermediate-step time init  =  1.59724E+00     deltaT =  2.76299E-03
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 19
    ==============================================================================================
 
@@ -3493,9 +3496,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             1.6      0.0894937
    ==============================================================================================
-      Electrode at time final = 1.6
-                   time init  = 1.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  1.60000E+00
+                   time init_init   =  1.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+                numIntegrationSubCycles = 7, SubIntegrationCounter = 19
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3593,8 +3597,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.6791
-                   intermediate-step time init  = 1.6                deltaT = 0.0790952
+      Electrode at intermediate-step time final =  1.67910E+00
+                   intermediate-step time init  =  1.60000E+00     deltaT =  7.90952E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20
    ==============================================================================================
 
@@ -3694,8 +3698,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.79774
-                   intermediate-step time init  = 1.6791                deltaT = 0.118643
+      Electrode at intermediate-step time final =  1.79774E+00
+                   intermediate-step time init  =  1.67910E+00     deltaT =  1.18643E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21
    ==============================================================================================
 
@@ -3795,8 +3799,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.8
-                   intermediate-step time init  = 1.79774                deltaT = 0.00226207
+      Electrode at intermediate-step time final =  1.80000E+00
+                   intermediate-step time init  =  1.79774E+00     deltaT =  2.26207E-03
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22
    ==============================================================================================
 
@@ -3889,9 +3893,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             1.8              0
    ==============================================================================================
-      Electrode at time final = 1.8
-                   time init  = 1.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  1.80000E+00
+                   time init_init   =  1.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+                numIntegrationSubCycles = 3, SubIntegrationCounter = 22
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -3990,8 +3995,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 1.97796
-                   intermediate-step time init  = 1.8                deltaT = 0.177964
+      Electrode at intermediate-step time final =  1.97796E+00
+                   intermediate-step time init  =  1.80000E+00     deltaT =  1.77964E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23
    ==============================================================================================
 
@@ -4091,8 +4096,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 2
-                   intermediate-step time init  = 1.97796                deltaT = 0.0220359
+      Electrode at intermediate-step time final =  2.00000E+00
+                   intermediate-step time init  =  1.97796E+00     deltaT =  2.20359E-02
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24
    ==============================================================================================
 
@@ -4185,9 +4190,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               2              0
    ==============================================================================================
-      Electrode at time final = 2
-                   time init  = 1.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  2.00000E+00
+                   time init_init   =  1.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 24
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4286,8 +4292,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 2.2
-                   intermediate-step time init  = 2                deltaT = 0.2
+      Electrode at intermediate-step time final =  2.20000E+00
+                   intermediate-step time init  =  2.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25
    ==============================================================================================
 
@@ -4380,9 +4386,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             2.2              0
    ==============================================================================================
-      Electrode at time final = 2.2
-                   time init  = 2                         deltaTglobal = 0.2
+      Electrode at time final_final =  2.20000E+00
+                   time init_init   =  2.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 25
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4481,8 +4488,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 2.4
-                   intermediate-step time init  = 2.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  2.40000E+00
+                   intermediate-step time init  =  2.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26
    ==============================================================================================
 
@@ -4575,9 +4582,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             2.4              0
    ==============================================================================================
-      Electrode at time final = 2.4
-                   time init  = 2.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  2.40000E+00
+                   time init_init   =  2.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 26
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4676,8 +4684,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 2.6
-                   intermediate-step time init  = 2.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  2.60000E+00
+                   intermediate-step time init  =  2.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 27
    ==============================================================================================
 
@@ -4770,9 +4778,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             2.6              0
    ==============================================================================================
-      Electrode at time final = 2.6
-                   time init  = 2.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  2.60000E+00
+                   time init_init   =  2.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 27
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -4871,8 +4880,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 2.8
-                   intermediate-step time init  = 2.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  2.80000E+00
+                   intermediate-step time init  =  2.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28
    ==============================================================================================
 
@@ -4965,9 +4974,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             2.8              0
    ==============================================================================================
-      Electrode at time final = 2.8
-                   time init  = 2.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  2.80000E+00
+                   time init_init   =  2.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 28
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5066,8 +5076,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 3
-                   intermediate-step time init  = 2.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  3.00000E+00
+                   intermediate-step time init  =  2.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29
    ==============================================================================================
 
@@ -5160,9 +5170,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               3              0
    ==============================================================================================
-      Electrode at time final = 3
-                   time init  = 2.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  3.00000E+00
+                   time init_init   =  2.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 29
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5261,8 +5272,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 3.2
-                   intermediate-step time init  = 3                deltaT = 0.2
+      Electrode at intermediate-step time final =  3.20000E+00
+                   intermediate-step time init  =  3.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30
    ==============================================================================================
 
@@ -5355,9 +5366,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             3.2              0
    ==============================================================================================
-      Electrode at time final = 3.2
-                   time init  = 3                         deltaTglobal = 0.2
+      Electrode at time final_final =  3.20000E+00
+                   time init_init   =  3.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 11
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 30
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5456,8 +5468,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 3.4
-                   intermediate-step time init  = 3.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  3.40000E+00
+                   intermediate-step time init  =  3.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31
    ==============================================================================================
 
@@ -5550,9 +5562,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             3.4              0
    ==============================================================================================
-      Electrode at time final = 3.4
-                   time init  = 3.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  3.40000E+00
+                   time init_init   =  3.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 12
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 31
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5651,8 +5664,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 3.6
-                   intermediate-step time init  = 3.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  3.60000E+00
+                   intermediate-step time init  =  3.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32
    ==============================================================================================
 
@@ -5745,9 +5758,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             3.6              0
    ==============================================================================================
-      Electrode at time final = 3.6
-                   time init  = 3.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  3.60000E+00
+                   time init_init   =  3.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 13
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 32
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -5846,8 +5860,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 3.8
-                   intermediate-step time init  = 3.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  3.80000E+00
+                   intermediate-step time init  =  3.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33
    ==============================================================================================
 
@@ -5940,9 +5954,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             3.8              0
    ==============================================================================================
-      Electrode at time final = 3.8
-                   time init  = 3.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  3.80000E+00
+                   time init_init   =  3.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 14
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 33
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6041,8 +6056,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 4
-                   intermediate-step time init  = 3.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  4.00000E+00
+                   intermediate-step time init  =  3.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34
    ==============================================================================================
 
@@ -6135,9 +6150,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               4              0
    ==============================================================================================
-      Electrode at time final = 4
-                   time init  = 3.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  4.00000E+00
+                   time init_init   =  3.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 15
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 34
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6236,8 +6252,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 4.2
-                   intermediate-step time init  = 4                deltaT = 0.2
+      Electrode at intermediate-step time final =  4.20000E+00
+                   intermediate-step time init  =  4.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35
    ==============================================================================================
 
@@ -6330,9 +6346,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             4.2              0
    ==============================================================================================
-      Electrode at time final = 4.2
-                   time init  = 4                         deltaTglobal = 0.2
+      Electrode at time final_final =  4.20000E+00
+                   time init_init   =  4.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 16
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 35
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6431,8 +6448,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 4.4
-                   intermediate-step time init  = 4.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  4.40000E+00
+                   intermediate-step time init  =  4.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36
    ==============================================================================================
 
@@ -6525,9 +6542,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             4.4              0
    ==============================================================================================
-      Electrode at time final = 4.4
-                   time init  = 4.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  4.40000E+00
+                   time init_init   =  4.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 17
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 36
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6626,8 +6644,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 4.6
-                   intermediate-step time init  = 4.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  4.60000E+00
+                   intermediate-step time init  =  4.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37
    ==============================================================================================
 
@@ -6720,9 +6738,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             4.6              0
    ==============================================================================================
-      Electrode at time final = 4.6
-                   time init  = 4.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  4.60000E+00
+                   time init_init   =  4.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 18
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 37
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -6821,8 +6840,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 4.8
-                   intermediate-step time init  = 4.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  4.80000E+00
+                   intermediate-step time init  =  4.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38
    ==============================================================================================
 
@@ -6915,9 +6934,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             4.8              0
    ==============================================================================================
-      Electrode at time final = 4.8
-                   time init  = 4.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  4.80000E+00
+                   time init_init   =  4.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 19
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 38
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7016,8 +7036,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 5
-                   intermediate-step time init  = 4.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  5.00000E+00
+                   intermediate-step time init  =  4.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 39
    ==============================================================================================
 
@@ -7110,9 +7130,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               5              0
    ==============================================================================================
-      Electrode at time final = 5
-                   time init  = 4.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  5.00000E+00
+                   time init_init   =  4.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 20
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 39
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7211,8 +7232,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 5.2
-                   intermediate-step time init  = 5                deltaT = 0.2
+      Electrode at intermediate-step time final =  5.20000E+00
+                   intermediate-step time init  =  5.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 40
    ==============================================================================================
 
@@ -7305,9 +7326,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             5.2              0
    ==============================================================================================
-      Electrode at time final = 5.2
-                   time init  = 5                         deltaTglobal = 0.2
+      Electrode at time final_final =  5.20000E+00
+                   time init_init   =  5.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 21
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 40
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7406,8 +7428,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 5.4
-                   intermediate-step time init  = 5.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  5.40000E+00
+                   intermediate-step time init  =  5.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 41
    ==============================================================================================
 
@@ -7500,9 +7522,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             5.4              0
    ==============================================================================================
-      Electrode at time final = 5.4
-                   time init  = 5.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  5.40000E+00
+                   time init_init   =  5.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 22
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 41
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7601,8 +7624,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 5.6
-                   intermediate-step time init  = 5.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  5.60000E+00
+                   intermediate-step time init  =  5.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 42
    ==============================================================================================
 
@@ -7695,9 +7718,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             5.6              0
    ==============================================================================================
-      Electrode at time final = 5.6
-                   time init  = 5.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  5.60000E+00
+                   time init_init   =  5.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 23
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 42
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7796,8 +7820,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 5.8
-                   intermediate-step time init  = 5.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  5.80000E+00
+                   intermediate-step time init  =  5.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 43
    ==============================================================================================
 
@@ -7890,9 +7914,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             5.8              0
    ==============================================================================================
-      Electrode at time final = 5.8
-                   time init  = 5.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  5.80000E+00
+                   time init_init   =  5.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 24
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 43
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -7991,8 +8016,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 6
-                   intermediate-step time init  = 5.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  6.00000E+00
+                   intermediate-step time init  =  5.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 44
    ==============================================================================================
 
@@ -8085,9 +8110,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               6              0
    ==============================================================================================
-      Electrode at time final = 6
-                   time init  = 5.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  6.00000E+00
+                   time init_init   =  5.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 25
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 44
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8186,8 +8212,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 6.2
-                   intermediate-step time init  = 6                deltaT = 0.2
+      Electrode at intermediate-step time final =  6.20000E+00
+                   intermediate-step time init  =  6.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 45
    ==============================================================================================
 
@@ -8280,9 +8306,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             6.2              0
    ==============================================================================================
-      Electrode at time final = 6.2
-                   time init  = 6                         deltaTglobal = 0.2
+      Electrode at time final_final =  6.20000E+00
+                   time init_init   =  6.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 26
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 45
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8381,8 +8408,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 6.4
-                   intermediate-step time init  = 6.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  6.40000E+00
+                   intermediate-step time init  =  6.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 46
    ==============================================================================================
 
@@ -8475,9 +8502,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             6.4              0
    ==============================================================================================
-      Electrode at time final = 6.4
-                   time init  = 6.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  6.40000E+00
+                   time init_init   =  6.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 27
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 46
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8576,8 +8604,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 6.6
-                   intermediate-step time init  = 6.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  6.60000E+00
+                   intermediate-step time init  =  6.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 47
    ==============================================================================================
 
@@ -8670,9 +8698,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             6.6              0
    ==============================================================================================
-      Electrode at time final = 6.6
-                   time init  = 6.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  6.60000E+00
+                   time init_init   =  6.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 28
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 47
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8771,8 +8800,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 6.8
-                   intermediate-step time init  = 6.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  6.80000E+00
+                   intermediate-step time init  =  6.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 48
    ==============================================================================================
 
@@ -8865,9 +8894,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             6.8              0
    ==============================================================================================
-      Electrode at time final = 6.8
-                   time init  = 6.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  6.80000E+00
+                   time init_init   =  6.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 29
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 48
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -8966,8 +8996,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 7
-                   intermediate-step time init  = 6.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  7.00000E+00
+                   intermediate-step time init  =  6.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 49
    ==============================================================================================
 
@@ -9060,9 +9090,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               7              0
    ==============================================================================================
-      Electrode at time final = 7
-                   time init  = 6.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  7.00000E+00
+                   time init_init   =  6.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 30
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 49
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9161,8 +9192,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 7.2
-                   intermediate-step time init  = 7                deltaT = 0.2
+      Electrode at intermediate-step time final =  7.20000E+00
+                   intermediate-step time init  =  7.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 50
    ==============================================================================================
 
@@ -9255,9 +9286,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             7.2              0
    ==============================================================================================
-      Electrode at time final = 7.2
-                   time init  = 7                         deltaTglobal = 0.2
+      Electrode at time final_final =  7.20000E+00
+                   time init_init   =  7.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 31
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 50
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9356,8 +9388,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 7.4
-                   intermediate-step time init  = 7.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  7.40000E+00
+                   intermediate-step time init  =  7.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 51
    ==============================================================================================
 
@@ -9450,9 +9482,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             7.4              0
    ==============================================================================================
-      Electrode at time final = 7.4
-                   time init  = 7.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  7.40000E+00
+                   time init_init   =  7.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 32
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 51
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9551,8 +9584,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 7.6
-                   intermediate-step time init  = 7.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  7.60000E+00
+                   intermediate-step time init  =  7.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 52
    ==============================================================================================
 
@@ -9645,9 +9678,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             7.6              0
    ==============================================================================================
-      Electrode at time final = 7.6
-                   time init  = 7.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  7.60000E+00
+                   time init_init   =  7.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 33
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 52
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9746,8 +9780,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 7.8
-                   intermediate-step time init  = 7.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  7.80000E+00
+                   intermediate-step time init  =  7.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 53
    ==============================================================================================
 
@@ -9840,9 +9874,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             7.8              0
    ==============================================================================================
-      Electrode at time final = 7.8
-                   time init  = 7.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  7.80000E+00
+                   time init_init   =  7.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 34
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 53
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -9941,8 +9976,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 8
-                   intermediate-step time init  = 7.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  8.00000E+00
+                   intermediate-step time init  =  7.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 54
    ==============================================================================================
 
@@ -10035,9 +10070,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               8              0
    ==============================================================================================
-      Electrode at time final = 8
-                   time init  = 7.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  8.00000E+00
+                   time init_init   =  7.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 35
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 54
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10136,8 +10172,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 8.2
-                   intermediate-step time init  = 8                deltaT = 0.2
+      Electrode at intermediate-step time final =  8.20000E+00
+                   intermediate-step time init  =  8.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 55
    ==============================================================================================
 
@@ -10230,9 +10266,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             8.2              0
    ==============================================================================================
-      Electrode at time final = 8.2
-                   time init  = 8                         deltaTglobal = 0.2
+      Electrode at time final_final =  8.20000E+00
+                   time init_init   =  8.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 36
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 55
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10331,8 +10368,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 8.4
-                   intermediate-step time init  = 8.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  8.40000E+00
+                   intermediate-step time init  =  8.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 56
    ==============================================================================================
 
@@ -10425,9 +10462,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             8.4              0
    ==============================================================================================
-      Electrode at time final = 8.4
-                   time init  = 8.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  8.40000E+00
+                   time init_init   =  8.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 37
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 56
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10526,8 +10564,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 8.6
-                   intermediate-step time init  = 8.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  8.60000E+00
+                   intermediate-step time init  =  8.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 57
    ==============================================================================================
 
@@ -10620,9 +10658,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             8.6              0
    ==============================================================================================
-      Electrode at time final = 8.6
-                   time init  = 8.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  8.60000E+00
+                   time init_init   =  8.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 38
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 57
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10721,8 +10760,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 8.8
-                   intermediate-step time init  = 8.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  8.80000E+00
+                   intermediate-step time init  =  8.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 58
    ==============================================================================================
 
@@ -10815,9 +10854,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             8.8              0
    ==============================================================================================
-      Electrode at time final = 8.8
-                   time init  = 8.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  8.80000E+00
+                   time init_init   =  8.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 39
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 58
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -10916,8 +10956,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 9
-                   intermediate-step time init  = 8.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  9.00000E+00
+                   intermediate-step time init  =  8.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 59
    ==============================================================================================
 
@@ -11010,9 +11050,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
               9              0
    ==============================================================================================
-      Electrode at time final = 9
-                   time init  = 8.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  9.00000E+00
+                   time init_init   =  8.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 40
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 59
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11111,8 +11152,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 9.2
-                   intermediate-step time init  = 9                deltaT = 0.2
+      Electrode at intermediate-step time final =  9.20000E+00
+                   intermediate-step time init  =  9.00000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 60
    ==============================================================================================
 
@@ -11205,9 +11246,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             9.2              0
    ==============================================================================================
-      Electrode at time final = 9.2
-                   time init  = 9                         deltaTglobal = 0.2
+      Electrode at time final_final =  9.20000E+00
+                   time init_init   =  9.00000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 41
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 60
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11306,8 +11348,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 9.4
-                   intermediate-step time init  = 9.2                deltaT = 0.2
+      Electrode at intermediate-step time final =  9.40000E+00
+                   intermediate-step time init  =  9.20000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 61
    ==============================================================================================
 
@@ -11400,9 +11442,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             9.4              0
    ==============================================================================================
-      Electrode at time final = 9.4
-                   time init  = 9.2                         deltaTglobal = 0.2
+      Electrode at time final_final =  9.40000E+00
+                   time init_init   =  9.20000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 42
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 61
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11501,8 +11544,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 9.6
-                   intermediate-step time init  = 9.4                deltaT = 0.2
+      Electrode at intermediate-step time final =  9.60000E+00
+                   intermediate-step time init  =  9.40000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 62
    ==============================================================================================
 
@@ -11595,9 +11638,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             9.6              0
    ==============================================================================================
-      Electrode at time final = 9.6
-                   time init  = 9.4                         deltaTglobal = 0.2
+      Electrode at time final_final =  9.60000E+00
+                   time init_init   =  9.40000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 43
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 62
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11696,8 +11740,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 9.8
-                   intermediate-step time init  = 9.6                deltaT = 0.2
+      Electrode at intermediate-step time final =  9.80000E+00
+                   intermediate-step time init  =  9.60000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 63
    ==============================================================================================
 
@@ -11790,9 +11834,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
             9.8              0
    ==============================================================================================
-      Electrode at time final = 9.8
-                   time init  = 9.6                         deltaTglobal = 0.2
+      Electrode at time final_final =  9.80000E+00
+                   time init_init   =  9.60000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 44
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 63
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -11891,8 +11936,8 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 10
-                   intermediate-step time init  = 9.8                deltaT = 0.2
+      Electrode at intermediate-step time final =  1.00000E+01
+                   intermediate-step time init  =  9.80000E+00     deltaT =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 64
    ==============================================================================================
 
@@ -11985,9 +12030,10 @@ deltaT reduced to 0.00389326 from 0.0351534 due to phase death capture
      ============================================================================================
              10              0
    ==============================================================================================
-      Electrode at time final = 10
-                   time init  = 9.8                         deltaTglobal = 0.2
+      Electrode at time final_final =  1.00000E+01
+                   time init_init   =  9.80000E+00        deltaTglobal =  2.00000E-01
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 45
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 64
    ==============================================================================================
 
           Number of external surfaces = 1

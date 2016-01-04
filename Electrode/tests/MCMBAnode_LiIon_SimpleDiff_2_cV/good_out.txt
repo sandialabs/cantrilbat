@@ -12,6 +12,7 @@
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
+    Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
@@ -177,9 +178,10 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 oc[0] = -0.023098
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  0.00000E+00
-                              time init  =  0.00000E+00
+      Electrode_SimpleDiff at time final_final =  0.00000E+00
+                              time init_init   =  0.00000E+00                     deltaTglobal = 0
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 589463 amps
@@ -281,14 +283,14 @@ oc[0] = -0.023098
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   2.097E+04   Y  |  1.00E+00  5.631E+01 | 1   1.00E+00  2.476E+01   6.649E-02  5.631E+01|  2.476E+01  2.476E+01  5.631E+01
-	    2   5.631E+01   Y  |  1.00E+00  3.145E-04 | 1   1.00E+00  6.498E-02   3.629E-07  3.145E-04|  6.498E-02  6.498E-02  3.145E-04
-	                       |                      |                                converged = 2  |             3.629E-07  3.145E-04
+	*   1   1.806E+03   Y  |  1.00E+00  3.516E-01 | 1   1.00E+00  2.075E+00   4.042E-04  3.516E-01|  2.075E+00  2.075E+00  3.516E-01
+	    2   3.516E-01   Y  |  1.00E+00  1.436E-07 | 1   1.00E+00  4.041E-04   1.649E-10  1.436E-07|  4.041E-04  4.041E-04  1.436E-07
+	                       |                      |                                converged = 3  |            (  1.649E-10) 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.00000E-05
-                              intermediate-step time init  =  0.00000E+00
+                              intermediate-step time init  =  0.00000E+00               deltaT = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.05 volts
@@ -389,9 +391,10 @@ oc[0] = -0.023098
    ==============================================================================================
           1e-05         573400
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E-05
-                              time init  =  0.00000E+00
+      Electrode_SimpleDiff at time final_final =  1.00000E-05
+                              time init_init   =  0.00000E+00                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 1
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 573400 amps
@@ -493,13 +496,14 @@ oc[0] = -0.023098
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   4.353E+02   Y  |  1.00E+00  1.000E-02 | 1   1.00E+00  4.691E-01   1.077E-05  1.000E-02|  4.691E-01  4.691E-01  1.000E-02
-	                       |                      |                                converged = 2  |             1.077E-05  1.000E-02
+	*   1   8.655E+02   Y  |  1.00E+00  3.642E-02 | 1   1.00E+00  9.287E-01   3.908E-05  3.642E-02|  9.287E-01  9.287E-01  3.642E-02
+	    2   3.642E-02   Y  |  1.00E+00  7.888E-09 | 1   1.00E+00  3.924E-05   8.499E-12  7.888E-09|  3.924E-05  3.924E-05  7.888E-09
+	                       |                      |                                converged = 3  |            (  8.499E-12) 
 	-----------------------------------------------------------------------------------------------------------------------------------
-	Nonlinear problem solved successfully in 1 its
+	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.50000E-05
-                              intermediate-step time init  =  1.00000E-05
+                              intermediate-step time init  =  1.00000E-05               deltaT = 5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
           Voltage = 0.05 volts
@@ -598,18 +602,18 @@ oc[0] = -0.023098
                            V_C6-bulk               2.334E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.119804 beat out pnorm 0.232224
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.119801 beat out pnorm 0.232221
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   4.023E+02   Y  |  1.00E+00  8.442E-03 | 1   1.00E+00  4.330E-01   9.086E-06  8.442E-03|  4.330E-01  4.330E-01  8.442E-03
-	                       |                      |                                converged = 2  |             9.086E-06  8.442E-03
+	*   1   4.023E+02   Y  |  1.00E+00  8.442E-03 | 1   1.00E+00  4.330E-01   9.087E-06  8.442E-03|  4.330E-01  4.330E-01  8.442E-03
+	                       |                      |                                converged = 2  |             9.087E-06  8.442E-03
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.00000E-05
-                              intermediate-step time init  =  1.50000E-05
+                              intermediate-step time init  =  1.50000E-05               deltaT = 5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.05 volts
@@ -708,12 +712,13 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.119804 b
                            V_C6-bulk               2.306E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.110616 beat out pnorm 0.273135
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.110619 beat out pnorm 0.273135
           2e-05         562621
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.00000E-05
-                              time init  =  1.00000E-05
+      Electrode_SimpleDiff at time final_final =  2.00000E-05
+                              time init_init   =  1.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 3
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 562621 amps
@@ -821,7 +826,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.110616 b
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.50000E-05
-                              intermediate-step time init  =  2.00000E-05
+                              intermediate-step time init  =  2.00000E-05               deltaT = 5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 4
    ==============================================================================================
           Voltage = 0.05 volts
@@ -931,7 +936,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.102264 b
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.00000E-05
-                              intermediate-step time init  =  2.50000E-05
+                              intermediate-step time init  =  2.50000E-05               deltaT = 5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.05 volts
@@ -1033,9 +1038,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.102264 b
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0947164 beat out pnorm 0.34507
           3e-05         549706
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.00000E-05
-                              time init  =  2.00000E-05
+      Electrode_SimpleDiff at time final_final =  3.00000E-05
+                              time init_init   =  2.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 5
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 549706 amps
@@ -1137,13 +1143,13 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0947164 
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   3.203E+02   Y  |  1.00E+00  5.135E-03 | 1   1.00E+00  3.437E-01   5.509E-06  5.135E-03|  3.437E-01  3.437E-01  5.135E-03
-	                       |                      |                                converged = 2  |             5.509E-06  5.135E-03
+	*   1   3.203E+02   Y  |  1.00E+00  5.135E-03 | 1   1.00E+00  3.437E-01   5.510E-06  5.135E-03|  3.437E-01  3.437E-01  5.135E-03
+	                       |                      |                                converged = 2  |             5.510E-06  5.135E-03
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  3.50000E-05
-                              intermediate-step time init  =  3.00000E-05
+                              intermediate-step time init  =  3.00000E-05               deltaT = 5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6
    ==============================================================================================
           Voltage = 0.05 volts
@@ -1253,7 +1259,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.087881 b
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.00000E-05
-                              intermediate-step time init  =  3.50000E-05
+                              intermediate-step time init  =  3.50000E-05               deltaT = 5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.05 volts
@@ -1355,9 +1361,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.087881 b
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0816763 beat out pnorm 0.405782
           4e-05         538279
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.00000E-05
-                              time init  =  3.00000E-05
+      Electrode_SimpleDiff at time final_final =  4.00000E-05
+                              time init_init   =  3.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 7
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 538279 amps
@@ -1465,7 +1472,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0816763 
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  4.75000E-05
-                              intermediate-step time init  =  4.00000E-05
+                              intermediate-step time init  =  4.00000E-05               deltaT = 7.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 8
    ==============================================================================================
           Voltage = 0.05 volts
@@ -1575,7 +1582,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.166582 b
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.00000E-05
-                              intermediate-step time init  =  4.75000E-05
+                              intermediate-step time init  =  4.75000E-05               deltaT = 2.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.05 volts
@@ -1677,9 +1684,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.166582 b
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.017567 beat out pnorm 0.21782
           5e-05         527500
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  5.00000E-05
-                              time init  =  4.00000E-05
+      Electrode_SimpleDiff at time final_final =  5.00000E-05
+                              time init_init   =  4.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 9
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 527500 amps
@@ -1787,7 +1795,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.017567 b
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  5.75000E-05
-                              intermediate-step time init  =  5.00000E-05
+                              intermediate-step time init  =  5.00000E-05               deltaT = 7.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10
    ==============================================================================================
           Voltage = 0.05 volts
@@ -1891,13 +1899,13 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.145304 b
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   5.786E+01   Y  |  1.00E+00  8.067E-05 | 1   1.00E+00  5.988E-02   8.348E-08  8.067E-05|  5.988E-02  5.988E-02  8.067E-05
-	                       |                      |                                converged = 2  |             8.348E-08  8.067E-05
+	*   1   5.786E+01   Y  |  1.00E+00  8.066E-05 | 1   1.00E+00  5.988E-02   8.347E-08  8.066E-05|  5.988E-02  5.988E-02  8.066E-05
+	                       |                      |                                converged = 2  |             8.347E-08  8.066E-05
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.00000E-05
-                              intermediate-step time init  =  5.75000E-05
+                              intermediate-step time init  =  5.75000E-05               deltaT = 2.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11
    ==============================================================================================
           Voltage = 0.05 volts
@@ -1996,12 +2004,13 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.145304 b
                            V_C6-bulk               2.130E-02
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.015344 beat out pnorm 0.240821
+Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.015344 beat out pnorm 0.240822
           6e-05         518422
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  6.00000E-05
-                              time init  =  5.00000E-05
+      Electrode_SimpleDiff at time final_final =  6.00000E-05
+                              time init_init   =  5.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 11
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 518422 amps
@@ -2109,7 +2118,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.015344 b
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  6.75000E-05
-                              intermediate-step time init  =  6.00000E-05
+                              intermediate-step time init  =  6.00000E-05               deltaT = 7.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12
    ==============================================================================================
           Voltage = 0.05 volts
@@ -2213,13 +2222,13 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.127383 b
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   5.079E+01   Y  |  1.00E+00  6.063E-05 | 1   1.00E+00  5.252E-02   6.269E-08  6.063E-05|  5.252E-02  5.252E-02  6.063E-05
-	                       |                      |                                converged = 2  |             6.269E-08  6.063E-05
+	*   1   5.079E+01   Y  |  1.00E+00  6.064E-05 | 1   1.00E+00  5.252E-02   6.270E-08  6.064E-05|  5.252E-02  5.252E-02  6.064E-05
+	                       |                      |                                converged = 2  |             6.270E-08  6.064E-05
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.00000E-05
-                              intermediate-step time init  =  6.75000E-05
+                              intermediate-step time init  =  6.75000E-05               deltaT = 2.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13
    ==============================================================================================
           Voltage = 0.05 volts
@@ -2321,9 +2330,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.127383 b
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0134714 beat out pnorm 0.260415
           7e-05         510200
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  7.00000E-05
-                              time init  =  6.00000E-05
+      Electrode_SimpleDiff at time final_final =  7.00000E-05
+                              time init_init   =  6.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 13
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 510200 amps
@@ -2431,7 +2441,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0134714 
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  7.75000E-05
-                              intermediate-step time init  =  7.00000E-05
+                              intermediate-step time init  =  7.00000E-05               deltaT = 7.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14
    ==============================================================================================
           Voltage = 0.05 volts
@@ -2535,13 +2545,13 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112214 b
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   4.479E+01   Y  |  1.00E+00  4.601E-05 | 1   1.00E+00  4.628E-02   4.754E-08  4.601E-05|  4.628E-02  4.628E-02  4.601E-05
-	                       |                      |                                converged = 2  |             4.754E-08  4.601E-05
+	*   1   4.479E+01   Y  |  1.00E+00  4.602E-05 | 1   1.00E+00  4.628E-02   4.755E-08  4.602E-05|  4.628E-02  4.628E-02  4.602E-05
+	                       |                      |                                converged = 2  |             4.755E-08  4.602E-05
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.00000E-05
-                              intermediate-step time init  =  7.75000E-05
+                              intermediate-step time init  =  7.75000E-05               deltaT = 2.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15
    ==============================================================================================
           Voltage = 0.05 volts
@@ -2643,9 +2653,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.112214 b
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0118823 beat out pnorm 0.277138
           8e-05         502712
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  8.00000E-05
-                              time init  =  7.00000E-05
+      Electrode_SimpleDiff at time final_final =  8.00000E-05
+                              time init_init   =  7.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 15
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 502712 amps
@@ -2753,7 +2764,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0118823 
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  8.75000E-05
-                              intermediate-step time init  =  8.00000E-05
+                              intermediate-step time init  =  8.00000E-05               deltaT = 7.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 16
    ==============================================================================================
           Voltage = 0.05 volts
@@ -2863,7 +2874,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.099283 b
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  9.00000E-05
-                              intermediate-step time init  =  8.75000E-05
+                              intermediate-step time init  =  8.75000E-05               deltaT = 2.5e-06
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 17
    ==============================================================================================
           Voltage = 0.05 volts
@@ -2965,9 +2976,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.099283 b
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0105245 beat out pnorm 0.291427
           9e-05         495858
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  9.00000E-05
-                              time init  =  8.00000E-05
+      Electrode_SimpleDiff at time final_final =  9.00000E-05
+                              time init_init   =  8.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 17
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 495858 amps
@@ -3075,7 +3087,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0105245 
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  1.00000E-04
-                              intermediate-step time init  =  9.00000E-05
+                              intermediate-step time init  =  9.00000E-05               deltaT = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18
    ==============================================================================================
           Voltage = 0.05 volts
@@ -3177,9 +3189,10 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.0105245 
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 0.153444 beat out pnorm 1.28683
          0.0001         488451
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E-04
-                              time init  =  9.00000E-05
+      Electrode_SimpleDiff at time final_final =  1.00000E-04
+                              time init_init   =  9.00000E-05                     deltaTglobal = 1e-05
                 ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 18
    ==============================================================================================
           Voltage = 0.05 volts
           Current = 488451 amps

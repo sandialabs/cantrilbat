@@ -139,6 +139,7 @@ rebaseline:
 	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
 	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
 	cp out.txt good_out.txt
+	cp soln_0_0.xml soln_0_0_blessed.xml
 
 ##############################################################################
 

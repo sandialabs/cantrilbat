@@ -359,6 +359,7 @@ Number of Regions = 1
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
+    Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml

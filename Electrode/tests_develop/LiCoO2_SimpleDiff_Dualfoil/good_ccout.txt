@@ -12,6 +12,7 @@
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
+    Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 5)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
@@ -205,9 +206,10 @@ Electrode::electrode_model_create
  volts = 4.17612
 oc[0] = 4.17612
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  0.00000E+00
-                              time init  =  0.00000E+00
+      Electrode_SimpleDiff at time final_final =  0.00000E+00
+                              time init_init   =  0.00000E+00                     deltaTglobal = 0
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000539224 amps
@@ -343,9 +345,10 @@ Electrode_ECurr: Curr(voltage =       3.632634346289) =     -0.0020000000009   n
 RootFind success: convergence achieved
             0.1         -0.00214
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E-01
-                              time init  =  0.00000E+00
+      Electrode_SimpleDiff at time final_final =  1.00000E-01
+                              time init_init   =  0.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 16
+                numIntegrationSubCycles = 14, SubIntegrationCounter = 224
    ==============================================================================================
           Voltage = 3.63263 volts
           Current = -0.002 amps
@@ -469,9 +472,10 @@ Electrode_ECurr: Curr(voltage =       3.632612195123) =               -0.002   n
 RootFind success: convergence achieved
             0.2         -0.0022
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.00000E-01
-                              time init  =  1.00000E-01
+      Electrode_SimpleDiff at time final_final =  2.00000E-01
+                              time init_init   =  1.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 26
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 244
    ==============================================================================================
           Voltage = 3.63261 volts
           Current = -0.002 amps
@@ -595,9 +599,10 @@ Electrode_ECurr: Curr(voltage =       3.632592118637) =               -0.002   n
 RootFind success: convergence achieved
             0.3         -0.0022
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.00000E-01
-                              time init  =  2.00000E-01
+      Electrode_SimpleDiff at time final_final =  3.00000E-01
+                              time init_init   =  2.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 36
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 264
    ==============================================================================================
           Voltage = 3.63259 volts
           Current = -0.002 amps
@@ -721,9 +726,10 @@ Electrode_ECurr: Curr(voltage =       3.632569416012) =               -0.002   n
 RootFind success: convergence achieved
             0.4         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.00000E-01
-                              time init  =  3.00000E-01
+      Electrode_SimpleDiff at time final_final =  4.00000E-01
+                              time init_init   =  3.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 46
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 274
    ==============================================================================================
           Voltage = 3.63257 volts
           Current = -0.002 amps
@@ -847,9 +853,10 @@ Electrode_ECurr: Curr(voltage =       3.632550552729) =   -0.001999999999706   n
 RootFind success: convergence achieved
             0.5         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  5.00000E-01
-                              time init  =  4.00000E-01
+      Electrode_SimpleDiff at time final_final =  5.00000E-01
+                              time init_init   =  4.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 56
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 284
    ==============================================================================================
           Voltage = 3.63255 volts
           Current = -0.002 amps
@@ -973,9 +980,10 @@ Electrode_ECurr: Curr(voltage =       3.632531775325) =   -0.001999999999705   n
 RootFind success: convergence achieved
             0.6         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  6.00000E-01
-                              time init  =  5.00000E-01
+      Electrode_SimpleDiff at time final_final =  6.00000E-01
+                              time init_init   =  5.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 66
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 294
    ==============================================================================================
           Voltage = 3.63253 volts
           Current = -0.002 amps
@@ -1099,9 +1107,10 @@ Electrode_ECurr: Curr(voltage =       3.632513083249) =   -0.001999999999703   n
 RootFind success: convergence achieved
             0.7         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  7.00000E-01
-                              time init  =  6.00000E-01
+      Electrode_SimpleDiff at time final_final =  7.00000E-01
+                              time init_init   =  6.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 76
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 304
    ==============================================================================================
           Voltage = 3.63251 volts
           Current = -0.002 amps
@@ -1225,9 +1234,10 @@ Electrode_ECurr: Curr(voltage =       3.632494475944) =   -0.001999999999702   n
 RootFind success: convergence achieved
             0.8         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  8.00000E-01
-                              time init  =  7.00000E-01
+      Electrode_SimpleDiff at time final_final =  8.00000E-01
+                              time init_init   =  7.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 86
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 314
    ==============================================================================================
           Voltage = 3.63249 volts
           Current = -0.002 amps
@@ -1351,9 +1361,10 @@ Electrode_ECurr: Curr(voltage =       3.632475952862) =   -0.001999999999701   n
 RootFind success: convergence achieved
             0.9         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  9.00000E-01
-                              time init  =  8.00000E-01
+      Electrode_SimpleDiff at time final_final =  9.00000E-01
+                              time init_init   =  8.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 96
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 324
    ==============================================================================================
           Voltage = 3.63248 volts
           Current = -0.002 amps
@@ -1477,9 +1488,10 @@ Electrode_ECurr: Curr(voltage =       3.632457513454) =   -0.001999999999699   n
 RootFind success: convergence achieved
               1         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E+00
-                              time init  =  9.00000E-01
+      Electrode_SimpleDiff at time final_final =  1.00000E+00
+                              time init_init   =  9.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 106
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 334
    ==============================================================================================
           Voltage = 3.63246 volts
           Current = -0.002 amps
@@ -1603,9 +1615,10 @@ Electrode_ECurr: Curr(voltage =       3.632439157178) =   -0.001999999999698   n
 RootFind success: convergence achieved
             1.1         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.10000E+00
-                              time init  =  1.00000E+00
+      Electrode_SimpleDiff at time final_final =  1.10000E+00
+                              time init_init   =  1.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 116
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 344
    ==============================================================================================
           Voltage = 3.63244 volts
           Current = -0.002 amps
@@ -1729,9 +1742,10 @@ Electrode_ECurr: Curr(voltage =       3.632420883493) =   -0.001999999999696   n
 RootFind success: convergence achieved
             1.2         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.20000E+00
-                              time init  =  1.10000E+00
+      Electrode_SimpleDiff at time final_final =  1.20000E+00
+                              time init_init   =  1.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 126
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 354
    ==============================================================================================
           Voltage = 3.63242 volts
           Current = -0.002 amps
@@ -1855,9 +1869,10 @@ Electrode_ECurr: Curr(voltage =       3.632402691864) =   -0.001999999999695   n
 RootFind success: convergence achieved
             1.3         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.30000E+00
-                              time init  =  1.20000E+00
+      Electrode_SimpleDiff at time final_final =  1.30000E+00
+                              time init_init   =  1.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 136
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 364
    ==============================================================================================
           Voltage = 3.6324 volts
           Current = -0.002 amps
@@ -1981,9 +1996,10 @@ Electrode_ECurr: Curr(voltage =       3.632384581759) =   -0.001999999999694   n
 RootFind success: convergence achieved
             1.4         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.40000E+00
-                              time init  =  1.30000E+00
+      Electrode_SimpleDiff at time final_final =  1.40000E+00
+                              time init_init   =  1.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 146
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 374
    ==============================================================================================
           Voltage = 3.63238 volts
           Current = -0.002 amps
@@ -2107,9 +2123,10 @@ Electrode_ECurr: Curr(voltage =       3.632366552648) =   -0.001999999999692   n
 RootFind success: convergence achieved
             1.5         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.50000E+00
-                              time init  =  1.40000E+00
+      Electrode_SimpleDiff at time final_final =  1.50000E+00
+                              time init_init   =  1.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 156
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 384
    ==============================================================================================
           Voltage = 3.63237 volts
           Current = -0.002 amps
@@ -2233,9 +2250,10 @@ Electrode_ECurr: Curr(voltage =       3.632348604009) =   -0.001999999999691   n
 RootFind success: convergence achieved
             1.6         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.60000E+00
-                              time init  =  1.50000E+00
+      Electrode_SimpleDiff at time final_final =  1.60000E+00
+                              time init_init   =  1.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 166
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 394
    ==============================================================================================
           Voltage = 3.63235 volts
           Current = -0.002 amps
@@ -2359,9 +2377,10 @@ Electrode_ECurr: Curr(voltage =       3.632330735318) =    -0.00199999999969   n
 RootFind success: convergence achieved
             1.7         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.70000E+00
-                              time init  =  1.60000E+00
+      Electrode_SimpleDiff at time final_final =  1.70000E+00
+                              time init_init   =  1.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 176
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 404
    ==============================================================================================
           Voltage = 3.63233 volts
           Current = -0.002 amps
@@ -2485,9 +2504,10 @@ Electrode_ECurr: Curr(voltage =       3.632312946058) =   -0.001999999999688   n
 RootFind success: convergence achieved
             1.8         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.80000E+00
-                              time init  =  1.70000E+00
+      Electrode_SimpleDiff at time final_final =  1.80000E+00
+                              time init_init   =  1.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 186
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 414
    ==============================================================================================
           Voltage = 3.63231 volts
           Current = -0.002 amps
@@ -2611,9 +2631,10 @@ Electrode_ECurr: Curr(voltage =       3.632295235716) =   -0.001999999999687   n
 RootFind success: convergence achieved
             1.9         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.90000E+00
-                              time init  =  1.80000E+00
+      Electrode_SimpleDiff at time final_final =  1.90000E+00
+                              time init_init   =  1.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 196
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 424
    ==============================================================================================
           Voltage = 3.6323 volts
           Current = -0.002 amps
@@ -2737,9 +2758,10 @@ Electrode_ECurr: Curr(voltage =       3.632277603781) =   -0.001999999999686   n
 RootFind success: convergence achieved
               2         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.00000E+00
-                              time init  =  1.90000E+00
+      Electrode_SimpleDiff at time final_final =  2.00000E+00
+                              time init_init   =  1.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 206
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 434
    ==============================================================================================
           Voltage = 3.63228 volts
           Current = -0.002 amps
@@ -2863,9 +2885,10 @@ Electrode_ECurr: Curr(voltage =       3.632260049745) =   -0.001999999999684   n
 RootFind success: convergence achieved
             2.1         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.10000E+00
-                              time init  =  2.00000E+00
+      Electrode_SimpleDiff at time final_final =  2.10000E+00
+                              time init_init   =  2.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 216
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 444
    ==============================================================================================
           Voltage = 3.63226 volts
           Current = -0.002 amps
@@ -2989,9 +3012,10 @@ Electrode_ECurr: Curr(voltage =       3.632242573106) =   -0.001999999999683   n
 RootFind success: convergence achieved
             2.2         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.20000E+00
-                              time init  =  2.10000E+00
+      Electrode_SimpleDiff at time final_final =  2.20000E+00
+                              time init_init   =  2.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 226
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 454
    ==============================================================================================
           Voltage = 3.63224 volts
           Current = -0.002 amps
@@ -3115,9 +3139,10 @@ Electrode_ECurr: Curr(voltage =       3.632225173363) =   -0.001999999999682   n
 RootFind success: convergence achieved
             2.3         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.30000E+00
-                              time init  =  2.20000E+00
+      Electrode_SimpleDiff at time final_final =  2.30000E+00
+                              time init_init   =  2.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 236
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 464
    ==============================================================================================
           Voltage = 3.63223 volts
           Current = -0.002 amps
@@ -3241,9 +3266,10 @@ Electrode_ECurr: Curr(voltage =       3.632207850019) =    -0.00199999999968   n
 RootFind success: convergence achieved
             2.4         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.40000E+00
-                              time init  =  2.30000E+00
+      Electrode_SimpleDiff at time final_final =  2.40000E+00
+                              time init_init   =  2.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 246
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 474
    ==============================================================================================
           Voltage = 3.63221 volts
           Current = -0.002 amps
@@ -3367,9 +3393,10 @@ Electrode_ECurr: Curr(voltage =       3.632190602581) =   -0.001999999999679   n
 RootFind success: convergence achieved
             2.5         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.50000E+00
-                              time init  =  2.40000E+00
+      Electrode_SimpleDiff at time final_final =  2.50000E+00
+                              time init_init   =  2.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 256
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 484
    ==============================================================================================
           Voltage = 3.63219 volts
           Current = -0.002 amps
@@ -3493,9 +3520,10 @@ Electrode_ECurr: Curr(voltage =       3.632173430559) =   -0.001999999999678   n
 RootFind success: convergence achieved
             2.6         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.60000E+00
-                              time init  =  2.50000E+00
+      Electrode_SimpleDiff at time final_final =  2.60000E+00
+                              time init_init   =  2.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 266
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 494
    ==============================================================================================
           Voltage = 3.63217 volts
           Current = -0.002 amps
@@ -3619,9 +3647,10 @@ Electrode_ECurr: Curr(voltage =       3.632156333468) =   -0.001999999999677   n
 RootFind success: convergence achieved
             2.7         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.70000E+00
-                              time init  =  2.60000E+00
+      Electrode_SimpleDiff at time final_final =  2.70000E+00
+                              time init_init   =  2.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 276
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 504
    ==============================================================================================
           Voltage = 3.63216 volts
           Current = -0.002 amps
@@ -3745,9 +3774,10 @@ Electrode_ECurr: Curr(voltage =       3.632139310822) =   -0.001999999999675   n
 RootFind success: convergence achieved
             2.8         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.80000E+00
-                              time init  =  2.70000E+00
+      Electrode_SimpleDiff at time final_final =  2.80000E+00
+                              time init_init   =  2.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 286
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 514
    ==============================================================================================
           Voltage = 3.63214 volts
           Current = -0.002 amps
@@ -3871,9 +3901,10 @@ Electrode_ECurr: Curr(voltage =       3.632122362144) =   -0.001999999999674   n
 RootFind success: convergence achieved
             2.9         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.90000E+00
-                              time init  =  2.80000E+00
+      Electrode_SimpleDiff at time final_final =  2.90000E+00
+                              time init_init   =  2.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 296
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 524
    ==============================================================================================
           Voltage = 3.63212 volts
           Current = -0.002 amps
@@ -3997,9 +4028,10 @@ Electrode_ECurr: Curr(voltage =       3.632105486955) =   -0.001999999999673   n
 RootFind success: convergence achieved
               3         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.00000E+00
-                              time init  =  2.90000E+00
+      Electrode_SimpleDiff at time final_final =  3.00000E+00
+                              time init_init   =  2.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 306
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 534
    ==============================================================================================
           Voltage = 3.63211 volts
           Current = -0.002 amps
@@ -4123,9 +4155,10 @@ Electrode_ECurr: Curr(voltage =       3.632088684784) =   -0.001999999999672   n
 RootFind success: convergence achieved
             3.1         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.10000E+00
-                              time init  =  3.00000E+00
+      Electrode_SimpleDiff at time final_final =  3.10000E+00
+                              time init_init   =  3.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 316
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 544
    ==============================================================================================
           Voltage = 3.63209 volts
           Current = -0.002 amps
@@ -4249,9 +4282,10 @@ Electrode_ECurr: Curr(voltage =       3.632071955159) =    -0.00199999999967   n
 RootFind success: convergence achieved
             3.2         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.20000E+00
-                              time init  =  3.10000E+00
+      Electrode_SimpleDiff at time final_final =  3.20000E+00
+                              time init_init   =  3.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 326
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 554
    ==============================================================================================
           Voltage = 3.63207 volts
           Current = -0.002 amps
@@ -4375,9 +4409,10 @@ Electrode_ECurr: Curr(voltage =       3.632055297614) =   -0.001999999999669   n
 RootFind success: convergence achieved
             3.3         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.30000E+00
-                              time init  =  3.20000E+00
+      Electrode_SimpleDiff at time final_final =  3.30000E+00
+                              time init_init   =  3.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 336
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 564
    ==============================================================================================
           Voltage = 3.63206 volts
           Current = -0.002 amps
@@ -4501,9 +4536,10 @@ Electrode_ECurr: Curr(voltage =       3.632038711685) =   -0.001999999999668   n
 RootFind success: convergence achieved
             3.4         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.40000E+00
-                              time init  =  3.30000E+00
+      Electrode_SimpleDiff at time final_final =  3.40000E+00
+                              time init_init   =  3.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 346
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 574
    ==============================================================================================
           Voltage = 3.63204 volts
           Current = -0.002 amps
@@ -4627,9 +4663,10 @@ Electrode_ECurr: Curr(voltage =       3.632022196911) =   -0.001999999999667   n
 RootFind success: convergence achieved
             3.5         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.50000E+00
-                              time init  =  3.40000E+00
+      Electrode_SimpleDiff at time final_final =  3.50000E+00
+                              time init_init   =  3.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 356
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 584
    ==============================================================================================
           Voltage = 3.63202 volts
           Current = -0.002 amps
@@ -4753,9 +4790,10 @@ Electrode_ECurr: Curr(voltage =       3.632005752836) =   -0.001999999999666   n
 RootFind success: convergence achieved
             3.6         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.60000E+00
-                              time init  =  3.50000E+00
+      Electrode_SimpleDiff at time final_final =  3.60000E+00
+                              time init_init   =  3.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 366
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 594
    ==============================================================================================
           Voltage = 3.63201 volts
           Current = -0.002 amps
@@ -4879,9 +4917,10 @@ Electrode_ECurr: Curr(voltage =       3.631989379005) =   -0.001999999999665   n
 RootFind success: convergence achieved
             3.7         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.70000E+00
-                              time init  =  3.60000E+00
+      Electrode_SimpleDiff at time final_final =  3.70000E+00
+                              time init_init   =  3.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 376
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 604
    ==============================================================================================
           Voltage = 3.63199 volts
           Current = -0.002 amps
@@ -5005,9 +5044,10 @@ Electrode_ECurr: Curr(voltage =       3.631973074966) =   -0.001999999999664   n
 RootFind success: convergence achieved
             3.8         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.80000E+00
-                              time init  =  3.70000E+00
+      Electrode_SimpleDiff at time final_final =  3.80000E+00
+                              time init_init   =  3.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 386
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 614
    ==============================================================================================
           Voltage = 3.63197 volts
           Current = -0.002 amps
@@ -5131,9 +5171,10 @@ Electrode_ECurr: Curr(voltage =       3.631956840273) =   -0.001999999999662   n
 RootFind success: convergence achieved
             3.9         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.90000E+00
-                              time init  =  3.80000E+00
+      Electrode_SimpleDiff at time final_final =  3.90000E+00
+                              time init_init   =  3.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 396
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 624
    ==============================================================================================
           Voltage = 3.63196 volts
           Current = -0.002 amps
@@ -5257,9 +5298,10 @@ Electrode_ECurr: Curr(voltage =       3.631940674479) =   -0.001999999999661   n
 RootFind success: convergence achieved
               4         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.00000E+00
-                              time init  =  3.90000E+00
+      Electrode_SimpleDiff at time final_final =  4.00000E+00
+                              time init_init   =  3.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 406
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 634
    ==============================================================================================
           Voltage = 3.63194 volts
           Current = -0.002 amps
@@ -5383,9 +5425,10 @@ Electrode_ECurr: Curr(voltage =       3.631924577143) =    -0.00199999999966   n
 RootFind success: convergence achieved
             4.1         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.10000E+00
-                              time init  =  4.00000E+00
+      Electrode_SimpleDiff at time final_final =  4.10000E+00
+                              time init_init   =  4.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 416
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 644
    ==============================================================================================
           Voltage = 3.63192 volts
           Current = -0.002 amps
@@ -5509,9 +5552,10 @@ Electrode_ECurr: Curr(voltage =       3.631908547826) =   -0.001999999999659   n
 RootFind success: convergence achieved
             4.2         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.20000E+00
-                              time init  =  4.10000E+00
+      Electrode_SimpleDiff at time final_final =  4.20000E+00
+                              time init_init   =  4.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 426
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 654
    ==============================================================================================
           Voltage = 3.63191 volts
           Current = -0.002 amps
@@ -5635,9 +5679,10 @@ Electrode_ECurr: Curr(voltage =       3.631892586092) =   -0.001999999999658   n
 RootFind success: convergence achieved
             4.3         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.30000E+00
-                              time init  =  4.20000E+00
+      Electrode_SimpleDiff at time final_final =  4.30000E+00
+                              time init_init   =  4.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 436
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 664
    ==============================================================================================
           Voltage = 3.63189 volts
           Current = -0.002 amps
@@ -5761,9 +5806,10 @@ Electrode_ECurr: Curr(voltage =       3.631876691507) =   -0.001999999999657   n
 RootFind success: convergence achieved
             4.4         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.40000E+00
-                              time init  =  4.30000E+00
+      Electrode_SimpleDiff at time final_final =  4.40000E+00
+                              time init_init   =  4.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 446
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 674
    ==============================================================================================
           Voltage = 3.63188 volts
           Current = -0.002 amps
@@ -5887,9 +5933,10 @@ Electrode_ECurr: Curr(voltage =       3.631860863642) =   -0.001999999999656   n
 RootFind success: convergence achieved
             4.5         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.50000E+00
-                              time init  =  4.40000E+00
+      Electrode_SimpleDiff at time final_final =  4.50000E+00
+                              time init_init   =  4.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 456
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 684
    ==============================================================================================
           Voltage = 3.63186 volts
           Current = -0.002 amps
@@ -6013,9 +6060,10 @@ Electrode_ECurr: Curr(voltage =        3.63184510207) =   -0.001999999999654   n
 RootFind success: convergence achieved
             4.6         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.60000E+00
-                              time init  =  4.50000E+00
+      Electrode_SimpleDiff at time final_final =  4.60000E+00
+                              time init_init   =  4.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 466
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 694
    ==============================================================================================
           Voltage = 3.63185 volts
           Current = -0.002 amps
@@ -6139,9 +6187,10 @@ Electrode_ECurr: Curr(voltage =       3.631829406367) =   -0.001999999999654   n
 RootFind success: convergence achieved
             4.7         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.70000E+00
-                              time init  =  4.60000E+00
+      Electrode_SimpleDiff at time final_final =  4.70000E+00
+                              time init_init   =  4.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 476
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 704
    ==============================================================================================
           Voltage = 3.63183 volts
           Current = -0.002 amps
@@ -6265,9 +6314,10 @@ Electrode_ECurr: Curr(voltage =        3.63181377611) =   -0.001999999999652   n
 RootFind success: convergence achieved
             4.8         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.80000E+00
-                              time init  =  4.70000E+00
+      Electrode_SimpleDiff at time final_final =  4.80000E+00
+                              time init_init   =  4.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 486
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 714
    ==============================================================================================
           Voltage = 3.63181 volts
           Current = -0.002 amps
@@ -6391,9 +6441,10 @@ Electrode_ECurr: Curr(voltage =       3.631798210882) =   -0.001999999999651   n
 RootFind success: convergence achieved
             4.9         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.90000E+00
-                              time init  =  4.80000E+00
+      Electrode_SimpleDiff at time final_final =  4.90000E+00
+                              time init_init   =  4.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 496
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 724
    ==============================================================================================
           Voltage = 3.6318 volts
           Current = -0.002 amps
@@ -6517,9 +6568,10 @@ Electrode_ECurr: Curr(voltage =       3.631782710266) =    -0.00199999999965   n
 RootFind success: convergence achieved
               5         -0.0021
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  5.00000E+00
-                              time init  =  4.90000E+00
+      Electrode_SimpleDiff at time final_final =  5.00000E+00
+                              time init_init   =  4.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 506
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 734
    ==============================================================================================
           Voltage = 3.63178 volts
           Current = -0.002 amps

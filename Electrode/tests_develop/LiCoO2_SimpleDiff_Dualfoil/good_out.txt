@@ -12,6 +12,7 @@
          ====> Temperature = 298.15
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
+    Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 5)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
@@ -205,9 +206,10 @@ Electrode::electrode_model_create
  volts = 4.17612
 oc[0] = 4.17612
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  0.00000E+00
-                              time init  =  0.00000E+00
+      Electrode_SimpleDiff at time final_final =  0.00000E+00
+                              time init_init   =  0.00000E+00                     deltaTglobal = 0
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000539224 amps
@@ -314,9 +316,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.1   -0.00053919214
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E-01
-                              time init  =  0.00000E+00
+      Electrode_SimpleDiff at time final_final =  1.00000E-01
+                              time init_init   =  0.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                numIntegrationSubCycles = 14, SubIntegrationCounter = 14
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000539192 amps
@@ -423,9 +426,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.2   -0.0005391292
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.00000E-01
-                              time init  =  1.00000E-01
+      Electrode_SimpleDiff at time final_final =  2.00000E-01
+                              time init_init   =  1.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 16
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000539129 amps
@@ -532,9 +536,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.3   -0.0005390722
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.00000E-01
-                              time init  =  2.00000E-01
+      Electrode_SimpleDiff at time final_final =  3.00000E-01
+                              time init_init   =  2.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
+                numIntegrationSubCycles = 2, SubIntegrationCounter = 18
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000539072 amps
@@ -641,9 +646,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.4   -0.0005390081
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.00000E-01
-                              time init  =  3.00000E-01
+      Electrode_SimpleDiff at time final_final =  4.00000E-01
+                              time init_init   =  3.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 19
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000539008 amps
@@ -750,9 +756,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.5   -0.0005389541
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  5.00000E-01
-                              time init  =  4.00000E-01
+      Electrode_SimpleDiff at time final_final =  5.00000E-01
+                              time init_init   =  4.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 20
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538954 amps
@@ -859,9 +866,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.6   -0.0005389011
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  6.00000E-01
-                              time init  =  5.00000E-01
+      Electrode_SimpleDiff at time final_final =  6.00000E-01
+                              time init_init   =  5.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 6
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 21
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538901 amps
@@ -968,9 +976,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.7   -0.0005388481
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  7.00000E-01
-                              time init  =  6.00000E-01
+      Electrode_SimpleDiff at time final_final =  7.00000E-01
+                              time init_init   =  6.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 7
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 22
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538848 amps
@@ -1077,9 +1086,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.8   -0.0005387961
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  8.00000E-01
-                              time init  =  7.00000E-01
+      Electrode_SimpleDiff at time final_final =  8.00000E-01
+                              time init_init   =  7.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 8
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 23
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538796 amps
@@ -1186,9 +1196,10 @@ oc[0] = 4.17612
    ==============================================================================================
             0.9   -0.0005387431
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  9.00000E-01
-                              time init  =  8.00000E-01
+      Electrode_SimpleDiff at time final_final =  9.00000E-01
+                              time init_init   =  8.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 9
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 24
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538743 amps
@@ -1295,9 +1306,10 @@ oc[0] = 4.17612
    ==============================================================================================
               1   -0.0005386911
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.00000E+00
-                              time init  =  9.00000E-01
+      Electrode_SimpleDiff at time final_final =  1.00000E+00
+                              time init_init   =  9.00000E-01                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 10
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 25
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538691 amps
@@ -1404,9 +1416,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.1   -0.0005386391
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.10000E+00
-                              time init  =  1.00000E+00
+      Electrode_SimpleDiff at time final_final =  1.10000E+00
+                              time init_init   =  1.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 11
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 26
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538639 amps
@@ -1513,9 +1526,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.2   -0.0005385871
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.20000E+00
-                              time init  =  1.10000E+00
+      Electrode_SimpleDiff at time final_final =  1.20000E+00
+                              time init_init   =  1.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 12
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 27
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538587 amps
@@ -1622,9 +1636,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.3   -0.0005385361
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.30000E+00
-                              time init  =  1.20000E+00
+      Electrode_SimpleDiff at time final_final =  1.30000E+00
+                              time init_init   =  1.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 13
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 28
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538536 amps
@@ -1731,9 +1746,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.4   -0.0005384841
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.40000E+00
-                              time init  =  1.30000E+00
+      Electrode_SimpleDiff at time final_final =  1.40000E+00
+                              time init_init   =  1.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 14
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 29
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538484 amps
@@ -1840,9 +1856,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.5   -0.0005384331
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.50000E+00
-                              time init  =  1.40000E+00
+      Electrode_SimpleDiff at time final_final =  1.50000E+00
+                              time init_init   =  1.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 15
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 30
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538433 amps
@@ -1949,9 +1966,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.6   -0.0005383821
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.60000E+00
-                              time init  =  1.50000E+00
+      Electrode_SimpleDiff at time final_final =  1.60000E+00
+                              time init_init   =  1.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 16
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 31
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538382 amps
@@ -2058,9 +2076,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.7   -0.0005383321
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.70000E+00
-                              time init  =  1.60000E+00
+      Electrode_SimpleDiff at time final_final =  1.70000E+00
+                              time init_init   =  1.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 17
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 32
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538332 amps
@@ -2167,9 +2186,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.8   -0.0005382811
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.80000E+00
-                              time init  =  1.70000E+00
+      Electrode_SimpleDiff at time final_final =  1.80000E+00
+                              time init_init   =  1.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 18
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 33
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538281 amps
@@ -2276,9 +2296,10 @@ oc[0] = 4.17612
    ==============================================================================================
             1.9   -0.0005382311
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  1.90000E+00
-                              time init  =  1.80000E+00
+      Electrode_SimpleDiff at time final_final =  1.90000E+00
+                              time init_init   =  1.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 19
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 34
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538231 amps
@@ -2385,9 +2406,10 @@ oc[0] = 4.17612
    ==============================================================================================
               2   -0.0005381811
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.00000E+00
-                              time init  =  1.90000E+00
+      Electrode_SimpleDiff at time final_final =  2.00000E+00
+                              time init_init   =  1.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 20
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 35
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538181 amps
@@ -2494,9 +2516,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.1   -0.0005381311
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.10000E+00
-                              time init  =  2.00000E+00
+      Electrode_SimpleDiff at time final_final =  2.10000E+00
+                              time init_init   =  2.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 21
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 36
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538131 amps
@@ -2603,9 +2626,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.2   -0.0005380821
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.20000E+00
-                              time init  =  2.10000E+00
+      Electrode_SimpleDiff at time final_final =  2.20000E+00
+                              time init_init   =  2.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 22
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 37
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538082 amps
@@ -2712,9 +2736,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.3   -0.0005380331
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.30000E+00
-                              time init  =  2.20000E+00
+      Electrode_SimpleDiff at time final_final =  2.30000E+00
+                              time init_init   =  2.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 23
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 38
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000538033 amps
@@ -2821,9 +2846,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.4   -0.0005379831
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.40000E+00
-                              time init  =  2.30000E+00
+      Electrode_SimpleDiff at time final_final =  2.40000E+00
+                              time init_init   =  2.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 24
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 39
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537983 amps
@@ -2930,9 +2956,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.5   -0.0005379341
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.50000E+00
-                              time init  =  2.40000E+00
+      Electrode_SimpleDiff at time final_final =  2.50000E+00
+                              time init_init   =  2.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 25
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 40
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537934 amps
@@ -3039,9 +3066,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.6   -0.0005378861
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.60000E+00
-                              time init  =  2.50000E+00
+      Electrode_SimpleDiff at time final_final =  2.60000E+00
+                              time init_init   =  2.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 26
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 41
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537886 amps
@@ -3148,9 +3176,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.7   -0.0005378371
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.70000E+00
-                              time init  =  2.60000E+00
+      Electrode_SimpleDiff at time final_final =  2.70000E+00
+                              time init_init   =  2.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 27
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 42
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537837 amps
@@ -3257,9 +3286,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.8   -0.0005377891
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.80000E+00
-                              time init  =  2.70000E+00
+      Electrode_SimpleDiff at time final_final =  2.80000E+00
+                              time init_init   =  2.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 28
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 43
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537789 amps
@@ -3366,9 +3396,10 @@ oc[0] = 4.17612
    ==============================================================================================
             2.9   -0.0005377411
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  2.90000E+00
-                              time init  =  2.80000E+00
+      Electrode_SimpleDiff at time final_final =  2.90000E+00
+                              time init_init   =  2.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 29
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 44
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537741 amps
@@ -3475,9 +3506,10 @@ oc[0] = 4.17612
    ==============================================================================================
               3   -0.0005376931
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.00000E+00
-                              time init  =  2.90000E+00
+      Electrode_SimpleDiff at time final_final =  3.00000E+00
+                              time init_init   =  2.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 30
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 45
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537693 amps
@@ -3584,9 +3616,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.1   -0.0005376451
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.10000E+00
-                              time init  =  3.00000E+00
+      Electrode_SimpleDiff at time final_final =  3.10000E+00
+                              time init_init   =  3.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 31
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 46
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537645 amps
@@ -3693,9 +3726,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.2   -0.0005375981
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.20000E+00
-                              time init  =  3.10000E+00
+      Electrode_SimpleDiff at time final_final =  3.20000E+00
+                              time init_init   =  3.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 32
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 47
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537598 amps
@@ -3802,9 +3836,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.3   -0.0005375511
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.30000E+00
-                              time init  =  3.20000E+00
+      Electrode_SimpleDiff at time final_final =  3.30000E+00
+                              time init_init   =  3.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 33
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 48
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537551 amps
@@ -3911,9 +3946,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.4   -0.0005375031
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.40000E+00
-                              time init  =  3.30000E+00
+      Electrode_SimpleDiff at time final_final =  3.40000E+00
+                              time init_init   =  3.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 34
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 49
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537503 amps
@@ -4020,9 +4056,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.5   -0.0005374571
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.50000E+00
-                              time init  =  3.40000E+00
+      Electrode_SimpleDiff at time final_final =  3.50000E+00
+                              time init_init   =  3.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 35
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 50
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537457 amps
@@ -4129,9 +4166,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.6    -0.000537411
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.60000E+00
-                              time init  =  3.50000E+00
+      Electrode_SimpleDiff at time final_final =  3.60000E+00
+                              time init_init   =  3.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 36
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 51
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.00053741 amps
@@ -4238,9 +4276,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.7   -0.0005373631
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.70000E+00
-                              time init  =  3.60000E+00
+      Electrode_SimpleDiff at time final_final =  3.70000E+00
+                              time init_init   =  3.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 37
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 52
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537363 amps
@@ -4347,9 +4386,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.8   -0.0005373171
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.80000E+00
-                              time init  =  3.70000E+00
+      Electrode_SimpleDiff at time final_final =  3.80000E+00
+                              time init_init   =  3.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 38
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 53
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537317 amps
@@ -4456,9 +4496,10 @@ oc[0] = 4.17612
    ==============================================================================================
             3.9   -0.0005372711
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  3.90000E+00
-                              time init  =  3.80000E+00
+      Electrode_SimpleDiff at time final_final =  3.90000E+00
+                              time init_init   =  3.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 39
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 54
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537271 amps
@@ -4565,9 +4606,10 @@ oc[0] = 4.17612
    ==============================================================================================
               4   -0.0005372251
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.00000E+00
-                              time init  =  3.90000E+00
+      Electrode_SimpleDiff at time final_final =  4.00000E+00
+                              time init_init   =  3.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 40
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 55
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537225 amps
@@ -4674,9 +4716,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.1   -0.0005371791
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.10000E+00
-                              time init  =  4.00000E+00
+      Electrode_SimpleDiff at time final_final =  4.10000E+00
+                              time init_init   =  4.00000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 41
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 56
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537179 amps
@@ -4783,9 +4826,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.2   -0.0005371341
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.20000E+00
-                              time init  =  4.10000E+00
+      Electrode_SimpleDiff at time final_final =  4.20000E+00
+                              time init_init   =  4.10000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 42
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 57
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537134 amps
@@ -4892,9 +4936,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.3   -0.0005370881
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.30000E+00
-                              time init  =  4.20000E+00
+      Electrode_SimpleDiff at time final_final =  4.30000E+00
+                              time init_init   =  4.20000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 43
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 58
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537088 amps
@@ -5001,9 +5046,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.4   -0.0005370431
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.40000E+00
-                              time init  =  4.30000E+00
+      Electrode_SimpleDiff at time final_final =  4.40000E+00
+                              time init_init   =  4.30000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 44
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 59
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000537043 amps
@@ -5110,9 +5156,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.5   -0.0005369981
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.50000E+00
-                              time init  =  4.40000E+00
+      Electrode_SimpleDiff at time final_final =  4.50000E+00
+                              time init_init   =  4.40000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 45
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 60
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000536998 amps
@@ -5219,9 +5266,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.6   -0.0005369541
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.60000E+00
-                              time init  =  4.50000E+00
+      Electrode_SimpleDiff at time final_final =  4.60000E+00
+                              time init_init   =  4.50000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 46
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 61
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000536954 amps
@@ -5328,9 +5376,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.7   -0.0005369091
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.70000E+00
-                              time init  =  4.60000E+00
+      Electrode_SimpleDiff at time final_final =  4.70000E+00
+                              time init_init   =  4.60000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 47
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 62
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000536909 amps
@@ -5437,9 +5486,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.8   -0.0005368651
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.80000E+00
-                              time init  =  4.70000E+00
+      Electrode_SimpleDiff at time final_final =  4.80000E+00
+                              time init_init   =  4.70000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 48
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 63
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000536865 amps
@@ -5546,9 +5596,10 @@ oc[0] = 4.17612
    ==============================================================================================
             4.9    -0.000536821
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  4.90000E+00
-                              time init  =  4.80000E+00
+      Electrode_SimpleDiff at time final_final =  4.90000E+00
+                              time init_init   =  4.80000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 49
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 64
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.00053682 amps
@@ -5655,9 +5706,10 @@ oc[0] = 4.17612
    ==============================================================================================
               5   -0.0005367761
    ==============================================================================================
-      Electrode_SimpleDiff at time final =  5.00000E+00
-                              time init  =  4.90000E+00
+      Electrode_SimpleDiff at time final_final =  5.00000E+00
+                              time init_init   =  4.90000E+00                     deltaTglobal = 0.1
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 50
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 65
    ==============================================================================================
           Voltage = 3.7 volts
           Current = -0.000536776 amps

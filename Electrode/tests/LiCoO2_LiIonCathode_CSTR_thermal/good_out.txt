@@ -1232,9 +1232,10 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 oc[0] = 3.98922
    ==============================================================================================
-      Electrode at time final = 0
-                   time init  = 0                         deltaTglobal = 0
+      Electrode at time final_final =  0.00000E+00
+                   time init_init   =  0.00000E+00        deltaTglobal =  0.00000E+00
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1373,8 +1374,8 @@ oc[0] = 3.98922
 	=======================================================================================================================
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 0.0002
-                   intermediate-step time init  = 0                deltaT = 0.0002
+      Electrode at intermediate-step time final =  2.00000E-04
+                   intermediate-step time init  =  0.00000E+00     deltaT =  2.00000E-04
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
 
@@ -1464,9 +1465,10 @@ oc[0] = 3.98922
      ============================================================================================
          0.0002      -0.106531
    ==============================================================================================
-      Electrode at time final = 0.0002
-                   time init  = 0                         deltaTglobal = 0.0002
+      Electrode at time final_final =  2.00000E-04
+                   time init_init   =  0.00000E+00        deltaTglobal =  2.00000E-04
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 1
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -1619,8 +1621,8 @@ current2 = -0.106531 amps
 	=======================================================================================================================
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 0.0004
-                   intermediate-step time init  = 0.0002                deltaT = 0.0002
+      Electrode at intermediate-step time final =  4.00000E-04
+                   intermediate-step time init  =  2.00000E-04     deltaT =  2.00000E-04
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2
    ==============================================================================================
 
@@ -1710,9 +1712,10 @@ current2 = -0.106531 amps
      ============================================================================================
          0.0004       -0.10652
    ==============================================================================================
-      Electrode at time final = 0.0004
-                   time init  = 0.0002                         deltaTglobal = 0.0002
+      Electrode at time final_final =  4.00000E-04
+                   time init_init   =  2.00000E-04        deltaTglobal =  2.00000E-04
                 ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 2
    ==============================================================================================
 
           Number of external surfaces = 1
