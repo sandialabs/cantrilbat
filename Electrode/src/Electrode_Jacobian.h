@@ -63,9 +63,15 @@ public:
    *  centerpoint.size() == (MAX_DOF + n_species - 1) (i.e. a value for all possible dofs must be specified even if
    *  Jacobian entries are not being computed for that dof)
    *  Species mole fractions are specified starting at centerpoint[SPECIES] and should be in the order expected by
-   *  electrode->setElectrolyteMoleNumbers
+   *  electrode->setElectrolyteMoleNumbers.
+   *
+   *    @param[in]       centerpoint           External varialbes to be used for the calculation
+   *    @param[in]       dt                    Delta T
+   *    @param[in,out]   dof_Deltas            Input deltas for the dofs, or output dofs.
+   *    @param[in]       useDefaultDeltas      Boolean indicating whether deltas are computed or input
    */
-  virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt) = 0;
+  virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt,
+                                double* dof_Deltas = 0, bool useDefaultDeltas = true) = 0;
 
   //! Print the jacobian out as a table to stdout
   /*!
@@ -77,7 +83,9 @@ public:
    * Return the partial derivative of the requested source term with respect to the requested dof,
    * requested source and dof are specifed by dof_source_pair
    *
-   *  @param[in]   dof_source_pair                  DOF_SOURCE_PAIR pair representing the row and variable
+   *  @param[in]   dof_source_pair              DOF_SOURCE_PAIR pair representing the row and variable
+   *
+   *  @return                                   Return the jacobian value
    */
   double get_jacobian_value(const DOF_SOURCE_PAIR &dof_source_pair) const
   {

@@ -122,6 +122,7 @@ runGood: $(PROGRAM) $(DATA)  $(BLESSED_FILES)
 rebaseline:
 	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
 	cp out.txt good_out.txt
+	cp soln_0_0.xml soln_0_0_blessed.xml
 
 ##############################################################################
 
