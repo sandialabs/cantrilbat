@@ -1,4 +1,4 @@
-cp out.txt good_out.txt
+cp out_raw.txt good_out.txt
 cp solution.xml solution_blessed.xml
 cp timeDep_IV.dat timeDep_IV_blessed.dat
 cp SurDomain1D_0.dat  SurDomain1D_0_blessed.dat
