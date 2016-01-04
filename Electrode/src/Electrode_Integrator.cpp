@@ -374,6 +374,7 @@ Electrode_Integrator::Electrode_Integrator() :
     solnDot_final_final_(0),
     solnDot_init_init_(0),
     soln_predict_fromDot_(0),
+    predictDotBetter_(false),
     pSolve_(0),
     jacPtr_(0),
     numIntegratedSrc_(0),
@@ -416,6 +417,7 @@ Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
     solnDot_final_final_(0),
     solnDot_init_init_(0),
     soln_predict_fromDot_(0),
+    predictDotBetter_(false),
     pSolve_(0),
     jacPtr_(0),
     numIntegratedSrc_(0),
@@ -478,7 +480,7 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
     solnDot_final_final_                = right.solnDot_final_final_;
     solnDot_init_init_                  = right.solnDot_init_init_;
     soln_predict_fromDot_               = right.soln_predict_fromDot_;
-
+    predictDotBetter_                   = right.predictDotBetter_;
     SAFE_DELETE(pSolve_);
     pSolve_                             = new NonlinearSolver(this);
     SAFE_DELETE(jacPtr_);
@@ -524,6 +526,8 @@ Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     Electrode::electrode_model_create(ei);
 
     setupIntegratedSourceTermErrorControl();
+
+    relativeLocalToGlobalTimeStepMinimum_ = 1.0 / ei->MaxNumberSubGlobalTimeSteps;
 
     return 0;
 }
@@ -733,7 +737,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
    
 
     double pnorm = 0.0;
-    int num_newt_its = 0;
+    int num_newt_its = 0; // Number of newton iterations in the nonlinear solve
 
 
     // Create the solvers and other vectors if we haven't already
@@ -792,6 +796,12 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     if (choiceDeltaTsubcycle_init_ == 2) {
         deltaTsubcycleNext_ = deltaT / 10.;
     }
+    /*
+     *  Enforce a maximum number of subcycles or a minimum step size
+     */
+    double mindeltaT = deltaT *relativeLocalToGlobalTimeStepMinimum_;
+    deltaTsubcycleNext_ = MAX(deltaTsubcycleNext_ , mindeltaT);
+
     //     Put a max of two to the growth of deltaT for the next global time step
     if (choiceDeltaTsubcycle_init_ == 0) {
         deltaTsubcycle_init_next_ = deltaTsubcycleNext_;
@@ -904,6 +914,11 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
          *  Calculate the time interval from the previous step or from the initial value coming into the routine
          */
         deltaTsubcycle_ = deltaTsubcycleNext_;
+#ifdef DEBUG_MODE
+	if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
+	    printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+	}
+#endif
 	/*
 	 *   Or if we have specified to follow a time step history wo get the next step size from the history counter
 	 */
@@ -1014,7 +1029,11 @@ topConvergence:
              * adding in potential seed values and we set the phaseExistence flags in the kinetics solver
              */
             int info = predictSoln();
-
+#ifdef DEBUG_MODE
+	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
+		printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+	    }
+#endif
             if (info != 1) {
                 conseqFailures++ ;
                 nonlinConverged = 0;
@@ -1038,9 +1057,14 @@ topConvergence:
 	     *  and time consuming to do a good job. Therefore, we will back it up with a traditional predictor -corrector method
 	     *  which 
 	     *  For some other systems, this step can be bypassed. 
-	     *  Whatever is more accurate is used as he error indicator
+	     *  Whatever is more accurate is used as the error indicator
              */
 	    info = predictSolnDot();
+#ifdef DEBUG_MODE
+	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
+		printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+	    }
+#endif
 	    if (info != 1) {
                 conseqFailures++ ;
                 nonlinConverged = 0;
@@ -1100,6 +1124,11 @@ topConvergence:
              *  Check the nonlinear residual equations for completeness and the ability to be solved
              */
             int retn = check_nonlinResidConditions();
+#ifdef DEBUG_MODE
+	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
+		printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+	    }
+#endif
             if (retn < 0) {
                 conseqFailures++ ;
                 nonlinConverged = 0;
@@ -1163,7 +1192,12 @@ topConvergence:
             //loglevelInput = 10;
 	    //pSolve_->m_min_newt_its = 4;
 #endif
-
+#ifdef DEBUG_MODE
+	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
+		printf("WARNING deltaTubcycle_ = %g  iterSubCycle = %d countSub = %d\n", 
+		       deltaTsubcycle_ , iterSubCycle, counterNumberIntegrations_ );
+	    }
+#endif
 	    tfinal_start = tfinal_;
 
             int nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
@@ -1219,7 +1253,7 @@ topConvergence:
                 conseqFailures = MAX(0, conseqFailures);
                 nonlinConverged = 1;
             }
-        }  // End of convergence of the nonlinear iteration for the current subcycle
+        }  // End of convergence of the nonlinear iteration for the current subcycle -> we pass here if nonlinConverged=1
 
         //
         //  ACTIVITIES THAT ARE NEEDED TO DETERMINE IF THE SUBCYCLE IS SUCCESSFUL EVEN IF NONLINEAR SOLVER CONVERGES
@@ -1243,7 +1277,15 @@ topConvergence:
             printElectrode(true, true);
             accumulateSrcTermsOnCompletedStep(true);
         }
-
+#ifdef DEBUG_MODE
+       if (s_printLvl_DEBUG_SPECIAL && iterSubCycle > 10) {
+	   if (iterSubCycle >= 21) {
+	       printf("iterSubCycle = %d\n", iterSubCycle);
+	   } else {
+	       printf("iterSubCycle = %d\n", iterSubCycle);
+	   }
+       }
+#endif
         //
         // ACTIVITIES THAT ARE NEEDED TO DETERMINE IF THE SUBCYCLE IS ACCURATE ENOUGH
         // 
@@ -1281,7 +1323,7 @@ topConvergence:
              * If we are way over the allowed local subcycle tolerance requirement, reject the step
              */
             if (pnorm > 2.0) {
-                stepAcceptable = decide_normHighLogic(pnorm);
+                stepAcceptable = decide_normHighLogic(pnorm, num_newt_its);
             }
 
             /*
@@ -1315,6 +1357,9 @@ topConvergence:
             }
             tfinal_ = tinit_;
             deltaTsubcycle_ = deltaTsubcycle_ * 0.25;
+	    if (deltaTsubcycle_ < relativeLocalToGlobalTimeStepMinimum_ * deltaT) {
+		deltaTsubcycle_ = relativeLocalToGlobalTimeStepMinimum_ * deltaT;
+	    }
             deltaTsubcycleNext_ = deltaTsubcycle_;
             tfinal_ += deltaTsubcycle_;
             /*
@@ -1434,7 +1479,7 @@ topConvergence:
 	}
 
         /*
-         *  If this is the first subcycle time step, calcualte the first time step for the next global iteration
+         *  If this is the first subcycle time step, calculate the first time step for the next global iteration
          */
         if ((choiceDeltaTsubcycle_init_ == 1) && (iterSubCycle == 1)) {
             deltaTsubcycle_init_next_ = MIN(deltaTsubcycle_init_next_, deltaTsubcycleNext_);
@@ -1442,7 +1487,7 @@ topConvergence:
         /*
          * Signal that we have a good solnDot_init_ to work with
          */
-        haveGood_solnDot_init_ = true; 
+        haveGood_solnDot_init_ = true;
         /*
          * Determine if we are at the end of the global time step
          */
@@ -1641,6 +1686,15 @@ int Electrode_Integrator::predictSolnDot()
     for (int i = 1; i < (int) yvalNLS_.size(); i++) {
 	soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
     }
+    //
+    // We only use the prediction if the predictSolnDot method is deemed the best predictor!
+    //
+    if (predictDotBetter_) {
+	unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+	updateState();
+	extractInfo();
+	updateSpeciesMoleChangeFinal();
+    }
     return 1;
 }
 //==================================================================================================================
@@ -1747,10 +1801,13 @@ void Electrode_Integrator::setInitStateFromFinal(bool setInitInit)
 {
     Electrode::setInitStateFromFinal(setInitInit);
     int neqNLS = nEquations();
-    if( solnDot_init_.empty() ) create_solvers();
+    if (solnDot_init_.empty()) {
+	create_solvers();
+    }
+    // We carry over the time derivative of the solution from the old step to the new step here.
     for (int i = 0; i < neqNLS; i++) {
-	solnDot_init_[i] =  solnDot_final_[i];
-	yvalNLS_init_[i] =  yvalNLS_[i];
+	solnDot_init_[i] = solnDot_final_[i];
+	yvalNLS_init_[i] = yvalNLS_[i];
     }
     if (setInitInit) {
 	for (int i = 0; i < neqNLS; i++) {
@@ -1799,7 +1856,9 @@ void Electrode_Integrator::setFinalStateFromInit()
 {
     Electrode_Integrator::setFinalStateFromInit_Oin();
     int neqNLS = nEquations();
-    if( solnDot_init_.empty() ) create_solvers();
+    if (solnDot_init_.empty()) {
+	create_solvers();
+    }
     for (int i = 0; i < neqNLS; i++) {
 	solnDot_final_[i] = solnDot_init_[i];
 	yvalNLS_[i] = yvalNLS_init_[i];
@@ -1819,7 +1878,9 @@ void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
 {
     Electrode::setInitStateFromInitInit(setFinal);
     int neqNLS = nEquations();
-    if(solnDot_init_.empty() ) create_solvers();
+    if (solnDot_init_.empty()) {
+	create_solvers();
+    }
     for (int i = 0; i < neqNLS; i++) {
 	solnDot_init_[i] = solnDot_init_init_[i];
 	yvalNLS_init_[i] = yvalNLS_init_init_[i];
@@ -1936,11 +1997,18 @@ void Electrode_Integrator::accumulateLocalErrorToGlobalErrorOnCompletedStep()
  *
  *  @return   Returns whether the step is accepted or not
  */
-bool Electrode_Integrator::decide_normHighLogic(double pnorm)
+bool Electrode_Integrator::decide_normHighLogic(double pnorm, int num_newt_its)
 {
     double deltaT = t_final_final_ - t_init_init_;
+    /*
+     *  The fundamental decision is to reject the step out of time step truncation error if pnorm is greater than 2
+     */
     if (pnorm > 2.0) {
-        if (deltaTsubcycle_ > relativeLocalToGlobalTimeStepMinimum_ * deltaT) {
+	/*
+	 *  If we are below the deltaT subcycle number limit we will accept the step anyway.
+	 *  (note if there are convergence issues we should modify this)
+	 */
+        if ((deltaTsubcycle_ > 2.0 * relativeLocalToGlobalTimeStepMinimum_ * deltaT) && num_newt_its < 6) {
             if (choiceDeltaTsubcycle_init_ != 2) {
                 if (printLvl_ > 4) {
                     printf("\t\tdecide_normHighLogic(): WARNING Step rejected because norm is greater than 2\n");
@@ -1948,6 +2016,15 @@ bool Electrode_Integrator::decide_normHighLogic(double pnorm)
                 return false;
             }
         }
+    } else if (pnorm > 1.0) {
+	if (num_newt_its >= 6) {
+	    if (choiceDeltaTsubcycle_init_ != 2) {
+                if (printLvl_ > 4) {
+                    printf("\t\tdecide_normHighLogic(): WARNING Step rejected because norm is greater than 1\n");
+                }
+                return false;
+            }
+	}
     }
     return true;
 }
@@ -2265,17 +2342,19 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
     double tsm = SolidTotalMoles();
     printf("   ==============================================================================================\n");
     if (subTimeStep) {
-        printf("      Electrode at intermediate-step time final = %g\n", tfinal_);
-        printf("                   intermediate-step time init  = %g                deltaT = %g\n",
+        printf("      Electrode at intermediate-step time final = %12.5E\n", tfinal_);
+        printf("                   intermediate-step time init  = %12.5E     deltaT = %12.5E\n",
                tinit_, deltaTsubcycleCalc_);
         printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
-        printf("      Electrode at time final = %g\n", t_final_final_);
-        printf("                   time init  = %g                         deltaTglobal = %g\n", t_init_init_,
+        printf("      Electrode at time final_final = %12.5E\n", t_final_final_);
+        printf("                   time init_init   = %12.5E        deltaTglobal = %12.5E\n", t_init_init_,
                t_final_final_ - t_init_init_);
         printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
+	printf("                numIntegrationSubCycles = %d, SubIntegrationCounter = %d\n",
+	       numIntegrationSubCycles_final_final_, counterNumberSubIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("\n");

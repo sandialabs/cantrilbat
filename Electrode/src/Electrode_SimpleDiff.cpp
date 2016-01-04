@@ -2170,9 +2170,10 @@ int Electrode_SimpleDiff::predictSolnResid()
     // Indexes
     int iCell, iPh, jPh;
  
- 
     // Diffusive flux
     double fluxR[10];
+    double damp = 1.0;
+    bool reDo = false;
  
     // solution index at the start of the current phase at the current cell
     //int cIndexPhStart;
@@ -2186,6 +2187,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
+
 
 #ifdef DEBUG_MODE
     if ( counterNumberSubIntegrations_ > 13000) {
@@ -2222,7 +2224,8 @@ int Electrode_SimpleDiff::predictSolnResid()
          *  Calculate the area of the outer cell which conserves constant functions under mesh movement wrt the Reynolds transport theorum
          */
         double cellBoundR_star2 = (cellBoundR_final_[iCell] * cellBoundR_final_[iCell]
-                                   - cellBoundR_final_[iCell] * cellBoundR_init[iCell] + cellBoundR_final_[iCell] * cellBoundR_final_[iCell])/3.0;
+                                   - cellBoundR_final_[iCell] * cellBoundR_init[iCell]
+				   + cellBoundR_final_[iCell] * cellBoundR_final_[iCell])/3.0;
         double areaR_star = 4.0 * Pi * cellBoundR_star2 * particleNumberToFollow_;
 
         int indexMidKRSpecies =  iCell    * numKRSpecies_;
@@ -2251,14 +2254,23 @@ int Electrode_SimpleDiff::predictSolnResid()
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
 		    int iKRSpecies = kstart + kSp;
 		    // Distribute the flux in an explicit step
-		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   -= fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
-		    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] += fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_;
-		    if (spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] < 0.0) {
-			return -1;
-		    }
-		    if (spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] < 0.0) {
-			return -1;
-		    }
+		    damp = 1.0;
+		    do {
+			double val = fluxR[iKRSpecies] * areaR_star * deltaTsubcycleCalc_ * damp;
+			spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   -= val;
+			spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] += val;
+			if (spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] < 0.0 || 
+			    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] < 0.0) {
+			    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies]   += val;
+			    spMoles_KRsolid_Cell_final_[indexRightKRSpecies + iKRSpecies] -= val;
+			    damp *= 0.5;
+			    reDo = true;
+			    break;
+			} else {
+			    reDo = false;
+			}
+		    } while (reDo);
+		 
 		}
 		kstart += nSpecies;
 	    }
@@ -2269,22 +2281,44 @@ int Electrode_SimpleDiff::predictSolnResid()
 	 *  There is a reaction there that injects species here.
 	 */
         if (iCell == numRCells_ - 1) {
-            for (jPh = 0; jPh < numSPhases_; jPh++) {
-                iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
-                ThermoPhase* th = & thermo(iPh);
-                int nSpecies = th->nSpecies();
-                for (int kSp = 0; kSp < nSpecies; kSp++) {
-		    int iKRSpecies = kstart + kSp;
-		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] += DspMoles_final_[iStart + kSp] * deltaTsubcycleCalc_;
-		    if (spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] < 0.0) {
-			return -1;
+	    damp = 1.0;
+	    do {
+		reDo = false;
+		kstart = 0;
+		for (jPh = 0; jPh < numSPhases_; jPh++) {
+		    iPh = phaseIndeciseKRsolidPhases_[jPh];
+		    int iStart = getGlobalSpeciesIndex(iPh, 0);
+		    ThermoPhase* th = & thermo(iPh);
+		    int nSpecies = th->nSpecies();
+		    for (int kSp = 0; kSp < nSpecies; kSp++) {
+			int iKRSpecies = kstart + kSp;
+			double val = DspMoles_final_[iStart + kSp] * deltaTsubcycleCalc_ * damp;
+			if ((spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] + val) < 0.0) {
+			    damp *= 0.5;
+			    reDo = true;
+			    break;
+			} 
 		    }
-   
-                }
-		kstart += nSpecies;
-            }	    
+		    kstart += nSpecies;
+		}	    
+	    } while (reDo && (damp > 0.01));
+	    if (reDo) {
+		damp = 0.0;
+	    }
 
+	    kstart = 0;
+	    for (jPh = 0; jPh < numSPhases_; jPh++) {
+		iPh = phaseIndeciseKRsolidPhases_[jPh];
+		int iStart = getGlobalSpeciesIndex(iPh, 0);
+		ThermoPhase* th = & thermo(iPh);
+		int nSpecies = th->nSpecies();
+		for (int kSp = 0; kSp < nSpecies; kSp++) {
+		    int iKRSpecies = kstart + kSp;
+		    double val = DspMoles_final_[iStart + kSp] * deltaTsubcycleCalc_ * damp;
+		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] += val;
+		}
+		kstart += nSpecies;
+	    }	    
 	}
     }
 
@@ -2335,69 +2369,88 @@ int Electrode_SimpleDiff::predictSolnResid()
 int Electrode_SimpleDiff::predictSoln()
 {
     int retn = -1;
-
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
-
-    int redoSteps = 0;
-    int reDo;
-
-    do {
-	reDo = 0;
-	redoSteps++;
-	/*
-         * Copy initial to final
-         */
+ #ifdef DEBUG_MODE
+    if (counterNumberSubIntegrations_==29) {
+ //	printf("WARNING deltaTubcycle_ = %g,  counterNumberSubIntegrations_=%d\n", deltaTsubcycle_, counterNumberSubIntegrations_ );
+    }
+ #endif
+    /*
+     * Copy initial to final
+     */
+    setFinalStateFromInit();
+    /*
+     *  Update the Internal State of ThermoPhase Objects
+     */
+    updateState();
+    /*
+     *    Calculate ROP_, and justBornPhase_[];
+     */
+    extractInfo();
+    /*
+     *    Calculate DspMoles_final_[]
+     */
+    updateSpeciesMoleChangeFinal();
+    /*
+     *    Now do a prediction    
+     */    
+    retn = predictSolnResid();
+    /*
+     *  If we can't do a prediction set it back to the initial state
+     */
+    if (retn < 0) {
 	setFinalStateFromInit();
-	/*
-	 *  Update the Internal State of ThermoPhase Objects
-	 */
 	updateState();
-	/*
-	 *    Calculate ROP_, and justBornPhase_[];
-	 */
-	extractInfo();
-	/*
-	 *    Calculate DspMoles_final_[]
-	 */
-	updateSpeciesMoleChangeFinal();
-	/*
-	 *    Now do a prediction    
-	 */    
-	retn = predictSolnResid();
-
-	if (retn < 0) {
-	    reDo = 1;
-	}
-
-	if (reDo) {
-	    deltaTsubcycle_ *= 0.25;
-	}
-
-    } while (reDo);
-
+    }
     /*
      *  Keep a copy of the estimated soln vector to do a predictor corrector step
      */
     packNonlinSolnVector(DATA_PTR(soln_predict_));
     soln_predict_[neq_] = -1;
-
+      
     yvalNLS_init_[0] =  deltaTsubcycleCalc_;
-
+      
     return retn;
 }
 //==================================================================================================================
 int Electrode_SimpleDiff::predictSolnDot()
 {
-  soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
-  for (int i = 1; i < (int) yvalNLS_.size(); i++) {
-    soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
-  }
-  unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
-  updateState();
-  extractInfo();
-  updateSpeciesMoleChangeFinal();
-  return 1;
+    //
+    //  All unknowns are mole numbers in the cells. These should remain positive. Therefore, we'll just
+    //  damp the changes to make sure this is the case. The damping will cause a bad prediction. However,
+    //  time step truncation errors may not be important in these cases.
+    //
+    double damp = 1.0;
+    soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
+    int reDo = 0;
+    do {
+	reDo = 0;
+	if (damp < 0.01) {
+	    for (int i = 1; i < (int) yvalNLS_.size(); i++) {
+		soln_predict_fromDot_[i] = yvalNLS_init_[i];
+	    }
+	} else {
+	    for (int i = 1; i < (int) yvalNLS_.size(); i++) {
+		soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * damp * solnDot_init_[i];
+		if (soln_predict_fromDot_[i] < 0.0) {
+		    damp *= 0.5;
+		    reDo = 1;
+		    break;
+		}
+	    }
+	}
+    } while (reDo);
+    //
+    // We only use the prediction if the predictSolnDot method is deemed the best predictor!
+    //
+    if (predictDotBetter_) {
+	unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+	updateState();
+	extractInfo();
+	updateSpeciesMoleChangeFinal();
+    }
+    return 1;
 }
 //==================================================================================================================
 void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
@@ -2564,6 +2617,7 @@ double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vecto
 
     double pnorm_dot = l0normM(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
     if (pnorm_dot < pnorm) {
+        predictDotBetter_ = true;
 #ifdef DEBUG_MODE
 	if (printLvl_ > 2) {
 	    printf("Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot %g beat out pnorm %g\n",
@@ -2571,6 +2625,8 @@ double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vecto
 	}
 #endif
 	pnorm = pnorm_dot;
+    } else {
+        predictDotBetter_ = false;
     }
 
     return pnorm;
@@ -3836,7 +3892,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_ReversibleEntropy_SingleSte
     }
     return q_alt;
 }
-//=========================================================================================================================
+//===================================================================================================================================
 double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
 {
     double q = 0.0;
@@ -3931,7 +3987,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
 #endif
 	    }
 	}
-    } 
+    }
     return q;
 }
 //=========================================================================================================================
@@ -4215,7 +4271,7 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
      double val = Electrode::openCircuitVoltage(isk, compareToReferenceElectrode);
      return val;
  }
-//====================================================================================================================
+//===================================================================================================================================
 void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 {
     vector<std::string> colNames;
@@ -4225,14 +4281,18 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     printf("   ==============================================================================================\n");
     if (subTimeStep) {
         printf("      Electrode_SimpleDiff at intermediate-step time final = %12.5E\n", tfinal_);
-        printf("                              intermediate-step time init  = %12.5E\n", tinit_);
+        printf("                              intermediate-step time init  = %12.5E               deltaT = %g\n", 
+	       tinit_, deltaTsubcycle_);
 	printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
-        printf("      Electrode_SimpleDiff at time final = %12.5E\n", t_final_final_);
-        printf("                              time init  = %12.5E\n", t_init_init_);
+        printf("      Electrode_SimpleDiff at time final_final = %12.5E\n", t_final_final_);
+        printf("                              time init_init   = %12.5E                     deltaTglobal = %g\n",
+	       t_init_init_,  t_final_final_ - t_init_init_);
 	printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
+        printf("                numIntegrationSubCycles = %d, SubIntegrationCounter = %d\n",
+	       numIntegrationSubCycles_final_final_, counterNumberSubIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("          Voltage = %g volts\n", deltaVoltage_);

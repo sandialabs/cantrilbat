@@ -1643,11 +1643,25 @@ public:
      *  printing level must be high enough and this static routine should be turned on.
      *  Also the ifdef DEBUG_PREDICTOR should be turned on if printing is desired at a
      *  low level of printLvl_
+     *  The environmental variable, ELECTRODE_TURN_OFF_PC_PRINTING, determines whether this flag is set or not
      *
      *   0 No printing 
      *   1 predictorCorrect printing is turned on (default)
      */
     static int s_printLvl_PREDICTOR_CORRECTOR;
+
+    //! Toggle switch for printing of special cases or a particular debug situation
+    /*!
+     *  To get printing from some specials routines, both the general
+     *  printing level must be high enough and this static routine should be turned on.
+     *  Also the DEBUG_MODE compiler flag must be turned on.
+     *  The environmental variable, ELECTRODE_DEBUG_SPECIAL, determines whether this flag is set or not
+     *
+     *   0 No printing (default)
+     *   1 printing is turned on 
+
+     */
+    static int s_printLvl_DEBUG_SPECIAL;
 
     /********************************************************************************************************************
      *  OPEN CIRCUIT VOLTAGE
@@ -2521,7 +2535,7 @@ public:
      */
     int choiceDeltaTsubcycle_init_;
 
-    //! Number of subcyles taken on the last
+    //! Number of subcyles taken on the last integration
     int numIntegrationSubCycles_final_final_;
 
     //! Boolean indicating whether we should be doing thermal property calculations during updateState()
@@ -3219,9 +3233,15 @@ public:
     int electrodeCellNumber_;
 
     //! Number of integrations (successful or failed) carried out by this object
+    /*!
+     *  This number can be used to identify every unique global integration that the object undergoes.
+     */
     int counterNumberIntegrations_;
 
     //! Number of subintegrations (successful or failed) carried out by this object
+    /*!
+     *  This number can be used to identify every unique integration that the object undergoes.
+     */
     int counterNumberSubIntegrations_;
 
     //! Amount of printing to be carried out by the object

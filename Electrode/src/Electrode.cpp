@@ -30,6 +30,13 @@ namespace Cantera {
 // By default predictor_corrector printing is turned on, at least to the printLvl_ level.
 int Electrode::s_printLvl_PREDICTOR_CORRECTOR = 1;
 
+// by default special debug printing is turned off
+int Electrode::s_printLvl_DEBUG_SPECIAL = 0;
+
+//==================================================================================================================================
+//
+//  We read the first character to determine boolean values
+//
 void Electrode::readEnvironmentalVariables() {
      char *PC_PRINTING = getenv("ELECTRODE_TURN_OFF_PC_PRINTING");
      if (PC_PRINTING) {
@@ -38,14 +45,18 @@ void Electrode::readEnvironmentalVariables() {
            Electrode::s_printLvl_PREDICTOR_CORRECTOR=0;
         }
      } 
+
+     char *DS = getenv("ELECTRODE_DEBUG_SPECIAL");
+     if (DS) {
+        if (DS[0] == 'f' || DS[0] == 'F' || DS[0] == '0') {
+           Electrode::s_printLvl_DEBUG_SPECIAL = 0;
+        }
+        if (DS[0] == 't' || DS[0] == 'T' || DS[0] == '1') {
+           Electrode::s_printLvl_DEBUG_SPECIAL = 1;
+        }
+     }
 }
 //======================================================================================================================
-/*
- *  ELECTRODE_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
 Electrode::Electrode() :
                 PhaseList(),
                 electrodeCapacityType_(CAPACITY_ANODE_ECT),
@@ -170,10 +181,6 @@ Electrode::Electrode() :
 {
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode::Electrode(const Electrode& right) :
     PhaseList(),
     electrodeCapacityType_(CAPACITY_ANODE_ECT),
@@ -298,10 +305,6 @@ Electrode::Electrode(const Electrode& right) :
     operator=(right);
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 Electrode& Electrode::operator=(const Electrode& right)
 {
     /*
@@ -553,12 +556,6 @@ Electrode& Electrode::operator=(const Electrode& right)
     return *this;
 }
 //======================================================================================================================
-/*
- *
- *  ELECTRODE_INPUT:destructor
- *
- * We need to manually free all of the arrays.
- */
 Electrode::~Electrode()
 {
     size_t is = m_EGRList.size();
@@ -661,6 +658,7 @@ void ErrorModelType(int pos, std::string actual, std::string expected)
     throw Cantera::CanteraError("Electrode::electrode_model_create() model id",
                                 "At pos " + int2str(pos) + ", expected phase " + expected + " but got phase " + actual);
 }
+//==================================================================================================================================
 void pmatch(std::vector<std::string>& pn, int pos, std::string expected)
 {
     if (pos <= ((int) pn.size() - 1)) {
@@ -832,6 +830,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      */
     temperature_ = ei->Temperature;
     pressure_ = ei->Pressure;
+    
     /*
      *  Loop Over all phases in the PhaseList, adding these
      *  formally to the Electrode object.
@@ -5403,7 +5402,7 @@ void Electrode::printElectrodePhaseList(int pSrc, bool subTimeStep)
     }
     printf("     ============================================================================================\n");
 }
-//====================================================================================================================
+//===================================================================================================================================
 // Print conditions of the electrode for the current integration step to stdout
 /*
  *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
@@ -5419,17 +5418,19 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
     double tsm = SolidTotalMoles();
     printf("   ==============================================================================================\n");
     if (subTimeStep) {
-        printf("      Electrode at intermediate-step time final = %g\n", tfinal_);
-        printf("                   intermediate-step time init  = %g                deltaT = %g\n", tinit_,
-               deltaTsubcycle_);
+        printf("      Electrode at intermediate-step time final = %12.5E\n", tfinal_);
+        printf("                   intermediate-step time init  = %12.5E                deltaT = %g\n", 
+	       tinit_, deltaTsubcycle_);
         printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     } else {
-        printf("      Electrode at time final = %g\n", t_final_final_);
-        printf("                   time init  = %g                         deltaTglobal = %g\n", t_init_init_,
-               t_final_final_ - t_init_init_);
+        printf("      Electrode at time final_final = %12.5E\n", t_final_final_);
+        printf("                   time init_init   = %12.5E                      deltaTglobal = %g\n",
+	       t_init_init_, t_final_final_ - t_init_init_);
         printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
+	printf("                numIntegratioSubCycles = %d, SubIntegrationCounter = %d\n",
+	       numIntegrationSubCycles_final_final_, counterNumberSubIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("          Voltage (phiMetal - phiElectrolyte) = %12.5E volts\n", deltaVoltage_);

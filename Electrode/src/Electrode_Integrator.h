@@ -661,11 +661,12 @@ public:
 
     //! When the norm is high this routine decides what to do with the step
     /*!
-     *  @param  pnorm  Norm of the step
+     *  @param[in]    pnorm                            Norm of the step
+     *  @param[in]    num_newt_its                     Number number of newton iterations
      *
      *  @return   Returns whether the step is accepted or not
      */
-    virtual bool decide_normHighLogic(double pnorm);
+    virtual bool decide_normHighLogic(double pnorm, int num_newt_its);
 
     //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
     /*!
@@ -998,6 +999,13 @@ protected:
 
     std::vector<double> soln_predict_fromDot_;
 
+    //! Current boolean flag for whether the solnDot predictor is better than the explicit predictSoln predictor.
+    /*!
+     *  We use this to figure out whether to use the predictSoln() or predictSolnDot() initial guess.
+     *  At the start, we set this to false, because solnDot is zero. However, whenever we can, we use the last
+     *  result from predictorCorrectorWeightedSolnNorm() to set this flag.
+     */
+    bool predictDotBetter_;
 
     //! Pointer to the nonlinear solver
     NonlinearSolver* pSolve_;
