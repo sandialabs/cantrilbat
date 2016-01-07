@@ -31,7 +31,7 @@ install(FILES ${M1D_HEADERS} ${BEuler_HEADERS}
   DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
 
 add_executable(Multi1DDomain Multi1DDomain.cpp)
-target_link_libraries(Multi1DDomain m1d ${util_LIBRARIES}  ${electrode_LIBRARIES} ${Trilinos_LIBRARIES} ${Cantera_LIBRARIES}  )
+target_link_libraries(Multi1DDomain m1d stdc++ ${util_LIBRARIES}  ${electrode_LIBRARIES} ${Trilinos_LIBRARIES} ${Cantera_LIBRARIES}  )
 
 install(PROGRAMS Multi1DDomain
   DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
