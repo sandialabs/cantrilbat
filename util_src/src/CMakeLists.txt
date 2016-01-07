@@ -5,6 +5,7 @@ file(GLOB SOURCES *.cpp)
 file(GLOB HEADERS *.h)
 
 add_library(util_LIBRARIES ${SOURCES} ${HEADERS})
+target_link_libraries(util_LIBRARIES  ${Cantera_LIBRARIES} ${Trilinos_LIBRARIES})
 
 install(TARGETS util_LIBRARIES
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
@@ -12,3 +13,4 @@ install(TARGETS util_LIBRARIES
 install(FILES ${HEADERS}
   DESTINATION ${CMAKE_INSTALL_PREFIX}/include
 )
+

@@ -42,12 +42,13 @@ export CXX
 #     -DDEBUG_MODE
 #     -DDEBUG_HKM
 #     -DDO_INIT_CALC
-CXXFLAGS="-g -Wall -DDEBUG_MODE"
+#     -DMECH_MODEL
+CXXFLAGS="-g -Wall -DDEBUG_MODE -DMECH_MODEL"
 export CXXFLAGS
 #
 #  Turn on and off MECH_MODEL here
 #
-#CXX_GDEFINES="-DMECH_MODEL"
+CXX_GDEFINES="-DMECH_MODEL"
 export CXX_GDEFINES
 #
 LCXX_END_LIBS=" -lgfortran"

@@ -24,6 +24,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_FLAGS -std=c++11 ${CMAKE_CXX_FLAGS})
 
+
 include(options)
 
 find_package(Cantera  REQUIRED)
@@ -32,7 +33,8 @@ include_directories(${Trilinos_INCLUDE_DIRS})
 include_directories(${Cantera_INCLUDE_DIRS})
 
 add_subdirectory(util_src)
-add_subdirectory(ctpadds)
+#add_subdirectory(ctpadds)
+
 add_subdirectory(Electrode)
 add_subdirectory(1Delectrode)
 
