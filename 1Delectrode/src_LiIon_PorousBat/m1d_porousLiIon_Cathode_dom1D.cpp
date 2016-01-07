@@ -1667,10 +1667,10 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
 
 	    // The res[left] has already been calculated by the Separator residual calculation.
-	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	      new_node_pos[iCell]
-	      - nodeCent->x0NodePos()
-	      - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
+	      // new_node_pos[iCell]
+	      // - nodeCent->x0NodePos()
+	      // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    
 	    std::cout << " cathode::residEval iCell "<<iCell<<"  DisplacementAxial "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
 
