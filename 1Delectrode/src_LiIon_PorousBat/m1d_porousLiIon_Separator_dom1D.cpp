@@ -1221,7 +1221,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    if(iCell == 1) 
 	      {
 		new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] +  nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
-		cout << "separator  res{left} "<<res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]<<" x "<< nodeLeft->xNodePos()<<" s "<<soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]<<" nnpos "<<	new_node_pos[0]<<endl;	
 	      }
 
 	    double delta_0 =  (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
@@ -1247,7 +1246,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
 
 	    // res[ left ] has already been set by the Anode code; hence start at iCell==1
-	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
+	      iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
 	      // new_node_pos[iCell] 
 	      // - nodeCent->x0NodePos() 
 	      // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];

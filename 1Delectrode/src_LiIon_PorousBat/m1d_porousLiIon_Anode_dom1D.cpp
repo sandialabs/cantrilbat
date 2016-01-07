@@ -1675,7 +1675,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]  = 0.0;
 	}
 
-	  std::cout << " anode::residEval iCell "<<iCell<<"  DisplacementAxial "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
+	  std::cout << " anode::residEval iCell "<<iCell<<" soln "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
 
 
       }

@@ -804,8 +804,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     // scratch pad to calculate the new positions due to the strain of the elements
     std::vector<double> new_node_pos(NumLcCells,0.0);
 
-    double avg_delta_matrix_pressure = 0;
-
     // for the Cathode material, we use the following values:
     // From Journal of Power Sources 271 (2014), 
     // Simulation of temperature rise in Li-Ion cells at very high currents
@@ -1667,12 +1665,13 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
 
 	    // The res[left] has already been calculated by the Separator residual calculation.
-	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
+	      iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	      // new_node_pos[iCell]
 	      // - nodeCent->x0NodePos()
 	      // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    
-	    std::cout << " cathode::residEval iCell "<<iCell<<"  DisplacementAxial "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
+	    std::cout << " cathode::residEval iCell "<<iCell<<" soln "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
 
 	  }
 	   // now the critical bit of confining the right hand most node by a confining pressure. 
@@ -1690,6 +1689,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	   //	   res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] +=last_node_confining_stress;
 					 
 	}
+
+	
 #endif
     }
 //==================================================================================================================================
