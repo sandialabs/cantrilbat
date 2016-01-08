@@ -1228,7 +1228,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  {
 	      new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] + nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
 	  }
-
 	  double delta_0 =  (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
 	    - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
 	  double new_delta = delta_0 *  xratio[iCell-1]; // 
@@ -1240,7 +1239,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  // double lc_pressure = -(left_matrix_stress-center_matrix_stress);
 	  // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
       }
-      for (int iCell = 0; iCell < NumLcCells; iCell++) {
+      for (int iCell = 1; iCell < NumLcCells; iCell++) {
+	// res[ left ] has already been set by the Anode code; hence start at iCell==1
 	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
@@ -1255,7 +1255,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	      nodeTmpsLeft.Offset_Displacement_Axial = -1;
 	  }
 
-	  // res[ left ] has already been set by the Anode code; hence start at iCell==1
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
 	    iCell/20.0 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
 	  // new_node_pos[iCell] 
@@ -1268,7 +1267,6 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 			<< " res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
 			<< " xratio " << xratio[iCell-1]<<std::endl;
 	  }
-
       }
   }
 #endif

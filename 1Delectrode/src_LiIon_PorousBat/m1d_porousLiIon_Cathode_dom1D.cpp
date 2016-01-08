@@ -1661,7 +1661,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
 	}
 	  
-	for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	for (int iCell = 1; iCell < NumLcCells; iCell++) {
+	    // The res[iCell == 0 ] has already been calculated by the Separator residual calculation.
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    NodalVars* nodeCent = cTmps.nvCent_;
@@ -1669,8 +1670,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	      
-	      
-	    // The res[left] has already been calculated by the Separator residual calculation.
 	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
 	      iCell/20.0 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 	    // new_node_pos[iCell]
@@ -1683,7 +1682,6 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 			  <<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " 
 			  << xratio[iCell-1]<<std::endl;
 	    }	      
-
 	}
 	// now the critical bit of confining the right hand most node by a confining pressure. 
 	// int lastcell =  NumLcCells-1; 
