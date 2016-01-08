@@ -43,7 +43,7 @@ CT_INCROOT =  @ct_incroot@
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
 
-all: 
+all: LiIon_PorousBat
 
 depends:
 	$(RM) $(DEPENDS)
@@ -51,6 +51,9 @@ depends:
 
 .depends:
 	touch .depends
+
+LiIon_PorousBat:
+	ln -s ../../src_LiIon_PorousBat/LiIon_PorousBat .
 
 test:
 	@@MAKE@ -s
@@ -74,7 +77,7 @@ endif
 
 # Clean up temporary files, but don't touch test run results
 clean:
-	$(RM) runInProgress.txt 
+	$(RM) runInProgress.txt LiIon_PorousBat
 
 # Clean up all output from the test run
 test_clean:
