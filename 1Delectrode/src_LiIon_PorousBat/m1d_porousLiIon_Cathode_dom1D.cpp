@@ -3831,11 +3831,12 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 #ifdef MECH_MODEL
 	int firstGbNode = BDD_.FirstGbNode;
 	int lastGbNode = BDD_.LastGbNode;
-
-	for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
-	  NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-	  double diff = nv->xNodePos() -nv->x0NodePos();
-	  ss.print0("%s                                         : Node[ %d ] displacement %g\n", ind, iGbNode,diff);
+	if (solidMechanicsProbType_ > 0) {
+	    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
+		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
+		double diff = nv->xNodePos() -nv->x0NodePos();
+		ss.print0("%s                                         : Node[ %d ] displacement %g\n", ind, iGbNode,diff);
+	    }
 	}
 #endif
     }
