@@ -238,7 +238,7 @@ public:
 
     double time_step_next;
 };
-
+//==================================================================================================================================
 //! This class is a derived class used to model phase - change electrodes
 /*!
  * Complete problem statement

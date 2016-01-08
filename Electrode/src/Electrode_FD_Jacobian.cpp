@@ -6,6 +6,7 @@
  */
 
 #include "Electrode_FD_Jacobian.h"
+#include "Electrode.h"
 
 namespace Cantera {
 
@@ -53,6 +54,77 @@ Electrode_FD_Jacobian::~Electrode_FD_Jacobian()
 {
 }
 //===================================================================================================================================
+//
+//  This creates a full interaction matrix by default
+// centerpoint is DOFs in DOFS order (Electrode.h
+//
+void Electrode_FD_Jacobian::default_setup(std::vector<double>& centerpoint)
+{
+    // Sources
+   
+    std::vector<DOFS> dof_vector;
+    dof_vector.push_back(SOLID_VOLTAGE);
+    dof_vector.push_back(LIQUID_VOLTAGE);
+    dof_vector.push_back(TEMPERATURE);
+    dof_vector.push_back(PRESSURE);
+    size_t ip_solvent = electrode->solnPhaseIndex();
+    size_t ip_metal = electrode->metalPhaseIndex();
+    ThermoPhase& tpe = electrode->thermo(ip_solvent);
+    size_t nsp = tpe.nSpecies();
+
+    //
+    // Fill the centerpoint vector
+    //
+    size_t sz = 4 + nsp;
+    centerpoint.resize(4 + nsp);
+    double phiMetal = electrode->phaseVoltage(ip_metal);
+    centerpoint[SOLID_VOLTAGE] = phiMetal;
+    double phiElectrolyte = electrode->phaseVoltage(ip_solvent);
+    centerpoint[LIQUID_VOLTAGE] = phiElectrolyte;
+    centerpoint[TEMPERATURE] = tpe.temperature();
+    centerpoint[PRESSURE] = tpe.pressure();
+    tpe.getMoleFractions(& centerpoint[SPECIES]);
+
+     
+    for (size_t k = 0; k < nsp; ++k) {
+	dof_vector.push_back((DOFS)(SPECIES + k));
+    }
+
+    std::vector<SOURCES> src_vector;
+    src_vector.push_back(ENTHALPY_SOURCE);
+    src_vector.push_back(ELECTROLYTE_PHASE_SOURCE);
+    src_vector.push_back(CURRENT_SOURCE);
+    for (size_t k = 0; k < nsp; ++k) {
+	src_vector.push_back((SOURCES)(SPECIES_SOURCE + k));
+    }  
+    DOF_SOURCE_PAIR entry;
+    for (size_t i = 0; i < src_vector.size(); i++) {
+	 for (size_t j = 0; j < dof_vector.size(); j++) {
+	     entry = std::make_pair(dof_vector[j], src_vector[i]);
+	     add_entry_to_compute(entry);
+
+	 }
+    }
+    jac_Delta.resize(sz);
+    calc_dof_Atol(centerpoint);
+}
+//===================================================================================================================================
+void Electrode_FD_Jacobian::default_dofs_fill(std::vector<double>& centerpoint)
+{    
+    size_t ip_metal = electrode->metalPhaseIndex();
+    size_t ip_solvent = electrode->solnPhaseIndex();
+    ThermoPhase& tpe = electrode->thermo(ip_solvent);
+    size_t nsp = tpe.nSpecies();
+    centerpoint.resize(4 + nsp);
+    double phiMetal = electrode->phaseVoltage(ip_metal);
+    centerpoint[SOLID_VOLTAGE] = phiMetal;
+    double phiElectrolyte = electrode->phaseVoltage(ip_solvent);
+    centerpoint[LIQUID_VOLTAGE] = phiElectrolyte;
+    centerpoint[TEMPERATURE] = tpe.temperature();
+    centerpoint[PRESSURE] = tpe.pressure();
+    tpe.getMoleFractions(& centerpoint[SPECIES]);
+}
+//===================================================================================================================================
 void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerpoint, const double dt,
 					     double* dof_Deltas, bool useDefaultDeltas)
 {
@@ -80,7 +152,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
     //   Calculate the deltas for the jacobian and then report it back if needed
     //
     if (useDefaultDeltas) {
-	calc_Perturbations(centerpoint, jac_Delta, jac_dof_Atol, base_RelDelta);
+	calc_Perturbations(centerpoint, jac_Delta, base_RelDelta);
 	if (dof_Deltas) {
 	    for (size_t i = 0; i < centerpoint.size(); ++i) {
 		dof_Deltas[i] = jac_Delta[i];
@@ -149,7 +221,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
 }
 //===================================================================================================================================
 void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> & centerpoint, const double dt,
-						      double* dof_Deltas, bool useDefaultDeltas)
+						      double* dof_Deltas, bool useDefaultDeltas, bool baseAlreadyCalculated)
 {
     // Temporary storage used to do the one-sided difference calculation:
     /*
@@ -177,7 +249,7 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
     //   Calculate the deltas for the jacobian and then report it back if needed
     //
     if (useDefaultDeltas) {
-	calc_Perturbations(centerpoint, jac_Delta, jac_dof_Atol, base_RelDelta);
+	calc_Perturbations(centerpoint, jac_Delta, base_RelDelta);
 	if (dof_Deltas) {
 	    for (size_t i = 0; i < centerpoint.size(); ++i) {
 		dof_Deltas[i] = jac_Delta[i];
@@ -192,7 +264,7 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
     //
     //  Calculate the base point
     //
-    run_electrode_integration(perturbed_point, dt);
+    run_electrode_integration(perturbed_point, dt, true);
     //
     //  Store the results
     //
@@ -215,7 +287,7 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
 	    //
 	    //   
 	    //
-	    run_electrode_integration(perturbed_point, dt);
+	    run_electrode_integration(perturbed_point, dt, false);
 	    //
 	    // Store off the source term results in temporary storage
 	    //
@@ -361,32 +433,123 @@ void Electrode_FD_Jacobian::set_Atol(const std::vector<double>& dof_Atol)
     jac_dof_Atol = dof_Atol;
     if (jac_Delta.size() < sz) {
 	jac_Delta.resize(sz, 0.0);
+
     }
 }
 //===================================================================================================================================
+void Electrode_FD_Jacobian::calc_dof_Atol(const std::vector<double>& centerpoint, double* const dof_Atol)
+{
+    //
+    // Here we identify the DOF to do finite difference and then associate an atol with it
+    // Getting the atol value helps.
+    //
+    size_t sz = centerpoint.size();
+    jac_dof_Atol.resize(sz);
+    //
+    // Voltages (SOLID_VOLTAGE, LIQUID_VOLTAGE)
+    //   This is an absolute quantity related to deltaG. We have a good idea that it must be ~0.01 * millivolt for a good delta
+    //
+    // double metalPot = centerpoint[SOLID_VOLTAGE);
+    jac_dof_Atol[SOLID_VOLTAGE] = 1.0E-8;
+    jac_dof_Atol[LIQUID_VOLTAGE] = 1.0E-8;
+    //
+    // Temperature we have a good idea that it should be a fractional degree ~0.01 
+    //
+    
+    jac_dof_Atol[TEMPERATURE] = 0.00001;
+    
+    double pres = centerpoint[PRESSURE];
+    if (pres > 1.0E-3) {
+	jac_dof_Atol[PRESSURE] = 1.0E-5;
+    } else {
+	jac_dof_Atol[PRESSURE] = pres * 1.0E-3;
+    }
+    
+    //
+    // Electrolyte Species Mole Fractions - We don't have diffusion responsibilities here. So we can go really low with the ATOL
+    // 
+    size_t ip_solvent = electrode->solnPhaseIndex();
+    ThermoPhase& tpe = electrode->thermo(ip_solvent);
+    size_t nsp = tpe.nSpecies(); 
+    for (size_t i = 0; i < nsp; i++) {
+	jac_dof_Atol[SPECIES + i] = 1.0E-20;
+    }
+    //
+    // report the result 
+    //
+    if (dof_Atol) {
+	copy(jac_dof_Atol.begin(), jac_dof_Atol.end(), dof_Atol);
+    }
+
+}
+
+
+//===================================================================================================================================
 void Electrode_FD_Jacobian::calc_Perturbations(const std::vector<double>& centerpoint, std::vector<double>& dof_Deltas,
-					       std::vector<double>& dof_Atol, double base_RelDelta)
+					       double base_RelDelta, double* dof_Atol)
  {
-     std::list<DOFS>::iterator dof_it = dofs_to_fd.begin();
-     size_t sz = centerpoint.size();
-     for (size_t i = 0; i < sz; i++) {
-	 double dof_delta = base_RelDelta;
-	 double dof_absval = fabs(centerpoint[i]);
+     if (dof_Atol == 0) {
+	 dof_Atol = DATA_PTR(jac_dof_Atol);
+     }
+     //
+     // Here we identify the DOF to do finite difference and then associate an atol with it
+     // Getting the atol value helps.
+     //
+     //size_t sz = centerpoint.size();
+     //
+     // Voltages (SOLID_VOLTAGE, LIQUID_VOLTAGE)
+     //   This is an absolute quantity related to deltaG. We have a good idea that it must be ~0.01 * millivolt for a good delta
+     //
+     // double metalPot = centerpoint[SOLID_VOLTAGE);
+
+     dof_Deltas[SOLID_VOLTAGE] = 1.0E-6 + dof_Atol[SOLID_VOLTAGE];
+     dof_Deltas[LIQUID_VOLTAGE] = 1.0E-6 + dof_Atol[LIQUID_VOLTAGE];
+     //
+     // Temperature we have a good idea that it should be a fractional degree ~0.01 
+     //
+     double temp = centerpoint[TEMPERATURE];
+     dof_Deltas[TEMPERATURE] = 0.001 + 0.00001 * temp + dof_Atol[TEMPERATURE];
+
+     //
+     // Pressure 
+     //
+     double pres = centerpoint[PRESSURE];
+     dof_Deltas[PRESSURE] = 0.001 + 1.0E-5 * pres + dof_Atol[PRESSURE];
+
+     //
+     // Electrolyte Species - We don't have diffusion responsibilities here. So we can really low with the delta 
+     // 
+     size_t ip_solvent = electrode->solnPhaseIndex();
+     ThermoPhase& tpe = electrode->thermo(ip_solvent);
+     size_t nsp = tpe.nSpecies(); 
+     for (size_t i = 0; i < nsp; i++) {
+	 double dof_absval = fabs(centerpoint[SPECIES + i]);
         if (dof_absval > 0.0) {
-            dof_delta *= dof_absval;
-        }
-	dof_Deltas[i] = dof_Atol[i] + dof_delta;
+	    dof_Deltas[SPECIES + i] = dof_absval * base_RelDelta + dof_Atol[SPECIES + i] + 1.0E-21;
+	} else {
+	    dof_Deltas[SPECIES + i] = dof_Atol[SPECIES + i] + 1.0E-21;
+	}
      }
  }
+
 //===================================================================================================================================
-int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> & dof_values, double dt)
+int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> & dof_values, double dt, bool base)
 {
+    double  GlobalRtolSrcTerm = 1.0E-3;
+    Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS;
+    Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR;
+    if (!base) {
+	subIntegrationType = FVDELTA_TIMEINTEGRATION_SIR;
+    }
+
     electrode->revertToInitialTime(true);
     electrode->setState_TP(dof_values[TEMPERATURE], dof_values[PRESSURE]);
     electrode->setVoltages(dof_values[SOLID_VOLTAGE], dof_values[LIQUID_VOLTAGE]);
     electrode->setFinalStateFromInit();
     electrode->setElectrolyteMoleNumbers(&dof_values[SPECIES], true);
-    int numSubs = electrode->integrate(dt);
+
+    int numSubs = electrode->integrate(dt, GlobalRtolSrcTerm, fieldInterpolationType, subIntegrationType);
+    
     return numSubs;
 }
 //===================================================================================================================================

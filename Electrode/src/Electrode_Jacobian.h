@@ -56,6 +56,12 @@ public:
 
   std::string dofsString(enum DOFS dd) const;
 
+  //! Create a default setup of the Jacobian
+  /*!
+   *  @param[out]   centerpoint            Value of the dofs
+   */ 
+  virtual void default_setup(std::vector<double>& centerpoint) = 0;
+
   //! Compute the Jacobian at the point specified by centerpoint
   /*!
    *  The array centerpoint should contain the value of each dof where
@@ -98,8 +104,29 @@ public:
 
   // These 3 functions enable the user to specify which Jacobian entries need to be
   // calculated.
+
+  //! This function adds a vector of entries into the list of entries that need to be computed
+  /*!
+   *  Each entry is a <DOF,SOURCES> pair
+   *
+   *  @param[in]       entries                           Vector of entries that need to be computed
+   */
   virtual void add_entries_to_compute(const std::vector<DOF_SOURCE_PAIR> &entries);
+
+  //! This function adds an entry into the list of entries that need to be computed
+  /*!
+   *  Each entry is a <DOF,SOURCES> pair
+   *
+   *  @param[in]       entries                           Sing entry that need to be computed
+   */
   virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
+
+  //! Remove an entry that needs to be computed
+  /*!
+   *  Each entry is a <DOF,SOURCES> pair
+   *
+   *  @param[in]       entries                           Sing entry that need to be computed
+   */
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
 protected:

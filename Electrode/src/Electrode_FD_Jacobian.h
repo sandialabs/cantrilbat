@@ -30,7 +30,7 @@ public:
     //! Constructor
     /*!
      *   @param[in]    elect                Pointer to the electrode object
-     *   @param[in]    baseRelDelta         Double for the 
+     *   @param[in]    baseRelDelta         double for the calculation of the base delta - relative delta
      */
     Electrode_FD_Jacobian(Electrode* elect, double baseRelDelta);
 
@@ -41,6 +41,19 @@ public:
     //! Destructor
     virtual ~Electrode_FD_Jacobian();
 
+    //! Create a default setup of the Jacobian
+    /*!
+     *  @param[out]   centerpoint            Value of the dofs
+     */
+    virtual void default_setup(std::vector<double>& centerpoint);
+ 
+    //!  Create a vector of DOFS that is used in the jacobian calculation
+    /*!
+     *  @param[out]      centerpoint             On exit, this contains the external variables at t = t_final that
+     *                                           are DOFS.
+     */
+    virtual void default_dofs_fill(std::vector<double>& centerpoint);
+  
     //! Calculate a two sided jacobian and store it in the object
     /*!
      *    @param[in]       centerpoint           External varialbes to be used for the calculation
@@ -57,7 +70,7 @@ public:
      *    @param[in]       dt                    Delta T
      */
     virtual void compute_oneSided_jacobian(const std::vector<double>& centerpoint, const double dt, double* dof_Deltas = 0,
-					   bool useDefaultDeltas = true);
+					   bool useDefaultDeltas = true, bool baseAlreadyCalculated = false);
 
     //! Add entry to compute
     virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
@@ -73,9 +86,17 @@ public:
      */
     void set_Atol(const std::vector<double>& dof_Atol);
 
+    //! Calculate default Atol values
+    /*!
+     *   @param[in]      centerpoint                   Default DOF values
+     *   @param[out]     dof_Atol                      calculated default values returned to user.
+     *                                                 The default is zero, in which case the values are not returned to the user
+     */
+    void calc_dof_Atol(const std::vector<double>& centerpoint, double* const dof_Atol = 0);
+
     //! Calculate the perturbations
     virtual void calc_Perturbations(const std::vector<double>& centerpoint, std::vector<double>& dof_Deltas, 
-                                    std::vector<double>& dof_Atol, double base_RelDelta = 1.0E-4);
+                                    double base_RelDelta = 1.0E-4, double* dof_Atol = 0);
 
     //! @copydoc Electrode_Jacobian::print_jacobian
     virtual void print_jacobian(int indentSpaces = 0) const;
@@ -87,7 +108,7 @@ private:
     /*!
      *  @return              Returns the number of subintegration steps
      */
-    int run_electrode_integration(const std::vector<double> & dof_values, double dt);
+    int run_electrode_integration(const std::vector<double> & dof_values, double dt, bool base = true);
 
     // This helper function sets a specific jacobian entry using a centered difference formula
     // based on the specified source values and delta in the dof.
@@ -107,7 +128,7 @@ protected:
     //! Deltas used on the last jacobian
     std::vector<double> jac_Delta;
 
-    //! Atols used on the last jacobian delta calculation
+    //! Atols used on the last external jacobian delta calculation
     std::vector<double> jac_dof_Atol;
 };
 

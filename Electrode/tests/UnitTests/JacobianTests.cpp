@@ -79,7 +79,7 @@ public:
     spMoleDelta[3] = 4*fake_electrolyte_mole_nums[2];
     return 1.0;
   }
-
+  
   virtual double getIntegratedSourceTerm(SOURCES sourceType)
   {
     double result = 0.0;

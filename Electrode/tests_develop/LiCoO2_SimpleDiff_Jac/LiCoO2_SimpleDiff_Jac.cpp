@@ -20,7 +20,9 @@
 
 #include "Electrode_input.h"
 #include "Electrode_SimpleDiff.h"
-#include "Electrode_RadialDiffRegions.h"  
+#include "Electrode_RadialDiffRegions.h"
+
+#include "Electrode_FD_Jacobian.h"
 
 #include <sstream>
 #include <iomanip>
@@ -192,7 +194,13 @@ int main(int argc, char **argv)
 	//
 	double amps;
 
-
+        double rdel = 1.0E-4;
+	Electrode_FD_Jacobian jac(electrodeC, rdel);
+        bool baseAlreadyCalc = true;
+        bool useDefaultDeltas = true;
+        std::vector<double> centerpoint;
+        std::vector<double> dof_Deltas(100, 0.0);
+	jac.default_setup(centerpoint);
 	electrodeC->setPrintLevel(1);
 	//electrodeC->enableExtraPrinting_ = 10;
 	//electrodeC->detailedResidPrintFlag_ = 10;
@@ -218,7 +226,8 @@ int main(int argc, char **argv)
 	    volts = getVoltage(Tfinal);
 	    electrodeC->setVoltages(volts, 0.0);
 	    volts = electrodeC->voltage();
-
+	    //
+	    // Integrate
 	    numSubIntegrations = electrodeC->integrate(deltaT);
 
 	    double Tfinalc = electrodeC->timeFinalFinal();
@@ -241,6 +250,25 @@ int main(int argc, char **argv)
 	    electrodeC->printElectrode();
 	    printf(" NumSubs = %d\n", numSubIntegrations);
 	    electrodeC->writeSolutionTimeIncrement();
+
+	    //
+	    // Calculate the jacobian
+	    //  Fill in centerpoint vector, which are external DOFS. Then, calculate the perturbation delta for the 
+	    //  numerical delta
+	    //
+	    jac.default_dofs_fill(centerpoint);
+            jac.calc_Perturbations(centerpoint, dof_Deltas);
+	    //
+	    // Calculate the jacobian
+	    //    Do a one-sided jacobian calculation
+	    //
+            jac.compute_oneSided_jacobian(centerpoint, deltaT, &dof_Deltas[0], useDefaultDeltas, baseAlreadyCalc);
+
+	    //
+	    // Print out the results
+	    //
+            jac.print_jacobian();
+
 	}
 
 	delete cfC;
