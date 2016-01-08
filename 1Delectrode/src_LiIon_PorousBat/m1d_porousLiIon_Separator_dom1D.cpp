@@ -1083,11 +1083,11 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  }
 
 	  if  (energyEquationProbType_ == 3) {
-	    double resLocal_Enth = (fluxTright - fluxTleft);
-	    resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
-	    resLocal_Enth += (enthConvRight - enthConvLeft);
-	    resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
-	    DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
+	      double resLocal_Enth = (fluxTright - fluxTleft);
+	      resLocal_Enth += (fluxR_JHPhi - fluxL_JHPhi);
+	      resLocal_Enth += (enthConvRight - enthConvLeft);
+	      resLocal_Enth += (nEnthalpy_New_Cell_[iCell] - nEnthalpy_Old_Cell_[iCell]) * rdelta_t;
+	      DomainResidVectorRightBound_LastResid_NE[nodeTmpsCenter.RO_Enthalpy_Conservation] = resLocal_Enth;
 	  }
 	}
       }
@@ -1200,63 +1200,66 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   } // end of iCell loop
 
 #ifdef MECH_MODEL
-	if (solidMechanicsProbType_ > 0 ) {
-	  new_node_pos.resize(NumLcCells,0.0);
-	  // node that this is offset by one node. 
-	  for (int iCell = 1; iCell < NumLcCells; iCell++) {
-	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    NodalVars* nodeCent   = cTmps.nvCent_;
-	    NodalVars* nodeLeft   = cTmps.nvLeft_;
-	    nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	    nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
-	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+  if (solidMechanicsProbType_ > 0 ) {
+      new_node_pos.resize(NumLcCells,0.0);
+      // node that this is offset by one node. 
+      for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	  NodalVars* nodeCent   = cTmps.nvCent_;
+	  NodalVars* nodeLeft   = cTmps.nvLeft_;
+	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	  indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 
-	    // NOTE new_node_pos[0] must be set, using the information from the Anode
-	    // this is a bit tortured, but on the anode, the right most node residual is set to
-	    // 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
-	    // so to extract the calculated new position, new_node_pos, we take the residual and add the solution and the old position.. 
-	    if(iCell == 1) 
-	      {
-		new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] +  nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
-	      }
-
-	    double delta_0 =  (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
-	               - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
-	    double new_delta = delta_0 *  xratio[iCell-1]; // 
-	    new_node_pos[iCell] = new_node_pos[iCell-1] + new_delta;
-
-	    // // stress
-	    // double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
-	    // double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
-	    // double lc_pressure = -(left_matrix_stress-center_matrix_stress);
-	    // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
+	  // NOTE new_node_pos[0] must be set, using the information from the Anode
+	  // this is a bit tortured, but on the anode, the right most node residual is set to
+	  // 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
+	  // so to extract the calculated new position, new_node_pos, we take the residual and add the solution and the old position.. 
+	  if(iCell == 1) 
+	  {
+	      new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] +  nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
 	  }
-	  for (int iCell = 1; iCell < NumLcCells; iCell++) {
-	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    NodalVars* nodeLeft  = cTmps.nvLeft_;
-	    NodalVars* nodeCent  = cTmps.nvCent_;
-	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	    nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	    nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
 
-	    // res[ left ] has already been set by the Anode code; hence start at iCell==1
-	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	      iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
-	      // new_node_pos[iCell] 
-	      // - nodeCent->x0NodePos() 
-	      // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
+	  double delta_0 =  (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
+	    - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
+	  double new_delta = delta_0 *  xratio[iCell-1]; // 
+	  new_node_pos[iCell] = new_node_pos[iCell-1] + new_delta;
 
-	  std::cout << " separator::residEval iCell "<<iCell<<"  soln "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
+	  // // stress
+	  // double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
+	  // double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
+	  // double lc_pressure = -(left_matrix_stress-center_matrix_stress);
+	  // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
+      }
+      for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	  NodalVars* nodeLeft  = cTmps.nvLeft_;
+	  NodalVars* nodeCent  = cTmps.nvCent_;
+	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	  indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+
+	  // res[ left ] has already been set by the Anode code; hence start at iCell==1
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
+	    iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
+	  // new_node_pos[iCell] 
+	  // - nodeCent->x0NodePos() 
+	  // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
+
+	  std::cout << " separator::residEval iCell "<<iCell<<"  soln "
+		    << soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
+		    << " res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
+		    << " xratio " << xratio[iCell-1]<<std::endl;
 
 
-	  }
-	}
+      }
+  }
 #endif
 }
 //==================================================================================================================================

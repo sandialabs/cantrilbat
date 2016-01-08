@@ -1622,62 +1622,64 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 #ifdef MECH_MODEL  
     if (solidMechanicsProbType_ > 0) {
-      //  node[0] is pinned so it never moves, hence start at iCell=1
-      for (int iCell = 1; iCell < NumLcCells; iCell++) {
-	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	NodalVars*nodeCent  = cTmps.nvCent_;
-	NodalVars*nodeLeft  = cTmps.nvLeft_;
-	nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
-	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	//  node[0] is pinned so it never moves, hence start at iCell=1
+	for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	    NodalVars*nodeCent  = cTmps.nvCent_;
+	    NodalVars*nodeLeft  = cTmps.nvLeft_;
+	    nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	    nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 
-	if(iCell ==1) {
-	  new_node_pos[0] = nodeLeft->x0NodePos(); 
-	  // Left most node is pinned at zero displacement
-	}
-	nodeCent = cTmps.nvCent_;
-	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	nodeLeft = cTmps.nvLeft_;
-	indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	double delta_0 = (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
-                       - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
-	double new_delta = delta_0 *  xratio[iCell-1]; 
-	new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
+	    if(iCell ==1) {
+		new_node_pos[0] = nodeLeft->x0NodePos(); 
+		// Left most node is pinned at zero displacement
+	    }
+	    nodeCent = cTmps.nvCent_;
+	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	    nodeLeft = cTmps.nvLeft_;
+	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
+	    double delta_0 = (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
+	      - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
+	    double new_delta = delta_0 *  xratio[iCell-1]; 
+	    new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
 
-	// stress
-	// double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
-	// double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
-	// double lc_pressure = -(left_matrix_stress-center_matrix_stress);
-	// res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
-	// if(soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]!=0.0) 
-	//   std::cout << " Anode::residEval iCell "<<iCell<<" stress_axial "<<soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]<<std::endl;
-      } // end of iCell loop
+	    // stress
+	    // double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
+	    // double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
+	    // double lc_pressure = -(left_matrix_stress-center_matrix_stress);
+	    // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
+	    // if(soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]!=0.0) 
+	    //   std::cout << " Anode::residEval iCell "<<iCell<<" stress_axial "<<soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]<<std::endl;
+	} // end of iCell loop
 
-      for (int iCell = 1; iCell < NumLcCells; iCell++) {
-      	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-      	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-      	NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;	
-	NodalVars* nodeCent = cTmps.nvCent_;
-	NodalVars* nodeLeft = cTmps.nvLeft_;
-	indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-      	nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-      	nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
-
-      	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	  iCell/20.  - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
+      for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;	
+	  NodalVars* nodeCent = cTmps.nvCent_;
+	  NodalVars* nodeLeft = cTmps.nvLeft_;
+	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
+	    iCell/20.  - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
 	  // new_node_pos[iCell] 
 	  // - nodeCent->x0NodePos() 
-
-	if(iCell==1) { // set the residual for left most node to zero, as we want the position to be fixed. 
-	  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]  = 0.0;
-	}
-
-	  std::cout << " anode::residEval iCell "<<iCell<<" soln "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " << xratio[iCell-1]<<std::endl;
-
-
+	  
+	  if(iCell==1) { // set the residual for left most node to zero, as we want the position to be fixed. 
+	      res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]  = 0.0;
+	  }
+	  
+	  std::cout << " anode::residEval iCell "<<iCell<<" soln "
+		    << soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
+		    <<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
+		    <<" xratio " << xratio[iCell-1]<<std::endl;
+	  
       }
       //impose that -grad trace Solid_Stress == the average across this part of the battery.
 
