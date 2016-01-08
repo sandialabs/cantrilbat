@@ -796,6 +796,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double poisson = 0.45;
     double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
     double Eyoung = 3*BulkMod*(1.0 - 2*poisson);
+    int pMECH_MODEL_extra = 0;
 #endif
     //    double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
     
@@ -1623,19 +1624,38 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 #ifdef MECH_MODEL  
     if (solidMechanicsProbType_ > 0) {
 	//  node[0] is pinned so it never moves, hence start at iCell=1
-	for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	/*
+	 *  ------------------------------ LOOP OVER CELL -------------------------------------------------
+	 *  Loop over the number of Cells in this domain on this processor
+	 *  This loop is done from left to right.
+	 */
+	for (int iCell = 1; iCell < NumLcCells; iCell++) {
+	    cIndex_cc_ = iCell;
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    NodalVars*nodeCent  = cTmps.nvCent_;
-	    NodalVars*nodeLeft  = cTmps.nvLeft_;
-	    nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	    nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
+
+	    NodalVars* nodeCent  = cTmps.nvCent_;
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
+
+	    NodalVars* nodeLeft  = cTmps.nvLeft_;
 	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 
-	    if(iCell ==1) {
-		new_node_pos[0] = nodeLeft->x0NodePos(); 
+	    nodeRight = cTmps.nvRight_;
+	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
+
+	    nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+
+	    if (nodeLeft != 0) {
+		nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	    } else {
+		nodeTmpsLeft.Offset_Displacement_Axial = -1;
+	    }
+	 
+
+	    if (iCell ==1) {
+		new_node_pos[0] = nodeLeft->x0NodePos();
 		// Left most node is pinned at zero displacement
 	    }
 	    nodeCent = cTmps.nvCent_;
@@ -1645,7 +1665,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    double delta_0 = (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
 	      - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
 	    double new_delta = delta_0 *  xratio[iCell-1]; 
-	    new_node_pos[iCell]=new_node_pos[iCell-1] + new_delta;
+	    new_node_pos[iCell] = new_node_pos[iCell-1] + new_delta;
 
 	    // stress
 	    // double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
@@ -1653,7 +1673,9 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    // double lc_pressure = -(left_matrix_stress-center_matrix_stress);
 	    // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
 	    // if(soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]!=0.0) 
-	    //   std::cout << " Anode::residEval iCell "<<iCell<<" stress_axial "<<soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]<<std::endl;
+	    //   std::cout << " Anode::residEval iCell "<<iCell
+	    //             <<" stress_axial "<<soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]
+            //             <<std::endl;
 	} // end of iCell loop
 
       for (int iCell = 0; iCell < NumLcCells; iCell++) {
@@ -1664,22 +1686,23 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  NodalVars* nodeLeft = cTmps.nvLeft_;
 	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	  nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  //nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
 	  
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	    iCell/20.  - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
+	    iCell/20.0  - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
 	  // new_node_pos[iCell] 
 	  // - nodeCent->x0NodePos() 
 	  
-	  if(iCell==1) { // set the residual for left most node to zero, as we want the position to be fixed. 
-	      res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]  = 0.0;
+	  if (iCell == 0) { // set the residual for left most node to zero, as we want the position to be fixed. 
+	      res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]  = 
+		soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] - 0.0;
 	  }
-	  
-	  std::cout << " anode::residEval iCell "<<iCell<<" soln "
-		    << soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
-		    <<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
-		    <<" xratio " << xratio[iCell-1]<<std::endl;
-	  
+	  if (pMECH_MODEL_extra) {
+	      std::cout << " anode::residEval iCell "<<iCell<<" soln "
+			<< soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
+			<<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
+			<<" xratio " << xratio[iCell-1]<<std::endl;
+	  }
       }
       //impose that -grad trace Solid_Stress == the average across this part of the battery.
 
@@ -4717,6 +4740,24 @@ porousLiIon_Anode_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff
         if (iVar_Temperature != npos) {
             atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
         }
+
+	/*
+         * Set the tolerance on the displacment
+	 *   -> turning it off for the moment.
+         */
+        size_t iVar_disp = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+        if (iVar_disp != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_disp] = 5.0 * relcoeff;
+        }
+
+	/*
+         * Set the tolerance on the Velocity_Radial
+         */
+        size_t iVar_Vrad = nodeCent->indexBulkDomainVar0((size_t) Velocity_Radial);
+        if (iVar_Vrad != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Vrad] = 5.0 * relcoeff;
+        }
+
 
     }
 }

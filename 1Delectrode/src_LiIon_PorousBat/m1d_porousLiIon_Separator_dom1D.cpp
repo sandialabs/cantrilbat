@@ -466,7 +466,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   double Thermal_Expansion = 50e-6;
   double poisson = 0.45;
   double Eyoung = -1;
-
+#ifdef MECH_MODEL
+  int pMECH_MODEL_extra = 0;
+#endif
   /*
    * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
    */
@@ -1203,14 +1205,18 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   if (solidMechanicsProbType_ > 0 ) {
       new_node_pos.resize(NumLcCells,0.0);
       // node that this is offset by one node. 
-      for (int iCell = 0; iCell < NumLcCells; iCell++) {
+      for (int iCell = 1; iCell < NumLcCells; iCell++) {
 	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	  NodalVars* nodeCent   = cTmps.nvCent_;
 	  NodalVars* nodeLeft   = cTmps.nvLeft_;
 	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	  nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  if (nodeLeft) {
+	      nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  } else {
+	      nodeTmpsLeft.Offset_Displacement_Axial = -1;
+	  }
 	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	  indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 
@@ -1218,9 +1224,9 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  // this is a bit tortured, but on the anode, the right most node residual is set to
 	  // 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
 	  // so to extract the calculated new position, new_node_pos, we take the residual and add the solution and the old position.. 
-	  if(iCell == 1) 
+	  if (iCell == 1) 
 	  {
-	      new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] +  nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	      new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] + nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
 	  }
 
 	  double delta_0 =  (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
@@ -1243,20 +1249,25 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	  indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
 	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-	  nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  if (nodeLeft) {
+	      nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
+	  } else {
+	      nodeTmpsLeft.Offset_Displacement_Axial = -1;
+	  }
 
 	  // res[ left ] has already been set by the Anode code; hence start at iCell==1
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	    iCell/20 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
+	    iCell/20.0 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
 	  // new_node_pos[iCell] 
 	  // - nodeCent->x0NodePos() 
 	  // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
 
-	  std::cout << " separator::residEval iCell "<<iCell<<"  soln "
-		    << soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
-		    << " res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
-		    << " xratio " << xratio[iCell-1]<<std::endl;
-
+	  if (pMECH_MODEL_extra) {
+	      std::cout << " separator::residEval iCell "<<iCell<<"  soln "
+			<< soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
+			<< " res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
+			<< " xratio " << xratio[iCell-1]<<std::endl;
+	  }
 
       }
   }
@@ -3315,8 +3326,28 @@ porousLiIon_Separator_dom1D::setAtolDeltaDamping(double atolDefault, double relc
          */
         size_t iVar_Temperature = nodeCent->indexBulkDomainVar0((size_t) Temperature);
         if (iVar_Temperature != npos) {
-            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0;
+            atolDeltaDamping[indexCent_EqnStart + iVar_Temperature] = 5.0 * relcoeff;
         }
+
+	/*
+         * Set the tolerance on the displacment
+	 *   -> turning it off for the moment.
+         */
+        size_t iVar_disp = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+        if (iVar_disp != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_disp] = 5.0 * relcoeff;
+        }
+
+	/*
+         * Set the tolerance on the Velocity_Radial
+         */
+        size_t iVar_Vrad = nodeCent->indexBulkDomainVar0((size_t) Velocity_Radial);
+        if (iVar_Vrad != npos) {
+            atolDeltaDamping[indexCent_EqnStart + iVar_Vrad] = 5.0 * relcoeff;
+        }
+
+
+
     }
 }
 //==================================================================================================================================
