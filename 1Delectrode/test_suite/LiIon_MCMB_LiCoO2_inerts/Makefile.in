@@ -65,3 +65,6 @@ test_cleanup:
 cleanup:
 	$(RM) $(TEST_FILES) $(CREATED_FILES)
 
+clean:
+	$(RM) $(TEST_FILES) $(CREATED_FILES)
+
