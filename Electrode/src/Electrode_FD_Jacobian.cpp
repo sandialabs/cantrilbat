@@ -340,38 +340,48 @@ void Electrode_FD_Jacobian::print_jacobian(int indentSpaces) const
 	printf(" Unequal numSub = %d <= num <= %d\n",  jac_numSubs_Min,  jac_numSubs_Max);
     }
 
+    int cCount = 5 * 17 +  tp_solnPhase->nSpecies() * 17;
+    for (size_t i = 0; i < (size_t) electrode->nSpecies(); i++) {
+	if (electrodeSpeciesSrcInc[i]) {
+	    cCount += 17;
+	}
+    }
+    drawline(indentSpaces, cCount + 5);
+
     printf("   Entry      | ");
-    printf("   DOF_Value  | ");
-    printf("%14.14s|", " CURRENT_SOURCE");
-    printf("%14.14s|", " ENTHALPY_SOURCE");
-    printf("%14.14s|", " LYTE_PHASE_SRC");
-    int cCount = 5 * 17;
+    printf(" DOF_Value   | ");
+    printf("  DOF_Delta  |");
+    printf("%14.14s|", "CURRENT_SOURCE");
+    printf("%14.14s|", "ENTHALPY_SOURCE");
+    printf("%14.14s|", "LYTE_PHASE_SRC");
+  
     for (size_t i = 0; i < (size_t) electrode->nSpecies(); i++) {
 	if (electrodeSpeciesSrcInc[i]) {
 	    std::string ss = electrode->speciesName(i);
 	    printf("%14.14s|", ss.c_str());
-	    cCount += 17;
 	}
     }
     for (size_t i = 0; i < tp_solnPhase->nSpecies(); i++) {
 	if (lyteSpeciesSrcInc[i]) {
 	    std::string ss = tp_solnPhase->speciesName(i);
 	    printf("%16.16s|", ss.c_str());
-	    cCount += 17;
 	}
     }
+    printf("\n");
     drawline(indentSpaces, cCount + 5);
     indent(indentSpaces);
-    printf("              | ");
-    printf("              | ");
-    printf("% -12.5E |", jac_electronSource);
-    printf("% -12.5E |", jac_energySource);
-    printf("% -12.5E |", jac_electrolytePhaseSource);
+    printf("              |");
+    printf("              |");
+    printf("              |");
+    printf(" % -12.5E |", jac_electronSource);
+    printf(" % -12.5E |", jac_energySource);
+    printf(" % -12.5E |", jac_electrolytePhaseSource);
     for (size_t i = 0; i < tp_solnPhase->nSpecies(); i++) {
 	if (lyteSpeciesSrcInc[i]) {
-	    printf("% -12.5E |", jac_lyteSpeciesSource[i]);
+	    printf("   % -12.5E |", jac_lyteSpeciesSource[i]);
 	}
     }
+    printf("\n");
     drawline(indentSpaces, cCount + 5);
 
     std::list<DOFS>::const_iterator dof_it = dofs_to_fd.begin();
@@ -381,18 +391,20 @@ void Electrode_FD_Jacobian::print_jacobian(int indentSpaces) const
 	std::string ss = dofsString(*dof_it);
 	printf("%14.14s|", ss.c_str());
 	val = jac_centerpoint[iDof];
-	printf("% -12.5E |", val);
+	printf(" % -12.5E |", val);
+	val = jac_Delta[iDof];
+	printf(" % -12.5E |", val);
 	val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, CURRENT_SOURCE) );
-	printf("% -12.5E |", val);
+	printf(" % -12.5E |", val);
 	val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, ENTHALPY_SOURCE) );
-	printf("% -12.5E |", val);
+	printf(" % -12.5E |", val);
 	val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, ELECTROLYTE_PHASE_SOURCE) );
-	printf("% -12.5E |", val);
+	printf(" % -12.5E |", val);
   
 	for (size_t i = 0; i < tp_solnPhase->nSpecies(); i++) {
 	    if (lyteSpeciesSrcInc[i]) {
 		val = get_jacobian_value( DOF_SOURCE_PAIR(*dof_it, (SOURCES)(SPECIES_SOURCE + i)) );
-		printf("% -12.5E |", val);
+		printf("   % -12.5E |", val);
 	    }
 	}
 	printf("\n");

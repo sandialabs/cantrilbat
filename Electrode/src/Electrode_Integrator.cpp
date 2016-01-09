@@ -925,7 +925,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         deltaTsubcycle_ = deltaTsubcycleNext_;
 #ifdef DEBUG_MODE
 	if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
-	    printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+	    // printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
 	}
 #endif
 	/*
@@ -957,33 +957,19 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
 #endif
 
         /*
-         * Set the final time of the interval
+         * Set the final time of the interval, but bound the time interval by the global time step
          */
         tfinal_ = tinit_ + deltaTsubcycle_;
-	tfinal_start = tinit_ + deltaTsubcycle_;
-
-        /*
-         *  Bound the time interval by the global time step
-         */
         if (tfinal_ > t_init_init_ + deltaT) {
             tfinal_ = t_init_init_ + deltaT;
             deltaTsubcycle_ = tfinal_ - tinit_;
             nsteps_est =  iterSubCycle;
         }
 
-
-        // HKM debugging point
-#ifdef DEBUG_MODE_NOT
-        if (fabs(tfinal_ - 0.02) < 0.001) {
-            printf("we are here - 23\n");
-        }
-#endif
-
         /*
-         * Set the calced deltaT to the current deltaT.
+         * Set the calculated deltaTsubcycle to the current deltaTsubcycle
          */
         deltaTsubcycleCalc_ = deltaTsubcycle_;
-
         /*
          *  Check internal consistency of the init solution
          *    -> failures here produce error exits
@@ -1024,6 +1010,7 @@ topConvergence:
                                    "FAILURE too many nonlinear convergence failures");
             }
 	    tfinal_ = tinit_ + deltaTsubcycle_;
+	    tfinal_start = tfinal_;
             /*
              *   Zero needed counters
              */
@@ -1040,7 +1027,7 @@ topConvergence:
             int info = predictSoln();
 #ifdef DEBUG_MODE
 	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
-		printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+		//	printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
 	    }
 #endif
             if (info != 1) {
@@ -1071,7 +1058,7 @@ topConvergence:
 	    info = predictSolnDot();
 #ifdef DEBUG_MODE
 	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
-		printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+		//	printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
 	    }
 #endif
 	    if (info != 1) {
@@ -1135,7 +1122,7 @@ topConvergence:
             int retn = check_nonlinResidConditions();
 #ifdef DEBUG_MODE
 	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
-		printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+		//	printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
 	    }
 #endif
             if (retn < 0) {
@@ -1203,11 +1190,10 @@ topConvergence:
 #endif
 #ifdef DEBUG_MODE
 	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
-		printf("WARNING deltaTubcycle_ = %g  iterSubCycle = %d countSub = %d\n", 
-		       deltaTsubcycle_ , iterSubCycle, counterNumberIntegrations_ );
+		//	printf("WARNING deltaTubcycle_ = %g  iterSubCycle = %d countSub = %d\n", 
+		//     deltaTsubcycle_ , iterSubCycle, counterNumberIntegrations_ );
 	    }
 #endif
-	    tfinal_start = tfinal_;
 
             int nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
 								 tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,

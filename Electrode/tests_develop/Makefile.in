@@ -13,7 +13,7 @@ all:
 	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc; 		    @MAKE@
 	cd CSTR_ReadCompareSoln ;				    @MAKE@
 	cd RadialDistrib_ReadCompareSoln ;			    @MAKE@
-	cd LiCoO2_SimpleDiff_Jac ;				    @MAKE@
+	cd LiCoO2_SimpleDiff_Jac ;				    @MAKE@ 
 
 test:
 #	cd LiSi_1_Newman ;     (not ready yet)                      @MAKE@ -s test
