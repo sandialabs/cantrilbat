@@ -170,8 +170,7 @@ public:
 
     //! Current
 };
-
-
+//===================================================================================================================================
 class SubIntegrationHistory
 {
 public:
@@ -184,7 +183,7 @@ public:
 
     SubIntegrationHistory& operator=(const SubIntegrationHistory& right);
 
-    //! Wipe out the history 
+    //! Wipe out the history and all of the steps
     void clear();
 
     //! Add a step to the time history

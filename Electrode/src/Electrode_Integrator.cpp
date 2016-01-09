@@ -674,8 +674,15 @@ void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doR
         resetToInitInit = true;
         //return;
     }
+    /*
+     *  Clear the time step histories for the base and current timeHistories.
+     */
+    timeHistory_base_.clear();
+    timeHistory_current_.clear();
 
     Electrode::resetStartingCondition(Tinitial, doResetAlways);
+
+
 
     /*
      *  Zero the global error vectors
@@ -732,7 +739,9 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
      *  Need to turn off following electrolyte moles. There is no solution if this is not true.
      */
     turnOffFollowElectrolyteMoles();
-
+    /*
+     *  Clear the time history for the current step
+     */
     timeHistory_current_.clear();
    
 
@@ -1549,6 +1558,12 @@ topConvergence:
         deltaTsubcycle_init_next_ = MIN(deltaTsubcycle_init_next_, 2.0 * deltaT);
     }
 
+    /*
+     *  Store the base time integration strategy
+     */
+    if (subIntegrationType == BASE_TIMEINTEGRATION_SIR || subIntegrationType == BASE_REEVALUATION_TIMEINTEGRATION_SIR) {
+	setTimeHistoryBaseFromCurrent();
+    }
     /*
      *  Copy the results into the final_final holding pens.
      */
