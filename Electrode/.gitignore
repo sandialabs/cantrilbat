@@ -2,5 +2,6 @@ Makefile
 diff_summary.txt
 diff_tcsv.txt
 diff_xml.txt
-
-
+diff_csv.txt
+diff_out.txt
+err_out.txt
