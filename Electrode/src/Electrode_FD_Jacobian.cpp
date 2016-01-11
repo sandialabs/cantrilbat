@@ -323,6 +323,15 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
     }
 }
 //===================================================================================================================================
+void Electrode_FD_Jacobian::store_base_calculation(const std::vector<double>& centerpoint, const double dt,
+					const std::vector<double>& speciesSources, double const enthalpySrc)
+{
+
+
+
+
+}
+//===================================================================================================================================
 void Electrode_FD_Jacobian::print_jacobian(int indentSpaces) const
 {
     double val;

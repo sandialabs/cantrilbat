@@ -72,6 +72,14 @@ public:
     virtual void compute_oneSided_jacobian(const std::vector<double>& centerpoint, const double dt, double* dof_Deltas = 0,
 					   bool useDefaultDeltas = true, bool baseAlreadyCalculated = false);
 
+    //! Store the base calculation if the Jacobian object is being used as a storage vehicle
+    //! for an externally evaluated jacobian calculation
+    /*!
+     *
+     */
+    virtual void store_base_calculation(const std::vector<double>& centerpoint, const double dt,
+					const std::vector<double>& speciesSources, double const enthalpySrc);
+
     //! Add entry to compute
     virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
 
@@ -94,7 +102,7 @@ public:
      */
     void calc_dof_Atol(const std::vector<double>& centerpoint, double* const dof_Atol = 0);
 
-    //! Calculate the perturbations
+    //! Calculate the perturbations that should be used in the calculation of the jacobian
     virtual void calc_Perturbations(const std::vector<double>& centerpoint, std::vector<double>& dof_Deltas, 
                                     double base_RelDelta = 1.0E-4, double* dof_Atol = 0);
 
