@@ -803,7 +803,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 
     // scratch pad to calculate the new positions due to the strain of the elements
     std::vector<double> new_node_pos(NumLcCells,0.0);
-
+#ifdef MECH_MODEL
     // for the Cathode material, we use the following values:
     // From Journal of Power Sources 271 (2014), 
     // Simulation of temperature rise in Li-Ion cells at very high currents
@@ -813,8 +813,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     
     // **** NOTE ***** Assume that the binder (generally teflon) has no strength and thus does not effect 
     // the porosity to effective modulus relationship. 
-    
-    
+        
     //The 1st International Joint Mini-Symposium on Advanced Coatings between Indiana University
     //Purdue University Indianapolis and Changwon National University
     //First principles study on the electrochemical, thermal and mechanical properties of LiCoO2
@@ -841,8 +840,8 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double Thermal_Expansion = 4.5e-6/1.80; // of solid material, not of matrix, and conversion of F to C
     //	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
     double Eyoung=3*BulkMod*(1.0 - 2*poisson);
-#ifdef MECH_MODEL
-    int pMECH_MODEL_extra = 0;
+
+    int pMECH_MODEL_extra = 1;
 #endif
 
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
@@ -1643,12 +1642,17 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-	    // NOTE new_node_pos[0] must be set, using the information from the Separator
+	    // NOTE new_node_pos[0] must be set, using the information from the Separator:
+	    //  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] =
+	    //soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] -
+	    // (new_node_pos[iCell] - nodeCent->x0NodePos() );
+
 	    if(iCell == 1)
 	    {
-		new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] 
-		  + nodeLeft->x0NodePos() 
-		  + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	      new_node_pos[0] = - ( res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] 
+				    - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial] 
+				    - nodeLeft->x0NodePos()); 
+	      if(pMECH_MODEL_extra) std::cout << " cathode new_node_pos[0] = "<< new_node_pos[0]<<" vs old pos " <<nodeLeft->x0NodePos()<< std::endl;
 	    }
 	    double delta_0 = (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
 	      - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
@@ -1671,16 +1675,16 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	      
 	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	      iCell/20.0 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
-	    // new_node_pos[iCell]
-	    // - nodeCent->x0NodePos()
-	    // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
+	      soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] -
+	      (new_node_pos[iCell] - nodeCent->x0NodePos());
 
 	    if (pMECH_MODEL_extra) {
-		std::cout << " cathode::residEval iCell "<< iCell << " soln "
-			  <<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" res[icell] "
-			  <<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" xratio " 
-			  << xratio[iCell-1]<<std::endl;
+	      if(iCell == 1)  std::cout << " Cath::residEval sol,res,r-1.0,x-x0:: ";
+	      std::cout <<"("<< soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" "
+		      << res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" "
+			<< xratio[iCell]-1.0<<" "
+			<<(new_node_pos[iCell]  - nodeCent->x0NodePos())<<") ";
+	      if(iCell == NumLcCells-1) std::cout<<endl;
 	    }	      
 	}
 	// now the critical bit of confining the right hand most node by a confining pressure. 

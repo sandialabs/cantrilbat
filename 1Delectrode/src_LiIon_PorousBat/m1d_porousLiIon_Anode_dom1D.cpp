@@ -642,7 +642,6 @@ porousLiIon_Anode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, co
 				    "Disagreement on new enthalpy calc");
 	    }
 	    
-	    
 	    nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New_Cell_[iCell];
 	    nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
 	}
@@ -796,10 +795,10 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double poisson = 0.45;
     double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
     double Eyoung = 3*BulkMod*(1.0 - 2*poisson);
-    int pMECH_MODEL_extra = 0;
-#endif
     //    double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
-    
+    int pMECH_MODEL_extra = 1;
+#endif
+
     //mole fraction fluxes
     std::vector<double> fluxXright(nsp_, 0.0);
     std::vector<double> fluxXleft(nsp_, 0.0);
@@ -1537,7 +1536,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 		gross_vol_now+= 0.5*Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
 	      }
 	      //	      std::cout << " biCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
-	      if(iCell==4) gross_vol_now *=2;
 	    }
 	    else if (nodeLeft && (!nodeRight) ) {
 	      // thick_lc_now =  ( (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
@@ -1624,7 +1622,6 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 #ifdef MECH_MODEL  
     if (solidMechanicsProbType_ > 0) {
 	//  node[0] is pinned so it never moves, hence start at iCell=1
-<<<<<<< HEAD
 	/*
 	 *  ------------------------------ LOOP OVER CELL -------------------------------------------------
 	 *  Loop over the number of Cells in this domain on this processor
@@ -1682,20 +1679,23 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  NodalVars* nodeLeft = cTmps.nvLeft_;
 	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+
 	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	    iCell/20.0  - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
-	  // new_node_pos[iCell] 
-	  // - nodeCent->x0NodePos() 
-	  
-	  if (iCell == 0) { // set the residual for left most node to zero, as we want the position to be fixed. 
+	    soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]
+	    -(new_node_pos[iCell]  - nodeCent->x0NodePos());
+
+	  if (iCell == 0) { 
 	    res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]  = 
 	      soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] - 0.0;
 	  }
 	  if (pMECH_MODEL_extra) {
-	    std::cout << " anode::residEval iCell "<<iCell<<" soln "
-		      << soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
-		      <<" res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
-		      <<" xratio " << xratio[iCell-1]<<std::endl;
+	    if(iCell==0)  std::cout << " anode::residEval sol,res,r-1.0,x-x0:: ";
+	    std::cout << " ( "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" "
+		      << res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" "
+		      << xratio[iCell]-1.0<<" "
+		      <<(new_node_pos[iCell]  - nodeCent->x0NodePos())<<" ), ";
+	    if(iCell == NumLcCells-1) std::cout<<endl;
+
 	  }
       }
       //impose that -grad trace Solid_Stress == the average across this part of the battery.

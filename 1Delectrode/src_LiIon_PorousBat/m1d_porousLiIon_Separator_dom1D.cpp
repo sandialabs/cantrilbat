@@ -445,14 +445,12 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   const Epetra_Vector& soln = *soln_ptr;
   const Epetra_Vector& solnOld = *solnOld_ptr;
 
+#ifdef MECH_MODEL
   // scratch pad to calculate the expansion of the matrix
   std::vector<double> xratio(NumLcCells,0.0); 
   
   // scratch pad to calculate the new positions due to the strain of the elements
   std::vector<double> new_node_pos(NumLcCells,0.0);
-
-  // average grad trace stress
-  double avg_delta_matrix_pressure = 0;
 
   // for the seperator, we use the following values:
   // These numbers are only 'good' to ~8-20% strain. 
@@ -466,8 +464,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   double Thermal_Expansion = 50e-6;
   double poisson = 0.45;
   double Eyoung = -1;
-#ifdef MECH_MODEL
-  int pMECH_MODEL_extra = 0;
+
+  int pMECH_MODEL_extra = 1;
 #endif
   /*
    * Index of the first equation at the left node corresponding to the first bulk domain, which is the electrolyte
@@ -1133,13 +1131,21 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
       // CBL:: There is no change in the solid volume of the separator other than temperature effects???? \todo
       if ( (Domain1D::ChemEx | Domain1D::TempEx | Domain1D::All)  & solidMechanicsProbType_) {
 	if(iCell <  NumLcCells-1) {
+	  xratio[iCell] = 1.0;
 	  nodeTmpsRight.Offset_Displacement_Axial    = nodeRight->indexBulkDomainVar0((size_t) Displacement_Axial);
 	  xratio[iCell] =  (Thermal_Expansion+1.0)*(valTmps.Temperature.center+valTmps.Temperature.right)*0.5/ TemperatureReference_;
-	  xratio[iCell] *= 
-	    // ( (nodeRight->xNodePos() + soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) 
-	    //   - (nodeCent->xNodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ])) 
-	    ( nodeRight->x0NodePos() - nodeCent->x0NodePos()) 
-	    / ( nodeRight->xNodePos() - nodeCent->xNodePos() )  ;
+	  //*****************
+	  //*****************
+	  //***** NOTE *****
+	  // Do _not_ use xNodePos() in any calculation of the displacement, as  
+	  // xNodePos() = x0NodePos()+soln[displacement]
+	  //  as a part of the set up for each iteration. 
+	  //*****************
+	  //*****************
+
+	   xratio[iCell] *= 
+	     ( nodeRight->x0NodePos()  - nodeCent->x0NodePos()) /
+	     (( nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) - (nodeCent->xNodePos() +soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] ))  ;
 	}
 	else
 	  xratio[iCell] = -9e9; // should never be used. 
@@ -1205,6 +1211,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   if (solidMechanicsProbType_ > 0 ) {
       new_node_pos.resize(NumLcCells,0.0);
       // node that this is offset by one node. 
+      // The left most node is the right most of the anode, and has already been calculated. 
       for (int iCell = 1; iCell < NumLcCells; iCell++) {
 	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
@@ -1222,11 +1229,19 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 
 	  // NOTE new_node_pos[0] must be set, using the information from the Anode
 	  // this is a bit tortured, but on the anode, the right most node residual is set to
-	  // 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = new_node_pos[iCell] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial];
-	  // so to extract the calculated new position, new_node_pos, we take the residual and add the solution and the old position.. 
+
+	  // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
+	  //   soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]
+	  //   -(new_node_pos[iCell]  - nodeCent->x0NodePos());
+
+	  // so to extract the calculated new position, new_node_pos, reverse the summation:=?
 	  if (iCell == 1) 
 	  {
-	      new_node_pos[0] = res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] + nodeLeft->xNodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial];
+	    new_node_pos[0] =  res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ] + 
+	      - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial] - nodeLeft->x0NodePos();
+	    new_node_pos[0] *=-1;
+	    if(pMECH_MODEL_extra) std::cout << " separator new_node_pos[0] = "<< new_node_pos[0]<<" vs old pos " <<nodeLeft->x0NodePos()<< std::endl;
+	    
 	  }
 	  double delta_0 =  (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
 	    - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
@@ -1255,17 +1270,17 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	      nodeTmpsLeft.Offset_Displacement_Axial = -1;
 	  }
 
-	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	    iCell/20.0 - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]; 
-	  // new_node_pos[iCell] 
-	  // - nodeCent->x0NodePos() 
-	  // - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ];
-
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] =
+	    soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] -
+	    (new_node_pos[iCell] - nodeCent->x0NodePos() );
+	  
 	  if (pMECH_MODEL_extra) {
-	      std::cout << " separator::residEval iCell "<<iCell<<"  soln "
-			<< soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]
-			<< " res[icell] "<<res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] 
-			<< " xratio " << xratio[iCell-1]<<std::endl;
+	    if(iCell==1)  std::cout << " Sep::residEval sol,res,r-1.0,x-x0:: ";
+	    std::cout << " ( "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" "
+		      << res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" "
+		      << xratio[iCell]-1.0<<" "
+		      <<(new_node_pos[iCell]  - nodeCent->x0NodePos())<<" ) ";
+	    if(iCell == NumLcCells-1) std::cout<<endl;
 	  }
       }
   }
