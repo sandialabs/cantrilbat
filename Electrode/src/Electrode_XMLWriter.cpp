@@ -8,10 +8,10 @@
 #include <fstream>
 
 using namespace std;
-
+//-----------------------------------------------------------------------------------------------------------------------------------
 namespace Cantera
 {
-//====================================================================================================================
+//===================================================================================================================================
 // Specifies the amount of output that the Electrode object writes to its solution file
 /*
  *    The level is given by the following table
@@ -19,16 +19,13 @@ namespace Cantera
  *            - 1     Global time end
  *            - 2     global time increment
  *            - 3     intermediate steps
- *
- *    @param level Specifies the level of output
- *    @baseName    Basename of the output file. The domain and cell number are tacked on.
  */
-void Electrode::specifySolutionFileLevel(int level, const char* baseName)
+void Electrode::specifySolutionFileLevel(int level, const char* const baseName)
 {
     printXMLLvl_ = level;
     baseNameSoln_ = baseName;
 }
-//====================================================================================================================
+//===================================================================================================================================
 //  Create a timeIncrement XML element to store the results for intermediate steps of the solver.
 /*
  *    Creates the following XML tree structure.
@@ -116,7 +113,7 @@ void Electrode::startXML_TI_final(bool addInitState)
         xmlTimeIncrementData_->mergeAsChild(*xmi);
     }
 }
-//====================================================================================================================
+//===================================================================================================================================
 // Adds to a timeIncrement XML element to store the results for intermediate or global-final steps of the solver.
 /*
  *    Adds a timeState record to the following XML tree structure.
@@ -161,8 +158,8 @@ void Electrode::addtoXML_TI_final(bool notDone)
 
     xmlTimeIncrementData_->mergeAsChild(*xmt);
 }
-//====================================================================================================================
-//  Returns true if the step was successful, and false otherwise
+//===================================================================================================================================
+//  Returns true if the step was successful and false otherwise
 bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
 {
     std::string fmt = "%22.14E";

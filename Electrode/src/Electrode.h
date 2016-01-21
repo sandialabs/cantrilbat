@@ -2205,24 +2205,12 @@ public:
      */
     void writeCSVData(int itype);
 
-    //! Make a XML data tree on the integrations
+    //! Create a timeIncrement XML element to store the results of an intermediate step of the time integration solver.
     /*!
-     * Create an XML data tree containing the timeIncrement XML nodes containing the state of the electrodes,
-     * and the time history of the integration.
+     *    Creates the following XML tree structure holding an intermediate subintegration of the electrode object.
      *
-     *  @param itypeXML Type of the data
-     *            - 0      Initialization information
-     *            - 1      Information for the current global step that will be used in the time advance
-     *            - 2      Information for the current global step as it stands now
-     *            - 3      Write the timeState t_final information only
-     *            - 4      Write timeIncrement information out as if intermediate steps were global steps.
-     */
-    Cantera::XML_Node* makeXMLTimeIncrementDataTree(int itypeXML);
-
-    //!  Create a timeIncrement XML element to store the results for intermediate steps of the solver.
-    /*!
-     *    Creates the following XML tree structure.
      *    If the boolean addInitState is false the timeState t_init is not written.
+     *
      *   \verbatim
      *     <timeIncrement   type="intermediate">
      *        <timeState type="t_init">
@@ -2233,6 +2221,8 @@ public:
      *        </timeState>
      *     </timeIncrement>
      *   \endverbatim
+     *
+     *  @param[in]      addInitState                 If true adds the initial state to the timeIncrement. Defaults to true.
      */
     void makeXML_TI_intermediate(bool addInitState = true);
 
@@ -2292,10 +2282,10 @@ public:
      *            - 2     global time increment
      *            - 3     intermediate steps
      *
-     *    @param level Specifies the level of output
-     *    @baseName    Basename of the output file. The domain and cell number are tacked on.
+     *    @param[in]      level                Specifies the level of output written to XML solution file
+     *    @param[in]      baseName             Basename of the output file. The domain and cell number are tacked on.
      */
-    void specifySolutionFileLevel(int level, const char* baseName);
+    void specifySolutionFileLevel(int level, const char* const baseName);
 
     //!  Wrap the Time increment XML element with a solution XML element and then write it out to
     //!  an output file
