@@ -139,8 +139,8 @@ EqnType::EqnMainName(const EQ_TYPE equationType)
   case Mechanical_Model_Axial:
     return std::string("Mechanical_Model_Axial");
     break;
-  case Mechanical_Stress_Axial:
-    return std::string("Mechanical_Stress_Axial");
+  case Matrix_Stress_Axial:
+    return std::string("Matrix_Stress_Axial");
     break;
 #endif 
     case Max_Eqn_Name:
@@ -457,7 +457,7 @@ EqnToVarEnum(EQ_TYPE eqType)
 #ifdef MECH_MODEL
   } else if (eqType == Mechanical_Model_Axial) {
     return Displacement_Axial;
- } else if (eqType == Mechanical_Stress_Axial) {
+ } else if (eqType == Matrix_Stress_Axial) {
     return Solid_Stress_Axial;
 #endif
   } else {
