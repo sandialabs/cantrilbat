@@ -796,7 +796,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
     double BulkMod = 33.0E6 * 0.226; // hard wired untill we get the porosity and Chi values. 
     double Eyoung = 3*BulkMod*(1.0 - 2*poisson);
     //    double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
-    int pMECH_MODEL_extra = 1;
+    int pMECH_MODEL_extra = 0;
 #endif
 
     //mole fraction fluxes
@@ -856,6 +856,8 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
      *  from the previous cell.
      */
     bool doLeftFluxCalc = true;
+    // needed for displacement calculation. 
+    double lastNodePos = 12345678;
 
     /*
      *  ------------------------------ LOOP OVER CELL -------------------------------------------------
@@ -1511,195 +1513,168 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	    }
 	}
 
+
+        // Calculate the unconstrained size of each control volume, and the associated node positions.
+	// This is an analytic calculation, and does not need to be solved for.
+	// The last cathode node position difference from x0NodePos(iCell-Cathode-Last) will be used
+	// to calculate the stress on the last node, due to the the confining can, (6061-T6 Al).
+	// The - grad of that stress (between the nodes), will produce a pressure that is a characteristic
+	// of the volume between nodes 
+	// NOTE NOT the control volume, but the inter-node-volume. 
+	// To calculate the stress at each node, the stress-free-strain node position is modified by 
+	// the soln[displacement-due-to-solid_STRESS], and that strain is used with the Youngs 
+	// modulus of the material between the nodes, to calculate the stress on that node. 
+	// Since most nodes are two sided the stress on a node is 
+	//              0.5 ( left_strain * EYoung_left + right_strain*EYoung_right)
+	// starting at iCell==1, add the center to left volume stess*.5 to the left node, and 
+	// to the center node. The right hand most node of each region will only be half calculated 
+	// until the next region has calculated.
+        // anode iCell == 0 and Cathode iCell == Max will be special cased.     
+        // The residual of the soln[displacement-due-to-solid_STRESS] will be the divergence of 
+	// the stress, as the quasi-static requirement of the formulation of the problem requires 
+	// that the divergence of the stress == 0.
+
+	// The problem becomes the following: The residual of a boundary node between two regions
+	// is calculated using the Stress stored on both adjacent nodes. From the Separator, the next to
+	// last node in the Anode is not available, and it is needed to calculate the pressure in the
+	// node to node volume in the last volume of the anode, and the first volume of the Separator.
+	// The difference in pressure is the residual on the boundary node.
+	// **** This is a problem***
+	
+	// Creating a new solution variable that is simply the below calculation of 
+	// stress-free-strain, where the residual is simply the difference between the x0NodePos and 
+	// the calculated node positions, has proven to be a problem: the solver fails to converge.   
+       	// Using the solver to find the stress-free-strain-location of the nodes is a waste, since it 
+	// is directly, analytically calculable. This information can be analytically re-calculated
+	// as needed, even outside the residual calculation routines. 
+       
+	// What should happen is that where the xNodePos is assigned in the advance time loop
+	// xNodePos = x0NodePos + soln[displacement_axial]
+	// should be changed to 
+	// xNodePos = x0NodePos + recalculated-delta-from-stress-free-strain+soln[displacement_axial] 
+
+	// ***** very important ***
+	// since there are no ghost nodes, the residual for stress in the right hand most 
+	// location will only be the  -gradient of stress (AKA pressure). The next domain (separator)
+	// must subtract the first cell -gradient of stress to it's res[stress_offset + 0] location.
+	// I dislike using the residuals as a cross domain temporary, inside the domain loop, but
+	// it's the only way to solve this issue.
+	
+
+
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0) {
- 	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
-	    double thick_lc_now = -9e9;
-	    double gross_vol_now = -9e9;
-	    if(iCell == 0 ) {
-	      // thick_lc_now =  (  nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ] - 
-	      // 			 nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] );
-	      thick_lc_now =  (  nodeRight->x0NodePos() - nodeCent->x0NodePos() );
-  	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
-		0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
+	  valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+	  double thick_lc_now = -9e9;
+	  double gross_vol_now = -9e9;
+	  nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	  if(nodeLeft) 
+	    nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	  else
+	    nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+	  if(nodeRight)
+	    nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeRight->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	  else
+	    nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
+	    
+	  if(iCell == 0 ) {
+	    thick_lc_now =  (  nodeRight->x0NodePos() - nodeCent->x0NodePos() );
+	    gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
+	      0.5*  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
+	  }
+	  else  if (nodeLeft && nodeRight){
+	    thick_lc_now = 0.5* ( nodeRight->x0NodePos() - nodeLeft->x0NodePos());
+	    gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
+				  Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
 
-	      //	      std::cout << " 00iCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
+	    if(iCell == NumLcCells-2) {
+	      gross_vol_now+= 0.5*Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
 	    }
-	    else  if (nodeLeft && nodeRight){
-	      // thick_lc_now = 0.5* ( (nodeRight->x0NodePos()+soln[indexRight_EqnStart + nodeTmpsRight.Offset_Displacement_Axial ]) -
-	      // 			    ( nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
-	      thick_lc_now = 0.5* ( nodeRight->x0NodePos() - nodeLeft->x0NodePos());
-	      gross_vol_now = 0.5*( Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) +
-                		    Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1)));
+	  }
+	  else if (nodeLeft && (!nodeRight) ) {
+	    thick_lc_now =  nodeCent->x0NodePos() - nodeLeft->x0NodePos();
+	    gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
+	      0.5*Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
+	  }
+	  else {
+	    std::cout.flush();
+	    throw m1d_Error("porousLiIon_Anode_dom1D:: ERROR",
+			    "thick_lc_now Contact Developer, unexpected nodeRight nodeLeft null / non-null error." );
+	  }
 
-	      if(iCell == NumLcCells-2) {
-		gross_vol_now+= 0.5*Electrode_Cell_[iCell+1]->SolidVol()/(1.0-calcPorosity(iCell+1));
-	      }
-	      //	      std::cout << " biCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
-	    }
-	    else if (nodeLeft && (!nodeRight) ) {
-	      // thick_lc_now =  ( (nodeCent->x0NodePos()+soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]) -
-	      // 			(nodeLeft->x0NodePos()+soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial ]));
-	      thick_lc_now =  nodeCent->x0NodePos() - nodeLeft->x0NodePos();
-	      gross_vol_now =  Electrode_Cell_[iCell]->SolidVol()/(1.0-calcPorosity(iCell)) + 
-	 	           0.5*Electrode_Cell_[iCell-1]->SolidVol()/(1.0-calcPorosity(iCell-1));
-
-	      //	      std::cout << " nriCell "<<iCell<<" grossVol "<< gross_vol_now<<" thickness "<<thick_lc_now<<std::endl;
-	    }
-	    else {
-	      std::cout.flush();
-	      throw m1d_Error("porousLiIon_Anode_dom1D:: ERROR",
-			      "thick_lc_now Contact Developer, unexpected nodeRight nodeLeft null / non-null error." );
-	    }
-
-	    xratio[iCell]=1.0;
+	  xratio[iCell]=1.0;
 	  
-	    // All on or ChemEx expansion is turned on. 
-	    if ( (Domain1D::ChemEx | Domain1D::All)  & solidMechanicsProbType_) {
-	      xratio[iCell] *= gross_vol_now/(thick_lc_now * crossSectionalArea_);
-	    }
+	  // All on or ChemEx expansion is turned on. 
+	  if ( (Domain1D::ChemEx | Domain1D::All)  & solidMechanicsProbType_) {
+	    xratio[iCell] *= gross_vol_now/(thick_lc_now * crossSectionalArea_);
+	  }
+	   
+	  // size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
+	  // Put the pressure calculation here. 
+	  //
+	  // double pressure_strain = pressure_STRESS/Eyoung;
+	  // if ( (Domain1D::FluidPr | Domain1D::All) & solidMechanicsProbType_) {
+	  //   if(iCell ==1) xratio[iCell-1]*= (1.0+pressure_strain); 
+	  //   xratio[iCell] *= (1.0+pressure_strain);
+	  // }
 
-	    // the divergence of the pressure == the trace of the STRESS tensor
-	    // HOWEVER my understanding is that the pressure variable is the fluid pressure, not the solid matrix pressure. 
-	    // SO the below result may need to be modified by the non-solid-volume ratio. 
-	    // Also!!!
-	    // With the assumption that the time step is much much greater than the sound speed across the whole battery layer;
-	    // then this is quasi static: the """correct""" way to calculate the pressure induced strain would be to average the pressure
-	    // across the whole battery, and adjust the strain in each cell so that average would be equal to the right boundary pressure. 
-	    // While the implicit solution generated by calculating the residuals as below will give the same result, the convergance
-	    // of the solution may be greatly lenghtened by not explicitly calculating the quasi-static solution. 
+	    
+	  // displacement is defined as the displacement from x0NodePos, but the strain is calculated on the distortion
+	  // of the stress free strain volume.
 
-	    size_t iVar_Pressure = nodeCent->indexBulkDomainVar0((size_t) Pressure_Axial);
-	    double pressure_STRESS = 0;
-	    if (iVar_Pressure != npos) {
-	      if(nodeRight && ! nodeLeft)
-	        pressure_STRESS = -(1.0/BulkMod)*(soln[indexRight_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure]);
-	      else if(nodeLeft && ! nodeRight)
-		pressure_STRESS = -(1.0/BulkMod)*(soln[indexLeft_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure]);
-	      else if (nodeLeft && nodeRight) {
-		pressure_STRESS = -(1.0/BulkMod)*(
-						  (soln[indexLeft_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure])+
-						  (soln[indexRight_EqnStart + iVar_Pressure]-soln[indexCent_EqnStart + iVar_Pressure])
-						  );
-	      }	 
-	    } // pressure exists
-	    
-	    double pressure_strain = pressure_STRESS/Eyoung;
-	    if ( (Domain1D::FluidPr | Domain1D::All) & solidMechanicsProbType_) {
-	      if(iCell ==1) xratio[iCell-1]*= (1.0+pressure_strain); 
-	      xratio[iCell] *= (1.0+pressure_strain);
-	    }
-	    
-	    // nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
-	    // if(nodeLeft) 
-	    //   nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
-	    // else
-	    //   nodeTmpsLeft.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
-	    // if(nodeRight)
-	    //   nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeRight->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
-	    // else
-	    //   nodeTmpsRight.Offset_Solid_Stress_Axial   = nodeTmpsCenter.Offset_Solid_Stress_Axial;
-	    
-	    // double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
-	    // double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
-	    // double right_matrix_stress = soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] ;
-	    // double matrix_pressure_left = - (left_matrix_stress- center_matrix_stress);
-	    // double matrix_pressure_right= - (center_matrix_stress - right_matrix_stress);
-	    // double matrix_LP_center = matrix_pressure_left - matrix_pressure_right;
+	  if(iCell == 0) {
+	    // Note special case, the left most Annode node is fixed
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]  = 
+	      soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] - 0.0;
+	    lastNodePos = nodeCent->x0NodePos(); // should be === 0.0;
+	  }
+	  else { 
+	    double cellStrain = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]/Eyoung;
 
-	    // xratio[iCell-1] *= (1.0+ matrix_LP_center/Eyoung);
-	    // if(iCell == NumLcCells-1)
-	    //   xratio[iCell] *= (1.0+ (0.5*matrix_LP_center/Eyoung));
-	    // avg_delta_matrix_pressure += matrix_pressure_left;
-	  
-	  // since we have the half control volumes at the right and left hand boundaries the divisor is NumLcCells-1
-	  //	  avg_delta_matrix_pressure /= (NumLcCells-1);
+	    double strainedNodePos = lastNodePos +(nodeCent->x0NodePos() - nodeLeft->x0NodePos())*xratio[iCell-1]*(1.0+cellStrain);
+	    double strainedNodeDisplacement = strainedNodePos - nodeCent->x0NodePos();
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] = 
+	      soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]
+	      - strainedNodeDisplacement;
+	    lastNodePos =  strainedNodePos;
+	    if(pMECH_MODEL_extra) std::cout << " Alnp "<<iCell<<" "<<lastNodePos<<std::endl;
+	  }
+
+	  // The residual for the stress is divergence stress.
+	  // for the Left most node, iCell==0, use a immovable left boundary condition
+	  // res = divergence stress = (stress[n+1]-stress[n]) - (stress[n] - stress[n-1])
+
+	  if(iCell == 0) {
+	    // for this we assign a virtual value on the n-1 postion to be the same as n, so 
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
+	      (soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]) - (0.0);
+	  } else if (iCell <  NumLcCells-1) {
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
+	      (soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]) - 
+	      (soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial]);
+	  }
+	  // **** Special case. We are using the last residual position to send data to the separator 
+	  // residual calculation, since it does not have access to the NumLcCells-2 location that is needed
+	  // for a stress residual calculation. Note that this is _not_ a proper residual, and must be fixed
+	  // up by the separator residual calculation.
+	  else if (iCell ==  NumLcCells-1) {
+	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
+	      - (soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial]);
+	  }
 	}
-
 #endif
     }
-
-#ifdef MECH_MODEL  
-    if (solidMechanicsProbType_ > 0) {
-	//  node[0] is pinned so it never moves, hence start at iCell=1
-	/*
-	 *  ------------------------------ LOOP OVER CELL -------------------------------------------------
-	 *  Loop over the number of Cells in this domain on this processor
-	 *  This loop is done from left to right.
-	 */
-	for (int iCell = 1; iCell < NumLcCells; iCell++) {
-	    cIndex_cc_ = iCell;
-	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
-	    NodeTmps& nodeTmpsRight  = cTmps.NodeTmpsRight_;
-
-	    NodalVars* nodeCent  = cTmps.nvCent_;
-	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-
-	    NodalVars* nodeLeft  = cTmps.nvLeft_;
-	    indexLeft_EqnStart = nodeTmpsLeft.index_EqnStart;
-
-	    nodeRight = cTmps.nvRight_;
-	    indexRight_EqnStart = nodeTmpsRight.index_EqnStart;
-
-	    nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-
-	    if (nodeLeft != 0) {
-		nodeTmpsLeft.Offset_Displacement_Axial   = nodeLeft->indexBulkDomainVar0((size_t) Displacement_Axial);
-	    } else {
-		nodeTmpsLeft.Offset_Displacement_Axial = -1;
-	    }
-	 
-	    if(iCell ==1) {
-	      new_node_pos[0] = nodeLeft->x0NodePos(); 
-	      // Left most node is pinned at zero displacement
-	    }
-	    double delta_0 = (nodeCent->x0NodePos() + soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]) 
-	      - (nodeLeft->x0NodePos() + soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]);
-	    double new_delta = delta_0 *  xratio[iCell-1]; 
-	    new_node_pos[iCell] = new_node_pos[iCell-1] + new_delta;
-
-	    // stress
-	    // double left_matrix_stress = soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial] ;
-	    // double center_matrix_stress = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] ;
-	    // double lc_pressure = -(left_matrix_stress-center_matrix_stress);
-	    // res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = left_matrix_stress + (avg_delta_matrix_pressure-lc_pressure); 
-	    // if(soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]!=0.0) 
-	    //   std::cout << " Anode::residEval iCell "<<iCell
-	    //             <<" stress_axial "<<soln[indexCent_EqnStart +  nodeTmpsCenter.Offset_Solid_Stress_Axial ]
-            //             <<std::endl;
-	} // end of iCell loop
-
+#ifdef MECH_MODEL
+    if(pMECH_MODEL_extra) {
       for (int iCell = 0; iCell < NumLcCells; iCell++) {
-	  cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
-	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
-	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;	
-	  NodalVars* nodeCent = cTmps.nvCent_;
-	  NodalVars* nodeLeft = cTmps.nvLeft_;
-	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
-	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
-
-	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] = 
-	    soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]
-	    -(new_node_pos[iCell]  - nodeCent->x0NodePos());
-
-	  if (iCell == 0) { 
-	    res[indexLeft_EqnStart + nodeTmpsLeft.Offset_Displacement_Axial]  = 
-	      soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial] - 0.0;
-	  }
-	  if (pMECH_MODEL_extra) {
-	    if(iCell==0)  std::cout << " anode::residEval sol,res,r-1.0,x-x0:: ";
-	    std::cout << " ( "<<soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ]<<" "
-		      << res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial ] <<" "
-		      << xratio[iCell]-1.0<<" "
-		      <<(new_node_pos[iCell]  - nodeCent->x0NodePos())<<" ), ";
-	    if(iCell == NumLcCells-1) std::cout<<endl;
-
-	  }
+	cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
+	nodeTmpsCenter.Offset_Solid_Stress_Axial = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
+	std::cout << " d "<< 
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]
+		  <<" s "<<    
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]<<std::endl;
       }
-      //impose that -grad trace Solid_Stress == the average across this part of the battery.
-      
     }
 #endif
 }
@@ -4602,7 +4577,19 @@ void porousLiIon_Anode_dom1D::setAtolVector(double atolDefault, const Epetra_Vec
         if (iVar_Temperature != npos) {
             atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
         }
-
+#ifdef MECH_MODEL    
+	 int iVar_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	 if (iVar_Displacement_Axial != npos) {
+	   cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+	   NodalVars*  nodeCent  = cTmps.nvCent_;
+	   NodalVars*  nodeRight = cTmps.nvRight_;
+	   NodalVars*  nodeLeft = cTmps.nvLeft_;
+	   if(nodeRight != NULL) 
+	     atolVector[indexCent_EqnStart+iVar_Displacement_Axial] = (nodeRight->xNodePos()-nodeCent->xNodePos())*1e-4;
+	   else
+	     atolVector[indexCent_EqnStart+iVar_Displacement_Axial] = (nodeCent->xNodePos()-nodeLeft->xNodePos())*1e-4; 
+	 }
+#endif
     }
 }
 //===================================================================================================================================
