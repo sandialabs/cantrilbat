@@ -115,7 +115,8 @@ OBJ_CTAPPLBASE =  PhaseList.o  ReactingSurDomain.o RSD_OCVmodel.o \
                   Electrode_Integrator.o Electrode_SimpleDiff.o Electrode_DiffTALE.o \
                   Electrode_RadialDiffRegions.o Electrode_RadialRegion.o Electrode_SurfaceRegion.o \
                   Electrode_SuccessiveSubstitution.o Electrode_Equilibrium.o Electrode_Jacobian.o \
-                  Electrode_MP_RxnExtent_FeS2.o Electrode_FD_Jacobian.o EState_XML.o
+                  Electrode_MP_RxnExtent_FeS2.o Electrode_FD_Jacobian.o EState_XML.o \
+                  GFCEO_Electrode.o
 
 HDR_CTAPPLBASE =  PhaseList.h  ReactingSurDomain.h RSD_OCVmodel.h \
                   importPL.h Electrode.h Electrode_input.h ApplBase_print.h Electrode_defs.h \
@@ -126,8 +127,8 @@ HDR_CTAPPLBASE =  PhaseList.h  ReactingSurDomain.h RSD_OCVmodel.h \
                   Electrode_Integrator.h Electrode_SimpleDiff.h Electrode_DiffTALE.h \
                   Electrode_RadialDiffRegions.h  Electrode_RadialRegion.h Electrode_SurfaceRegion.h \
                   Electrode_SuccessiveSubstitution.h Electrode_Equilibrium.h \
-                  Electrode_MP_RxnExtent_FeS2.h Electrode_Jacobian.h Electrode_FD_Jacobian.h EState_XML.h
-
+                  Electrode_MP_RxnExtent_FeS2.h Electrode_Jacobian.h Electrode_FD_Jacobian.h EState_XML.h \
+                  GFCEO_Electrode.h
 
 
 ###########################################################################

@@ -29,8 +29,8 @@ SOLUTION 1
 ------------------------------
 
 One solution is to put the necessary classes as regular virtual function
-in Electrode with the prefix GFCEO 
-    GFCEO_evalresisNJ
+in Electrode with the prefix GFCEO (globally fully coupled electrode object
+    GFCEO_evalresisNJ()
     GFCEO_nEquations()
 
 Then, have an interface class that inherits from Cantera::ResidJacEval 
@@ -48,7 +48,6 @@ PROBLEM -
 The calcResid() problem is meant to handle discontinuities in functions wrt deltaT by 
 breaking up the time step. How is this done in the new problem? Could we add 
 significant concepts from Tyler?
-
 
 
 
