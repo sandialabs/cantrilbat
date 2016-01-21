@@ -242,39 +242,39 @@ void Electrode::loadGlobalTimeStepTFinalState(XML_Node* xGTS)
      */
     XML_Node* rTFinal = xGTSI->findByAttr("type", "t_final", 1);
     if (!rTFinal) {
-        throw CanteraError("Electrode::loadGlobalTimeStepTFinalState()",
-                           "could not find a node with attribute type t_final within timeIncrement");
+        throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()",
+                              "could not find a node with attribute type t_final within timeIncrement");
     }
     // load
     loadTimeStateFinal(*rTFinal);
 }
 //====================================================================================================================
-double Electrode::loadTimeStateFinal(XML_Node& xFinal)
+double Electrode::loadTimeStateFinal(const XML_Node& xFinal)
 {
     /*
-     *  Get the time
+     *  Get the time of the solution
      */
     double time = ctml::getFloat(xFinal, "time");
     /*
-     *  Get the XML state record from the timeState "t_final" XML element.
-     *  Store the pointer in xState.
+     *  Get the XML electrodeState record from the timeState XML element.
+     *  Store the pointer in xState. It's an error if we don't have it.
      */
-    XML_Node* xState = xFinal.findByName("electrodeState");
+    const XML_Node* xState = xFinal.findByName("electrodeState");
     if (!xState) {
-        throw CanteraError("Electrode::loadGlobalTimeStepTFinalState()",
-                           "could not find the electrodeState XMl element within XML state record");
+        throw Electrode_Error("Electrode::loadTimeStateFinal()", 
+                              "Could not find the electrodeState XMl element within XML state record");
     }
     /*
      *  Read the state into the Estate object
      */
     eState_final_->readStateFromXML(*xState);
     /*
-     *  Set this electrode's internal state from eState current values
+     *  Then, set this electrode's internal state from eState current values. When we do this all init and final
+     *  states are set to this state.
      */
     eState_final_->setStateElectrode_fromEState(this);
-
     /*
-     *  Set the time
+     *  Set the time within the electrode object
      */
     setTime(time);
     return time;

@@ -2346,12 +2346,15 @@ public:
      */
     bool writeTimeStateFinal_toXML(XML_Node&  bb);
 
-    //!  Select the globa time step increment record by the consequatively numbered record index number
+    //!  Select the global time step increment record by the consequatively numbered record index number
     /*!
      *    @param   xSoln               Solution file for the electrode object
      *    @param   globalTimeStepNum   Time step number to select
      *
-     *  @TODO shouldn't this be a static routine.
+     *    @return                                 Returns the XML_Node pointer to the solution for the selected global time Step
+     *                                            number. If not found, it returns zero.
+     *
+     *  @todo    shouldn't this be a static routine.
      */
     XML_Node* selectGlobalTimeStepIncrement(XML_Node* xSoln, int globalTimeStepNum);
 
@@ -2379,12 +2382,28 @@ public:
      *             </globalTimeStep>
      *
      *
-     *  @param xGSTI    Global time step increment record
+     *  @param[in]        xGTSI                Global time step increment record used to restart the object
      */
     void loadGlobalTimeStepTFinalState(XML_Node* xGTSI);
 
-
-    double loadTimeStateFinal(XML_Node& xTimeStateFinal);
+    //!  Given an XML_Node timeState this routine sets the electrode object to that state and returns the time
+    /*!
+     *  This routine needs the timeState XML_Node reference. Then, it will initialize the electrode object.
+     *  Here is an example XML record:
+     *
+     *                 <timeState type="t_final">
+     *                    <time>   3.45 <time>             <-----------  time used.
+     *                    <electrodeState>                 <-----------  Record read
+     *                    </electrodeState>
+     *                 </timeState>
+     *
+     * 
+     *  @param[in]              xTimeState            Input XML_Node Reference of the time state record that will
+     *                                                be used to initialize the electrode object    
+     *
+     *  @return                                       Returns the time
+     */
+    double loadTimeStateFinal(const XML_Node& xTimeState);
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -2468,7 +2487,7 @@ protected:
      *  If this is positive, then we multiple this number by the
      *  mole fraction vector to determine the number of moles of
      *  electrolyte species.
-     *  @deprecate This is confusing. We don't need it. Just use spMoleNumber(solnPhase).
+     *  @deprecated This is confusing. We don't need it. Just use spMoleNumber(solnPhase).
      *              HKM - concur 2/6/14
      */
     double electrolytePseudoMoles_;

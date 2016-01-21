@@ -29,16 +29,16 @@ namespace Cantera
 // Forward declartion for structure. This is fully defined in Electrode_input.h
 struct OCV_Override_input;
 
-//! ReactingSurDomain is a class of reaction that combines the PhaseList information
-//! with the Cantera Kinetics class
+//!  ReactingSurDomain is a class of reaction that combines the PhaseList information with the Cantera ElectrodeKinetics class
 /*!
- *       The class also implements the OCV override.
+ *      This is an inheritance class for the ElectrodeKinetics class of Cantera.
+ *      Essentially this class takes care of the bookkeeping between Cantera and the PhaseList class
+ *
+ *      The class also implements the OCV override.
  *
  *      Usually the Interface class calculates temporary vectors over and over again for thermodynamic information.
  *      Here we keep vectors for phase gibbs free energies, enthalpies and entropies. Then we override the 
  *      these entries for the particular species that is designitated to receive the OCV override information.
- *      
- *      
  *
  *      The standard state thermodynamic functions for the delta of reactions are not overridden. They 
  *      still refer to the unchanged thermodynamics values.
@@ -50,7 +50,12 @@ public:
     //! Default constructor
     ReactingSurDomain();
 
-    //! Construct from a PhaseList object
+    //! Constructor based on a PhaseList object
+    /*!
+     *  @param[in]         pl                Pointer to the phase list object 
+     *  @param[in]         iskin             integer number for the  interfacial kinetics object that this object will be inherited 
+     *                                       from
+     */
     ReactingSurDomain(Cantera::PhaseList* pl, int iskin);
 
     //! Copy Constructor for the %Kinetics object.
@@ -60,7 +65,6 @@ public:
      *  @param           right                Reference to %Kinetics object to be copied into the current one.
      */
     ReactingSurDomain(const ReactingSurDomain& right);
-
 
     //! Assignment operator
     /*!
@@ -132,17 +136,25 @@ public:
      */
     virtual void finalize();
 
-    //! Returns a reference to the calculated production rates of species
+    //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
     /*!
-     *   This routine calls thet getNetProductionRate function
-     *   and then returns a reference to the result.
+     *   This routine calls thet getNetProductionRate function and then returns a reference to the result.
      *
-     * @return Vector of length m_kk containing the species net
-     *         production rates (kmol s-1 m-2)
+     *  @return                               Vector of length m_kk containing the species net
+     *                                        production rates (kmol s-1 m-2)
      */
     const std::vector<double>& calcNetSurfaceProductionRateDensities();
 
-
+    //! Returns a reference to the calculated limited production rates of species from this interfacial Kinetics class
+    /*!
+     *   This routine first calls the limitROP() function to limit the rates near a phase boundary
+     *   This routine calls thet getNetProductionRate function and then returns a reference to the result.
+     *
+     *  @param[in]          n                 n is a vector of species mole numbers for all species in the PhaseList
+     *
+     *  @return                               Vector of length m_kk containing the species net
+     *                                        production rates (kmol s-1 m-2)
+     */
     const std::vector<double>& calcNetLimitedSurfaceProductionRateDensities(const double* n);
 
     //!  Apply smooth limiter to ROP
@@ -150,7 +162,7 @@ public:
      *   Given the distance towards getting rid of a phase, this routine will limit the rate of progress
      *   vectors within the Electrode object.
      * 
-     *   @param[in]    n            n is a vector of species mole numbers for all species in the phase list
+     *   @param[in]          n                 n is a vector of species mole numbers for all species in the PhaseList
      *
      *         Seems to basically satisfy the needs of turning interfacial kinetics into homogeneous kinetics.
      *         There is a basic exponential decay algorithm created out of the interfacial kinetics, which is
@@ -223,7 +235,21 @@ public:
      */
     double getCurrentDensityRxn(double * const currentDensityRxn = 0);
 
-
+    //! Get the net current density for the set of reactions on this surface in amps m-2.
+    /*!
+     *  Get the net current.  We use the value of kElectronIndex_ to identify the index for the electron species.
+     *  Then the net electron production is used for the net current across the interface. Note a positive electron
+     *  production means that positive charge is being put from the solid into the solution. We identify this
+     *  as a positive current. Therefore, under normal operations an anode has positive current and a cathode 
+     *  has a negative current.
+     * 
+     *  This function calls limitROP() to limit the ROP near end of phases.
+     * 
+     *   @param[in]          n                       n is a vector of species mole numbers for all species in the PhaseList
+     *
+     *   @return                                     Returns the net limited current in amps m-2 from all reactions
+     *                                               at the current conditions.
+     */
     double getLimitedCurrentDensityRxn(const double* n);
 
 #ifdef DONOTREMOVE
