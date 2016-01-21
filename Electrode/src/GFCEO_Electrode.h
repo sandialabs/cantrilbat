@@ -36,7 +36,7 @@ public:
     /*!
      *  @param[in]      atol                     Default value for the absolute tolerance
      */
-    GFCEO_Electrode(doublereal atol = 1.0E-13);
+    GFCEO_Electrode(Electrode* ee, doublereal atol = 1.0E-13, int iOwn = 0);
 
     //! Destructor
     virtual ~GFCEO_Electrode();
@@ -52,6 +52,23 @@ public:
      *  @param right object to be copied
      */
     GFCEO_Electrode& operator=(const GFCEO_Electrode& right);
+
+    //! Returns a changeable reference to the electrode object
+    /*!
+     *  @return                         Returns a changeable reference to the electrode object
+     */
+    Electrode& electrode();
+
+    //! Change ownership of Electrode object to this object if it is not already
+    void assertOwnership();    
+
+protected:
+
+    //! Electrode object
+    Electrode* ee_;
+
+    //! This object owns the Electrode object and is responsible for deletion.
+    bool iOwnObject_;
 
 };
 
