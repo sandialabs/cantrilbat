@@ -920,10 +920,12 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
     }
 
+    //
+    // Copy over the input parameters for extra global reactions
+    //
     numExtraGlobalRxns = ei->numExtraGlobalRxns;
     if (numExtraGlobalRxns > 0) {
         m_EGRList.resize(numExtraGlobalRxns, 0);
-
         for (int i = 0; i < numExtraGlobalRxns; i++) {
             AssertTrace(!m_EGRList[i]);
             m_EGRList[i] = new EGRInput(*(ei->m_EGRList[i]));
@@ -1042,6 +1044,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         }
     }
 
+    // Identify the electrode voltage and calculate it
     deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
 
     /*
@@ -1059,6 +1062,11 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         }
     }
     deltaG_.resize(mR);
+
+    //
+    // Process Extra global reactions
+    //
+    processExtraGlobalRxnPathways();
 
     /*
      *  Set up the particleDiameter_ and particleNumberToFollow_ fields.

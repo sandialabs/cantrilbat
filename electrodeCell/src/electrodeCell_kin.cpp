@@ -824,7 +824,7 @@ void doKineticsTablesHetero(Electrode *electrode,
     }
     setAllBathSpeciesConditions(electrode);
 
-    int  numExtraGlobalRxns = electrode->processExtraGlobalRxnPathways();
+    int  numExtraGlobalRxns = electrode->numExtraGlobalRxnPathways();
     for (int iextra = 0; iextra < numExtraGlobalRxns; iextra++) {
       /*
       struct EGRInput * egr_ptr = electrode->m_EGRList[iextra];

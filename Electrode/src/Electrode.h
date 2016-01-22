@@ -2136,6 +2136,23 @@ public:
 
     // --------------            EXTRA GLOBAL RXN PATHWAYS  -----------------------------
 
+    //! Get the RxnMolChange pointer object for a single extra global reaciton
+    /*!
+     *  int iegr  Index of the extra global reaction
+     */
+    RxnMolChange*   rxnMolChangesEGR(int iegr);
+
+    //!  Return a pointer to the extra global rxn object 
+    /*!
+     *  These global reactions are linear combinations of actual reactions that describe a global reaction
+     *
+     *  @param[in]         iegr             index of the pathway
+     *
+     *  @return                             Returns a pointer to the ExtraGlobalRxn object
+     */
+    Cantera::ExtraGlobalRxn* extraGlobalRxnPathway(int iegr);
+
+private:
     //! Add a global reaction object to the internal list
     /*!
      *  These global reaction pathways are made up of a linear combination of
@@ -2145,21 +2162,22 @@ public:
      */
     void addExtraGlobalRxn(EGRInput* egr_ptr);
 
-    //! Get the RxnMolChange pointer object for a single extra global reaciton
+    //! This uility routine runs addExtraGlobalRxn on all of the input global reactions
     /*!
-     *  int iegr  Index of the extra global reaction
+     *   we calculate the ExtraGlobalRxn object for each reaction and the RxnMolChange object for the 
+     *   global reactions and store then within the object
+     *
+     *  @return                             Returns the number of extra global reactions
+     *
+     *  @todo           Figure out the current usage of extra global rxns
      */
-    RxnMolChange*   rxnMolChangesEGR(int iegr);
-
-    //!  return the extra global rxn pathway
-    /*!
-     *  @param iegr  index of the pathway
-     */
-    Cantera::ExtraGlobalRxn* extraGlobalRxnPathway(int iegr);
-
-
     int processExtraGlobalRxnPathways();
 
+public:
+    //! Returns the number of extra global reactions that arel defined
+    /*!
+     *   @return                            Returns the number of extra global pathways.
+     */
     int numExtraGlobalRxnPathways() const;
 
 // Deprecate
@@ -2172,15 +2190,17 @@ public:
 
     //! Determines the level of printing for each step.
     /*!
-     *   0 -> absolutely nothing is printed for a single call to integrate.
-     *   1 -> One line summary per integrate call
-     *   2 -> short description, points of interest: Table of nonlinear solve - one line per iteration
-     *   3 -> Table is included -> More printing per nonlinear iteration (default) that occurs during the table
-     *   4 -> Summaries of the nonlinear solve iteration as they are occurring -> table no longer printed
-     *   5 -> Algorithm information on the nonlinear iterates are printed out
-     *   6 -> Additional info on the nonlinear iterates are printed out
-     *   7 -> Additional info on the linear solve is printed out.
-     *   8 -> Info on a per iterate of the linear solve is printed out.
+     *
+     *  @param[in]    printLvl                   Set the print level to stdout
+     *           0 -> absolutely nothing is printed for a single call to integrate.
+     *           1 -> One line summary per integrate call
+     *           2 -> short description, points of interest: Table of nonlinear solve - one line per iteration
+     *           3 -> Table is included -> More printing per nonlinear iteration (default) that occurs during the table
+     *           4 -> Summaries of the nonlinear solve iteration as they are occurring -> table no longer printed
+     *           5 -> Algorithm information on the nonlinear iterates are printed out
+     *           6 -> Additional info on the nonlinear iterates are printed out
+     *           7 -> Additional info on the linear solve is printed out.
+     *           8 -> Info on a per iterate of the linear solve is printed out.
      */
     void setPrintLevel(int printLvl);
 
@@ -2413,16 +2433,6 @@ protected:
      *  We keep track of whether there is a pending integration step with this variable
      */
     int pendingIntegratedStep_;
-
-    //! Multiphase object
-    /*!
-     *  This includes all the phases which are equilibrated during the
-     *  initialization of the program
-     */
-// Deprecate?
-    //Cantera::MultiPhase* m_mp;
-    //Cantera::MultiPhase* m_mpTemp;
-
 
     //! Integer representing the Problem type.
     /*!

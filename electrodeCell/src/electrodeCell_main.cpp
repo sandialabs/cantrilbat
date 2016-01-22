@@ -433,10 +433,10 @@ int main(int argc, char **argv)
     // InterfaceKinetics *iKA = electrodeA->m_rSurDomain;
     InterfaceKinetics *iKA = electrodeA->currOuterReactingSurface();
     //int nReactionsA = iKA->nReactions();
-    
-    // Process the ExtraGlobalRxns.
-
-   int numExtraGlobalRxnsA = electrodeA->processExtraGlobalRxnPathways();
+    //
+    // Read in the number of extra global pathways
+    //
+    int numExtraGlobalRxnsA = electrodeA->numExtraGlobalRxnPathways();
 
     for (int iextra = 0; iextra <  numExtraGlobalRxnsA; iextra++) {
       //struct EGRInput * egr_ptr = electrodeA->m_EGRList[iextra];
@@ -503,9 +503,8 @@ int main(int argc, char **argv)
 
    // Process the ExtraGlobalRxns in the Cathode
     InterfaceKinetics *iKC = electrodeC->currOuterReactingSurface();
-  //  InterfaceKinetics *iKC = electrodeC->m_rSurDomain;
-    //int nReactionsC = iKC->nReactions();
-   int numExtraGlobalRxnsC = electrodeC->processExtraGlobalRxnPathways();
+ 
+    int numExtraGlobalRxnsC = electrodeC->numExtraGlobalRxnPathways();
 
     for (int iextra = 0; iextra < numExtraGlobalRxnsC; iextra++) {
    //   struct EGRInput * egr_ptr = electrodeC->m_EGRList[iextra];
