@@ -65,7 +65,7 @@ enum EQ_Name_Enum
   Voltage_Specification,
   Dirichlet_Specification,
   Mechanical_Model_Axial,
-  Matrix_Stress_Axial,
+  Mechanical_Stress_Axial,
   Species_Eqn_Offset,   //! Special equation name representing the first species equation offset
   Max_Eqn_Name
 //! must be last in the list

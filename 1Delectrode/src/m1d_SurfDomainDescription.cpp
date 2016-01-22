@@ -167,7 +167,7 @@ SurfDomainDescription::SetEquationDescription()
       VarType varN(Displacement_Axial); 
       AssertTrace(varT == varN);
       IsArithmeticScaled_NE[iEqn] = 1;
-    } else if (eqnT.EquationType == Matrix_Stress_Axial) {
+    } else if (eqnT.EquationType == Mechanical_Stress_Axial) {
       VarType varN(Solid_Stress_Axial);
       AssertTrace(varT == varN);
       IsArithmeticScaled_NE[iEqn] = 1;

@@ -201,7 +201,7 @@ BulkDomainDescription::SetEquationDescription()
       VarType varN(Displacement_Axial);
       AssertTrace(varT == varN);
       EquationIndexStart_EqName[iEqnTPos] = iEqn;
-    }  else if (eqnT.EquationType == Matrix_Stress_Axial ) {
+    }  else if (eqnT.EquationType == Mechanical_Stress_Axial ) {
       VarType varN(Solid_Stress_Axial);
       AssertTrace(varT == varN);
       EquationIndexStart_EqName[iEqnTPos] = iEqn;
