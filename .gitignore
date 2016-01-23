@@ -18,3 +18,6 @@ runBad
 runGood
 runInProgress.txt
 .nfs*
+.cproject
+.project
+.settings
