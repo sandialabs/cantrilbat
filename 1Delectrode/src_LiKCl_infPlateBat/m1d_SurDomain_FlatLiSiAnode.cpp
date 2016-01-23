@@ -646,7 +646,7 @@ SurDomain_FlatLiSiAnode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   }
 
   if (doWrite) {
-    double deltaV = ElectrodeA_->potentialDrop();
+    double deltaV = ElectrodeA_->voltage();
     sprintf(buf, "%s   Delta Voltage = %g volts\n", ind, deltaV);
     Cantera::writelog(buf);
     double Ess = ElectrodeA_->openCircuitVoltage(0);
@@ -766,7 +766,7 @@ SurDomain_FlatLiSiAnode::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_pt
     fprintf( ofp, "%g \t", x0 );
 
     //Delta Voltage
-    double deltaV = ElectrodeA_->potentialDrop();
+    double deltaV = ElectrodeA_->voltage();
     fprintf( ofp, "%g \t", deltaV );
 
     //Open circuit voltage

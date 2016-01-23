@@ -455,14 +455,14 @@ infPorousLiKCl_FeS2Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependent
         //ee->setInitStateFromFinal(true);
 
         if (energyEquationProbType_ == 3) {
-            double volCellNew = xdelCell_Cell_[iCell];
+            //double volCellNew = xdelCell_Cell_[iCell];
             // double volElectrodeCell = solidVolCell / crossSectionalArea_;
-            double solidEnthalpy = ee->SolidEnthalpy() / crossSectionalArea_;
-            double solidEnthalpyNew = solidEnthalpy;
+            //double solidEnthalpy = ee->SolidEnthalpy() / crossSectionalArea_;
+            //double solidEnthalpyNew = solidEnthalpy;
 
-            double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
-            double volLyteNew = porosity_Curr_ * volCellNew;
-            double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
+            //double lyteMolarEnthalpyNew = ionicLiquid_->enthalpy_mole();
+            //double volLyteNew = porosity_Curr_ * volCellNew;
+            //double lyteEnthalpyNew =  lyteMolarEnthalpyNew * concTot_Curr_ * volLyteNew;
             double nEnthalpyInertNew = 0.0;
             for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {
                 ExtraPhase* ep = ExtraPhaseList_[jPhase];
@@ -472,7 +472,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependent
                 double mn = moleNumber_Phases_Cell_old_[numExtraCondensedPhases_ * iCell + jPhase];
                 nEnthalpyInertNew += mEnth * mn;
             }
-            double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew + nEnthalpyInertNew;
+            //double nEnthalpy_New  = solidEnthalpyNew + lyteEnthalpyNew + nEnthalpyInertNew;
 
             nEnthalpy_Old_Cell_[iCell] = nEnthalpy_New_Cell_[iCell];
             nEnthalpy_Electrode_Old_Cell_[iCell] = nEnthalpy_Electrode_New_Cell_[iCell];
@@ -1043,7 +1043,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
       }
     }
     if (residType == Base_ShowSolution) {
-      deltaV_Cell_[iCell] = Electrode_->potentialDrop();
+      deltaV_Cell_[iCell] = Electrode_->voltage();
       Ess_Cell_[iCell] = Electrode_->openCircuitVoltage(0);
       overpotential_Cell_[iCell] = Electrode_->overpotential(0);
       icurrRxn_Cell_[iCell] = icurrInterface_Curr_ * surfaceAreaDensity_Cell_[iCell] * xdelCell;

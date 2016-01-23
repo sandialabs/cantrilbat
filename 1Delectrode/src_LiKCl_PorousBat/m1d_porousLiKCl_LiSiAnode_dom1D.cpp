@@ -77,9 +77,9 @@ namespace m1d
     solnTemp(0)
 {
   BDT_porAnode_LiKCl_ptr_ = &bdd;
-  BDT_porAnode_LiKCl* ssd = dynamic_cast<m1d::BDT_porAnode_LiKCl*>(&BDD_);
-  BDT_porAnode_LiKCl* ss1 = static_cast<m1d::BDT_porAnode_LiKCl*>(&BDD_);
-  BDT_porAnode_LiKCl& ssr = dynamic_cast<m1d::BDT_porAnode_LiKCl&>(BDD_);
+  //BDT_porAnode_LiKCl* ssd = dynamic_cast<m1d::BDT_porAnode_LiKCl*>(&BDD_);
+  //BDT_porAnode_LiKCl* ss1 = static_cast<m1d::BDT_porAnode_LiKCl*>(&BDD_);
+  //BDT_porAnode_LiKCl& ssr = dynamic_cast<m1d::BDT_porAnode_LiKCl&>(BDD_);
 
   nsp_ = 3;
   nph_ = 1;
@@ -219,10 +219,10 @@ porousLiKCl_LiSiAnode_dom1D::operator=(const porousLiKCl_LiSiAnode_dom1D &r)
     /*
      * First call the parent domain prep to get the node information
      */
-    BDT_porAnode_LiKCl* ss1 = static_cast<BDT_porAnode_LiKCl*>(&(BDD_));
+    //BDT_porAnode_LiKCl* ss1 = static_cast<BDT_porAnode_LiKCl*>(&(BDD_));
     porousElectrode_dom1D::domain_prep(li_ptr);
 
-    BDT_porAnode_LiKCl* sss = static_cast<BDT_porAnode_LiKCl*>(&(BDD_));
+    //BDT_porAnode_LiKCl* sss = static_cast<BDT_porAnode_LiKCl*>(&(BDD_));
 
     BDT_porAnode_LiKCl* BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiKCl*>(&(BDD_));
     if (!BDD_LiSi_Anode) {
@@ -1173,7 +1173,7 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
 	}
       }
       if (residType == Base_ShowSolution) {
-	deltaV_Cell_[iCell] = Electrode_ptr->potentialDrop();
+	deltaV_Cell_[iCell] = Electrode_ptr->voltage();
 	for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++ ) { 
 	  Ess_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->openCircuitVoltage( jSurf );
 	  overpotential_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->overpotential( jSurf );

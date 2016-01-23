@@ -666,7 +666,7 @@ SurDomain_FlatFeS2Cathode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     }
     drawline(indentSpaces + 2, 60);
 
-    double deltaV = ElectrodeC_->potentialDrop();
+    double deltaV = ElectrodeC_->voltage();
     sprintf(buf, "%s   Delta Voltage = %g volts\n", ind, deltaV);
     Cantera::writelog(buf);
     double Ess = ElectrodeC_->openCircuitVoltage(0);
@@ -782,7 +782,7 @@ SurDomain_FlatFeS2Cathode::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_
     fprintf( ofp, "%g \t", x0 );
 
     //Delta Voltage
-    double deltaV = ElectrodeC_->potentialDrop();
+    double deltaV = ElectrodeC_->voltage();
     fprintf( ofp, "%g \t", deltaV );
 
     //Open circuit voltage

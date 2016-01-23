@@ -1150,7 +1150,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
       }
     }
     if (residType == Base_ShowSolution) {
-      deltaV_Cell_[iCell] = Electrode_ptr->potentialDrop();
+      deltaV_Cell_[iCell] = Electrode_ptr->voltage();
       for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++ ) { 
 	Ess_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->openCircuitVoltage(jSurf);
 	overpotential_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->overpotential(jSurf);

@@ -1354,7 +1354,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
             }
         }
         if (residType == Base_ShowSolution) {
-            deltaV_Cell_[iCell] = Electrode_ptr->potentialDrop();
+            deltaV_Cell_[iCell] = Electrode_ptr->voltage();
             for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++) {
                 Ess_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->openCircuitVoltage(jSurf);
                 overpotential_Surf_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->overpotential(jSurf);
