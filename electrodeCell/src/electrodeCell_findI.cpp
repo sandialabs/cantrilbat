@@ -36,7 +36,7 @@ double findV(Electrode *electrode, doublereal Itarget,
 
   InterfaceKinetics *iK = electrode->reactingSurface(0);
 
-  deltaVoltage = electrode->potentialDrop();
+  deltaVoltage = electrode->voltage();
   doublereal Epast = deltaVoltage - 0.01;
   //electrode->setDeltaVoltage(Epast);
   electrode->setVoltages(Epast, 0.0);
@@ -49,7 +49,7 @@ double findV(Electrode *electrode, doublereal Itarget,
     // close to the final temperature
  
     try {
-      deltaVoltage = electrode->potentialDrop();
+      deltaVoltage = electrode->voltage();
       Enow = deltaVoltage;
    
       // May have to determine the sign of the slope here. We will see.
@@ -140,6 +140,6 @@ double findV(Electrode *electrode, doublereal Itarget,
 
   throw CanteraError("ELECTRODE_MODEL:findV","No convergence for I");
  done:;
-  deltaVoltage = electrode->potentialDrop();
+  deltaVoltage = electrode->voltage();
   return deltaVoltage;
 }

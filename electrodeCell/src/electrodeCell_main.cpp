@@ -390,7 +390,7 @@ int main(int argc, char **argv)
 
 
          
-    double AopenCircuitVoltageEst = electrodeA->potentialDrop();
+    double AopenCircuitVoltageEst = electrodeA->voltage();
 
   
     printf("\n Results from mpequil:\n");
@@ -498,7 +498,7 @@ int main(int argc, char **argv)
 
     ee_equilC->uploadMP();
 
-    double CopenCircuiteVoltageEst = electrodeC->potentialDrop();
+    double CopenCircuiteVoltageEst = electrodeC->voltage();
 
 
    // Process the ExtraGlobalRxns in the Cathode

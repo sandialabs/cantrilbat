@@ -1769,7 +1769,7 @@ double processGERCurrent(Cantera::RxnMolChange *rmc,
   Rnet.resize(nr, 0.0);
 
 
-  Voltage = electrode->potentialDrop();
+  Voltage = electrode->voltage();
   phiMetal = electrode->phaseVoltage(iphMetal);
 
 
