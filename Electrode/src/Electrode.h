@@ -1554,15 +1554,16 @@ protected:
     /*!
      * Get the product stoichiometric coefficient for the kth global species
      * in the ith reaction of the reacting surface domain with index isk.
+     *
+     *  @param[in]       isk                    Index of the reacting surface domain
+     *  @param[in]       kGlobal                Global PhaseList species number of the species
+     *  @param[in]       i                      Reaction number
+     *
+     *  @return                                 Returns the product stoichiometric coefficient
      */
     double productStoichCoeff(const int isk, int kGlobal, int i) const;
 
 public:
-    //! Returns the current potential drop across the electrode
-    /*!
-     *   This is equal to phiMetal - phiSoln
-     */
-    double potentialDrop() const ;
 
     //! Set the phase existence flag in the electrode kinetics object so that kinetics
     //! are calculated correctly
@@ -1693,16 +1694,15 @@ public:
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions
     //! based on a single reaction (virtual)
     /*!
-     *  When there is more than a single reaction,
-     *  pick open circuit potential for a reaction that is
-     *  closest to equilibrium given the cell voltage, since this one
-     *  is the one for which open circuit is most relevant.
+     *  When there is more than a single reaction, pick open circuit potential for a reaction that is
+     *  closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
      *
-     *   @param isk         Reacting surface domain id
-     *   @param iReaction   Explicit index of the reaction. If -1, then it attempts
-     *                      to pick the reaction that best represents the open circuit potential.
+     *   @param[in]     isk                           Reacting surface domain id
+     *   @param[in]     iReaction                     Explicit index of the reaction. If -1, then it attempts
+     *                                                to pick the reaction that best represents the open circuit potential.
+     *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
      *
-     *   @return            Returns the OCV (volts)
+     *   @return                                      Returns the OCV (volts)
      */
     virtual double openCircuitVoltageRxn(int isk, int iReaction = -1, bool comparedToReferenceElectrode = false) const;
 
@@ -1712,12 +1712,13 @@ public:
      *  is zero net electron production.  It leaves the object unchanged. However, it
      *  does change the voltage of the phases during the calculation, so this is a non const function.
      *
-     * @param isk  Reacting surface domain id
-     * @param comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
-     *                        the current conditions (false) or compared to the voltage wrt the reference electrode (true).
-     *                        The later is akin to using the standard state thermo functions for the electrolyte species.
+     * @param[in]       isk                            Reacting surface domain id
+     * @param[in]       comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
+     *                                                 the current conditions (false) or compared to the voltage wrt the 
+     *                                                 reference electrode (true). The later is akin to using the standard 
+     *                                                 state thermo functions for the electrolyte species.
      *
-     *   @return                        Returns the OCV (volts)
+     *   @return                                       Returns the OCV (volts)
      */
     virtual double openCircuitVoltage(int isk, bool comparedToReferenceElectrode = false);
 
@@ -1725,24 +1726,27 @@ public:
     /*!
      *  (virtual from Electrode)
      *   This routine creates a mixture averaged condition of the electrode (eliminating any diffusion process)
-     *   before calculating the OCV. The result is the sama as  openCircuitVoltage() in the base class.
+     *   before calculating the OCV. The result is the same as  openCircuitVoltage() in the base class.
      *
-     *   @return                        Returns the OCV (volts)
+     *   @param[in]     isk                           Reacting surface domain id
+     *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
+     *
+     *   @return                                      Returns the OCV (volts)
      */
     virtual double openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
 
     //! Returns the vector of OCV's for all reactions on the selected ReactingSurfaceDomain for the
     //! current conditions.
     /*
-     *  (The compareToReferenceElectrode idea is under construction. It's hard to generalize. What it means
+     *   The reference electrode idea is under construction. It's hard to generalize. What it means
      *   now is for the standard state gibbs free energy to be used in the solution. In some common cases this
-     *   produces the OCV vs. the reference electrode.)
+     *   produces the OCV vs. the reference electrode.
      *
-     *  @param[in]  isk                            Reacting surface domain id
-     *  @param[out] ocv                            Vector of open circuit voltages (length number of reactions
-     *  @param[in]  comparedToReferenceElectrode   Boolean, if true compare to the reference electrode.         
+     *  @param[in]      isk                            Reacting surface domain id
+     *  @param[out]     ocv                            Vector of open circuit voltages (length number of reactions)
+     *  @param[in]      comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.     
      */
-    void  getOpenCircuitVoltages(int isk, double* ocv, bool comparedToReferenceElectrode = false) const;
+    void getOpenCircuitVoltages(int isk, double* const ocv, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the exchange current density for a given surface reaction in A/m^2
     /*!
@@ -1778,10 +1782,10 @@ public:
      *
      *    This routine returns io in the above discusion.
      *
-     *  @param isk   Reacting surface index.
-     *  @param irxn  Reaction number on the reacting surface
+     *  @param[in]        isk                   Reacting surface index.
+     *  @param[in]        irxn                  Reaction number on the reacting surface
      *
-     *  @return  returns the exchange current in units of amps / m2
+     *  @return                                 Returns the exchange current in units of amps / m2
      */
 // Deprecate
     double  getExchangeCurrentDensity(int isk, int irxn) const;
@@ -1930,10 +1934,12 @@ public:
      *    If there is capacity lost, this loss is reflected both in the capacityLeft() and depthOfDischargeStarting()
      *    quantities so that the above relation holds.
      *
-     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                   If positive or zero, each plateau is treated as a separate entity.
+     *   @param[in]     platNum                  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                           If positive or zero, each plateau is treated as a separate entity.
+     *   @param[in]     voltsMax                 Maximum voltage to search for capacity. Defaults to +50 volts
+     *   @param[in]     voltsMin                 Minimum voltage to search for capacity. Defaults to -50 volts
      *
-     *   @return                           Returns the capacity left  in units of Amp sec = coulombs
+     *   @return                                 Returns the capacity left  in units of Amp sec = coulombs
      */
     virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
 
@@ -2060,21 +2066,21 @@ public:
      * This is roughly equal to the total number of electrons that has been discharged
      * from a fully charged state divided by the total moles of solid species in the electrode
      *
-     *  @param relDischargedperMole      Relative value of the discharge per mole. Always goes between 0 and number of electrons
-     *                                   per active mole, num
-     *                                  0 means that the electrode is fully charged, num means that it is fully discharged.
+     *  @param[in]    relDischargedPerMole        Relative value of the discharge per mole. Always goes between 0 and number of electrons
+     *                                            per active mole, num
+     *                                            0 means that the electrode is fully charged, num means that it is fully discharged.
      *
-     *  @param platNum            Plateau number. Default is -1 which treats all plateaus as a single entity and
-     *                            the relative discharged as a single combined fraction. If platNum is
-     *                            >= 0, then the discharge is relative to the current plateau.
+     *  @param[in]    platNum                     Plateau number. Default is -1 which treats all plateaus as a single entity and
+     *                                            the relative discharged as a single combined fraction. If platNum is
+     *                                             >= 0, then the discharge is relative to the current plateau.
      */
     virtual void setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum = -1);
 
     //! Set parameters that tell the object how to calculate the capacity of the electrode
     /*!
-     * @param sName          Name of the species that contains the capacity
-     * @param coeffLeft      Coefficient describing how many electrons are left
-     * @param coeffZeroDoD   Coefficient describing how many electrons are originally there
+     *  @param[in]    sName                       Name of the species that contains the capacity
+     *  @param[in]    coeffLeft                   Coefficient describing how many electrons are left
+     *  @param[in]    coeffZeroDoD                Coefficient describing how many electrons are originally there
      */
     void setCapacityCalcParams(std::string sName, double coeffLeft, double coeffZeroDoD);
 
@@ -2138,7 +2144,9 @@ public:
 
     //! Get the RxnMolChange pointer object for a single extra global reaciton
     /*!
-     *  int iegr  Index of the extra global reaction
+     *  @param[in]        iegr             Index of the extra global reaction
+     *
+     *  @return                            Returns a pointer to the RxnMolChange object for the global reaction
      */
     RxnMolChange*   rxnMolChangesEGR(int iegr);
 
@@ -2158,7 +2166,7 @@ private:
      *  These global reaction pathways are made up of a linear combination of
      *  existing reactions.
      *
-     *     @param egr_ptr       Input struct describing the reaction
+     *   @param[in]         egr_ptr          Input struct describing the reaction
      */
     void addExtraGlobalRxn(EGRInput* egr_ptr);
 

@@ -3049,22 +3049,6 @@ double Electrode::getIntegratedThermalEnergySourceTerm_reversibleEntropy()
   return integratedThermalEnergySourceTerm_reversibleEntropy_;
 }
 //=================================================================================================
-// Returns the current potential drop across the electrode
-/*
- *   This is equal to phiMetal - phiSoln
- */
-double Electrode::potentialDrop() const
-{
-    // check
-    double phiM = phaseVoltages_[metalPhase_];
-    double phiS = phaseVoltages_[solnPhase_];
-    double dd = phiM - phiS;
-    if (fabs(dd - deltaVoltage_) > 1.0E-7) {
-        throw CanteraError(" Electrode::potentialDrop()", "inconsistency");
-    }
-    return deltaVoltage_;
-}
-//=================================================================================================
 // Returns the standard state OCV for the selected ReactingSurfaceDomain.
 /*
  *  When there is more than a single reaction,
