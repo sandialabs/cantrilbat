@@ -90,6 +90,8 @@ Pressure = 1.0 atm
 !-----------------------------------------------------------------------------------------------------------
 Maximum number of Subglobal time steps = 1000
 !-----------------------------------------------------------------------------------------------------------
+
+Relative Local To Global Time Step Minimum = 1.0E-3
 !
 !    Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !

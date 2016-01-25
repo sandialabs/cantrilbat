@@ -404,6 +404,7 @@ oc[0] = -0.023098
                            V_C6-bulk               2.167E-01
                            li_site                 0.000E+00
    ==============================================================================================
+		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 440.246, is greater than 2
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -523,6 +524,7 @@ oc[0] = -0.023098
                            V_C6-bulk               3.357E-01
                            li_site                 0.000E+00
    ==============================================================================================
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 183.809, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -643,6 +645,7 @@ oc[0] = -0.023098
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 128.883 beat out pnorm 130.204
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 128.883, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -762,6 +765,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 128.883 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 59.7777 beat out pnorm 61.8963
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 59.7777, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -881,6 +885,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 59.7777 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.61969 beat out pnorm 10.1682
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 7.61969, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1000,6 +1005,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.61969 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 34.0731 beat out pnorm 36.4362
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 34.0731, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1119,6 +1125,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 34.0731 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 32.1483 beat out pnorm 34.5991
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 32.1483, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1238,6 +1245,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 32.1483 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 15.2011 beat out pnorm 17.8444
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 15.2011, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1357,6 +1365,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 15.2011 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.24857 beat out pnorm 9.97213
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 7.24857, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1475,6 +1484,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.24857 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 3.86913 beat out pnorm 6.60245
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 3.86913, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -1593,6 +1603,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 3.86913 beat
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 2.28216 beat out pnorm 4.99246
+		decide_normHighLogic(): WARNING Step accepted, time step truncation error norm, 2.28216, but deltaTsubcycle, 0.0001 is below deltat limit, 0.0002
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull

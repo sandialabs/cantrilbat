@@ -386,6 +386,7 @@ Electrode_Integrator::Electrode_Integrator() :
     rtol_IntegratedSrc_global_(1.0E-4),
     atol_IntegratedSrc_global_(0),
     maxNumberSubCycles_(50000),
+    maxNumberSubGlobalTimeSteps_(1000),
     IntegratedSrc_normError_local_(0.0),
     IntegratedSrc_normError_global_(0.0),
     relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
@@ -428,6 +429,7 @@ Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
     rtol_IntegratedSrc_global_(1.0E-4),
     atol_IntegratedSrc_global_(0),
     maxNumberSubCycles_(50000),
+    maxNumberSubGlobalTimeSteps_(1000),
     IntegratedSrc_normError_local_(0.0),
     IntegratedSrc_normError_global_(0.0),
     relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
@@ -494,6 +496,7 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
     rtol_IntegratedSrc_global_          = right.rtol_IntegratedSrc_global_;
     atol_IntegratedSrc_global_          = right.atol_IntegratedSrc_global_;
     maxNumberSubCycles_                 = right.maxNumberSubCycles_;
+    maxNumberSubGlobalTimeSteps_        = right.maxNumberSubGlobalTimeSteps_;
     IntegratedSrc_normError_local_      = right.IntegratedSrc_normError_local_;
     IntegratedSrc_normError_global_     = right.IntegratedSrc_normError_global_;
 
@@ -1318,7 +1321,7 @@ topConvergence:
              * If we are way over the allowed local subcycle tolerance requirement, reject the step
              */
             if (pnorm > 2.0) {
-                stepAcceptable = decide_normHighLogic(pnorm, num_newt_its);
+                stepAcceptable = decide_normHighLogic(pnorm, num_newt_its, iterSubCycle);
             }
 
             /*
@@ -1998,30 +2001,58 @@ void Electrode_Integrator::accumulateLocalErrorToGlobalErrorOnCompletedStep()
  *
  *  @return   Returns whether the step is accepted or not
  */
-bool Electrode_Integrator::decide_normHighLogic(double pnorm, int num_newt_its)
+bool Electrode_Integrator::decide_normHighLogic(double pnorm, int num_newt_its, int iterSubCycle)
 {
     double deltaT = t_final_final_ - t_init_init_;
+
+    /*
+     *
+     */
+   
+
     /*
      *  The fundamental decision is to reject the step out of time step truncation error if pnorm is greater than 2
      */
     if (pnorm > 2.0) {
 	/*
+	 *  Calculate the deltaT below which we will not check for errors
+	 */
+	double deltaT_min = deltaT /  maxNumberSubGlobalTimeSteps_;
+	double timeLeft =  t_final_final_ - tinit_ + 1.0E-20;
+	double itsLeft = maxNumberSubGlobalTimeSteps_ - iterSubCycle + 1;
+	double deltaT_min_2 = deltaT;
+	if (itsLeft > 0) {
+	    deltaT_min_2 = timeLeft / itsLeft;
+	}
+	double deltaT_min_3 = relativeLocalToGlobalTimeStepMinimum_ * deltaT * 2.0;
+	deltaT_min = std::max( deltaT_min, deltaT_min_2);
+	deltaT_min = std::max( deltaT_min , deltaT_min_3);
+	/*
 	 *  If we are below the deltaT subcycle number limit we will accept the step anyway.
 	 *  (note if there are convergence issues we should modify this)
 	 */
-        if ((deltaTsubcycle_ > 2.0 * relativeLocalToGlobalTimeStepMinimum_ * deltaT) && num_newt_its < 6) {
+        if ((deltaTsubcycle_ > deltaT_min) || num_newt_its >= 10) {
             if (choiceDeltaTsubcycle_init_ != 2) {
-                if (printLvl_ > 4) {
-                    printf("\t\tdecide_normHighLogic(): WARNING Step rejected because norm is greater than 2\n");
+                if (printLvl_ > 2) {
+                    printf("\t\tdecide_normHighLogic(): WARNING Step rejected because time step"
+			   " truncation error norm, %g, is greater than 2\n", pnorm);
                 }
                 return false;
             }
-        }
+        } else {
+	    if (printLvl_ > 2) {
+		printf("\t\tdecide_normHighLogic(): WARNING Step accepted, time step"
+		       " truncation error norm, %g, but deltaTsubcycle, %g is below deltat limit, %g\n",
+		       pnorm, deltaTsubcycle_, deltaT_min);
+	    }
+	}
     } else if (pnorm > 1.0) {
-	if (num_newt_its >= 6) {
+	if (num_newt_its >= 10) {
 	    if (choiceDeltaTsubcycle_init_ != 2) {
-                if (printLvl_ > 4) {
-                    printf("\t\tdecide_normHighLogic(): WARNING Step rejected because norm is greater than 1\n");
+                if (printLvl_ > 2) {
+		    printf("\t\tdecide_normHighLogic(): WARNING Step rejected because time step"
+			   " truncation error norm, %g, is greater than 1 and newt its are high, %d\n", pnorm, num_newt_its);
+                  
                 }
                 return false;
             }

@@ -71,7 +71,7 @@ xml_electrode_compare() {
    fi
    diffCode='0'
 
-   $XMLELECTRODEDIFF -a $XED_ATOL -r $XED_RTOL -d $XED_PL $bb $gg >> $difname
+   $XMLELECTRODEDIFF -a $XED_ATOL -r $XED_RTOL -d $XED_PL $bb $gg > $difname
    retnStat=$?
    if test $retnStat = "0"
    then
@@ -129,8 +129,9 @@ csvdiff_compare_file() {
       filename="${gg%.*}"
       difname=diff_"$filename".txt
    fi
+   /bin/rm -rf $difname
  
-   csvdiff $bb $gg >> $difname
+   csvdiff $bb $gg > $difname
    retnStat=$?
    if test $retnStat = "0"
    then

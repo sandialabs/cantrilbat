@@ -662,10 +662,11 @@ public:
     /*!
      *  @param[in]    pnorm                            Norm of the step
      *  @param[in]    num_newt_its                     Number number of newton iterations
+     *  @param[in]    iterSubCycle                     Number of iterations
      *
      *  @return   Returns whether the step is accepted or not
      */
-    virtual bool decide_normHighLogic(double pnorm, int num_newt_its);
+    virtual bool decide_normHighLogic(double pnorm, int num_newt_its, int iterSubCycle);
 
     //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
     /*!
@@ -1041,6 +1042,11 @@ protected:
      *   Default value is 50000
      */
     int maxNumberSubCycles_;
+
+    //! Maximum number of subGlobal time step iterations
+    int maxNumberSubGlobalTimeSteps_;
+
+
 
     doublereal IntegratedSrc_normError_local_;
     doublereal IntegratedSrc_normError_global_;

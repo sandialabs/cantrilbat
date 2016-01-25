@@ -391,6 +391,7 @@ oc[0] = -0.023098
                            V_C6-bulk               2.189E-01
                            li_site                 0.000E+00
    ==============================================================================================
+		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 131.681, is greater than 2
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -502,6 +503,7 @@ oc[0] = -0.023098
                            V_C6-bulk               3.426E-01
                            li_site                 0.000E+00
    ==============================================================================================
+		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 165.797, is greater than 2
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -614,6 +616,7 @@ oc[0] = -0.023098
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 13.3083 beat out pnorm 55.0275
+		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 13.3083, is greater than 2
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -725,6 +728,7 @@ Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 13.3083 be
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.23492 beat out pnorm 9.16485
+		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 7.23492, is greater than 2
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
