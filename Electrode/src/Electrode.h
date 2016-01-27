@@ -1288,8 +1288,9 @@ public:
     //! Recalulate the electrolyte mole number that fills up the designated space in the electrode
     //! and rebaseline the electrolyte mole numbers
     /*!
-     *  We calculate the volume taken up by the electrolyte.
-     *  Then we calculate the mole number for that volume
+     *  We calculate the volume taken up by the electrolyte. Then we calculate the mole number for that volume.
+     *
+     *  @return                                Returns the total moles of the electrolyte (kmol)
      */
     virtual double updateElectrolytePseudoMoles();
 
@@ -1298,18 +1299,20 @@ public:
     virtual void turnOffFollowElectrolyteMoles();
     virtual void turnOnFollowElectrolyteMoles();
 
-    //! Get the ID of the external surface, if there is one
+    //! Get the boolean vector for external surfaces
+    /*!
+     *  Returns booleans indicating whether surfaces are external.
+     *
+     *  @return                                 Returns a reference to the isExternalSurface_ boolean vector
+     */
     const std::vector<bool>& getExternalSurfaceBooleans() const;
-
 
     //! Return the number of moles in a phase
     /*!
-     * @param iph  Phase id
-
-     * @return Returns the number of moles in kmol
+     * @param[in]            iph                Phase id
+     *
+     * @return                                   Returns the number of moles in a phase in kmol
      */
-// I think a lot of the following functions are only used for I/O purposes, if so we should probably protect
-// them and do all I/O through the friend class
     double phaseMoles(int iph) const;
 
     //! Returns the number of moles of an element
@@ -1348,11 +1351,18 @@ public:
 
     //! Returns the electrochemical potential of a single species
     /*!
-     *     @param[in] Value of the global species index of the species
-     *     @return Returns the electrochemical potential (J / kmol)
+     *   @param[in]      globalSpeciesIndex   Value of the global species index of the species
+     *
+     *   @return                              Returns the electrochemical potential (J / kmol)
      */
     double speciesElectrochemPotential(int globalSpeciesIndex) const;
 
+    //! Returns the chemical potential of a single species
+    /*!
+     *   @param[in]      globalSpeciesIndex   Value of the global species index of the species
+     *
+     *   @return                              Returns the chemical potential (J / kmol)
+     */
     double speciesChemPotential(int globalSpeciesIndex) const;
 
     //! Get mole fractions of all species in the phase object
@@ -1364,7 +1374,9 @@ public:
 
     //! Return the mole fraction of a single species
     /*!
-     *  @param globalSpeciesIndex  PhaseList's global species index
+     *  @param[in]      globalSpeciesIndex   PhaseList's global species index
+     *
+     *  @return                              Returns the mole fraction of the indicated species
      */
     double moleFraction(int globalSpeciesIndex) const;
 
@@ -1744,7 +1756,7 @@ public:
      *
      *  @param[in]      isk                            Reacting surface domain id
      *  @param[out]     ocv                            Vector of open circuit voltages (length number of reactions)
-     *  @param[in]      comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.     
+     *  @param[in]      comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
      */
     void getOpenCircuitVoltages(int isk, double* const ocv, bool comparedToReferenceElectrode = false) const;
 

@@ -2184,7 +2184,6 @@ void Electrode::turnOnFollowElectrolyteMoles()
     }
 }
 //====================================================================================================================
-// Get the ID of the external surface, if there is one
 const std::vector<bool>& Electrode::getExternalSurfaceBooleans() const
 {
     return isExternalSurface_;
