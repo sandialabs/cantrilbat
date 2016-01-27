@@ -190,7 +190,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
     m_pl(0),
-    MaxNumberSubGlobalTimeSteps(1000)
+    maxNumberSubGlobalTimeSteps(1000),
+    relativeLocalToGlobalTimeStepMinimum(1.0E-3)
 {
     m_BG = new ElectrodeBath();
     m_pl = new PhaseList();
@@ -240,7 +241,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
     m_pl(0),
-    MaxNumberSubGlobalTimeSteps(1000)
+    maxNumberSubGlobalTimeSteps(1000),
+    relativeLocalToGlobalTimeStepMinimum(1.0E-3)
 {   
     ELECTRODE_KEY_INPUT::operator=(right);
 }
@@ -440,7 +442,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
      m_pl = new Cantera::PhaseList(*(right.m_pl));
 
-     MaxNumberSubGlobalTimeSteps         = right.MaxNumberSubGlobalTimeSteps;
+     maxNumberSubGlobalTimeSteps         = right.maxNumberSubGlobalTimeSteps;
+     relativeLocalToGlobalTimeStepMinimum = right.relativeLocalToGlobalTimeStepMinimum;
    
      return *this;
  }
@@ -702,13 +705,27 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
      *  
      *     defaults to 1000.
      */
-    LE_OneInt* m1 = new LE_OneInt("Maximum number of Subglobal time steps", &(MaxNumberSubGlobalTimeSteps), 0,
-				  "MaxNumberSubGlobalTimeSteps");
+    LE_OneInt* m1 = new LE_OneInt("Maximum number of Subglobal time steps", &(maxNumberSubGlobalTimeSteps), 0,
+				  "maxNumberSubGlobalTimeSteps");
     m1->set_default(1000);
     m1->set_limits(10000, 1);
     cf->addLineEntry(m1);
 
     BaseEntry::set_SkipUnknownEntries(3);
+
+    /* --------------------------------------------------------------
+     * Relative Local To Global Time Step Minimum -  double  [optional]  [default = 1.0E-3 ]
+     *
+     *   This modifies the lowest time step below which time step truncation errors aren't checked.
+     *   Also the interval will start out at the minimum time step suggested by this value.
+     *   The time step may decrease below this limit if there are issues with convergence.
+     */
+    LE_OneDbl* rl1 = new LE_OneDbl("Relative Local To Global Time Step Minimum", &(relativeLocalToGlobalTimeStepMinimum), 
+                                  0, "relativeLocalToGlobalTimeStepMinimum");
+    rl1->set_default(1.0E-3);
+    rl1->set_limits(1.0, 0.0);
+    cf->addLineEntry(rl1);
+
 }
 //========================================================================================================================
 void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)

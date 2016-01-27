@@ -529,8 +529,11 @@ Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     Electrode::electrode_model_create(ei);
 
     setupIntegratedSourceTermErrorControl();
-
-    relativeLocalToGlobalTimeStepMinimum_ = 1.0 / ei->MaxNumberSubGlobalTimeSteps;
+    //
+    // Gather the input parameters for time stepping that were located in the Electrode input deck
+    //
+    relativeLocalToGlobalTimeStepMinimum_ = ei->relativeLocalToGlobalTimeStepMinimum;
+    maxNumberSubGlobalTimeSteps_ = ei->maxNumberSubGlobalTimeSteps;
 
     return 0;
 }
@@ -802,17 +805,15 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
 
     /*
      * Choose the starting value of the subcycle time step
+     *  We won't enforce a beginning min time step due to relativeLocalToGlobalTimeStepMinimum or max number of time
+     *  steps.  We may need to start really small for some test problems. And the deltaT coming in will
+     *  reflect these trade offs.
      */
     deltaTsubcycleNext_ = MIN(deltaT, deltaTsubcycleMax_);
     deltaTsubcycleNext_ = MIN(deltaTsubcycleNext_, deltaTsubcycle_init_init_);
     if (choiceDeltaTsubcycle_init_ == 2) {
         deltaTsubcycleNext_ = deltaT / 10.;
     }
-    /*
-     *  Enforce a maximum number of subcycles or a minimum step size
-     */
-    double mindeltaT = deltaT *relativeLocalToGlobalTimeStepMinimum_;
-    deltaTsubcycleNext_ = MAX(deltaTsubcycleNext_ , mindeltaT);
 
     //     Put a max of two to the growth of deltaT for the next global time step
     if (choiceDeltaTsubcycle_init_ == 0) {

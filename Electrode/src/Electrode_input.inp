@@ -90,8 +90,17 @@ Pressure = 1.0 atm
 !-----------------------------------------------------------------------------------------------------------
 Maximum number of Subglobal time steps = 1000
 !-----------------------------------------------------------------------------------------------------------
-
+!
+!  Relative Local To Global Time Step Minimum - double (default 1.0E-3) (not-required
+!  
+!          Low limit to the subgrid time step (in terms of its ratio to the global time step)
+!          This is weakly enforced, because if there are  convergence errors more time steps may be taken.
+!          What this does is it turns of time step truncation errors below this time step
+!          The time step is not reduced below this value unless there are convergence errors or problems.
+!          
+!-----------------------------------------------------------------------------------------------------------
 Relative Local To Global Time Step Minimum = 1.0E-3
+!-----------------------------------------------------------------------------------------------------------
 !
 !    Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !

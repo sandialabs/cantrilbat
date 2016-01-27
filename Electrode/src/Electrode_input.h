@@ -481,9 +481,10 @@ public:
     Cantera::PhaseList* m_pl;
 
     //! Maximum number of subGlobal time step iterations
-    int MaxNumberSubGlobalTimeSteps;
+    int maxNumberSubGlobalTimeSteps;
 
-    
+    //! relative minimum time step ratio
+    double relativeLocalToGlobalTimeStepMinimum;
 
 };
 
