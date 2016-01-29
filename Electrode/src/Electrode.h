@@ -397,13 +397,13 @@ public:
 
     //! return the current temperature
     /*!
-     *   Kelvin
+     *  @return                                          Returns the temperature, Kelvin
      */
     double temperature() const;
 
     //! Return the current pressure
     /*!
-     *  units = Pa
+     *  @return                                           Returns the pressure  units = Pa
      */
     double pressure() const;
 
@@ -411,6 +411,8 @@ public:
     /*!
      *     Note that this object doesn't keep track of multiple non-electrode phases. Thus porosity here refers to the
      *     volume fraction of all phases which aren't part of the Electrode object.
+     *
+     *  @return                                           Returns the porosity
      */
     double porosity() const;
 
@@ -421,9 +423,9 @@ public:
     /*!
      *  (virtual from Electrode.h)
      *
-     *       This is the main routine for calculating the
+     *       This is the main routine for calculating the solid volume.
      *       We leave out the solnPhase_ volume from the calculation
-     *       units = m**3
+     *   @return                                       Returns the electrode solid volume    units = m**3
      */
     virtual double SolidVol() const;
 
@@ -440,7 +442,7 @@ public:
 
     //!  Returns the total moles in the electrode phases of the electrode
     /*!
-     *  @return total moles (kmol)
+     *  @return                                         total moles of solid phase (kmol)
      */
 //Can protect
     virtual  double SolidTotalMoles() const;
@@ -463,7 +465,7 @@ public:
     /*!
      *  This is an extensive quantity.
      *
-     *  @return Joule K-1
+     *  @return                                           Returns the extensive heat capacity Joule K-1
      */
     virtual double SolidHeatCapacityCV() const;
 
@@ -513,8 +515,8 @@ public:
      *  This assumes that there are only two voltages in the system.
      *   The voltage of the interface is defined as VOLTS = phiMetal - phiElectrolyte
      *
-     *  @param[in]  phiMetal     Potential of the metal
-     *  @param[in]  phElectrolyte Potential of the electrolyte
+     *  @param[in]    phiMetal                     Potential of the metal
+     *  @param[in]    phiElectrolyte               Potential of the electrolyte
      */
     void setVoltages(const double phiMetal, const double phiElectrolyte);
 
@@ -523,7 +525,7 @@ public:
      *  The voltage of the electrode is defined as the potential of the metal minus
      *  the potential of the electrolyte.
      *
-     *  @return                     returns voltage in volts.
+     *  @return                                    returns voltage in volts.
      */
     double voltage() const;
 
@@ -531,14 +533,14 @@ public:
     /*!
      * @param iph  Phase id
      *
-     * @return                                  Returns the voltage in volts
+     * @return                                     Returns the voltage in volts
      */
     double phaseVoltage(int iph) const;
 
     //! Set the voltage of a phase
     /*!
-     * @param iph  Phase id
-     * @param volts volts
+     * @param[in]         iph                       Phase id
+     * @param[in]         volts                     volts
      */
     void setPhaseVoltage(int iph, double volts);
 
@@ -617,7 +619,7 @@ protected:
      *  using this vector to set the mole fractions, using the ThermoPhase object
      *  to get the mole fractions.
      *
-     * @param iph     Phase id.
+     * @param          iph                       Phase id.
      */
     void updateState_Phase(int iph);
 
@@ -650,34 +652,32 @@ public:
     //! Get the net production rates of all species in the electrode object
     //! at the current conditions from one surface kinetics object
     /*!
-     * @param isk   Surface index to get the net production rates from
-     * @param net   Species net production rates [kmol/m^2/s]. Return the species
+     * (can protect)
      *
+     * @param isk   Surface index to get the net production rates from
+     * @param net   Species net production rates [kmol/m^2/s]. Return the species    
      */
-//Can protect
     void getNetSurfaceProductionRates(const int isk, doublereal* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     /*!
      *  Returns the net production rates of all phases from reactions on a single surface
+     *   @deprecate
      *
-     *  @param isk Surface ID to get the fluxes from.
-     *  @param phaseMassFlux  Returns the mass fluxes of the phases
+     *  @param[in]          isk                  Surface ID to get the fluxes from.
+     *  @param[out]         phaseMassFlux        Returns the mass fluxes of the phases
      */
-// Deprecate
     void getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux);
-
 
     //!  Returns the current and the net production rates of the phases in kmol/m2/s from a single surface
     /*!
      *  Returns the net production rates of all phases from reactions on a single surface
+     *  (suggested deprecation)
      *
-     *  @param isk Surface ID to get the fluxes from.
-     *  @param phaseMassFlux  Returns the mass fluxes of the phases
+     *  @param[in]          isk                  Surface ID to get the fluxes from.
+     *  @param[out]         phaseMassFlux        Returns the vector of mass fluxes of the phases
      */
-// Deprecate
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
-
     
     //!  Returns the phase molar production rates given the species production rates
     /*!
@@ -692,7 +692,7 @@ public:
     //! Overpotential term for the heat generation from a single surface
     /*!
      *   ( units = J / s) 
-     *   @param[in]  irxn            Index of the ReactingSurDomain
+     *   @param[in]  isk             Index of the ReactingSurDomain
      *
      *   @return                     Returns the thermal energy overpotential term ( units = J / s)                     
      */
@@ -712,6 +712,8 @@ public:
     /*!
      *  ( units = J / s)
      *   @param[in]  irxn            Index of the ReactingSurDomain
+     *
+     *  @return                           Returns the energy source term for enthalpy release
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
@@ -954,9 +956,18 @@ public:
      *
      *     Energy released within the electrode during a local time step
      *
-     *   @param return the energy released (joules)
+     *   @return                                  The enthalpy released (joules)
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old();
+
+    //! Energy released during a single local time step
+    /*!
+     * (virtual from Electrode.h)
+     *
+     *     Energy released within the electrode during a local time step
+     *
+     *   @return                                  The enthalpy released (joules)
+     */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
     //! Reversible Entropy release during a single step
@@ -966,29 +977,47 @@ public:
      *     Energy released within the electrode during a local time step
      *     due to reversible entropy generation
      *
-     *   @param return the energy released (joules)
+     *   @return                             Returns the reversible energy released (joules)
      */
     virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old();
+
+    //! Reversible Entropy release during a single step
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *     Energy released within the electrode during a local time step
+     *     due to reversible entropy generation
+     *
+     *   @return                              Returns the reversible energy released (joules)
+     */
     virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
 
     //! Irreversible thermal energy release during a single step
     /*!
      *  (virtual from Electrode.h)
      *
-     *     Energy released within the electrode during a local time step
-     *     due to the overpotential
+     *     Energy released within the electrode during a local time step due to the overpotential
      *
-     *   @param return the energy released (joules)
+     *   @return                            Returns the irreversible energy released (joules)
      */
     virtual double thermalEnergySourceTerm_Overpotential_SingleStep_Old();
+
+    //! Irreversible thermal energy release during a single step
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *     Energy released within the electrode during a local time step due to the overpotential
+     *
+     *   @return                             Returns the irreversible energy released (joules)
+     */
     virtual double thermalEnergySourceTerm_Overpotential_SingleStep();
 
     //! Get the integrated source term values for one of a set of sources
     /*!
-     *     @param sourceType   The enum source term value. Species indecises are 
-     *                         designated by indexing on top of the base SPECIES_SOURCE
+     *     @param         sourceType         The enum source term value. Species indecises are 
+     *                                       designated by indexing on top of the base SPECIES_SOURCE
      *
-     *     @return Returns the source term
+     *     @return                           Returns the source term
      */
     virtual double getIntegratedSourceTerm(SOURCES sourceType);
 
@@ -998,8 +1027,9 @@ public:
      *  We calculate a rate here by taking the total production amounts and then
      *  divide by the time step.
      *
-     *   @param net   Species net production rates [kmol/s].
-     *   @return   Returns the current, amps = columb sec-1
+     *   @param[out]      net                Species net production rates [kmol/s]
+     *
+     *   @return                             Returns the current, amps = columb sec-1
      */
     doublereal getIntegratedProductionRatesCurrent(doublereal* const net) const;
 
@@ -1007,19 +1037,18 @@ public:
     //!  at the current conditions over the current last local time step
     /*!
      *   Note we must have integrated a local time step previously.
+     *       (can protect)
      *
-     *   @return   Returns the current columb sec-1 = amps
+     *   @return                                  Returns the current columb sec-1 = amps
      */
-//Can protect
     doublereal integratedLocalCurrent() const;
 
-    //!  Returns the net production rates of all species in the electrode object
-    //!  over the last integration step
+    //!  Returns the net production rates of all species in the electrode object over the last integration step
     /*!
      *  We calculate a rate here by taking the total production amounts and then
      *  dividing by the time step to get a rate.
      *
-     *   @param net   Species net production rates [kmol/s].
+     *   @param[out]       net                    Species net production rates [kmol/s].
      */
     void getIntegratedSpeciesProductionRates(doublereal* const net) const;
 
@@ -1027,10 +1056,10 @@ public:
     //!  at the current conditions over the current global time step
     /*!
      *   Note we must have integrated a global time step previously.
+     *       (can protect)
      *
-     *   @return   Returns the current columb sec-1 = amps
+     *   @return                                  Returns the current columb sec-1 = amps
      */
-//Can protect
     doublereal integratedCurrent() const;
 
     //! Returns the integrated moles transfered for each phase in the electrode object over the time step
@@ -1047,21 +1076,21 @@ public:
     /*!
      *    Returns the heat release that has occurred during the global time step. 
      *
-     *  @param Returns the heat release (joules)
+     *  @return                                   Returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm();
 
     //! The thermal energy source term can be broken into two parts. This part is the irreversible
     //! heat generation term due to the non-zero overpotential 
     /*!
-     *   @return returns the heat release (joules)
+     *   @return                                  returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_overpotential();
 
     //! The thermal energy source term can be broken into two parts. This part is the reversible
     //! heat generation term due to the entropy change of reaction
     /*!
-     *   @return returns the heat release (joules)
+     *   @return                                   returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
 
@@ -1129,17 +1158,32 @@ public:
         Electrode* ee_;
     };
 
-
-
-
     // -----------------------------------------------------------------------------------------------------------------
 
-// Deprecate
+    //! Calculate the residual associated with the phase pop problem
+    /*!
+     *      (can be deprecated)
+     *   @param[in]           iphaseTarget        target phase to check, index in PhaseList
+     *   @param[in]           Xf_phase            Vector of mole fractions of the phase
+     *   @param[in]           deltaTsubcycle      deltaT subcycle current
+     *   @param[out]          resid               Vector of residual associated with the phase pop problem
+     *
+     *   @return                                  Returns 1 if everything is ok
+     */
     int phasePopResid(int iphaseTarget, const double* const Xf_phase,
                       double deltaTsubcycle, double* const resid);
 
-
-// Deprecate
+    //! Run a phase pop calculation, determining if a phase is stable to come into existence
+    /*!
+     *        (can be deprecated)
+     *      We call the nonlinear solver using a special residual
+     *
+     *  @param[in]            iphaseTarget        target phase to check, index in PhaseList
+     *  @param[out]           Xmf_stable          Vector of mole fractions of the phase that is the most stable
+     *  @param[in]            deltaTsubcycle      deltaT subcycle current
+     *
+     *  @return                                   Returns 1 if the phase will pop and 0 otherwise
+     */
     int phasePop(int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
 
     //------------------------------------------------------------------------------------------------------------------
@@ -1150,6 +1194,8 @@ public:
     /*!
      *   Sets the time for t_final, t_final_final, t_init, and t_init_init. 
      *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+     *
+     *  @param[in]            time              Input the time of the simulation
      */
     void setTime(double time);
 
@@ -1275,13 +1321,17 @@ public:
     //! Calculates the change in the surface area of all external and internal interfaces within the electrode
     /*!
      *  (virtual)
+     *      can protect  and deprecrate
+     *
      *  variables to be potentially altered
      *   surfaceAreaRS_[];
      *   isExternalSurface[]
      *   numExternalInterfacialSurfaces_;
+     *
+     *  @param[in]      deltaT                      DeltaT of the step (??)
+     *
+     *  @return                                     Returns the calculated surface area change
      */
-//Can protect
-// deprecate
     virtual double calcSurfaceAreaChange(double deltaT);
 
 
@@ -1290,7 +1340,7 @@ public:
     /*!
      *  We calculate the volume taken up by the electrolyte. Then we calculate the mole number for that volume.
      *
-     *  @return                                Returns the total moles of the electrolyte (kmol)
+     *  @return                                      Returns the total moles of the electrolyte (kmol)
      */
     virtual double updateElectrolytePseudoMoles();
 
@@ -1311,24 +1361,23 @@ public:
     /*!
      * @param[in]            iph                Phase id
      *
-     * @return                                   Returns the number of moles in a phase in kmol
+     * @return                                  Returns the number of moles in a phase in kmol
      */
     double phaseMoles(int iph) const;
 
     //! Returns the number of moles of an element
     /*!
-     *  @param  ie   the index of the element in the global list
+     *  @param[in]          ie                  the index of the element in the global list
      *
      * @return Returns the number of moles in kmol
      */
     double elementMoles(int ie) const;
 
-
     //! Returns the number of moles of an element
     /*!
      *  @param  eName String Name of the element - two characters with the first capitalized
      *
-     * @return Returns the number of moles in kmol
+     * @return                                  Returns the number of moles in kmol
      */
     double elementMoles(std::string eName) const;
 
@@ -1336,10 +1385,11 @@ public:
     /*!
      *  @param  ie   the index of the element in the global list
      *
-     * @return Returns the number of moles in kmol
+     * @return                                  Returns the number of moles in kmol
      */
     double elementSolidMoles(int ie) const;
 
+    
 
     //! Returns the number of moles of an element not including the electrolyte
     /*!
