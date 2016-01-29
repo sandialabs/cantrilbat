@@ -20,10 +20,11 @@ States Government.
 INFORMATION TABLE FOR SPECIES "fes2_site" IN PHASE "FeS2_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -69,11 +70,12 @@ INFORMATION TABLE FOR SPECIES "fes2_site" IN PHASE "FeS2_surface"
 INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electrons"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    E: 1      |                      0.000
+                                                     0.000 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
-        Heat of formation (298.15K) = 95.1585 kcal/gmol
+        Heat of formation (298.15K) = 95.158530 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 400 K
         Maximum Temperature = 2700 K
@@ -126,12 +128,13 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
 INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Li: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                    E: -1      |                     -0.000
+                                                    29.085 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 6.94046 gm/mol
-        Heat of formation (298.15K) = -94.5898 kcal/gmol
+        Heat of formation (298.15K) = -94.589754 kcal/gmol
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = -10 erg cm-2
         Minimum Temperature = -1 K
@@ -167,12 +170,13 @@ unknown species PDSS thermo type 107
 INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  K: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                    K: 1      |                     64.670
+                    E: -1      |                     -0.000
+                                                    64.670 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 39.0978 gm/mol
-        Heat of formation (298.15K) = -100.8106 kcal/gmol
+        Heat of formation (298.15K) = -100.810627 kcal/gmol
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = -10 erg cm-2
         Minimum Temperature = -1 K
@@ -208,12 +212,13 @@ unknown species PDSS thermo type 107
 INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  Cl: 1
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                   Cl: 1      |                    111.535
+                    E: 1      |                      0.000
+                                                   111.535 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = -10 erg cm-2
         Minimum Temperature = -1 K
@@ -260,12 +265,13 @@ unknown species PDSS thermo type 107
 INFORMATION TABLE FOR SPECIES "FeS2(S)" IN PHASE "FeS2(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Fe: 1
-                  S: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Fe: 1      |                     27.321
+                    S: 2      |                     64.112
+                                                    91.433 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 119.979 gm/mol
-        Heat of formation (298.15K) = -39.9988 kcal/gmol
+        Heat of formation (298.15K) = -39.998848 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 250 K
         Maximum Temperature = 1400 K
@@ -316,13 +322,14 @@ INFORMATION TABLE FOR SPECIES "FeS2(S)" IN PHASE "FeS2(S)"
 INFORMATION TABLE FOR SPECIES "Li3Fe2S4(S)" IN PHASE "Li3Fe2S4(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Li: 3
-                  Fe: 2
-                  S: 4
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Li: 3      |                     87.255
+                   Fe: 2      |                     54.642
+                    S: 4      |                    128.224
+                                                   270.121 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 260.781 gm/mol
-        Heat of formation (298.15K) = -209.0126 kcal/gmol
+        Heat of formation (298.15K) = -209.012580 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 250 K
         Maximum Temperature = 2700 K

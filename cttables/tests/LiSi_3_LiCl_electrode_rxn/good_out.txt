@@ -20,10 +20,11 @@ States Government.
 INFORMATION TABLE FOR SPECIES "lisi_3_site" IN PHASE "LiSi_3_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -69,11 +70,12 @@ INFORMATION TABLE FOR SPECIES "lisi_3_site" IN PHASE "LiSi_3_surface"
 INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electrons"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    E: 1      |                      0.000
+                                                     0.000 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
-        Heat of formation (298.15K) = 398.1433  kJ/gmol 
+        Heat of formation (298.15K) = 398.143290  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 400 K
         Maximum Temperature = 2700 K
@@ -126,12 +128,13 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
 INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Li: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                    E: -1      |                     -0.000
+                                                    29.085 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 6.94046 gm/mol
-        Heat of formation (298.15K) = -395.7635  kJ/gmol 
+        Heat of formation (298.15K) = -395.763532  kJ/gmol 
         Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = -1 Pa
         Minimum Temperature = -1 K
@@ -167,12 +170,13 @@ unknown species PDSS thermo type 107
 INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  K: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                    K: 1      |                     64.670
+                    E: -1      |                     -0.000
+                                                    64.670 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 39.0978 gm/mol
-        Heat of formation (298.15K) = -421.7917  kJ/gmol 
+        Heat of formation (298.15K) = -421.791663  kJ/gmol 
         Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = -1 Pa
         Minimum Temperature = -1 K
@@ -208,12 +212,13 @@ unknown species PDSS thermo type 107
 INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  Cl: 1
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                   Cl: 1      |                    111.535
+                    E: 1      |                      0.000
+                                                   111.535 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
-        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
         Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = -1 Pa
         Minimum Temperature = -1 K
@@ -260,12 +265,13 @@ unknown species PDSS thermo type 107
 INFORMATION TABLE FOR SPECIES "Li12Si7(S)" IN PHASE "Li12Si7(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Li: 12
-                  Si: 7
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Li: 12      |                    349.020
+                   Si: 7      |                    131.740
+                                                   480.760 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 279.89 gm/mol
-        Heat of formation (298.15K) = -469.2124  kJ/gmol 
+        Heat of formation (298.15K) = -469.212414  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 2700 K
@@ -316,11 +322,12 @@ INFORMATION TABLE FOR SPECIES "Li12Si7(S)" IN PHASE "Li12Si7(S)"
 INFORMATION TABLE FOR SPECIES "Si(S)" IN PHASE "Si(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Si: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Si: 1      |                     18.820
+                                                    18.820 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 28.0855 gm/mol
-        Heat of formation (298.15K) = -0.0008  kJ/gmol 
+        Heat of formation (298.15K) = -0.000796  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1750 K

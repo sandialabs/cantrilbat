@@ -27,11 +27,12 @@ States Government.
 INFORMATION TABLE FOR SPECIES "c6HH" IN PHASE "diamond_100"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  H: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 2      |                    130.680
+                                                   130.680 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 2.01588 gm/mol
-        Heat of formation (298.15K) = 11.4000 kcal/gmol
+        Heat of formation (298.15K) = 11.400014 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -71,11 +72,12 @@ INFORMATION TABLE FOR SPECIES "c6HH" IN PHASE "diamond_100"
 INFORMATION TABLE FOR SPECIES "c6H*" IN PHASE "diamond_100"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  H: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                                                    65.340 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
-        Heat of formation (298.15K) = 51.7001 kcal/gmol
+        Heat of formation (298.15K) = 51.700062 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -115,11 +117,12 @@ INFORMATION TABLE FOR SPECIES "c6H*" IN PHASE "diamond_100"
 INFORMATION TABLE FOR SPECIES "c6*H" IN PHASE "diamond_100"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  H: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                                                    65.340 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
-        Heat of formation (298.15K) = 46.1001 kcal/gmol
+        Heat of formation (298.15K) = 46.100055 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -159,10 +162,11 @@ INFORMATION TABLE FOR SPECIES "c6*H" IN PHASE "diamond_100"
 INFORMATION TABLE FOR SPECIES "c6**" IN PHASE "diamond_100"
         Overall, this is the 4th species in mechanism
         It is the 4th species in the phase
-        Elemental Composition:
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 90.0001 kcal/gmol
+        Heat of formation (298.15K) = 90.000107 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -202,12 +206,13 @@ INFORMATION TABLE FOR SPECIES "c6**" IN PHASE "diamond_100"
 INFORMATION TABLE FOR SPECIES "c6HM" IN PHASE "diamond_100"
         Overall, this is the 5th species in mechanism
         It is the 5th species in the phase
-        Elemental Composition:
-                  H: 4
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 4      |                    261.360
+                    C: 1      |                      5.740
+                                                   267.100 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 16.0428 gm/mol
-        Heat of formation (298.15K) = 26.9000 kcal/gmol
+        Heat of formation (298.15K) = 26.900032 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -247,12 +252,13 @@ INFORMATION TABLE FOR SPECIES "c6HM" IN PHASE "diamond_100"
 INFORMATION TABLE FOR SPECIES "c6HM*" IN PHASE "diamond_100"
         Overall, this is the 6th species in mechanism
         It is the 6th species in the phase
-        Elemental Composition:
-                  H: 3
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 3      |                    196.020
+                    C: 1      |                      5.740
+                                                   201.760 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 15.0348 gm/mol
-        Heat of formation (298.15K) = 65.8001 kcal/gmol
+        Heat of formation (298.15K) = 65.800078 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -292,12 +298,13 @@ INFORMATION TABLE FOR SPECIES "c6HM*" IN PHASE "diamond_100"
 INFORMATION TABLE FOR SPECIES "c6*M" IN PHASE "diamond_100"
         Overall, this is the 7th species in mechanism
         It is the 7th species in the phase
-        Elemental Composition:
-                  H: 3
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 3      |                    196.020
+                    C: 1      |                      5.740
+                                                   201.760 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 15.0348 gm/mol
-        Heat of formation (298.15K) = 53.3001 kcal/gmol
+        Heat of formation (298.15K) = 53.300063 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -337,12 +344,13 @@ INFORMATION TABLE FOR SPECIES "c6*M" IN PHASE "diamond_100"
 INFORMATION TABLE FOR SPECIES "c6B" IN PHASE "diamond_100"
         Overall, this is the 8th species in mechanism
         It is the 8th species in the phase
-        Elemental Composition:
-                  H: 2
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 2      |                    130.680
+                    C: 1      |                      5.740
+                                                   136.420 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 14.0269 gm/mol
-        Heat of formation (298.15K) = 40.9000 kcal/gmol
+        Heat of formation (298.15K) = 40.900049 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -398,9 +406,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "gas"
         It is the 1th species in the phase
         Elemental Composition:
                   H: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
-        Heat of formation (298.15K) = 52.1026 kcal/gmol
+        Heat of formation (298.15K) = 52.102637 kcal/gmol
         mu_0(298.15K) = H298[k]  52.1026
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -440,9 +448,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "gas"
         It is the 2th species in the phase
         Elemental Composition:
                   H: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 2.01588 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  3.17442E-09
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -483,9 +491,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH3" IN PHASE "gas"
         Elemental Composition:
                   H: 3
                   C: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 15.0348 gm/mol
-        Heat of formation (298.15K) = 35.1098 kcal/gmol
+        Heat of formation (298.15K) = 35.109782 kcal/gmol
         mu_0(298.15K) = H298[k]  35.1098
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -526,9 +534,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH4" IN PHASE "gas"
         Elemental Composition:
                   H: 4
                   C: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 16.0428 gm/mol
-        Heat of formation (298.15K) = -17.8297 kcal/gmol
+        Heat of formation (298.15K) = -17.829746 kcal/gmol
         mu_0(298.15K) = H298[k]  -17.8297
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -577,11 +585,12 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH4" IN PHASE "gas"
 INFORMATION TABLE FOR SPECIES "C(d)" IN PHASE "diamond"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    C: 1      |                      5.740
+                                                     5.740 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 12.011 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K

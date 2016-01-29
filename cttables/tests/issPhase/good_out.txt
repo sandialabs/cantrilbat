@@ -90,12 +90,13 @@ PrintOut of Phase, "solidSolutionExample", using Generic Thermodynamics Function
 INFORMATION TABLE FOR SPECIES "C2H2-graph" IN PHASE "solidSolutionExample"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  H: 2
-                  C: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 2      |                    130.680
+                    C: 2      |                     11.480
+                                                   142.160 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 26.0379 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
@@ -139,11 +140,12 @@ INFORMATION TABLE FOR SPECIES "C2H2-graph" IN PHASE "solidSolutionExample"
 INFORMATION TABLE FOR SPECIES "C-graph" IN PHASE "solidSolutionExample"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    C: 1      |                      5.740
+                                                     5.740 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 12.011 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
@@ -187,11 +189,12 @@ INFORMATION TABLE FOR SPECIES "C-graph" IN PHASE "solidSolutionExample"
 INFORMATION TABLE FOR SPECIES "H2-solute" IN PHASE "solidSolutionExample"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  H: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 2      |                    130.680
+                                                   130.680 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 2.01588 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K

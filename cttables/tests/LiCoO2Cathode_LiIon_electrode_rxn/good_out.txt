@@ -20,10 +20,11 @@ States Government.
 INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -68,11 +69,12 @@ INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
 INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_electrons"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    E: 1      |                      0.000
+                                                     0.000 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
-        Heat of formation (298.15K) = 0.0001 kcal/gmol
+        Heat of formation (298.15K) = 0.000082 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 250 K
         Maximum Temperature = 500 K
@@ -124,13 +126,14 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_elect
 INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  H: 4
-                  C: 3
-                  O: 3
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 4      |                    261.360
+                    C: 3      |                     17.220
+                    O: 3      |                    307.721
+                                                   586.301 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 88.063 gm/mol
-        Heat of formation (298.15K) = -119.5030 kcal/gmol
+        Heat of formation (298.15K) = -119.503010 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -163,12 +166,13 @@ INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
 INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  Li: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                    E: -1      |                     -0.000
+                                                    29.085 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 6.94046 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -201,13 +205,14 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
 INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  P: 1
-                  F: 6
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    P: 1      |                     41.077
+                    F: 6      |                    608.367
+                    E: 1      |                      0.000
+                                                   649.444 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 144.965 gm/mol
-        Heat of formation (298.15K) = -119.5030 kcal/gmol
+        Heat of formation (298.15K) = -119.503010 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -252,13 +257,14 @@ INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
 INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Interstitials_cathode"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Li: 1
-                  Co: 1
-                  O: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                   Co: 1      |                     30.067
+                    O: 2      |                    205.147
+                                                   264.299 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 97.873 gm/mol
-        Heat of formation (298.15K) = 680.7676 kcal/gmol
+        Heat of formation (298.15K) = 680.767614 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -291,12 +297,13 @@ INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Interstitials_cathode"
 INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  Co: 1
-                  O: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Co: 1      |                     30.067
+                    O: 2      |                    205.147
+                                                   235.214 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 90.932 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K

@@ -106,12 +106,13 @@ PrintOut of Phase, "KCl(S)", using Generic Thermodynamics Functions:
 INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  K: 1
-                  Cl: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    K: 1      |                     64.670
+                   Cl: 1      |                    111.535
+                                                   176.205 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 74.551 gm/mol
-        Heat of formation (298.15K) = -436.6846  kJ/gmol 
+        Heat of formation (298.15K) = -436.684600  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 1043 K
@@ -122,13 +123,20 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
-        SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 200 < T < 41.3798: 
-                         21.7568                 0                 0          0.322168
-                   -448.90791688      127.95170357 6.9532559483e-310
-               High temperature polynomials: 41.3798 < T < 1043: 
-                               0 2.7795579882e-317 6.9532559483e-310 6.9532559483e-310
-               1.1234003312e-314  1.224788736e-320 6.9531436083e-310
+        MinEQ3 format:  (a varient of Shomate1 format) 
+               temperature polynomials (Shomate Form): 200 < T < 1043: 
+                        41.37976           21.7568                 0                 0
+                        0.322168     -448.90791688      127.95170357
+                 Delta G0_Tr_Pr = -9.773500000E+04 cal/gmol
+                                =         -408.923 kJ /gmol
+                 Delta H0_Tr_Pr = -1.043700000E+05 cal/gmol
+                       S0_Tr_Pr =            19.73 cal/gmol/K
+                                =          82.5503  J /gmol/K
+                      mu0_Tr_Pr =         -461.296 kJ /gmol
+                Delta G0_consis =         -408.761 kJ /gmol
+                              a =             9.89 cal/gkmol/K
+                              b =           0.0052 cal/kmol/K2
+                              c =            77000 cal-K/gmol
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------

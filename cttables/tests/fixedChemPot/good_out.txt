@@ -117,11 +117,12 @@ PrintOut of Phase, "LiFixed", using Generic Thermodynamics Functions:
 INFORMATION TABLE FOR SPECIES "LiFixed" IN PHASE "LiFixed"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Li: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                                                    29.085 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 6.941 gm/mol
-        Heat of formation (298.15K) = -23.0000  kJ/gmol 
+        Heat of formation (298.15K) = -23.000027  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K

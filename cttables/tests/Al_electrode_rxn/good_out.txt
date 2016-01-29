@@ -20,10 +20,11 @@ States Government.
 INFORMATION TABLE FOR SPECIES "al_site" IN PHASE "aluminum_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -73,9 +74,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "electronSHE" IN PHASE "metalElectrons"
         It is the 1th species in the phase
         Elemental Composition:
                   E: 1
-        Electronic Charge = -1.00
+        Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
-        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
         mu_0(298.15K) = H298[k]  6.64089E-09
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 200 K
@@ -125,12 +126,13 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "electronSHE" IN PHASE "metalElectrons"
 INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "AlCl_electrolyte"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  O: 1
-                  H: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.573
+                    H: 2      |                    130.680
+                                                   233.254 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 18.0153 gm/mol
-        Heat of formation (298.15K) = -285.8387  kJ/gmol 
+        Heat of formation (298.15K) = -285.838745  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
@@ -168,12 +170,13 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "AlCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "AlCl_electrolyte"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  Cl: 1
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                   Cl: 1      |                    111.535
+                    E: 1      |                      0.000
+                                                   111.535 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
-        Heat of formation (298.15K) = -167.0969  kJ/gmol 
+        Heat of formation (298.15K) = -167.096865  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
@@ -212,12 +215,13 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "AlCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "H+" IN PHASE "AlCl_electrolyte"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  H: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                    E: -1      |                     -0.000
+                                                    65.340 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 1.0074 gm/mol
-        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
         Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = 100000 Pa
         Minimum Temperature = 273.15 K
@@ -256,13 +260,14 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "AlCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "AlCl_electrolyte"
         Overall, this is the 4th species in mechanism
         It is the 4th species in the phase
-        Elemental Composition:
-                  O: 1
-                  H: 1
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.573
+                    H: 1      |                     65.340
+                    E: 1      |                      0.000
+                                                   167.913 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 17.0079 gm/mol
-        Heat of formation (298.15K) = -230.0323  kJ/gmol 
+        Heat of formation (298.15K) = -230.032317  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
@@ -301,12 +306,13 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "AlCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "Al+++" IN PHASE "AlCl_electrolyte"
         Overall, this is the 5th species in mechanism
         It is the 5th species in the phase
-        Elemental Composition:
-                  Al: 1
-                  E: -3
-        Electronic Charge = 3.00
+        Elemental Composition:               ElementEntropy298
+                   Al: 1      |                     28.275
+                    E: -3      |                     -0.000
+                                                    28.275 J/gmol/K 
+        Electronic Charge = 3.000000
         Molecular Weight = 26.9799 gm/mol
-        Heat of formation (298.15K) = -542.4914  kJ/gmol 
+        Heat of formation (298.15K) = -542.491428  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 623.15 K
@@ -356,11 +362,12 @@ INFORMATION TABLE FOR SPECIES "Al+++" IN PHASE "AlCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Al: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Al: 1      |                     28.275
+                                                    28.275 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 26.9815 gm/mol
-        Heat of formation (298.15K) = -0.0000  kJ/gmol 
+        Heat of formation (298.15K) = -0.000046  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K

@@ -138,12 +138,13 @@ PrintOut of Phase, "NaCl(S)", using Generic Thermodynamics Functions:
 INFORMATION TABLE FOR SPECIES "NaCl(S)" IN PHASE "NaCl(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Na: 1
-                  Cl: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Na: 1      |                     51.455
+                   Cl: 1      |                    111.535
+                                                   162.990 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 58.4425 gm/mol
-        Heat of formation (298.15K) = -411.1203  kJ/gmol 
+        Heat of formation (298.15K) = -411.120330  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 1073 K
@@ -154,13 +155,20 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)" IN PHASE "NaCl(S)"
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
-        SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 200 < T < 45.9403: 
-                         16.3176                 0                 0                 0
-                   -425.54221006      122.86213921 6.9533126944e-310
-               High temperature polynomials: 45.9403 < T < 1073: 
-                               0 2.7795579882e-317 6.9533126944e-310 6.9533126944e-310
-               1.6908610651e-314  1.224788736e-320 6.9531436083e-310
+        MinEQ3 format:  (a varient of Shomate1 format) 
+               temperature polynomials (Shomate Form): 200 < T < 1073: 
+                        45.94032           16.3176                 0                 0
+                               0     -425.54221006      122.86213921
+                 Delta G0_Tr_Pr = -9.180700000E+04 cal/gmol
+                                =          -384.12 kJ /gmol
+                 Delta H0_Tr_Pr = -9.826000000E+04 cal/gmol
+                       S0_Tr_Pr =            17.24 cal/gmol/K
+                                =          72.1322  J /gmol/K
+                      mu0_Tr_Pr =         -432.626 kJ /gmol
+                Delta G0_consis =         -384.031 kJ /gmol
+                              a =            10.98 cal/gkmol/K
+                              b =           0.0039 cal/kmol/K2
+                              c =                0 cal-K/gmol
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -206,12 +214,13 @@ PrintOut of Phase, "NaCl(S)_nist", using Generic Thermodynamics Functions:
 INFORMATION TABLE FOR SPECIES "NaCl(S)_nist" IN PHASE "NaCl(S)_nist"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Na: 1
-                  Cl: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Na: 1      |                     51.455
+                   Cl: 1      |                    111.535
+                                                   162.990 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 58.4425 gm/mol
-        Heat of formation (298.15K) = -411.1212  kJ/gmol 
+        Heat of formation (298.15K) = -411.121202  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K

@@ -149,9 +149,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "airNASA9"
         It is the 1th species in the phase
         Elemental Composition:
                   N: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 28.0135 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  1.4614E-09
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -206,9 +206,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "airNASA9"
         It is the 2th species in the phase
         Elemental Composition:
                   O: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 31.9988 gm/mol
-        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -3.061E-09
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -264,9 +264,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "NO" IN PHASE "airNASA9"
         Elemental Composition:
                   O: 1
                   N: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 30.0061 gm/mol
-        Heat of formation (298.15K) = 21.8143 kcal/gmol
+        Heat of formation (298.15K) = 21.814267 kcal/gmol
         mu_0(298.15K) = H298[k]  21.8143
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -321,9 +321,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N" IN PHASE "airNASA9"
         It is the 4th species in the phase
         Elemental Composition:
                   N: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 14.0067 gm/mol
-        Heat of formation (298.15K) = 112.9727 kcal/gmol
+        Heat of formation (298.15K) = 112.972715 kcal/gmol
         mu_0(298.15K) = H298[k]  112.973
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -378,9 +378,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O" IN PHASE "airNASA9"
         It is the 5th species in the phase
         Elemental Composition:
                   O: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 15.9994 gm/mol
-        Heat of formation (298.15K) = 59.5540 kcal/gmol
+        Heat of formation (298.15K) = 59.553983 kcal/gmol
         mu_0(298.15K) = H298[k]  59.554
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -436,9 +436,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2+" IN PHASE "airNASA9"
         Elemental Composition:
                   N: 2
                   E: -1
-        Electronic Charge = 1.00
+        Electronic Charge = 1.000000
         Molecular Weight = 28.0129 gm/mol
-        Heat of formation (298.15K) = 360.7795 kcal/gmol
+        Heat of formation (298.15K) = 360.779523 kcal/gmol
         mu_0(298.15K) = H298[k]  360.78
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -494,9 +494,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2+" IN PHASE "airNASA9"
         Elemental Composition:
                   O: 2
                   E: -1
-        Electronic Charge = 1.00
+        Electronic Charge = 1.000000
         Molecular Weight = 31.9983 gm/mol
-        Heat of formation (298.15K) = 280.0724 kcal/gmol
+        Heat of formation (298.15K) = 280.072438 kcal/gmol
         mu_0(298.15K) = H298[k]  280.072
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -553,9 +553,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "NO+" IN PHASE "airNASA9"
                   O: 1
                   N: 1
                   E: -1
-        Electronic Charge = 1.00
+        Electronic Charge = 1.000000
         Molecular Weight = 30.0056 gm/mol
-        Heat of formation (298.15K) = 236.8081 kcal/gmol
+        Heat of formation (298.15K) = 236.808120 kcal/gmol
         mu_0(298.15K) = H298[k]  236.808
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -611,9 +611,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N+" IN PHASE "airNASA9"
         Elemental Composition:
                   N: 1
                   E: -1
-        Electronic Charge = 1.00
+        Electronic Charge = 1.000000
         Molecular Weight = 14.0062 gm/mol
-        Heat of formation (298.15K) = 449.8372 kcal/gmol
+        Heat of formation (298.15K) = 449.837242 kcal/gmol
         mu_0(298.15K) = H298[k]  449.837
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -669,9 +669,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O+" IN PHASE "airNASA9"
         Elemental Composition:
                   O: 1
                   E: -1
-        Electronic Charge = 1.00
+        Electronic Charge = 1.000000
         Molecular Weight = 15.9989 gm/mol
-        Heat of formation (298.15K) = 374.9474 kcal/gmol
+        Heat of formation (298.15K) = 374.947433 kcal/gmol
         mu_0(298.15K) = H298[k]  374.947
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
@@ -726,9 +726,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "e-" IN PHASE "airNASA9"
         It is the 11th species in the phase
         Elemental Composition:
                   E: 1
-        Electronic Charge = -1.00
+        Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
-        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -2.63116E-16
         Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2

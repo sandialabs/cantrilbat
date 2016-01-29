@@ -184,12 +184,13 @@ PrintOut of Phase, "NaCl_electrolyte", using Generic Thermodynamics Functions:
 INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  O: 1
-                  H: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.573
+                    H: 2      |                    130.680
+                                                   233.254 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 18.0153 gm/mol
-        Heat of formation (298.15K) = -285.8387  kJ/gmol 
+        Heat of formation (298.15K) = -285.838745  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
@@ -227,12 +228,13 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  E: 1
-                  Cl: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    E: 1      |                      0.000
+                   Cl: 1      |                    111.535
+                                                   111.535 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
-        Heat of formation (298.15K) = -167.0969  kJ/gmol 
+        Heat of formation (298.15K) = -167.096865  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
@@ -271,12 +273,13 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  H: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                    E: -1      |                     -0.000
+                                                    65.340 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 1.0074 gm/mol
-        Heat of formation (298.15K) = 0.0000  kJ/gmol 
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
         Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = 100000 Pa
         Minimum Temperature = 273.15 K
@@ -315,12 +318,13 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
         Overall, this is the 4th species in mechanism
         It is the 4th species in the phase
-        Elemental Composition:
-                  E: -1
-                  Na: 1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                    E: -1      |                     -0.000
+                   Na: 1      |                     51.455
+                                                    51.455 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 22.9892 gm/mol
-        Heat of formation (298.15K) = -240.1804  kJ/gmol 
+        Heat of formation (298.15K) = -240.180439  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 293.15 K
         Maximum Temperature = 593.15 K
@@ -359,13 +363,14 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
 INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
         Overall, this is the 5th species in mechanism
         It is the 5th species in the phase
-        Elemental Composition:
-                  O: 1
-                  H: 1
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.573
+                    H: 1      |                     65.340
+                    E: 1      |                      0.000
+                                                   167.913 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 17.0079 gm/mol
-        Heat of formation (298.15K) = -230.0323  kJ/gmol 
+        Heat of formation (298.15K) = -230.032317  kJ/gmol 
         Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K

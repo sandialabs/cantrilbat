@@ -163,15 +163,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "silane"
         It is the 1th species in the phase
         Elemental Composition:
                   H: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 2.01588 gm/mol
         L-J Potential Well Depth = 38 K
         L-J collision diameter = 2.92 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.79 Angstroms**3
+        Polarizability = 0.790000 Angstroms**3
         Rotational Collision Number at 298 K = 280
         This molecule is linear
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  3.17442E-09
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -211,15 +211,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "silane"
         It is the 2th species in the phase
         Elemental Composition:
                   H: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
         L-J Potential Well Depth = 145 K
         L-J collision diameter = 2.05 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = 52.1026 kcal/gmol
+        Heat of formation (298.15K) = 52.102637 kcal/gmol
         mu_0(298.15K) = H298[k]  52.1026
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -259,15 +259,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "silane"
         It is the 3th species in the phase
         Elemental Composition:
                   He: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 4.0026 gm/mol
         L-J Potential Well Depth = 10.2 K
         L-J collision diameter = 2.58 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -2.63116E-16
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -308,15 +308,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH4" IN PHASE "silane"
         Elemental Composition:
                   Si: 1
                   H: 4
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 32.1173 gm/mol
         L-J Potential Well Depth = 207.6 K
         L-J collision diameter = 4.08 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 8.2002 kcal/gmol
+        Heat of formation (298.15K) = 8.200171 kcal/gmol
         mu_0(298.15K) = H298[k]  8.20017
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -356,15 +356,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI" IN PHASE "silane"
         It is the 5th species in the phase
         Elemental Composition:
                   Si: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 28.0855 gm/mol
         L-J Potential Well Depth = 3036 K
         L-J collision diameter = 2.91 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = 107.7018 kcal/gmol
+        Heat of formation (298.15K) = 107.701789 kcal/gmol
         mu_0(298.15K) = H298[k]  107.702
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -405,15 +405,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH" IN PHASE "silane"
         Elemental Composition:
                   Si: 1
                   H: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 29.0934 gm/mol
         L-J Potential Well Depth = 95.8 K
         L-J collision diameter = 3.66 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is linear
-        Heat of formation (298.15K) = 91.7096 kcal/gmol
+        Heat of formation (298.15K) = 91.709577 kcal/gmol
         mu_0(298.15K) = H298[k]  91.7096
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -454,15 +454,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH2" IN PHASE "silane"
         Elemental Composition:
                   Si: 1
                   H: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 30.1014 gm/mol
         L-J Potential Well Depth = 133.1 K
         L-J collision diameter = 3.8 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 64.8078 kcal/gmol
+        Heat of formation (298.15K) = 64.807767 kcal/gmol
         mu_0(298.15K) = H298[k]  64.8078
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -503,15 +503,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH3" IN PHASE "silane"
         Elemental Composition:
                   Si: 1
                   H: 3
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 31.1093 gm/mol
         L-J Potential Well Depth = 170.3 K
         L-J collision diameter = 3.94 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 47.4322 kcal/gmol
+        Heat of formation (298.15K) = 47.432194 kcal/gmol
         mu_0(298.15K) = H298[k]  47.4322
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -552,15 +552,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H3SISIH" IN PHASE "silane"
         Elemental Composition:
                   Si: 2
                   H: 4
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 60.2028 gm/mol
         L-J Potential Well Depth = 312.6 K
         L-J collision diameter = 4.6 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 74.9717 kcal/gmol
+        Heat of formation (298.15K) = 74.971729 kcal/gmol
         mu_0(298.15K) = H298[k]  74.9717
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -601,15 +601,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2H6" IN PHASE "silane"
         Elemental Composition:
                   Si: 2
                   H: 6
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 62.2186 gm/mol
         L-J Potential Well Depth = 301.3 K
         L-J collision diameter = 4.83 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 19.1004 kcal/gmol
+        Heat of formation (298.15K) = 19.100399 kcal/gmol
         mu_0(298.15K) = H298[k]  19.1004
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -650,15 +650,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2SISIH2" IN PHASE "silane"
         Elemental Composition:
                   Si: 2
                   H: 4
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 60.2028 gm/mol
         L-J Potential Well Depth = 312.6 K
         L-J collision diameter = 4.6 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 62.8766 kcal/gmol
+        Heat of formation (298.15K) = 62.876564 kcal/gmol
         mu_0(298.15K) = H298[k]  62.8766
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -699,15 +699,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3H8" IN PHASE "silane"
         Elemental Composition:
                   Si: 3
                   H: 8
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 92.32 gm/mol
         L-J Potential Well Depth = 331.2 K
         L-J collision diameter = 5.56 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 28.9006 kcal/gmol
+        Heat of formation (298.15K) = 28.900604 kcal/gmol
         mu_0(298.15K) = H298[k]  28.9006
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -747,15 +747,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2" IN PHASE "silane"
         It is the 13th species in the phase
         Elemental Composition:
                   Si: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 56.171 gm/mol
         L-J Potential Well Depth = 3036 K
         L-J collision diameter = 3.28 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is linear
-        Heat of formation (298.15K) = 141.0029 kcal/gmol
+        Heat of formation (298.15K) = 141.002944 kcal/gmol
         mu_0(298.15K) = H298[k]  141.003
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -795,15 +795,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3" IN PHASE "silane"
         It is the 14th species in the phase
         Elemental Composition:
                   Si: 3
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 84.2565 gm/mol
         L-J Potential Well Depth = 3036 K
         L-J collision diameter = 3.55 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 152.0045 kcal/gmol
+        Heat of formation (298.15K) = 152.004543 kcal/gmol
         mu_0(298.15K) = H298[k]  152.005
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -843,15 +843,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "silane"
         It is the 15th species in the phase
         Elemental Composition:
                   N: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 28.0135 gm/mol
         L-J Potential Well Depth = 97.53 K
         L-J collision diameter = 3.62 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 1.76 Angstroms**3
+        Polarizability = 1.760000 Angstroms**3
         Rotational Collision Number at 298 K = 4
         This molecule is linear
-        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        Heat of formation (298.15K) = 0.000342 kcal/gmol
         mu_0(298.15K) = H298[k]  0.000341755
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K

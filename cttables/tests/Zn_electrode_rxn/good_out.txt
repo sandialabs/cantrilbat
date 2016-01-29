@@ -20,10 +20,11 @@ States Government.
 INFORMATION TABLE FOR SPECIES "zn_site" IN PHASE "zinc_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -71,11 +72,12 @@ INFORMATION TABLE FOR SPECIES "zn_site" IN PHASE "zinc_surface"
 INFORMATION TABLE FOR SPECIES "electronSHE" IN PHASE "metalElectrons"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    E: 1      |                      0.000
+                                                     0.000 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 6000 K
@@ -128,12 +130,13 @@ INFORMATION TABLE FOR SPECIES "electronSHE" IN PHASE "metalElectrons"
 INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "ZnSO4_electrolyte"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  O: 1
-                  H: 2
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.573
+                    H: 2      |                    130.680
+                                                   233.254 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 18.0153 gm/mol
-        Heat of formation (298.15K) = -68.3171 kcal/gmol
+        Heat of formation (298.15K) = -68.317100 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
@@ -171,12 +174,13 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "ZnSO4_electrolyte"
 INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  Zn: 1
-                  E: -2
-        Electronic Charge = 2.00
+        Elemental Composition:               ElementEntropy298
+                   Zn: 1      |                     41.717
+                    E: -2      |                     -0.000
+                                                    41.717 J/gmol/K 
+        Electronic Charge = 2.000000
         Molecular Weight = 65.3789 gm/mol
-        Heat of formation (298.15K) = -36.6721 kcal/gmol
+        Heat of formation (298.15K) = -36.672118 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
@@ -225,13 +229,14 @@ INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
 INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  O: 4
-                  S: 1
-                  E: 2
-        Electronic Charge = -2.00
+        Elemental Composition:               ElementEntropy298
+                    O: 4      |                    410.294
+                    S: 1      |                     32.056
+                    E: 2      |                      0.000
+                                                   442.350 J/gmol/K 
+        Electronic Charge = -2.000000
         Molecular Weight = 96.0647 gm/mol
-        Heat of formation (298.15K) = -217.4225 kcal/gmol
+        Heat of formation (298.15K) = -217.422456 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
@@ -280,12 +285,13 @@ INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
 INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
         Overall, this is the 4th species in mechanism
         It is the 4th species in the phase
-        Elemental Composition:
-                  H: 1
-                  E: -1
-        Electronic Charge = 1.00
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                    E: -1      |                     -0.000
+                                                    65.340 J/gmol/K 
+        Electronic Charge = 1.000000
         Molecular Weight = 1.0074 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
@@ -334,13 +340,14 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
 INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
         Overall, this is the 5th species in mechanism
         It is the 5th species in the phase
-        Elemental Composition:
-                  O: 1
-                  H: 1
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    O: 1      |                    102.573
+                    H: 1      |                     65.340
+                    E: 1      |                      0.000
+                                                   167.913 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 17.0079 gm/mol
-        Heat of formation (298.15K) = -54.9799 kcal/gmol
+        Heat of formation (298.15K) = -54.979878 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
@@ -400,11 +407,12 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
 INFORMATION TABLE FOR SPECIES "Zn(S)" IN PHASE "Zn(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Zn: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                   Zn: 1      |                     41.717
+                                                    41.717 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 65.38 gm/mol
-        Heat of formation (298.15K) = 0.0002 kcal/gmol
+        Heat of formation (298.15K) = 0.000158 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K

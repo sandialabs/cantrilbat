@@ -21,11 +21,12 @@ States Government.
 INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    C: 1      |                      5.740
+                                                     5.740 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 12.011 gm/mol
-        Heat of formation (298.15K) = 45.7975 kcal/gmol
+        Heat of formation (298.15K) = 45.797496 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -65,12 +66,13 @@ INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
 INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  H: 1
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                    C: 1      |                      5.740
+                                                    71.080 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 13.0189 gm/mol
-        Heat of formation (298.15K) = 5.4974 kcal/gmol
+        Heat of formation (298.15K) = 5.497448 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
@@ -128,9 +130,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "gas"
         It is the 1th species in the phase
         Elemental Composition:
                   H: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
-        Heat of formation (298.15K) = 52.1026 kcal/gmol
+        Heat of formation (298.15K) = 52.102637 kcal/gmol
         mu_0(298.15K) = H298[k]  52.1026
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -170,9 +172,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
         It is the 2th species in the phase
         Elemental Composition:
                   N: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 28.0135 gm/mol
-        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        Heat of formation (298.15K) = 0.000342 kcal/gmol
         mu_0(298.15K) = H298[k]  0.000341755
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -213,9 +215,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH3" IN PHASE "gas"
         Elemental Composition:
                   H: 3
                   C: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 15.0348 gm/mol
-        Heat of formation (298.15K) = 35.1098 kcal/gmol
+        Heat of formation (298.15K) = 35.109782 kcal/gmol
         mu_0(298.15K) = H298[k]  35.1098
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -256,9 +258,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH4" IN PHASE "gas"
         Elemental Composition:
                   H: 4
                   C: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 16.0428 gm/mol
-        Heat of formation (298.15K) = -17.8297 kcal/gmol
+        Heat of formation (298.15K) = -17.829746 kcal/gmol
         mu_0(298.15K) = H298[k]  -17.8297
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -299,9 +301,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "C2H2" IN PHASE "gas"
         Elemental Composition:
                   H: 2
                   C: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 26.0379 gm/mol
-        Heat of formation (298.15K) = 54.5409 kcal/gmol
+        Heat of formation (298.15K) = 54.540860 kcal/gmol
         mu_0(298.15K) = H298[k]  54.5409
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -341,9 +343,9 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "gas"
         It is the 6th species in the phase
         Elemental Composition:
                   H: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 2.01588 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  3.17442E-09
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
@@ -392,11 +394,12 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "gas"
 INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  C: 1
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    C: 1      |                      5.740
+                                                     5.740 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 12.011 gm/mol
-        Heat of formation (298.15K) = 5.0440 kcal/gmol
+        Heat of formation (298.15K) = 5.043999 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K

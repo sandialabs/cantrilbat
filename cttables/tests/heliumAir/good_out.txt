@@ -121,15 +121,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "gas"
         It is the 1th species in the phase
         Elemental Composition:
                   He: 1
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 4.0026 gm/mol
         L-J Potential Well Depth = 10.2 K
         L-J collision diameter = 2.58 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 0.00 Angstroms**3
+        Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -2.63116E-16
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -169,15 +169,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "gas"
         It is the 2th species in the phase
         Elemental Composition:
                   O: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 31.9988 gm/mol
         L-J Potential Well Depth = 107.4 K
         L-J collision diameter = 3.46 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 1.60 Angstroms**3
+        Polarizability = 1.600000 Angstroms**3
         Rotational Collision Number at 298 K = 3.8
         This molecule is linear
-        Heat of formation (298.15K) = -0.0002 kcal/gmol
+        Heat of formation (298.15K) = -0.000203 kcal/gmol
         mu_0(298.15K) = H298[k]  -0.000202594
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
@@ -217,15 +217,15 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
         It is the 3th species in the phase
         Elemental Composition:
                   N: 2
-        Electronic Charge = 0.00
+        Electronic Charge = 0.000000
         Molecular Weight = 28.0135 gm/mol
         L-J Potential Well Depth = 97.53 K
         L-J collision diameter = 3.62 Angstroms
         Dipole Moment = 0 Debeye
-        Polarizability = 1.76 Angstroms**3
+        Polarizability = 1.760000 Angstroms**3
         Rotational Collision Number at 298 K = 4
         This molecule is linear
-        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        Heat of formation (298.15K) = 0.000342 kcal/gmol
         mu_0(298.15K) = H298[k]  0.000341755
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
