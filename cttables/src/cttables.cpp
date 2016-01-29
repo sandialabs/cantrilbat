@@ -96,15 +96,19 @@ void pr_if(const int i, const int w) {
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/
-void pr_sf(const string s, const int w) {
-  int sz = s.size();
-  if (sz < w) {
-    int num = w - sz;
-    for (int i = 0; i < num; i++) {
-      cout << " ";
+//===================================================================================================================================
+// Print a string with a minimum string width
+//    -> note the maximum string width is not controlled
+void pr_sf(const std::string s, const int w)
+{
+    int sz = s.size();
+    if (sz < w) {
+	int num = w - sz;
+	for (int i = 0; i < num; i++) {
+	    cout << " ";
+	}
     }
-  }
-  cout << s;
+    cout << s;
 }
 /**********************************************************************/
 /**********************************************************************/
@@ -160,10 +164,10 @@ void pr_df(const double d, const int w, const int p) {
  */
 
 void pr_dfp(const double d, const int p) {
-  int pp = cout.precision(p);
+    //int pp = cout.precision(p);
   cout.setf(ios_base::fixed, ios_base::floatfield);
   cout << d;
-  pp = cout.precision(6);
+  cout.precision(6);
   cout.setf(ios_base::fmtflags(0), ios_base::floatfield);    
 }
 /**********************************************************************/
@@ -666,14 +670,22 @@ void printThermoPhaseSpeciesTable(ThermoPhase *g_ptr,
   cout << "It is the " << k+1
        <<"th species in the phase" << endl;
 
-
-  dnt(1); cout << "Elemental Composition:" << endl;
-  for (int m = 0; m < (int) g_ptr->nElements(); m++) {
+  double stotal = entropyElem298(g_ptr, (size_t) k);
+  dnt(1); cout << "Elemental Composition:               ElementEntropy298" << endl;
+  for (size_t m = 0; m < g_ptr->nElements(); m++) {
     double na = g_ptr->nAtoms(k, m);
     if (na != 0.0) {
-      dnt(3); cout << g_ptr->elementName(m) << ": " << na <<endl;
+	double se = g_ptr->entropyElement298(m);
+	dnt(3); pr_sf(g_ptr->elementName(m), 3);
+	cout << ": " << na << "      |              ";
+	pr_df( se * na / 1.0E3, 13, 3);
+	printf("\n");
     }
   }
+  dnt(3); printf("                           ");
+  pr_df( stotal/1.0E3, 13, 3);
+  printf(" J/gmol/K \n");
+
   dnt(1); cout << "Electronic Charge = "; 
   pr_dfp(g_ptr->charge(k), 2);
   cout << endl;

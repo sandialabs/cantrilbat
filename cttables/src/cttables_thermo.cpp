@@ -22,13 +22,10 @@
 #include "mdp_allo.h"
 
 #include "cantera/thermo/IdealSolidSolnPhase.h"
-
 #include "cantera/thermo/StoichSubstance.h"
 #include "cantera/thermo/speciesThermoTypes.h"
 #include "cantera/thermo/VPStandardStateTP.h"
 #include "cantera/thermo/PDSS.h"
-
-
 
 #include <iostream>
 #include <new>
@@ -42,8 +39,26 @@ using namespace std;
 
 
 #include "cttables.h"
-
-/***********************************************************************
+//===================================================================================================================================
+//
+// Gather the entropy of the elements of a species at 298 K. this is useful for going back and forth from the
+// gibbs free energy of formation and the absolute gibbs free energy in NIST format.
+//
+double entropyElem298(Cantera::ThermoPhase *g_ptr, size_t k)
+{
+    double se;
+    double stotal = 0.0;
+    for (size_t m = 0; m < g_ptr->nElements(); m++) {
+	double na = g_ptr->nAtoms(k, m);
+	if (na != 0.0) {
+	    se = g_ptr->entropyElement298(m);
+	    stotal += se * na;
+	}
+    }
+    return stotal;
+ }
+//===================================================================================================================================
+/*
  * printVolSpecies():
  *
  *  This routine adds onto a species table the molar volume information
@@ -63,6 +78,11 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
   SpeciesThermo& sp = g_ptr->speciesThermo();
   VPStandardStateTP *  vpss = 0;
   PDSS_enumType ptype;
+  double DH0_tr_pr;
+  double S0_tr_pr;
+  double Mu0_tr_pr;
+  double DG0_tr_pr;
+  double dg_consistent, as, bs, cs;
 
   int rt = sp.reportType(k);
   double c[200];
@@ -73,7 +93,7 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
     printf("report types don't match ERROR\n");
     exit(-1);
   }
-
+  double stotal = entropyElem298(g_ptr, k);
 
   switch (rt) {
   case NASA2:
@@ -98,8 +118,7 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
     dnt(1); printf("SHOMATE Polynomial format: 2 zones\n");
     dnt(2); printf("Low  temperature polynomials: %g < T < %g: \n",
 		   minTemp, c[0]);
-    dnt(2); printf("%17.11g %17.11g %17.11g %17.11g\n",
-		   c[1],  c[2], c[3], c[4]);
+    dnt(2); printf("%17.11g %17.11g %17.11g %17.11g\n", c[1],  c[2], c[3], c[4]);
     dnt(2); printf("%17.11g %17.11g %17.11g\n",
 		   c[5],  c[6], c[7] );
     dnt(2); printf("High temperature polynomials: %g < T < %g: \n",
@@ -125,9 +144,9 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
     dnt(2); printf("temperature polynomials: %g < T < %g: \n",
 		   minTemp, maxTemp);
     dnt(2); printf("%17.11g %17.11g %17.11g %17.11g\n",
-		   c[1],  c[2], c[3], c[4]);
+		   c[0],  c[1], c[2], c[3]);
     dnt(2); printf("%17.11g %17.11g %17.11g\n",
-		   c[5],  c[6], c[7] );
+		   c[4],  c[5], c[6] );
     break;
 
   case CONSTANT_CP:
@@ -184,6 +203,34 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
       index += 11;
     }
     break;
+
+  case MINEQ3:
+      nzones = 1;
+      DH0_tr_pr = c[7];
+      S0_tr_pr = c[8];
+      Mu0_tr_pr = c[9];
+      DG0_tr_pr = c[10];
+      as = c[0] / 4.184;
+      bs = c[1] / (4.184 * 1000.);
+      cs = c[4] * 1.0E6 / 4.184;
+    
+      dg_consistent =  Mu0_tr_pr + 298.15 * (stotal);
+      dnt(1); printf("MinEQ3 format:  (a varient of Shomate1 format) \n");
+      dnt(2); printf("temperature polynomials (Shomate Form): %g < T < %g: \n", minTemp, maxTemp);
+      dnt(2); printf("%17.11g %17.11g %17.11g %17.11g\n", c[0],  c[1], c[2], c[3]);
+      dnt(2); printf("%17.11g %17.11g %17.11g\n",  c[4],  c[5], c[6] );
+      dnt(2); printf("  Delta G0_Tr_Pr = %16.9E cal/gmol\n", DG0_tr_pr / (4.184 * 1.0E3));
+      dnt(2); printf("                 = %16.6g kJ /gmol\n", DG0_tr_pr/1.0E6);
+      dnt(2); printf("  Delta H0_Tr_Pr = %16.9E cal/gmol\n", DH0_tr_pr / (4.184 * 1.0E3));
+      dnt(2); printf("        S0_Tr_Pr = %16.9g cal/gmol/K\n", S0_tr_pr / (4.184 * 1.0E3));
+      dnt(2); printf("                 = %16.6g  J /gmol/K\n", S0_tr_pr / 1.0E3);
+      dnt(2); printf("       mu0_Tr_Pr = %16.6g kJ /gmol\n",   Mu0_tr_pr / 1.0E6);
+      dnt(2); printf(" Delta G0_consis = %16.6g kJ /gmol\n", dg_consistent / 1.0E6);
+      dnt(2); printf("               a = %16.9g cal/gkmol/K\n", as);
+      dnt(2); printf("               b = %16.9g cal/kmol/K2\n", bs);
+      dnt(2); printf("               c = %16.9g cal-K/gmol\n", cs);
+      break;
+
   case PDSS_TYPE:
     dnt(1); printf("Presure Dependent Standard State form\n");
     vpss = dynamic_cast<VPStandardStateTP *>(g_ptr);

@@ -226,6 +226,7 @@ Species name 3 is MgO(S)
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
+    Relative Local To Global Time Step Minimum = (double) with limits (0, 1) with default 0.001
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
@@ -406,6 +407,7 @@ Species name 3 is MgO(S)
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
+    Relative Local To Global Time Step Minimum = (double) with limits (0, 1) with default 0.001
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
@@ -587,6 +589,7 @@ Species name 3 is MgO(S)
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
+    Relative Local To Global Time Step Minimum = (double) with limits (0, 1) with default 0.001
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
@@ -767,6 +770,7 @@ Species name 3 is MgO(S)
     Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
+    Relative Local To Global Time Step Minimum = (double) with limits (0, 1) with default 0.001
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml

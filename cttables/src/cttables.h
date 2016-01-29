@@ -151,6 +151,9 @@ extern void setBathSpeciesConditions(Cantera::ThermoPhase& g,
 extern void printBathSpeciesConditions(Cantera::ThermoPhase& g, 
 		  		       Cantera::PhaseList *pl,
 				       int printLvl);
+
+
+double entropyElem298(Cantera::ThermoPhase *g_ptr, size_t k);
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/
