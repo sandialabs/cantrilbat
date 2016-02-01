@@ -385,7 +385,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	   solve_nonlinear_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
@@ -398,7 +397,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -564,7 +562,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -576,7 +573,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -742,7 +738,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -754,7 +749,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -920,7 +914,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -932,7 +925,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -1098,7 +1090,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0
@@ -1110,7 +1101,6 @@ Phase B boundary layer thickness = 0.001
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    0.0000E+00
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 0, residTrial = 0

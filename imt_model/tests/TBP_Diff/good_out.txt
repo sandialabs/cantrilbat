@@ -477,7 +477,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    6.0011E+01
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	   solve_nonlinear_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
@@ -490,7 +489,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    4.5078E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 4.50783e-07, residTrial = 2.80398e-10
@@ -737,7 +735,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    8.6281E+01
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 86.2809, residTrial = 1.50667e-07
@@ -749,7 +746,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.5067E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.50667e-07, residTrial = 6.9416e-10
@@ -919,7 +915,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    9.9798E+01
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 99.7978, residTrial = 2.42371e-07
@@ -931,7 +926,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    2.4237E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.42371e-07, residTrial = 7.27534e-10
@@ -1178,7 +1172,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.1046E+02
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 110.46, residTrial = 1.87212e-07
@@ -1190,7 +1183,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.8721E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.87212e-07, residTrial = 1.5114e-09
@@ -1360,7 +1352,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.1918E+02
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 119.175, residTrial = 2.93296e-07
@@ -1372,7 +1363,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    2.9330E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.93296e-07, residTrial = 2.96723e-10
@@ -1619,7 +1609,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    8.5054E+01
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 85.0539, residTrial = 1.27608e-07
@@ -1631,7 +1620,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.2761E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.27608e-07, residTrial = 5.69187e-10
@@ -1801,7 +1789,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.3275E+02
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 132.752, residTrial = 2.25851e-07
@@ -1813,7 +1800,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    2.2585E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.25851e-07, residTrial = 4.03335e-10
@@ -2060,7 +2046,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.3820E+02
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 138.202, residTrial = 2.00578e-07
@@ -2072,7 +2057,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    2.0058E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 2.00578e-07, residTrial = 2.72328e-10
@@ -2242,7 +2226,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.4301E+02
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 143.007, residTrial = 1.97408e-07
@@ -2254,7 +2237,6 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.9741E-07
-	   solve_nonlinear_problem(): Calculate the steepest descent direction and Cauchy Point
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
 	              resid0 = 1.97408e-07, residTrial = 1.42475e-09
