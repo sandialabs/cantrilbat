@@ -6,32 +6,32 @@
 #
 ###############################################################
 all:
-	cd ex_gri; @MAKE@
-	cd CO2_solubility_test; @MAKE@
+	cd ex_gri;				@MAKE@
+	cd CO2_solubility_test; 		@MAKE@
 
 test:
-	- cd multiPhase; ./runtest
+	- cd multiPhase; 			@MAKE@ test
 	- cd she_electrode; ./runtest
 	- cd sce_electrode; ./runtest
 	- cd ex_gri; ./runtest
 	- cd CO2_solubility_test; ./runtest
 
 testd:
-	- cd multiPhase; ./runtestd
+	- cd multiPhase;			@MAKE@ testd 
 	- cd she_electrode; ./runtestd
 	- cd sce_electrode; ./runtestd
 	- cd ex_gri; ./runtestd
 	- cd CO2_solubility_test; ./runtestd
 
 clean:
-	cd multiPhase;                 ./cleanup
+	cd multiPhase;         			@MAKE@ clean 
 	cd she_electrode;              ./cleanup
 	cd sce_electrode;              ./cleanup
-	cd ex_gri;                     @MAKE@ clean 
-	cd CO2_solubility_test;        @MAKE@ clean
+	cd ex_gri;                     		@MAKE@ clean 
+	cd CO2_solubility_test;        		@MAKE@ clean
 
 rebaseline:
-	cd multiPhase;       ../rebase.sh
+	cd multiPhase;  			@MAKE@ rebaseline 
 	cd she_electrode;    ../rebase.sh
 	cd sce_electrode;    ../rebase.sh
 	cd ex_gri;                ../rebase.sh

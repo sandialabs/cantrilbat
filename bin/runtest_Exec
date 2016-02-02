@@ -1,8 +1,16 @@
 #!/bin/sh
 #
+################################################################################################################################
+#
 # testExecutable test Harness Runner
 #
-#   Runs a single program putting the standard output in the file "out.txt"
+#   Runs a single generic program putting the standard output in the file "out.txt"
+#
+#   If the test passes, the signal file "runGood" is put into the current directory.
+#   If the test failes, the signal file "runBad" is put into the current directory.
+#
+#   When the test is running, the signal file "runInProgress.txt" is placed into the current directory.
+#   If this file is present, any furthur instantiations of this test in that directory is prevented from starting.
 #   
 #     Files Used:
 #          program_setup.sh    shell variable file that sets up the test problem
@@ -21,7 +29,7 @@
 #
 #                    If the standard output is to be checked then include out.txt in the DATA_FILES list.
 #
-#           csv file to be checked using the diff command:
+#           csv file to be checked using the csvdiff command:
 #             BLESSED_CSV_FILES='table_blessed.csv table_2_blessed.csv'
 #             CSV_FILES='out.txt  out2.txt
 #             DIFF_CSV_NAMES='diff.txt diff_2.txt'
@@ -135,7 +143,6 @@ csvdiff_compare_file() {
       filename="${gg%.*}"
       difname=diff_"$filename".txt
    fi
-   d
 
    csvdiff $bb $gg >> $difname
    retnStat=$?
@@ -194,7 +201,7 @@ shift $(($OPTIND - 1))
 PROGRAM_EXTRA_OPTS=
 if test $# -ge 1
 then
-   //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
+   #echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
    PROGRAM_EXTRA_OPTS=$@
    shift
 fi
@@ -235,6 +242,10 @@ if test ! -x $PROGRAM_SETUP   ; then
     exit -1
 fi
 . ./$PROGRAM_SETUP
+
+PROGRAM_OPTS="$PROGRAM_OPTS "$PROGRAM_EXTRA_OPTS
+# echo 'PROGRAM_OPTS = ' $PROGRAM_OPTS
+
 #
 #############################################################################################################################
 #
@@ -271,10 +282,10 @@ export ELECTRODE_TURN_OFF_PC_PRINTING=true
 #
 if test ! -z $PROGRAM_STD_INPUT
 then
-  $PROGRAM $PROGRAM_EXTRA_OPTS < $PROGRAM_STD_INPUT > out.txt 2>err_out.txt
+  $PROGRAM $PROGRAM_OPTS < $PROGRAM_STD_INPUT > out.txt 2>err_out.txt
   retnStat_run=$?
 else
-  $PROGRAM $PROGRAM_EXTRA_OPTS  > out.txt 2>err_out.txt
+  $PROGRAM $PROGRAM_OPTS  > out.txt 2>err_out.txt
   retnStat_run=$?
 fi
 #
@@ -298,7 +309,7 @@ fi
 # 
 ############################################################################################################################
 #
-# Run the csv diff programs to see if the calculation passes
+# Run the csvdiff programs to see if the calculation passes
 #
 retnStat_cum="0"
 
@@ -319,7 +330,8 @@ do
         /bin/rm runInProgress.txt
         exit -1
     fi
-    csv_compare_file $b $g $n
+    # echo 'Trying the command b = ' $b
+    csvdiff_compare_file $b $g $n
 
     CSV_FILES=`chop_head $DATA_FILES`
     DIFF_CSV_NAMES=`chop_head $DIFF_NAMES`

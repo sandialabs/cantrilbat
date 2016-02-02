@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+#  Makefile.in: 
+#
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = mpequil
+TESTNAME = mpequil_multiPhase
+
+TOPDIR = @abs_top_srcdir@
+
+BASE_PROGRAM=../../src/mpequil
+
+BLESSED_FILES = good_out.txt vcs_equilibrate_blessed.csv 
+
+DATA = mpequil.inp problem_setup.sh \
+       CaCO3_Solid.xml  CaO_Solid.xml  C_Solid.xml  Fe3O4_Solid.xml  FeO_Solid.xml  Fe_Solid.xml  gas.xml
+
+all:   mpequil
+
+mpequil:
+	ln -s ../../src/mpequil .
+
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+testd: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME)"_debug" ': '
+	@gmake -q -s  runGood_debug ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood_debug ; fi
+
+
+runGood: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	/bin/rm -f runGood_release
+	$(TOPDIR)/bin/runtest_Exec
+
+runGood_debug: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	if test -e "runGood" ; then cp runGood runGood_release ; fi
+	@echo 'RUNNING TEST ' $(TESTNAME)"_debug"
+	$(TOPDIR)/bin/runtest_Exec -i problem_setup_d.sh
+	if test -e "runGood" ; then cp runGood runGood_debug ; fi
+	if test -e "runGood_release" ; then mv runGood_release runGood ; fi
+        
+
+rebaseline:
+	cp out.txt good_out.txt
+	cp vcs_equilibrate.csv vcs_equilibrate_blessed.csv
+
+clean:
+	@MAKE@ testclean
+
+testclean:
+	rm -f out.txt err_out.txt  vcs_equilibrate_res.csv  diff_csv.txt  diff_out.txt err_dout.txt diff_dout.txt dout.txt\
+	      runGood runBad runInProgress.txt diff_summary.txt .*swp runGood_debug runGood_release
+
+distclean: 
+	@MAKE@ testclean
+	rm -f mpequil
+
+
+

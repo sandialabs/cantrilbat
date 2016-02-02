@@ -633,17 +633,17 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  8.829E-02  4.770E-02  4.283E-02  1.377E-02  7.562E-04
    ---   NonComponent|   Moles  |         N2       C(d)         O2   Fe_Solid          H     CaO(S)
-   ---   6 CO2       | 0.000E+00|     -0.000     -1.000     -1.000     -0.000     -0.000     -0.000
-   ---   7 H2O       | 0.000E+00|     -0.000     -0.000     -0.500     -0.000     -2.000     -0.000
-   ---   8 CH4       | 0.000E+00|     -0.000     -1.000     -0.000     -0.000     -4.000     -0.000
-   ---   9 CO        | 0.000E+00|     -0.000     -1.000     -0.500     -0.000     -0.000     -0.000
-   ---  10 CHO       | 0.000E+00|     -0.000     -1.000     -0.500     -0.000     -1.000     -0.000
-   ---  11 H2        | 0.000E+00|     -0.000     -0.000     -0.000     -0.000     -2.000     -0.000
-   ---  12 CH2O      | 0.000E+00|     -0.000     -1.000     -0.500     -0.000     -2.000     -0.000
-   ---  13 OH        | 0.000E+00|     -0.000     -0.000     -0.500     -0.000     -1.000     -0.000
-   ---  14 Fe3O4(S)  | 0.000E+00|     -0.000     -0.000     -2.000     -3.000     -0.000     -0.000
-   ---  15 CaCO3(S)  | 0.000E+00|     -0.000     -1.000     -1.000     -0.000     -0.000     -1.000
-   ---  16 FeO_Solid | 0.000E+00|     -0.000     -0.000     -0.500     -1.000     -0.000     -0.000
+   ---   6 CO2       | 0.000E+00|     +0.000     -1.000     -1.000     +0.000     +0.000     +0.000
+   ---   7 H2O       | 0.000E+00|     +0.000     +0.000     -0.500     +0.000     -2.000     +0.000
+   ---   8 CH4       | 0.000E+00|     +0.000     -1.000     +0.000     +0.000     -4.000     +0.000
+   ---   9 CO        | 0.000E+00|     +0.000     -1.000     -0.500     +0.000     +0.000     +0.000
+   ---  10 CHO       | 0.000E+00|     +0.000     -1.000     -0.500     +0.000     -1.000     +0.000
+   ---  11 H2        | 0.000E+00|     +0.000     +0.000     +0.000     +0.000     -2.000     +0.000
+   ---  12 CH2O      | 0.000E+00|     +0.000     -1.000     -0.500     +0.000     -2.000     +0.000
+   ---  13 OH        | 0.000E+00|     +0.000     +0.000     -0.500     +0.000     -1.000     +0.000
+   ---  14 Fe3O4(S)  | 0.000E+00|     +0.000     +0.000     -2.000     -3.000     +0.000     +0.000
+   ---  15 CaCO3(S)  | 0.000E+00|     +0.000     -1.000     -1.000     +0.000     +0.000     -1.000
+   ---  16 FeO_Solid | 0.000E+00|     +0.000     +0.000     -0.500     -1.000     +0.000     +0.000
    ---               largest error in Stoich coeff = 0 at rxn = 0 CO2        element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -780,17 +780,17 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  8.829E-02  1.192E-02  2.385E-02  1.377E-02  7.562E-04
    ---   NonComponent|   Moles  |         N2       C(d)   Fe3O4(S)         O2          H     CaO(S)
-   ---   6 CO2       | 0.000E+00|     -0.000     -1.000     -0.000     -1.000     -0.000     -0.000
-   ---   7 H2O       | 0.000E+00|     -0.000     -0.000     -0.000     -0.500     -2.000     -0.000
-   ---   8 CH4       | 0.000E+00|     -0.000     -1.000     -0.000     -0.000     -4.000     -0.000
-   ---   9 CO        | 0.000E+00|     -0.000     -1.000     -0.000     -0.500     -0.000     -0.000
-   ---  10 CHO       | 0.000E+00|     -0.000     -1.000     -0.000     -0.500     -1.000     -0.000
-   ---  11 H2        | 0.000E+00|     -0.000     -0.000     -0.000     -0.000     -2.000     -0.000
-   ---  12 CH2O      | 0.000E+00|     -0.000     -1.000     -0.000     -0.500     -2.000     -0.000
-   ---  13 OH        | 0.000E+00|     -0.000     -0.000     -0.000     -0.500     -1.000     -0.000
-   ---  14 Fe_Solid  | 7.054E-03|     -0.000     -0.000     -0.333     +0.667     -0.000     -0.000
-   ---  15 CaCO3(S)  | 0.000E+00|     -0.000     -1.000     -0.000     -1.000     -0.000     -1.000
-   ---  16 FeO_Solid | 0.000E+00|     -0.000     -0.000     -0.333     +0.167     -0.000     -0.000
+   ---   6 CO2       | 0.000E+00|     +0.000     -1.000     +0.000     -1.000     +0.000     +0.000
+   ---   7 H2O       | 0.000E+00|     +0.000     +0.000     +0.000     -0.500     -2.000     +0.000
+   ---   8 CH4       | 0.000E+00|     +0.000     -1.000     +0.000     +0.000     -4.000     +0.000
+   ---   9 CO        | 0.000E+00|     +0.000     -1.000     +0.000     -0.500     +0.000     +0.000
+   ---  10 CHO       | 0.000E+00|     +0.000     -1.000     +0.000     -0.500     -1.000     +0.000
+   ---  11 H2        | 0.000E+00|     +0.000     +0.000     +0.000     +0.000     -2.000     +0.000
+   ---  12 CH2O      | 0.000E+00|     +0.000     -1.000     +0.000     -0.500     -2.000     +0.000
+   ---  13 OH        | 0.000E+00|     +0.000     +0.000     +0.000     -0.500     -1.000     +0.000
+   ---  14 Fe_Solid  | 7.054E-03|     +0.000     +0.000     -0.333     +0.667     -0.000     -0.000
+   ---  15 CaCO3(S)  | 0.000E+00|     +0.000     -1.000     +0.000     -1.000     +0.000     -1.000
+   ---  16 FeO_Solid | 0.000E+00|     +0.000     +0.000     -0.333     +0.167     +0.000     +0.000
    ---               largest error in Stoich coeff = 5.55112e-17 at rxn = 10 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -927,17 +927,17 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  8.792E-02  1.192E-02  2.347E-02  1.377E-02  3.781E-04
    ---   NonComponent|   Moles  |         N2       C(d)   Fe3O4(S)         O2          H   CaCO3(S)
-   ---   6 CO2       | 0.000E+00|     -0.000     -1.000     -0.000     -1.000     -0.000     -0.000
-   ---   7 H2O       | 0.000E+00|     -0.000     -0.000     -0.000     -0.500     -2.000     -0.000
-   ---   8 CH4       | 0.000E+00|     -0.000     -1.000     -0.000     +0.000     -4.000     -0.000
-   ---   9 CO        | 0.000E+00|     -0.000     -1.000     -0.000     -0.500     -0.000     -0.000
-   ---  10 CHO       | 0.000E+00|     -0.000     -1.000     -0.000     -0.500     -1.000     -0.000
-   ---  11 H2        | 0.000E+00|     -0.000     -0.000     -0.000     +0.000     -2.000     -0.000
-   ---  12 CH2O      | 0.000E+00|     -0.000     -1.000     -0.000     -0.500     -2.000     -0.000
-   ---  13 OH        | 0.000E+00|     -0.000     -0.000     -0.000     -0.500     -1.000     -0.000
-   ---  14 Fe_Solid  | 7.054E-03|     -0.000     -0.000     -0.333     +0.667     -0.000     -0.000
-   ---  15 CaO(S)    | 3.781E-04|     -0.000     +1.000     -0.000     +1.000     -0.000     -1.000
-   ---  16 FeO_Solid | 0.000E+00|     -0.000     -0.000     -0.333     +0.167     -0.000     -0.000
+   ---   6 CO2       | 0.000E+00|     +0.000     -1.000     +0.000     -1.000     +0.000     +0.000
+   ---   7 H2O       | 0.000E+00|     +0.000     +0.000     +0.000     -0.500     -2.000     +0.000
+   ---   8 CH4       | 0.000E+00|     +0.000     -1.000     +0.000     +0.000     -4.000     +0.000
+   ---   9 CO        | 0.000E+00|     +0.000     -1.000     +0.000     -0.500     +0.000     +0.000
+   ---  10 CHO       | 0.000E+00|     +0.000     -1.000     +0.000     -0.500     -1.000     +0.000
+   ---  11 H2        | 0.000E+00|     +0.000     +0.000     +0.000     +0.000     -2.000     +0.000
+   ---  12 CH2O      | 0.000E+00|     +0.000     -1.000     +0.000     -0.500     -2.000     +0.000
+   ---  13 OH        | 0.000E+00|     +0.000     +0.000     +0.000     -0.500     -1.000     +0.000
+   ---  14 Fe_Solid  | 7.054E-03|     +0.000     +0.000     -0.333     +0.667     -0.000     -0.000
+   ---  15 CaO(S)    | 3.781E-04|     +0.000     +1.000     +0.000     +1.000     +0.000     -1.000
+   ---  16 FeO_Solid | 0.000E+00|     +0.000     +0.000     -0.333     +0.167     +0.000     +0.000
    ---               largest error in Stoich coeff = 5.55112e-17 at rxn = 10 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -979,44 +979,44 @@ VCS CALCULATION METHOD
    --- Subroutine vcs_RxnStepSizes called - Details:
    ----------------------------------------------------------------------------------
    --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
-   --- CO2             0.0000E+00   3.3199E-26  -3.6397E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.640E+02
-   --- H2O             0.0000E+00   3.3199E-26  -5.6500E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.650E+02
-   --- CH4             0.0000E+00   3.3199E-26  -7.6504E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -7.650E+02
-   --- CO              0.0000E+00   3.3199E-26  -3.4318E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.432E+02
-   --- CHO             0.0000E+00   3.3199E-26  -4.3866E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.387E+02
-   --- H2              0.0000E+00   3.3199E-26  -5.4438E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.444E+02
-   --- CH2O            0.0000E+00   3.3199E-26  -5.5311E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.531E+02
-   --- OH              0.0000E+00   3.3199E-26  -4.2891E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.289E+02
+   --- CO2             0.0000E+00   3.3199E-25  -3.6397E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.640E+02
+   --- H2O             0.0000E+00   3.3199E-25  -5.6500E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.650E+02
+   --- CH4             0.0000E+00   3.3199E-25  -7.6504E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -7.650E+02
+   --- CO              0.0000E+00   3.3199E-25  -3.4318E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.432E+02
+   --- CHO             0.0000E+00   3.3199E-25  -4.3866E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.387E+02
+   --- H2              0.0000E+00   3.3199E-25  -5.4438E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.444E+02
+   --- CH2O            0.0000E+00   3.3199E-25  -5.5311E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.531E+02
+   --- OH              0.0000E+00   3.3199E-25  -4.2891E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.289E+02
    --- Fe_Solid        7.0540E-03  -7.0540E-03   2.7615E+01 | Delta damped from -0.0352059 to -0.00705395 due to Fe_Solid going negative
    --- CaO(S)          3.7810E-04  -3.7810E-04   4.5080E+01 | Delta damped from -0.0234706 to -0.0003781 due to CaO(S) going negative
    --- FeO_Solid       0.0000E+00   0.0000E+00   6.5297E+00 | Skipped: IC =  -3 and DG >0:   6.530E+00
    ----------------------------------------------------------------------------------
    --- Main Loop Treatment of each non-component species - Full Calculation:
    --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
-   --- CO2 currently zeroed (SpStatus=-7):  0 DG = -3.6397E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- CO2 currently zeroed (SpStatus=-7):  0 DG = -3.6397E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: CO2         
-   --- CO2           0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-3.6397E+02
-   --- H2O currently zeroed (SpStatus=-7):  1 DG = -5.6500E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- CO2           0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-3.6397E+02
+   --- H2O currently zeroed (SpStatus=-7):  1 DG = -5.6500E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: H2O         
-   --- H2O           0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-5.6500E+02
-   --- CH4 currently zeroed (SpStatus=-7):  2 DG = -7.6504E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- H2O           0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-5.6500E+02
+   --- CH4 currently zeroed (SpStatus=-7):  2 DG = -7.6504E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: CH4         
-   --- CH4           0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-7.6504E+02
-   --- CO currently zeroed (SpStatus=-7):  3 DG = -3.4318E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- CH4           0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-7.6504E+02
+   --- CO currently zeroed (SpStatus=-7):  3 DG = -3.4318E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: CO          
-   --- CO            0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-3.4318E+02
-   --- CHO currently zeroed (SpStatus=-7):  4 DG = -4.3866E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- CO            0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-3.4318E+02
+   --- CHO currently zeroed (SpStatus=-7):  4 DG = -4.3866E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: CHO         
-   --- CHO           0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-4.3866E+02
-   --- H2 currently zeroed (SpStatus=-7):  5 DG = -5.4438E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- CHO           0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-4.3866E+02
+   --- H2 currently zeroed (SpStatus=-7):  5 DG = -5.4438E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: H2          
-   --- H2            0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-5.4438E+02
-   --- CH2O currently zeroed (SpStatus=-7):  6 DG = -5.5311E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- H2            0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-5.4438E+02
+   --- CH2O currently zeroed (SpStatus=-7):  6 DG = -5.5311E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: CH2O        
-   --- CH2O          0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-5.5311E+02
-   --- OH currently zeroed (SpStatus=-7):  7 DG = -4.2891E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-26
+   --- CH2O          0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-5.5311E+02
+   --- OH currently zeroed (SpStatus=-7):  7 DG = -4.2891E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.3199E-25
    --- Zeroed species changed to minor: OH          
-   --- OH            0 0.0000E+00 3.3199E-28 3.3199E-28 | Born:IC=-1 to IC=1:DG=-4.2891E+02
+   --- OH            0 0.0000E+00 3.3199E-27 3.3199E-27 | Born:IC=-1 to IC=1:DG=-4.2891E+02
    --- SS species changed to zeroedss: Fe_Solid    
    --- Fe_Solid     -3 7.0540E-03 0.0000E+00-7.0540E-03 | zeroing out SS phase: 
    --- Fe_Solid     Main Loop Special Case deleting phase with species: 
@@ -1099,44 +1099,44 @@ VCS CALCULATION METHOD
    --- Subroutine vcs_RxnStepSizes called - Details:
    ----------------------------------------------------------------------------------
    --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
-   --- CO2             0.0000E+00   3.2258E-26  -3.6374E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.637E+02
-   --- H2O             0.0000E+00   3.2258E-26  -5.6492E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.649E+02
-   --- CH4             0.0000E+00   3.2258E-26  -7.6510E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -7.651E+02
-   --- CO              0.0000E+00   3.2258E-26  -3.4306E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.431E+02
-   --- CHO             0.0000E+00   3.2258E-26  -4.3856E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.386E+02
-   --- H2              0.0000E+00   3.2258E-26  -5.4440E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.444E+02
-   --- CH2O            0.0000E+00   3.2258E-26  -5.5303E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.530E+02
-   --- OH              0.0000E+00   3.2258E-26  -4.2880E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.288E+02
+   --- CO2             0.0000E+00   3.2258E-25  -3.6374E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.637E+02
+   --- H2O             0.0000E+00   3.2258E-25  -5.6492E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.649E+02
+   --- CH4             0.0000E+00   3.2258E-25  -7.6510E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -7.651E+02
+   --- CO              0.0000E+00   3.2258E-25  -3.4306E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -3.431E+02
+   --- CHO             0.0000E+00   3.2258E-25  -4.3856E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.386E+02
+   --- H2              0.0000E+00   3.2258E-25  -5.4440E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.444E+02
+   --- CH2O            0.0000E+00   3.2258E-25  -5.5303E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -5.530E+02
+   --- OH              0.0000E+00   3.2258E-25  -4.2880E+02 | MultSpec (Tmp Zeroed in MS): small species born again DG =  -4.288E+02
    --- Fe_Solid        0.0000E+00   0.0000E+00   2.7480E+01 | Skipped: IC =  -3 and DG >0:   2.748E+01
    --- CaO(S)          3.7810E-04  -3.7810E-04   4.4877E+01 | Delta damped from -0.018768 to -0.0003781 due to CaO(S) going negative
    --- FeO_Solid       0.0000E+00   0.0000E+00   6.4960E+00 | Skipped: IC =  -3 and DG >0:   6.496E+00
    ----------------------------------------------------------------------------------
    --- Main Loop Treatment of each non-component species - Major Components Calculation:
    --- Species     IC     KMoles  Tent_KMoles Rxn_Adj   |    Comment 
-   --- CO2 currently zeroed (SpStatus=-7):  0 DG = -3.6374E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- CO2 currently zeroed (SpStatus=-7):  0 DG = -3.6374E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: CO2         
-   --- CO2           0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-3.6374E+02
-   --- H2O currently zeroed (SpStatus=-7):  1 DG = -5.6492E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- CO2           0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-3.6374E+02
+   --- H2O currently zeroed (SpStatus=-7):  1 DG = -5.6492E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: H2O         
-   --- H2O           0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-5.6492E+02
-   --- CH4 currently zeroed (SpStatus=-7):  2 DG = -7.6510E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- H2O           0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-5.6492E+02
+   --- CH4 currently zeroed (SpStatus=-7):  2 DG = -7.6510E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: CH4         
-   --- CH4           0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-7.6510E+02
-   --- CO currently zeroed (SpStatus=-7):  3 DG = -3.4306E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- CH4           0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-7.6510E+02
+   --- CO currently zeroed (SpStatus=-7):  3 DG = -3.4306E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: CO          
-   --- CO            0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-3.4306E+02
-   --- CHO currently zeroed (SpStatus=-7):  4 DG = -4.3856E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- CO            0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-3.4306E+02
+   --- CHO currently zeroed (SpStatus=-7):  4 DG = -4.3856E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: CHO         
-   --- CHO           0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-4.3856E+02
-   --- H2 currently zeroed (SpStatus=-7):  5 DG = -5.4440E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- CHO           0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-4.3856E+02
+   --- H2 currently zeroed (SpStatus=-7):  5 DG = -5.4440E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: H2          
-   --- H2            0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-5.4440E+02
-   --- CH2O currently zeroed (SpStatus=-7):  6 DG = -5.5303E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- H2            0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-5.4440E+02
+   --- CH2O currently zeroed (SpStatus=-7):  6 DG = -5.5303E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: CH2O        
-   --- CH2O          0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-5.5303E+02
-   --- OH currently zeroed (SpStatus=-7):  7 DG = -4.2880E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-26
+   --- CH2O          0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-5.5303E+02
+   --- OH currently zeroed (SpStatus=-7):  7 DG = -4.2880E+02 WT =  0.0000E+00 W =  0.0000E+00 DS =  3.2258E-25
    --- Zeroed species changed to minor: OH          
-   --- OH            0 0.0000E+00 3.2258E-28 3.2258E-28 | Born:IC=-1 to IC=1:DG=-4.2880E+02
+   --- OH            0 0.0000E+00 3.2258E-27 3.2258E-27 | Born:IC=-1 to IC=1:DG=-4.2880E+02
    --- Fe_Solid currently zeroed (SpStatus=-3):  8 DG =  2.7480E+01 WT =  0.0000E+00 W =  0.0000E+00 DS =  0.0000E+00
    --- Fe_Solid     -3 0.0000E+00 0.0000E+00 0.0000E+00 | Species stays zeroed: DG =  2.7480E+01
    --- SS species changed to zeroedss: CaO(S)      
@@ -1215,14 +1215,14 @@ VCS CALCULATION METHOD
    --- Subroutine vcs_RxnStepSizes called - Details:
    ----------------------------------------------------------------------------------
    --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
-   --- CO2             0.0000E+00   3.2183E-26  -3.6372E+02 | MultSpec (Minor Species): small species born again DG =  -3.637E+02
-   --- H2O             0.0000E+00   3.2183E-26  -5.6491E+02 | MultSpec (Minor Species): small species born again DG =  -5.649E+02
-   --- CH4             0.0000E+00   3.2183E-26  -7.6511E+02 | MultSpec (Minor Species): small species born again DG =  -7.651E+02
-   --- CO              0.0000E+00   3.2183E-26  -3.4305E+02 | MultSpec (Minor Species): small species born again DG =  -3.430E+02
-   --- CHO             0.0000E+00   3.2183E-26  -4.3855E+02 | MultSpec (Minor Species): small species born again DG =  -4.385E+02
-   --- H2              0.0000E+00   3.2183E-26  -5.4440E+02 | MultSpec (Minor Species): small species born again DG =  -5.444E+02
-   --- CH2O            0.0000E+00   3.2183E-26  -5.5302E+02 | MultSpec (Minor Species): small species born again DG =  -5.530E+02
-   --- OH              0.0000E+00   3.2183E-26  -4.2879E+02 | MultSpec (Minor Species): small species born again DG =  -4.288E+02
+   --- CO2             0.0000E+00   3.2183E-25  -3.6372E+02 | MultSpec (Minor Species): small species born again DG =  -3.637E+02
+   --- H2O             0.0000E+00   3.2183E-25  -5.6491E+02 | MultSpec (Minor Species): small species born again DG =  -5.649E+02
+   --- CH4             0.0000E+00   3.2183E-25  -7.6511E+02 | MultSpec (Minor Species): small species born again DG =  -7.651E+02
+   --- CO              0.0000E+00   3.2183E-25  -3.4305E+02 | MultSpec (Minor Species): small species born again DG =  -3.430E+02
+   --- CHO             0.0000E+00   3.2183E-25  -4.3855E+02 | MultSpec (Minor Species): small species born again DG =  -4.385E+02
+   --- H2              0.0000E+00   3.2183E-25  -5.4440E+02 | MultSpec (Minor Species): small species born again DG =  -5.444E+02
+   --- CH2O            0.0000E+00   3.2183E-25  -5.5302E+02 | MultSpec (Minor Species): small species born again DG =  -5.530E+02
+   --- OH              0.0000E+00   3.2183E-25  -4.2879E+02 | MultSpec (Minor Species): small species born again DG =  -4.288E+02
    --- Fe_Solid        0.0000E+00   0.0000E+00   2.7467E+01 | Skipped: IC =  -3 and DG >0:   2.747E+01
    --- CaO(S)          0.0000E+00   0.0000E+00   4.4858E+01 | Skipped: IC =  -3 and DG >0:   4.486E+01
    --- FeO_Solid       0.0000E+00   0.0000E+00   6.4929E+00 | Skipped: IC =  -3 and DG >0:   6.493E+00
@@ -1532,18 +1532,18 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  1.428E-02  8.425E-02  1.642E-02  1.487E-03  7.562E-04
    ---   NonComponent|   Moles  |         N2   Fe3O4(S)       C(d)         O2       CH2O   CaCO3(S)
-   ---   6 CO2       | 2.193E-05|     -0.000     -0.000     -1.000     -1.000     -0.000     -0.000
-   ---   7 H2O       | 1.559E-03|     -0.000     -0.000     +1.000     +0.000     -1.000     -0.000
-   ---   8 CH4       | 9.627E-04|     -0.000     -0.000     +1.000     +1.000     -2.000     -0.000
-   ---   9 CO        | 2.193E-05|     -0.000     -0.000     -1.000     -0.500     -0.000     -0.000
-   ---  10 CHO       | 7.958E-04|     -0.000     -0.000     -0.500     -0.250     -0.500     -0.000
-   ---  11 H2        | 1.435E-03|     -0.000     -0.000     +1.000     +0.500     -1.000     -0.000
-   ---  12 H         | 1.350E-04|     -0.000     -0.000     +0.500     +0.250     -0.500     -0.000
-   ---  13 OH        | 2.193E-05|     -0.000     -0.000     +0.500     -0.250     -0.500     -0.000
-   ---  14 Fe_Solid  | 0.000E+00|     -0.000     -0.333     -0.000     +0.667     -0.000     -0.000
-   ---  15 CaO(S)    | 0.000E+00|     -0.000     -0.000     +1.000     +1.000     -0.000     -1.000
-   ---  16 FeO_Solid | 0.000E+00|     -0.000     -0.333     -0.000     +0.167     -0.000     -0.000
-   ---               largest error in Stoich coeff = 1.11022e-16 at rxn = 7 OH         element = 2 C    
+   ---   6 CO2       | 2.193E-05|     +0.000     +0.000     -1.000     -1.000     +0.000     +0.000
+   ---   7 H2O       | 1.559E-03|     +0.000     +0.000     +1.000     +0.000     -1.000     +0.000
+   ---   8 CH4       | 9.627E-04|     +0.000     +0.000     +1.000     +1.000     -2.000     +0.000
+   ---   9 CO        | 2.193E-05|     +0.000     +0.000     -1.000     -0.500     +0.000     +0.000
+   ---  10 CHO       | 7.958E-04|     +0.000     +0.000     -0.500     -0.250     -0.500     +0.000
+   ---  11 H2        | 1.435E-03|     +0.000     +0.000     +1.000     +0.500     -1.000     +0.000
+   ---  12 H         | 1.350E-04|     +0.000     +0.000     +0.500     +0.250     -0.500     +0.000
+   ---  13 OH        | 2.193E-05|     +0.000     +0.000     +0.500     -0.250     -0.500     +0.000
+   ---  14 Fe_Solid  | 0.000E+00|     +0.000     -0.333     -0.000     +0.667     -0.000     -0.000
+   ---  15 CaO(S)    | 0.000E+00|     +0.000     +0.000     +1.000     +1.000     +0.000     -1.000
+   ---  16 FeO_Solid | 0.000E+00|     +0.000     -0.333     +0.000     +0.167     +0.000     +0.000
+   ---               largest error in Stoich coeff = 5.55112e-17 at rxn = 10 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
   --- Species Status decision is reevaluated: All species are minor except for:
@@ -1698,17 +1698,17 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  1.428E-02  7.768E-02  1.089E-02  3.770E-03  7.562E-04
    ---   NonComponent|   Moles  |         N2   Fe3O4(S)       C(d)         O2        CHO   CaCO3(S)
-   ---   6 CO2       | 2.193E-03|     -0.000     -0.000     -1.000     -1.000     -0.000     -0.000
-   ---   7 H2O       | 3.046E-03|     -0.000     -0.000     +2.000     +0.500     -2.000     -0.000
-   ---   8 CH4       | 9.627E-05|     -0.000     -0.000     +3.000     +2.000     -4.000     -0.000
-   ---   9 CO        | 2.193E-03|     -0.000     -0.000     -1.000     -0.500     -0.000     -0.000
-   ---  10 CH2O      | 1.608E-03|     -0.000     -0.000     +1.000     +0.500     -2.000     -0.000
-   ---  11 H2        | 1.435E-04|     -0.000     -0.000     +2.000     +1.000     -2.000     -0.000
-   ---  12 H         | 1.350E-05|     -0.000     -0.000     +1.000     +0.500     -1.000     -0.000
-   ---  13 OH        | 2.193E-06|     -0.000     -0.000     +1.000     +0.000     -1.000     -0.000
-   ---  14 Fe_Solid  | 0.000E+00|     -0.000     -0.333     -0.000     +0.667     -0.000     -0.000
-   ---  15 CaO(S)    | 0.000E+00|     -0.000     -0.000     +1.000     +1.000     -0.000     -1.000
-   ---  16 FeO_Solid | 0.000E+00|     -0.000     -0.333     -0.000     +0.167     -0.000     -0.000
+   ---   6 CO2       | 2.193E-03|     +0.000     +0.000     -1.000     -1.000     +0.000     +0.000
+   ---   7 H2O       | 3.046E-03|     +0.000     +0.000     +2.000     +0.500     -2.000     +0.000
+   ---   8 CH4       | 9.627E-05|     +0.000     +0.000     +3.000     +2.000     -4.000     +0.000
+   ---   9 CO        | 2.193E-03|     +0.000     +0.000     -1.000     -0.500     +0.000     +0.000
+   ---  10 CH2O      | 1.608E-03|     +0.000     +0.000     +1.000     +0.500     -2.000     +0.000
+   ---  11 H2        | 1.435E-04|     +0.000     +0.000     +2.000     +1.000     -2.000     +0.000
+   ---  12 H         | 1.350E-05|     +0.000     +0.000     +1.000     +0.500     -1.000     +0.000
+   ---  13 OH        | 2.193E-06|     +0.000     +0.000     +1.000     +0.000     -1.000     +0.000
+   ---  14 Fe_Solid  | 0.000E+00|     +0.000     -0.333     -0.000     +0.667     -0.000     -0.000
+   ---  15 CaO(S)    | 0.000E+00|     +0.000     +0.000     +1.000     +1.000     +0.000     -1.000
+   ---  16 FeO_Solid | 0.000E+00|     +0.000     -0.333     +0.000     +0.167     +0.000     +0.000
    ---               largest error in Stoich coeff = 5.55112e-17 at rxn = 10 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -1863,18 +1863,18 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  1.428E-02  6.246E-02  1.293E-02  3.975E-03  7.562E-04
    ---   NonComponent|   Moles  |         N2   Fe3O4(S)       C(d)         CO        H2O   CaCO3(S)
-   ---   6 CO2       | 7.560E-03|     -0.000     -0.000     +1.000     -2.000     -0.000     -0.000
-   ---   7 CHO       | 3.643E-03|     -0.000     -0.000     -0.500     -0.500     -0.500     -0.000
-   ---   8 CH4       | 5.356E-05|     -0.000     -0.000     -3.000     +2.000     -2.000     -0.000
-   ---   9 O2        | 1.089E-04|     -0.000     -0.000     +2.000     -2.000     -0.000     -0.000
-   ---  10 CH2O      | 8.945E-04|     -0.000     -0.000     -1.000     +0.000     -1.000     -0.000
-   ---  11 H2        | 7.983E-05|     -0.000     -0.000     -1.000     +1.000     -1.000     -0.000
-   ---  12 H         | 7.512E-06|     -0.000     -0.000     -0.500     +0.500     -0.500     -0.000
-   ---  13 OH        | 1.220E-06|     -0.000     -0.000     +0.500     -0.500     -0.500     -0.000
-   ---  14 Fe_Solid  | 0.000E+00|     -0.000     -0.333     -1.333     +1.333     -0.000     -0.000
-   ---  15 CaO(S)    | 0.000E+00|     -0.000     -0.000     -1.000     +2.000     -0.000     -1.000
-   ---  16 FeO_Solid | 0.000E+00|     -0.000     -0.333     -0.333     +0.333     -0.000     -0.000
-   ---               largest error in Stoich coeff = 2.22045e-16 at rxn = 8 Fe_Solid   element = 2 C    
+   ---   6 CO2       | 7.560E-03|     +0.000     +0.000     +1.000     -2.000     +0.000     +0.000
+   ---   7 CHO       | 3.643E-03|     +0.000     +0.000     -0.500     -0.500     -0.500     +0.000
+   ---   8 CH4       | 5.356E-05|     +0.000     +0.000     -3.000     +2.000     -2.000     +0.000
+   ---   9 O2        | 1.089E-04|     +0.000     +0.000     +2.000     -2.000     +0.000     +0.000
+   ---  10 CH2O      | 8.945E-04|     +0.000     +0.000     -1.000     +0.000     -1.000     +0.000
+   ---  11 H2        | 7.983E-05|     +0.000     +0.000     -1.000     +1.000     -1.000     +0.000
+   ---  12 H         | 7.512E-06|     +0.000     +0.000     -0.500     +0.500     -0.500     +0.000
+   ---  13 OH        | 1.220E-06|     +0.000     +0.000     +0.500     -0.500     -0.500     +0.000
+   ---  14 Fe_Solid  | 0.000E+00|     +0.000     -0.333     -1.333     +1.333     -0.000     -0.000
+   ---  15 CaO(S)    | 0.000E+00|     +0.000     +0.000     -1.000     +2.000     +0.000     -1.000
+   ---  16 FeO_Solid | 0.000E+00|     +0.000     -0.333     -0.333     +0.333     +0.000     +0.000
+   ---               largest error in Stoich coeff = 5.55112e-17 at rxn = 10 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
   --- Species Status decision is reevaluated: All species are minor except for:
@@ -2271,17 +2271,17 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  6.291E-02  1.601E-02  2.671E-02  4.700E-03  5.653E-04
    ---   NonComponent|   Moles  |         N2         CO  FeO_Solid   Fe_Solid        H2O     CaO(S)
-   ---   6 CO2       | 4.306E-03|     -0.000     -1.000     -1.000     +1.000     -0.000     -0.000
-   ---   7 CHO       | 2.020E-03|     -0.000     -1.000     +0.500     -0.500     -0.500     -0.000
-   ---   8 CH4       | 1.561E-04|     -0.000     -1.000     +3.000     -3.000     -2.000     -0.000
-   ---   9 O2        | 6.037E-05|     -0.000     -0.000     -2.000     +2.000     -0.000     -0.000
-   ---  10 CH2O      | 4.960E-04|     -0.000     -1.000     +1.000     -1.000     -1.000     -0.000
-   ---  11 H2        | 3.620E-04|     -0.000     -0.000     +1.000     -1.000     -1.000     -0.000
-   ---  12 H         | 3.794E-06|     -0.000     -0.000     +0.500     -0.500     -0.500     -0.000
-   ---  13 OH        | 6.160E-07|     -0.000     -0.000     -0.500     +0.500     -0.500     -0.000
-   ---  14 Fe3O4(S)  | 3.569E-05|     -0.000     -0.000     -4.000     +1.000     -0.000     -0.000
-   ---  15 CaCO3(S)  | 1.909E-04|     -0.000     -1.000     -1.000     +1.000     -0.000     -1.000
-   ---  16 C(d)      | 1.821E-02|     -0.000     -1.000     +1.000     -1.000     -0.000     -0.000
+   ---   6 CO2       | 4.306E-03|     +0.000     -1.000     -1.000     +1.000     +0.000     +0.000
+   ---   7 CHO       | 2.020E-03|     +0.000     -1.000     +0.500     -0.500     -0.500     +0.000
+   ---   8 CH4       | 1.561E-04|     +0.000     -1.000     +3.000     -3.000     -2.000     +0.000
+   ---   9 O2        | 6.037E-05|     +0.000     +0.000     -2.000     +2.000     -0.000     -0.000
+   ---  10 CH2O      | 4.960E-04|     +0.000     -1.000     +1.000     -1.000     -1.000     +0.000
+   ---  11 H2        | 3.620E-04|     +0.000     +0.000     +1.000     -1.000     -1.000     +0.000
+   ---  12 H         | 3.794E-06|     +0.000     +0.000     +0.500     -0.500     -0.500     +0.000
+   ---  13 OH        | 6.160E-07|     +0.000     +0.000     -0.500     +0.500     -0.500     +0.000
+   ---  14 Fe3O4(S)  | 3.569E-05|     +0.000     +0.000     -4.000     +1.000     +0.000     +0.000
+   ---  15 CaCO3(S)  | 1.909E-04|     +0.000     -1.000     -1.000     +1.000     +0.000     -1.000
+   ---  16 C(d)      | 1.821E-02|     +0.000     -1.000     +1.000     -1.000     +0.000     +0.000
    ---               largest error in Stoich coeff = 0 at rxn = 0 CO2        element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -2504,18 +2504,18 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  6.786E-02  4.267E-02  9.978E-03  5.066E-03  5.246E-04
    ---   NonComponent|   Moles  |         N2         CO   Fe_Solid        CO2        H2O   CaCO3(S)
-   ---   6 FeO_Solid | 1.615E-04|     -0.000     +1.000     -1.000     -1.000     -0.000     -0.000
-   ---   7 CHO       | 9.468E-04|     -0.000     -1.500     -0.000     +0.500     -0.500     -0.000
-   ---   8 CH4       | 7.317E-05|     -0.000     -4.000     -0.000     +3.000     -2.000     -0.000
-   ---   9 O2        | 6.037E-05|     -0.000     +2.000     -0.000     -2.000     -0.000     -0.000
-   ---  10 CH2O      | 2.325E-04|     -0.000     -2.000     -0.000     +1.000     -1.000     -0.000
-   ---  11 H2        | 9.630E-04|     -0.000     -1.000     -0.000     +1.000     -1.000     -0.000
-   ---  12 H         | 3.794E-06|     -0.000     -0.500     -0.000     +0.500     -0.500     -0.000
-   ---  13 OH        | 6.160E-07|     -0.000     +0.500     -0.000     -0.500     -0.500     -0.000
-   ---  14 Fe3O4(S)  | 0.000E+00|     -0.000     +4.000     -3.000     -4.000     -0.000     -0.000
-   ---  15 CaO(S)    | 2.316E-04|     -0.000     -0.000     -0.000     +1.000     -0.000     -1.000
-   ---  16 C(d)      | 8.678E-03|     -0.000     -2.000     -0.000     +1.000     -0.000     -0.000
-   ---               largest error in Stoich coeff = 4.44089e-16 at rxn = 2 CH4        element = 2 C    
+   ---   6 FeO_Solid | 1.615E-04|     +0.000     +1.000     -1.000     -1.000     +0.000     +0.000
+   ---   7 CHO       | 9.468E-04|     +0.000     -1.500     +0.000     +0.500     -0.500     +0.000
+   ---   8 CH4       | 7.317E-05|     +0.000     -4.000     +0.000     +3.000     -2.000     +0.000
+   ---   9 O2        | 6.037E-05|     +0.000     +2.000     +0.000     -2.000     +0.000     +0.000
+   ---  10 CH2O      | 2.325E-04|     +0.000     -2.000     +0.000     +1.000     -1.000     +0.000
+   ---  11 H2        | 9.630E-04|     +0.000     -1.000     +0.000     +1.000     -1.000     +0.000
+   ---  12 H         | 3.794E-06|     +0.000     -0.500     +0.000     +0.500     -0.500     +0.000
+   ---  13 OH        | 6.160E-07|     +0.000     +0.500     +0.000     -0.500     -0.500     +0.000
+   ---  14 Fe3O4(S)  | 0.000E+00|     +0.000     +4.000     -3.000     -4.000     +0.000     +0.000
+   ---  15 CaO(S)    | 2.316E-04|     +0.000     +0.000     +0.000     +1.000     +0.000     -1.000
+   ---  16 C(d)      | 8.678E-03|     +0.000     -2.000     +0.000     +1.000     +0.000     +0.000
+   ---               largest error in Stoich coeff = 0 at rxn = 0 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
   --- Species Status decision is reevaluated: All species are minor except for:
@@ -2758,17 +2758,17 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  7.949E-02  4.283E-02  6.430E-03  2.894E-03  7.510E-04
    ---   NonComponent|   Moles  |         N2         CO   Fe_Solid        CO2        H2O     CaO(S)
-   ---   6 FeO_Solid | 0.000E+00|     -0.000     +1.000     -1.000     -1.000     -0.000     -0.000
-   ---   7 CHO       | 1.032E-04|     -0.000     -1.500     -0.000     +0.500     -0.500     -0.000
-   ---   8 CH4       | 1.063E-04|     -0.000     -4.000     -0.000     +3.000     -2.000     -0.000
-   ---   9 O2        | 6.581E-06|     -0.000     +2.000     -0.000     -2.000     -0.000     -0.000
-   ---  10 CH2O      | 2.534E-05|     -0.000     -2.000     -0.000     +1.000     -1.000     -0.000
-   ---  11 H2        | 3.697E-03|     -0.000     -1.000     -0.000     +1.000     -1.000     -0.000
-   ---  12 H         | 3.794E-06|     -0.000     -0.500     -0.000     +0.500     -0.500     -0.000
-   ---  13 OH        | 6.160E-07|     -0.000     +0.500     -0.000     -0.500     -0.500     -0.000
-   ---  14 Fe3O4(S)  | 0.000E+00|     -0.000     +4.000     -3.000     -4.000     -0.000     -0.000
-   ---  15 CaCO3(S)  | 5.246E-06|     -0.000     -0.000     -0.000     -1.000     -0.000     -1.000
-   ---  16 C(d)      | 2.136E-03|     -0.000     -2.000     -0.000     +1.000     -0.000     -0.000
+   ---   6 FeO_Solid | 0.000E+00|     +0.000     +1.000     -1.000     -1.000     +0.000     +0.000
+   ---   7 CHO       | 1.032E-04|     +0.000     -1.500     +0.000     +0.500     -0.500     +0.000
+   ---   8 CH4       | 1.063E-04|     +0.000     -4.000     +0.000     +3.000     -2.000     +0.000
+   ---   9 O2        | 6.581E-06|     +0.000     +2.000     +0.000     -2.000     +0.000     +0.000
+   ---  10 CH2O      | 2.534E-05|     +0.000     -2.000     +0.000     +1.000     -1.000     +0.000
+   ---  11 H2        | 3.697E-03|     +0.000     -1.000     +0.000     +1.000     -1.000     +0.000
+   ---  12 H         | 3.794E-06|     +0.000     -0.500     +0.000     +0.500     -0.500     +0.000
+   ---  13 OH        | 6.160E-07|     +0.000     +0.500     +0.000     -0.500     -0.500     +0.000
+   ---  14 Fe3O4(S)  | 0.000E+00|     +0.000     +4.000     -3.000     -4.000     +0.000     +0.000
+   ---  15 CaCO3(S)  | 5.246E-06|     +0.000     +0.000     +0.000     -1.000     +0.000     -1.000
+   ---  16 C(d)      | 2.136E-03|     +0.000     -2.000     +0.000     +1.000     +0.000     +0.000
    ---               largest error in Stoich coeff = 0 at rxn = 0 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -3053,17 +3053,17 @@ VCS CALCULATION METHOD
    ---                Components:          0          1          2          3          4          5
    ---          Components Moles:  1.871E-01  7.929E-02  4.283E-02  7.359E-03  5.233E-03  7.562E-04
    ---   NonComponent|   Moles  |         N2         CO   Fe_Solid        CO2         H2     CaO(S)
-   ---   6 FeO_Solid | 0.000E+00|     -0.000     +1.000     -1.000     -1.000     -0.000     -0.000
-   ---   7 CHO       | 5.391E-05|     -0.000     -1.000     -0.000     -0.000     -0.500     -0.000
-   ---   8 CH4       | 1.483E-04|     -0.000     -2.000     -0.000     +1.000     -2.000     -0.000
-   ---   9 O2        | 3.438E-06|     -0.000     +2.000     -0.000     -2.000     -0.000     -0.000
-   ---  10 CH2O      | 1.324E-05|     -0.000     -1.000     -0.000     -0.000     -1.000     -0.000
-   ---  11 H2O       | 1.311E-03|     -0.000     +1.000     -0.000     -1.000     -1.000     -0.000
-   ---  12 H         | 3.794E-06|     -0.000     -0.000     -0.000     -0.000     -0.500     -0.000
-   ---  13 OH        | 6.160E-07|     -0.000     +1.000     -0.000     -1.000     -0.500     -0.000
-   ---  14 Fe3O4(S)  | 0.000E+00|     -0.000     +4.000     -3.000     -4.000     -0.000     -0.000
-   ---  15 CaCO3(S)  | 0.000E+00|     -0.000     -0.000     -0.000     -1.000     -0.000     -1.000
-   ---  16 C(d)      | 1.429E-03|     -0.000     -2.000     -0.000     +1.000     -0.000     -0.000
+   ---   6 FeO_Solid | 0.000E+00|     +0.000     +1.000     -1.000     -1.000     +0.000     +0.000
+   ---   7 CHO       | 5.391E-05|     +0.000     -1.000     +0.000     +0.000     -0.500     +0.000
+   ---   8 CH4       | 1.483E-04|     +0.000     -2.000     +0.000     +1.000     -2.000     +0.000
+   ---   9 O2        | 3.438E-06|     +0.000     +2.000     +0.000     -2.000     +0.000     +0.000
+   ---  10 CH2O      | 1.324E-05|     +0.000     -1.000     +0.000     +0.000     -1.000     +0.000
+   ---  11 H2O       | 1.311E-03|     +0.000     +1.000     +0.000     -1.000     -1.000     +0.000
+   ---  12 H         | 3.794E-06|     +0.000     +0.000     +0.000     +0.000     -0.500     +0.000
+   ---  13 OH        | 6.160E-07|     +0.000     +1.000     +0.000     -1.000     -0.500     +0.000
+   ---  14 Fe3O4(S)  | 0.000E+00|     +0.000     +4.000     -3.000     -4.000     +0.000     +0.000
+   ---  15 CaCO3(S)  | 0.000E+00|     +0.000     +0.000     +0.000     -1.000     +0.000     -1.000
+   ---  16 C(d)      | 1.429E-03|     +0.000     -2.000     +0.000     +1.000     +0.000     +0.000
    ---               largest error in Stoich coeff = 0 at rxn = 0 FeO_Solid  element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -3779,7 +3779,7 @@ VCS CALCULATION METHOD
    --- Total Old       Dimensionless Gibbs Free Energy = -2.5014228200950E+00
    --- Total tentative Dimensionless Gibbs Free Energy = -2.5014228200950E+00
    --- subroutine FORCE: Beginning Slope = -6.36837e-18
-   --- subroutine FORCE: End Slope       = -1.83847e-20
+   --- subroutine FORCE: End Slope       = -1.83854e-20
    --- subroutine FORCE produced no adjustments, s2 < 0
    -------------------------------------------------------------------------------------------------------
    --- Summary of the Update  (only major species):
@@ -3792,10 +3792,10 @@ VCS CALCULATION METHOD
    ---   CaO(S)            7.562000E-04  7.562000E-04 -6.061613E+01 -6.061613E+01
    ---   FeO_Solid    -3   0.000000E+00  0.000000E+00 -2.221373E+01 -2.221373E+01  2.207650E+00  2.207650E+00
    ---   CHO           0   2.483420E-07  2.483420E-07 -2.110834E+01 -2.110834E+01  5.464144E+00  5.464144E+00
-   ---   CH4           1   6.548872E-06  6.548871E-06 -7.824858E+00 -7.824859E+00  2.124234E-07  6.642759E-09
+   ---   CH4           1   6.548872E-06  6.548871E-06 -7.824858E+00 -7.824859E+00  2.124234E-07  6.642765E-09
    ---   O2            0   3.437717E-16  3.437717E-16 -3.434164E+01 -3.434164E+01  1.450112E+01  1.450112E+01
    ---   CH2O          0   6.097271E-08  6.097271E-08 -2.521141E+01 -2.521141E+01  3.252332E+00  3.252332E+00
-   ---   H2O           1   4.438072E-04  4.438072E-04 -2.820389E+01 -2.820389E+01 -1.249735E-07 -1.891207E-10
+   ---   H2O           1   4.438072E-04  4.438072E-04 -2.820389E+01 -2.820389E+01 -1.249735E-07 -1.891358E-10
    ---   H             0   3.793560E-16  3.793560E-16  8.030196E+01  8.030196E+01  8.219322E+01  8.219322E+01
    ---   OH            0   7.957600E-14  7.957600E-14 -2.630958E+01 -2.630958E+01  3.057990E-03  3.058002E-03
    ---   Fe3O4(S)     -3   0.000000E+00  0.000000E+00 -8.735897E+01 -8.735897E+01  1.032656E+01  1.032656E+01
@@ -3844,7 +3844,7 @@ VCS CALCULATION METHOD
    --- CH4             6.5489E-06  -4.3274E-14   6.6428E-09 | Normal Calc
    --- O2              3.4377E-16   0.0000E+00   1.4501E+01 | Skipped: IC =   0 and DG >0:   1.450E+01
    --- CH2O            6.0973E-08   0.0000E+00   3.2523E+00 | Skipped: IC =   0 and DG >0:   3.252E+00
-   --- H2O             4.4381E-04   7.3554E-14  -1.8912E-10 | Normal Calc
+   --- H2O             4.4381E-04   7.3560E-14  -1.8914E-10 | Normal Calc
    --- H               3.7936E-16   0.0000E+00   8.2193E+01 | Skipped: IC =   0 and DG >0:   8.219E+01
    --- OH              7.9576E-14   0.0000E+00   3.0580E-03 | Skipped: IC =   0 and DG >0:   3.058E-03
    --- Fe3O4(S)        0.0000E+00   0.0000E+00   1.0327E+01 | Skipped: IC =  -3 and DG >0:   1.033E+01
@@ -3859,7 +3859,7 @@ VCS CALCULATION METHOD
    --- CH4           1 6.5489E-06 6.5489E-06-4.3274E-14 | Normal Major Calc
    --- O2            0 3.4377E-16 1.7319E-22-3.4377E-16 | minor species alternative calc
    --- CH2O          0 6.0973E-08 2.3587E-09-5.8614E-08 | minor species alternative calc
-   --- H2O           1 4.4381E-04 4.4381E-04 7.3554E-14 | Normal Major Calc
+   --- H2O           1 4.4381E-04 4.4381E-04 7.3560E-14 | Normal Major Calc
    --- H             0 3.7936E-16 3.7936E-26-3.7936E-16 | minor species alternative calc
    --- OH            0 7.9576E-14 7.9333E-14-2.4297E-16 | minor species alternative calc
    --- Fe3O4(S) currently zeroed (SpStatus=-3):  8 DG =  1.0327E+01 WT =  0.0000E+00 W =  0.0000E+00 DS =  0.0000E+00
@@ -3894,10 +3894,10 @@ VCS CALCULATION METHOD
    ---   CaO(S)            7.562000E-04  7.562000E-04 -6.061613E+01 -6.061613E+01
    ---   FeO_Solid    -3   0.000000E+00  0.000000E+00 -2.221373E+01 -2.221373E+01  2.207650E+00  2.207654E+00
    ---   CHO           0   2.483420E-07  1.051968E-09 -2.110834E+01 -2.657249E+01  5.464144E+00 -1.760626E-05
-   ---   CH4           1   6.548871E-06  6.548871E-06 -7.824859E+00 -7.824859E+00  6.642759E-09 -6.292955E-05
+   ---   CH4           1   6.548871E-06  6.548871E-06 -7.824859E+00 -7.824859E+00  6.642765E-09 -6.292955E-05
    ---   O2            0   3.437717E-16  1.731855E-22 -3.434164E+01 -4.884277E+01  1.450112E+01  6.849830E-06
    ---   CH2O          0   6.097271E-08  2.358661E-09 -2.521141E+01 -2.846374E+01  3.252332E+00 -3.146479E-05
-   ---   H2O           1   4.438072E-04  4.438072E-04 -2.820389E+01 -2.820389E+01 -1.891207E-10 -2.461503E-05
+   ---   H2O           1   4.438072E-04  4.438072E-04 -2.820389E+01 -2.820389E+01 -1.891358E-10 -2.461503E-05
    ---   H             0   3.793560E-16  3.793558E-26  8.030196E+01  5.727611E+01  8.219322E+01  5.916735E+01
    ---   OH            0   7.957600E-14  7.933302E-14 -2.630958E+01 -2.631264E+01  3.058002E-03 -1.075648E-05
    ---   Fe3O4(S)     -3   0.000000E+00  0.000000E+00 -8.735897E+01 -8.735897E+01  1.032656E+01  1.032657E+01
@@ -4182,7 +4182,7 @@ VCS CALCULATION METHOD
    --- Total Old       Dimensionless Gibbs Free Energy = -2.5014240694681E+00
    --- Total tentative Dimensionless Gibbs Free Energy = -2.5014240694681E+00
    --- subroutine FORCE: Beginning Slope = -2.41903e-18
-   --- subroutine FORCE: End Slope       = 1.33178e-23
+   --- subroutine FORCE: End Slope       = 1.33176e-23
    --- subroutine FORCE produced no adjustments (al = 0.999994)
    -------------------------------------------------------------------------------------------------------
    --- Summary of the Update  (all species):
@@ -4195,7 +4195,7 @@ VCS CALCULATION METHOD
    ---   CaO(S)            7.562000E-04  7.562000E-04 -6.061613E+01 -6.061613E+01
    ---   FeO_Solid    -3   0.000000E+00  0.000000E+00 -2.221373E+01 -2.221373E+01  2.207655E+00  2.207655E+00
    ---   CHO           0   1.051968E-09  1.051986E-09 -2.657249E+01 -2.657247E+01 -1.690919E-05  4.020206E-11
-   ---   CH4           1   6.549272E-06  6.549272E-06 -7.824798E+00 -7.824798E+00 -2.966292E-09  8.818368E-11
+   ---   CH4           1   6.549272E-06  6.549272E-06 -7.824798E+00 -7.824798E+00 -2.966292E-09  8.817658E-11
    ---   O2            0   1.731855E-22  1.731838E-22 -4.884277E+01 -4.884278E+01  9.813437E-06  1.383569E-10
    ---   CH2O          0   2.358661E-09  2.358731E-09 -2.846374E+01 -2.846371E+01 -2.996347E-05  8.438317E-11
    ---   H2O           1   4.438168E-04  4.438168E-04 -2.820387E+01 -2.820387E+01 -1.163047E-09  1.393996E-11
@@ -4243,7 +4243,7 @@ VCS CALCULATION METHOD
    --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
    --- FeO_Solid       0.0000E+00   0.0000E+00   2.2077E+00 | Skipped: IC =  -3 and DG >0:   2.208E+00
    --- CHO             1.0520E-09   0.0000E+00   4.0202E-11 | Skipped: superconverged DG =   4.020E-11
-   --- CH4             6.5493E-06   0.0000E+00   8.8184E-11 | Skipped: superconverged DG =   8.818E-11
+   --- CH4             6.5493E-06   0.0000E+00   8.8177E-11 | Skipped: superconverged DG =   8.818E-11
    --- O2              1.7318E-22   0.0000E+00   1.3836E-10 | Skipped: IC =   0 and DG >0:   1.384E-10
    --- CH2O            2.3587E-09   0.0000E+00   8.4383E-11 | Skipped: superconverged DG =   8.438E-11
    --- H2O             4.4382E-04   0.0000E+00   1.3940E-11 | Skipped: superconverged DG =   1.394E-11
@@ -4296,7 +4296,7 @@ VCS CALCULATION METHOD
    ---   CaO(S)            7.562000E-04  7.562000E-04 -6.061613E+01 -6.061613E+01
    ---   FeO_Solid    -3   0.000000E+00  0.000000E+00 -2.221373E+01 -2.221373E+01  2.207655E+00  2.207655E+00
    ---   CHO           0   1.051986E-09  1.051986E-09 -2.657247E+01 -2.657247E+01  4.020206E-11  4.020206E-11
-   ---   CH4           1   6.549272E-06  6.549272E-06 -7.824798E+00 -7.824798E+00  8.818368E-11  8.818368E-11
+   ---   CH4           1   6.549272E-06  6.549272E-06 -7.824798E+00 -7.824798E+00  8.817658E-11  8.817658E-11
    ---   O2            0   1.731838E-22  1.731838E-22 -4.884278E+01 -4.884278E+01  1.383569E-10  1.383569E-10
    ---   CH2O          0   2.358731E-09  2.358731E-09 -2.846371E+01 -2.846371E+01  8.438317E-11  8.438317E-11
    ---   H2O           1   4.438168E-04  4.438168E-04 -2.820387E+01 -2.820387E+01  1.393996E-11  1.393996E-11
@@ -4344,7 +4344,7 @@ VCS CALCULATION METHOD
    --- Species        KMoles     Rxn_Adjustment    DeltaG   | Comment
    --- FeO_Solid       0.0000E+00   0.0000E+00   2.2077E+00 | Skipped: IC =  -3 and DG >0:   2.208E+00
    --- CHO             1.0520E-09   0.0000E+00   4.0202E-11 | Skipped: superconverged DG =   4.020E-11
-   --- CH4             6.5493E-06   0.0000E+00   8.8184E-11 | Skipped: superconverged DG =   8.818E-11
+   --- CH4             6.5493E-06   0.0000E+00   8.8177E-11 | Skipped: superconverged DG =   8.818E-11
    --- O2              1.7318E-22   0.0000E+00   1.3836E-10 | Skipped: IC =   0 and DG >0:   1.384E-10
    --- CH2O            2.3587E-09   0.0000E+00   8.4383E-11 | Skipped: superconverged DG =   8.438E-11
    --- H2O             4.4382E-04   0.0000E+00   1.3940E-11 | Skipped: superconverged DG =   1.394E-11
@@ -4397,7 +4397,7 @@ VCS CALCULATION METHOD
    ---   CaO(S)            7.562000E-04  7.562000E-04 -6.061613E+01 -6.061613E+01
    ---   FeO_Solid    -3   0.000000E+00  0.000000E+00 -2.221373E+01 -2.221373E+01  2.207655E+00  2.207655E+00
    ---   CHO           0   1.051986E-09  1.051986E-09 -2.657247E+01 -2.657247E+01  4.020206E-11  4.020206E-11
-   ---   CH4           1   6.549272E-06  6.549272E-06 -7.824798E+00 -7.824798E+00  8.818368E-11  8.818368E-11
+   ---   CH4           1   6.549272E-06  6.549272E-06 -7.824798E+00 -7.824798E+00  8.817658E-11  8.817658E-11
    ---   O2            0   1.731838E-22  1.731838E-22 -4.884278E+01 -4.884278E+01  1.383569E-10  1.383569E-10
    ---   CH2O          0   2.358731E-09  2.358731E-09 -2.846371E+01 -2.846371E+01  8.438317E-11  8.438317E-11
    ---   H2O           1   4.438168E-04  4.438168E-04 -2.820387E+01 -2.820387E+01  1.393996E-11  1.393996E-11
@@ -4406,7 +4406,7 @@ VCS CALCULATION METHOD
    ---   Fe3O4(S)     -3   0.000000E+00  0.000000E+00 -8.735897E+01 -8.735897E+01  1.032658E+01  1.032658E+01
    ---   CaCO3(S)     -3   0.000000E+00  0.000000E+00 -1.079530E+02 -1.079530E+02  1.765708E+00  1.765708E+00
    ---   C(d)         -3   0.000000E+00  0.000000E+00  0.000000E+00  0.000000E+00  2.598430E-01  2.598430E-01
-   ---                                                        Norms of Delta G():  3.954517E+00  6.740080E-11
+   ---                                                        Norms of Delta G():  3.954517E+00  6.739995E-11
    ---           Phase_Name    KMoles(after update)
    ---   --------------------------------------------------
    ---                  air =   2.8226390E-01
@@ -4425,7 +4425,6 @@ VCS CALCULATION METHOD
    --- Reevaluate major-minor status of noncomponents:
    --- Equilibrium check for major species:  MAJOR SPECIES CONVERGENCE achieved
    --- Equilibrium check for minor species:  CONVERGENCE achieved
-   --- Subroutine vcs_deltag called for all noncomponents
    --- Equilibrium check for major species:  MAJOR SPECIES CONVERGENCE achieved
    --- Equilibrium check for minor species:  CONVERGENCE achieved
    --- Check the Full Element Abundances:  passed
@@ -4618,12 +4617,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -2.47721e+06       -6.882e+07     J
-   internal energy    -2.79145e+06       -7.755e+07     J
-           entropy         244.295             6787     J/K
-    Gibbs function    -2.73372e+06       -7.595e+07     J
+          enthalpy     -2.4772e+06       -6.882e+07     J
+   internal energy     -2.7914e+06       -7.755e+07     J
+           entropy           244.3             6787     J/K
+    Gibbs function     -2.7337e+06       -7.595e+07     J
  heat capacity c_p               0                0     J/K
- heat capacity c_v        -299.271            -8314     J/K
+ heat capacity c_v         -299.27            -8314     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
@@ -4650,7 +4649,7 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
                           1 kg            1 kmol
                        -----------      ------------
           enthalpy               0                0     J
-   internal energy        -28.7855           -345.7     J
+   internal energy         -28.786           -345.7     J
            entropy               0                0     J/K
     Gibbs function               0                0     J
  heat capacity c_p               0                0     J/K
@@ -4671,7 +4670,7 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
                           1 kg            1 kmol
                        -----------      ------------
           enthalpy               0                0     J
-   internal energy        -28.7855            -1608     J
+   internal energy         -28.786            -1608     J
            entropy               0                0     J/K
     Gibbs function               0                0     J
  heat capacity c_p               0                0     J/K
@@ -4691,10 +4690,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -9.43678e+06       -5.292e+08     J
-   internal energy    -9.43681e+06       -5.292e+08     J
+          enthalpy     -9.4368e+06       -5.292e+08     J
+   internal energy     -9.4368e+06       -5.292e+08     J
            entropy               0                0     J/K
-    Gibbs function    -9.43678e+06       -5.292e+08     J
+    Gibbs function     -9.4368e+06       -5.292e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  
@@ -4712,10 +4711,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -3.29388e+06       -7.627e+08     J
-   internal energy    -3.29391e+06       -7.627e+08     J
+          enthalpy     -3.2939e+06       -7.627e+08     J
+   internal energy     -3.2939e+06       -7.627e+08     J
            entropy               0                0     J/K
-    Gibbs function    -3.29388e+06       -7.627e+08     J
+    Gibbs function     -3.2939e+06       -7.627e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  
@@ -4733,10 +4732,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -9.41629e+06       -9.424e+08     J
-   internal energy    -9.41632e+06       -9.425e+08     J
+          enthalpy     -9.4163e+06       -9.424e+08     J
+   internal energy     -9.4163e+06       -9.425e+08     J
            entropy               0                0     J/K
-    Gibbs function    -9.41629e+06       -9.424e+08     J
+    Gibbs function     -9.4163e+06       -9.424e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  
@@ -4754,10 +4753,10 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy    -2.69923e+06       -1.939e+08     J
-   internal energy    -2.69926e+06       -1.939e+08     J
+          enthalpy     -2.6992e+06       -1.939e+08     J
+   internal energy     -2.6993e+06       -1.939e+08     J
            entropy               0                0     J/K
-    Gibbs function    -2.69923e+06       -1.939e+08     J
+    Gibbs function     -2.6992e+06       -1.939e+08     J
  heat capacity c_p               0                0     J/K
  heat capacity c_v               0                0     J/K
  
