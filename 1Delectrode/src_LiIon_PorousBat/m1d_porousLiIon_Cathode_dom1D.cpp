@@ -1611,32 +1611,26 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	      lastNodePos =  strainedNodePos;
 	    }
 
-	  // The residual for the stress is divergence stress.
-	  // for the Left most node, iCell==0, use a immovable left boundary condition
-	  // res = divergence stress = (stress[n+1]-stress[n]) - (stress[n] - stress[n-1])
-
-	  if(iCell == 0) {
-	    // The first stress residual location contains a partial calculation of the residual, this completes the calculation.
-	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] += 	(soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]);
-	    
-	  } else if (iCell <  NumLcCells-1) {
-	    res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
-	      (soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]) - 
-	      (soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial]);
+	  // The residual for the stress delta of pressure, pressure = - trace(stress). 
+	    // for the right most node, the stress is set by the strain relationship with displacement. This is how the
+	    // two solutions couple. 
+	    if (iCell <  NumLcCells-1) {
+	      res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
+		(soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]);
 	  }
 	  else if (iCell ==  NumLcCells-1) {
 	    // **** Special case. The right hand most node is at the boundary of the can 
 	    // of the battery. 
 	    // 69e9 corresponds to a semi-infinite right hand wall made of 6061 Aluminum. 
 	    // to make this a no-displacement boundary, set the value to a very large number.
+	    // To make it a free boundary (bag battery) set the modulus to zero. 
 	  double E_Young_Confining = 69e9;
 
- // the above expression must have the right hand node references replaced with the stess calculation:
+	  // the above expression must have the right hand node references replaced with the stess calculation:
 	  double stressBatteryCan = soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Displacement_Axial]*E_Young_Confining;
 
-	     res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
-	       (stressBatteryCan - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]) - 
-	      (soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial]);
+	  res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
+	       (stressBatteryCan - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]);
 	  }
 	}
 #endif   // MECH_MODEL
@@ -4549,7 +4543,8 @@ void porousLiIon_Cathode_dom1D::setAtolVector(double atolDefault, const Epetra_V
             atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
         }
 #ifdef MECH_MODEL    
-	 int iVar_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	 unsigned int iVar_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	 unsigned int iVar_Stress = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
 	 if (iVar_Displacement_Axial != npos) {
 	   cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	   NodalVars*  nodeCent  = cTmps.nvCent_;
@@ -4560,6 +4555,12 @@ void porousLiIon_Cathode_dom1D::setAtolVector(double atolDefault, const Epetra_V
 	   else
 	     atolVector[indexCent_EqnStart+iVar_Displacement_Axial] = (nodeCent->xNodePos()-nodeLeft->xNodePos())*1e-4; 
 	 }
+	 if (iVar_Stress != npos) {
+	   atolVector[indexCent_EqnStart+iVar_Stress] = 1.01e5*1e-4; 
+	 }
+	 
+
+
 #endif
     }
 }

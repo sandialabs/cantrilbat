@@ -1183,29 +1183,14 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	lastNodePos = strainedNodePos;
       }
       // *************** Stress ***************************
-      // The residual for the stress is divergence stress.
-      // for the Left most node, iCell==0, use a immovable left boundary condition
-      // res = divergence stress = (stress[n+1]-stress[n]) - (stress[n] - stress[n-1])
+      // The residual for the stress is delta pressure. pressure = - trace (stress) The -'s cancel out. 
       
-      if(iCell == 0) {
-	// The first residual location contains res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
-	// -(soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial]);
-	// put there by the anode code. Need to finish calculating the residual
-	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] += 	(soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]);
-      } 
-      else if (iCell <  NumLcCells-1) {
+      if (iCell <  NumLcCells-1) {
 	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
-	  (soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]) - 
-	  (soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial]);
+	  (soln[indexRight_EqnStart + nodeTmpsRight.Offset_Solid_Stress_Axial] - soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial]);
       }
-	    // **** Special case. We are using the last residual position to send data to the Cathode
-	    // residual calculation, since it does not have access to the NumLcCells-2 location that is needed
-	    // for a stress residual calculation. Note that this is _not_ a proper residual, and must be fixed
-	    // up by the separator residual calculation.
-      else if (iCell ==  NumLcCells-1) {
-	res[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] = 
-	  - (soln[indexCent_EqnStart + nodeTmpsCenter.Offset_Solid_Stress_Axial] - soln[indexLeft_EqnStart + nodeTmpsLeft.Offset_Solid_Stress_Axial]);
-      }
+      //for icell == NumLcCells, the Cathode will calculate the residual. 
+
     }
  
 #endif	
@@ -3156,17 +3141,21 @@ void porousLiIon_Separator_dom1D::setAtolVector(double atolDefault, const Epetra
             atolVector[indexCent_EqnStart + iVar_Temperature] = 1.0E-7;
         }
 #ifdef MECH_MODEL    
-	 int iVar_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	 unsigned int iVar_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
+	 unsigned int iVar_Stress = nodeCent->indexBulkDomainVar0((size_t) Solid_Stress_Axial);
 	 if (iVar_Displacement_Axial != npos) {
 	   cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	   NodalVars*  nodeCent  = cTmps.nvCent_;
 	   NodalVars*  nodeRight = cTmps.nvRight_;
-	    NodalVars*  nodeLeft = cTmps.nvLeft_;
+	   NodalVars*  nodeLeft = cTmps.nvLeft_;
 	   if(nodeRight != NULL) 
 	     atolVector[indexCent_EqnStart+iVar_Displacement_Axial] = (nodeRight->xNodePos()-nodeCent->xNodePos())*1e-4;
 	   else
 	     atolVector[indexCent_EqnStart+iVar_Displacement_Axial] = (nodeCent->xNodePos()-nodeLeft->xNodePos())*1e-4; 
 
+	 }
+	 if (iVar_Stress != npos) {
+	     atolVector[indexCent_EqnStart+iVar_Stress] = 1.01e5*1e-4; 
 	 }
 #endif
     }
