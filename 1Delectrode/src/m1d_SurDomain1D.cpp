@@ -50,6 +50,8 @@ SurDomain1D::SurDomain1D(SurfDomainDescription &bdd) :
         NumNodeEqns(0),
         IsAlgebraic_Node(0),
         IsArithmeticScaled_Node(0),
+	NumDomainEqnsLeft_(0),
+	NumDomainEqnsRight_(0),
         DiffFluxLeftBulkDomain_LastResid_NE(0),
         DiffFluxRightBulkDomain_LastResid_NE(0),
         TotalFluxLeftBulkDomain_LastResid_NE(0),
@@ -76,6 +78,8 @@ SurDomain1D::SurDomain1D(const SurDomain1D &r) :
         NumNodeEqns(0),
         IsAlgebraic_Node(0),
         IsArithmeticScaled_Node(0),
+	NumDomainEqnsLeft_(0),
+	NumDomainEqnsRight_(0),
         DiffFluxLeftBulkDomain_LastResid_NE(0),
         DiffFluxRightBulkDomain_LastResid_NE(0),
         TotalFluxLeftBulkDomain_LastResid_NE(0),
@@ -112,6 +116,8 @@ SurDomain1D::operator=(const SurDomain1D &r)
     NumNodeEqns = r.NumNodeEqns;
     IsAlgebraic_Node = r.IsAlgebraic_Node;
     IsArithmeticScaled_Node = r.IsArithmeticScaled_Node;
+    NumDomainEqnsLeft_  = r.NumDomainEqnsLeft_;
+    NumDomainEqnsRight_ = r.NumDomainEqnsRight_;
 
     DiffFluxLeftBulkDomain_LastResid_NE = r.DiffFluxLeftBulkDomain_LastResid_NE;
     DiffFluxRightBulkDomain_LastResid_NE = r.DiffFluxRightBulkDomain_LastResid_NE;
@@ -119,6 +125,8 @@ SurDomain1D::operator=(const SurDomain1D &r)
     TotalFluxRightBulkDomain_LastResid_NE = r.TotalFluxRightBulkDomain_LastResid_NE;
     VarVectorLeftBulkDomain_LastResid_NE = r.VarVectorLeftBulkDomain_LastResid_NE;
     VarVectorRightBulkDomain_LastResid_NE = r.VarVectorRightBulkDomain_LastResid_NE;
+    Resid_BeforeSurDomain_NE = r.Resid_BeforeSurDomain_NE;
+
     DomainResidVector_LastResid_NE = r.DomainResidVector_LastResid_NE;
 
 
