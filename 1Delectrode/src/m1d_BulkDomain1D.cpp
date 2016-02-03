@@ -766,7 +766,7 @@ BulkDomain1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr, const Ep
      *  Write out the Heading for the solution at the current time. It's put in a ZONE structure
      *  with T being the heading and SOLUTIONTIME being the value of the time
      */
-    fprintf(ofp, "ZONE T = \"t = %g [s]\" I = %d SOLUTIONTIME = %19.13E\n", t, numNodes, t);
+    fprintf(ofp, "ZONE T = \"t = %g [s]\" I = %d SOLUTIONTIME = %19.11E\n", t, numNodes, t);
 
     for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
       NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
