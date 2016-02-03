@@ -2226,7 +2226,7 @@ SolNonlinear::print_solnDelta_norm_contrib(const Epetra_Vector &solnDelta0, cons
     }
     print0_sync_start(false, ss, *Comm_ptr_);
     if (imax[jnum] >= 0) {
-      i = imax[jnum];
+      i = idLocalEqnMax;
       error = solnDelta0[i] / (*m_ewt)[i];
       dmax0 = sqrt(error * error);
       error = solnDelta1[i] / (*m_ewt)[i];
