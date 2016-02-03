@@ -243,6 +243,7 @@ main(int argc, char **argv)
     soln->PutScalar(0.0);
 
     ps->domain_prep();
+    ps->setAtolVector(1.0E-6, *soln);
 
     EpetraJac *jac = new EpetraJac(*ps);
     jac->allocateMatrix();
