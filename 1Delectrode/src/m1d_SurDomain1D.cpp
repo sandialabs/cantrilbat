@@ -662,7 +662,45 @@ void SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
         }
     }
 }
-//====================================================================================================================
+//===================================================================================================================================
+void
+SurDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
+				     Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
+                                     const Solve_Type_Enum solveType, const Epetra_Vector* solnWeights)
+{
+
+    int mySDD_ID = SDD_.ID();
+    // This node may not exist on this processor. If it doesn't, there is no entry in isAlgebraic[] to fill
+    if (Index_LcNode < 0) {
+        return;
+    }
+    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    if (bmatch != -1) {
+
+	/*
+	 *   Figure out the equation start for this node
+	 *   We start at the start of the equations for this node
+	 *   because we will be applying dirichlet conditions on the bulk
+	 *   equations.
+	 */
+	size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+	int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+	//std::vector<VarType>& vnl = SDD_.VariableNameList;
+	size_t numVar = SDD_.NumEquationsPerNode;
+	size_t index;
+	double base;
+	for (size_t k = 0; k < numVar; k++) {
+	    //const VarType& vt = vnl[k];
+	    index = index_EqnStart + indexSurfDomainOffset + k;
+	    base = soln[index];
+	    deltaSoln[index] = 1.0E-5 * fabs(base) + 1.0E-9;
+	}
+    } else {
+	printf("we shouldn't be here\n");
+	exit(-1);
+    }
+}
+//===================================================================================================================================
 void SurDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, Epetra_Vector_Ghosted & atolVector,
                                 const Epetra_Vector_Ghosted * const atolV)
 {
@@ -673,21 +711,26 @@ void SurDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted 
         return;
     }
     int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
-    /*
-     *   Figure out the equation start for this node
-     *   We start at the start of the equations for this node
-     *   because we will be applying dirichlet conditions on the bulk
-     *   equations.
-     */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-    int numVar = SDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
-        // int isA = SDD_.IsArithmeticScaled_NE[k];
-        atolVector[index_EqnStart + indexSurfDomainOffset + k] = atolDefault;
+    if (bmatch != -1) {
+	int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+	/*
+	 *   Figure out the equation start for this node
+	 *   We start at the start of the equations for this node
+	 *   because we will be applying dirichlet conditions on the bulk
+	 *   equations.
+	 */
+	int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+	int numVar = SDD_.NumEquationsPerNode;
+	for (int k = 0; k < numVar; k++) {
+	    // int isA = SDD_.IsArithmeticScaled_NE[k];
+	    atolVector[index_EqnStart + indexSurfDomainOffset + k] = atolDefault;
+	}
+    } else {
+	printf("we shouldn't be here\n");
+	exit(-1);
     }
 }
-//================================================================================================================
+//===================================================================================================================================
 void SurDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted & soln,
                                       Epetra_Vector_Ghosted & atolDeltaDamping, const Epetra_Vector_Ghosted * const atolV)
 {
@@ -711,7 +754,7 @@ void SurDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff, const
         atolDeltaDamping[index_EqnStart + indexSurfDomainOffset + k] = relcoeff * atolDefault;
     }
 }
-//================================================================================================================
+//===================================================================================================================================
 void SurDomain1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln,
                                         const Epetra_Vector_Ghosted & solnDot, Epetra_Vector_Ghosted & atolVector_DAEInit,
                                         const Epetra_Vector_Ghosted * const atolV)
@@ -762,7 +805,7 @@ void SurDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoef
         atolDeltaDamping[index_EqnStart + indexSurfDomainOffset + k] = relcoeff * atolDefault;
     }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 // Method for writing the header for the surface domain to a tecplot file.
 void SurDomain1D::writeSolutionTecplotHeader()
 {
@@ -797,7 +840,7 @@ void SurDomain1D::writeSolutionTecplotHeader()
     }
 
 }
-//=====================================================================================================================
+//===================================================================================================================================
 // Method for writing the solution on the surface domain to a tecplot file.
 /*
  *
@@ -840,7 +883,7 @@ void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll *soln_GlAll_ptr
         fclose(ofp);
     }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 // Extract the double value out of a solution vector for a particular
 // variable defined at a node corresponding to the surface domain
 /*
@@ -880,7 +923,7 @@ double SurDomain1D::extractSolnValue(Epetra_Vector_Ghosted *soln_ptr, VarType v1
     val = (*soln_ptr)[index_EqnStart + ioffset];
     return val;
 }
-//=====================================================================================================================
+//===================================================================================================================================
 static void drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {

@@ -13,6 +13,7 @@
 #include "m1d_EqnVarTypes.h"
 
 #include <vector>
+
 #include <map>
 
 namespace m1d
@@ -111,6 +112,14 @@ public:
   void
   setupInitialNodePosition(double x0NodePos, double xFracNodePos);
 
+  //! Returns the bulk domain index given the bulk domain ID
+  /*!
+   *  @param[in]           myBBD_ID              Bulk domain ID
+   *
+   *  @return                                    Returns the index of the bulk domain
+   *                                             If the bulk domain isn't on this node, an npos is returned.
+   */
+  size_t bindexBulkDomain_fromID(int myBDD_ID);
 
   //!  Return the starting index of a particular variable from the start of the nodal solution vector
   /*!
@@ -261,7 +270,7 @@ public:
 
   //! Map from the surface domain id to the order index at the current node
   /*!
-   *
+   *  If the domain doesn't exist on this node, a -1 is returned.
    */
   std::map<int, int> SurfDomainIndex_fromID;
 

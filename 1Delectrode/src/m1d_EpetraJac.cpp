@@ -49,7 +49,8 @@ EpetraJac::EpetraJac(ProblemResidEval& r) :
   Arow_(0),
   Comm_ptr_(0),
   m_BmAX(0), 
-  m_AX(0), 
+  m_AX(0),
+  deltaSoln_(0),
   m_resid(&r),
   m_rtol(1.0E-3),
   m_atol(1.0E-9), 
@@ -91,6 +92,7 @@ EpetraJac::~EpetraJac() {
   safeDelete(LRN_VBR_ptr_);
   safeDelete(m_BmAX);
   safeDelete(m_AX);
+  safeDelete(deltaSoln_);
   safeDelete(m_isAlgebraic);
 }
 //=================================================================================
@@ -141,6 +143,8 @@ EpetraJac::allocateMatrix()
     printf("don't know what's going on%d %d \n", num, numBlockCols);
     exit(-1);
   }
+
+  deltaSoln_ = new Epetra_Vector(A_->RangeMap());
 
   m_isAlgebraic = new Epetra_IntVector(A_->RangeMap());
   m_resid->fillIsAlgebraic(*m_isAlgebraic);
@@ -223,7 +227,7 @@ EpetraJac::matrixEval(const bool doTimeDependentResid,
   fillVbr();
   safeDelete(resBase);
 }
-//===============================================================================================================================
+//===================================================================================================================================
 void
 EpetraJac::matrixResEval(const bool doTimeDependentResid,
                          const Epetra_Vector * solnBase_ptr,
@@ -254,7 +258,7 @@ EpetraJac::matrixEval1(const bool doTimeDependentResid,
   
   eval(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, *resBase, t, rdelta_t);
 }
-//==================================================================================
+//===================================================================================================================================
 /*
  *
  */
@@ -271,6 +275,15 @@ EpetraJac::eval(const bool doTimeDependentResid,
   if (solveType_ == DAESystemInitial_Solve) {
     timeDim = 1.0E-3;
   }
+  //
+  // Calculate the vector of deltas used in the numerical jacobian
+  // 
+  m_resid->calcDeltaSolnVariables(t, *solnBase_ptr, solnDotBase_ptr, *deltaSoln_, solveType_);
+
+  // To print out the solution deltas:
+  //string ss = "DeltaSolutionVars";
+  //m_resid->showSolutionVector(ss, t, rdelta_t, *deltaSoln_);
+				  
 
   // Set the age to zero
   m_age = 0;
@@ -285,11 +298,11 @@ EpetraJac::eval(const bool doTimeDependentResid,
   int numEqnColors = LI_ptr_->NumEqnColors;
   Epetra_Vector soln(*solnBase_ptr);
   Epetra_Vector eChange(*solnBase_ptr);
-  Epetra_Vector delta(*solnBase_ptr);
+  //Epetra_Vector delta(*solnBase_ptr);
 
   Epetra_Vector *solnDot_ptr = 0;
   if (solnDotBase_ptr) {
-    solnDot_ptr = new Epetra_Vector(*solnDotBase_ptr);
+      solnDot_ptr = new Epetra_Vector(*solnDotBase_ptr);
   }
 
   Epetra_Vector jacColn(*solnBase_ptr);
@@ -304,20 +317,24 @@ EpetraJac::eval(const bool doTimeDependentResid,
       //  int jColor = (*(LI_ptr_->EqnColorMap))[iLcEqn];
       int jColor = (*(LI_ptr_->EqnColors))[iLcEqn];
       eChange[iLcEqn] = 0.0;
-      delta[iLcEqn] = 0.0;
+      //delta[iLcEqn] = 0.0;
       if (iColor == jColor) {
-        soln[iLcEqn] = m_resid->deltaSolnComp(*solnBase_ptr, iLcEqn);
-        delta[iLcEqn] = soln[iLcEqn] - solnBase[iLcEqn];
-	if (solveType_ != DAESystemInitial_Solve || (*m_isAlgebraic)[iLcEqn] == 1) {
-	  if (solnDotBase_ptr) {
-	    (*solnDot_ptr)[iLcEqn] += delta[iLcEqn] * rdelta_t;
+	  //soln[iLcEqn] = m_resid->deltaSolnCompJac(*solnBase_ptr, iLcEqn);
+	  //delta[iLcEqn] = soln[iLcEqn] - solnBase[iLcEqn];
+	  soln[iLcEqn] += (*deltaSoln_)[iLcEqn];
+	  if (solveType_ != DAESystemInitial_Solve || (*m_isAlgebraic)[iLcEqn] == 1) {
+	      if (solnDotBase_ptr) {
+		  //(*solnDot_ptr)[iLcEqn] += delta[iLcEqn] * rdelta_t;
+		  (*solnDot_ptr)[iLcEqn] += (*deltaSoln_)[iLcEqn] * rdelta_t;
+	      }
+	  } else {
+	      soln[iLcEqn] = solnBase[iLcEqn];
+	      //delta[iLcEqn] /=  timeDim;
+	      (*deltaSoln_)[iLcEqn] /= timeDim;   
+	      // (*solnDot_ptr)[iLcEqn] += delta[iLcEqn];
+	      (*solnDot_ptr)[iLcEqn] += (*deltaSoln_)[iLcEqn];
 	  }
-	} else {
-	  soln[iLcEqn] = solnBase[iLcEqn];
-	  delta[iLcEqn] /=  timeDim;
-	  (*solnDot_ptr)[iLcEqn] += delta[iLcEqn];
-	}
-        eChange[iLcEqn] = 1.0;
+	  eChange[iLcEqn] = 1.0;
       }
     }
 
@@ -373,7 +390,8 @@ EpetraJac::eval(const bool doTimeDependentResid,
 
             //Write the block row to the block column.
             // Get the delta
-            double dd = 1.0 / delta[jLcEqn];
+            //double dd = 1.0 / delta[jLcEqn];
+            double dd = 1.0 / (*deltaSoln_)[jLcEqn];
             // get the number of rows in the block
             int numRowEqns = LRN_VBR_ptr_->RowSize_LcRNodes[iBlockRow];
             int istart = LI_ptr_->IndexLcEqns_LcNode[iBlockRow];
@@ -490,8 +508,12 @@ EpetraJac::queryMatrixStructure(std::ostream &oo)
 {
   LRN_VBR_ptr_->queryMatrixStructure(A_, oo);
 }
-
-//=========================================================================================
+//===================================================================================================================================
+const Epetra_Vector& EpetraJac::deltaSolnJac() const
+{
+    return *deltaSoln_;
+}
+//===================================================================================================================================
 void
 EpetraJac::zeroMatrix()
 {

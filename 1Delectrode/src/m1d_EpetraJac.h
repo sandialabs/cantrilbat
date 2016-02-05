@@ -219,6 +219,8 @@ public:
   void
   incrementDiagonal(int j, double d);
 
+  const Epetra_Vector& deltaSolnJac() const;
+
 
   //! Zero the matrix
   void
@@ -371,6 +373,13 @@ public:
 
   Epetra_Vector *m_BmAX;
   Epetra_Vector *m_AX;
+
+  //! Pointer to the delta solution vector
+  /*!
+   *  This is used to store the deltas for the numerical jacobian
+   */ 
+  Epetra_Vector *deltaSoln_;
+
   //! pointer to the residual evaluator.
   /*!
    * This is not owned by this object

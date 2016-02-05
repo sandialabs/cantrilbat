@@ -41,18 +41,18 @@ NodalVars::NodalVars(const int gbnode, DomainLayout *dl_ptr) :
       XNodePos(M1D_DOUBLE_NOTSET), X0NodePos(M1D_DOUBLE_NOTSET), XFracNodePos(M1D_DOUBLE_NOTSET), DL_ptr_(dl_ptr)
 {
 }
-//===========================================================================
+//===================================================================================================================================
 NodalVars::~NodalVars()
 {
 }
-//===========================================================================
+//===================================================================================================================================
 NodalVars::NodalVars(const NodalVars &r) :
   NumEquations(0), NumBulkDomains(0), NumSurfDomains(0), EqnStart_GbEqnIndex(-1), XNodePos(M1D_DOUBLE_NOTSET),
       X0NodePos(M1D_DOUBLE_NOTSET), XFracNodePos(M1D_DOUBLE_NOTSET)
 {
   *this = r;
 }
-//===========================================================================
+//===================================================================================================================================
 NodalVars &
 NodalVars::operator=(const NodalVars &r)
 {
@@ -89,7 +89,7 @@ NodalVars::operator=(const NodalVars &r)
 
   return *this;
 }
-//===========================================================================
+//===================================================================================================================================
 
 void
 NodalVars::DiscoverDomainsAtThisNode()
@@ -152,6 +152,7 @@ void  insert_into_list(std::list<VarType>& varList, VarType& v1)
     varList.push_back(v1);
 }
 //==================================================================================================================================
+/*
 static int lookupPosition(int val, std::vector<int>& yy) {
     for (size_t i = 0; i < yy.size(); i++) {
 	if (val == yy[i]) {
@@ -160,6 +161,7 @@ static int lookupPosition(int val, std::vector<int>& yy) {
     }
     return -1;
 }
+*/
 //==================================================================================================================================
 /*
 static size_t lookupPosition(size_t val, std::vector<size_t>& yy) {
@@ -680,12 +682,25 @@ NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
   X0NodePos = x0NodePos;
   XFracNodePos = xFracNodePos;
 }
-//==================================================================================================================================
+
+//===================================================================================================================================
+size_t
+NodalVars::bindexBulkDomain_fromID(int myBDD_ID)
+{
+    for (size_t i = 0; i < (size_t) NumBulkDomains; i++) {
+	int id = BulkDomainIndex_BDN[i];
+	if (id == myBDD_ID) {
+	    return i;
+	}
+    }
+    return npos;
+}
+//===================================================================================================================================
 size_t NodalVars::indexBulkDomainVar(const VarType& vt) const
 {
     return indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
 }
-//==================================================================================================================================
+//===================================================================================================================================
 //
 //  variableType and variableSubType completely determine a variable within the code.
 //  This means that mole fractions in different domains that are different should have different

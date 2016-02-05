@@ -501,6 +501,13 @@ public:
                     const double t,
                     const double delta_t);
 
+  virtual void
+  calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
+			 const Epetra_Vector* solnDot_ptr, Epetra_Vector& deltaSoln,
+                         const Epetra_Vector* const atolVector_ptr,
+                         const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                         const  Epetra_Vector* solnWeights=0);
+
   //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
   /*!
    * @param atolDefault             Default atol value

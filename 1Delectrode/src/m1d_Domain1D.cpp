@@ -500,6 +500,16 @@ Domain1D::initialConditions(const bool doTimeDependentResid,
 
 }
 //=====================================================================================================================
+void Domain1D:: calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
+				       const Epetra_Vector* solnDot_ptr, Epetra_Vector& deltaSoln,
+                                       const Epetra_Vector* const atolVector_ptr,
+				       const Solve_Type_Enum solveType,
+				       const  Epetra_Vector* solnWeights)
+{
+  printf("Domain1D: function not implemented\n");
+  exit(-1);
+}
+//=====================================================================================================================
 void Domain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
 			     Epetra_Vector_Ghosted & atolVector,
 			     const Epetra_Vector_Ghosted * const atolV)

@@ -596,6 +596,53 @@ void BulkDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted
 }
 //================================================================================================================
 void
+BulkDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
+				     Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
+                                     const Solve_Type_Enum solveType,
+				     const Epetra_Vector* solnWeights)
+{
+    double base;
+    size_t index;
+    std::vector<VarType>& vnl =	BDD_.VariableNameList;
+    size_t numVar = BDD_.NumEquationsPerNode;
+    int myBDD_ID = BDD_.ID();
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+	NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
+	int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
+
+
+	int bmatch = -1;
+	for (int i = 0; i < nodeCent->NumBulkDomains; i++) {
+	    int id = nodeCent->BulkDomainIndex_BDN[i];
+	    if (id == myBDD_ID) {
+		bmatch = i;
+		break;
+	    }
+	}
+	if (bmatch != nodeCent->BulkDomainIndex_fromID[myBDD_ID]) {
+	    printf("we have a prob\n");
+	    exit(-1);
+	}
+
+	for (size_t k = 0; k < numVar; k++) {
+	    const VarType& vt = vnl[k];
+	    size_t noffset = nodeCent->indexBulkDomainVar(vt);
+	    if (noffset == npos) {
+		printf("we shouldn't be here\n");
+		exit(-1);
+	    }
+	    index = indexCent_EqnStart + noffset;
+	    base = soln[index];
+	    deltaSoln[index] = 1.0E-5 * fabs(base) + 1.0E-9;
+	    //deltaSoln[index] = 1.0E-4 * fabs(base) + 1.0E-9 + (*atolVector_ptr)[index];
+
+	}
+
+    }
+}
+//================================================================================================================
+void
 BulkDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff,  const Epetra_Vector_Ghosted & soln, 
 				  Epetra_Vector_Ghosted & atolDeltaDamping,
 				  const Epetra_Vector_Ghosted * const atolV)

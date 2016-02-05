@@ -470,9 +470,11 @@ public:
   /*!
    *    @param soln      Reference to the complete solution vector
    *    @param ieqn      local equation number of the solution vector
+   *
+   *  @return returns the delta for the component
    */
   double
-  deltaSolnComp(const Epetra_Vector_Ghosted & soln, const int ieqn);
+  deltaSolnCompJac(const Epetra_Vector_Ghosted & soln, const int ieqn);
 
   //! Evaluates the atol vector used in the time stepper routine and in the nonlinear solver.
   /*!
@@ -633,11 +635,10 @@ public:
    *  numerical Jacobian
    */
   virtual void
-  calcDeltaSolnVariables(const double t,
-                         const double * const ysoln,
-                         const double * const ysolnDot,
-                         double * const deltaYsoln,
-                         const double * const solnWeights = 0);
+  calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
+			 const Epetra_Vector* solnDot_ptr, Epetra_Vector& deltaSoln,
+                         const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                         const  Epetra_Vector* solnWeights=0);
 
   //! Save the solution to the end of an XML file using XML solution format
   /*!

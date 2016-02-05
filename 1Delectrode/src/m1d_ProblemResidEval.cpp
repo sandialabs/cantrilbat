@@ -903,27 +903,7 @@ ProblemResidEval::evalTimeTrackingEqns(const int ifunc,
   {
     return -1;
   }
-//=====================================================================================================================
-/*
- * Return a vector of delta y's for calculation of the
- * numerical Jacobian
- */
-void
-ProblemResidEval::calcDeltaSolnVariables(const double t, const double * const ySoln,
-                                         const double * const ySolnDot, double * const deltaYSoln,
-                                         const double * const solnWeights)
-{
-  int nEq = m_NumLcEqns;
-  if (!solnWeights) {
-    for (int i = 0; i < nEq; i++) {
-      deltaYSoln[i] = m_atol + fabs(1.0E-6 * ySoln[i]);
-    }
-  } else {
-    for (int i = 0; i < nEq; i++) {
-      deltaYSoln[i] = m_atol + fmax(1.0E-2 * solnWeights[i], 1.0E-6 * fabs(ySoln[i]));
-    }
-  }
-}
+
 //=====================================================================================================================
 // Save the solution to the end of an XML file using
 // XML solution format
@@ -2006,6 +1986,27 @@ ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
   }
   return -1;
 }
+//=====================================================================================================================
+/*
+ * Return a vector of delta y's for calculation of the
+ * numerical Jacobian
+ */
+void
+ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
+					 Epetra_Vector& deltaSoln, const Solve_Type_Enum solveType,
+					 const Epetra_Vector* solnWeights)
+{ 
+    DomainLayout &DL = *DL_ptr_;
+    for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
+      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+      d_ptr->calcDeltaSolnVariables(t, soln, solnDot_ptr, deltaSoln, m_atolVector, solveType, solnWeights);
+  }
+
+  for (size_t iDom = 0; iDom < (size_t) DL.NumSurfDomains; iDom++) {
+      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+      d_ptr->calcDeltaSolnVariables(t, soln, solnDot_ptr, deltaSoln, m_atolVector, solveType, solnWeights);
+  }
+}
 //======================================================================================================================
 //  Find a delta of a solution component for use in the numerical jacobian
 /*
@@ -2013,7 +2014,7 @@ ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
  *    @param ieqn      local equation number of the solution vector
  */
 double
-ProblemResidEval::deltaSolnComp(const Epetra_Vector & soln, const int ieqn)
+ProblemResidEval::deltaSolnCompJac(const Epetra_Vector& soln, const int ieqn)
 {
   /*
    *  We are screwing around here with the algorithm. Later we will put in
@@ -2021,12 +2022,13 @@ ProblemResidEval::deltaSolnComp(const Epetra_Vector & soln, const int ieqn)
    */
   double base = soln[ieqn];
   // Base treatment.
-  //double delta = 1.0E-6 * fabs(base) + 1.0E-9;
+  double delta = 1.0E-5 * fabs(base) + 1.0E-9;
   //double delta = 1.0E-3 * fabs(base) + 1.0E-3;
-  double delta = 1.0E-4 * fabs(base) + 1.0E-9 + (*m_atolVector)[ieqn];
+  //double delta = 1.0E-4 * fabs(base) + 1.0E-9 + (*m_atolVector)[ieqn];
 
   return (base + delta);
 }
+
 //======================================================================================================================
 // Evaluates the atol vector used in the time stepper routine and in the nonlinear solver.
 /*
@@ -2077,7 +2079,8 @@ ProblemResidEval::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted 
  * @param soln         current solution vector.
  */
 void
-ProblemResidEval::setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted & soln, const Epetra_Vector_Ghosted & solnDot,
+ProblemResidEval::setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted & soln,
+					const Epetra_Vector_Ghosted & solnDot,
 				        const Epetra_Vector_Ghosted * const atolVector_DAEInit) const
 {
   DomainLayout &DL = *DL_ptr_;

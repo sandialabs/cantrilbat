@@ -1164,7 +1164,8 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,  cons
     }
     if (s1 < 1.0) {
       if (loglevel >= 4 && !mypid_) {
-        printf("\t  dampStep(): current trial step accepted and soln converged retnTrial = %d, its = %d, damp = %g\n", 0, m+1, m_fdamp);
+        printf("\t  dampStep(): current trial step accepted and soln converged retnTrial = %d, its = %d, damp = %g\n",
+	       0, m+1, m_fdamp);
       }
       return 0;
     }
@@ -1174,14 +1175,10 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,  cons
     return -2;
   }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 /*
- * On entry, step0 must contain an undamped Newton step for the
- * solution x0. This method attempts to find a damping coefficient
- * such that the next undamped step would have a norm smaller than
- * that of step0. If successful, the new solution after taking the
- * damped step is returned in y_new, and the undamped step at y_new is
- * returned in step1.
+ * On entry, step0 must contain an undamped Newton step for the solution x0. This method attempts to find a damping coefficient
+ * such that the residual is sufficiently reduced.
  *
  * @return   1 Successful step was taken: Next step was less than previous step.
  *                                        s1 is calculated
@@ -1199,7 +1196,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
 			   double &s1, int& loglevel, int& num_backtracks)
 {
   Epetra_Vector_Owned& step0 = *m_stp;
-  Epetra_Vector_Owned& step1 = *m_step_2;
+  //Epetra_Vector_Owned& step1 = *m_step_2;
   int retnTrial = 0;
 
   // Compute the weighted norm of the undamped step size step0
@@ -1313,7 +1310,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
   
     // write log information
     if (loglevel >= 4) {
-      print_solnDelta_norm_contrib(step0, "DeltaSoln", step1, "DeltaSolnTrialTest",
+      print_solnDelta_norm_contrib(step0, "DeltaSoln", step0, "DeltaSolnTrialTest",
           "dampNewt: Important Entries for Weighted Soln Updates:", y0, *m_y_new, ff, 5);
     }
     if (loglevel >= 4 && !mypid_) {
@@ -1372,7 +1369,8 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
     }
     if (s1 < 1.0) {
       if (loglevel >= 4 && !mypid_) {
-        printf("\t  dampStep(): current trial step accepted and soln converged retnTrial = %d, its = %d, damp = %g\n", 0, m+1, m_fdamp);
+        printf("\t  dampStep(): current trial step accepted and soln converged retnTrial = %d, its = %d, damp = %g\n",
+	       0, m+1, m_fdamp);
       }
       return 0;
     }
@@ -1382,7 +1380,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
     return -2;
   }
 }
-//=====================================================================================================================
+//===================================================================================================================================
 //  Update the solution vector using the step change that was just computed.
 /*
  *    We update the solution vector and the solution dot vector (this is the time derivative vector),
@@ -1904,6 +1902,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
      *           0 Uncertain Success: s1 is about the same as s0
      *          -2 Unsuccessful step.
      */
+//#define DOOLD
 #ifdef DOOLD
     m = dampStep(time_curr, *m_y_curr, m_ydot_curr, s1, m_print_flag, i_backtracks);
 #else

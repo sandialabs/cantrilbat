@@ -178,10 +178,20 @@ namespace beuler
     m1d::Solve_Type_Enum ss = m1d::DAESystemInitial_Solve;
     double CJ = 1.0/delta_t_n;
 
+#ifdef DEBUG_INIT_CALCULATION
+    int pold = m_nonlin->m_print_flag;
+    //m_nonlin->m_print_flag = 10;
+    //m1d::SolNonlinear::s_print_NumJac = 10;
+#endif
 
 
     int ierror = m_nonlin->solve_nonlinear_problem(ss, m_y_n, m_ydot_n, CJ, time_n, num_newt_its, num_linear_solves,
                                                    numbacktracks);
+
+#ifdef DEBUG_INIT_CALCULATION
+    m_nonlin->m_print_flag = pold;
+    m1d::SolNonlinear::s_print_NumJac = 0;
+#endif
     /*
      *  If we have experienced an error in the DAE initial solve calculation, we currently have no recourse but
      *  to end the calculation in failure. We may change this behavior in the future, I don't know.
