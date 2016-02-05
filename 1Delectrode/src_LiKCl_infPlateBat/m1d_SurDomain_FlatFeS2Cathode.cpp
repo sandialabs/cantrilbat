@@ -913,7 +913,7 @@ SurDomain_FlatFeS2Cathode::setAtolVector(double atolDefault, const Epetra_Vector
    *      arithmetically scaled.-> so this is a characteristic value
    *         1 kcal gmol-1 = 0.05 volts
    */
-  atolVector[index_EqnStart + offsetSD + EQ_Current_offset_SD] = 0.05;
+  atolVector[index_EqnStart + offsetSD + EQ_Current_offset_SD] = 1.0E-6;
 }
 //=====================================================================================================================
 //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
@@ -945,7 +945,7 @@ SurDomain_FlatFeS2Cathode::setAtolVector_DAEInit(double atolDefault, const Epetr
    *      arithmetically scaled.-> so this is a characteristic value
    *         1 kcal gmol-1 = 0.05 volts
    */
-  atolVector[index_EqnStart + offsetSD + EQ_Current_offset_SD] = 0.05;  
+  atolVector[index_EqnStart + offsetSD + EQ_Current_offset_SD] = 1.0E-6;  
 }
 //=====================================================================================================================
 //!  Fill the vector atolVector with the values from the DomainDescription for abs tol

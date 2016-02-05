@@ -1985,8 +1985,8 @@ infPorousLiKCl_FeS2Cathode_dom1D::setAtolVector(double atolDefault, const Epetra
      *      arithmetically scaled.-> so this is a characteristic value
      *         1 kcal gmol-1 = 0.05 volts
      */
-    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05;
-    atolVector[indexCent_EqnStart_BD + iVar_Voltage_ED] = 0.05;
+    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 1.0E-6;
+    atolVector[indexCent_EqnStart_BD + iVar_Voltage_ED] = 1.0E-6;
   }
 }
 //=====================================================================================================================
@@ -2051,8 +2051,8 @@ infPorousLiKCl_FeS2Cathode_dom1D::setAtolVector_DAEInit(double atolDefault, cons
      *      arithmetically scaled.-> so this is a characteristic value
      *         1 kcal gmol-1 = 0.05 volts
      */
-    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05;
-    atolVector[indexCent_EqnStart_BD + iVar_Voltage_ED] = 0.05;
+    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 1.0E-6;
+    atolVector[indexCent_EqnStart_BD + iVar_Voltage_ED] = 1.0E-6; 
   }
 }
 //=====================================================================================================================

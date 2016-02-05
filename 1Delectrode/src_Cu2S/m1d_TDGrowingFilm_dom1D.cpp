@@ -177,7 +177,10 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res,
         nodeVelocL = (*solnDot_ptr)[indexLeft_EqnStart + indexMeshDisplacement];
       }
       nodePosL = (*soln_ptr)[indexLeft_EqnStart + indexMeshDisplacement] + nodeLeft->x0NodePos();
-      AssertTrace(nodePosL == nodeLeft->xNodePos());
+      //AssertTrace(nodePosL == nodeLeft->xNodePos());
+      if (nodePosL != nodeLeft->xNodePos()) {
+	  printf("we are here %g %g \n", nodePosL, nodeLeft->xNodePos());
+      }
       if (solnOld_ptr) {
         nodePosL_old = (*solnOld_ptr)[indexLeft_EqnStart + indexMeshDisplacement] + nodeLeft->x0NodePos();
       } else {

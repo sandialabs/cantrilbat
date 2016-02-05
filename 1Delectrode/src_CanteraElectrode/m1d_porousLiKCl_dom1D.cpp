@@ -1424,7 +1424,7 @@ void porousLiKCl_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Gh
      * Set the atol value for the electrolyte voltage
      *      arithmetically scaled.
      */
-    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05;
+    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 1.0E-6;
   }  
 }
 //=====================================================================================================================
@@ -1483,7 +1483,7 @@ void porousLiKCl_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_V
      * Set the atol value for the electrolyte voltage
      *      arithmetically scaled.
      */
-    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 0.05;
+    atolVector[indexCent_EqnStart_BD + iVar_Voltage_BD] = 1.0E-6;
   }  
 }
 //=====================================================================================================================
