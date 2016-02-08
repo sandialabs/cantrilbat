@@ -466,11 +466,26 @@ public:
      */
     int NumLcCells;
 
+    //! number of owned and external nodes in this domain
+    int NumLcNodes;
+
     //! True if this processor owns the left-most node  of this domain
     bool IOwnLeft;
 
     //! True if this processor owns the right-most node of this domain
     bool IOwnRight;
+
+    //! If true there is an external node on the left within this bulk domain on this processor. 
+    /*!
+     *       This means that this processors nodes' left  boundary ends in the middle of this domain
+     */
+    bool ExternalNodeOnLeft_;
+
+    //! If true there is an external node on the right within this bulk domain on this processor. 
+    /*!
+     *       This means that this processors nodes' right boundary ends in the middle of this domain
+     */
+    bool ExternalNodeOnRight_;
 
     //! Index of the local node that corresponds to the current cell number
     /*!

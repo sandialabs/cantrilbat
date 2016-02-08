@@ -61,6 +61,7 @@ public:
   void process_BEinput(RecordTree_base *dbb);
 
   void process_input(BEInput::BlockEntry *cf);
+
   //!Constructor.
   /*!
    * @param r  function which calculates the residual
@@ -71,7 +72,7 @@ public:
   virtual
   ~EpetraJac();
 
-  //! Allocate the matrix
+  //! Allocate the matrix and  other vectors
   void
   allocateMatrix();
 

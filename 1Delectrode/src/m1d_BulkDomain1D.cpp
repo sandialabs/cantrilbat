@@ -35,15 +35,26 @@ namespace m1d
 
 //======================================================================================================================
 BulkDomain1D::BulkDomain1D(m1d::BulkDomainDescription &bdd) :
-  Domain1D(), BDD_(bdd), NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1), IOwnLeft(false),
-      IOwnRight(false), MeshInSolnVector(false), LI_ptr_(0)
+    Domain1D(), BDD_(bdd), NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1),  
+    NumLcCells(-1),
+    NumLcNodes(-1),
+    IOwnLeft(false),
+    IOwnRight(false), 
+    ExternalNodeOnLeft_(false),
+    ExternalNodeOnRight_(false),
+    MeshInSolnVector(false), LI_ptr_(0)
 {
 
 }
 //=====================================================================================
 BulkDomain1D::BulkDomain1D(const BulkDomain1D &r) :
-  Domain1D(), BDD_(r.BDD_), NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1), NumLcCells(-1),
-      IOwnLeft(false), IOwnRight(false), MeshInSolnVector(false), LI_ptr_(0)
+    Domain1D(), BDD_(r.BDD_), NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1), 
+    NumLcCells(-1),
+    NumLcNodes(-1),
+    IOwnLeft(false), IOwnRight(false),
+    ExternalNodeOnLeft_(false),
+    ExternalNodeOnRight_(false),
+    MeshInSolnVector(false), LI_ptr_(0)
 {
   BulkDomain1D::operator=(r);
 }
@@ -68,8 +79,11 @@ BulkDomain1D::operator=(const BulkDomain1D &r)
   FirstOwnedGbNode = r.FirstOwnedGbNode;
   LastOwnedGbNode = r.LastOwnedGbNode;
   NumLcCells = r.NumLcCells;
+  NumLcNodes = r.NumLcNodes;
   IOwnLeft = r.IOwnLeft;
-  IOwnRight = r.IOwnRight;
+  IOwnRight = r.IOwnRight; 
+  ExternalNodeOnLeft_ = r.ExternalNodeOnLeft_;
+  ExternalNodeOnRight_ = r.ExternalNodeOnRight_;
   Index_DiagLcNode_LCO = r.Index_DiagLcNode_LCO;
   Index_LeftLcNode_LCO = r.Index_LeftLcNode_LCO;
   Index_RightLcNode_LCO = r.Index_RightLcNode_LCO;
@@ -139,54 +153,107 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
   int rightOwnedLcNode = totalOwned_nodes - 1;
   int rightOwnedGbNode = LI_ptr_->IndexGbNode_LcNode[rightOwnedLcNode];
 
+  int numExternalNodesInThisDomain = 0;
   // Do the left intersection
+  //   Calcuate the first owned global node in this domain;
   FirstOwnedGbNode = leftOwnedGbNode;
   int firstOwnedLcNode = 0;
-  if (firstGbNodeDomain > FirstOwnedGbNode) {
 
-    if (rightOwnedLcNode < firstGbNodeDomain) {
-      // We are here when there is no intersection of this processor
-      // with this bulk domain
-      NumOwnedNodes = 0;
-      FirstOwnedGbNode = -1;
-      LastOwnedGbNode = -1;
-      NumLcCells = 0;
-      IOwnLeft = false;
-      IOwnRight = false;
-      return;
-    }
-    FirstOwnedGbNode = firstGbNodeDomain;
-    firstOwnedLcNode = LI_ptr_->GbNodeToLcNode(FirstOwnedGbNode);
-    AssertThrow(firstOwnedLcNode >= 0, "");
+  //
+  // First we check to see that our range of nodes extends to the left of the start of this domain
+  //
+  if (firstGbNodeDomain > FirstOwnedGbNode) {
+      //
+      // Next we check to see if we our nodes are all to the right of the domain
+      //
+      if (rightOwnedLcNode < firstGbNodeDomain) {
+	  // We are here when there is no intersection of this processor
+	  // with this bulk domain
+	  NumOwnedNodes = 0;
+	  FirstOwnedGbNode = -1;
+	  LastOwnedGbNode = -1;
+	  NumLcCells = 0;
+	  IOwnLeft = false;
+	  IOwnRight = false;
+
+	  return;
+      }
+      //
+      // We are here when the domain starts in the middle of our nodes
+      //
+      FirstOwnedGbNode = firstGbNodeDomain;
+      firstOwnedLcNode = LI_ptr_->GbNodeToLcNode(FirstOwnedGbNode);
+      IOwnLeft = true;
+      AssertThrow(firstOwnedLcNode >= 0, "");
   }
 
   // Do the right intersection - assume first that it's the last node on the processor
   LastOwnedGbNode = rightOwnedGbNode;
   int lastOwnedLcNode = rightOwnedLcNode;
+  //
+  // Check to see if our range of nodes extends past the end of the domain
+  //
   if (lastGbNodeDomain < LastOwnedGbNode) {
-    if (lastGbNodeDomain < FirstOwnedGbNode) {
-      // We are here when there is no intersection of this processor
-      // with this bulk domain
-      NumOwnedNodes = 0;
-      FirstOwnedGbNode = -1;
-      LastOwnedGbNode = -1;
-      NumLcCells = 0;
-      IOwnLeft = false;
-      IOwnRight = false;
-      return;
-    }
-
-    LastOwnedGbNode = lastGbNodeDomain;
-    lastOwnedLcNode = LI_ptr_->GbNodeToLcNode(LastOwnedGbNode);
-    AssertThrow(lastOwnedLcNode >= 0, "");
+      //
+      //  Check to see if our nodes is to the right of the entire domain, in which case we have no overlap.
+      //
+      if (lastGbNodeDomain < FirstOwnedGbNode) {
+	  // We are here when there is no intersection of this processor
+	  // with this bulk domain
+	  NumOwnedNodes = 0;
+	  FirstOwnedGbNode = -1;
+	  LastOwnedGbNode = -1;
+	  NumLcCells = 0;
+	  IOwnLeft = false;
+	  IOwnRight = false;
+	  return;
+      }
+      //
+      // We are here when the domain ends in the middle of our nodes
+      LastOwnedGbNode = lastGbNodeDomain;
+      lastOwnedLcNode = LI_ptr_->GbNodeToLcNode(LastOwnedGbNode);
+      IOwnLeft = true;
+      AssertThrow(lastOwnedLcNode >= 0, "");
   }
-
-  // Determine how many owned nodes of the bulk domain are on the processor
+  //
+  // Check to see that domain extends beyond this processor's nodes
+  //
+  if (lastGbNodeDomain > LastOwnedGbNode) {
+      //
+      // Check to see if there is an overlapp. If there is then there must be an external node on the processor
+      // within the current bulk domain.
+      //
+      if (firstGbNodeDomain <= LastOwnedGbNode) {
+	  numExternalNodesInThisDomain++;
+	  ExternalNodeOnRight_ = true;
+      }
+  }
+  //
+  // Check to see that domain extends beyond this processor's nodes
+  //
+  if (firstGbNodeDomain < FirstOwnedGbNode) {
+      //
+      // Check to see if there is an overlap. If there is then there must be an external node on the processor
+      // within the current bulk domain.
+      //
+      if (firstGbNodeDomain <= LastOwnedGbNode) {
+	  numExternalNodesInThisDomain++;
+	  ExternalNodeOnLeft_ = true;
+      }
+  }
+  //
+  // Determine how many owned nodes of the bulk domain are on this processor
+  //
   NumOwnedNodes = lastOwnedLcNode - firstOwnedLcNode + 1;
   AssertThrow(NumOwnedNodes > 0, "NumOwnedNodes > 0");
   AssertThrow(NumOwnedNodes == (LastOwnedGbNode - FirstOwnedGbNode + 1), "");
-
+  //
+  // Determine the number of owned + external nodes of the bulk domain are on this processor
+  //
+  NumLcNodes = NumOwnedNodes + numExternalNodesInThisDomain;
+  //
   // Determine the number of owned cells in this domain on this processor
+  //
   NumLcCells = NumOwnedNodes;
 
   // True if this processor owns the left-most node of this domain
@@ -603,40 +670,56 @@ BulkDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, 
 {
     double base;
     size_t index;
+    int iNode[2];
     std::vector<VarType>& vnl =	BDD_.VariableNameList;
     size_t numVar = BDD_.NumEquationsPerNode;
     int myBDD_ID = BDD_.ID();
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
 	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-	NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-	int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
 
 
-	int bmatch = -1;
-	for (int i = 0; i < nodeCent->NumBulkDomains; i++) {
-	    int id = nodeCent->BulkDomainIndex_BDN[i];
-	    if (id == myBDD_ID) {
-		bmatch = i;
-		break;
+	int numN = 1;
+	iNode[0] =  index_CentLcNode;
+	if (iCell == 0 && ExternalNodeOnLeft_) {
+	    numN = 2;
+	    iNode[1] = Index_LeftLcNode_LCO[0];
+	}
+	if ((iCell == NumLcCells -1) && ExternalNodeOnRight_) {
+	    numN = 2;
+	    iNode[1] = Index_RightLcNode_LCO[NumLcCells -1];
+	}
+	
+	for (int jj = 0; jj < numN; jj++) {
+	    int indexNode = iNode[jj];
+	    NodalVars *node = LI_ptr_->NodalVars_LcNode[indexNode];
+	    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[indexNode];
+
+	    int bmatch = -1;
+	    for (int i = 0; i < node->NumBulkDomains; i++) {
+		int id = node->BulkDomainIndex_BDN[i];
+		if (id == myBDD_ID) {
+		    bmatch = i;
+		    break;
+		}
 	    }
-	}
-	if (bmatch != nodeCent->BulkDomainIndex_fromID[myBDD_ID]) {
-	    printf("we have a prob\n");
-	    exit(-1);
-	}
-
-	for (size_t k = 0; k < numVar; k++) {
-	    const VarType& vt = vnl[k];
-	    size_t noffset = nodeCent->indexBulkDomainVar(vt);
-	    if (noffset == npos) {
-		printf("we shouldn't be here\n");
+	    if (bmatch != node->BulkDomainIndex_fromID[myBDD_ID]) {
+		printf("we have a prob\n");
 		exit(-1);
 	    }
-	    index = indexCent_EqnStart + noffset;
-	    base = soln[index];
-	    deltaSoln[index] = 1.0E-5 * fabs(base) + 1.0E-9;
-	    //deltaSoln[index] = 1.0E-4 * fabs(base) + 1.0E-9 + (*atolVector_ptr)[index];
 
+	    for (size_t k = 0; k < numVar; k++) {
+		const VarType& vt = vnl[k];
+		size_t noffset = node->indexBulkDomainVar(vt);
+		if (noffset == npos) {
+		    printf("we shouldn't be here\n");
+		    exit(-1);
+		}
+		index = index_EqnStart + noffset;
+		base = soln[index];
+		deltaSoln[index] = 1.0E-5 * fabs(base) + 1.0E-9;
+		//deltaSoln[index] = 1.0E-4 * fabs(base) + 1.0E-9 + (*atolVector_ptr)[index];
+
+	    }
 	}
 
     }
