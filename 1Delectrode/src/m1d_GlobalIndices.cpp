@@ -28,10 +28,15 @@ namespace m1d
 
 //===========================================================================
 GlobalIndices::GlobalIndices(Epetra_Comm *comm_ptr) :
-  Comm_ptr_(comm_ptr), NumProc(1), MyProcID(0), NumGbNodes(0), NumGbEqns(0), NumOwnedLcNodes(0), NumOwnedLcEqns(0),
-  GbNodetoOwnedLcNodeMap(0),
-  GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0),
-      XNodePos_GbNode(0), GbEqnstoAllMap(0), SolnAll(0), SolnIntAll(0), SolnDotAll(0), DL_ptr_(0)
+    Comm_ptr_(comm_ptr), NumProc(1), MyProcID(0), NumGbNodes(0), NumGbEqns(0), NumOwnedLcNodes(0), NumOwnedLcEqns(0),
+    GbNodetoOwnedLcNodeMap(0),
+    GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0),
+    XNodePos_GbNode(0), 
+    GbEqnstoAllMap(0), 
+    SolnAll(0), 
+    SolnIntAll(0), 
+    SolnDotAll(0), 
+    DL_ptr_(0)
 {
 }
 //===========================================================================

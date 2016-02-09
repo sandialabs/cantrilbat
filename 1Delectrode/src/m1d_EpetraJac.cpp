@@ -133,6 +133,10 @@ EpetraJac::allocateMatrix()
 
   Epetra_BlockMap * m_ArowMap = new Epetra_BlockMap(Arow_->Map());
   print0_epBlockMap(*m_ArowMap);
+
+  const Epetra_BlockMap &rMap = A_->RangeMap();
+  print0_epBlockMap(rMap);
+
   */
 
   int numBlockCols = A_->NumMyBlockCols();
@@ -145,7 +149,12 @@ EpetraJac::allocateMatrix()
   }
 
   //deltaSoln_ = new Epetra_Vector(A_->RangeMap());
-  deltaSoln_ = new Epetra_Vector(A_->RowMatrixColMap());
+  //const Epetra_BlockMap &rMap = A_->RangeMap();
+  //print0_epBlockMap(rMap);
+  //const Epetra_BlockMap &mMap = A_->RowMatrixColMap();
+  //print0_epBlockMap(mMap);
+
+  deltaSoln_ = new Epetra_Vector(A_->RangeMap());
 
   m_isAlgebraic = new Epetra_IntVector(A_->RangeMap());
   m_resid->fillIsAlgebraic(*m_isAlgebraic);
@@ -282,8 +291,10 @@ EpetraJac::eval(const bool doTimeDependentResid,
   m_resid->calcDeltaSolnVariables(t, *solnBase_ptr, solnDotBase_ptr, *deltaSoln_, solveType_);
 
   // To print out the solution deltas:
-  //string ss = "DeltaSolutionVars";
-  //m_resid->showSolutionVector(ss, t, rdelta_t, *deltaSoln_);
+#ifdef DEBUG_JAC
+  string ss = "DeltaSolutionVars";
+  m_resid->showSolutionVector(ss, t, rdelta_t, *deltaSoln_);
+#endif
 				  
 
   // Set the age to zero
