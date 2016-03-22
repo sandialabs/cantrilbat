@@ -291,7 +291,7 @@ EpetraJac::eval(const bool doTimeDependentResid,
   m_resid->calcDeltaSolnVariables(t, *solnBase_ptr, solnDotBase_ptr, *deltaSoln_, solveType_);
 
   // To print out the solution deltas:
-#ifdef DEBUG_JAC
+#ifdef DEBUG_JACOBIAN_CALCULATION
   string ss = "DeltaSolutionVars";
   m_resid->showSolutionVector(ss, t, rdelta_t, *deltaSoln_);
 #endif

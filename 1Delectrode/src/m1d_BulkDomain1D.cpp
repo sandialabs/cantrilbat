@@ -718,6 +718,9 @@ BulkDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, 
 		base = soln[index];
 		deltaSoln[index] = 1.0E-5 * fabs(base) + 1.0E-9;
 		//deltaSoln[index] = 1.0E-4 * fabs(base) + 1.0E-9 + (*atolVector_ptr)[index];
+		if (vt.VariableType == Voltage) {
+		    deltaSoln[index] = 1.0E-7;
+		}
 
 	    }
 	}
