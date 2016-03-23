@@ -351,7 +351,7 @@ EqnType::EquationName(const int len) const
       }
     }
   }
-  return std::string();
+  return std::string(buf);
 }
 //=====================================================================================================================
 bool
