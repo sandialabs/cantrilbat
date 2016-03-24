@@ -154,7 +154,9 @@ EpetraJac::allocateMatrix()
   //const Epetra_BlockMap &mMap = A_->RowMatrixColMap();
   //print0_epBlockMap(mMap);
 
-  deltaSoln_ = new Epetra_Vector(A_->RangeMap());
+  //deltaSoln_ = new Epetra_Vector(A_->RangeMap());
+  deltaSoln_ = new Epetra_Vector(*(LI_ptr_->GbBlockNodeEqnstoLcBlockNodeEqnsColMap));
+
 
   m_isAlgebraic = new Epetra_IntVector(A_->RangeMap());
   m_resid->fillIsAlgebraic(*m_isAlgebraic);
