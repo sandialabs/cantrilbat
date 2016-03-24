@@ -112,6 +112,7 @@ public:
   virtual void
   setProblemType(int probtype);
 
+  //! Set the solution weights based on the atol and rtol values 
   virtual void
   setDefaultSolnWeights();
 
@@ -578,11 +579,8 @@ protected:
    * m_jacFormMethod determines how a matrix is formed.
    */
   int m_jacFormMethod;
-  /**
-   * m_rowScaling is a boolean. If true then row sum scaling
-   * of the Jacobian matrix is carried out when solving the
-   * linear systems.
-   */
+
+  //!  If true then row sum scaling of the Jacobian matrix is carried out when solving the linear systems.
   bool m_rowScaling;
   /**
    * m_colScaling is a boolean. If true, then column scaling
@@ -757,10 +755,7 @@ protected:
    */
   Epetra_Vector_Owned *m_resid;
 
-  //! boolean indicating whether the vector m_resid is scaled or not.
-  /*!
-   *
-   */
+  //! Boolean indicating whether the vector m_resid is currently scaled or not.
   bool m_resid_scaled;
 
   //!   RHS of the linear problem

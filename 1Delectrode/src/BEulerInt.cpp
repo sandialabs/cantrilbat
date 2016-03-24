@@ -685,7 +685,7 @@ void BEulerInt::setSolnWeights()
     Epetra_IntVector &isS = *m_isArithmeticScaled;
     for (int i = 0; i < m_NumLcOwnedEqns; i++) {
         if (isS[i] == 1) {
-            (*m_ewt)[i] = m_reltol * (*m_abstol)[i];
+            (*m_ewt)[i] = 1.0E4 * m_reltol * (*m_abstol)[i];
         } else {
             (*m_ewt)[i] = (*m_abstol)[i] + m_reltol * 0.5 * (fabs( (*m_y_nm1)[i]) + fabs( (*m_y_pred_n)[i]));
         }

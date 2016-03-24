@@ -373,7 +373,7 @@ SolNonlinear::res_error_norm(const Epetra_Vector_Owned &resid, const char *title
             if (i >= 0) {
               ss.print0("\t\t   %4d  %24s-%-4d |%12.4e   %12.4e     %12.4e\n", idGlobalEqnMax,  v24.c_str(),
 		      iLcNode, fabs(error),
-                  (resid[idLocalEqnMax] * (*m_residWts)[idLocalEqnMax]), (*m_residWts)[idLocalEqnMax]);
+                  (resid[idLocalEqnMax] / (*m_rowScales)[idLocalEqnMax]), (*m_residWts)[idLocalEqnMax]);
             }
           } else {
             error = resid[i] / (*m_residWts)[i];
@@ -1253,6 +1253,9 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
     //
     // s1 = s0 * m_normResidTrial / m_normResid0;
     s1 = s0;
+    if (m_normResidTrial / m_normResid0 < 1.0) {
+       s1 = s0 * m_normResidTrial / m_normResid0;
+    }
     //
     //  We accept the step if the Residual is less than one, or if the residual is less than the initial residual
     //  
@@ -1265,11 +1268,25 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
 	    atEnd = true;
 	}
     }
-
+    //
+    // We allow the residual to go up in certain end cases. Basically the residual has to stay below the cutoff, and
+    // the total step has to be a fraction of the step acceptance tolerance.
+    // Basically, I've seen the damping step get stuck with residual < 1 and s0 < 1
+    //
+    if (m_normResidTrial < 0.3) {
+      double s0damp = s0 *  m_fdamp;
+      double fac = m_normResidTrial / m_normResid0;
+      if (fac < 10.0) {
+        double fac1 = fac * s0damp;
+        if (fac1 < 1.0) {
+           atEnd = true;
+        }
+      }
+    }
    
     if (atEnd || steepEnough || !doResidSolnDamping_) {
 	raccepted = true;
-      if (loglevel >= 5 && !mypid_) {
+        if (loglevel >= 5 && !mypid_) {
 	  if (m_normResidTrial < m_normResid0) {
 	      printf("\t  dampStep(): Current trial step and damping"
 		     " coefficient accepted because resid0 > residTrial < resid0:\n");
@@ -1283,22 +1300,21 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
 		     " coefficient accepted because residual solution damping is turned off:\n");
 	      printf("\t              resid0 = %g, residTrial = %g\n", m_normResid0, m_normResidTrial);
 	  }
-      }
-      /*
-       *  We aren't going to solve the system if we don't need to. Therefore, return an estimate
-       *  of the next solution update based on the ratio of the residual reduction.
-       */
-      if (m_normResid0 < 1.0E-10) {
-	if (m_normResidTrial < 1.0E-5) {
-	  s1 = 0.1 * s0;
-	}
-      }
-      if (m_normResidTrial < 1.0) {
-        retnTrial = 3;
-      } else {
-        retnTrial = 4;
-      }
- 
+        }
+        /*
+         *  We aren't going to solve the system if we don't need to. Therefore, return an estimate
+         *  of the next solution update based on the ratio of the residual reduction.
+         */
+        if (m_normResid0 < 1.0E-10) {
+   	  if (m_normResidTrial < 1.0E-5) {
+	    s1 = 0.1 * s0;
+	  }
+        }
+        if (m_normResidTrial < 1.0) {
+          retnTrial = 3;
+        } else {
+          retnTrial = 4;
+        }
     }
 
     // xxxxx
@@ -2363,7 +2379,7 @@ SolNonlinear::setDefaultSolnWeights()
     for (int i = 0; i < m_NumLcOwnedEqns; i++) {
       if (isA[i] == 1) {
 	if (isS[i] == 1) {
-	  ewt[i] =  m_reltol * (*m_abstol)[i];
+	  ewt[i] =  1.0E4 * m_reltol *  (*m_abstol)[i];
 	  ewt_deltaDamping[i] = (*m_absTol_deltaDamping)[i];
 	} else {
 	  ewt[i] = (*m_abstol)[i] + m_reltol * fabs((*m_y_curr)[i]);
@@ -2371,7 +2387,7 @@ SolNonlinear::setDefaultSolnWeights()
 	}
       } else {
 	if (isS[i] == 1) {  
-	  ewt[i] =  m_reltol * (*m_abstol)[i];
+	  ewt[i] =  1.0E4 * m_reltol * (*m_abstol)[i];
 	  ewt_deltaDamping[i] = (*m_absTol_deltaDamping)[i];
 	} else {
 	  ewt[i] = (*m_abstol)[i] + m_reltol * fabs((*m_ydot_curr)[i]);
@@ -2382,7 +2398,7 @@ SolNonlinear::setDefaultSolnWeights()
   } else {
       for (int i = 0; i < m_NumLcOwnedEqns; i++) {
 	if (isS[i] == 1) {  
-	  ewt[i] =  m_reltol * (*m_abstol)[i];
+	  ewt[i] = 1.0E4 * m_reltol * (*m_abstol)[i];
 	  ewt_deltaDamping[i] = (*m_absTol_deltaDamping)[i];
 	} else {
 	  ewt[i] = (*m_abstol)[i] + m_reltol * 0.5 * (fabs((*m_y_curr)[i]) + fabs((*m_y_pred_n)[i]));
