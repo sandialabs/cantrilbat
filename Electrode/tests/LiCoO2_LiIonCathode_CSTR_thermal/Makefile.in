@@ -109,7 +109,7 @@ $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-DEPENDS = $(OBJ_ANODE:.o=.d) 
+DEPENDS = $(OBJ:.o=.d) 
 
 $(DEPENDS): Makefile
 
