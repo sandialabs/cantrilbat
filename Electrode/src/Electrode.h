@@ -26,6 +26,7 @@
 
 #include <string>
 #include <vector>
+#include <cstring>
 
 class ELECTRODE_KEY_INPUT;
 class EGRInput;

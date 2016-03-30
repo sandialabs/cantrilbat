@@ -49,6 +49,7 @@
 
 #include <vector>
 #include "stdio.h"
+#include <cstring>
 
 using namespace ctml;
 using namespace std;

@@ -11,6 +11,8 @@
 #include "cantera/equil/vcs_MultiPhaseEquil.h"
 #include "cantera/equil/vcs_internal.h"
 
+#include <cstring>
+
 using namespace Cantera;
 using namespace std;
 

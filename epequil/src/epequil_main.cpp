@@ -8,11 +8,13 @@
  * may require a license from the United States Government.
  */
 
-#include <stdio.h>
 
 #include "cantera/equilibrium.h"
 #include "epequil_input.h"
 #include "epequil_prep.h"
+
+#include <cstdio>
+#include <cstring>
 
 using namespace Cantera;
 using namespace std;

@@ -33,6 +33,8 @@
 #include "cantera/equil/vcs_internal.h"
 #endif
 
+#include <cstring>
+
 using namespace std;
 using namespace Cantera;
 

@@ -16,6 +16,7 @@
 #include "cantera/thermo/HMWSoln.h"
 
 #include <cstdio>
+#include <cstring>
 
 using namespace Cantera;
 using namespace std;

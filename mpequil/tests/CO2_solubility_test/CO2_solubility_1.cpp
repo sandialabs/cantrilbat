@@ -15,6 +15,7 @@
 #include "cantera/base/logger.h"
 #include "cantera/thermo/HMWSoln.h"
 
+#include <cstring>
 
 using namespace Cantera;
 using namespace std;
