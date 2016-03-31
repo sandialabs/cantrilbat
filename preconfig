@@ -216,7 +216,8 @@ SHARED=${SHARED:="-shared"}
 #               specify the correct line if the default 'g++ -MM'
 #               isn't correct for your system.
 #
-CXX_DEPENDS=${CXX_DEPENDS:='g++ -MM'}
+export CXX_DEPENDS_DFT="${CXX}  -MM"
+CXX_DEPENDS=${CXX_DEPENDS:=${CXX_DEPENDS_DFT}}
 # 
 #-------------------------------------------------------------------
 #      Fortran compiler options

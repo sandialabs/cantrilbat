@@ -315,13 +315,14 @@ AC_SUBST(LMPICXX_END_LIBS)
 #
 # compilation of depends rules
 #
-if test "x${CXX_DEPENDS}" = "x"; then
+if test "x${CXX_DEPENDS}" = "x"  -o "${CXX_DEPENDS}" = "${CXX_DEPENDS_DFT}"; then
   if test "x${DO_MPI}" = "xy"; then
-    CXX_DEPENDS='mpicxx -MM'
+    CXX_DEPENDS="${MPICXX} -MM"
   else
-    CXX_DEPENDS='g++ -MM'
+    CXX_DEPENDS="${CXX}  -MM"
   fi
 fi
+echo 'Setting the CXX_DEPENDS variable to = ' $CXX_DEPENDS
 AC_SUBST(CXX_DEPENDS)
 
 AC_SUBST(MPICXX)
