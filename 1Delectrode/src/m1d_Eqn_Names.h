@@ -33,10 +33,8 @@ enum Var_Name_Enum
   VolumeFraction_Phase,          //!< VolumeFraction_phase
   Voltage,                 // 10
   Temperature,             // 11      //!< Temperature
-#ifdef MECH_MODEL
   // re-use Displacement_Axial
   Solid_Stress_Axial, // scalar, for 1 d
-#endif // MECH_MODEL
   Max_Var_Name                   //!< Max_Var_Name
 //! must be last in the list
 };

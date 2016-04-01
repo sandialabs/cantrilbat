@@ -15,7 +15,6 @@
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 
-#include "Electrode.h"
 
 namespace m1d
 {
@@ -114,13 +113,6 @@ public:
    *   1 - bottom, left
    */
   int m_position;
-
-
-  //! Pointer to the electrode object
-  /*!
-   * We own the electrode object.
-   */
-  //Cantera::Electrode *Electrode_;
 
 
 };

@@ -28,7 +28,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  TDGrowingFilm_dom1D(m1d::BulkDomainDescription &bdd);
+  TDGrowingFilm_dom1D(m1d::BulkDomainDescription* bdd_ptr);
 
   //! Copy constructor
   /*!

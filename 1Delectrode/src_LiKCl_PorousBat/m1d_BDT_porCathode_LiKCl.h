@@ -110,11 +110,6 @@ public:
    */
   int m_position;
 
-  //! Pointer to the electrode object
-  /*!
-   * We own the electrode object.
-   */
-  // Cantera::Electrode *Electrode_;
 
 };
 

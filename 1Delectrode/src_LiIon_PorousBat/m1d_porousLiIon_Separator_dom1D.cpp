@@ -51,9 +51,9 @@ drawline0(int sp, int ll)
     sprint0("\n");
 }
 //==================================================================================================================================
-porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon& bdd) :
-    porousFlow_dom1D(bdd),
-    BDT_ptr_(0),
+porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon* bdd_sep_ptr) :
+    porousFlow_dom1D(bdd_sep_ptr),
+    BDT_sep_ptr_(bdd_sep_ptr),
     nph_(0), nsp_(0),
     concTot_Cell_(0), 
     concTot_Cell_old_(0), 
@@ -70,8 +70,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
     solnTemp(0)
 {
 
-    BDT_ptr_ = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
-    if (!BDT_ptr_) {
+    //BDT_ptr_ = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
+    if (!BDT_sep_ptr_) {
         throw m1d_Error("porousLiIon_Separator_dom1D", "confused");
     }
     nsp_ = ionicLiquid_->nSpecies();
@@ -94,8 +94,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon&
 }
 //==================================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separator_dom1D& r) :
-    porousFlow_dom1D((BDD_porousFlow&) r.BDD_),
-    BDT_ptr_(0),
+    porousFlow_dom1D(r.BDT_sep_ptr_),
+    BDT_sep_ptr_(r.BDT_sep_ptr_),
     nph_(0), nsp_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     Fleft_cc_(0.0),
@@ -125,7 +125,7 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     // Call the parent assignment operator
     porousFlow_dom1D::operator=(r);
 
-    BDT_ptr_ = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
+    BDT_sep_ptr_                          = r.BDT_sep_ptr_;
     ionicLiquid_                          = r.ionicLiquid_;
     nph_                                  = r.nph_;
     nsp_                                  = r.nsp_;
@@ -404,7 +404,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
   }
   residType_Curr_ = residType;
   // convert to static_cast!!
-  BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
+  //BDT_porSeparator_LiIon* fa = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
   t_final_ = t;
   if (rdelta_t < 1.0E-200) {
     t_init_ = t;
@@ -814,7 +814,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
      * Species continuity Equation
      */
     for (int k = 0; k < nsp_; k++) {
-      if ((k != (int) fa->iMFS_index_) && (k != iPF6m_)) {
+      if ((k != (int) BDT_sep_ptr_->iMFS_index_) && (k != iPF6m_)) {
 	res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
       }
     }
@@ -1584,12 +1584,12 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 
     //
     // Find the pointer for the left Anode
-    SurfDomainDescription *leftS = BDD_.LeftSurf;
+    SurfDomainDescription *leftS = BDD_ptr_->LeftSurf;
     BulkDomainDescription *leftDD = leftS->LeftBulk;
     BulkDomain1D *leftD_anode = leftDD->BulkDomainPtr_;
     //
     // Find the pointer for the left Cathode
-    SurfDomainDescription *rightS = BDD_.RightSurf;
+    SurfDomainDescription *rightS = BDD_ptr_->RightSurf;
     BulkDomainDescription *rightDD = rightS->RightBulk;
     BulkDomain1D *rightD_cathode = rightDD->BulkDomainPtr_;
 
@@ -1904,12 +1904,12 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
   
     //
     // Find the pointer for the left Anode
-    SurfDomainDescription *leftS = BDD_.LeftSurf;
+    SurfDomainDescription *leftS = BDD_ptr_->LeftSurf;
     BulkDomainDescription *leftDD = leftS->LeftBulk;
     BulkDomain1D *leftD_anode = leftDD->BulkDomainPtr_;
     //
     // Find the pointer for the left Cathode
-    SurfDomainDescription *rightS = BDD_.RightSurf;
+    SurfDomainDescription *rightS = BDD_ptr_->RightSurf;
     BulkDomainDescription *rightDD = rightS->RightBulk;
     BulkDomain1D *rightD_cathode = rightDD->BulkDomainPtr_;
 
@@ -2183,7 +2183,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
                                               int type)
 {
    // Needs major work
-   // for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
+   // for (int i = 0; i < BDD_ptr_->NumEquationsPerNode; i++) {
    //     solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
    // }
 
@@ -2393,16 +2393,16 @@ porousLiIon_Separator_dom1D::saveDomain(Cantera::XML_Node& oNode,
     Cantera::XML_Node& bdom = oNode.addChild("domain");
 
     // Number of equations per node
-    int numEquationsPerNode = BDD_.NumEquationsPerNode;
+    int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
 
     // Vector containing the variable names as they appear in the solution vector
-    std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+    std::vector<VarType>& variableNameList = BDD_ptr_->VariableNameList;
 
     //! First global node of this bulk domain
-    int firstGbNode = BDD_.FirstGbNode;
+    int firstGbNode = BDD_ptr_->FirstGbNode;
 
     //! Last Global node of this bulk domain
-    int lastGbNode = BDD_.LastGbNode;
+    int lastGbNode = BDD_ptr_->LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
 
     bdom.addAttribute("id", id());
@@ -2465,9 +2465,9 @@ porousLiIon_Separator_dom1D::writeSolutionTecplotHeader()
 	fprintf(ofp, "TITLE = \"Solution on Domain %s\"\n",sss.c_str() );
 
 	// Number of equations per node
-	size_t numVar = BDD_.NumEquationsPerNode;
+	size_t numVar = BDD_ptr_->NumEquationsPerNode;
 	// Vector containing the variable names as they appear in the solution vector
-	std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+	std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
 	//! First global node of this bulk domain
 
 	fprintf(ofp, "VARIABLES = ");
@@ -2529,11 +2529,11 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
 	// get the NodeVars object pertaining to this global node
 	GlobalIndices *gi = LI_ptr_->GI_ptr_;
 	// Number of equations per node
-	int numVar = BDD_.NumEquationsPerNode;
+	int numVar = BDD_ptr_->NumEquationsPerNode;
 	//! First global node of this bulk domain
-	int firstGbNode = BDD_.FirstGbNode;
+	int firstGbNode = BDD_ptr_->FirstGbNode;
 	//! Last Global node of this bulk domain
-	int lastGbNode = BDD_.LastGbNode;
+	int lastGbNode = BDD_ptr_->LastGbNode;
 	int numNodes = lastGbNode - firstGbNode + 1;
 	std::vector<double> vars(numNodes);
     
@@ -2604,7 +2604,7 @@ porousLiIon_Separator_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
     // Print all of the solution variables
     //x
     for (size_t iVar = 0; iVar < (size_t) numVar; iVar++) {
-	const VarType& vt = BDD_.VariableNameList[iVar];
+	const VarType& vt = BDD_ptr_->VariableNameList[iVar];
 	for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 	    NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
 	    size_t istart = nv->EqnStart_GbEqnIndex;
@@ -2738,11 +2738,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool do0Write = (!mypid || duplicateOnAllProcs);
     //bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+    std::vector<VarType>& variableNameList = BDD_ptr_->VariableNameList;
     int iBlock;
     int iGbNode;
     int n;
-    int nPoints = BDD_.LastGbNode - BDD_.FirstGbNode + 1;
+    int nPoints = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode + 1;
 
     char buf[100];
     string indent = "";
@@ -2763,11 +2763,11 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         drawline(indentSpaces, 80);
         ss.print0("%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
         ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
-        ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
-        ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+        ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_ptr_->Xpos_start);
+        ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_ptr_->Xpos_end);
 #ifdef MECH_MODEL
-	int firstGbNode = BDD_.FirstGbNode;
-	int lastGbNode = BDD_.LastGbNode;
+	int firstGbNode = BDD_ptr_->FirstGbNode;
+	int lastGbNode = BDD_ptr_->LastGbNode;
 	if (solidMechanicsProbType_ > 0) {
 	    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
 		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
@@ -2791,7 +2791,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ss.print0("\n");
             drawline(indentSpaces, 80);
 
-            for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+            for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("\n%s   %4d  % -10.4E ", ind, iGbNode, x);
@@ -2809,12 +2809,12 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                      */
                     if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
-                        if (iGbNode == BDD_.FirstGbNode) {
+                        if (iGbNode == BDD_ptr_->FirstGbNode) {
  	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             // we've applied a boundary condition here!
                             v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
-                        } else if (iGbNode == BDD_.LastGbNode) {
+                        } else if (iGbNode == BDD_ptr_->LastGbNode) {
 			    cellTmps& cTmps = cellTmpsVect_Cell_[NumLcCells-1];
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             // we've applied a boundary condition here!
@@ -2848,7 +2848,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ss.print0("\n");
             drawline(indentSpaces, 80);
 
-            for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+            for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("%s   %4d  % -10.4E ", ind, iGbNode, x);
@@ -2863,12 +2863,12 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                     v = (*soln_GlAll_ptr)[istart + offset];
 		    if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
-                        if (iGbNode == BDD_.FirstGbNode) {
+                        if (iGbNode == BDD_ptr_->FirstGbNode) {
  	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             // we've applied a boundary condition here!
                             v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
-                        } else if (iGbNode == BDD_.LastGbNode) {
+                        } else if (iGbNode == BDD_ptr_->LastGbNode) {
 			    cellTmps& cTmps = cellTmpsVect_Cell_[0];
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             // we've applied a boundary condition here!
@@ -2900,10 +2900,10 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	    drawline0(indentSpaces, 80);
 	}
 	print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
-	for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+	for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 	    print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
 	    if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-		int iCell = iGbNode - BDD_.FirstGbNode;
+		int iCell = iGbNode - BDD_ptr_->FirstGbNode;
 		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 		double x = nv->xNodePos();
 		ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
@@ -2949,24 +2949,24 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     NodalVars* nvr;
     doublereal x;
     int iCell;
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
             ss.print0("%s    ", ind);
-            if (iGbNode == BDD_.FirstGbNode) {
+            if (iGbNode == BDD_ptr_->FirstGbNode) {
                 iCell = 0;
-                nvr = gi->NodalVars_GbNode[BDD_.FirstGbNode];
+                nvr = gi->NodalVars_GbNode[BDD_ptr_->FirstGbNode];
                 x = nvr->xNodePos();
                 ss.print0("Lft-0     % -10.4E ", x);
                 ss.print0("% -11.4E ", icurrElectrolyte_CBL_[iCell]);
-            } else if (iGbNode == BDD_.LastGbNode) {
-                iCell = BDD_.LastGbNode - BDD_.FirstGbNode;
-                nvr = gi->NodalVars_GbNode[BDD_.LastGbNode];
+            } else if (iGbNode == BDD_ptr_->LastGbNode) {
+                iCell = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode;
+                nvr = gi->NodalVars_GbNode[BDD_ptr_->LastGbNode];
                 x = nvr->xNodePos();
                 ss.print0("%3d-Rgt   % -10.4E ", iCell, x);
                 ss.print0("% -11.4E ", icurrElectrolyte_CBR_[iCell]);
             } else {
-                iCell = iGbNode - BDD_.FirstGbNode;
+                iCell = iGbNode - BDD_ptr_->FirstGbNode;
                 nvl = gi->NodalVars_GbNode[iGbNode];
                 nvr = gi->NodalVars_GbNode[iGbNode + 1];
                 x = 0.5 * (nvl->xNodePos() + nvr->xNodePos());
@@ -2992,10 +2992,10 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         }
         //NodalVars* nvl;
         //NodalVars* nvr;
-        for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+        for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
             print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
             if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-                iCell = iGbNode - BDD_.FirstGbNode;
+                iCell = iGbNode - BDD_ptr_->FirstGbNode;
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 x = nv->xNodePos();
                 ss.print0("%s %4d  % -10.4E ", ind, iGbNode, x);

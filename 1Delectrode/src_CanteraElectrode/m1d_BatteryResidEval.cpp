@@ -302,7 +302,7 @@ BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
 	fprintf(stderr, "Boundaries of domain %d are %g and %g\n", iDom, xleft, xright);
 
 	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	int iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	int iVar_Voltage_BD = d_ptr->BDD_ptr_->VariableIndexStart_VarName[Voltage];
 
 	for ( int iGbNode = leftGbNode; iGbNode < rightGbNode; iGbNode++ ) {
 	    double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
@@ -333,7 +333,7 @@ BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
 	double xleft = (*GI_ptr_->XNodePos_GbNode)[iNodeLeft];	
 	//find the voltage at this node
 	d_ptr = DL.BulkDomain1D_List[iDom];
-	iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	iVar_Voltage_BD = d_ptr->BDD_ptr_->VariableIndexStart_VarName[Voltage];
 	voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iNodeLeft] + iVar_Voltage_BD ;
 	double voltLeft = soln[voltEqn];
       
@@ -344,7 +344,7 @@ BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
 	double xright = (*GI_ptr_->XNodePos_GbNode)[iNodeRight];	
 	//find the voltage at this node
 	d_ptr = DL.BulkDomain1D_List[iDom];
-	iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	iVar_Voltage_BD = d_ptr->BDD_ptr_->VariableIndexStart_VarName[Voltage];
 	voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iNodeRight] + iVar_Voltage_BD ;
 	double voltRight = soln[voltEqn];
       
@@ -357,7 +357,7 @@ BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
 	    int rightGbNode = DL_ptr_->EndGBNode_Domain[iDom];
 	
 	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	    int iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	    int iVar_Voltage_BD = d_ptr->BDD_ptr_->VariableIndexStart_VarName[Voltage];
 	
 	    for ( int iGbNode = leftGbNode; iGbNode < rightGbNode; iGbNode++ ) {
 		double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
@@ -374,7 +374,7 @@ BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
 	//nodes at boundaries
 	int iGbNode  = DL_ptr_->StartGBNode_Domain[iDom];
 	d_ptr = DL.BulkDomain1D_List[iDom];
-	iVar_Voltage_BD = d_ptr->BDD_.VariableIndexStart_VarName[Voltage];
+	iVar_Voltage_BD = d_ptr->BDD_ptr_->VariableIndexStart_VarName[Voltage];
       
 	double xNode = (*GI_ptr_->XNodePos_GbNode)[iGbNode];	
 	voltEqn = GI_ptr_->IndexStartGbEqns_GbNode[iGbNode] + iVar_Voltage_BD ;
@@ -669,7 +669,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
 	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
 	if (bd_ptr) {
 	    //BulkDomainDescription &BDD_;
-	    SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+	    SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
 	    if (sdd) {
 		int idS = sdd->ID();
 		d_ptr = DL.SurDomain1D_List[idS];

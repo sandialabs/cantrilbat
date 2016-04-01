@@ -611,10 +611,7 @@ public:
   // The initial state of the battery has some initial stress due to the mfg process. This produces no strain/displacement. 
   // While this is being imput as a scalar, it in principal could be an initial condition of each node, making it a function
   // of position in the battery layers. 
-
-#ifdef MECH_MODEL
   double SolidStressAxialRef_;
-#endif 
 
   //! Reference Pressure  (pascal)
   /*!

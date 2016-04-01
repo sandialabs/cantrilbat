@@ -33,25 +33,23 @@ namespace m1d
 {
 
 //==============================================================================
-porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BDT_porousLiKCl& bdd) :
-  porousFlow_dom1D(bdd), 
+porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BDT_porousLiKCl* bdd_pms_ptr) :
+  porousFlow_dom1D(bdd_pms_ptr), 
+  BDT_pms_ptr_(bdd_pms_ptr),
   temp_Curr_(TemperatureReference_), 
   ivb_(VB_MOLEAVG)
 {
 
-  BDT_porousLiKCl *fa = dynamic_cast<BDT_porousLiKCl *> (&bdd);
-  if (!fa) {
-    throw m1d_Error("confused", "confused");
-  }
-  ionicLiquid_ = fa->ionicLiquidIFN_;
-  trans_ = fa->trans_;
+  ionicLiquid_ = bdd_pms_ptr->ionicLiquidIFN_;
+  trans_ = bdd_pms_ptr->trans_;
   nsp_ = 3;
   nph_ = 1;
 
 }
 //==============================================================================
 porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(const porousLiKCl_infPlate_dom1D &r) :
-  porousFlow_dom1D((BDT_porousLiKCl&) r.BDD_), 
+  porousFlow_dom1D(r.BDT_pms_ptr_), 
+  BDT_pms_ptr_(r.BDT_pms_ptr_),
   temp_Curr_(TemperatureReference_), 
   ivb_(VB_MOLEAVG)
 {
@@ -71,6 +69,7 @@ porousLiKCl_infPlate_dom1D::operator=(const porousLiKCl_infPlate_dom1D &r)
   // Call the parent assignment operator
   porousFlow_dom1D::operator=(r);
 
+  BDT_pms_ptr_ = r.BDT_pms_ptr_;
   ionicLiquid_ = r.ionicLiquid_;
   trans_ = r.trans_;
   nph_ = r.nph_;
@@ -253,18 +252,18 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
   /*
    *  Offsets for the equation unknowns in the residual vector for the electrolyte domain
    */
-  int EQ_Current_offset_BD = BDD_.EquationIndexStart_EqName[Current_Conservation];
-  int EQ_TCont_offset_BD = BDD_.EquationIndexStart_EqName[Continuity];
-  int EQ_Species_offset_BD = BDD_.EquationIndexStart_EqName[Species_Conservation];
-  int EQ_MFSum_offset_BD = BDD_.EquationIndexStart_EqName[MoleFraction_Summation];
-  int EQ_ChargeBal_offset_BD = BDD_.EquationIndexStart_EqName[ChargeNeutrality_Summation];
+  int EQ_Current_offset_BD = BDD_ptr_->EquationIndexStart_EqName[Current_Conservation];
+  int EQ_TCont_offset_BD = BDD_ptr_->EquationIndexStart_EqName[Continuity];
+  int EQ_Species_offset_BD = BDD_ptr_->EquationIndexStart_EqName[Species_Conservation];
+  int EQ_MFSum_offset_BD = BDD_ptr_->EquationIndexStart_EqName[MoleFraction_Summation];
+  int EQ_ChargeBal_offset_BD = BDD_ptr_->EquationIndexStart_EqName[ChargeNeutrality_Summation];
 
   /*
    * Offsets for the variable unknowns in the solution vector for the electrolyte domain
    */
-  int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-  int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-  int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+  int iVAR_Vaxial_BD = BDD_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+  int iVar_Species_BD = BDD_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+  int iVar_Voltage_BD = BDD_ptr_->VariableIndexStart_VarName[Voltage];
 
   incrementCounters(residType);
   Fright_cc_ = 0.0;
@@ -911,9 +910,9 @@ porousLiKCl_infPlate_dom1D::initialConditions(const bool doTimeDependentResid, E
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDD_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDD_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDD_ptr_->VariableIndexStart_VarName[Voltage];
 
     soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = 0.0;
 
@@ -959,9 +958,9 @@ void porousLiKCl_infPlate_dom1D::setAtolVector(double atolDefault, const Epetra_
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDD_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDD_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDD_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity
@@ -1020,9 +1019,9 @@ void porousLiKCl_infPlate_dom1D::setAtolVector_DAEInit(double atolDefault, const
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDD_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDD_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDD_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity
@@ -1078,9 +1077,9 @@ porousLiKCl_infPlate_dom1D::setAtolDeltaDamping(double atolDefault, double relco
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDD_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDD_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDD_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity
@@ -1139,9 +1138,9 @@ porousLiKCl_infPlate_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, doub
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDD_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDD_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDD_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity

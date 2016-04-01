@@ -78,7 +78,7 @@ BDT_porAnode_LiIon::ReadModelDescriptions()
 BulkDomain1D*
 BDT_porAnode_LiIon::mallocDomain1D()
 {
-    BulkDomainPtr_ = new porousLiIon_Anode_dom1D(*this);
+    BulkDomainPtr_ = new porousLiIon_Anode_dom1D(this);
     return BulkDomainPtr_;
 }
 

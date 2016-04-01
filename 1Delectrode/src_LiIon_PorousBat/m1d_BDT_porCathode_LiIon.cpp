@@ -91,7 +91,7 @@ BDT_porCathode_LiIon::ReadModelDescriptions()
 BulkDomain1D*
 BDT_porCathode_LiIon::mallocDomain1D()
 {
-    BulkDomainPtr_ = new porousLiIon_Cathode_dom1D(*this);
+    BulkDomainPtr_ = new porousLiIon_Cathode_dom1D(this);
     return BulkDomainPtr_;
 }
 //=====================================================================================================================

@@ -38,7 +38,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <cstring>
 #include <ctype.h>
 #include <math.h>
 #include <sys/types.h>

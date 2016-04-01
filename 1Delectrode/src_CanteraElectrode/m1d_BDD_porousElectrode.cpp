@@ -363,7 +363,7 @@ BDD_porousElectrode::SetEquationsVariablesList()
 BulkDomain1D *
 BDD_porousElectrode::mallocDomain1D()
 {
-    BulkDomainPtr_ = new porousElectrode_dom1D(*this);
+    BulkDomainPtr_ = new porousElectrode_dom1D(this);
     return BulkDomainPtr_;
 }
 //=====================================================================================================================

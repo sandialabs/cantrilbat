@@ -35,7 +35,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  SimpleTDDiff_dom1D(m1d::BulkDomainDescription &bdd);
+  SimpleTDDiff_dom1D(m1d::BulkDomainDescription* bdd_ptr);
 
   //! Copy constructor
   /*!

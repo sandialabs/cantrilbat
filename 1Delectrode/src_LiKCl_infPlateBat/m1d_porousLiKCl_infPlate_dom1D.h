@@ -46,7 +46,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_infPlate_dom1D(m1d::BDT_porousLiKCl  &bdd);
+  porousLiKCl_infPlate_dom1D(m1d::BDT_porousLiKCl* bdd_pms_ptr);
 
   //! Copy constructor
   /*!
@@ -239,6 +239,8 @@ public:
 			      const Epetra_Vector_Ghosted * const atolV = 0);
 
 protected:
+
+  m1d::BDT_porousLiKCl* BDT_pms_ptr_;
 
   //  Cantera::MultiPhase * mphase_;
   Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;

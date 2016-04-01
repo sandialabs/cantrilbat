@@ -52,7 +52,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_FeS2Cathode_dom1D(m1d::BDT_porCathode_LiKCl &bdd);
+  porousLiKCl_FeS2Cathode_dom1D(m1d::BDT_porCathode_LiKCl* bdt_cathode_ptr);
 
   //! Copy constructor
   /*!
@@ -552,7 +552,7 @@ public:
 protected:
 
     //! Pointer to the BDT object that is most derived
-    BDT_porCathode_LiKCl* BDT_ptr_;
+    BDT_porCathode_LiKCl* BDT_cathode_ptr_;
 
   //! Pointer to the thermo object for the molten salt
   /*!

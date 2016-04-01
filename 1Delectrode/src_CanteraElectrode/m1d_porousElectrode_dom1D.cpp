@@ -17,9 +17,9 @@ namespace m1d
 {
  
 //=====================================================================================================================
-porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
-    porousFlow_dom1D(bdd),
-    BDD_PE_ptr_(0),
+porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode* bdd_pe_ptr) :
+    porousFlow_dom1D(bdd_pe_ptr),
+    BDD_PE_ptr_(bdd_pe_ptr),
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0),
@@ -28,20 +28,25 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode& bdd) :
     nVol_zeroStress_Electrode_Cell_(0),
     nVol_zeroStress_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
-    EnthalpyPhiPM_metal_Curr_(0),
-    elem_Solid_Old_Cell_(),
-    numElectrodeSubCycles_Cell_(5)
+    EnthalpyPhiPM_metal_Curr_(0)
 {
     // assign the BDD_porousElectrode object pointer associated with this child object to a dedicated variable
-    BDD_PE_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
+    //BDD_PE_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
 
     // Assign the metal phase pointer 
     metalPhase_ = BDD_PE_ptr_->metalPhase_;
+    numElectrodeSubCycles_Cell_.resize(30);  // Problematic Statement -> why?
+    // Debugging
+    wBufff_[0] = 0;
+    wBufff_[1] = 0;
+    wBufff_[2] = 0;
+    wBufff_[3] = 0;
+    wBufff_[4] = 0;
 }
 //=====================================================================================================================
 porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
-    porousFlow_dom1D((BDD_porousElectrode&)r.BDD_),
-    BDD_PE_ptr_(0),
+    porousFlow_dom1D(r.BDD_PE_ptr_),
+    BDD_PE_ptr_(r.BDD_PE_ptr_),
     Electrode_Cell_(0),
     maxElectrodeSubIntegrationSteps_(0),
     surfaceArea_Cell_(0),
@@ -50,9 +55,7 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     nVol_zeroStress_Electrode_Cell_(0),
     nVol_zeroStress_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
-    EnthalpyPhiPM_metal_Curr_(0),
-    elem_Solid_Old_Cell_(),
-    numElectrodeSubCycles_Cell_(5)
+    EnthalpyPhiPM_metal_Curr_(0)
 {
     operator=(r);
 }
@@ -118,7 +121,7 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
      * Also, an initial attempt is made to calculate the porosity and the volumeFraction_Phases is made using the reference
      * temperature and pressure to calculate molar volumes.
      */
-    numElectrodeSubCycles_Cell_.resize(5);  // Problematic Statement -> why?
+    numElectrodeSubCycles_Cell_.resize(30);  // Problematic Statement -> why?
     porousFlow_dom1D::domain_prep(li_ptr);
     /*
      *  Size the arrays that are defined in this object
@@ -131,12 +134,13 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     nVol_zeroStress_Electrode_Old_Cell_.resize(NumLcCells, 0.0);
     EnthalpyPhiPM_metal_Curr_.resize(1, 0.0);
  
-    BDD_porousElectrode* bdde = static_cast<BDD_porousElectrode*>(&BDD_);
-    Electrode* ee = bdde->Electrode_;
-    int neSolid = ee->nElements();
-    elem_Solid_Old_Cell_.resize(neSolid , NumLcCells, 0.0);
-    size_t nn = NumLcCells;
-    numElectrodeSubCycles_Cell_.resize(nn, 0);
+    //BDD_porousElectrode* bdde = static_cast<BDD_porousElectrode*>(&BDD_);
+    Electrode* ee =  BDD_PE_ptr_->Electrode_;
+    size_t neSolid = ee->nElements();
+    size_t nl =  NumLcCells;
+    elem_Solid_Old_Cell_.resize(neSolid , nl, 0.0);
+    //int nn = NumLcCells;
+    //numElectrodeSubCycles_Cell_.resize(nn, 0);
 
     /*
      *  Note, in child objects we would call instantiate_ElectrodeCells(). However, we don't have enough
@@ -201,7 +205,6 @@ porousElectrode_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, cons
 
         SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
 
-        //concTot_Cell_old_[iCell] = concTot_Curr_;
         porosity_Cell_old_[iCell] = porosity_Curr_;
         Temp_Cell_old_[iCell] = temp_Curr_;
 

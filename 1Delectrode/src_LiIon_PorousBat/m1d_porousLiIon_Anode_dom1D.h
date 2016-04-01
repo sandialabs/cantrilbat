@@ -49,7 +49,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiIon_Anode_dom1D(m1d::BDT_porAnode_LiIon& bdd);
+    porousLiIon_Anode_dom1D(m1d::BDT_porAnode_LiIon* bdd_anode_ptr);
 
     //! Copy constructor
     /*!
@@ -635,7 +635,7 @@ public:
 protected:
 
     //! Pointer to the BDD object that is most derived
-    BDT_porAnode_LiIon* BDT_ptr_;
+    BDT_porAnode_LiIon* BDT_anode_ptr_;
 
     //! Number of phases solved
     int nph_;

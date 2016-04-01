@@ -52,7 +52,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_LiSiAnode_dom1D(m1d::BDT_porAnode_LiKCl& bdd);
+  porousLiKCl_LiSiAnode_dom1D(m1d::BDT_porAnode_LiKCl* bdt_anode_ptr);
 
   //! Copy constructor
   /*!
@@ -731,8 +731,6 @@ protected:
   //! Time derivative of the total concentration
   double concTotDot_Curr_;
 
-  //! Current porosity
-  // double porosity_Curr_;
 
   //! Electrical conductivity of the electrode
   /*!

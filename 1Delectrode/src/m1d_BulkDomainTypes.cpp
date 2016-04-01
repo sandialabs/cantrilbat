@@ -71,7 +71,7 @@ void BDT_SimpleDiff::SetEquationsVariablesList()
 BulkDomain1D *
 BDT_SimpleDiff::mallocDomain1D()
 {
-   BulkDomainPtr_ = new SimpleDiff_dom1D(*this);
+   BulkDomainPtr_ = new SimpleDiff_dom1D(this);
    return BulkDomainPtr_;
 }
 //=====================================================================================================================
@@ -121,7 +121,7 @@ BDT_SimpleTDDiff::operator=(const BDT_SimpleTDDiff &r)
 BulkDomain1D *
 BDT_SimpleTDDiff::mallocDomain1D()
 {
-   BulkDomainPtr_ = new SimpleTDDiff_dom1D(*this);
+   BulkDomainPtr_ = new SimpleTDDiff_dom1D(this);
    return BulkDomainPtr_;
 }
 //==============================================================================================================================

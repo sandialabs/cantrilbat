@@ -199,7 +199,7 @@ BDT_porousLiKCl::setupTransport()
 BulkDomain1D *
 BDT_porousLiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousLiKCl_infPlate_dom1D(*this);
+  BulkDomainPtr_ = new porousLiKCl_infPlate_dom1D(this);
   return BulkDomainPtr_;
 }
 //=====================================================================================================================

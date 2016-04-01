@@ -147,6 +147,12 @@ testBack:
 	cd cttables;                      @MAKE@ -s test
 	cd electrodeCell;                 @MAKE@ -s test
 	cd imt_model;                     @MAKE@ -s test
+#
+# install_clean
+#
+	cd @cta_incdir@ ; /bin/rm -rf * 
+	cd @cta_libdir@ ; /bin/rm -rf *
+	cd @cta_bindir@ ; /bin/rm -rf *
 
 #
 # install:   Posts all install files 

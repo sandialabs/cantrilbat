@@ -28,14 +28,14 @@ namespace m1d
 {
 
 //==============================================================================
-TDGrowingFilm_dom1D::TDGrowingFilm_dom1D(BulkDomainDescription & bdd) :
-  BulkDomain1D(bdd)
+TDGrowingFilm_dom1D::TDGrowingFilm_dom1D(BulkDomainDescription* bdd_ptr) :
+  BulkDomain1D(bdd_ptr)
 {
 
 }
 //==============================================================================
 TDGrowingFilm_dom1D::TDGrowingFilm_dom1D(const TDGrowingFilm_dom1D &r) :
-  BulkDomain1D(r.BDD_)
+  BulkDomain1D(r.BDD_ptr_)
 {
   TDGrowingFilm_dom1D::operator=(r);
 }
@@ -120,7 +120,7 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res,
   // Will have to generalize this indexing capability
   int indexMeshDisplacement = 0;
   int indexConc0 = 1;
-  DomainLayout *dl = BDD_.DL_ptr_;
+  DomainLayout *dl = BDD_ptr_->DL_ptr_;
 
   incrementCounters(residType);
 

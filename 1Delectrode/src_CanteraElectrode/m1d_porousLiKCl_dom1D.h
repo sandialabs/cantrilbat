@@ -46,7 +46,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-    porousLiKCl_dom1D(m1d::BDT_porousLiKCl &bdd);
+    porousLiKCl_dom1D(m1d::BDT_porousLiKCl* bdd_pms_ptr);
 
   //! Copy constructor
   /*!
@@ -309,7 +309,7 @@ public:
 protected:
  
     //! Pointer to the BDD object that is most derived
-    BDD_porousFlow* BDT_ptr_;
+    BDT_porousLiKCl* BDT_pms_ptr_;
 
   //! Number of phases solved
   int nph_;

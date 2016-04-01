@@ -116,6 +116,8 @@ CXX = @MPICXX@
 
 INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 
+PURIFY=@PURIFY@
+
 #
 # The directory where Cantera include files may be found.
 #
@@ -145,7 +147,7 @@ LCXX_FLAGS = @CXXFLAGS@
 
 # How to compile C++ source files to object files
 .cpp.o:
-	$(CXX) $(CXX_FLAGS) -c $< 
+	$(PURIFY) $(CXX) $(CXX_FLAGS) -c $< 
 
 # How to compile the dependency file
 .cpp.d:
@@ -170,11 +172,11 @@ libm1d.a: $(M1D_OBJS) $(BE_OBJS)
 
 
 Multi1DDomain: Multi1DDomain.o $(M1D_OBJS)  $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
-	$(CXX) -o Multi1DDomain Multi1DDomain.o $(M1D_OBJS)  \
+	$(PURIFY) $(CXX) -o Multi1DDomain Multi1DDomain.o $(M1D_OBJS)  \
                  $(APPL_BASE_LIB)  $(CANTERA_TOTAL_LIBS)  $(UTILSRC_LIB)   $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
 
 tddiff: tddiff.o $(M1D_OBJS) $(BE_OBJS) $(NOBJS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP)
-	$(CXX) -o tddiff tddiff.o $(M1D_OBJS)  $(BE_OBJS)  \
+	$(PURIFY) $(CXX) -o tddiff tddiff.o $(M1D_OBJS)  $(BE_OBJS)  \
                   $(CANTERA_TOTAL_LIBS) $(UTILSRC_LIB)  $(TRILINOS_LIB_LINE) $(LMPICXX_END_LIBS)
 
 

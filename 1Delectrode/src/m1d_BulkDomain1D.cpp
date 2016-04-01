@@ -34,8 +34,9 @@ namespace m1d
 {
 
 //======================================================================================================================
-BulkDomain1D::BulkDomain1D(m1d::BulkDomainDescription &bdd) :
-    Domain1D(), BDD_(bdd), NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1),  
+BulkDomain1D::BulkDomain1D(m1d::BulkDomainDescription* bdd_ptr) :
+    Domain1D(), BDD_ptr_(bdd_ptr),
+    NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1),  
     NumLcCells(-1),
     NumLcNodes(-1),
     IOwnLeft(false),
@@ -44,11 +45,12 @@ BulkDomain1D::BulkDomain1D(m1d::BulkDomainDescription &bdd) :
     ExternalNodeOnRight_(false),
     MeshInSolnVector(false), LI_ptr_(0)
 {
-
 }
 //=====================================================================================
 BulkDomain1D::BulkDomain1D(const BulkDomain1D &r) :
-    Domain1D(), BDD_(r.BDD_), NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1), 
+    Domain1D(), 
+    BDD_ptr_(r.BDD_ptr_), 
+    NumOwnedNodes(0), FirstOwnedGbNode(-1), LastOwnedGbNode(-1), 
     NumLcCells(-1),
     NumLcNodes(-1),
     IOwnLeft(false), IOwnRight(false),
@@ -74,7 +76,7 @@ BulkDomain1D::operator=(const BulkDomain1D &r)
   /*
    *   We do a shallow copy here until we know better how to do this
    */
-  BDD_ = r.BDD_;
+  BDD_ptr_ = r.BDD_ptr_;
   NumOwnedNodes = r.NumOwnedNodes;
   FirstOwnedGbNode = r.FirstOwnedGbNode;
   LastOwnedGbNode = r.LastOwnedGbNode;
@@ -106,7 +108,7 @@ BulkDomain1D::operator=(const BulkDomain1D &r)
 std::string
 BulkDomain1D::id() const
 {
-  int id = BDD_.ID();
+  int id = BDD_ptr_->ID();
   if (m_id != "") {
     return m_id;
   } else {
@@ -140,10 +142,10 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
    */
 
   // Find the global node value of the left boundary of this domain
-  int firstGbNodeDomain = BDD_.FirstGbNode;
+  int firstGbNodeDomain = BDD_ptr_->FirstGbNode;
 
   //  find the Global node of the right boundary of this domain
-  int lastGbNodeDomain = BDD_.LastGbNode;
+  int lastGbNodeDomain = BDD_ptr_->LastGbNode;
 
   int leftOwnedLcNode = 0;
   int leftOwnedGbNode = LI_ptr_->IndexGbNode_LcNode[leftOwnedLcNode];
@@ -298,16 +300,16 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
   }
 
   // Download the number of equations in this domain
-  NumDomainEqns = BDD_.NumEquationsPerNode;
+  NumDomainEqns = BDD_ptr_->NumEquationsPerNode;
 
   
   // Find the number of equations at the first node
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
-  int iGbNode = BDD_.FirstGbNode;
+  int iGbNode = BDD_ptr_->FirstGbNode;
   NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
   size_t numEqFirst = nv->NumEquations;
-  iGbNode = BDD_.LastGbNode;
+  iGbNode = BDD_ptr_->LastGbNode;
   nv = gi->NodalVars_GbNode[iGbNode];
   size_t numEqLast = nv->NumEquations;
 
@@ -409,16 +411,16 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
   Cantera::XML_Node& bdom = oNode.addChild("domain");
 
   // Number of equations per node
-  int numEquationsPerNode = BDD_.NumEquationsPerNode;
+  int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
 
   // Vector containing the variable names as they appear in the solution vector
-  std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+  std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
 
   //! First global node of this bulk domain
-  int firstGbNode = BDD_.FirstGbNode;
+  int firstGbNode = BDD_ptr_->FirstGbNode;
 
   //! Last Global node of this bulk domain
-  int lastGbNode = BDD_.LastGbNode;
+  int lastGbNode = BDD_ptr_->LastGbNode;
   int numNodes = lastGbNode - firstGbNode + 1;
 
   bdom.addAttribute("id", id());
@@ -488,16 +490,16 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& SimulationNode,
     Cantera::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
 
     // Number of equations per node
-    int numEquationsPerNode = BDD_.NumEquationsPerNode;
+    int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
 
     // Vector containing the variable names as they appear in the solution vector
-    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+    std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
 
     //! First global node of this bulk domain
-    int firstGbNode = BDD_.FirstGbNode;
+    int firstGbNode = BDD_ptr_->FirstGbNode;
 
     //! Last Global node of this bulk domain
-    int lastGbNode = BDD_.LastGbNode;
+    int lastGbNode = BDD_ptr_->LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
 
     string iidd      = (*domainNode_ptr)["id"]; 
@@ -564,7 +566,7 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& SimulationNode,
 void
 BulkDomain1D::fillIsAlgebraic(Epetra_IntVector  & isAlgebraic)     
 {
-  int myBDD_ID = BDD_.ID();
+  int myBDD_ID = BDD_ptr_->ID();
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
@@ -586,10 +588,10 @@ BulkDomain1D::fillIsAlgebraic(Epetra_IntVector  & isAlgebraic)
     int indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
     
 
-    int numVar = BDD_.NumEquationsPerNode;
+    int numVar = BDD_ptr_->NumEquationsPerNode;
 
     for (int k = 0; k < numVar; k++) {
-      int isA = BDD_.IsAlgebraic_NE[k];
+      int isA = BDD_ptr_->IsAlgebraic_NE[k];
       isAlgebraic[indexCent_EqnStart + indexBulkDomainOffset + k] = isA;
     }
     
@@ -600,7 +602,7 @@ BulkDomain1D::fillIsAlgebraic(Epetra_IntVector  & isAlgebraic)
 void
 BulkDomain1D::fillIsArithmeticScaled(Epetra_IntVector  & isArithmeticScaled)     
 {
-  int myBDD_ID = BDD_.ID();
+  int myBDD_ID = BDD_ptr_->ID();
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
@@ -620,9 +622,9 @@ BulkDomain1D::fillIsArithmeticScaled(Epetra_IntVector  & isArithmeticScaled)
       exit(-1);
     }
     size_t indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    size_t numVar = BDD_.NumEquationsPerNode;
+    size_t numVar = BDD_ptr_->NumEquationsPerNode;
     for (size_t k = 0; k < numVar; k++) {
-      int isA = BDD_.IsArithmeticScaled_NE[k];
+      int isA = BDD_ptr_->IsArithmeticScaled_NE[k];
       isArithmeticScaled[indexCent_EqnStart + indexBulkDomainOffset + k] = isA;
     }
    
@@ -637,7 +639,7 @@ void BulkDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted
 				 Epetra_Vector_Ghosted & atolVector,
 				 const Epetra_Vector_Ghosted * const atolV)
 {
-  int myBDD_ID = BDD_.ID();
+  int myBDD_ID = BDD_ptr_->ID();
   for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
@@ -655,7 +657,7 @@ void BulkDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted
       exit(-1);
     }
     size_t indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    size_t numVar = BDD_.NumEquationsPerNode;
+    size_t numVar = BDD_ptr_->NumEquationsPerNode;
     for (size_t k = 0; k < numVar; k++) {
       atolVector[indexCent_EqnStart + indexBulkDomainOffset + k] = atolDefault;
     } 
@@ -671,9 +673,9 @@ BulkDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, 
     double base;
     size_t index;
     int iNode[2];
-    std::vector<VarType>& vnl =	BDD_.VariableNameList;
-    size_t numVar = BDD_.NumEquationsPerNode;
-    int myBDD_ID = BDD_.ID();
+    std::vector<VarType>& vnl =	BDD_ptr_->VariableNameList;
+    size_t numVar = BDD_ptr_->NumEquationsPerNode;
+    int myBDD_ID = BDD_ptr_->ID();
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
 	int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
 
@@ -736,7 +738,7 @@ BulkDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff,  const Ep
 				  Epetra_Vector_Ghosted & atolDeltaDamping,
 				  const Epetra_Vector_Ghosted * const atolV)
 {
-  int myBDD_ID = BDD_.ID();
+  int myBDD_ID = BDD_ptr_->ID();
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
@@ -754,7 +756,7 @@ BulkDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff,  const Ep
       exit(-1);
     }
     size_t indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    size_t numVar = BDD_.NumEquationsPerNode;
+    size_t numVar = BDD_ptr_->NumEquationsPerNode;
     for (size_t k = 0; k < numVar; k++) {
       atolDeltaDamping[indexCent_EqnStart + indexBulkDomainOffset + k] = atolDefault * relcoeff;
     }  
@@ -767,7 +769,7 @@ BulkDomain1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghos
 				    Epetra_Vector_Ghosted & atolVector_DAEInit,
 				    const Epetra_Vector_Ghosted * const atolV)
 {
-  int myBDD_ID = BDD_.ID();
+  int myBDD_ID = BDD_ptr_->ID();
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
@@ -785,7 +787,7 @@ BulkDomain1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghos
       exit(-1);
     }
     int indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    int numVar = BDD_.NumEquationsPerNode;
+    int numVar = BDD_ptr_->NumEquationsPerNode;
     for (int k = 0; k < numVar; k++) {
       atolVector_DAEInit[indexCent_EqnStart + indexBulkDomainOffset + k] = atolDefault;
     } 
@@ -799,7 +801,7 @@ BulkDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff,
 					  Epetra_Vector_Ghosted & atolDeltaDamping,
 					  const Epetra_Vector_Ghosted * const atolV)
 {
-  int myBDD_ID = BDD_.ID();
+  int myBDD_ID = BDD_ptr_->ID();
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
     int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
     NodalVars *nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
@@ -817,7 +819,7 @@ BulkDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff,
       exit(-1);
     }
     int indexBulkDomainOffset = nodeCent->OffsetIndex_BulkDomainEqnStart_BDN[bmatch];
-    int numVar = BDD_.NumEquationsPerNode;
+    int numVar = BDD_ptr_->NumEquationsPerNode;
     for (int k = 0; k < numVar; k++) {
       atolDeltaDamping[indexCent_EqnStart + indexBulkDomainOffset + k] = atolDefault * relcoeff;
     }  
@@ -844,9 +846,9 @@ BulkDomain1D::writeSolutionTecplotHeader()
     fprintf( ofp, "TITLE = \"Solution on Domain %s\"\n",sss.c_str() );
 
     // Number of equations per node
-    int numVar = BDD_.NumEquationsPerNode;
+    int numVar = BDD_ptr_->NumEquationsPerNode;
     // Vector containing the variable names as they appear in the solution vector
-    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+    std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
     //! First global node of this bulk domain
 
     fprintf( ofp, "VARIABLES = ");
@@ -884,11 +886,11 @@ BulkDomain1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr, const Ep
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     // Number of equations per node
-    int numVar = BDD_.NumEquationsPerNode;
+    int numVar = BDD_ptr_->NumEquationsPerNode;
     //! First global node of this bulk domain
-    int firstGbNode = BDD_.FirstGbNode;
+    int firstGbNode = BDD_ptr_->FirstGbNode;
     //! Last Global node of this bulk domain
-    int lastGbNode = BDD_.LastGbNode;
+    int lastGbNode = BDD_ptr_->LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
     
     //open tecplot file
@@ -928,7 +930,7 @@ BulkDomain1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_ptr, const Ep
 	dfp.open( "results.out", std::ios_base::app );
       else
 	dfp.open( "results.out", std::ios_base::out );
-      int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
+      int indexVS = BDD_ptr_->VariableIndexStart_VarName[Voltage];
       double potentialE_left = (*soln_GlAll_ptr)[indexVS];
       double lithium_left = (*soln_GlAll_ptr)[1];
       
@@ -1004,11 +1006,11 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   int nn = NumDomainEqns / 5;
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
   bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-  std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+  std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
   int iBlock;
   int iGbNode;
   int n;
-  int nPoints = BDD_.LastGbNode - BDD_.FirstGbNode + 1;
+  int nPoints = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode + 1;
   stream0 ss;
 
   string indent = "";
@@ -1027,8 +1029,8 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ss.print0("%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
     ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
 #ifdef MECH_MODEL
-    ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
-    ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+    ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_ptr_->Xpos_start);
+    ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_ptr_->Xpos_end);
 #endif
   }
   print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
@@ -1047,7 +1049,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       ss.print0("\n");
       drawline0(ss, indentSpaces, 80);
     }
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
       doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
       if (doWrite) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
@@ -1087,7 +1089,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       drawline0(ss, indentSpaces, 80);
     }
     int iCell = 0;
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
       doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
       if (doWrite) {
         int ilc = Index_DiagLcNode_LCO[iCell];
@@ -1149,11 +1151,11 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     int nn = NumDomainEqns / 5;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+    std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
     int iBlock;
     int iGbNode;
     int n;
-    int nPoints = BDD_.LastGbNode - BDD_.FirstGbNode + 1;
+    int nPoints = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode + 1;
     stream0 ss(of);
 
     string indent = "";
@@ -1173,8 +1175,8 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 		sss.c_str(), NumDomainEqns);
       ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
 
-      ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
-      ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+      ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_ptr_->Xpos_start);
+      ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_ptr_->Xpos_end);
     }
     print0_sync_end(0, ss, *(LI_ptr_->Comm_ptr_));
 
@@ -1192,7 +1194,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	ss.print0("\n");
 	drawline0(ss, indentSpaces, 100);
       }
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 	doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
 	if (doWrite) {
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
@@ -1233,7 +1235,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	drawline0(ss, indentSpaces, 100);
       }
       int iCell = 0;
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 	doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
 	if (doWrite) {
 	  int ilc = Index_DiagLcNode_LCO[iCell];
@@ -1295,11 +1297,11 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     int nn = NumDomainEqns / 5;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+    std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
     int iBlock;
     int iGbNode;
     int n;
-    int nPoints = BDD_.LastGbNode - BDD_.FirstGbNode + 1;
+    int nPoints = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode + 1;
     stream0 ss(of);
 
     string indent = "";
@@ -1318,8 +1320,8 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 		sss.c_str(), NumDomainEqns);
       ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
 
-      ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
-      ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+      ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_ptr_->Xpos_start);
+      ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_ptr_->Xpos_end);
     }
 
     for (iBlock = 0; iBlock < nn; iBlock++) {
@@ -1336,7 +1338,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	ss.print0("\n");
 	drawline0(ss, indentSpaces, 100);
       }
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 	doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
 	if (doWrite) {
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
@@ -1377,7 +1379,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	drawline0(ss, indentSpaces, 100);
       }
       int iCell = 0;
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 	doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
 	if (doWrite) {
 	  int ilc = Index_DiagLcNode_LCO[iCell];
@@ -1447,11 +1449,11 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
   int nn = NumDomainEqns / 5;
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
   bool doWrite = !mypid || duplicateOnAllProcs;
-  std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+  std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
   int iBlock;
   int iGbNode;
   int n;
-  int nPoints = BDD_.LastGbNode - BDD_.FirstGbNode + 1;
+  int nPoints = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode + 1;
   //stream0 ss;
   // print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
   char buf[100];
@@ -1470,9 +1472,9 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
     Cantera::writelog(buf);
     sprintf(buf, "%s                                         : Number of Nodes = %d\n", ind, nPoints);
     Cantera::writelog(buf);
-    sprintf(buf, "%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
+    sprintf(buf, "%s                                         : Beginning pos %g\n", ind, BDD_ptr_->Xpos_start);
     Cantera::writelog(buf);
-    sprintf(buf, "%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+    sprintf(buf, "%s                                         : Ending    pos %g\n", ind, BDD_ptr_->Xpos_end);
     Cantera::writelog(buf);
   }
   if (doWrite) {
@@ -1491,7 +1493,7 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
       Cantera::writelog(buf);
       drawline(indentSpaces, 80);
 
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
         doublereal x = nv->xNodePos();
         sprintf(buf, "\n%s    %-10.4E ", ind, x);
@@ -1525,7 +1527,7 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
       Cantera::writelog(buf);
       drawline(indentSpaces, 80);
 
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
         doublereal x = nv->xNodePos();
         sprintf(buf, "%s    %-10.4E ", ind, x);
@@ -1603,7 +1605,7 @@ BulkDomain1D::reportSolutionVector(const std::string& requestID, const int reque
 	}
     } else if (requestType == 0) {
     for (size_t i = 0; i < (size_t) NumDomainEqns; ++i) {
-	const VarType& vt = BDD_.VariableNameList[i];
+	const VarType& vt = BDD_ptr_->VariableNameList[i];
         const string& varName = vt.VariableName();
 	if (mdpUtil::LowerCaseStringEquals(varName, requestID)) {
             findV = i;

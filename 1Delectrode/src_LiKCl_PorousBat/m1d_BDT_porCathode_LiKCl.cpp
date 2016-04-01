@@ -204,7 +204,7 @@ BDT_porCathode_LiKCl::SetEquationsVariablesList()
 BulkDomain1D *
 BDT_porCathode_LiKCl::mallocDomain1D()
 {
-    BulkDomainPtr_ = new porousLiKCl_FeS2Cathode_dom1D(*this);
+    BulkDomainPtr_ = new porousLiKCl_FeS2Cathode_dom1D(this);
     return BulkDomainPtr_;
 }
 //=====================================================================================================================

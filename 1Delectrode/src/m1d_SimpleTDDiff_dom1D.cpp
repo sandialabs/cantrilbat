@@ -27,14 +27,14 @@ namespace m1d
 {
 
 //==============================================================================
-SimpleTDDiff_dom1D::SimpleTDDiff_dom1D(BulkDomainDescription & bdd) :
-  BulkDomain1D(bdd)
+SimpleTDDiff_dom1D::SimpleTDDiff_dom1D(BulkDomainDescription* bdd_ptr) :
+  BulkDomain1D(bdd_ptr)
 {
 
 }
 //==============================================================================
 SimpleTDDiff_dom1D::SimpleTDDiff_dom1D(const SimpleTDDiff_dom1D &r) :
-  BulkDomain1D(r.BDD_)
+  BulkDomain1D(r.BDD_ptr_)
 {
   SimpleTDDiff_dom1D::operator=(r);
 }
@@ -391,16 +391,16 @@ SimpleTDDiff_dom1D::saveDomain(Cantera::XML_Node& oNode,
   Cantera::XML_Node& bdom = oNode.addChild("domain");
 
   // Number of equations per node
-  int numEquationsPerNode = BDD_.NumEquationsPerNode;
+  int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
 
   // Vector containing the variable names as they appear in the solution vector
-  std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+  std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
 
   //! First global node of this bulk domain
-  int firstGbNode = BDD_.FirstGbNode;
+  int firstGbNode = BDD_ptr_->FirstGbNode;
 
   //! Last Global node of this bulk domain
-  int lastGbNode = BDD_.LastGbNode;
+  int lastGbNode = BDD_ptr_->LastGbNode;
   int numNodes = lastGbNode - firstGbNode + 1;
 
   bdom.addAttribute("id", id());

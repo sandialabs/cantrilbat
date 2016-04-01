@@ -63,6 +63,11 @@ BDD_porousFlow::~BDD_porousFlow()
     safeDelete(ionicLiquid_);
     safeDelete(trans_);
     safeDelete(solidSkeleton_);
+
+    for (size_t j = 0; j < ExtraPhaseList_.size(); ++j) { 
+	ExtraPhase* ep = ExtraPhaseList_[j];
+	safeDelete(ep);
+    }
 }
 //===================================================================================================================================
 BDD_porousFlow &
@@ -354,7 +359,7 @@ BDD_porousFlow::SetEquationsVariablesList()
 BulkDomain1D *
 BDD_porousFlow::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousFlow_dom1D(*this);
+  BulkDomainPtr_ = new porousFlow_dom1D(this);
   return BulkDomainPtr_;
 }
 //=====================================================================================================================

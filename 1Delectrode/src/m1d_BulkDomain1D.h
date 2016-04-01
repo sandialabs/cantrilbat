@@ -39,7 +39,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    BulkDomain1D(m1d::BulkDomainDescription &bdd);
+    BulkDomain1D(m1d::BulkDomainDescription* bdd_ptr);
 
     //! Copy Constructor
     /*!
@@ -409,14 +409,16 @@ public:
     reportSolutionVector(const std::string& requestID, const int requestType, const Epetra_Vector* soln_ptr,
                          std::vector<double>& vecInfo) const;
 
-#ifdef MECH_MODEL
-    //! Get the local value of the stress, from the solution vector, 
-    //! or a reference value if not part of the solution. 
-
-    double getPointStress(const NodalVars * const nv,
-			  const doublereal* const solutionPoint) const;
-
-#endif
+    //! Get the local value of the stress, from the solution vector,  or a reference value if not part of the solution. 
+    /*!
+     *  QUESTION: Stress is a tensor, I assume that this is the [0,0] component ?!?
+     *
+     *  @param[in]            nv                  NodalVars value for the current point
+     *  @param[in]            solutionPoint       Solution at the current node
+     *
+     *  @return               return the local value of the stress
+     */
+    //double getPointStress(const NodalVars * const nv, const doublereal* const solutionPoint) const;
 
     //! Get the local value of the temperature at a node or control volume interface
     //! given the local solution vector at that point
@@ -446,8 +448,13 @@ public:
 
     // ===========================================================================
 
+    //! Pointer to a light Light description of what this domain is about
+    m1d::BulkDomainDescription* BDD_ptr_;
+
     //! Light description of what this domain is about
-    m1d::BulkDomainDescription &BDD_;
+   // m1d::BulkDomainDescription &BDD_;
+
+  
 
     //! Number of owned nodes in this domain
     int NumOwnedNodes;

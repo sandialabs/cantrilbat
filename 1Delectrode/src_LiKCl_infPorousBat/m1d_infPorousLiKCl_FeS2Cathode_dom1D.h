@@ -53,7 +53,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    infPorousLiKCl_FeS2Cathode_dom1D(m1d::BDT_infPorCathode_LiKCl &bdd);
+    infPorousLiKCl_FeS2Cathode_dom1D(m1d::BDT_infPorCathode_LiKCl* bdd_cathode_ptr);
 
   //! Copy constructor
   /*!
@@ -335,6 +335,8 @@ public:
   int checkPrecipitation(  );
 
 protected:
+
+  m1d::BDT_infPorCathode_LiKCl* BDT_cathode_ptr_;
 
   //! Pointer to the thermo object for the molten salt
   /*!

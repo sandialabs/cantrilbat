@@ -89,7 +89,7 @@ BDT_Cu2S::SetEquationsVariablesList()
 BulkDomain1D *
 BDT_Cu2S::mallocDomain1D()
 {
-   BulkDomainPtr_ = new TDGrowingFilm_dom1D(*this);
+   BulkDomainPtr_ = new TDGrowingFilm_dom1D(this);
    return  BulkDomainPtr_;
 }
 //===========================================================================

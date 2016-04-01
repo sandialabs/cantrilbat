@@ -58,10 +58,11 @@ drawline0(int sp, int ll)
     sprint0("\n");
 }
 //==================================================================================================================================
-porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) :
-    porousElectrode_dom1D(bdd),
-    BDT_ptr_(0), 
-    nph_(0), nsp_(0),
+porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon* bdt_cathode_ptr) :
+    porousElectrode_dom1D(bdt_cathode_ptr),
+    BDT_cathode_ptr_(bdt_cathode_ptr), 
+    nph_(0),
+    nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     capacityDischargedPA_Cell_(0),
@@ -89,7 +90,7 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) 
     iPF6m_(-1),
     solnTemp(0)
 {
-    BDT_ptr_ = static_cast<BDT_porCathode_LiIon*>(&bdd);
+    //BDT_ptr_ = static_cast<BDT_porCathode_LiIon*>(&bdd);
     nsp_ = 3;
     nph_ = 1;
 
@@ -111,8 +112,8 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon& bdd) 
 }
 //==================================================================================================================================
 porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_dom1D& r) :
-    porousElectrode_dom1D((m1d::BDD_porousElectrode&)   r.BDD_),
-    BDT_ptr_(0), 
+    porousElectrode_dom1D(r.BDT_cathode_ptr_),
+    BDT_cathode_ptr_(r.BDT_cathode_ptr_), 
     nph_(0), nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
     concTot_Cell_(0),
@@ -245,8 +246,8 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousElectrode_dom1D::domain_prep(li_ptr);
 
-    BDT_porCathode_LiIon* BDD_FeS2_Cathode = dynamic_cast<BDT_porCathode_LiIon*>(&(BDD_));
-    if (!BDD_FeS2_Cathode) {
+    //BDT_porCathode_LiIon* BDD_FeS2_Cathode = dynamic_cast<BDT_porCathode_LiIon*>(&(BDD_));
+    if (!BDT_cathode_ptr_) {
         throw CanteraError(" porousLiIon_Cathode_dom1D::domain_prep()", "bad dynamic cast ");
     }
 
@@ -255,7 +256,7 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      *  for the cathode. We will use this to figure out the number of Electrode species and the number of
      *  Electrode surfaces.
      */
-    Cantera::Electrode* ee = BDD_FeS2_Cathode->Electrode_;
+    Cantera::Electrode* ee = BDT_cathode_ptr_->Electrode_;
     nSpeciesElectrode_ = ee->nSpecies();
     nSurfsElectrode_ = ee->nSurfaces();
 
@@ -356,7 +357,7 @@ porousLiIon_Cathode_dom1D::instantiateElectrodeCells()
         // Note that we need to create a Factory method to instantiate the desired electrode type.
         // int nSurPhases = PSinput.cathode_input_->m_pl->nSurPhases();
 
-        DomainLayout* DL = BDD_.DL_ptr_;
+        DomainLayout* DL = BDD_ptr_->DL_ptr_;
 
         DomainLayout_LiIon_PorousBat* dlc = dynamic_cast<DomainLayout_LiIon_PorousBat*>(DL);
         ProblemStatementCell* psc_ptr = dlc->pscInput_ptr_;
@@ -2173,13 +2174,13 @@ porousLiIon_Cathode_dom1D::eval_HeatBalance(const int ifunc,
     //
     // Find the pointer for the left separator
     //
-    SurfDomainDescription *leftS = BDD_.LeftSurf;
+    SurfDomainDescription *leftS = BDD_ptr_->LeftSurf;
     BulkDomainDescription *leftDD = leftS->LeftBulk;
     BulkDomain1D *leftD_sep = leftDD->BulkDomainPtr_;
     //
     // Find the poitner to the cathode collector
     //
-    SurfDomainDescription *rightS = BDD_.RightSurf;
+    SurfDomainDescription *rightS = BDD_ptr_->RightSurf;
     SurDomain1D *rightSD_collector = rightS->SurDomain1DPtr_;
 
 
@@ -2512,12 +2513,12 @@ porousLiIon_Cathode_dom1D::eval_SpeciesElemBalance(const int ifunc,
   
     //
     // Find the pointer for the left Anode
-    SurfDomainDescription *leftS = BDD_.LeftSurf;
+    SurfDomainDescription *leftS = BDD_ptr_->LeftSurf;
     BulkDomainDescription *leftDD = leftS->LeftBulk;
     BulkDomain1D *leftD_sep = leftDD->BulkDomainPtr_;
     //
     // Find the pointer for the left Cathode
-    //    SurfDomainDescription *rightS = BDD_.RightSurf;
+    //    SurfDomainDescription *rightS = BDD_ptr_->RightSurf;
  
 
     double moleFluxLeft = 0.0;
@@ -3076,16 +3077,16 @@ porousLiIon_Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
     Cantera::XML_Node& bdom = oNode.addChild("domain");
 
     // Number of equations per node
-    int numEquationsPerNode = BDD_.NumEquationsPerNode;
+    int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
 
     // Vector containing the variable names as they appear in the solution vector
-    std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+    std::vector<VarType>& variableNameList = BDD_ptr_->VariableNameList;
 
     //! First global node of this bulk domain
-    int firstGbNode = BDD_.FirstGbNode;
+    int firstGbNode = BDD_ptr_->FirstGbNode;
 
     //! Last Global node of this bulk domain
-    int lastGbNode = BDD_.LastGbNode;
+    int lastGbNode = BDD_ptr_->LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
 
     bdom.addAttribute("id", id());
@@ -3165,16 +3166,16 @@ porousLiIon_Cathode_dom1D::readDomain(const Cantera::XML_Node& SimulationNode,
     Cantera::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
 
     // Number of equations per node
-    int numEquationsPerNode = BDD_.NumEquationsPerNode;
+    int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
 
     // Vector containing the variable names as they appear in the solution vector
-    std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+    std::vector<VarType> &variableNameList = BDD_ptr_->VariableNameList;
 
     //! First global node of this bulk domain
-    int firstGbNode = BDD_.FirstGbNode;
+    int firstGbNode = BDD_ptr_->FirstGbNode;
 
     //! Last Global node of this bulk domain
-    int lastGbNode = BDD_.LastGbNode;
+    int lastGbNode = BDD_ptr_->LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
 
     string iidd      = (*domainNode_ptr)["id"];
@@ -3261,9 +3262,9 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplotHeader()
         fprintf(ofp, "TITLE = \"Solution on Domain %s\"\n",sss.c_str());
 
         // Number of equations per node
-        int numVar = BDD_.NumEquationsPerNode;
+        int numVar = BDD_ptr_->NumEquationsPerNode;
         // Vector containing the variable names as they appear in the solution vector
-        std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+        std::vector<VarType>& variableNameList = BDD_ptr_->VariableNameList;
         //! First global node of this bulk domain
 
         fprintf(ofp, "VARIABLES = ");
@@ -3376,11 +3377,11 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
         // get the NodeVars object pertaining to this global node
         GlobalIndices* gi = LI_ptr_->GI_ptr_;
         // Number of equations per node
-        int numVar = BDD_.NumEquationsPerNode;
+        int numVar = BDD_ptr_->NumEquationsPerNode;
         //! First global node of this bulk domain
-        int firstGbNode = BDD_.FirstGbNode;
+        int firstGbNode = BDD_ptr_->FirstGbNode;
         //! Last Global node of this bulk domain
-        int lastGbNode = BDD_.LastGbNode;
+        int lastGbNode = BDD_ptr_->LastGbNode;
         int numNodes = lastGbNode - firstGbNode + 1;
 	std::vector<double> vars(numNodes);
 
@@ -3392,7 +3393,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
         ofp = fopen(filename, "a");
 #define NEW_TECPLOTA
 #ifndef NEW_TECPLOTA
-	std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+	std::vector<VarType>& variableNameList = BDD_ptr_->VariableNameList;
         fprintf(ofp, "ZONE T = \"t = %g [s]\" I = %d SOLUTIONTIME = %19.13E\n", t, numNodes, t);
 
         for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
@@ -3503,7 +3504,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
 	// Print all of the solution variables
 	//
 	for (size_t iVar = 0; iVar < (size_t) numVar; iVar++) {
-	    const VarType& vt = BDD_.VariableNameList[iVar];
+	    const VarType& vt = BDD_ptr_->VariableNameList[iVar];
 	    for (size_t iGbNode = (size_t) firstGbNode, i = 0; iGbNode <= (size_t) lastGbNode; ++iGbNode, ++i) {
 		NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
 		size_t istart = nv->EqnStart_GbEqnIndex;
@@ -3742,7 +3743,7 @@ porousLiIon_Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_
             } else {
                 dfp.open("results.out", std::ios_base::out);
             }
-            int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
+            int indexVS = BDD_ptr_->VariableIndexStart_VarName[Voltage];
             double potentialE_left = (*soln_GlAll_ptr)[indexVS];
             double lithium_left = (*soln_GlAll_ptr)[1];
 
@@ -3814,11 +3815,11 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool do0Write = (!mypid || duplicateOnAllProcs);
     //bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    std::vector<VarType>& variableNameList = BDD_.VariableNameList;
+    std::vector<VarType>& variableNameList = BDD_ptr_->VariableNameList;
     int iBlock;
     int iGbNode;
     int n;
-    int nPoints = BDD_.LastGbNode - BDD_.FirstGbNode + 1;
+    int nPoints = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode + 1;
 
     std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
@@ -3839,11 +3840,11 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         drawline(indentSpaces, 80);
         ss.print0("%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
         ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
-        ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
-        ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+        ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_ptr_->Xpos_start);
+        ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_ptr_->Xpos_end);
 #ifdef MECH_MODEL
-	int firstGbNode = BDD_.FirstGbNode;
-	int lastGbNode = BDD_.LastGbNode;
+	int firstGbNode = BDD_ptr_->FirstGbNode;
+	int lastGbNode = BDD_ptr_->LastGbNode;
 	if (solidMechanicsProbType_ > 0) {
 	    for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++) {
 		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
@@ -3866,7 +3867,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ss.print0("\n");
             drawline(indentSpaces, 80);
 
-            for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+            for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("\n%s %4d  %-10.4E ", ind, iGbNode, x);
@@ -3884,11 +3885,11 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                      */
                     if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
-			if (iGbNode == BDD_.FirstGbNode) {
+			if (iGbNode == BDD_ptr_->FirstGbNode) {
  	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
-			} else if (iGbNode == BDD_.LastGbNode) {
+			} else if (iGbNode == BDD_ptr_->LastGbNode) {
                             // vaxial is equal to the solution in the last node 
 #ifdef DEBUG_OLD_CC_FLOW_CONDITION
 			    // we've applied a boundary condition here!
@@ -3921,7 +3922,7 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             double oldVaxial = 0.0;
             double newVaxial = 0.0;
 
-            for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+            for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
                 doublereal x = nv->xNodePos();
                 ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
@@ -3939,11 +3940,11 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                      */
                     if (vt.VariableType == Velocity_Axial) {
                         newVaxial = v;
-			if (iGbNode == BDD_.FirstGbNode) {
+			if (iGbNode == BDD_ptr_->FirstGbNode) {
  	                    cellTmps& cTmps = cellTmpsVect_Cell_[0];
 	                    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
                             v = DiffFluxLeftBound_LastResid_NE[nodeTmpsCenter.RO_Electrolyte_Continuity];
-			} else if (iGbNode == BDD_.LastGbNode) {
+			} else if (iGbNode == BDD_ptr_->LastGbNode) {
                             // vaxial is equal to the solution in the last node 
 #ifdef DEBUG_OLD_CC_FLOW_CONDITION
 			    // we've applied a boundary condition here!
@@ -3975,10 +3976,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     }
     doublereal x;
     int iCell;
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-            iCell = iGbNode - BDD_.FirstGbNode;
+            iCell = iGbNode - BDD_ptr_->FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
             ss.print0("%s    %-10.4E ", ind, x);
@@ -4006,10 +4007,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("\n");
         drawline0(indentSpaces, 80);
     }
-   for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+   for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-            iCell = iGbNode - BDD_.FirstGbNode;
+            iCell = iGbNode - BDD_ptr_->FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 	    double volCell =  crossSectionalArea_ * xdelCell_Cell_[iCell];
             x = nv->xNodePos();
@@ -4036,10 +4037,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("\n");
         drawline0(indentSpaces, 80);
     }
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-            iCell = iGbNode - BDD_.FirstGbNode;
+            iCell = iGbNode - BDD_ptr_->FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
             ss.print0("%s    %-10.4E ", ind, x);
@@ -4064,10 +4065,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("\n");
         drawline0(indentSpaces, 80);
     }
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-            iCell = iGbNode - BDD_.FirstGbNode;
+            iCell = iGbNode - BDD_ptr_->FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
             ss.print0("%s  %4d  %-10.4E ", ind, iGbNode, x);
@@ -4112,10 +4113,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         ss.print0("\n");
         drawline0(indentSpaces, 120);
     }
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-            iCell = iGbNode - BDD_.FirstGbNode;
+            iCell = iGbNode - BDD_ptr_->FirstGbNode;
             NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
             x = nv->xNodePos();
             ss.print0("%s %4d  %-10.4E ", ind, iGbNode, x);
@@ -4173,28 +4174,28 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     }
     NodalVars* nvl;
     NodalVars* nvr;
-    for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+    for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
         if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
             ss.print0("%s    ", ind);
-            if (iGbNode == BDD_.FirstGbNode) {
+            if (iGbNode == BDD_ptr_->FirstGbNode) {
 
                 iCell = 0;
-                nvr = gi->NodalVars_GbNode[BDD_.FirstGbNode];
+                nvr = gi->NodalVars_GbNode[BDD_ptr_->FirstGbNode];
                 x = nvr->xNodePos();
                 ss.print0("Lft-0     %11.4E ", x);
                 ss.print0("% -11.4E ", icurrElectrolyte_CBL_[0]);
                 ss.print0("% -11.4E", icurrElectrode_CBL_[0]);
 
-            } else if (iGbNode == BDD_.LastGbNode) {
-                iCell = BDD_.LastGbNode - BDD_.FirstGbNode;
-                nvr = gi->NodalVars_GbNode[BDD_.LastGbNode];
+            } else if (iGbNode == BDD_ptr_->LastGbNode) {
+                iCell = BDD_ptr_->LastGbNode - BDD_ptr_->FirstGbNode;
+                nvr = gi->NodalVars_GbNode[BDD_ptr_->LastGbNode];
                 x = nvr->xNodePos();
                 ss.print0("%3d-Rgt   %11.4E ", iCell, x);
                 ss.print0("% -11.4E ", icurrElectrolyte_CBR_[iCell]);
                 ss.print0("% -11.4E ", icurrElectrode_CBR_[iCell]);
             } else {
-                iCell = iGbNode - BDD_.FirstGbNode;
+                iCell = iGbNode - BDD_ptr_->FirstGbNode;
                 nvl = gi->NodalVars_GbNode[iGbNode];
                 nvr = gi->NodalVars_GbNode[iGbNode + 1];
                 x = 0.5 * (nvl->xNodePos() + nvr->xNodePos());
@@ -4222,10 +4223,10 @@ porousLiIon_Cathode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 	}
 	//NodalVars* nvl;
 	//NodalVars* nvr;
-	for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+	for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 	    print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
 	    if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
-		iCell = iGbNode - BDD_.FirstGbNode;
+		iCell = iGbNode - BDD_ptr_->FirstGbNode;
 		NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
 		x = nv->xNodePos();
 		ss.print0("%s    %-10.4E ", ind, x);

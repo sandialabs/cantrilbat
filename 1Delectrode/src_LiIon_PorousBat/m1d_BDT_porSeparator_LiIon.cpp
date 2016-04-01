@@ -59,7 +59,7 @@ BDT_porSeparator_LiIon::operator=(const BDT_porSeparator_LiIon& r)
 BulkDomain1D*
 BDT_porSeparator_LiIon::mallocDomain1D()
 {
-    BulkDomainPtr_ = new porousLiIon_Separator_dom1D(*this);
+    BulkDomainPtr_ = new porousLiIon_Separator_dom1D(this);
     return BulkDomainPtr_;
 }
 //======================================================================================================================================

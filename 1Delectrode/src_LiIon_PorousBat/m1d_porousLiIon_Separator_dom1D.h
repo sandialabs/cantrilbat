@@ -53,7 +53,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiIon_Separator_dom1D(m1d::BDT_porSeparator_LiIon& bdd);
+    porousLiIon_Separator_dom1D(m1d::BDT_porSeparator_LiIon* bdd_sep_ptr);
 
     //! Copy constructor
     /*!
@@ -427,7 +427,7 @@ protected:
      *  Note, we use the hidden variable strategy here. BDT_ptr_ name is used for all derived classes of
      *  DomainDescription
      */
-    BDT_porSeparator_LiIon* BDT_ptr_;
+    BDT_porSeparator_LiIon* BDT_sep_ptr_;
 
     //! Number of phases solved
     int nph_;

@@ -37,9 +37,9 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl& bdd) :
-      porousFlow_dom1D(bdd),
-      BDT_ptr_(0),
+porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl* bdt_pms_ptr) :
+      porousFlow_dom1D(bdt_pms_ptr),
+      BDT_pms_ptr_(bdt_pms_ptr),
       nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
       concTot_Cell_(0), concTot_Cell_old_(0),  Fleft_cc_(0.0),
       Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
@@ -52,15 +52,15 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl& bdd) :
       icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), solnTemp(0), ivb_(VB_MOLEAVG)
 {
 
-  BDT_ptr_ = static_cast<BDT_porousLiKCl *> (&bdd);
+  //BDT_ptr_ = static_cast<BDT_porousLiKCl *> (&bdd);
   nsp_ = 3;
   nph_ = 1;
 
 }
 //=====================================================================================================================
 porousLiKCl_dom1D::porousLiKCl_dom1D(const porousLiKCl_dom1D &r) :
-      porousFlow_dom1D((BDT_porousLiKCl&)r.BDD_),
-      BDT_ptr_(0),
+      porousFlow_dom1D(r.BDT_pms_ptr_),
+      BDT_pms_ptr_(r.BDT_pms_ptr_),
       nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
       concTot_Cell_(0), concTot_Cell_old_(0), Fleft_cc_(0.0),
       Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
@@ -88,7 +88,7 @@ porousLiKCl_dom1D::operator=(const porousLiKCl_dom1D &r)
   // Call the parent assignment operator
   porousFlow_dom1D::operator=(r);
 
-  BDT_ptr_ = r.BDT_ptr_;
+  BDT_pms_ptr_ = r.BDT_pms_ptr_;
   nph_ = r.nph_;
   nsp_ = r.nsp_;
   concTot_cent_ = r.concTot_cent_;
@@ -154,8 +154,7 @@ porousLiKCl_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
     ThermoPhase* solidSkeleton = & (PSCinput_ptr->PhaseList_)->thermo(iph);
 
-    BDD_porousFlow *bpf =  dynamic_cast<BDD_porousFlow *>(&BDD_);
-    ThermoPhase* bb = bpf->solidSkeleton_;
+    ThermoPhase* bb = BDT_pms_ptr_->solidSkeleton_;
     AssertTrace(bb != 0);
     AssertTrace(solidSkeleton_ != 0);
     AssertTrace(solidSkeleton != 0);
@@ -345,18 +344,18 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
   /*
    *  Offsets for the equation unknowns in the residual vector for the electrolyte domain
    */
-  int EQ_Current_offset_BD = BDD_.EquationIndexStart_EqName[Current_Conservation];
-  int EQ_TCont_offset_BD = BDD_.EquationIndexStart_EqName[Continuity];
-  int EQ_Species_offset_BD = BDD_.EquationIndexStart_EqName[Species_Conservation];
-  int EQ_MFSum_offset_BD = BDD_.EquationIndexStart_EqName[MoleFraction_Summation];
-  int EQ_ChargeBal_offset_BD = BDD_.EquationIndexStart_EqName[ChargeNeutrality_Summation];
+  int EQ_Current_offset_BD = BDT_pms_ptr_->EquationIndexStart_EqName[Current_Conservation];
+  int EQ_TCont_offset_BD = BDT_pms_ptr_->EquationIndexStart_EqName[Continuity];
+  int EQ_Species_offset_BD = BDT_pms_ptr_->EquationIndexStart_EqName[Species_Conservation];
+  int EQ_MFSum_offset_BD = BDT_pms_ptr_->EquationIndexStart_EqName[MoleFraction_Summation];
+  int EQ_ChargeBal_offset_BD = BDT_pms_ptr_->EquationIndexStart_EqName[ChargeNeutrality_Summation];
 
   /*
    * Offsets for the variable unknowns in the solution vector for the electrolyte domain
    */
-  int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-  int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-  int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+  int iVAR_Vaxial_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+  int iVar_Species_BD = BDT_pms_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+  int iVar_Voltage_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Voltage];
 
   incrementCounters(residType);
   Fright_cc_ = 0.0;
@@ -882,7 +881,7 @@ porousLiKCl_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal
                                     const NodalVars* const nvR, const doublereal * const solnElectrolyte_CurrR,
                                     int type)
 {
-  for (int i = 0; i < BDD_.NumEquationsPerNode; i++) {
+  for (int i = 0; i < BDT_pms_ptr_->NumEquationsPerNode; i++) {
     solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
   }
   if (type == 0) {
@@ -910,7 +909,7 @@ porousLiKCl_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal
      *   If it is not, then use the reference temperature
      */
     temp_Curr_ = TemperatureReference_;
-    int iTemp = BDD_.VariableIndexStart_VarName[Temperature];
+    int iTemp = BDT_pms_ptr_->VariableIndexStart_VarName[Temperature];
     if (iTemp >= 0) {
       temp_Curr_ = solnElectrolyte_Curr[iTemp];
     }
@@ -986,7 +985,7 @@ porousLiKCl_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal
 void
 porousLiKCl_dom1D::getVoltagesOld(const double * const solnElectrolyte_Curr, const double * const solnSolid_Curr)
 {
-  int indexVS = BDD_.VariableIndexStart_VarName[Voltage];
+  int indexVS = BDT_pms_ptr_->VariableIndexStart_VarName[Voltage];
   phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
 }
 //=====================================================================================================================
@@ -1005,7 +1004,7 @@ void
 porousLiKCl_dom1D::getMFElectrolyte_solnOld(const double * const solnElectrolyte_Curr, 
 					    const double * const solnDotElectrolyte_Curr)
 {
-  int indexMF = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
+  int indexMF = BDT_pms_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
   mfElectrolyte_Soln_Curr_[0] = solnElectrolyte_Curr[indexMF];
   mfElectrolyte_Soln_Curr_[1] = solnElectrolyte_Curr[indexMF + 1];
   mfElectrolyte_Soln_Curr_[2] = solnElectrolyte_Curr[indexMF + 2];
@@ -1156,11 +1155,11 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   int mypid = LI_ptr_->Comm_ptr_->MyPID();
   bool do0Write = (!mypid || duplicateOnAllProcs);
   //bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-  std::vector<VarType> &variableNameList = BDD_.VariableNameList;
+  std::vector<VarType> &variableNameList = BDT_pms_ptr_->VariableNameList;
   int iBlock;
   int iGbNode;
   int n;
-  int nPoints = BDD_.LastGbNode - BDD_.FirstGbNode + 1;
+  int nPoints = BDT_pms_ptr_->LastGbNode - BDT_pms_ptr_->FirstGbNode + 1;
 
   char buf[100];
   string indent = "";
@@ -1178,8 +1177,8 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     drawline(indentSpaces, 80);
     ss.print0("%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
     ss.print0("%s                                         : Number of Nodes = %d\n", ind, nPoints);
-    ss.print0("%s                                         : Beginning pos %g\n", ind, BDD_.Xpos_start);
-    ss.print0("%s                                         : Ending    pos %g\n", ind, BDD_.Xpos_end);
+    ss.print0("%s                                         : Beginning pos %g\n", ind, BDT_pms_ptr_->Xpos_start);
+    ss.print0("%s                                         : Ending    pos %g\n", ind, BDT_pms_ptr_->Xpos_end);
   }
   if (do0Write) {
     for (iBlock = 0; iBlock < nn; iBlock++) {
@@ -1194,7 +1193,7 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       ss.print0("\n");
       drawline(indentSpaces, 80);
 
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDT_pms_ptr_->FirstGbNode; iGbNode <= BDT_pms_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
         doublereal x = nv->xNodePos();
         ss.print0("\n%s    %-10.4E ", ind, x);
@@ -1225,7 +1224,7 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       ss.print0("\n");
       drawline(indentSpaces, 80);
 
-      for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+      for (iGbNode = BDT_pms_ptr_->FirstGbNode; iGbNode <= BDT_pms_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
         doublereal x = nv->xNodePos();
         ss.print0("%s    %-10.4E ", ind, x);
@@ -1252,25 +1251,25 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   NodalVars *nvr;
   doublereal x;
   int iCell;
-  for (iGbNode = BDD_.FirstGbNode; iGbNode <= BDD_.LastGbNode; iGbNode++) {
+  for (iGbNode = BDT_pms_ptr_->FirstGbNode; iGbNode <= BDT_pms_ptr_->LastGbNode; iGbNode++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));
     if (iGbNode >= FirstOwnedGbNode && iGbNode <= LastOwnedGbNode) {
       ss.print0("%s    ", ind);
-      if (iGbNode == BDD_.FirstGbNode) {
+      if (iGbNode == BDT_pms_ptr_->FirstGbNode) {
 
         iCell = 0;
-        nvr = gi->NodalVars_GbNode[BDD_.FirstGbNode];
+        nvr = gi->NodalVars_GbNode[BDT_pms_ptr_->FirstGbNode];
         x = nvr->xNodePos();
         ss.print0("Lft-0     %11.4E ", x);
         ss.print0("%11.4E ", icurrElectrolyte_CBL_[iCell]);
-      } else if (iGbNode == BDD_.LastGbNode) {
-        iCell = BDD_.LastGbNode - BDD_.FirstGbNode;
-        nvr = gi->NodalVars_GbNode[BDD_.LastGbNode];
+      } else if (iGbNode == BDT_pms_ptr_->LastGbNode) {
+        iCell = BDT_pms_ptr_->LastGbNode - BDT_pms_ptr_->FirstGbNode;
+        nvr = gi->NodalVars_GbNode[BDT_pms_ptr_->LastGbNode];
         x = nvr->xNodePos();
         ss.print0("%3d-Rgt   %11.4E ", iCell, x);
         ss.print0("%11.4E ", icurrElectrolyte_CBR_[iCell]);
       } else {
-        iCell = iGbNode - BDD_.FirstGbNode;
+        iCell = iGbNode - BDT_pms_ptr_->FirstGbNode;
         nvl = gi->NodalVars_GbNode[iGbNode];
         nvr = gi->NodalVars_GbNode[iGbNode + 1];
         x = 0.5 * (nvl->xNodePos() + nvr->xNodePos());
@@ -1327,9 +1326,9 @@ porousLiKCl_dom1D::initialConditions(const bool doTimeDependentResid,
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDT_pms_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Voltage];
 
     soln[indexCent_EqnStart_BD + iVAR_Vaxial_BD] = 0.0;
 
@@ -1398,9 +1397,9 @@ void porousLiKCl_dom1D::setAtolVector(double atolDefault, const Epetra_Vector_Gh
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD  = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD  = BDT_pms_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDT_pms_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity
@@ -1457,9 +1456,9 @@ void porousLiKCl_dom1D::setAtolVector_DAEInit(double atolDefault, const Epetra_V
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDT_pms_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity
@@ -1515,9 +1514,9 @@ porousLiKCl_dom1D::setAtolDeltaDamping(double atolDefault, double relcoeff,
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDT_pms_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity
@@ -1575,9 +1574,9 @@ porousLiKCl_dom1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoe
     /*
      * Offsets for the variable unknowns in the solution vector for the electrolyte domain
      */
-    int iVAR_Vaxial_BD = BDD_.VariableIndexStart_VarName[Velocity_Axial];
-    int iVar_Species_BD = BDD_.VariableIndexStart_VarName[MoleFraction_Species];
-    int iVar_Voltage_BD = BDD_.VariableIndexStart_VarName[Voltage];
+    int iVAR_Vaxial_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Velocity_Axial];
+    int iVar_Species_BD = BDT_pms_ptr_->VariableIndexStart_VarName[MoleFraction_Species];
+    int iVar_Voltage_BD = BDT_pms_ptr_->VariableIndexStart_VarName[Voltage];
 
     /*
      * Set the atol value for the axial velocity

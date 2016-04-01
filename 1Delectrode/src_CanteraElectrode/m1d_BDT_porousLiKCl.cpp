@@ -148,7 +148,7 @@ BDT_porousLiKCl::SetEquationsVariablesList()
 BulkDomain1D *
 BDT_porousLiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new porousLiKCl_dom1D(*this);
+  BulkDomainPtr_ = new porousLiKCl_dom1D(this);
   return BulkDomainPtr_;
 }
 //=====================================================================================================================

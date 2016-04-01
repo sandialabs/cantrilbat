@@ -45,7 +45,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousElectrode_dom1D(BDD_porousElectrode &bdd);
+    porousElectrode_dom1D(BDD_porousElectrode* bdd_pe_ptr_);
     
   //! Copy constructor
   /*!
@@ -294,15 +294,6 @@ protected:
      */
     std::vector<double> nVol_zeroStress_Electrode_Cell_;
 
-    //!  Total volume of the electrode in each cell at the no stress condition from old time step (m3)
-    /*!
-     *   This only depends on the current conditions of temperatue, pressure, mole numbers of species.
-     *   It is an extensive quantity. It is calculated from electrode->SolidVol()
-     *
-     *   Length = total number of cells.
-     */
-    std::vector<double> nVol_zeroStress_Electrode_Old_Cell_;
-
     //
     // ------------------- Locally derived quantities that are valid at the point of current interest --------------------
     //
@@ -325,11 +316,11 @@ protected:
      */
     std::vector<doublereal> EnthalpyPhiPM_metal_Curr_;
 
-    //! Pointer to the metal phase that does electrical conduction within the solid
+    //! Counter to calculate the number of electrode subcycles
     /*!
-     *  We do not own this object
+     *  Vector is over the number of electrode objects
      */
-    Cantera::ThermoPhase* metalPhase_;
+    std::vector<int> numElectrodeSubCycles_Cell_;
 
     //!  Counter that stores the moles of elements in each of the electrode objects
     /*!
@@ -337,11 +328,22 @@ protected:
      */
     Cantera::Array2D elem_Solid_Old_Cell_;
 
-    //! Counter to calculate the number of electrode subcycles
+    //! Pointer to the metal phase that does electrical conduction within the solid
     /*!
-     *  Vector is over the number of electrode objects
+     *  We do not own this object
      */
-    std::vector<int> numElectrodeSubCycles_Cell_;
+    Cantera::ThermoPhase* metalPhase_;
+
+    //!  Total volume of the electrode in each cell at the no stress condition from old time step (m3)
+    /*!
+     *   This only depends on the current conditions of temperatue, pressure, mole numbers of species.
+     *   It is an extensive quantity. It is calculated from electrode->SolidVol()
+     *
+     *   Length = total number of cells.
+     */
+    std::vector<double> nVol_zeroStress_Electrode_Old_Cell_;
+    // Debugging -> last part keeps getting written into
+    size_t wBufff_[5];
 
 };
 //======================================================================================================================

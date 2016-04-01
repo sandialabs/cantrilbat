@@ -1072,7 +1072,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
 	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
 	if (bd_ptr) {
 	    //BulkDomainDescription &BDD_;
-	    SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+	    SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
 	    if (sdd) {
 		int idS = sdd->ID();
 		d_ptr = DL.SurDomain1D_List[idS];
@@ -1243,7 +1243,7 @@ ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &
 	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
 	if (bd_ptr) {
 	    //BulkDomainDescription &BDD_;
-	    SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+	    SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
 	    if (sdd) {
 		int idS = sdd->ID();
 		d_ptr = DL.SurDomain1D_List[idS];
@@ -1408,7 +1408,7 @@ ProblemResidEval::showProblemSolution(const int ievent,
     BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
     if (bd_ptr) {
       //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+      SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
       if (sdd) {
         int idS = sdd->ID();
         d_ptr = DL.SurDomain1D_List[idS];
@@ -1566,7 +1566,7 @@ ProblemResidEval::showSolutionVector(std::string& solnVecName,
     BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
     if (bd_ptr) {
       //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+      SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
       if (sdd) {
         int idS = sdd->ID();
         d_ptr = DL.SurDomain1D_List[idS];
@@ -1661,7 +1661,7 @@ ProblemResidEval::showSolutionIntVector(std::string& solnVecName,
     BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
     if (bd_ptr) {
       //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_.RightSurf;
+      SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
       if (sdd) {
         int idS = sdd->ID();
         d_ptr = DL.SurDomain1D_List[idS];

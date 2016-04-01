@@ -48,7 +48,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousFlow_dom1D(m1d::BDD_porousFlow& bdd);
+    porousFlow_dom1D(m1d::BDD_porousFlow* bdd_pf_ptr);
 
     //! Copy constructor
     /*!
@@ -64,8 +64,7 @@ public:
      * @param r      Object to be copied into the current object
      * @return       Returns a changeable reference to the current object
      */
-    porousFlow_dom1D&
-    operator=(const porousFlow_dom1D& r);
+    porousFlow_dom1D& operator=(const porousFlow_dom1D& r);
 
     //! Prepare all of the indices for fast calculation of the residual
     /*!
@@ -348,10 +347,8 @@ protected:
     //! Temperature at the current point (Kelvin)
     double temp_Curr_;
 
-#ifdef MECH_MODEL
     //! 1d stress at the current point pa
     //    double mm_stress_Curr_;
-#endif
 
     //! Local value of the pressure (Pascal)
     double pres_Curr_;

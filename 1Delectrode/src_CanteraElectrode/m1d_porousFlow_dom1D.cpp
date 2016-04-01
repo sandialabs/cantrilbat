@@ -32,9 +32,9 @@ namespace m1d
 {
  
 //=====================================================================================================================
-porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
-    BulkDomain1D(bdd),
-    BDT_ptr_(0),
+porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow* bdd_pf_ptr) :
+    BulkDomain1D(bdd_pf_ptr),
+    BDT_ptr_(bdd_pf_ptr),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     Temp_Cell_old_(0),
@@ -46,9 +46,7 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     moleNumber_Phases_Cell_old_(0),
     cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
-#ifdef MECH_MODEL
     //    mm_stress_Curr_(SolidStressAxialRef_),
-#endif
     pres_Curr_(PressureReference_),
     concTot_Curr_(0.0),
     phiElectrolyte_Curr_(0.0),
@@ -61,10 +59,9 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     ionicLiquid_(0),
     trans_(0),
     solidSkeleton_(0),
-    ExtraPhaseList_(0),
     Porosity_prob_type_(0)
 {
-    BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
+    //BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
     ionicLiquid_ = BDT_ptr_->ionicLiquid_;
     trans_ = BDT_ptr_->trans_;
     solidSkeleton_ = BDT_ptr_->solidSkeleton_;
@@ -72,7 +69,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
     energyEquationProbType_ = PSinput.Energy_equation_prob_type_;
     solidMechanicsProbType_ = PSinput.Solid_Mechanics_prob_type_;
 
-    ExtraPhaseList_  = BDT_ptr_->ExtraPhaseList_;
+    size_t sz = BDT_ptr_->ExtraPhaseList_.size();
+    ExtraPhaseList_.resize(sz);
     for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
         ExtraPhaseList_[i] = new ExtraPhase(*(BDT_ptr_->ExtraPhaseList_[i]));
     }
@@ -82,8 +80,8 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow &bdd) :
 }
 //=====================================================================================================================
 porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
-    BulkDomain1D(r.BDD_),
-    BDT_ptr_(0),
+    BulkDomain1D(r.BDT_ptr_),
+    BDT_ptr_(r.BDT_ptr_),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     Temp_Cell_old_(0),
@@ -95,9 +93,7 @@ porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     moleNumber_Phases_Cell_old_(0),
     cIndex_cc_(-1),
     temp_Curr_(TemperatureReference_),
-#ifdef MECH_MODEL
     //    mm_stress_Curr_(SolidStressAxialRef_),
-#endif
     pres_Curr_(PressureReference_),
     concTot_Curr_(0.0),
     phiElectrolyte_Curr_(0.0),
@@ -113,7 +109,7 @@ porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     ExtraPhaseList_(0),
     Porosity_prob_type_(0)
 {
-    BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
+    //BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
     porousFlow_dom1D::operator=(r);
 }
 //=====================================================================================================================
@@ -146,9 +142,7 @@ porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
     moleNumber_Phases_Cell_old_=r.moleNumber_Phases_Cell_old_;
     cIndex_cc_                = r.cIndex_cc_;
     temp_Curr_                = r.temp_Curr_;
-#ifdef MECH_MODEL
     //    mm_stress_Curr_           = r.mm_stress_Curr_;
-#endif
     pres_Curr_                = r.pres_Curr_;
     concTot_Curr_             = r.concTot_Curr_;
     phiElectrolyte_Curr_      = r.phiElectrolyte_Curr_;
@@ -221,7 +215,7 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     double volumeSeparator = PSCinput_ptr->separatorArea_ * domainThickness;
     double volumeInert = 0.0;
     double volumeFractionInert = 0.0;
-    double mv = 0.0;
+    //double mv = 0.0;
     if (solidSkeleton_) {
         if (PSCinput_ptr->separatorMass_ > 0.0) {
             volumeInert = PSCinput_ptr->separatorMass_ / solidSkeleton_->density() ;
@@ -672,7 +666,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         double volt = PSinput.CathodeVoltageSpecified_;
         soln[indexCent_EqnStart + iVar_Voltage_ED] = volt;
         //
-        //  Fill in phiElectroyte_Curr_ and phiElectrode_Curr_
+        //  Fill in phiElectroyte_Curr_ 
         //
 	// getVoltages(nodeCent, solnCentStart);
         //
@@ -692,9 +686,9 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 	double volumeInert = 0.0;
 	double volumeFractionInert = 0.0;
         int offS = 0;
-	double mv = 0.0;
+	//double mv = 0.0;
 	double porosity = 1.0;	
-	double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+	//double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
         if (solidSkeleton_) {
 	    offS = 1;
 	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);

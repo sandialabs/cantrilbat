@@ -138,7 +138,7 @@ BDT_infPorAnode_LiKCl::SetEquationsVariablesList()
 BulkDomain1D *
 BDT_infPorAnode_LiKCl::mallocDomain1D()
 {
-  BulkDomainPtr_ = new infPorousLiKCl_LiSiAnode_dom1D(*this);
+  BulkDomainPtr_ = new infPorousLiKCl_LiSiAnode_dom1D(this);
   return BulkDomainPtr_;
 }
 //=====================================================================================================================
