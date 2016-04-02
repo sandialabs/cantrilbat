@@ -126,7 +126,7 @@ DO_MPI='n'
 export DO_MPI
 
 # turn on purify
-# export PURIFY=purify
+export PURIFY=purify
 
 
 #

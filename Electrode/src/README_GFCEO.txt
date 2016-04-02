@@ -1,6 +1,7 @@
-
+**************************************************************************************************
 Work on structuring the Globally Fully Coupled Electrode Object
 
+**************************************************************************************************
 
 The Electrode_Integrator uses the multiple inheritance class construct to
 make all Electrode objects an inheritor from Cantera::ResidJacEval. 
@@ -48,7 +49,6 @@ PROBLEM -
 The calcResid() problem is meant to handle discontinuities in functions wrt deltaT by 
 breaking up the time step. How is this done in the new problem? Could we add 
 significant concepts from Tyler?
-
 
 
 

@@ -61,6 +61,135 @@ Electrode& GFCEO_Electrode::electrode()
     return *ee_;
 }
 //===================================================================================================================================
+int GFCEO_Electrode::nEquations() const
+{
+    return 0;
+}
+//===================================================================================================================================
+void GFCEO_Electrode::constrain(const int k, const int flag)
+{
+// COMPLETE
+}
+//===================================================================================================================================
+int GFCEO_Electrode::constraint(const int k) const
+{
+    // COMPLETE
+    return 0;
+}
+//===================================================================================================================================
+void GFCEO_Electrode::initSizes()
+{
+// COMPLETE
+}
+//===================================================================================================================================
+void GFCEO_Electrode::setAlgebraic(const int k)
+{
+// COMPLETE
+}
+//===================================================================================================================================
+int GFCEO_Electrode::evalResidNJ(const doublereal t, const doublereal delta_t,
+                            const doublereal* const y,
+                            const doublereal* const ydot,
+                            doublereal* const resid,
+                            const ResidEval_Type_Enum evalType,
+                            const int id_x,
+                            const doublereal delta_x)
+ {
+     return 0;
+ }
+//===================================================================================================================================
+int GFCEO_Electrode::eval(const doublereal t, const doublereal* const y, const doublereal* const ydot,
+			  doublereal* const resid)
+{
+    return 0;
+}
+//===================================================================================================================================
+int GFCEO_Electrode::getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
+{
+    return 0;
+}
+//===================================================================================================================================
+doublereal GFCEO_Electrode::filterNewStep(const doublereal t, const doublereal* const ybase,
+					  doublereal* const step)
+{
+    return 0;
+}
+//===================================================================================================================================
+void GFCEO_Electrode::setAtol(doublereal atol)
+{
+}
+//===================================================================================================================================
+int  GFCEO_Electrode::evalTimeTrackingEqns(const doublereal t, const doublereal delta_t, const doublereal* const y,
+                                      const doublereal* const ydot)
+{
+    return 0;
+}
+//===================================================================================================================================
+ bool GFCEO_Electrode::evalStoppingCritera(const doublereal t,
+                                     const doublereal delta_t,
+                                     const doublereal* const y,
+                                     const doublereal* const ydot)
+{
+    return 0;
+}
+
+//===================================================================================================================================
+int GFCEO_Electrode::calcDeltaSolnVariables(const doublereal t,
+                           const doublereal* const y,
+                           const doublereal* const ydot,
+                           doublereal* const delta_y,
+                           const doublereal* const solnWeights)
+{
+    return 0;
+}
+//===================================================================================================================================
+void GFCEO_Electrode::calcSolnScales(const doublereal t, const doublereal* const y,
+				     const doublereal* const y_old, doublereal* const yScales)
+{
+    
+}
+//===================================================================================================================================
+void GFCEO_Electrode::user_out2(const int ifunc, const doublereal t,
+				const doublereal delta_t,
+				const doublereal* const y,
+				const doublereal* const ydot)
+{
+}
+//===================================================================================================================================
+void  GFCEO_Electrode::user_out(const int ifunc, const doublereal t,
+				const doublereal* y,
+				const doublereal* ydot)
+{
+
+}
+//===================================================================================================================================
+int GFCEO_Electrode::matrixConditioning(doublereal* const matrix, const int nrows,doublereal* const rhs)
+{
+    return 0;
+}
+//===================================================================================================================================
+int GFCEO_Electrode::evalJacobian(const doublereal t, const doublereal delta_t, doublereal cj,
+				  const doublereal* const y, const doublereal* const ydot,
+				  GeneralMatrix& J, doublereal* const resid)
+{
+    return 0;
+}
+//===================================================================================================================================
+int GFCEO_Electrode::evalJacobianDP(const doublereal t, const doublereal delta_t, doublereal cj,
+				    const doublereal* const y,
+				    const doublereal* const ydot,
+				    doublereal* const* jacobianColPts,
+				    doublereal* const resid)
+{
+    return 0;
+}
+//===================================================================================================================================
+void GFCEO_Electrode::writeSolution(int ievent, const double time, const double deltaT,  const int time_step_num,
+				    const double* const y, const double* const ydot)
+{
+
+}
+//===================================================================================================================================
 void GFCEO_Electrode::assertOwnership()
 {
      if (! iOwnObject_) {
