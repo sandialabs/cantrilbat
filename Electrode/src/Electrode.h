@@ -861,27 +861,32 @@ public:
                                             doublereal phiMax = 100., doublereal phiMin = -100.,
                                             int maxIntegrationSteps = 5000);
 
-    //! Set the deltaT used for the subcycle step
+    //! Set the deltaT used for the subcycle time step
     /*!
      *  The default setting for this is infinite. If it's infinite then deltaTSubcycle is set to the
-     *  deltaT of the integration step. However, there are many times where a smaller natural delta T is
+     *  deltaT of the integration step. However, there are many times where a smaller natural delta T is 
      *  required to solve the equation system
+     *
+     *  @param[in]           deltaTSubcycle      value of the subcycle time step
+     *
+     *  @deprecated  Is there any reason not to have child objects handle this as part of their adaptive time stepping?
      */
-// Deprecate? Is there any reason not to have child objects handle this as part of their adaptive time stepping?
     virtual void setDeltaTSubcycle(doublereal deltaTSubcycle);
 
     //! Set the maximum value of the subcycle delta T
     /*!
-     *  @param deltaTSubcycle  Maximum value of the subcycle time step
+     *  @param[in]           deltaTSubcycleMax   Maximum value of the subcycle time step
      */
-// Deprecate
-    void setDeltaTSubcycleMax(doublereal deltaTSubcycle);
+    void setDeltaTSubcycleMax(doublereal deltaTSubcycleMax);
 
     //!  Calculate the time derivatives of the mole numbers at the current subcycle step
     /*!
      *   This may be used as a virtual function
+     *
+     *   @param[in]            deltaTsubcycle    The current subgrid time step
+     *
+     *   @deprecated
      */
-// Deprecate
     virtual void calculateTimeDerivatives(doublereal deltaTsubcycle);
 
     //------------------------------------------------------------------------------------------------------------------
@@ -943,11 +948,14 @@ public:
 
     //! Report the enthalpy source term for the electrode over an interval in time
     /*!
+     *  units = Joules
      *   FIX!!!
      *  HKM -> This formula is in error for standard reactions for multispecies phases,
      *         and it is wholly inadequate for electrode reactions. 
      *  Sum over phases ( enthalpy phase * (phaseMoles_final_ - phaseMoles_init_init_) )
      *  This should only be called after integrate() has finished running.
+     *
+     *  @return                                  Returns the enthalpy source term for the electrode over the interval
      */
     virtual double integratedEnthalpySourceTerm();
 
@@ -1800,7 +1808,7 @@ public:
 
     //! Returns the vector of OCV's for all reactions on the selected ReactingSurfaceDomain for the
     //! current conditions.
-    /*
+    /*!
      *   The reference electrode idea is under construction. It's hard to generalize. What it means
      *   now is for the standard state gibbs free energy to be used in the solution. In some common cases this
      *   produces the OCV vs. the reference electrode.
