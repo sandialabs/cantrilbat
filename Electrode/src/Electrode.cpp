@@ -4881,7 +4881,7 @@ double Electrode::integratedEnthalpySourceTerm()
 /*
  *
  */
-double Electrode::thermalEnergySourceTerm_overpotential(int isk)
+double Electrode::thermalEnergySourceTerm_overpotential(size_t isk)
 {   
     double nstoich, ocv, io, nu, beta, resist;
     double iCurr;

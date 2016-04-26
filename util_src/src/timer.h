@@ -1,7 +1,7 @@
 /**
  * @file timer.h
  *    Declarations for a simple class that implements a clock timer
- *   (see \ref mdpUtil::clockID).
+ *   (see \ref mdpUtil::timer).
  */
 /*
  * Copyright 2014 Sandia Corporation. Under the terms of Contract
@@ -67,9 +67,7 @@ public:
 
     //! Constructor
     /*!
-     *  @param cType   The type of clock to be used. We default to CLOCK_PROCESS_CPUTIME_ID
-     *                 which measure the CPUTIME of the current process. This does not
-     *                 measure the real time.
+     *
      */
     timer() :
         running_(false),

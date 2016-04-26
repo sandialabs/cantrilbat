@@ -1016,7 +1016,7 @@ void Electrode_SimpleDiff::setState_exteriorSurface()
 /*
  *
  */
-double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(int isk)
+double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(size_t isk)
 {
     if (isk != 0) {
 	throw Electrode_Error("Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation",

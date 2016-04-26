@@ -1,7 +1,7 @@
 /**
  * @file timerUtil.h
  *    Declarations for a factory funcitons that return a clock timer based on the operating system
- *   (see \ref mdpUtil::timerUtil).
+ *   (see \ref mdpUtil::timer).
  */
 /*
  * Copyright 2014 Sandia Corporation. Under the terms of Contract
@@ -24,7 +24,12 @@
 namespace mdpUtil
 {
 //===================================================================================================================================
-
+//! Create a pointer to a new timer
+/*!
+ *  This creates the most accurate timer for the architecture. The default is to create a cputimer and not a wall clock timer
+ *  
+ *  @return                                      Return a pointer to the timer
+ */
 timer* newTimer()
 {
 #ifdef _POSIX_VERSION
@@ -35,6 +40,12 @@ timer* newTimer()
 };
 
 //===================================================================================================================================
+//! Create a pointer to a new timer
+/*!
+ *  This creates the most accurate cpu timer for the architecture. 
+ *  
+ *  @return                                      Return a pointer to the timer
+ */
 timer* newCPUTimer()
 {
 #ifdef _POSIX_VERSION
@@ -44,6 +55,12 @@ timer* newCPUTimer()
 #endif
 };
 //===================================================================================================================================
+//! Create a pointer to a new wall clock timer
+/*!
+ *  This creates the most accurate wall clock timer for the architecture. 
+ *  
+ *  @return                                      Return a pointer to the timer
+ */
 timer* newWallTimer()
 {
 #ifdef _POSIX_VERSION

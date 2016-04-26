@@ -1,6 +1,6 @@
 /**
  * @file clockID.h
- *    Declarations for a simple class that implements a POSIX processor clock timer
+ *    Declarations for a simple class that implements a POSIX compliant  clock timer
  *   (see \ref mdpUtil::clockID).
  */
 /*
@@ -17,11 +17,12 @@
 
 #include <ctime>
 
-#ifdef HAVE_UNISTD_H
-#include "unistd.h"
-#include <errno.h>
+#ifdef  DOXYGEN_SHOULD_IGNORE_THIS
+#ifndef _POSIX_VERSION
+//! fake version number to get doxygen to compile this
+#define  _POSIX_VERSION 12
 #endif
-
+#endif
 
 #ifdef _POSIX_VERSION
 

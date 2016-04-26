@@ -258,7 +258,7 @@ public:
     /*!
      *   @param irxn Surface index 
      */
-    virtual double thermalEnergySourceTerm_overpotential(int isk);
+    virtual double thermalEnergySourceTerm_overpotential(size_t isk);
 
     //! Reversible Entropy term leading to  heat generation
     /*!

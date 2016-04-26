@@ -676,7 +676,7 @@ public:
      *  (suggested deprecation)
      *
      *  @param[in]          isk                  Surface ID to get the fluxes from.
-     *  @param[out]         phaseMassFlux        Returns the vector of mass fluxes of the phases
+     *  @param[out]         phaseMassFlux        Returns the vector of mass fluxes of the phases (kmol/m2/s)
      */
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
     
@@ -690,16 +690,16 @@ public:
      */
     void getPhaseProductionRates(const doublereal * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
 
-    //! Overpotential term for the heat generation from a single surface
+    //! Overpotential term for the heat generation from a single surface for the current global time step
     /*!
      *   ( units = J / s) 
      *   @param[in]  isk             Index of the ReactingSurDomain
      *
      *   @return                     Returns the thermal energy overpotential term ( units = J / s)                     
      */
-    virtual double thermalEnergySourceTerm_overpotential(int isk);
+    virtual double thermalEnergySourceTerm_overpotential(size_t isk);
 
-    //! Reversible Entropy term leading to heat generation
+    //! returns the reversible Entropy term leading to heat generation for the current global time step
     /*!
      *   ( units = J / s ) 
      *   This is the term due to the reversible entropy production.
@@ -709,12 +709,12 @@ public:
      */
     virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
 
-    //! Energy source term due to Enthalpy formation
+    //! Energy source term due to tthe Enthalpy formation for the current global time step
     /*!
      *  ( units = J / s)
-     *   @param[in]  irxn            Index of the ReactingSurDomain
+     *   @param[in]           isk                 Index of the ReactingSurDomain
      *
-     *  @return                           Returns the energy source term for enthalpy release
+     *  @return                                   Returns the energy source term for enthalpy release (J / s)
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
