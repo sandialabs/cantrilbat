@@ -51,7 +51,7 @@ UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 PURIFY=@PURIFY@
 #
 LDEFINES =
-GDEFINES =
+GDEFINES = -I../../..
 #
 #   Set up the global include directory macro
 #

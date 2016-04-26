@@ -14,6 +14,7 @@
 #define MDP_CLOCKWC_H
 
 #include <ctime>
+#include "timer.h"
 
 namespace mdpUtil
 {
@@ -49,7 +50,7 @@ namespace mdpUtil
  * @ingroup globalUtilFuncs
  *
  */
-class wallClock
+class wallClock : public timer
 {
 public:
 
@@ -80,12 +81,10 @@ public:
     //!  Starts the time ticking
     void startTime();
 
-    //! Restart the timer ticking
-    void restartTime();
 
     //!  Stop the clock and returns the time in the last interval
     /*!
-     *   @return  Returns the time in the last interval in seconds
+     *   @return  Returns the time for the last interval in seconds
      */
     double stopTime();
 

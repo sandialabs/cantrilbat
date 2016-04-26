@@ -115,7 +115,7 @@ endif
 CXX = @CXX@
 
 # C++ compile flags
-CXX_FLAGS = @CXXFLAGS@  $(CXX_OPT) $(LDEFINES)
+CXX_FLAGS = @CXXFLAGS@  $(CXX_OPT) -I../..  $(LDEFINES)
 
 # The directory where Cantera include files may be found.
 CANTERA_INCDIR=  

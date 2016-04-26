@@ -26,11 +26,10 @@ const double wallClock::s_inv_clocks_per_sec(1.0/(double)CLOCKS_PER_SEC);
 //   const double wallClock::s_clockTickWidth_((double)(1L<<((int)sizeof(clock_t)*8-2))*4./(double)CLOCKS_PER_SEC);
 //===============================================================================================================================
 wallClock::wallClock() :
+    timer(),
     lastNumTicks_(clock()),
-    running_(false),
     startLastTicks_(lastNumTicks_),
     startTicksWC_(lastNumTicks_),
-    storredSeconds_(0.0),
     storredSecondsWC_(0.0)
 {
 #ifdef DEBUG_MODE
@@ -46,6 +45,7 @@ wallClock::wallClock() :
 }
 //===============================================================================================================================
 wallClock::wallClock(const wallClock& right) :
+    timer(),
     currNumTicks_(right.currNumTicks_)
 {
     operator=(right);
@@ -54,11 +54,10 @@ wallClock::wallClock(const wallClock& right) :
 wallClock& wallClock::operator=(const wallClock& right)
 {
     if (this == &right) return *this;
+    timer::operator=(right);
     lastNumTicks_ = right.lastNumTicks_;
-    running_      = right.running_;
     startLastTicks_ = right.startLastTicks_;
     startTicksWC_ = right.startTicksWC_;
-    storredSeconds_ = right.storredSeconds_;
     storredSecondsWC_ = right.storredSecondsWC_;
     return *this;
 }
@@ -80,18 +79,6 @@ void wallClock::startTime()
 #endif
     running_ = true;
     startLastTicks_ = lastNumTicks_ = clock();
-}
-//===============================================================================================================================
-void wallClock::restartTime()
-{  
- #ifdef DEBUG_MODE
-    if (running_) {
-	throw std::logic_error("Clock is already running");
-    }
-#endif
-    running_ = true;
-    lastNumTicks_ = clock();
-    startLastTicks_ = lastNumTicks_;
 }
 //===============================================================================================================================
 double wallClock::stopTime()

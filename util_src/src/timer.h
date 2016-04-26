@@ -1,6 +1,6 @@
 /**
- * @file clockID.h
- *    Declarations for a simple class that implements a POSIX processor clock timer
+ * @file timer.h
+ *    Declarations for a simple class that implements a clock timer
  *   (see \ref mdpUtil::clockID).
  */
 /*
@@ -10,24 +10,23 @@
  * See file License.txt for licensing information.
  */
 
-#include "timer.h"
+#include "config.h"
 
-#ifndef MDP_CLOCKID_H
-#define MDP_CLOCKID_H
+#ifndef MDP_TIMER_H
+#define MDP_TIMER_H
 
-#include <ctime>
+
 
 #ifdef HAVE_UNISTD_H
 #include "unistd.h"
-#include <errno.h>
 #endif
 
 
-#ifdef _POSIX_VERSION
+
 
 namespace mdpUtil
 {
-
+//===================================================================================================================================
 //! The class provides the wall clock timer in seconds for POSIX compliant systems
 /*!
  *  This routine relies on the POSIX clock_gettime() routine, which
@@ -62,7 +61,7 @@ namespace mdpUtil
  * @ingroup globalUtilFuncs
  *
  */
-class clockID : public timer
+class timer
 {
 public:
 
@@ -72,7 +71,11 @@ public:
      *                 which measure the CPUTIME of the current process. This does not
      *                 measure the real time.
      */
-    clockID(clockid_t cType = CLOCK_PROCESS_CPUTIME_ID);
+    timer() :
+        running_(false),
+        storredSeconds_(0.0)
+    {
+    }
 
     //! Copy constructor
     /*!
@@ -80,7 +83,11 @@ public:
      *
      * @param right  Item to be copied.
      */
-    clockID(const clockID& right);
+    timer(const timer& right) :
+    running_(right.running_),
+    storredSeconds_(right.storredSeconds_)
+    {
+    }
 
     //! Assign the timer info from one timer to another
     /*!
@@ -88,12 +95,20 @@ public:
      *
      *  @return returns a reference to the current object
      */
-    clockID& operator=(const clockID& right);
+    timer& operator=(const timer& right)
+    {
+	if (&right == this) return *this;
+        running_ = right.running_;
+	storredSeconds_ = right.storredSeconds_;	
+        return *this;
+    }
 
-    virtual ~clockID();
-   
+    virtual ~timer()
+    {
+    }
+
     //! Starts the timer on a new interval to be timed.
-    virtual void startTime();
+    virtual void startTime() = 0;
 
     //! Stop the timer
     /*!
@@ -101,22 +116,33 @@ public:
      *
      *  @return Returns the incremental time from the last increment
      */
-    virtual double stopTime();
+    virtual double stopTime() = 0;
+
+    //! Reports the time 
+    /*!
+     *  @return Returns the time (secs) spent in all intervals timed by this clock
+     */
+    virtual double reportTime() const
+    {
+        return storredSeconds_;
+    } 
 
     //! Clears all of the timing information 
-    virtual void clear();
-  
-private:
+    virtual void clear()
+    {
+        storredSeconds_ = 0;
+    }
 
-    //! Clock type, See the man page for clock_gettime() for possible values
-    clockid_t clockType_;
+protected:
+    //! This is a flag stating whether interval timing is turned on
+    bool running_;
 
-    //! Counters the value of the number of ticks from the current call.
-    struct timespec currNumTicks_;
-
-    //! Counter containing the value of the number of ticks from the last start call
-    struct timespec startLastTicks_;
+    //! Storred seconds for calculating the timing of the operations
+    double storredSeconds_;
+ 
 };
+//===================================================================================================================================
+
+
 }
-#endif
 #endif

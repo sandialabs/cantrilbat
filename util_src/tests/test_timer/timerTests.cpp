@@ -4,17 +4,17 @@
  */
 #include "../../../config.h"
 #include "gtest/gtest.h"
-#include "clockWC.h"
+#include "wallClock.h"
 #include "clockID.h"
 
 using namespace mdpUtil;
 using namespace testing;
 
-clockWC ptick;
+wallClock ptick;
 
 double timeSpent(int n)
 {
-    clockWC tick;
+    wallClock tick;
 
     tick.startTime();
     //  Note, this is system time -> doesn't count
@@ -47,6 +47,22 @@ double timeSpentID(int n, clockid_t ctype)
     tick.stopTime();
     return tick.reportTime();
 }
+
+double timeSpentID(int n, clockid_t ctype)
+{
+    timer*tt = new timerUtil();
+    tick.startTime();
+    //  Note, this is system time -> doesn't count
+    sleep(n);
+    double ff = 1.0;
+    for (int i = 2; i < 88888880; i++) {
+	ff *= (i - 1.0) / (i - 0.98);
+    }
+    FILE* ofp = fopen("testerOut.txt", "w");
+    fprintf(ofp, "ff = %g\n", ff);
+    fclose(ofp);
+    tick.stopTime();
+    return tick.reportTime();
 
 double do_work(int n)
 {

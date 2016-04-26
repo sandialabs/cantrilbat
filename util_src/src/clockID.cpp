@@ -22,19 +22,22 @@
 #include <errno.h>
 #endif
 
+
 // turn on debugging
 #ifndef DEBUG_MODE
 #define DEBUG_MODE
 #endif
 
+
+
 namespace mdpUtil
 {
-
+//  This is only true if we are on a posix system
+#ifdef _POSIX_VERSION
 //==================================================================================================================================
 clockID::clockID(clockid_t cType) :
-    clockType_(cType),
-    running_(false),
-    storredSeconds_(0.0)
+    timer(),
+    clockType_(cType)
 {
 #ifdef  _POSIX_TIMERS 
 #ifndef _POSIX_MONOTONIC_CLOCK
@@ -68,18 +71,22 @@ clockID::clockID(clockid_t cType) :
 }
 //===============================================================================================================================
 clockID::clockID(const clockID& right) :
-    currNumTicks_(right.currNumTicks_)
+    timer(right),
+    currNumTicks_(right.currNumTicks_),
+    startLastTicks_ (right.startLastTicks_)
 {
-    operator=(right);
 }
 //===============================================================================================================================
 clockID& clockID::operator=(const clockID& right)
 {
     if (this == &right) return *this;
-    running_      = right.running_;
+    timer::operator=(right);
     startLastTicks_ = right.startLastTicks_;
-    storredSeconds_ = right.storredSeconds_;
     return *this;
+}
+//===============================================================================================================================
+clockID::~clockID()
+{
 }
 //===============================================================================================================================
 void clockID::startTime()
@@ -106,14 +113,10 @@ double clockID::stopTime()
     return secsLast;
 }
 //==================================================================================================================================
-double clockID::reportTime() const
-{
-    return storredSeconds_;
-}
-//==================================================================================================================================
 void clockID::clear()
 {
     storredSeconds_ = 0.0;
 }
 //==================================================================================================================================
+#endif
 }
