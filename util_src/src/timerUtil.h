@@ -32,5 +32,28 @@ timer* newTimer()
 #endif
 };
 
+//===================================================================================================================================
+timer* newCPUTimer()
+{
+#ifdef _POSIX_VERSION
+   return new clockID(CLOCK_PROCESS_CPUTIME_ID);
+#else
+   return new wallClock();
+#endif
+};
+
+//===================================================================================================================================
+timer* newWallTimer()
+{
+#ifdef _POSIX_VERSION
+   return new clockID(CLOCK_REALTIME);
+#else
+   return new wallClock();
+#endif
+};
+
+//===================================================================================================================================
+
+
 }
 #endif
