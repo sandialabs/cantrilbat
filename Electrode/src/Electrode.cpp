@@ -3958,7 +3958,7 @@ int Electrode::phasePop(int iphaseTarget, double* const Xmf_stable, double delta
     Cantera::solveProb* pSolve = new solveProb(pSolve_Res);
     pSolve->m_ioflag = 10;
     pSolve->setAtolConst(1.0E-11);
-    retn = pSolve->solve(SOLVEPROB_RESIDUAL, 1.0E-6, 1.0E-3);
+    retn = pSolve->solve(solveProb::RESIDUAL, 1.0E-6, 1.0E-3);
     if (retn == 0) {
         pSolve->reportState(Xmf_stable);
         vector_fp resid(nspPhase);
