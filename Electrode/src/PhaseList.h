@@ -498,7 +498,7 @@ protected:
     size_t m_NumTotPhases;
 
     //! Total number of species in all phases
-    int m_NumTotSpecies;
+    size_t m_NumTotSpecies;
 
     //!  Number of volume phases
     size_t NumVolPhases_;

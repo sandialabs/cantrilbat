@@ -179,7 +179,7 @@ Electrode_SimplePhaseChangeDiffusion::electrode_model_create(ELECTRODE_KEY_INPUT
 
     SolidInnerKSpecies_ = -1;
     //   ReactingSurDomain *rsd = RSD_List_[surfIndexInnerSurface_];
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         double  rgamma = reactantStoichCoeff(surfIndexInnerSurface_, k, 0);
         if (rgamma != 0.0) {
             if (SolidInnerKSpecies_!= -1) {
@@ -195,7 +195,7 @@ Electrode_SimplePhaseChangeDiffusion::electrode_model_create(ELECTRODE_KEY_INPUT
     }
 
 
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         double  rgamma = productStoichCoeff(surfIndexInnerSurface_, k, 0);
         if (rgamma != 0.0) {
             int iph = getPhaseIndexFromGlobalSpeciesIndex(k);
@@ -1187,7 +1187,7 @@ restartStep:
 
 
         std::fill(deltaMoles.begin(), deltaMoles.end(), 0.);
-        for (int k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             spMoles_tmp[k] = spMoles_init_[k];
             for (int isk = 0; isk < numSurfaces_; isk++) {
                 if (ActiveKineticsSurf_[isk]) {
@@ -1203,7 +1203,7 @@ restartStep:
             }
         }
 
-        for (int k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             int iph = getPhaseIndexFromGlobalSpeciesIndex(k);
             if (iph == metalPhase_) {
                 continue;
@@ -1213,7 +1213,7 @@ restartStep:
              *  to get it to zero.
              */
             if (spMoles_tmp[k] < 0.0) {
-                printf("Warning sPMoles_tmp[%d, iph=%d] = %g\n", k, iph, spMoles_tmp[k]);
+                printf("Warning sPMoles_tmp[%d, iph=%d] = %g\n", (int) k, iph, spMoles_tmp[k]);
                 spMoles_tmp[k] = 0.0;
             }
         }
@@ -1409,7 +1409,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
         }
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
-        for (int k = 0; k <  m_NumTotSpecies; k++) {
+        for (size_t k = 0; k <  m_NumTotSpecies; k++) {
             string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }

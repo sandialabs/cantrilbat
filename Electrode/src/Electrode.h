@@ -453,7 +453,7 @@ public:
      *  @return                                         total moles of solid phase (kmol)
      */
 //Can protect
-    virtual  double SolidTotalMoles() const;
+    virtual double SolidTotalMoles() const;
 
     //! Return a vector of the phase volumes for all phases in the electrode
     /*!

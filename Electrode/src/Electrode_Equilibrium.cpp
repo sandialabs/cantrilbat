@@ -152,7 +152,7 @@ int Electrode_Equilibrium::addLiIonPlusElectronBathPhase()
     LiFixed_->setChemicalPotential(muLi);
 
     double tMoles = 0.0;
-    for (int k = 0; k < ee_->m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < ee_->m_NumTotSpecies; k++) {
         tMoles += ee_->spMoles_final_[k];
     }
     /*

@@ -900,7 +900,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     // HEWSON -- 12/1/10 -- this particular tolerance value
     // and all magic tolerance values throughout are subject to revision
     double tMoles = 0.0;
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         tMoles += spMoles_final_[k];
     }
     molarAtol_ = tMoles * 1.0E-5;
@@ -1339,7 +1339,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 
     /* set the absolute tolerance to 1e-5 the total number of moles */
     double tMoles = 0.0;
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         tMoles += spMoles_final_[k];
     }
     molarAtol_ = tMoles * 1.0E-5;
@@ -1528,7 +1528,7 @@ void Electrode::resizeMoleNumbersToGeometry()
     }
     double ratio = targetSolidVol / currentSolidVol;
     double tMoles = 0.0;
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_final_[k] *= ratio;
         spMoles_init_[k] = spMoles_final_[k];
         spMoles_init_init_[k] = spMoles_final_[k];
@@ -2813,7 +2813,7 @@ void Electrode::getIntegratedSpeciesProductionRates(doublereal* const net) const
     if (t_final_final_ > t_init_init_) {
         invDelT = 1.0 / (t_final_final_ - t_init_init_);
     }
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         net[k] = invDelT * spMoleIntegratedSourceTerm_[k];
     }
 }
@@ -2845,7 +2845,7 @@ double Electrode::getIntegratedProductionRatesCurrent(doublereal* const net) con
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
-                for (int k = 0; k < m_NumTotSpecies; k++) {
+                for (size_t k = 0; k < m_NumTotSpecies; k++) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }
             }
@@ -2868,7 +2868,7 @@ double Electrode::integratedCurrent() const
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
-                for (int k = 0; k < m_NumTotSpecies; k++) {
+                for (size_t k = 0; k < m_NumTotSpecies; k++) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }
             }
@@ -2895,7 +2895,7 @@ double Electrode::integratedLocalCurrent() const
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
-                for (int k = 0; k < m_NumTotSpecies; k++) {
+                for (size_t k = 0; k < m_NumTotSpecies; k++) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }
             }
@@ -3879,7 +3879,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
      *  Calculate the change in the moles of all of the species
      */
 
-    for (k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
         for (int isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
@@ -4198,19 +4198,18 @@ double Electrode::timeFinalFinal() const
  */
 void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
 {
-    int i;
     // reset surface quantities
-    for (i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
         surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
     }
     if (setInitInit) {
-        for (i = 0; i < numSurfaces_; i++) {
+        for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
             surfaceAreaRS_init_init_[i] = surfaceAreaRS_final_[i];
         }
     }
 
     // Reset total species quantities
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_init_[k] = spMoles_final_[k];
         spMf_init_[k] = spMf_final_[k];
         spMoles_final_final_[k] = spMoles_final_[k];
@@ -4314,15 +4313,14 @@ void Electrode::setInitStateFromFinal(bool setInitInit)
  */
 void Electrode::setInitInitStateFromFinalFinal()
 {
-    int i;
     // reset surface quantities
-    for (i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
         surfaceAreaRS_init_[i] = surfaceAreaRS_final_final_[i];
         surfaceAreaRS_init_init_[i] = surfaceAreaRS_final_final_[i];
     }
 
     // Reset total species quantities
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_init_[k] = spMoles_final_final_[k];
         spMf_init_[k] = spMf_final_final_[k];
         spMf_init_init_[k] = spMf_final_final_[k];
@@ -4400,13 +4398,12 @@ void Electrode::revertToInitialTime(bool revertToInitInit)
  */
 void Electrode::setFinalStateFromInit_Oin()
 {
-    int i;
     // reset surface quantities
-    for (i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
         surfaceAreaRS_final_[i] = surfaceAreaRS_init_[i];
     }
     // Reset total species quantities
-    for (i = 0; i < m_NumTotSpecies; i++) {
+    for (size_t i = 0; i < m_NumTotSpecies; i++) {
         spMoles_final_[i] = spMoles_init_[i];
         spMf_final_[i] = spMf_init_[i];
         enthalpyMolar_final_[i] = enthalpyMolar_init_[i]; 
@@ -4447,7 +4444,7 @@ void Electrode::setFinalStateFromInit()
  */
 void Electrode::setInitStateFromInitInit(bool setFinal)
 {
-    int i, k;
+    int i;
 
     // reset surface quantities
     for (i = 0; i < numSurfaces_; i++) {
@@ -4455,7 +4452,7 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
     }
     // Reset total species quantities
     if (setFinal) {
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             spMoles_init_[k] = spMoles_init_init_[k];
             spMoles_final_[k] = spMoles_init_init_[k];
             spMf_init_[k] = spMf_init_init_[k];
@@ -4468,7 +4465,7 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
 	    chempotMolar_final_[k] = chempotMolar_init_init_[k];
         }
     } else {
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             spMoles_init_[k] = spMoles_init_init_[k];
             spMf_init_[k] = spMf_init_init_[k];
             enthalpyMolar_init_[k] = enthalpyMolar_init_init_[k]; 
@@ -4543,7 +4540,7 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
         phaseMoles_final_final_[i] = phaseMoles_final_[i];
     }
 
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_final_final_[k] = spMoles_final_[k];
         spMf_final_final_[k] = spMf_final_[k];
     }
@@ -5598,7 +5595,7 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             }
             printf("\n");
             printf("                           spName                  SourceRateLastStep (kmol/m2/s) \n");
-            for (int k = 0; k < m_NumTotSpecies; k++) {
+            for (size_t k = 0; k < m_NumTotSpecies; k++) {
                 string ss = speciesName(k);
                 printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
             }
@@ -5655,7 +5652,7 @@ void Electrode::calculateTimeDerivatives(doublereal deltaTsubcycle)
         deltaTsubcycle = 1.0;
     }
     double invT = 1.0 / deltaTsubcycle;
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_dot_[k] = invT * (spMoles_final_[k] - spMoles_init_[k]);
     }
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
@@ -5678,7 +5675,7 @@ void Electrode::calculateTimeDerivatives(doublereal deltaTsubcycle)
 void Electrode::writeCSVData(int itype)
 {
     //if (printLvl_ < 2) return;
-    int k;
+    //int k;
     int kstart;
     static std::string globOutputName = "";
     static std::string intOutputName = "";
@@ -5716,12 +5713,12 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpI, "  CapacityLeft ,");
         fprintf(fpI, "  Capacity ,");
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             string sss = speciesName(k);
             fprintf(fpI, " MN_%-20.20s,", sss.c_str());
         }
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             string sss = speciesName(k);
             fprintf(fpI, " SRC_%-20.20s,", sss.c_str());
         }
@@ -5760,12 +5757,12 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpG, "  CapacityLeft ,");
         fprintf(fpG, "  Capacity ,");
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             string sss = speciesName(k);
             fprintf(fpG, " MN_%-20.20s,", sss.c_str());
         }
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             string sss = speciesName(k);
             fprintf(fpG, " SRC_%-20.20s,", sss.c_str());
         }
@@ -5824,11 +5821,11 @@ void Electrode::writeCSVData(int itype)
         cap = capacity();
         fprintf(fpI, "   %12.5E ,", cap);
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             fprintf(fpI, " %12.5E           ,", spMoles_final_[k]);
         }
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             fprintf(fpI, " %12.5E            ,", spMoleIntegratedSourceTermLast_[k]);
         }
 
@@ -5890,11 +5887,11 @@ void Electrode::writeCSVData(int itype)
         cap = capacity();
         fprintf(fpG, "   %12.5E ,", cap);
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             fprintf(fpG, " %12.5E           ,", spMoles_final_[k]);
         }
 
-        for (k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             fprintf(fpG, " %12.5E            ,", spMoleIntegratedSourceTerm_[k]);
         }
 

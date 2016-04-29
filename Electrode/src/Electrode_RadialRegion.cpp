@@ -1827,7 +1827,7 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
         }
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
-        for (int k = 0; k <  m_NumTotSpecies; k++) {
+        for (size_t k = 0; k <  m_NumTotSpecies; k++) {
             string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }

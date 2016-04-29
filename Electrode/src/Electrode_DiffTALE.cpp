@@ -2412,13 +2412,13 @@ void Electrode_DiffTALE::calcSrcTermsOnCompletedStep()
          *       An alternative would be to redo the residual calculation. However, here we assume that
          *       the residual calculation has been done and the results are in _final_
          */
-        for (int i = 0; i < m_NumTotSpecies; i++) {
+        for (size_t i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
         }
     } else {
         extractInfo();
         updateSpeciesMoleChangeFinal();
-        for (int isp = 0; isp < m_NumTotSpecies; isp++) {
+        for (size_t isp = 0; isp < m_NumTotSpecies; isp++) {
             spMoleIntegratedSourceTermLast_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
         }
     }
@@ -2441,7 +2441,7 @@ void  Electrode_DiffTALE::gatherIntegratedSrcPrediction()
     /*
      *  Here we don't recalculate anything. It was previously calculated in predictSoln().
      */
-    for (int isp = 0; isp < m_NumTotSpecies; isp++) {
+    for (size_t isp = 0; isp < m_NumTotSpecies; isp++) {
         IntegratedSrc_Predicted[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
     }
 }
@@ -2895,7 +2895,7 @@ int Electrode_DiffTALE::integrateResid(const doublereal t, const doublereal delt
             printf("\n");
         }
 	printf("\t\t      SpeciesName        Moles_Init    Moles_final   SpMF       |   Src_Moles  Pred_Moles_Final\n");
-        for (int k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; k++) {
             string ss = speciesName(k);
             double src =  DspMoles_final_[k] * deltaTsubcycleCalc_;
             printf("\t\t %20s  %12.4e  %12.4e  %12.4e | %12.4e %12.4e", ss.c_str(), spMoles_init_[k], spMoles_final_[k],
@@ -2906,7 +2906,7 @@ int Electrode_DiffTALE::integrateResid(const doublereal t, const doublereal delt
                 if (numSpeciesInKRSolidPhases_[ph] > 1) {
                     int iStart = getGlobalSpeciesIndex(iph, 0);
                     for (int sp = 0; sp < numSpeciesInKRSolidPhases_[ph]; sp++) {
-			int i = iStart + sp;
+			size_t i = iStart + sp;
 			if (i == k) {
 			    found = true;
 			    double res =  spMoles_final_[k] - (spMoles_init_[k] + src);
@@ -4637,7 +4637,7 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
         }
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
-        for (int k = 0; k <  m_NumTotSpecies; k++) {
+        for (size_t k = 0; k <  m_NumTotSpecies; k++) {
             string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }

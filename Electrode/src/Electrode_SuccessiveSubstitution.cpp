@@ -322,7 +322,7 @@ restartStep:
              *  Calculate the change in the moles of all of the species
              */
 
-            for (int k = 0; k < m_NumTotSpecies; k++) {
+            for (size_t k = 0; k < m_NumTotSpecies; k++) {
                 spMoles_tmp[k] = spMoles_init_[k];
                 for (size_t isk = 0; isk < m_NumSurPhases; isk++) {
                     if (ActiveKineticsSurf_[isk]) {
@@ -447,15 +447,15 @@ restartStep:
                     sa_init =  surfaceAreaRS_init_[isk];
                     sa_final = surfaceAreaRS_final_[isk];
                     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
-                    for (int k = 0; k < m_NumTotSpecies; k++) {
+                    for (size_t k = 0; k < m_NumTotSpecies; k++) {
                         spMoles_tmp[k] += 0.5 * deltaTsubcycle_ * (sa_init + sa_final) * spNetProdPerArea[k];
                     }
                 }
             }
-            for (int k = 0; k < m_NumTotSpecies; k++) {
+            for (size_t k = 0; k < m_NumTotSpecies; k++) {
                 delta[k] = spMoles_tmp[k] - spMoles_final_[k];
             }
-            for (int k = 0; k < m_NumTotSpecies; k++) {
+            for (size_t k = 0; k < m_NumTotSpecies; k++) {
                 spMoles_tmp[k] = damp * delta[k] + spMoles_final_[k];
             }
 
@@ -583,7 +583,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
     }
     */
 
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_final_[k] = y[k];
     }
 
@@ -754,7 +754,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
      *  Calculate the change in the moles of all of the species
      */
 
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
         for (size_t isk = 0; isk < m_NumSurPhases; isk++) {
             if (ActiveKineticsSurf_[isk]) {
@@ -767,7 +767,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
         }
     }
 
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         resid[k] = (spMoles_final_[k] - spMoles_init_[k]) / deltaTsubcycle - srcTerm[k];
     }
 

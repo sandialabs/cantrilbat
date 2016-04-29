@@ -910,7 +910,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     }
     double ratio = targetSolidVol / currentSolidVol;
     double tMoles = 0.0;
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_final_[k] *= ratio;
         spMoles_init_[k] = spMoles_final_[k];
         spMoles_init_init_[k] = spMoles_final_[k];
@@ -2936,7 +2936,7 @@ void Electrode_MP_RxnExtent::gatherIntegratedSrcPrediction()
     extractInfo();
     updateSpeciesMoleChangeFinal();
     IntegratedSrc_Predicted.resize(m_NumTotSpecies);
-    for (int isp = 0; isp < m_NumTotSpecies; isp++) {
+    for (size_t isp = 0; isp < m_NumTotSpecies; isp++) {
         IntegratedSrc_Predicted[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
     }
 }
@@ -3181,14 +3181,14 @@ void Electrode_MP_RxnExtent::calcSrcTermsOnCompletedStep()
          *       An alternative would be to redo the residual calculation. However, here we assume that
          *       the residual calculation has been done and the results are in _final_
          */
-        for (int i = 0; i < m_NumTotSpecies; i++) {
+        for (size_t i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
 
         }
     } else {
         extractInfo();
         updateSpeciesMoleChangeFinal();
-        for (int isp = 0; isp < m_NumTotSpecies; isp++) {
+        for (size_t isp = 0; isp < m_NumTotSpecies; isp++) {
             spMoleIntegratedSourceTermLast_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
         }
     }
@@ -3211,11 +3211,11 @@ void Electrode_MP_RxnExtent::calcSrcTermsOnCompletedStep()
 void Electrode_MP_RxnExtent::accumulateSrcTermsOnCompletedStep(bool remove)
 {
     if (remove) {
-        for (int i = 0; i < m_NumTotSpecies; i++) {
+        for (size_t i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTerm_[i] -= spMoleIntegratedSourceTermLast_[i];
         }
     } else {
-        for (int i = 0; i < m_NumTotSpecies; i++) {
+        for (size_t i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTerm_[i] += spMoleIntegratedSourceTermLast_[i];
         }
     }
@@ -4721,7 +4721,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
             }
             printf("\n");
             printf("                           spName                  SourceRateLastStep (kmol/m2/s) \n");
-            for (int k = 0; k <  m_NumTotSpecies; k++) {
+            for (size_t k = 0; k <  m_NumTotSpecies; k++) {
                 string ss = speciesName(k);
                 printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
             }

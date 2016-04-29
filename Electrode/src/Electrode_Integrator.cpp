@@ -1757,7 +1757,7 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
      *       An alternative would be to redo the residual calculation. However, here we assume that
      *       the residual calculation has been done and the results are in _final_
      */
-    for (int i = 0; i < m_NumTotSpecies; i++) {
+    for (size_t i = 0; i < m_NumTotSpecies; i++) {
         spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
     }
     if (doThermalPropertyCalculations_) {
@@ -1779,14 +1779,14 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
 void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
 {
     if (remove) {
-        for (int i = 0; i < m_NumTotSpecies; i++) {
+        for (size_t i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTerm_[i] -= spMoleIntegratedSourceTermLast_[i];
         }
 	if (doThermalPropertyCalculations_) {
 	    integratedThermalEnergySourceTerm_ -= integratedThermalEnergySourceTermLast_;
 	}
     } else {
-        for (int i = 0; i < m_NumTotSpecies; i++) {
+        for (size_t i = 0; i < m_NumTotSpecies; i++) {
             spMoleIntegratedSourceTerm_[i] += spMoleIntegratedSourceTermLast_[i];
         }
 	if (doThermalPropertyCalculations_) {
@@ -2519,7 +2519,7 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
         }
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
-        for (int k = 0; k <  m_NumTotSpecies; k++) {
+        for (size_t k = 0; k <  m_NumTotSpecies; k++) {
             std::string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }
