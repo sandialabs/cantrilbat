@@ -26,3 +26,7 @@ SurDomain1D.dat
 BulkDomain1D_0.dat
 SurDomain1D_0.dat
 SurDomain1D_1.dat
+m1d_SolNonlinear_current.cpp
+m1d_SolNonlinear_current.h
+m1d_SolNonlinear_old.cpp
+m1d_SolNonlinear_old.h
