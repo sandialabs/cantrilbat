@@ -381,9 +381,16 @@ public:
      */
     Cantera::ReactingSurDomain* currOuterReactingSurface();
 
-    //! Returns a reacting surface object
+    //! Returns a changeable ReactingSurDomain object for a particular surface
     /*!
-     *  @param iSurf  returns a pointer to that reacting surface
+     *  Each identified surface in an electrode object can have reactions associated with it. This
+     *  routine returns the ReactingSurDomain object associated with the surface id.
+     *
+     *  @param[in]           iSurf               Index number of the surface 
+     *
+     *  @return                                  Returns a pointer to a ReactingSurDomain object.
+     *                                           If the surface doesn't have reactions associated with it,
+     *                                           a null is returned.
      */
     Cantera::ReactingSurDomain* reactingSurface(int iSurf);
 
@@ -670,13 +677,13 @@ public:
      */
     void getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux);
 
-    //!  Returns the current and the net production rates of the phases in kmol/m2/s from a single surface
+    //!  Returns the net production rates of the phases in kmol/m2/s from a single surface
     /*!
      *  Returns the net production rates of all phases from reactions on a single surface
      *  (suggested deprecation)
      *
      *  @param[in]          isk                  Surface ID to get the fluxes from.
-     *  @param[out]         phaseMassFlux        Returns the vector of mass fluxes of the phases (kmol/m2/s)
+     *  @param[out]         phaseMoleFlux        Returns the vector of mole fluxes of the phases (kmol/m2/s)
      */
     void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux);
     
@@ -688,7 +695,7 @@ public:
      *
      *   @param[out] phaseMoleFlux          Vector of phase production rates (kmol sec-1)
      */
-    void getPhaseProductionRates(const doublereal * const speciesProductionRates, doublereal* const phaseMoleFlux) const;
+    void getPhaseProductionRates(const doublereal* const speciesProductionRates, doublereal* const phaseMoleFlux) const;
 
     //! Overpotential term for the heat generation from a single surface for the current global time step
     /*!

@@ -110,8 +110,11 @@ public:
      *
      *   @param[in]    canteraFile         String containing the XML file description of a %Cantera volume phase. The phase
      *                                     may or may not have a kinetics object associated with it.
+     *
+     *   @param[in]    volID               String containing the ID() of the volume phase to be added. The default is "".
+     *                                     If the default is used, the first volume phase in the file is used.
      */
-    void addVolPhase(std::string canteraFile);
+    void addVolPhase(std::string canteraFile, const std::string& volID = "");
 
     //! Add a surface phase to the list of surfaces within the object.
     /*!
@@ -132,8 +135,11 @@ public:
      *
      *   @param[in]    canteraFile         String containing the XML file description of a cantera surface phase. The phase
      *                                     may or may not have a kinetics object associated with it.
+     *
+     *   @param[in]    surID               String containing the ID() of the surface phase to be added. The default is "".
+     *                                     If the default is used, the first surface phase in the file is used.
      */
-    void addSurPhase(std::string canteraFile);
+    void addSurPhase(std::string canteraFile, const std::string& surID = "");
 
     //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
     /*!

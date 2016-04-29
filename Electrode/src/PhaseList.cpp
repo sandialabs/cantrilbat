@@ -208,25 +208,25 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     return *this;
 }
-//================================================================================================
+//==================================================================================================================================
 void PhaseList::
-addVolPhase(std::string canteraFile)
+addVolPhase(std::string canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
-    XML_Node* vPhase = findXMLPhase(xroot, "");
-    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, "");
+    XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
     addVolPhase(tp, vPhase);
 }
-//==============================================================================================================================================
+//===================================================================================================================================
 void PhaseList::
-addSurPhase(std::string canteraFile)
+addSurPhase(std::string canteraFile,  const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
-    XML_Node* vPhase = findXMLPhase(xroot, "");
-    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, "");
+    XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
     addSurPhase(tp, vPhase);
 }
-//=============================================================================================================================================
+//==================================================================================================================================
 /*
  *  addVolPhase:
  *
@@ -336,7 +336,7 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     vp->realNumberRangeBehavior_ = CHANGE_OVERFLOW_CTRB;
 
 }
-//==================================================================================================================
+//==================================================================================================================================
 /*
  *
  *  addSurfPhase:
@@ -436,7 +436,7 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
     }
 }
-//==================================================================================================================
+//==================================================================================================================================
 /*
  *
  *  getVolPhaseIndex:
@@ -459,7 +459,7 @@ int PhaseList::getVolPhaseIndex(const ThermoPhase* const vp) const
     }
     return -1;
 }
-//==================================================================================================================
+//==================================================================================================================================
 int PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
 {
     for (size_t i = 0; i < m_NumSurPhases; i++) {
