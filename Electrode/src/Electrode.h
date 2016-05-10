@@ -215,17 +215,27 @@ public:
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]            right               object to be copied
+     *
+     *  @return                                   Returns a reference to the current object
      */
     Electrode& operator=(const Electrode& right);
 
     //! Duplicator function
     /*!
      *  Duplicate the current electrode object, returning a base electrode pointer
+     *
+     *  @return                                   Returns a duplicate of the current object as a base class pointer
      */
     virtual Electrode* duplMyselfAsElectrode() const;
 
     //! Set the electrode ID information
+    /*!
+     *  These numbers are used in printouts to identify an electrode amongst a number of electrodes
+     *
+     *  @param[in]            domainNum           Domain number (usually 0-anode, 1-separator, 2-cathode)
+     *  @param[in]            cellNum             Cell number -> element number within the material domain
+     */
     void setID(int domainNum, int cellNum);
 
     //! Return the type of electrode
@@ -237,7 +247,6 @@ public:
      *  @return Returns an enum type, called   Electrode_Types_Enum
      */
     virtual Electrode_Types_Enum electrodeType() const;
-
 
     //! Add additional Keylines for child electrode objects, and then read them in
     /*!
@@ -307,9 +316,7 @@ public:
      *  The pointer to the malloced object is saved in the internal variable eState_final_ .
      *  Because there is an object, the state of the electrode will be saved at each step.
      *
-     *  @param ei Electrode Key Input
-     *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                   Returns zero if successful, and -1 if not successful.
      */
     virtual int electrode_stateSave_create();
 
@@ -427,10 +434,10 @@ public:
     //
     // --------------------------------------  QUERY VOLUMES -----------------------------------------------------------
     //
+
     //!    Return the total volume of solid material
     /*!
      *  (virtual from Electrode.h)
-     *
      *       This is the main routine for calculating the solid volume.
      *       We leave out the solnPhase_ volume from the calculation
      *   @return                                       Returns the electrode solid volume    units = m**3
@@ -443,28 +450,30 @@ public:
      *
      *   This returns the value in the _final_ state
      *
-     *   @return total volume (m**3)
+     *   @param[in]           ignoreErrors        Boolean indicating that errors are to be ignored (defaults to false)
+     *
+     *   @return                                  total volume of the electrode, electolyte and solid (m**3)
      */
-//Can protect?
     virtual double TotalVol(bool ignoreErrors = false) const;
 
     //!  Returns the total moles in the electrode phases of the electrode
     /*!
      *  @return                                         total moles of solid phase (kmol)
      */
-//Can protect
     virtual double SolidTotalMoles() const;
 
     //! Return a vector of the phase volumes for all phases in the electrode
     /*!
-     *  Note the vector is over surface phases as well. Currently, all surface phases have zero
-     *  volume.
-     *
+     *  Note the vector is over surface phases as well. Currently, all surface phases have zero volume.
      *  length = m_NumTotPhases
      *  units = m**3
+     *  @deprecated
+     *
+     *  @param[out]           phaseVols           Vector of phase volumes
      */
-// Deprecate
     virtual void getPhaseVol(double* const phaseVols) const;
+
+
     //
     // --------------------------------------  QUERY HEAT CAPACITY  -----------------------------------------------------
     //
@@ -670,7 +679,7 @@ public:
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     /*!
      *  Returns the net production rates of all phases from reactions on a single surface
-     *   @deprecate
+     *  @deprecated
      *
      *  @param[in]          isk                  Surface ID to get the fluxes from.
      *  @param[out]         phaseMassFlux        Returns the mass fluxes of the phases
@@ -3278,8 +3287,11 @@ protected:
     double molarAtol_;
 
 protected:
+
+    //!  a timeIncrement XML element to store the final results for local steps of the solver
     XML_Node* xmlTimeIncrementData_;
 
+    //!  a timeIncrement XML element to store the results for intermediate steps of the solver
     XML_Node* xmlTimeIncrementIntermediateData_;
 
     //! Storage of the  external state of the system in terms of an XML data structure - init_init state
@@ -3469,6 +3481,21 @@ private:
 
 
     friend class Cantera::EState;
+
+    //! Set the State of this object from the state of the Electrode object
+    /*!
+     *  (virtual function)
+     *
+     *  virtual function, because the base class is called from general code, allowing
+     *      the child classes to be invoked.
+     *
+     *  This function takes the electrode objects _final_ state and copies it into this object.
+     *  This function must be carried out before the XML_Node tree is written.
+     *
+     *  @param e   Pointer to the Electrode object. Note, this class may use dynamic casting
+     *             to choose a child object, and then may invoke an error if the match isn't
+     *             correct.
+     */
     friend void Cantera::EState::copyElectrode_intoState(const Cantera::Electrode* const e);
 
     friend class Cantera::Electrode_Equilibrium;
