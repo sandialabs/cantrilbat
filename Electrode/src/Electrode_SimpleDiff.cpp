@@ -3649,7 +3649,7 @@ void Electrode_SimpleDiff::updateSpeciesMoleChangeFinal()
 
     double surfaceArea_star =  4. * Pi / 3. * (r_init * r_init + r_init * r_final + r_final * r_final);
     double mult = surfaceArea_star * particleNumberToFollow_;
-    for (int i = 0; i < m_totNumVolSpecies; i++) {
+    for (size_t i = 0; i < m_totNumVolSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
     }
 }

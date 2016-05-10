@@ -917,7 +917,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
         tMoles += spMoles_final_[k];
     }
     molarAtol_ = tMoles * 1.0E-5;
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
         Electrode::updateState_Phase(iph);
     }
     std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_init_.begin());
@@ -1715,7 +1715,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         if (locationOfReactingSurface_== 0) {
             double mult = (surfaceAreaRS_init_[2] + surfaceAreaRS_final_[2]);
             mult /= 2.0;
-            for (int i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
                 for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j] ;
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
@@ -1724,7 +1724,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         } else  if (locationOfReactingSurface_== 1) {
             double mult = surfaceAreaRS_init_[0] + 2.0 * surfaceAreaRS_final_[0];
             mult /= 3.0;
-            for (int i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
                 for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j] ;
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
@@ -1733,7 +1733,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         } else  if (locationOfReactingSurface_== 2) {
             double mult = surfaceAreaRS_init_[1] + surfaceAreaRS_final_[1];
             mult /= 2.0;
-            for (int i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
                 for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j)  * ROP_[j];
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
@@ -1754,7 +1754,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         if (goNowhere_ == 1) {
             SrcDot_ExtentRxn_final_ = 0.0;
             SrcDot_RelativeExtentRxn_final_ = 0.0;
-            for (int i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
                 DspMoles_final_[i] = 0.0;
             }
         } else {
@@ -1793,7 +1793,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
 
             double fac =  SrcDot_ExtentRxn_final_;
 
-            for (int i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
                 for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  fac * productStoichCoeff(indexOfReactingSurface_,i, j);
                     DspMoles_final_[i] -=  fac * reactantStoichCoeff(indexOfReactingSurface_,i,j);

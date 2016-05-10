@@ -504,7 +504,7 @@ protected:
     size_t NumVolPhases_;
 
     //!  Total number of volume phase species
-    int m_totNumVolSpecies;
+    size_t m_totNumVolSpecies;
 
     //!  Vector of pointers to volume phases existing in the problem
     std::vector<ThermoPhase*> VolPhaseList;
@@ -519,7 +519,7 @@ protected:
     size_t m_NumSurPhases;
 
     //! Total number of surface phase species.
-    int m_totNumSurSpecies;
+    size_t m_totNumSurSpecies;
 
     //! Vector of surface phases existing in the problem
     std::vector<ThermoPhase*> SurPhaseList;
@@ -542,7 +542,7 @@ protected:
      * all element objects have the same number of elements and the
      * same ordering of elements.
      */
-    int m_numElements;
+    size_t m_numElements;
 
     //! Index to the start of the species in a global species list
     /*!
