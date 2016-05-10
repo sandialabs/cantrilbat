@@ -96,7 +96,7 @@ public:
      *  @param[in]     vp                      Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]     vNode                   XML_Node pointer to the phase XML Node for the current object
      */
-    void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode);
+    void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode = 0);
 
     //! Add a volume phase to the volume PhaseList object given an XML file name
     /*!
@@ -121,7 +121,7 @@ public:
      *  @param[in]   vp             Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]   sNode          XML_Node pointer to the surface phase XML Node for the current object
      */
-    void addSurPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* sNode);
+    void addSurPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* sNode = 0);
 
     //! Add a surface phase to the PhaseList object given an XML file name
     /*!

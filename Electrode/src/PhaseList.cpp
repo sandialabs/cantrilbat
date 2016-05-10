@@ -239,6 +239,7 @@ addSurPhase(std::string canteraFile,  const std::string& phaseID)
 void PhaseList::
 addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
 {
+    AssertThrow(vp!=0, "Volume Phase Pointer must be nonzero");
 
     // Check for incompatibilities
     if (m_NumTotPhases > 0) {
@@ -258,6 +259,10 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
                                    "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
             }
         }
+    }
+
+    if (!vPhase) {
+      vPhase = &(vp->xml());
     }
 
     if (vp->nDim() != 3) {
@@ -351,6 +356,7 @@ void PhaseList::
 addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
 {
 
+    AssertThrow(sp != 0, "must be nonzero");
     // Check for incompatibilities
     if (m_NumTotPhases > 0) {
         for (size_t k = 0; k < sp->nSpecies(); k++) {
@@ -371,6 +377,10 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
         }
     }
 
+    // Get the storred phase XML tree
+    if (!sPhase) {
+      sPhase = &(sp->xml());
+    }
 
     if (sp->nDim() >=  3) {
         throw CanteraError("PhaseList::addSurPhase()",
