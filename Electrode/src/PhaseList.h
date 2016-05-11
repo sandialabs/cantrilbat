@@ -224,7 +224,7 @@ public:
      *                                       If the parameters don't identify an index negative 1 is returned, or the 
      *                                       an error is thrown.
      */
-    int getGlobalSpeciesIndex(int globPhaseIndex, size_t k = 0) const;
+    int getGlobalSpeciesIndex(size_t globPhaseIndex, size_t k = 0) const;
 
     //! Return the global index of a species named 'name'
     /*!
@@ -252,7 +252,7 @@ public:
      * @return
      *   Returns the global species index within the PhaseList object.
      */
-    int getGlobalSpeciesIndexVolPhaseIndex(int volPhaseIndex, int k = 0) const;
+    int getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
 
     //! Get the global species index for a surface phase
     /*!
@@ -269,14 +269,14 @@ public:
      * @return
      *   Returns the global species index within the PhaseList object.
      */
-    int getGlobalSpeciesIndexSurPhaseIndex(int surPhaseIndex, int k = 0) const;
+    int getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
 
     //! Get the global phase index from the global species index
     /*!
      *  @param   globalSpeciesIndex  species index
      *  @return  return the phase index
      */
-    int getPhaseIndexFromGlobalSpeciesIndex(int globalSpeciesIndex) const;
+    int getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const;
 
     //!  Get the local species and global phase index  given the global species index
     /*!
@@ -545,7 +545,7 @@ protected:
     /*!
      * length = m_NumTotPhases + 1
      */
-    std::vector<int> m_PhaseSpeciesStartIndex;
+    std::vector<size_t> m_PhaseSpeciesStartIndex;
 
     //! Name of the file containing the first surface phase encountered
     //std::string CanteraFNSurface;
