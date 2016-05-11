@@ -459,26 +459,26 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
  *           up. The first form looks up the phase according to
  *           the pointer value of the object.
  */
-int PhaseList::getVolPhaseIndex(const ThermoPhase* const vp) const
+size_t PhaseList::getVolPhaseIndex(const ThermoPhase* const vp) const
 {
     for (size_t i = 0; i < NumVolPhases_; i++) {
         const ThermoPhase* const temp = VolPhaseList[i];
         if (temp == vp) {
-            return (int) i;
+            return i;
         }
     }
-    return -1;
+    return npos;
 }
 //==================================================================================================================================
-int PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
+size_t PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
 {
     for (size_t i = 0; i < m_NumSurPhases; i++) {
         const ThermoPhase* const temp = SurPhaseList[i];
         if (temp == sp) {
-            return (int) i;
+            return i;
         }
     }
-    return -1;
+    return npos;
 }
 //==================================================================================================================
 std::string PhaseList::phaseName(int globalPhaseIndex) const
@@ -488,12 +488,12 @@ std::string PhaseList::phaseName(int globalPhaseIndex) const
 //===================================================================================================================
 int PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
 {
-    int vi = getVolPhaseIndex(tp);
-    if (vi != -1) {
+    size_t vi = getVolPhaseIndex(tp);
+    if (vi != npos) {
         return vi;
     } else {
-        int si = getSurPhaseIndex(tp);
-        if (si != -1) {
+        size_t si = getSurPhaseIndex(tp);
+        if (si != npos) {
             return NumVolPhases_ + si;
         }
     }
@@ -525,16 +525,16 @@ int  PhaseList::globalPhaseIndex(std::string phaseName, bool phaseIDAfter) const
 }
 //================================================================================================
 int PhaseList::
-getGlobalSpeciesIndex(const ThermoPhase* const ttp, int k) const
+getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
 {
-    int iphase = getVolPhaseIndex(ttp);
-    if (iphase != -1) {
+    size_t iphase = getVolPhaseIndex(ttp);
+    if (iphase != npos) {
         return getGlobalSpeciesIndex(iphase, k);
     }
-    if (iphase == -1) {
+    if (iphase == npos) {
         iphase = getSurPhaseIndex(ttp);
-        if (iphase == -1) {
-            throw CanteraError(" ", " error ");
+        if (iphase == npos) {
+            throw CanteraError("PhaseList::getGlobalSpeciesIndex()", " error could not find phase index ");
         }
     }
     return getGlobalSpeciesIndex(iphase + NumVolPhases_, k);
@@ -570,7 +570,7 @@ int PhaseList::globalSpeciesIndex(const std::string speciesName, const std::stri
 }
 //================================================================================================
 int PhaseList::
-getGlobalSpeciesIndex(int globPhaseIndex, int k) const
+getGlobalSpeciesIndex(int globPhaseIndex, size_t k) const
 {
     AssertTrace((size_t) globPhaseIndex < m_NumTotPhases);
     int istart = m_PhaseSpeciesStartIndex[globPhaseIndex];

@@ -147,21 +147,17 @@ public:
      *
      *     @param[in]     ttp             Pointer to the volume phase ThermoPhase object
      *
-     *     @return                        Returns the volume phase index number. Returns -1 if the phase is not found.
-     *
-     *   \todo return size_t instead of int
+     *     @return                        Returns the volume phase index number. Returns npos if the phase is not found.
      */
-    int getVolPhaseIndex(const ThermoPhase* const ttp) const;
+    size_t getVolPhaseIndex(const ThermoPhase* const ttp) const;
 
     //! Get the surface phase index given the pointer to the surface phase ThermoPhase object
     /*!
      *     @param[in]     sp              Pointer to a surface ThermoPhase
      *
-     *     @return                        Returns the surface phase index number. Returns -1 if the phase is not found.
-     *
-     *   \todo return size_t instead of int
+     *     @return                        Returns the surface phase index number. Returns npos if the phase is not found.
      */
-    int getSurPhaseIndex(const ThermoPhase* const sp) const;
+    size_t getSurPhaseIndex(const ThermoPhase* const sp) const;
 
     //! Given a pointer to the ThermoPhase object this returns the global phase index of the phase
     /*!
@@ -206,14 +202,14 @@ public:
      */
     int globalPhaseIndex(std::string phaseName, bool phaseIDAfter = false) const;
 
-    //! Get the global species index given the thermophase and the local species index
+    //! Get the global species index given the ThermoPhase and the local species index
     /*!
      *   @param ttp                        Pointer to the ThermoPhase index
      *   @param k                          Value of the local species index 
      *
      *   @return                           Returns the value of the global species index.
      */
-    int getGlobalSpeciesIndex(const ThermoPhase* const ttp, int k = 0) const;
+    int getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k = 0) const;
 
     //! Get the global species index for a volume or surface phase
     /*!
@@ -225,9 +221,10 @@ public:
      * @param[in]          k                     local species index within the phase.  Default = 0.
      *
      * @return                               Returns the global species index within the PhaseList object. 
-     *                                       If the parameters don't identify an index negative 1 is returned, or the an error is thrown.
+     *                                       If the parameters don't identify an index negative 1 is returned, or the 
+     *                                       an error is thrown.
      */
-    int getGlobalSpeciesIndex(int globPhaseIndex, int k = 0) const;
+    int getGlobalSpeciesIndex(int globPhaseIndex, size_t k = 0) const;
 
     //! Return the global index of a species named 'name'
     /*!
