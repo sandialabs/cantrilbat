@@ -196,7 +196,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     EdgePhaseList.resize(right.m_NumSurPhases, 0);
     if (IOwnPhasePointers) {
-        for (i = 0; i < m_NumSurPhases; i++) {
+        for (i = 0; i < m_NumEdgePhases; i++) {
             EdgePhaseList[i] = (right.EdgePhaseList[i])->duplMyselfAsThermoPhase();
         }
     } else {
