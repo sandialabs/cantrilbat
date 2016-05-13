@@ -184,8 +184,8 @@ int main(int argc, char **argv)
 			       + ocv_input_ptr->replacedSpeciesName);
      }
      ocv_input_ptr->replacedGlobalSpeciesID = kg;
-     int phaseID;
-     int localSpeciesIndex;
+     size_t phaseID;
+     size_t localSpeciesIndex;
      pl->getLocalIndecisesFromGlobalSpeciesIndex(kg, phaseID, localSpeciesIndex);
      //
      // Store the phase index and local species index of the replaced species

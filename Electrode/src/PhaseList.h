@@ -1,4 +1,3 @@
-//
 /**
  * @file PhaseList.h
  * This file contains definitions for the class PhaseList
@@ -163,11 +162,10 @@ public:
     /*!
      *       @param[in]    tp          Pointer to the ThermoPhase object
      * 
-     *       @return                   Returns the global phase index.
+     *       @return                   Returns the global phase index. If not found, this returns npos
      *
-     *   \todo return size_t instead of int
      */
-    int getGlobalPhaseIndex(const ThermoPhase* const tp) const;
+    size_t getGlobalPhaseIndex(const ThermoPhase* const tp) const;
 
     //! Get a %ThermoPhase pointer to the named phase from the list.
     /*!
@@ -191,7 +189,7 @@ public:
      *
      * @return                   Returns the global phase name as a string
      */
-    std::string phaseName(int globPhaseIndex) const;
+    std::string phaseName(size_t globPhaseIndex) const;
 
     //! Return the global index of a phase given its name
     /*!
@@ -200,7 +198,7 @@ public:
      *
      *  @return  Returns the global index
      */
-    int globalPhaseIndex(std::string phaseName, bool phaseIDAfter = false) const;
+    size_t globalPhaseIndex(std::string phaseName, bool phaseIDAfter = false) const;
 
     //! Get the global species index given the ThermoPhase and the local species index
     /*!
@@ -209,7 +207,7 @@ public:
      *
      *   @return                           Returns the value of the global species index.
      */
-    int getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k = 0) const;
+    size_t getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k = 0) const;
 
     //! Get the global species index for a volume or surface phase
     /*!
@@ -224,7 +222,7 @@ public:
      *                                       If the parameters don't identify an index negative 1 is returned, or the 
      *                                       an error is thrown.
      */
-    int getGlobalSpeciesIndex(size_t globPhaseIndex, size_t k = 0) const;
+    size_t getGlobalSpeciesIndex(size_t globPhaseIndex, size_t k = 0) const;
 
     //! Return the global index of a species named 'name'
     /*!
@@ -234,7 +232,7 @@ public:
      *
      * @return  Returns the global index of the species.
      */
-    int globalSpeciesIndex(const std::string speciesName, const std::string phaseName="") const;
+    size_t globalSpeciesIndex(const std::string speciesName, const std::string phaseName="") const;
 
     //! Get the global species index for a volume phase
     /*!
@@ -252,7 +250,7 @@ public:
      * @return
      *   Returns the global species index within the PhaseList object.
      */
-    int getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
+    size_t getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
 
     //! Get the global species index for a surface phase
     /*!
@@ -269,14 +267,14 @@ public:
      * @return
      *   Returns the global species index within the PhaseList object.
      */
-    int getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
+    size_t getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
 
     //! Get the global phase index from the global species index
     /*!
      *  @param   globalSpeciesIndex  species index
      *  @return  return the phase index
      */
-    int getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const;
+    size_t getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const;
 
     //!  Get the local species and global phase index  given the global species index
     /*!
@@ -284,7 +282,7 @@ public:
      *      @param[out]   phaseIndex                  On return this contains the global phase index
      *      @param[out]   localSpeciesIndex           on return this contains the local species index
      */
-    void getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex, int& phaseIndex, int& localSpeciesIndex) const;
+    void getLocalIndecisesFromGlobalSpeciesIndex(size_t globalSpeciesIndex, size_t& phaseIndex, size_t& localSpeciesIndex) const;
 
 
     //! Compare against other phase lists, coming up with a number for the matching of phases and species
@@ -370,7 +368,7 @@ public:
      *  
      *  @return                        String Name of the element
      */
-    std::string elementName(int e) const;
+    std::string elementName(size_t e) const;
 
     //!       Index number of an element given its name
     /*!
@@ -386,7 +384,7 @@ public:
      *
      *  @return   Returns the number of elements in all of the phases, combined.
      */
-    int nElements() const;
+    size_t nElements() const;
 
     //! Return a pointer to the volume phase XML Node for a single volume phase
     /*!
@@ -394,7 +392,7 @@ public:
      *
      *    @return Returns a pointer to the volume phase XML Node
      */
-    XML_Node* volPhaseXMLNode(int iVolIndex) const;
+    XML_Node* volPhaseXMLNode(size_t iVolIndex) const;
 
     //! Return a pointer to the surface phase XML Node for a single surface phase
     /*!
@@ -402,7 +400,7 @@ public:
      *
      *   @return                  Return a pointer to the surface phase XML Node for a single surface phase.
      */
-    XML_Node* surPhaseXMLNode(int iSurIndex) const;
+    XML_Node* surPhaseXMLNode(size_t iSurIndex) const;
 
     //! Returns a pointer to a single volume phase
     /*!
@@ -410,7 +408,7 @@ public:
      *
      *   @return                           Returns a reference to the %ThermoPhase object for the volume phase.
      */
-    ThermoPhase& volPhase(int iVolIndex);
+    ThermoPhase& volPhase(size_t iVolIndex);
 
     //! Returns a reference to a single surface phase
     /*!
@@ -418,37 +416,37 @@ public:
      *
      *   @return                           Returns a reference to the %ThermoPhase object for the surface phase.
      */
-    ThermoPhase& surPhase(int iSurIndex);
+    ThermoPhase& surPhase(size_t iSurIndex);
 
     //! Return the total number of phases
     /*!
      *   @return                           returns the total number of phases
      */
-    int nPhases() const;
+    size_t nPhases() const;
 
     //! Return the number of volume phases
     /*!
      *     @return                         Return the total number of volume phases
      */
-    int nVolPhases() const;
+    size_t nVolPhases() const;
 
     //! Return the number of surface phases
     /*!
      *     @return                         Return the total number of surface phases
      */
-    int nSurPhases() const;
+    size_t nSurPhases() const;
 
     //! Return the total number of volume species
     /*!
      *     @return                         Return the total number of volume species
      */
-    int nVolSpecies() const;
+    size_t nVolSpecies() const;
 
     //! Return the total number of species in all volume and surface phases
     /*!
      *     @return                          Return the total number of species in all volume and surface phases
      */
-    int nSpecies() const;
+    size_t nSpecies() const;
 
     //! Boolean indicating whether a volume phase has a kinetics object
     /*!
@@ -456,7 +454,7 @@ public:
      *
      *    @return                          Returns true if the selected volume phase has a kinetics object associated with it.
      */
-    bool volPhaseHasKinetics(int iVolIndex) const ;
+    bool volPhaseHasKinetics(size_t iVolIndex) const ;
 
     //! Boolean indicating whether a surface phase has a surface kinetics object
     /*!
@@ -464,7 +462,7 @@ public:
      *
      *    @return                          Returns true if the selected surface phase has a kinetics object associated with it.
      */
-    bool surPhaseHasKinetics(int iSurIndex) const ;
+    bool surPhaseHasKinetics(size_t iSurIndex) const ;
 
     //! Return the species name given the global species index
     /*!
@@ -472,7 +470,7 @@ public:
      *
      *  @return returns the species name
      */
-    std::string speciesName(int iGlobSpeciesIndex) const;
+    std::string speciesName(size_t iGlobSpeciesIndex) const;
 
     //! Set the state of all the phases within the PhaseList to a given temperature and pressure
     /*!

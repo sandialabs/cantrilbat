@@ -781,7 +781,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     lastBlockEntryPtr_ = cf;
 
     PhaseList* pl = m_pl;
-    int iph;
 
     /* ---------------------------------------------------------------------------
      * Particle diameter -
@@ -924,15 +923,15 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     BG.PhaseMoles.resize(nVolPhases + pl->nSurPhases(), 0.0);
     BG.PhaseMass.resize(nVolPhases + pl->nSurPhases(), 0.0);
 
-    for (iph = 0; iph < nVolPhases; iph++) {
+    for (size_t iph = 0; iph < (size_t) nVolPhases; iph++) {
         int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
         BG.XmolPLPhases[iph] =   BG.XmolPLSpecVec + kstart;
         BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
         BG.CapLeftCoeffPhases[iph] = BG.CapLeftCoeffSpecVec + kstart;
         BG.CapZeroDoDCoeffPhases[iph] = BG.CapZeroDoDCoeffSpecVec + kstart;
     }
-    for (iph = 0; iph < pl->nSurPhases(); iph++) {
-        int tph = iph + pl->nVolPhases();
+    for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
+        size_t tph = iph + pl->nVolPhases();
         int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iph);
         BG.XmolPLPhases[tph] =   BG.XmolPLSpecVec + kstart;
         BG.MolalitiesPLPhases[tph] =  BG.MolalitiesPLSpecVec + kstart;
@@ -945,7 +944,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  Specify a block for each Phase to receive inputs on composition
      *  and voltage
      */
-    for (iph = 0; iph < pl->nVolPhases(); iph++) {
+    for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
         string phaseBath = "Bath Specification for Phase ";
         ThermoPhase* tp = &(pl->volPhase(iph));
         string phaseNm = tp->name();
@@ -1064,9 +1063,9 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  and voltage
      */
 
-    for (int iphS = 0; iphS < pl->nSurPhases(); iphS++) {
+    for (size_t iphS = 0; iphS < pl->nSurPhases(); iphS++) {
         string phaseBath = "Bath Specification for Phase ";
-        iph = pl->nVolPhases() + iphS;
+        size_t iph = pl->nVolPhases() + iphS;
         ThermoPhase* tp = &(pl->surPhase(iphS));
         string phaseNm = tp->name();
         int nSpecies = tp->nSpecies();
@@ -1100,7 +1099,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     OCVoverride_ptrList.resize(pl->nSurPhases(), 0);
     for (size_t iphS = 0; iphS < (size_t)pl->nSurPhases(); iphS++) {
         std::string phaseBath = "Open Circuit Potential Override for interface ";
-        iph = pl->nVolPhases() + iphS;
+        //size_t iph = pl->nVolPhases() + iphS;
         ThermoPhase* tp = &(pl->surPhase(iphS));
         string phaseNm = tp->name();
         //size_t nSpecies = tp->nSpecies();
@@ -1660,12 +1659,12 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
  */
 int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
 {
-    int nt, iph;
+    int nt;
     /*
      *  Loop Over all phases in the PhaseList, locating any default specifications
      *  of the mole numbers and mole fractions that exist in the input file.
      */
-    for (iph = 0; iph < m_pl->nPhases(); iph++) {
+    for (size_t iph = 0; iph < m_pl->nPhases(); iph++) {
         int  kstart = m_pl->getGlobalSpeciesIndex(iph, 0);
         ThermoPhase* tphase = &(m_pl->thermo(iph));
         size_t nsp = tphase->nSpecies();
@@ -1772,7 +1771,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
     //
     for (size_t iphS = 0; iphS < (size_t) m_pl->nSurPhases(); iphS++) {
 	std::string phaseBath = "Open Circuit Potential Override for interface ";
-        iph = m_pl->nVolPhases() + iphS;
+        //size_t iph = m_pl->nVolPhases() + iphS;
         ThermoPhase* tp = &(m_pl->surPhase(iphS));
         string phaseNm = tp->name();
         phaseBath += phaseNm;
@@ -1798,9 +1797,10 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             }
             ocv_input_ptr->replacedGlobalSpeciesID = kg;
             
-            int phaseID; 
-            int localSpeciesIndex; 
-            m_pl->getLocalIndecisesFromGlobalSpeciesIndex(kg, phaseID, localSpeciesIndex);
+            size_t phaseID; 
+            size_t localSpeciesIndex; 
+            size_t kgs = kg;
+            m_pl->getLocalIndecisesFromGlobalSpeciesIndex(kgs, phaseID, localSpeciesIndex);
             //
             // Store the phase index and local species index of the replaced species
             // 

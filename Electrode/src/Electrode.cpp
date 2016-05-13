@@ -347,7 +347,7 @@ Electrode& Electrode::operator=(const Electrode& right)
 	    for (size_t iph = 0; iph < RSD_List_[i]->nPhases(); ++iph) {
 		std::string ss = RSD_List_[i]->tpList_IDs_[iph];
 		bool notFound = true;
-		for (int jph = 0; jph <  nPhases(); jph++)  {
+		for (size_t jph = 0; jph <  nPhases(); jph++)  {
 		    ThermoPhase *tp = & thermo(jph);
 		    if (tp->id() == ss) {
 			notFound = false;
@@ -365,7 +365,7 @@ Electrode& Electrode::operator=(const Electrode& right)
               RSD_OCVmodel* mm = RSD_List_[i]->OCVmodel_;
               std::string ss = (mm->solidPhasePtr())->id();
 	      bool notFound = true;
-              for (int jph = 0; jph <  nPhases(); jph++)  {
+              for (size_t jph = 0; jph <  nPhases(); jph++)  {
                     ThermoPhase *tp = & thermo(jph);
                     if (tp->id() == ss) {
                         notFound = false;
@@ -1717,17 +1717,17 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
 {
     int istart = m_PhaseSpeciesStartIndex[solnPhase_];
     ThermoPhase& tp = thermo(solnPhase_);
-    int nsp = tp.nSpecies();
+    size_t nsp = tp.nSpecies();
     AssertTrace(nsp == (m_PhaseSpeciesStartIndex[solnPhase_+1] - m_PhaseSpeciesStartIndex[solnPhase_]));
     double tmp = 0.0;
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k < nsp; k++) {
         spMoles_final_[istart + k] = std::max(electrolyteMoleNum[k], 0.0);
         tmp += spMoles_final_[istart + k];
     }
     phaseMoles_final_[solnPhase_] = tmp;
 
     if (tmp > 1.0E-200) {
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; k++) {
             spMf_final_[istart + k] = spMoles_final_[istart + k] / tmp;
         }
         /*
@@ -1735,7 +1735,7 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
          *         then we should set the moles. See the explanation in the Electrode.h file.
          */
         if (!followElectrolyteMoles_) {
-            for (int k = 0; k < nsp; k++) {
+            for (size_t k = 0; k < nsp; k++) {
                 spMoles_final_[istart + k] *= electrolytePseudoMoles_ / tmp;
             }
             phaseMoles_final_[solnPhase_] = electrolytePseudoMoles_;
@@ -1754,7 +1754,7 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
 	    throw CanteraError("Electrode::setElectrolyteMoleNumbers ERROR",
 			       "Trying to set initial electroltye mole numbers");
 	}
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; k++) {
             spMoles_init_[istart + k] = spMoles_final_[istart + k];
             spMoles_init_init_[istart + k] = spMoles_final_[istart + k];
         }

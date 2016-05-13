@@ -149,8 +149,8 @@ end block Open Circuit Potential Override for interface anode_surface
 	 throw Electrode_Error("main", "Species not found in phaselist : "
 			       + ocvInput.replacedSpeciesName);
      } 
-     int phaseID;
-     int localSpeciesIndex;
+     size_t phaseID;
+     size_t localSpeciesIndex;
      pl->getLocalIndecisesFromGlobalSpeciesIndex(kg, phaseID, localSpeciesIndex);
 
      //
@@ -408,7 +408,7 @@ end block Open Circuit Potential Override for interface anode_surface
 
      printf("\n");
      printf("Now let's look at a single reaction point:\n");
-     double nTdeltaS =  - Temp * deltaS;
+     //double nTdeltaS =  - Temp * deltaS;
      
      double phiSoln = -0.1;
      double phiMetal = 0.109659;
@@ -419,7 +419,7 @@ end block Open Circuit Potential Override for interface anode_surface
 
      double icurD = rsd->getCurrentDensityRxn();
 
-     const std::vector<double>& netRate = rsd->calcNetSurfaceProductionRateDensities();
+     //const std::vector<double>& netRate = rsd->calcNetSurfaceProductionRateDensities();
      double netROP[10];
      rsd->getNetRatesOfProgress(netROP);
      

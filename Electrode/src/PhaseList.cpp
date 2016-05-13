@@ -477,13 +477,13 @@ size_t PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
     }
     return npos;
 }
-//==================================================================================================================
-std::string PhaseList::phaseName(int globalPhaseIndex) const
+//==================================================================================================================================
+std::string PhaseList::phaseName(size_t globalPhaseIndex) const
 {
     return PhaseNames_[globalPhaseIndex];
 }
-//===================================================================================================================
-int PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
+//==================================================================================================================================
+size_t PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
 {
     size_t vi = getVolPhaseIndex(tp);
     if (vi != npos) {
@@ -494,10 +494,10 @@ int PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
             return NumVolPhases_ + si;
         }
     }
-    return -1;
+    return npos;
 }
-//===================================================================================================================
-int  PhaseList::globalPhaseIndex(std::string phaseName, bool phaseIDAfter) const
+//==================================================================================================================================
+size_t PhaseList::globalPhaseIndex(std::string phaseName, bool phaseIDAfter) const
 {
     size_t ip;
     string pname;
@@ -518,11 +518,10 @@ int  PhaseList::globalPhaseIndex(std::string phaseName, bool phaseIDAfter) const
             }
         }
     }
-    return -1;
+    return npos;
 }
-//================================================================================================
-int PhaseList::
-getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
+//==================================================================================================================================
+size_t PhaseList::getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
 {
     size_t iphase = getVolPhaseIndex(ttp);
     if (iphase != npos) {
@@ -536,27 +535,27 @@ getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
     }
     return getGlobalSpeciesIndex(iphase + NumVolPhases_, k);
 }
-//================================================================================================
-int PhaseList::globalSpeciesIndex(const std::string speciesName, const std::string phaseName) const
+//==================================================================================================================================
+size_t PhaseList::globalSpeciesIndex(const std::string speciesName, const std::string phaseName) const
 {
-    int lindex = -1;
+    size_t lindex = npos;
     if (phaseName == "") {
         for (size_t i = 0; i < m_NumTotPhases; i++) {
             ThermoPhase* tp = PhaseList_[i];
             lindex = tp->speciesIndex(speciesName);
-            if (lindex >= 0) {
+            if (lindex != npos) {
                 return ((m_PhaseSpeciesStartIndex[i]) + lindex);
             }
         }
     } else {
         size_t p = globalPhaseIndex(phaseName);
-        if (p == npos ) {
-            return -2;
+        if (p == npos) {
             //throw CanteraError("PhaseList::globalSpeciesIndex", "phase not found: " + phaseName);
+            return npos;
         }
         size_t k = PhaseList_[p]->speciesIndex(speciesName);
         if (k == npos) {
-            return -1;
+            return npos;
             //throw CanteraError("PhaseList::globalSpeciesIndex", "species not found: "
             //                  + speciesName + " in phase " + phaseName);
         }
@@ -565,29 +564,26 @@ int PhaseList::globalSpeciesIndex(const std::string speciesName, const std::stri
     }
     return lindex;
 }
-//================================================================================================
-int PhaseList::
-getGlobalSpeciesIndex(size_t globPhaseIndex, size_t k) const
+//==================================================================================================================================
+size_t PhaseList::getGlobalSpeciesIndex(size_t globPhaseIndex, size_t k) const
 {
     AssertTrace(globPhaseIndex < m_NumTotPhases);
     int istart = m_PhaseSpeciesStartIndex[globPhaseIndex];
     return (istart + (int) k);
 }
-//================================================================================================
-int PhaseList::
-getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k) const
+//==================================================================================================================================
+size_t PhaseList::getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k) const
 {
     AssertTrace(volPhaseIndex != npos);
     AssertTrace(k != npos);
     AssertTrace(volPhaseIndex < NumVolPhases_);
     const ThermoPhase* const tp = VolPhaseList[volPhaseIndex];
     AssertTrace(k < tp->nSpecies());
-    int istart = m_PhaseSpeciesStartIndex[volPhaseIndex];
-    return (istart + (int) k);
+    size_t istart = m_PhaseSpeciesStartIndex[volPhaseIndex];
+    return (istart + k);
 }
-//================================================================================================
-int PhaseList::
-getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k) const
+//==================================================================================================================================
+size_t PhaseList::getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k) const
 {
     AssertTrace(surPhaseIndex != npos);
     AssertTrace(k != npos);
@@ -598,9 +594,8 @@ getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k) const
     int istart = m_PhaseSpeciesStartIndex[phaseIndex];
     return (istart + (int) k);
 }
-//================================================================================================
-int PhaseList::
-getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const
+//==================================================================================================================================
+size_t PhaseList::getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const
 {
     AssertTrace(globalSpeciesIndex != npos);
     if (globalSpeciesIndex >= m_PhaseSpeciesStartIndex[m_NumTotPhases]) {
@@ -611,7 +606,7 @@ getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const
             return (int) i;
         }
     }
-    return -1;
+    return npos;
 }
 //==================================================================================================================================
 ThermoPhase* PhaseList::getPhase(const char* phaseName) const
@@ -640,12 +635,10 @@ ThermoPhase* PhaseList::getPhase(const std::string& phaseName) const
 }
 //====================================================================================================================================
 void PhaseList::
-getLocalIndecisesFromGlobalSpeciesIndex(int globalSpeciesIndex,
-                                        int& phaseIndex,
-                                        int& localSpeciesIndex) const
+getLocalIndecisesFromGlobalSpeciesIndex(size_t globalSpeciesIndex, size_t& phaseIndex, size_t& localSpeciesIndex) const
 {
     phaseIndex = getPhaseIndexFromGlobalSpeciesIndex(globalSpeciesIndex);
-    localSpeciesIndex = (int)(globalSpeciesIndex - m_PhaseSpeciesStartIndex[phaseIndex]);
+    localSpeciesIndex = (globalSpeciesIndex - m_PhaseSpeciesStartIndex[phaseIndex]);
 }
 //====================================================================================================================
 //! Kernel function that checks consistency of the phase name and the the name and number/name/order of species in a phase 
@@ -989,7 +982,7 @@ const Elements* PhaseList ::getGlobalElements() const
 }
 //==================================================================================================================================
 std::string
-PhaseList::elementName(int e) const
+PhaseList::elementName(size_t e) const
 {
     return m_GlobalElementObj->elementName(e);
 }
@@ -1000,67 +993,67 @@ PhaseList::elementIndex(const std::string& elemName) const
     return m_GlobalElementObj->elementIndex(elemName);
 }
 //==================================================================================================================================
-int PhaseList::nElements() const
+size_t PhaseList::nElements() const
 {
     return m_numElements;
 }
 //==================================================================================================================================
-XML_Node* PhaseList::surPhaseXMLNode(int iSurIndex) const
+XML_Node* PhaseList::surPhaseXMLNode(size_t iSurIndex) const
 {
     return SurPhaseXMLNodes[iSurIndex];
 }
 //====================================================================================================================
-XML_Node* PhaseList::volPhaseXMLNode(int iVolIndex) const
+XML_Node* PhaseList::volPhaseXMLNode(size_t iVolIndex) const
 {
     return VolPhaseXMLNodes[iVolIndex];
 }
 //====================================================================================================================
-ThermoPhase& PhaseList::volPhase(int iVolIndex)
+ThermoPhase& PhaseList::volPhase(size_t iVolIndex)
 {
     return *(VolPhaseList[iVolIndex]);
 }
 //====================================================================================================================
-ThermoPhase& PhaseList::surPhase(int iSurIndex)
+ThermoPhase& PhaseList::surPhase(size_t iSurIndex)
 {
     return *(SurPhaseList[iSurIndex]);
 }
 //====================================================================================================================
-int PhaseList::nSurPhases() const
+size_t PhaseList::nSurPhases() const
 {
     return m_NumSurPhases;
 }
 //====================================================================================================================
-int PhaseList::nVolPhases() const
+size_t PhaseList::nVolPhases() const
 {
     return NumVolPhases_;
 }
 //====================================================================================================================
-int PhaseList::nVolSpecies() const
+size_t PhaseList::nVolSpecies() const
 {
     return m_totNumVolSpecies;
 }
 //====================================================================================================================
-int PhaseList::nSpecies() const
+size_t PhaseList::nSpecies() const
 {
     return m_NumTotSpecies;
 }
 //====================================================================================================================
-int PhaseList::nPhases() const
+size_t PhaseList::nPhases() const
 {
     return m_NumTotPhases;
 }
 //====================================================================================================================
-bool PhaseList::volPhaseHasKinetics(int iVolIndex) const
+bool PhaseList::volPhaseHasKinetics(size_t iVolIndex) const
 {
     return VolPhaseHasKinetics[iVolIndex];
 }
 //====================================================================================================================
-bool PhaseList::surPhaseHasKinetics(int iSurIndex) const
+bool PhaseList::surPhaseHasKinetics(size_t iSurIndex) const
 {
     return SurPhaseHasKinetics[iSurIndex];
 }
 //====================================================================================================================
-std::string PhaseList::speciesName(int iGlobSpeciesIndex) const
+std::string PhaseList::speciesName(size_t iGlobSpeciesIndex) const
 {
     int iPhase = getPhaseIndexFromGlobalSpeciesIndex(iGlobSpeciesIndex);
     int kStart = (int) m_PhaseSpeciesStartIndex[iPhase];

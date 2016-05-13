@@ -796,7 +796,7 @@ bool ReactingSurDomain::
 importFromPL(Cantera::PhaseList* const pl, int iskin)
 {
     try {
-        int iph;
+        //int iph;
         //
         //  Store the PhaseList as a shallow pointer within the object
         //
@@ -805,7 +805,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         XML_Node* kinXMLPhase = 0;
         ThermoPhase* kinPhase = 0;
 
-        if (iskin < 0 || iskin >= pl->nSurPhases()) {
+        if (iskin < 0 || iskin >= (int) pl->nSurPhases()) {
            throw Electrode_Error("ReactingSurDomain::importFromPL()",
                                  "index of surface reaction not within bounds");
         }
@@ -851,13 +851,13 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
             if (phaseArrayXML) {
                 vector<string> phase_ids;
                 ctml::getStringArray(*phaseArrayXML, phase_ids);
-                int npToFind = phase_ids.size();
-                for (iph = 0; iph < npToFind; iph++) {
-                    string phaseID = phase_ids[iph];
+                size_t npToFind = phase_ids.size();
+                for (size_t iph = 0; iph < npToFind; iph++) {
+                    std::string phaseID = phase_ids[iph];
                     bool found = false;
-                    for (int jph = 0; jph < pl->nSurPhases(); jph++) {
+                    for (size_t jph = 0; jph < pl->nSurPhases(); jph++) {
                         XML_Node* xmlPhase_j = pl->surPhaseXMLNode(jph);
-                        string pname = xmlPhase_j->operator[]("id");
+                        std::string pname = xmlPhase_j->operator[]("id");
                         if (phaseID == pname) {
                             found = true;
                             xmlList.push_back(xmlPhase_j);
@@ -869,7 +869,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
                         }
                     }
                     if (!found) {
-                        for (int jph = 0; jph < pl->nVolPhases(); jph++) {
+                        for (size_t jph = 0; jph < pl->nVolPhases(); jph++) {
                             XML_Node* xmlPhase_j = pl->volPhaseXMLNode(jph);
                             string pname = xmlPhase_j->operator[]("id");
                             if (phaseID == pname) {
@@ -892,14 +892,14 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
                 }
             }
         } else {
-            for (iph = 0; iph < pl->nSurPhases(); iph++) {
+            for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
                 xmlList.push_back(pl->surPhaseXMLNode(iph));
                 tpList.push_back(&(pl->surPhase(iph)));
                 tpList_IDs_.push_back(pl->surPhase(iph).id());
                 tplRead[numPhases_] = 1;
                 numPhases_++;
             }
-            for (iph = 0; iph < pl->nVolPhases(); iph++) {
+            for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
                 xmlList.push_back(pl->volPhaseXMLNode(iph));
                 tpList.push_back(&(pl->volPhase(iph)));
                 tpList_IDs_.push_back(pl->volPhase(iph).id());
@@ -923,26 +923,25 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         /*
          *  Create a mapping between the ReactingSurfPhase to the PhaseList phase
          */
-        int nKinPhases = nPhases();
+        size_t nKinPhases = nPhases();
         kinOrder.resize(nKinPhases, -1);
         PLtoKinPhaseIndex_.resize(pl->nPhases(), -1);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), -1);
 	KintoPLSpeciesIndex_.resize(m_kk, npos);
 	//size_t kKinIndex = 0;
-        for (int kph = 0; kph < nKinPhases; kph++) {
+        for (size_t kph = 0; kph < nKinPhases; kph++) {
             ThermoPhase& tt = thermo(kph);
             string kname = tt.id();
-            int jph = -1;
-            for (int iph = 0; iph < pl->nPhases(); iph++) {
+            size_t jph = npos;
+            for (size_t iph = 0; iph < pl->nPhases(); iph++) {
                 ThermoPhase& pp = pl->thermo(iph);
                 std::string iname = pp.id();
                 if (iname == kname) {
                     jph = iph;
-
                     break;
                 }
             }
-            if (jph == -1) {
+            if (jph == npos) {
                 throw CanteraError("ReactingSurDomain::importFromPL()", "phase not found");
             }
             kinOrder[kph] = jph;
