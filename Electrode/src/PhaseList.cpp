@@ -41,6 +41,7 @@ PhaseList::PhaseList(bool ownership) :
     VolPhaseXMLNodes(0),
     VolPhaseHasKinetics(0),
     m_NumSurPhases(0),
+    m_NumEdgePhases(0),
     m_totNumSurSpecies(0),
     SurPhaseList(0),
     SurPhaseXMLNodes(0),
@@ -67,6 +68,9 @@ PhaseList::~PhaseList()
         for (i = 0; i < m_NumSurPhases; i++) {
             delete SurPhaseList[i];
         }
+        for (i = 0; i < m_NumEdgePhases; i++) {
+            delete EdgePhaseList[i];
+        }
     }
     if (m_GlobalElementObj) {
         delete m_GlobalElementObj;
@@ -82,6 +86,7 @@ PhaseList::PhaseList(const PhaseList& right) :
     VolPhaseXMLNodes(0),
     VolPhaseHasKinetics(0),
     m_NumSurPhases(0),
+    m_NumEdgePhases(0),
     m_totNumSurSpecies(0),
     SurPhaseList(0),
     SurPhaseXMLNodes(0),
@@ -95,7 +100,7 @@ PhaseList::PhaseList(const PhaseList& right) :
     /*
      * Call the assignment operator
      */
-    operator=(right);
+    PhaseList::operator=(right);
 }
 //================================================================================================
 /*
@@ -127,6 +132,10 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
         for (i = 0; i < m_NumSurPhases; i++) {
             delete SurPhaseList[i];
             SurPhaseList[i] = 0;
+        }
+        for (i = 0; i < m_NumEdgePhases; i++) {
+            delete EdgePhaseList[i];
+            EdgePhaseList[i] = 0;
         }
     }
     if (m_GlobalElementObj) {
@@ -161,6 +170,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     VolPhaseHasKinetics  = right.VolPhaseHasKinetics;
 
     m_NumSurPhases = right.m_NumSurPhases;
+    m_NumEdgePhases = right.m_NumEdgePhases;
     m_totNumSurSpecies = right.m_totNumSurSpecies;
 
 
@@ -184,6 +194,23 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     }
     SurPhaseHasKinetics = right.SurPhaseHasKinetics;
 
+    EdgePhaseList.resize(right.m_NumSurPhases, 0);
+    if (IOwnPhasePointers) {
+        for (i = 0; i < m_NumSurPhases; i++) {
+            EdgePhaseList[i] = (right.EdgePhaseList[i])->duplMyselfAsThermoPhase();
+        }
+    } else {
+        for (i = 0; i < m_NumEdgePhases; i++) {
+            EdgePhaseList[i] = right.EdgePhaseList[i];
+        }
+    }
+
+    EdgePhaseXMLNodes = right.EdgePhaseXMLNodes;
+    for (i = 0; i < m_NumEdgePhases; i++) {
+        EdgePhaseXMLNodes[i] = &(EdgePhaseList[i]->xml());
+    }
+    EdgePhaseHasKinetics = right.EdgePhaseHasKinetics;
+
     m_numElements = right.m_numElements;
 
     m_PhaseSpeciesStartIndex  = right.m_PhaseSpeciesStartIndex;
@@ -204,6 +231,11 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     for (i = 0; i < m_NumSurPhases; i++) {
         PhaseList_[i + NumVolPhases_] = SurPhaseList[i];
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
+    }
+    size_t istart = NumVolPhases_ + m_NumSurPhases;
+    for (i = 0; i < m_NumEdgePhases; i++) {
+        PhaseList_[i + istart] = EdgePhaseList[i];
+        PhaseNames_[i + istart] = EdgePhaseList[i]->name();
     }
 
     return *this;
@@ -244,19 +276,17 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     // Check for incompatibilities
     if (m_NumTotPhases > 0) {
         for (size_t k = 0; k < vp->nSpecies(); k++) {
-            string sname = vp->speciesName(k);
-            int gindex = globalSpeciesIndex(sname);
-            if (gindex != -1) {
-                throw CanteraError("addVolPhase()",
-                                   "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
+            std::string sname = vp->speciesName(k);
+            size_t gindex = globalSpeciesIndex(sname);
+            if (gindex != npos) {
+                throw CanteraError("addVolPhase()", "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
             }
         }
         string tname = vp->name();
         for (size_t k = 0; k < m_NumTotPhases; k++) {
             string pname = PhaseList_[k]->name();
             if (tname == pname) {
-                throw CanteraError("addVolPhase()",
-                                   "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
+                throw CanteraError("addVolPhase()", "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
             }
         }
     }
@@ -297,6 +327,19 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
             indexP--;
         }
     }
+    /*
+     * Push back indecises of edge phases
+     */
+    if (m_NumEdgePhases > 0) {
+        int indexP = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
+        for (size_t iep = 0; iep < m_NumEdgePhases; iep++) {
+            m_PhaseSpeciesStartIndex[indexP] = m_PhaseSpeciesStartIndex[indexP - 1] + nSpecies;
+            indexP--;
+        }
+    }
+    /*
+     *  Add the new entry
+     */
     m_PhaseSpeciesStartIndex[NumVolPhases_] = m_PhaseSpeciesStartIndex[NumVolPhases_ - 1] + nSpecies;
 
     /*
@@ -316,7 +359,7 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     VolPhaseHasKinetics.resize(NumVolPhases_, 0);
     if (vPhase->hasChild("kinetics")) {
         const XML_Node& kinNode = vPhase->child("kinetics");
-        string smodel = kinNode["model"];
+        std::string smodel = kinNode["model"];
         if (smodel != "" && smodel != "none" && smodel != "None") {
             VolPhaseHasKinetics[NumVolPhases_-1] = 1;
         }
@@ -333,6 +376,11 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     for (size_t i = 0; i < m_NumSurPhases; i++) {
         PhaseList_[i + NumVolPhases_] = SurPhaseList[i];
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
+    }
+    size_t istart = m_NumSurPhases + NumVolPhases_;
+    for (size_t i = 0; i < m_NumEdgePhases; i++) {
+        PhaseList_[i + istart] = EdgePhaseList[i];
+        PhaseNames_[i + istart] = EdgePhaseList[i]->name();
     }
 
     vp->realNumberRangeBehavior_ = DONOTHING_CTRB;
@@ -405,7 +453,18 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
      */
     m_PhaseSpeciesStartIndex.resize(m_NumTotPhases + 1, 0);
 
-    m_PhaseSpeciesStartIndex[m_NumTotPhases] = m_PhaseSpeciesStartIndex[m_NumTotPhases - 1] + nSpecies;
+    /*
+     * Push back indecises of edge phases
+     */
+    if (m_NumEdgePhases > 0) {
+        int indexP = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
+        for (size_t iep = 0; iep < m_NumEdgePhases; iep++) {
+            m_PhaseSpeciesStartIndex[indexP] = m_PhaseSpeciesStartIndex[indexP - 1] + nSpecies;
+            indexP--;
+        }
+    }
+    size_t istart = NumVolPhases_ + m_NumSurPhases;
+    m_PhaseSpeciesStartIndex[istart] = m_PhaseSpeciesStartIndex[istart - 1] + nSpecies;
 
     /*
      * Check elements list -> enforce strict conformance.
@@ -431,7 +490,6 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
         }
     }
 
-
     PhaseList_.resize(m_NumTotPhases);
     PhaseNames_.resize(m_NumTotPhases);
     for (size_t i = 0; i < NumVolPhases_; i++) {
@@ -441,6 +499,11 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
     for (size_t i = 0; i < m_NumSurPhases; i++) {
         PhaseList_[i + NumVolPhases_] = SurPhaseList[i];
         PhaseNames_[i + NumVolPhases_] = SurPhaseList[i]->name();
+    }
+    istart = NumVolPhases_ + m_NumSurPhases;
+    for (size_t i = 0; i < m_NumEdgePhases; i++) {
+        PhaseList_[i + istart] = SurPhaseList[i];
+        PhaseNames_[i + istart] = SurPhaseList[i]->name();
     }
 }
 //==================================================================================================================================

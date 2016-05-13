@@ -1,7 +1,6 @@
 /**
  * @file PhaseList.h
- * This file contains definitions for the class PhaseList
- *  (see \ref ExtendedPhaseGroups and
+ * This file contains definitions for the class PhaseList (see \ref ExtendedPhaseGroups and
  * class \link Cantera::PhaseList PhaseList\endlink).
  */
 
@@ -284,7 +283,6 @@ public:
      */
     void getLocalIndecisesFromGlobalSpeciesIndex(size_t globalSpeciesIndex, size_t& phaseIndex, size_t& localSpeciesIndex) const;
 
-
     //! Compare against other phase lists, coming up with a number for the matching of phases and species
     /*!
      *  This is a messy routine where we try to determine whether two Phaselist's are logically the same, or 
@@ -513,6 +511,9 @@ protected:
     //! Number of surface phases
     size_t m_NumSurPhases;
 
+    //! Number of edge phases
+    size_t m_NumEdgePhases;
+
     //! Total number of surface phase species.
     size_t m_totNumSurSpecies;
 
@@ -524,6 +525,15 @@ protected:
 
     //! Boolean vector indicating whether surface phase has kinetics
     std::vector<int> SurPhaseHasKinetics;
+
+    //! Vector of edge phases existing in the problem
+    std::vector<ThermoPhase*> EdgePhaseList;
+
+    //! Pointer to the XML nodes corresponding to each edge phase
+    std::vector<XML_Node*> EdgePhaseXMLNodes;
+
+    //! Boolean vector indicating whether edge phase has kinetics
+    std::vector<int> EdgePhaseHasKinetics;
 
     //! Vector of phases in the problem
     std::vector<ThermoPhase*> PhaseList_;
@@ -553,7 +563,6 @@ protected:
      *********************************************************************/
 private:
 
-
     /********************************************************** INTERNAL DATA *****************************************************/
     
     //! Boolean specifying whether this object owns its phase pointers.
@@ -566,7 +575,6 @@ private:
      */
     bool IOwnPhasePointers;
 
-    
     //! Pointer to the element object that represents all of the elements within all of the phases owned by this object
     Elements* m_GlobalElementObj;
 };
