@@ -136,10 +136,10 @@ test:
 	cd batteryDevelop;		  @MAKE@ -s test
 
 #
-# testBack:       Carries out back tests
+# testback:       Carries out back tests
 #                      skips the Electrode and 1Delectrode tests
 #
-testBack:
+testback:
 	cd batteryDevelop;		  @MAKE@ -s test
 	cd util_src;                      @MAKE@ -s test
 	cd mpequil;                       @MAKE@ -s test
