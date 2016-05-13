@@ -1369,9 +1369,31 @@ public:
      */
     virtual double updateElectrolytePseudoMoles();
 
-//Can protect, Should always appear externally as if this is off, can keep these if it's important to keep it on
-// temporarily during the solve
+
+    //! Toggles the flag that specifies whether electrolyte moles are followed or not to OFF
+    /*!
+     *  If the electrolyte moles are followed then the total moles of each species in the electrolyte are followed
+     *  as the electrode reacts. This may cause the charge balance in the electrolyte to become skewed, as we are 
+     *  dealing with a half-cell system here. Also, this may not be correct if we are solving the electrolyte conservation
+     *  equations elsewhere at a higher level.
+     *
+     *  For these reasons, it's usually necessary to have follow electrolyte moles off.
+     *
+     *  The default is to have the internal flag followElectrolyteMoles_  off.
+     */
     virtual void turnOffFollowElectrolyteMoles();
+
+    //! Toggles the flag that specifies whether electrolyte moles are followed or not to ON
+    /*!
+     *  If the electrolyte moles are followed then the total moles of each species in the electrolyte are followed
+     *  as the electrode reacts. This may cause the charge balance in the electrolyte to become skewed, as we are 
+     *  dealing with a half-cell system here. Also, this may not be correct if we are solving the electrolyte conservation
+     *  equations elsewhere at a higher level.
+     *
+     *  The default is to have the internal flag followElectrolyteMoles_  off.
+     *
+     *  The default is to have this off.
+     */
     virtual void turnOnFollowElectrolyteMoles();
 
     //! Get the boolean vector for external surfaces
@@ -1930,6 +1952,10 @@ public:
      */
     int solnPhaseIndex() const;
 
+    //! Returns the number of species in the electrolyte soln phase
+    /*!
+     *  @return                              Returns the number os species in the electrolyte phase
+     */ 
     virtual int numSolnPhaseSpecies() const;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -2553,6 +2579,7 @@ protected:
     /*!
      *  0:  Constant electrolyte composition but varying amount of electrolyte,
      *      specified porosity
+     *
      *      During a subintegration step the electrode can change volume by changing the solidVolume.
      *      The electrolyte moles are not tracked so that the porosity of the electrode is kept constant
      *      or at a specified functional value. Electrolyte flows into or out of the domain
@@ -2561,6 +2588,7 @@ protected:
      *
      *  1:  Tracked electrolyte composition and amount of electrolyte, 
      *      calculated porosity
+     *
      *      We are tracking the mole numbers of electrolyte. The extra flux of
      *      of ions needed to maintain neutrality is preserved as well. We must maintain electroneutrality
      *      within the phase at all times.
