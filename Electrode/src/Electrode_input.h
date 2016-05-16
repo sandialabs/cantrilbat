@@ -492,8 +492,13 @@ public:
 class ERSSpec
 {
 public:
+    //! Index value of the reaction index that is contributing to the global reaction
     int m_reactionIndex;
+
+    //! Reaction multiplier for the reaction index
     double m_reactionMultiplier;
+
+    //! Default constructor
     ERSSpec() :
         m_reactionIndex(-1),
         m_reactionMultiplier(0.0) {
@@ -521,6 +526,9 @@ class EGRInput
 public:
     int m_SS_KinSpeciesKindex;
     int m_numElemReactions;
+
+    //! List of ERSSpec structs which specifies which elementary reaction contributes to the
+    //! global vector and what the reaction multiplier is
     ERSSpec** m_ERSList;
 
     EGRInput();

@@ -1195,8 +1195,7 @@ public:
      *
      *   @return                                  Returns 1 if everything is ok
      */
-    int phasePopResid(int iphaseTarget, const double* const Xf_phase,
-                      double deltaTsubcycle, double* const resid);
+    int phasePopResid(int iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid);
 
     //! Run a phase pop calculation, determining if a phase is stable to come into existence
     /*!
@@ -3127,6 +3126,13 @@ protected:
     //! Number of extra global reaction pathways specified
     int numExtraGlobalRxns;
 
+    //! Vector of EGRInput structures
+    /*!
+     *  Each of these structures sets up a global reaction. 
+     *  A global reaction is made up of a linear combination of elementary reactions.
+     *
+     *  @todo:  We don't need this in the structure itself. We can eliminate this member variable.
+     */
     std::vector<EGRInput*> m_EGRList;
 
 public:
