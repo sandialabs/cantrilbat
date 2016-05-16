@@ -67,11 +67,11 @@ setAllBathSpeciesConditions(Electrode *electrode) {
   double *electrodeMF = new double[electrode->nSpecies()];
   electrode->getMoleFractions(electrodeMF);
 
-  for (int iph = 0; iph < electrode->nPhases(); iph++) {
+  for (size_t iph = 0; iph < electrode->nPhases(); iph++) {
  
     ThermoPhase *tphase = &(electrode->thermo(iph));
 
-    int kstart =  electrode->getGlobalSpeciesIndex(iph,0);
+    size_t kstart =  electrode->getGlobalSpeciesIndex(iph,0);
     double *xmol = &(electrodeMF[kstart]);
   /*
    * We need to set the state here. Note, mass fractions

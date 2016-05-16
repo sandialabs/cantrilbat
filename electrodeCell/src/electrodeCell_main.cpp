@@ -24,7 +24,6 @@
 #include "electrodeCell_prep.h"
 #include "electrodeCell_kin.h"
 #include "cell_input.h"
-#include "ExtraGlobalRxn.h"
 #include "cantera/kinetics/RxnMolChange.h"
 
 //#include <cstdio>

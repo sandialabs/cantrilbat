@@ -23,7 +23,10 @@ namespace Cantera
  *    The volume phases are first in this list, followed by  the surface phases. The global species index is the
  *    index in this list.  %PhaseList doesn't contain any thermodynamic state information.
  *    Therefore, it doesn't include a temperature or pressure variable. It doesn't include
- *    mole numbers of species or a mole fraction vector, either
+ *    mole numbers of species or a mole fraction vector, either.
+ *
+ *    PhaseList class operates strictly on pointers of ThermoPhases. It maintains lists of pointers. Therefore, when
+ *    the pointer to a ThermoPhase changes, the PhaseList must be reconstructed.
  *
  *    A note about the nomenclature. The following are official names for the indecises provided by this class:
  *
@@ -112,7 +115,7 @@ public:
      *   @param[in]    volID               String containing the ID() of the volume phase to be added. The default is "".
      *                                     If the default is used, the first volume phase in the file is used.
      */
-    void addVolPhase(std::string canteraFile, const std::string& volID = "");
+    void addVolPhase(const std::string& canteraFile, const std::string& volID = "");
 
     //! Add a surface phase to the list of surfaces within the object.
     /*!
@@ -137,7 +140,7 @@ public:
      *   @param[in]    surID               String containing the ID() of the surface phase to be added. The default is "".
      *                                     If the default is used, the first surface phase in the file is used.
      */
-    void addSurPhase(std::string canteraFile, const std::string& surID = "");
+    void addSurPhase(const std::string& canteraFile, const std::string& surID = "");
 
     //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
     /*!
@@ -197,7 +200,7 @@ public:
      *
      *  @return  Returns the global index
      */
-    size_t globalPhaseIndex(std::string phaseName, bool phaseIDAfter = false) const;
+    size_t globalPhaseIndex(const std::string& phaseName, bool phaseIDAfter = false) const;
 
     //! Get the global species index given the ThermoPhase and the local species index
     /*!
@@ -225,26 +228,23 @@ public:
 
     //! Return the global index of a species named 'name'
     /*!
-     * @param speciesName String name of the species
-     * @param phaseName   String name of the phase. This defaults to "", in which case the index
-     *                    of the first match is returned
+     * @param[in]            speciesName         String name of the species
+     * @param[in]            phaseName           String name of the phase. This defaults to "", in which case the index of the first match is returned
      *
      * @return  Returns the global index of the species.
      */
-    size_t globalSpeciesIndex(const std::string speciesName, const std::string phaseName="") const;
+    size_t globalSpeciesIndex(const std::string& speciesName, const std::string phaseName="") const;
 
     //! Get the global species index for a volume phase
     /*!
      * PhaseList maintains a global species list, containing all
      * of the species in all of the phases within PhaseList.
      * The volume phases are first in this list, followed by
-     * the surface phases. The global species index is the
-     * index in this list.
+     * the surface phases. The global species index is the index in this list.
      *
      *
      * @param volPhaseIndex  volume Index of the volume Phase.
-     * @param k              local species index within the phase.
-     *                       Default = 0.
+     * @param k              local species index within the phase.                 Default = 0.
      *
      * @return
      *   Returns the global species index within the PhaseList object.
@@ -299,8 +299,6 @@ public:
      *        3  Guest PhaseList is a superset of the owning PhaseList. Each ThermoPhase of the owing PhaseList
      *           maps into a unique ThermoPhase in the guest Phaselist. The number of species in that ThermoPhase may be different.
      *        4  PhaseLists are not compatible
-     *  
-     *
      */
     int compareOtherPL(const PhaseList* const plGuest) const;
 
@@ -323,11 +321,11 @@ public:
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param[in]        phaseName  Character string name of the phase
+     *  @param[in]        phaseNamePtr           Character string name of the phase
      *
-     *  @return                      Return a reference to the ThermoPhase object
+     *  @return                                  Return a reference to the ThermoPhase object
      */
-    ThermoPhase& thermo(const char* phaseName) const;
+    ThermoPhase& thermo(const char* const phaseNamePtr) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
@@ -335,7 +333,7 @@ public:
      *
      *  @return                      Return a reference to the ThermoPhase object
      */
-    ThermoPhase& thermo(const std::string&  phaseName) const;
+    ThermoPhase& thermo(const std::string& phaseName) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
@@ -400,6 +398,14 @@ public:
      */
     XML_Node* surPhaseXMLNode(size_t iSurIndex) const;
 
+    //! Return a pointer to the edge phase XML Node for a single edge phase
+    /*!
+     * @param iEdgeIndex   Edge index of the surface phase
+     *
+     *   @return                  Return a pointer to the edge phase XML Node for a single edge phase.
+     */
+    XML_Node* edgePhaseXMLNode(size_t iEdgeIndex) const;
+
     //! Returns a pointer to a single volume phase
     /*!
      *  @param iVolIndex   Volume index of the volume phase
@@ -415,6 +421,14 @@ public:
      *   @return                           Returns a reference to the %ThermoPhase object for the surface phase.
      */
     ThermoPhase& surPhase(size_t iSurIndex);
+
+    //! Returns a reference to the ThermoPhase object of a single edge phase
+    /*!
+     *  @param[in]    iEdgeIndex            Surface index of the edge phase
+     *
+     *   @return                           Returns a reference to the %ThermoPhase object for the edge phase.
+     */
+    ThermoPhase& edgePhase(size_t iEdgeIndex);
 
     //! Return the total number of phases
     /*!
@@ -440,6 +454,12 @@ public:
      */
     size_t nVolSpecies() const;
 
+    //! Return the total number of surface phase species
+    /*!
+     *     @return                         Return the total number of surface species
+     */
+    size_t nSurSpecies() const;
+
     //! Return the total number of species in all volume and surface phases
     /*!
      *     @return                          Return the total number of species in all volume and surface phases
@@ -461,6 +481,14 @@ public:
      *    @return                          Returns true if the selected surface phase has a kinetics object associated with it.
      */
     bool surPhaseHasKinetics(size_t iSurIndex) const ;
+    
+    //! Boolean indicating whether a edge phase has a edge kinetics object
+    /*!
+     *    @param[in]    iEdgeIndex         edge phase index 
+     *
+     *    @return                          Returns true if the selected edge phase has a kinetics object associated with it.
+     */
+    bool edgePhaseHasKinetics(size_t iEdgeIndex) const ;
 
     //! Return the species name given the global species index
     /*!
@@ -478,7 +506,7 @@ public:
      *   @param[in] temperature     Temperature in Kelvin
      *   @param[in] pressure        pressure in pascals
      */
-    void setState_TP(doublereal temperature, doublereal pressure);
+    void setState_TP(doublevalue temperature, doublevalue pressure);
 
 
     /***********************************************************************/
@@ -543,8 +571,7 @@ protected:
 
     //! Number of elements in all of the phases.
     /*!
-     * Note, we do not require
-     * all element objects have the same number of elements and the
+     * Note, we do not require all element objects have the same number of elements and the
      * same ordering of elements.
      */
     size_t m_numElements;

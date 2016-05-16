@@ -19,7 +19,6 @@
 #include "Electrode_input.h"
 #include "Electrode.h"
 #include "Electrode_MP_RxnExtent.h"
-#include "ExtraGlobalRxn.h"
 
 #include <stdio.h>
 
@@ -209,10 +208,10 @@ int main(int argc, char **argv)
  
 
 
-    for (int ip = 0; ip < electrodeA->nPhases(); ip++) {
+    for (size_t ip = 0; ip < electrodeA->nPhases(); ip++) {
       ThermoPhase *tp_ptr = & electrodeA->thermo(ip);
       string pname = tp_ptr->name();
-      printf(" phase %d = %s\n", ip, pname.c_str());
+      printf(" phase %d = %s\n", (int) ip, pname.c_str());
       tp_ptr->getChemPotentials(DATA_PTR(mu));
       tp_ptr->getElectrochemPotentials(DATA_PTR(emu));
       for (size_t k = 0; k < tp_ptr->nSpecies(); k++) {

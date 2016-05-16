@@ -19,19 +19,16 @@
 #include "cantera/kinetics/InterfaceKinetics.h"
 #include "cantera/thermo/SurfPhase.h"
 #include "cantera/numerics/DenseMatrix.h"
+#include "cantera/kinetics/ExtraGlobalRxn.h"
 
 #include "TemperatureTable.h"
 #include "Electrode.h"
-#include "ExtraGlobalRxn.h"
 
 #include <vector>
 
 //#include "PhaseList.h"
 #include "cantera/kinetics/RxnMolChange.h"
  
-namespace Cantera {
-  class ExtraGlobalRxn;
-}
 
 
 class RxnTempTableStuff {
