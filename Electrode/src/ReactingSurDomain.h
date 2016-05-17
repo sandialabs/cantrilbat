@@ -520,19 +520,20 @@ public:
     std::vector<int> kinOrder;
 
     //! Vector of the indexes of each phase in the ReactionSurfaceDomain object
-    //! given the index withint the PhaseList object
+    //! given the index within the PhaseList object
     /*!
      *       jph = PLtoKinPhaseIndex_[iph];
      *
-     *          iph refers to the index of the phase in the Electrode_Model object
+     *          iph refers to the index of the phase in the Electrode_Model object 
      *          jph refers to the index of the phase in the heterogeneous kinetics object
      *
      *  Length = number of phases in the PhaseList
      *
-     *  A value of -1 in this slot means that the phase doesn't participate in the
+     *  A value of -1 or npos in this slot means that the phase doesn't participate in the
      *  current ReactingSurDomain object
      */
-    std::vector<int> PLtoKinPhaseIndex_;
+    //std::vector<int> PLtoKinPhaseIndex_;
+    std::vector<size_t> PLtoKinPhaseIndex_;
 
     //! Vector of the indexes of each species in the ReactionSurfaceDomain object
     //! given the index within the PhaseList object

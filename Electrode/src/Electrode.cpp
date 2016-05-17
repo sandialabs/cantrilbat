@@ -972,8 +972,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             }
         }
         if ((int) iph != metalPhase_) {
-            int jph = rsd->PLtoKinPhaseIndex_[iph];
-            if (jph >= 0) {
+            size_t jph = rsd->PLtoKinPhaseIndex_[iph];
+            if (jph != npos) {
                 for (int i = 0; i < nr; i++) {
                     RxnMolChange* rmc = rmcV[i];
                     if (rmc->m_phaseChargeChange[jph] != 0) {
@@ -1026,8 +1026,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                         }
                     }
                     if ((int) iph != metalPhase_) {
-                        int jph = rsd->PLtoKinPhaseIndex_[iph];
-                        if (jph >= 0) {
+                        size_t jph = rsd->PLtoKinPhaseIndex_[iph];
+                        if (jph != npos) {
                             for (int i = 0; i < nr; i++) {
                                 RxnMolChange* rmc = rmcV[i];
                                 if (rmc->m_phaseChargeChange[jph] != 0) {
@@ -2322,7 +2322,7 @@ int Electrode::ReactingSurfacePhaseIndex(int isk, int PLph) const
     if (!rsd) {
         throw CanteraError("ReactingSurfacePhaseIndex", "Reacting surface not found");
     }
-    return rsd->PLtoKinPhaseIndex_[PLph];
+    return (int) rsd->PLtoKinPhaseIndex_[PLph];
 }
 //================================================================================================
 void Electrode::setState_TP(doublereal temperature, doublereal pressure)

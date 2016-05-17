@@ -115,7 +115,7 @@ ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, int iskin) :
     ElectrodeKinetics(),
     numPhases_(0),
     kinOrder(pl->nPhases(), -1),
-    PLtoKinPhaseIndex_(pl->nPhases(), -1),
+    PLtoKinPhaseIndex_(pl->nPhases(), npos),
     PLtoKinSpeciesIndex_(pl->nSpecies(), -1),
     KintoPLSpeciesIndex_(0),
     iphaseKin_(iskin + pl->nVolPhases()),
@@ -925,7 +925,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
          */
         size_t nKinPhases = nPhases();
         kinOrder.resize(nKinPhases, -1);
-        PLtoKinPhaseIndex_.resize(pl->nPhases(), -1);
+        PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), -1);
 	KintoPLSpeciesIndex_.resize(m_kk, npos);
 	//size_t kKinIndex = 0;
