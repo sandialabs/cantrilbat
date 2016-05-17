@@ -52,7 +52,7 @@ export CXXFLAGS
 CXX_GDEFINES="-DMECH_MODEL"
 export CXX_GDEFINES
 #
-LCXX_END_LIBS=" -lgfortran"
+LCXX_END_LIBS=" -lrt -lgfortran"
 export LCXX_END_LIBS
 #
 # Specify the fortran compiler, because some libraries are

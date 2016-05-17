@@ -269,7 +269,7 @@ AC_SUBST(LCXX_FLAGS)
 # Ending libraries to tack onto the linking of all C++ programs
 #
 if test -z "$LCXX_END_LIBS"; then
-   LCXX_END_LIBS=' '
+   LCXX_END_LIBS=' -lrt'
 fi
 if test -z "$LMPICXX_END_LIBS"; then
    LMPICXX_END_LIBS=$LCXX_END_LIBS
