@@ -43,6 +43,7 @@ PhaseList::PhaseList(bool ownership) :
     m_NumSurPhases(0),
     m_NumEdgePhases(0),
     m_totNumSurSpecies(0),
+    m_totNumEdgeSpecies(0),
     SurPhaseList(0),
     SurPhaseXMLNodes(0),
     SurPhaseHasKinetics(0),
@@ -88,6 +89,7 @@ PhaseList::PhaseList(const PhaseList& right) :
     m_NumSurPhases(0),
     m_NumEdgePhases(0),
     m_totNumSurSpecies(0),
+    m_totNumEdgeSpecies(0),
     SurPhaseList(0),
     SurPhaseXMLNodes(0),
     SurPhaseHasKinetics(0),
@@ -172,7 +174,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     m_NumSurPhases = right.m_NumSurPhases;
     m_NumEdgePhases = right.m_NumEdgePhases;
     m_totNumSurSpecies = right.m_totNumSurSpecies;
-
+    m_totNumEdgeSpecies = right.m_totNumEdgeSpecies;
 
     SurPhaseList.resize(right.m_NumSurPhases, 0);
     if (IOwnPhasePointers) {
@@ -258,6 +260,15 @@ addSurPhase(const std::string& canteraFile, const std::string& phaseID)
     Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
     addSurPhase(tp, vPhase);
 }
+//===================================================================================================================================
+void PhaseList::
+addEdgePhase(const std::string& canteraFile, const std::string& phaseID)
+{
+    XML_Node* xroot = get_XML_File(canteraFile);
+    XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
+    addEdgePhase(tp, vPhase);
+}
 //==================================================================================================================================
 /*
  *  addVolPhase:
@@ -296,8 +307,7 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     }
 
     if (vp->nDim() != 3) {
-        throw CanteraError("PhaseList::addVolPhase()",
-                           "number of dimensions isn't three");
+        throw CanteraError("PhaseList::addVolPhase()", "number of dimensions isn't three");
     }
 
     NumVolPhases_++;
@@ -429,8 +439,10 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
     }
 
     if (sp->nDim() >=  3) {
-        throw CanteraError("PhaseList::addSurPhase()",
-                           "Number of dimensions is three or greater");
+        throw CanteraError("PhaseList::addSurPhase()", "Number of dimensions is three or greater");
+    }
+    if (sp->nDim() <= 1) {
+        throw CanteraError("PhaseList::addSurPhase()", "Number of dimensions is one or less");
     }
     m_NumSurPhases++;
     SurPhaseList.resize(m_NumSurPhases, 0);
@@ -504,6 +516,97 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
     for (size_t i = 0; i < m_NumEdgePhases; i++) {
         PhaseList_[i + istart] = SurPhaseList[i];
         PhaseNames_[i + istart] = SurPhaseList[i]->name();
+    }
+}
+//==================================================================================================================================
+void PhaseList::
+addEdgePhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* ePhase)
+{
+
+    AssertThrow(sp != 0, "must be nonzero");
+    // Check for incompatibilities
+    if (m_NumTotPhases > 0) {
+        for (size_t k = 0; k < sp->nSpecies(); k++) {
+            string sname = sp->speciesName(k);
+            int gindex = globalSpeciesIndex(sname);
+            if (gindex != -1) {
+                throw CanteraError("PhaseList::addEdgePhase()",
+                                   "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
+            }
+        }
+        string tname = sp->name();
+        for (size_t k = 0; k < m_NumTotPhases; k++) {
+            string pname = PhaseList_[k]->name();
+            if (tname == pname) {
+                throw CanteraError("PhaseList::addEdgePhase()",
+                                   "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
+            }
+        }
+    }
+
+    // Get the storred phase XML tree
+    if (!ePhase) {
+      ePhase = &(sp->xml());
+    }
+
+    if (sp->nDim() >=  2) {
+        throw CanteraError("PhaseList::addEdgePhase()", "Number of dimensions is two or greater");
+    }
+  
+    m_NumEdgePhases++;
+    EdgePhaseList.resize(m_NumEdgePhases, 0);
+    EdgePhaseList[m_NumEdgePhases - 1] = sp;
+
+    int nSpecies = sp->nSpecies();
+    m_NumTotPhases++;
+    m_NumTotSpecies += nSpecies;
+    m_totNumEdgeSpecies += nSpecies;
+
+    /*
+     * Store XML node
+     */
+    EdgePhaseXMLNodes.resize(m_NumEdgePhases, 0);
+    AssertThrow(ePhase != 0,"must be nonzero");
+    EdgePhaseXMLNodes[m_NumEdgePhases - 1] = ePhase;
+
+    /*
+     * Push back indecises of edge phases
+     */
+    m_PhaseSpeciesStartIndex.resize(m_NumTotPhases + 1, 0);
+
+    size_t istart = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
+    m_PhaseSpeciesStartIndex[istart] = m_PhaseSpeciesStartIndex[istart - 1] + nSpecies;
+
+    /*
+     * Check elements list -> enforce strict conformance.
+     */
+    int numE = sp->nElements();
+    for (int e = 0; e < numE; e++) {
+        string symb1 = sp->elementName(e);
+        double weight1 = sp->atomicWeight(e);
+        m_GlobalElementObj->addUniqueElement(symb1, weight1);
+    }
+    m_numElements = m_GlobalElementObj->nElements();
+
+    /*
+     * Check to see whether the phase has a kinetics object
+     */
+    EdgePhaseHasKinetics.resize(m_NumEdgePhases, 0);
+    EdgePhaseHasKinetics[m_NumEdgePhases-1] = 0;
+    if (ePhase->hasChild("kinetics")) {
+        const XML_Node& kinNode = ePhase->child("kinetics");
+        string smodel = kinNode["model"];
+        if (smodel != "" && smodel != "none" && smodel != "None") {
+            EdgePhaseHasKinetics[m_NumEdgePhases-1] = 1;
+        }
+    }
+
+    PhaseList_.resize(m_NumTotPhases);
+    PhaseNames_.resize(m_NumTotPhases);
+    istart = NumVolPhases_ + m_NumSurPhases;
+    for (size_t i = 0; i < m_NumEdgePhases; i++) {
+        PhaseList_[i + istart] = EdgePhaseList[i];
+        PhaseNames_[i + istart] = EdgePhaseList[i]->name();
     }
 }
 //==================================================================================================================================
@@ -787,6 +890,20 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 	} else {
 	    compGood = 0;
 	}
+        if (m_NumEdgePhases == plGuest->m_NumEdgePhases) {
+            for (size_t i = 0; i < m_NumEdgePhases; ++i) {
+                const ThermoPhase* tpa = EdgePhaseList[i];
+                const ThermoPhase* tpb = plGuest->EdgePhaseList[i];
+                bool sameNames = ThermoPhasesTheSameNames(tpa, tpb);
+                if (!sameNames) {
+                    compGood = 0;
+                    break;
+                }
+            }
+        } else {
+            compGood = 0;
+        }
+
     } else {
 	compGood = 0;
     }
@@ -1117,6 +1234,11 @@ size_t PhaseList::nVolSpecies() const
 size_t PhaseList::nSurSpecies() const
 {
     return m_totNumSurSpecies;
+}
+//====================================================================================================================
+size_t PhaseList::nEdgeSpecies() const
+{
+    return m_totNumEdgeSpecies;
 }
 //====================================================================================================================
 size_t PhaseList::nSpecies() const

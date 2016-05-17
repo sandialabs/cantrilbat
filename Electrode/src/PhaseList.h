@@ -142,6 +142,30 @@ public:
      */
     void addSurPhase(const std::string& canteraFile, const std::string& surID = "");
 
+    //! Add an edge phase to the list of edges within the object.
+    /*!
+     *  @param[in]   ep             Previously initialized ThermoPhase object to be added to PhaseList
+     *  @param[in]   eNode          XML_Node pointer to the edge phase XML Node for the current object
+     */
+    void addEdgePhase(Cantera::ThermoPhase* const ep, Cantera::XML_Node* eNode = 0);
+
+    //! Add an edge phase to the PhaseList object given an XML file name
+    /*!
+     *  Add an edge phase to the PhaseList object. This routine doesn't add the kinetics information to the
+     *  PhaseList object.
+     *
+     *  This routine will pick the first phase listed in the file, open it up and initialize it. It will assume
+     *  that it is a edge phase. 
+     *
+     *
+     *   @param[in]    canteraFile         String containing the XML file description of a cantera edge phase. The phase
+     *                                     may or may not have a kinetics object associated with it.
+     *
+     *   @param[in]    edgeID               String containing the ID() of the surface phase to be added. The default is "".
+     *                                     If the default is used, the first surface phase in the file is used.
+     */
+    void addEdgePhase(const std::string& canteraFile, const std::string& edgeID = "");
+
     //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
     /*!
      *     This routine returns the phase index of a phase. This number is the index value of the phase in the VolPhaseList object.
@@ -460,9 +484,15 @@ public:
      */
     size_t nSurSpecies() const;
 
-    //! Return the total number of species in all volume and surface phases
+    //! Return the total number of edge phase species
     /*!
-     *     @return                          Return the total number of species in all volume and surface phases
+     *     @return                         Return the total number of edge species
+     */
+    size_t nEdgeSpecies() const;
+
+    //! Return the total number of species in all volume, surface and edge phases
+    /*!
+     *     @return                          Return the total number of species in all phases
      */
     size_t nSpecies() const;
 
@@ -544,6 +574,9 @@ protected:
 
     //! Total number of surface phase species.
     size_t m_totNumSurSpecies;
+
+    //! Total number of edge phase species.
+    size_t m_totNumEdgeSpecies;
 
     //! Vector of surface phases existing in the problem
     std::vector<ThermoPhase*> SurPhaseList;
