@@ -298,7 +298,7 @@ public:
      *
      *   @return                             Returns the current density for the reaction (amps m-2)
      */
-    double getExchangeCurrentDensityFormulation(int irxn, doublereal* nStoich, doublereal* OCV,
+    double getExchangeCurrentDensityFormulation(size_t irxn, doublereal* nStoich, doublereal* OCV,
                                                 doublereal* io, doublereal* nu, doublereal *beta, doublereal* resist_ptr);
 #endif
 
@@ -557,7 +557,7 @@ public:
 
     //! Global phase Index of the phase in the PhaseList object that has the kinetics
     //! object for this reacting surface.
-    int iphaseKin_;
+    size_t iphaseKin_;
 
     //! List of names that constitute the ThermoPhases needed for the kinetics object
     /*!

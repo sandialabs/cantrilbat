@@ -544,7 +544,6 @@ public:
     /***********************************************************************/
 protected:
 
-    
     //! Total number of volume and surface phases defined in the object
     size_t m_NumTotPhases;
 

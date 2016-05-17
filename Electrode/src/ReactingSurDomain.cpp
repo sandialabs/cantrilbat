@@ -38,7 +38,7 @@ ReactingSurDomain::ReactingSurDomain() :
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
     KintoPLSpeciesIndex_(0),
-    iphaseKin_(-1),
+    iphaseKin_(npos),
     tpList_IDs_(0),
     tplRead(0),
     m_DoSurfKinetics(false),
@@ -79,7 +79,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
     KintoPLSpeciesIndex_(0),
-    iphaseKin_(-1),
+    iphaseKin_(npos),
     tpList_IDs_(0),
     tplRead(0),
     m_DoSurfKinetics(false),
@@ -434,7 +434,7 @@ double ReactingSurDomain::getLimitedCurrentDensityRxn(const double* n)
 
 //==================================================================================================================================
 #ifdef DONOTREMOVE
-double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  doublereal* nStoich, doublereal* OCV, doublereal* io,
+double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  doublereal* nStoich, doublereal* OCV, doublereal* io,
 							       doublereal* overPotential, doublereal *beta, doublereal* resist_ptr)
 {
     doublereal icurr = 0.0;
@@ -472,7 +472,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
     //
     size_t iBeta = npos;
     for (size_t iBetaT = 0; iBetaT < m_beta.size(); iBetaT++) {
-	if (m_ctrxn[iBetaT] == (size_t) irxn) {
+	if (m_ctrxn[iBetaT] == ) irxn) {
 	    iBeta = iBetaT;
 	    break;
 	}
@@ -559,7 +559,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(int irxn,  double
 	    //
 	    affinityRxnData& aJ = affinityRxnDataList_[jj];
 	    size_t jrxn = aJ.rxn_id;
-	    if (jrxn == (size_t) irxn) {
+	    if (jrxn ==  irxn) {
 		jjA = jj;
 	    }
 	}
@@ -824,14 +824,14 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         tplRead.resize(nPhasesFound, 0);
         kinOrder.resize(nPhasesFound, -1);
         xmlList.clear();
-        iphaseKin_ = -1;
+        iphaseKin_ = npos;
         if (iskin >= 0) {
             iphaseKin_ = iskin + pl->nVolPhases();
             m_DoSurfKinetics = true;
         } 
 
         numPhases_ = 0;
-        if (iphaseKin_ >= 0) {
+        if (iphaseKin_ != npos) {
             xmlList.push_back(kinXMLPhase);
             tpList.push_back(kinPhase);
             tpList_IDs_.push_back(kinPhase->id());
@@ -845,7 +845,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
          *  involved with the kinetics object.
          */
         XML_Node* phaseArrayXML = 0;
-        if (iphaseKin_ >= 0) {
+        if (iphaseKin_ != npos) {
             XML_Node* xmlPhase = kinXMLPhase;
             phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
             if (phaseArrayXML) {
