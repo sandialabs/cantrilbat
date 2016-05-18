@@ -243,31 +243,34 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     return *this;
 }
 //==================================================================================================================================
-void PhaseList::
+Cantera::ThermoPhase* PhaseList::
 addVolPhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
     Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
     addVolPhase(tp, vPhase);
+    return tp;
 }
 //===================================================================================================================================
-void PhaseList::
+Cantera::ThermoPhase*  PhaseList::
 addSurPhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
     Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
     addSurPhase(tp, vPhase);
+    return tp;
 }
 //===================================================================================================================================
-void PhaseList::
+Cantera::ThermoPhase* PhaseList::
 addEdgePhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
     Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
     addEdgePhase(tp, vPhase);
+    return tp;
 }
 //==================================================================================================================================
 /*
