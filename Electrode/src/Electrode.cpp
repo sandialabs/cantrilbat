@@ -2789,12 +2789,12 @@ void Electrode::getNetSurfaceProductionRates(const int isk, doublereal* const ne
          *  loop over the phases in the reacting surface
          */
         size_t nphRS = RSD_List_[isk]->nPhases();
-        int kIndexKin = 0;
+        size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; kph++) {
             size_t jph = RSD_List_[isk]->kinOrder[kph];
             size_t istart = m_PhaseSpeciesStartIndex[jph];
-            int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-            for (int k = 0; k < nsp; k++) {
+            size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
+            for (size_t k = 0; k < nsp; k++) {
                 net[istart + k] += rsSpeciesProductionRates[kIndexKin];
                 kIndexKin++;
             }
