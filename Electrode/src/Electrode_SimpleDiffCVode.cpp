@@ -566,9 +566,9 @@ void  Electrode_SimpleDiff::extractInfo(std::vector<int>& justBornMultiSpecies)
          */
         if (ActiveKineticsSurf_[isk]) {
             ReactingSurDomain* rsd = RSD_List_[isk];
-            int nph = rsd->nPhases();
-            for (int jph = 0; jph < nph; jph++) {
-                int iph = rsd->kinOrder[jph];
+            size_t nph = rsd->nPhases();
+            for (size_t jph = 0; jph < nph; jph++) {
+                size_t iph = rsd->kinOrder[jph];
                 if (iph == metalPhase_) {
                     continue;
                 }

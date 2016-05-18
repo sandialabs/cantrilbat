@@ -517,7 +517,7 @@ public:
      *        kph = phase index in the interface kinetics object
      *        iph = phase index in the PhaseList object
      */
-    std::vector<int> kinOrder;
+    std::vector<size_t> kinOrder;
 
     //! Vector of the indexes of each phase in the ReactionSurfaceDomain object
     //! given the index within the PhaseList object
@@ -545,10 +545,10 @@ public:
      *
      *  Length = number of species in the PhaseList object
      *
-     *  A value of -1 in this slot means that the species doesn't participate in the
+     *  A value of npos in this slot means that the species doesn't participate in the
      *  current ReactingSurDomain object
      */
-    std::vector<int> PLtoKinSpeciesIndex_;
+    std::vector<size_t> PLtoKinSpeciesIndex_;
 
     //! Index mapping kinetics species index to the PhaseList species index.
     /*!

@@ -2736,8 +2736,8 @@ bool Electrode::stateToPhaseFlagsReconciliation(bool flagErrors)
 double Electrode::reactantStoichCoeff(const int isk, int kGlobal, int i) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
-    int krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
-    if (krsd == -1) {
+    size_t krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
+    if (krsd == npos) {
         return 0.0;
     }
     double rst = rsd->reactantStoichCoeff(krsd, i);
@@ -2752,8 +2752,8 @@ double Electrode::reactantStoichCoeff(const int isk, int kGlobal, int i) const
 double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
-    int krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
-    if (krsd == -1) {
+    size_t krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
+    if (krsd == npos) {
         return 0.0;
     }
     double rst = rsd->productStoichCoeff(krsd, i);
@@ -2788,12 +2788,11 @@ void Electrode::getNetSurfaceProductionRates(const int isk, doublereal* const ne
         /*
          *  loop over the phases in the reacting surface
          */
-        int nphRS = RSD_List_[isk]->nPhases();
-        int jph, kph;
+        size_t nphRS = RSD_List_[isk]->nPhases();
         int kIndexKin = 0;
-        for (kph = 0; kph < nphRS; kph++) {
-            jph = RSD_List_[isk]->kinOrder[kph];
-            int istart = m_PhaseSpeciesStartIndex[jph];
+        for (size_t kph = 0; kph < nphRS; kph++) {
+            size_t jph = RSD_List_[isk]->kinOrder[kph];
+            size_t istart = m_PhaseSpeciesStartIndex[jph];
             int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
             for (int k = 0; k < nsp; k++) {
                 net[istart + k] += rsSpeciesProductionRates[kIndexKin];
@@ -2928,10 +2927,10 @@ void Electrode::getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux)
     if (ActiveKineticsSurf_[isk]) {
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
-        int nphRS = RSD_List_[isk]->nPhases();
-        int kIndexKin = 0;
-        for (int kph = 0; kph < nphRS; kph++) {
-            int jph = RSD_List_[isk]->kinOrder[kph];
+        size_t nphRS = RSD_List_[isk]->nPhases();
+        size_t kIndexKin = 0;
+        for (size_t kph = 0; kph < nphRS; kph++) {
+            size_t jph = RSD_List_[isk]->kinOrder[kph];
             ThermoPhase& tp = thermo(jph);
             int istart = m_PhaseSpeciesStartIndex[jph];
             int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
@@ -2957,11 +2956,10 @@ void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
     std::fill_n(phaseMoleFlux, m_NumTotPhases, 0.);
     if (ActiveKineticsSurf_[isk]) {
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
-        int nphRS = RSD_List_[isk]->nPhases();
-        int PLph, RSph;
+        size_t nphRS = RSD_List_[isk]->nPhases();
         int kIndexKin = 0;
-        for (RSph = 0; RSph < nphRS; RSph++) {
-            PLph = RSD_List_[isk]->kinOrder[RSph];
+        for (size_t RSph = 0; RSph < nphRS; RSph++) {
+            size_t PLph = RSD_List_[isk]->kinOrder[RSph];
             int istart = m_PhaseSpeciesStartIndex[PLph];
             int nsp = m_PhaseSpeciesStartIndex[PLph + 1] - istart;
             for (int k = 0; k < nsp; k++) {
@@ -3779,10 +3777,10 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
          */
         if (ActiveKineticsSurf_[isk]) {
             ReactingSurDomain* rsd = RSD_List_[isk];
-            int nph = rsd->nPhases();
-            for (int jph = 0; jph < nph; jph++) {
-                int iph = rsd->kinOrder[jph];
-                if (iph == metalPhase_) {
+            size_t nph = rsd->nPhases();
+            for (size_t jph = 0; jph < nph; jph++) {
+                size_t iph = rsd->kinOrder[jph];
+                if (iph == (size_t) metalPhase_) {
                     continue;
                 }
                 double mm = phaseMoles_init_[iph];
@@ -3809,7 +3807,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
                         rsd->setPhaseExistence(jph, true);
                     }
                 }
-                if (iph == iphaseTarget) {
+                if (iph == (size_t) iphaseTarget) {
                     rsd->setPhaseExistence(jph, true);
                 }
             }
@@ -4840,11 +4838,10 @@ void Electrode::speciesProductionRates(doublereal* const spMoleDot)
 	     *  loop over the phases in the reacting surface
 	     *  Get the net production vector
 	     */
-	    int nphRS = RSD_List_[isk]->nPhases();
-	    int jph, kph;
+	    size_t nphRS = RSD_List_[isk]->nPhases();
 	    int kIndexKin = 0;
-	    for (kph = 0; kph < nphRS; kph++) {
-		jph = RSD_List_[isk]->kinOrder[kph];
+	    for (size_t kph = 0; kph < nphRS; kph++) {
+		size_t jph = RSD_List_[isk]->kinOrder[kph];
 		int istart = m_PhaseSpeciesStartIndex[jph];
 		int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
 		for (int k = 0; k < nsp; k++) {
@@ -5320,16 +5317,16 @@ void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpec
          */
         if (RSD_List_[isk]) {
             ReactingSurDomain* rsd = RSD_List_[isk];
-            int nph = rsd->nPhases();
-            for (int jph = 0; jph < nph; jph++) {
-                int iph = rsd->kinOrder[jph];
-                if (iph == metalPhase_) {
+            size_t nph = rsd->nPhases();
+            for (size_t jph = 0; jph < nph; jph++) {
+                size_t iph = rsd->kinOrder[jph];
+                if (iph == (size_t) metalPhase_) {
                     continue;
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
                 ThermoPhase& tp = thermo(iph);
-                int nsp = tp.nSpecies();
+                size_t nsp = tp.nSpecies();
                 if ((size_t) iph >= NumVolPhases_) {
                     // we are in a surface phase
                     int isur = iph - NumVolPhases_;
@@ -5351,8 +5348,8 @@ void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpec
                     }
                 }
 
-                for (int iiph = 0; iiph < (int) justBornPhase_.size(); iiph++) {
-                    if (iph == justBornPhase_[iiph]) {
+                for (size_t iiph = 0; iiph < justBornPhase_.size(); iiph++) {
+                    if (iph == (size_t) justBornPhase_[iiph]) {
                         rsd->setPhaseExistence(jph, true);
                     }
                 }
@@ -5582,11 +5579,11 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 
             doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isurf);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-            int nphRS = RSD_List_[isurf]->nPhases();
+            size_t nphRS = RSD_List_[isurf]->nPhases();
             int kIndexKin = 0;
-            for (int kph = 0; kph < nphRS; kph++) {
-                int jph = RSD_List_[isurf]->kinOrder[kph];
-                int istart = m_PhaseSpeciesStartIndex[jph];
+            for (size_t kph = 0; kph < nphRS; kph++) {
+                size_t jph = RSD_List_[isurf]->kinOrder[kph];
+                size_t istart = m_PhaseSpeciesStartIndex[jph];
                 int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
                 for (int k = 0; k < nsp; k++) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];

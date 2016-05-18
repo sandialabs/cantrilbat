@@ -114,9 +114,9 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
 ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, int iskin) :
     ElectrodeKinetics(),
     numPhases_(0),
-    kinOrder(pl->nPhases(), -1),
+    kinOrder(pl->nPhases(), npos),
     PLtoKinPhaseIndex_(pl->nPhases(), npos),
-    PLtoKinSpeciesIndex_(pl->nSpecies(), -1),
+    PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
     KintoPLSpeciesIndex_(0),
     iphaseKin_(iskin + pl->nVolPhases()),
     tplRead(pl->nPhases(),0),
@@ -302,7 +302,7 @@ void ReactingSurDomain::limitROP(const double* const n)
 	for (size_t p = 0; p < nPhases(); ++p) {
 	    if (m_rxnPhaseIsProduct[j][p] && netRev > 0.0) {
 		ThermoPhase* tp = m_thermo[p];
-		int k = m_pl->getGlobalSpeciesIndex(tp);
+		size_t k = m_pl->getGlobalSpeciesIndex(tp);
 		double phase_moles = 0.0;
 
 		for (size_t kk = 0; kk < tp->nSpecies(); ++kk) {
@@ -318,7 +318,7 @@ void ReactingSurDomain::limitROP(const double* const n)
 	    }
 	    else if (m_rxnPhaseIsReactant[j][p] && netFwd > 0.0) {
 		ThermoPhase* tp = m_thermo[p];
-		int k = m_pl->getGlobalSpeciesIndex(tp);
+		size_t k = m_pl->getGlobalSpeciesIndex(tp);
 		double phase_moles = 0.0;
 
 		for(size_t kk = 0; kk < tp->nSpecies(); ++kk) {
@@ -722,18 +722,18 @@ void ReactingSurDomain::identifyMetalPhase()
 {
     metalPhaseIndex_ = -1;
     kElectronIndex_ = -1;
-    int nr = nReactions();
-    int np = nPhases();
-    for (int iph = 0; iph < np; iph++) {
+    size_t nr = nReactions();
+    size_t np = nPhases();
+    for (size_t iph = 0; iph < np; iph++) {
         ThermoPhase* tp = & (thermo(iph));
-        int nSpecies = tp->nSpecies();
-        int nElements = tp->nElements();
-        int eElectron = tp->elementIndex("E");
-        if (eElectron >= 0) {
-            for (int k = 0; k < nSpecies; k++) {
+        size_t nSpecies = tp->nSpecies();
+        size_t nElements = tp->nElements();
+        size_t eElectron = tp->elementIndex("E");
+        if (eElectron != npos) {
+            for (size_t k = 0; k < nSpecies; k++) {
                 if (tp->nAtoms(k,eElectron) == 1) {
                     int ifound = 1;
-                    for (int e = 0; e < nElements; e++) {
+                    for (size_t e = 0; e < nElements; e++) {
                         if (tp->nAtoms(k,e) != 0.0) {
                             if (e != eElectron) {
                                 ifound = 0;
@@ -749,7 +749,7 @@ void ReactingSurDomain::identifyMetalPhase()
         }
         if ((size_t) iph != metalPhaseIndex_) {
 
-	    for (int i = 0; i < nr; i++) {
+	    for (size_t i = 0; i < nr; i++) {
 		RxnMolChange* rmc = rmcVector[i];
 		if (rmc->m_phaseChargeChange[iph] != 0) {
 		    if (rmc->m_phaseDims[iph] == 3) {
@@ -814,7 +814,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
             kinPhase = &(pl->surPhase(iskin));
         } 
 
-        int nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
+        size_t nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
         /*
          * Resize the internal list of pointers and get a pointer to the vacant ThermoPhase pointer
          */
@@ -822,7 +822,7 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         tpList.clear();
         tpList_IDs_.clear();
         tplRead.resize(nPhasesFound, 0);
-        kinOrder.resize(nPhasesFound, -1);
+        kinOrder.resize(nPhasesFound, npos);
         xmlList.clear();
         iphaseKin_ = npos;
         if (iskin >= 0) {
@@ -924,9 +924,9 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
          *  Create a mapping between the ReactingSurfPhase to the PhaseList phase
          */
         size_t nKinPhases = nPhases();
-        kinOrder.resize(nKinPhases, -1);
+        kinOrder.resize(nKinPhases, npos);
         PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
-        PLtoKinSpeciesIndex_.resize(pl->nSpecies(), -1);
+        PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
 	KintoPLSpeciesIndex_.resize(m_kk, npos);
 	//size_t kKinIndex = 0;
         for (size_t kph = 0; kph < nKinPhases; kph++) {
@@ -947,10 +947,10 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
             kinOrder[kph] = jph;
             PLtoKinPhaseIndex_[jph] = kph;
 
-            int PLkstart = pl->getGlobalSpeciesIndex(jph, 0);
-            int nspPhase = tt.nSpecies();
-            for (int k = 0; k < nspPhase; k++) {
-                if (PLtoKinSpeciesIndex_[k + PLkstart] != -1) {
+            size_t PLkstart = pl->getGlobalSpeciesIndex(jph, 0);
+            size_t nspPhase = tt.nSpecies();
+            for (size_t k = 0; k < nspPhase; k++) {
+                if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
                     throw CanteraError("ReactingSurDomain::importFromPL()",
                                        "Indexing error found while initializing  PLtoKinSpeciesIndex_");
                 }
@@ -1014,7 +1014,7 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     // Find the phase id and phase name of the replaced global species. We will assume that it is also
     // the solid phase where we will get the relative extent.
     
-    int phase_id = m_pl->getPhaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
+    size_t phase_id = m_pl->getPhaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
     string phaseName = m_pl->phaseName(phase_id);
     //
     //  Since the pointers must all be the same, we look up the ThermoPhase pointer in the phase list

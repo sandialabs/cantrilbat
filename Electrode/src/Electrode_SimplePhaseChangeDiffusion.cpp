@@ -657,10 +657,10 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
          */
         if (ActiveKineticsSurf_[isk]) {
             ReactingSurDomain* rsd = RSD_List_[isk];
-            int nph = rsd->nPhases();
-            for (int jph = 0; jph < nph; jph++) {
-                int iph = rsd->kinOrder[jph];
-                if (iph == metalPhase_) {
+            size_t nph = rsd->nPhases();
+            for (size_t jph = 0; jph < nph; jph++) {
+                size_t iph = rsd->kinOrder[jph];
+                if (iph == (size_t) metalPhase_) {
                     continue;
                 }
                 double mm = phaseMoles_init_[iph];
@@ -682,11 +682,11 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
                         rsd->setPhaseExistence(jph, true);
                     }
                 }
-                if (iph == bornMultiSpecies) {
+                if (iph == (size_t) bornMultiSpecies) {
                     rsd->setPhaseExistence(jph, true);
                 }
-                for (int iiph = 0; iiph < (int) justBornMultiSpecies.size(); iiph++) {
-                    if (iph == justBornMultiSpecies[iiph]) {
+                for (size_t iiph = 0; iiph < justBornMultiSpecies.size(); iiph++) {
+                    if (iph == (size_t) justBornMultiSpecies[iiph]) {
                         rsd->setPhaseExistence(jph, true);
                     }
                 }
