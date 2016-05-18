@@ -87,7 +87,7 @@ clean:
          fi )
 	$(RM) *Data.csv diff* output.txt csvCode.txt
 
-rebase:
+rebaseline:
 	$(RM) *blessed*
 	$(PROGRAM) > output_blessed.txt
 	rename .csv _blessed.csv *.csv
