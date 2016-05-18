@@ -16,8 +16,7 @@ namespace Cantera
 {
 
 //!
-//!   Class PhaseList is a list of Phases. It's used as a container class
-//!
+//!   Class PhaseList is a list of Phases. It's used as a container class.
 /*!
  *    %PhaseList maintains a global species list, containing all of the species in all of the phases within %PhaseList.
  *    The volume phases are first in this list, followed by  the surface phases. The global species index is the
@@ -183,6 +182,14 @@ public:
      *     @return                        Returns the surface phase index number. Returns npos if the phase is not found.
      */
     size_t getSurPhaseIndex(const ThermoPhase* const sp) const;
+
+    //! Get the edge phase index given the pointer to the edge phase ThermoPhase object
+    /*!
+     *     @param[in]     ep              Pointer to an edge ThermoPhase
+     *
+     *     @return                        Returns the edge phase index number. Returns npos if the phase is not found.
+     */
+    size_t getEdgePhaseIndex(const ThermoPhase* const ep) const;
 
     //! Given a pointer to the ThermoPhase object this returns the global phase index of the phase
     /*!
@@ -471,6 +478,12 @@ public:
      *     @return                         Return the total number of surface phases
      */
     size_t nSurPhases() const;
+
+    //! Return the number of edge phases
+    /*!
+     *     @return                         Return the total number of edge phases
+     */
+    size_t nEdgePhases() const;
 
     //! Return the total number of volume species
     /*!

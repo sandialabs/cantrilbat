@@ -104,7 +104,7 @@ static void findXMLAllPhasePL(XML_Node* const root, PhaseList* const pl, const s
  *      canteraFile -> Cantera CTML file
  *
  */
-int importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canteraFile)
+size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canteraFile)
 {
     XML_Node* xc = 0;
     try {
@@ -120,7 +120,7 @@ int importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canteraFi
     }
     // Search the first 3 levels of the XML tree for a phase node. -> I don't think there is any need to go further.
     findXMLAllPhasePL(xc, pl, canteraFile, 2);
-    int nphases = pl->nPhases();
+    size_t nphases = pl->nPhases();
     return nphases;
 }
 //==================================================================================================================================

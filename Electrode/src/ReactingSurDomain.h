@@ -53,10 +53,11 @@ public:
     //! Constructor based on a PhaseList object
     /*!
      *  @param[in]         pl                Pointer to the phase list object 
-     *  @param[in]         iskin             integer number for the  interfacial kinetics object that this object will be inherited 
-     *                                       from
+     *  @param[in]         iskin             integer number for the  interfacial kinetics object within the PhaseList (which may contain
+     *                                       multiple surfaces each with its own associated interfacial kinetics object, 
+     *                                       that this object will be inherited from. 
      */
-    ReactingSurDomain(Cantera::PhaseList* pl, int iskin);
+    ReactingSurDomain(Cantera::PhaseList* pl, size_t iskin);
 
     //! Copy Constructor for the %Kinetics object.
     /*!
@@ -116,13 +117,13 @@ public:
      *   @param[in]     pl                         Fully formed pointer to the PhaseList object that will be associated
      *                                             with this object.
      *
-     *   @param[in]     iskin                      The index of the surface phase that has the surface kinetics associated
-     *                                             with it.
+     *   @param[in]     iskin                      The index of the surface phase within the PhaseList that has the 
+     *                                             surface kinetics associated with it.
      *
      *   @return                                   Returns true upon proper instanteation of the kinetics. Returns false
      *                                             if there was a problem.
      */
-    bool importFromPL(Cantera::PhaseList* const pl, int iskin);
+    bool importFromPL(Cantera::PhaseList* const pl, size_t iskin);
 
     //! Routine to be called after all species and phases have been defined for the object
     /*!
@@ -648,8 +649,8 @@ public:
     RSD_OCVmodel* OCVmodel_;
 
     //!  Kinetic species index for the species whose thermodynamics representation is replaced by an experimentally
-    //!  determined open circuit voltage expression. If there is none, then this value is -1.
-    int kReplacedSpeciesRS_;
+    //!  determined open circuit voltage expression. If there is none, then this value is npos.
+    size_t kReplacedSpeciesRS_;
 
     //!  Vector of the enthalpies for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
     /*!

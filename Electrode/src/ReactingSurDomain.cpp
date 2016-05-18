@@ -53,7 +53,7 @@ ReactingSurDomain::ReactingSurDomain() :
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
-    kReplacedSpeciesRS_(-1),
+    kReplacedSpeciesRS_(npos),
     m_Enthalpies_rspec(0),
     m_Enthalpies_Before_rspec(0),
     m_Entropies_rspec(0),
@@ -94,7 +94,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
-    kReplacedSpeciesRS_(-1),
+    kReplacedSpeciesRS_(npos),
     m_Enthalpies_rspec(0),
     m_Enthalpies_Before_rspec(0),
     m_Entropies_rspec(0),
@@ -111,7 +111,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     operator=(right);
 }
 //==================================================================================================================================
-ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, int iskin) :
+ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, size_t iskin) :
     ElectrodeKinetics(),
     numPhases_(0),
     kinOrder(pl->nPhases(), npos),
@@ -132,7 +132,7 @@ ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, int iskin) :
     m_pl(pl),
     ocv_ptr_(0),
     OCVmodel_(0),
-    kReplacedSpeciesRS_(-1),
+    kReplacedSpeciesRS_(npos),
     m_Enthalpies_rspec(0),
     m_Enthalpies_Before_rspec(0),
     m_Entropies_rspec(0),
@@ -145,8 +145,7 @@ ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, int iskin) :
 {
     bool ok = importFromPL(pl, iskin);
     if (!ok) {
-	throw Electrode_Error("ReactingSurDomain::ReactingSurDomain()",
-			      "import from Phase list failed");
+	throw Electrode_Error("ReactingSurDomain::ReactingSurDomain()", "import from Phase list failed");
     }
 }
 //==================================================================================================================================
@@ -788,15 +787,10 @@ void ReactingSurDomain::finalize()
     limitedROP_.resize(m_ii, 0.0);
 }
 //==================================================================================================================================
-/*
- *      @param iskin   If this is zero or positive, we will formulate a kinetics mechanism using an 
- *                     interfacial kinetics object.
- */
 bool ReactingSurDomain::
-importFromPL(Cantera::PhaseList* const pl, int iskin)
+importFromPL(Cantera::PhaseList* const pl, size_t iskin)
 {
     try {
-        //int iph;
         //
         //  Store the PhaseList as a shallow pointer within the object
         //
@@ -805,14 +799,11 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         XML_Node* kinXMLPhase = 0;
         ThermoPhase* kinPhase = 0;
 
-        if (iskin < 0 || iskin >= (int) pl->nSurPhases()) {
-           throw Electrode_Error("ReactingSurDomain::importFromPL()",
-                                 "index of surface reaction not within bounds");
+        if (iskin == npos || iskin >= pl->nSurPhases()) {
+           throw Electrode_Error("ReactingSurDomain::importFromPL()", "index of surface reaction not within bounds");
         }
-        if (iskin >= 0) {
-            kinXMLPhase = pl->surPhaseXMLNode(iskin);
-            kinPhase = &(pl->surPhase(iskin));
-        } 
+        kinXMLPhase = pl->surPhaseXMLNode(iskin);
+        kinPhase = &(pl->surPhase(iskin));
 
         size_t nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
         /*
@@ -825,10 +816,8 @@ importFromPL(Cantera::PhaseList* const pl, int iskin)
         kinOrder.resize(nPhasesFound, npos);
         xmlList.clear();
         iphaseKin_ = npos;
-        if (iskin >= 0) {
-            iphaseKin_ = iskin + pl->nVolPhases();
-            m_DoSurfKinetics = true;
-        } 
+        iphaseKin_ = iskin + pl->nVolPhases();
+        m_DoSurfKinetics = true;
 
         numPhases_ = 0;
         if (iphaseKin_ != npos) {

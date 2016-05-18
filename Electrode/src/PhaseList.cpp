@@ -331,7 +331,7 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
      */
     m_PhaseSpeciesStartIndex.resize(m_NumTotPhases + 1, 0);
     if (m_NumSurPhases > 0) {
-        int indexP = NumVolPhases_ + m_NumSurPhases;
+        size_t indexP = NumVolPhases_ + m_NumSurPhases;
         for (size_t isp = 0; isp < m_NumSurPhases; isp++) {
             m_PhaseSpeciesStartIndex[indexP] = m_PhaseSpeciesStartIndex[indexP - 1] + nSpecies;
             indexP--;
@@ -341,7 +341,7 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
      * Push back indecises of edge phases
      */
     if (m_NumEdgePhases > 0) {
-        int indexP = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
+        size_t indexP = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
         for (size_t iep = 0; iep < m_NumEdgePhases; iep++) {
             m_PhaseSpeciesStartIndex[indexP] = m_PhaseSpeciesStartIndex[indexP - 1] + nSpecies;
             indexP--;
@@ -355,8 +355,8 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
     /*
      * Check elements list -> enforce strict conformance.
      */
-    int numE = vp->nElements();
-    for (int e = 0; e < numE; e++) {
+    size_t numE = vp->nElements();
+    for (size_t e = 0; e < numE; e++) {
         string symb1 = vp->elementName(e);
         double weight1 = vp->atomicWeight(e);
         m_GlobalElementObj->addUniqueElement(symb1, weight1);
@@ -411,15 +411,14 @@ addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
 void PhaseList::
 addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
 {
-
     AssertThrow(sp != 0, "must be nonzero");
     // Check for incompatibilities
     if (m_NumTotPhases > 0) {
         for (size_t k = 0; k < sp->nSpecies(); k++) {
             string sname = sp->speciesName(k);
-            int gindex = globalSpeciesIndex(sname);
-            if (gindex != -1) {
-                throw CanteraError("PhaseList::addVolPhase()",
+            size_t gindex = globalSpeciesIndex(sname);
+            if (gindex != npos) {
+                throw CanteraError("PhaseList::addSurPhase()",
                                    "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
             }
         }
@@ -427,7 +426,7 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
         for (size_t k = 0; k < m_NumTotPhases; k++) {
             string pname = PhaseList_[k]->name();
             if (tname == pname) {
-                throw CanteraError("PhaseList::addVolPhase()",
+                throw CanteraError("PhaseList::addSurPhase()",
                                    "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
             }
         }
@@ -448,7 +447,7 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
     SurPhaseList.resize(m_NumSurPhases, 0);
     SurPhaseList[m_NumSurPhases - 1] = sp;
 
-    int nSpecies = sp->nSpecies();
+    size_t nSpecies = sp->nSpecies();
     m_NumTotPhases++;
     m_NumTotSpecies += nSpecies;
     m_totNumSurSpecies += nSpecies;
@@ -469,7 +468,7 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
      * Push back indecises of edge phases
      */
     if (m_NumEdgePhases > 0) {
-        int indexP = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
+        size_t indexP = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
         for (size_t iep = 0; iep < m_NumEdgePhases; iep++) {
             m_PhaseSpeciesStartIndex[indexP] = m_PhaseSpeciesStartIndex[indexP - 1] + nSpecies;
             indexP--;
@@ -481,8 +480,8 @@ addSurPhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* sPhase)
     /*
      * Check elements list -> enforce strict conformance.
      */
-    int numE = sp->nElements();
-    for (int e = 0; e < numE; e++) {
+    size_t numE = sp->nElements();
+    for (size_t e = 0; e < numE; e++) {
         string symb1 = sp->elementName(e);
         double weight1 = sp->atomicWeight(e);
         m_GlobalElementObj->addUniqueElement(symb1, weight1);
@@ -528,8 +527,8 @@ addEdgePhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* ePhase)
     if (m_NumTotPhases > 0) {
         for (size_t k = 0; k < sp->nSpecies(); k++) {
             string sname = sp->speciesName(k);
-            int gindex = globalSpeciesIndex(sname);
-            if (gindex != -1) {
+            size_t gindex = globalSpeciesIndex(sname);
+            if (gindex != npos) {
                 throw CanteraError("PhaseList::addEdgePhase()",
                                    "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
             }
@@ -557,7 +556,7 @@ addEdgePhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* ePhase)
     EdgePhaseList.resize(m_NumEdgePhases, 0);
     EdgePhaseList[m_NumEdgePhases - 1] = sp;
 
-    int nSpecies = sp->nSpecies();
+    size_t nSpecies = sp->nSpecies();
     m_NumTotPhases++;
     m_NumTotSpecies += nSpecies;
     m_totNumEdgeSpecies += nSpecies;
@@ -580,8 +579,8 @@ addEdgePhase(Cantera::ThermoPhase* const sp, Cantera::XML_Node* ePhase)
     /*
      * Check elements list -> enforce strict conformance.
      */
-    int numE = sp->nElements();
-    for (int e = 0; e < numE; e++) {
+    size_t numE = sp->nElements();
+    for (size_t e = 0; e < numE; e++) {
         string symb1 = sp->elementName(e);
         double weight1 = sp->atomicWeight(e);
         m_GlobalElementObj->addUniqueElement(symb1, weight1);
@@ -638,6 +637,17 @@ size_t PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
     for (size_t i = 0; i < m_NumSurPhases; i++) {
         const ThermoPhase* const temp = SurPhaseList[i];
         if (temp == sp) {
+            return i;
+        }
+    }
+    return npos;
+}
+//==================================================================================================================================
+size_t PhaseList::getEdgePhaseIndex(const ThermoPhase* const ep) const
+{
+    for (size_t i = 0; i < m_NumEdgePhases; i++) {
+        const ThermoPhase* const temp = EdgePhaseList[i];
+        if (temp == ep) {
             return i;
         }
     }
@@ -1216,14 +1226,19 @@ ThermoPhase& PhaseList::edgePhase(size_t iEdgeIndex)
     return *(EdgePhaseList[iEdgeIndex]);
 }
 //====================================================================================================================
+size_t PhaseList::nVolPhases() const
+{
+    return NumVolPhases_;
+}
+//====================================================================================================================
 size_t PhaseList::nSurPhases() const
 {
     return m_NumSurPhases;
 }
 //====================================================================================================================
-size_t PhaseList::nVolPhases() const
+size_t PhaseList::nEdgePhases() const
 {
-    return NumVolPhases_;
+    return m_NumEdgePhases;
 }
 //====================================================================================================================
 size_t PhaseList::nVolSpecies() const
