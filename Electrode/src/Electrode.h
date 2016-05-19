@@ -3105,19 +3105,61 @@ protected:
      */
     std::vector<double> chempotMolar_final_final_;
 
-    //!
+    //!  Accumulation of source terms for the temperature equation across multiple subintegration steps
     /*!
+     *  This is calculated by the function, accumulateSrcTermsOnCompletedStep()
+     *  within the Electrode_Integrator  object. It accumulates integratedThermalEnergySourceTermLast_
+     *  over all substeps to produce a global time step result
+     *
      *  units = Joules
      */
     double integratedThermalEnergySourceTerm_;
+
+    //! Source term for temperature equation from last step only
     /*!
+     *  This is calculated by the function, thermalEnergySourceTerm_EnthalpyFormulation_SingleStep(),
+     *  within the Electrode_Integrator::calcSrcTermsOnCompletedStep() member function object
+     *
      *  units = Joules
      */
     double integratedThermalEnergySourceTermLast_;
 
+    //!  Accumulation of Irreversible source terms for the temperature equation across multiple subintegration steps
+    /*!
+     *  This is calculated by the function, accumulateSrcTermsOnCompletedStep()
+     *  within the Electrode_Integrator  object. It accumulates integratedThermalEnergySourceTerm_overpotential_Last_
+     *  over all substeps to produce a global time step result
+     *
+     *  units = Joules
+     */
     double integratedThermalEnergySourceTerm_overpotential_;
+
+    //! Irreverible part of the source term for temperature equation from last step only
+    /*!
+     *  This is calculated by the function, thermalEnergySourceTerm_Overpotential_SingleStep(),
+     *  within the Electrode_Integrator::calcSrcTermsOnCompletedStep() member function object
+     *
+     *  units = Joules
+     */
     double integratedThermalEnergySourceTerm_overpotential_Last_;
+
+    //!  Accumulation of reversible source terms for the temperature equation across multiple subintegration steps
+    /*!
+     *  This is calculated by the function, accumulateSrcTermsOnCompletedStep()
+     *  within the Electrode_Integrator  object. It accumulates integratedThermalEnergySourceTerm_reverislbeEntropy_Last_
+     *  over all substeps to produce a global time step result
+     *
+     *  units = Joules
+     */
     double integratedThermalEnergySourceTerm_reversibleEntropy_;
+
+    //! Reverible part of the source term for temperature equation from last step only
+    /*!
+     *  This is calculated by the function, thermalEnergySourceTerm_ReversibleEntropy_SingleStep(),
+     *  within the Electrode_Integrator::calcSrcTermsOnCompletedStep() member function
+     *
+     *  units = Joules
+     */
     double integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 
     //! Name of the electrode to be used in printouts
