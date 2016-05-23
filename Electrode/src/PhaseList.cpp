@@ -820,15 +820,16 @@ getLocalIndecisesFromGlobalSpeciesIndex(size_t globalSpeciesIndex, size_t& phase
     localSpeciesIndex = (globalSpeciesIndex - m_PhaseSpeciesStartIndex[phaseIndex]);
 }
 //====================================================================================================================
-//! Kernel function that checks consistency of the phase name and the the name and number/name/order of species in a phase 
+//! Kernel function that checks consistency of the phase id() and the the name and number/name/order of species in a phase 
 /*!
  *   It returns true if the phases are the same and have the same species in it in the same order.
+ *   Note, the two phases may have a different phase name().
  *
  *   @param[in]      tpA                    Pointer to the first %ThermoPhase object
  *   @param[in]      tpB                    Pointer to the second ThermoPhase object
  *
  *   @return                                Returns true if the two ThermoPhase classes have the same eos and the same
- *                                          phase name and species names. Returns false otherwise.
+ *                                          phase id() and the same species names. Returns false otherwise.
  */
 static bool ThermoPhasesTheSameNames(const ThermoPhase* const tpA, const ThermoPhase* const tpB)
 {
@@ -873,8 +874,8 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
     //
     //  First compare for absolute agreement:
     //       We say that there is absolute agreement if 
-    //          volume phases are same number and are the same ThermoPhase
-    //          surface phases are same number and are the same ThermoPhase
+    //          volume phases are same number and are the same ThermoPhase id()
+    //          surface phases are same number and are the same ThermoPhase id()
     int compGood = 1;
     if (m_NumTotPhases == plGuest->m_NumTotPhases) {
 	if (NumVolPhases_ == plGuest->NumVolPhases_) {

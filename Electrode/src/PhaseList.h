@@ -167,7 +167,7 @@ public:
      *
      *  @return                            Returns a pointer to the ThermoPhase object
      */
-     Cantera::ThermoPhase* addEdgePhase(const std::string& canteraFile, const std::string& edgeID = "");
+    Cantera::ThermoPhase* addEdgePhase(const std::string& canteraFile, const std::string& edgeID = "");
 
     //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
     /*!
