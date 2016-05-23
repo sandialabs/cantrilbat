@@ -552,14 +552,14 @@ public:
      *
      * @return                                     Returns the voltage in volts
      */
-    double phaseVoltage(int iph) const;
+    double phaseVoltage(size_t iph) const;
 
     //! Set the voltage of a phase
     /*!
      * @param[in]         iph                       Phase id
      * @param[in]         volts                     volts
      */
-    void setPhaseVoltage(int iph, double volts);
+    void setPhaseVoltage(size_t iph, double volts);
 
     //-------------------------------------------------------------------------------------------------------------------
     // -------------------------------- QUERY AND SET MOLE NUMBERS-------------------------------------------------------

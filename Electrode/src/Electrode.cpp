@@ -2539,7 +2539,7 @@ double Electrode::voltage() const
  *
  * @return Returns the voltage in volts
  */
-double Electrode::phaseVoltage(int iph) const
+double Electrode::phaseVoltage(size_t iph) const
 {
     return phaseVoltages_[iph];
 }
@@ -2549,7 +2549,7 @@ double Electrode::phaseVoltage(int iph) const
  * @param iph  Phase id
  * @param volts volts
  */
-void Electrode::setPhaseVoltage(int iph, double volts)
+void Electrode::setPhaseVoltage(size_t iph, double volts)
 {
     phaseVoltages_[iph] = volts;
     updateState();
