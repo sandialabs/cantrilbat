@@ -1,5 +1,5 @@
 /**
- * @file timer.h
+ * @file mdp_timer.h
  *    Declarations for a simple class that implements a clock timer
  *   (see \ref mdpUtil::timer).
  */
@@ -15,14 +15,9 @@
 #ifndef MDP_TIMER_H
 #define MDP_TIMER_H
 
-
-
 #ifdef HAVE_UNISTD_H
 #include "unistd.h"
 #endif
-
-
-
 
 namespace mdpUtil
 {

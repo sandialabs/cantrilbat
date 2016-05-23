@@ -4,9 +4,9 @@
  */
 #include "../../../config.h"
 #include "gtest/gtest.h"
-#include "wallClock.h"
-#include "clockID.h"
-#include "timerUtil.h"
+#include "mdp_wallClock.h"
+#include "mdp_clockID.h"
+#include "mdp_timerUtil.h"
 
 #include <memory>
 

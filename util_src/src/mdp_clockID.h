@@ -1,5 +1,5 @@
 /**
- * @file clockID.h
+ * @file mdp_clockID.h
  *    Declarations for a simple class that implements a POSIX compliant  clock timer
  *   (see \ref mdpUtil::clockID).
  */
@@ -10,7 +10,7 @@
  * See file License.txt for licensing information.
  */
 
-#include "timer.h"
+#include "mdp_timer.h"
 
 #ifndef MDP_CLOCKID_H
 #define MDP_CLOCKID_H

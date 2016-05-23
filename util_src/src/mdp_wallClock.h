@@ -1,5 +1,5 @@
 /**
- * @file wallClock.h
+ * @file mdp_wallClock.h
  *    Declarations for a simple class that implements an Ansi C wall clock timer
  *   (see \ref mdpUtil::wallClock).
  */
@@ -14,7 +14,7 @@
 #define MDP_CLOCKWC_H
 
 #include <ctime>
-#include "timer.h"
+#include "mdp_timer.h"
 
 namespace mdpUtil
 {

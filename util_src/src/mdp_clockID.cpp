@@ -1,5 +1,5 @@
 /**
- * @file clockID.cpp
+ * @file mdp_clockID.cpp
  *    Definitions for a simple class that implements an Ansi C wall clock and interval timer
  *     (see \ref mdpUtil::clockID).
  */
@@ -10,7 +10,7 @@
  * See file License.txt for licensing information.
  */
 
-#include "clockID.h"
+#include "mdp_clockID.h"
 #include <climits>
 #include <stdexcept>
 #include <cstdio>

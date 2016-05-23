@@ -1,5 +1,5 @@
 /**
- * @file timerUtil.h
+ * @file mdp_timerUtil.h
  *    Declarations for a factory funcitons that return a clock timer based on the operating system
  *   (see \ref mdpUtil::timer).
  */
@@ -13,9 +13,9 @@
 #ifndef MDP_TIMERUTIL_H
 #define MDP_TIMERUTIl_H
 
-#include "timer.h"
-#include "wallClock.h"
-#include "clockID.h"
+#include "mdp_timer.h"
+#include "mdp_wallClock.h"
+#include "mdp_clockID.h"
 
 /*
  *  We take advantage of the _POSIX_VERSION define to tell whether the system is posix compliant.

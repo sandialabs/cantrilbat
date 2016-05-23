@@ -10,7 +10,7 @@
  * See file License.txt for licensing information.
  */
 
-#include "wallClock.h"
+#include "mdp_wallClock.h"
 #include <climits>
 #include <stdexcept>
 #ifndef DEBUG_MODE
