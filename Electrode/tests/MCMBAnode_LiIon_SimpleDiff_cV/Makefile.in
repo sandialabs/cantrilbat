@@ -14,7 +14,7 @@ BLESSED_FILES = good_out.txt soln_0_0_blessed.xml \
               MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv
 
 DATA = anode.inp problem_setup.sh \
-ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml
+       ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml
 
 all: .depends $(PROGRAM)
 #
@@ -31,6 +31,8 @@ CT_INCROOT =  @ct_incroot@
 # Bring in the Cantera includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
+#
+TOPDIR = @abs_top_srcdir@
 #
 # Setup the util_src library for inclusion in this project
 #
@@ -108,13 +110,13 @@ $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-DEPENDS = $(OBJ_ANODE:.o=.d) 
+DEPENDS = $(OBJ:.o=.d) 
 
 $(DEPENDS): Makefile
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) -s  .depends
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
@@ -156,8 +158,8 @@ clean:
 	$(RM) *.o  .depends *.d *~  $(PROGRAM) 
 #
 dist_clean:
-	@MAKE@ test_clean
-	@MAKE@ clean
+	@MAKE@ -s test_clean
+	@MAKE@ -s clean
 #
 ##########################################################################################################################
 #
