@@ -2942,7 +2942,7 @@ protected:
     // ---------------   SURFACE AREAS -----------------------------------------
 
     //! Number of external interfacial areas
-    int numExternalInterfacialSurfaces_;
+    size_t numExternalInterfacialSurfaces_;
 
     //! True if the surface is an external surface, false otherwise
     /*!

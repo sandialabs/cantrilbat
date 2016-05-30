@@ -2391,7 +2391,7 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
     }
     printf("   ==============================================================================================\n");
     printf("\n");
-    printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
+    printf("          Number of external surfaces = %d\n", (int) numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %11.4E m**3\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %11.4E m**3\n", egv);
     if (egv > 0.0) {

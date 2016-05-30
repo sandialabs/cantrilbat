@@ -1307,7 +1307,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrode(int pSrc, bool subTime
         printf("                   time init  = %g\n", t_init_init_);
     }
     printf("   ===============================================================\n");
-    printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
+    printf("          Number of external surfaces = %d\n", (int) numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %10.3E\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %10.3E\n", egv);
     printf("          Temperature = %g\n", temperature_);

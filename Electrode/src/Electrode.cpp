@@ -5413,7 +5413,7 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
         double curr = integratedCurrent();
         printf("          Current = %12.5E amps\n", curr);
     }
-    printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
+    printf("          Number of external surfaces = %d\n", (int) numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %11.4E m**3\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %11.4E m**3\n", egv);
     if (egv > 0.0) {

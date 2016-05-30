@@ -4384,7 +4384,7 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
            electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     printf("   ==============================================================================================\n");
     printf("          Voltage = %g volts\n", deltaVoltage_);
-    printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
+    printf("          Number of external surfaces = %d\n", (int) numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %11.4E m**3\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %11.4E m**3\n", egv);
     if (egv > 0.0) {

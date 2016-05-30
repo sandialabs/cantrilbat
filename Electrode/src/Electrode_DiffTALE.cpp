@@ -4518,7 +4518,7 @@ void Electrode_DiffTALE::printElectrode(int pSrc, bool subTimeStep)
         printf("          Current = %g amps\n", integratedCurrent());
     }
 
-    printf("          Number of external surfaces = %d\n", numExternalInterfacialSurfaces_);
+    printf("          Number of external surfaces = %d\n", (int) numExternalInterfacialSurfaces_);
     printf("          Solid Volume = %10.3E\n", ElectrodeSolidVolume_);
     printf("          Total Volume = %10.3E\n", egv);
     if (egv > 0.0) {
