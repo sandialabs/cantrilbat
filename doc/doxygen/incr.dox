@@ -790,6 +790,14 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_Exception.cpp \
                          ../../Electrode/src/Electrode.h \
                          ../../Electrode/src/Electrode.cpp \
+                         ../../Electrode/src/Electrode_Capacity.cpp \
+                         ../../Electrode/src/ApplBase_print.h  \
+                         ../../Electrode/src/ApplBase_print.cpp \
+                         ../../Electrode/src/Electrode_XMLWriter.cpp \
+                         ../../Electrode/src/EState.h \
+                         ../../Electrode/src/EState.cpp \
+                         ../../Electrode/src/EState_XML.h \
+                         ../../Electrode/src/EState_XML.cpp
 
 
 # This tag can be used to specify the character encoding of the source files
