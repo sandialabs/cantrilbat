@@ -871,7 +871,7 @@ void Electrode_CSTR::extractInfo()
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         /*
@@ -922,12 +922,12 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
     }
 
     // Also need to update DphMoles_final_ since it is used in the residual calculation.
-    for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+    for (size_t ph = 0; ph <  phaseIndexSolidPhases_.size(); ph++) {
         int iph = phaseIndexSolidPhases_[ph];
         double DphaseMoles = 0.;
-        for(int sp=0; sp < numSpecInSolidPhases_[ph]; ++sp)
+        for (size_t sp = 0; sp < (size_t) numSpecInSolidPhases_[ph]; ++sp)
         {
-          int isp = getGlobalSpeciesIndex(iph, sp);
+          size_t isp = getGlobalSpeciesIndex(iph, sp);
           DphaseMoles += DspMoles_final_[isp];
         }
         DphMoles_final_[iph] = DphaseMoles;
@@ -1015,7 +1015,7 @@ void Electrode_CSTR::speciesProductionRates(doublereal* const spMoleDot)
     //
     // Look over active kinetics surfaces
     //
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
 	if (ActiveKineticsSurf_[isk]) {
 	    /*
 	     *  For each Reacting surface
@@ -1035,8 +1035,8 @@ void Electrode_CSTR::speciesProductionRates(doublereal* const spMoleDot)
 	    for (kph = 0; kph < nphRS; kph++) {
 		jph = RSD_List_[isk]->kinOrder[kph];
 		int istart = m_PhaseSpeciesStartIndex[jph];
-		int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-		for (int k = 0; k < nsp; k++) {
+		size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
+		for (size_t k = 0; k < nsp; k++) {
 		    spMoleDot[istart + k] += rsSpeciesProductionRates[kIndexKin] * surfaceAreaRS_final_[isk];
 		    kIndexKin++;
 		}

@@ -649,7 +649,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         /*
          *  Loop over phases, figuring out which phases have zero moles.
          *  Volume phases exist if the initial or final mole numbers are greater than zero
@@ -695,7 +695,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
     }
 
 
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         // Loop over phases, figuring out which phases have zero moles.
 
         if (ActiveKineticsSurf_[isk]) {
@@ -946,7 +946,7 @@ int Electrode_SimplePhaseChangeDiffusion::integrate(double deltaT, double  Globa
 
 restartStep:
 
-        for (int isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; isk++) {
             // Loop over phases, figuring out which phases have zero moles.
 
             if (ActiveKineticsSurf_[isk]) {
@@ -988,7 +988,7 @@ restartStep:
          *  this will do a lot more
          */
 
-        for (int isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; isk++) {
             // Loop over phases, figuring out which phases have zero moles.
 
             if (ActiveKineticsSurf_[isk]) {
@@ -1189,7 +1189,7 @@ restartStep:
         std::fill(deltaMoles.begin(), deltaMoles.end(), 0.);
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
             spMoles_tmp[k] = spMoles_init_[k];
-            for (int isk = 0; isk < numSurfaces_; isk++) {
+            for (size_t isk = 0; isk < numSurfaces_; isk++) {
                 if (ActiveKineticsSurf_[isk]) {
                     double sa = surAreaInternalEff;
                     if (isk == 0) {

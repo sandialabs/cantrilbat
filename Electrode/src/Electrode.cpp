@@ -324,7 +324,7 @@ Electrode& Electrode::operator=(const Electrode& right)
      * Copy over the ReactingSurDomain list
      * The electrode object owns the ReactingSurDomain. 
      */
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         bool idHit = false;
         //if (right.m_rSurDomain == right.RSD_List_[i]) {
         //	idHit = true;
@@ -776,7 +776,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     /*
      * Assign a reacting surface to each surface in the PhaseList object
      */
-    for (int isurf = 0; isurf < numSurfaces_; isurf++) {
+    for (size_t isurf = 0; isurf < numSurfaces_; isurf++) {
         // Right now there is a correspondence between isph and isurf for the initial read in.
         // However this may break in the future. Therefore, I've put in this logic for future expansion
         int isph = isurf;
@@ -994,7 +994,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     }
 
     kKinSpecElectron_sph_.resize(numSurfaces_, -1);
-    for (int isurf = 0; isurf < numSurfaces_; isurf++) {
+    for (size_t isurf = 0; isurf < numSurfaces_; isurf++) {
         kKinSpecElectron_sph_[isurf] = -1;
         ReactingSurDomain* rsd = RSD_List_[isurf];
         if (rsd) {
@@ -1627,7 +1627,7 @@ void Electrode::resizeSurfaceAreasToGeometry()
 
     double total = 0.0;
     double maxVal = -1.0;
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         if (maxVal < surfaceAreaRS_final_[i]) {
             maxVal = surfaceAreaRS_final_[i];
         }
@@ -1635,7 +1635,7 @@ void Electrode::resizeSurfaceAreasToGeometry()
     }
 
     if (total == 0.0) {
-        for (int i = 0; i < numSurfaces_; i++) {
+        for (size_t i = 0; i < numSurfaces_; i++) {
             surfaceAreaRS_final_[i] = totalSurfArea;
             surfaceAreaRS_init_[i] = totalSurfArea;
             surfaceAreaRS_init_init_[i] = totalSurfArea;
@@ -1651,7 +1651,7 @@ void Electrode::resizeSurfaceAreasToGeometry()
         }
     } else {
         double ratio = totalSurfArea / maxVal;
-        for (int i = 0; i < numSurfaces_; i++) {
+        for (size_t i = 0; i < numSurfaces_; i++) {
             surfaceAreaRS_final_[i] *= ratio;
             surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
             surfaceAreaRS_init_init_[i] = surfaceAreaRS_final_[i];
@@ -1680,7 +1680,7 @@ void Electrode::resizeParticleNumbersToMoleNumbers()
 //====================================================================================================================
 Cantera::ReactingSurDomain* Electrode::currOuterReactingSurface()
 {
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         if (ActiveKineticsSurf_[isk]) {
             return RSD_List_[isk];
         }
@@ -2074,33 +2074,21 @@ void Electrode::updateState_Phase(int iphI)
     }
 }
 //================================================================================================
-void Electrode::updatePhaseNumbersTmp(vector<doublereal>& spMoles_tmp, vector<doublereal>& phaseMoles_tmp,
-        vector<doublereal>& spMf_tmp)
+void Electrode::updatePhaseNumbersTmp(const vector<doublereal>& spMoles_tmp, vector<doublereal>& phaseMoles_tmp,
+        vector<doublereal>& spMf_tmp) const
 {
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        int istart = m_PhaseSpeciesStartIndex[iph];
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
         // ThermoPhase &tp = thermo(solnPhase_);
-        int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
+        size_t nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
         double tmp = 0.0;
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; k++) {
             tmp += spMoles_tmp[istart + k];
         }
         phaseMoles_tmp[iph] = tmp;
         if (tmp > 1.0E-200) {
-            for (int k = 0; k < nsp; k++) {
+            for (size_t k = 0; k < nsp; k++) {
                 spMf_tmp[istart + k] = spMoles_tmp[istart + k] / tmp;
-            }
-            if ((int) iph == solnPhase_) {
-#ifdef OLD_FOLLOW
-                if (!followElectrolyteMoles_) {
-                    ThermoPhase& tp = thermo(solnPhase_);
-                    tp.getMoleFractions(&spMf_tmp[istart]);
-                    for (int k = 0; k < nsp; k++) {
-                        spMoles_tmp[istart + k] = electrolytePseudoMoles_ * spMf_tmp[istart + k];
-                    }
-                    phaseMoles_tmp[iph] = electrolytePseudoMoles_;
-                }
-#endif
             }
         } else {
             // We are here when the mole numbers of the phase are zero. In this case, we still need
@@ -2492,11 +2480,11 @@ int Electrode::nSurfaces() const
     return numSurfaces_;
 }
 //====================================================================================================================
-int Electrode::nReactions(int isk) const
+size_t Electrode::nReactions(int isk) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
-        return 0;
+        return (size_t) 0;
     } else {
         return rsd->rmcVector.size();
     }
@@ -2504,7 +2492,7 @@ int Electrode::nReactions(int isk) const
 //====================================================================================================================
 void Electrode::getSurfaceAreas(double* const surfArea) const
 {
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         surfArea[i] = surfaceAreaRS_final_[i];
     }
 }
@@ -2687,7 +2675,7 @@ void Electrode::updateState_OnionOut()
 void Electrode::updateSurfaceAreas()
 {
     double totalSurfArea = 4.0 * Pi * Radius_exterior_final_ * Radius_exterior_final_ * particleNumberToFollow_;
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         if (surfaceAreaRS_final_[i] != 0.0) {
             surfaceAreaRS_final_[i] = totalSurfArea;
         }
@@ -2841,7 +2829,7 @@ double Electrode::getIntegratedProductionRatesCurrent(doublereal* const net) con
     if (pendingIntegratedStep_ != 1) {
         double* netOne = &deltaG_[0];
         std::fill_n(net, m_NumTotSpecies, 0.);
-        for (int isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
                 for (size_t k = 0; k < m_NumTotSpecies; k++) {
@@ -2864,7 +2852,7 @@ double Electrode::integratedCurrent() const
     if (pendingIntegratedStep_ != 1) {
         std::vector<double> net(m_NumTotSpecies, 0.0);
         double* netOne = &deltaG_[0];
-        for (int isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
                 for (size_t k = 0; k < m_NumTotSpecies; k++) {
@@ -2891,7 +2879,7 @@ double Electrode::integratedLocalCurrent() const
     if (pendingIntegratedStep_ != 1) {
         std::vector<double> net(m_NumTotSpecies, 0.0);
         double* netOne = &deltaG_[0];
-        for (int isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
                 for (size_t k = 0; k < m_NumTotSpecies; k++) {
@@ -3769,7 +3757,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         /*
          *  Loop over phases, figuring out which phases have zero moles.
          *  Volume phases exist if the initial or final mole numbers are greater than zero
@@ -3820,7 +3808,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
      *  this will do a lot more
      */
 
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         // Loop over phases, figuring out which phases have zero moles.
 
         if (ActiveKineticsSurf_[isk]) {
@@ -3879,7 +3867,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
 
     for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
-        for (int isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 sa_init = surfaceAreaRS_init_[isk];
                 sa_final = surfaceAreaRS_final_[isk];
@@ -4442,10 +4430,9 @@ void Electrode::setFinalStateFromInit()
  */
 void Electrode::setInitStateFromInitInit(bool setFinal)
 {
-    int i;
 
     // reset surface quantities
-    for (i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         surfaceAreaRS_init_[i] = surfaceAreaRS_init_init_[i];
     }
     // Reset total species quantities
@@ -4530,7 +4517,7 @@ void Electrode::setFinalFinalStateFromFinal()
  */
 void Electrode::setFinalFinalStateFromFinal_Oin()
 {
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         surfaceAreaRS_final_final_[i] = surfaceAreaRS_final_[i];
     }
 
@@ -4824,7 +4811,7 @@ void Electrode::speciesProductionRates(doublereal* const spMoleDot)
     //
     // Look over active kinetics surfaces
     //
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
 	if (ActiveKineticsSurf_[isk]) {
 	    /*
 	     *  For each Reacting surface
@@ -5309,7 +5296,7 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
  */
 void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpeciesPhases)
 {
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         /*
          *  Loop over phases, figuring out which phases have zero moles.
          *  Volume phases exist if the initial or final mole numbers are greater than zero

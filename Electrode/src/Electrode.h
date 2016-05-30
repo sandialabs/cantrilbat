@@ -511,7 +511,7 @@ public:
      *
      *   @return                          Returns the number of reactions
      */
-    int nReactions(int isk) const ;
+    size_t nReactions(int isk) const ;
 
     //! Return a vector of surface phase areas.
     /*!
@@ -2301,8 +2301,14 @@ public:
     int numExtraGlobalRxnPathways() const;
 
 // Deprecate
-    void updatePhaseNumbersTmp(std::vector<doublereal>& spMoles_tmp,
-                               std::vector<doublereal>& phaseMoles_tmp, std::vector<doublereal>& spMf_tmp);
+    //! Calculate phaseMoles and species mole fractions without changing the current electrode object
+    /*!
+     *  @param[in]           spMoles_tmp         Vector of current mole numbers (kmol)
+     *  @param[out]          phaseMoles_tmp      Calculated vector of phase mole numbers (kmol)
+     *  @param[out]          spMf_tmp            Calculated vector of species mole fractions
+     */
+    void updatePhaseNumbersTmp(const std::vector<doublereal>& spMoles_tmp,
+                               std::vector<doublereal>& phaseMoles_tmp, std::vector<doublereal>& spMf_tmp) const;
 
     //-----------------------------------------------------------------------------------------------------------------
     // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------------------------
@@ -2572,7 +2578,7 @@ protected:
      *   However, this can change. Each surface will have a surface area associated with it
      *   and it may have an active Kinetics object associated with it.
      */
-    int numSurfaces_;
+    size_t numSurfaces_;
 
     //!  Integer representing whehter we keep a conserved quantity for the electrolyte phase mole numbers or not 
     /*!

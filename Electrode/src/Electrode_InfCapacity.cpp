@@ -168,7 +168,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
      *  this will do a lot more
      */
 
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         // Loop over phases, figuring out which phases have zero moles.
 
         if (ActiveKineticsSurf_[isk]) {
@@ -223,7 +223,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
     for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
-        for (int isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 sa_final = surfaceAreaRS_final_[isk];
                 double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);

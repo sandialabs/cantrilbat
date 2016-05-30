@@ -4098,7 +4098,7 @@ void  Electrode_DiffTALE::extractInfo()
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.0);
         /*

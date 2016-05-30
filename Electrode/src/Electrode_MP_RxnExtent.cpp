@@ -642,7 +642,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  Update the calculation of the internal radius and all of the surface areas
      */
     Electrode_MP_RxnExtent::updateSurfaceAreas();
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         surfaceAreaRS_init_[i]        = surfaceAreaRS_final_[i];
         surfaceAreaRS_final_final_[i] = surfaceAreaRS_final_[i];
         surfaceAreaRS_init_init_[i]   = surfaceAreaRS_final_[i];
@@ -831,7 +831,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
      *  Update the calculation of the internal radius and all of the surface areas
      */
     Electrode_MP_RxnExtent::updateSurfaceAreas();
-    for (int i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; i++) {
         surfaceAreaRS_init_[i]        = surfaceAreaRS_final_[i];
         surfaceAreaRS_final_final_[i] = surfaceAreaRS_final_[i];
         surfaceAreaRS_init_init_[i]   = surfaceAreaRS_final_[i];

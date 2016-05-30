@@ -199,7 +199,7 @@ restartStep:
              * kinetics operator
              */
 
-            for (int isk = 0; isk < numSurfaces_; isk++) {
+            for (size_t isk = 0; isk < numSurfaces_; isk++) {
                 /*
                  *  Loop over phases, figuring out which phases have zero moles.
                  *  Volume phases exist if the initial or final mole numbers are greater than zero
@@ -256,7 +256,7 @@ restartStep:
              *  this will do a lot more
              */
 
-            for (int isk = 0; isk < numSurfaces_; isk++) {
+            for (size_t isk = 0; isk < numSurfaces_; isk++) {
                 // Loop over phases, figuring out which phases have zero moles.
 
                 if (ActiveKineticsSurf_[isk]) {
@@ -442,7 +442,7 @@ restartStep:
              *  Now apply the damping.
              */
             spMoles_tmp = spMoles_init_;
-            for (int isk = 0; isk < numSurfaces_; isk++) {
+            for (size_t isk = 0; isk < numSurfaces_; isk++) {
                 if (ActiveKineticsSurf_[isk]) {
                     sa_init =  surfaceAreaRS_init_[isk];
                     sa_final = surfaceAreaRS_final_[isk];
@@ -636,7 +636,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         /*
          *  Loop over phases, figuring out which phases have zero moles.
          *  Volume phases exist if the initial or final mole numbers are greater than zero
@@ -688,7 +688,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
      *  this will do a lot more
      */
 
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
         // Loop over phases, figuring out which phases have zero moles.
 
         if (ActiveKineticsSurf_[isk]) {
