@@ -136,22 +136,23 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "ZnSO4_electrolyte"
                                                    233.254 J/gmol/K 
         Electronic Charge = 0.000000
         Molecular Weight = 18.0153 gm/mol
-        Heat of formation (298.15K) = -68.317100 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Heat of formation (298.15K) = -68.317105 kcal/gmol
+        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (440,101325) = 0.0185439 m3/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = 0.0200113 m3/kmol
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0185439 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0.0200113 m3/kmol
         species partial Molar Volume = 0.0185439 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 0
                PDSS min Temperature  = 200
                PDSS max Temperature  = 10000
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                Water PDSS thermo type
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -162,7 +163,7 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "ZnSO4_electrolyte"
 |    320.00 |     0.3932         -5.3619        18.0004      17.9847   |     -73.6790 | 
 |    333.15 |     0.6301         -5.6032        18.0194      18.7099   |     -73.9203 | 
 |    340.00 |     0.7535         -5.7326        18.0338      19.0768   |     -74.0497 | 
-|    360.00 |     1.1148         -6.1245        18.0942      20.1092   |     -74.4416 | 
+|    360.00 |     1.1148         -6.1245        18.0943      20.1092   |     -74.4416 | 
 |    373.15 |     1.3531         -6.3933        18.1517      20.7593   |     -74.7104 | 
 |    380.00 |     1.4776         -6.5366        18.1879      21.0897   |     -74.8537 | 
 |    400.00 |     1.8430         -6.9678        18.3232      22.0254   |     -75.2849 | 
@@ -184,9 +185,9 @@ INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (440,101325) = 0.0174662 m3/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = -0.0194395 m3/kmol
-        species partial Molar Volume = 0.0174662 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0174661 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = -0.0194396 m3/kmol
+        species partial Molar Volume = 0.0174661 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 1
@@ -211,18 +212,18 @@ INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
-|**  273.15*|    -0.0448          7.1520        -7.5950     -26.3476   |     -29.5201 | 
-|    298.15 |     0.0000          7.8115         7.8362     -26.2000   |     -28.8606 | 
+|**  273.15*|    -0.0448          7.1520        -7.5953     -26.3476   |     -29.5201 | 
+|    298.15 |     0.0000          7.8115         7.8361     -26.2000   |     -28.8606 | 
 |    300.00 |     0.0150          7.8600         8.3898     -26.1498   |     -28.8122 | 
 |    320.00 |     0.2279          8.3765        12.4054     -25.4644   |     -28.2957 | 
-|    333.15 |     0.4014          8.7079        13.8941     -24.9330   |     -27.9643 | 
+|    333.15 |     0.4014          8.7079        13.8940     -24.9330   |     -27.9643 | 
 |    340.00 |     0.4986          8.8777        14.4706     -24.6442   |     -27.7944 | 
-|    360.00 |     0.8010          9.3619        15.6715     -23.7803   |     -27.3102 | 
+|    360.00 |     0.8010          9.3619        15.6714     -23.7803   |     -27.3102 | 
 |    373.15 |     1.0108          9.6709        16.2060     -23.2081   |     -27.0012 | 
-|    380.00 |     1.1225          9.8287        16.4315     -22.9112   |     -26.8434 | 
-|    400.00 |     1.4559         10.2778        16.9437     -22.0547   |     -26.3943 | 
-|    420.00 |     1.7977         10.7096        17.3058     -21.2189   |     -25.9625 | 
-|    440.00 |     2.1451         11.1245        17.5720     -20.4077   |     -25.5477 | 
+|    380.00 |     1.1226          9.8289        16.4315     -22.9112   |     -26.8433 | 
+|    400.00 |     1.4567         10.2785        16.9437     -22.0545   |     -26.3936 | 
+|    420.00 |     1.7993         10.7112        17.3058     -21.2187   |     -25.9609 | 
+|    440.00 |     2.1482         11.1274        17.5721     -20.4072   |     -25.5447 | 
 ---------------------------------------------------------------------------------------
 
 =======================================================================================
@@ -236,13 +237,13 @@ INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
                                                    442.350 J/gmol/K 
         Electronic Charge = -2.000000
         Molecular Weight = 96.0647 gm/mol
-        Heat of formation (298.15K) = -217.422456 kcal/gmol
+        Heat of formation (298.15K) = -217.422452 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (440,101325) = 0.0345438 m3/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = -0.00236189 m3/kmol
-        species partial Molar Volume = 0.0345438 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.0345436 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = -0.00236212 m3/kmol
+        species partial Molar Volume = 0.0345436 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 2
@@ -267,14 +268,14 @@ INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
-|**  273.15*|     1.9964         -1.1511      -109.7508      11.5232   |    -218.5736 | 
-|    298.15 |     0.0000         -1.3417       -61.5184       4.5000   |    -218.7641 | 
-|    300.00 |    -0.1124         -1.3496       -59.9951       4.1242   |    -218.7721 | 
-|    320.00 |    -1.2010         -1.3956       -50.6745       0.6080   |    -218.8181 | 
-|    333.15 |    -1.8533         -1.3903       -48.9266      -1.3897   |    -218.8127 | 
-|    340.00 |    -2.1879         -1.3774       -48.8451      -2.3839   |    -218.7998 | 
-|    360.00 |    -3.1802         -1.3012       -50.8814      -5.2193   |    -218.7237 | 
-|    373.15 |    -3.8664         -1.2203       -53.6520      -7.0911   |    -218.6428 | 
+|**  273.15*|     1.9965         -1.1511      -109.7522      11.5233   |    -218.5736 | 
+|    298.15 |     0.0000         -1.3417       -61.5188       4.5000   |    -218.7641 | 
+|    300.00 |    -0.1124         -1.3496       -59.9955       4.1242   |    -218.7721 | 
+|    320.00 |    -1.2010         -1.3956       -50.6748       0.6080   |    -218.8181 | 
+|    333.15 |    -1.8533         -1.3903       -48.9269      -1.3898   |    -218.8128 | 
+|    340.00 |    -2.1879         -1.3774       -48.8453      -2.3839   |    -218.7998 | 
+|    360.00 |    -3.1802         -1.3013       -50.8816      -5.2193   |    -218.7237 | 
+|    373.15 |    -3.8664         -1.2203       -53.6521      -7.0911   |    -218.6428 | 
 |    380.00 |    -4.2396         -1.1683       -55.4715      -8.0824   |    -218.5908 | 
 |    400.00 |    -5.4109         -0.9767       -62.2111     -11.0855   |    -218.3991 | 
 |    420.00 |    -6.7369         -0.7228       -71.2460     -14.3193   |    -218.1453 | 
@@ -295,8 +296,8 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (440,101325) = 0.00922643 m3/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = 2.70041e-20 m3/kmol
+        Partial    Molar Volume at (T,P) of (440,100000) = 0.00922643 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = 0 m3/kmol
         species partial Molar Volume = 0.00922643 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
@@ -322,18 +323,18 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
-|**  273.15*|     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    340.00 |    -0.0000          0.0000         0.0000      -0.0000   |       0.0000 | 
-|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    373.15 |    -0.0000          0.0000         0.0000      -0.0000   |       0.0000 | 
-|    380.00 |    -0.0000          0.0000         0.0000      -0.0000   |       0.0000 | 
-|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|**  273.15*|    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    320.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    360.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    380.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    400.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    420.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    440.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
 
 =======================================================================================
@@ -347,13 +348,13 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
                                                    167.913 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 17.0079 gm/mol
-        Heat of formation (298.15K) = -54.979878 kcal/gmol
+        Heat of formation (298.15K) = -54.979873 kcal/gmol
         Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (440,101325) = -0.0038145 m3/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = -0.0130409 m3/kmol
-        species partial Molar Volume = -0.0038145 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (440,100000) = -0.00381462 m3/kmol
+        StandState Molar Volume at (T,P) of (440,100000) = -0.0130411 m3/kmol
+        species partial Molar Volume = -0.00381462 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 4
@@ -378,14 +379,14 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
-|**  273.15*|     1.0510          0.7399       -59.2652       1.1387   |     -54.2399 | 
-|    298.15 |     0.0000          0.7633       -31.4461      -2.5600   |     -54.2166 | 
-|    300.00 |    -0.0573          0.7682       -30.5615      -2.7518   |     -54.2117 | 
-|    320.00 |    -0.6036          0.8416       -25.0921      -4.5162   |     -54.1382 | 
-|    333.15 |    -0.9248          0.9076       -23.9971      -5.5003   |     -54.0723 | 
-|    340.00 |    -1.0887          0.9469       -23.8970      -5.9872   |     -54.0329 | 
-|    360.00 |    -1.5737          1.0806       -24.8805      -7.3730   |     -53.8993 | 
-|    373.15 |    -1.9097          1.1835       -26.3177      -8.2897   |     -53.7963 | 
+|**  273.15*|     1.0510          0.7399       -59.2659       1.1388   |     -54.2399 | 
+|    298.15 |    -0.0000          0.7633       -31.4463      -2.5600   |     -54.2166 | 
+|    300.00 |    -0.0573          0.7682       -30.5618      -2.7518   |     -54.2117 | 
+|    320.00 |    -0.6036          0.8416       -25.0923      -4.5162   |     -54.1382 | 
+|    333.15 |    -0.9248          0.9076       -23.9973      -5.5003   |     -54.0723 | 
+|    340.00 |    -1.0887          0.9469       -23.8971      -5.9872   |     -54.0329 | 
+|    360.00 |    -1.5737          1.0806       -24.8807      -7.3731   |     -53.8993 | 
+|    373.15 |    -1.9098          1.1835       -26.3177      -8.2897   |     -53.7963 | 
 |    380.00 |    -2.0931          1.2419       -27.2698      -8.7764   |     -53.7379 | 
 |    400.00 |    -2.6712          1.4319       -30.8058     -10.2578   |     -53.5479 | 
 |    420.00 |    -3.3306          1.6525       -35.5325     -11.8646   |     -53.3274 | 
