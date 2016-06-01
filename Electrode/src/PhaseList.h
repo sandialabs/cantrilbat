@@ -98,6 +98,16 @@ public:
      */
     void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode = 0);
 
+    //!  Add a phase to the list of phases held by this object
+    /*!
+     *  This routine will pick the first phase listed in the file, open it up and initialize it. It will assume
+     *  that it is a volume, surface, or edge phase depending on its dimensionality. 
+     *
+     *  @param[in]     vp                      Previously initialized ThermoPhase object to be added to PhaseList
+     *  @param[in]     vNode                   XML_Node pointer to the phase XML Node for the current object
+     */
+    void addPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode = 0);
+
     //! Add a volume phase to the volume PhaseList object given an XML file name
     /*!
      *  Add a volume phase to the PhaseList object. This routine doesn't add the kinetics information to the
@@ -168,6 +178,24 @@ public:
      *  @return                            Returns a pointer to the ThermoPhase object
      */
     Cantera::ThermoPhase* addEdgePhase(const std::string& canteraFile, const std::string& edgeID = "");
+
+    //! Add a phase to the PhaseList object given an XML file name
+    /*!
+     *  Add a volume, surface, or edge phase to the PhaseList object. This routine doesn't add the kinetics information to the
+     *  PhaseList object.
+     *
+     *  This routine will pick the first phase listed in the file, open it up and initialize it. It will assume
+     *  that it is a volume, surface, or edge phase depending on its dimensionality. 
+     *
+     *   @param[in]    canteraFile         String containing the XML file description of a %Cantera volume phase. The phase
+     *                                     may or may not have a kinetics object associated with it.
+     *
+     *   @param[in]    volID               String containing the ID() of the volume phase to be added. The default is "".
+     *                                     If the default is used, the first volume phase in the file is used.
+     *
+     *  @return                            Returns a pointer to the ThermoPhase object
+     */
+    Cantera::ThermoPhase* addPhase(const std::string& canteraFile, const std::string& volID = "");
 
     //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
     /*!

@@ -242,6 +242,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     return *this;
 }
+
 //==================================================================================================================================
 Cantera::ThermoPhase* PhaseList::
 addVolPhase(const std::string& canteraFile, const std::string& phaseID)
@@ -271,6 +272,29 @@ addEdgePhase(const std::string& canteraFile, const std::string& phaseID)
     Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
     addEdgePhase(tp, vPhase);
     return tp;
+}
+//==================================================================================================================================
+Cantera::ThermoPhase* PhaseList::
+addPhase(const std::string& canteraFile, const std::string& phaseID)
+{
+    XML_Node* xroot = get_XML_File(canteraFile);
+    XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    Cantera::ThermoPhase *tp = Cantera::newPhase(canteraFile, phaseID);
+    addPhase(tp, vPhase);
+    return tp;
+}
+//==================================================================================================================================
+void PhaseList::addPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vPhase)
+{
+    if (vp->nDim() == 3) {
+        addVolPhase(vp, vPhase);
+    } else if (vp->nDim() == 2) {
+        addSurPhase(vp, vPhase);
+    } else if (vp->nDim() == 1) {
+         addEdgePhase(vp, vPhase);
+    } else {
+          throw CanteraError("PhaseList::addPhase()", "unknown dimension");
+    }
 }
 //==================================================================================================================================
 /*
