@@ -19,14 +19,22 @@
 
 #include "Electrode_PhaseStability.h"
 
-using namespace Cantera;
+using #ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif;
 using namespace std;
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
 #endif
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //====================================================================================================================
@@ -783,6 +791,10 @@ void  Electrode_PhaseStability::determineBigMoleFractions()
     }
 }
 //====================================================================================================================
-} // End of namespace Cantera
+} // End of #ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
 //======================================================================================================================
 

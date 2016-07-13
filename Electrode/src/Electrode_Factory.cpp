@@ -19,7 +19,12 @@
 #include "RSD_OCVmodel.h"
 
 
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //====================================================================================================================
@@ -68,7 +73,7 @@ static void create_string_maps()
     for (std::map<Electrode_Types_Enum, std::string>::iterator pos = electrode_types_string.begin();
             pos != electrode_types_string.end(); ++pos) {
         string_electrode_types[pos->second] = pos->first;
-        std::string lll =  Cantera::lowercase(pos->second);
+        std::string lll =  ZZCantera::lowercase(pos->second);
         string_electrode_types[lll] = pos->first;
     }
 
@@ -76,7 +81,7 @@ static void create_string_maps()
     for (std::map<int, std::string>::iterator pos = gMap_ETEnum_String.OCVmodel_string.begin();
             pos != gMap_ETEnum_String.OCVmodel_string.end(); ++pos) {
         gMap_ETEnum_String.string_OCVmodel[pos->second] = pos->first;
-        std::string lll =  Cantera::lowercase(pos->second);
+        std::string lll =  ZZCantera::lowercase(pos->second);
         gMap_ETEnum_String.string_OCVmodel[lll] = pos->first;
     }
 
@@ -119,7 +124,7 @@ Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_str
 
     std::map<std::string, Electrode_Types_Enum>::iterator pos = string_electrode_types.find(input_string);
     if (pos == string_electrode_types.end())  {
-        std::string iii = Cantera::lowercase(input_string);
+        std::string iii = ZZCantera::lowercase(input_string);
         pos = string_electrode_types.find(iii);
         if (pos == string_electrode_types.end())  {
             return UNKNOWN_ET;
@@ -136,7 +141,7 @@ int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string)
     std::map<std::string, int>& string_OCVmodel = gMap_ETEnum_String.string_OCVmodel;
     std::map<std::string, int>::iterator pos    = string_OCVmodel.find(input_string);
     if (pos == string_OCVmodel.end())  {
-        std::string iii = Cantera::lowercase(input_string);
+        std::string iii = ZZCantera::lowercase(input_string);
         pos = string_OCVmodel.find(iii);
         if (pos == string_OCVmodel.end())  {
             return -1;
@@ -384,5 +389,5 @@ RSD_OCVmodel* newRSD_OCVmodel(std::string smodel, Electrode_Factory *f)
 }
 
 //====================================================================================================================
-} // End of namespace Cantera
-//======================================================================================================================
+} // End of ZZCantera Namespace
+//----------------------------------------------------------------------------------------------------------------------------------

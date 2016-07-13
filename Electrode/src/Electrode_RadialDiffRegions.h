@@ -16,7 +16,11 @@
 #include "Electrode_RadialRegion.h"
 #include "Electrode_SurfaceRegion.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 class Electrode_RadialRegion;

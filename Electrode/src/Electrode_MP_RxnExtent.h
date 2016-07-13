@@ -27,7 +27,11 @@
 
 class ELECTRODE_KEY_INPUT;
 class EGRInput;
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 class ELECTRODE_MP_RxnExtent_KEY_INPUT : public ELECTRODE_KEY_INPUT
@@ -131,7 +135,7 @@ public:
  *   radius value.
  *
  */
-class Electrode_MP_RxnExtent : public Cantera::Electrode_Integrator
+class Electrode_MP_RxnExtent : public ZZCantera::Electrode_Integrator
 {
 public:
 
@@ -1404,7 +1408,7 @@ protected:
 public:
 
     //! Hook for the nonlinear solver
-    //   Cantera::NonlinearSolver *pSolve_;
+    //   ZZCantera::NonlinearSolver *pSolve_;
 
     //  calcRate_ResidJacEval  *pSolve_Res_;
 

@@ -40,7 +40,6 @@
 #include <cfloat>
 #include <cstdlib>
 
-
 using namespace std;
 using namespace BEInput;
 using namespace mdpUtil;

@@ -21,7 +21,12 @@ using namespace std;
 using namespace BEInput;
 using namespace ca_ab;
 using namespace mdpUtil;
+
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 //================================================================================================
 ElectrodeBath::ElectrodeBath() :
@@ -157,7 +162,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     NumberCanteraFiles(1),
     CanteraFileNames(0),
     Temperature(300.),
-    Pressure(Cantera::OneAtm),
+    Pressure(ZZCantera::OneAtm),
     Vol(1.0),
     m_BG(0),
     MoleNumber(0),
@@ -440,7 +445,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      if (m_pl) {
 	 delete m_pl;
      }
-     m_pl = new Cantera::PhaseList(*(right.m_pl));
+     m_pl = new ZZCantera::PhaseList(*(right.m_pl));
 
      maxNumberSubGlobalTimeSteps         = right.maxNumberSubGlobalTimeSteps;
      relativeLocalToGlobalTimeStepMinimum = right.relativeLocalToGlobalTimeStepMinimum;
@@ -512,7 +517,7 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
  *         MoleNumberIG
  *         ElementAbundances
  */
-void ELECTRODE_KEY_INPUT::InitForInput(const Cantera::PhaseList* const pl)
+void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
 {
     nTotPhases  = pl->nPhases();
     nTotSpecies = pl->nSpecies();
@@ -1038,7 +1043,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          */
 
         if (tp->activityConvention() == cAC_CONVENTION_MOLALITY) {
-            Cantera::MolalityVPSSTP* m_ptr = dynamic_cast<Cantera::MolalityVPSSTP*>(tp);
+            ZZCantera::MolalityVPSSTP* m_ptr = dynamic_cast<ZZCantera::MolalityVPSSTP*>(tp);
             if (m_ptr == 0) {
                 printf("Dynamic cast failed for some reason\n");
                 exit(-1);

@@ -25,7 +25,11 @@
 
 using namespace std;
 //----------------------------------------------------------------------------------------------------------------------------------
-namespace Cantera 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
 {
 //==================================================================================================================================
 //!  Given an XML_Node pointing to a phase, add the phase to a PhaseList object

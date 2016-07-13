@@ -14,7 +14,6 @@
 
 #include "BlockEntryGlobal.h"
 
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -27,7 +26,12 @@ using namespace TKInput;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
+//--------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 
@@ -239,9 +243,6 @@ void  Electrode_SurfaceRegion::resetStartingCondition(double Tinitial, bool doRe
  */
 void Electrode_SurfaceRegion::updateState()
 {
-
-
-
 }
 //================================================================================================
 /*
@@ -249,22 +250,15 @@ void Electrode_SurfaceRegion::updateState()
  */
 void  Electrode_SurfaceRegion::extractInfoJustBorn(std::vector<int>& justBornMultiSpecies)
 {
-
-
 }
 //====================================================================================================================
 void Electrode_SurfaceRegion::printElectrode(int pSrc, bool subTimeStep)
 {
-
 }
 //===================================================================================================================
-
 void Electrode_SurfaceRegion::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
 {
-
-
 }
-
-
-} // End of namespace Cantera
 //======================================================================================================================
+} // End of namespace
+//--------------------------------------------------------------------------------------------------------------------------------

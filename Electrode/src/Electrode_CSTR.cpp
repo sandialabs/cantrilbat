@@ -9,7 +9,6 @@
 
 #include "cantera/numerics/NonlinearSolver.h"
 
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 
@@ -24,7 +23,12 @@ using namespace BEInput;
 #define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
 #endif
 
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 
@@ -2984,5 +2988,6 @@ double Electrode_CSTR::calcRelativeExtentRxn_final() const
 
 
 //====================================================================================================================
-} // End of namespace Cantera
-//======================================================================================================================
+} // End of ZZCantera namespace
+//----------------------------------------------------------------------------------------------------------------------------------
+

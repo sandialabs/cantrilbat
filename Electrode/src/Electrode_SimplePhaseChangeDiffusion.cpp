@@ -10,7 +10,6 @@
 
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -23,7 +22,11 @@ using namespace TKInput;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //======================================================================================================================
 /*
@@ -1417,7 +1420,6 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
     delete [] netROP;
 
 }
-
-
-} // End of namespace Cantera
-//======================================================================================================================
+//==================================================================================================================================
+} // End of namespace
+//----------------------------------------------------------------------------------------------------------------------------------

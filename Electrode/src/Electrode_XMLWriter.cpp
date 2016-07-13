@@ -9,7 +9,11 @@
 
 using namespace std;
 //-----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //===================================================================================================================================
 // Specifies the amount of output that the Electrode object writes to its solution file
@@ -376,16 +380,16 @@ void Electrode::writeSolutionTimeIncrement()
     /*
      *  Start a new root XML element and put the top elements in
      */
-    Cantera::XML_Node root("--");
-    Cantera::XML_Node& ct = root.addChild("ctml");
-    Cantera::XML_Node& soln = ct.addChild("electrodeOutput");
+    ZZCantera::XML_Node root("--");
+    ZZCantera::XML_Node& ct = root.addChild("ctml");
+    ZZCantera::XML_Node& soln = ct.addChild("electrodeOutput");
 
     /*
      *  Add the integer attribute, index, to the electrodeOutput element.
      *  -> so far we have an index of one. However, if there are continuation runs in the
      *     file and we want to add more than one
      */
-    std::string ii = Cantera::int2str(solnNum);
+    std::string ii = ZZCantera::int2str(solnNum);
     soln.addAttribute("index", ii);
 
     stepNum++;
@@ -406,8 +410,8 @@ void Electrode::writeSolutionTimeIncrement()
     /*
      *  Add the globalTimeStep XML element with the global time step number as an attribute
      */
-    Cantera::XML_Node& gts = soln.addChild("globalTimeStep");
-    ii = Cantera::int2str(stepNum);
+    ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
+    ii = ZZCantera::int2str(stepNum);
     gts.addAttribute("index", ii);
     std::string fmt = "%22.14E";
 

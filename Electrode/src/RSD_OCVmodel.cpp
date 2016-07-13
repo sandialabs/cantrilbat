@@ -22,7 +22,11 @@
 #include <cstdlib>
 
 //-----------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //=============================================================================================================================
 //  Here we make a map of all ModelID's to string associations that we support

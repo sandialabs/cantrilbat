@@ -7,8 +7,12 @@
 #include <map>
 #include <vector>
 
-namespace Cantera {
-
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 //====================================================================================================================
 Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
     electrode(elect),
@@ -112,5 +116,5 @@ void Electrode_Jacobian::remove_entry_to_compute(DOF_SOURCE_PAIR entry)
     }
 }
 //====================================================================================================================
-}// End of namespace Cantera
-
+} // End of namespace
+//----------------------------------------------------------------------------------------------------------------------------------

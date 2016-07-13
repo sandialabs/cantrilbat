@@ -20,7 +20,11 @@
 #include <string>
 #include <vector>
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 #define ELECTRODETYPE_ANODE   0

@@ -7,11 +7,15 @@
 #include "Electrode_Factory.h"
 #include <cmath>
 //----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //==================================================================================================================================
 Electrode_Error::Electrode_Error(const std::string &proc, const std::string &msg) :
-    Cantera::CanteraError("Electrode_Error: " + proc, msg)
+    ZZCantera::CanteraError("Electrode_Error: " + proc, msg)
 {
 }
 //==================================================================================================================================
@@ -20,7 +24,7 @@ Electrode_Error::~Electrode_Error() throw()
 }
 //==================================================================================================================================
 Electrode_Error::Electrode_Error() :
-    Cantera::CanteraError()
+    ZZCantera::CanteraError()
 {
 }
 
@@ -29,16 +33,16 @@ Electrode_Error::Electrode_Error() :
 namespace esmodel 
 {
 //==================================================================================================================================
-void Electrode_Warning(const Cantera::Electrode& e,  const std::string &procedure, const std::string &msg)
+void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string &procedure, const std::string &msg)
 {
     int eDom = e.electrodeDomainNumber_;
     int eCell = e.electrodeCellNumber_;
     int printLvl_ = e.printLvl_;
 
     if (printLvl_) {
-    Cantera::Electrode_Types_Enum etype = e.electrodeType();
+    ZZCantera::Electrode_Types_Enum etype = e.electrodeType();
     std::string estring = Electrode_Types_Enum_to_string(etype);
-    std::string pmsg = "Electrode_Warning: dom: " + Cantera::int2str(eDom) + " Cell: " + Cantera::int2str(eCell) + ": " + estring + ":" + procedure;
+    std::string pmsg = "Electrode_Warning: dom: " + ZZCantera::int2str(eDom) + " Cell: " + ZZCantera::int2str(eCell) + ": " + estring + ":" + procedure;
     std::cerr << pmsg << " " << msg << std::endl; 
    }
 }

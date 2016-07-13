@@ -6,7 +6,6 @@
 #include "Electrode_Integrator.h"
 #include "cantera/numerics/NonlinearSolver.h"
 
-using namespace Cantera;
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
@@ -20,7 +19,12 @@ using namespace Cantera;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //======================================================================================================================
@@ -94,7 +98,7 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
 	TimeStepHistory& tshPrevious =  TimeStepList_[iCounter-1];
 	double t_final_calc_Previous =  tshPrevious.t_final_calc_;
 	if (fabs(t_init - t_final_calc_Previous) > 1.0E-13) {
-	    throw Cantera::CanteraError("Shouldn't be here","");
+	    throw ZZCantera::CanteraError("Shouldn't be here","");
 	}
     }
     if (timeTypeSoln != 2) {
@@ -455,7 +459,7 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
     }
 
     Electrode::operator=(right);
-    Cantera::ResidJacEval::operator=(right);
+    ZZCantera::ResidJacEval::operator=(right);
 
     neq_                                = right.neq_;
     deltaTsubcycleCalc_                 = right.deltaTsubcycleCalc_;
@@ -2573,6 +2577,6 @@ SubIntegrationHistory& Electrode_Integrator::timeHistory(bool returnBase)
     }
     return timeHistory_current_;
 }
-
-} // End of namespace Cantera
-//======================================================================================================================
+//==================================================================================================================================
+} // End of namespace
+//----------------------------------------------------------------------------------------------------------------------------------

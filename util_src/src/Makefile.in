@@ -38,12 +38,12 @@ CT_BIN = @ct_bindir@
 
 CT_LIB = @ct_libdir@
 
-
+useZuzaxNamespace = 1
 do_immediate_install = 0
 #
 # Bring in the Cantera includes through the .mak file
 #
-include $(CT_INCROOT)/cantera/Cantera.mak
+#include $(CT_INCROOT)/cantera/Cantera.mak
 #
 INCDIR = $(CT_INCROOT)/util_src
 
@@ -127,7 +127,7 @@ LCXX_FLAGS =  @CXXFLAGS@
 	$(PURIFY) $(CXX) -c $< $(CXX_FLAGS)
 
 %.d:
-	@CXX_DEPENDS@ -I$(CANTERA_INCDIR) $(CXX_FLAGS) $*.cpp > $*.d
+	@CXX_DEPENDS@  $(CXX_FLAGS) $*.cpp > $*.d
 
 ####################################################################
 #  Description of make all

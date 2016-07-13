@@ -3,7 +3,7 @@
  *   Definitions for ThermoPhase object for phases which
  *   employ excess gibbs free energy formulations related to RedlichKister
  *   expansions (see \ref thermoprops
- *    and class \link Cantera::RedlichKisterVPSSTP RedlichKisterVPSSTP\endlink).
+ *    and class \link Zuzax::RedlichKisterVPSSTP RedlichKisterVPSSTP\endlink).
  *
  */
 /*
@@ -17,7 +17,11 @@
 
 using namespace std;
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //========================================================================================================================
 OCVMOD_RedlichKisterVPSSTP::OCVMOD_RedlichKisterVPSSTP() :

@@ -12,7 +12,6 @@
 #include "ApplBase_print.h"
 #include "cantera/kinetics/ExtraGlobalRxn.h"
 
-using namespace Cantera;
 using namespace std;
 
 #ifndef MIN
@@ -24,8 +23,13 @@ using namespace std;
 
 // HKM debug code to turn it back to the bad way of doing things to see what the damage was
 //#define OLD_FOLLOW 1
-
-namespace Cantera {
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 //======================================================================================================================
 // By default predictor_corrector printing is turned on, at least to the printLvl_ level.
 int Electrode::s_printLvl_PREDICTOR_CORRECTOR = 1;
@@ -457,10 +461,10 @@ Electrode& Electrode::operator=(const Electrode& right)
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = right.integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
     electrodeName_ = right.electrodeName_;
     numExtraGlobalRxns = right.numExtraGlobalRxns;
-    Cantera::deepStdVectorPointerCopy<EGRInput>(right.m_EGRList, m_EGRList);
-    Cantera::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
-    Cantera::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
-    Cantera::deepStdVectorPointerCopy<OCV_Override_input>(right.OCVoverride_ptrList_, OCVoverride_ptrList_);
+    ZZCantera::deepStdVectorPointerCopy<EGRInput>(right.m_EGRList, m_EGRList);
+    ZZCantera::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
+    ZZCantera::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
+    ZZCantera::deepStdVectorPointerCopy<OCV_Override_input>(right.OCVoverride_ptrList_, OCVoverride_ptrList_);
     metalPhase_ = right.metalPhase_;
     solnPhase_ = right.solnPhase_;
     kElectron_ = right.kElectron_;
@@ -655,7 +659,7 @@ int Electrode::electrode_input_child(ELECTRODE_KEY_INPUT** ei)
 //======================================================================================================================
 void ErrorModelType(int pos, std::string actual, std::string expected)
 {
-    throw Cantera::CanteraError("Electrode::electrode_model_create() model id",
+    throw ZZCantera::CanteraError("Electrode::electrode_model_create() model id",
                                 "At pos " + int2str(pos) + ", expected phase " + expected + " but got phase " + actual);
 }
 //==================================================================================================================================
@@ -790,7 +794,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             // Check to see if we have entered an OCVoverride for this species. If we have then
             // modify the reacting surface
             //
-	    Cantera::OCV_Override_input *ocv_ptr = ei->OCVoverride_ptrList[isurf];
+	    ZZCantera::OCV_Override_input *ocv_ptr = ei->OCVoverride_ptrList[isurf];
             if (ocv_ptr->numTimes > 0) {
 
                rsd->addOCVoverride(ocv_ptr);
@@ -803,7 +807,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             ActiveKineticsSurf_[isurf] = 1;
         }
     }
-    Cantera::deepStdVectorPointerCopy<OCV_Override_input>(ei->OCVoverride_ptrList, OCVoverride_ptrList_);
+    ZZCantera::deepStdVectorPointerCopy<OCV_Override_input>(ei->OCVoverride_ptrList, OCVoverride_ptrList_);
     //OCVoverride_ptrList_ = ei->OCVoverride_ptrList;
 
     /*
@@ -1678,7 +1682,7 @@ void Electrode::resizeParticleNumbersToMoleNumbers()
     resizeSurfaceAreasToGeometry();
 }
 //====================================================================================================================
-Cantera::ReactingSurDomain* Electrode::currOuterReactingSurface()
+ZZCantera::ReactingSurDomain* Electrode::currOuterReactingSurface()
 {
     for (size_t isk = 0; isk < numSurfaces_; isk++) {
         if (ActiveKineticsSurf_[isk]) {
@@ -1688,7 +1692,7 @@ Cantera::ReactingSurDomain* Electrode::currOuterReactingSurface()
     return 0;
 }
 //====================================================================================================================
-Cantera::ReactingSurDomain* Electrode::reactingSurface(int iSurf)
+ZZCantera::ReactingSurDomain* Electrode::reactingSurface(int iSurf)
 {
     return RSD_List_[iSurf];
 }
@@ -3661,7 +3665,7 @@ void Electrode::addExtraGlobalRxn(EGRInput* egr_ptr)
     InterfaceKinetics* iKA = RSD_List_[0];
     int nReactionsA = iKA->nReactions();
 
-    Cantera::ExtraGlobalRxn* egr = new ExtraGlobalRxn(iKA);
+    ZZCantera::ExtraGlobalRxn* egr = new ExtraGlobalRxn(iKA);
     double* RxnVector = new double[nReactionsA];
     for (int i = 0; i < nReactionsA; i++) {
         RxnVector[i] = 0.0;
@@ -3689,7 +3693,7 @@ int Electrode::processExtraGlobalRxnPathways()
     return numExtraGlobalRxns;
 }
 //====================================================================================================================
-Cantera::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(int iegr)
+ZZCantera::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(int iegr)
 {
     return m_egr[iegr];
 }
@@ -3941,7 +3945,7 @@ int Electrode::phasePop(int iphaseTarget, double* const Xmf_stable, double delta
      */
     Electrode::phasePop_Resid* pSolve_Res = new phasePop_Resid(this, iphaseTarget, Xmf_stable, deltaTsubcycle);
 
-    Cantera::solveProb* pSolve = new solveProb(pSolve_Res);
+    ZZCantera::solveProb* pSolve = new solveProb(pSolve_Res);
     pSolve->m_ioflag = 10;
     pSolve->setAtolConst(1.0E-11);
     retn = pSolve->solve(solveProb::RESIDUAL, 1.0E-6, 1.0E-3);
@@ -5893,6 +5897,6 @@ void Electrode::writeCSVData(int itype)
         fclose(fpG);
     }
 }
-//====================================================================================================================
-}// End of namespace Cantera
-//======================================================================================================================
+//==================================================================================================================================
+}// End of namespace
+//----------------------------------------------------------------------------------------------------------------------------------

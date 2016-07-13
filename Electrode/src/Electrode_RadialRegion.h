@@ -13,7 +13,11 @@
 
 #include "Electrode_Integrator.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 class ELECTRODE_RadialRegion_KEY_INPUT : public ELECTRODE_KEY_INPUT
@@ -136,7 +140,7 @@ class Electrode_RadialDiffRegions;
  *  Also the region lies between a starting radius and an ending radius.
  *
  */
-class Electrode_RadialRegion : public Cantera::Electrode_Integrator
+class Electrode_RadialRegion : public ZZCantera::Electrode_Integrator
 {
 public:
     //! Constructor

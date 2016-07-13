@@ -15,16 +15,19 @@
 #include "Electrode.h"
 #include "cantera/numerics/ResidJacEval.h"
 //-----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
-
 //===================================================================================================================================
 //! This class is a derived class used to carry out fully coupled simulations
 /*!
  * Complete problem statement
  *
  */
-class GFCEO_Electrode : public Cantera::ResidJacEval
+class GFCEO_Electrode : public ZZCantera::ResidJacEval
 {
 public:
 
@@ -390,8 +393,8 @@ protected:
     bool iOwnObject_;
 
 };
-
-} // End namespace Cantera
-//-----------------------------------------------------------------------------------------------------------------------------------
+//==================================================================================================================================
+} // End  of namespace
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
 

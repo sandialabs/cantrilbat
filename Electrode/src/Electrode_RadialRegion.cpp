@@ -15,7 +15,6 @@
 
 #include "BlockEntryGlobal.h"
 
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -27,8 +26,12 @@ using namespace TKInput;
 #ifndef MIN
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
-
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //====================================================================================================================
@@ -1916,6 +1919,6 @@ void Electrode_RadialRegion::radialGridGenerate(int numPoints, doublereal radius
     radialMesh[numPoints - 1] = radiusOuter;
 
 }
-
-} // End of namespace Cantera
 //======================================================================================================================
+} // End of namespace
+//----------------------------------------------------------------------------------------------------------------------------------

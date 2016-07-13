@@ -12,9 +12,16 @@
 #ifndef IMPORTPL_H
 #define IMPORTPL_H
 
+#include "Electrode_defs.h"
+
 #include <string>
 
+
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 class PhaseList;
@@ -29,7 +36,7 @@ class PhaseList;
  *
  * @return                      Returns the number of phases added to the PhaseList object.
  */
-size_t importAllCTMLIntoPhaseList(Cantera::PhaseList* const pl, const std::string& canteraFile);
+size_t importAllCTMLIntoPhaseList(ZZCantera::PhaseList* const pl, const std::string& canteraFile);
 
 }
 #endif

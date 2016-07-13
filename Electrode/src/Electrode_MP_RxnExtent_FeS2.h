@@ -19,7 +19,7 @@ namespace Cantera
 
 
 
-class Electrode_MP_RxnExtent_FeS2 : public Cantera::Electrode_MP_RxnExtent
+class Electrode_MP_RxnExtent_FeS2 : public ZZCantera::Electrode_MP_RxnExtent
 {
 public:
 

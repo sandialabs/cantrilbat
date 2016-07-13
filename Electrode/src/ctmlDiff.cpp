@@ -44,7 +44,11 @@
 #include "tok_input_util.h"
 
 using namespace std;
-using namespace Cantera;
+using #ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif;
 using namespace TKInput;
 
 #ifdef WIN32

@@ -14,7 +14,11 @@
 #include "ReactingSurDomain.h"
 #include "RSD_OCVmodel.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 /**
@@ -93,7 +97,7 @@ public:
     void setup_Start(std::vector<double>& stoichVector, RSD_OCVmodel* OCVmodel);
 
 
-    void setup_AddThermoPhase(std::vector<double>& stoichVector, Cantera::ThermoPhase *tp);
+    void setup_AddThermoPhase(std::vector<double>& stoichVector, ZZCantera::ThermoPhase *tp);
     
     //!
     /*!
@@ -114,7 +118,7 @@ public:
 
     std::vector<double> stoichRxn_;
 
-    std::vector<Cantera::ThermoPhase*> extraTPList_;
+    std::vector<ZZCantera::ThermoPhase*> extraTPList_;
     std::vector< std::vector<double> > extraStoichRxn_;
 
     size_t replacedLocalSpeciesID;

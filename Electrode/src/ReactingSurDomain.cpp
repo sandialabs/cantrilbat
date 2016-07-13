@@ -1,7 +1,7 @@
 /**
  * @file ReactingSurDomain.cpp
  *  Definitions for the ElectrodeKinetics object that does handles interactions with the PhaseList object
- *  (see \ref ExtendedPhaseGroups and class \link Cantera::ReactingSurDomain ReactingSurDomain\endlink).
+ *  (see \ref ExtendedPhaseGroups and class \link Zuzax::ReactingSurDomain ReactingSurDomain\endlink).
  */
 
 /*
@@ -21,7 +21,11 @@
 #include "mdp_allo.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //====================================================================================================================
 /*
@@ -111,7 +115,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     operator=(right);
 }
 //==================================================================================================================================
-ReactingSurDomain::ReactingSurDomain(Cantera::PhaseList* pl, size_t iskin) :
+ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     ElectrodeKinetics(),
     numPhases_(0),
     kinOrder(pl->nPhases(), npos),
@@ -788,7 +792,7 @@ void ReactingSurDomain::finalize()
 }
 //==================================================================================================================================
 bool ReactingSurDomain::
-importFromPL(Cantera::PhaseList* const pl, size_t iskin)
+importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
 {
     try {
         //

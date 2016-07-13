@@ -6,7 +6,11 @@
 
 using namespace std;
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //======================================================================================================================
 /*
@@ -309,7 +313,7 @@ void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(doublereal* const pha
     double sum = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseMolesTransfered[iph] = 0.0;
-        Cantera::ThermoPhase& tp = thermo(iph);
+        ZZCantera::ThermoPhase& tp = thermo(iph);
         string pname = tp.id();
         int istart = m_PhaseSpeciesStartIndex[iph];
         int nsp = tp.nSpecies();
@@ -321,5 +325,5 @@ void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(doublereal* const pha
     }
 }
 //====================================================================================================================
-} // End of namespace Cantera
-//======================================================================================================================
+} // End of namespace
+//--------------------------------------------------------------------------------------------------------------------

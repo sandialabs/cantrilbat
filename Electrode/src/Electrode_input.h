@@ -11,6 +11,8 @@
 #ifndef _ELECTRODE_INPUT_H
 #define _ELECTRODE_INPUT_H
 
+#include "Electrode_defs.h"
+
 #include "PhaseList.h"
 //  adding this file here because most applications will use the object
 #include "BE_BlockEntry.h"
@@ -178,7 +180,7 @@ public:
      *
      *  @param pl   Pointer to the phase list
      */
-    virtual void InitForInput(const Cantera::PhaseList*   const pl);
+    virtual void InitForInput(const ZZCantera::PhaseList*   const pl);
 
     //! setup for pass1
     /*!
@@ -368,7 +370,7 @@ public:
     /*
      *   This is stored as a series of 
      */
-    std::vector<Cantera::OCV_Override_input *> OCVoverride_ptrList;
+    std::vector<ZZCantera::OCV_Override_input *> OCVoverride_ptrList;
 
     //! level of the xml State information created
     /*!
@@ -478,7 +480,7 @@ public:
      * this includes all of the phases, "period".
      *  In particular this includes the surface phases
      */
-    Cantera::PhaseList* m_pl;
+    ZZCantera::PhaseList* m_pl;
 
     //! Maximum number of subGlobal time step iterations
     int maxNumberSubGlobalTimeSteps;
@@ -539,7 +541,7 @@ public:
     ~EGRInput();
 };
 
-void setElectrodeBathSpeciesConditions(Cantera::ThermoPhase& g,
+void setElectrodeBathSpeciesConditions(ZZCantera::ThermoPhase& g,
                                        ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, int iph, int printLvl);
 
 

@@ -14,7 +14,11 @@
 
 #include "EState.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 class Electrode_SimpleDiff;
@@ -67,7 +71,7 @@ public:
      *
      *  @param e    Pointer to the electrode base class
      */
-    virtual int initialize(const Cantera::Electrode* const e);
+    virtual int initialize(const ZZCantera::Electrode* const e);
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
@@ -92,8 +96,8 @@ public:
      */
     virtual void readStateFromXML(const XML_Node& xmlEState);
 
-    void copyElectrode_SimpleDiff_intoState(const Cantera::Electrode_SimpleDiff* const emp);
-    void copyElectrode_DiffTALE_intoState(const Cantera::Electrode_DiffTALE* const emp);
+    void copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp);
+    void copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp);
 
     //! Set the State of this object from the state of the Electrode object
     /*!
@@ -109,10 +113,10 @@ public:
      *             to choose a child object, and then may invoke an error if the match isn't
      *             correct.
      */
-    virtual void copyElectrode_intoState(const Cantera::Electrode* const e);
+    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e);
 
-    void setStateElectrode_SimpleDiff_fromEState(Cantera::Electrode_SimpleDiff* const e) const;
-    void setStateElectrode_DiffTALE_fromEState(Cantera::Electrode_DiffTALE* const e) const;
+    void setStateElectrode_SimpleDiff_fromEState(ZZCantera::Electrode_SimpleDiff* const e) const;
+    void setStateElectrode_DiffTALE_fromEState(ZZCantera::Electrode_DiffTALE* const e) const;
 
 
     //! Set the state of the Electrode from the state of this object
@@ -132,7 +136,7 @@ public:
      *  @param  e  Changeable pointer to the base class Electrode object. This function may
      *             do dynamic casting to get the correct child Electrode object.
      */
-    virtual void setStateElectrode_fromEState(Cantera::Electrode* const e) const;
+    virtual void setStateElectrode_fromEState(ZZCantera::Electrode* const e) const;
 
 
     //!  Compare the current state of this object against another guest state to see if they are the same
@@ -218,8 +222,8 @@ protected:
     /*!
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
-    friend class Cantera::Electrode;
-    friend class Cantera::Electrode_SimpleDiff;
+    friend class ZZCantera::Electrode;
+    friend class ZZCantera::Electrode_SimpleDiff;
 };
 
 }

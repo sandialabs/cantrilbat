@@ -12,11 +12,15 @@
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //===================================================================================================================================
 GFCEO_Electrode::GFCEO_Electrode(Electrode* ee, doublereal atol, int iOwn) :
-   Cantera::ResidJacEval(atol),
+   ZZCantera::ResidJacEval(atol),
    ee_(ee),
    iOwnObject_(iOwn)
 {
@@ -32,7 +36,7 @@ GFCEO_Electrode::~GFCEO_Electrode()
 }
 //===================================================================================================================================
 GFCEO_Electrode::GFCEO_Electrode(const GFCEO_Electrode& right) :
-    Cantera::ResidJacEval()
+    ZZCantera::ResidJacEval()
 {
     operator=(right);
 }
@@ -42,7 +46,7 @@ GFCEO_Electrode& GFCEO_Electrode::operator=(const GFCEO_Electrode& right)
     if (this == &right) {
         return *this;
     }
-    Cantera::ResidJacEval::operator=(right);
+    ZZCantera::ResidJacEval::operator=(right);
 
     if (right.iOwnObject_) {
         delete ee_;
@@ -199,5 +203,5 @@ void GFCEO_Electrode::assertOwnership()
     } 
 }
 //===================================================================================================================================
-} // End of namespace Cantera
+} // End of namespace
 //-----------------------------------------------------------------------------------------------------------------------------------

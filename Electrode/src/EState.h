@@ -16,7 +16,11 @@
 #include <string>
 #include <vector>
 //----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 class Electrode;
@@ -56,7 +60,7 @@ struct EState_Identification
     /*!
      *   @return   Returns a pointer to the malloced XML_Node containing the structure's information
      */
-    Cantera::XML_Node* writeIdentificationToXML() const;
+    ZZCantera::XML_Node* writeIdentificationToXML() const;
 
     //! Read this structure's information from the XML_Node
     /*!
@@ -74,7 +78,7 @@ struct EState_Identification
     std::string  electrodeTypeString_;
 
     //! enum type for the EState. This is used in the factory routine
-    enum Cantera::EState_Type_Enum  EST_Type_;
+    enum ZZCantera::EState_Type_Enum  EST_Type_;
 
     //! String used to identify the EState type. This is used in the factory routine for the EState object.
     /*!
@@ -99,7 +103,7 @@ struct EState_Identification
      *    There is a basic sign issue with capacity that differs between anodes and cathodes.
      *    Capacity left goes does when an anodic electrode gives off an electron but increases for a cathode electrode
      */
-    Cantera::Electrode_Capacity_Type_Enum  electrodeCapacityType_;
+    ZZCantera::Electrode_Capacity_Type_Enum  electrodeCapacityType_;
 };
 //! Typedef for the EState_ID structure
 typedef struct EState_Identification EState_ID_struct;
@@ -192,7 +196,7 @@ public:
      *
      *  @param e    Pointer to the electrode base class
      */
-    virtual int initialize(const Cantera::Electrode* const e);
+    virtual int initialize(const ZZCantera::Electrode* const e);
 
     virtual const std::string& electrodeType() const;
 
@@ -258,7 +262,7 @@ public:
      *             to choose a child object, and then may invoke an error if the match isn't
      *             correct.
      */
-    virtual void copyElectrode_intoState(const Cantera::Electrode* const e);
+    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e);
 
     //! Set the state of the Electrode from the state of this object
     /*!
@@ -277,7 +281,7 @@ public:
      *  @param  e  Changeable pointer to the base class Electrode object. This function may
      *             do dynamic casting to get the correct child Electrode object.
      */
-    virtual void setStateElectrode_fromEState(Cantera::Electrode* const e) const;
+    virtual void setStateElectrode_fromEState(ZZCantera::Electrode* const e) const;
 
     //! Set the state of the Electrode Class from the state of the EState object
     /*!
@@ -293,7 +297,7 @@ public:
      *             to choose a child object, and then may invoke an error if the match isn't
      *             correct.
      */
-    void copyEState_toElectrode(Cantera::Electrode* const e) const;
+    void copyEState_toElectrode(ZZCantera::Electrode* const e) const;
 
     //! Print a heading
     /*!
@@ -406,7 +410,6 @@ protected:
     const int EST_Version_fileToBeWritten_;
 
     //  STATE INFORMATION
-
 
     //! Number of moles of each species in each phase at the end of each
     //! subcycle of the integration step
@@ -544,7 +547,7 @@ protected:
     /*!
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
-    friend class Cantera::Electrode;
+    friend class ZZCantera::Electrode;
 };
 //==================================================================================================================================
 
@@ -561,7 +564,7 @@ protected:
  *          of electrode_model_create(ELECTRODE_KEY_INPUT* ei);
 
  */
-//Electrode* newElectrodeObject(const Cantera::EState& es, double currentTime, Cantera::Electrode_Factory* f = 0);
+//Electrode* newElectrodeObject(const ZZCantera::EState& es, double currentTime, ZZCantera::Electrode_Factory* f = 0);
 
 
 }

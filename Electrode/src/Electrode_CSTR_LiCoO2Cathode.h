@@ -17,7 +17,11 @@
 
 class ELECTRODE_KEY_INPUT;
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 

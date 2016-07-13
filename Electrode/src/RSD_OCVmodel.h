@@ -2,7 +2,7 @@
  *  @file RSD_OCVmodel.h 
  *    Declarations for the base object that contains the relative extent and  OCV calculation for models
  *    that override the normal OCV calculation based on species thermodynamics 
- *    (see \ref ExtendedPhaseGroups and class \link Cantera::RSD_OCVmodel RSD_OCVmodel\endlink).
+ *    (see \ref ExtendedPhaseGroups and class \link Zuzax::RSD_OCVmodel RSD_OCVmodel\endlink).
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -24,7 +24,11 @@
 
 //! Model for OCV Override functions
 
-namespace Cantera 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
 {
 
 class ThermoPhase;

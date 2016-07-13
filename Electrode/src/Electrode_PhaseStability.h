@@ -36,7 +36,11 @@
 #include <string>
 #include <vector>
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //! Class which determines the stability of phases due to kinetics
@@ -112,7 +116,7 @@ public:
      *   object uses.  This interface is mostly a self-directed passthrough to routines that
      *   are members of this object.
      */
-    class calcPhaseStabFunc_ResidJacEval : public Cantera::ResidJacEval
+    class calcPhaseStabFunc_ResidJacEval : public ZZCantera::ResidJacEval
     {
     public:
 
@@ -235,7 +239,7 @@ protected:
     std::vector<doublereal> yval_;
 
     SquareMatrix* jac_;
-    Cantera::NonlinearSolver* pSolve_;
+    ZZCantera::NonlinearSolver* pSolve_;
 
     std::vector<doublereal> phaseMoles_final_Orig_;
     int printLvl_;

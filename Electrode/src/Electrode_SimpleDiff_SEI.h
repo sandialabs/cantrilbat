@@ -18,7 +18,11 @@
 #include "cantera/integrators.h"
 #include "cantera/numerics/ResidJacEval.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 

@@ -13,7 +13,11 @@
 #ifndef _ELECTRODE_SUCCESSIVESUBSTITUTION_H
 #define _ELECTRODE_SUCCESSIVESUBSTITUTION_H
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 // -----------------------------------------------------------------------------------------------------------------

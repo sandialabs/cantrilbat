@@ -12,7 +12,12 @@
 
 #include <string>
 
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 //==================================================================================================================================
 EState_Identification::EState_Identification() :
@@ -27,7 +32,7 @@ EState_Identification::EState_Identification() :
 {
 }
 //==================================================================================================================================
-Cantera::XML_Node* EState_Identification::writeIdentificationToXML() const
+ZZCantera::XML_Node* EState_Identification::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
     ctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString_);
@@ -235,7 +240,7 @@ EState* EState::duplMyselfAsEState() const
     return es;
 }
 //===================================================================================================================================
-int EState::initialize(const Cantera::Electrode* const e)
+int EState::initialize(const ZZCantera::Electrode* const e)
 {
     eRef_ = e;
     electrodeTypeString_    = Electrode_Types_Enum_to_string(e->electrodeType());
@@ -351,7 +356,7 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
     if (x->hasChild("EState_Type_String")) {
 
 	ctml::getNamedStringValue(*x, "EState_Type_String", EState_Type_String, typeSS);
-	Cantera::EState_Type_Enum echeck = esmodel::string_to_EState_Type_Enum(EState_Type_String);
+	ZZCantera::EState_Type_Enum echeck = esmodel::string_to_EState_Type_Enum(EState_Type_String);
 	if (echeck !=  EST_lastFileRead_ ) {
 	    throw Electrode_Error("EState::readIdentificationFromXM",
 				  "Incompatibility between EState_Type and EState_Type_String ");
@@ -363,7 +368,7 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
     }
    
     if (x->hasChild("electrodeCapacityType")) {
-	electrodeCapacityType_ = (Cantera::Electrode_Capacity_Type_Enum) ctml::getInteger(*x, "electrodeCapacityType");
+	electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ctml::getInteger(*x, "electrodeCapacityType");
     }
     if (x->hasChild("electrodeModelType")) {
 	electrodeChemistryModelType_ = ctml::getInteger(*x, "electrodeModelType");
@@ -429,7 +434,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     radiusExterior_ = ctml::getFloat(xmlEState, "radiusExterior", "toSI");
     ctml::getFloatArray(xmlEState, surfaceAreaRS_, true, "m2", "surfaceAreaRS");
     electrodeMoles_ = ctml::getFloat(xmlEState, "electrodeMoles", "toSI");
-    electrodeCapacityType_ = (Cantera::Electrode_Capacity_Type_Enum) ctml::getInteger(xmlEState, "electrodeCapacityType");
+    electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ctml::getInteger(xmlEState, "electrodeCapacityType");
     capacityLeft_ = ctml::getFloat(xmlEState, "capacityLeft", "toSI");
     capacityInitial_ = ctml::getFloat(xmlEState, "capacityInitial", "toSI");
     depthOfDischarge_ = ctml::getFloat(xmlEState, "depthOfDischarge", "toSI");
@@ -440,7 +445,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     // if (xmlEState.hasChild("electronKmolDischargedToDate")) {
     //	electronKmolDischargedToDate_ = ctml::getFloat(xmlEState, "electronKmolDischargedToDate", "toSI");
     //  } else {
-    electronKmolDischargedToDate_ =  capacityDischargedToDate_ / Cantera::Faraday;
+    electronKmolDischargedToDate_ =  capacityDischargedToDate_ / ZZCantera::Faraday;
     if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
 	electronKmolDischargedToDate_ *= -1.0;
     }
@@ -449,7 +454,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
 }
 //======================================================================================================================
 // Set the State of this object from the state of the Electrode object
-void EState::copyElectrode_intoState(const Cantera::Electrode* const e)
+void EState::copyElectrode_intoState(const ZZCantera::Electrode* const e)
 {
     eRef_                              = e;
     spMoles_                           = e->spMoles_final_;
@@ -494,7 +499,7 @@ void EState::copyElectrode_intoState(const Cantera::Electrode* const e)
 }
 //======================================================================================================================
 //Set the state of the Electrode from the state of this object
-void EState::setStateElectrode_fromEState(Cantera::Electrode* const e) const
+void EState::setStateElectrode_fromEState(ZZCantera::Electrode* const e) const
 {
     EState::copyEState_toElectrode(e);
 
@@ -507,7 +512,7 @@ void EState::setStateElectrode_fromEState(Cantera::Electrode* const e) const
 /*
  *  This is not a virtual function
  */
-void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
+void EState::copyEState_toElectrode(ZZCantera::Electrode* const e) const
 {
     e->spMoles_final_                     = spMoles_;
     e->phaseVoltages_                     = phaseVoltages_;
@@ -521,7 +526,7 @@ void EState::copyEState_toElectrode(Cantera::Electrode* const e) const
     e->Radius_exterior_final_             = radiusExterior_;
     e->surfaceAreaRS_final_               = surfaceAreaRS_;
     e->depthOfDischargeStarting_          = depthOfDischargeStarting_;
-    // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / Cantera::Faraday;
+    // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / ZZCantera::Faraday;
     e->electronKmolDischargedToDate_      = electronKmolDischargedToDate_;
     e->setCapacityType(electrodeCapacityType_);
 
@@ -903,7 +908,7 @@ double EState::electrodeMoles() const
  *  - Can't do this because you need an underlying PhaseList object to have been formed.
  */
 /*
-Electrode* newElectrodeObject(const Cantera::EState& es, double currentTime, Cantera::Electrode_Factory* f)
+Electrode* newElectrodeObject(const ZZCantera::EState& es, double currentTime, ZZCantera::Electrode_Factory* f)
 {
     if (f == 0) {
         f = Electrode_Factory::factory();
@@ -920,5 +925,6 @@ Electrode* newElectrodeObject(const Cantera::EState& es, double currentTime, Can
 }
 */
 //==================================================================================================================================
-} // End of namespace Cantera
-//==================================================================================================================================
+} // End of ZZCantera namespace
+//----------------------------------------------------------------------------------------------------------------------------------
+

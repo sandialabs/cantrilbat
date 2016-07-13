@@ -15,7 +15,11 @@
 #include "Electrode.h"
 #include "cantera/numerics/ResidJacEval.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 class NonlinearSolver;
@@ -244,7 +248,7 @@ public:
  *
 
 */
-class Electrode_Integrator : public Electrode , public Cantera::ResidJacEval
+class Electrode_Integrator : public Electrode , public ZZCantera::ResidJacEval
 {
 public:
 
@@ -600,7 +604,7 @@ public:
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
-     * (virtual from Cantera::ResidJacEval)
+     * (virtual from ZZCantera::ResidJacEval)
      *
      *   There is a default algorithm provided.
      *

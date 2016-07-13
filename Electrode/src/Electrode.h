@@ -36,7 +36,11 @@ namespace BEInput
     class BlockEntry;
 }
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 
@@ -186,7 +190,7 @@ class Electrode_Equilibrium;
  *            -> State the base class that first assigns the member function os virtual
  *
  */
-class Electrode : public Cantera::PhaseList
+class Electrode : public ZZCantera::PhaseList
 {
 public:
 
@@ -386,7 +390,7 @@ public:
      *
      *  @return Returns a pointer to first active reacting surface
      */
-    Cantera::ReactingSurDomain* currOuterReactingSurface();
+    ZZCantera::ReactingSurDomain* currOuterReactingSurface();
 
     //! Returns a changeable ReactingSurDomain object for a particular surface
     /*!
@@ -399,7 +403,7 @@ public:
      *                                           If the surface doesn't have reactions associated with it,
      *                                           a null is returned.
      */
-    Cantera::ReactingSurDomain* reactingSurface(int iSurf);
+    ZZCantera::ReactingSurDomain* reactingSurface(int iSurf);
 
     //! Set the temperature and pressure of the electrode
     /*!
@@ -1128,7 +1132,7 @@ public:
      *     -  Deprecate??
      *   This is a child of the ResidJacEval class
      */
-    class integrate_ResidJacEval : public Cantera::ResidJacEval
+    class integrate_ResidJacEval : public ZZCantera::ResidJacEval
     {
     public:
 	//! Constructor
@@ -2270,7 +2274,7 @@ public:
      *
      *  @return                             Returns a pointer to the ExtraGlobalRxn object
      */
-    Cantera::ExtraGlobalRxn* extraGlobalRxnPathway(int iegr);
+    ZZCantera::ExtraGlobalRxn* extraGlobalRxnPathway(int iegr);
 
 private:
     //! Add a global reaction object to the internal list
@@ -3188,7 +3192,7 @@ public:
     /*!
      *       Extra global reactions are described by this object
      */
-    std::vector<Cantera::ExtraGlobalRxn*> m_egr;
+    std::vector<ZZCantera::ExtraGlobalRxn*> m_egr;
 
     //! Pointer vector of RxmMolChange objects
     /*!
@@ -3265,7 +3269,7 @@ protected:
 
 
     //! Array of discharge Capacity coefficients
-    mutable Cantera::Array2D capacityLeftSpeciesCoeffPlat_;
+    mutable ZZCantera::Array2D capacityLeftSpeciesCoeffPlat_;
 
     //! Capacity Coefficient for Calculation of theoreteical zero DoD capacity
     /*!
@@ -3290,7 +3294,7 @@ protected:
     mutable std::vector<double> capacityZeroDoDSpeciesCoeff_;
 
     //! Array of capacity coefficients
-    mutable Cantera::Array2D capacityZeroDoDSpeciesCoeffPlat_;
+    mutable ZZCantera::Array2D capacityZeroDoDSpeciesCoeffPlat_;
 
     //! Initial value of the capacity of the Electrode
     /*!
@@ -3497,7 +3501,7 @@ private:
      *  This problem can be very nonlinear.
      *  The number of equations is equal to the number of species in the phase to be tested.
      */
-    class phasePop_Resid : public Cantera::ResidEval
+    class phasePop_Resid : public ZZCantera::ResidEval
     {
     public:
 
@@ -3562,7 +3566,7 @@ private:
 
 
 
-    friend class Cantera::EState;
+    friend class ZZCantera::EState;
 
     //! Set the State of this object from the state of the Electrode object
     /*!
@@ -3578,9 +3582,9 @@ private:
      *             to choose a child object, and then may invoke an error if the match isn't
      *             correct.
      */
-    friend void Cantera::EState::copyElectrode_intoState(const Cantera::Electrode* const e);
+    friend void ZZCantera::EState::copyElectrode_intoState(const ZZCantera::Electrode* const e);
 
-    friend class Cantera::Electrode_Equilibrium;
+    friend class ZZCantera::Electrode_Equilibrium;
 };
 
 }

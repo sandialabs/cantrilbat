@@ -13,7 +13,6 @@
 #include "Electrode_RadialDiffRegions.h"
 #include "EState_RadialDistrib.h"
 
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -28,9 +27,14 @@ using namespace TKInput;
 
 
 static const double ONE_THIRD = 1.0 / 3.0;
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
-//======================================================================================================================
+//==================================================================================================================================
 /*
  *  ELECTRODE_INPUT: constructor
  *
@@ -4706,7 +4710,6 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
     delete [] netROP;
 
 }
-
-
-} // End of namespace Cantera
-//======================================================================================================================
+//==================================================================================================================================
+} // End namespace
+//----------------------------------------------------------------------------------------------------------------------------------

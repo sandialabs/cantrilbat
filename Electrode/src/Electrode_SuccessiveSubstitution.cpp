@@ -4,28 +4,29 @@
 
 #include "Electrode_SuccessiveSubstitution.h"
 
-using namespace Cantera;
 using namespace std;
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
 #endif
 
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
-
 //======================================================================================================================
 // Constructor
 Electrode_SuccessiveSubstitution::Electrode_SuccessiveSubstitution() :
     Electrode()
 {
-
 }
 //======================================================================================================================
 // Destructor
 Electrode_SuccessiveSubstitution::~Electrode_SuccessiveSubstitution()
 {
-
 }
 //======================================================================================================================
 //! Copy Constructor
@@ -51,10 +52,8 @@ Electrode_SuccessiveSubstitution::operator=(const Electrode_SuccessiveSubstituti
 
     Electrode::operator=(right);
 
-
     return *this;
 }
-
 //======================================================================================================================
 // Duplicator function
 /*
@@ -74,7 +73,6 @@ Electrode_Types_Enum Electrode_SuccessiveSubstitution::electrodeType() const
     return SUCCESSIVE_SUBSTITUTION_ET;
 }
 //======================================================================================================================
-
 //===================================================================================================================
 //  Calculate the change in the state of the system when integrating from T_global_initial to T_global_final
 /*
@@ -570,8 +568,7 @@ restartStep:
  * @param delta_x       Value of the delta used in the numerical differencing
  */
 int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, const doublereal deltaTsubcycle,
-        const doublereal* const y, const doublereal* const ydot,
-        doublereal* const resid,
+        const doublereal* const y, const doublereal* const ydot, doublereal* const resid,
         const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x)
 {
 
@@ -784,9 +781,7 @@ int Electrode_SuccessiveSubstitution::nEquations() const
     int nsp = nSpecies();
     return nsp;
 }
-//======================================================================================================================
-
-
-
-
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
+

@@ -1,7 +1,7 @@
 /**
  *  @file ThermoFactory.h
  *     Headers for the factory class that can create known %ThermoPhase objects
- *     (see \ref thermoprops and class \link Cantera::ThermoFactory ThermoFactory\endlink).
+ *     (see \ref thermoprops and class \link Zuzax::ThermoFactory ThermoFactory\endlink).
  *
  */
 
@@ -25,7 +25,11 @@
 #include <string>
 #include <map>
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 class RSD_OCVmodel;
 
@@ -89,7 +93,7 @@ std::string modelID_to_stringName_RCD_OCVmodel(int modelID);
  * This class keeps a list of the known ThermoPhase classes, and is
  * used to create new instances of these classes.
  */
-class Electrode_Factory : public Cantera::FactoryBase
+class Electrode_Factory : public ZZCantera::FactoryBase
 {
 
 public:

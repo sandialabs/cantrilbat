@@ -8,7 +8,6 @@
 #include "cantera/equilibrium.h"
 
 
-using namespace Cantera;
 using namespace std;
 
 #ifndef SAFE_DELETE
@@ -18,8 +17,13 @@ using namespace std;
 //#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
 //#endif
 
-namespace Cantera {
-
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 //====================================================================================================================
 Electrode_Equilibrium::Electrode_Equilibrium(Electrode* elect) :
                 ee_(elect),
@@ -292,7 +296,6 @@ int Electrode_Equilibrium::predictStabilitySinglePhase(int iphase, double& funcS
 
     return iStab;
 }
-
 //====================================================================================================================
 // Returns the mole fractions of a phase just calculated within the routine.
 /*
@@ -310,7 +313,6 @@ void Electrode_Equilibrium::getPhaseMoleFractions(int iphase, double* const mole
         moleFractions[k] = tp->moleFraction(k);
     }
 }
-
 //====================================================================================================================
 // Return a complete multiphase object representing equilibrium for the electrode
 /*
@@ -320,8 +322,6 @@ MultiPhase* Electrode_Equilibrium::MultiPhase_Obj()
 {
     return m_mp;
 }
-
 //====================================================================================================================
-}// End of namespace Cantera
-//======================================================================================================================
-
+}// End of namespace
+//----------------------------------------------------------------------------------------------------------------------------------

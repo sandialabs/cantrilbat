@@ -14,7 +14,11 @@
 
 #include "Electrode_Integrator.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 

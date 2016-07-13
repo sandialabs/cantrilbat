@@ -1,7 +1,7 @@
 /**
  * @file Electrode_InfCapacity.h
  *   Definitions for an electrode object that has an infinite capacity
- *   (see \ref electrode and class \link Cantera::Electrode_InfCapacity \endlink).
+ *   (see \ref electrode and class \link Zuzax::Electrode_InfCapacity \endlink).
  */
 /*
  * $Id: Electrode_InfCapacity.h 571 2013-03-26 16:44:21Z hkmoffa $
@@ -27,7 +27,11 @@
  *-----------------------------------------------------------------------------
  */
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //====================================================================================================================
@@ -46,7 +50,7 @@ namespace Cantera
  *
  *
  */
-class Electrode_InfCapacity : public Cantera::Electrode
+class Electrode_InfCapacity : public ZZCantera::Electrode
 {
 public:
     //! Constructor

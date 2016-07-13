@@ -8,8 +8,12 @@
 #include "Electrode_FD_Jacobian.h"
 #include "Electrode.h"
 
-namespace Cantera {
-
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 //===================================================================================================================================
 static void drawline(int sp, int ll)
 {
@@ -573,7 +577,7 @@ int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> &
     
     return numSubs;
 }
-//===================================================================================================================================
+//==================================================================================================================================
 void Electrode_FD_Jacobian::set_jacobian_entry(const DOF_SOURCE_PAIR & entry, double source_values[2], double delta)
 {
     // Note if the jacobian entry isn't registered, it isn't storred in the mapping.
@@ -581,5 +585,6 @@ void Electrode_FD_Jacobian::set_jacobian_entry(const DOF_SOURCE_PAIR & entry, do
 	jacobian[entry] = (source_values[0] - source_values[1]) / (2*delta);
     }
 }
-//===================================================================================================================================
-} // namespace Cantera
+//==================================================================================================================================
+} // end of namespace
+//----------------------------------------------------------------------------------------------------------------------------------

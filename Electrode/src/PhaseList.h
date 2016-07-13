@@ -1,7 +1,7 @@
 /**
  * @file PhaseList.h
  * This file contains definitions for the class PhaseList (see \ref ExtendedPhaseGroups and
- * class \link Cantera::PhaseList PhaseList\endlink).
+ * class \link Zuzax::PhaseList PhaseList\endlink).
  */
 
 
@@ -12,7 +12,11 @@
 #include "cantera/thermo/ThermoPhase.h"
 #include "cantera/thermo/Elements.h"
 
+#ifdef useZuxaxNamespace 
+namespace  Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //!
@@ -96,7 +100,11 @@ public:
      *  @param[in]     vp                      Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]     vNode                   XML_Node pointer to the phase XML Node for the current object
      */
+#ifdef useZuzaxNamespace
+    void addVolPhase(Zuzax::ThermoPhase* const vp, Zuzax::XML_Node* vNode = 0);
+#else
     void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode = 0);
+#endif
 
     //!  Add a phase to the list of phases held by this object
     /*!
@@ -106,7 +114,11 @@ public:
      *  @param[in]     vp                      Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]     vNode                   XML_Node pointer to the phase XML Node for the current object
      */
+#ifdef useZuzaxNamespace
+    void addPhase(Zuzax::ThermoPhase* const vp, Zuzax::XML_Node* vNode = 0);
+#else
     void addPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode = 0);
+#endif
 
     //! Add a volume phase to the volume PhaseList object given an XML file name
     /*!
@@ -126,14 +138,22 @@ public:
      *
      *  @return                            Returns a pointer to the ThermoPhase object
      */
+#ifdef useZuzaxNamespace
+    Zuzax::ThermoPhase* addVolPhase(const std::string& canteraFile, const std::string& volID = "");
+#else
     Cantera::ThermoPhase* addVolPhase(const std::string& canteraFile, const std::string& volID = "");
+#endif
 
     //! Add a surface phase to the list of surfaces within the object.
     /*!
      *  @param[in]   vp             Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]   sNode          XML_Node pointer to the surface phase XML Node for the current object
      */
+#ifdef useZuzaxNamespace
+    void addSurPhase(Zuzax::ThermoPhase* const vp, Zuzax::XML_Node* sNode = 0);
+#else
     void addSurPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* sNode = 0);
+#endif
 
     //! Add a surface phase to the PhaseList object given an XML file name
     /*!
@@ -151,14 +171,22 @@ public:
      *
      *  @return                                  Returns a pointer to the ThermoPhase object
      */
+#ifdef useZuzaxNamespace
+    Zuzax::ThermoPhase* addSurPhase(const std::string& canteraFile, const std::string& surID = "");
+#else
     Cantera::ThermoPhase* addSurPhase(const std::string& canteraFile, const std::string& surID = "");
+#endif
 
     //! Add an edge phase to the list of edges within the object.
     /*!
      *  @param[in]   ep             Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]   eNode          XML_Node pointer to the edge phase XML Node for the current object
      */
+#ifdef useZuzaxNamespace
+    void addEdgePhase(Zuzax::ThermoPhase* const ep, Zuzax::XML_Node* eNode = 0);
+#else
     void addEdgePhase(Cantera::ThermoPhase* const ep, Cantera::XML_Node* eNode = 0);
+#endif
 
     //! Add an edge phase to the PhaseList object given an XML file name
     /*!
@@ -177,7 +205,12 @@ public:
      *
      *  @return                            Returns a pointer to the ThermoPhase object
      */
+#ifdef useZuzaxNamespace
+    Zuzax::ThermoPhase* addEdgePhase(const std::string& canteraFile, const std::string& edgeID = "");
+#else
     Cantera::ThermoPhase* addEdgePhase(const std::string& canteraFile, const std::string& edgeID = "");
+#endif
+
 
     //! Add a phase to the PhaseList object given an XML file name
     /*!
@@ -195,7 +228,11 @@ public:
      *
      *  @return                            Returns a pointer to the ThermoPhase object
      */
+#ifdef useZuzaxNamespace
+    Zuzax::ThermoPhase* addPhase(const std::string& canteraFile, const std::string& volID = "");
+#else
     Cantera::ThermoPhase* addPhase(const std::string& canteraFile, const std::string& volID = "");
+#endif
 
     //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
     /*!
@@ -575,7 +612,7 @@ public:
 
     //! Set the state of all the phases within the PhaseList to a given temperature and pressure
     /*!
-     *  Calls the underlying function \link Cantera::ThermoPhase::setState_TP() setState_TP() \endlink
+     *  Calls the underlying function \link Zuzax::ThermoPhase::setState_TP() setState_TP() \endlink
      *  for all phases in the group.
      *
      *   @param[in] temperature     Temperature in Kelvin

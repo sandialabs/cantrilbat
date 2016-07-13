@@ -14,11 +14,15 @@
 #include "Electrode_Integrator.h"
 #include "cantera/numerics/ResidEval.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //!  Rootfinder class that calculates the current given the voltage
-class Electrode_ECurr : public Cantera::ResidEval
+class Electrode_ECurr : public ZZCantera::ResidEval
 {
 public:
 
@@ -108,7 +112,7 @@ public:
  *  This calcualtion is used in finding the open circuit potential of a reacting
  *  surface with multiple electron reactions occurring.
  */
-class RSD_ElectronProduction : public Cantera::ResidEval
+class RSD_ElectronProduction : public ZZCantera::ResidEval
 {
 public:
 

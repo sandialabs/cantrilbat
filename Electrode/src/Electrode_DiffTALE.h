@@ -13,7 +13,11 @@
 
 #include "Electrode_Integrator.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 #define ELECTRODETYPE_ANODE   0
@@ -1078,8 +1082,8 @@ public:
     std::vector<double> numLatticeCBR_init_;
     std::vector<double> numLatticeCBR_final_;
 
-    friend class Cantera::EState;
-    friend class Cantera::EState_RadialDistrib;
+    friend class ZZCantera::EState;
+    friend class ZZCantera::EState_RadialDistrib;
 
 };
 

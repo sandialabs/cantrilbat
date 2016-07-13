@@ -1,7 +1,7 @@
 /**
  * @file ReactingSurDomain.h
  *  Declarations for the ElectrodeKinetics object that does handles interactions with the PhaseList object
- *  (see \ref ExtendedPhaseGroups and class \link Cantera::ReactingSurDomain ReactingSurDomain\endlink).
+ *  (see \ref ExtendedPhaseGroups and class \link Zuzax::ReactingSurDomain ReactingSurDomain\endlink).
 
  */
 /*
@@ -23,7 +23,11 @@
 
 class RxnMolChange;
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 // Forward declartion for structure. This is fully defined in Electrode_input.h
@@ -43,7 +47,7 @@ struct OCV_Override_input;
  *      The standard state thermodynamic functions for the delta of reactions are not overridden. They 
  *      still refer to the unchanged thermodynamics values.
  */
-class ReactingSurDomain : public Cantera::ElectrodeKinetics
+class ReactingSurDomain : public ZZCantera::ElectrodeKinetics
 {
 public:
 
@@ -57,7 +61,7 @@ public:
      *                                       multiple surfaces each with its own associated interfacial kinetics object, 
      *                                       that this object will be inherited from. 
      */
-    ReactingSurDomain(Cantera::PhaseList* pl, size_t iskin);
+    ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin);
 
     //! Copy Constructor for the %Kinetics object.
     /*!
@@ -123,7 +127,7 @@ public:
      *   @return                                   Returns true upon proper instanteation of the kinetics. Returns false
      *                                             if there was a problem.
      */
-    bool importFromPL(Cantera::PhaseList* const pl, size_t iskin);
+    bool importFromPL(ZZCantera::PhaseList* const pl, size_t iskin);
 
     //! Routine to be called after all species and phases have been defined for the object
     /*!
@@ -633,7 +637,7 @@ public:
     /*!
      *  This object doesn't own this. However, it uses this heavily. It is a shallow pointer.
      */
-    Cantera::PhaseList* m_pl;
+    ZZCantera::PhaseList* m_pl;
 
     //!  Pointer to an OCV_Override_input object which is used to override the thermodynamics of an electrode
     //!  reaction given input
