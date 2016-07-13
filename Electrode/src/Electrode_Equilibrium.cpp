@@ -83,7 +83,7 @@ Electrode_Equilibrium& Electrode_Equilibrium::operator=(const Electrode_Equilibr
     setupEquilibriumProblem();
 
     if (right.LiFixed_) {
-        LiFixed_ = (Cantera::FixedChemPotSSTP*) (right.LiFixed_)->duplMyselfAsThermoPhase();
+        LiFixed_ = (ZZCantera::FixedChemPotSSTP*) (right.LiFixed_)->duplMyselfAsThermoPhase();
     }
 
     printLvl_ = right.printLvl_;

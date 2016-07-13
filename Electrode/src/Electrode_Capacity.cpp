@@ -286,7 +286,7 @@ double Electrode::capacityDischarged(int platNum) const
     if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
        sgn = -1.0;
     }
-    return sgn * tmp * Cantera::Faraday;
+    return sgn * tmp * ZZCantera::Faraday;
 }
 //======================================================================================================================
 double Electrode::depthOfDischargeStarting(int platNum) const

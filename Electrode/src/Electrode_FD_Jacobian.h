@@ -19,7 +19,12 @@
 #include <list>
 #include <map>
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+{
 
 //! Implementation of the Electrode_Jacobian interface that uses numerical finite differencing to calculate source term 
 //! sensitivity values.
@@ -139,7 +144,7 @@ protected:
     //! Atols used on the last external jacobian delta calculation
     std::vector<double> jac_dof_Atol;
 };
-
-} // namespace Cantera
-
+//==================================================================================================================================
+} // end of namespace
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif /* ELECTRODE_FD_JACOBIAN_H_ */

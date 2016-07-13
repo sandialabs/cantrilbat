@@ -191,8 +191,8 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
 	    run_electrode_integration(perturbed_point, dt);
 
 	    // Store off the source term results in temporary storage
-	    energySource[negative] = electrode->getIntegratedSourceTerm(Cantera::ENTHALPY_SOURCE);
-	    electrolytePhaseSource[negative] = electrode->getIntegratedSourceTerm(Cantera::ELECTROLYTE_PHASE_SOURCE);
+	    energySource[negative] = electrode->getIntegratedSourceTerm(ZZCantera::ENTHALPY_SOURCE);
+	    electrolytePhaseSource[negative] = electrode->getIntegratedSourceTerm(ZZCantera::ELECTROLYTE_PHASE_SOURCE);
 	    numSubs = electrode->integratedSpeciesSourceTerm(&speciesSources[negative][0]);
 
 	    perturbed_point[*dof_it] = centerpoint[*dof_it];
@@ -272,8 +272,8 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
     //
     //  Store the results
     //
-    energySource[0] = electrode->getIntegratedSourceTerm(Cantera::ENTHALPY_SOURCE);
-    electrolytePhaseSource[0] = electrode->getIntegratedSourceTerm(Cantera::ELECTROLYTE_PHASE_SOURCE);
+    energySource[0] = electrode->getIntegratedSourceTerm(Zuzax::ENTHALPY_SOURCE);
+    electrolytePhaseSource[0] = electrode->getIntegratedSourceTerm(Zuzax::ELECTROLYTE_PHASE_SOURCE);
     numSubs = electrode->integratedSpeciesSourceTerm(&speciesSources[0][0]);
  
     jac_numSubs_Max = numSubs;
@@ -295,8 +295,8 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
 	    //
 	    // Store off the source term results in temporary storage
 	    //
-	    energySource[1] = electrode->getIntegratedSourceTerm(Cantera::ENTHALPY_SOURCE);
-	    electrolytePhaseSource[1] = electrode->getIntegratedSourceTerm(Cantera::ELECTROLYTE_PHASE_SOURCE);
+	    energySource[1] = electrode->getIntegratedSourceTerm(Zuzax::ENTHALPY_SOURCE);
+	    electrolytePhaseSource[1] = electrode->getIntegratedSourceTerm(Zuzax::ELECTROLYTE_PHASE_SOURCE);
 	    numSubs = electrode->integratedSpeciesSourceTerm(&speciesSources[1][0]);
 
 	    perturbed_point[*dof_it] = centerpoint[*dof_it];

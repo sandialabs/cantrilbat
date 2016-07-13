@@ -11,7 +11,11 @@
 
 #include "cantera/thermo/DebyeHuckel.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 using namespace mdpUtil;
 
@@ -212,7 +216,7 @@ int main(int argc, char **argv)
     mdp_safe_free((void **) &moll);
     delete DH;
     DH = 0;
-    Cantera::appdelete();
+    appdelete();
 
   } catch (CanteraError) {
 

@@ -14,9 +14,14 @@
 #include "cantera/thermo/DebyeHuckel.h"
 #include "cantera/base/Array.h"
 
-using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
+
 using namespace mdpUtil;
+using namespace std;
 
 
 void printUsage() {
@@ -106,7 +111,7 @@ int main(int argc, char **argv)
      mdp_safe_free((void **) &moll);
      delete DH;
      DH = 0;
-     Cantera::appdelete();
+     appdelete();
 
    } catch (CanteraError) {
 

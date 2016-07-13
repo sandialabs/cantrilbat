@@ -16,7 +16,11 @@
 
 class ELECTRODE_KEY_INPUT;
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 //! Electrode_CSTR class is an electrode that models a particle as a CSTR

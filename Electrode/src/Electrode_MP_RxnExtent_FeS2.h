@@ -14,7 +14,11 @@
 
 #include "Electrode_MP_RxnExtent.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
 
