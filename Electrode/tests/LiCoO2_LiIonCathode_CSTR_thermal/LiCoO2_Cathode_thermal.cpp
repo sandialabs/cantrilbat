@@ -16,7 +16,12 @@
 #include <iomanip>
 
 using namespace std;
+
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -99,8 +104,8 @@ int main(int argc, char **argv)
       exit(-1);
     }
   
-    //Cantera::Electrode_CSTR_LiCoO2Cathode *electrodeC  = new Cantera::Electrode_CSTR_LiCoO2Cathode();
-    Cantera::Electrode *electrodeC  = newElectrodeObject("CSTR_LiCoO2Cathode");
+    //ZZCantera::Electrode_CSTR_LiCoO2Cathode *electrodeC  = new ZZCantera::Electrode_CSTR_LiCoO2Cathode();
+    ZZCantera::Electrode *electrodeC  = newElectrodeObject("CSTR_LiCoO2Cathode");
 
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     
@@ -265,7 +270,7 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeC_input;
     delete electrodeC;
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return retn;
 

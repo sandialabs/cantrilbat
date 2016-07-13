@@ -33,7 +33,11 @@
 #include "Electrode.h"
 //#include "NonlinearElectrodeSolver.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 
 ofstream outfile;

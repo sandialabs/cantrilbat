@@ -22,9 +22,13 @@
 #include <iomanip>
 #include <cstring>
 
-using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
+using namespace std;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -370,7 +374,7 @@ int main(int argc, char **argv)
      double ndeltaGphiterm = iVTerm +  ndeltaGterm;
      printf("ndeltaGphiterm = %g\n",  ndeltaGphiterm);
 
-     Cantera::appdelete();
+     appdelete();
 
     return 0;
 

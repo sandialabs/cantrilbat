@@ -49,6 +49,20 @@
 #include "cantera/base/ct_defs.h"
 #include "cantera/base/stringUtils.h"
 
+/*
+ * Use ZZCantera for namespace identification
+ */
+#ifdef useZuzaxNamespace
+#ifndef ZZCantera
+#define ZZCantera Zuzax
+#endif
+#else
+#ifndef ZZCantera
+#define ZZCantera Cantera
+#endif
+#endif
+
+
 namespace m1d
 {
 

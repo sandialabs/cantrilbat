@@ -220,7 +220,7 @@ print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
   M1D_MPI_Request request;
   int procID = comm.MyPID();
   if (statInPrint0SyncBlock) {
-    throw m1d_Error("print0_sync_start ERROR proc " + Cantera::int2str(procID), "Already in a print0_sync block");
+    throw m1d_Error("print0_sync_start ERROR proc " + ZZCantera::int2str(procID), "Already in a print0_sync block");
   }
   statInPrint0SyncBlock = true;
 
@@ -384,7 +384,7 @@ print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
   int procID = comm.MyPID();
   int nprocs = comm.NumProc();
   if (!statInPrint0SyncBlock) {
-    throw m1d_Error("print0_sync_end ERROR proc " + Cantera::int2str(procID), "Not already in a print0_sync block");
+    throw m1d_Error("print0_sync_end ERROR proc " + ZZCantera::int2str(procID), "Not already in a print0_sync block");
   }
 
   if (procID < nprocs - 1) {

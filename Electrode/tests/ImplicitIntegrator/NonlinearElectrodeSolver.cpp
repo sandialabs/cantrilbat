@@ -43,7 +43,11 @@ extern void print_line(const char *, int);
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 
 namespace Cantera {

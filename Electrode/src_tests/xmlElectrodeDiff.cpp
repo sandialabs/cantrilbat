@@ -49,7 +49,11 @@
 #include "EState_XML.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace esmodel;
 
 

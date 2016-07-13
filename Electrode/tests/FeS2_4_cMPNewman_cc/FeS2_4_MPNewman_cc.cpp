@@ -27,9 +27,14 @@
 #include <sstream>
 #include <iomanip>
 
-using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
+
 using namespace VCSnonideal;
+using namespace std;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -118,7 +123,7 @@ int main(int argc, char **argv)
       exit(-1);
     }
   
-    Cantera::Electrode_MP_RxnExtent_FeS2 *electrodeC  = new Cantera::Electrode_MP_RxnExtent_FeS2();
+    ZZCantera::Electrode_MP_RxnExtent_FeS2 *electrodeC  = new ZZCantera::Electrode_MP_RxnExtent_FeS2();
 
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     
@@ -264,7 +269,7 @@ int main(int argc, char **argv)
       delete cfC;
       delete electrodeC_input;
       delete electrodeC;
-      Cantera::appdelete();
+      appdelete();
 
     return 0;
 

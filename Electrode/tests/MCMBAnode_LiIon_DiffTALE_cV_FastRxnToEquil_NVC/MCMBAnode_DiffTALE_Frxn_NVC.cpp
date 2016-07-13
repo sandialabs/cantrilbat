@@ -25,9 +25,14 @@
 #include <sstream>
 #include <iomanip>
 
-using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
+
 using namespace VCSnonideal;
+using namespace std;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -104,7 +109,7 @@ int main(int argc, char **argv)
 
   try {
   
-    Cantera::Electrode_DiffTALE *electrodeA  = new Cantera::Electrode_DiffTALE();
+    Electrode_DiffTALE *electrodeA  = new Electrode_DiffTALE();
 
     ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     
@@ -186,7 +191,7 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeA_input;
     delete electrodeA;
-    Cantera::appdelete();
+    appdelete();
 
     return 0;
 

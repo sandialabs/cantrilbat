@@ -23,7 +23,11 @@
 #include "Electrode_SimplePhaseChangeDiffusion.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
@@ -41,7 +45,7 @@ void printUsage() {
 }
 
 
-class ECurr : public Cantera::ResidEval
+class ECurr : public ResidEval
 {
 public:
 
@@ -144,10 +148,10 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
-    //IonsFromNeutralVPSSTP * ionicLiquid = new Cantera::IonsFromNeutralVPSSTP("LiKCl_recipmoltenSalt.xml");
-    //  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);
+    //IonsFromNeutralVPSSTP * ionicLiquid = new IonsFromNeutralVPSSTP("LiKCl_recipmoltenSalt.xml");
+    //  trans_ = newTransportMgr("Liquid", ionicLiquid_, 1);
 
-    Cantera::Electrode_SimplePhaseChangeDiffusion *electrodeA  = new Cantera::Electrode_SimplePhaseChangeDiffusion();
+    Electrode_SimplePhaseChangeDiffusion *electrodeA  = new Electrode_SimplePhaseChangeDiffusion();
     
     ELECTRODE_KEY_INPUT *electrodeA_input = new ELECTRODE_KEY_INPUT();
     
@@ -338,7 +342,7 @@ int main(int argc, char **argv)
     delete electrodeA;
 
 
-    Cantera::appdelete();
+    appdelete();
 
     return retn;
 

@@ -9,10 +9,14 @@
 #include "Electrode.h"
 #include "Electrode_FD_Jacobian.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 
-class MockThermoPhase_lyte : public Cantera::ThermoPhase
+class MockThermoPhase_lyte : public ThermoPhase
 {
 public:
   MockThermoPhase_lyte() : 
@@ -240,7 +244,8 @@ TEST_F(FDJacobianTest, ElectrolytePhaseSource)
   EXPECT_NEAR(5., fd_jacobian->get_jacobian_value(electrolyte_phase), 1.e-9);
 }
 
-} // namespace Cantera
+} // end of namespace
+//----------------------------------------------------------------------------------------------------------------------------------
 
 int
 main(int argc, char** argv)

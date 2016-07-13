@@ -16,7 +16,11 @@
 #include <iomanip>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -45,7 +49,7 @@ void printUsage() {
 //   int isurf = 0;
 //   int numInnerPhases = 1;
 //   int numOuterPhases = 1;
-//   Cantera::Plateau *ppo = new Plateau(isurf,numInnerPhases,numOuterPhases);
+//   ZZCantera::Plateau *ppo = new Plateau(isurf,numInnerPhases,numOuterPhases);
 //   eC->plateauList_.push_back(ppo);
   
 //   // set phase indices
@@ -160,7 +164,7 @@ int main(int argc, char **argv)
       exit(-1);
     }
   
-    Cantera::Electrode_MP_RxnExtent *electrodeC  = new Cantera::Electrode_MP_RxnExtent();
+    ZZCantera::Electrode_MP_RxnExtent *electrodeC  = new ZZCantera::Electrode_MP_RxnExtent();
 
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     
@@ -264,7 +268,7 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeC_input;
     delete electrodeC;
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return retn;
 
