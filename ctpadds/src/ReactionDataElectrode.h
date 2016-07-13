@@ -18,7 +18,12 @@
 #include "cantera/base/xml.h"
 
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   class XML_Node;
   class Kinetics;

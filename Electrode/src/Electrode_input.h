@@ -87,7 +87,12 @@ public:
     ~ElectrodeBath();
 };
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera 
+#endif
+{
 
 //! Structure for storring the input for OCVoverride models
 struct OCV_Override_input {
@@ -180,7 +185,7 @@ public:
      *
      *  @param pl   Pointer to the phase list
      */
-    virtual void InitForInput(const ZZCantera::PhaseList*   const pl);
+    virtual void InitForInput(const ZZCantera::PhaseList* const pl);
 
     //! setup for pass1
     /*!

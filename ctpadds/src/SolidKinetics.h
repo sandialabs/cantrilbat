@@ -28,7 +28,12 @@
 
 #include <map>
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   // forward references
 

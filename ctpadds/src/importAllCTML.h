@@ -26,8 +26,13 @@
 #endif
 
 #include <string>
-
-namespace Cantera {
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+{
 
   class PhaseList;
   class XML_Node;
@@ -53,7 +58,7 @@ namespace Cantera {
    *
    * @param xmlphase  XML Node containing the phase to be imported.
    */
-  ThermoPhase *processExpandedThermoPhase(XML_Node *xmlphase);
+  ThermoPhase* processExpandedThermoPhase(XML_Node* const xmlphase);
 
   //! Process a kinetics manager, which may or may not be
   //! currently supported by the main Cantera distribution.
@@ -72,8 +77,7 @@ namespace Cantera {
    *                  objects. These must be the correct objects
    *                  for the kinetics manager class.
    */
-  Kinetics *processExpandedKinetics(XML_Node *xmlPhase,
-				    std::vector<ThermoPhase*> tpList);
+  Kinetics* processExpandedKinetics(XML_Node* const xmlPhase, std::vector<ThermoPhase*> tpList);
 
   //! Process an interface kinetics manager, which may or may not be
   //! currently supported by the main Cantera distribution.
@@ -92,9 +96,8 @@ namespace Cantera {
    *                  objects. These must be the correct objects
    *                  for the kinetics manager class.
    */
-  InterfaceKinetics *
-  processExpandedInterfaceKinetics(XML_Node *xmlPhase,
-				   std::vector<ThermoPhase*> tpList);
+  InterfaceKinetics*
+  processExpandedInterfaceKinetics(XML_Node* const xmlPhase, std::vector<ThermoPhase*> tpList);
 
   //! Process transport properties for a phase.
   /*!
@@ -110,9 +113,8 @@ namespace Cantera {
    *  @param th        Pointer to the previously processed ThermoPhase
    *                   object.
    */
-  Transport *processExpandedTransport(XML_Node *xmlPhase, ThermoPhase *th);
- 
-
+  Transport* processExpandedTransport(XML_Node* const xmlPhase, ThermoPhase* const th);
 
 }
+//--------------------------------------------------------------------------------------------------------------------------------
 #endif

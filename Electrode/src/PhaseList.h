@@ -11,8 +11,9 @@
 #include "cantera/base/xml.h"
 #include "cantera/thermo/ThermoPhase.h"
 #include "cantera/thermo/Elements.h"
+#include "cantera/base/config.h"
 
-#ifdef useZuxaxNamespace 
+#ifdef useZuzaxNamespace 
 namespace  Zuzax
 #else
 namespace Cantera
@@ -242,7 +243,7 @@ public:
      *
      *     @return                        Returns the volume phase index number. Returns npos if the phase is not found.
      */
-    size_t getVolPhaseIndex(const ThermoPhase* const ttp) const;
+    size_t getVolPhaseIndex(const Zuzax::ThermoPhase* const ttp) const;
 
     //! Get the surface phase index given the pointer to the surface phase ThermoPhase object
     /*!

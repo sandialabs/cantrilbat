@@ -29,7 +29,12 @@
 #include "cantera/kinetics/RateCoeffMgr.h"
 #include "cantera/kinetics/ReactionStoichMgr.h"
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   // forward references
 

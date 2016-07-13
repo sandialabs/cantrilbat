@@ -54,8 +54,12 @@
 using namespace ctml;
 using namespace std;
 
-namespace Cantera {
-
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
  
   // Create a single ThermoPhase object, not currently supported
   // by the main Cantera distribution

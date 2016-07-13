@@ -24,7 +24,12 @@
 
 using namespace std;
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 //===========================================================================================================
 SolidKinetics::SolidKinetics() :
     BulkKinetics(),

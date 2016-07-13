@@ -22,7 +22,12 @@ class ThermoPhase;
 class WaterPropsIAPWS;
 #include "cantera/thermo/PDSS.h"
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
 
   /**

@@ -24,7 +24,12 @@
 using namespace std;
 using namespace ctml;
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   typedef XML_Node                 node_t;
   typedef const vector<XML_Node*>  nodeset_t;

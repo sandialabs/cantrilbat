@@ -10,7 +10,12 @@
 
 using namespace std;
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
   /**
    * Basic list of constructors and duplicators
    */

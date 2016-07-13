@@ -8,24 +8,18 @@
 #ifndef CT_ELECTRODE_DEFS_H
 #define CT_ELECTRODE_DEFS_H
 
+#include "cantera/base/config.h"
+
 #include <vector>
 
 /*
  * Use ZZCantera for namespace identification
  */
 #ifdef useZuzaxNamespace
-#ifndef ZZCantera
 #define ZZCantera Zuzax
-#endif
 #else
-#ifndef ZZCantera
 #define ZZCantera Cantera
 #endif
-#endif
-
-
-
-
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
