@@ -12,10 +12,19 @@
 #include "imtPSS_NoSurf_DiffBL.h"
 #include "InterfacialMassTransfer_1to1Distrib.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 
-namespace Cantera {  
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{  
   //====================================================================================================================
   /*
    *  Defining memory for a static member of the clase
@@ -47,7 +56,7 @@ namespace Cantera {
     for (std::map<IMT_Types_Enum, std::string>::iterator pos = IMT_types_string.begin();
          pos != IMT_types_string.end(); ++pos) {
       string_IMT_types[pos->second] = pos->first;
-      std::string lll =  Cantera::lowercase(pos->second);
+      std::string lll =  ZZCantera::lowercase(pos->second);
       string_IMT_types[lll] = pos->first;
     }
   }
@@ -85,7 +94,7 @@ namespace Cantera {
     }
     std::map<std::string, IMT_Types_Enum>::iterator pos = string_IMT_types.find(input_string);
     if (pos == string_IMT_types.end())  {
-      std::string iii = Cantera::lowercase(input_string);
+      std::string iii = ZZCantera::lowercase(input_string);
       pos = string_IMT_types.find(iii);
       if (pos == string_IMT_types.end())  {
         return UNKNOWN_IMT;
@@ -96,7 +105,7 @@ namespace Cantera {
   //====================================================================================================================
   // Private constructors prevents usage
   InterfacialMassTransfer_Factory::InterfacialMassTransfer_Factory() :
-    Cantera::FactoryBase()
+    ZZCantera::FactoryBase()
   {
   }
   //====================================================================================================================
@@ -205,5 +214,5 @@ namespace Cantera {
 
   
 //====================================================================================================================
-} // End of namespace Cantera
+} // 
 //======================================================================================================================

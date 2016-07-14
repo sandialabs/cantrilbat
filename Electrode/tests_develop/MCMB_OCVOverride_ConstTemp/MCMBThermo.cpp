@@ -25,7 +25,11 @@
 #include <iomanip>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
@@ -128,7 +132,7 @@ int main(int argc, char **argv)
      // end block Open Circuit Potential Override for interface anode_surface
 
 
-     OCV_Override_input* ocv_input_ptr = new  Cantera::OCV_Override_input();
+     OCV_Override_input* ocv_input_ptr = new  ZZCantera::OCV_Override_input();
 
      ocv_input_ptr->OCVModel = "MCMB2528_dualfoil";
      ocv_input_ptr->replacedSpeciesName = "Li_C6-bulk";
@@ -302,7 +306,7 @@ int main(int argc, char **argv)
      }
 
 
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return 0;
 

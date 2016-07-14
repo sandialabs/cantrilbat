@@ -10,12 +10,16 @@
 #include "cantera/equilibrium.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 int main(int argc, char **argv) {
 
 #ifdef DEBUG_CHEMEQUIL
-  Cantera::ChemEquil_print_lvl = 0;
+  ZZCantera::ChemEquil_print_lvl = 0;
 #endif
 
   int numSucc = 0;

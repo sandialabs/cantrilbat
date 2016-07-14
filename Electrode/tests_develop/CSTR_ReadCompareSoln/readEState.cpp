@@ -17,7 +17,11 @@
 #include "EState_XML.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace esmodel;
 
 // a lvl of one prints out the .csv file
@@ -49,7 +53,7 @@ int main(int argc, char **argv)
   NonlinearSolver::s_print_NumJac = true;
 
 
-  Cantera::XML_Node* xEout =  getElectrodeOutputFile("solnSave_0_0.xml", 1);
+  ZZCantera::XML_Node* xEout =  getElectrodeOutputFile("solnSave_0_0.xml", 1);
 
   
   EState_ID_struct e_id;
@@ -63,10 +67,10 @@ int main(int argc, char **argv)
 
   int globalTimeStepNum = 0;
 
-  Cantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
+  ZZCantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
 
   double timeVal;
-  Cantera::XML_Node* xSt =  locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
+  ZZCantera::XML_Node* xSt =  locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
   es->readStateFromXML(*xSt);
   //es->readStateFromXML(*x);
 

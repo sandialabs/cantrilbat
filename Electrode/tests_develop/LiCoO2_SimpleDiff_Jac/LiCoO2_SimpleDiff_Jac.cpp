@@ -28,7 +28,11 @@
 #include <iomanip>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
@@ -121,7 +125,7 @@ int main(int argc, char **argv)
         Electrode::s_printLvl_DEBUG_SPECIAL = 1;
 	Electrode::readEnvironmentalVariables();
   
-	Cantera::Electrode_SimpleDiff *electrodeC  = new Cantera::Electrode_SimpleDiff();
+	ZZCantera::Electrode_SimpleDiff *electrodeC  = new ZZCantera::Electrode_SimpleDiff();
 
 	ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeC_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
     
@@ -274,7 +278,7 @@ int main(int argc, char **argv)
 	delete cfC;
 	delete electrodeC_input;
 	delete electrodeC;
-	Cantera::appdelete();
+	ZZCantera::appdelete();
 
 	return 0;
 

@@ -40,7 +40,23 @@
 
 #define MPEQUIL_SUCCESS 0
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+#define ZZCantera Zuzax
+#else
+#define ZZCantera Cantera
+#endif
+
+
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
   class Electrode;
 }
 
@@ -80,7 +96,16 @@ public:
   }
 } ;
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
 
 
 //! storage for Command file input
@@ -101,7 +126,7 @@ public:
   /*!
    *
    */
-  void InitForInput(const Cantera::PhaseList  * const pl);
+  void InitForInput(const ZZCantera::PhaseList  * const pl);
 
   //! This is assigned to the first surface phase found in the PhaseList
   std::string CanteraFNSurface;
@@ -195,7 +220,7 @@ public:
    * this includes all of the phases, "period".
    *  In particular this includes the surface phases
    */
-  Cantera::PhaseList *m_pl;
+  ZZCantera::PhaseList *m_pl;
 
 	
 };

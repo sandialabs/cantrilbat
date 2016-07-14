@@ -25,7 +25,11 @@
 #include <iomanip>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
@@ -162,7 +166,7 @@ int main(int argc, char **argv)
      // Set up the override model
      // 
 
-     OCV_Override_input* ocv_input_ptr = new  Cantera::OCV_Override_input();
+     OCV_Override_input* ocv_input_ptr = new  ZZCantera::OCV_Override_input();
 
      ocv_input_ptr->OCVModel = "CoO2_dualfoil";
      ocv_input_ptr->replacedSpeciesName = "LiCoO2";
@@ -238,7 +242,7 @@ int main(int argc, char **argv)
 	 printf(" %12.6f   %12.6f   %12.6f   %12.6f  %12.6f\n",  xKC, 1.0 - xKC,  ocv, ocvE, ocvE_corr);
      }
      
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return 0;
 

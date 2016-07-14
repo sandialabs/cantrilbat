@@ -27,9 +27,15 @@
 
 using namespace std;
 // All Cantera kernel names are in namespace Cantera. You can either
-// reference everything as Cantera::<name>, or include the following
+// reference everything as ZZCantera::<name>, or include the following
 // 'using namespace' line.
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#define ZZCantera Zuzax
+#else
 using namespace Cantera;
+#define ZZCantera Cantera
+#endif
 
 
 // The program is put into a function so that error handling code can
@@ -242,7 +248,7 @@ int main() {
 
   try {
     createPhaseDiagram();
-    Cantera::appdelete();
+    ZZCantera::appdelete();
   }
   catch (CanteraError) {
     showErrors(std::cout);

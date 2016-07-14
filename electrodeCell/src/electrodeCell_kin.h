@@ -67,60 +67,60 @@ namespace Cantera {
   class Kinetics;
 }
 
-double findV(Cantera::Electrode *electrode, doublereal Itarget,
+double findV(ZZCantera::Electrode *electrode, doublereal Itarget,
 	     double Elow, double Ehigh, int printLvl, doublereal err, int maxsteps);
 
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/
 
-void doKineticsTablesHomog(Cantera::Electrode *electrode,
-			   Cantera::Kinetics *gKinetics,
+void doKineticsTablesHomog(ZZCantera::Electrode *electrode,
+			   ZZCantera::Kinetics *gKinetics,
 			   TemperatureTable &TT);
 
-void doKineticsTablesHetero(Cantera::Electrode *electrode,
-			    Cantera::InterfaceKinetics *gKinetics,   
+void doKineticsTablesHetero(ZZCantera::Electrode *electrode,
+			    ZZCantera::InterfaceKinetics *gKinetics,   
 			    TemperatureTable &TT);
 
-void processCurrentVsPotTable(Cantera::RxnMolChange *rmc,
-			      Cantera::Electrode *electrode, int irxn,
+void processCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
+			      ZZCantera::Electrode *electrode, int irxn,
 			      TemperatureTable &TT,
-			      Cantera::Kinetics &kin, 
-			      Cantera::DenseMatrix& kfwd_Table, 
-			      Cantera::DenseMatrix& krev_Table,
-			      Cantera::DenseMatrix& deltaG_Table,
-			      Cantera::DenseMatrix& deltaH_Table,
-			      Cantera::DenseMatrix& deltaS_Table,
-			      Cantera::DenseMatrix& Afwd_Table,
-			      Cantera::DenseMatrix& EafwddivR_Table,
-			      Cantera::DenseMatrix& Arev_Table,
-			      Cantera::DenseMatrix& EarevdivR_Table,
-			      Cantera::DenseMatrix& kfwdPrime_Table, 
-			      Cantera::DenseMatrix& krevPrime_Table);
+			      ZZCantera::Kinetics &kin, 
+			      ZZCantera::DenseMatrix& kfwd_Table, 
+			      ZZCantera::DenseMatrix& krev_Table,
+			      ZZCantera::DenseMatrix& deltaG_Table,
+			      ZZCantera::DenseMatrix& deltaH_Table,
+			      ZZCantera::DenseMatrix& deltaS_Table,
+			      ZZCantera::DenseMatrix& Afwd_Table,
+			      ZZCantera::DenseMatrix& EafwddivR_Table,
+			      ZZCantera::DenseMatrix& Arev_Table,
+			      ZZCantera::DenseMatrix& EarevdivR_Table,
+			      ZZCantera::DenseMatrix& kfwdPrime_Table, 
+			      ZZCantera::DenseMatrix& krevPrime_Table);
 
 void
-getGERKineticsTables(TemperatureTable& TT, Cantera::Electrode *electrode,
-		     Cantera::Kinetics &kin,
-		     Cantera::ExtraGlobalRxn &egr,
+getGERKineticsTables(TemperatureTable& TT, ZZCantera::Electrode *electrode,
+		     ZZCantera::Kinetics &kin,
+		     ZZCantera::ExtraGlobalRxn &egr,
 		     RxnTempTableStuff &rts);
 
-void printGERKineticsTable(Cantera::Electrode *electrode, int j,
+void printGERKineticsTable(ZZCantera::Electrode *electrode, int j,
 			   TemperatureTable& TT,
-			   Cantera::Kinetics &kin,
-			   Cantera::ExtraGlobalRxn &egr,
-			   Cantera::RxnMolChange *rmc,
+			   ZZCantera::Kinetics &kin,
+			   ZZCantera::ExtraGlobalRxn &egr,
+			   ZZCantera::RxnMolChange *rmc,
 			   RxnTempTableStuff &rts);
 
-double processGERCurrent(Cantera::RxnMolChange *rmc,
-			 Cantera::Electrode *electrode, int iGERrxn,
-			 Cantera::Kinetics &kin,
-			 Cantera::ExtraGlobalRxn &egr);
+double processGERCurrent(ZZCantera::RxnMolChange *rmc,
+			 ZZCantera::Electrode *electrode, int iGERrxn,
+			 ZZCantera::Kinetics &kin,
+			 ZZCantera::ExtraGlobalRxn &egr);
 
-void processGERCurrentVsPotTable(Cantera::RxnMolChange *rmc, Cantera::Electrode *electrode,
+void processGERCurrentVsPotTable(ZZCantera::RxnMolChange *rmc, ZZCantera::Electrode *electrode,
 				 int irxn,
 				 TemperatureTable &TT,
-				 Cantera::Kinetics &kin,  
-				 Cantera::ExtraGlobalRxn &egr,
+				 ZZCantera::Kinetics &kin,  
+				 ZZCantera::ExtraGlobalRxn &egr,
 				 RxnTempTableStuff &rts);
 /**********************************************************************/
 /**********************************************************************/

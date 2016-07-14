@@ -10,12 +10,16 @@
 #include "cantera/equilibrium.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 int main(int argc, char **argv) {
 
 #ifdef DEBUG_CHEMEQUIL
-  Cantera::ChemEquil_print_lvl = 0;
+  ZZCantera::ChemEquil_print_lvl = 0;
 #endif
 
   int numSucc = 0;
@@ -78,7 +82,7 @@ int main(int argc, char **argv) {
       exit(-1);
     }
 #ifdef DEBUG_CHEMEQUIL
-    //   Cantera::ChemEquil_print_lvl = 3;
+    //   ZZCantera::ChemEquil_print_lvl = 3;
 #endif  
     dens = g.density();
     
@@ -108,7 +112,7 @@ int main(int argc, char **argv) {
       cout << g;
     }
 #ifdef DEBUG_CHEMEQUIL
-    Cantera::ChemEquil_print_lvl = 0;
+    ZZCantera::ChemEquil_print_lvl = 0;
 #endif  
  
 

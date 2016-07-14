@@ -15,6 +15,13 @@
 #include "tok_input_util.h"
 #include <string>
 #include <vector>
+
+#ifdef useZuzaxNamespace
+#define ZZCantera Zuzax
+#else
+#define ZZCantera Cantera
+#endif
+
 /*
  *-----------------------------------------------------------------------------
  *
@@ -55,7 +62,7 @@ public:
     double *ElementAbundances;
     bool  specifiedElementAbundances;
     std::string Title;
-    void InitForInput(Cantera::MultiPhase *);
+    void InitForInput(ZZCantera::MultiPhase *);
 	
 };
 extern MPEQUIL_KEY_INPUT PO;
@@ -68,9 +75,9 @@ public:
   MPEQUIL_INPUT();
   ~MPEQUIL_INPUT();
 
-  Cantera::ThermoPhase **tplist;
+  ZZCantera::ThermoPhase **tplist;
 
-  Cantera::MultiPhase *m_mp;
+  ZZCantera::MultiPhase *m_mp;
 
   //* Integer representing the Problem type.
   /*!

@@ -26,7 +26,16 @@
 #include <string>
 #include <iostream>
  
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
  
   class Transport;
   class PhaseList;
@@ -77,7 +86,7 @@ namespace Cantera {
 
     //!   Import all the phases from a PhaseList and initialize the
     //!   object
-    bool importFromPL(Cantera::PhaseList *pl, int ivkin, int iskin);
+    bool importFromPL(PhaseList *pl, int ivkin, int iskin);
 
     //! Returns a reference to the calculated production rates of species per surface area
     /*!
@@ -119,7 +128,7 @@ namespace Cantera {
     Transport* m_transport;
 
     //! Vector of additional information about each reaction
-    std::vector<Cantera::RxnMolChange *> rmcVector;
+    std::vector<RxnMolChange *> rmcVector;
    
     //! Number of phases within the class
     int numPhases;
@@ -177,7 +186,7 @@ namespace Cantera {
 
 
     //! Pointer to the phaselist object that contains the ThermoPhase objects
-    Cantera::PhaseList *m_pl;
+    PhaseList *m_pl;
 
   protected:
     bool m_ok;

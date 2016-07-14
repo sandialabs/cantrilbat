@@ -9,20 +9,24 @@
 
 #include <string>
 using std::string;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 
                               
 /*****************************************************************************
  *
  */
-int electrode_prep(Cantera::Electrode *prob) 
+int electrode_prep(ZZCantera::Electrode *prob) 
 {
    
     return 0;
 }
 
-void electrode_query(Cantera::Electrode *prob) 
+void electrode_query(ZZCantera::Electrode *prob) 
 {
 
 

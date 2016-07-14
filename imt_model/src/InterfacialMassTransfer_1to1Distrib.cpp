@@ -25,7 +25,12 @@
 
 #include "ApplBase_print.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
+
 using namespace std;
 
 
@@ -37,7 +42,12 @@ using namespace std;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif  
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
   //======================================================================================================================
   /*
    *  constructor
@@ -481,5 +491,5 @@ namespace Cantera {
 
   
   //====================================================================================================================
-} // End of namespace Cantera
+} // 
 //======================================================================================================================

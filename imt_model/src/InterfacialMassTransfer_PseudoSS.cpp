@@ -26,7 +26,12 @@
 
 #include "ApplBase_print.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
+
 using namespace std;
 
 
@@ -38,7 +43,12 @@ using namespace std;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif  
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
   //======================================================================================================================
   /*
    *  Interface constructor
@@ -120,7 +130,7 @@ namespace Cantera {
       InterfaceKinetics *ik_ptr = dynamic_cast<InterfaceKinetics *>(RSD_List_[i]);
       IK_List.push_back(ik_ptr);
     }
-    isc_prob = new Cantera::ImplicitSurfChem(IK_List);
+    isc_prob = new ZZCantera::ImplicitSurfChem(IK_List);
 
     neq_isc_prob_ = isc_prob->neq();
 
@@ -516,5 +526,5 @@ namespace Cantera {
 
   
   //====================================================================================================================
-} // End of namespace Cantera
+} // 
 //======================================================================================================================

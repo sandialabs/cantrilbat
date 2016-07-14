@@ -24,7 +24,11 @@
 #include <iomanip>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
@@ -192,7 +196,7 @@ int main(int argc, char **argv)
      }
  
 
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return 0;
 

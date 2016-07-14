@@ -5,7 +5,11 @@
 #ifndef CT_ELECTRODE_DEFS_H
 #define CT_ELECTRODE_DEFS_H
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif {
 
 
   const int cBaseType = 1;

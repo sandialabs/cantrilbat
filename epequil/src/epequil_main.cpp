@@ -16,7 +16,11 @@
 #include <cstdio>
 #include <cstring>
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 
 #ifdef DEBUG
@@ -262,7 +266,7 @@ int main(int argc, char **argv)
      }
      ThermoPhase &p_ref = mp->phase(0);
 
-     Cantera::ChemEquil ep;
+     ZZCantera::ChemEquil ep;
 
      //beginLogGroup("epequil", 10);
 #ifdef DEBUG_HKM_EPEQUIL
@@ -301,7 +305,7 @@ int main(int argc, char **argv)
      delete prob_input;
 
 
-     Cantera::appdelete();
+     ZZCantera::appdelete();
 
      return retn;
 

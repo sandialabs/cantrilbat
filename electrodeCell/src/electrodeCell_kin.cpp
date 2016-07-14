@@ -54,7 +54,11 @@
 
 
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 using namespace ca_ab;
 
@@ -195,7 +199,7 @@ void calcBF(double i1, double V1, double i2,
  */
 void
 getKineticsTables(TemperatureTable& TT, Electrode *electrode,
-		  Cantera::Kinetics &kin,
+		  ZZCantera::Kinetics &kin,
 		  DenseMatrix& kfwd_Table, 
 		  DenseMatrix& krev_Table,
 		  DenseMatrix& deltaG_Table,
@@ -214,8 +218,8 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
   double deltaT = 0.001;
   double Afac, EadivR, csc;
   int kindex;
-  //Cantera::MultiPhase *mp = electrode->m_mp;
-  Cantera::PhaseList *pl = electrode;
+  //ZZCantera::MultiPhase *mp = electrode->m_mp;
+  ZZCantera::PhaseList *pl = electrode;
 
   double *electrodeMF = new double[electrode->nSpecies()];
   electrode->getMoleFractions(electrodeMF);
@@ -473,7 +477,7 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
  */
 void printKineticsTable(Electrode *electrode, int j,
 			TemperatureTable &TT,
-			Cantera::Kinetics &kin, 
+			ZZCantera::Kinetics &kin, 
 			DenseMatrix& kfwd_Table, 
 			DenseMatrix& krev_Table,
 			DenseMatrix& deltaG_Table,
@@ -485,7 +489,7 @@ void printKineticsTable(Electrode *electrode, int j,
 			DenseMatrix& EarevdivR_Table,
 			DenseMatrix& kfwdPrime_Table, 
 			DenseMatrix& krevPrime_Table,
-			Cantera::RxnMolChange *rmc) {
+			ZZCantera::RxnMolChange *rmc) {
 
     /*
      *  Get the species data object from the Mixture object
@@ -797,11 +801,11 @@ void doKineticsTablesHetero(Electrode *electrode,
 		      Arev_Table, EarevdivR_Table,
 		      kfwdPrime_Table, krevPrime_Table);
 
-    std::vector<Cantera::RxnMolChange *> rmcVector;
+    std::vector<ZZCantera::RxnMolChange *> rmcVector;
     rmcVector.resize(nReactions,0);
 
     for (int i = 0; i < nReactions; i++) {
-      rmcVector[i] = new Cantera::RxnMolChange(gKinetics, i);
+      rmcVector[i] = new ZZCantera::RxnMolChange(gKinetics, i);
 
       printKineticsTable(electrode, i, TT,
 			 *gKinetics, kfwd_Table, krev_Table,
@@ -843,7 +847,7 @@ void doKineticsTablesHetero(Electrode *electrode,
       */
 
       ExtraGlobalRxn *egr = electrode->extraGlobalRxnPathway(iextra);
-      Cantera::RxnMolChange *rmcEGR =  electrode->rxnMolChangesEGR(iextra);
+      ZZCantera::RxnMolChange *rmcEGR =  electrode->rxnMolChangesEGR(iextra);
       RxnTempTableStuff * rts = new RxnTempTableStuff(-1,0);
       getGERKineticsTables(TT, electrode, *gKinetics, *egr, *rts); 
       setAllBathSpeciesConditions(electrode);
@@ -868,7 +872,7 @@ void doKineticsTablesHetero(Electrode *electrode,
 }
 
 
-void doKineticsTablesHomog(Electrode *electrode, Cantera::Kinetics *gKinetics,   
+void doKineticsTablesHomog(Electrode *electrode, ZZCantera::Kinetics *gKinetics,   
 			   TemperatureTable &TT) {
     
   int nReactions = gKinetics->nReactions();
@@ -890,10 +894,10 @@ void doKineticsTablesHomog(Electrode *electrode, Cantera::Kinetics *gKinetics,
 		    Afwd_Table, EafwddivR_Table, 
 		    Arev_Table, EarevdivR_Table,
 		    kfwdPrime_Table, krevPrime_Table);
-  vector<Cantera::RxnMolChange *> rmcVector;
+  vector<ZZCantera::RxnMolChange *> rmcVector;
   rmcVector.resize(nReactions,0);
   for (int i = 0; i < nReactions; i++) {
-    rmcVector[i] = new Cantera::RxnMolChange(gKinetics, i);
+    rmcVector[i] = new ZZCantera::RxnMolChange(gKinetics, i);
     printKineticsTable(electrode, i, TT,
 		       *gKinetics, kfwd_Table, krev_Table,
 		       deltaG_Table, deltaH_Table, deltaS_Table,
@@ -909,7 +913,7 @@ void doKineticsTablesHomog(Electrode *electrode, Cantera::Kinetics *gKinetics,
 
 
 /*************************************************************************/
-void processCurrentVsPotTable(Cantera::RxnMolChange *rmc,
+void processCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
 			      Electrode *electrode, int irxn,
 			      TemperatureTable &TT,
 			      Kinetics &kin, 
@@ -1183,7 +1187,7 @@ RxnTempTableStuff::~RxnTempTableStuff() {
  */
 void
 getGERKineticsTables(TemperatureTable& TT, Electrode *electrode,
-		     Cantera::Kinetics &kin,
+		     ZZCantera::Kinetics &kin,
 		     ExtraGlobalRxn &egr,
 		     RxnTempTableStuff &rts) {
   
@@ -1350,9 +1354,9 @@ getGERKineticsTables(TemperatureTable& TT, Electrode *electrode,
  */
 void printGERKineticsTable(Electrode *electrode, int iGER,
 			   TemperatureTable& TT,
-			   Cantera::Kinetics &kin,
+			   ZZCantera::Kinetics &kin,
 			   ExtraGlobalRxn &egr,
-			   Cantera::RxnMolChange *rmc,
+			   ZZCantera::RxnMolChange *rmc,
 			   RxnTempTableStuff &rts) {
   
   // vector<double> & kfwd_Table      = rts.kfwd_Table;
@@ -1617,7 +1621,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
 /*
  *
  */
-double processGERCurrent(Cantera::RxnMolChange *rmc,
+double processGERCurrent(ZZCantera::RxnMolChange *rmc,
 			 Electrode *electrode, int iGERrxn,
 			 Kinetics &kin,
 			 ExtraGlobalRxn &egr)
@@ -1866,7 +1870,7 @@ double processGERCurrent(Cantera::RxnMolChange *rmc,
 }
 
 /*************************************************************************/
-void processGERCurrentVsPotTable(Cantera::RxnMolChange *rmc,
+void processGERCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
 				 Electrode *electrode, int iGERrxn,
 				 TemperatureTable &TT,
 				 Kinetics &kin,  

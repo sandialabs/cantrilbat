@@ -1,7 +1,7 @@
 /**
  *  @file ThermoFactory.h
  *     Headers for the factory class that can create known %ThermoPhase objects
- *     (see \ref thermoprops and class \link Cantera::ThermoFactory ThermoFactory\endlink).
+ *     (see \ref thermoprops and class \link ZZCantera::ThermoFactory ThermoFactory\endlink).
  *
  */
 
@@ -51,7 +51,16 @@
 
 using namespace std;
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
 
   class SpeciesThermoFactory;
   class VPSSMgr;

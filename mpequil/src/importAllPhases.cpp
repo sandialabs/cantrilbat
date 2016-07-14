@@ -35,7 +35,11 @@
 
 using namespace ctml;
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace mdpUtil;
 
 /**************************************************************************

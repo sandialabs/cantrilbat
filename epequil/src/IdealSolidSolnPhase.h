@@ -43,7 +43,12 @@
 #include "cantera/thermo/ThermoPhase.h"
 #include "cantera/thermo/SpeciesThermo.h"
 #endif
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
     const int cIdealSolidSolnPhase0 = 5010;
     const int cIdealSolidSolnPhase1 = 5011;

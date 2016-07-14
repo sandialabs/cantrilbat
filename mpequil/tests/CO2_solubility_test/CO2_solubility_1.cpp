@@ -17,7 +17,14 @@
 
 #include <cstring>
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#define ZZCantera Zuzax
+#else
 using namespace Cantera;
+#define ZZCantera Cantera
+#endif
+
 using namespace std;
 
 void printUsage() {
@@ -98,7 +105,7 @@ int main(int argc, char **argv) {
 
     string nacl_s = "NaCl_Solid.xml";
     string id = "NaCl(S)";
-    Cantera::ThermoPhase *solid = Cantera::newPhase(nacl_s, id);
+    ZZCantera::ThermoPhase *solid = ZZCantera::newPhase(nacl_s, id);
     solid->setState_TP(300.0, pres);
 
     
@@ -107,7 +114,7 @@ int main(int argc, char **argv) {
 
 
 
-    Cantera::MultiPhase mmm;
+    ZZCantera::MultiPhase mmm;
     
     mmm.addPhase(HMW, 10.);
     mmm.addPhase(solid, 0.001);

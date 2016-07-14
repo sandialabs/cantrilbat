@@ -11,12 +11,18 @@
 #include <cstdio>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#define ZZCantera Zuzax
+#else
 using namespace Cantera;
+#define ZZCantera Cantera
+#endif
 
 int main(int argc, char **argv) {
   try {
 #ifdef DEBUG_BASISOPTIMIZE
-    Cantera::BasisOptimize_print_lvl = 1;
+    ZZCantera::BasisOptimize_print_lvl = 1;
 #endif
     IdealGasMix g("gri30.xml", "gri30_mix");
 
@@ -33,13 +39,13 @@ int main(int argc, char **argv) {
     bool doFormMatrix = false;
     vector_fp formRxnMatrix;
 
-    int nc = Cantera::BasisOptimize(&usedZeroedSpecies, doFormMatrix,
+    int nc = ZZCantera::BasisOptimize(&usedZeroedSpecies, doFormMatrix,
 			   &mphase, orderVectorSpecies, orderVectorElements,
 			   formRxnMatrix);
     cout << "number of components = " << nc << endl;
 
     vector_fp elementAbundances;
-    int nct = Cantera::ElemRearrange(nc, elementAbundances, &mphase, 
+    int nct = ZZCantera::ElemRearrange(nc, elementAbundances, &mphase, 
 				     orderVectorSpecies, orderVectorElements);
     if (nc != nct) {
       printf("ERROR\n");

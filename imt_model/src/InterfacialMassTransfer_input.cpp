@@ -26,7 +26,6 @@
 
 #include "importPL.h"
 
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -35,7 +34,12 @@ using namespace ca_ab;
 
 #include <string>
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 /*************************************************************************
  *
  * MPEQUIL_KEY_INPUT(): constructor
@@ -237,7 +241,7 @@ IMT_KEY_INPUT::~IMT_KEY_INPUT () {
  *         MoleNumberIG 
  *         ElementAbundances 
  */
-void IMT_KEY_INPUT::InitForInput(const Cantera::PhaseList * const pl) {
+void IMT_KEY_INPUT::InitForInput(const ZZCantera::PhaseList * const pl) {
   nTotPhases  = pl->nPhases();
   nTotSpecies = pl->nSpecies();
   nTotElements = pl->nElements();
@@ -1073,7 +1077,7 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
   return 0;
 }
 //=========================================================================================
-int imt_model_print(Cantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INPUT *ei,
+int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INPUT *ei,
 		    BEInput::BlockEntry *cf)
 {
 

@@ -36,7 +36,11 @@
 #include <cstring>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 #ifdef USE_VCSNONIDEAL
 using namespace VCSnonideal;
@@ -63,7 +67,7 @@ void printUsage() {
 #ifdef USE_VCSNONIDEAL
 int mpequil_convert(MPEQUIL_INPUT *prob_input, VCSnonideal::VCS_PROB *vprob) {
 
-  Cantera::MultiPhase *mix = prob_input->m_mp;
+  ZZCantera::MultiPhase *mix = prob_input->m_mp;
   /*
    *     Extract the current state information
    *     from the MultiPhase object and
@@ -393,7 +397,7 @@ int main(int argc, char **argv)
     delete prob_input;
 
 
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return retn;
 

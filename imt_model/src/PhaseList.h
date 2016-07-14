@@ -3,7 +3,7 @@
  * @file PhaseList.h
  * This file contains definitions for the class PhaseList
  *  (see \ref thermoprops and
- * class \link Cantera::PhaseList PhaseList\endlink).
+ * class \link ZZCantera::PhaseList PhaseList\endlink).
  */
 
 /**
@@ -17,7 +17,16 @@
 #include "cantera/thermo/Elements.h"
 #include "cantera/base/ctml.h"
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
 
   class ThermoPhase;
   class XML_Node;

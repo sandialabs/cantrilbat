@@ -34,7 +34,11 @@
 #include "mdp_allo.h"
 
 using namespace ctml;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 using namespace mdpUtil;
 

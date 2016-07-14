@@ -29,7 +29,12 @@
 #include <iomanip>
 
 using namespace std;
+
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace mdpUtil;
 
 
@@ -48,8 +53,13 @@ void printUsage() {
     cout << endl;
 }
 
-namespace Cantera {
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera 
+#endif
+{
 /**
  *  Virtual base class for ODE right-hand-side function evaluators.
  *  Classes derived from FuncEval evaluate the right-hand-side function
@@ -331,9 +341,9 @@ int main(int argc, char **argv)
     }
   
   
-    Cantera::imtPSS_NoSurf* iface  = new Cantera::imtPSS_NoSurf();
+    ZZCantera::imtPSS_NoSurf* iface  = new ZZCantera::imtPSS_NoSurf();
     
-    Cantera::IMT_KEY_INPUT *face_input = new IMT_KEY_INPUT();
+    ZZCantera::IMT_KEY_INPUT *face_input = new IMT_KEY_INPUT();
     
     std::string commandFile = "interface.inp";
   
@@ -433,7 +443,7 @@ int main(int argc, char **argv)
     delete cf;
     delete face_input;
     delete iface;
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return retn;
 

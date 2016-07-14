@@ -12,17 +12,21 @@
 #include "cantera/equilibrium.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 int main(int argc, char **argv) {
   try {
     IdealGasMix g("red1.xml", "gri30_mix");
 
 #ifdef DEBUG_BASISOPTIMIZE
-   Cantera::BasisOptimize_print_lvl = 1;
+   ZZCantera::BasisOptimize_print_lvl = 1;
 #endif
 #ifdef DEBUG_CHEMEQUIL
-   Cantera::ChemEquil_print_lvl = 1;
+   ZZCantera::ChemEquil_print_lvl = 1;
 #endif
 
     double pres = 1.0E5;

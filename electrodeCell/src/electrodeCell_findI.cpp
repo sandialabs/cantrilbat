@@ -17,7 +17,11 @@
 #include <stdio.h>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 
 double findV(Electrode *electrode, doublereal Itarget,

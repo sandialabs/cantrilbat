@@ -15,7 +15,12 @@
 #include "cantera/integrators.h"
 #include "cantera/numerics/NonlinearSolver.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
+
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -33,7 +38,12 @@ using namespace mdpUtil;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif           
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera 
+#endif
+{
   //======================================================================================================================
   SubIntegrationHistory::SubIntegrationHistory() :
     nTimeSteps_(0),
@@ -168,7 +178,7 @@ namespace Cantera {
     if (this == &right) return *this;
  
     InterfacialMassTransfer::operator=(right);
-    Cantera::ResidJacEval::operator=(right);
+    ZZCantera::ResidJacEval::operator=(right);
 
     neq_                                = right.neq_;
     deltaTsubcycleCalc_                 = right.deltaTsubcycleCalc_;

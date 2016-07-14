@@ -11,7 +11,11 @@
 #include "cantera/equilibrium.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 int main(int argc, char **argv) {
   int numSucc = 0;

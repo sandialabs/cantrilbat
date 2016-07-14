@@ -26,7 +26,11 @@
 #include <vector>
 
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif {
 
  
   class PhaseList;

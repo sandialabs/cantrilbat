@@ -35,7 +35,6 @@
 
 #include "ApplBase_print.h"
 
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -49,8 +48,12 @@ using namespace mdpUtil;
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif  
 
-namespace Cantera {
-
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   //======================================================================================================================
   /*
@@ -504,7 +507,7 @@ namespace Cantera {
   }
   //======================================================================================================================
   void ErrorModelType(int pos, std::string actual, std::string expected) {
-    throw Cantera::CanteraError("InterfacialMassTransfer::electrode_model_create() model id",
+    throw ZZCantera::CanteraError("InterfacialMassTransfer::electrode_model_create() model id",
 				"At pos " + int2str(pos) + ", expected phase " + expected + 
 		       " but got phase " + actual);
   }
@@ -1039,7 +1042,7 @@ namespace Cantera {
   // ------------------------------ OBTAIN STATIC PROBLEM INFORMATION ----------------------------
   
   //====================================================================================================================
-  Cantera::ReactingSurDomain * InterfacialMassTransfer::currOuterReactingSurface() {
+  ZZCantera::ReactingSurDomain * InterfacialMassTransfer::currOuterReactingSurface() {
     for (int isk = 0; isk < m_NumSurPhases; isk++) {
       if (ActiveKineticsSurf_[isk]) {
 	return RSD_List_[isk];
@@ -1048,7 +1051,7 @@ namespace Cantera {
     return 0;
   }
   //====================================================================================================================
-  Cantera::ReactingSurDomain * InterfacialMassTransfer::reactingSurface(int iSurf) {
+  ZZCantera::ReactingSurDomain * InterfacialMassTransfer::reactingSurface(int iSurf) {
     return RSD_List_[iSurf];
   }
   //====================================================================================================================
@@ -2997,5 +3000,5 @@ namespace Cantera {
 
   
   //====================================================================================================================
-} // End of namespace Cantera
+} // 
 //======================================================================================================================

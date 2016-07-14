@@ -21,7 +21,16 @@
 
 #include <string>
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
 
   class PhaseList;
   class XML_Node;

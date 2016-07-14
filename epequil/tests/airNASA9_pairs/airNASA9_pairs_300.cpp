@@ -13,7 +13,11 @@
 #include <cstdio>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 int main(int argc, char **argv) {
   try {
@@ -28,7 +32,7 @@ int main(int argc, char **argv) {
     vol = 1.0/dens; 
 
 #ifdef DEBUG_CHEMEQUIL
-    Cantera::ChemEquil_print_lvl = 3;
+    ZZCantera::ChemEquil_print_lvl = 3;
 #endif
 
     inte = g.intEnergy_mass();

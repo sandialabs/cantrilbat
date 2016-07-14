@@ -13,7 +13,14 @@
 
 #include <cstring>
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#define ZZCantera Zuzax
+#else
 using namespace Cantera;
+#define ZZCantera Cantera
+#endif
+
 using namespace std;
 
 void printUsage() {
@@ -112,7 +119,7 @@ int main(int argc, char **argv) {
 
     g.setState_TPX(T, pres, DATA_PTR(Xmol));
     try {
-      retnSub = Cantera::vcs_equilibrate(g, "TP", estimateEquil, printLvl, solver, 1.0e-9, 1000, 100, -99);
+      retnSub = ZZCantera::vcs_equilibrate(g, "TP", estimateEquil, printLvl, solver, 1.0e-9, 1000, 100, -99);
 
       cout << g;
       if (retnSub != 1) {

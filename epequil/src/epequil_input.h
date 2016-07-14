@@ -27,6 +27,12 @@
 
 #define EPEQUIL_SUCCESS 0
 
+#ifdef useZuzaxNamespace
+#define ZZCantera Zuzax
+#else
+#define ZZCantera Cantera
+#endif
+
 
 /*
  * Command file input -> This is the current command file specification
@@ -53,7 +59,7 @@ public:
     double *ElementAbundances;
     bool  specifiedElementAbundances;
     std::string Title;
-    void InitForInput(Cantera::MultiPhase *);
+    void InitForInput(ZZCantera::MultiPhase *);
 	
 };
 extern EPEQUIL_KEY_INPUT PO;
@@ -66,9 +72,9 @@ public:
     EPEQUIL_INPUT();
     ~EPEQUIL_INPUT();
 
-    Cantera::ThermoPhase **tplist;
+    ZZCantera::ThermoPhase **tplist;
 
-    Cantera::MultiPhase *m_mp;
+    ZZCantera::MultiPhase *m_mp;
     int    prob_type; /* prob_type = Problem type. I.e., the identity of 
 		       *             what is held constant. Currently, 
 		       *             T and P are held

@@ -37,12 +37,32 @@
  */
 
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+#define ZZCantera Zuzax
+namespace Zuzax
+#else
+#define ZZCantera Cantera
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
   class IMT_KEY_INPUT;
 }
 class SubIntegrationHistory;
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+#endif 
+{
 
   //!  Enum Type identifying the models for the Electrodes
   /*!
@@ -184,7 +204,7 @@ namespace Cantera {
    *    this will include a distributed solid domain.
    *    This will include multiple materials that create multiple plateaus.
    */
-  class InterfacialMassTransfer : public Cantera::PhaseList {
+  class InterfacialMassTransfer : public ZZCantera::PhaseList {
   public:
     
     // ---------------------------------------------------------------------------------------------
@@ -256,13 +276,13 @@ namespace Cantera {
     /*!
      *
      */
-    Cantera::ReactingSurDomain * currOuterReactingSurface();
+    ZZCantera::ReactingSurDomain * currOuterReactingSurface();
 
     //! Returns a reacting surface object
     /*!
      *  @param iSurf  returns a pointer to that reacting surface
      */
-    Cantera::ReactingSurDomain * reactingSurface(int iSurf);
+    ZZCantera::ReactingSurDomain * reactingSurface(int iSurf);
 
   
     //! Set the phase existence flag in the electrode kinetics object so that kinetics 
@@ -1623,7 +1643,7 @@ namespace Cantera {
 
   };
 
-  int imt_model_input(Cantera::IMT_KEY_INPUT *input,  std::string commandFile, BEInput::BlockEntry *cf);
+  int imt_model_input(ZZCantera::IMT_KEY_INPUT *input,  std::string commandFile, BEInput::BlockEntry *cf);
 
 }
 

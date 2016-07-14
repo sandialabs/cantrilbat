@@ -13,7 +13,12 @@
 #include "ExternalField.h"
 
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   //======================================================================================================================
   ExternalFieldScalar::ExternalFieldScalar(double val) :

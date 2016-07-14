@@ -51,7 +51,11 @@
 
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 #define MIN(x,y)     (( (x) < (y) ) ? (x) : (y))
 

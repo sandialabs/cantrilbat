@@ -22,7 +22,12 @@
 
 
 using namespace std;
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
   //====================================================================================================================
   /*
    * Constructor #1 for the IdealReactingGas object.
@@ -221,7 +226,7 @@ namespace Cantera {
   /*
    */
   bool ReactingSurDomain::
-  importFromPL(Cantera::PhaseList *pl, int ivkin, int iskin)  {
+  importFromPL(PhaseList *pl, int ivkin, int iskin)  {
     try {
       int iph;
       m_pl = pl;

@@ -18,7 +18,11 @@
 #include "importAllPhases.h"
 #include "mdp_allo.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 using namespace BEInput;
 using namespace mdpUtil;

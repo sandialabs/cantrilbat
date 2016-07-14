@@ -27,8 +27,12 @@
 
 
 
-namespace Cantera {
-
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   //! Class that assumes you have a pseudo steady state treatment of the integrated equations
   /*!
@@ -222,7 +226,7 @@ namespace Cantera {
   protected:
 
     //! surface chemistry problem
-    Cantera::ImplicitSurfChem *isc_prob;
+    ZZCantera::ImplicitSurfChem *isc_prob;
 
     //! Number of unknowns in the surface problem
     int neq_isc_prob_;

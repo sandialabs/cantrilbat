@@ -29,7 +29,11 @@
 //#include <cstdio>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
 using namespace mdpUtil;
 
@@ -53,7 +57,7 @@ void printUsage() {
 //! This routine converts the MPEQUIL_INPUT problem into a VCS_PROB
 //! structure
 
-int mpequil_convert(Cantera::Electrode *electrode, VCSnonideal::VCS_PROB *vprob,  Cantera::MultiPhase *mix) {
+int mpequil_convert(ZZCantera::Electrode *electrode, VCSnonideal::VCS_PROB *vprob,  ZZCantera::MultiPhase *mix) {
 
   /*
    *     Extract the current state information
@@ -89,7 +93,7 @@ int mpequil_convert(Cantera::Electrode *electrode, VCSnonideal::VCS_PROB *vprob,
  *
  */
 
-int mpequil_equilibrate(Cantera::Electrode *electrode, int estimateInit, int printFlag) {
+int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int printFlag) {
 
   Electrode_Equilibrium *ee_equil = new Electrode_Equilibrium(electrode);
 
@@ -228,8 +232,8 @@ int main(int argc, char **argv)
 {
   int i;
   FILE *inputFP = stdin;
-  Cantera::Electrode *electrodeA = new Cantera::Electrode_SuccessiveSubstitution();
-  Cantera::Electrode *electrodeC = new Cantera::Electrode_SuccessiveSubstitution();
+  ZZCantera::Electrode *electrodeA = new ZZCantera::Electrode_SuccessiveSubstitution();
+  ZZCantera::Electrode *electrodeC = new ZZCantera::Electrode_SuccessiveSubstitution();
   ELECTRODE_KEY_INPUT *electrodeA_input = new ELECTRODE_KEY_INPUT();
   ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
 
@@ -442,7 +446,7 @@ int main(int argc, char **argv)
 
      // electrodeA->addExtraGlobalRxn(egr_ptr);
       /*
-      Cantera::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKA);
+      ZZCantera::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKA);
       double *RxnVector  = new double[nReactionsA];
       for (int i = 0; i < nReactionsA; i++) {
 	RxnVector[i] = 0.0;
@@ -458,8 +462,8 @@ int main(int argc, char **argv)
       electrodeA->m_egr.push_back(egr);
       electrodeA->m_rmcEGR.push_back(rmcEGR);
       */
-      Cantera::RxnMolChange *rmcEGR = electrodeA->rxnMolChangesEGR(iextra); 
-      Cantera::ExtraGlobalRxn *egr = electrodeA->extraGlobalRxnPathway(iextra);
+      ZZCantera::RxnMolChange *rmcEGR = electrodeA->rxnMolChangesEGR(iextra); 
+      ZZCantera::ExtraGlobalRxn *egr = electrodeA->extraGlobalRxnPathway(iextra);
       if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
 	//processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
 	//		    *iK, *egr, *rts);
@@ -510,7 +514,7 @@ int main(int argc, char **argv)
 
     //  electrodeC->addExtraGlobalRxn(egr_ptr);
       /*
-      Cantera::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKC);
+      ZZCantera::ExtraGlobalRxn *egr = new ExtraGlobalRxn(iKC);
       double *RxnVector  = new double[nReactionsC];
       for (int i = 0; i < nReactionsC; i++) {
 	RxnVector[i] = 0.0;
@@ -526,8 +530,8 @@ int main(int argc, char **argv)
       electrodeC->m_egr.push_back(egr);
       electrodeC->m_rmcEGR.push_back(rmcEGR);
       */
-      Cantera::ExtraGlobalRxn *egr = electrodeC->extraGlobalRxnPathway(iextra);
-      Cantera::RxnMolChange *rmcEGR = electrodeC->rxnMolChangesEGR(iextra); 
+      ZZCantera::ExtraGlobalRxn *egr = electrodeC->extraGlobalRxnPathway(iextra);
+      ZZCantera::RxnMolChange *rmcEGR = electrodeC->rxnMolChangesEGR(iextra); 
 
       if ((rmcEGR)->m_ChargeTransferInRxn != 0.0) {
 	//processGERCurrentVsPotTable(rmcEGR, pl, 0, TT,
@@ -548,8 +552,8 @@ int main(int argc, char **argv)
       double deltaV = AopenCircuitVoltageEst  + i * 0.02;
       //electrodeA->setDeltaVoltage(deltaV); 
       electrodeA->setVoltages(deltaV, 0.0);
-      Cantera::RxnMolChange * rmcEGR = electrodeA->rxnMolChangesEGR(0);
-      Cantera::ExtraGlobalRxn * egr = electrodeA->extraGlobalRxnPathway(0);
+      ZZCantera::RxnMolChange * rmcEGR = electrodeA->rxnMolChangesEGR(0);
+      ZZCantera::ExtraGlobalRxn * egr = electrodeA->extraGlobalRxnPathway(0);
       IcurrNet = processGERCurrent(rmcEGR, electrodeA, 0, *iKA, 
 				   *(egr));
 
@@ -582,7 +586,7 @@ int main(int argc, char **argv)
     delete electrodeA_input;
 
 
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
     return retn;
 
