@@ -98,7 +98,7 @@ public:
   /*!
    *   We own this object
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
+  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! top or bottom of the domain
   /*!

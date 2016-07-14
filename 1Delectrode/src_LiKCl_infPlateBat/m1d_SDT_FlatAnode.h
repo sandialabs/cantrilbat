@@ -10,7 +10,11 @@
 
 #include "m1d_SurfDomainTypes.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 class Electrode;
 }
@@ -92,7 +96,7 @@ public:
   /*!
    *   We own the electrode object
    */
-  Cantera::Electrode *ElectrodeA_;
+  ZZCantera::Electrode *ElectrodeA_;
 
 
 

@@ -31,12 +31,12 @@ static void
 drawline(int sp, int ll)
 {
   for (int i = 0; i < sp; i++) {
-    Cantera::writelog(" ");
+    ZZCantera::writelog(" ");
   }
   for (int i = 0; i < ll; i++) {
-    Cantera::writelog("-");
+    ZZCantera::writelog("-");
   }
-  Cantera::writelog("\n");
+  ZZCantera::writelog("\n");
 }
 //=====================================================================================================================
 //=====================================================================================================================
@@ -273,7 +273,7 @@ SurDomain_FlatLiSiAnode::residEval(Epetra_Vector &res,
    */
   updateDependencies(soln_ptr, t, residType);
 
-  // Cantera::ReactingSurDomain *rSurDomain = ElectrodeA_->m_rSurDomain;
+  // ZZCantera::ReactingSurDomain *rSurDomain = ElectrodeA_->m_rSurDomain;
 
   /*
    * get the offsets for the BulkDomain and the surface domain.
@@ -516,7 +516,7 @@ SurDomain_FlatLiSiAnode::getMFElectrolyte_soln(const double * const solnBulk)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-SurDomain_FlatLiSiAnode::saveDomain(Cantera::XML_Node& oNode,
+SurDomain_FlatLiSiAnode::saveDomain(ZZCantera::XML_Node& oNode,
                                     const Epetra_Vector *soln_GLALL_ptr,
                                     const Epetra_Vector *solnDot_GLALL_ptr,
                                     const double t,
@@ -533,7 +533,7 @@ SurDomain_FlatLiSiAnode::saveDomain(Cantera::XML_Node& oNode,
   NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
   int eqnStart = nv->EqnStart_GbEqnIndex;
   //XML_Node& inlt = o.addChild("inlet");
-  Cantera::XML_Node& inlt = oNode.addChild("domain");
+  ZZCantera::XML_Node& inlt = oNode.addChild("domain");
   int numVar = nv->NumEquations;
   inlt.addAttribute("id", id());
   inlt.addAttribute("points", 1);
@@ -541,15 +541,15 @@ SurDomain_FlatLiSiAnode::saveDomain(Cantera::XML_Node& oNode,
   inlt.addAttribute("numVariables", numVar);
   double x0pos = nv->x0NodePos();
   double xpos = nv->xNodePos();
-  ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
-  ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
+  ctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+  ctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
   for (int k = 0; k < numVar; k++) {
     double sval = (*soln_GLALL_ptr)[eqnStart + k];
     string nm = nv->VariableName(k);
     VarType vv = nv->VariableNameList_EqnNum[k];
     string type = VarType::VarMainName(vv.VariableType);
-    ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
   }
 }
 //=====================================================================================================================
@@ -616,15 +616,15 @@ SurDomain_FlatLiSiAnode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   if (doWrite) {
     drawline(indentSpaces, 80);
     sprintf(buf, "%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     sprintf(buf, "%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     doublereal x0 = nv->x0NodePos();
     sprintf(buf, "%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     drawline(indentSpaces, 80);
     sprintf(buf, "%s     VariableName         Value        DirichletCondition\n", ind);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     drawline(indentSpaces + 2, 60);
     int jDir = 0;
     for (int k = 0; k < numVar; k++) {
@@ -632,14 +632,14 @@ SurDomain_FlatLiSiAnode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       string name = vt.VariableName(20);
       double sval = (*soln_GlAll_ptr)[eqnStart + k];
       sprintf(buf, "%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
-      Cantera::writelog(buf);
+      ZZCantera::writelog(buf);
       if (SpecFlag_NE[k] != 0) {
         sprintf(buf, " (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
         jDir++;
       }
       sprintf(buf, "\n");
-      Cantera::writelog(buf);
+      ZZCantera::writelog(buf);
     }
     drawline(indentSpaces + 2, 60);
 
@@ -648,18 +648,18 @@ SurDomain_FlatLiSiAnode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   if (doWrite) {
     double deltaV = ElectrodeA_->voltage();
     sprintf(buf, "%s   Delta Voltage = %g volts\n", ind, deltaV);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     double Ess = ElectrodeA_->openCircuitVoltage(0);
     sprintf(buf, "%s   Ess Voltage = %g volts\n", ind, Ess);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     double op = ElectrodeA_->overpotential(0);
     sprintf(buf, "%s   Overpotential = %g volts\n", ind, op);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     sprintf(buf, "%s   Current       = %g amps/m2\n", ind, icurr * surfaceArea_);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     sprintf(buf, "%s   Li+ Production Rate = %g kmol/m2/s\n", ind, electrodeSpeciesProdRates_[speciesIndex0]
         * surfaceArea_);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
   }
 
   if (doWrite) {

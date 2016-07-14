@@ -276,7 +276,7 @@ public:
    *                             false, the xml_node info will only exist on proc 0.
    */
   virtual void
-  saveDomain(Cantera::XML_Node& oNode,
+  saveDomain(ZZCantera::XML_Node& oNode,
              const Epetra_Vector *soln_GlAll_ptr,
              const Epetra_Vector *solnDot_GlAll_ptr,
              const double t,
@@ -717,7 +717,7 @@ protected:
 
 
   //! Old value of the electrolyte mole fraction vector
-  Cantera::Array2D mfElectrolyte_Soln_Cell_old_;
+  ZZCantera::Array2D mfElectrolyte_Soln_Cell_old_;
 
   //! Current value of the electrolyte mole fraction time deriv vector
   std::vector<double> mfElectrolyte_SolnDot_Curr_;

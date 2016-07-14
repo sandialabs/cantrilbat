@@ -16,7 +16,11 @@
 extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -73,7 +77,7 @@ BDT_infPorCathode_LiKCl::ReadModelDescriptions()
 {
     BDD_porousElectrode::ReadModelDescriptions();
 
-    ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
+    ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
 
    
 }
@@ -174,7 +178,7 @@ BDT_infPorCathode_LiKCl::DetermineConstitutiveModels()
     /*
      *  Create and Store a pointer to the Transport Manager
      */
-    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+    trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //=====================================================================================================================
 } /* End of Namespace */

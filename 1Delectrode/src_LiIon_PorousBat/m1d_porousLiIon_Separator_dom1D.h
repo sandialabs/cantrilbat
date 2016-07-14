@@ -18,7 +18,11 @@
 #include "m1d_cellTmps_PorousFlow.h"
 #include "m1d_BDT_porSeparator_LiIon.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 class Electrode;
 class Transport;
@@ -264,7 +268,7 @@ public:
      *                             false, the xml_node info will only exist on proc 0.
      */
     virtual void
-    saveDomain(Cantera::XML_Node& oNode,
+    saveDomain(ZZCantera::XML_Node& oNode,
                const Epetra_Vector* soln_GlAll_ptr,
                const Epetra_Vector* solnDot_GlAll_ptr,
                const double t,
@@ -501,7 +505,7 @@ protected:
     //!  Current Thermo value of quantities at the current point
 
 
-    Cantera::Array2D mfElectrolyte_Soln_Cell_old_;
+    ZZCantera::Array2D mfElectrolyte_Soln_Cell_old_;
 
     // --------------------------------------------------------------------------
     //!  Current transport values of quantities at the current point

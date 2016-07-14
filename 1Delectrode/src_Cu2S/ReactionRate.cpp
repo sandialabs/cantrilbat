@@ -59,7 +59,7 @@ ReactionRate::getStoichSpec(int ispec)
 double
 ReactionRate::calculateRate(const double * const y)
 {
-  throw Cantera::CanteraError("ReactionRate::calculateRate",
+  throw ZZCantera::CanteraError("ReactionRate::calculateRate",
                               "base class called -> error");
 }
 

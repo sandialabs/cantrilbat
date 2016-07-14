@@ -25,7 +25,11 @@
 #include <iostream>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -38,7 +42,7 @@ DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat(ProblemStatement* psI
 {
     pscInput_ptr_ = dynamic_cast<ProblemStatementCell*>(psInput_ptr);
     if (!pscInput_ptr_) {
-        Cantera::CanteraError("DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat()",
+        ZZCantera::CanteraError("DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat()",
                               "Bad dynamic cast");
     }
 }
@@ -48,7 +52,7 @@ DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat(int probNum, ProblemS
 {
     pscInput_ptr_ = dynamic_cast<ProblemStatementCell*>(psInput_ptr);
     if (!pscInput_ptr_) {
-        Cantera::CanteraError("DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat()",
+        ZZCantera::CanteraError("DomainLayout_LiIon_PorousBat::DomainLayout_LiIon_PorousBat()",
                               "Bad dynamic cast");
     }
     if (probNum == 1) {

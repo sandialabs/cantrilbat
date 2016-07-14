@@ -294,7 +294,7 @@ Cu2S_TopSurface::residEval(Epetra_Vector &res,
     exit(-1);
   } else if (coordinateSystemType_ == Spherical_Coordinates) {
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = 2 * Cantera::Pi;
+    area_cvb = 2 * ZZCantera::Pi;
     exit(-1);
   }
   double stoicCoeffC0;
@@ -350,7 +350,7 @@ Cu2S_TopSurface::residEval(Epetra_Vector &res,
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-Cu2S_TopSurface::saveDomain(Cantera::XML_Node& oNode,
+Cu2S_TopSurface::saveDomain(Zuzax::XML_Node& oNode,
                             const Epetra_Vector *soln_GLALL_ptr,
                             const Epetra_Vector *solnDot_GLALL_ptr,
                             const double t,
@@ -367,7 +367,7 @@ Cu2S_TopSurface::saveDomain(Cantera::XML_Node& oNode,
   NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
   int eqnStart = nv->EqnStart_GbEqnIndex;
   //XML_Node& inlt = o.addChild("inlet");
-  Cantera::XML_Node& inlt = oNode.addChild("domain");
+  Zuzax::XML_Node& inlt = oNode.addChild("domain");
   int numVar = nv->NumEquations;
   inlt.addAttribute("id", id());
   inlt.addAttribute("points", 1);
@@ -375,15 +375,15 @@ Cu2S_TopSurface::saveDomain(Cantera::XML_Node& oNode,
   inlt.addAttribute("numVariables", numVar);
   double x0pos = nv->x0NodePos();
   double xpos = nv->xNodePos();
-  ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
-  ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
+  ctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+  ctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
 
   for (int k = 0; k < numVar; k++) {
     double sval = (*soln_GLALL_ptr)[eqnStart + k];
     string nm = nv->VariableName(k);
     VarType vv = nv->VariableNameList_EqnNum[k];
     string type = VarType::VarMainName(vv.VariableType);
-    ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
   }
 }
 //=====================================================================================================================
@@ -439,15 +439,15 @@ Cu2S_TopSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   if (doWrite) {
     ss.drawline0(indentSpaces, 80);
     ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     doublereal x0 = nv->x0NodePos();
     ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     ss.drawline0(indentSpaces, 80);
     ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     ss.drawline0(indentSpaces + 2, 60);
     int jDir = 0;
     for (int k = 0; k < numVar; k++) {
@@ -455,14 +455,14 @@ Cu2S_TopSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       string name = vt.VariableName(15);
       double sval = (*soln_GlAll_ptr)[eqnStart + k];
       ss.print0("%s   %-15s   %-10.4E ", ind, name.c_str(), sval);
-      //Cantera::writelog(buf);
+      //Zuzax::writelog(buf);
       if (SpecFlag_NE[k] != 0) {
         ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
-        //Cantera::writelog(buf);
+        //Zuzax::writelog(buf);
         jDir++;
       }
       ss.print0("\n");
-      //Cantera::writelog(buf);
+      //Zuzax::writelog(buf);
     }
     ss.drawline0(indentSpaces + 2, 60);
     ss.drawline0(indentSpaces, 80);
@@ -775,7 +775,7 @@ Cu2S_BotSurface::residEval(Epetra_Vector &res,
     exit(-1);
   } else if (coordinateSystemType_ == Spherical_Coordinates) {
     //area_cvb = 2 * Pi * m_cellBound[m_nodes - 1] * m_cellBound[m_nodes - 1];
-    area_cvb = 2 * Cantera::Pi;
+    area_cvb = 2 * Zuzax::Pi;
     // the whole program needs to get fixed for different coordinate systems
     exit(-1);
   }
@@ -813,7 +813,7 @@ Cu2S_BotSurface::residEval(Epetra_Vector &res,
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-Cu2S_BotSurface::saveDomain(Cantera::XML_Node& oNode,
+Cu2S_BotSurface::saveDomain(Zuzax::XML_Node& oNode,
                             const Epetra_Vector *soln_GLALL_ptr,
                             const Epetra_Vector *solnDot_GLALL_ptr,
                             const double t,
@@ -830,7 +830,7 @@ Cu2S_BotSurface::saveDomain(Cantera::XML_Node& oNode,
   NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
   int eqnStart = nv->EqnStart_GbEqnIndex;
   //XML_Node& inlt = o.addChild("inlet");
-  Cantera::XML_Node& inlt = oNode.addChild("domain");
+  Zuzax::XML_Node& inlt = oNode.addChild("domain");
   int numVar = nv->NumEquations;
   inlt.addAttribute("id", id());
   inlt.addAttribute("points", 1);
@@ -838,15 +838,15 @@ Cu2S_BotSurface::saveDomain(Cantera::XML_Node& oNode,
   inlt.addAttribute("numVariables", numVar);
   double x0pos = nv->x0NodePos();
   double xpos = nv->xNodePos();
-  ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
-  ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
+  ctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+  ctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
 
   for (int k = 0; k < numVar; k++) {
     double sval = (*soln_GLALL_ptr)[eqnStart + k];
     string nm = nv->VariableName(k);
     VarType vv = nv->VariableNameList_EqnNum[k];
     string type = VarType::VarMainName(vv.VariableType);
-    ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
   }
 }
 //=====================================================================================================================
@@ -904,15 +904,15 @@ Cu2S_BotSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ss.drawline0(indentSpaces, 80);
     ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
  
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     doublereal x0 = nv->x0NodePos();
     ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     ss.drawline0(indentSpaces, 80);
     ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
-    //Cantera::writelog(buf);
+    //Zuzax::writelog(buf);
     ss.drawline0(indentSpaces + 2, 60);
     int jDir = 0;
     for (int k = 0; k < numVar; k++) {
@@ -920,14 +920,14 @@ Cu2S_BotSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       std::string name = vt.VariableName(20);
       double sval = (*soln_GlAll_ptr)[eqnStart + k];
       ss.print0("%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
-      //Cantera::writelog(buf);
+      //Zuzax::writelog(buf);
       if (SpecFlag_NE[k] != 0) {
         ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
-        //Cantera::writelog(buf);
+        //Zuzax::writelog(buf);
         jDir++;
       }
       ss.print0("\n");
-      //Cantera::writelog(buf);
+      //Zuzax::writelog(buf);
     }
     ss.drawline0(indentSpaces + 2, 60);
     ss.drawline0(indentSpaces, 80);

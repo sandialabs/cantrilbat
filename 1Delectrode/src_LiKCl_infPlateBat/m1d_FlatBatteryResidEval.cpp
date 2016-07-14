@@ -170,7 +170,7 @@ namespace m1d
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     //SurDomain_CathodeCollector *c_ptr = dynamic_cast<SurDomain_CathodeCollector *>(d_ptr);
     SurDomain_FlatFeS2Cathode *c_ptr = dynamic_cast<SurDomain_FlatFeS2Cathode *>(d_ptr);
-    Cantera::Electrode *ElectrodeC_ = c_ptr->ElectrodeC_;
+    ZZCantera::Electrode *ElectrodeC_ = c_ptr->ElectrodeC_;
 
     /*
      * Calculate the rates of production of all species in the Electrode
@@ -184,7 +184,7 @@ namespace m1d
     SurDomain1D *ad_ptr = DL.SurDomain1D_List[0];
     SurDomain_FlatLiSiAnode *ac_ptr = dynamic_cast<SurDomain_FlatLiSiAnode *>(ad_ptr);
 
-    Cantera::Electrode *ElectrodeA_ = ac_ptr->ElectrodeA_;
+    ZZCantera::Electrode *ElectrodeA_ = ac_ptr->ElectrodeA_;
     double icurrA = ElectrodeA_->getNetSurfaceProductionRatesCurrent(0, &ac_ptr->electrodeSpeciesProdRates_[0]);
    
     double a_icurr = icurrA * ac_ptr->surfaceArea_;

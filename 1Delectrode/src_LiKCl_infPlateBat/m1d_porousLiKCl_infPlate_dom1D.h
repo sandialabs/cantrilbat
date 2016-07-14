@@ -242,12 +242,12 @@ protected:
 
   m1d::BDT_porousLiKCl* BDT_pms_ptr_;
 
-  //  Cantera::MultiPhase * mphase_;
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquid_;
-  //   Cantera::ThermoPhase * thermo_;
+  //  ZZCantera::MultiPhase * mphase_;
+  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquid_;
+  //   ZZCantera::ThermoPhase * thermo_;
 
 
-  Cantera::Transport* trans_;
+  ZZCantera::Transport* trans_;
 
   //! Number of phases solved
   int nph_;
@@ -358,7 +358,7 @@ protected:
   std::vector<double> solnTemp;
 
   //! Velocity basis of the transport equations
-  Cantera::VelocityBasis ivb_;
+  ZZCantera::VelocityBasis ivb_;
 
 private:
   void

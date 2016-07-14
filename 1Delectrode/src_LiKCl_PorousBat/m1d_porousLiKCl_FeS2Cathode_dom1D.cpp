@@ -36,7 +36,11 @@ extern int flagPrecipitation;
 #include "stdlib.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 #define DEBUG_HKM_LI
 
@@ -225,7 +229,7 @@ porousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
     throw CanteraError(" porousLiKCl_FeS2Cathode_dom1D::domain_prep()", "bad dynamic cast ");
   }
 
-  Cantera::Electrode *ee = BDT_cathode_ptr_->Electrode_;
+  ZZCantera::Electrode *ee = BDT_cathode_ptr_->Electrode_;
   nSpeciesElectrode_ = ee->nSpecies();
   nSurfsElectrode_ = ee->nSurfaces();
 
@@ -325,7 +329,7 @@ porousLiKCl_FeS2Cathode_dom1D::instantiateElectrodeCells()
     ProblemStatementCell *psc_ptr = dlc->pscInput_ptr_;
     ELECTRODE_KEY_INPUT *ci = psc_ptr->cathode_input_;
 
-    Cantera::Electrode *ee  = newElectrodeObject(ci->electrodeModelName);
+    ZZCantera::Electrode *ee  = newElectrodeObject(ci->electrodeModelName);
     if (!ee) {
       throw  m1d_Error("porousLiKCl_FeS2Cathode_dom1D::instantiateElectrodeCells()",
 		       "Electrode factory method failed");
@@ -912,7 +916,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
             fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_;
           }
         }
-        icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+        icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
       }
     } else {  // !doLeftFluxCalc
       /*
@@ -989,7 +993,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
           fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
         }
       }
-      icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
+      icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
     }
 
 #ifdef DEBUG_RESID
@@ -1825,7 +1829,7 @@ porousLiKCl_FeS2Cathode_dom1D::SetupTranShop(const double xdel, const int type)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-porousLiKCl_FeS2Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
+porousLiKCl_FeS2Cathode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
                                           const Epetra_Vector *soln_GLALL_ptr,
                                           const Epetra_Vector *solnDot_GLALL_ptr,
                                           const double t,
@@ -1835,7 +1839,7 @@ porousLiKCl_FeS2Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
   // Add a child for this domain
-  Cantera::XML_Node& bdom = oNode.addChild("domain");
+  ZZCantera::XML_Node& bdom = oNode.addChild("domain");
 
   // Number of equations per node
   int numEquationsPerNode = BDT_cathode_ptr_->NumEquationsPerNode;
@@ -1856,7 +1860,7 @@ porousLiKCl_FeS2Cathode_dom1D::saveDomain(Cantera::XML_Node& oNode,
   bdom.addAttribute("numVariables", numEquationsPerNode);
 
   // Dump out the coordinates
-  Cantera::XML_Node& gv = bdom.addChild("grid_data");
+  ZZCantera::XML_Node& gv = bdom.addChild("grid_data");
 
   std::vector<double> varContig(numNodes);
 
@@ -1886,12 +1890,12 @@ static void
 drawline(int sp, int ll)
 {
   for (int i = 0; i < sp; i++) {
-    Cantera::writelog(" ");
+    ZZCantera::writelog(" ");
   }
   for (int i = 0; i < ll; i++) {
-    Cantera::writelog("-");
+    ZZCantera::writelog("-");
   }
-  Cantera::writelog("\n");
+  ZZCantera::writelog("\n");
 }
 //=====================================================================================================================
 static void
@@ -3109,7 +3113,7 @@ porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation() {
   ThermoPhase* tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
   
   MargulesVPSSTP *salt ;
-  salt = dynamic_cast<Cantera::MargulesVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
+  salt = dynamic_cast<ZZCantera::MargulesVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
   
   int iKCl_l = salt->speciesIndex("KCl(L)");
   int iLiCl_l = salt->speciesIndex("LiCl(L)");
@@ -3124,7 +3128,7 @@ porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation() {
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-  Cantera::ThermoPhase *LiCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
+  ZZCantera::ThermoPhase *LiCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
 
   //solid KCl phase
   id_salt = "KCl(S)";
@@ -3134,7 +3138,7 @@ porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation() {
                        "Can't find the phase in the phase list: " + id_salt);
   }
   tmpPhase = & (PSinput.PhaseList_)->thermo(iph);
-  Cantera::ThermoPhase *KCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
+  ZZCantera::ThermoPhase *KCl_solid = tmpPhase->duplMyselfAsThermoPhase() ;
 
 
 
@@ -3149,14 +3153,14 @@ porousLiKCl_FeS2Cathode_dom1D::checkPrecipitation() {
   /*  
   string f_licl = "LiCl_solid.xml";
   string id = "LiCl(S)";
-  Cantera::ThermoPhase *LiCl_solid = Cantera::newPhase(f_licl, id);
+  ZZCantera::ThermoPhase *LiCl_solid = ZZCantera::newPhase(f_licl, id);
   */
   LiCl_solid->setState_TP(temp_Curr_, pres_Curr_);
   
   /*  
   string f_kcl = "KCl_solid.xml";
   id = "KCl(S)";
-  Cantera::ThermoPhase *KCl_solid = Cantera::newPhase(f_kcl, id);
+  ZZCantera::ThermoPhase *KCl_solid = ZZCantera::newPhase(f_kcl, id);
   */
   KCl_solid->setState_TP(temp_Curr_, pres_Curr_);
   
@@ -3213,7 +3217,7 @@ porousLiKCl_FeS2Cathode_dom1D::getInitialCathodeMass()
     throw CanteraError(" porousLiKCl_FeS2Cathode_dom1D::getInitialCathodeMass()", "bad dynamic cast ");
   }
 
-  Cantera::Electrode *ee = BDT_cathode_ptr_->Electrode_;
+  ZZCantera::Electrode *ee = BDT_cathode_ptr_->Electrode_;
 
   double molesFe = ee->elementSolidMoles("Fe");
   double MW_FeS2 = 119.98;

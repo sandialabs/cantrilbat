@@ -13,7 +13,11 @@
 #include "m1d_ProblemStatementCell.h"
 extern m1d::ProblemStatementCell PSinput;
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -29,15 +33,15 @@ BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
   IsAlgebraic_NE.resize(7,0);
   IsArithmeticScaled_NE.resize(7,0);
 
-  //  ionicLiquid_ = new Cantera::IonsFromNeutralVPSSTP("LiKCl_recipmoltenSalt_trans.xml");
+  //  ionicLiquid_ = new ZZCantera::IonsFromNeutralVPSSTP("LiKCl_recipmoltenSalt_trans.xml");
   int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
   ThermoPhase* tmpPhase = &(PSinput.PhaseList_)->thermo(iph);
-  ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
+  ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( tmpPhase->duplMyselfAsThermoPhase() );
   
   if (trans_) {
     delete trans_;
   }
-  trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+  trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 
   EquationNameList.clear();
 
@@ -172,7 +176,7 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
   EquationID = r.EquationID;
   
   delete ionicLiquidIFN_;
-  ionicLiquidIFN_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
+  ionicLiquidIFN_ = new ZZCantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
 
   setupTransport();
 
@@ -187,7 +191,7 @@ void
 BDT_porousLiKCl::setupTransport()
 {
     delete trans_;
-    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+    trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //==================================================================
 // Malloc and Return the object that will calculate the residual efficiently

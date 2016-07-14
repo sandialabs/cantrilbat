@@ -37,11 +37,16 @@
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 
 using namespace CanteraLite;
-using namespace Cantera;
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
 using namespace mdpUtil;
+
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
+using namespace Cantera;
+#endif
 /*
  *************** Global objects ********************************
  *

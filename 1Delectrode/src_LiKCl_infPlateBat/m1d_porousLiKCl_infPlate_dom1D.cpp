@@ -27,7 +27,11 @@
 extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -114,7 +118,7 @@ porousLiKCl_infPlate_dom1D::domain_prep(LocalNodeIndices *li_ptr)
   int iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.separatorPhase_);
   ThermoPhase *tmpPhase = &(PSinput.PhaseList_)->thermo(iph);
  // ThermoPhase* tmpPhase = (PSinput.PhaseList_)->getPhase( PSinput.separatorPhase_ );
-  StoichSubstance* inert = dynamic_cast<Cantera::StoichSubstance *>(tmpPhase);
+  StoichSubstance* inert = dynamic_cast<ZZCantera::StoichSubstance *>(tmpPhase);
 
   //need to convert inputs from cgs to SI
   double volumeSeparator = 
@@ -494,7 +498,7 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
             fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_ * porosity_Curr_;
           }
         }
-        fluxVleft *= (Cantera::Faraday);
+        fluxVleft *= (ZZCantera::Faraday);
       }
     } else {
       /*
@@ -558,7 +562,7 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
           fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k]  * concTot_Curr_ * porosity_Curr_;
         }
       }
-      fluxVright *= (Cantera::Faraday);
+      fluxVright *= (ZZCantera::Faraday);
     }
 
 

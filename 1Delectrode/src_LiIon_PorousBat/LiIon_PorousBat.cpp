@@ -481,7 +481,7 @@ main(int argc, char** argv)
         /*
          * Cleanup
          */
-        Cantera::appdelete();
+        ZZCantera::appdelete();
         safeDelete(jac);
         safeDelete(ps);
 
@@ -501,7 +501,7 @@ main(int argc, char** argv)
 #endif // PRECIPITATE
 #undef PRECIPITATE
 
-        Cantera::appdelete();
+        ZZCantera::appdelete();
 
 	//#ifdef HAVE_MPI
         MPI_Finalize();
@@ -511,8 +511,8 @@ main(int argc, char** argv)
      *  If we have thrown a CanteraError of some sort, we catch it here and print out
      *  an informative error message.
      */
-    catch (Cantera::CanteraError) {
-        Cantera::showErrors();
+    catch (ZZCantera::CanteraError) {
+        ZZCantera::showErrors();
         return -1;
     }
     /*

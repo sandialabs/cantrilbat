@@ -435,7 +435,7 @@ main(int argc, char **argv)
     /*
      * Cleanup
      */
-    Cantera::appdelete();
+    ZZCantera::appdelete();
     safeDelete(jac);
     safeDelete(ps);
     //  safeDelete(dl);
@@ -446,14 +446,14 @@ main(int argc, char **argv)
     safeDelete(soln);
     safeDelete(res);
 
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
 #ifdef HAVE_MPI
     MPI_Finalize();
 #endif
   }
-  catch (Cantera::CanteraError) {
-    Cantera::showErrors();
+  catch (ZZCantera::CanteraError) {
+    ZZCantera::showErrors();
   }
   /*
    *  Epetra (and trilinos) throw errors of type int!!!!

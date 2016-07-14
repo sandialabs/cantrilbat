@@ -30,7 +30,7 @@ SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
     voltageVarBCType_(0), 
     icurrCathodeSpecified_(0.0)
 {
-  ElectrodeC_ = new Cantera::Electrode_SuccessiveSubstitution();
+  ElectrodeC_ = new ZZCantera::Electrode_SuccessiveSubstitution();
 
   ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
 
@@ -97,7 +97,7 @@ SDT_FlatCathode::operator=(const SDT_FlatCathode &r)
 
   delete ElectrodeC_;
   ElectrodeC_ =
-      new Cantera::Electrode_SuccessiveSubstitution((const Cantera::Electrode_SuccessiveSubstitution&)*r.ElectrodeC_);
+      new ZZCantera::Electrode_SuccessiveSubstitution((const ZZCantera::Electrode_SuccessiveSubstitution&)*r.ElectrodeC_);
 
   voltageVarBCType_ = r.voltageVarBCType_;
   icurrCathodeSpecified_ = r.icurrCathodeSpecified_;

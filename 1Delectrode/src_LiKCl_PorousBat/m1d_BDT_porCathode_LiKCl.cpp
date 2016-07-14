@@ -20,7 +20,11 @@
 extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -76,7 +80,7 @@ BDT_porCathode_LiKCl::ReadModelDescriptions()
 			   "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
     }
     ionicLiquid_ = & (PSinput.PhaseList_)->thermo(iph);
-    ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
+    ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
     ionicLiquid_ = (ThermoPhase*) ionicLiquidIFN_;
 
     ELECTRODE_KEY_INPUT *ci = PSCinput_ptr->cathode_input_;
@@ -211,7 +215,7 @@ BDT_porCathode_LiKCl::mallocDomain1D()
 void
 BDT_porCathode_LiKCl::DetermineConstitutiveModels()
 {
-    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+    trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //=====================================================================================================================
 } /* End of Namespace */

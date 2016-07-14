@@ -16,7 +16,11 @@
 #include  <string>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 
 //=====================================================================================================================
@@ -26,7 +30,7 @@ namespace m1d
 SDT_FlatAnode::SDT_FlatAnode(DomainLayout *dl_ptr, int pos) :
   SDT_Mixed(dl_ptr), m_position(pos), ElectrodeA_(0)
 {
-  ElectrodeA_ = new Cantera::Electrode_SuccessiveSubstitution();
+  ElectrodeA_ = new ZZCantera::Electrode_SuccessiveSubstitution();
 
   ELECTRODE_KEY_INPUT *electrodeA_input = new ELECTRODE_KEY_INPUT();
 
@@ -96,7 +100,7 @@ SDT_FlatAnode::operator=(const SDT_FlatAnode &r)
 
   delete ElectrodeA_;
   ElectrodeA_ = 
-      new Cantera::Electrode_SuccessiveSubstitution((const Cantera::Electrode_SuccessiveSubstitution &)*(r.ElectrodeA_));
+      new ZZCantera::Electrode_SuccessiveSubstitution((const ZZCantera::Electrode_SuccessiveSubstitution &)*(r.ElectrodeA_));
 
   return *this;
 }

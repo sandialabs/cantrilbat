@@ -26,7 +26,11 @@
 extern m1d::ProblemStatementCell PSinput;
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -39,7 +43,7 @@ DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat(ProblemStatemen
 {
   pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
   if (!pscInput_ptr_) {
-    Cantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
+    ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
 			  "Bad dynamic cast");
   }
   InitializeDomainPicture();
@@ -50,7 +54,7 @@ DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat(int probNum, Pr
 {
   pscInput_ptr_ = dynamic_cast<ProblemStatementCell *>(psInput_ptr);
   if (!pscInput_ptr_) {
-    Cantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
+    ZZCantera::CanteraError("DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat()",
 			  "Bad dynamic cast");
   }
   if (probNum == 1) {

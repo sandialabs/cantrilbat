@@ -22,7 +22,11 @@
 #include "cantera/transport/Tortuosity.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -31,12 +35,12 @@ static void
 drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
-        Cantera::writelog(" ");
+        ZZCantera::writelog(" ");
     }
     for (int i = 0; i < ll; i++) {
-        Cantera::writelog("-");
+        ZZCantera::writelog("-");
     }
-    Cantera::writelog("\n");
+    ZZCantera::writelog("\n");
 }
 //==================================================================================================================================
 static void
@@ -683,7 +687,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	    fluxXleft[k] += Fleft_cc_ * Xcent_cc_[k] * concTot_Curr_;
 	  }
 	}
-	icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+	icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
       }
     } else {
       /*
@@ -763,7 +767,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
 	  fluxXright[k] += Fright_cc_ * mfElectrolyte_Thermo_Curr_[k] * concTot_Curr_;
 	}
       }
-      icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
+      icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
     }
 
 #ifdef DEBUG_HKM_NOT
@@ -1511,7 +1515,7 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
 	    for (int k = 0; k < nsp_; k++) {
 		icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 	    }
-	    icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+	    icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
             if (nodeRight == 0) {
                  icurrElectrolyte_CBR_[iCell] = icurrElectrolyte_CBL_[iCell];
             }
@@ -1543,7 +1547,7 @@ porousLiIon_Separator_dom1D::eval_PostSoln(
             for (int k = 0; k < nsp_; k++) {
                 icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k]* spCharge_[k];
             }
-            icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
+            icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
             if (nodeLeft == 0) {
                  icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell];
             }
@@ -1717,7 +1721,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		for (int k = 0; k < nsp_; k++) {
 		    icurrElectrolyte_CBL_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 		}
-		icurrElectrolyte_CBL_[iCell] *= (Cantera::Faraday);
+		icurrElectrolyte_CBL_[iCell] *= (ZZCantera::Faraday);
 		if (nodeRight == 0) {
 		    icurrElectrolyte_CBR_[iCell] = icurrElectrolyte_CBL_[iCell];
 		}
@@ -1781,7 +1785,7 @@ porousLiIon_Separator_dom1D::eval_HeatBalance(const int ifunc,
 		for (int k = 0; k < nsp_; k++) {
 		    icurrElectrolyte_CBR_[iCell] += jFlux_trCurr_[k] * spCharge_[k];
 		}
-		icurrElectrolyte_CBR_[iCell] *= (Cantera::Faraday);
+		icurrElectrolyte_CBR_[iCell] *= (ZZCantera::Faraday);
 		if (nodeLeft == 0) {
 		    icurrElectrolyte_CBL_[iCell] = icurrElectrolyte_CBR_[iCell];
 		}
@@ -1917,8 +1921,8 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     double moleFluxRight = 0.0;
     double residAdd = 0.0;
 
-    Cantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
-    Cantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+    ZZCantera::Array2D elem_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    ZZCantera::Array2D elem_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
 
     std::vector<double>& elemLi_Lyte_New = dValsB_ptr->elem_Lyte_New;
     std::vector<double>& elemLi_Lyte_Old = dValsB_ptr->elem_Lyte_Old;
@@ -1941,9 +1945,9 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
     std::vector<double> species_jFluxLeft  = dValsB_ptr->species_jFluxLeft;
 
    
-    Cantera::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
-    Cantera::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
-    Cantera::Array2D res_Species(nsp_,NumLcCells, 0.0);
+    ZZCantera::Array2D species_Lyte_New_Cell(nsp_, NumLcCells, 0.0);
+    ZZCantera::Array2D species_Lyte_Old_Cell(nsp_, NumLcCells, 0.0);
+    ZZCantera::Array2D res_Species(nsp_,NumLcCells, 0.0);
   
     for (int itimes = 0; itimes < doTimes; itimes++) {
 	if (doPrint) {
@@ -2380,7 +2384,7 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-porousLiIon_Separator_dom1D::saveDomain(Cantera::XML_Node& oNode,
+porousLiIon_Separator_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
                                     const Epetra_Vector* soln_GLALL_ptr,
                                     const Epetra_Vector* solnDot_GLALL_ptr,
                                     const double t,
@@ -2390,7 +2394,7 @@ porousLiIon_Separator_dom1D::saveDomain(Cantera::XML_Node& oNode,
     GlobalIndices* gi = LI_ptr_->GI_ptr_;
 
     // Add an XML child for this domain. We will add the data to this child
-    Cantera::XML_Node& bdom = oNode.addChild("domain");
+    ZZCantera::XML_Node& bdom = oNode.addChild("domain");
 
     // Number of equations per node
     int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -2411,7 +2415,7 @@ porousLiIon_Separator_dom1D::saveDomain(Cantera::XML_Node& oNode,
     bdom.addAttribute("numVariables", numEquationsPerNode);
 
     // Dump out the coordinates
-    Cantera::XML_Node& gv = bdom.addChild("grid_data");
+    ZZCantera::XML_Node& gv = bdom.addChild("grid_data");
 
     std::vector<double> varContig(numNodes);
 
@@ -2837,13 +2841,13 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         if (nrem > 0) {
             drawline(indentSpaces, 80);
             ss.print0("%s    iGbNode  z   ", ind);
-            Cantera::writelog(buf);
+            ZZCantera::writelog(buf);
             for (n = 0; n < nrem; n++) {
                 int ivar = nn * 5 + n;
                 VarType vt = variableNameList[ivar];
                 string name = vt.VariableName(15);
                 ss.print0(" %15s", name.c_str());
-                Cantera::writelog(buf);
+                ZZCantera::writelog(buf);
             }
             ss.print0("\n");
             drawline(indentSpaces, 80);

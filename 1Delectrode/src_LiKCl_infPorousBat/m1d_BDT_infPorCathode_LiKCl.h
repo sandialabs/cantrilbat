@@ -96,13 +96,13 @@ public:
   /*!
    *   We own this object
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
+  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! Pointer to the transport object for the molten salt
   /*!
    * We own this object
    */
-  //Cantera::Transport* trans_;
+  //ZZCantera::Transport* trans_;
 
   //! top or bottom of the domain
   /*!
@@ -115,7 +115,7 @@ public:
   /*!
    * We own the electrode object.
    */
-  //Cantera::Electrode *Electrode_;
+  //ZZCantera::Electrode *Electrode_;
 
 };
 
