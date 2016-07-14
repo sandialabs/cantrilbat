@@ -18,7 +18,11 @@
 #endif
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -31,7 +35,7 @@ namespace m1d
   }
   //====================================================================================================================
    //! Constructor with reading
-  SolnLayout::SolnLayout(Cantera::XML_Node *xmlSim):
+  SolnLayout::SolnLayout(ZZCantera::XML_Node *xmlSim):
    NumDomains(0), NumBulkDomains(0), NumSurfDomains(0), NumGbNodes(0)
   {
     readXML(xmlSim);
@@ -94,8 +98,8 @@ namespace m1d
 
   //====================================================================================================================
   void
-  SolnLayout::readXML(Cantera::XML_Node *simXML) {
-    std::vector<Cantera::XML_Node*> ccc;
+  SolnLayout::readXML(ZZCantera::XML_Node *simXML) {
+    std::vector<ZZCantera::XML_Node*> ccc;
     simXML->getChildren("domain", ccc);
 
     NumDomains = ccc.size();
@@ -117,20 +121,20 @@ namespace m1d
 	NumSurfDomains++;
 	surfD->DomOrder = iDom;
       } else {
-	throw Cantera::CanteraError("SolnLayout::readXML", "error");
+	throw ZZCantera::CanteraError("SolnLayout::readXML", "error");
       }
       
     }
   }
  //=====================================================================================================================
-  SolnDomainBulk * SolnLayout::readBulkDomainXML(Cantera::XML_Node & domXML) {
+  SolnDomainBulk * SolnLayout::readBulkDomainXML(ZZCantera::XML_Node & domXML) {
     SolnDomainBulk *bulkD = new SolnDomainBulk(domXML);
 
 
     return bulkD;
   }
   //=====================================================================================================================
-  SolnDomainSurf * SolnLayout::readSurfDomainXML(Cantera::XML_Node & domXML) {
+  SolnDomainSurf * SolnLayout::readSurfDomainXML(ZZCantera::XML_Node & domXML) {
    SolnDomainSurf *surfD = new SolnDomainSurf();
 
   

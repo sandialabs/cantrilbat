@@ -10,6 +10,17 @@
 #include <vector>
 #include "cantera/base/global.h"
 
+#ifdef useZuzaxNamespace
+#ifndef ZZCantera
+#define ZZCantera Zuzax
+#endif
+#else
+#ifndef ZZCantera
+#define ZZCantera Cantera
+#endif
+#endif
+
+
 namespace m1d
 {
 
@@ -24,7 +35,7 @@ namespace m1d
     SolnLayout();
 
     //! Constructor with reading
-    SolnLayout(Cantera::XML_Node *xmlSim);
+    SolnLayout(ZZCantera::XML_Node *xmlSim);
 
     //! Copy Constructor
     /*!
@@ -40,11 +51,11 @@ namespace m1d
     SolnLayout &
     operator=(const SolnLayout &r);
 
-    void readXML(Cantera::XML_Node *simXML_ptr);
+    void readXML(ZZCantera::XML_Node *simXML_ptr);
 
-    SolnDomainBulk *  readBulkDomainXML(Cantera::XML_Node & domXML);
+    SolnDomainBulk* readBulkDomainXML(ZZCantera::XML_Node & domXML);
 
-    SolnDomainSurf * readSurfDomainXML(Cantera::XML_Node & domXML);
+    SolnDomainSurf* readSurfDomainXML(ZZCantera::XML_Node & domXML);
 
     //! Number of  domains.
     /*!

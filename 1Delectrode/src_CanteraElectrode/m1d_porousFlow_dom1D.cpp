@@ -26,7 +26,11 @@ extern m1d::ProblemStatementCell PSinput;
 
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {

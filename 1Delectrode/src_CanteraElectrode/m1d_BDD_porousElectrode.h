@@ -16,7 +16,12 @@
 #include "Electrode.h"
 #include "Electrode_input.h"
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
   class Electrode;
   class Transport;
   class ThermoPhase;
@@ -105,13 +110,13 @@ public:
   /*!
    * We own the electrode object.
    */
-  Cantera::Electrode* Electrode_;
+  ZZCantera::Electrode* Electrode_;
 
   //! Pointer to the metal phase that does electrical conduction within the solid
   /*!
    *  We own this object
    */
-  Cantera::ThermoPhase* metalPhase_;
+  ZZCantera::ThermoPhase* metalPhase_;
 
   //! Type of the electrode
   /*!

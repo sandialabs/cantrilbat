@@ -20,7 +20,12 @@
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
+
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -106,7 +111,7 @@ ProblemStatementCell::ProblemStatementCell() :
   numExtraPhases_(0),
   ExtraPhaseList_(0)
 {
-    PhaseList_ = new Cantera::PhaseList();
+    PhaseList_ = new ZZCantera::PhaseList();
 
     struct ExtraPhase* ep = new ExtraPhase();
     ExtraPhaseList_.push_back(ep); 
@@ -988,7 +993,7 @@ bool ProblemStatementCell::AnodeCathodeCompatibility()
 
     if(! doubleEqual(electrodeGrossAreaA, electrodeGrossAreaC, 1.0E-13, 10)) {
       throw m1d_Error("problemStatementCell::AnodeCathodeCompatibility()",
-                      " areas differ: " + Cantera::fp2str(electrodeGrossAreaA) + " " + Cantera::fp2str(electrodeGrossAreaC));
+                      " areas differ: " + ZZCantera::fp2str(electrodeGrossAreaA) + " " + ZZCantera::fp2str(electrodeGrossAreaC));
     } else {
        cathode_input_->electrodeGrossArea = electrodeGrossAreaA;
     } 
@@ -1021,7 +1026,7 @@ ProblemStatementCell::InitForInput()
    * Read in all of the phase specifications from the cantera
    * input files into the PhaseList structure.
    */
-  Cantera::PhaseList *pl = PhaseList_;
+  ZZCantera::PhaseList *pl = PhaseList_;
   std::string fn;
   bool surNotFound = true;
   for (int i = 0; i < NumberCanteraFiles; i++) {
@@ -1047,7 +1052,7 @@ ProblemStatementCell::InitForInput()
    */
   int kT = 0;
   for (int iphase = 0; iphase < nTotPhases_; iphase++) {
-    Cantera::ThermoPhase *tPhase = &(pl->thermo(iphase));
+    ZZCantera::ThermoPhase *tPhase = &(pl->thermo(iphase));
 
     std::string id = tPhase->id();
     strncpy(PhaseNames_[iphase], id.c_str(), MPEQUIL_MAX_NAME_LEN);
@@ -1059,7 +1064,7 @@ ProblemStatementCell::InitForInput()
     }
   }
 
-  const Cantera::Elements *eObj = pl->getGlobalElements();
+  const ZZCantera::Elements *eObj = pl->getGlobalElements();
 
   for (int e = 0; e < nTotElements_; e++) {
     string eName = eObj->elementName(e);

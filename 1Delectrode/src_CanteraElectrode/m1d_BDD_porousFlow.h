@@ -8,7 +8,12 @@
 
 #include "m1d_BulkDomainDescription.h"
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
   class Electrode;
   class Transport;
   class ThermoPhase;
@@ -93,19 +98,19 @@ public:
     /*!
      *   We own this object
      */
-    Cantera::ThermoPhase *ionicLiquid_;
+    ZZCantera::ThermoPhase *ionicLiquid_;
 
     //! Pointer to the transport object for the electrolyte
     /*!
      * we own this object
      */
-    Cantera::Transport* trans_;
+    ZZCantera::Transport* trans_;
 
     //! Pointer to the thermo object for the porous solid comprising the solid skeleton phase
     /*!
      * We own this object
      */
-    Cantera::ThermoPhase* solidSkeleton_;
+    ZZCantera::ThermoPhase* solidSkeleton_;
 
     //!  Total number of species in the electrolyte
     size_t nSpeciesElectrolyte_;

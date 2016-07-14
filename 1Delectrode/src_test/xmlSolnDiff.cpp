@@ -46,7 +46,11 @@
 #include "cantera/base/ctexceptions.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace m1d;
 
 
@@ -614,8 +618,8 @@ int main(int argc, char *argv[])
 
   for (int iSim1 = 0; iSim1 < numSim1; iSim1++) {
     int iSim2 = iSim1;
-    Cantera::XML_Node *sim1 = getSimulNum(fp1, iSim1);
-    Cantera::XML_Node *sim2 = getSimulNum(fp2, iSim2);
+    ZZCantera::XML_Node *sim1 = getSimulNum(fp1, iSim1);
+    ZZCantera::XML_Node *sim2 = getSimulNum(fp2, iSim2);
 
     /*
      *  Read the simulation into a new structure

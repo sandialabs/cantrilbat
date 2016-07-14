@@ -44,7 +44,11 @@
 #include <math.h>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 #ifndef MAX
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))

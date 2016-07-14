@@ -13,7 +13,11 @@
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_exception.h"
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 extern m1d::ProblemStatementCell PSinput;
 
@@ -59,11 +63,11 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
   EquationID = r.EquationID;
 
   // delete ionicLiquidIFN_;
-  //ionicLiquidIFN_ = new Cantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
+  //ionicLiquidIFN_ = new ZZCantera::IonsFromNeutralVPSSTP(*(r.ionicLiquidIFN_));
   ionicLiquidIFN_ = (IonsFromNeutralVPSSTP*) ionicLiquid_;
 
   // delete trans_;
-  //trans_ = Cantera::newTransportMgr("Liquid", ionicLiquid_, 1);
+  //trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquid_, 1);
 
   return *this;
 }
@@ -75,7 +79,7 @@ BDT_porousLiKCl::ReadModelDescriptions()
     BDD_porousFlow::ReadModelDescriptions();
 
  
-     ionicLiquidIFN_ = dynamic_cast<Cantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
+     ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
      if (!ionicLiquidIFN_) {
 	 throw m1d_Error("BDT_porousLiKCl::ReadModelDescriptions()", 
 			 "ionicLiquidIFN_  failed on dynamic cast");
@@ -161,7 +165,7 @@ BDT_porousLiKCl::DetermineConstitutiveModels()
     /*
      *  Create and Store a pointer to the Transport Manager
      */
-    trans_ = Cantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
+    trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
 }
 //======================================================================================================================
 } /* End of Namespace */

@@ -10,7 +10,11 @@
 
 #include "m1d_SurfDomainTypes.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 class ELECTRODE_MODEL;
 }

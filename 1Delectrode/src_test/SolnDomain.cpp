@@ -20,7 +20,11 @@
 #endif
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d {
   
@@ -62,7 +66,7 @@ namespace m1d {
   {
   }
   //====================================================================================================================
-  SolnDomainBulk::SolnDomainBulk(Cantera::XML_Node & bulkXML) :
+  SolnDomainBulk::SolnDomainBulk(ZZCantera::XML_Node & bulkXML) :
     SolnDomain(),
     NumVariables(0), 
     NumNodes(0)
@@ -91,11 +95,11 @@ namespace m1d {
     return *this;
   }
   //====================================================================================================================
-  void SolnDomainBulk::readXML(Cantera::XML_Node & bulkXML) {
+  void SolnDomainBulk::readXML(ZZCantera::XML_Node & bulkXML) {
     string sss =  bulkXML["numVariables"];
-    NumVariables = Cantera::fpValueCheck(sss);
+    NumVariables = ZZCantera::fpValueCheck(sss);
     sss = bulkXML["points"];
-    NumNodes= Cantera::fpValueCheck(sss);
+    NumNodes= ZZCantera::fpValueCheck(sss);
     
     XML_Node * bulkgXML_ptr = bulkXML.findByName("grid_data");
     if (!bulkgXML_ptr) {
@@ -106,7 +110,7 @@ namespace m1d {
     ctml::getFloatArray(*bulkgXML_ptr, X0NodePos, true, "", "X0");
     int sz = X0NodePos.size();
     if (sz != NumNodes) {
-      throw CanteraError("SolnDomainBulk::readXML()", "sz of X0Node not right: " + Cantera::int2str(sz) + "  " + Cantera::int2str(NumNodes));
+      throw CanteraError("SolnDomainBulk::readXML()", "sz of X0Node not right: " + ZZCantera::int2str(sz) + "  " + ZZCantera::int2str(NumNodes));
     }
 
     XML_Node *xXML = bulkgXML_ptr->findByName("X");
@@ -159,7 +163,7 @@ namespace m1d {
   {
   }
   //====================================================================================================================
-  SolnDomainSurf::SolnDomainSurf(Cantera::XML_Node & surfXML) :
+  SolnDomainSurf::SolnDomainSurf(ZZCantera::XML_Node & surfXML) :
     SolnDomain()
   {
     readXML(surfXML);
@@ -185,11 +189,11 @@ namespace m1d {
     return *this;
   }
   //====================================================================================================================
-  void SolnDomainSurf::readXML(Cantera::XML_Node & surfXML) {
+  void SolnDomainSurf::readXML(ZZCantera::XML_Node & surfXML) {
     string sss =  surfXML["numVariables"];
-    NumVariables = Cantera::fpValueCheck(sss);
+    NumVariables = ZZCantera::fpValueCheck(sss);
     sss = surfXML["points"];
-    int numNodes= Cantera::fpValueCheck(sss);
+    int numNodes= ZZCantera::fpValueCheck(sss);
     if (numNodes != 1) {
       throw CanteraError("SolnDomainSurf::readXML", "nodes not right: " + int2str(numNodes));
     }

@@ -17,7 +17,11 @@
 #include "m1d_CanteraElectrodeGlobals.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace beuler
 {
@@ -48,7 +52,7 @@ namespace beuler
     if (this == &r) {
       return *this;
     }
-    Cantera::Integrator::operator=(r);
+    ZZCantera::Integrator::operator=(r);
 
     return *this;
   }

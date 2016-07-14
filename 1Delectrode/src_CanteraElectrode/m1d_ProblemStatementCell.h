@@ -16,7 +16,11 @@
 #include "Electrode_input.h"
 
 //===================================================================================================================================
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 class Electrode_Factory;
 class ThermoPhase;
@@ -48,7 +52,7 @@ struct ExtraPhase {
     size_t bregionID[10];
     size_t sregionID[10];
     //! ThermoPhase pointer for the phase
-    Cantera::ThermoPhase* tp_ptr;
+    ZZCantera::ThermoPhase* tp_ptr;
 };
 //===================================================================================================================================
 //! Storage for Command file input
@@ -99,8 +103,8 @@ public:
   virtual void post_process_input(BEInput::BlockEntry *cf);
 
   //! Read the input file
-  virtual void readAnodeInputFile(Cantera::Electrode_Factory* f = 0);
-  virtual void readCathodeInputFile(Cantera::Electrode_Factory* f = 0);
+  virtual void readAnodeInputFile(ZZCantera::Electrode_Factory* f = 0);
+  virtual void readCathodeInputFile(ZZCantera::Electrode_Factory* f = 0);
 
   //!  Test whether the anode and the cathode are compatible
   /*!
@@ -276,7 +280,7 @@ public:
   //    (not directly specified in input file)
 
   //! Master PhaseList object 
-  Cantera::PhaseList *PhaseList_;
+  ZZCantera::PhaseList *PhaseList_;
 
   //! total number of phases in PhaseList_
   int nTotPhases_;

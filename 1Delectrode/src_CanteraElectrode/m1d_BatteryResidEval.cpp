@@ -27,7 +27,12 @@
 #include "m1d_SurfDomainDescription.h"
 
 using namespace std;
+
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -36,12 +41,12 @@ static void
 drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
-        Cantera::writelog(" ");
+        ZZCantera::writelog(" ");
     }
     for (int i = 0; i < ll; i++) {
-        Cantera::writelog("-");
+        ZZCantera::writelog("-");
     }
-    Cantera::writelog("\n");
+    ZZCantera::writelog("\n");
 }
 //==================================================================================================================================
 // Default constructor
@@ -628,37 +633,37 @@ BatteryResidEval::showProblemSolution(const int ievent,
     if (!mypid || duplicateOnAllProcs) {
 	sprintf(buf, "%s", ind);
 	sprint_line(buf, "-", 100);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	if (solveType == TimeDependentInitial) {
 	    sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
 	} else {
 	    sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
 	}
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       Capacity_Anode        %-12.3E  Amp hr / m2\n", ind, capacityAnodePA_ / 3600.);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       Capacity_Anode_Left   %-12.3E  Amp hr / m2\n", ind, capacityLeftAnodePA_ / 3600.);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       DepthDischarge_Anode  %-12.3E  Amp hr / m2\n", ind, dodAnodePA_ / 3600.);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       Capacity_Cathode      %-12.3E  Amp hr / m2\n", ind, capacityCathodePA_ / 3600.);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       Capacity_Cathode_Left %-12.3E  Amp hr / m2\n", ind, capacityLeftCathodePA_ / 3600.);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       DepthDischarge_Cathode%-12.3E  Amp hr / m2\n", ind, dodCathodePA_ / 3600.);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 	sprintf(buf, "%s                       Crate_current         %-12.3E  \n", ind, Crate_current_);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
 
 	sprintf(buf, "%s", ind);
 	sprint_line(buf, "-", 100);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
     }
 
     Domain1D *d_ptr = DL.SurDomain1D_List[0];
@@ -692,7 +697,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
     if (!mypid || duplicateOnAllProcs) {
 	sprintf(buf, "%s", ind);
 	sprint_line(buf, "-", 100);
-	Cantera::writelog(buf);
+	ZZCantera::writelog(buf);
     }
 
     Epetra_Comm *c = LI_ptr_->Comm_ptr_;

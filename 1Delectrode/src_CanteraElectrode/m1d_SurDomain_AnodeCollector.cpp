@@ -593,7 +593,7 @@ SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid,
     }
 }
 //=================================================================================================================
-void SurDomain_AnodeCollector::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector* soln_GLALL_ptr,
+void SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* soln_GLALL_ptr,
                                           const Epetra_Vector* solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
     // const doublereal* s = soln_GLALL_ptr + loc();
@@ -607,7 +607,7 @@ void SurDomain_AnodeCollector::saveDomain(Cantera::XML_Node& oNode, const Epetra
     NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
     int eqnStart = nv->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
-    Cantera::XML_Node& inlt = oNode.addChild("domain");
+    ZZCantera::XML_Node& inlt = oNode.addChild("domain");
     int numVar = nv->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
@@ -616,19 +616,19 @@ void SurDomain_AnodeCollector::saveDomain(Cantera::XML_Node& oNode, const Epetra
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos();
-    ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
-    ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
-    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
+        ctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
     string nm = "Volts(AnodeCCVoltage)";
-    ctml::addFloat(inlt, nm, phiAnodeCC_, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, nm, phiAnodeCC_, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
 }
 

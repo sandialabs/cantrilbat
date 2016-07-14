@@ -11,7 +11,11 @@
 
 //#include <cantera/transport.h>    
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
   class Electrode;
 }
@@ -253,7 +257,7 @@ protected:
      *   it has a volume associated with it.  The volume is equal to the control volume thickness
      *   multiplied by the cross-sectional area.
      */
-    std::vector<Cantera::Electrode*> Electrode_Cell_;
+    std::vector<ZZCantera::Electrode*> Electrode_Cell_;
 
     //! Maximum number of normal electrode subgrid integration steps taken in the last base residual
     //!  (birth and deaths of phases aren't counted)
@@ -326,13 +330,13 @@ protected:
     /*!
      *
      */
-    Cantera::Array2D elem_Solid_Old_Cell_;
+    ZZCantera::Array2D elem_Solid_Old_Cell_;
 
     //! Pointer to the metal phase that does electrical conduction within the solid
     /*!
      *  We do not own this object
      */
-    Cantera::ThermoPhase* metalPhase_;
+    ZZCantera::ThermoPhase* metalPhase_;
 
     //!  Total volume of the electrode in each cell at the no stress condition from old time step (m3)
     /*!

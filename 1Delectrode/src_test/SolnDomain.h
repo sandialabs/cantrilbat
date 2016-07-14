@@ -7,7 +7,18 @@
 #define M1D_SOLNDOMAIN_H
 
 #include <vector>
+
 #include "cantera/base/global.h"
+
+#ifdef useZuzaxNamespace
+#ifndef ZZCantera
+#define ZZCantera Zuzax
+#endif
+#else
+#ifndef ZZCantera
+#define ZZCantera Cantera
+#endif
+#endif
 
 namespace m1d
 {
@@ -48,7 +59,7 @@ namespace m1d
   public:
 
     SolnDomainBulk();
-    SolnDomainBulk(Cantera::XML_Node & bulkXML);
+    SolnDomainBulk(ZZCantera::XML_Node & bulkXML);
     //! Copy Constructor
     /*!
      *
@@ -62,7 +73,7 @@ namespace m1d
 
     SolnDomainBulk &  operator=(const SolnDomainBulk &r);
 
-    void readXML(Cantera::XML_Node & bulkXML);
+    void readXML(ZZCantera::XML_Node & bulkXML);
 
     int NumVariables;
     int NumNodes;
@@ -83,7 +94,7 @@ namespace m1d
   public:
 
     SolnDomainSurf();
-    SolnDomainSurf(Cantera::XML_Node & surfXML);
+    SolnDomainSurf(ZZCantera::XML_Node & surfXML);
 
     //! Copy Constructor
     /*!
@@ -98,7 +109,7 @@ namespace m1d
 
     SolnDomainSurf &  operator=(const SolnDomainSurf &r);
 
-    void readXML(Cantera::XML_Node & surfXML);
+    void readXML(ZZCantera::XML_Node & surfXML);
 
     int NumVariables;
 

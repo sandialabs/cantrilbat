@@ -6,6 +6,7 @@
 #ifndef M1D_POROUSFLOW_DOM1D_H_
 #define M1D_POROUSFLOW_DOM1D_H_
 
+#include "m1d_defs.h"
 #include "m1d_BulkDomain1D.h"
 #include "m1d_BDD_porousFlow.h"
 
@@ -13,7 +14,11 @@
 
 #include <cantera/transport.h>
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 class Transport;
 }
@@ -539,19 +544,19 @@ protected:
     std::vector<valCellTmps> valCellTmpsVect_Cell_;
 
     //! Velocity basis of the transport equations
-    Cantera::VelocityBasis ivb_;
+    ZZCantera::VelocityBasis ivb_;
 
     //! Pointer to the thermo object for the electrolyte
     /*!
      *   We do not own this object
      */
-    Cantera::ThermoPhase* ionicLiquid_;
+    ZZCantera::ThermoPhase* ionicLiquid_;
 
     //! Pointer to the transport object for the electrolyte
-    Cantera::Transport* trans_;
+    ZZCantera::Transport* trans_;
 
     //! Pointer to the solid skeleton
-    Cantera::ThermoPhase* solidSkeleton_;
+    ZZCantera::ThermoPhase* solidSkeleton_;
 
     //! Vector of extra phases
     std::vector<ExtraPhase*> ExtraPhaseList_;

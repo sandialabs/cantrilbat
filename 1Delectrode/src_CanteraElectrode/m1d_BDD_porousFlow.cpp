@@ -21,7 +21,11 @@
 #include "cantera/thermo.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 
 namespace m1d
@@ -169,7 +173,7 @@ BDD_porousFlow::ReadModelDescriptions()
 
     for (size_t i = offS; i < ExtraPhaseList_.size(); ++i) {
         ExtraPhase* ep = ExtraPhaseList_[i];
-        ep->tp_ptr = Cantera::newPhase(ep->canteraFileName, ep->phaseName); 
+        ep->tp_ptr = ZZCantera::newPhase(ep->canteraFileName, ep->phaseName); 
         if (! ep->tp_ptr) {
 	    throw m1d_Error("BDD_porousFlow::ReadModelDescriptions()", 
 			    "Can't find " + ep->canteraFileName + " with name " +  ep->phaseName);
@@ -373,7 +377,7 @@ BDD_porousFlow::DetermineConstitutiveModels()
    *  Create and Store a pointer to the Transport Manager
    */
   int loglvl = 0;
-  trans_ = Cantera::newDefaultTransportMgr(ionicLiquid_, loglvl);
+  trans_ = ZZCantera::newDefaultTransportMgr(ionicLiquid_, loglvl);
 }
 //=====================================================================================================================
 } /* End of Namespace */

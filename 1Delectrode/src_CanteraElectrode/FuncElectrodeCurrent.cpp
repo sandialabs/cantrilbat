@@ -13,9 +13,13 @@
 
 
 using namespace std;
-using namespace Cantera;
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   int CurrentFunc::fileInit_ = 0;
   //undef this to stop writing to ivResults.dat

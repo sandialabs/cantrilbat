@@ -10,7 +10,11 @@
 
 #include "m1d_porousFlow_dom1D.h"
 
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
 class Electrode;
 class Transport;

@@ -20,7 +20,12 @@
 #include "Electrode.h"
 
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
 
 //! Class to solve the battery equations at a constant voltage condition, and then report the resulting
@@ -28,7 +33,7 @@ namespace Cantera {
 /*!
  *   This class is a child of the ResidEval class
  */
-class CurrentFunc: public Cantera::ResidEval
+class CurrentFunc: public ZZCantera::ResidEval
 {
 public:
 

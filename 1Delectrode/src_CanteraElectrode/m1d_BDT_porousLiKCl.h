@@ -15,6 +15,7 @@
 #include <cantera/thermo.h>      // transport properties
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 #include <cantera/thermo/StoichSubstance.h>  // separator
+
 namespace m1d
 {
 
@@ -103,7 +104,7 @@ public:
   /*!
    *   This is a shallow pointer
    */
-  Cantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
+  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
 };
 
