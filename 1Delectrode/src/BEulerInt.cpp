@@ -35,7 +35,11 @@ extern int iTimeStep_HKM;
 #include <fstream>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace m1d;
 
 namespace beuler {
@@ -151,7 +155,7 @@ BEulerInt::operator=(const BEulerInt &r)
     if (this == &r) {
         return *this;
     }
-    Cantera::Integrator::operator=(r);
+    ZZCantera::Integrator::operator=(r);
 
     m_currentTimeRegion = r.m_currentTimeRegion;
     m_timeRegionBoundaries = r.m_timeRegionBoundaries;

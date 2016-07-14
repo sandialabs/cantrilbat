@@ -4,6 +4,9 @@
 #ifndef M1D_NOX_INTERFACE_H
 #define M1D_NOX_INTERFACE_H
 
+
+#include "m1d_defs.h"
+
 // Interface to the NLS_PetraGroup to provide for 
 // residual and matrix fill routines.
 

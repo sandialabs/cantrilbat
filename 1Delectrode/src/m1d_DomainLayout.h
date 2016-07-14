@@ -76,7 +76,7 @@ public:
 
   //! Constructor
   DomainLayout(std::vector<std::string> domainList, ProblemStatement *psInput_ptr,
-	       std::map<std::string, Cantera::MultiPhase*> bulkMap,
+	       std::map<std::string, ZZCantera::MultiPhase*> bulkMap,
 	       std::map<std::string, int> surfaceMap);
 
   //! Copy Constructor
@@ -321,7 +321,7 @@ public:
    * that more fully represents what's going on. Put it within Cantera
    * in a new porousMultiphase directory.
    */
-  //std::map<std::string, Cantera::MultiPhase*> bulkMap_;
+  //std::map<std::string, ZZCantera::MultiPhase*> bulkMap_;
 
   //! Map between surface domain names and 
   //! the corresponding reacting electrode objects

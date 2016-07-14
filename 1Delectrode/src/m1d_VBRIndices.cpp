@@ -405,8 +405,8 @@ LocalRowNodeVBRIndices::calcInvRowSumScales(Epetra_Vector &rowScales) const
 	std::string ename = Func_ptr_->equationID(i, iLcNode, iGbNode, iNodeEqnNum, var, vtsub);
 	 
         throw m1d_Error("LocalRowNodeVBRIndices::calcRowSumScale", 
-                         "row is nearly zero:" + Cantera::int2str(i) + ", value =  " + 
-			Cantera::fp2str(rowScales[i]) + "\n" + ename + "\n");
+                         "row is nearly zero:" + ZZCantera::int2str(i) + ", value =  " + 
+			ZZCantera::fp2str(rowScales[i]) + "\n" + ename + "\n");
       }
 #endif
     rowScales[i] = 1.0 /  rowScales[i];

@@ -13,6 +13,7 @@
 #ifndef CTTABLES_H
 #define CTTABLES_H
 
+#include "cantera/base/config.h"
 #include "IdealReactingGas.h"
 #include "cantera/transport.h"
 #include "cttInput.h"
@@ -27,8 +28,18 @@ const double R_kcalmol = 8.314472E7 /  4.184E7 * 1.0E-3;
 const double R_Jgmol = 8.314472;
 const double R_kJgmol = 8.314472 * 1.0E-3;
 
+#ifdef useZuzaxNamepace
+#ifndef ZZCantera
+#define ZZCantera Zuzax
+#endif
+#else
+#ifndef ZZCantera
+#define ZZCantera Cantera
+#endif
+#endif
 
-extern Cantera::Transport *GTran;
+
+extern ZZCantera::Transport *GTran;
 
 
 #include <vector>
@@ -143,25 +154,25 @@ extern void dnt(const int i);
 extern void print_map(const std::map<std::string,double>& m, 
 		      const std::string& prefix);
 
-extern void setAllBathSpeciesConditions(Cantera::PhaseList *pl);
-extern void printAllBathSpeciesConditions(Cantera::PhaseList *pl);
-extern void setBathSpeciesConditions(Cantera::ThermoPhase& g, 
-				     Cantera::PhaseList *pl,
+extern void setAllBathSpeciesConditions(ZZCantera::PhaseList *pl);
+extern void printAllBathSpeciesConditions(ZZCantera::PhaseList *pl);
+extern void setBathSpeciesConditions(ZZCantera::ThermoPhase& g, 
+				     ZZCantera::PhaseList *pl,
 				     int printLvl);
-extern void printBathSpeciesConditions(Cantera::ThermoPhase& g, 
-		  		       Cantera::PhaseList *pl,
+extern void printBathSpeciesConditions(ZZCantera::ThermoPhase& g, 
+		  		       ZZCantera::PhaseList *pl,
 				       int printLvl);
 
 
-double entropyElem298(Cantera::ThermoPhase *g_ptr, size_t k);
+double entropyElem298(ZZCantera::ThermoPhase *g_ptr, size_t k);
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/
 
 
-extern void printVolSpecies(Cantera::ThermoPhase *, int);
+extern void printVolSpecies(ZZCantera::ThermoPhase *, int);
 
-extern void printThermoCoeffSpecies(Cantera::ThermoPhase *, int);
+extern void printThermoCoeffSpecies(ZZCantera::ThermoPhase *, int);
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/

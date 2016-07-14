@@ -112,7 +112,7 @@ BulkDomain1D::id() const
   if (m_id != "") {
     return m_id;
   } else {
-    return std::string("BulkDomain1D_") + Cantera::int2str(id);
+    return std::string("BulkDomain1D_") + ZZCantera::int2str(id);
   }
 }
 //=====================================================================================================================
@@ -362,12 +362,12 @@ static void
 drawline(int sp, int ll)
 {
   for (int i = 0; i < sp; i++) {
-    Cantera::writelog(" ");
+    ZZCantera::writelog(" ");
   }
   for (int i = 0; i < ll; i++) {
-    Cantera::writelog("-");
+    ZZCantera::writelog("-");
   }
-  Cantera::writelog("\n");
+  ZZCantera::writelog("\n");
 }
 
 //=====================================================================================================================
@@ -398,7 +398,7 @@ drawline0(stream0 &ss, int sp, int ll)
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
+BulkDomain1D::saveDomain(ZZCantera::XML_Node& oNode,
                          const Epetra_Vector *soln_GLALL_ptr,
                          const Epetra_Vector *solnDot_GLALL_ptr,
                          const double t,
@@ -408,7 +408,7 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
   // Add a child for this domain
-  Cantera::XML_Node& bdom = oNode.addChild("domain");
+  ZZCantera::XML_Node& bdom = oNode.addChild("domain");
 
   // Number of equations per node
   int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -429,7 +429,7 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
   bdom.addAttribute("numVariables", (size_t) numEquationsPerNode);
 
   // Dump out the coordinates
-  Cantera::XML_Node& gv = bdom.addChild("grid_data");
+  ZZCantera::XML_Node& gv = bdom.addChild("grid_data");
 
   std::vector<double> varContig(numNodes);
 
@@ -480,14 +480,14 @@ BulkDomain1D::saveDomain(Cantera::XML_Node& oNode,
 //     We are currently set up for #1. However, that may change. Even #1 will fail
 //     
 void
-BulkDomain1D::readDomain(const Cantera::XML_Node& SimulationNode,
+BulkDomain1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
                          Epetra_Vector * const soln_GLALL_ptr, Epetra_Vector * const solnDot_GLALL_ptr, double globalTimeRead)
 {
     // get the NodeVars object pertaining to this global node
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
 
     string ids = id();
-    Cantera::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
+    ZZCantera::XML_Node *domainNode_ptr = SimulationNode.findNameID("domain", ids);
 
     // Number of equations per node
     int numEquationsPerNode = BDD_ptr_->NumEquationsPerNode;
@@ -520,7 +520,7 @@ BulkDomain1D::readDomain(const Cantera::XML_Node& SimulationNode,
     //
     //  Go get the grid data XML node and read it in
     //
-    const Cantera::XML_Node* gd_ptr = (*domainNode_ptr).findByName("grid_data");
+    const ZZCantera::XML_Node* gd_ptr = (*domainNode_ptr).findByName("grid_data");
 
     std::vector<double> varContig(numNodes);
     ctml::getFloatArray(*gd_ptr, varContig, true, "", "X0");
@@ -1094,12 +1094,12 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       if (doWrite) {
         int ilc = Index_DiagLcNode_LCO[iCell];
         if (ilc < 0) {
-          throw m1d_Error("BulkDomain1D::showSolution pid= " + Cantera::int2str(mypid), "confused");
+          throw m1d_Error("BulkDomain1D::showSolution pid= " + ZZCantera::int2str(mypid), "confused");
         }
         int igb = LI_ptr_->IndexGbNode_LcNode[ilc];
         if (iGbNode != igb) {
-          throw m1d_Error("BulkDomain1D::showSolution pid= " + Cantera::int2str(mypid), "confused"
-              + Cantera::int2str(iGbNode) + " vs " + Cantera::int2str(igb));
+          throw m1d_Error("BulkDomain1D::showSolution pid= " + ZZCantera::int2str(mypid), "confused"
+              + ZZCantera::int2str(iGbNode) + " vs " + ZZCantera::int2str(igb));
         }
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
         doublereal x = nv->xNodePos();
@@ -1240,12 +1240,12 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	if (doWrite) {
 	  int ilc = Index_DiagLcNode_LCO[iCell];
 	  if (ilc < 0) {
-	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + Cantera::int2str(mypid), "confused");
+	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + ZZCantera::int2str(mypid), "confused");
 	  }
 	  int igb = LI_ptr_->IndexGbNode_LcNode[ilc];
 	  if (iGbNode != igb) {
-	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + Cantera::int2str(mypid), "confused"
-			    + Cantera::int2str(iGbNode) + " vs " + Cantera::int2str(igb));
+	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + ZZCantera::int2str(mypid), "confused"
+			    + ZZCantera::int2str(iGbNode) + " vs " + ZZCantera::int2str(igb));
 	  }
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
 	  doublereal x = nv->xNodePos();
@@ -1384,12 +1384,12 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	if (doWrite) {
 	  int ilc = Index_DiagLcNode_LCO[iCell];
 	  if (ilc < 0) {
-	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + Cantera::int2str(mypid), "confused");
+	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + ZZCantera::int2str(mypid), "confused");
 	  }
 	  int igb = LI_ptr_->IndexGbNode_LcNode[ilc];
 	  if (iGbNode != igb) {
-	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + Cantera::int2str(mypid), "confused"
-			    + Cantera::int2str(iGbNode) + " vs " + Cantera::int2str(igb));
+	    throw m1d_Error("BulkDomain1D::showSolutionVector pid= " + ZZCantera::int2str(mypid), "confused"
+			    + ZZCantera::int2str(iGbNode) + " vs " + ZZCantera::int2str(igb));
 	  }
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
 	  doublereal x = nv->xNodePos();
@@ -1469,35 +1469,35 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
   if (doWrite) {
     drawline(indentSpaces, 80);
     sprintf(buf, "%s  Solution on Bulk Domain %12s : Number of variables = %d\n", ind, sss.c_str(), NumDomainEqns);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     sprintf(buf, "%s                                         : Number of Nodes = %d\n", ind, nPoints);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     sprintf(buf, "%s                                         : Beginning pos %g\n", ind, BDD_ptr_->Xpos_start);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
     sprintf(buf, "%s                                         : Ending    pos %g\n", ind, BDD_ptr_->Xpos_end);
-    Cantera::writelog(buf);
+    ZZCantera::writelog(buf);
   }
   if (doWrite) {
     for (iBlock = 0; iBlock < nn; iBlock++) {
       drawline(indentSpaces, 80);
       sprintf(buf, "%s        z   ", ind);
-      Cantera::writelog(buf);
+      ZZCantera::writelog(buf);
       for (n = 0; n < 5; n++) {
         int ivar = iBlock * 5 + n;
         VarType vt = variableNameList[ivar];
         string name = vt.VariableName(15);
         sprintf(buf, " %15s", name.c_str());
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
       }
       sprintf(buf, "\n");
-      Cantera::writelog(buf);
+      ZZCantera::writelog(buf);
       drawline(indentSpaces, 80);
 
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
         doublereal x = nv->xNodePos();
         sprintf(buf, "\n%s    %-10.4E ", ind, x);
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
         for (n = 0; n < 5; n++) {
@@ -1505,33 +1505,33 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
           VarType vt = variableNameList[ivar];
           v = (*soln_GlAll_ptr)[istart + ibulk + iBlock * 5 + n];
           sprintf(buf, " %-10.4E ", v);
-          Cantera::writelog(buf);
+          ZZCantera::writelog(buf);
         }
       }
-      Cantera::writelog("\n");
+      ZZCantera::writelog("\n");
     }
 
     int nrem = NumDomainEqns - 5 * nn;
     if (nrem > 0) {
       drawline(indentSpaces, 80);
       sprintf(buf, "%s        z   ", ind);
-      Cantera::writelog(buf);
+      ZZCantera::writelog(buf);
       for (n = 0; n < nrem; n++) {
         int ivar = nn * 5 + n;
         VarType vt = variableNameList[ivar];
         string name = vt.VariableName(15);
         sprintf(buf, " %15s", name.c_str());
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
       }
       sprintf(buf, "\n");
-      Cantera::writelog(buf);
+      ZZCantera::writelog(buf);
       drawline(indentSpaces, 80);
 
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
         doublereal x = nv->xNodePos();
         sprintf(buf, "%s    %-10.4E ", ind, x);
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
         for (n = 0; n < nrem; n++) {
@@ -1539,10 +1539,10 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
           VarType vt = variableNameList[ivar];
           v = (*soln_GlAll_ptr)[istart + ibulk + nn * 5 + n];
           sprintf(buf, " %-10.4E ", v);
-          Cantera::writelog(buf);
+          ZZCantera::writelog(buf);
         }
         sprintf(buf, "\n");
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
       }
     }
     drawline(indentSpaces, 80);

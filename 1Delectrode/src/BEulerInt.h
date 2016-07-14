@@ -15,8 +15,11 @@
 #ifndef CT_BEULERINT_H
 #define CT_BEULERINT_H
 
+#include "cantera/base/config.h"
 #include "cantera/numerics/Integrator.h"
 #include "cantera/numerics/SquareMatrix.h"
+
+#include "m1d_defs.h"
 
 #include "m1d_EpetraJac.h"
 #include "m1d_ProblemResidEval.h"
@@ -58,7 +61,7 @@ enum BEulerMethodType
 /**
  * Exception class thrown when a BEuler error is encountered.
  */
-class BEulerErr: public Cantera::CanteraError
+class BEulerErr: public ZZCantera::CanteraError
 {
 public:
     BEulerErr(std::string msg);
@@ -91,7 +94,7 @@ public:
  *
  *
  */
-class BEulerInt: public Cantera::Integrator
+class BEulerInt: public ZZCantera::Integrator
 {
 
 public:
@@ -171,7 +174,7 @@ public:
      * @param t0   initial time
      * @param func RHS evaluator object for system of equations.
      */
-    virtual void initialize(double t0, Cantera::FuncEval& func)
+    virtual void initialize(double t0, ZZCantera::FuncEval& func)
     {
         throw m1d::m1d_Error("initilize", "error");
     }
@@ -183,7 +186,7 @@ public:
      * @param t0   initial time
      * @param func RHS evaluator object for system of equations.
      */
-    virtual void reinitialize(double t0, Cantera::FuncEval& func)
+    virtual void reinitialize(double t0, ZZCantera::FuncEval& func)
     {
         throw m1d::m1d_Error("initilize", "error");
     }

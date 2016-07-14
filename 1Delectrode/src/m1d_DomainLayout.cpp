@@ -38,7 +38,7 @@ DomainLayout::DomainLayout(ProblemStatement *psInput_ptr) :
 }
 //===========================================================================
   DomainLayout::DomainLayout(std::vector<std::string>  domainList, ProblemStatement *psInput_ptr,
-		std::map<std::string,Cantera::MultiPhase*> bulkMap,
+		std::map<std::string,ZZCantera::MultiPhase*> bulkMap,
 		std::map<std::string,int> surfaceMap ) :
   NumDomains(0), NumBulkDomains(0), NumSurfDomains(0), NumGbNodes(0), 
   StartXLoc_Domain(0), EndXLoc_Domain(0),

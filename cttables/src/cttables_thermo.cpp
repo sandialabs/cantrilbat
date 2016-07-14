@@ -33,7 +33,11 @@
 #include <vector>
 #include <typeinfo>
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 
 
@@ -44,7 +48,7 @@ using namespace std;
 // Gather the entropy of the elements of a species at 298 K. this is useful for going back and forth from the
 // gibbs free energy of formation and the absolute gibbs free energy in NIST format.
 //
-double entropyElem298(Cantera::ThermoPhase *g_ptr, size_t k)
+double entropyElem298(ZZCantera::ThermoPhase *g_ptr, size_t k)
 {
     double se;
     double stotal = 0.0;

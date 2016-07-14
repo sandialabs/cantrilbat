@@ -38,7 +38,11 @@
 #include <fstream>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 
 namespace m1d
 {
@@ -85,11 +89,11 @@ ProblemResidEval::ProblemResidEval(double atol) :
     } else {
      try {
        string rr(resp_str) ;
-       double ff = Cantera::fpValueCheck(rr);
+       double ff = fpValueCheck(rr);
        s_printFlagEnv  = ff;
-     } catch (Cantera::CanteraError &cE) {
-       Cantera::showErrors();
-       Cantera::popError();
+     } catch (CanteraError &cE) {
+       ZZCantera::showErrors();
+       ZZCantera::popError();
      }
     }
   }
@@ -998,7 +1002,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     newtime = localtime(&aclock); /* Convert time to struct tm form */
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     if (mypid != 0) {
-	baseFileName += ("_" + Cantera::int2str(mypid));
+	baseFileName += ("_" + int2str(mypid));
     }
     std::string fname = baseFileName + ".xml";
     if (solNum == 0) {
@@ -1032,9 +1036,9 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     // Initially define the 
     std::string simulationID = "0";
     if (fname == savedBase) {
-	simulationID = Cantera::int2str(solNum);
+	simulationID = int2str(solNum);
     } else if (fname == savedAltBase) {
-	simulationID = Cantera::int2str(solNumAlt);
+	simulationID = int2str(solNumAlt);
     }
     sim.addAttribute("id", simulationID);
     ctml::addString(sim, "timestamp", asctime(newtime));
@@ -1123,7 +1127,7 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     }
 
     if (mypid == 0) {
-	Cantera::writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
+	writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
     }
     Epetra_Comm *c = LI_ptr_->Comm_ptr_;
     c->Barrier();
@@ -1150,7 +1154,7 @@ ProblemResidEval::readSolutionRecordNumber(const int iNumber,
     //
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     if (mypid != 0) {
-	baseFileName += ("_" + Cantera::int2str(mypid));
+	baseFileName += ("_" + int2str(mypid));
     }
     std::string fname = baseFileName + ".xml";
 
@@ -1174,7 +1178,7 @@ ProblemResidEval::readSolutionRecordNumber(const int iNumber,
     readSolutionXML(simulRecord, y_n_ghosted,ydot_n_ghosted, t_read, delta_t_read, delta_t_next_read);
 
     if (mypid == 0) {
-	Cantera::writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
+	writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
     }
     Epetra_Comm *c = LI_ptr_->Comm_ptr_;
     c->Barrier();
@@ -1382,22 +1386,22 @@ ProblemResidEval::showProblemSolution(const int ievent,
   if (!mypid || duplicateOnAllProcs) {
     sprintf(buf, "%s", ind);
     sprint_line(buf, "-", 100);
-    Cantera::writelog(buf);
+    writelog(buf);
     sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
-    Cantera::writelog(buf);
+    writelog(buf);
     if (solveType == TimeDependentInitial) {
        sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
     } else {
        sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
     }
-    Cantera::writelog(buf);
+    writelog(buf);
     sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-    Cantera::writelog(buf);
+    writelog(buf);
     sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
-    Cantera::writelog(buf);
+    writelog(buf);
     sprintf(buf, "%s", ind);
     sprint_line(buf, "-", 100);
-    Cantera::writelog(buf);
+    writelog(buf);
   }
 
   Domain1D *d_ptr = DL.SurDomain1D_List[0];
@@ -1431,7 +1435,7 @@ ProblemResidEval::showProblemSolution(const int ievent,
   if (!mypid || duplicateOnAllProcs) {
     sprintf(buf, "%s", ind);
     sprint_line(buf, "-", 100);
-    Cantera::writelog(buf);
+    writelog(buf);
   }
 
   Epetra_Comm *c = LI_ptr_->Comm_ptr_;
@@ -1943,12 +1947,12 @@ ProblemResidEval::GbEqnNum_From_GbBlock(const int gbBlockNum, const int localRow
 #ifdef DEBUG_MODE
   if (gbBlockNum < 0 || gbBlockNum >= GI_ptr_->NumGbNodes) {
     throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "gbBlockNum out of range: "
-        + Cantera::int2str(gbBlockNum) + "\n");
+        + int2str(gbBlockNum) + "\n");
   }
   int indexStart = GI_ptr_->IndexStartGbEqns_Proc[gbBlockNum];
   if ((localRowNumInBlock < 0) || (localRowNumInBlock >= GI_ptr_->NumEqns_GbNode[gbBlockNum])) {
     throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "localRowNumInBlock out of range: "
-        + Cantera::int2str(localRowNumInBlock) + "\n");
+        + int2str(localRowNumInBlock) + "\n");
   }
   return indexStart + localRowNumInBlock;
 #else

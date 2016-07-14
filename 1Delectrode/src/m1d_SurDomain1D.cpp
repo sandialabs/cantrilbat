@@ -142,7 +142,7 @@ std::string SurDomain1D::id() const
     if (m_id != "") {
         return m_id;
     } else {
-        return std::string("SurDomain1D_") + Cantera::int2str(id);
+        return std::string("SurDomain1D_") + ZZCantera::int2str(id);
     }
 }
 
@@ -471,7 +471,7 @@ void SurDomain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vect
  *                             the same XML_Node information as proc 0. If
  *                             false, the xml_node info will only exist on proc 0.
  */
-void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln_GLALL_ptr, const Epetra_Vector *solnDot_GLALL_ptr,
+void SurDomain1D::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector *soln_GLALL_ptr, const Epetra_Vector *solnDot_GLALL_ptr,
                              const double t, bool duplicateOnAllProcs)
 {
     // const doublereal* s = soln_GLALL_ptr + loc();
@@ -482,7 +482,7 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
 
     int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
-    Cantera::XML_Node& inlt = oNode.addChild("domain");
+    ZZCantera::XML_Node& inlt = oNode.addChild("domain");
     int numVar = NodalVarPtr->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
@@ -491,16 +491,16 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
     double x0pos = NodalVarPtr->x0NodePos();
     double xpos =  NodalVarPtr->xNodePos();
     double xfrac = NodalVarPtr->xFracNodePos(); 
-    ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
-    ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
-    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = NodalVarPtr->VariableName(k);
         VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
+        ctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
 }
 //====================================================================================================================
@@ -518,7 +518,7 @@ void SurDomain1D::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln
 //  to a particular time step. And then populate the solution vector with the saved solution.
 // 
 void
-SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
+SurDomain1D::readDomain(const ZZCantera::XML_Node& simulationNode,
                         Epetra_Vector * const soln_GLALL_ptr,
                         Epetra_Vector * const solnDot_GLALL_ptr, double globalTimeRead)
 {
@@ -530,7 +530,7 @@ SurDomain1D::readDomain(const Cantera::XML_Node& simulationNode,
     // Number of equations per node
     //int numEquationsPerNode = SDD_.NumEquationsPerNode;
     string ids = id();
-    Cantera::XML_Node *domainNode_ptr = simulationNode.findNameID("domain", ids);
+    ZZCantera::XML_Node *domainNode_ptr = simulationNode.findNameID("domain", ids);
     /*
      * get the NodeVars object pertaining to this global node
      */
@@ -927,12 +927,12 @@ double SurDomain1D::extractSolnValue(Epetra_Vector_Ghosted *soln_ptr, VarType v1
 static void drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
-        Cantera::writelog(" ");
+        ZZCantera::writelog(" ");
     }
     for (int i = 0; i < ll; i++) {
-        Cantera::writelog("-");
+        ZZCantera::writelog("-");
     }
-    Cantera::writelog("\n");
+    ZZCantera::writelog("\n");
 }
 //=====================================================================================================================
 static void drawline0(stream0 &ss, int sp, int ll)
@@ -1185,24 +1185,24 @@ void SurDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr, const Ep
     if (doWrite) {
         drawline(indentSpaces, 80);
         sprintf(buf, "%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
         sprintf(buf, "%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
         doublereal x0 = NodalVarPtr->x0NodePos();
         sprintf(buf, "%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
         drawline(indentSpaces, 80);
         sprintf(buf, "%s     VariableName         Value        DirichletCondition\n", ind);
-        Cantera::writelog(buf);
+        ZZCantera::writelog(buf);
         drawline(indentSpaces + 2, 60);
         for (int k = 0; k < numVar; k++) {
             VarType &vt = variableNameListNode[k];
             string name = vt.VariableName(15);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
             sprintf(buf, "%s   %-15s   %-10.4E ", ind, name.c_str(), sval);
-            Cantera::writelog(buf);
+            ZZCantera::writelog(buf);
             sprintf(buf, "\n");
-            Cantera::writelog(buf);
+            ZZCantera::writelog(buf);
         }
         drawline(indentSpaces + 2, 60);
         drawline(indentSpaces, 80);
@@ -1336,7 +1336,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
                 if ( (vtmDir == Variable_Type_Any) || (eqt.VariableType == vtmDir)) {
                     if (SpecFlag_NE[j] == 1) {
                         throw m1d_Error("SurBC_Dirichlet::domain_prep",
-                                "Error: multiple boundary conditions applied to the same variable " + Cantera::int2str(j));
+                                "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
                     }
                     SpecFlag_NE[j] = 1;
                     Value_NE[j] = sdt->Value[i];
@@ -1354,7 +1354,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
                 if (vtDir == vtNode) {
                     if (SpecFlag_NE[j] == 1) {
                         throw m1d_Error("SurBC_Dirichlet::domain_prep",
-                                "Error: multiple boundary conditions applied to the same variable " + Cantera::int2str(j));
+                                "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
                     }
                     SpecFlag_NE[j] = 1;
                     Value_NE[j] = sdt->Value[i];
@@ -1384,7 +1384,7 @@ int SurBC_Dirichlet::changeDirichletConditionValue(VarType vtDir, double newVal)
         if (vtDir == vtNode) {
             if (SpecFlag_NE[j] != 1) {
                 throw m1d_Error("SurBC_Dirichlet::domain_prep",
-                        "Error: multiple boundary conditions applied to the same variable " + Cantera::int2str(j));
+                        "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
             }
             Value_NE[j] = newVal;
             num++;
@@ -1621,7 +1621,7 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
  *                             the same XML_Node information as proc 0. If
  *                             false, the xml_node info will only exist on proc 0.
  */
-void SurBC_Dirichlet::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *soln_GLALL_ptr,
+void SurBC_Dirichlet::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector *soln_GLALL_ptr,
                                  const Epetra_Vector *solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
     // const doublereal* s = soln_GLALL_ptr + loc();
@@ -1635,7 +1635,7 @@ void SurBC_Dirichlet::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *
     NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
     int eqnStart = nv->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
-    Cantera::XML_Node& inlt = oNode.addChild("domain");
+    ZZCantera::XML_Node& inlt = oNode.addChild("domain");
     int numVar = nv->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
@@ -1644,16 +1644,16 @@ void SurBC_Dirichlet::saveDomain(Cantera::XML_Node& oNode, const Epetra_Vector *
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos(); 
-    ctml::addFloat(inlt, "X0", x0pos, "", "", Cantera::Undef, Cantera::Undef);
-    ctml::addFloat(inlt, "X", xpos, "", "", Cantera::Undef, Cantera::Undef);
-    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", Cantera::Undef, Cantera::Undef);
+    ctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        ctml::addFloat(inlt, nm, sval, "", "", Cantera::Undef, Cantera::Undef);
+        ctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
 }
 //=====================================================================================================================

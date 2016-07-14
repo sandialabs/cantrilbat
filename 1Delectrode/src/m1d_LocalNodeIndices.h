@@ -10,6 +10,8 @@
 #ifndef M1D_LOCALNODEINDICES_H
 #define M1D_LOCALNODEINDICES_H
 
+#include "m1d_defs.h"
+
 #include <vector>
 
 class Epetra_Comm;
@@ -20,6 +22,7 @@ class Epetra_MapColoring;
 class Epetra_IntVector;
 class Epetra_Vector;
 class Epetra_Import;
+
 
 
 namespace m1d

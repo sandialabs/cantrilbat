@@ -560,7 +560,7 @@ SolNonlinear::doNewtonSolve(Epetra_Vector_Owned &delta_soln,
 #ifdef DEBUG_MODE
   if (1) {
     for (int j = 0; j < m_NumLcOwnedEqns; j++) {
-      Cantera::checkFinite(delta_soln[j]);
+      ZZCantera::checkFinite(delta_soln[j]);
     }
   }
 #endif
@@ -1045,10 +1045,10 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,  cons
     get_res(time_curr, rdelta_t, m_y_new, m_ydot_new);
 
     if (m_print_flag >= 6) {
-      ResS = "Residual For Damping Trial " + Cantera::int2str(m) + " with Damping Coeff " + Cantera::fp2str(ff);
+      ResS = "Residual For Damping Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(ff);
       m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), 10);
     } else if (m_print_flag == 4 || m_print_flag == 5) {
-      ResS = "Residual For Damp Trial " + Cantera::int2str(m) + " with Damping Coeff " + Cantera::fp2str(ff);
+      ResS = "Residual For Damp Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(ff);
       m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), true);
     } else {
       m_normResidTrial = res_error_norm(*m_resid);
@@ -1236,10 +1236,10 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
     get_res(time_curr, rdelta_t, m_y_new, m_ydot_new);
 
     if (m_print_flag >= 6) {
-      ResS = "Residual For Damping Trial " + Cantera::int2str(m) + " with Damping Coeff " + Cantera::fp2str(m_fdamp);
+      ResS = "Residual For Damping Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(m_fdamp);
       m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), 10);
     } else if (m_print_flag == 4 || m_print_flag == 5) {
-      ResS = "Residual For Damp Trial " + Cantera::int2str(m) + " with Damping Coeff " + Cantera::fp2str(m_fdamp);
+      ResS = "Residual For Damp Trial " + ZZCantera::int2str(m) + " with Damping Coeff " + ZZCantera::fp2str(m_fdamp);
       m_normResidTrial = res_error_norm(*m_resid, ResS.c_str(), true);
     } else {
       m_normResidTrial = res_error_norm(*m_resid);
@@ -1744,7 +1744,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
                                       int &num_linear_solves,
                                       int &num_backtracks)
 {
-  Cantera::clockWC t0;
+  ZZCantera::clockWC t0;
   if (solnType == SteadyState_Solve) {
     doTimeDependentResid_ = false;
   } else {
@@ -1964,7 +1964,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
     }
 
     if (m_print_flag > 3) {
-      string ResS = "Accepted Step " + Cantera::int2str(m_num_newt_its) + " Residual Norm";
+      string ResS = "Accepted Step " + ZZCantera::int2str(m_num_newt_its) + " Residual Norm";
       res_error_norm(*m_resid, ResS.c_str(), 10);
     }
 

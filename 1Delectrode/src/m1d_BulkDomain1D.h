@@ -15,6 +15,8 @@
 
 #include "Epetra_Vector.h"
 
+#include "m1d_defs.h"
+
 namespace m1d
 {
 class LocalNodeIndices;
@@ -209,7 +211,7 @@ public:
      *                             false, the xml_node info will only exist on proc 0.
      */
     virtual void
-    saveDomain(Cantera::XML_Node& oNode,
+    saveDomain(ZZCantera::XML_Node& oNode,
 	       const Epetra_Vector *soln_GlAll_ptr,
 	       const Epetra_Vector *solnDot_GlAll_ptr,
 	       const double t,
@@ -239,7 +241,7 @@ public:
      * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
      */
     virtual void 
-      readDomain(const Cantera::XML_Node& domainNode,
+      readDomain(const ZZCantera::XML_Node& domainNode,
 		 Epetra_Vector* const soln_GlAll_ptr,
 		 Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 

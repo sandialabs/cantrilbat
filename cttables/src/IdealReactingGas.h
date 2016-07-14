@@ -30,7 +30,12 @@
 #include <string>
 #include <iostream>
 
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif
+{
 
     /**
      * IdealReactingGas combines the IdealGasPhase object with

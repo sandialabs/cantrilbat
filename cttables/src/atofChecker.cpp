@@ -24,7 +24,11 @@
 #include "stdio.h"
 #include "string.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 
 

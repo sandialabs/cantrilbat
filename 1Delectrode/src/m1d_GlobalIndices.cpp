@@ -280,7 +280,7 @@ GlobalIndices::GbEqnToGbNode(const int GbEqnNum, int & rowEqnNum) const
 {
 #ifdef DEBUG_MODE
   if ((GbEqnNum < 0) || GbEqnNum >= NumGbEqns) {
-    throw m1d_Error("GlobalIndices::GbEqnToGbNode", "GbEqnNum out of bounds: " + Cantera::int2str(GbEqnNum));
+    throw m1d_Error("GlobalIndices::GbEqnToGbNode", "GbEqnNum out of bounds: " + ZZCantera::int2str(GbEqnNum));
   }
 #endif
   int nfound = -1;

@@ -13,6 +13,8 @@
 #ifndef M1D_BOUNDARYCONDITION
 #define M1D_BOUNDARYCONDITION
 
+#include "m1d_defs.h"
+
 #ifndef CANTERA_APP
 #define CANTERA_APP
 #endif
@@ -23,7 +25,6 @@
 #include "cantera/base/xml.h"
 #include "cantera/base/ctml.h"
 using namespace ctml;
-//using namespace Cantera;
 
 namespace m1d {
 
@@ -231,20 +232,20 @@ class BCsteptable: public BoundaryCondition
 {
 public:
 
-  BCsteptable(Cantera::vector_fp indValue, Cantera::vector_fp depValue, Cantera::vector_fp compareVals_, std::string titleName = "BCsteptable",
+  BCsteptable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, ZZCantera::vector_fp compareVals_, std::string titleName = "BCsteptable",
                 std::string indepUnits = "unknownUnits", std::string depenUnits = "unknownUnits");
 
     //! construct from filename
     BCsteptable(std::string filename);
 
     //! construct from XMLnode
-    BCsteptable(Cantera::XML_Node& node);
+    BCsteptable(ZZCantera::XML_Node& node);
 
     //! destructor
     virtual ~BCsteptable();
 
-    //! fill independent and dependent values from Cantera::XML_Node
-    void useXML(Cantera::XML_Node& node);
+    //! fill independent and dependent values from ZZCantera::XML_Node
+    void useXML(ZZCantera::XML_Node& node);
 
     //! Return the dependent variable value given
     //! the independent variable argument
@@ -268,15 +269,15 @@ protected:
 
     //! vector of independent variable values at which
     //! the dependent variable may change value
-    Cantera::vector_fp indepVals_;
+    ZZCantera::vector_fp indepVals_;
 
     //! vector of dependent variable values appropriate
     //! for time/space after the corresponding indepVals_
-    Cantera::vector_fp depenVals_;
+    ZZCantera::vector_fp depenVals_;
 
     //! vector of variable values for comparison purposes.
     //! For example, if current is input, these might be measured voltages
-    Cantera::vector_fp compareVals_;
+    ZZCantera::vector_fp compareVals_;
 
     //! units string for a variable used for comparison purposes
     std::string compareUnits_;
@@ -305,20 +306,20 @@ class BClineartable: public BoundaryCondition
 
 public:
 
-    BClineartable(Cantera::vector_fp indValue, Cantera::vector_fp depValue, Cantera::vector_fp compareVals_, std::string titleName = "BClineartable",
+    BClineartable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, ZZCantera::vector_fp compareVals_, std::string titleName = "BClineartable",
                   std::string indepUnits = "unknownUnits", std::string depenUnits = "unknownUnits");
 
     //! construct from filename
     BClineartable(std::string filename);
 
     //! construct from XMLnode
-    BClineartable(Cantera::XML_Node& node);
+    BClineartable(ZZCantera::XML_Node& node);
 
     //! destructor
     virtual ~BClineartable();
 
-    //! fill independent and dependent values from Cantera::XML_Node
-    void useXML(Cantera::XML_Node& node);
+    //! fill independent and dependent values from ZZCantera::XML_Node
+    void useXML(ZZCantera::XML_Node& node);
 
     //! Return the dependent variable value given
     //! the independent variable argument
@@ -340,15 +341,15 @@ protected:
 
     //! vector of indepedent variable values at which
     //! the dependent variable may change value
-    Cantera::vector_fp indepVals_;
+    ZZCantera::vector_fp indepVals_;
 
     //! vector of depedent variable values appropriate
     //! for time/space after the corresponding indepVals_
-    Cantera::vector_fp depenVals_;
+    ZZCantera::vector_fp depenVals_;
 
     //! vector of variable values for comparison purposes
     //! For example, if current is input, these might be measured voltages
-    Cantera::vector_fp compareVals_;
+    ZZCantera::vector_fp compareVals_;
 
     //! units string for a variable used for comparison purposes
     std::string compareUnits_;
@@ -390,13 +391,13 @@ public:
     BCsinusoidal(std::string filename);
 
     //! Construct from XMLnode
-    BCsinusoidal(Cantera::XML_Node& node);
+    BCsinusoidal(ZZCantera::XML_Node& node);
 
     //! Destructor
     virtual ~BCsinusoidal();
 
-    //! fill independent and dependent values from Cantera::XML_Node
-    void useXML(Cantera::XML_Node& node);
+    //! fill independent and dependent values from ZZCantera::XML_Node
+    void useXML(ZZCantera::XML_Node& node);
 
     //! Return the dependent variable value given
     //! the independent variable argument

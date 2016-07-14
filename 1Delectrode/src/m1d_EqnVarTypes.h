@@ -8,6 +8,8 @@
  */
 #ifndef M1D_EQNVARTYPES_H
 #define M1D_EQNVARTYPES_H
+
+#include "m1d_defs.h"
 #include "m1d_Eqn_Names.h"
 
 #include <string>

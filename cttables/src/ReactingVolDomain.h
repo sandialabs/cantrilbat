@@ -26,7 +26,12 @@
 #include <iostream>
 
  
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
  
   class Transport;
   class PhaseList;
@@ -44,7 +49,11 @@ namespace Cantera {
      */
     bool importFromXML(XML_Node& root);
 
+#ifdef useZuzaxNamespace
+    bool importFromPL(Zuzax::PhaseList *pl, int ivkin, int iskin);
+#else
     bool importFromPL(Cantera::PhaseList *pl, int ivkin, int iskin);
+#endif
 
     bool ready() { return m_ok; }
     friend std::ostream& operator<<(std::ostream& s,

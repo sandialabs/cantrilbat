@@ -301,7 +301,7 @@ Domain1D::revertToInitialGlobalTime()
  *                             false, the xml_node info will only exist on proc 0.
  */
 void
-Domain1D::saveDomain(Cantera::XML_Node& oNode,
+Domain1D::saveDomain(ZZCantera::XML_Node& oNode,
                      const Epetra_Vector *soln_GLALL_ptr,
                      const Epetra_Vector *solnDot_GLALL_ptr,
                      const double t,
@@ -311,12 +311,12 @@ Domain1D::saveDomain(Cantera::XML_Node& oNode,
 }
 //====================================================================================================================
 void
-Domain1D::readSimulation(const Cantera::XML_Node& simulationNode,
+Domain1D::readSimulation(const ZZCantera::XML_Node& simulationNode,
 			 Epetra_Vector * const soln_GLALL_ptr,
 			 Epetra_Vector * const solnDot_GLALL_ptr)
 {
     string ida = id();
-    Cantera::XML_Node* domainNode = simulationNode.findNameID("domain", ida);
+    ZZCantera::XML_Node* domainNode = simulationNode.findNameID("domain", ida);
     if (!domainNode) {
 	throw m1d_Error("Domain1D::readSimulation()", "cant find domain node" + ida);
     }
@@ -324,7 +324,7 @@ Domain1D::readSimulation(const Cantera::XML_Node& simulationNode,
 }
 //====================================================================================================================
 void
-Domain1D::readDomain(const Cantera::XML_Node& oNode,
+Domain1D::readDomain(const ZZCantera::XML_Node& oNode,
                      Epetra_Vector * const soln_GLALL_ptr,
                      Epetra_Vector * const solnDot_GLALL_ptr, double globalTimeRead)
 {

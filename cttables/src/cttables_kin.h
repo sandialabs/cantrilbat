@@ -19,14 +19,24 @@
 #include "PhaseList.h"
 #include "cantera/kinetics/RxnMolChange.h"
 #include "cantera/kinetics/ExtraGlobalRxn.h"
-namespace Cantera {
+
+//--------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
   class ExtraGlobalRxn;
 }
-class RxnMolChangeLocal {
+//--------------------------------------------------------------------------------------------------------------------------------
+
+class RxnMolChangeLocal 
+{
 public:
-  RxnMolChangeLocal(Cantera::Kinetics *kinPtr, int irxn);
+  RxnMolChangeLocal(ZZCantera::Kinetics *kinPtr, int irxn);
   virtual ~RxnMolChangeLocal();
-  RxnMolChangeLocal(Cantera::Kinetics *kinPtr, Cantera::ExtraGlobalRxn *egr);
+  RxnMolChangeLocal(ZZCantera::Kinetics *kinPtr, ZZCantera::ExtraGlobalRxn *egr);
 
   std::vector<double> m_phaseMoleChange;
   std::vector<double> m_phaseMassChange;
@@ -36,11 +46,11 @@ public:
   std::vector<int>    m_phaseDims;
 
   int m_nPhases;
-  Cantera::Kinetics *m_kinBase;
+  ZZCantera::Kinetics *m_kinBase;
   int m_iRxn;
   double m_ChargeTransferInRxn;
   double m_beta;
-  Cantera::ExtraGlobalRxn *m_egr;
+  ZZCantera::ExtraGlobalRxn *m_egr;
 };
 
 class RxnTempTableStuff {
@@ -81,81 +91,81 @@ class TemperatureTable;
 /**********************************************************************/
 /**********************************************************************/
 
-void doKineticsTablesHomog(Cantera::PhaseList *pl,
-			   Cantera::Kinetics *gKinetics,
+void doKineticsTablesHomog(ZZCantera::PhaseList *pl,
+			   ZZCantera::Kinetics *gKinetics,
 			   TemperatureTable &TT);
 
-void doKineticsTablesHetero(Cantera::PhaseList *pl, 
-			    Cantera::InterfaceKinetics *gKinetics,   
+void doKineticsTablesHetero(ZZCantera::PhaseList *pl, 
+			    ZZCantera::InterfaceKinetics *gKinetics,   
 			    TemperatureTable &TT);
 
-void processCurrentVsPotTable(Cantera::RxnMolChange *rmc,
-			      Cantera::PhaseList *pl, int irxn,
+void processCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
+			      ZZCantera::PhaseList *pl, int irxn,
 			      TemperatureTable &TT,
-			      Cantera::Kinetics &kin, 
-			      Cantera::DenseMatrix& kfwd_Table, 
-			      Cantera::DenseMatrix& krev_Table,
-			      Cantera::DenseMatrix& deltaG_Table,
-			      Cantera::DenseMatrix& deltaH_Table,
-			      Cantera::DenseMatrix& deltaS_Table,
-			      Cantera::DenseMatrix& Afwd_Table,
-			      Cantera::DenseMatrix& EafwddivR_Table,
-			      Cantera::DenseMatrix& Arev_Table,
-			      Cantera::DenseMatrix& EarevdivR_Table,
-			      Cantera::DenseMatrix& kfwdPrime_Table, 
-			      Cantera::DenseMatrix& krevPrime_Table);
+			      ZZCantera::Kinetics &kin, 
+			      ZZCantera::DenseMatrix& kfwd_Table, 
+			      ZZCantera::DenseMatrix& krev_Table,
+			      ZZCantera::DenseMatrix& deltaG_Table,
+			      ZZCantera::DenseMatrix& deltaH_Table,
+			      ZZCantera::DenseMatrix& deltaS_Table,
+			      ZZCantera::DenseMatrix& Afwd_Table,
+			      ZZCantera::DenseMatrix& EafwddivR_Table,
+			      ZZCantera::DenseMatrix& Arev_Table,
+			      ZZCantera::DenseMatrix& EarevdivR_Table,
+			      ZZCantera::DenseMatrix& kfwdPrime_Table, 
+			      ZZCantera::DenseMatrix& krevPrime_Table);
 
 void
-getGERKineticsTables(TemperatureTable& TT, Cantera::PhaseList *pl,
-		     Cantera::Kinetics &kin,
-		     Cantera::ExtraGlobalRxn &egr,
+getGERKineticsTables(TemperatureTable& TT, ZZCantera::PhaseList *pl,
+		     ZZCantera::Kinetics &kin,
+		     ZZCantera::ExtraGlobalRxn &egr,
 		     RxnTempTableStuff &rts);
 
-void printGERKineticsTable(Cantera::PhaseList *pl, int j,
+void printGERKineticsTable(ZZCantera::PhaseList *pl, int j,
 			   TemperatureTable& TT,
-			   Cantera::Kinetics &kin,
-			   Cantera::ExtraGlobalRxn &egr,
-			   Cantera::RxnMolChange *rmc,
+			   ZZCantera::Kinetics &kin,
+			   ZZCantera::ExtraGlobalRxn &egr,
+			   ZZCantera::RxnMolChange *rmc,
 			   RxnTempTableStuff &rts);
 
-void processGERCurrentVsPotTable(Cantera::RxnMolChange *rmc,
-				 Cantera::PhaseList *pl, int irxn,
+void processGERCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
+				 ZZCantera::PhaseList *pl, int irxn,
 				 TemperatureTable &TT,
-				 Cantera::Kinetics &kin,  
-				 Cantera::ExtraGlobalRxn &egr,
+				 ZZCantera::Kinetics &kin,  
+				 ZZCantera::ExtraGlobalRxn &egr,
 				 RxnTempTableStuff &rts);
 
-void printAffinityHeader(Cantera::RxnMolChange *rmc,
-                              Cantera::PhaseList *pl, int irxn,
+void printAffinityHeader(ZZCantera::RxnMolChange *rmc,
+                              ZZCantera::PhaseList *pl, int irxn,
                               TemperatureTable &TT,
-                              Cantera::Kinetics &kin,
-                              Cantera::DenseMatrix& kfwd_Table,
-                              Cantera::DenseMatrix& krev_Table,
-                              Cantera::DenseMatrix& deltaG_Table,
-                              Cantera::DenseMatrix& deltaH_Table,
-                              Cantera::DenseMatrix& deltaS_Table,
-                              Cantera::DenseMatrix& Afwd_Table,
-                              Cantera::DenseMatrix& EafwddivR_Table,
-                              Cantera::DenseMatrix& Arev_Table,
-                              Cantera::DenseMatrix& EarevdivR_Table,
-                              Cantera::DenseMatrix& kfwdPrime_Table,
-                              Cantera::DenseMatrix& krevPrime_Table, double *unitsfwd, double* unitsRev);
+                              ZZCantera::Kinetics &kin,
+                              ZZCantera::DenseMatrix& kfwd_Table,
+                              ZZCantera::DenseMatrix& krev_Table,
+                              ZZCantera::DenseMatrix& deltaG_Table,
+                              ZZCantera::DenseMatrix& deltaH_Table,
+                              ZZCantera::DenseMatrix& deltaS_Table,
+                              ZZCantera::DenseMatrix& Afwd_Table,
+                              ZZCantera::DenseMatrix& EafwddivR_Table,
+                              ZZCantera::DenseMatrix& Arev_Table,
+                              ZZCantera::DenseMatrix& EarevdivR_Table,
+                              ZZCantera::DenseMatrix& kfwdPrime_Table,
+                              ZZCantera::DenseMatrix& krevPrime_Table, double *unitsfwd, double* unitsRev);
 
-void processAffinityTable(Cantera::RxnMolChange *rmc,
-                              Cantera::PhaseList *pl, int irxn,
+void processAffinityTable(ZZCantera::RxnMolChange *rmc,
+                              ZZCantera::PhaseList *pl, int irxn,
                               TemperatureTable &TT,
-                              Cantera::Kinetics &kin,
-                              Cantera::DenseMatrix& kfwd_Table,
-                              Cantera::DenseMatrix& krev_Table,
-                              Cantera::DenseMatrix& deltaG_Table,
-                              Cantera::DenseMatrix& deltaH_Table,
-                              Cantera::DenseMatrix& deltaS_Table,
-                              Cantera::DenseMatrix& Afwd_Table,
-                              Cantera::DenseMatrix& EafwddivR_Table,
-                              Cantera::DenseMatrix& Arev_Table,
-                              Cantera::DenseMatrix& EarevdivR_Table,
-                              Cantera::DenseMatrix& kfwdPrime_Table,
-                              Cantera::DenseMatrix& krevPrime_Table);
+                              ZZCantera::Kinetics &kin,
+                              ZZCantera::DenseMatrix& kfwd_Table,
+                              ZZCantera::DenseMatrix& krev_Table,
+                              ZZCantera::DenseMatrix& deltaG_Table,
+                              ZZCantera::DenseMatrix& deltaH_Table,
+                              ZZCantera::DenseMatrix& deltaS_Table,
+                              ZZCantera::DenseMatrix& Afwd_Table,
+                              ZZCantera::DenseMatrix& EafwddivR_Table,
+                              ZZCantera::DenseMatrix& Arev_Table,
+                              ZZCantera::DenseMatrix& EarevdivR_Table,
+                              ZZCantera::DenseMatrix& kfwdPrime_Table,
+                              ZZCantera::DenseMatrix& krevPrime_Table);
 
 
 /**********************************************************************/

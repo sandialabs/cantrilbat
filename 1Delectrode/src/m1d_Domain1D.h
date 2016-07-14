@@ -296,7 +296,7 @@ public:
    *                             false, the xml_node info will only exist on proc 0.
    */
   virtual void
-  saveDomain(Cantera::XML_Node& oNode,
+  saveDomain(ZZCantera::XML_Node& oNode,
              const Epetra_Vector *soln_GlAll_ptr,
              const Epetra_Vector *solnDot_GlAll_ptr,
              const double t,
@@ -310,7 +310,7 @@ public:
    * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
    */
   virtual void
-  readSimulation(const Cantera::XML_Node& simulationNode,
+  readSimulation(const ZZCantera::XML_Node& simulationNode,
 		 Epetra_Vector * const soln_GlAll_ptr,
 		 Epetra_Vector * const solnDot_GlAll_ptr);
 
@@ -326,7 +326,7 @@ public:
    *
    */
   virtual void 
-  readDomain(const Cantera::XML_Node& domainNode,
+  readDomain(const ZZCantera::XML_Node& domainNode,
              Epetra_Vector * const soln_GlAll_ptr,
              Epetra_Vector * const solnDot_GlAll_ptr, double globalTimeRead);
 

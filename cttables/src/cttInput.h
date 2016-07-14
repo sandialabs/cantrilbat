@@ -25,27 +25,28 @@ namespace BEInput {
 #include "cantera/kinetics.h"
 #include "mdp_allo.h"
 #include "PhaseList.h"
+#include "Electrode_defs.h"
 #define UNITS_KCAL_CGS 0
 #define UNITS_KJOULE   1
 #define UNITS_CGS      2
 
 void setup_input_pass1(BEInput::BlockEntry *cf,
-		       Cantera::Kinetics *g_kin_ptr,
-		       Cantera::ThermoPhase *g_ptr);
+		       ZZCantera::Kinetics *g_kin_ptr,
+		       ZZCantera::ThermoPhase *g_ptr);
 
 void setup_input_pass2(BEInput::BlockEntry *cf,
-		       Cantera::Kinetics *g_kin_ptr,
-		       Cantera::ThermoPhase *g_ptr);
+		       ZZCantera::Kinetics *g_kin_ptr,
+		       ZZCantera::ThermoPhase *g_ptr);
 
 void setup_input_pass3(BEInput::BlockEntry *cf,
-		       Cantera::Kinetics *g_kin_ptr,
-		       Cantera::ThermoPhase *g_ptr, 
-		       Cantera::PhaseList *pl);
+		       ZZCantera::Kinetics *g_kin_ptr,
+		       ZZCantera::ThermoPhase *g_ptr, 
+		       ZZCantera::PhaseList *pl);
 
 int process_input(BEInput::BlockEntry *cf, std::string commandFile,
-		  Cantera::Kinetics *g_kin_ptr,
-		  Cantera::ThermoPhase *g_ptr ,
-		  Cantera::PhaseList *pl);
+		  ZZCantera::Kinetics *g_kin_ptr,
+		  ZZCantera::ThermoPhase *g_ptr ,
+		  ZZCantera::PhaseList *pl);
 
 bool doubleEqual(double d1, double d2, double atol = 1.0E-100);
 
@@ -201,7 +202,7 @@ public:
   int nTotSpecies;
   int nTotElements;
 
-  void InitForInput(Cantera::PhaseList *pl);
+  void InitForInput(ZZCantera::PhaseList *pl);
 
   int numExtraGlobalRxns;
   struct EGRInput **m_EGRList;

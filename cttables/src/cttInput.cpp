@@ -35,7 +35,11 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace BEInput;
 using namespace mdpUtil;
 

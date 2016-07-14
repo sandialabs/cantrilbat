@@ -333,7 +333,7 @@ main(int argc, char **argv)
     safeDelete(v);
     safeDelete(soln);
     safeDelete(res);
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
 #ifdef HAVE_MPI
     MPI_Finalize();
@@ -352,8 +352,8 @@ main(int argc, char **argv)
     cerr << "caught an error\n" << endl;
     m1d::showErrors(std::cerr);
   }
-  catch (Cantera::CanteraError &mC) {
-    Cantera::showErrors(std::cerr);
+  catch (ZZCantera::CanteraError &mC) {
+    ZZCantera::showErrors(std::cerr);
 
   }
 

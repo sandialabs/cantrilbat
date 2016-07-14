@@ -364,7 +364,7 @@ main(int argc, char **argv)
     safeDelete(v);
     safeDelete(soln);
     safeDelete(res);
-    Cantera::appdelete();
+    ZZCantera::appdelete();
 
 
 #ifdef HAVE_MPI

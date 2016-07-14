@@ -21,7 +21,12 @@
 
 extern int DebugPrinting;
 using namespace std;
-namespace Cantera {
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
+namespace Cantera
+#endif 
+{
 
   /**
    * Constructor #1 for the IdealReactingGas object.
@@ -285,7 +290,7 @@ namespace Cantera {
    *
    *
    */
-  bool ReactingVolDomain::importFromPL(Cantera::PhaseList *pl, int ivkin, int iskin)  {
+  bool ReactingVolDomain::importFromPL(PhaseList *pl, int ivkin, int iskin)  {
     try {
       int iph;
       

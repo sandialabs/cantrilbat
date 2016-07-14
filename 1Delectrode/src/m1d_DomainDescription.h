@@ -10,6 +10,7 @@
 #ifndef M1D_DOMAINDESCRIPTION_H
 #define M1D_DOMAINDESCRIPTION_H
 
+#include "m1d_defs.h"
 #include "m1d_EqnVarTypes.h"
 
 #include <vector>

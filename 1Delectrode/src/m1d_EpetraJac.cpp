@@ -413,7 +413,7 @@ EpetraJac::eval(const bool doTimeDependentResid,
               int iLcEqn = istart + ie;
               double value = ((*res)[iLcEqn] - resBase[iLcEqn]) * dd;
 #ifdef DEBUG_MODE
-              Cantera::checkFinite(value);
+              ZZCantera::checkFinite(value);
 #endif
 	      (*rowColBlock)(ie, je) = value;
             }

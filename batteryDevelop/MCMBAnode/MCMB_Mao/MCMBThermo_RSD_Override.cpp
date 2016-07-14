@@ -28,7 +28,11 @@
 #include <cstring>
 
 using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
@@ -519,8 +523,7 @@ end block Open Circuit Potential Override for interface anode_surface
 
 
 
-
-     Cantera::appdelete();
+     appdelete();
 
     return 0;
 

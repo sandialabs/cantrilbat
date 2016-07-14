@@ -16,9 +16,13 @@
  * Use ZZCantera for namespace identification
  */
 #ifdef useZuzaxNamespace
+#ifndef ZZCantera
 #define ZZCantera Zuzax
+#endif
 #else
+#ifndef ZZCantera
 #define ZZCantera Cantera
+#endif
 #endif
 
 #ifdef useZuzaxNamespace

@@ -9,6 +9,8 @@
 #ifndef M1D_EQN_NAMES_H
 #define M1D_EQN_NAMES_H
 
+#include "m1d_defs.h"
+
 namespace m1d
 {
 

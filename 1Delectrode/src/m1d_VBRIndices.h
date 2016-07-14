@@ -14,7 +14,7 @@
 #ifndef _M1D_VBRINDICES_H
 #define _M1D_VBRINDICES_H
 
-
+#include "m1d_defs.h"
 #include "Epetra_VbrRowMatrix.h"
 
 #include <vector>

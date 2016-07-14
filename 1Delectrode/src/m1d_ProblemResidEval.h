@@ -20,6 +20,8 @@
 #ifndef M1D_PROBLEMRESIDEVAL_H
 #define M1D_PROBLEMRESIDEVAL_H
 
+#include "m1d_defs.h"
+
 #include "Epetra_Vector.h"
 #include "Epetra_VbrMatrix.h"
 #include "m1d_VBRIndices.h"
@@ -733,7 +735,7 @@ public:
    * @param delta_t_next_read  delta time step for the next time step if available
    */
   void
-  readSolutionXML(Cantera::XML_Node* simulRecord, Epetra_Vector_Ghosted &y_n_ghosted,
+  readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vector_Ghosted &y_n_ghosted,
 		  Epetra_Vector_Ghosted * const ydot_n_ghosted, double &t_read,
 		  double &delta_t_read, double &delta_t_next_read);
 
@@ -744,7 +746,7 @@ public:
    *
    *    @return Returns a pointer to the selected record.
    */
-  Cantera::XML_Node* selectSolutionRecordNumber(Cantera::XML_Node* xSoln, int globalTimeStepNum);
+  ZZCantera::XML_Node* selectSolutionRecordNumber(ZZCantera::XML_Node* xSoln, int globalTimeStepNum);
  
   //!  Select the global time step increment record by the consequuatively numbered record index number
   /*
@@ -753,7 +755,7 @@ public:
    *
    *    @return Returns a pointer to the selected record.
    */
-  Cantera::XML_Node* selectSolutionTimeStepID(Cantera::XML_Node* xSoln, std::string solnTimeStepID);
+  ZZCantera::XML_Node* selectSolutionTimeStepID(ZZCantera::XML_Node* xSoln, std::string solnTimeStepID);
 
   //! Write the solution to either the screen or to a log file
   /*!

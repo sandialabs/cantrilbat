@@ -47,7 +47,11 @@
 #include <vector>
 #include <typeinfo>
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 using namespace BEInput;
 using namespace mdpUtil;
@@ -356,7 +360,7 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
         } else if (crot == 1.5) {
           cout <<"This molecule is nonlinear" << endl;
         } else {
-          throw CanteraError("", "Unknown crot = " + Cantera::fp2str(crot));
+          throw CanteraError("", "Unknown crot = " + ZZCantera::fp2str(crot));
         }
 
       }
@@ -394,7 +398,7 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
 	} else if (crot == 1.5) {
 	  cout <<"This molecule is nonlinear" << endl;
 	} else {
-          throw CanteraError("", "Unknown crot = " + Cantera::fp2str(crot));
+          throw CanteraError("", "Unknown crot = " + ZZCantera::fp2str(crot));
         }
 	
       }
@@ -1449,7 +1453,7 @@ int main(int argc, char** argv) {
   bool printInputFormat = false;
   clockWC tt;
   string commandFile = "cttables.inp";
-  Cantera::Kinetics *gKinetics = 0;
+  ZZCantera::Kinetics *gKinetics = 0;
   // look for command-line options
    if (argc > 1) {
      string tok;

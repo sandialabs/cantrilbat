@@ -45,7 +45,11 @@
 
 #include "cttables_kin.h"
 
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
 using namespace Cantera;
+#endif
 using namespace std;
 
 #  define MIN(x,y)     (( (x) < (y) ) ? (x) : (y))
@@ -179,7 +183,7 @@ void calcBF(double i1, double V1, double i2,
  */
 void
 getKineticsTables(TemperatureTable& TT, PhaseList *pl,
-		  Cantera::Kinetics &kin,
+		  ZZCantera::Kinetics &kin,
 		  DenseMatrix& kfwd_Table, 
 		  DenseMatrix& krev_Table,
 		  DenseMatrix& deltaG_Table,
@@ -445,7 +449,7 @@ getKineticsTables(TemperatureTable& TT, PhaseList *pl,
  */
 void printKineticsTable(PhaseList *pl, int j,
 			TemperatureTable &TT,
-			Cantera::Kinetics &kin, 
+			ZZCantera::Kinetics &kin, 
 			DenseMatrix& kfwd_Table, 
 			DenseMatrix& krev_Table,
 			DenseMatrix& deltaG_Table,
@@ -457,7 +461,7 @@ void printKineticsTable(PhaseList *pl, int j,
 			DenseMatrix& EarevdivR_Table,
 			DenseMatrix& kfwdPrime_Table, 
 			DenseMatrix& krevPrime_Table,
-			Cantera::RxnMolChange *rmc) 
+			ZZCantera::RxnMolChange *rmc) 
 {
     /*
      *  Get the species data object from the Mixture object
@@ -874,7 +878,7 @@ void doKineticsTablesHetero(PhaseList *pl,  InterfaceKinetics *gKinetics, Temper
 }
 //==================================================================================================================================
 
-void doKineticsTablesHomog(PhaseList *pl, Cantera::Kinetics *gKinetics,   
+void doKineticsTablesHomog(PhaseList *pl, ZZCantera::Kinetics *gKinetics,   
 			   TemperatureTable &TT) {
     
   int nReactions = gKinetics->nReactions();
@@ -1339,7 +1343,7 @@ RxnTempTableStuff::~RxnTempTableStuff() {
  */
 void
 getGERKineticsTables(TemperatureTable& TT, PhaseList *pl,
-		     Cantera::Kinetics &kin,
+		     ZZCantera::Kinetics &kin,
 		     ExtraGlobalRxn &egr,
 		     RxnTempTableStuff &rts) {
   
@@ -1522,7 +1526,7 @@ struct StoichVectors {
     std::vector<double> sCoeffV;
 };
 //==================================================================================================================================
-void printAffinityHeader(Cantera::RxnMolChange *rmc, PhaseList *pl, int iRxn, TemperatureTable &TT,
+void printAffinityHeader(ZZCantera::RxnMolChange *rmc, PhaseList *pl, int iRxn, TemperatureTable &TT,
 			 Kinetics &kin,  DenseMatrix& kfwd_Table,   DenseMatrix& krev_Table,
 			 DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table,  DenseMatrix& deltaS_Table,
 			 DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table,  DenseMatrix& Arev_Table,
@@ -1539,7 +1543,7 @@ void printAffinityHeader(Cantera::RxnMolChange *rmc, PhaseList *pl, int iRxn, Te
      //double phiSoln;
      double perturb;
      //double deltaM[10];
-     Cantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
+     ZZCantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
      if (!iKin) {
 	 throw CanteraError("processAffinityTable", "failure");
      }
@@ -1759,7 +1763,7 @@ void printAffinityHeader(Cantera::RxnMolChange *rmc, PhaseList *pl, int iRxn, Te
 
 }
 //==================================================================================================================================
-void processAffinityTable(Cantera::RxnMolChange *rmc, PhaseList *pl, int irxn, TemperatureTable &TT,
+void processAffinityTable(ZZCantera::RxnMolChange *rmc, PhaseList *pl, int irxn, TemperatureTable &TT,
 			  Kinetics &kin,  DenseMatrix& kfwd_Table,   DenseMatrix& krev_Table,
 			  DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table,  DenseMatrix& deltaS_Table,
 			  DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table,  DenseMatrix& Arev_Table,
@@ -1775,7 +1779,7 @@ void processAffinityTable(Cantera::RxnMolChange *rmc, PhaseList *pl, int irxn, T
      //double phiSoln;
      double perturb;
      //double deltaM[10];
-     Cantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
+     ZZCantera::InterfaceKinetics* iKin = dynamic_cast<InterfaceKinetics*>(&kin);
      if (!iKin) {
 	 throw CanteraError("processAffinityTable", "failure");
      }
@@ -1807,7 +1811,7 @@ void processAffinityTable(Cantera::RxnMolChange *rmc, PhaseList *pl, int irxn, T
  */
 void printGERKineticsTable(PhaseList *pl, int iGER,
 			   TemperatureTable& TT,
-			   Cantera::Kinetics &kin,
+			   ZZCantera::Kinetics &kin,
 			   ExtraGlobalRxn &egr,
 			   RxnMolChange *rmc,
 			   RxnTempTableStuff &rts) {
