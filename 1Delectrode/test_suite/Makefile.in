@@ -15,7 +15,21 @@ MP_MACHINEFILE_DEFAULT=@MP_MACHINEFILE_DEFAULT@
 MPMACH := $(shell if test -z ${MP_MACHINEFILE}; then echo $(MP_MACHINEFILE_DEFAULT) ; else echo ${MP_MACHINEFILE} ; fi)
 
 all:
-
+#	cd LiKCl_PorousBat_SPCD_MPNewman;               @MAKE@ 
+	cd LiIon_MCMB_LiCoO2;	                        @MAKE@ 
+	cd LiIon_MCMB_LiCoO2_2;	                        @MAKE@
+	cd LiIon_MCMB_LiCoO2_Diff2;	                @MAKE@ 
+	cd LiIon_MCMB_LiCoO2_Diff3;	                @MAKE@ 
+	cd LiIon_MCMB_LiCoO2_Diff2_restart	       	@MAKE@ 
+	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ 
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ 
+	cd CAEBAT_restart_cycle;		  	@MAKE@ 
+	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ 
+	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ 
+	cd DualfoilComparison ;				@MAKE@ 
+	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ 
+	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ 
+	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ 
 
 test:
 #	cd LiKCl_PorousBat_SPCD_MPNewman;               @MAKE@ test

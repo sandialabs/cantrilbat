@@ -30,7 +30,7 @@ then
   echo "mpequil returned with bad status, $retnStat, check output"
 fi
 
-csvdiff -a 1.0E-50 vcs_equilibrate_blessed.csv vcs_equilibrate_res.csv > diff_csv.txt
+csvdiff -a 1.0E-50  vcs_equilibrate_blessed.csv vcs_equilibrate_res.csv > diff_csv.txt
 retnStat_csv=$?
 
 diff  good_out.txt out.txt > diff_out.txt
