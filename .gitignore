@@ -9,7 +9,7 @@ rhel5_64_sierra_gcc444
 *.d
 *.a
 .depends
-config.h
+configCantrilbat.h
 *~
 .*.swp
 rhel6_64_sierra_gcc472_mech

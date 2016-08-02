@@ -10,7 +10,7 @@
  * See file License.txt for licensing information.
  */
 
-#include "config.h"
+#include "configCantrilbat.h"
 
 #ifndef MDP_TIMER_H
 #define MDP_TIMER_H

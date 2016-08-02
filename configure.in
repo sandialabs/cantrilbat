@@ -218,7 +218,7 @@ fi
 #  debug rule is passed. The rule is called CA_CANTERA_DEBUG_MODE
 AC_SUBST(CA_CANTERA_DEBUG_MODE)
 
-#  Create a Cantera_Apps config.h define statement, named CANTERA_DEBUG_MODE,
+#  Create a Cantera_Apps configCantrilbat.h define statement, named CANTERA_DEBUG_MODE,
 #  that has a value of 1 if Cantera's debug mode is turned on.
 AC_DEFINE_UNQUOTED(CANTERA_DEBUG_MODE, $CA_CANTERA_DEBUG_MODE)
 
@@ -452,19 +452,19 @@ dnl Checks for programs.
 AC_PROG_INSTALL
 
 # -----------------------------------------------------------------------------
-#       Configure config.h
+#       Configure configCantrilbat.h
 # -----------------------------------------------------------------------------
-#  This is the default macro to add a config.h capability to autoconf
+#  This is the default macro to add a configCantrilbat.h capability to autoconf
 # 
-AC_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADER(configCantrilbat.h)
 #
 # Check for the existence of system functions
 #
 AC_CHECK_FUNCS([memset])
 #
 # The AC_DEFINE_UNQUOTED macro creates a capability to substitute defines
-# in config.h files. 
-#   -> You just have to add the line #undef MACRO_NAME to the config.h.in file.
+# in configCantrilbat.h files. 
+#   -> You just have to add the line #undef MACRO_NAME to the configCantrilbat.h.in file.
 #      Or, the command autoheader does this for you.
 # 
 #

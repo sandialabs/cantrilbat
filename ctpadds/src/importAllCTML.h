@@ -39,7 +39,7 @@ namespace Cantera
   class Transport;
 
   //! Create a single ThermoPhase object, not currently supported
-  //! by the main Cantera distribution
+  //! by the main Zuzax distribution
   /*!
    *    Import a single phase found in a single file.
    *    Add new thermophase definitions, ones not currently supported
@@ -51,7 +51,7 @@ namespace Cantera
    *       completely initializes itself.
    *
    *       For models that we understand, we pop the error off
-   *       of the Cantera stack.
+   *       of the Zuzax stack.
    *
    *       Models that we don't understand, or that cause an error
    *       we rethrow the cantera error.
@@ -61,7 +61,7 @@ namespace Cantera
   ThermoPhase* processExpandedThermoPhase(XML_Node* const xmlphase);
 
   //! Process a kinetics manager, which may or may not be
-  //! currently supported by the main Cantera distribution.
+  //! currently supported by the main Zuzax distribution.
   /*!
    *    Import a Kinetics manager from a CTML description.
    *    Add new Kinetics definitions, ones not currently supported

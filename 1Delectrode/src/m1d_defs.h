@@ -43,7 +43,7 @@
 #undef HAVE_MPI
 #endif
 
-#include "config.h"
+#include "configCantrilbat.h"
 #include "m1d_exception.h"
 
 #include "cantera/base/ct_defs.h"

@@ -9,7 +9,7 @@
 
 #include "m1d_defs.h"
 
-#include "../../config.h"
+#include "../../configCantrilbat.h"
 
 #ifdef HAVE_MPI
 #include <mpi.h>

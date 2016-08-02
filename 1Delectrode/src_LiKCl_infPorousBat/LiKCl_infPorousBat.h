@@ -8,7 +8,7 @@
  */
 
 
-#include "config.h"
+#include "configCantrilbat.h"
 #include "Epetra_ConfigDefs.h"
 
 #ifdef HAVE_MPI
