@@ -165,7 +165,7 @@ install:
 	@ @INSTALL@ -d @cta_libdir@
 	@ @INSTALL@ -d @cta_bindir@
 	cd bin;       $(INSTALL_TSC)  runtest_Exec @cta_bindir@
-	$(INSTALL_TSC) config.h  @cta_incdir@
+	$(INSTALL_TSC) configCantrilbat.h  @cta_incdir@
 	cd util_src;                      @MAKE@ install
 	cd ctpadds;                       @MAKE@ install
 	cd Electrode;                     @MAKE@ install
