@@ -107,7 +107,7 @@ int main(int argc, char **argv)
     //ZZCantera::Electrode_CSTR_LiCoO2Cathode *electrodeC  = new ZZCantera::Electrode_CSTR_LiCoO2Cathode();
     ZZCantera::Electrode *electrodeC  = newElectrodeObject("CSTR_LiCoO2Cathode");
 
-    ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
+    ELECTRODE_KEY_INPUT *electrodeC_input = new Zuzax::ELECTRODE_KEY_INPUT();
     
     std::string commandFileC = "cathode.inp";
 

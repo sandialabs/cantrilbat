@@ -25,14 +25,15 @@
  */
 
 
-class ELECTRODE_KEY_INPUT;
-class EGRInput;
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
+
+class ELECTRODE_KEY_INPUT;
+class EGRInput;
 
 class ELECTRODE_MP_RxnExtent_KEY_INPUT : public ELECTRODE_KEY_INPUT
 {

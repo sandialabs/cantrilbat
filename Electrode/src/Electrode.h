@@ -28,8 +28,6 @@
 #include <vector>
 #include <cstring>
 
-class ELECTRODE_KEY_INPUT;
-class EGRInput;
 
 namespace BEInput 
 {
@@ -43,6 +41,8 @@ namespace Cantera
 #endif
 {
 
+class ELECTRODE_KEY_INPUT;
+class EGRInput;
 
 
 //!  The SOURCES enum lists the source terms that are supplied by the electrode object to the calling
@@ -3589,7 +3589,7 @@ private:
 
 }
 
-int electrode_input(ELECTRODE_KEY_INPUT* input,  std::string commandFile,
+int electrode_input(ZZCantera::ELECTRODE_KEY_INPUT* input,  std::string commandFile,
                     BEInput::BlockEntry* cf);
 
 

@@ -326,7 +326,7 @@ protected:
      */
     static bool s_PrintProcessedLine;
 
-    //! Int indicating  whether an error is thrown if an unknown
+    //! Int indicating whether an error is thrown if an unknown
     //! block or line entry is encountered in the input deck
     /*!
      *    0 = throw an error if unknown entries are encountered, always

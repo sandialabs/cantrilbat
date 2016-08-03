@@ -22,12 +22,13 @@ using namespace BEInput;
 using namespace ca_ab;
 using namespace mdpUtil;
 
+//-----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
-using namespace Zuzax;
+namespace Zuzax
 #else
-using namespace Cantera;
+namespace Cantera
 #endif
-
+{
 //================================================================================================
 ElectrodeBath::ElectrodeBath() :
     XmolPLSpecVec(0),
@@ -1926,4 +1927,5 @@ void ELECTRODE_KEY_INPUT::post_input_child3(BEInput::BlockEntry* cf)
 {
 }
 //======================================================================================================================
-
+} // end of namespace
+//-----------------------------------------------------------------------------------------------------------------------------------

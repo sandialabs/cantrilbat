@@ -23,12 +23,13 @@
 using namespace std;
 using namespace TKInput;
 using namespace mdpUtil;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput
 {
 
 const int BE_ANY_INDEX = -7777779;
 
+//==================================================================================================================================
 /*
  *  BlockEntry Constructor
  *
@@ -40,8 +41,7 @@ const int BE_ANY_INDEX = -7777779;
  *                     default is 0, indicating that this block is the
  *                     top main block that has no parent blocks.
  */
-BlockEntry::BlockEntry(const char* blockName, int numTimesRequired,
-                       BlockEntry* parentBlock_inp) :
+BlockEntry::BlockEntry(const char* blockName, int numTimesRequired, BlockEntry* parentBlock_inp) :
     BaseEntry(blockName, numTimesRequired),
     ParentBlock(parentBlock_inp),
     BlockLineInput(0),
@@ -62,6 +62,7 @@ BlockEntry::BlockEntry(const char* blockName, int numTimesRequired,
     }
 }
 
+//==================================================================================================================================
 /*
  *
  * BlockEntry(const BlockEntry&) :
@@ -92,6 +93,7 @@ BlockEntry::BlockEntry(const BlockEntry& b) :
     }
 }
 
+//==================================================================================================================================
 /*
  *
  *  BlockEntry& operator=(const BlockEntry&)
@@ -145,6 +147,7 @@ BlockEntry& BlockEntry::operator=(const BlockEntry& b)
     return *this;
 }
 
+//==================================================================================================================================
 /*
  *
  * BlockEntry* duplMyselfAsBlockEntry()
@@ -157,6 +160,7 @@ BlockEntry* BlockEntry::duplMyselfAsBlockEntry() const
     return newBE;
 }
 
+//==================================================================================================================================
 /*
  *
  * BaseEntry* duplMyselfAsBaseEntry()
@@ -169,6 +173,7 @@ BaseEntry* BlockEntry::duplMyselfAsBaseEntry() const
     return (BaseEntry*) newBE;
 }
 
+//==================================================================================================================================
 /*
  *  Block_List Destructor (virtual function):
  *       We may be responsible for releasing memory here.
@@ -205,6 +210,7 @@ BlockEntry::~BlockEntry(void)
     }
 }
 
+//==================================================================================================================================
 void BlockEntry::clear()
 {
     /*
@@ -235,6 +241,7 @@ void BlockEntry::clear()
     m_adjustAddress = 0;
 }
 
+//==================================================================================================================================
 /*
  *
  *  read_block handles the I/O of block commands. It is designed so that
@@ -439,6 +446,7 @@ BlockEntry::read_block(FILE* input_file, TK_TOKEN* endArgPtr,
         }
     }
 }
+//==================================================================================================================================
 /************************************************************************
  *
  * read_this_block_only()
@@ -510,6 +518,7 @@ read_this_block_only(FILE* input_file)
     }
 }
 
+//==================================================================================================================================
 
 /*
  * skip_block:
@@ -595,6 +604,7 @@ void BlockEntry::skip_block(FILE* input_file, TK_TOKEN* blockName,
     }
 
 }
+//==================================================================================================================================
 
 // Virtual function called at the start of internally processing the block
 /*
@@ -643,6 +653,7 @@ void BlockEntry::Initialization(FILE* ifp_input, const TK_TOKEN* blockArgTok)
     }
 }
 
+//==================================================================================================================================
 /*
  *  Wrapup()  (virtual function)
  *
@@ -698,6 +709,7 @@ void BlockEntry::Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgTok)
     }
 }
 
+//==================================================================================================================================
 /*
  * adjustAddress:
  *
@@ -722,12 +734,13 @@ void BlockEntry::adjustAddress(LONG_PTR adjustAAA)
     }
 }
 
+//==================================================================================================================================
 void BlockEntry::set_default(double defValue)
 {
     throw BI_InputError("BlockEntry::set_default",
                         "base entry called and not overriden");
 }
-//==============================================================================================================
+//==================================================================================================================================
 /*
  *
  * ZeroLineCount():
@@ -752,6 +765,7 @@ void BlockEntry::ZeroLineCount()
     }
 }
 
+//==================================================================================================================================
 /*
  * print_keyLine() (static function):
  *
@@ -772,6 +786,7 @@ void BlockEntry::print_keyLine(const TK_TOKEN* keyLineTok,
     printf("\n");
 }
 
+//==================================================================================================================================
 /*
  * print_indent (BlockEntry static function)
  */
@@ -858,6 +873,7 @@ void BlockEntry::print_usage(int indent_lvl) const
     }
 }
 
+//==================================================================================================================================
 /*
  *  match_block():
  *
@@ -874,8 +890,7 @@ void BlockEntry::print_usage(int indent_lvl) const
  *    hasn't been processed gets selected.
  *
  */
-BlockEntry* BlockEntry::match_block(const TK_TOKEN* keyLinePtr,
-                                    int contribIndex, bool includedMatch) const
+BlockEntry* BlockEntry::match_block(const TK_TOKEN* keyLinePtr, int contribIndex, bool includedMatch) const
 {
     BlockEntry* biBest = 0;
     int multiContribIndexBest = -1;
@@ -927,7 +942,7 @@ BlockEntry* BlockEntry::match_block(const TK_TOKEN* keyLinePtr,
     return (biBest);
 }
 
-//=================================================================================================================
+//==================================================================================================================================
 BlockEntry* BlockEntry::match_block_argName(const TK_TOKEN* keyLinePtr, bool includedMatch,
                                             int contribIndex, const TK_TOKEN* keyArgName) const
 {
@@ -994,8 +1009,7 @@ BlockEntry* BlockEntry::match_block_argName(const TK_TOKEN* keyLinePtr, bool inc
  *    This function will lop off unwanted trailing "block" "end" and "start"
  *    words from the token list.
  */
-BlockEntry* BlockEntry::match_block(const char* blockstring,
-                                    int contribIndex, bool includedMatch) const
+BlockEntry* BlockEntry::match_block(const char* blockstring, int contribIndex, bool includedMatch) const
 {
     TOKEN* t1_ptr = new TOKEN(blockstring);
     BlockEntry* ber = match_block(t1_ptr, contribIndex, includedMatch);
@@ -1013,8 +1027,7 @@ BlockEntry* BlockEntry::match_block(const char* blockstring,
  *    subBlockPtr = pointer to the subblock object
  *    keyArgTok   = arguments to the subblock call.
  */
-void BlockEntry::Initialize_SubBlock(BlockEntry* subBlockPtr,
-                                     const TK_TOKEN* keyArgTok)
+void BlockEntry::Initialize_SubBlock(BlockEntry* subBlockPtr, const TK_TOKEN* keyArgTok)
 {
     if (keyArgTok) {
         m_ArgTok = *(keyArgTok);
@@ -1045,8 +1058,7 @@ void BlockEntry::Wrapup_SubBlock(BlockEntry* subBlockPtr,
  *    See if a match exists between the character string and the keyLine
  *    structure.
  */
-LineEntry* BlockEntry::match_keyLine(const TK_TOKEN* lineEntryTok,
-                                     int contribIndex) const
+LineEntry* BlockEntry::match_keyLine(const TK_TOKEN* lineEntryTok, int contribIndex) const
 {
     LineEntry* leBest = 0;
     int multiContribIndexBest = -1;
@@ -1086,6 +1098,7 @@ void BlockEntry::process_LineEntry(LineEntry* curLE,
     }
 }
 
+//==================================================================================================================================
 /*
  * skip_lineEntry() (virtual function):
  *
@@ -1097,6 +1110,7 @@ void BlockEntry::skip_lineEntry(FILE* ifp, const TK_TOKEN* keyLineTok,
 {
 }
 
+//==================================================================================================================================
 /*
  * addSubBlock
  *
@@ -1137,6 +1151,7 @@ void BlockEntry::addSubBlock(BlockEntry* sb)
     sb->ParentBlock = this;
 }
 
+//==================================================================================================================================
 /*
  * addLineEntry
  *
@@ -1179,6 +1194,7 @@ void BlockEntry::addLineEntry(LineEntry* le)
     numLineInput++;
 }
 
+//==================================================================================================================================
 /*
  *  reportNumProcessedLines
  *
@@ -1198,6 +1214,7 @@ int BlockEntry::reportNumProcessedLines(const char* lineName) const
     return 0;
 }
 
+//==================================================================================================================================
 /*
  *
  * checkRequirements:
@@ -1284,6 +1301,7 @@ bool BlockEntry::checkRequirements(bool throwSpecificError)
     return true;
 }
 
+//==================================================================================================================================
 /*
  * searchLineEntry:
  *
@@ -1303,6 +1321,7 @@ searchLineEntry(const char* const lineName) const
     return le;
 }
 
+//==================================================================================================================================
 /*
  * searchLineEntry:
  *
@@ -1348,7 +1367,7 @@ BlockEntry* BlockEntry::searchBlockEntry(const char* const bName, bool includedM
     delete tok_ptr;
     return be;
 }
-//==================================================================================================================
+//==================================================================================================================================
 /*
  * searchBlockEntry:
  *
@@ -1524,4 +1543,4 @@ int  BlockEntry::get_SkipUnknownEntries() const
 }
 //=================================================================================================================
 }
-//=================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------

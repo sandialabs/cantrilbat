@@ -11,6 +11,7 @@
 #ifndef _ELECTRODE_INPUT_H
 #define _ELECTRODE_INPUT_H
 
+#include "cantera/base/config.h"
 #include "Electrode_defs.h"
 
 #include "PhaseList.h"
@@ -33,12 +34,17 @@
 
 #define MPEQUIL_SUCCESS 0
 
+//-----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+namespace Zuzax
+#else
 namespace Cantera
+#endif
 {
+
 class Electrode;
-}
 
-
+//===================================================================================================================================
 //! This class contain information about the electrode input from the input file
 /*!
 *   TODO: There is no reason for this class. It should be transfered into the ELECTRODE_KEY_INPUT class
@@ -86,13 +92,7 @@ public:
 
     ~ElectrodeBath();
 };
-
-#ifdef useZuzaxNamespace
-namespace Zuzax
-#else
-namespace Cantera 
-#endif
-{
+//===================================================================================================================================
 
 //! Structure for storring the input for OCVoverride models
 struct OCV_Override_input {
@@ -126,8 +126,8 @@ struct OCV_Override_input {
     double temperatureDerivValue;
     std::string OCVTempDerivModel;
 };
-}
 
+//===================================================================================================================================
 class EGRInput;
 
 
@@ -494,7 +494,7 @@ public:
     double relativeLocalToGlobalTimeStepMinimum;
 
 };
-
+//===================================================================================================================================
 
 class ERSSpec
 {
@@ -527,6 +527,7 @@ public:
         return *this;
     }
 };
+//===================================================================================================================================
 
 class EGRInput
 {
@@ -545,14 +546,18 @@ public:
     EGRInput& operator=(const EGRInput& right);
     ~EGRInput();
 };
+//===================================================================================================================================
 
 void setElectrodeBathSpeciesConditions(ZZCantera::ThermoPhase& g,
                                        ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, int iph, int printLvl);
 
 
+//===================================================================================================================================
 
 bool process_electrode_input(BEInput::BlockEntry* cf, std::string fileName, int printFlag = 0,
                              int pass = 0);
-
+//===================================================================================================================================
+} // end of namespace
+//-----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
+
