@@ -24,7 +24,6 @@
 
 #include "cantera/base/xml.h"
 #include "cantera/base/ctml.h"
-using namespace ctml;
 
 namespace m1d {
 

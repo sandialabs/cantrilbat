@@ -19,6 +19,16 @@
 
 extern m1d::ProblemStatementCell  PSinput;
 
+#ifdef useZuzaxNamespace
+#ifndef ZZCantera
+#define ZZCantera Zuzax
+#endif
+#else
+#ifndef ZZCantera
+#define ZZCantera Cantera 
+#endif
+#endif
+
 //=====================================================================================================================
 namespace m1d
 {
@@ -32,7 +42,7 @@ SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
 {
   ElectrodeC_ = new ZZCantera::Electrode_SuccessiveSubstitution();
 
-  ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
+  ZZCantera::ELECTRODE_KEY_INPUT *electrodeC_input = new ZZCantera::ELECTRODE_KEY_INPUT();
 
   std::string commandFileC = "cathode.inp";
   /**

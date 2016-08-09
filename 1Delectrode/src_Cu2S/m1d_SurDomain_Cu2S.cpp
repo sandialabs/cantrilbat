@@ -375,15 +375,15 @@ Cu2S_TopSurface::saveDomain(Zuzax::XML_Node& oNode,
   inlt.addAttribute("numVariables", numVar);
   double x0pos = nv->x0NodePos();
   double xpos = nv->xNodePos();
-  ctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
-  ctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+  ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+  ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
 
   for (int k = 0; k < numVar; k++) {
     double sval = (*soln_GLALL_ptr)[eqnStart + k];
     string nm = nv->VariableName(k);
     VarType vv = nv->VariableNameList_EqnNum[k];
     string type = VarType::VarMainName(vv.VariableType);
-    ctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
+    ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
   }
 }
 //=====================================================================================================================
@@ -838,15 +838,15 @@ Cu2S_BotSurface::saveDomain(Zuzax::XML_Node& oNode,
   inlt.addAttribute("numVariables", numVar);
   double x0pos = nv->x0NodePos();
   double xpos = nv->xNodePos();
-  ctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
-  ctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
+  ZZctml::addFloat(inlt, "X0", x0pos, "", "", Zuzax::Undef, Zuzax::Undef);
+  ZZctml::addFloat(inlt, "X", xpos, "", "", Zuzax::Undef, Zuzax::Undef);
 
   for (int k = 0; k < numVar; k++) {
     double sval = (*soln_GLALL_ptr)[eqnStart + k];
     string nm = nv->VariableName(k);
     VarType vv = nv->VariableNameList_EqnNum[k];
     string type = VarType::VarMainName(vv.VariableType);
-    ctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
+    ZZctml::addFloat(inlt, nm, sval, "", "", Zuzax::Undef, Zuzax::Undef);
   }
 }
 //=====================================================================================================================

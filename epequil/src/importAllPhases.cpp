@@ -33,7 +33,6 @@
 #include "IdealSolidSolnPhase.h"
 #include "mdp_allo.h"
 
-using namespace ctml;
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
 #else

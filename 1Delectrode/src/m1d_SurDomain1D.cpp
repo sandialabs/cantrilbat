@@ -491,16 +491,16 @@ void SurDomain1D::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector *so
     double x0pos = NodalVarPtr->x0NodePos();
     double xpos =  NodalVarPtr->xNodePos();
     double xfrac = NodalVarPtr->xFracNodePos(); 
-    ctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = NodalVarPtr->VariableName(k);
         VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        ctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
+        ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
 }
 //====================================================================================================================
@@ -557,9 +557,9 @@ SurDomain1D::readDomain(const ZZCantera::XML_Node& simulationNode,
        exit(-1);
     }
 
-    double x0pos = ctml::getFloat(*domainNode_ptr, "X0", "toSI");     
-    double xpos = ctml::getFloat(*domainNode_ptr, "X", "toSI");     
-    double xfrac = ctml::getFloat(*domainNode_ptr, "Xfraction", "toSI");     
+    double x0pos = ZZctml::getFloat(*domainNode_ptr, "X0", "toSI");     
+    double xpos = ZZctml::getFloat(*domainNode_ptr, "X", "toSI");     
+    double xfrac = ZZctml::getFloat(*domainNode_ptr, "Xfraction", "toSI");     
     NodalVarPtr->setupInitialNodePosition(x0pos, xfrac);
     NodalVarPtr->changeNodePosition(xpos);
 
@@ -568,7 +568,7 @@ SurDomain1D::readDomain(const ZZCantera::XML_Node& simulationNode,
         string nm = NodalVarPtr->VariableName(k);
         VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        sval = ctml::getFloat(*domainNode_ptr, nm, "toSI");
+        sval = ZZctml::getFloat(*domainNode_ptr, nm, "toSI");
         (*soln_GLALL_ptr)[eqnStart + k] = sval;
     }
 }
@@ -1644,16 +1644,16 @@ void SurBC_Dirichlet::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
     double xfrac = nv->xFracNodePos(); 
-    ctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
-    ctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
+    ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
-        ctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
+        ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
 }
 //=====================================================================================================================

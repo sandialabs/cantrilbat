@@ -22,7 +22,12 @@
 #include "cantera/base/ctml.h"
 
 using namespace std;
+
+#ifdef useZuzaxNamespace
+using namespace ztml;
+#else
 using namespace ctml;
+#endif
 
 #ifdef useZuzaxNamespace
 namespace Zuzax

@@ -843,7 +843,7 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
             phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
             if (phaseArrayXML) {
                 vector<string> phase_ids;
-                ctml::getStringArray(*phaseArrayXML, phase_ids);
+                ZZctml::getStringArray(*phaseArrayXML, phase_ids);
                 size_t npToFind = phase_ids.size();
                 for (size_t iph = 0; iph < npToFind; iph++) {
                     std::string phaseID = phase_ids[iph];

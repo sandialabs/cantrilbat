@@ -1041,18 +1041,18 @@ ProblemResidEval::saveSolutionEnd(const int itype,
 	simulationID = int2str(solNumAlt);
     }
     sim.addAttribute("id", simulationID);
-    ctml::addString(sim, "timestamp", asctime(newtime));
+    ZZctml::addString(sim, "timestamp", asctime(newtime));
     // if (desc != "")
     //  addString(sim, "description", desc);
 
-    ctml::addFloat(sim, "time", t, "s", "time");
+    ZZctml::addFloat(sim, "time", t, "s", "time");
     if (delta_t > 0.0) {
-	ctml::addFloat(sim, "delta_t", delta_t, "s", "time");
+	ZZctml::addFloat(sim, "delta_t", delta_t, "s", "time");
     } else {
-	ctml::addFloat(sim, "delta_t", 0.0, "s", "time");
+	ZZctml::addFloat(sim, "delta_t", 0.0, "s", "time");
     }
-    ctml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
-    ctml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
+    ZZctml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
+    ZZctml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
 
     // Get a local copy of the domain layout
     DomainLayout &DL = *DL_ptr_;
@@ -1232,9 +1232,9 @@ ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &
     // Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
 
 
-    t_read = ctml::getFloat(*simulRecord, "time");
-    delta_t_read = ctml::getFloat(*simulRecord, "delta_t");
-    delta_t_next_read = ctml::getFloat(*simulRecord, "delta_t_np1");
+    t_read = ZZctml::getFloat(*simulRecord, "time");
+    delta_t_read = ZZctml::getFloat(*simulRecord, "delta_t");
+    delta_t_next_read = ZZctml::getFloat(*simulRecord, "delta_t_np1");
 
     //
     //   Loop over the domains reading in the current solution vector

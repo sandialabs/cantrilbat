@@ -15,7 +15,17 @@
 #include "m1d_BoundaryCondition.h"
 #include "Electrode_input.h"
 
-//===================================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
+#ifdef useZuzaxNamespace
+#ifndef ZZCantera
+#define ZZCantera Zuzax
+#endif
+#else
+#ifndef ZZCantera
+#define ZZCantera Cantera
+#endif
+#endif
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -304,8 +314,8 @@ public:
    * electrolyte transport algorithms including information
    * required to compute the porosity
    */
-  ELECTRODE_KEY_INPUT *anode_input_;
-  ELECTRODE_KEY_INPUT *cathode_input_;
+  ZZCantera::ELECTRODE_KEY_INPUT *anode_input_;
+  ZZCantera::ELECTRODE_KEY_INPUT *cathode_input_;
 
   //! Initial number of nodes
   int initDefaultNumCVsAnode_;
@@ -385,7 +395,7 @@ public:
 };
 //=====================================================================================================================
 }
-//=====================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif //_M1D_PROBLEMSTATEMENTCELL_H
 //=====================================================================================================================
 

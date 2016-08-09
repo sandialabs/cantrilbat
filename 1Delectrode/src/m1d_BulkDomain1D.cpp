@@ -438,7 +438,7 @@ BulkDomain1D::saveDomain(ZZCantera::XML_Node& oNode,
     NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
     varContig[i] = nv->x0NodePos();
   }
-  ctml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
+  ZZctml::addNamedFloatArray(gv, "X0", varContig.size(), &(varContig[0]), "m", "length");
 
   for (int iVar = 0; iVar < numEquationsPerNode; iVar++) {
     VarType vt = variableNameList[iVar];
@@ -450,7 +450,7 @@ BulkDomain1D::saveDomain(ZZCantera::XML_Node& oNode,
       int istart = nv->EqnStart_GbEqnIndex;
       varContig[i] = (*soln_GLALL_ptr)[istart + ibulk + iVar];
     }
-    ctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
+    ZZctml::addNamedFloatArray(gv, nmm, varContig.size(), &(varContig[0]), "kmol/m3", "concentration");
 
   }
 }
@@ -523,7 +523,7 @@ BulkDomain1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
     const ZZCantera::XML_Node* gd_ptr = (*domainNode_ptr).findByName("grid_data");
 
     std::vector<double> varContig(numNodes);
-    ctml::getFloatArray(*gd_ptr, varContig, true, "", "X0");
+    ZZctml::getFloatArray(*gd_ptr, varContig, true, "", "X0");
     int i = 0;
     for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
       NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
@@ -535,7 +535,7 @@ BulkDomain1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
        VarType vt = variableNameList[iVar];
        i = 0;
        std::string nmm = vt.VariableName(200);
-       ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
+       ZZctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
        for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
           NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
 	  size_t offset = nv->indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
@@ -550,7 +550,7 @@ BulkDomain1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
        VarType vt = variableNameList[iVar];
        i = 0;
        std::string nmm = vt.VariableName(200);
-       ctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
+       ZZctml::getFloatArray(*gd_ptr, varContig, true, "", nmm);
        for (int iGbNode = firstGbNode; iGbNode <= lastGbNode; iGbNode++, i++) {
           NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
           int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];

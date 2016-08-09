@@ -51,7 +51,12 @@
 #include "stdio.h"
 #include <cstring>
 
+#ifdef useZuzaxNamespace
+using namespace ztml;
+#else
 using namespace ctml;
+#endif
+
 using namespace std;
 
 #ifdef useZuzaxNamespace

@@ -33,7 +33,6 @@
 #include "importAllPhases.h"
 #include "mdp_allo.h"
 
-using namespace ctml;
 using namespace std;
 #ifdef useZuzaxNamespace
 using namespace Zuzax;

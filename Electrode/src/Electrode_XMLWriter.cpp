@@ -255,7 +255,7 @@ double Electrode::loadTimeStateFinal(const XML_Node& xFinal)
     /*
      *  Get the time of the solution
      */
-    double time = ctml::getFloat(xFinal, "time");
+    double time = ZZctml::getFloat(xFinal, "time");
     /*
      *  Get the XML electrodeState record from the timeState XML element.
      *  Store the pointer in xState. It's an error if we don't have it.
@@ -397,7 +397,7 @@ void Electrode::writeSolutionTimeIncrement()
         doTrunc = true;
 
 	//   Add a time stamp
-        ctml::addString(soln, "timeStamp", asctime(newtime));
+        ZZctml::addString(soln, "timeStamp", asctime(newtime));
 
 	/*
 	 *  Add an identification XML element
@@ -418,13 +418,13 @@ void Electrode::writeSolutionTimeIncrement()
     /*
      *   Add the next time step's deltaT as a child XML element
      */
-    ctml::addFloat(gts, "deltaTime_init_next", deltaTsubcycle_init_next_);
+    ZZctml::addFloat(gts, "deltaTime_init_next", deltaTsubcycle_init_next_);
     //XML_Node& f = gts.addChild("deltaTime_init_next", deltaTsubcycle_init_next_ , fmt);
     //f.addAttribute("vtype", "float"); 
     /*
      *  Add the number of substep integrations as a child element
      */
-    ctml::addInteger(gts, "numIntegrationSubCycles", numIntegrationSubCycles_final_final_);
+    ZZctml::addInteger(gts, "numIntegrationSubCycles", numIntegrationSubCycles_final_final_);
     /*
      *  Add the child XML element, timeIncrement, to the globalTimeStep XML element.
      *  This includes the initial state, the final state, and the substep integration states.

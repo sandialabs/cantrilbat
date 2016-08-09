@@ -107,7 +107,7 @@ namespace m1d {
     }
 
  
-    ctml::getFloatArray(*bulkgXML_ptr, X0NodePos, true, "", "X0");
+    ZZctml::getFloatArray(*bulkgXML_ptr, X0NodePos, true, "", "X0");
     int sz = X0NodePos.size();
     if (sz != NumNodes) {
       throw CanteraError("SolnDomainBulk::readXML()", "sz of X0Node not right: " + ZZCantera::int2str(sz) + "  " + ZZCantera::int2str(NumNodes));
@@ -115,7 +115,7 @@ namespace m1d {
 
     XML_Node *xXML = bulkgXML_ptr->findByName("X");
     if (xXML) {
-      ctml::getFloatArray(*xXML, XNodePos);
+      ZZctml::getFloatArray(*xXML, XNodePos);
       sz = XNodePos.size();
       if (sz != NumNodes) {
 	throw CanteraError("SolnDomainBulk::readXML", "sz of XNode not right: " + int2str(sz) + "  " + int2str(NumNodes));
@@ -146,7 +146,7 @@ namespace m1d {
       VarNames.push_back(vtitle);
       VarTypes.push_back(vtype);
       std::vector<double> dataValues;
-      size_t sz = ctml::getFloatArray(*dataXML, dataValues, false, "", vtitle);
+      size_t sz = ZZctml::getFloatArray(*dataXML, dataValues, false, "", vtitle);
       if (sz != (size_t) NumNodes) {
 	throw CanteraError("SolnDomainBulk::readXML", "sz of data not right: " + int2str(sz) + "  " + int2str(NumNodes));
       }
@@ -200,8 +200,8 @@ namespace m1d {
 
 
 
-    XNodePos = ctml::getFloat(surfXML, "X");
-    X0NodePos = ctml::getFloat(surfXML, "X0");
+    XNodePos = ZZctml::getFloat(surfXML, "X");
+    X0NodePos = ZZctml::getFloat(surfXML, "X0");
  
     std::vector<XML_Node *> dataList; 
     surfXML.getChildren("", dataList);
@@ -218,7 +218,7 @@ namespace m1d {
       VarNames.push_back(name);
       VarTypes.push_back(type);
       std::vector<double> dataValues;
-      double val = ctml::getFloatCurrent(*dataXML);
+      double val = ZZctml::getFloatCurrent(*dataXML);
       DataValues.push_back(val);
     } 
   }

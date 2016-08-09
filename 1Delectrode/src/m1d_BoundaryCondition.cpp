@@ -279,23 +279,22 @@ void BCsteptable::useXML(XML_Node& bcNode)
     if (!bcNode.hasChild("dependentVar"))
         throw CanteraError("BCsteptable::useXML()", "no dependentVar XML node.");
 
-    bool convert = true;
 
     //get independentVar
-    XML_Node& indVarNode = bcNode.child("independentVar");
-    ctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
+    //XML_Node& indVarNode = bcNode.child("independentVar");
+    ZZctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
 
 
     //get dependentVar
     XML_Node& depVarNode = bcNode.child("dependentVar");
-    ctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
+    ZZctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
     //getNamedFloatArray(depVarNode, depenVals_, convert, depenUnits_);
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
         XML_Node& compVarNode = bcNode.child("compareVar");
         //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
-        ctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
+        ZZctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
 
     /*
@@ -467,20 +466,20 @@ void BClineartable::useXML(XML_Node& bcNode)
     //bool convert = true;
 
     //get independentVar
-    XML_Node& indVarNode = bcNode.child("independentVar");
+    //XML_Node& indVarNode = bcNode.child("independentVar");
     //getFloatArray(indVarNode, indepVals_, convert, indepUnits_);
-    ctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
+    ZZctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
 
     //get dependentVar
     XML_Node& depVarNode = bcNode.child("dependentVar");
     //getFloatArray(depVarNode, depenVals_, convert, depenUnits_);
-    ctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
+    ZZctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
         XML_Node& compVarNode = bcNode.child("compareVar");
         //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
-        ctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
+        ZZctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
 
     //err("BClineartable::useXML");
@@ -639,13 +638,13 @@ void BCsinusoidal::useXML(XML_Node& bcNode)
         throw CanteraError("BCsinusoidal::useXML()", "no frequency XML node.");
 
     //get base amplitude
-    baseDepValue_ = getFloat(bcNode, "baseDependentValue");
+    baseDepValue_ = ZZctml::getFloat(bcNode, "baseDependentValue");
 
     //get oscillation amplitude
-    oscAmplitude_ = getFloat(bcNode, "oscillationAmplitude");
+    oscAmplitude_ = ZZctml::getFloat(bcNode, "oscillationAmplitude");
 
     //get frequency
-    frequency_ = getFloat(bcNode, "frequency");
+    frequency_ = ZZctml::getFloat(bcNode, "frequency");
 
     //err("BCsinusoidal::useXML");
 

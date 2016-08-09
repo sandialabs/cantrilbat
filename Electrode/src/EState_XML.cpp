@@ -287,7 +287,7 @@ void ETimeState::read_ETimeState_fromXML(const ZZCantera::XML_Node& xTimeState, 
     
     string typeString;
     string timeValStr;
-    ctml::getNamedStringValue(xTimeState, "time", timeValStr, typeString);
+    ZZctml::getNamedStringValue(xTimeState, "time", timeValStr, typeString);
     time_ = fpValueCheck(timeValStr);
 
     const XML_Node* xEState =  xTimeState.findByName("electrodeState");
@@ -398,8 +398,8 @@ ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index) const
      } 
      XML_Node* xtg = new XML_Node("globalTimeStep");
      xtg->addAttribute("index", int2str(ii));
-     ctml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
-     ctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
+     ZZctml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
+     ZZctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
      XML_Node* xti = new XML_Node("timeIncrement");
      xti->addAttribute("type", "global");
      for (size_t k = 0; k < etsList_.size(); ++k) {
@@ -429,8 +429,8 @@ void ETimeInterval::read_ETimeInterval_fromXML(const ZZCantera::XML_Node& xTimeI
     }
     nn = xTimeInterval["index"];
     index_ = atoi(nn.c_str());
-    numIntegrationSubCycles_ = ctml::getInteger(xTimeInterval, "numIntegrationSubCycles");
-    deltaTime_init_next_ = ctml::getFloat(xTimeInterval, "deltaTime_init_next");
+    numIntegrationSubCycles_ = ZZctml::getInteger(xTimeInterval, "numIntegrationSubCycles");
+    deltaTime_init_next_ = ZZctml::getFloat(xTimeInterval, "deltaTime_init_next");
     const XML_Node* xTimeIncr = xTimeInterval.findByName("timeIncrement");
     std::vector<XML_Node*> xStatesList = xTimeIncr->getChildren("timeState");
     size_t num =  xStatesList.size();
@@ -582,7 +582,7 @@ ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionO
 #ifdef NEW_XML
     XML_Node* xEO = new XML_Node("electrodeOutput");
     xEO->addAttribute("index",  int2str(windex));
-    ctml::addString(*xEO, "timeStamp", timeStamp_);
+    ZZctml::addString(*xEO, "timeStamp", timeStamp_);
     XML_Node* xID = e_ID_.writeIdentificationToXML();
     xEO->addChildToTree(xID);
     for (size_t k = 0; k < etiList_.size(); ++k) {
@@ -594,7 +594,7 @@ ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionO
 #else
     XML_Node* xEO = new XML_Node("electrodeOutput");
     xEO->addAttribute("index",  int2str(windex));
-    ctml::addString(*xEO, "timeStamp", timeStamp_);
+    ZZctml::addString(*xEO, "timeStamp", timeStamp_);
     XML_Node* xID = e_ID_.writeIdentificationToXML();
     xEO->addChild(*xID);
     delete xID;
@@ -620,7 +620,7 @@ void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(con
     nn = xElectrodeOutput["index"];
     index_ = atoi(nn.c_str());
 
-    ctml::getNamedStringValue(xElectrodeOutput, "timeStamp", valueString, typeString);
+    ZZctml::getNamedStringValue(xElectrodeOutput, "timeStamp", valueString, typeString);
     timeStamp_ = valueString;
     const XML_Node* xmlEI = xElectrodeOutput.findByName("ElectrodeIdentification");
     if (! xmlEI) {
@@ -960,7 +960,7 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node
 	for (size_t n = 0; n <  xTimeStates.size(); ++n) {
 	    XML_Node* xTimeState = xTimeStates[n];
 	    std::string tt = xTimeState->attrib("type");
-	    ctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
+	    ZZctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
 	    timeVal = ZZCantera::fpValueCheck(timeValStr);
 	    printf(" type = %s  time = %g\n", tt.c_str(), timeVal);   
 	}
@@ -973,7 +973,7 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node
 
     // Read the time
    
-    ctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
+    ZZctml::getNamedStringValue(*xTimeState, "time", timeValStr, typeString);
     timeVal = fpValueCheck(timeValStr);
     XML_Node* eStateX = xTimeState->findByName("electrodeState");
 
@@ -997,32 +997,32 @@ bool get_Estate_Indentification(const ZZCantera::XML_Node& xSoln, EState_ID_stru
     }
 
    
-    ctml::getNamedStringValue(*xID, "electrodeTypeString", e_id.electrodeTypeString_ , typeSS);
+    ZZctml::getNamedStringValue(*xID, "electrodeTypeString", e_id.electrodeTypeString_ , typeSS);
 
-    e_id.EST_Type_ = (enum EState_Type_Enum)  ctml::getInteger(*xID, "EState_Type");
+    e_id.EST_Type_ = (enum EState_Type_Enum)  ZZctml::getInteger(*xID, "EState_Type");
     e_id.EState_Type_String_ = EState_Type_Enum_to_string(e_id.EST_Type_ );
 
   
-    ctml::getNamedStringValue(*xID,"electrodeTypeString", e_id.electrodeTypeString_ , typeSS);
+    ZZctml::getNamedStringValue(*xID,"electrodeTypeString", e_id.electrodeTypeString_ , typeSS);
 
     if (xID->hasChild("fileVersionNumber")) {
-	e_id.EST_Version_ = ctml::getInteger(*xID, "fileVersionNumber");
+	e_id.EST_Version_ = ZZctml::getInteger(*xID, "fileVersionNumber");
     }
     if (e_id.EST_Version_ != 1) {
         throw Electrode_Error(" EState::readIdentificationFromXML()",
                            "read the wrong EState version type - new situation");
     }
     if (xID->hasChild("electrodeCapacityType")) {
-	e_id.electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ctml::getInteger(*xID, "electrodeCapacityType");
+	e_id.electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ZZctml::getInteger(*xID, "electrodeCapacityType");
     }
     if (xID->hasChild("electrodeModelType")) {
-	e_id.electrodeChemistryModelType_ = ctml::getInteger(*xID, "electrodeModelType");
+	e_id.electrodeChemistryModelType_ = ZZctml::getInteger(*xID, "electrodeModelType");
     }
     if (xID->hasChild("electrodeDomainNumber")) {
-	e_id.electrodeDomainNumber_ = ctml::getInteger(*xID, "electrodeDomainNumber");
+	e_id.electrodeDomainNumber_ = ZZctml::getInteger(*xID, "electrodeDomainNumber");
     }
     if (xID->hasChild("electrodeCellNumber")) {
-	e_id.electrodeCellNumber_ = ctml::getInteger(*xID, "electrodeCellNumber");
+	e_id.electrodeCellNumber_ = ZZctml::getInteger(*xID, "electrodeCellNumber");
     }
     return retn;
 }

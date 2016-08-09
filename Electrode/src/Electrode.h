@@ -644,7 +644,6 @@ protected:
      */
     void updateState_Phase(int iph);
 
-
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -668,7 +667,7 @@ public:
      *
      *   @return                     Returns the current columb sec-1 m-2
      */
-    doublereal getNetSurfaceProductionRatesCurrent(const int isk, doublereal* const net) const;
+    doublevalue getNetSurfaceProductionRatesCurrent(const int isk, doublereal* const net) const;
 
     //! Get the net production rates of all species in the electrode object
     //! at the current conditions from one surface kinetics object
@@ -678,7 +677,7 @@ public:
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/m^2/s]. Return the species    
      */
-    void getNetSurfaceProductionRates(const int isk, doublereal* const net) const;
+    void getNetSurfaceProductionRates(const int isk, doublevalue* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     /*!
@@ -877,9 +876,8 @@ public:
      *
      *  @return                   Return the voltage used to obtain the requested current.
      */
-    virtual double integrateConstantCurrent(doublereal& current, doublereal& deltaT,
-                                            doublereal phiMax = 100., doublereal phiMin = -100.,
-                                            int maxIntegrationSteps = 5000);
+    virtual double integrateConstantCurrent(doublereal& current, doublereal& deltaT, doublereal phiMax = 100., 
+                                            doublereal phiMin = -100., int maxIntegrationSteps = 5000);
 
     //! Set the deltaT used for the subcycle time step
     /*!
@@ -3512,8 +3510,7 @@ private:
 	 *    @param[in]          Xmf_stable      Mole fractions of target phase that are thermodynamically stable.
 	 *    @param[in]          deltaTsubcycle  Current value of Delta T
 	 */
-        phasePop_Resid(Electrode* ee, int iphaseTarget, double* const Xmf_stable,
-                       double deltaTsubcycle);
+        phasePop_Resid(Electrode* ee, int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
 
 	//! Evalulate the steady state residual
 	/*!
@@ -3536,8 +3533,7 @@ private:
 	 *
 	 *     @return                            A return of zero indicates success. Anthing else is a failure
 	 */
-        int getInitialConditions(const doublereal t0, doublereal* const y,
-                                 doublereal* const ydot);
+        int getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot);
 
 
         //! Return the number of equations in the equation system

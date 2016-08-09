@@ -49,7 +49,7 @@
 #include <vector>
 #include "stdio.h"
 
-using namespace ctml;
+//using namespace ctml;
 using namespace std;
 
 #ifdef useZuzaxNamespace

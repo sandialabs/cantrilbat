@@ -363,8 +363,7 @@ BlockEntry::read_block(FILE* input_file, TK_TOKEN* endArgPtr,
                      * Call this function for the subblock in a recursive, nested
                      * fashion
                      */
-                    subBlockPtr->read_block(input_file, &subBlockEndArg,
-                                            &keyArgTok, this);
+                    subBlockPtr->read_block(input_file, &subBlockEndArg, &keyArgTok, this);
                     /*
                      * Finalize the subblock at the current block lvl
                      */
