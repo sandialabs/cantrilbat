@@ -33,7 +33,6 @@ using namespace Zuzax;
 using namespace Cantera;
 #endif
 
-using namespace VCSnonideal;
 using namespace std;
 
 // a lvl of one prints out the .csv file
@@ -66,7 +65,7 @@ int main(int argc, char **argv)
   string commandFileC = "cathode.inp";
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  ZZVCSnonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 

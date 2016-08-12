@@ -30,7 +30,6 @@ using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
-using namespace VCSnonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -59,7 +58,7 @@ int main(int argc, char **argv)
   bool printInputFormat = false; // print cmdfile.txt format
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  //VCSnonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 

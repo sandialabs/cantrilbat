@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     
 #ifdef USE_VCSNONIDEAL
     solver = 2;
-    VCSnonideal::vcs_timing_print_lvl = 0;
+    //VCSnonideal::vcs_timing_print_lvl = 0;
 #endif
     int printLvl = 2;
     int estimateEquil = 0;

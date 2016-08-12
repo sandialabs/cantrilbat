@@ -34,7 +34,6 @@ using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
-using namespace VCSnonideal;
 using namespace mdpUtil;
 
 
@@ -57,7 +56,7 @@ void printUsage() {
 //! This routine converts the MPEQUIL_INPUT problem into a VCS_PROB
 //! structure
 
-int mpequil_convert(ZZCantera::Electrode *electrode, VCSnonideal::VCS_PROB *vprob,  ZZCantera::MultiPhase *mix) {
+int mpequil_convert(ZZCantera::Electrode *electrode, ZZVCSnonideal::VCS_PROB *vprob,  ZZCantera::MultiPhase *mix) {
 
   /*
    *     Extract the current state information
@@ -104,7 +103,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
   int ne = electrode->nElements();
   int nVphase = electrode->nVolPhases();
   int nVspecies = electrode->nVolSpecies();
-  VCSnonideal::VCS_PROB *vprob = new VCS_PROB(nVspecies, ne, nVphase);
+  ZZVCSnonideal::VCS_PROB *vprob = new ZZVCSnonideal::VCS_PROB(nVspecies, ne, nVphase);
 #ifdef DEBUG
   vprob->setDebugPrintLvl(VCS_Debug_Print_Lvl);
 #endif
@@ -131,7 +130,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
    } 
   int ipr = std::max(0, printFlag - 1);
   int maxit = 1000;
-  VCS_SOLVE *vsolvePtr = new VCS_SOLVE();
+  ZZVCSnonideal::VCS_SOLVE *vsolvePtr = new ZZVCSnonideal::VCS_SOLVE();
   int iconv = vsolvePtr->vcs(vprob, 0, ipr, ip1, maxit);
 
 
@@ -193,7 +192,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
 	printf("  %15.3e   %15.3e  ", vprob->w[i], vprob->mf[i]);
 	if (vprob->w[i] <= 0.0) {
 	  int iph = vprob->PhaseID[i];
-	  vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
+	  ZZVCSnonideal::vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
 	  if (VPhase->nSpecies() > 1) {
 	    printf("     -1.000e+300\n");
 	  } else {
@@ -244,7 +243,7 @@ int main(int argc, char **argv)
   string commandFileC = "electrodeCathode.inp";
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  ZZVCSnonideal::vcs_timing_print_lvl = 0;
 
   /*
    * Process the command line arguments

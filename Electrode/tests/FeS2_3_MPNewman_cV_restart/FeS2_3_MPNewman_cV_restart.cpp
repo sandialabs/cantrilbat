@@ -107,7 +107,7 @@ int main(int argc, char **argv)
   string commandFileC = "cathode.inp";
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  ZZVCSnonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 

@@ -63,7 +63,7 @@ int main(int argc, char **argv)
   bool printedUsage = false; // bool indicated that we have already
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  //VCSnonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 

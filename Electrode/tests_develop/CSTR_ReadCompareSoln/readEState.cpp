@@ -48,7 +48,7 @@ int main(int argc, char **argv)
   string commandFileA = "anode.inp";
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  //VCSnonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 

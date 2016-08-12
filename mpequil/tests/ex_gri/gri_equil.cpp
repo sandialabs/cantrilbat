@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
   bool printInputFormat = false; // print cmdfile.txt format 
   bool printedUsage = false;
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  //VCSnonideal::vcs_timing_print_lvl = 0;
 
   /*
    * Process the command line arguments

@@ -43,7 +43,7 @@ using namespace Cantera;
 #endif
 
 #ifdef USE_VCSNONIDEAL
-using namespace VCSnonideal;
+using namespace ZZVCSnonideal;
 #endif
 
 // a lvl of one prints out the .csv file
@@ -65,7 +65,7 @@ void printUsage() {
 //! This routine converts the MPEQUIL_INPUT problem into a VCS_PROB
 //! structure
 #ifdef USE_VCSNONIDEAL
-int mpequil_convert(MPEQUIL_INPUT *prob_input, VCSnonideal::VCS_PROB *vprob) {
+int mpequil_convert(MPEQUIL_INPUT *prob_input, ZZVCSnonideal::VCS_PROB *vprob) {
 
   ZZCantera::MultiPhase *mix = prob_input->m_mp;
   /*
@@ -131,9 +131,8 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
   /*
    * Malloc a new vcs problem strcutre
    */
-  VCSnonideal::VCS_PROB *vprob =
-    new VCS_PROB(prob_input->nspecies, prob_input->ne,
-		 prob_input->nphase);
+  ZZVCSnonideal::VCS_PROB *vprob =
+    new ZZVCSnonideal::VCS_PROB(prob_input->nspecies, prob_input->ne, prob_input->nphase);
 #ifdef DEBUG
   vprob->setDebugPrintLvl(VCS_Debug_Print_Lvl);
 #endif
@@ -160,7 +159,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
    } 
   int ipr = MAX(0, printFlag - 1);
   int maxit = 1000;
-  VCS_SOLVE *vsolvePtr = new VCS_SOLVE();
+  ZZVCSnonideal::VCS_SOLVE *vsolvePtr = new ZZVCSnonideal::VCS_SOLVE();
   int iconv = vsolvePtr->vcs(vprob, 0, ipr, ip1, maxit);
 
 
@@ -263,7 +262,7 @@ int main(int argc, char **argv)
   string commandFile = "mpequil.inp";
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  ZZVCSnonideal::vcs_timing_print_lvl = 0;
 
   /*
    * Process the command line arguments
