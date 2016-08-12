@@ -188,6 +188,7 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     m_DoSurfKinetics = right.m_DoSurfKinetics;
     speciesProductionRates_ = right.speciesProductionRates_;
     limitedROP_     = right.limitedROP_;
+    limitedNetProductionRates_ = right.limitedNetProductionRates_;
     speciesCreationRates_ = right.speciesCreationRates_;
     speciesDestructionRates_ = right.speciesDestructionRates_;
 
@@ -275,7 +276,7 @@ const std::vector<double>& ReactingSurDomain::calcNetSurfaceProductionRateDensit
     return speciesProductionRates_;
 }
 //==================================================================================================================================
-void ReactingSurDomain::limitROP(const double* const n)
+void ReactingSurDomain::limitROP(const double* const nMoles)
 {
     // Apply smooth limiter to ROP
     /*
@@ -305,33 +306,32 @@ void ReactingSurDomain::limitROP(const double* const n)
 	for (size_t p = 0; p < nPhases(); ++p) {
 	    if (m_rxnPhaseIsProduct[j][p] && netRev > 0.0) {
 		ThermoPhase* tp = m_thermo[p];
-		size_t k = m_pl->getGlobalSpeciesIndex(tp);
+		size_t PLkstart = m_pl->getGlobalSpeciesIndex(tp);
 		double phase_moles = 0.0;
 
 		for (size_t kk = 0; kk < tp->nSpecies(); ++kk) {
-		    phase_moles += n[k+kk];
+		    phase_moles += nMoles[PLkstart + kk];
 		}
 		
-		  if (phase_moles < 1e-20) {
-		      m_ropr[j] = m_ropf[j];
-		  }
-		  else if (phase_moles < 1e-7) {
-		      m_ropr[j] = std::min(m_ropr[j], m_ropf[j]+tanh(1.0e9*phase_moles) * netRev);
-		  }
+		if (phase_moles < 1.0e-20) {
+		    m_ropr[j] = m_ropf[j];
+		} else if (phase_moles < 1.0e-7) {
+		    m_ropr[j] = std::min(m_ropr[j], m_ropf[j]+tanh(1.0e9*phase_moles) * netRev);
+		}
 	    }
 	    else if (m_rxnPhaseIsReactant[j][p] && netFwd > 0.0) {
 		ThermoPhase* tp = m_thermo[p];
-		size_t k = m_pl->getGlobalSpeciesIndex(tp);
-		double phase_moles = 0.0;
+		size_t PLkstart = m_pl->getGlobalSpeciesIndex(tp);
 
+		double phase_moles = 0.0;
 		for(size_t kk = 0; kk < tp->nSpecies(); ++kk) {
-		    phase_moles += n[k+kk];
+		    phase_moles += nMoles[PLkstart + kk];
 		}
 		
-		if (phase_moles < 1e-20) {
+		if (phase_moles < 1.0e-20) {
 		    m_ropf[j] = m_ropr[j];
 		}
-		else if (phase_moles < 1e-7) {
+		else if (phase_moles < 1.0e-7) {
 		    m_ropf[j] = std::min(m_ropf[j], m_ropr[j] + tanh(1e9*phase_moles) * netFwd);
 		}
 	    }
@@ -341,15 +341,16 @@ void ReactingSurDomain::limitROP(const double* const n)
     }
 }
 //==================================================================================================================================
-const std::vector<double>& ReactingSurDomain::calcNetLimitedSurfaceProductionRateDensities(const double* n)
+const std::vector<double>& ReactingSurDomain::calcNetLimitedSurfaceProductionRateDensities(const double* const n)
 {
     updateROP();
 
+    //
     limitROP(n);
 
-    getNetProductionRates(&limitedROP_[0]);
+    getNetProductionRates(&limitedNetProductionRates_[0]);
 
-    return limitedROP_;
+    return limitedNetProductionRates_;
 }
 //==================================================================================================================================
 const std::vector<double>& ReactingSurDomain::calcNetSurfaceROP()
@@ -779,6 +780,7 @@ void ReactingSurDomain::init()
     speciesCreationRates_.resize(m_kk, 0.0);
     speciesDestructionRates_.resize(m_kk, 0.0);
     KintoPLSpeciesIndex_.resize(m_kk, npos);
+    limitedNetProductionRates_.resize(m_kk, 0.0);
 }
 //==================================================================================================================================
 void ReactingSurDomain::finalize()

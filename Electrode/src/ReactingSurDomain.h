@@ -593,6 +593,12 @@ public:
      */
     std::vector<double> limitedROP_;
 
+    //! Vector of Limited Rates of Progress of the species production rates
+    /*!
+     *  Length is the number of species. The units are kmol m-2 s-1.
+     */
+    std::vector<double> limitedNetProductionRates_;
+
     //! Vector that will expose the species creation rates for this kinetics object
     /*!
      *  Length is the number of species in the kinetics vector
