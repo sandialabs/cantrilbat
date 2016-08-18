@@ -5252,7 +5252,10 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
   int species_index = 0;
   int solnSpeciesStart = m_PhaseSpeciesStartIndex[solnPhase_];
   int nsp = thermo(solnPhase_).nSpecies();
-  if (sourceType > SPECIES_SOURCE) {
+  if (sourceType >= VOLUME_SOURCE) {
+
+  }
+  else if (sourceType > SPECIES_SOURCE) {
     species_index = sourceType - SPECIES_SOURCE;
     AssertThrow(species_index < nsp, "Electrode::getSourceTerm");
     sourceType = SPECIES_SOURCE;
@@ -5280,6 +5283,7 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
     result = SolidVol();
     break;
   case MAX_SOURCE:
+  default:
     result = 0.0;
     break;
   }
