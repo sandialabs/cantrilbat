@@ -174,7 +174,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
     //
     std::list<DOFS>::iterator dof_it = dofs_to_fd.begin();
     for ( ; dof_it != dofs_to_fd.end(); ++dof_it ) {
-
+        size_t dofIndex = (size_t) *dof_it;
 	// Determine how far to perturb the dof using base_delta as a relative perturbation magnitude
 	double dof_delta = base_RelDelta;
 	double dof_val = perturbed_point[*dof_it];
@@ -186,8 +186,12 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
 
 	for( int negative=0; negative<2; ++negative) {
 	    // Perturb by -1^negative * base_delta and compute
-	    // perturbed_point[*dof_it] += dof_delta * std::pow(-1.0, negative);
-	    perturbed_point[*dof_it] += jac_Delta[*dof_it] * std::pow(-1.0, negative);
+	    perturbed_point[*dof_it] += dof_delta * std::pow(-1.0, negative);
+            if (dofIndex > jac_Delta.size()) {
+               printf("we have found an error\n");
+               exit(-1);
+            } 
+	    //perturbed_point[*dof_it] += jac_Delta[*dof_it] * std::pow(-1.0, negative);
 	    run_electrode_integration(perturbed_point, dt);
 
 	    // Store off the source term results in temporary storage
@@ -428,14 +432,21 @@ void Electrode_FD_Jacobian::print_jacobian(int indentSpaces) const
 //===================================================================================================================================
 void Electrode_FD_Jacobian::add_entry_to_compute(DOF_SOURCE_PAIR entry)
 {
-    if (jacobian.find(entry) == jacobian.end() ) {
+    if (jacobian.find(entry) == jacobian.end()) {
         jacobian[entry] = 0.0;
-        if( std::find(dofs_to_fd.begin(), dofs_to_fd.end(), entry.first) == dofs_to_fd.end() ) {
+        if ( std::find(dofs_to_fd.begin(), dofs_to_fd.end(), entry.first) == dofs_to_fd.end() ) {
             dofs_to_fd.push_back(entry.first);
             num_sources_using_dof[entry.first] = 1;
+
         } else {
             ++num_sources_using_dof[entry.first];
-        }
+        }  
+	size_t ip_solvent = electrode->solnPhaseIndex();
+	ThermoPhase& tpe = electrode->thermo(ip_solvent);
+	size_t nsp = tpe.nSpecies();
+	size_t sz = 4 + nsp;
+	jac_Delta.resize(sz, 0.0);
+	jac_dof_Atol.resize(sz,0.0);
     }
 }
 //===================================================================================================================================
@@ -448,6 +459,9 @@ void Electrode_FD_Jacobian::remove_entry_to_compute(DOF_SOURCE_PAIR entry)
 	if( num_sources_using_dof[entry.first] == 0 )
 	{
 	    dofs_to_fd.erase( std::find(dofs_to_fd.begin(), dofs_to_fd.end(), entry.first) );
+	    size_t sz = dofs_to_fd.size();
+	    jac_Delta.resize(sz);
+	    jac_dof_Atol.resize(sz);
 	}
     }
 }
@@ -580,9 +594,28 @@ int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> &
 //==================================================================================================================================
 void Electrode_FD_Jacobian::set_jacobian_entry(const DOF_SOURCE_PAIR & entry, double source_values[2], double delta)
 {
+// #define PRINT_JACOBIAN
+#ifdef PRINT_JACOBIAN
+    static int ijcounter = 0;
+    FILE *fp = 0; 
+#endif
     // Note if the jacobian entry isn't registered, it isn't storred in the mapping.
     if (jacobian.find(entry) != jacobian.end()) {
 	jacobian[entry] = (source_values[0] - source_values[1]) / (2*delta);
+#ifdef  PRINT_JACOBIAN
+        enum DOFS df = entry.first;
+        enum SOURCES srcs = entry.second;
+        printf("\t\t jacobian( %d, %d ) %d = %g \n", (int) srcs , (int) df , ijcounter, jacobian[entry] );
+        if (ijcounter == 0) {
+          fp = fopen("jacDump.txt", "w");
+        } else {
+          fp = fopen("jacDump.txt", "a");
+        }
+        fprintf(fp, "\t\t jacobian( %d, %d ) %d = %10.2E \n", (int) srcs , (int) df , ijcounter, jacobian[entry] );
+        fclose(fp);
+        ijcounter++;
+#endif
+
     }
 }
 //==================================================================================================================================
