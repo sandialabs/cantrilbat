@@ -1,3 +1,35 @@
-This file is keyed on in the autoconf procedure
-in order to establish pathnames. It doesn't have any other 
-purpose .
+
+**********************************************
+              CANTRILBAT
+**********************************************
+
+Version 1.1.0 (development)
+
+Description
+==========================
+
+Reacting flow modeling for batteries built on top of Zuzax and Trilinos that carries out one-dimensional 
+modeling.
+
+License Information
+===================
+
+See the file "License.txt" for information on the terms & conditions for usage,
+and a DISCLAIMER OF ALL WARRANTIES.
+
+All trademarks referenced herein are property of their respective holders.
+
+Repository Location:
+https://github.com/cantrilbat/code
+
+To clone the repository:
+git@github.com:cantrilbat/code.git
+
+Mirror Location at Sandia:
+ssh://hkmoffa@teamforge.sandia.gov:29418/cantrilbat 
+
+
+Harry Moffat
+
+
+
