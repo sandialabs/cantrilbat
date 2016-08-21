@@ -348,7 +348,7 @@ const std::vector<double>& ReactingSurDomain::calcNetLimitedSurfaceProductionRat
     //
     limitROP(n);
 
-    getNetProductionRates(&limitedNetProductionRates_[0]);
+    getNetProductionRatesFromROP(&m_ropnet[0], &limitedNetProductionRates_[0]);
 
     return limitedNetProductionRates_;
 }
