@@ -758,6 +758,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase *g_ptr,
    * related volumetric information for this species in the
    * current phase.
    */
+  g_ptr->setState_TP(BG.Temperature, BG.Pressure);
   printVolSpecies(g_ptr, k);
 
   /*
