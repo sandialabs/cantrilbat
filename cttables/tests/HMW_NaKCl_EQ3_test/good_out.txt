@@ -193,13 +193,14 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
         Electronic Charge = 0.000000
         Molecular Weight = 18.0153 gm/mol
         Heat of formation (298.15K) = -285.838767  kJ/gmol 
-        Phase Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -237.141562  kJ/gmol 
+                Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = 100000 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.0196908 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0.0200113 m3/kmol
-        species partial Molar Volume = 0.0196908 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0180045 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0180686 m3/kmol
+        species partial Molar Volume = 0.0180045 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 0
@@ -238,16 +239,18 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                    Cl: 1      |                    111.535
                     E: 1      |                      0.000
-                                                   111.535 J/gmol/K 
+                   E-: -1      |                    -65.340
+                                                   176.875 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = -167.109669  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -131.289930  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.0161074 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0.00927157 m3/kmol
-        species partial Molar Volume = 0.0161074 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0190756 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0177083 m3/kmol
+        species partial Molar Volume = 0.0190756 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 1
@@ -297,16 +300,18 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     H: 1      |                     65.340
                     E: -1      |                     -0.000
-                                                    65.340 J/gmol/K 
+                   E-: 1      |                     65.340
+                                                     0.000 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 1.0074 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = 0.000000  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.00683587 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0 m3/kmol
-        species partial Molar Volume = 0.00683587 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.00136726 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -4.17086e-25 m3/kmol
+        species partial Molar Volume = 0.00136726 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 2
@@ -356,16 +361,18 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                    Na: 1      |                     51.455
                     E: -1      |                     -0.000
-                                                    51.455 J/gmol/K 
+                   E-: 1      |                     65.340
+                                                   -13.885 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 22.9892 gm/mol
         Heat of formation (298.15K) = -240.326682  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -261.881029  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.00632911 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = -0.000506764 m3/kmol
-        species partial Molar Volume = 0.00632911 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.000242777 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -0.00112448 m3/kmol
+        species partial Molar Volume = 0.000242777 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 3
@@ -416,16 +423,18 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
                     O: 1      |                    102.573
                     H: 1      |                     65.340
                     E: 1      |                      0.000
-                                                   167.913 J/gmol/K 
+                   E-: -1      |                    -65.340
+                                                   233.254 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 17.0079 gm/mol
         Heat of formation (298.15K) = -230.035784  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -157.297751  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.00119791 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = -0.00563796 m3/kmol
-        species partial Molar Volume = 0.00119791 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = -0.000889422 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -0.00225668 m3/kmol
+        species partial Molar Volume = -0.000889422 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 4
@@ -475,16 +484,18 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     K: 1      |                     64.670
                     E: -1      |                     -0.000
-                                                    64.670 J/gmol/K 
+                   E-: 1      |                     65.340
+                                                    -0.670 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 39.0978 gm/mol
         Heat of formation (298.15K) = -252.136231  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -282.462140  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.0165478 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0.00971191 m3/kmol
-        species partial Molar Volume = 0.0165478 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0104252 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.00905789 m3/kmol
+        species partial Molar Volume = 0.0104252 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 5

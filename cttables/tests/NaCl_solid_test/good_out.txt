@@ -145,11 +145,12 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)" IN PHASE "NaCl(S)"
         Electronic Charge = 0.000000
         Molecular Weight = 58.4425 gm/mol
         Heat of formation (298.15K) = -411.120330  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -384.031065  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 1073 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 0.027015 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 0.027015 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.027015 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.027015 m3/kmol
         StoichSubstance constant density = 2163.33 kg m-3 
         species Molar Volume = 7.90948E-06 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
@@ -221,11 +222,12 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)_nist" IN PHASE "NaCl(S)_nist"
         Electronic Charge = 0.000000
         Molecular Weight = 58.4425 gm/mol
         Heat of formation (298.15K) = -411.121202  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -384.025121  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 0.0269942 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 0.0269942 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0269942 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0269942 m3/kmol
         StoichSubstance constant density = 2165 kg m-3 
         species Molar Volume = 7.90339E-06 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)

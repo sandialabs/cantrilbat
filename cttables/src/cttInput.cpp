@@ -152,7 +152,7 @@ void setup_input_pass3(BlockEntry *cf,
 		       PhaseList *pl)
 {
 
-  int iph;
+  //int iph;
   BaseEntry::set_SkipUnknownEntries(0);
     
   /* --------------------------------------------------------------
@@ -248,19 +248,19 @@ void setup_input_pass3(BlockEntry *cf,
   BG.PotentialPLPhases =  mdp_alloc_dbl_1(nVolPhases + nSurPhases, 0.0);
   BG.PhaseMoles.resize(nVolPhases + nSurPhases, 0.0);
 
-  for (iph = 0; iph < pl->nVolPhases(); iph++) {
-    int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+  for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
+    size_t kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
     BG.XmolPLPhases[iph] =   BG.XmolPLSpecVec + kstart;
     BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
   }
-  for (iph = 0; iph < pl->nSurPhases(); iph++) {
-   int tph = iph + pl->nVolPhases();
-   int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iph);
+  for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
+   size_t tph = iph + pl->nVolPhases();
+   size_t kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iph);
    BG.XmolPLPhases[tph] =   BG.XmolPLSpecVec + kstart;
    BG.MolalitiesPLPhases[tph] =  BG.MolalitiesPLSpecVec + kstart;
   }
 
-  for (iph = 0; iph < pl->nVolPhases(); iph++) {
+  for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
     string phaseBath = "Bath Specification for Phase ";
     ThermoPhase *tp = &(pl->volPhase(iph));
     string phaseNm = tp->name();
@@ -347,9 +347,9 @@ void setup_input_pass3(BlockEntry *cf,
    * Surface Phases
    */
 
-  for (int iphS = 0; iphS < pl->nSurPhases(); iphS++) {
+  for (size_t iphS = 0; iphS < pl->nSurPhases(); iphS++) {
     string phaseBath = "Bath Specification for Phase ";
-    iph = pl->nVolPhases() + iphS;
+    size_t iph = pl->nVolPhases() + iphS;
     ThermoPhase *tp = &(pl->surPhase(iphS));
     string phaseNm = tp->name();
     int nSpecies = tp->nSpecies();

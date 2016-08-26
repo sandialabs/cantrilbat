@@ -132,7 +132,7 @@ namespace Cantera
    */
   bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)  {
     try {
-      int iph;
+      //int iph;
       /*
        * Vector of pointers to all of the phases in the file
        */
@@ -148,7 +148,7 @@ namespace Cantera
       string nm = "phase";
       TopCTML->getChildren(nm, phaseChildren);
 
-      int nPhasesFound = phaseChildren.size();
+      size_t nPhasesFound = phaseChildren.size();
       /*
        * Resize the internal list of pointers and
        * get a pointer to the vacant ThermoPhase pointer
@@ -160,7 +160,8 @@ namespace Cantera
 
       iphaseKin = -1; 
       XML_Node *phaseArrayXML = 0;
-      for (iph = 0; iph < nPhasesFound; iph++) {
+      if (nPhasesFound >= 0) {
+      for (size_t iph = 0; iph < (size_t) nPhasesFound; iph++) {
 	XML_Node *xmlPhase = phaseChildren[iph];
 	XML_Node *kineticsXML = xmlPhase->findNameID("kinetics", "");
 	phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
@@ -174,7 +175,7 @@ namespace Cantera
 	  }
 	}
       }
-	  
+      }
     
       phaseArrayXML = 0;
       if (iphaseKin >= 0) {
@@ -183,11 +184,11 @@ namespace Cantera
 	if (phaseArrayXML) {
 	  vector<string> phase_ids;
 	  ZZctml::getStringArray(*phaseArrayXML, phase_ids);
-	  int np = phase_ids.size();
-	  for (iph = 0; iph < np; iph++) {
+	  size_t np = phase_ids.size();
+	  for (size_t iph = 0; iph < np; iph++) {
 	    string phaseID = phase_ids[iph];
 	    bool found = false;
-	    for (int jph = 0; jph < nPhasesFound; jph++) {
+	    for (size_t jph = 0; jph < nPhasesFound; jph++) {
 	      if (phaseChildren[jph]->id() == phaseID) {
 		XML_Node *xmlPhase = phaseChildren[jph];
 		xmlList[numPhases] = xmlPhase;
@@ -214,8 +215,8 @@ namespace Cantera
 
       
       
-      for (iph = 0; iph < nPhasesFound; iph++) {
-	if (iphaseKin != iph) {
+      for (size_t iph = 0; iph < nPhasesFound; iph++) {
+	if (iphaseKin != (int) iph) {
 	  /*
 	   * Fill in the ThermoPhase object by querying the
 	   * const XML_Node tree located at x.
@@ -229,7 +230,7 @@ namespace Cantera
 	}
       }
 
-      for (iph = 0; iph < nPhasesFound; iph++) {
+      for (size_t iph = 0; iph < nPhasesFound; iph++) {
 	if (! tplRead[iphaseKin]) {
 	  XML_Node *xmlPhase = phaseChildren[iph];
 	  xmlList[numPhases] = xmlPhase;
@@ -240,8 +241,8 @@ namespace Cantera
 	}
       }
 
-      if (nPhasesFound > numPhases) {	
-        for (iph = 0; iph < nPhasesFound - numPhases; iph++) {
+      if (nPhasesFound > (size_t) numPhases) {	
+        for (size_t iph = 0; iph < nPhasesFound - numPhases; iph++) {
 	  int jph = numPhases + iph;
 	  if (tpList[jph] != 0) {
 	    throw CanteraError(" ReactingVolDomain::importFromXML" , "Confused tpList[]");
@@ -348,7 +349,7 @@ namespace Cantera
 	  for (iph = 0; iph < npToFind; iph++) {
 	    string phaseID = phase_ids[iph];
 	    bool found = false;
-	    for (int jph = 0; jph < pl->nVolPhases(); jph++) {
+	    for (size_t jph = 0; jph < pl->nVolPhases(); jph++) {
 	      XML_Node *xmlPhase_j = pl->volPhaseXMLNode(jph);
 	      string pname = xmlPhase_j->operator[]("id");
 	      if (phaseID == pname) {
@@ -369,7 +370,7 @@ namespace Cantera
 	  }
 	}
       } else {
-	for (iph = 0; iph < pl->nVolPhases(); iph++) {
+	for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
 	  xmlList[numPhases] = pl->volPhaseXMLNode(iph);
 	  tpList[numPhases]  = &(pl->volPhase(iph));
 	  tplRead[numPhases] = 1;

@@ -173,7 +173,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "silane"
         This molecule is linear
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  3.17442E-09
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -0.000078 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -221,7 +222,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "silane"
         This molecule is monatomic
         Heat of formation (298.15K) = 52.102637 kcal/gmol
         mu_0(298.15K) = H298[k]  52.1026
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 37.380824 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -269,7 +271,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "silane"
         This molecule is monatomic
         Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -2.63116E-16
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.032867 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
@@ -318,7 +321,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH4" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 8.200171 kcal/gmol
         mu_0(298.15K) = H298[k]  8.20017
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 30.860862 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
@@ -366,7 +370,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI" IN PHASE "silane"
         This molecule is monatomic
         Heat of formation (298.15K) = 107.701789 kcal/gmol
         mu_0(298.15K) = H298[k]  107.702
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 63.263957 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
@@ -415,7 +420,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH" IN PHASE "silane"
         This molecule is linear
         Heat of formation (298.15K) = 91.709577 kcal/gmol
         mu_0(298.15K) = H298[k]  91.7096
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 61.658166 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
@@ -464,7 +470,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH2" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 64.807767 kcal/gmol
         mu_0(298.15K) = H298[k]  64.8078
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 47.628254 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
@@ -513,7 +520,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH3" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 47.432194 kcal/gmol
         mu_0(298.15K) = H298[k]  47.4322
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 46.853033 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
@@ -562,7 +570,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H3SISIH" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 74.971729 kcal/gmol
         mu_0(298.15K) = H298[k]  74.9717
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 77.628204 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 4000 K
         NASA Polynomial format: 2 zones
@@ -611,7 +620,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2H6" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 19.100399 kcal/gmol
         mu_0(298.15K) = H298[k]  19.1004
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 65.596433 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
@@ -660,7 +670,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2SISIH2" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 62.876564 kcal/gmol
         mu_0(298.15K) = H298[k]  62.8766
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 68.558213 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
@@ -709,7 +720,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3H8" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 28.900604 kcal/gmol
         mu_0(298.15K) = H298[k]  28.9006
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 97.751633 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
@@ -757,7 +769,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2" IN PHASE "silane"
         This molecule is linear
         Heat of formation (298.15K) = 141.002944 kcal/gmol
         mu_0(298.15K) = H298[k]  141.003
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 83.675938 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
@@ -805,7 +818,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3" IN PHASE "silane"
         This molecule is nonlinear
         Heat of formation (298.15K) = 152.004543 kcal/gmol
         mu_0(298.15K) = H298[k]  152.005
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 88.991442 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
@@ -853,7 +867,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "silane"
         This molecule is linear
         Heat of formation (298.15K) = 0.000342 kcal/gmol
         mu_0(298.15K) = H298[k]  0.000341755
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.029194 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones

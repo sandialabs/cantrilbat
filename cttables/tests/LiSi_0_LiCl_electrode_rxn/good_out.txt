@@ -25,11 +25,12 @@ INFORMATION TABLE FOR SPECIES "lisi_0_site" IN PHASE "LiSi_0_surface"
         Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = 0.000000  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (950,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (950,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -72,15 +73,17 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
         It is the 1th species in the phase
         Elemental Composition:               ElementEntropy298
                     E: 1      |                      0.000
+                   E-: -1      |                     -0.000
                                                      0.000 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
         Heat of formation (298.15K) = 398.143290  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = 406.080828  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 400 K
         Maximum Temperature = 2700 K
-        Partial    Molar Volume at (T,P) of (950,101325) = 5.45e-09 m3/kmol
-        StandState Molar Volume at (T,P) of (950,101325) = 5.45e-09 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 5.45e-09 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 5.45e-09 m3/kmol
         StoichSubstance constant density = 100000 kg m-3 
         species Molar Volume = 0.0183486 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
@@ -131,16 +134,18 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                    Li: 1      |                     29.085
                     E: -1      |                     -0.000
+                   E-: 1      |                     -0.000
                                                     29.085 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 6.94046 gm/mol
         Heat of formation (298.15K) = -395.763532  kJ/gmol 
-        Phase Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -403.429817  kJ/gmol 
+                Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = -1 Pa
         Minimum Temperature = -1 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (950,-1) = 0.02048 m3/kmol
-        StandState Molar Volume at (T,P) of (950,-1) = 0.02048 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
         Molar Volume formulation for eos type 2000 is not known to cttables
         Presure Dependent Standard State form
                PDSS Species index    = 0
@@ -173,16 +178,18 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     K: 1      |                     64.670
                     E: -1      |                     -0.000
+                   E-: 1      |                     -0.000
                                                     64.670 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 39.0978 gm/mol
         Heat of formation (298.15K) = -421.791663  kJ/gmol 
-        Phase Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -424.910488  kJ/gmol 
+                Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = -1 Pa
         Minimum Temperature = -1 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (950,-1) = 0.0375761 m3/kmol
-        StandState Molar Volume at (T,P) of (950,-1) = 0.0375761 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
         Molar Volume formulation for eos type 2000 is not known to cttables
         Presure Dependent Standard State form
                PDSS Species index    = 1
@@ -215,16 +222,18 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                    Cl: 1      |                    111.535
                     E: 1      |                      0.000
+                   E-: -1      |                     -0.000
                                                    111.535 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
-        Phase Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = 33.254160  kJ/gmol 
+                Phase Reference Pressure = 101325 Pa
         Species Reference Pressure = -1 Pa
         Minimum Temperature = -1 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (950,-1) = 0 m3/kmol
-        StandState Molar Volume at (T,P) of (950,-1) = 0 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0 m3/kmol
         Molar Volume formulation for eos type 2000 is not known to cttables
         Presure Dependent Standard State form
                PDSS Species index    = 2
@@ -272,11 +281,12 @@ INFORMATION TABLE FOR SPECIES "Li22Si5(S)" IN PHASE "Li22Si5(S)"
         Electronic Charge = 0.000000
         Molecular Weight = 293.13 gm/mol
         Heat of formation (298.15K) = -612.607948  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -548.425483  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 2700 K
-        Partial    Molar Volume at (T,P) of (950,101325) = 0.548932 m3/kmol
-        StandState Molar Volume at (T,P) of (950,101325) = 0.548932 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.548932 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.548932 m3/kmol
         StoichSubstance constant density = 534 kg m-3 
         species Molar Volume = 6.3885E-06 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
@@ -329,11 +339,12 @@ INFORMATION TABLE FOR SPECIES "Li13Si4(S)" IN PHASE "Li13Si4(S)"
         Electronic Charge = 0.000000
         Molecular Weight = 202.575 gm/mol
         Heat of formation (298.15K) = -433.133034  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -395.429933  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 2700 K
-        Partial    Molar Volume at (T,P) of (950,101325) = 0.163367 m3/kmol
-        StandState Molar Volume at (T,P) of (950,101325) = 0.163367 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.163367 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.163367 m3/kmol
         StoichSubstance constant density = 1240 kg m-3 
         species Molar Volume = 3.981E-06 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)

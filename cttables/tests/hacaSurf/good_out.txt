@@ -27,11 +27,12 @@ INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
         Electronic Charge = 0.000000
         Molecular Weight = 12.011 gm/mol
         Heat of formation (298.15K) = 45.797496 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 35.879352 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 2.63158e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 2.63158e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 2.28841E+15 # per cm2 
         CONSTANT_CP format:
@@ -73,11 +74,12 @@ INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
         Electronic Charge = 0.000000
         Molecular Weight = 13.0189 gm/mol
         Heat of formation (298.15K) = 5.497448 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 13.189236 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 2.63158e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 2.63158e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 2.28841E+15 # per cm2 
         CONSTANT_CP format:
@@ -134,7 +136,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "gas"
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = 52.102637 kcal/gmol
         mu_0(298.15K) = H298[k]  52.1026
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 37.380824 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -176,7 +179,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
         Molecular Weight = 28.0135 gm/mol
         Heat of formation (298.15K) = 0.000342 kcal/gmol
         mu_0(298.15K) = H298[k]  0.000341755
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.029194 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
@@ -219,7 +223,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH3" IN PHASE "gas"
         Molecular Weight = 15.0348 gm/mol
         Heat of formation (298.15K) = 35.109782 kcal/gmol
         mu_0(298.15K) = H298[k]  35.1098
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 37.421098 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -262,7 +267,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH4" IN PHASE "gas"
         Molecular Weight = 16.0428 gm/mol
         Heat of formation (298.15K) = -17.829746 kcal/gmol
         mu_0(298.15K) = H298[k]  -17.8297
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 6.239838 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -305,7 +311,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "C2H2" IN PHASE "gas"
         Molecular Weight = 26.0379 gm/mol
         Heat of formation (298.15K) = 54.540860 kcal/gmol
         mu_0(298.15K) = H298[k]  54.5409
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 37.022912 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -347,7 +354,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "gas"
         Molecular Weight = 2.01588 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  3.17442E-09
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -0.000078 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -400,11 +408,12 @@ INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
         Electronic Charge = 0.000000
         Molecular Weight = 12.011 gm/mol
         Heat of formation (298.15K) = 5.043999 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 19.504970 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 0.00341222 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 0.00341222 m3/kmol
+        Partial    Molar Volume at (T,P) of (1400,101325) = 0.00341222 m3/kmol
+        StandState Molar Volume at (T,P) of (1400,101325) = 0.00341222 m3/kmol
         StoichSubstance constant density = 3520 kg m-3 
         species Molar Volume = 2.36526E-05 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)

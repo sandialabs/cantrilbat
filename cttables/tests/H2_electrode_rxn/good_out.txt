@@ -26,11 +26,12 @@ INFORMATION TABLE FOR SPECIES "pt_site" IN PHASE "platinum_surface"
         Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.000000 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -68,11 +69,12 @@ INFORMATION TABLE FOR SPECIES "H*_site" IN PHASE "platinum_surface"
         Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = -3.585090 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 12.914531 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -117,15 +119,17 @@ INFORMATION TABLE FOR SPECIES "Pt_electron" IN PHASE "Pt_H2electrons"
         It is the 1th species in the phase
         Elemental Composition:               ElementEntropy298
                     E: 1      |                      0.000
+                   E-: -1      |                     -0.000
                                                      0.000 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -19.481160 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 6000 K
-        Partial    Molar Volume at (T,P) of (440,101325) = 2.0566e-07 m3/kmol
-        StandState Molar Volume at (T,P) of (440,101325) = 2.0566e-07 m3/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 2.0566e-07 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 2.0566e-07 m3/kmol
         Molar Volume formulation for eos type 9 is not known to cttables
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
@@ -180,13 +184,14 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
         Electronic Charge = 0.000000
         Molecular Weight = 18.0153 gm/mol
         Heat of formation (298.15K) = -68.317105 kcal/gmol
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -19.619900 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.0196908 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0.0200113 m3/kmol
-        species partial Molar Volume = 0.0196908 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.0180123 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.0180775 m3/kmol
+        species partial Molar Volume = 0.0180123 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 0
@@ -221,16 +226,18 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     E: 1      |                      0.000
                    Cl: 1      |                    111.535
-                                                   111.535 J/gmol/K 
+                   E-: -1      |                    -65.340
+                                                   176.875 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = -39.937109 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -4.078813 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
-        species partial Molar Volume = 0.0151759 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00973036 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.00973036 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 298 < T < 623.15: 
@@ -266,17 +273,19 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     H: 1      |                     65.340
                     E: -1      |                     -0.000
-                                                    65.340 J/gmol/K 
+                   E-: 1      |                     65.340
+                                                     0.000 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 1.0074 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.000000 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 273.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.00683587 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0 m3/kmol
-        species partial Molar Volume = 0.00683587 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00139036 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0 m3/kmol
+        species partial Molar Volume = 0.00139036 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         MU0_POLY format:
                 Valid Range: 273.15 < T < 625.15: 
@@ -311,16 +320,18 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     E: -1      |                     -0.000
                    Na: 1      |                     51.455
-                                                    51.455 J/gmol/K 
+                   E-: 1      |                     65.340
+                                                   -13.885 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 22.9892 gm/mol
         Heat of formation (298.15K) = -57.404503 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -79.052220 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 293.15 K
         Maximum Temperature = 593.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
-        species partial Molar Volume = 0.0151759 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00973036 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.00973036 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 293.15 < T < 593.15: 
@@ -357,16 +368,18 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
                     O: 1      |                    102.573
                     H: 1      |                     65.340
                     E: 1      |                      0.000
-                                                   167.913 J/gmol/K 
+                   E-: -1      |                    -65.340
+                                                   233.254 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 17.0079 gm/mol
         Heat of formation (298.15K) = -54.979043 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 17.813651 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (440,100000) = 0.0151759 m3/kmol
-        StandState Molar Volume at (T,P) of (440,100000) = 0.00834 m3/kmol
-        species partial Molar Volume = 0.0151759 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00973036 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.00834 m3/kmol
+        species partial Molar Volume = 0.00973036 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 298 < T < 623.15: 
@@ -416,7 +429,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "h2gas"
         Molecular Weight = 2.01588 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  3.17442E-09
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -0.000078 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 6000 K
         NASA Polynomial format: 2 zones

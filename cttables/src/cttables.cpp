@@ -73,6 +73,8 @@ int DebugPrinting(0);
  */
 bool TopIsKineticsObject = false;
 
+std::vector<double> S298;
+
 
 /**********************************************************************/
 /**********************************************************************/
@@ -307,6 +309,12 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
     cout << "It is the " << k+1
 	 <<"th species in the phase" << endl;
 
+    double elementEntropyTotal = entropyElem298(&g, (size_t) k);
+    double ch = g.charge(k);
+    if (ch != 0.0) {
+	double entCh = g.entropyCharge(ch);
+       elementEntropyTotal += entCh;
+    }
 
     dnt(1); cout << "Elemental Composition:" << endl;
     for (int m = 0; m < (int) g.nElements(); m++) {
@@ -412,6 +420,13 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
     dnt(1);
     double mu_o = H298[k];
     cout << "mu_0(298.15K) = H298[k]  " << mu_o << endl;
+
+    double deltaGf = 1.0E6 * H298[k] - 298.15 * S298[k] + 298.15 * elementEntropyTotal;
+    deltaGf /= 1.0E6;
+    dnt(1);
+    cout << "DeltaGf (298.15K) = "; pr_dfp(deltaGf, 4);
+    printf(" %8s\n", UIO.sGibbs.c_str());
+    dnt(1);
 
     /*
      * Optionally print out the internal energy at 298.15 K
@@ -674,7 +689,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase *g_ptr,
   cout << "It is the " << k+1
        <<"th species in the phase" << endl;
 
-  double stotal = entropyElem298(g_ptr, (size_t) k);
+  double elementEntropyTotal = entropyElem298(g_ptr, (size_t) k);
   dnt(1); cout << "Elemental Composition:               ElementEntropy298" << endl;
   for (size_t m = 0; m < g_ptr->nElements(); m++) {
     double na = g_ptr->nAtoms(k, m);
@@ -686,8 +701,17 @@ void printThermoPhaseSpeciesTable(ThermoPhase *g_ptr,
 	printf("\n");
     }
   }
+  double ch = g_ptr->charge(k);
+  if (ch != 0.0) {
+       double entCh = g_ptr->entropyCharge(ch);
+       dnt(3); pr_sf("E-", 3);
+       cout << ": " << ch << "      |              ";
+       pr_df( -entCh / 1.0E3, 13, 3);
+       printf("\n");
+       elementEntropyTotal += entCh;
+  }
   dnt(3); printf("                           ");
-  pr_df( stotal/1.0E3, 13, 3);
+  pr_df( elementEntropyTotal / 1.0E3, 13, 3);
   printf(" J/gmol/K \n");
 
   dnt(1); cout << "Electronic Charge = "; 
@@ -716,7 +740,15 @@ void printThermoPhaseSpeciesTable(ThermoPhase *g_ptr,
     cout << "Int Energy (298.15K, refPres) = "; pr_dfp(U298[k], 4);
     printf(" %8s\n", UIO.sGibbs.c_str());
   }
-  
+
+  double deltaGf = 1.0E6 * H298[k] - 298.15 * S298[k] + 298.15 * elementEntropyTotal;
+  deltaGf /= 1.0E6;
+  dnt(1);
+  cout << "DeltaGf (298.15K) = "; pr_dfp(deltaGf, 4);
+  printf(" %8s\n", UIO.sGibbs.c_str());
+  dnt(1);
+
+
   /*
    * Print out the reference pressure 
    */
@@ -963,8 +995,9 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
 
   g.getEnthalpy_RT(h_RT);
   g.getEnthalpy_RT_ref(h_RT);
-  g.getEntropy_R_ref(S_R);
+  g.getEntropy_R_ref(DATA_PTR(S298));
   g.getGibbs_RT_ref(g_RT);
+ 
 
   if (IOO.IntEnergyColumn) {
     g.getIntEnergy_RT_ref(u_RT);
@@ -972,6 +1005,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
   for (int i = 0; i < nsp; i++) {
     H298[i] = h_RT[i] * T298 * RGibbs;
     U298[i] = u_RT[i] * T298 * RGibbs;
+    S298[i] *= GasConstant;
   }
 
   g.getEntropy_R_ref(S_R);
@@ -1203,7 +1237,7 @@ getGenericTransportTables(TemperatureTable& TT, ThermoPhase &g,
 //======================================================================================================================
 void
 setAllBathSpeciesConditions(PhaseList *pl) {
-  for (int iphase = 0; iphase < pl->nPhases(); iphase++) {
+  for (size_t iphase = 0; iphase < pl->nPhases(); iphase++) {
     ThermoPhase *gThermoMainPhase =  &(pl->thermo(iphase));
     setBathSpeciesConditions(*gThermoMainPhase, pl, 0); 
   }
@@ -1211,7 +1245,7 @@ setAllBathSpeciesConditions(PhaseList *pl) {
 //======================================================================================================================
 void
 printAllBathSpeciesConditions(PhaseList *pl) {
-  for (int iphase = 0; iphase < pl->nPhases(); iphase++) {
+  for (size_t iphase = 0; iphase < pl->nPhases(); iphase++) {
     ThermoPhase *gThermoMainPhase = &(pl->thermo(iphase));
     printBathSpeciesConditions(*gThermoMainPhase, pl, 1); 
   }
@@ -1786,6 +1820,9 @@ int main(int argc, char** argv) {
       DenseMatrix S_Table(TT_ptr->size(), nSpecies);
       vector<double> H298(nSpecies);
       vector<double> U298(nSpecies);
+      if ((size_t) nSpecies > S298.size()) {
+          S298.resize(nSpecies);
+      }
       getThermoTables(*TT_ptr, Cp_Table, Hrel_Table, Grel_Table,
 		      S_Table, H298, *gThermoMainPhase,
 		      Urel_Table, U298);

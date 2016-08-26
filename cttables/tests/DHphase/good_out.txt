@@ -121,11 +121,12 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
         Electronic Charge = 0.000000
         Molecular Weight = 18.0153 gm/mol
         Heat of formation (298.15K) = -68.314697 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -19.622390 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 273.15 K
         Maximum Temperature = 600 K
-        Partial    Molar Volume at (T,P) of (1600,100000) = 0.0555556 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,100000) = 0.0555556 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0555556 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0555556 m3/kmol
         species partial Molar Volume = 0.0555556 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Pres dependence -> (U, S, V, and Cp are independent)
@@ -167,16 +168,18 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     E: -1      |                     -0.000
                    Na: 1      |                     51.455
-                                                    51.455 J/gmol/K 
+                   E-: 1      |                     65.340
+                                                   -13.885 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 22.9892 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -261.522468 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 1000 K
-        Partial    Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
         species partial Molar Volume = 1.3 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Pres dependence -> (U, S, V, and Cp are independent)
@@ -216,16 +219,18 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     E: 1      |                      0.000
                    Cl: 1      |                    111.535
-                                                   111.535 J/gmol/K 
+                   E-: -1      |                    -65.340
+                                                   176.875 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -131.219779 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 333 K
-        Partial    Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
         species partial Molar Volume = 1.3 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Pres dependence -> (U, S, V, and Cp are independent)
@@ -265,16 +270,18 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
         Elemental Composition:               ElementEntropy298
                     H: 1      |                     65.340
                     E: -1      |                     -0.000
-                                                    65.340 J/gmol/K 
+                   E-: 1      |                     65.340
+                                                     0.000 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 1.0074 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.000000 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 333 K
-        Partial    Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
         species partial Molar Volume = 1.3 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Pres dependence -> (U, S, V, and Cp are independent)
@@ -315,16 +322,18 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
                     O: 1      |                    102.573
                     H: 1      |                     65.340
                     E: 1      |                      0.000
-                                                   167.913 J/gmol/K 
+                   E-: -1      |                    -65.340
+                                                   233.254 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 17.0079 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -157.337039 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 333 K
-        Partial    Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
         species partial Molar Volume = 1.3 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Pres dependence -> (U, S, V, and Cp are independent)
@@ -368,12 +377,13 @@ INFORMATION TABLE FOR SPECIES "NaCl(aq)" IN PHASE "NaCl_electrolyte"
         Electronic Charge = 0.000000
         Molecular Weight = 58.4425 gm/mol
         Heat of formation (298.15K) = -96.030114 kcal/gmol
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -82.407580 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 333 K
-        Partial    Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,100000) = 1.3 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 1.3 m3/kmol
         species partial Molar Volume = 1.3 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Pres dependence -> (U, S, V, and Cp are independent)

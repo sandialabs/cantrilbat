@@ -33,11 +33,12 @@ INFORMATION TABLE FOR SPECIES "c6HH" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 2.01588 gm/mol
         Heat of formation (298.15K) = 11.400014 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 24.165604 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -78,11 +79,12 @@ INFORMATION TABLE FOR SPECIES "c6H*" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = 51.700062 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 46.855720 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -123,11 +125,12 @@ INFORMATION TABLE FOR SPECIES "c6*H" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = 46.100055 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 40.756730 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -167,11 +170,12 @@ INFORMATION TABLE FOR SPECIES "c6**" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
         Heat of formation (298.15K) = 90.000107 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 67.046851 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -213,11 +217,12 @@ INFORMATION TABLE FOR SPECIES "c6HM" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 16.0428 gm/mol
         Heat of formation (298.15K) = 26.900032 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 56.263275 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -259,11 +264,12 @@ INFORMATION TABLE FOR SPECIES "c6HM*" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 15.0348 gm/mol
         Heat of formation (298.15K) = 65.800078 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 75.931692 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -305,11 +311,12 @@ INFORMATION TABLE FOR SPECIES "c6*M" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 15.0348 gm/mol
         Heat of formation (298.15K) = 53.300063 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 64.928629 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -351,11 +358,12 @@ INFORMATION TABLE FOR SPECIES "c6B" IN PHASE "diamond_100"
         Electronic Charge = 0.000000
         Molecular Weight = 14.0269 gm/mol
         Heat of formation (298.15K) = 40.900049 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 48.017008 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -410,7 +418,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "gas"
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = 52.102637 kcal/gmol
         mu_0(298.15K) = H298[k]  52.1026
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 37.380824 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -452,7 +461,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "gas"
         Molecular Weight = 2.01588 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  3.17442E-09
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -0.000078 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -495,7 +505,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH3" IN PHASE "gas"
         Molecular Weight = 15.0348 gm/mol
         Heat of formation (298.15K) = 35.109782 kcal/gmol
         mu_0(298.15K) = H298[k]  35.1098
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 37.421098 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -538,7 +549,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH4" IN PHASE "gas"
         Molecular Weight = 16.0428 gm/mol
         Heat of formation (298.15K) = -17.829746 kcal/gmol
         mu_0(298.15K) = H298[k]  -17.8297
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 6.239838 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
@@ -591,11 +603,12 @@ INFORMATION TABLE FOR SPECIES "C(d)" IN PHASE "diamond"
         Electronic Charge = 0.000000
         Molecular Weight = 12.011 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 1.711381 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 0.00341222 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 0.00341222 m3/kmol
+        Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.00341222 m3/kmol
+        StandState Molar Volume at (T,P) of (1200,2666.45) = 0.00341222 m3/kmol
         StoichSubstance constant density = 3520 kg m-3 
         species Molar Volume = 2.36526E-05 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)

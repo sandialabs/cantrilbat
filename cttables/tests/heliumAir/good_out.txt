@@ -131,7 +131,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "gas"
         This molecule is monatomic
         Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -2.63116E-16
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.032867 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
@@ -179,7 +180,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "gas"
         This molecule is linear
         Heat of formation (298.15K) = -0.000203 kcal/gmol
         mu_0(298.15K) = H298[k]  -0.000202594
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.030320 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
@@ -227,7 +229,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
         This molecule is linear
         Heat of formation (298.15K) = 0.000342 kcal/gmol
         mu_0(298.15K) = H298[k]  0.000341755
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.029194 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones

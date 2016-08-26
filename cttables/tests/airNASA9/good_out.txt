@@ -153,7 +153,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "airNASA9"
         Molecular Weight = 28.0135 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  1.4614E-09
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 0.000117 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 20000 K
@@ -210,7 +211,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "airNASA9"
         Molecular Weight = 31.9988 gm/mol
         Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -3.061E-09
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -0.000383 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 20000 K
@@ -268,7 +270,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "NO" IN PHASE "airNASA9"
         Molecular Weight = 30.0061 gm/mol
         Heat of formation (298.15K) = 21.814267 kcal/gmol
         mu_0(298.15K) = H298[k]  21.8143
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 18.126525 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 20000 K
@@ -325,7 +328,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N" IN PHASE "airNASA9"
         Molecular Weight = 14.0067 gm/mol
         Heat of formation (298.15K) = 112.972715 kcal/gmol
         mu_0(298.15K) = H298[k]  112.973
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 95.830076 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 20000 K
@@ -382,7 +386,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O" IN PHASE "airNASA9"
         Molecular Weight = 15.9994 gm/mol
         Heat of formation (298.15K) = 59.553983 kcal/gmol
         mu_0(298.15K) = H298[k]  59.554
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 42.116373 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 20000 K
@@ -440,7 +445,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2+" IN PHASE "airNASA9"
         Molecular Weight = 28.0129 gm/mol
         Heat of formation (298.15K) = 360.779523 kcal/gmol
         mu_0(298.15K) = H298[k]  360.78
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 358.974761 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 20000 K
@@ -498,7 +504,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2+" IN PHASE "airNASA9"
         Molecular Weight = 31.9983 gm/mol
         Heat of formation (298.15K) = 280.072438 kcal/gmol
         mu_0(298.15K) = H298[k]  280.072
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 279.999604 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 20000 K
@@ -557,7 +564,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "NO+" IN PHASE "airNASA9"
         Molecular Weight = 30.0056 gm/mol
         Heat of formation (298.15K) = 236.808120 kcal/gmol
         mu_0(298.15K) = H298[k]  236.808
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 236.851285 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 20000 K
@@ -615,7 +623,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N+" IN PHASE "airNASA9"
         Molecular Weight = 14.0062 gm/mol
         Heat of formation (298.15K) = 449.837242 kcal/gmol
         mu_0(298.15K) = H298[k]  449.837
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 430.757560 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 20000 K
@@ -673,7 +682,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O+" IN PHASE "airNASA9"
         Molecular Weight = 15.9989 gm/mol
         Heat of formation (298.15K) = 374.947433 kcal/gmol
         mu_0(298.15K) = H298[k]  374.947
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = 359.328489 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 20000 K
@@ -730,7 +740,8 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "e-" IN PHASE "airNASA9"
         Molecular Weight = 0.000545 gm/mol
         Heat of formation (298.15K) = -0.000000 kcal/gmol
         mu_0(298.15K) = H298[k]  -2.63116E-16
-        Phase Reference Pressure = 1.01325E+06 erg cm-2
+        DeltaGf (298.15K) = -6.254853 kcal/gmol
+                Phase Reference Pressure = 1.01325E+06 erg cm-2
         Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 20000 K

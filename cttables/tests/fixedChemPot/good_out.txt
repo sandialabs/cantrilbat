@@ -123,11 +123,12 @@ INFORMATION TABLE FOR SPECIES "LiFixed" IN PHASE "LiFixed"
         Electronic Charge = 0.000000
         Molecular Weight = 6.941 gm/mol
         Heat of formation (298.15K) = -23.000027  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -14.328335  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K
-        Partial    Molar Volume at (T,P) of (1600,101325) = 0 m3/kmol
-        StandState Molar Volume at (T,P) of (1600,101325) = 0 m3/kmol
+        Partial    Molar Volume at (T,P) of (1000,101325) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (1000,101325) = 0 m3/kmol
         Molar Volume formulation for eos type 70 is not known to cttables
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 250 < T < 1075: 
