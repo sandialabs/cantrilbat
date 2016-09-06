@@ -459,9 +459,7 @@ void setup_input_pass3(BlockEntry *cf,
    *
    */
   LE_VecDblVarLength *v1 =
-    new LE_VecDblVarLength("Added Temperatures",
-			   &(IOO.AddedTemperatures),
-			   1, 0,"AddedTemperatures");
+    new LE_VecDblVarLength("Added Temperatures", &(IOO.AddedTemperatures), 1, 0,"AddedTemperatures");
   beTT->addLineEntry(v1);
 
   /* ------------------------------------------------------------------*/
@@ -550,9 +548,7 @@ void setup_input_pass3(BlockEntry *cf,
    *
    */
   LE_VecDblVarLength *vv =
-    new LE_VecDblVarLength("Added Voltages",
-			   &(IOO.AddedVoltages),
-			   1, 0,"AddedVoltages");
+    new LE_VecDblVarLength("Added Voltages", &(IOO.AddedVoltages), 1, 0,"AddedVoltages");
   beVV->addLineEntry(vv);
   vv = 0;
   
@@ -676,9 +672,12 @@ int process_input(BlockEntry *cf,
   
   if (pass >= 3) {
 
-    LineEntry *v1 =
-      cf->searchLineEntry("Added Temperatures");
+    LineEntry *v1 = cf->searchLineEntry("Added Temperatures");
     IOO.NumAddedTemps = v1->get_NumTimesProcessed();
+
+    v1 = cf->searchLineEntry("Added Voltages");
+    IOO.NumAddedVoltages =  v1->get_NumTimesProcessed();
+
   }
   /*
    * Setup the strings and the modifiers for the output

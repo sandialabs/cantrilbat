@@ -8,7 +8,6 @@
     </elementArray>
     <speciesArray datasrc="#species_MgO(S)"> MgO(S) </speciesArray>
     <thermo model="StoichSubstance">
-      <density units="g/cm3"> 3.58 </density>
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
@@ -23,6 +22,7 @@
       <atomArray> Mg:1 O:1 </atomArray>
      <standardState  model="constant_incompressible">
         <!--   molar volume from density and molar mass -->
+        <!-- density from wikipedia, 05-07-2010 -->
         <molarVolume units="m3/kmol"> 0.011258 </molarVolume>
       </standardState>
       <thermo> 
@@ -40,8 +40,6 @@
           </floatArray>
         </Shomate>
       </thermo>
-      <!-- density from wikipedia, 05-07-2010 -->
-      <density units="g/cm3"> 3.58 </density>
     </species>
 
   </speciesData>

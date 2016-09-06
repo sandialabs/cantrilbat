@@ -136,6 +136,7 @@ namespace BEInput
  *
  *   LineEntry *le = besmd->searchLineEntry("Molar Volumes");
  *   LE_VecDbl *le_dbl = dynamic_cast<LE_VecDblVarLength *>(le);
+ *   int vecLength = le_dbl->get_NumTimesProcessed();
  *   const double * molarVols = le_dbl->currentTypedValue();
  *  @endcode
  *
@@ -193,8 +194,7 @@ public:
      *
      *  "KeyName" = [boolean]
      *
-     * The double value at address, addrVal, is assigned the value
-     * read in from the input file.
+     * The double value at address, addrVal, is assigned the value read in from the input file.
      *
      * @param keyName   C character string setting up the name
      *                  of the keyline to match
@@ -355,10 +355,10 @@ private:
     double DefaultVal;
 
     //! Length of the vector to be filled
-    int    VecLength;
+    int VecLength;
 
     //! current index of the internal vector
-    int    CurrIndex;
+    int CurrIndex;
 
     //! Current value
     /*!
