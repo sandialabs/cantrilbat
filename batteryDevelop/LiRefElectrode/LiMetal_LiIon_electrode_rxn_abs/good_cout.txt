@@ -25,11 +25,12 @@ INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "Li(S)_surface"
         Electronic Charge = 0.000000
         Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = 0.000000  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 3.33333e+07 m2/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -71,15 +72,17 @@ INFORMATION TABLE FOR SPECIES "cu_electron_Li_LiIon" IN PHASE "cu_Li_LiIon_elect
         It is the 1th species in the phase
         Elemental Composition:               ElementEntropy298
                     E: 1      |                      0.000
+                   E-: -1      |                     -0.000
                                                      0.000 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 0.000545 gm/mol
         Heat of formation (298.15K) = -0.065307  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -0.621646  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1500 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 0.545 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 0.545 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.545 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.545 m3/kmol
         StoichSubstance constant density = 0.001 kg m-3 
         species Molar Volume = 1.83486E+06 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
@@ -134,11 +137,12 @@ INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
         Electronic Charge = 0.000000
         Molecular Weight = 88.063 gm/mol
         Heat of formation (298.15K) = -682.800813  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -552.717819  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 0.067 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 0.067 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.067 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.067 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
@@ -169,15 +173,17 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
         Elemental Composition:               ElementEntropy298
                    Li: 1      |                     29.085
                     E: -1      |                     -0.000
+                   E-: 1      |                     -0.000
                                                     29.085 J/gmol/K 
         Electronic Charge = 1.000000
         Molecular Weight = 6.94046 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = 0.621643  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 0.05 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 0.05 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.05 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.05 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
@@ -209,15 +215,17 @@ INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
                     P: 1      |                     41.077
                     F: 6      |                    608.367
                     E: 1      |                      0.000
+                   E-: -1      |                     -0.000
                                                    649.444 J/gmol/K 
         Electronic Charge = -1.000000
         Molecular Weight = 144.965 gm/mol
         Heat of formation (298.15K) = -600.000714  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -446.022936  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 0.084 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 0.084 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.084 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.084 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
@@ -262,11 +270,12 @@ INFORMATION TABLE FOR SPECIES "Li(S)" IN PHASE "Li(S)"
         Electronic Charge = 0.000000
         Molecular Weight = 6.941 gm/mol
         Heat of formation (298.15K) = 0.000345  kJ/gmol 
-        Phase and Species Reference Pressure = 101325 Pa
+        DeltaGf (298.15K) = -0.000003  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 500 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 0.0129981 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 0.0129981 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0129981 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0129981 m3/kmol
         StoichSubstance constant density = 534 kg m-3 
         species Molar Volume = 0.000269797 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)

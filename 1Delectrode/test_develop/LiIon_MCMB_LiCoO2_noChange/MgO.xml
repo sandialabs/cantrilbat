@@ -8,7 +8,6 @@
     </elementArray>
     <speciesArray datasrc="#species_MgO(S)"> MgO(S) </speciesArray>
     <thermo model="StoichSubstance">
-      <density units="g/cm3"> 3.58 </density>
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
@@ -41,7 +40,6 @@
         </Shomate>
       </thermo>
       <!-- density from wikipedia, 05-07-2010 -->
-      <density units="g/cm3"> 3.58 </density>
     </species>
 
   </speciesData>
