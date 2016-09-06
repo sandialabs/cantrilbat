@@ -194,8 +194,7 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 18.0153 gm/mol
         Heat of formation (298.15K) = -285.838767  kJ/gmol 
         DeltaGf (298.15K) = -237.141562  kJ/gmol 
-                Phase Reference Pressure = 101325 Pa
-        Species Reference Pressure = 100000 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0180045 m3/kmol
@@ -219,7 +218,7 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
 |    280.00 |    -1.3696        -19.6208        75.6812      65.1828   |    -305.4596 | 
 |    285.00 |    -0.9916        -19.9501        75.5267      66.5209   |    -305.7888 | 
 |    290.00 |    -0.6143        -20.2860        75.4229      67.8334   |    -306.1247 | 
-|    298.15 |     0.0000        -20.8474        75.3277      69.9224   |    -306.6861 | 
+|    298.15 |    -0.0000        -20.8474        75.3277      69.9224   |    -306.6861 | 
 |    300.00 |     0.1393        -20.9771        75.3154      70.3883   |    -306.8159 | 
 |    320.00 |     1.6453        -22.4340        75.3136      75.2479   |    -308.2728 | 
 |    333.15 |     2.6362        -23.4436        75.3932      78.2824   |    -309.2824 | 
@@ -245,7 +244,8 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = -167.109669  kJ/gmol 
         DeltaGf (298.15K) = -131.289930  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase Reference Pressure = 100000 Pa
+        Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0190756 m3/kmol
@@ -306,11 +306,12 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 1.0074 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
         DeltaGf (298.15K) = 0.000000  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase Reference Pressure = 100000 Pa
+        Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.00136726 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = -4.17086e-25 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0 m3/kmol
         species partial Molar Volume = 0.00136726 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
@@ -367,7 +368,8 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 22.9892 gm/mol
         Heat of formation (298.15K) = -240.326682  kJ/gmol 
         DeltaGf (298.15K) = -261.881029  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase Reference Pressure = 100000 Pa
+        Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.000242777 m3/kmol
@@ -429,7 +431,8 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 17.0079 gm/mol
         Heat of formation (298.15K) = -230.035784  kJ/gmol 
         DeltaGf (298.15K) = -157.297751  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase Reference Pressure = 100000 Pa
+        Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = -0.000889422 m3/kmol
@@ -490,7 +493,8 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 39.0978 gm/mol
         Heat of formation (298.15K) = -252.136231  kJ/gmol 
         DeltaGf (298.15K) = -282.462140  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase Reference Pressure = 100000 Pa
+        Species Reference Pressure = 101325 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0104252 m3/kmol

@@ -8,6 +8,7 @@
     </elementArray>
     <speciesArray datasrc="#species_FeS2(S)"> FeS2(S) </speciesArray>
     <thermo model="StoichSubstance">
+        <!--   molar volume from Bernardi Newman -->
       <density units="g/cm3"> 5.013581 </density>
     </thermo>
     <transport model="None"/>
@@ -21,10 +22,6 @@
     <!--      melting temperature = 1400 K -->
     <species name="FeS2(S)">
       <atomArray> Fe:1 S:2 </atomArray>
-     <standardState  model="constant_incompressible">
-        <!--   molar volume from Bernardi Newman -->
-        <molarVolume units="m3/kmol"> 0.02393 </molarVolume>
-      </standardState>
       <thermo>
         <Shomate Pref="1 bar" Tmax="1400.0" Tmin="250.0">
           <floatArray size="7">
@@ -39,7 +36,6 @@
         </Shomate>
       </thermo>
       <!-- M = 119.975, then evaluated from molarVolume -->
-      <density units="g/cm3"> 5.013581 </density>
     </species>
 
   </speciesData>

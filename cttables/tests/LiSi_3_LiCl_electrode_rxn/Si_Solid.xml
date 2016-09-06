@@ -23,9 +23,6 @@
     <! --      melting temperature = 1685 K -->
     <species name="Si(S)">
       <atomArray> Si:1  </atomArray>
-      <standardState  model="constant_incompressible">
-        <molarVolume units="m3/kmol"> 0.01205386 </molarVolume>
-      </standardState>
       <thermo>
         <Shomate Pref="1 bar" Tmax="1750.0" Tmin="250.0">
           <floatArray size="7">
@@ -40,7 +37,6 @@
         </Shomate>
       </thermo>
 
-      <density units="g/cm3"> 2.33 </density>
     </species>
 
   </speciesData>

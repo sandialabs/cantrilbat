@@ -140,28 +140,27 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
         Molecular Weight = 6.94046 gm/mol
         Heat of formation (298.15K) = -395.763532  kJ/gmol 
         DeltaGf (298.15K) = -403.429817  kJ/gmol 
-                Phase Reference Pressure = 101325 Pa
-        Species Reference Pressure = -1 Pa
-        Minimum Temperature = -1 K
-        Maximum Temperature = 10000 K
+                Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 700 K
+        Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
         Molar Volume formulation for eos type 2000 is not known to cttables
         Presure Dependent Standard State form
                PDSS Species index    = 0
-               PDSS min Temperature  = -1
-               PDSS max Temperature  = 10000
-               PDSS reference pres   = -1
+               PDSS min Temperature  = 700
+               PDSS max Temperature  = 2000
+               PDSS reference pres   = 101325
 unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure          -1 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
 |-----------|----------------------------------------------------------|--------------|
-|    298.15 |     0.0000        -16.3380        70.6098      54.7979   |    -412.1015 | 
-|    600.00 |    20.8685        -41.0900        67.6930     103.2641   |    -436.8535 | 
-|    650.00 |    24.2413        -46.3902        67.2200     108.6638   |    -442.1537 | 
+|**  298.15*|     0.0000        -16.3380        70.6098      54.7979   |    -412.1015 | 
+|**  600.00*|    20.8685        -41.0900        67.6930     103.2641   |    -436.8535 | 
+|**  650.00*|    24.2413        -46.3902        67.2200     108.6638   |    -442.1537 | 
 |    700.00 |    27.5905        -51.9491        66.7473     113.6280   |    -447.7127 | 
 |    723.00 |    29.1232        -54.5875        66.5299     115.7824   |    -450.3510 | 
 |    750.00 |    30.9160        -57.7467        66.2747     118.2170   |    -453.5103 | 
@@ -184,28 +183,27 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
         Molecular Weight = 39.0978 gm/mol
         Heat of formation (298.15K) = -421.791663  kJ/gmol 
         DeltaGf (298.15K) = -424.910488  kJ/gmol 
-                Phase Reference Pressure = 101325 Pa
-        Species Reference Pressure = -1 Pa
-        Minimum Temperature = -1 K
-        Maximum Temperature = 10000 K
+                Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 700 K
+        Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
         Molar Volume formulation for eos type 2000 is not known to cttables
         Presure Dependent Standard State form
                PDSS Species index    = 1
-               PDSS min Temperature  = -1
-               PDSS max Temperature  = 10000
-               PDSS reference pres   = -1
+               PDSS min Temperature  = 700
+               PDSS max Temperature  = 2000
+               PDSS reference pres   = 101325
 unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure          -1 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
 |-----------|----------------------------------------------------------|--------------|
-|    298.15 |     0.0000        -22.4002        73.5971      75.1307   |    -444.1919 | 
-|    600.00 |    22.2153        -53.7444        73.5971     126.5995   |    -475.5361 | 
-|    650.00 |    25.8951        -60.2237        73.5971     132.4904   |    -482.0153 | 
+|**  298.15*|     0.0000        -22.4002        73.5971      75.1307   |    -444.1919 | 
+|**  600.00*|    22.2153        -53.7444        73.5971     126.5995   |    -475.5361 | 
+|**  650.00*|    25.8951        -60.2237        73.5971     132.4904   |    -482.0153 | 
 |    700.00 |    29.5750        -66.9862        73.5971     137.9446   |    -488.7779 | 
 |    723.00 |    31.2677        -70.1865        73.5971     140.3239   |    -491.9781 | 
 |    750.00 |    33.2548        -74.0118        73.5971     143.0222   |    -495.8035 | 
@@ -228,28 +226,27 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
         DeltaGf (298.15K) = 33.254160  kJ/gmol 
-                Phase Reference Pressure = 101325 Pa
-        Species Reference Pressure = -1 Pa
-        Minimum Temperature = -1 K
-        Maximum Temperature = 10000 K
+                Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 700 K
+        Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0 m3/kmol
         Molar Volume formulation for eos type 2000 is not known to cttables
         Presure Dependent Standard State form
                PDSS Species index    = 2
-               PDSS min Temperature  = -1
-               PDSS max Temperature  = 10000
-               PDSS reference pres   = -1
+               PDSS min Temperature  = 700
+               PDSS max Temperature  = 2000
+               PDSS reference pres   = 101325
 unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure          -1 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
 |-----------|----------------------------------------------------------|--------------|
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    600.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    650.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|**  298.15*|     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|**  600.00*|     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|**  650.00*|     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 |    700.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 |    723.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 |    750.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
