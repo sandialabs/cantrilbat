@@ -136,7 +136,7 @@ namespace Cantera
      * @param ydot rate of change of solution vector. (output)
      * @param p parameter vector
      */
-    virtual void eval(double t, double* y, double* ydot, double* p)
+    virtual void eval(double t, const double* const y, double* const ydot, const double* const p)
     {
       if (t > t_init_) {
 	setOnce = 1;
@@ -269,12 +269,9 @@ public:
 
 int main(int argc, char **argv)
 {
-  int ip1 = 0;
   int retn = 0;
   //bool doCathode = false;
   string commandFileNet="";
-  bool printInputFormat = false; // print cmdfile.txt format
-  bool printedUsage = false; // bool indicated that we have already
   // printed usage
 
   //VCSnonideal::vcs_timing_print_lvl = 0;
@@ -294,10 +291,8 @@ int main(int argc, char **argv)
 	int nopt = static_cast<int>(tok.size());
 	for (int n = 1; n < nopt; n++) {
 	  if (!strcmp(tok.c_str() + 1, "help_cmdfile")) {
-	    printInputFormat = true;
 	  } else if (tok[n] == 'h') {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  } else if (tok[n] == 'd') {
 	    int lvl = 2;
@@ -308,15 +303,12 @@ int main(int argc, char **argv)
 		n = nopt - 1;
 		j += 1;
 		if (lvl >= 0 && lvl <= 1000) {
-		  if (lvl == 0) ip1 = 0;
-		  else          ip1 = lvl; 
 		  mpequil_debug_print_lvl = lvl;
 		}
 	      }  
 	    }
 	  } else {
 	    printUsage();
-	    printedUsage = true;
 	    exit(1);
 	  }
 	}
@@ -324,7 +316,6 @@ int main(int argc, char **argv)
 	commandFileNet = tok;
       } else {
 	printUsage();
-	printedUsage = true;
 	exit(1);
       }
     }
@@ -403,7 +394,7 @@ int main(int argc, char **argv)
     std::vector<double> molNum(30);
     std::vector<double> ydot(30);
     int nT = 500;
-    double Tinitial = 0.0;
+    //double Tinitial = 0.0;
     double Tfinal = 0.0;
     double Tout = 0.0;
     for (int itimes = 0; itimes < nT; itimes++) {
@@ -411,7 +402,7 @@ int main(int argc, char **argv)
       Tout = integ->step(10.);
 
       iface->getMoleNumSpecies(DATA_PTR(molNum));
-      Tinitial = Tfinal;
+      //Tinitial = Tfinal;
 
 
       double *y = integ->solution();
