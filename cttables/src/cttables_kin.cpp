@@ -676,7 +676,7 @@ void printKineticsTable(PhaseList *pl, int j,
       printf("Electron_Transfer Base_Potential |");
     }
     printf("\n");
-    for (int iph = 0; iph < rmc->m_nPhases; iph++) {
+    for (size_t iph = 0; iph < rmc->m_nPhases; iph++) {
       ThermoPhase &tpRef = kin.thermo(iph);
       string sname = tpRef.name();
       dnt(2);
@@ -1992,7 +1992,7 @@ void printGERKineticsTable(PhaseList *pl, int iGER,
     printf("Electron_Transfer Base_Potential |");
   }
   printf("\n");
-  for (int iph = 0; iph < rmc->m_nPhases; iph++) {
+  for (size_t iph = 0; iph < rmc->m_nPhases; iph++) {
     ThermoPhase &tpRef = kin.thermo(iph);
     string sname = tpRef.name();
     dnt(2);
