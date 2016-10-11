@@ -8,7 +8,6 @@
     </elementArray>
     <speciesArray datasrc="#species_FeS2(S)"> FeS2_A(S) </speciesArray>
     <thermo model="StoichSubstance">
-      <density units="g/cm3"> 5.013581 </density>
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
