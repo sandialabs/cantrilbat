@@ -1553,7 +1553,7 @@ void ReactingSurDomain::getDeltaSSEnthalpy(doublereal* deltaH)
 }
 //=======================================================================================================================
 // Modification for OCV override when called for
-void ReactingSurDomain::getDeltaSSGibbs(doublereal* deltaG)
+void ReactingSurDomain::getDeltaSSGibbs(doublereal* deltaGSS)
 {
     /*
      *  Get the standard state gibbs free energy of the species.
@@ -1570,7 +1570,15 @@ void ReactingSurDomain::getDeltaSSGibbs(doublereal* deltaG)
     /*
      * Use the stoichiometric manager to find deltaG for each reaction.
      */
-    getReactionDelta(DATA_PTR(m_mu0), deltaG);  
+    getReactionDelta(DATA_PTR(m_mu0), m_deltaG0.data());
+    /*
+     *  If we input deltaGSS = 0, then we are done. We are using internal storage for this value
+     */
+    if (deltaGSS != 0 && (DATA_PTR(m_deltaG0) != deltaGSS)) {
+        for (size_t j = 0; j < m_ii; ++j) {
+            deltaGSS[j] = m_deltaG0[j];
+        }
+    }
 }
 //==================================================================================================================================
 void ReactingSurDomain::getDeltaSSEntropy(doublereal* deltaS)
