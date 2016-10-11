@@ -58,7 +58,7 @@ retnStat=$?
 if test $retnStat != "0"
 then
   temp_success="0"
-  echo "MCMBThermo returned with bad status, $retnStat, check output"
+  echo "MCMB returned with bad status, $retnStat, check output"
 fi
 
 diff MCMB_blessed.out MCMB.out > diff_tout.txt
