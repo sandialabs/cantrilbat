@@ -26,6 +26,9 @@ namespace Cantera
 /*!
  * Complete problem statement
  *
+ *  This class is responsible for the formation of a complete set of differential equations describing how an electrode
+ *  object evolves in time.
+ *
  */
 class GFCEO_Electrode : public ZZCantera::ResidJacEval
 {
@@ -56,14 +59,13 @@ public:
      */
     GFCEO_Electrode& operator=(const GFCEO_Electrode& right);
 
-    //! Returns a changeable reference to the electrode object
+    //! Returns a changeable reference to the underlying electrode object
     /*!
      *  @return                         Returns a changeable reference to the electrode object
      */
     Electrode& electrode();
 
-
-  //! Return the number of equations in the equation system
+    //! Return the number of equations in the equation system
     /*!
      *  @return                                        Returns the number of equations in the equation system
      */
@@ -162,7 +164,7 @@ public:
     virtual int getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot);
 
 
-  //! Filter the solution predictions
+    //! Filter the solution predictions
     /*!
      * Codes might provide a predicted step change. This routine filters the predicted
      * solution vector eliminating illegal directions.
@@ -267,7 +269,7 @@ public:
                                 const doublereal* const y_old, doublereal* const yScales);
 
 
- //! This function may be used to create output at various points in the execution of an application.
+    //! This function may be used to create output at various points in the execution of an application.
     /*!
      *  @param ifunc     identity of the call
      *                          0  Initial call
@@ -294,9 +296,7 @@ public:
      * @param y             Solution vector (input, do not modify)
      * @param ydot          Rate of change of solution vector. (input)
      */
-    virtual void user_out(const int ifunc, const doublereal t,
-                          const doublereal* y,
-                          const doublereal* ydot);
+    virtual void user_out(const int ifunc, const doublereal t, const doublereal* y, const doublereal* ydot);
 
     //! Multiply the matrix by another matrix that leads to better conditioning
     /*!
@@ -365,7 +365,7 @@ public:
                                doublereal* const resid);
 
      
- //!      Write out to a file or to standard output the current solution
+    //!      Write out to a file or to standard output the current solution
     /*!
      *  @param[in]     ievent                  a description of the event that caused this function to be called.
      *  @param[in]     time                    Time
@@ -377,7 +377,6 @@ public:
      */
     virtual void writeSolution(int ievent, const double time, const double deltaT,  const int time_step_num,
                                const double* const y, const double* const ydot);
-
 
 
 

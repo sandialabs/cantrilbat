@@ -145,7 +145,7 @@ porousLiKCl_dom1D::domain_prep(LocalNodeIndices *li_ptr)
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
-    double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+    //double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
 
     /*
      * Figure out what the mass of the separator is

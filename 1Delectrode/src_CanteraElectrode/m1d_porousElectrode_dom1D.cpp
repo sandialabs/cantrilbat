@@ -30,9 +30,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(BDD_porousElectrode* bdd_pe_ptr) :
     nEnthalpy_Electrode_New_Cell_(0),
     nEnthalpy_Electrode_Old_Cell_(0),
     nVol_zeroStress_Electrode_Cell_(0),
-    nVol_zeroStress_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
-    EnthalpyPhiPM_metal_Curr_(0)
+    metalPhase_(0)
 {
     // assign the BDD_porousElectrode object pointer associated with this child object to a dedicated variable
     //BDD_PE_ptr_ = static_cast<BDD_porousElectrode*>(&BDD_);
@@ -57,9 +56,8 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
     nEnthalpy_Electrode_New_Cell_(0),
     nEnthalpy_Electrode_Old_Cell_(0),
     nVol_zeroStress_Electrode_Cell_(0),
-    nVol_zeroStress_Electrode_Old_Cell_(0),
     jFlux_EnthalpyPhi_metal_trCurr_(0.0),
-    EnthalpyPhiPM_metal_Curr_(0)
+    metalPhase_(0)
 {
     operator=(r);
 }

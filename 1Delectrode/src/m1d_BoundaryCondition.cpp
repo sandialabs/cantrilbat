@@ -286,13 +286,13 @@ void BCsteptable::useXML(XML_Node& bcNode)
 
 
     //get dependentVar
-    XML_Node& depVarNode = bcNode.child("dependentVar");
+    //XML_Node& depVarNode = bcNode.child("dependentVar");
     ZZctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
     //getNamedFloatArray(depVarNode, depenVals_, convert, depenUnits_);
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
-        XML_Node& compVarNode = bcNode.child("compareVar");
+        //XML_Node& compVarNode = bcNode.child("compareVar");
         //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
         ZZctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
@@ -471,13 +471,13 @@ void BClineartable::useXML(XML_Node& bcNode)
     ZZctml::getFloatArray(bcNode, indepVals_, true, "", "independentVar");
 
     //get dependentVar
-    XML_Node& depVarNode = bcNode.child("dependentVar");
+    //XML_Node& depVarNode = bcNode.child("dependentVar");
     //getFloatArray(depVarNode, depenVals_, convert, depenUnits_);
     ZZctml::getFloatArray(bcNode, depenVals_, true, "", "dependentVar");
 
     //get compareVar
     if (bcNode.hasChild("compareVar")) {
-        XML_Node& compVarNode = bcNode.child("compareVar");
+        //XML_Node& compVarNode = bcNode.child("compareVar");
         //getFloatArray(compVarNode, compareVals_, convert, compareUnits_);
         ZZctml::getFloatArray(bcNode, compareVals_, true, "", "compareVar");
     }
