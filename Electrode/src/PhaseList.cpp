@@ -16,16 +16,15 @@
 #include <new>
 
 using namespace std;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-
-/**************************************************************************
- *
+//==================================================================================================================================
+/*
  * Constructors:
  *
  *   Allow for the initialization of one volumetric phase during
@@ -55,14 +54,11 @@ PhaseList::PhaseList(bool ownership) :
     PhaseNames_(0),
     m_numElements(0),
     m_PhaseSpeciesStartIndex(0),
-    IOwnPhasePointers(ownership),
-    m_GlobalElementObj(0)
+    IOwnPhasePointers(ownership)
 {
     m_PhaseSpeciesStartIndex.resize(1, 0);
-    m_GlobalElementObj = new Elements();
 }
-
-//================================================================================================
+//==================================================================================================================================
 PhaseList::~PhaseList()
 {
     if (IOwnPhasePointers) {
@@ -77,11 +73,8 @@ PhaseList::~PhaseList()
             delete EdgePhaseList[i];
         }
     }
-    if (m_GlobalElementObj) {
-        delete m_GlobalElementObj;
-    }
 }
-//================================================================================================
+//==================================================================================================================================
 PhaseList::PhaseList(const PhaseList& right) :
     m_NumTotPhases(0),
     m_NumTotSpecies(0),
@@ -100,21 +93,14 @@ PhaseList::PhaseList(const PhaseList& right) :
     PhaseList_(0),
     PhaseNames_(0),
     m_numElements(0),
-    IOwnPhasePointers(true),
-    m_GlobalElementObj(0)
+    IOwnPhasePointers(true)
 {
     /*
      * Call the assignment operator
      */
     PhaseList::operator=(right);
 }
-//================================================================================================
-/*
- * operator=()
- *
- *  Note this stuff will not work until the underlying phase
- *  has a working assignment operator
- */
+//==================================================================================================================================
 PhaseList& PhaseList::operator=(const PhaseList& right)
 {
     size_t i;
@@ -143,10 +129,6 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
             delete EdgePhaseList[i];
             EdgePhaseList[i] = 0;
         }
-    }
-    if (m_GlobalElementObj) {
-        delete m_GlobalElementObj;
-        m_GlobalElementObj = 0;
     }
 
     /*
@@ -223,10 +205,10 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     IOwnPhasePointers = right.IOwnPhasePointers;
 
-    if (m_GlobalElementObj) {
-        delete m_GlobalElementObj;
-    }
-    m_GlobalElementObj = new Elements(*(right.m_GlobalElementObj));
+    m_GlobalElementObj = right.m_GlobalElementObj;
+    m_atoms = right.m_atoms;
+    m_globalToLocalEMap = right.m_globalToLocalEMap;
+    m_localToGlobalEMap = right.m_localToGlobalEMap;
 
     PhaseList_.resize(m_NumTotPhases);
     PhaseNames_.resize(m_NumTotPhases);
@@ -246,7 +228,6 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
 
     return *this;
 }
-
 //==================================================================================================================================
 ZZCantera::ThermoPhase* PhaseList::
 addVolPhase(const std::string& canteraFile, const std::string& phaseID)
@@ -324,9 +305,9 @@ addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase)
                 throw CanteraError("PhaseList::addVolPhase()", "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
             }
         }
-        string tname = vp->name();
+        std::string tname = vp->name();
         for (size_t k = 0; k < m_NumTotPhases; k++) {
-            string pname = PhaseList_[k]->name();
+            std::string pname = PhaseList_[k]->name();
             if (tname == pname) {
                 throw CanteraError("PhaseList::addVolPhase()", "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
             }
@@ -388,11 +369,14 @@ addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase)
      */
     size_t numE = vp->nElements();
     for (size_t e = 0; e < numE; e++) {
-        string symb1 = vp->elementName(e);
-        double weight1 = vp->atomicWeight(e);
-        m_GlobalElementObj->addUniqueElement(symb1, weight1);
+        std::string symb1 = vp->elementName(e);
+        doublevalue weight1 = vp->atomicWeight(e);
+        int an = vp->atomicNumber(e);
+        doublevalue entropy298 = vp->entropyElement298(e, true);
+        int eType = vp->elementType(e);
+        m_GlobalElementObj.addUniqueElement(symb1, weight1, an, entropy298, eType);
     }
-    m_numElements = m_GlobalElementObj->nElements();
+    m_numElements = m_GlobalElementObj.nElements();
 
     /*
      * Check to see whether the phase has a kinetics object
@@ -405,7 +389,6 @@ addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase)
             VolPhaseHasKinetics[NumVolPhases_-1] = 1;
         }
     }
-
 
     PhaseList_.resize(m_NumTotPhases);
     PhaseNames_.resize(m_NumTotPhases);
@@ -424,9 +407,10 @@ addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase)
         PhaseNames_[i + istart] = EdgePhaseList[i]->name();
     }
 
+    calcElementMaps(true); 
+
     vp->realNumberRangeBehavior_ = DONOTHING_CTRB;
     vp->realNumberRangeBehavior_ = CHANGE_OVERFLOW_CTRB;
-
 }
 //==================================================================================================================================
 /*
@@ -446,16 +430,16 @@ addSurPhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* sPhase)
     // Check for incompatibilities
     if (m_NumTotPhases > 0) {
         for (size_t k = 0; k < sp->nSpecies(); k++) {
-            string sname = sp->speciesName(k);
+            std::string sname = sp->speciesName(k);
             size_t gindex = globalSpeciesIndex(sname);
             if (gindex != npos) {
                 throw CanteraError("PhaseList::addSurPhase()",
                                    "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
             }
         }
-        string tname = sp->name();
+        std::string tname = sp->name();
         for (size_t k = 0; k < m_NumTotPhases; k++) {
-            string pname = PhaseList_[k]->name();
+            std::string pname = PhaseList_[k]->name();
             if (tname == pname) {
                 throw CanteraError("PhaseList::addSurPhase()",
                                    "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
@@ -513,11 +497,14 @@ addSurPhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* sPhase)
      */
     size_t numE = sp->nElements();
     for (size_t e = 0; e < numE; e++) {
-        string symb1 = sp->elementName(e);
-        double weight1 = sp->atomicWeight(e);
-        m_GlobalElementObj->addUniqueElement(symb1, weight1);
+        std::string symb1 = sp->elementName(e);
+        doublevalue weight1 = sp->atomicWeight(e);
+        int an = sp->atomicNumber(e);
+        doublevalue entropy298 = sp->entropyElement298(e, true);
+        int eType = sp->elementType(e);
+        m_GlobalElementObj.addUniqueElement(symb1, weight1, an, entropy298, eType);
     }
-    m_numElements = m_GlobalElementObj->nElements();
+    m_numElements = m_GlobalElementObj.nElements();
 
     /*
      * Check to see whether the phase has a kinetics object
@@ -526,7 +513,7 @@ addSurPhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* sPhase)
     SurPhaseHasKinetics[m_NumSurPhases-1] = 0;
     if (sPhase->hasChild("kinetics")) {
         const XML_Node& kinNode = sPhase->child("kinetics");
-        string smodel = kinNode["model"];
+        std::string smodel = kinNode["model"];
         if (smodel != "" && smodel != "none" && smodel != "None") {
             SurPhaseHasKinetics[m_NumSurPhases-1] = 1;
         }
@@ -547,6 +534,9 @@ addSurPhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* sPhase)
         PhaseList_[i + istart] = SurPhaseList[i];
         PhaseNames_[i + istart] = SurPhaseList[i]->name();
     }
+
+    calcElementMaps(true); 
+
 }
 //==================================================================================================================================
 void PhaseList::
@@ -557,16 +547,16 @@ addEdgePhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* ePhase)
     // Check for incompatibilities
     if (m_NumTotPhases > 0) {
         for (size_t k = 0; k < sp->nSpecies(); k++) {
-            string sname = sp->speciesName(k);
+            std::string sname = sp->speciesName(k);
             size_t gindex = globalSpeciesIndex(sname);
             if (gindex != npos) {
                 throw CanteraError("PhaseList::addEdgePhase()",
                                    "Species name, " + sname + " is a duplicated in different ThermoPhases\n");
             }
         }
-        string tname = sp->name();
+        std::string tname = sp->name();
         for (size_t k = 0; k < m_NumTotPhases; k++) {
-            string pname = PhaseList_[k]->name();
+            std::string pname = PhaseList_[k]->name();
             if (tname == pname) {
                 throw CanteraError("PhaseList::addEdgePhase()",
                                    "phase name, " + tname + " is a duplicated for different ThermoPhases\n");
@@ -612,11 +602,14 @@ addEdgePhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* ePhase)
      */
     size_t numE = sp->nElements();
     for (size_t e = 0; e < numE; e++) {
-        string symb1 = sp->elementName(e);
-        double weight1 = sp->atomicWeight(e);
-        m_GlobalElementObj->addUniqueElement(symb1, weight1);
+        std::string symb1 = sp->elementName(e);
+        doublevalue weight1 = sp->atomicWeight(e);
+        int an = sp->atomicNumber(e);
+        doublevalue entropy298 = sp->entropyElement298(e, true);
+        int eType = sp->elementType(e);
+        m_GlobalElementObj.addUniqueElement(symb1, weight1, an, entropy298, eType);
     }
-    m_numElements = m_GlobalElementObj->nElements();
+    m_numElements = m_GlobalElementObj.nElements();
 
     /*
      * Check to see whether the phase has a kinetics object
@@ -625,7 +618,7 @@ addEdgePhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* ePhase)
     EdgePhaseHasKinetics[m_NumEdgePhases-1] = 0;
     if (ePhase->hasChild("kinetics")) {
         const XML_Node& kinNode = ePhase->child("kinetics");
-        string smodel = kinNode["model"];
+        std::string smodel = kinNode["model"];
         if (smodel != "" && smodel != "none" && smodel != "None") {
             EdgePhaseHasKinetics[m_NumEdgePhases-1] = 1;
         }
@@ -638,6 +631,9 @@ addEdgePhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* ePhase)
         PhaseList_[i + istart] = EdgePhaseList[i];
         PhaseNames_[i + istart] = EdgePhaseList[i]->name();
     }
+
+    calcElementMaps(true); 
+
 }
 //==================================================================================================================================
 /*
@@ -692,13 +688,9 @@ std::string PhaseList::phaseName(size_t globalPhaseIndex) const
 //==================================================================================================================================
 size_t PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
 {
-    size_t vi = getVolPhaseIndex(tp);
-    if (vi != npos) {
-        return vi;
-    } else {
-        size_t si = getSurPhaseIndex(tp);
-        if (si != npos) {
-            return NumVolPhases_ + si;
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
+        if (tp == PhaseList_[i]) {
+            return i;
         }
     }
     return npos;
@@ -707,7 +699,7 @@ size_t PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
 size_t PhaseList::globalPhaseIndex(const std::string& phaseName, bool phaseIDAfter) const
 {
     size_t ip;
-    string pname;
+    std::string pname;
     const ThermoPhase* tp_ptr;
     for (ip = 0; ip < m_NumTotPhases; ip++) {
         tp_ptr = PhaseList_[ip];
@@ -730,17 +722,11 @@ size_t PhaseList::globalPhaseIndex(const std::string& phaseName, bool phaseIDAft
 //==================================================================================================================================
 size_t PhaseList::getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
 {
-    size_t iphase = getVolPhaseIndex(ttp);
-    if (iphase != npos) {
-        return getGlobalSpeciesIndex(iphase, k);
-    }
+    size_t iphase = getGlobalPhaseIndex(ttp);
     if (iphase == npos) {
-        iphase = getSurPhaseIndex(ttp);
-        if (iphase == npos) {
-            throw CanteraError("PhaseList::getGlobalSpeciesIndex()", " error could not find phase index ");
-        }
+         throw CanteraError("PhaseList::getGlobalSpeciesIndex()", " error could not find phase index ");
     }
-    return getGlobalSpeciesIndex(iphase + NumVolPhases_, k);
+    return getGlobalSpeciesIndex(iphase, k);
 }
 //==================================================================================================================================
 size_t PhaseList::globalSpeciesIndex(const std::string& speciesName, const std::string phaseName) const
@@ -862,8 +848,8 @@ getLocalIndecisesFromGlobalSpeciesIndex(size_t globalSpeciesIndex, size_t& phase
 static bool ThermoPhasesTheSameNames(const ThermoPhase* const tpA, const ThermoPhase* const tpB)
 {
     // Check the id() attribute of the phase to see that it is the same
-    string sna = tpA->id();
-    string snb = tpB->id();
+    std::string sna = tpA->id();
+    std::string snb = tpB->id();
     if (sna != snb) {
 	return false;
     }
@@ -967,8 +953,8 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 	int numBestAgreement = 0;
 	int numCurrentAgreement = 0;
 	const ThermoPhase* tpa = VolPhaseList[i];
-	string ida = tpa->id();
-	string pna = tpa->name();
+	std::string ida = tpa->id();
+	std::string pna = tpa->name();
 	int iEOSa = tpa->eosType();
 	const std::vector<std::string>&  sNa_list = tpa->speciesNames();
 	for (size_t iGuest =  0; i <  plGuest->NumVolPhases_; ++i) {
@@ -1196,19 +1182,19 @@ PhaseList::thermo(const std::string& phaseName) const
 //==================================================================================================================================
 const Elements* PhaseList ::getGlobalElements() const
 {
-    return m_GlobalElementObj;
+    return &m_GlobalElementObj;
 }
 //==================================================================================================================================
 std::string
 PhaseList::elementName(size_t e) const
 {
-    return m_GlobalElementObj->elementName(e);
+    return m_GlobalElementObj.elementName(e);
 }
 //==================================================================================================================================
 size_t
 PhaseList::elementIndex(const std::string& elemName) const
 {
-    return m_GlobalElementObj->elementIndex(elemName);
+    return m_GlobalElementObj.elementIndex(elemName);
 }
 //==================================================================================================================================
 size_t PhaseList::nElements() const
@@ -1224,6 +1210,37 @@ XML_Node* PhaseList::surPhaseXMLNode(size_t iSurIndex) const
 XML_Node* PhaseList::edgePhaseXMLNode(size_t iEdgeIndex) const
 {
     return EdgePhaseXMLNodes[iEdgeIndex];
+}
+//==================================================================================================================================
+size_t PhaseList::localToGlobalElementIndex(size_t globPhaseIndex, size_t mLocalIndex)
+{
+#ifdef DEBUG_MODE
+    if (globPhaseIndex >= PhaseList_.size()) {
+        throw CanteraError("PhaseList::localToGlobalElementIndex()", "phase index is out of range");
+    }
+    if (mLocalIndex >= PhaseList_[globPhaseIndex]->nElements()) {
+        throw CanteraError("PhaseList::localToGlobalElementIndex()", "element index is out of range");
+    }
+#endif
+    return m_localToGlobalEMap[globPhaseIndex][mLocalIndex];
+}
+//==================================================================================================================================
+size_t PhaseList::globalToLocalElementIndex(size_t globPhaseIndex, size_t mGlobalIndex)
+{
+#ifdef DEBUG_MODE
+    if (globPhaseIndex >= PhaseList_.size()) {
+        throw CanteraError("PhaseList::globalToLocalElementIndex()", "phase index is out of range");
+    }
+    if (mGlobalIndex >= m_GlobalElementObj.nElements()) {
+        throw CanteraError("PhaseList::globalToLocalElementIndex()", "element index is out of range");
+    }
+#endif
+    return m_globalToLocalEMap(mGlobalIndex, globPhaseIndex);
+}
+//====================================================================================================================
+doublevalue PhaseList::nAtoms(const size_t kGlob, const size_t eGlob) const
+{
+      return m_atoms(eGlob, kGlob);
 }
 //====================================================================================================================
 XML_Node* PhaseList::volPhaseXMLNode(size_t iVolIndex) const
@@ -1344,6 +1361,55 @@ void PhaseList::setState_TP(doublevalue temperature, doublevalue pressure)
         tp->setState_TP(temperature, pressure);
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
+void PhaseList::calcElementMaps(bool forceAll)
+{
+    bool redoAll = forceAll;
+    if (m_globalToLocalEMap.nRows() != m_numElements) {
+        redoAll = true;
+    }
+    m_globalToLocalEMap.resize(m_numElements, m_NumTotPhases);
+    m_localToGlobalEMap.resize(m_NumTotPhases);
+    ThermoPhase* tp;
+    std::string ename;
+    size_t eGlob, eLoc;
+    size_t eGtot = m_GlobalElementObj.nElements();
+
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+        std::vector<size_t> localEmap;
+        tp = PhaseList_[iph];
+        for (eLoc = 0; eLoc < tp->nElements(); ++eLoc) {
+            ename = tp->elementName(eLoc);
+            eGlob = m_GlobalElementObj.elementIndex(ename); 
+            localEmap.push_back(eGlob);
+        }
+        m_localToGlobalEMap[iph] = localEmap;
+        for (size_t eGlob = 0; eGlob < eGtot; eGlob++) {
+            ename = m_GlobalElementObj.elementName(eGlob);
+            eLoc = tp->elementIndex(ename); 
+            m_globalToLocalEMap(eGlob,iph) = eLoc;
+        }
+    }
+
+    // Fill in the m_atoms matrix from the underlying ThermoPhases
+    m_atoms.resize(m_numElements, m_NumTotSpecies, 0.0);
+    for (eGlob = 0; eGlob < eGtot; eGlob++) {
+        size_t kGlob = 0;
+        // iterate over the phases
+        for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+            tp =PhaseList_[iph];
+            eLoc = m_globalToLocalEMap(eGlob, iph);
+            for (size_t kp = 0; kp < tp->nSpecies(); kp++) {
+                if (eLoc != npos) {
+                    m_atoms(eGlob, kGlob) = tp->nAtoms(kp, eLoc);
+                } else {
+                    m_atoms(eGlob,kGlob) = 0.0;
+                }
+                kGlob++;
+            }
+        }
+    }
 }
-//======================================================================================================================
+//==================================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------

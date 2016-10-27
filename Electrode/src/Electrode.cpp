@@ -3528,7 +3528,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     phaseVoltages_[metalPhase_] = phiMetalInit;
     ERxn = phiMetalRxn - phaseVoltages_[solnPhase_];
 
-    for (int iph = 0; iph < rmc->m_nPhases; iph++) {
+    for (size_t iph = 0; iph < rmc->m_nPhases; iph++) {
         rsd->setPhaseExistence(iph, phaseExistsInit[iph]);
         rsd->setPhaseStability(iph, phaseStabInit[iph]);
         if (printLvl_ > printDebug) {

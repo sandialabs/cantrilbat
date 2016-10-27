@@ -4,7 +4,6 @@
  * class \link Zuzax::PhaseList PhaseList\endlink).
  */
 
-
 #ifndef CT_PHASELIST_H
 #define CT_PHASELIST_H
 
@@ -12,6 +11,7 @@
 #include "cantera/thermo/ThermoPhase.h"
 #include "cantera/thermo/Elements.h"
 #include "cantera/base/config.h"
+#include "cantera/base/Array.h"
 
 #ifdef useZuzaxNamespace 
 namespace  Zuzax
@@ -286,7 +286,7 @@ public:
      */
     ThermoPhase* getPhase(const std::string& phaseName) const;
 
-    //! Get the name of the phase given its global id
+    //! Get the name of the phase given its global phase index
     /*!
      * @param globPhaseIndex     global phase Index of the volume or surface Phase.
      *
@@ -376,7 +376,7 @@ public:
      */
     size_t getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const;
 
-    //!  Get the local species and global phase index  given the global species index
+    //!  Get the local species and global phase index given the global species index
     /*!
      *      @param[in]    globalSpeciesIndex          Global species index
      *      @param[out]   phaseIndex                  On return this contains the global phase index
@@ -482,6 +482,33 @@ public:
      *  @return   Returns the number of elements in all of the phases, combined.
      */
     size_t nElements() const;
+
+    //! Returns the global element index given the local index
+    /*!
+     *  @param[in]           globalPhaseIndex    global Phase Index
+     *  @param[in]           mLocalIndex         local element index within the phase
+     *
+     *  @return                                  Returns the global element index
+     */
+    size_t localToGlobalElementIndex(size_t globPhaseIndex, size_t mLocalIndex);
+
+    //! Returns the local element index within the phase given the global phase index 
+    /*!
+     *  @param[in]           globalPhaseIndex    global Phase Index
+     *  @param[in]           mLocalIndex         local element index within the phase
+     *
+     *  @return                                  Returns the local element index. If not present it returns npos
+     */
+    size_t globalToLocalElementIndex(size_t globPhaseIndex, size_t mGlobalIndex);
+
+    //! Returns the Number of atoms of global element \a eGlob in global species \a kGlob.
+    /*!
+     *  @param[in]           kGlob               global species index
+     *  @param[in]           eGlob               global element index
+     *
+     *  @return                                  returns the number of atoms.
+     */
+    doublevalue nAtoms(const size_t kGlob, const size_t eGlob) const;
 
     //! Return a pointer to the volume phase XML Node for a single volume phase
     /*!
@@ -621,6 +648,11 @@ public:
      */
     void setState_TP(doublevalue temperature, doublevalue pressure);
 
+    //! Recalculate the maps from local to global elements
+    /*!
+     * @param[in]             forceAll            Force the recalculation from scratch
+     */
+    void calcElementMaps(bool forceAll);
 
     /***********************************************************************/
     /*                BASIC INDEXING DATA                                  */
@@ -684,10 +716,10 @@ protected:
     //! Vector of phase names in the problem
     std::vector<std::string> PhaseNames_;
 
-    //! Number of elements in all of the phases.
+    //! Number of unique elements in all of the phases.
     /*!
-     * Note, we do not require all element objects have the same number of elements and the
-     * same ordering of elements.
+     * Note, we do not require all element objects have the same number of elements and the same ordering of elements.
+     * 
      */
     size_t m_numElements;
 
@@ -717,8 +749,37 @@ private:
      */
     bool IOwnPhasePointers;
 
-    //! Pointer to the element object that represents all of the elements within all of the phases owned by this object
-    Elements* m_GlobalElementObj;
+    //! Element object that represents all of the elements within all of the phases owned by this object
+    Elements m_GlobalElementObj;
+
+    //! Global Stoichiometric Coefficient array
+    /*!
+     *  This is a two dimensional array m_atoms(m, k). The first index is the
+     *  global element index for the element in m_GlobalElementObj. The second index, k, is the global species
+     *  index. The value is the number of atoms of type m in species k.
+     */
+    Array2D m_atoms;
+
+    //! Global to local mapping of the Element index constraints
+    /*!
+     * Has a size of ( m_numElements, m_NumTotPhases).
+     * The local element index in the global phase index corresponding to the global element index is given via:
+     *
+     *   m_globalToLocalEMap(mGlobalIndex, globPhaseIndex);
+     *
+     * If a phase doesn't have an element, the entry contains npos
+     */ 
+    Array2D m_globalToLocalEMap;
+
+    //! Mapping between the local element index and the global element index
+    /*!
+     *  Outer vector is over m_NumTotPhases. The inner vector is over the number of local elements
+     *
+     *  The following returns the global element index:
+     *
+     *    m_localToGlobalEMap[globPhaseIndex][mLocalIndex];
+     */
+    std::vector< std::vector<size_t> >  m_localToGlobalEMap;
 };
 //==================================================================================================================================
 }
