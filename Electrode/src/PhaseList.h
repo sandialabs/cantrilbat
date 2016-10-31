@@ -96,15 +96,24 @@ public:
      */
     PhaseList& operator=(const PhaseList& right);
 
+    //! Returns whether the PhaseList is ordered by dimensionality
+    /*!
+     *  @return                                  Returns whether the phase is ordered by dimensions
+     */
+    bool orderedByDims() const;
+ 
     //!   Add a volumetric phase to the list of phases held by this object
     /*!
      *  @param[in]     vp                      Previously initialized ThermoPhase object to be added to PhaseList
      *  @param[in]     vNode                   XML_Node pointer to the phase XML Node for the current object
+     *
+     *   @param[in]          orderByDims         If true, the the volume phase will be placed at the end of the volume phases
+     *                                           and before surface and edge phases. Defaults to true.
      */
 #ifdef useZuzaxNamespace
-    void addVolPhase(Zuzax::ThermoPhase* const vp, Zuzax::XML_Node* vNode = 0);
+    void addVolPhase(Zuzax::ThermoPhase* const vp, Zuzax::XML_Node* vNode = 0, bool orderByDims = true);
 #else
-    void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode = 0);
+    void addVolPhase(Cantera::ThermoPhase* const vp, Cantera::XML_Node* vNode = 0, bool orderByDims = true);
 #endif
 
     //!  Add a phase to the list of phases held by this object
@@ -137,12 +146,15 @@ public:
      *   @param[in]    volID               String containing the ID() of the volume phase to be added. The default is "".
      *                                     If the default is used, the first volume phase in the file is used.
      *
+     *   @param[in]          orderByDims         If true, the the volume phase will be placed at the end of the volume phases
+     *                                           and before surface and edge phases. Defaults to true.
+     *
      *  @return                            Returns a pointer to the ThermoPhase object
      */
 #ifdef useZuzaxNamespace
-    Zuzax::ThermoPhase* addVolPhase(const std::string& canteraFile, const std::string& volID = "");
+    Zuzax::ThermoPhase* addVolPhase(const std::string& canteraFile, const std::string& volID = "", bool orderByDims = true);
 #else
-    Cantera::ThermoPhase* addVolPhase(const std::string& canteraFile, const std::string& volID = "");
+    Cantera::ThermoPhase* addVolPhase(const std::string& canteraFile, const std::string& volID = "", bool orderByDims = true);
 #endif
 
     //! Add a surface phase to the list of surfaces within the object.
@@ -376,6 +388,17 @@ public:
      */
     size_t getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const;
 
+    //! Returns the dimensional phase index given the global phase index
+    /*!
+     *   @param[in]          iphGlob             Global phase index
+     *   @param[out]         dimPtr              Pointer to an int, which on return contains the global dimension
+     *
+     *   @return                                 Returns the dimensional index of the phase 
+     *                                           In other words if iphGlob is the second volume phase in the list
+     *                                           then it returns 1 and *dimPtr= 3
+     */
+    size_t dimPhaseIndexFromGlobalPhaseIndex(size_t iphGlob, int *dimPtr = 0);
+
     //!  Get the local species and global phase index given the global species index
     /*!
      *      @param[in]    globalSpeciesIndex          Global species index
@@ -459,19 +482,19 @@ public:
      */
     const Elements* getGlobalElements() const;
 
-    //! Return the element name of the eth element
+    //! Return the element name of the eth global element
     /*!
-     *  @param[in]       e             element index
+     *  @param[in]           eGlob               element index
      *  
-     *  @return                        String Name of the element
+     *  @return                                  String Name of the element
      */
-    std::string elementName(size_t e) const;
+    std::string elementName(size_t eGlob) const;
 
     //!       Index number of an element given its name
     /*!
-     *    @param[in]           elementName              String name of the element
-     *
-     *    @return                                       returns the element index of the element.
+     *    @param[in]           elementName       String name of the element
+     * 
+     *    @return                                returns the element index of the element.
      */
     size_t elementIndex(const std::string& elementName) const;
 
@@ -479,7 +502,7 @@ public:
     /*!
      * Note, we do not require all element objects have the same number of elements and the same ordering of elements.
      *
-     *  @return   Returns the number of elements in all of the phases, combined.
+     *  @return Returns the number of elements in all of the phases, combined.
      */
     size_t nElements() const;
 
@@ -606,7 +629,7 @@ public:
      */
     size_t nSpecies() const;
 
-    //! Boolean indicating whether a volume phase has a kinetics object
+    //! Boolean indicating whether a volume phase has a kinetics object associated with it
     /*!
      *    @param[in]    iVolIndex          volume phase index 
      *
@@ -614,7 +637,7 @@ public:
      */
     bool volPhaseHasKinetics(size_t iVolIndex) const ;
 
-    //! Boolean indicating whether a surface phase has a surface kinetics object
+    //! Boolean indicating whether a surface phase has a surface kinetics object associated with it
     /*!
      *    @param[in]    iSurIndex          surface phase index 
      *
@@ -622,7 +645,7 @@ public:
      */
     bool surPhaseHasKinetics(size_t iSurIndex) const ;
     
-    //! Boolean indicating whether a edge phase has a edge kinetics object
+    //! Boolean indicating whether a edge phase has a edge kinetics object associated with it
     /*!
      *    @param[in]    iEdgeIndex         edge phase index 
      *
@@ -632,7 +655,7 @@ public:
 
     //! Return the species name given the global species index
     /*!
-     *  @param iGlobSpeciesIndex   global species index within the PhaseList object
+     *  @param[in]           iGlobSpeciesIndex   global species index within the PhaseList object
      *
      *  @return returns the species name
      */
@@ -643,14 +666,14 @@ public:
      *  Calls the underlying function \link Zuzax::ThermoPhase::setState_TP() setState_TP() \endlink
      *  for all phases in the group.
      *
-     *   @param[in] temperature     Temperature in Kelvin
-     *   @param[in] pressure        pressure in pascals
+     *   @param[in]          temperature         Temperature in Kelvin
+     *   @param[in]          pressure            pressure in pascals
      */
     void setState_TP(doublevalue temperature, doublevalue pressure);
 
     //! Recalculate the maps from local to global elements
     /*!
-     * @param[in]             forceAll            Force the recalculation from scratch
+     *  @param[in]           forceAll            Force the recalculation from scratch
      */
     void calcElementMaps(bool forceAll);
 
@@ -658,6 +681,16 @@ public:
     /*                BASIC INDEXING DATA                                  */
     /***********************************************************************/
 protected:
+
+    //! If true, then the phase are ordered by their dimensionality. This is the default
+    /*!
+     *  If this is true, then the phases are ordered by their dimensionality. All volume phases
+     *  are first in PhaseList_. Then the surface phases come next. Then, the edge phases are last.
+     *
+     *  If false, then the PhaseList_[] order is mixed up. It's still true that the order of the volume
+     *  phases within it's own list is ordered according to where they appear in the PhaseList_ []vector.
+     */
+    bool  m_OrderedByDimensionality;
 
     //! Total number of volume and surface phases defined in the object
     size_t m_NumTotPhases;
@@ -678,6 +711,9 @@ protected:
     std::vector<XML_Node*> VolPhaseXMLNodes;
 
     //! Boolean vector indicating whether each volume phase has kinetics
+    /*!
+     *  Length is equal to the number of volume phases
+     */
     std::vector<int> VolPhaseHasKinetics;
 
     //! Number of surface phases
@@ -714,6 +750,9 @@ protected:
     std::vector<ThermoPhase*> PhaseList_;
 
     //! Vector of phase names in the problem
+    /*!
+     *  This is the string returned from the name() member function of %ThermoPhase.
+     */
     std::vector<std::string> PhaseNames_;
 
     //! Number of unique elements in all of the phases.
@@ -729,12 +768,6 @@ protected:
      */
     std::vector<size_t> m_PhaseSpeciesStartIndex;
 
-    //! Name of the file containing the first surface phase encountered
-    //std::string CanteraFNSurface;
-
-    /*********************************************************************
-     *       DERIVED DATA THAT DEPEND ON INDEPENDENT VARIABLES           *
-     *********************************************************************/
 private:
 
     /********************************************************** INTERNAL DATA *****************************************************/
@@ -779,7 +812,7 @@ private:
      *
      *    m_localToGlobalEMap[globPhaseIndex][mLocalIndex];
      */
-    std::vector< std::vector<size_t> >  m_localToGlobalEMap;
+    std::vector< std::vector<size_t> > m_localToGlobalEMap;
 };
 //==================================================================================================================================
 }

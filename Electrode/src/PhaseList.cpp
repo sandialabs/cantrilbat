@@ -36,6 +36,7 @@ namespace Cantera
  *   ownership = default is to not own the phases in the list.
  */
 PhaseList::PhaseList(bool ownership) :
+    m_OrderedByDimensionality(true),
     m_NumTotPhases(0),
     m_NumTotSpecies(0),
     NumVolPhases_(0),
@@ -76,6 +77,7 @@ PhaseList::~PhaseList()
 }
 //==================================================================================================================================
 PhaseList::PhaseList(const PhaseList& right) :
+    m_OrderedByDimensionality(true),
     m_NumTotPhases(0),
     m_NumTotSpecies(0),
     NumVolPhases_(0),
@@ -114,7 +116,6 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     /*
      * First delete current contents of this object
      */
-
     if (IOwnPhasePointers) {
         size_t i;
         for (i = 0; i < NumVolPhases_; i++) {
@@ -129,11 +130,15 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
             delete EdgePhaseList[i];
             EdgePhaseList[i] = 0;
         }
+        for (i = 0; i < PhaseList_.size(); i++) {
+            PhaseList_[i] = 0;
+        }
     }
 
     /*
      * Next copy over the size data
      */
+    m_OrderedByDimensionality = right.m_OrderedByDimensionality;
     m_NumTotPhases  =      right.m_NumTotPhases;
     m_NumTotSpecies =      right.m_NumTotSpecies;
     NumVolPhases_   =      right.NumVolPhases_;
@@ -229,13 +234,18 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     return *this;
 }
 //==================================================================================================================================
+bool PhaseList::orderedByDims() const
+{
+    return m_OrderedByDimensionality;
+}
+//==================================================================================================================================
 ZZCantera::ThermoPhase* PhaseList::
-addVolPhase(const std::string& canteraFile, const std::string& phaseID)
+addVolPhase(const std::string& canteraFile, const std::string& phaseID, bool orderByDims)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
     ZZCantera::ThermoPhase *tp = ZZCantera::newPhase(canteraFile, phaseID);
-    addVolPhase(tp, vPhase);
+    addVolPhase(tp, vPhase, orderByDims);
     return tp;
 }
 //===================================================================================================================================
@@ -292,7 +302,7 @@ void PhaseList::addPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* 
  *     meta information lists kept by the PhaseList object
  */
 void PhaseList::
-addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase)
+addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase, bool orderedByDims)
 {
     AssertThrow(vp!=0, "Volume Phase Pointer must be nonzero");
 
@@ -536,13 +546,11 @@ addSurPhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* sPhase)
     }
 
     calcElementMaps(true); 
-
 }
 //==================================================================================================================================
 void PhaseList::
 addEdgePhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* ePhase)
 {
-
     AssertThrow(sp != 0, "must be nonzero");
     // Check for incompatibilities
     if (m_NumTotPhases > 0) {
@@ -633,7 +641,6 @@ addEdgePhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* ePhase)
     }
 
     calcElementMaps(true); 
-
 }
 //==================================================================================================================================
 /*
@@ -825,6 +832,32 @@ ThermoPhase* PhaseList::getPhase(const std::string& phaseName) const
     }
     throw CanteraError("PhaseList::getPhase()", "Phase name was not found\n");
     return 0;
+}
+//====================================================================================================================================
+size_t PhaseList::dimPhaseIndexFromGlobalPhaseIndex(size_t iphGlob, int *dimPtr)
+{
+    if (! m_OrderedByDimensionality) {
+        throw CanteraError(" PhaseList:: dimPhaseIndexFromGlobalPhaseIndex", "not handled");
+    }
+    if (dimPtr) {
+        *dimPtr = PhaseList_[iphGlob]->nDim();
+    }
+    if (iphGlob < NumVolPhases_) {
+         return iphGlob; 
+    }
+    iphGlob -= NumVolPhases_;
+    if (iphGlob < m_NumSurPhases) {
+        return iphGlob;
+    }
+#ifdef DEBUG_MODE
+    iphGlob -= m_NumSurPhases;
+    if (iphGlob < m_NumEdgePhases) {
+        return iphGlob;
+    }
+    return npos;
+#else
+    return iphGlob - m_NumSurPhases;
+#endif
 }
 //====================================================================================================================================
 void PhaseList::
