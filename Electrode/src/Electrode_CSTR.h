@@ -671,6 +671,8 @@ public:
 
     virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
+    virtual int GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
+
 
     void printElectrodeCapacityInfo(int pSrc, bool subTimeStep);
 

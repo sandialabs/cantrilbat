@@ -348,6 +348,8 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 
     return 0;
 }
+
+
 //======================================================================================================================
 //   Set the electrode initial conditions from the input file.
 /*
@@ -1696,7 +1698,6 @@ int Electrode_CSTR::calcDeltaSolnVariables(const doublereal t, const doublereal*
         }
     }
 
-
     return 1;
 }
 
@@ -1719,7 +1720,6 @@ void  Electrode_CSTR::determineBigMoleFractions()
         }
     }
 }
-
 //=========================================================================================
 //  Residual calculation for the solution of the Nonlinear integration problem
 /*
@@ -2218,6 +2218,49 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
     }
 
     return 1;
+}
+//==================================================================================================================
+// Main internal routine to calculate the rate constant
+/*
+ *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
+ *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes
+ *  in topology.
+ *
+ *  This routine calcules yval_retn, which is the calculated value of the residual for the
+ *  nonlinear function
+ *
+ *   resid[i] = y[i] - yval_retn[i]
+ *
+ *  The formulation of the solution vector is as follows. The solution vector will consist of the following form
+ *
+ *     y =   phaseMoles_final[iph]    for iph = phaseIndexSolidPhases[0]
+ *           phaseMoles_final[iph]    for iph = phaseIndexSolidPhases[1]
+ *           . . .
+ *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[0]
+ *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[0]
+ *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[0]
+ *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[0]
+ *           ...
+ *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[1]
+ *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[1]
+ *
+ *    @param yval_retn calculated return vector whose form is described above
+ *
+ *
+ *  @return  1 Means a good calculation that produces a valid result
+ *           0 Bad calculation that means that the current nonlinear iteration should be terminated
+ */
+int Electrode_CSTR::GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType)
+{
+    size_t index = 0;
+    // This has to be scaled
+    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+        size_t iph = phaseIndexSolidPhases_[ph];
+	resid[index] = phaseMoles_dot_[iph] - DphMoles_final_[iph];
+        index++;
+    }
+    
+
 }
 //==================================================================================================================
 //   Set the Residual absolute error tolerances

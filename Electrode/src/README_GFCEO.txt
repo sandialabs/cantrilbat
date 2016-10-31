@@ -48,7 +48,28 @@ PROBLEM -
 
 The calcResid() problem is meant to handle discontinuities in functions wrt deltaT by 
 breaking up the time step. How is this done in the new problem? Could we add 
-significant concepts from Tyler?
+significant concepts from Tyler? If we add Tyler's solution then the solution becomes
+smooth. But, we must follow the smoothness if it's below the atol requirements.
+
+This discontinuities problem is big, because the newman equations aren't typically used to
+solve this equation system. It may be prudent to make everything continuous.
+
+The equation system to use for multispecies equations is up in the air too.
+I could go with a straight mole number equation system. This would be a departure
+from the one before, where I went with phase moles / mole fraction of sp >= 1 system.
+
+A straight mole number system has the benefit that all equations go below atol as the phase 
+becomes unimportant and small.
+
+We could also see if we can utilize the phase death problem to in a subcycle iteration scheme.
+
+
+
+
+
+
+
+
 
 
 

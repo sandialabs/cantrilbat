@@ -384,7 +384,7 @@ public:
      *
      *  @param[out]        deltaM       Output vector of  deltaM's for all of the reactions. The length is m_ii.
      */
-    virtual void getDeltaElectrochemPotentials(doublereal* deltaM);
+    virtual void getDeltaElectrochemPotentials(doublereal* const deltaM);
 
     //!  Get the vector of deltaH values for all reactions defined in the kinetics object
     /*!
@@ -397,7 +397,7 @@ public:
      *   @param[out]        deltaH      Vector of deltaH values. Must be at least of length equal
      *                                  to the number of reactions
      */
-    virtual void getDeltaEnthalpy(doublereal* deltaH);
+    virtual void getDeltaEnthalpy(doublereal* const deltaH);
 
     //!  Get the vector of deltaH values for all reactions defined in the kinetics object
     /*!
@@ -415,7 +415,7 @@ public:
      *                                  potentials for the electrolyte. 
      *                     length = nReactions(), J/kmol
      */
-    void getDeltaGibbs_electrolyteSS(doublereal* deltaG_special);
+    void getDeltaGibbs_electrolyteSS(doublereal* const deltaG_special);
 
     //!  Get the vector of deltaS values for all reactions defined in the kinetics object
     /*!
@@ -428,7 +428,7 @@ public:
      *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
      *                                  to the number of reactions. Units are J kmol-1 K-1.
      */
-    virtual void getDeltaEntropy(doublereal* deltaS);
+    virtual void getDeltaEntropy(doublereal* const deltaS);
 
     //!  Get the vector of deltaS values for all reactions defined in the kinetics object before OCV override
     /*!
@@ -447,7 +447,7 @@ public:
      *
      * @param[out]      deltaG            Output vector of ss deltaG's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSGibbs(doublereal* deltaG);
+    virtual void getDeltaSSGibbs(doublereal* const deltaG);
 
     //!  Return the vector of values for the change in the standard
     //! state enthalpies of reaction.  These values don't depend
@@ -458,7 +458,7 @@ public:
      *
      * @param[out]     deltaH              Output vector of ss deltaH's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSEnthalpy(doublereal* deltaH);
+    virtual void getDeltaSSEnthalpy(doublereal* const deltaH);
 
     
     //!  Return the vector of values for the change in the standard
@@ -470,7 +470,7 @@ public:
      *
      *     @param[out]    deltaS           Output vector of ss deltaS's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSEntropy(doublereal* deltaS);
+    virtual void getDeltaSSEntropy(doublereal* const deltaS);
 
     //!   Sets the temperature and pressure for all phases that are part of the reacting surface
     /*!
@@ -511,7 +511,7 @@ public:
     //!  Vector of pointers to xml trees
     std::vector<XML_Node*> xmlList;
 
-    //! Mapping between the phase order in the interface object
+    //! Mapping between the phase order in the InterfaceKinetics object
     //! and the overall order in the PhaseList object
     /*!
      *  Note in the phase list object, surface phases are listed last.
@@ -519,7 +519,7 @@ public:
      *  value is the id of the phase in the PhaseList object.
      *
      *   kinOrder[kph] = iph;
-     *        kph = phase index in the interface kinetics object
+     *        kph = phase index in the InterfaceKinetics object
      *        iph = phase index in the PhaseList object
      */
     std::vector<size_t> kinOrder;

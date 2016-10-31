@@ -590,6 +590,24 @@ public:
      */
     virtual int calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
 
+    virtual int GFCEO_evalResidNJ(const doublereal t, const doublereal delta_t,
+                            const doublereal* const y,
+                            const doublereal* const ydot,
+                            doublereal* const resid,
+                            const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const int id_x = -1,
+                            const doublereal delta_x = 0.0);
+
+    //! Calculate the residual for the Electrode object for the Global problem
+    /*!
+     *  @param[out]          resid               Value of the residual
+     *  @param[in]           ResidEval_Type_Enum evalType residual type
+     *
+     *  @return  1 Means a good calculation that produces a valid result
+     *           0 Bad calculation that means that the current nonlinear iteration should be terminated
+     */
+    virtual int GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
+
     //! Fill in the initial conditions
     /*!
      * (virtual from NonlinearSolver)

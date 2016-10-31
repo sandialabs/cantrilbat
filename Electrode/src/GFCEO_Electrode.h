@@ -12,7 +12,7 @@
 #define _GFCEO_ELECTRODE_H
 
 
-#include "Electrode.h"
+#include "Electrode_Integrator.h"
 #include "cantera/numerics/ResidJacEval.h"
 //-----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
@@ -42,7 +42,7 @@ public:
     /*!
      *  @param[in]      atol                     Default value for the absolute tolerance
      */
-    GFCEO_Electrode(Electrode* ee, doublereal atol = 1.0E-13, int iOwn = 0);
+    GFCEO_Electrode(Electrode_Integrator* ee, doublereal atol = 1.0E-13, int iOwn = 0);
 
     //! Destructor
     virtual ~GFCEO_Electrode();
@@ -63,7 +63,7 @@ public:
     /*!
      *  @return                         Returns a changeable reference to the electrode object
      */
-    Electrode& electrode();
+    Electrode_Integrator& electrode();
 
     //! Return the number of equations in the equation system
     /*!
@@ -379,14 +379,13 @@ public:
                                const double* const y, const double* const ydot);
 
 
-
     //! Change ownership of Electrode object to this object if it is not already
     void assertOwnership();    
 
 protected:
 
     //! Electrode object
-    Electrode* ee_;
+    Electrode_Integrator* ee_;
 
     //! This object owns the Electrode object and is responsible for deletion.
     bool iOwnObject_;

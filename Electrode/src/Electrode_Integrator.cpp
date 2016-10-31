@@ -1737,6 +1737,21 @@ int Electrode_Integrator::calcResid(doublereal* const resid, const ResidEval_Typ
     return 0;
 }
 //==================================================================================================================
+int Electrode_Integrator::GFCEO_evalResidNJ(const doublereal t, const doublereal delta_t,
+                            const doublereal* const y, const doublereal* const ydot,
+                            doublereal* const resid, const ResidEval_Type_Enum evalType,
+                            const int id_x, const doublereal delta_x)
+{
+    throw CanteraError(" Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
+    return 0;
+}
+//==================================================================================================================
+int Electrode_Integrator::GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType)
+{
+    throw CanteraError(" Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
+    return 0;
+}
+//==================================================================================================================
 //  Gather the predicted solution values and the predicted integrated source terms
 /*
  *  (virtual from Electrode_Integrator)

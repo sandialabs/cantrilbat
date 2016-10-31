@@ -19,7 +19,7 @@ namespace Cantera
 #endif
 {
 //===================================================================================================================================
-GFCEO_Electrode::GFCEO_Electrode(Electrode* ee, doublereal atol, int iOwn) :
+GFCEO_Electrode::GFCEO_Electrode(Electrode_Integrator* ee, doublereal atol, int iOwn) :
    ZZCantera::ResidJacEval(atol),
    ee_(ee),
    iOwnObject_(iOwn)
@@ -50,7 +50,7 @@ GFCEO_Electrode& GFCEO_Electrode::operator=(const GFCEO_Electrode& right)
 
     if (right.iOwnObject_) {
         delete ee_;
-        ee_ = right.ee_->duplMyselfAsElectrode();
+        ee_ = (Electrode_Integrator*) right.ee_->duplMyselfAsElectrode();
         iOwnObject_ = 1;
     } else {
         ee_ = right.ee_;
@@ -60,7 +60,7 @@ GFCEO_Electrode& GFCEO_Electrode::operator=(const GFCEO_Electrode& right)
     return *this;
 }
 //===================================================================================================================================
-Electrode& GFCEO_Electrode::electrode()
+Electrode_Integrator& GFCEO_Electrode::electrode()
 {
     return *ee_;
 }
@@ -98,9 +98,10 @@ int GFCEO_Electrode::evalResidNJ(const doublereal t, const doublereal delta_t,
                             const ResidEval_Type_Enum evalType,
                             const int id_x,
                             const doublereal delta_x)
- {
-     return 0;
- }
+{
+     int retn = ee_->GFCEO_evalResidNJ(t, delta_t, y, ydot, resid, evalType, id_x, delta_x);
+     return retn;
+}
 //===================================================================================================================================
 int GFCEO_Electrode::eval(const doublereal t, const doublereal* const y, const doublereal* const ydot,
 			  doublereal* const resid)
@@ -197,7 +198,7 @@ void GFCEO_Electrode::writeSolution(int ievent, const double time, const double 
 void GFCEO_Electrode::assertOwnership()
 {
      if (! iOwnObject_) {
-        Electrode* e = ee_->duplMyselfAsElectrode();
+        Electrode_Integrator* e = (Electrode_Integrator*) ee_->duplMyselfAsElectrode();
         ee_ = e;
         iOwnObject_ = 1;
     } 

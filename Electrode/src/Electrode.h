@@ -2793,7 +2793,6 @@ protected:
      *  It's calculated from spMoles_final_[] and spMoels_init_[].
      *  It may not be kept current.
      */
-// Deprecate, appears unused
     std::vector<double> spMoles_dot_;
 
     //! Predicted Mole vector
@@ -2841,6 +2840,8 @@ protected:
      */
     std::vector<double> spMf_final_final_;
 
+    // just added in
+    std::vector<double> spMf_final_dot;
 
     //! Vector of species Electrochemical potentials
     /*!
