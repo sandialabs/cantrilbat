@@ -5634,24 +5634,6 @@ void Electrode::setDeltaTSubcycleMax(doublereal deltaTsubcycle)
     deltaTsubcycleMax_ = deltaTsubcycle;
 }
 //====================================================================================================================
-//  Calculate the time derivatives of the mole numbers at the current subcycle step
-/*
- *   This may be used as a virtual function
- */
-void Electrode::calculateTimeDerivatives(doublereal deltaTsubcycle)
-{
-    if (deltaTsubcycle <= 0.0) {
-        deltaTsubcycle = 1.0;
-    }
-    double invT = 1.0 / deltaTsubcycle;
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
-        spMoles_dot_[k] = invT * (spMoles_final_[k] - spMoles_init_[k]);
-    }
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        phaseMoles_dot_[iph] = invT * (phaseMoles_final_[iph] - phaseMoles_init_[iph]);
-    }
-}
-//====================================================================================================================
 // Write out CSV tabular data on the integrations
 /*
  *  The idea is to print out tabular data about each intermediate run and about each

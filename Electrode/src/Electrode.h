@@ -897,15 +897,6 @@ public:
      */
     void setDeltaTSubcycleMax(doublereal deltaTSubcycleMax);
 
-    //!  Calculate the time derivatives of the mole numbers at the current subcycle step
-    /*!
-     *   This may be used as a virtual function
-     *
-     *   @param[in]            deltaTsubcycle    The current subgrid time step
-     *
-     *   @deprecated
-     */
-    virtual void calculateTimeDerivatives(doublereal deltaTsubcycle);
 
     //------------------------------------------------------------------------------------------------------------------
     // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION -------------------------------------
@@ -2789,16 +2780,17 @@ protected:
 
     //! Time derivative of the species mole numbers
     /*!
+     *  (only used for GFCEO calculation)
      *  This is the time derivative of the subcycle time step.
-     *  It's calculated from spMoles_final_[] and spMoels_init_[].
-     *  It may not be kept current.
+     *  Length = NumberSpecies in PhaseList
+     *  indexing of PhaseList
+     *  Units = kmol/sec
      */
     std::vector<double> spMoles_dot_;
 
     //! Predicted Mole vector
     std::vector<double> spMoles_predict_;
 
-//TODO: Do we need to track both spMoles and spMf?
     //! Mole fraction of each species in each phase at the start of the time step
     /*!
      *  DEPENDENT STATE VARIABLE for the electrode.
@@ -2829,7 +2821,6 @@ protected:
      */
     std::vector<double> spMf_final_;
 
-
     //! Mole fraction of each species in each phase at the start of the global time step
     /*!
      *  DEPENDENT STATE VARIABLE for the electrode.
@@ -2840,7 +2831,13 @@ protected:
      */
     std::vector<double> spMf_final_final_;
 
-    // just added in
+    //!  The time derivative of the species mole fractions
+    /*!
+     *    (only used for GFCEO calculation)
+     *    length = Number of species in PhaseList
+     *    indexing of PhaseList
+     *    Units = 1/s
+     */
     std::vector<double> spMf_final_dot;
 
     //! Vector of species Electrochemical potentials
@@ -2918,6 +2915,11 @@ protected:
     std::vector<double> phaseMoles_final_final_;
 
     //! Time derivative of the phase moles
+    /*!
+     *  (only used for GFCEO calculations)
+     *  Length = number of phases in PhaseList
+     *  Units = kmol / sec
+     */
     std::vector<double> phaseMoles_dot_;
 
     //! Vector of phase numbers for phases that are just coming into existence
