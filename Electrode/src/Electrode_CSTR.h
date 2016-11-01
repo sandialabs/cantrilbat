@@ -634,7 +634,13 @@ public:
     virtual void calcSrcTermsOnCompletedStep();
 
 
-    void  determineBigMoleFractions();
+    //! Determine the species with the largest mole fraction
+    /*!
+     *    Fill in the array phaseMFBig_[iph] for all phases in the Electrode.
+     *    This is currently called once at the start of the problem, from setResidAtolNLS()
+     */
+    void determineBigMoleFractions();
+
     // -----------------------------------------------------------------------------------------------------------------
 
     //!  Residual calculation for the solution of the Nonlinear integration problem
@@ -670,6 +676,14 @@ public:
                        const doublereal delta_x);
 
     virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
+
+    virtual int GFCEO_evalResidNJ(const doublereal t, const doublereal delta_t,
+                            const doublereal* const y,
+                            const doublereal* const ydot,
+                            doublereal* const resid,
+                            const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const int id_x = -1,
+                            const doublereal delta_x = 0.0);
 
     virtual int GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
 

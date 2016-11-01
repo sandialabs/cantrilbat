@@ -2219,6 +2219,28 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
 
     return 1;
 }
+//==================================================================================================================================
+// Evaluate the residual function
+/*
+ * @param t             Time                    (input)
+ * @param delta_t       The current value of the time step (input)
+ * @param y             Solution vector (input, do not modify)
+ * @param ydot          Rate of change of solution vector. (input, do not modify)
+ * @param resid         Value of the residual that is computed (output)
+ * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
+ * @param id_x          Index of the variable that is being numerically differenced to find
+ *                      the jacobian (defaults to -1, which indicates that no variable is being
+ *                      differenced or that the residual doesn't take this issue into account)
+ * @param delta_x       Value of the delta used in the numerical differencing
+ */
+int Electrode_CSTR::GFCEO_evalResidNJ(const doublereal tdummy, const doublereal delta_t_dummy,
+                                const doublereal* const y, const doublereal* const ySolnDot,
+                                doublereal* const resid, const ResidEval_Type_Enum evalType,
+                                const int id_x, const doublereal delta_x)
+{
+
+   return 0;
+}
 //==================================================================================================================
 // Main internal routine to calculate the rate constant
 /*
