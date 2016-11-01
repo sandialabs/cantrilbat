@@ -45,10 +45,10 @@ enum EState_Type_Enum {
     EST_RADIALDISTRIB
 };
 //==================================================================================================================================
-//!  Structure that holdes the identification of the Electrode object
+//!  Structure that holds the identification of the Electrode object
 /*!
  *   This structure contains the information about the type of electrode object and the file type for the EState object.
- *   It also contains the information about the domain number and cell number. which uniquely identifies the electrode
+ *   It also contains the information about the domain number and cell number, which uniquely identifies the electrode
  *   object in a multi-cell simulation.
  */
 struct EState_Identification 
@@ -56,7 +56,7 @@ struct EState_Identification
     //! Constructor
     EState_Identification();
 
-    //! Write the XML_Node Element that contains this structure's information
+    //! Write the XML_Node element that contains this structure's information
     /*!
      *   @return   Returns a pointer to the malloced XML_Node containing the structure's information
      */
@@ -64,18 +64,18 @@ struct EState_Identification
 
     //! Read this structure's information from the XML_Node
     /*!
-     *   @param[in]     xmlEI
+     *   @param[in]     xmlEI                    Reference to the XML Node which stores the Identification information
      */
     void readIdentificationFromXML(const XML_Node& xmlEI);
 
-    /*  ---------------- Data ----------------------------------------- */
+    /*  ------------------------------------------- Data ----------------------------------------- */
 
     //! Electrode Type String
     /*!
      *  This string is the one used in the Electrode Factory routines. It identifies the model
      *  used for the Electrode Object uniquely.
      */
-    std::string  electrodeTypeString_;
+    std::string electrodeTypeString_;
 
     //! enum type for the EState. This is used in the factory routine
     enum ZZCantera::EState_Type_Enum  EST_Type_;
@@ -84,7 +84,7 @@ struct EState_Identification
     /*!
      *  Note this can be different than the electrodeTypeString_
      */
-    std::string  EState_Type_String_;
+    std::string EState_Type_String_;
 
     //! Version number of the file
     int EST_Version_;
@@ -105,6 +105,7 @@ struct EState_Identification
      */
     ZZCantera::Electrode_Capacity_Type_Enum  electrodeCapacityType_;
 };
+
 //! Typedef for the EState_ID structure
 typedef struct EState_Identification EState_ID_struct;
 
@@ -113,9 +114,8 @@ typedef struct EState_Identification EState_ID_struct;
 //! which can be used to set the Electrode object classes and can be used to write out to an XML file.
 //! This is the main class involved with saves and restarts of the Electrode object.
 /*!
- *     This is a glue class that allows one to write out states of electrode objects.
- *     There is a direct correspondence with members of this class with an XML_Node object
- *     that can be written out to a file.
+ *     This is a glue class that allows one to write out states of Electrode objects.
+ *     There is a direct correspondence with members of this class with an XML_Node object that can be written out to a file.
  *
  *     The class also keeps track of the identification information for the electrode object.
  *     The identification information can be used as header information for the electrode object.
@@ -126,7 +126,7 @@ typedef struct EState_Identification EState_ID_struct;
  *     How this object interacts with the electrode object
  *    ----------------------------------------------------
  *
- *    The function initialize(Electrode *e) will initialize this object.
+ *    The function EState::initialize(Electrode *e) will initialize this object.
  *
  *    This object is a friend to the Electrode objects that it writes into. Therefore,
  *    it can use and call protected functions from these Electrode objects.
@@ -141,8 +141,8 @@ typedef struct EState_Identification EState_ID_struct;
  *    It also contains information about the initial amount discharged, even though that
  *    actually doesn't influence the state or the step calculations.
  *
- *      Several concepts of version control
- *    -----------------------------------------
+ *     Several concepts of version control
+ *     -----------------------------------------
  *
  *     The file format for this class is given in the pair of EST_fileToBeWritten_
  *     and  const integer EST_Version_fileToBeWritten_.
@@ -179,6 +179,8 @@ public:
     //! Assignment operator
     /*!
      *  @param right  object to be duplicated
+     *
+     *  @return                                  Returns a reference to the current object
      */
     EState& operator=(const EState& right);
 
@@ -251,7 +253,7 @@ public:
 
     //! Read identification information from a struct EState_Identification object
     /*!
-     *
+     *  @param[in]           es_ID               Reference to the EState ID structure 
      */
     void readIdentificationFromStruct(const EState_ID_struct& es_ID);
 
@@ -372,11 +374,11 @@ public:
 
     //! Get the number of moles in the electrode in kmol
     /*!
-     *  @return  Returns the number of moles
+     *  @return                                  Returns the number of moles
      */
     virtual double electrodeMoles() const;
 
-    /* -------------------------------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------------ D A T A ----------------------------------------------------------------- */
 
 protected:
 
@@ -403,8 +405,6 @@ protected:
 
     //! Electrode State type file to be written
     /*!
-     *
-     *
      *   Currently this is EST_CSTR
      */
     enum EState_Type_Enum EST_fileToBeWritten_;
@@ -508,7 +508,6 @@ protected:
     //! Capacity type of the electrode.
     Electrode_Capacity_Type_Enum  electrodeCapacityType_;
 
-
     //! Total capacity left in the battery (coulombs)
     double capacityLeft_;
 
@@ -534,20 +533,21 @@ protected:
      */
     double relativeElectronsDischargedPerMole_;
 
-
     //! Relative depth of discharge (unitless)
     double relativeDepthOfDischarge_;
 
     //! Capacity discharged to date -> this is a number that is dependent on the past time history of the simulation
     double capacityDischargedToDate_;
 
-    // kmol of electrons that are discharged to date -> this is a number that is dependent on the past time history of the simulation
+    //! kmol of electrons that are discharged to date 
+    /*!
+     *   This is a number that is dependent on the past time history of the simulation. So past simulations must provide
+     *   initial values of this to the current simulation
+     */
     double electronKmolDischargedToDate_;
 
     //! Initial value of the next subcycle deltaT
     double deltaTsubcycle_init_next_;
-
-
 
     //! Statement that the Electrode class can access any information in this class
     /*!
@@ -556,22 +556,6 @@ protected:
     friend class ZZCantera::Electrode;
 };
 //==================================================================================================================================
-
-// Create a new Electrode Object
-/*
- * @param model  String to look up the model against
- *
- * @return    Returns a pointer to a new Electrode instance matching the definition within EState object. Returns NULL if
- *            something went wrong. Throws an exception if the electrodeType isn't covered.
- *
- *     --       CAN't DO THIS!!  -> Need an underlying PhaseList object to be formed!
- *
- *          essentially this can take the place of  setInitialConditions(ELECTRODE_KEY_INPUT* ei). However, it can't take the place
- *          of electrode_model_create(ELECTRODE_KEY_INPUT* ei);
-
- */
-//Electrode* newElectrodeObject(const ZZCantera::EState& es, double currentTime, ZZCantera::Electrode_Factory* f = 0);
-
-
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
