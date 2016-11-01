@@ -194,15 +194,23 @@ public:
      *   All of the species and phase identification information is created and the class is
      *   readied for use as a state maintainer.
      *
-     *  @param e    Pointer to the electrode base class
+     *  @param[in]           e                   Pointer to the electrode base class
+     *
+     *  @return                                  Returns 0
      */
     virtual int initialize(const ZZCantera::Electrode* const e);
 
+    //! Returns a string representing the electrode type 
+    /*!
+     *  Strings are listed in Electrode_Factory.cpp and other child classes of that.
+     *
+     *  @return                                  Returns a string representing the Electrode type
+     */
     virtual const std::string& electrodeType() const;
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
-     *  @return Returns a malloced XML_Node tree containing the identification information
+     *  @return                                  Returns a malloced XML_Node tree containing the identification information
      */
     virtual XML_Node* writeIdentificationToXML() const;
 
@@ -317,36 +325,34 @@ public:
      */
     void printDiff(const std::string& vexp, bool significant,  const std::string& val, const std::string& gval, int printLvl) const;
 
-    //! Print a difference between two int values
+    //! Print a difference between two int values, with the string representation of the variable
     /*!
      *   @param[in]        vexp                String containing the expression
-     *   @param[in]        significant         Causes a comparison failure
+     *   @param[in]        index               Int containing the index pertaining to the expression (used in printing)
      *   @param[in]        val                 int containing the val
      *   @param[in]        gval                int containing the guest val
      *   @param[in]        printLvl            print lvl
      */
     void printDiff(const std::string& vexp, int index, int val, int gval, int printLvl) const;
 
-    //! Print a difference between two double values
+    //! Print a difference between two double values, with the string representation of the variable
     /*!
      *   @param[in]        vexp                String containing the expression
-     *   @param[in]        significant         Causes a comparison failure
+     *   @param[in]        index               Int containing the index pertaining to the expression (used in printing)
      *   @param[in]        val                 double containing the val
      *   @param[in]        gval                double containing the guest val
      *   @param[in]        printLvl            print lvl
      */
     void printDiff(const std::string& vexp, int index, double val, double gval, int printLvl) const;
 
-    //! Print a difference between two double vector values
+    //! Print a difference between two double vector values, with a string representation of the variable
     /*!
      *   @param[in]        vexp                String containing the expression
-     *   @param[in]        significant         Causes a comparison failure
      *   @param[in]        val                 vector of double containing the val
      *   @param[in]        gval                vector of double containing the guest val
      *   @param[in]        printLvl            print lvl
      */
-    void printVecDiff(const std::string& vexp, const std::vector<double>& val, const std::vector<double>& gval,
-		      int printLvl) const;
+    void printVecDiff(const std::string& vexp, const std::vector<double>& val, const std::vector<double>& gval, int printLvl) const;
 
     //!  Compare the current state of this object against another guest state to see if they are the same
     /*!

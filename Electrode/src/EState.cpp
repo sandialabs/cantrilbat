@@ -597,8 +597,7 @@ void EState::printDiff(const std::string& vexp, int index, int val, int gval, in
     int num = printHead(printLvl);
     if (printLvl >= 2) {
         if ( (printLvl == 2 && num < 100) || (printLvl >= 3) ) {
-	    printf("\t\t   %-15.15s  %-3.3s  ",
-		   vexp.c_str(), istring.c_str() );
+	    printf("\t\t   %-15.15s  %-3.3s  ", vexp.c_str(), istring.c_str() );
 	    if (val != MDP_INT_NOINIT) {
 		printf("%15d ", val);
 	    } else {
@@ -897,33 +896,6 @@ double EState::electrodeMoles() const
 {
     return electrodeMoles_;
 }
-//==================================================================================================================================
-// Create a new Electrode Object
-/*
- * @param model  String to look up the model against
- *
- * @return    Returns a pointer to a new Electrode instance matching the definition within EState object. Returns NULL if
- *            something went wrong. Throws an exception if the electrodeType isn't covered.
- *
- *  - Can't do this because you need an underlying PhaseList object to have been formed.
- */
-/*
-Electrode* newElectrodeObject(const ZZCantera::EState& es, double currentTime, ZZCantera::Electrode_Factory* f)
-{
-    if (f == 0) {
-        f = Electrode_Factory::factory();
-    }
-
-    const std::string smodel = es.electrodeType();
-
-    Electrode* e = f->newElectrodeObject(smodel);
-
-    es.copyEState_toElectrode(e);
-    e->setTime(currentTime);
-
-    return e;
-}
-*/
 //==================================================================================================================================
 } // End of ZZCantera namespace
 //----------------------------------------------------------------------------------------------------------------------------------
