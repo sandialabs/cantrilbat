@@ -130,11 +130,13 @@ HDR_CTAPPLBASE =  PhaseList.h  ReactingSurDomain.h RSD_OCVmodel.h \
                   Electrode_MP_RxnExtent_FeS2.h Electrode_Jacobian.h Electrode_FD_Jacobian.h EState_XML.h \
                   GFCEO_Electrode.h
 
+CPP_CTAPPLBASE =  $(OBJ_CTAPPLBASE:.o=.cpp)
 
 ###########################################################################
 # section to set up depends
 ###########################################################################
 DEPENDS = $(OBJ_CTAPPLBASE:.o=.d)
+
 .f.d:
 	echo "$*.o: $*.f" > $*.d
 
@@ -150,8 +152,10 @@ ctmlDiff: ctmlDiff.o $(UTILSRC_DEP) \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-
 ############################################################################
+
+$(DEPENDS): Makefile $(HDR_CTAPPLBASE) 
+%.d: $*.cpp
 
 $(OBJ_CTAPPLBASE): Makefile 
 
