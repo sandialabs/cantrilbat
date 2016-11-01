@@ -477,61 +477,61 @@ public:
 
     //! Return the common Elements object as a const pointer
     /*!
-     *      @return                  Return a pointer to a const Element object containing a description of the elements 
-     *                               in the problem.
+     *  @return                                  Return a pointer to a const Element object containing a description of the elements 
+     *                                           in the problem.
      */
     const Elements* getGlobalElements() const;
 
     //! Return the element name of the eth global element
     /*!
-     *  @param[in]           eGlob               element index
+     *  @param[in]           eGlobIndx           Element global index
      *  
      *  @return                                  String Name of the element
      */
-    std::string elementName(size_t eGlob) const;
+    std::string elementName(size_t eGlobIndx) const;
 
-    //!       Index number of an element given its name
+    //! Index number of an element given its name
     /*!
-     *    @param[in]           elementName       String name of the element
+     *    @param[in]           eName             String name of the element
      * 
      *    @return                                returns the element index of the element.
      */
-    size_t elementIndex(const std::string& elementName) const;
+    size_t elementIndex(const std::string& eName) const;
 
-    //! Returns the number of elements in all of the phases, combined
+    //! Returns the number of global elements in all of the phases, combined
     /*!
-     * Note, we do not require all element objects have the same number of elements and the same ordering of elements.
+     *  Note, we do not require all element objects to have the same number of elements nor have the same ordering of elements.
      *
-     *  @return Returns the number of elements in all of the phases, combined.
+     *  @return                                  Returns the number of distinct elements in all of the phases, combined.
      */
     size_t nElements() const;
 
     //! Returns the global element index given the local index
     /*!
-     *  @param[in]           globalPhaseIndex    global Phase Index
-     *  @param[in]           mLocalIndex         local element index within the phase
+     *  @param[in]           iphGlob             Global phase index within the %PhaseList
+     *  @param[in]           eLocIndx            local element index within the phase
      *
      *  @return                                  Returns the global element index
      */
-    size_t localToGlobalElementIndex(size_t globPhaseIndex, size_t mLocalIndex);
+    size_t localToGlobalElementIndex(size_t iphGlob, size_t eLocIndx);
 
     //! Returns the local element index within the phase given the global phase index 
     /*!
-     *  @param[in]           globalPhaseIndex    global Phase Index
-     *  @param[in]           mLocalIndex         local element index within the phase
+     *  @param[in]           iphGlob             Global Phase Index within the %PhaseList object
+     *  @param[in]           eGlobIndx           Global element index within the %PhaseList object
      *
      *  @return                                  Returns the local element index. If not present it returns npos
      */
-    size_t globalToLocalElementIndex(size_t globPhaseIndex, size_t mGlobalIndex);
+    size_t globalToLocalElementIndex(size_t iphGlob, size_t eGlobIndx);
 
     //! Returns the Number of atoms of global element \a eGlob in global species \a kGlob.
     /*!
      *  @param[in]           kGlob               global species index
-     *  @param[in]           eGlob               global element index
+     *  @param[in]           eGlobIndx           global element index
      *
      *  @return                                  returns the number of atoms.
      */
-    doublevalue nAtoms(const size_t kGlob, const size_t eGlob) const;
+    doublevalue nAtoms(const size_t kGlob, const size_t eGlobIndx) const;
 
     //! Return a pointer to the volume phase XML Node for a single volume phase
     /*!
@@ -752,6 +752,7 @@ protected:
     //! Vector of phase names in the problem
     /*!
      *  This is the string returned from the name() member function of %ThermoPhase.
+     *  Note this is distinct from id(), which isn't unique when phases break apart into two.
      */
     std::vector<std::string> PhaseNames_;
 
