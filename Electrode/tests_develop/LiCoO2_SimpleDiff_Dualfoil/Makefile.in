@@ -126,6 +126,8 @@ DEPENDS = $(OBJ_ANODE:.o=.d)
 .c.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
+$(DEPENDS): $(PROGRAM).cpp LiCoO2_Cathode_Radial_cc.cpp LiCoO2Thermo.cpp LiCoO2.cpp
+
 depends:
 	$(RM) $(DEPENDS)
 	$(MAKE) .depends
