@@ -364,13 +364,13 @@ void Electrode_SimpleDiff::updateState()
  *
  * @return
  */
-int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delta_t,
-                                       const doublereal* const y,
-                                       const doublereal* const ydot,
-                                       doublereal* const resid,
+int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t,
+                                       const double* const y,
+                                       const double* const ydot,
+                                       double* const resid,
                                        const ResidEval_Type_Enum evalType,
                                        const int id_x,
-                                       const doublereal delta_x)
+                                       const double delta_x)
 {
 
     throw CanteraError("", "");
@@ -459,11 +459,11 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 
 
     // Location of the right cell boundary at the beginning of the step
-    std::vector<doublereal> cellBoundR_init(numRCells_);
+    std::vector<double> cellBoundR_init(numRCells_);
     // Velocity of the cell boundary during the time step;
-    std::vector<doublereal> cellBoundRVeloc(numRCells_);
+    std::vector<double> cellBoundRVeloc(numRCells_);
     // Node velocity during the time step
-    std::vector<doublereal> rnodeVeloc(numRCells_);
+    std::vector<double> rnodeVeloc(numRCells_);
 
     /*
      *    Residual equation for the time step -> Right now we don't have a model
@@ -776,7 +776,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
-        doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
+        double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;

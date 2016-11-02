@@ -124,12 +124,12 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     double sa_final;
     counterNumberIntegrations_++;
     counterNumberSubIntegrations_++;
-    std::vector<doublereal> phaseMoles_tmp(m_NumTotPhases, 0.0);
-    std::vector<doublereal> phaseMoles_init_init(m_NumTotPhases, 0.0);
-    std::vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
-    std::vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
-    std::vector<doublereal> Xf_tmp(m_NumTotSpecies, 0.0);
-    std::vector<doublereal> delta(m_NumTotSpecies, 0.0);
+    std::vector<double> phaseMoles_tmp(m_NumTotPhases, 0.0);
+    std::vector<double> phaseMoles_init_init(m_NumTotPhases, 0.0);
+    std::vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> delta(m_NumTotSpecies, 0.0);
     std::vector<int> justBornMultiSpecies(0);
 
 
@@ -303,7 +303,7 @@ void Electrode_InfCapacity::setInitStateFromFinal(bool setInitInit)
     Electrode::setInitStateFromFinal(setInitInit);
 }
 //====================================================================================================================
-void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
+void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered)
 {
 
     if (!pendingIntegratedStep_) {

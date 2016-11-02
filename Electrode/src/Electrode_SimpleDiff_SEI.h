@@ -155,13 +155,13 @@ public:
      *
      * @return
      */
-    virtual int evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y,
-                            const doublereal* const ydot,
-                            doublereal* const resid,
+    virtual int evalResidNJ(const double t, const double delta_t,
+                            const double* const y,
+                            const double* const ydot,
+                            double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const doublereal delta_x = 0.0);
+                            const double delta_x = 0.0);
 
 
 
@@ -325,47 +325,47 @@ protected:
      *
      *  units are kmol m-3.
      */
-    doublereal MolarVolume_Ref_;
+    double MolarVolume_Ref_;
 
     //! Node position of the mesh - final_final
-    std::vector<doublereal> rnodePos_final_final_;
+    std::vector<double> rnodePos_final_final_;
 
     //! Node position of the mesh - final
-    std::vector<doublereal> rnodePos_final_;
+    std::vector<double> rnodePos_final_;
 
     //! Node position of the mesh - init
-    std::vector<doublereal> rnodePos_init_;
+    std::vector<double> rnodePos_init_;
 
     //! Node position of the mesh - init_init
-    std::vector<doublereal> rnodePos_init_init_;
+    std::vector<double> rnodePos_init_init_;
 
     //! Reference radius at the right cell boundary - global final value
-    std::vector<doublereal> rRefPos_final_final_;
+    std::vector<double> rRefPos_final_final_;
 
     //! Reference radius at the right cell boundary - local final value
-    std::vector<doublereal> rRefPos_final_;
+    std::vector<double> rRefPos_final_;
 
     //! Reference radius at the right cell boundary - local init value
-    std::vector<doublereal> rRefPos_init_;
+    std::vector<double> rRefPos_init_;
 
     //! Reference radius at the right cell boundary - global init value
-    std::vector<doublereal> rRefPos_init_init_;
+    std::vector<double> rRefPos_init_init_;
 
-    std::vector<doublereal> cellBoundR_final_;
+    std::vector<double> cellBoundR_final_;
 
     //!  Spline system for the nodal equations
     /*!
      *   These factors are the fraction of the exterior node radius that the
      *   current node possesses.
      */
-    std::vector<doublereal> fracNodePos_;
+    std::vector<double> fracNodePos_;
 
     //!  Partial molar volume of all of the solid species located in all of the cells
     /*!
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
      *   noUnits are m3 / kmol
      */
-    std::vector<doublereal> partialMolarVolKRSpecies_Cell_final_;
+    std::vector<double> partialMolarVolKRSpecies_Cell_final_;
 
     //!  Molar creation rate of species in the electrode object due to the Exterior surface
     /*!
@@ -373,15 +373,15 @@ protected:
      *
      *    units (kmol sec-1);
      */
-    std::vector<doublereal> DspMoles_final_;
+    std::vector<double> DspMoles_final_;
 
     //! Domain boundary at the inner radius.
-    doublereal m_rbot0_;
+    double m_rbot0_;
 
-    std::vector<doublereal> Diff_Coeff_KRSolid_;
+    std::vector<double> Diff_Coeff_KRSolid_;
 
 
-    std::vector<doublereal> DphMolesSrc_final_;
+    std::vector<double> DphMolesSrc_final_;
 
     //! we identify the phases here as being the exterior surface
     /*!
@@ -391,14 +391,14 @@ protected:
 
 
     //!  Value of the total flux at the outer edge - kmol m-2 s-1
-    doublereal NTflux_final_;
+    double NTflux_final_;
 
 
     //! Local value of the diffusion coefficient
-    doublereal DiffCoeff_;
+    double DiffCoeff_;
 
     //! Vector of activity coefficients for all KR species at all nodes
-    std::vector<doublereal> actCoeff_;
+    std::vector<double> actCoeff_;
 
 
 

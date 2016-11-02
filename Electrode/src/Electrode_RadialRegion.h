@@ -327,8 +327,8 @@ public:
      *                          Values less than one increase density at the inner
      *  @param radialMesh   Returned mesh
      */
-    void radialGridGenerate(int numPoints, doublereal radiusInner, doublereal radiusOuter,
-                            doublereal geomFactor,
+    void radialGridGenerate(int numPoints, double radiusInner, double radiusOuter,
+                            double geomFactor,
                             std::vector<double>& radialMesh) const;
 
 protected:
@@ -537,7 +537,7 @@ protected:
      *      access method: molarVolume_refLat_Cell_final_[iCell];
      *      units = m3 kmol-1
      */
-    std::vector<doublereal> molarVolume_refLat_Cell_final_;
+    std::vector<double> molarVolume_refLat_Cell_final_;
 
     //! Molar Volume of the reference lattice - init state of local step
     /*!
@@ -545,7 +545,7 @@ protected:
      *      access method: molarVolume_refLat_Cell_init_[iCell];
      *      units = m3 kmol-1
      */
-    std::vector<doublereal> molarVolume_refLat_Cell_init_;
+    std::vector<double> molarVolume_refLat_Cell_init_;
 
     //! Molar Volume of the reference lattice - final state of global step
     /*!
@@ -553,7 +553,7 @@ protected:
      *      access method: molarVolume_refLat_Cell_final_final_[iCell];
      *      units = m3 kmol-1
      */
-    std::vector<doublereal> molarVolume_refLat_Cell_final_final_;
+    std::vector<double> molarVolume_refLat_Cell_final_final_;
 
     //! Molar Volume of the reference lattice - init state of global step
     /*!
@@ -561,7 +561,7 @@ protected:
      *      access method: molarVolume_refLat_Cell_init_init_[iCell];
      *      units = m3 kmol-1
      */
-    std::vector<doublereal> molarVolume_refLat_Cell_init_init_;
+    std::vector<double> molarVolume_refLat_Cell_init_init_;
 
 
     //! Molar density of the solid phase in each cell under reference conditions
@@ -571,7 +571,7 @@ protected:
      *
      *  units are kmol m-3.
      */
-    doublereal MolarVolume_refLat_Ref_;
+    double MolarVolume_refLat_Ref_;
 
 
     //! Node position of the mesh - final
@@ -580,7 +580,7 @@ protected:
      *  Vector of length number of cells =  numRCells_
      *  Index is the cell number
      */
-    std::vector<doublereal> rnodePos_final_;
+    std::vector<double> rnodePos_final_;
 
     //! Node position of the mesh - init
     /*!
@@ -588,7 +588,7 @@ protected:
      *  Vector of length number of cells =  numRCells_
      *  Index is the cell number
      */
-    std::vector<doublereal> rnodePos_init_;
+    std::vector<double> rnodePos_init_;
 
     //! Node position of the mesh - final_final
     /*!
@@ -596,7 +596,7 @@ protected:
      *  Vector of length number of cells =  numRCells_
      *  Index is the cell number
      */
-    std::vector<doublereal> rnodePos_final_final_;
+    std::vector<double> rnodePos_final_final_;
 
     //! Node position of the mesh - init_init
     /*!
@@ -604,21 +604,21 @@ protected:
      *  Vector of length number of cells =  numRCells_
      *  Index is the cell number
      */
-    std::vector<doublereal> rnodePos_init_init_;
+    std::vector<double> rnodePos_init_init_;
 
     // Change the following to cellBoundRRefPos
     //! Reference radius at the right cell boundary - local final value
-    std::vector<doublereal> rRefPos_final_;
+    std::vector<double> rRefPos_final_;
 
     //! Reference radius at the right cell boundary - local init value
-    std::vector<doublereal> rRefPos_init_;
+    std::vector<double> rRefPos_init_;
 
 
     //! Reference radius at the right cell boundary - global final value
-    std::vector<doublereal> rRefPos_final_final_;
+    std::vector<double> rRefPos_final_final_;
 
     //! Reference radius at the right cell boundary - global init value
-    std::vector<doublereal> rRefPos_init_init_;
+    std::vector<double> rRefPos_init_init_;
 
 
     //! Value of the Radius' of the right cell boundaries at the end of the local step
@@ -627,7 +627,7 @@ protected:
      *  Index is the cell number
      *  units = meters (note this is usually a micron sized quantity)
      */
-    std::vector<doublereal> cellBoundR_final_;
+    std::vector<double> cellBoundR_final_;
 
     //! Value of the Radius' of the right cell boundaries at the beginning of the local step
     /*!
@@ -635,7 +635,7 @@ protected:
      *  Index is the cell number
      *  units = meters (note this is usually a micron sized quantity)
      */
-    std::vector<doublereal> cellBoundR_init_;
+    std::vector<double> cellBoundR_init_;
 
     //! Value of the Radius' of the right cell boundaries at the end of the global step
     /*!
@@ -643,7 +643,7 @@ protected:
      *  Index is the cell number
      *  units = meters (note this is usually a micron sized quantity)
      */
-    std::vector<doublereal> cellBoundR_final_final_;
+    std::vector<double> cellBoundR_final_final_;
 
     //! Value of the Radius' of the right cell boundaries at the beginning of the global step
     /*!
@@ -651,7 +651,7 @@ protected:
      *  Index is the cell number
      *  units = meters (note this is usually a micron sized quantity)
      */
-    std::vector<doublereal> cellBoundR_init_init_;
+    std::vector<double> cellBoundR_init_init_;
 
 
     //!  Partial molar volume of all of the solid species located in all of the cells at the end of the local step
@@ -659,7 +659,7 @@ protected:
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
      *   noUnits are m3 / kmol
      */
-    std::vector<doublereal> partialMolarVolKRSpecies_Cell_final_;
+    std::vector<double> partialMolarVolKRSpecies_Cell_final_;
 
     //!  Partial molar volume of all of the solid species located in all of the cells at the beginning of the local step
     /*!
@@ -668,14 +668,14 @@ protected:
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
      *   Units are m3 / kmol
      */
-    std::vector<doublereal> partialMolarVolKRSpecies_Cell_init_;
+    std::vector<double> partialMolarVolKRSpecies_Cell_init_;
 
     //!  Partial molar volume of all of the solid species located in all of the cells at the end of the global step
     /*!
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
      *   noUnits are m3 / kmol
      */
-    std::vector<doublereal> partialMolarVolKRSpecies_Cell_final_final_;
+    std::vector<double> partialMolarVolKRSpecies_Cell_final_final_;
 
     //!  Partial molar volume of all of the solid species located in all of the cells at the beginning of the global step
     /*!
@@ -684,7 +684,7 @@ protected:
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
      *   Units are m3 / kmol
      */
-    std::vector<doublereal> partialMolarVolKRSpecies_Cell_init_init_;
+    std::vector<double> partialMolarVolKRSpecies_Cell_init_init_;
 
 
     //!  Spline system for the nodal equations
@@ -694,7 +694,7 @@ protected:
      *   Therefore, the RHS will have a value of one, and this function will be monotonically
      *   increasing from left to right.
      */
-    std::vector<doublereal> fractionVolExpansion_Cell_;
+    std::vector<double> fractionVolExpansion_Cell_;
 
     //!  Molar creation rate of species in the electrode object due to the Exterior right surface
     /*!
@@ -704,23 +704,23 @@ protected:
      *
      *    units (kmol sec-1);
      */
-    std::vector<doublereal> DspMoles_RightSurf_final_;
+    std::vector<double> DspMoles_RightSurf_final_;
 
 
     //! Radius of the left boundary - reference value.
-    doublereal radiusLeft_Ref_;
+    double radiusLeft_Ref_;
 
     //! Radius of the left boundary - value at the end of the local step.
-    doublereal radiusLeft_final_;
+    double radiusLeft_final_;
 
     //! Radius of the left boundary - value at the beginning of the local step.
-    doublereal radiusLeft_init_;
+    double radiusLeft_init_;
 
     //! Radius of the left boundary - value at the end of the local step.
-    doublereal radiusLeft_final_final_;
+    double radiusLeft_final_final_;
 
     //! Radius of the left boundary - value at the beginning of the local step.
-    doublereal radiusLeft_init_init_;
+    double radiusLeft_init_init_;
 
     //! Diffusion coefficient of species that are distributed
     /*!
@@ -729,7 +729,7 @@ protected:
      *         Length = numKRSpecies_
      *         units = m2/s
      */
-    std::vector<doublereal> Diff_Coeff_KRSolid_;
+    std::vector<double> Diff_Coeff_KRSolid_;
 
     //! Production Rate of phases at the right boundary
     /*!
@@ -739,7 +739,7 @@ protected:
      *
      *    units (kmol sec-1);
      */
-    std::vector<doublereal> DphMoles_RightSurf_final_;
+    std::vector<double> DphMoles_RightSurf_final_;
 
     //! we identify the phases here as being the right surface, which may be the exterior surface
     /*!
@@ -753,7 +753,7 @@ protected:
      *    access method:   actCoeff_[iKRSpecies]
      *    This is dimensionless , intermediate number that is calculated at every point.
      */
-    std::vector<doublereal> actCoeff_Cell_final_;
+    std::vector<double> actCoeff_Cell_final_;
 
 
      Electrode_RadialDiffRegions* ee_;

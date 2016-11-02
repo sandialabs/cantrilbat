@@ -867,13 +867,13 @@ int Electrode_SimplePhaseChangeDiffusion::integrate(double deltaT, double  Globa
      *    -> This will be the final conditions.
      */
 
-    vector<doublereal> Xf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
+    vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
+    vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
+    vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
 
     std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.);
     std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.);
-    vector<doublereal> deltaMoles(m_NumTotSpecies, 0.0);
+    vector<double> deltaMoles(m_NumTotSpecies, 0.0);
 
 #ifdef OLD_FOLLOW
     followElectrolyteMoles_ = 1;
@@ -1397,7 +1397,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
-        doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
+        double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;

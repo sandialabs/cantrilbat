@@ -66,7 +66,7 @@ public:
   virtual double integratedEnthalpySourceTerm()
   { return temperature_; }
 
-  virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
+  virtual void getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered)
   {
     phaseMolesTransfered[0] = temperature_ + 2*deltaVoltage_;
     for(int i=0; i<3; ++i)
@@ -75,7 +75,7 @@ public:
     }
   }
 
-  virtual double integratedSpeciesSourceTerm(doublereal* const spMoleDelta)
+  virtual double integratedSpeciesSourceTerm(double* const spMoleDelta)
   {
     spMoleDelta[0] = deltaVoltage_;
     spMoleDelta[1] = 2*fake_electrolyte_mole_nums[0];

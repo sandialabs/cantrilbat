@@ -165,8 +165,8 @@ public:
      * @param electrodeThickness  Width of the electrode
      * @param porosity        Volume of the electrolyte phase
      */
-    virtual void setElectrodeSizeParams(doublereal electrodeArea, doublereal electrodeThickness,
-                                        doublereal porosity);
+    virtual void setElectrodeSizeParams(double electrodeArea, double electrodeThickness,
+                                        double porosity);
 
 protected:
     //! Resize the solid phase and electrolyte mole numbers within the object
@@ -501,7 +501,7 @@ public:
      *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
      *                     electrode. (kmol s-1)
      */
-    virtual void speciesProductionRates(doublereal* const spMoleDot);
+    virtual void speciesProductionRates(double* const spMoleDot);
 
     // ---------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATIONS -----------------------------------------
@@ -607,9 +607,9 @@ public:
      *            1  Means a successful operation
      *            0  Means an unsuccessful operation
      */
-    int calcDeltaSolnVariables(const doublereal t, const doublereal* const ySoln,
-                               const doublereal* const ySolnDot, doublereal* const deltaYSoln,
-                               const doublereal* const solnWeights);
+    int calcDeltaSolnVariables(const double t, const double* const ySoln,
+                               const double* const ySolnDot, double* const deltaYSoln,
+                               const double* const solnWeights);
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
@@ -669,23 +669,23 @@ public:
      *                        nonlinear solver. Anything other than a 1 causes an immediate failure
      *                        of the nonlinear solver to occur.
      */
-    int integrateResid(const doublereal tfinal, const doublereal delta_t,
-                       const doublereal* const y, const doublereal* const ySolnDot,
-                       doublereal* const resid,
+    int integrateResid(const double tfinal, const double delta_t,
+                       const double* const y, const double* const ySolnDot,
+                       double* const resid,
                        const ResidEval_Type_Enum evalType, const int id_x,
-                       const doublereal delta_x);
+                       const double delta_x);
 
     virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
-    virtual int GFCEO_evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y,
-                            const doublereal* const ydot,
-                            doublereal* const resid,
+    virtual int GFCEO_evalResidNJ(const double t, const double delta_t,
+                            const double* const y,
+                            const double* const ydot,
+                            double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const doublereal delta_x = 0.0);
+                            const double delta_x = 0.0);
 
-    virtual int GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
+    virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
 
     void printElectrodeCapacityInfo(int pSrc, bool subTimeStep);
@@ -744,13 +744,13 @@ public:
      *
      * @return
      */
-    virtual int evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y,
-                            const doublereal* const ydot,
-                            doublereal* const resid,
+    virtual int evalResidNJ(const double t, const double delta_t,
+                            const double* const y,
+                            const double* const ydot,
+                            double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const doublereal delta_x = 0.0);
+                            const double delta_x = 0.0);
 
     //! Fill in the initial conditions
     /*!
@@ -760,8 +760,8 @@ public:
      * @param y             Solution vector (output)
      * @param ydot          Rate of change of solution vector. (output)
      */
-    virtual int getInitialConditions(const doublereal t0, doublereal* const y,
-                                     doublereal* const ydot);
+    virtual int getInitialConditions(const double t0, double* const y,
+                                     double* const ydot);
 
     //! Calculate the relative extent of reaction from the current state of the object
     /*!

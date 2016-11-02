@@ -84,7 +84,7 @@ public:
      * @param mu  Output vector of species chemical
      *            potentials. Length: m_kk. Units: J/kmol
      */
-    virtual void getChemPotentials(doublereal* mu) const;
+    virtual void getChemPotentials(double* mu) const;
 
 
     //
@@ -124,7 +124,7 @@ public:
     size_t replacedLocalSpeciesID;
 
     //! Vector of gibbs values
-    mutable std::vector<doublereal> m_mu;
+    mutable std::vector<double> m_mu;
 
     mutable std::vector< std::vector<double> > m_muExtraList_;
 

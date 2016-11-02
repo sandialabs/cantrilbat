@@ -60,7 +60,7 @@ protected:
 
 public:
   
-  ResidJacElectrodeEval(Electrode * elec, doublereal atol = 1.0e-13) :
+  ResidJacElectrodeEval(Electrode * elec, double atol = 1.0e-13) :
     ResidJacEval(atol)
   {
     neq_ = 2;
@@ -72,13 +72,13 @@ public:
     return neq_;
   }
   
-  virtual void evalResidNJ(const doublereal t, const doublereal delta_t,
-			   const doublereal * const y,
-			   const doublereal * const ydot,
-			   doublereal * const resid,
+  virtual void evalResidNJ(const double t, const double delta_t,
+			   const double * const y,
+			   const double * const ydot,
+			   double * const resid,
 			   const ResidEval_Type_Enum evalType = Base_ResidEval,
 			   const int id_x = -1, 
-			   const doublereal delta_x = 0.0)
+			   const double delta_x = 0.0)
   {
     
     double x1, x2;

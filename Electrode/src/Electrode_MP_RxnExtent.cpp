@@ -871,8 +871,8 @@ Electrode_MP_RxnExtent::electrode_stateSave_create()
  * @param electrodeThickness  Width of the electrode
  * @param porosity        Volume of the electrolyte phase
  */
-void Electrode_MP_RxnExtent::setElectrodeSizeParams(doublereal electrodeArea, doublereal electrodeThickness,
-        doublereal porosity)
+void Electrode_MP_RxnExtent::setElectrodeSizeParams(double electrodeArea, double electrodeThickness,
+        double porosity)
 {
 
     Electrode_Integrator::setElectrodeSizeParams(electrodeArea, electrodeThickness,  porosity);
@@ -2960,11 +2960,11 @@ void Electrode_MP_RxnExtent::gatherIntegratedSrcPrediction()
  * @return 1 Means a good calculation that produces a valid result
  *           0 Bad calculation that means that the current nonlinear iteration should be terminated
  */
-int Electrode_MP_RxnExtent::integrateResid(const doublereal t, const doublereal delta_t,
-        const doublereal* const y, const doublereal* const ySolnDot,
-        doublereal* const resid,
+int Electrode_MP_RxnExtent::integrateResid(const double t, const double delta_t,
+        const double* const y, const double* const ySolnDot,
+        double* const resid,
         const ResidEval_Type_Enum evalType, const int id_x,
-        const doublereal delta_x)
+        const double delta_x)
 {
     if ((enableExtraPrinting_ && detailedResidPrintFlag_ > 1) || evalType == Base_ShowSolution) {
         printf("\t\t===============================================================================================================================\n");
@@ -3706,7 +3706,7 @@ void Electrode_MP_RxnExtent::setFinalFinalStateFromFinal()
 
 
 //  -----------------------------------------------------------------------------------------------------------------
-int Electrode_MP_RxnExtent::getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
+int Electrode_MP_RxnExtent::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     for (int k = 0; k < neq_; k++) {
         y[k] = 0.0;
@@ -3714,17 +3714,17 @@ int Electrode_MP_RxnExtent::getInitialConditions(const doublereal t0, doublereal
     return 1;
 }
 //====================================================================================================================
-doublereal
-Electrode_MP_RxnExtent::filterNewStep(const doublereal timeCurrent,
-                                      const doublereal* const ybase,
-                                      doublereal* const step0)
+double
+Electrode_MP_RxnExtent::filterNewStep(const double timeCurrent,
+                                      const double* const ybase,
+                                      double* const step0)
 {
     return -1;
 }
 //====================================================================================================================
-int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const doublereal t, const doublereal* const ySoln,
-        const doublereal* const ySolnDot, doublereal* const deltaYSoln,
-        const doublereal* const solnWeights)
+int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const double t, const double* const ySoln,
+        const double* const ySolnDot, double* const deltaYSoln,
+        const double* const solnWeights)
 {
     if (!solnWeights) {
         for (int i = 0; i < neq_; i++) {
@@ -3751,13 +3751,13 @@ int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const doublereal t, const dou
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_MP_RxnExtent::evalResidNJ(const doublereal tdummy, const doublereal delta_t_dummy,
-                                        const doublereal* const y,
-                                        const doublereal* const ySolnDot,
-                                        doublereal* const resid,
+int Electrode_MP_RxnExtent::evalResidNJ(const double tdummy, const double delta_t_dummy,
+                                        const double* const y,
+                                        const double* const ySolnDot,
+                                        double* const resid,
                                         const ResidEval_Type_Enum evalType,
                                         const int id_x,
-                                        const doublereal delta_x)
+                                        const double delta_x)
 {
     int retn =  integrateResid(tdummy, delta_t_dummy, y, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;
@@ -4702,7 +4702,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
             const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
-            doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isurf);
+            double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             int nphRS = RSD_List_[isurf]->nPhases();
             int kIndexKin = 0;

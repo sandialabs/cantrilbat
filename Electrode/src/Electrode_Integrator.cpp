@@ -673,7 +673,7 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
  * @param Tinitial   This is the New initial time. This time is compared against the "old"
  *                   final time, to see if there is any problem.
  */
-void  Electrode_Integrator::resetStartingCondition(doublereal Tinitial, bool doResetAlways)
+void  Electrode_Integrator::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
     bool resetToInitInit = false;
     /*
@@ -1731,22 +1731,22 @@ void Electrode_Integrator::updateSpeciesMoleChangeFinal()
  *  (virtual fucntion from Electrode_Integrator)
  *
  */
-int Electrode_Integrator::calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
     throw CanteraError(" Electrode_Integrator::calcResid()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================
-int Electrode_Integrator::GFCEO_evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y, const doublereal* const ydot,
-                            doublereal* const resid, const ResidEval_Type_Enum evalType,
-                            const int id_x, const doublereal delta_x)
+int Electrode_Integrator::GFCEO_evalResidNJ(const double t, const double delta_t,
+                            const double* const y, const double* const ydot,
+                            double* const resid, const ResidEval_Type_Enum evalType,
+                            const int id_x, const double delta_x)
 {
     throw CanteraError(" Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================
-int Electrode_Integrator::GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_Integrator::GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
     throw CanteraError(" Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
     return 0;
@@ -1941,9 +1941,9 @@ void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
  *            1  Means a successful operation
  *            0  Means an unsuccessful operation
  */
-int Electrode_Integrator::calcDeltaSolnVariables(const doublereal t, const doublereal* const ySoln,
-        const doublereal* const ySolnDot, doublereal* const deltaYSoln,
-        const doublereal* const solnWeights)
+int Electrode_Integrator::calcDeltaSolnVariables(const double t, const double* const ySoln,
+        const double* const ySolnDot, double* const deltaYSoln,
+        const double* const solnWeights)
 {
     int retn = ResidJacEval::calcDeltaSolnVariables(t, ySoln, ySolnDot, deltaYSoln, solnWeights);
     return retn;
@@ -2279,11 +2279,11 @@ double Electrode_Integrator::reportStateVariableIntegrationError(int& numSV, dou
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_Integrator::evalResidNJ(const doublereal t, const doublereal delta_t,
-                                      const doublereal* const y, const doublereal* const ySolnDot,
-                                      doublereal* const resid,
+int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
+                                      const double* const y, const double* const ySolnDot,
+                                      double* const resid,
                                       const ResidEval_Type_Enum evalType, const int id_x,
-                                      const doublereal delta_x)
+                                      const double delta_x)
 {
     int retn = 1;
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
@@ -2374,7 +2374,7 @@ int Electrode_Integrator::evalResidNJ(const doublereal t, const doublereal delta
  * @param y             Solution vector (output)
  * @param ydot          Rate of change of solution vector. (output)
  */
-int  Electrode_Integrator::getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
+int  Electrode_Integrator::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     return 0;
 }
@@ -2523,7 +2523,7 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
         const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
-        doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
+        double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;

@@ -606,7 +606,7 @@ void Electrode_RadialDiffRegions::printElectrodePhase(int iphI, int pSrc, bool s
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
-        doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
+        double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;

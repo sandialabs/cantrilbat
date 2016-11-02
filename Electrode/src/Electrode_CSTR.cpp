@@ -489,8 +489,8 @@ int Electrode_CSTR::create_solvers()
  * @param electrodeThickness  Width of the electrode
  * @param porosity        Volume of the electrolyte phase
  */
-void Electrode_CSTR::setElectrodeSizeParams(doublereal electrodeArea, doublereal
-        electrodeThickness, doublereal porosity)
+void Electrode_CSTR::setElectrodeSizeParams(double electrodeArea, double
+        electrodeThickness, double porosity)
 {
     Electrode_Integrator::setElectrodeSizeParams(electrodeArea, electrodeThickness, porosity);
     /*
@@ -1008,7 +1008,7 @@ double Electrode_CSTR::RxnExtentDot(int platNum, double voltsMax, double voltsMi
 }
 
 //================================================================================================================
-void Electrode_CSTR::speciesProductionRates(doublereal* const spMoleDot)
+void Electrode_CSTR::speciesProductionRates(double* const spMoleDot)
 {     
     std::fill_n(spMoleDot, m_NumTotSpecies, 0.0);
     //
@@ -1684,9 +1684,9 @@ int Electrode_CSTR::nEquations() const
  *            1  Means a successful operation
  *            0  Means an unsuccessful operation
  */
-int Electrode_CSTR::calcDeltaSolnVariables(const doublereal t, const doublereal* const ySoln,
-        const doublereal* const ySolnDot, doublereal* const deltaYSoln,
-        const doublereal* const solnWeights)
+int Electrode_CSTR::calcDeltaSolnVariables(const double t, const double* const ySoln,
+        const double* const ySolnDot, double* const deltaYSoln,
+        const double* const solnWeights)
 {
     if (!solnWeights) {
         for (int i = 0; i < neq_; i++) {
@@ -1734,11 +1734,11 @@ void  Electrode_CSTR::determineBigMoleFractions()
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_CSTR::integrateResid(const doublereal t, const doublereal delta_t,
-                                   const doublereal* const y, const doublereal* const ySolnDot,
-                                   doublereal* const resid,
+int Electrode_CSTR::integrateResid(const double t, const double delta_t,
+                                   const double* const y, const double* const ySolnDot,
+                                   double* const resid,
                                    const ResidEval_Type_Enum evalType, const int id_x,
-                                   const doublereal delta_x)
+                                   const double delta_x)
 {
 
     //int neq = nResidEquations();
@@ -2233,10 +2233,10 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_CSTR::GFCEO_evalResidNJ(const doublereal tdummy, const doublereal delta_t_dummy,
-                                const doublereal* const y, const doublereal* const ySolnDot,
-                                doublereal* const resid, const ResidEval_Type_Enum evalType,
-                                const int id_x, const doublereal delta_x)
+int Electrode_CSTR::GFCEO_evalResidNJ(const double tdummy, const double delta_t_dummy,
+                                const double* const y, const double* const ySolnDot,
+                                double* const resid, const ResidEval_Type_Enum evalType,
+                                const int id_x, const double delta_x)
 {
 
    return 0;
@@ -2272,7 +2272,7 @@ int Electrode_CSTR::GFCEO_evalResidNJ(const doublereal tdummy, const doublereal 
  *  @return  1 Means a good calculation that produces a valid result
  *           0 Bad calculation that means that the current nonlinear iteration should be terminated
  */
-int Electrode_CSTR::GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_CSTR::GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
     size_t index = 0;
     // This has to be scaled
@@ -2482,7 +2482,7 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
-            doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
+            double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             if (!goNowhere_) {
                 int nphRS = RSD_List_[isph]->nPhases();
@@ -2525,20 +2525,20 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_CSTR::evalResidNJ(const doublereal tdummy, const doublereal delta_t_dummy,
-                                const doublereal* const y,
-                                const doublereal* const ySolnDot,
-                                doublereal* const resid,
+int Electrode_CSTR::evalResidNJ(const double tdummy, const double delta_t_dummy,
+                                const double* const y,
+                                const double* const ySolnDot,
+                                double* const resid,
                                 const ResidEval_Type_Enum evalType,
                                 const int id_x,
-                                const doublereal delta_x)
+                                const double delta_x)
 {
     int retn =  integrateResid(tdummy, delta_t_dummy, y, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;
 }
 //====================================================================================================================
 
-int Electrode_CSTR::getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
+int Electrode_CSTR::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     for (int k = 0; k < neq_; k++) {
         y[k] = 0.0;

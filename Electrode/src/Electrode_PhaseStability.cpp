@@ -165,7 +165,7 @@ void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
                 ThermoPhase* tp = emp_->VolPhaseList[iph];
                 int nsp = tp->nSpecies();
                 neq_ += nsp - 1;
-                std::vector<doublereal> mole_fractions(nsp);
+                std::vector<double> mole_fractions(nsp);
                 int iStart = emp_->getGlobalSpeciesIndex(iph, 0);
 
                 std::copy(emp_->spMf_final_[iStart], emp_->spMf_final_[iStart] + nsp, mole_fractions.begin());
@@ -395,7 +395,7 @@ void Electrode_PhaseStability::updatePhaseMoleFractions(int iii, int iph)
     ThermoPhase& tp = emp_->thermo(iph);
     int nsp =  emp_->m_PhaseSpeciesStartIndex[iph+1] - istart;
 
-    std::vector<doublereal>& mfVector = mfVector_pl_[iii];
+    std::vector<double>& mfVector = mfVector_pl_[iii];
     /*
      * Install a new version of the mole fractions into the electrode objects mole fraction vector
      */
@@ -495,10 +495,10 @@ void Electrode_PhaseStability::extractInfo()
     for (int iii = 0; iii < nPhasesToPop_; iii++) {
         iph = phasePopIndexList_[iii];
 
-        std::vector<doublereal>& CDotVector = CDotVector_pl_[iii];
-        std::vector<doublereal>& DDotLinVector = DDotLinVector_pl_[iii];
-        std::vector<doublereal>& DDotVector = DDotVector_pl_[iii];
-        std::vector<doublereal>& mfVector =     mfVector_pl_[iii];
+        std::vector<double>& CDotVector = CDotVector_pl_[iii];
+        std::vector<double>& DDotLinVector = DDotLinVector_pl_[iii];
+        std::vector<double>& DDotVector = DDotVector_pl_[iii];
+        std::vector<double>& mfVector =     mfVector_pl_[iii];
 
         int istart = emp_->getGlobalSpeciesIndex(iph, 0);
 
@@ -553,13 +553,13 @@ void Electrode_PhaseStability::extractInfo()
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_PhaseStability::optResid(const doublereal tdummy, const doublereal delta_t_dummy,
-                                       const doublereal* const y,
-                                       const doublereal* const ySolnDot,
-                                       doublereal* const resid,
+int Electrode_PhaseStability::optResid(const double tdummy, const double delta_t_dummy,
+                                       const double* const y,
+                                       const double* const ySolnDot,
+                                       double* const resid,
                                        const ResidEval_Type_Enum evalType,
                                        const int id_x,
-                                       const doublereal delta_x)
+                                       const double delta_x)
 {
     int iph, isp;
 
@@ -589,9 +589,9 @@ int Electrode_PhaseStability::optResid(const doublereal tdummy, const doublereal
 
     for (int iii = 0; iii < nPhasesToPop_; iii++) {
         iph = phasePopIndexList_[iii];
-        std::vector<doublereal>& ZVector = ZVector_pl_[iii];
-        std::vector<doublereal>& CDotVector = CDotVector_pl_[iii];
-        std::vector<doublereal>& DDotLinVector = DDotLinVector_pl_[iii];
+        std::vector<double>& ZVector = ZVector_pl_[iii];
+        std::vector<double>& CDotVector = CDotVector_pl_[iii];
+        std::vector<double>& DDotLinVector = DDotLinVector_pl_[iii];
 
         /*
          * Calculate ZVector and f
@@ -615,10 +615,10 @@ int Electrode_PhaseStability::optResid(const doublereal tdummy, const doublereal
     int index = 0;
     for (int iii = 0; iii < nPhasesToPop_; iii++) {
         iph = phasePopIndexList_[iii];
-        std::vector<doublereal>& ZVector = ZVector_pl_[iii];
-        std::vector<doublereal>& CDotVector = CDotVector_pl_[iii];
-        std::vector<doublereal>& DDotVector = DDotVector_pl_[iii];
-        //std::vector<doublereal> &DDotLinVector = DDotLinVector_pl_[iii];
+        std::vector<double>& ZVector = ZVector_pl_[iii];
+        std::vector<double>& CDotVector = CDotVector_pl_[iii];
+        std::vector<double>& DDotVector = DDotVector_pl_[iii];
+        //std::vector<double> &DDotLinVector = DDotLinVector_pl_[iii];
 
         /*
          * Calculate ZVector and f
@@ -722,13 +722,13 @@ Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::calcPhaseStabFunc_Resi
  * @param delta_x       Value of the delta used in the numerical differencing
  */
 int Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::
-evalResidNJ(const doublereal tdummy, const doublereal delta_t_dummy,
-            const doublereal* const y,
-            const doublereal* const ySolnDot,
-            doublereal* const resid,
+evalResidNJ(const double tdummy, const double delta_t_dummy,
+            const double* const y,
+            const double* const ySolnDot,
+            double* const resid,
             const ResidEval_Type_Enum evalType,
             const int id_x,
-            const doublereal delta_x)
+            const double delta_x)
 {
     /*
      *  Return control for calculating the residual to the controlling Electrode_PhaseStability object.
@@ -739,7 +739,7 @@ evalResidNJ(const doublereal tdummy, const doublereal delta_t_dummy,
 }
 //  -----------------------------------------------------------------------------------------------------------------
 int Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::
-getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
+getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     for (int k = 0; k < neq_; k++) {
         y[k] = 0.0;
@@ -761,9 +761,9 @@ int Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::nEquations() const
  *
  *  @return Returns the norm of the value of the amount filtered
  */
-doublereal Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::
-filterNewStep(const doublereal timeCurrent, const doublereal* const ybase,
-              doublereal* const step0)
+double Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::
+filterNewStep(const double timeCurrent, const double* const ybase,
+              double* const step0)
 {
     return 0.0;
 }
@@ -774,7 +774,7 @@ void  Electrode_PhaseStability::determineBigMoleFractions()
     for (int iii = 0; iii < nPhasesToPop_; iii++) {
         int iph = phasePopIndexList_[iii];
 
-        std::vector<doublereal>& mfVector =     mfVector_pl_[iii];
+        std::vector<double>& mfVector =     mfVector_pl_[iii];
 
         int istart = emp_->getGlobalSpeciesIndex(iph, 0);
 

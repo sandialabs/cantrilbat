@@ -1018,7 +1018,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     indent += " ";
   }
   const char *ind = indent.c_str();
-  doublereal v;
+  double v;
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
   // Number of points in each vector
   string sss = id();
@@ -1053,7 +1053,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
       if (doWrite) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("\n%s    %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1102,7 +1102,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
               + ZZCantera::int2str(iGbNode) + " vs " + ZZCantera::int2str(igb));
         }
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("%s %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1163,7 +1163,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       indent += " ";
     }
     const char *ind = indent.c_str();
-    doublereal v;
+    double v;
     GlobalIndices *gi = LI_ptr_->GI_ptr_;
     // Number of points in each vector
     string sss = id();
@@ -1198,7 +1198,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
 	if (doWrite) {
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-	  doublereal x = nv->xNodePos();
+	  double x = nv->xNodePos();
 	  ss.print0("\n%s % -11.4E ", ind, x);
 	  int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
 	  int istart = nv->EqnStart_GbEqnIndex;
@@ -1248,7 +1248,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 			    + ZZCantera::int2str(iGbNode) + " vs " + ZZCantera::int2str(igb));
 	  }
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-	  doublereal x = nv->xNodePos();
+	  double x = nv->xNodePos();
 	  ss.print0("%s % -11.4E ", ind, x);
 	  int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
 	  int istart = nv->EqnStart_GbEqnIndex;
@@ -1342,7 +1342,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 	doWrite = ((iGbNode >= FirstOwnedGbNode) && (iGbNode <= LastOwnedGbNode));
 	if (doWrite) {
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-	  doublereal x = nv->xNodePos();
+	  double x = nv->xNodePos();
 	  ss.print0("\n%s % -11.4E ", ind, x);
 	  int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
 	  int istart = nv->EqnStart_GbEqnIndex;
@@ -1392,7 +1392,7 @@ BulkDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 			    + ZZCantera::int2str(iGbNode) + " vs " + ZZCantera::int2str(igb));
 	  }
 	  NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-	  doublereal x = nv->xNodePos();
+	  double x = nv->xNodePos();
 	  ss.print0("%s % -11.4E ", ind, x);
 	  int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
 	  int istart = nv->EqnStart_GbEqnIndex;
@@ -1462,7 +1462,7 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
     indent += " ";
   }
   const char *ind = indent.c_str();
-  doublereal v;
+  double v;
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
   // Number of points in each vector
   string sss = id();
@@ -1495,7 +1495,7 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
 
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         sprintf(buf, "\n%s    %-10.4E ", ind, x);
         ZZCantera::writelog(buf);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
@@ -1529,7 +1529,7 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
 
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         sprintf(buf, "%s    %-10.4E ", ind, x);
         ZZCantera::writelog(buf);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
@@ -1551,7 +1551,7 @@ BulkDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr,
 //=====================================================================================================================
 double
 BulkDomain1D::getPointTemperature(const NodalVars* const nv,
-                                  const doublereal* const solutionPoint) const
+                                  const double* const solutionPoint) const
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -1567,7 +1567,7 @@ BulkDomain1D::getPointTemperature(const NodalVars* const nv,
 //=====================================================================================================================
 double
 BulkDomain1D::getPointPressure(const NodalVars* const nv,
-                               const doublereal* const solutionPoint) const
+                               const double* const solutionPoint) const
 {
     // 
     //  Note there are two pressure variables listed, Pressure_Axial and Pressure_Radial

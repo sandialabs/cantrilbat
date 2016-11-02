@@ -142,7 +142,7 @@ public:
      *    @param  phaseMolesTransfered   Vector of moles transfered (length = number of total phases in the electrode object)
      *                                   units = kmol
      */
-    virtual void getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered);
+    virtual void getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered);
 
 
 protected:

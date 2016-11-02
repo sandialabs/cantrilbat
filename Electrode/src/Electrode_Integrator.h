@@ -572,13 +572,13 @@ public:
      *
      * @return
      */
-    virtual int evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y,
-                            const doublereal* const ydot,
-                            doublereal* const resid,
+    virtual int evalResidNJ(const double t, const double delta_t,
+                            const double* const y,
+                            const double* const ydot,
+                            double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const doublereal delta_x = 0.0);
+                            const double delta_x = 0.0);
 
     //! calculate the residual
     /*!
@@ -588,15 +588,15 @@ public:
      *  @return  1 Means a good calculation that produces a valid result
      *           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
-    virtual int calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
-    virtual int GFCEO_evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y,
-                            const doublereal* const ydot,
-                            doublereal* const resid,
+    virtual int GFCEO_evalResidNJ(const double t, const double delta_t,
+                            const double* const y,
+                            const double* const ydot,
+                            double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const doublereal delta_x = 0.0);
+                            const double delta_x = 0.0);
 
     //! Calculate the residual for the Electrode object for the Global problem
     /*!
@@ -606,7 +606,7 @@ public:
      *  @return  1 Means a good calculation that produces a valid result
      *           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
-    virtual int GFCEO_calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
+    virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
     //! Fill in the initial conditions
     /*!
@@ -618,7 +618,7 @@ public:
      * @param y             Solution vector (output)
      * @param ydot          Rate of change of solution vector. (output)
      */
-    virtual int getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot);
+    virtual int getInitialConditions(const double t0, double* const y, double* const ydot);
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
@@ -639,9 +639,9 @@ public:
      *            1  Means a successful operation
      *            0  Means an unsuccessful operation
      */
-    virtual int calcDeltaSolnVariables(const doublereal t, const doublereal* const ySoln,
-                                       const doublereal* const ySolnDot, doublereal* const deltaYSoln,
-                                       const doublereal* const solnWeights);
+    virtual int calcDeltaSolnVariables(const double t, const double* const ySoln,
+                                       const double* const ySolnDot, double* const deltaYSoln,
+                                       const double* const solnWeights);
 
     //! Unpack the soln vector
     /*!
@@ -941,57 +941,57 @@ protected:
     //int neq_;
 
     //! value of the comptued time constant
-    doublereal deltaTsubcycleCalc_;
+    double deltaTsubcycleCalc_;
 
 
-    std::vector<doublereal> atolResidNLS_;
+    std::vector<double> atolResidNLS_;
 
 
     //! Relative tolerance for nonlinear residual
-    doublereal rtolResidNLS_;
+    double rtolResidNLS_;
 
     //! Vector of absolute tolerances for the nonlinear solution values for the problem
     /*!
      *  These have units particular to the residual equation
      */
-    std::vector<doublereal> atolNLS_;
+    std::vector<double> atolNLS_;
 
     //!  Vector of relative tolerances for the solution variables for the nonlinear solution of the
     //!  time stepping problem
-    doublereal rtolNLS_;
+    double rtolNLS_;
 
     //! Vector of low bounds on the solution variables for the nonlinear solver
-    std::vector<doublereal> ylowNLS_;
+    std::vector<double> ylowNLS_;
 
     //! Vector of high bounds on the solution variables for the nonlinear solver
-    std::vector<doublereal> yhighNLS_;
+    std::vector<double> yhighNLS_;
 
     //! Vector of solution values for the nonlinear solver
-    std::vector<doublereal> yvalNLS_;
+    std::vector<double> yvalNLS_;
 
-    std::vector<doublereal> yvalNLS_init_;
-    std::vector<doublereal> yvalNLS_init_init_;
-    std::vector<doublereal> yvalNLS_final_final_;
+    std::vector<double> yvalNLS_init_;
+    std::vector<double> yvalNLS_init_init_;
+    std::vector<double> yvalNLS_final_final_;
 
   public:
 
     //! Vector of solution dot values for the nonlinear solver
-    std::vector<doublereal> ydotNLS_;
+    std::vector<double> ydotNLS_;
 
     //! Vector of normalized error values at the current local time step
     //! multiplied by rtolNLS_. Thus a 10^-3 value would indicate the error is 1 part in 1000.
-    std::vector<doublereal> errorLocalNLS_;
+    std::vector<double> errorLocalNLS_;
 
     //! Vector of normalized error values at the current global time step
     //! multiplied by rtolNLS_. Thus a 10^-3 value would indicate the error is 1 part in 1000.
-    std::vector<doublereal> errorGlobalNLS_;
+    std::vector<double> errorGlobalNLS_;
 
     //! Vector of normalized values used to scale the nonlinear solver damping strategy.
     /*!
      *  Step sizes that are smaller than this value are not controlled by numerical damping.
      *  Usually, set to (1000 atol[i]). 
      */
-    std::vector<doublereal> deltaBoundsMagnitudesNLS_;
+    std::vector<double> deltaBoundsMagnitudesNLS_;
 
     //! Boolean vector indicating a phase just died on this subgrid integration step
     /*!
@@ -1052,7 +1052,7 @@ protected:
     std::vector<double> IntegratedSrc_Errors_globalStep_;
 
     //! Relative tolerance for the integrated global src term vectors
-    doublereal rtol_IntegratedSrc_global_;
+    double rtol_IntegratedSrc_global_;
 
     //! Absolute tolerance for the integrated global src term vectors
     std::vector<double> atol_IntegratedSrc_global_;
@@ -1070,8 +1070,8 @@ protected:
 
 
 
-    doublereal IntegratedSrc_normError_local_;
-    doublereal IntegratedSrc_normError_global_;
+    double IntegratedSrc_normError_local_;
+    double IntegratedSrc_normError_global_;
 
 
     SubIntegrationHistory timeHistory_base_;

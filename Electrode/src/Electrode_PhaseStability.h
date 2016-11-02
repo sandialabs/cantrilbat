@@ -77,7 +77,7 @@ public:
 
     void setup(const std::vector<int>& phasePopIndexList);
 
-    int determinePhaseStability(doublereal& retnFunc);
+    int determinePhaseStability(double& retnFunc);
 
     std::vector<std::vector<double> >& moleFractions();
 
@@ -100,13 +100,13 @@ public:
     /*!
      *
      */
-    int optResid(const doublereal tdummy, const doublereal delta_t_dummy,
-                 const doublereal* const y,
-                 const doublereal* const ySolnDot,
-                 doublereal* const resid,
+    int optResid(const double tdummy, const double delta_t_dummy,
+                 const double* const y,
+                 const double* const ySolnDot,
+                 double* const resid,
                  const ResidEval_Type_Enum evalType,
                  const int id_x,
-                 const doublereal delta_x);
+                 const double delta_x);
 
     void determineBigMoleFractions();
 
@@ -141,13 +141,13 @@ public:
          *
          * @return
          */
-        virtual int evalResidNJ(const doublereal t, const doublereal delta_t,
-                                const doublereal* const y,
-                                const doublereal* const ydot,
-                                doublereal* const resid,
+        virtual int evalResidNJ(const double t, const double delta_t,
+                                const double* const y,
+                                const double* const ydot,
+                                double* const resid,
                                 const ResidEval_Type_Enum evalType = Base_ResidEval,
                                 const int id_x = -1,
-                                const doublereal delta_x = 0.0);
+                                const double delta_x = 0.0);
 
         //! Fill in the initial conditions
         /*!
@@ -157,8 +157,8 @@ public:
          * @param y             Solution vector (output)
          * @param ydot          Rate of change of solution vector. (output)
          */
-        virtual int getInitialConditions(const doublereal t0, doublereal* const y,
-                                         doublereal* const ydot);
+        virtual int getInitialConditions(const double t0, double* const y,
+                                         double* const ydot);
 
 
         //! Return the number of equations in the equation system
@@ -174,8 +174,8 @@ public:
          *
          *  @return Returns the norm of the value of the amount filtered
          */
-        virtual doublereal filterNewStep(const doublereal timeCurrent, const doublereal* const ybase,
-                                         doublereal* const step0);
+        virtual double filterNewStep(const double timeCurrent, const double* const ybase,
+                                         double* const step0);
 
     protected:
 
@@ -222,26 +222,26 @@ protected:
 
     std::vector<int> phaseMFBig_;
 
-    std::vector<doublereal> residVector_;
+    std::vector<double> residVector_;
 
-    std::vector<doublereal> solnVector_;
+    std::vector<double> solnVector_;
 
-    std::vector<doublereal> speciesCreationRatesElectrode_;
-    std::vector<doublereal> speciesDestructionRatesElectrode_;
+    std::vector<double> speciesCreationRatesElectrode_;
+    std::vector<double> speciesDestructionRatesElectrode_;
 
 
-    std::vector<doublereal> speciesCreationRatesReactingSurface_;
-    std::vector<doublereal> speciesDestructionRatesReactingSurface_;
+    std::vector<double> speciesCreationRatesReactingSurface_;
+    std::vector<double> speciesDestructionRatesReactingSurface_;
 
-    std::vector<doublereal> atol_;
-    std::vector<doublereal> ylow_;
-    std::vector<doublereal> yhigh_;
-    std::vector<doublereal> yval_;
+    std::vector<double> atol_;
+    std::vector<double> ylow_;
+    std::vector<double> yhigh_;
+    std::vector<double> yval_;
 
     SquareMatrix* jac_;
     ZZCantera::NonlinearSolver* pSolve_;
 
-    std::vector<doublereal> phaseMoles_final_Orig_;
+    std::vector<double> phaseMoles_final_Orig_;
     int printLvl_;
 public:
     int enableExtraPrinting_;

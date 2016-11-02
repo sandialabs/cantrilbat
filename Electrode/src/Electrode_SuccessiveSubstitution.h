@@ -104,10 +104,10 @@ public:
      *
      * @return
      */
-    virtual int integrateResid(const doublereal tfinal, const doublereal delta_t,
-                               const doublereal* const y, const doublereal* const ydot,
-                               doublereal* const resid,
-                               const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x);
+    virtual int integrateResid(const double tfinal, const double delta_t,
+                               const double* const y, const double* const ydot,
+                               double* const resid,
+                               const ResidEval_Type_Enum evalType, const int id_x, const double delta_x);
 
 
 

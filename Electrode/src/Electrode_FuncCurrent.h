@@ -43,8 +43,8 @@ public:
         return numStepsLast_;    
     }
    
-    virtual int evalSS(const doublereal t, const doublereal* const x,
-                       doublereal* const r) {
+    virtual int evalSS(const double t, const double* const x,
+                       double* const r) {
         // set the metal and the electrolyte voltage
         m_ee->setVoltages(x[0], 0.0);
         if (printLvl_ > 0) {
@@ -133,7 +133,7 @@ public:
         return 1;
     }
 
-    virtual int evalSS(const doublereal t, const doublereal* const x, doublereal* const r) {
+    virtual int evalSS(const double t, const double* const x, double* const r) {
         // set the metal and the electrolyte voltage
 
         ThermoPhase& mtp = m_rsd->thermo(ikMetalPhase_);

@@ -178,9 +178,9 @@ protected:
 
 
     //! Node position of the mesh - final
-    std::vector<doublereal> rnodePos_;  
+    std::vector<double> rnodePos_;  
 
-    std::vector<doublereal> cellBoundR_;
+    std::vector<double> cellBoundR_;
 
  
     //! Total concentration of each of the solid phases that are distributed - global init state

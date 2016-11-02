@@ -168,28 +168,28 @@ protected:
     int indexRNode_;
 
     //! Node position of the surface - final_final
-    doublereal rnodePos_final_final_;
+    double rnodePos_final_final_;
 
     //! Node position of the surface - final
-    doublereal rnodePos_final_;
+    double rnodePos_final_;
 
     //! Node position of the surface - init
-    doublereal rnodePos_init_;
+    double rnodePos_init_;
 
     //! Node position of the surface- init_init
-    doublereal rnodePos_init_init_;
+    double rnodePos_init_init_;
 
     //! Reference radius of the node at the surface
-    doublereal rRefPos_final_final_;
+    double rRefPos_final_final_;
 
     //! Reference radius at the node at the surface - local final value
-    doublereal rRefPos_final_;
+    double rRefPos_final_;
 
     //! Reference radius at the node at the surface - local init value
-    doublereal rRefPos_init_;
+    double rRefPos_init_;
 
     //! Reference radius at the node at the surface - global init value
-    doublereal rRefPos_init_init_;
+    double rRefPos_init_init_;
 
 
 };

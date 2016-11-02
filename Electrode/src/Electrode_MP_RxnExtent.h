@@ -111,9 +111,9 @@ public:
      *     Length = numRegions_ + 1
      *     units = m**3 kmol-1
      */
-    std::vector<doublereal> molarVolumeRegionBoundaries_;
+    std::vector<double> molarVolumeRegionBoundaries_;
 
-    std::vector<doublereal> rxnPerturbRegions_ ;
+    std::vector<double> rxnPerturbRegions_ ;
 
 };
 
@@ -211,7 +211,7 @@ public:
      * @param electrodeThickness  Width of the electrode
      * @param porosity        Volume of the electrolyte phase
      */
-    virtual void setElectrodeSizeParams(doublereal electrodeArea, doublereal electrodeThickness, doublereal porosity);
+    virtual void setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity);
 
     //! Resize the solid phase and electrolyte mole numbers within the object
     /*!
@@ -497,7 +497,7 @@ public:
      *  @return  1 Means a good calculation that produces a valid result
      *           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
-    int calcResid(doublereal* const resid, const ResidEval_Type_Enum evalType);
+    int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
@@ -534,10 +534,10 @@ public:
      *                        nonlinear solver. Anything other than a 1 causes an immediate failure
      *                        of the nonlinear solver to occur.
      */
-    virtual int integrateResid(const doublereal tfinal, const doublereal delta_t,
-                               const doublereal* const y, const doublereal* const ydot,
-                               doublereal* const resid,
-                               const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x);
+    virtual int integrateResid(const double tfinal, const double delta_t,
+                               const double* const y, const double* const ydot,
+                               double* const resid,
+                               const ResidEval_Type_Enum evalType, const int id_x, const double delta_x);
 
 
 
@@ -1015,13 +1015,13 @@ public:
      *
      * @return
      */
-    virtual int evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y,
-                            const doublereal* const ydot,
-                            doublereal* const resid,
+    virtual int evalResidNJ(const double t, const double delta_t,
+                            const double* const y,
+                            const double* const ydot,
+                            double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const doublereal delta_x = 0.0);
+                            const double delta_x = 0.0);
 
     //! Fill in the initial conditions
     /*!
@@ -1031,8 +1031,8 @@ public:
      * @param y             Solution vector (output)
      * @param ydot          Rate of change of solution vector. (output)
      */
-    virtual int getInitialConditions(const doublereal t0, doublereal* const y,
-                                     doublereal* const ydot);
+    virtual int getInitialConditions(const double t0, double* const y,
+                                     double* const ydot);
 
 
 
@@ -1054,9 +1054,9 @@ public:
      *            1  Means a successful operation
      *            0  Means an unsuccessful operation
      */
-    virtual int calcDeltaSolnVariables(const doublereal t, const doublereal* const ySoln,
-                                       const doublereal* const ySolnDot, doublereal* const deltaYSoln,
-                                       const doublereal* const solnWeights);
+    virtual int calcDeltaSolnVariables(const double t, const double* const ySoln,
+                                       const double* const ySolnDot, double* const deltaYSoln,
+                                       const double* const solnWeights);
 
     //! Apply a filtering process to the step
     /*!
@@ -1067,9 +1067,9 @@ public:
      *
      *  @return Returns the norm of the value of the amount filtered
      */
-    virtual doublereal  filterNewStep(const doublereal timeCurrent,
-                                      const doublereal* const ybase,
-                                      doublereal* const step0);
+    virtual double  filterNewStep(const double timeCurrent,
+                                      const double* const ybase,
+                                      double* const step0);
 
 
 
@@ -1199,25 +1199,25 @@ protected:
     /*!
      *  units m3 kmol-1
      */
-    doublereal molarVolume_final_;
+    double molarVolume_final_;
 
     //! Molar volume of the electrode at the final global step state
     /*!
      *  units m3 kmol-1
      */
-    doublereal molarVolume_final_final_;
+    double molarVolume_final_final_;
 
     //! Molar volume of the electrode at the initial subgrid step state
     /*!
      *  units m3 kmol-1
      */
-    doublereal molarVolume_init_;
+    double molarVolume_init_;
 
     //! Molar volume of the electrode at the initial global step state
     /*!
      *  units m3 kmol-1
      */
-    doublereal molarVolume_init_init_;
+    double molarVolume_init_init_;
 
     //! Internal Radius at the final state (m)
     /*!
@@ -1225,16 +1225,16 @@ protected:
      *   This is defined in terms of the Degree that we have progressed along the extone of reaction variable
      *   between region boundaries.
      */
-    doublereal Radius_internal_final_;
+    double Radius_internal_final_;
 
     //! Internal radius at the final final state (m)
-    doublereal Radius_internal_final_final_;
+    double Radius_internal_final_final_;
 
     //! Internal radius at the initial state
-    doublereal Radius_internal_init_;
+    double Radius_internal_init_;
 
     //! Internal radius at the initial initial state
-    doublereal Radius_internal_init_init_;
+    double Radius_internal_init_init_;
 
     //! Location of the reacting surface
     /*!

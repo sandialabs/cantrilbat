@@ -1498,7 +1498,7 @@ int Electrode::electrode_stateSave_create()
  * @param electrodeThickness  Width of the electrode
  * @param porosity        Volume of the electrolyte phase and other non-electrode volume phases
  */
-void Electrode::setElectrodeSizeParams(doublereal electrodeArea, doublereal electrodeThickness, doublereal porosity)
+void Electrode::setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity)
 {
 
     porosity_ = porosity;
@@ -1603,7 +1603,7 @@ void Electrode::resizeMoleNumbersToGeometry()
  *  @param porosityReset   If positive, this resets the porosity within the electrode
  *                         to the given value.
  */
-void Electrode::resizeSolutionNumbersToPorosity(doublereal porosityReset)
+void Electrode::resizeSolutionNumbersToPorosity(double porosityReset)
 {
     if (porosityReset > 0.0) {
         porosity_ = porosityReset;
@@ -2087,8 +2087,8 @@ void Electrode::updateState_Phase(int iphI)
     }
 }
 //================================================================================================
-void Electrode::updatePhaseNumbersTmp(const vector<doublereal>& spMoles_tmp, vector<doublereal>& phaseMoles_tmp,
-        vector<doublereal>& spMf_tmp) const
+void Electrode::updatePhaseNumbersTmp(const vector<double>& spMoles_tmp, vector<double>& phaseMoles_tmp,
+        vector<double>& spMf_tmp) const
 {
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         size_t istart = m_PhaseSpeciesStartIndex[iph];
@@ -2190,19 +2190,19 @@ const std::vector<bool>& Electrode::getExternalSurfaceBooleans() const
     return isExternalSurface_;
 }
 //====================================================================================================================
-doublereal Electrode::phaseMoles(int iph) const
+double Electrode::phaseMoles(int iph) const
 {
     return phaseMoles_final_[iph];
 }
 //================================================================================================
-doublereal Electrode::elementMoles(int ieG) const
+double Electrode::elementMoles(int ieG) const
 {
     const Elements* elemList = getGlobalElements();
     std::string eN = elemList->elementName(ieG);
     return elementMoles(eN);
 }
 //================================================================================================
-doublereal Electrode::elementMoles(std::string eN) const
+double Electrode::elementMoles(std::string eN) const
 {
     double sum = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
@@ -2220,14 +2220,14 @@ doublereal Electrode::elementMoles(std::string eN) const
     return sum;
 }
 //================================================================================================
-doublereal Electrode::elementSolidMoles(int ieG) const
+double Electrode::elementSolidMoles(int ieG) const
 {
     const Elements* elemList = getGlobalElements();
     std::string eN = elemList->elementName(ieG);
     return elementMoles(eN);
 }
 //================================================================================================
-doublereal Electrode::elementSolidMoles(std::string eN) const
+double Electrode::elementSolidMoles(std::string eN) const
 {
     double sum = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
@@ -2277,22 +2277,22 @@ double Electrode::speciesChemPotential(int iGlobalSpIndex) const
     return tmp;
 }
 //================================================================================================
-void Electrode::getMoleFractions(doublereal* const x) const
+void Electrode::getMoleFractions(double* const x) const
 {
     std::copy( spMf_final_.begin(), spMf_final_.end(), x );
 }
 //================================================================================================
-void Electrode::getMoleNumSpecies(doublereal* const n) const
+void Electrode::getMoleNumSpecies(double* const n) const
 {
     std::copy( spMoles_final_.begin(), spMoles_final_.end(), n );
 }
 //================================================================================================
-const std::vector<doublereal> & Electrode::getMoleNumSpecies() const
+const std::vector<double> & Electrode::getMoleNumSpecies() const
 {
   return spMoles_final_;
 }
 //================================================================================================
-void Electrode::getMoleNumPhases(doublereal* const np) const
+void Electrode::getMoleNumPhases(double* const np) const
 {
     std::copy( phaseMoles_final_.begin(), phaseMoles_final_.end(), np);
 }
@@ -2326,7 +2326,7 @@ int Electrode::ReactingSurfacePhaseIndex(int isk, int PLph) const
     return (int) rsd->PLtoKinPhaseIndex_[PLph];
 }
 //================================================================================================
-void Electrode::setState_TP(doublereal temperature, doublereal pressure)
+void Electrode::setState_TP(double temperature, double pressure)
 {
     temperature_ = temperature;
     pressure_ = pressure;
@@ -2801,7 +2801,7 @@ void Electrode::getNetSurfaceProductionRates(const int isk, doublevalue* const n
     }
 }
 //====================================================================================================================
-void Electrode::getIntegratedSpeciesProductionRates(doublereal* const net) const
+void Electrode::getIntegratedSpeciesProductionRates(double* const net) const
 {
     if (pendingIntegratedStep_ != 1) {
         throw Electrode_Error("Electrode::integratedSpeciesProductionRates()",
@@ -2820,7 +2820,7 @@ void Electrode::getIntegratedSpeciesProductionRates(doublereal* const net) const
 /*
  *    columb sec-1 m-2
  */
-double Electrode::getNetSurfaceProductionRatesCurrent(const int isk, doublereal* const net) const
+double Electrode::getNetSurfaceProductionRatesCurrent(const int isk, double* const net) const
 {
     getNetSurfaceProductionRates(isk, net);
     // kmol sec-1 m-2
@@ -2835,7 +2835,7 @@ int Electrode::kSpecElectron() const
     return kElectron_;
 }
 //====================================================================================================================
-double Electrode::getIntegratedProductionRatesCurrent(doublereal* const net) const
+double Electrode::getIntegratedProductionRatesCurrent(double* const net) const
 {
     if (pendingIntegratedStep_ != 1) {
         double* netOne = &deltaG_[0];
@@ -2919,7 +2919,7 @@ double Electrode::integratedLocalCurrent() const
  *  @param isk Surface ID to get the fluxes from.
  *  @param phaseMassFlux  Returns the mass fluxes of the phases
  */
-void Electrode::getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux)
+void Electrode::getPhaseMassFlux(const int isk, double* const phaseMassFlux)
 {
     std::fill_n(phaseMassFlux, m_NumTotPhases, 0.);
 
@@ -2950,7 +2950,7 @@ void Electrode::getPhaseMassFlux(const int isk, doublereal* const phaseMassFlux)
  *  @param isk Surface ID to get the fluxes from.
  *  @param phaseMassFlux  Returns the mass fluxes of the phases
  */
-void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
+void Electrode::getPhaseMoleFlux(const int isk, double* const phaseMoleFlux)
 {
     std::fill_n(phaseMoleFlux, m_NumTotPhases, 0.);
     if (ActiveKineticsSurf_[isk]) {
@@ -2970,8 +2970,8 @@ void Electrode::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux)
     }
 }
 //================================================================================================
-void Electrode::getPhaseProductionRates(const doublereal* const speciesProductionRates,
-					doublereal* const phaseProductionRates) const
+void Electrode::getPhaseProductionRates(const double* const speciesProductionRates,
+					double* const phaseProductionRates) const
 {
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseProductionRates[iph] = 0.0;
@@ -2986,7 +2986,7 @@ void Electrode::getPhaseProductionRates(const doublereal* const speciesProductio
     }
 }
 //================================================================================================
-void Electrode::getIntegratedPhaseMoleTransfer(doublereal* const phaseMolesTransfered)
+void Electrode::getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered)
 {
     if (!pendingIntegratedStep_) {
         throw CanteraError(" Electrode::getIntegratedPhaseMoleTransfer", "no pending integration step");
@@ -3720,13 +3720,13 @@ Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, int iphaseTarget, doubl
 {
 }
 //===================================================================================================================
-int Electrode::phasePop_Resid::evalSS(const doublereal t, const doublereal* const y, doublereal* const r)
+int Electrode::phasePop_Resid::evalSS(const double t, const double* const y, double* const r)
 {
     int retn = ee_->phasePopResid(iphaseTarget_, y, deltaTsubcycle_, r);
     return retn;
 }
 //===================================================================================================================
-int Electrode::phasePop_Resid::getInitialConditions(const doublereal t0, doublereal* const y, doublereal* const ydot)
+int Electrode::phasePop_Resid::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     int ne = nEquations();
     for (int k = 0; k < ne; k++) {
@@ -3745,7 +3745,7 @@ int Electrode::phasePop_Resid::nEquations() const
 int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid)
 {
     int k;
-    vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
+    vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
 
     ThermoPhase* tptarget = PhaseList_[iphaseTarget];
     int nspPhase = tptarget->nSpecies();
@@ -3919,7 +3919,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
 int Electrode::phasePop(int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle)
 {
     int k;
-    vector<doublereal> Xf_phase(m_NumTotSpecies, 0.0);
+    vector<double> Xf_phase(m_NumTotSpecies, 0.0);
     int retn = 1;
     ThermoPhase* tptarget = PhaseList_[iphaseTarget];
     int nspPhase = tptarget->nSpecies();
@@ -4008,16 +4008,16 @@ Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
 {
 }
 //  -----------------------------------------------------------------------------------------------------------------
-int Electrode::integrate_ResidJacEval::evalResidNJ(doublereal t, const doublereal deltaT, const doublereal* const y,
-        const doublereal* const ydot, doublereal* const resid, const ResidEval_Type_Enum evalType, int id_x,
-        doublereal delta_x)
+int Electrode::integrate_ResidJacEval::evalResidNJ(double t, const double deltaT, const double* const y,
+        const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType, int id_x,
+        double delta_x)
 {
     int retn = ee_->integrateResid(t, deltaT, y, ydot, resid, evalType, id_x, delta_x);
     return retn;
 }
 //  -----------------------------------------------------------------------------------------------------------------
-int Electrode::integrate_ResidJacEval::getInitialConditions(const doublereal t0, doublereal* const y,
-        doublereal* const ydot)
+int Electrode::integrate_ResidJacEval::getInitialConditions(const double t0, double* const y,
+        double* const ydot)
 {
     int ne = nEquations();
     for (int k = 0; k < ne; k++) {
@@ -4045,9 +4045,9 @@ int Electrode::integrate_ResidJacEval::nEquations() const
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode::integrateResid(const doublereal tfinal, const doublereal deltaTsubcycle, const doublereal* const y,
-        const doublereal* const ydot, doublereal* const resid, const ResidEval_Type_Enum evalType, const int id_x,
-        const doublereal delta_x)
+int Electrode::integrateResid(const double tfinal, const double deltaTsubcycle, const double* const y,
+        const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType, const int id_x,
+        const double delta_x)
 {
     throw CanteraError(" Electrode::integrateResid()", "Base class called");
     return 0;
@@ -4569,8 +4569,8 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
  *
  *  @return Return the voltage used to obtain the current
  */
-double Electrode::integrateConstantCurrent(doublereal& current, doublereal& deltaT, doublereal phiMax,
-                                           doublereal phiMin, int maxIntegrationSteps)
+double Electrode::integrateConstantCurrent(double& current, double& deltaT, double phiMax,
+                                           double phiMin, int maxIntegrationSteps)
 {
     int status;
     double currentNeeded = current;
@@ -4790,7 +4790,7 @@ double Electrode::integrateConstantCurrent(doublereal& current, doublereal& delt
  *
  *  @return Tfinal    Final time to integrate to.
  */
-double Electrode::integratedSpeciesSourceTerm(doublereal* const spMoleDelta)
+double Electrode::integratedSpeciesSourceTerm(double* const spMoleDelta)
 {
     if (tfinal_ == tinit_) {
         throw CanteraError(" Electrode::integratedSpeciesSourceTerm()", "tfinal == tinit");
@@ -4810,7 +4810,7 @@ double Electrode::integratedSpeciesSourceTerm(doublereal* const spMoleDelta)
  *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
  *                     electrode. phaseList format. (kmol s-1)
  */
-void Electrode::speciesProductionRates(doublereal* const spMoleDot)
+void Electrode::speciesProductionRates(double* const spMoleDot)
 {
     std::fill_n(spMoleDot, m_NumTotSpecies, 0.);
     //
@@ -4859,7 +4859,7 @@ void Electrode::speciesProductionRates(doublereal* const spMoleDot)
  */
 double Electrode::integratedEnthalpySourceTerm()
 {
-    doublereal energySource = 0.0;
+    double energySource = 0.0;
     for (size_t iph = 0; iph < NumVolPhases_; iph++) {
         ThermoPhase& tp = thermo(iph);
         //int nspPhase = tp.nSpecies();
@@ -5579,7 +5579,7 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
-            doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isurf);
+            double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             size_t nphRS = RSD_List_[isurf]->nPhases();
             int kIndexKin = 0;
@@ -5628,7 +5628,7 @@ void Electrode::setPrintLevel(int printLvl)
  *  deltaT of the integration step. However, there are many times where a smaller natural delta T is
  *  required to solve the equation system
  */
-void Electrode::setDeltaTSubcycle(doublereal deltaTsubcycle)
+void Electrode::setDeltaTSubcycle(double deltaTsubcycle)
 {
     deltaTsubcycleNext_ = deltaTsubcycle;
     deltaTsubcycle_init_next_ = deltaTsubcycle;
@@ -5636,7 +5636,7 @@ void Electrode::setDeltaTSubcycle(doublereal deltaTsubcycle)
 }
 //====================================================================================================================
 //   Set the maximum deltaT used for the subcycle step
-void Electrode::setDeltaTSubcycleMax(doublereal deltaTsubcycle)
+void Electrode::setDeltaTSubcycleMax(double deltaTsubcycle)
 {
     deltaTsubcycleMax_ = deltaTsubcycle;
 }

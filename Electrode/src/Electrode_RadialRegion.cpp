@@ -988,24 +988,24 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
 
 
     // Velocity of the right cell boundary during the time step;
-    std::vector<doublereal> cellBoundRVeloc(numRCells_);
+    std::vector<double> cellBoundRVeloc(numRCells_);
 
 
     // Velocity of the left cell boundary during the time step;
-    std::vector<doublereal> cellBoundLVeloc(numRCells_);
+    std::vector<double> cellBoundLVeloc(numRCells_);
 
     // Velocity of the lattice at the right cell boundary during the time step
-    std::vector<doublereal> refLatVeloc_RHS(numRCells_);
+    std::vector<double> refLatVeloc_RHS(numRCells_);
 
     // Velocity of the lattice at the right cell boundary during the time step
-    std::vector<doublereal> refLatVeloc_LHS(numRCells_);
+    std::vector<double> refLatVeloc_LHS(numRCells_);
 
 
     // Node velocity during the time step
-    std::vector<doublereal> rnodeVeloc(numRCells_);
+    std::vector<double> rnodeVeloc(numRCells_);
 
     // refLatticeInterpolatedField cubed
-    std::vector<doublereal> refLattice3InterpolatedField(numRCells_);
+    std::vector<double> refLattice3InterpolatedField(numRCells_);
 
 
 
@@ -1815,7 +1815,7 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
-        doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
+        double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;
@@ -1849,8 +1849,8 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
  *                          Values less than one increase density at the inner
  *  @param radialMesh   Returned mesh
  */
-void Electrode_RadialRegion::radialGridGenerate(int numPoints, doublereal radiusInner, doublereal radiusOuter,
-        doublereal geomFactor,
+void Electrode_RadialRegion::radialGridGenerate(int numPoints, double radiusInner, double radiusOuter,
+        double geomFactor,
         std::vector<double>& radialMesh) const
 {
     if (numPoints < 2) {
@@ -1885,7 +1885,7 @@ void Electrode_RadialRegion::radialGridGenerate(int numPoints, doublereal radius
     double avgCellVol = vol / numCells;
 
 
-    std::vector<doublereal> cellVol(numCells, avgCellVol);
+    std::vector<double> cellVol(numCells, avgCellVol);
 
     int jCell = numCells / 2;
 

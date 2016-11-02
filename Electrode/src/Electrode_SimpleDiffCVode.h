@@ -115,7 +115,7 @@ protected:
     /*!
      *  units are kmol m-3.
      */
-    doublereal MD_OuterSolidPhase_;
+    double MD_OuterSolidPhase_;
 
     int index_Li_int_;
 
@@ -124,7 +124,7 @@ protected:
 
     //! Phase index of the solid phase that comprises the inner solid
     int phaseIndexInnerSolidPhase_;
-    doublereal MD_InnerSolidPhase_;
+    double MD_InnerSolidPhase_;
 
 
     //! we identify the phases here as being an outer phase.
@@ -141,44 +141,44 @@ protected:
 
 
     //!  Value of the flux at the outer edge - kmol m-2 s-1
-    doublereal Nflux_final_;
+    double Nflux_final_;
     //!  value of the rate from a single particle - kmol s-1;
-    doublereal Nrate_final_;
+    double Nrate_final_;
 
     //! calculated values
-    doublereal Da_s_;
-    doublereal k_r_internal_;
-    doublereal k_f_internal_;
-    doublereal k_r_external_;
-    doublereal k_f_external_;
-    doublereal a_lip_;
+    double Da_s_;
+    double k_r_internal_;
+    double k_f_internal_;
+    double k_r_external_;
+    double k_f_external_;
+    double a_lip_;
 
-    doublereal C_external_final_;
-    doublereal C_internal_final_;
-    doublereal mf_internal_final_;
-    doublereal mf_internal_init_;
+    double C_external_final_;
+    double C_internal_final_;
+    double mf_internal_final_;
+    double mf_internal_init_;
 
-    doublereal C_external_init_;
-    doublereal C_external_init_init_;
-    doublereal C_internal_init_;
-    doublereal C_internal_init_init_;
+    double C_external_init_;
+    double C_external_init_init_;
+    double C_internal_init_;
+    double C_internal_init_init_;
 
-    doublereal mf_external_final_;
-    doublereal mf_external_init_;
+    double mf_external_final_;
+    double mf_external_init_;
 
-    doublereal MD_int_;
+    double MD_int_;
 
-    doublereal Radius_internal_final_;
-    doublereal Radius_internal_final_final_;
-    doublereal Radius_internal_eff_;
-    doublereal Radius_internal_init_;
-    doublereal Radius_internal_init_init_;
+    double Radius_internal_final_;
+    double Radius_internal_final_final_;
+    double Radius_internal_eff_;
+    double Radius_internal_init_;
+    double Radius_internal_init_init_;
 
 
-    doublereal MN_internal_init_;
-    doublereal MN_internal_final_;
+    double MN_internal_init_;
+    double MN_internal_final_;
 
-    doublereal DiffCoeff_;
+    double DiffCoeff_;
 
     double ROP_inner_;
     double ROP_rate_inner_;
@@ -204,10 +204,10 @@ protected:
     Cantera::Integrator* m_integ;
 
     //! Absolute tolerance for nonlinear residual
-    std::vector<doublereal> atolBaseResid_;
+    std::vector<double> atolBaseResid_;
 
     //! Relative tolerance for nonlinear residual
-    std::vector<doublereal> rtolBaseResid_;
+    std::vector<double> rtolBaseResid_;
 
 
 };

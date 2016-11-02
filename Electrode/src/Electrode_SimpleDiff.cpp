@@ -2180,7 +2180,7 @@ int Electrode_SimpleDiff::predictSolnResid()
     //int cIndexPhStart;
 
     // Location of the right cell boundary at the beginning of the step
-    std::vector<doublereal> cellBoundR_init(numRCells_);
+    std::vector<double> cellBoundR_init(numRCells_);
   
     numLattices_pred_ = 0.0;
     numLattices_init_ = 0.0;
@@ -2873,13 +2873,13 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
  *
  * @return
  */
-int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delta_t,
-                                       const doublereal* const y,
-                                       const doublereal* const ySolnDot,
-                                       doublereal* const resid,
+int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t,
+                                       const double* const y,
+                                       const double* const ySolnDot,
+                                       double* const resid,
                                        const ResidEval_Type_Enum evalType,
                                        const int id_x,
-                                       const doublereal delta_x)
+                                       const double delta_x)
 {
     int retn = integrateResid(t, delta_t, y, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;
@@ -2898,11 +2898,11 @@ int  Electrode_SimpleDiff::evalResidNJ(const doublereal t, const doublereal delt
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_SimpleDiff::integrateResid(const doublereal t, const doublereal delta_t,
-					 const doublereal* const y, const doublereal* const ySolnDot,
-					 doublereal* const resid,
+int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
+					 const double* const y, const double* const ySolnDot,
+					 double* const resid,
 					 const ResidEval_Type_Enum evalType, const int id_x,
-					 const doublereal delta_x)
+					 const double delta_x)
 {
     
     //int neq = nResidEquations();
@@ -3390,7 +3390,7 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	drawline(indentSpaces, 80);
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
-	    doublereal r = radialValues[iCell];
+	    double r = radialValues[iCell];
 	    printf("\n%s    %- 10.4E ", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < 5; n++) {
@@ -3413,7 +3413,7 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	drawline(indentSpaces, 80);
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
-	    doublereal r = radialValues[iCell];
+	    double r = radialValues[iCell];
 	    printf("\n%s    %- 10.4E ", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < nrem; n++) {
@@ -3453,7 +3453,7 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 	drawline(indentSpaces, 80);
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
-	    doublereal r = radialValues[iCell];
+	    double r = radialValues[iCell];
 	    printf("%s    %- 10.4E |", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < 4; n++) {
@@ -3477,7 +3477,7 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 	drawline(indentSpaces, 80);
 
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
-	    doublereal r = radialValues[iCell];
+	    double r = radialValues[iCell];
 	    printf("%s    %- 10.4E |", indent.c_str(), r);
 	    int istart = iCell * numFields;
 	    for (n = 0; n < nrem; n++) {
@@ -3535,7 +3535,7 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
     
 
     for (iCell = 0; iCell < numRadialVals; iCell++) {
-	doublereal r = radialValues[iCell];
+	double r = radialValues[iCell];
 	printf("%s    %- 10.4E ", indent.c_str(), r);
 	int kstart = iCell * numFields + iField;
 	printf(" %- 10.4E ", val_init[kstart]);
@@ -4403,7 +4403,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iphI, int pSrc, bool subTimeS
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
-        doublereal* spNetProdPerArea = (doublereal*) spNetProdPerArea_List_.ptrColumn(isph);
+        double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;

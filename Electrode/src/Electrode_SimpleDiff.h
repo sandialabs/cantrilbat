@@ -668,13 +668,13 @@ public:
      *
      * @return
      */
-    virtual int evalResidNJ(const doublereal t, const doublereal delta_t,
-                            const doublereal* const y,
-                            const doublereal* const ydot,
-                            doublereal* const resid,
+    virtual int evalResidNJ(const double t, const double delta_t,
+                            const double* const y,
+                            const double* const ydot,
+                            double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const doublereal delta_x = 0.0);
+                            const double delta_x = 0.0);
 
     //!  Residual calculation for the solution of the Nonlinear integration problem
     /*!
@@ -689,11 +689,11 @@ public:
      *                      differenced or that the residual doesn't take this issue into account)
      * @param delta_x       Value of the delta used in the numerical differencing
      */
-    int integrateResid(const doublereal t, const doublereal delta_t,
-		       const doublereal* const y, const doublereal* const ySolnDot,
-		       doublereal* const resid,
+    int integrateResid(const double t, const double delta_t,
+		       const double* const y, const double* const ySolnDot,
+		       double* const resid,
 		       const ResidEval_Type_Enum evalType, const int id_x,
-		       const doublereal delta_x);
+		       const double delta_x);
 
     //! Main internal routine to calculate the residual
     /*!
@@ -972,105 +972,105 @@ protected:
    
 
     //! Node position of the mesh - final_final
-    std::vector<doublereal> rnodePos_final_final_;
+    std::vector<double> rnodePos_final_final_;
 
     //! Node position of the mesh - final
-    std::vector<doublereal> rnodePos_final_;
+    std::vector<double> rnodePos_final_;
 
     //! Node position of the mesh - init
-    std::vector<doublereal> rnodePos_init_;
+    std::vector<double> rnodePos_init_;
 
     //! Node position of the mesh - init_init
-    std::vector<doublereal> rnodePos_init_init_;
+    std::vector<double> rnodePos_init_init_;
 
 
 
-    std::vector<doublereal> cellBoundR_final_;
+    std::vector<double> cellBoundR_final_;
   
-    std::vector<doublereal> cellBoundR_init_;
-    std::vector<doublereal> cellBoundR_init_init_;
-    std::vector<doublereal> cellBoundR_final_final_;
+    std::vector<double> cellBoundR_init_;
+    std::vector<double> cellBoundR_init_init_;
+    std::vector<double> cellBoundR_final_final_;
 
-    std::vector<doublereal> cellBoundL_final_;
-    std::vector<doublereal> cellBoundL_init_;
-    std::vector<doublereal> cellBoundL_init_init_;
-    std::vector<doublereal> cellBoundL_final_final_;
+    std::vector<double> cellBoundL_final_;
+    std::vector<double> cellBoundL_init_;
+    std::vector<double> cellBoundL_init_init_;
+    std::vector<double> cellBoundL_final_final_;
 
     //! Volume of each cell on a per particle basis
     /*!
      *      Length numRCells:
      *      units = m3
      */
-    std::vector<doublereal> volPP_Cell_final_;
+    std::vector<double> volPP_Cell_final_;
 
     //!  Spline system for the nodal equations
     /*!
      *   These factors are the fraction of the exterior node radius that the
      *   current node possesses.
      */
-    // std::vector<doublereal> fracNodePos_;
+    // std::vector<double> fracNodePos_;
 
     //!  Spline System for the nodal points
     /*!
      *  Fraction of the domain's volume which is inside the current node position
      */
-    std::vector<doublereal> fracVolNodePos_;
+    std::vector<double> fracVolNodePos_;
 
     //!  Partial molar volume of all of the solid species located in all of the cells
     /*!
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
      *   noUnits are m3 / kmol
      */
-    std::vector<doublereal> partialMolarVolKRSpecies_Cell_final_;
+    std::vector<double> partialMolarVolKRSpecies_Cell_final_;
 
     //!  Partial molar Heat Capacity  of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar heat capacity const press (KRSpecies, iCell)
      *   Units of Joules/(kmol K)
      */
-    mutable std::vector<doublereal> partialMolarCpKRSpecies_Cell_final_;
+    mutable std::vector<double> partialMolarCpKRSpecies_Cell_final_;
 
     //!  Partial molar Enthalpy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
      *   Units of Joules/(kmol)
      */
-    mutable  std::vector<doublereal> partialMolarEnthKRSpecies_Cell_final_;
+    mutable  std::vector<double> partialMolarEnthKRSpecies_Cell_final_;
 
     //!  Partial molar Enthalpy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
      *   Units of Joules/(kmol)
      */
-    mutable  std::vector<doublereal> partialMolarEnthKRSpecies_Cell_init_;
+    mutable  std::vector<double> partialMolarEnthKRSpecies_Cell_init_;
 
     //!  Partial molar chemical potential of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
      *   Units of Joules/(kmol)
      */
-    mutable  std::vector<doublereal> chemPotKRSpecies_Cell_final_;
+    mutable  std::vector<double> chemPotKRSpecies_Cell_final_;
 
     //!  Partial molar chemical potential of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
      *   Units of Joules/(kmol)
      */
-    mutable  std::vector<doublereal> chemPotKRSpecies_Cell_init_;
+    mutable  std::vector<double> chemPotKRSpecies_Cell_init_;
 
     //!  Partial molar Entropy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Entropy  (KRSpecies, iCell)
      *   Units of Joules/(kmol K)
      */
-    mutable  std::vector<doublereal> partialMolarEntropyKRSpecies_Cell_final_;
+    mutable  std::vector<double> partialMolarEntropyKRSpecies_Cell_final_;
 
     //!  Partial molar Entropy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Entropy  (KRSpecies, iCell)
      *   Units of Joules/(kmol K)
      */
-    mutable  std::vector<doublereal> partialMolarEntropyKRSpecies_Cell_init_;
+    mutable  std::vector<double> partialMolarEntropyKRSpecies_Cell_init_;
 
 
 
@@ -1086,15 +1086,15 @@ protected:
      *
      *    units (kmol sec-1);
      */
-    std::vector<doublereal> DspMoles_final_;
+    std::vector<double> DspMoles_final_;
 
     //! Domain boundary at the inner radius.
     /*!
      *   Frequently this will be zero. default is zero.
      */
-    doublereal m_rbot0_;
+    double m_rbot0_;
 
-    std::vector<doublereal> Diff_Coeff_KRSolid_;
+    std::vector<double> Diff_Coeff_KRSolid_;
 
     //! Molar creation rate of phases in the electrode object.
     /*!
@@ -1103,7 +1103,7 @@ protected:
      *
      *    units = kmol / s
      */
-    std::vector<doublereal> DphMolesSrc_final_;
+    std::vector<double> DphMolesSrc_final_;
 
     //! we identify the phases here as being the exterior surface
     /*!
@@ -1112,7 +1112,7 @@ protected:
     int surfIndexExteriorSurface_;
 
     //!  Value of the total flux at the outer edge - kmol m-2 s-1
-    doublereal NTflux_final_;
+    double NTflux_final_;
 
     //!  Model for the formulation of the diffusive flux
     /*!
@@ -1122,22 +1122,22 @@ protected:
     int diffusiveFluxModel_;
 
     //! Local value of the diffusion coefficient
-    doublereal DiffCoeff_;
+    double DiffCoeff_;
 
     //! Local value of the diffusion coefficient
-    doublereal DiffCoeff_default_;
+    double DiffCoeff_default_;
 
     //! Vector of activity coefficients for all KR species at all nodes
     /*!
      *    This is calculated at the final state
      */
-    std::vector<doublereal> actCoeff_Cell_final_;
+    std::vector<double> actCoeff_Cell_final_;
 
     //! Vector of activity coefficients for all KR species at all nodes
     /*!
      *    This is calculated at the init state
      */
-    std::vector<doublereal> actCoeff_Cell_init_;
+    std::vector<double> actCoeff_Cell_init_;
 
 
     //! phase id of the phase which will die at the shortest time
