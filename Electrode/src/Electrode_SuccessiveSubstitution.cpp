@@ -96,12 +96,12 @@ int Electrode_SuccessiveSubstitution::integrate(double deltaT, double rtolResid,
 {
 
     counterNumberIntegrations_++;
-    vector<doublereal> phaseMoles_tmp(m_NumTotPhases, 0.0);
-    vector<doublereal> phaseMoles_init_init(m_NumTotPhases, 0.0);
-    vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> Xf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> delta(m_NumTotSpecies, 0.0);
+    vector<double> phaseMoles_tmp(m_NumTotPhases, 0.0);
+    vector<double> phaseMoles_init_init(m_NumTotPhases, 0.0);
+    vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
+    vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
+    vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
+    vector<double> delta(m_NumTotSpecies, 0.0);
     vector<int> justBornMultiSpecies(0);
 
     std::copy(spMoles_init_.begin(), spMoles_init_.end(), spMoles_init_init_.begin());
@@ -567,9 +567,9 @@ restartStep:
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, const doublereal deltaTsubcycle,
-        const doublereal* const y, const doublereal* const ydot, doublereal* const resid,
-        const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x)
+int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const double deltaTsubcycle,
+        const double* const y, const double* const ydot, double* const resid,
+        const ResidEval_Type_Enum evalType, const int id_x, const double delta_x)
 {
 
     /*
@@ -584,12 +584,12 @@ int Electrode_SuccessiveSubstitution::integrateResid(const doublereal tfinal, co
         spMoles_final_[k] = y[k];
     }
 
-    vector<doublereal> phaseMoles_tmp(m_NumTotPhases, 0.0);
-    vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> Xf_tmp(m_NumTotSpecies, 0.0);
+    vector<double> phaseMoles_tmp(m_NumTotPhases, 0.0);
+    vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
+    vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
+    vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
 
-    vector<doublereal> srcTerm(m_NumTotSpecies, 0.0);
+    vector<double> srcTerm(m_NumTotSpecies, 0.0);
     static  vector<int> justBornMultiSpecies;
 
 #ifdef OLD_FOLLOW

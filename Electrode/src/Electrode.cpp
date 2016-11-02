@@ -663,7 +663,16 @@ void ErrorModelType(int pos, std::string actual, std::string expected)
                                 "At pos " + int2str(pos) + ", expected phase " + expected + " but got phase " + actual);
 }
 //==================================================================================================================================
-void pmatch(std::vector<std::string>& pn, int pos, std::string expected)
+//! check match against expected Phase ID's
+/*!
+ *  Throw an error if the expected phase name isn't where it's expected.
+ *  We are hard-coding expected phase names in the xml files here.
+ *
+ *  @param[in]               pn                  list of phase names
+ *  @param[in]               pos                 position in the vector
+ *  @param[in]               expected            Expected phase name
+ */
+static void pmatch(std::vector<std::string>& pn, int pos, std::string expected)
 {
     if (pos <= ((int) pn.size() - 1)) {
         if (pn[pos] != expected) {
@@ -671,7 +680,7 @@ void pmatch(std::vector<std::string>& pn, int pos, std::string expected)
         }
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 //  Setup the electrode
 /*
  * @param ei    ELECTRODE_KEY_INPUT pointer object
@@ -2752,13 +2761,11 @@ double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
     return rst;
 }
 //====================================================================================================================
-// Get the net production rates of all species in the electrode object
-// at the current conditions
+// Get the net production rates of all species in the electrode object at the current conditions
 /*
- *
  *  This routine assumes that the underlying objects have been updated
  */
-void Electrode::getNetSurfaceProductionRates(const int isk, doublereal* const net) const
+void Electrode::getNetSurfaceProductionRates(const int isk, doublevalue* const net) const
 {
     std::fill_n(net, m_NumTotSpecies, 0.);
     /*

@@ -239,47 +239,43 @@ bool PhaseList::orderedByDims() const
     return m_OrderedByDimensionality;
 }
 //==================================================================================================================================
-ZZCantera::ThermoPhase* PhaseList::
-addVolPhase(const std::string& canteraFile, const std::string& phaseID, bool orderByDims)
+ThermoPhase* PhaseList::addVolPhase(const std::string& canteraFile, const std::string& phaseID, bool orderByDims)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
-    ZZCantera::ThermoPhase *tp = ZZCantera::newPhase(canteraFile, phaseID);
+    ThermoPhase *tp = newPhase(canteraFile, phaseID);
     addVolPhase(tp, vPhase, orderByDims);
     return tp;
 }
 //===================================================================================================================================
-ZZCantera::ThermoPhase*  PhaseList::
-addSurPhase(const std::string& canteraFile, const std::string& phaseID)
+ThermoPhase*  PhaseList::addSurPhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
-    ZZCantera::ThermoPhase *tp = ZZCantera::newPhase(canteraFile, phaseID);
+    ThermoPhase *tp = newPhase(canteraFile, phaseID);
     addSurPhase(tp, vPhase);
     return tp;
 }
 //===================================================================================================================================
-ZZCantera::ThermoPhase* PhaseList::
-addEdgePhase(const std::string& canteraFile, const std::string& phaseID)
+ThermoPhase* PhaseList::addEdgePhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
-    ZZCantera::ThermoPhase *tp = ZZCantera::newPhase(canteraFile, phaseID);
+    ThermoPhase *tp = newPhase(canteraFile, phaseID);
     addEdgePhase(tp, vPhase);
     return tp;
 }
 //==================================================================================================================================
-ZZCantera::ThermoPhase* PhaseList::
-addPhase(const std::string& canteraFile, const std::string& phaseID)
+ThermoPhase* PhaseList::addPhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
-    ZZCantera::ThermoPhase *tp = ZZCantera::newPhase(canteraFile, phaseID);
+    ThermoPhase *tp = newPhase(canteraFile, phaseID);
     addPhase(tp, vPhase);
     return tp;
 }
 //==================================================================================================================================
-void PhaseList::addPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase)
+void PhaseList::addPhase(ThermoPhase* const vp, XML_Node* vPhase)
 {
     if (vp->nDim() == 3) {
         addVolPhase(vp, vPhase);
@@ -301,8 +297,7 @@ void PhaseList::addPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* 
  *     additional information specified in the phase to the
  *     meta information lists kept by the PhaseList object
  */
-void PhaseList::
-addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase, bool orderedByDims)
+void PhaseList::addVolPhase(ThermoPhase* const vp, XML_Node* vPhase, bool orderedByDims)
 {
     AssertThrow(vp!=0, "Volume Phase Pointer must be nonzero");
 
@@ -433,8 +428,7 @@ addVolPhase(ZZCantera::ThermoPhase* const vp, ZZCantera::XML_Node* vPhase, bool 
  *     additional information specified in the phase to the
  *     meta information lists kept by the PhaseList object
  */
-void PhaseList::
-addSurPhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* sPhase)
+void PhaseList::addSurPhase(ThermoPhase* const sp, XML_Node* sPhase)
 {
     AssertThrow(sp != 0, "must be nonzero");
     // Check for incompatibilities
@@ -548,8 +542,7 @@ addSurPhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* sPhase)
     calcElementMaps(true); 
 }
 //==================================================================================================================================
-void PhaseList::
-addEdgePhase(ZZCantera::ThermoPhase* const sp, ZZCantera::XML_Node* ePhase)
+void PhaseList::addEdgePhase(ThermoPhase* const sp, XML_Node* ePhase)
 {
     AssertThrow(sp != 0, "must be nonzero");
     // Check for incompatibilities

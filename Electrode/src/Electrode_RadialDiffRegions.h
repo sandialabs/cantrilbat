@@ -280,31 +280,31 @@ protected:
      *
      *  units are kmol m-3.
      */
-    doublereal MolarVolume_Ref_;
+    double MolarVolume_Ref_;
 
     //! Node position of the mesh - final_final
-    std::vector<doublereal> rnodePos_final_final_;
+    std::vector<double> rnodePos_final_final_;
 
     //! Node position of the mesh - final
-    std::vector<doublereal> rnodePos_final_;
+    std::vector<double> rnodePos_final_;
 
     //! Node position of the mesh - init
-    std::vector<doublereal> rnodePos_init_;
+    std::vector<double> rnodePos_init_;
 
     //! Node position of the mesh - init_init
-    std::vector<doublereal> rnodePos_init_init_;
+    std::vector<double> rnodePos_init_init_;
 
     //! Reference radius at the right cell boundary - global final value
-    std::vector<doublereal> rRefPos_final_final_;
+    std::vector<double> rRefPos_final_final_;
 
     //! Reference radius at the right cell boundary - local final value
-    std::vector<doublereal> rRefPos_final_;
+    std::vector<double> rRefPos_final_;
 
     //! Reference radius at the right cell boundary - local init value
-    std::vector<doublereal> rRefPos_init_;
+    std::vector<double> rRefPos_init_;
 
     //! Reference radius at the right cell boundary - global init value
-    std::vector<doublereal> rRefPos_init_init_;
+    std::vector<double> rRefPos_init_init_;
 
 
 
@@ -313,7 +313,7 @@ protected:
      *   These factors are the fraction of the exterior node radius that the
      *   current node possesses.
      */
-    std::vector<doublereal> fracNodePos_;
+    std::vector<double> fracNodePos_;
 
 };
 

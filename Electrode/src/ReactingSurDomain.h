@@ -303,8 +303,8 @@ public:
      *
      *   @return                             Returns the current density for the reaction (amps m-2)
      */
-    double getExchangeCurrentDensityFormulation(size_t irxn, doublereal* nStoich, doublereal* OCV,
-                                                doublereal* io, doublereal* nu, doublereal *beta, doublereal* resist_ptr);
+    double getExchangeCurrentDensityFormulation(size_t irxn, double* nStoich, double* OCV,
+                                                double* io, double* nu, double *beta, double* resist_ptr);
 #endif
 
 #ifdef DONOTREMOVE
@@ -363,7 +363,7 @@ public:
      *
      *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal to the number of reactions.
      */
-    virtual void getDeltaGibbs(doublereal* deltaG);
+    virtual void getDeltaGibbs(double* deltaG);
 
     //!  Get the vector of deltaG values for all reactions defined in the kinetics object
     /*!
@@ -373,7 +373,7 @@ public:
      *
      *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal to the number of reactions.
      */
-    void getDeltaGibbs_Before(doublereal* const deltaG = 0);
+    void getDeltaGibbs_Before(double* const deltaG = 0);
 
     //! Return the vector of values for the electrochemical free energy change of reaction.
     /*!
@@ -384,7 +384,7 @@ public:
      *
      *  @param[out]        deltaM       Output vector of  deltaM's for all of the reactions. The length is m_ii.
      */
-    virtual void getDeltaElectrochemPotentials(doublereal* const deltaM);
+    virtual void getDeltaElectrochemPotentials(double* const deltaM);
 
     //!  Get the vector of deltaH values for all reactions defined in the kinetics object
     /*!
@@ -397,7 +397,7 @@ public:
      *   @param[out]        deltaH      Vector of deltaH values. Must be at least of length equal
      *                                  to the number of reactions
      */
-    virtual void getDeltaEnthalpy(doublereal* const deltaH);
+    virtual void getDeltaEnthalpy(double* const deltaH);
 
     //!  Get the vector of deltaH values for all reactions defined in the kinetics object
     /*!
@@ -406,7 +406,7 @@ public:
      *   @param[out]        deltaH      Vector of deltaH values. Must be at least of length equal
      *                                  to the number of reactions, m_ii
      */
-    void getDeltaEnthalpy_Before(doublereal* const deltaH);
+    void getDeltaEnthalpy_Before(double* const deltaH);
 
     //! This gets the deltaG for each reaction in the mechanism, but using the standard state
     //! chemical potential for the electrolyte.
@@ -415,7 +415,7 @@ public:
      *                                  potentials for the electrolyte. 
      *                     length = nReactions(), J/kmol
      */
-    void getDeltaGibbs_electrolyteSS(doublereal* const deltaG_special);
+    void getDeltaGibbs_electrolyteSS(double* const deltaG_special);
 
     //!  Get the vector of deltaS values for all reactions defined in the kinetics object
     /*!
@@ -428,7 +428,7 @@ public:
      *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
      *                                  to the number of reactions. Units are J kmol-1 K-1.
      */
-    virtual void getDeltaEntropy(doublereal* const deltaS);
+    virtual void getDeltaEntropy(double* const deltaS);
 
     //!  Get the vector of deltaS values for all reactions defined in the kinetics object before OCV override
     /*!
@@ -437,7 +437,7 @@ public:
      *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
      *                                  to the number of reactions. Units are J kmol-1 K-1.
      */
-    void getDeltaEntropy_Before(doublereal* const deltaS);
+    void getDeltaEntropy_Before(double* const deltaS);
 
     //!  Return the vector of values for the reaction standard state gibbs free energy change.  These values don't depend upon
     //!  the concentration of the solution.
@@ -447,7 +447,7 @@ public:
      *
      * @param[out]      deltaG            Output vector of ss deltaG's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSGibbs(doublereal* const deltaG);
+    virtual void getDeltaSSGibbs(double* const deltaG);
 
     //!  Return the vector of values for the change in the standard
     //! state enthalpies of reaction.  These values don't depend
@@ -458,7 +458,7 @@ public:
      *
      * @param[out]     deltaH              Output vector of ss deltaH's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSEnthalpy(doublereal* const deltaH);
+    virtual void getDeltaSSEnthalpy(double* const deltaH);
 
     
     //!  Return the vector of values for the change in the standard
@@ -470,7 +470,7 @@ public:
      *
      *     @param[out]    deltaS           Output vector of ss deltaS's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSEntropy(doublereal* const deltaS);
+    virtual void getDeltaSSEntropy(double* const deltaS);
 
     //!   Sets the temperature and pressure for all phases that are part of the reacting surface
     /*!
