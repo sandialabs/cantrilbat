@@ -82,11 +82,11 @@ typedef int VAR_TYPE_SUBNUM;
 
 inline void operator++(VAR_TYPE & eVal) {
   eVal = VAR_TYPE(eVal+1);
-};
+}
 
 inline void operator++(EQ_TYPE & eVal) {
   eVal = EQ_TYPE(eVal+1);
-};
+}
 
 }
 #endif

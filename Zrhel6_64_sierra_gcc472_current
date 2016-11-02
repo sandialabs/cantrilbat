@@ -44,7 +44,7 @@ export CXX
 #     -DDO_INIT_CALC
 #     -DMECH_MODEL
 #     -DDEBUG_INIT_CALCULATION
-CXXFLAGS="-g -Wall -DDEBUG_MODE -DMECH_MODEL"
+CXXFLAGS="-std=c++11 -g -Wall -pedantic -Wformat -DDEBUG_MODE -DMECH_MODEL"
 export CXXFLAGS
 #
 #  Turn on and off MECH_MODEL here

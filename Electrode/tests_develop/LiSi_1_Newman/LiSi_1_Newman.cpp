@@ -266,7 +266,7 @@ int main(int argc, char **argv)
       electrodeA->getMoleNumSpecies(x);
       electrodeA->getSurfaceAreas(sa);
 
-      if (isnan(volts)) break;
+      if (std::isnan(volts)) break;
 
       fprintf(fp, " %12.5E ,  %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E\n", Tfinal, amps, coul, coul/3600. , volts, x[inLi13Si4],  x[inLi7Si3], x[inLi12Si7], x[inSi] , oc[0], oc[1], oc[2] , sa[0], sa[1], sa[2] );
       
@@ -297,7 +297,7 @@ int main(int argc, char **argv)
       electrodeA->getMoleNumSpecies( x ); 
       electrodeA->getSurfaceAreas(sa);
 
-      if (isnan(volts)) break;
+      if (std::isnan(volts)) break;
     
       fprintf(fp, " %12.5E ,  %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E ,"
                   " %12.5E , %12.5E , %12.5E , %12.5E , %12.5E , %12.5E\n",

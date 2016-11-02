@@ -183,7 +183,7 @@ CXX=${CXX:=g++}
 # C++ compiler flags to use
 #   CXXFLAGS="-DDEBUG_MODE"
 #
-CXXFLAGS=${CXXFLAGS:="-O2 -Wall -Werror"}
+CXXFLAGS=${CXXFLAGS:="-O2 -Wall -Werror -std=c++11 -pedantic"}
 #
 # CXX global defines to be used to alter the source code:
 # These are defines that are compiled into all source code
