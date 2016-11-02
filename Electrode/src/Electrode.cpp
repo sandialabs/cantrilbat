@@ -656,11 +656,17 @@ int Electrode::electrode_input_child(ELECTRODE_KEY_INPUT** ei)
 {
     return 0;
 }
-//======================================================================================================================
-void ErrorModelType(int pos, std::string actual, std::string expected)
+//==================================================================================================================================
+//! Throw an error
+/*!
+ *  @param[in]               pos                 Position within the phaselist names
+ *  @param[in]               actual              actual phase name found
+ *  @param[in]               expected            expected phase name
+ */
+static void ErrorModelType(int pos, std::string actual, std::string expected)
 {
-    throw ZZCantera::CanteraError("Electrode::electrode_model_create() model id",
-                                "At pos " + int2str(pos) + ", expected phase " + expected + " but got phase " + actual);
+    throw CanteraError("Electrode::electrode_model_create() model id",
+                       "At pos " + int2str(pos) + ", expected phase " + expected + " but got phase " + actual);
 }
 //==================================================================================================================================
 //! check match against expected Phase ID's

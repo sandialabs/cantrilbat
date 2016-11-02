@@ -36,7 +36,7 @@ class PhaseList;
  *
  * @return                      Returns the number of phases added to the PhaseList object.
  */
-size_t importAllCTMLIntoPhaseList(ZZCantera::PhaseList* const pl, const std::string& canteraFile);
+size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canteraFile);
 
 }
 #endif
