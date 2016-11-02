@@ -21,7 +21,7 @@
 namespace m1d
 {
   class BoundaryCondition;
-};
+}
 
 namespace beuler
 {
