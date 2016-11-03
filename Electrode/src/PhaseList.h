@@ -64,6 +64,14 @@ namespace Cantera
  *  </TR>
  *  </TABLE>
  *
+ *  todo: add routines to take away phases.
+ *        add routines to resize and copy old vectors to new vectors after phase addition or removal.
+ *        Continue optimization.
+ *        Change addPhase routines to return the global phase index.
+ *        Change interface routine names one by one to make them conformal to a standard.
+ *             ' get' name is used for return vectors in the parameter list.
+ *             Determine whether to use globalSpeciesIndex() or speciesIndex() as a general naming convention.
+ *
  */
 class PhaseList
 {
