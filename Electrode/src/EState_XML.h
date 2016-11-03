@@ -174,13 +174,26 @@ public:
      */
     ETimeState& operator=(const ETimeState& r);
 
-    //! Create/Malloc an XML Node containing the timeState data contained in this object
+    //! Create/Malloc an XML Node containing the timeState data contained in this object and the solution
+    //! state at this time
     /*!
-     *   @return   Returns the malloced XML_Node with name timeState containing the information in this
-     *             object. The calling program is responsible for freeing this.
+     *   @return                                 Returns the malloced XML_Node with name timeState containing the information 
+     *                                           in this object. The calling program is responsible for freeing this.
+     *                                           Returns 0, if there is a problem
      */
     ZZCantera::XML_Node* write_ETimeState_ToXML() const;
 
+    //! Read the timeState XML node from the XML tree, and then call a function to read the solution
+    /*!
+     *  The timeState node contains the timeState, the time, the cellnumber and domain number, and then
+     *  the actual solution as a subXML node.
+     *  This function reads the information in the timeState node and then calls createEState_fromXML() to
+     *  read the actual stored solution.
+     *
+     *  @param[in]           xETime              XML node with the name "timeState"
+     *  @param[in]           e_id                ID information about the electrode. A check is done to see
+     *                                           that what we are reading is what we think we are reading.
+     */
     void read_ETimeState_fromXML(const ZZCantera::XML_Node& xETime, const ZZCantera::EState_ID_struct& e_id);
 
     //!  Compare the current state of this object against another guest state to see if they are the same
@@ -199,9 +212,13 @@ public:
     bool compareOtherTimeState(const ETimeState* const ETSguest, double molarAtol, int nDigits,
 			       bool includeHist = false, int printLvl = 0) const;
 
-    //! Return the electrode moles in kmol
+    //! Return the total electrode moles in kmol
+    /*!
+     *  @return                                  Return the total moles in the electrode object
+     */
     double electrodeMoles() const;
 
+    // ----------------------------------------------- D A T A --------------------------------------------------------
 
     //! Cell number of the electrode object
     int cellNumber_;
@@ -215,7 +232,7 @@ public:
      */
     ZZCantera::EState* es_;
 
-    //! Type of the state
+    //! Type of the state - represented as a string
     /*!
      *      Possible types
      *                t_init
