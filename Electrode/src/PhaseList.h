@@ -13,13 +13,14 @@
 #include "cantera/base/config.h"
 #include "cantera/base/Array.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace 
 namespace  Zuzax
 #else
 namespace Cantera
 #endif
 {
-
+//==================================================================================================================================
 //!
 //!   Class PhaseList is a list of Phases. It's used as a container class.
 /*!
@@ -104,8 +105,8 @@ public:
  
     //!   Add a volumetric phase to the list of phases held by this object
     /*!
-     *  @param[in]     vp                      Previously initialized ThermoPhase object to be added to PhaseList
-     *  @param[in]     vNode                   XML_Node pointer to the phase XML Node for the current object
+     *   @param[in]          vp                  Previously initialized ThermoPhase object to be added to PhaseList
+     *   @param[in]          vNode               XML_Node pointer to the phase XML Node for the current object
      *
      *   @param[in]          orderByDims         If true, the the volume phase will be placed at the end of the volume phases
      *                                           and before surface and edge phases. Defaults to true.
@@ -267,27 +268,36 @@ public:
 
     //! Get the name of the phase given its global phase index
     /*!
-     * @param globPhaseIndex     global phase Index of the volume or surface Phase.
+     * @param[in]            iphGlob             global phase Index of the volume or surface Phase.
      *
-     * @return                   Returns the global phase name as a string
+     * @return                                   Returns the global phase name as a string
      */
-    std::string phaseName(size_t globPhaseIndex) const;
+    std::string phaseName(size_t iphGlob) const;
+
+    
+    //! Get the ID of the phase given its global phase index
+    /*!
+     * @param[in]            iphGlob             global phase Index of the volume or surface Phase.
+     *
+     * @return                                   Returns the global phase ID() as a string
+     */
+    std::string phaseID(size_t iphGlob) const;
 
     //! Return the global index of a phase given its name
     /*!
-     *  @param   phaseName   Name of the phase
-     *  @param   phaseIDAfter
+     *  @param[in]           phaseName           Name of the phase
+     *  @param[in]           phaseIDAfter
      *
-     *  @return  Returns the global index
+     *  @return                                  Returns the global index
      */
     size_t globalPhaseIndex(const std::string& phaseName, bool phaseIDAfter = false) const;
 
     //! Get the global species index given the ThermoPhase and the local species index
     /*!
-     *   @param ttp                        Pointer to the ThermoPhase index
-     *   @param k                          Value of the local species index 
+     *   @param[in]          ttp                 Pointer to the ThermoPhase index
+     *   @param[in]          k                   Value of the local species index 
      *
-     *   @return                           Returns the value of the global species index.
+     *   @return                                 Returns the value of the global species index.
      */
     size_t getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k = 0) const;
 
@@ -340,20 +350,18 @@ public:
      * index in this list.
      *
      * @param surPhaseIndex  surface  Index of the surface Phase.
-     * @param k              local species index within the phase.
-     *                       Default = 0.
+     * @param k              local species index within the phase.   Default = 0.
      *
-     * @return
-     *   Returns the global species index within the PhaseList object.
+     * @return                                   Returns the global species index within the PhaseList object.
      */
     size_t getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
 
     //! Get the global phase index from the global species index
     /*!
-     *  @param   globalSpeciesIndex  species index
-     *  @return  return the phase index
+     *  @param[in]           kGlob               Global species index
+     *  @return                                  return the phase index
      */
-    size_t getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const;
+    size_t getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const;
 
     //! Returns the dimensional phase index given the global phase index
     /*!
@@ -368,18 +376,18 @@ public:
 
     //!  Get the local species and global phase index given the global species index
     /*!
-     *      @param[in]    globalSpeciesIndex          Global species index
-     *      @param[out]   phaseIndex                  On return this contains the global phase index
-     *      @param[out]   localSpeciesIndex           on return this contains the local species index
+     *   @param[in]          kGlob               Global species index
+     *   @param[out]         iphGlob             On return this contains the global phase index
+     *   @param[out]         k                   On return this contains the local species index
      */
-    void getLocalIndecisesFromGlobalSpeciesIndex(size_t globalSpeciesIndex, size_t& phaseIndex, size_t& localSpeciesIndex) const;
+    void getLocalIndecisesFromGlobalSpeciesIndex(size_t kGlob, size_t& iphGlob, size_t& k) const;
 
     //! Compare against other phase lists, coming up with a number for the matching of phases and species
     /*!
      *  This is a messy routine where we try to determine whether two Phaselist's are logically the same, or 
      *  whether one PhaseList is a superset of the other PhaseList. 
      *
-     *  @param[in]       plGuest            Pointer to a const PhaseList which will be compared.
+     *  @param[in]           plGuest             Pointer to a const PhaseList which will be compared.
      *
      *  @return             Returns an int describing whether the phases are the same:
      *        0  Phase lists are completely the same
@@ -396,19 +404,19 @@ public:
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
      * 
-     *  @param[in]        globalPhaseIndex  global phase index
+     *  @param[in]        iphGlob           global phase index
      *
      *  @return                             Return a reference to the ThermoPhase object
      */
-    ThermoPhase& thermo(int globalPhaseIndex) const;
+    ThermoPhase& thermo(int iphGlob) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param[in]        globalPhaseIndex  global phase index
+     *  @param[in]        iphGlob           global phase index
      *
      *  @return                             Return a reference to the ThermoPhase object
      */
-    ThermoPhase& thermo(size_t globalPhaseIndex) const;
+    ThermoPhase& thermo(size_t iphGlob) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
@@ -428,19 +436,19 @@ public:
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param[in]        globalPhaseIndex  global phase index
+     *  @param[in]        iphGlob           global phase index
      *
      *  @return                             Return a reference to the ThermoPhase object
      */
-    ThermoPhase& phase(int globalPhaseIndex) const;
+    ThermoPhase& phase(int iphGlob) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param[in]        globalPhaseIndex  global phase index
+     *  @param[in]        iphGlob           global phase index
      *
      *  @return                             Return a reference to the ThermoPhase object
      */
-    ThermoPhase& phase(size_t globalPhaseIndex) const;
+    ThermoPhase& phase(size_t iphGlob) const;
 
     //! Return the common Elements object as a const pointer
     /*!
@@ -502,55 +510,55 @@ public:
 
     //! Return a pointer to the volume phase XML Node for a single volume phase
     /*!
-     *    @param iVolIndex   Volume index of the volume phase
+     *    @param[in]         iVolIndx           Volume index of the volume phase
      *
-     *    @return Returns a pointer to the volume phase XML Node
+     *    @return                                Returns a pointer to the volume phase XML Node
      */
-    XML_Node* volPhaseXMLNode(size_t iVolIndex) const;
+    XML_Node* volPhaseXMLNode(size_t iVolIndx) const;
 
     //! Return a pointer to the surface phase XML Node for a single surface phase
     /*!
-     * @param iSurIndex   Surface index of the surface phase
+     * @param iSurIndx   Surface index of the surface phase
      *
      *   @return                  Return a pointer to the surface phase XML Node for a single surface phase.
      */
-    XML_Node* surPhaseXMLNode(size_t iSurIndex) const;
+    XML_Node* surPhaseXMLNode(size_t iSurIndx) const;
 
     //! Return a pointer to the edge phase XML Node for a single edge phase
     /*!
-     * @param iEdgeIndex   Edge index of the surface phase
+     * @param iEdgeIndx   Edge index of the surface phase
      *
      *   @return                  Return a pointer to the edge phase XML Node for a single edge phase.
      */
-    XML_Node* edgePhaseXMLNode(size_t iEdgeIndex) const;
+    XML_Node* edgePhaseXMLNode(size_t iEdgeIndx) const;
 
     //! Returns a pointer to a single volume phase
     /*!
-     *  @param iVolIndex   Volume index of the volume phase
+     *  @param iVolIndx   Volume index of the volume phase
      *
      *   @return                           Returns a reference to the %ThermoPhase object for the volume phase.
      */
-    ThermoPhase& volPhase(size_t iVolIndex);
+    ThermoPhase& volPhase(size_t iVolIndx);
 
     //! Returns a reference to a single surface phase
     /*!
-     *  @param[in]    iSurIndex            Surface index of the surface phase
+     *  @param[in]    iSurIndx            Surface index of the surface phase
      *
      *   @return                           Returns a reference to the %ThermoPhase object for the surface phase.
      */
-    ThermoPhase& surPhase(size_t iSurIndex);
+    ThermoPhase& surPhase(size_t iSurIndx);
 
     //! Returns a reference to the ThermoPhase object of a single edge phase
     /*!
-     *  @param[in]    iEdgeIndex            Surface index of the edge phase
+     *  @param[in]    iEdgeIndx            Surface index of the edge phase
      *
      *   @return                           Returns a reference to the %ThermoPhase object for the edge phase.
      */
-    ThermoPhase& edgePhase(size_t iEdgeIndex);
+    ThermoPhase& edgePhase(size_t iEdgeIndx);
 
     //! Return the total number of phases
     /*!
-     *   @return                           returns the total number of phases
+     *   @return                           returns the total number of phases of all kinds
      */
     size_t nPhases() const;
 

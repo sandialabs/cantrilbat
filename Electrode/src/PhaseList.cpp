@@ -242,41 +242,78 @@ bool PhaseList::orderedByDims() const
 ThermoPhase* PhaseList::addVolPhase(const std::string& canteraFile, const std::string& phaseID, bool orderByDims)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
+    if (!xroot) {
+        return 0;
+    }
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    if (!vPhase) {
+       return 0;
+    }
     ThermoPhase *tp = newPhase(canteraFile, phaseID);
-    addVolPhase(tp, vPhase, orderByDims);
+    if (tp) {
+       addVolPhase(tp, vPhase, orderByDims);
+    }
     return tp;
 }
 //===================================================================================================================================
 ThermoPhase*  PhaseList::addSurPhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
+    if (!xroot) {
+        return 0;
+    }
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    if (!vPhase) {
+       return 0;
+    }
     ThermoPhase *tp = newPhase(canteraFile, phaseID);
-    addSurPhase(tp, vPhase);
+    if (tp) {
+        addSurPhase(tp, vPhase);
+    }
     return tp;
 }
 //===================================================================================================================================
 ThermoPhase* PhaseList::addEdgePhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
+    if (!xroot) {
+        return 0;
+    }
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    if (!vPhase) {
+       return 0;
+    }
     ThermoPhase *tp = newPhase(canteraFile, phaseID);
-    addEdgePhase(tp, vPhase);
+    if (tp) {
+        addEdgePhase(tp, vPhase);
+    }
     return tp;
 }
 //==================================================================================================================================
 ThermoPhase* PhaseList::addPhase(const std::string& canteraFile, const std::string& phaseID)
 {
     XML_Node* xroot = get_XML_File(canteraFile);
+    if (!xroot) {
+        return 0;
+    }
     XML_Node* vPhase = findXMLPhase(xroot, phaseID);
+    if (!vPhase) {
+       return 0;
+    }
     ThermoPhase *tp = newPhase(canteraFile, phaseID);
-    addPhase(tp, vPhase);
+    if (tp) {
+        addPhase(tp, vPhase);
+    }
     return tp;
 }
 //==================================================================================================================================
 void PhaseList::addPhase(ThermoPhase* const vp, XML_Node* vPhase)
 {
+#ifdef DEBUG_MODE
+    if (!vp) {
+        throw CanteraError("PhaseList::addPhase()", "zero pointer for ThermoPhase");
+    }
+#endif
     if (vp->nDim() == 3) {
         addVolPhase(vp, vPhase);
     } else if (vp->nDim() == 2) {
@@ -686,6 +723,11 @@ std::string PhaseList::phaseName(size_t globalPhaseIndex) const
     return PhaseNames_[globalPhaseIndex];
 }
 //==================================================================================================================================
+std::string PhaseList::phaseID(size_t globalPhaseIndex) const
+{
+    return thermo(globalPhaseIndex).id();
+}
+//==================================================================================================================================
 size_t PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
 {
     for (size_t i = 0; i < m_NumTotPhases; i++) {
@@ -731,72 +773,98 @@ size_t PhaseList::getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) 
 //==================================================================================================================================
 size_t PhaseList::globalSpeciesIndex(const std::string& speciesName, const std::string phaseName) const
 {
-    size_t lindex = npos;
+    size_t iphGlob;
+    size_t k;
     if (phaseName == "") {
-        for (size_t i = 0; i < m_NumTotPhases; i++) {
-            ThermoPhase* tp = PhaseList_[i];
-            lindex = tp->speciesIndex(speciesName);
-            if (lindex != npos) {
-                return ((m_PhaseSpeciesStartIndex[i]) + lindex);
+        for (iphGlob = 0; iphGlob < m_NumTotPhases; iphGlob++) {
+#ifdef DEBUG_MODE
+            ThermoPhase* tp = PhaseList_[iphGlob];
+            k = tp->speciesIndex(speciesName);
+            if (k != npos) {
+                return ( m_PhaseSpeciesStartIndex[iphGlob] + k);
             }
+#else
+            if ((k = PhaseList_[iphGlob]->speciesIndex(speciesName)) != npos) return  m_PhaseSpeciesStartIndex[iphGlob] + k;
+#endif
         }
     } else {
-        size_t p = globalPhaseIndex(phaseName);
-        if (p == npos) {
-            //throw CanteraError("PhaseList::globalSpeciesIndex", "phase not found: " + phaseName);
+#ifdef DEBUG_MODE
+        iphGlob = globalPhaseIndex(phaseName);
+        if (iphGlob == npos) {
             return npos;
         }
-        size_t k = PhaseList_[p]->speciesIndex(speciesName);
+        k = PhaseList_[iphGlob]->speciesIndex(speciesName);
         if (k == npos) {
             return npos;
-            //throw CanteraError("PhaseList::globalSpeciesIndex", "species not found: "
-            //                  + speciesName + " in phase " + phaseName);
         }
-        return  m_PhaseSpeciesStartIndex[p] + k;
+#else
+        if ((iphGlob = globalPhaseIndex(phaseName))              == npos) return npos;
+        if ((k = PhaseList_[iphGlob]->speciesIndex(speciesName)) == npos) return npos;
+#endif
+        return  (m_PhaseSpeciesStartIndex[iphGlob] + k);
 
     }
-    return lindex;
+    return npos;
 }
 //==================================================================================================================================
-size_t PhaseList::getGlobalSpeciesIndex(size_t globPhaseIndex, size_t k) const
+size_t PhaseList::getGlobalSpeciesIndex(size_t iphGlob, size_t k) const
 {
-    AssertTrace(globPhaseIndex < m_NumTotPhases);
-    size_t istart = m_PhaseSpeciesStartIndex[globPhaseIndex];
+#ifdef DEBUG_MODE
+    AssertTrace(iphGlob < m_NumTotPhases);
+    size_t istart = m_PhaseSpeciesStartIndex[iphGlob];
     return (istart + k);
+#else
+    return (m_PhaseSpeciesStartIndex[iphGlob] + k);
+#endif
 }
 //==================================================================================================================================
-size_t PhaseList::getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k) const
+size_t PhaseList::getGlobalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) const
 {
-    AssertTrace(volPhaseIndex != npos);
-    AssertTrace(k != npos);
-    AssertTrace(volPhaseIndex < NumVolPhases_);
-    const ThermoPhase* const tp = VolPhaseList[volPhaseIndex];
-    AssertTrace(k < tp->nSpecies());
-    size_t istart = m_PhaseSpeciesStartIndex[volPhaseIndex];
-    return (istart + k);
-}
-//==================================================================================================================================
-size_t PhaseList::getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k) const
-{
-    AssertTrace(surPhaseIndex != npos);
-    AssertTrace(k != npos);
-    AssertTrace(surPhaseIndex < m_NumSurPhases);
-    const ThermoPhase* const tp = SurPhaseList[surPhaseIndex];
-    AssertTrace(k < tp->nSpecies());
-    size_t phaseIndex = NumVolPhases_ + surPhaseIndex;
-    size_t istart = m_PhaseSpeciesStartIndex[phaseIndex];
-    return (istart + k);
-}
-//==================================================================================================================================
-size_t PhaseList::getPhaseIndexFromGlobalSpeciesIndex(size_t globalSpeciesIndex) const
-{
-    AssertTrace(globalSpeciesIndex != npos);
-    if (globalSpeciesIndex >= m_PhaseSpeciesStartIndex[m_NumTotPhases]) {
-        throw CanteraError("PhaseList::getPhaseIndexFromGlobalSpeciesIndex ", " error");
+#ifdef DEBUG_MODE
+    if ( ! m_OrderedByDimensionality) {
+      throw CanteraError("not done", "not done yet");
     }
-    for (size_t i = 0; i < m_NumTotPhases; i++) {
-        if (globalSpeciesIndex < m_PhaseSpeciesStartIndex[i+1]) {
-            return  i;
+    AssertTrace(iphVol != npos);
+    AssertTrace(k != npos);
+    AssertTrace(iphVol < NumVolPhases_);
+    const ThermoPhase* const tp = VolPhaseList[iphVol];
+    AssertTrace(k < tp->nSpecies());
+    size_t istart = m_PhaseSpeciesStartIndex[iphVol];
+    return (istart + k);
+#else
+    return ( m_PhaseSpeciesStartIndex[iphVol] + k);
+#endif
+}
+//==================================================================================================================================
+size_t PhaseList::getGlobalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) const
+{
+#ifdef DEBUG_MODE
+    if ( ! m_OrderedByDimensionality) {
+      throw CanteraError("not done", "not done yet");
+    }
+    AssertTrace(iphSur != npos);
+    AssertTrace(k != npos);
+    AssertTrace(iphSur < m_NumSurPhases);
+    const ThermoPhase* const tp = SurPhaseList[iphSur];
+    AssertTrace(k < tp->nSpecies());
+    size_t phaseIndex = NumVolPhases_ + iphSur;
+    return ( m_PhaseSpeciesStartIndex[phaseIndex] + k);
+#else
+    return ( m_PhaseSpeciesStartIndex[NumVolPhases_ + iphSur] + k);
+#endif
+}
+//==================================================================================================================================
+size_t PhaseList::getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const
+{
+#ifdef DEBUG_MODE
+    AssertTrace(kGlob != npos);
+    if (kGlob >= m_PhaseSpeciesStartIndex[m_NumTotPhases]) {
+        throw CanteraError("PhaseList::getPhaseIndexFromGlobalSpeciesIndex ", "indexing error");
+    }
+#endif
+    for (size_t iphGlob = 0; iphGlob < m_NumTotPhases; iphGlob++) {
+        if (kGlob < m_PhaseSpeciesStartIndex[iphGlob + 1]) {
+            return iphGlob;
         }
     }
     return npos;
@@ -854,10 +922,20 @@ size_t PhaseList::dimPhaseIndexFromGlobalPhaseIndex(size_t iphGlob, int *dimPtr)
 }
 //====================================================================================================================================
 void PhaseList::
-getLocalIndecisesFromGlobalSpeciesIndex(size_t globalSpeciesIndex, size_t& phaseIndex, size_t& localSpeciesIndex) const
+getLocalIndecisesFromGlobalSpeciesIndex(size_t kGlob, size_t& iphGlob, size_t& localSpeciesIndex) const
 {
-    phaseIndex = getPhaseIndexFromGlobalSpeciesIndex(globalSpeciesIndex);
-    localSpeciesIndex = (globalSpeciesIndex - m_PhaseSpeciesStartIndex[phaseIndex]);
+#ifdef DEBUG_MODE
+    AssertTrace(kGlob != npos);
+    AssertTrace(kGlob < m_NumTotSpecies);
+#endif
+    iphGlob = getPhaseIndexFromGlobalSpeciesIndex(kGlob);
+#ifdef DEBUG_MODE
+    if (iphGlob == npos) {
+         throw CanteraError("PhaseList::getLocalIndecisesFromGlobalSpeciesIndex()",
+                            "Could not fund phase index");
+    }
+#endif
+    localSpeciesIndex = (kGlob - m_PhaseSpeciesStartIndex[iphGlob]);
 }
 //====================================================================================================================
 //! Kernel function that checks consistency of the phase id() and the the name and number/name/order of species in a phase 
@@ -1143,56 +1221,64 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 }
 //==================================================================================================================================
 ThermoPhase&
-PhaseList::thermo(int globalPhaseIndex) const
-{
-    if (globalPhaseIndex < 0) {
-        throw CanteraError("PhaseList::thermo()", "error");
-    }
-    return thermo((size_t) globalPhaseIndex);
-}
-//==================================================================================================================================
-ThermoPhase&
-PhaseList::thermo(size_t globalPhaseIndex) const
+PhaseList::thermo(int iphGlob) const
 {
 #ifdef DEBUG_MODE
-    if (globalPhaseIndex == npos) {
-        throw CanteraError("PhaseList::phase()", "error");
-    }
-    if (globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases)) {
-        throw CanteraError("PhaseList::phase()", "error");
+    if (iphGlob < 0) {
+        throw CanteraError("PhaseList::thermo()", "index out of range");
     }
 #endif
-    return *(PhaseList_[globalPhaseIndex]);
+    return thermo((size_t) iphGlob);
 }
 //==================================================================================================================================
 ThermoPhase&
-PhaseList::phase(int globalPhaseIndex) const
-{
-    if (globalPhaseIndex < 0) {
-        throw CanteraError("PhaseList::phase()", "error");
-    }
-    return phase((size_t) globalPhaseIndex);
-}
-//==================================================================================================================================
-ThermoPhase&
-PhaseList::phase(size_t globalPhaseIndex) const
+PhaseList::thermo(size_t iphGlob) const
 {
 #ifdef DEBUG_MODE
-    if (globalPhaseIndex == npos) {
-        throw CanteraError("PhaseList::phase()", "error");
+    if (iphGlob == npos) {
+        throw CanteraError("PhaseList::phase()", "index out of range");
     }
-    if (globalPhaseIndex >= (NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases)) {
-        throw CanteraError("PhaseList::phase()", "error");
+    if (iphGlob >= (NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases)) {
+        throw CanteraError("PhaseList::phase()", "index out of range");
     }
 #endif
-    return *(PhaseList_[globalPhaseIndex]);
+    return *(PhaseList_[iphGlob]);
+}
+//==================================================================================================================================
+ThermoPhase&
+PhaseList::phase(int iphGlob) const
+{
+#ifdef DEBUG_MODE
+    if (iphGlob < 0) {
+        throw CanteraError("PhaseList::phase()", "index out of range");
+    }
+#endif
+    return phase((size_t) iphGlob);
+}
+//==================================================================================================================================
+ThermoPhase&
+PhaseList::phase(size_t iphGlob) const
+{
+#ifdef DEBUG_MODE
+    if (iphGlob == npos) {
+        throw CanteraError("PhaseList::phase()", "index out of range");
+    }
+    if (iphGlob >= (NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases)) {
+        throw CanteraError("PhaseList::phase()", "index out of range");
+    }
+#endif
+    return *(PhaseList_[iphGlob]);
 }
 //==================================================================================================================================
 ThermoPhase&
 PhaseList::thermo(const char* const phaseName) const
 {
+#ifdef DEBUG_MODE
     std::string pp(phaseName);
     return thermo(pp);
+#else
+    return thermo( std::string(phaseName) );
+#endif
 }
 //==================================================================================================================================
 ThermoPhase&
@@ -1356,19 +1442,19 @@ bool PhaseList::edgePhaseHasKinetics(size_t iEdgeIndex) const
     return EdgePhaseHasKinetics[iEdgeIndex];
 }
 //====================================================================================================================
-std::string PhaseList::speciesName(size_t iGlobSpeciesIndex) const
+std::string PhaseList::speciesName(size_t kGlob) const
 {
 #ifdef DEBUG_MODE
-    AssertTrace(iGlobSpeciesIndex != npos);
-    AssertTrace(iGlobSpeciesIndex < m_NumTotSpecies);
-    size_t iPhase = getPhaseIndexFromGlobalSpeciesIndex(iGlobSpeciesIndex);
-    size_t kStart = m_PhaseSpeciesStartIndex[iPhase];
-    size_t kLocal = iGlobSpeciesIndex - kStart;
-    ThermoPhase& tp = thermo(iPhase);
+    AssertTrace(kGlob != npos);
+    AssertTrace(kGlob < m_NumTotSpecies);
+    size_t iphGlob = getPhaseIndexFromGlobalSpeciesIndex(kGlob);
+    size_t kStart = m_PhaseSpeciesStartIndex[iphGlob];
+    size_t kLocal = kGlob - kStart;
+    ThermoPhase& tp = thermo(iphGlob);
     return tp.speciesName(kLocal);
 #else
-    size_t iPhase = getPhaseIndexFromGlobalSpeciesIndex(iGlobSpeciesIndex);
-    return thermo(iPhase).speciesName(iGlobSpeciesIndex -m_PhaseSpeciesStartIndex[iPhase]);
+    size_t iphGlob = getPhaseIndexFromGlobalSpeciesIndex(kGlob);
+    return thermo(iphGlob).speciesName( kGlob - m_PhaseSpeciesStartIndex[iphGlob] );
 #endif
 }
 //======================================================================================================================
