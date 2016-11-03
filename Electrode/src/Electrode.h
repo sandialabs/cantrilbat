@@ -924,7 +924,7 @@ public:
      *  @param[in]  allowedSourceTermError     double           
      *  @return                         Returns a double
      *
-     * /deprecated Not sure this is used anywhere!
+     *   @deprecated Not sure this is used anywhere!
      */
     double reportTimeLimit(int allowedSubSteps, double allowedErrorStateVariables, double allowedSourceTermError);
 

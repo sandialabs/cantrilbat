@@ -764,11 +764,16 @@ size_t PhaseList::globalPhaseIndex(const std::string& phaseName, bool phaseIDAft
 //==================================================================================================================================
 size_t PhaseList::getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
 {
-    size_t iphase = getGlobalPhaseIndex(ttp);
-    if (iphase == npos) {
-         throw CanteraError("PhaseList::getGlobalSpeciesIndex()", " error could not find phase index ");
+    size_t iphGlob;
+#ifdef DEBUG_MODE
+    iphGlob = getGlobalPhaseIndex(ttp);
+    if (iphGlob == npos) {
+        return npos;
     }
-    return getGlobalSpeciesIndex(iphase, k);
+#else
+    if ((iphGlob = getGlobalPhaseIndex(ttp)) == npos) return npos;
+#endif
+    return globalSpeciesIndex(iphGlob, k);
 }
 //==================================================================================================================================
 size_t PhaseList::globalSpeciesIndex(const std::string& speciesName, const std::string phaseName) const
@@ -811,6 +816,18 @@ size_t PhaseList::getGlobalSpeciesIndex(size_t iphGlob, size_t k) const
 {
 #ifdef DEBUG_MODE
     AssertTrace(iphGlob < m_NumTotPhases);
+    size_t istart = m_PhaseSpeciesStartIndex[iphGlob];
+    return (istart + k);
+#else
+    return (m_PhaseSpeciesStartIndex[iphGlob] + k);
+#endif
+}
+//==================================================================================================================================
+size_t PhaseList::globalSpeciesIndex(size_t iphGlob, size_t k) const
+{
+#ifdef DEBUG_MODE
+    AssertTrace(iphGlob < m_NumTotPhases);
+    AssertTrace(k < PhaseList_[iphGlob]->nSpecies());
     size_t istart = m_PhaseSpeciesStartIndex[iphGlob];
     return (istart + k);
 #else
@@ -870,7 +887,7 @@ size_t PhaseList::getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const
     return npos;
 }
 //==================================================================================================================================
-ThermoPhase* PhaseList::getPhase(const char* phaseName) const
+ThermoPhase* PhaseList::getPhase(const char* const phaseName) const
 {
     for (size_t i = 0; i < m_NumTotPhases; i++) {
         //if phase names match, return this phase

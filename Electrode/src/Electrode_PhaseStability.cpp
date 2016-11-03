@@ -166,7 +166,7 @@ void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
                 int nsp = tp->nSpecies();
                 neq_ += nsp - 1;
                 std::vector<double> mole_fractions(nsp);
-                int iStart = emp_->getGlobalSpeciesIndex(iph, 0);
+                int iStart = emp_->globalSpeciesIndex(iph, 0);
 
                 std::copy(emp_->spMf_final_[iStart], emp_->spMf_final_[iStart] + nsp, mole_fractions.begin());
                 mfVector_pl_.push_back(mole_fractions);
@@ -311,7 +311,7 @@ int Electrode_PhaseStability::unpackNonlinSolnVector(const double* const y)
         int ph = phasePopSolidIndexList_[iii];
         //int iph = phasePopIndexList_[iii];
         std::vector<double>& mfVector =  mfVector_pl_[iii];
-        // int isp = emp_->getGlobalSpeciesIndex(iph, 0);
+        // int isp = emp_->globalSpeciesIndex(iph, 0);
         if (emp_->numSpecInSolidPhases_[ph] == 1) {
             mfVector[0] = 1.0;
         }  else {
@@ -345,7 +345,7 @@ int Electrode_PhaseStability::packNonlinSolnVector(double* const y)
         int ph = phasePopSolidIndexList_[iii];
         //int iph = phasePopIndexList_[iii];
         std::vector<double>& mfVector =  mfVector_pl_[iii];
-        // int isp = emp_->getGlobalSpeciesIndex(iph, 0);
+        // int isp = emp_->globalSpeciesIndex(iph, 0);
         if (emp_->numSpecInSolidPhases_[ph] == 1) {
             mfVector[0] = 1.0;
         }  else {
@@ -375,7 +375,7 @@ void Electrode_PhaseStability::seedMfVector()
         int ph = phasePopSolidIndexList_[iii];
         int iph = phasePopIndexList_[iii];
         std::vector<double>& mfVector =  mfVector_pl_[iii];
-        int iStart = emp_->getGlobalSpeciesIndex(iph, 0);
+        int iStart = emp_->globalSpeciesIndex(iph, 0);
 
         for (int sp = 0; sp < emp_->numSpecInSolidPhases_[ph]; sp++) {
             mfVector[sp] = emp_->spMf_final_[iStart+sp];
@@ -500,7 +500,7 @@ void Electrode_PhaseStability::extractInfo()
         std::vector<double>& DDotVector = DDotVector_pl_[iii];
         std::vector<double>& mfVector =     mfVector_pl_[iii];
 
-        int istart = emp_->getGlobalSpeciesIndex(iph, 0);
+        int istart = emp_->globalSpeciesIndex(iph, 0);
 
         int nsp = emp_->m_PhaseSpeciesStartIndex[iph+1] - istart;
         for (int k = 0; k < nsp; k++) {
@@ -776,7 +776,7 @@ void  Electrode_PhaseStability::determineBigMoleFractions()
 
         std::vector<double>& mfVector =     mfVector_pl_[iii];
 
-        int istart = emp_->getGlobalSpeciesIndex(iph, 0);
+        size_t istart = emp_->globalSpeciesIndex(iph, 0);
 
         int nsp = emp_->m_PhaseSpeciesStartIndex[iph+1] - istart;
         phaseMFBig_[iii] = 0;

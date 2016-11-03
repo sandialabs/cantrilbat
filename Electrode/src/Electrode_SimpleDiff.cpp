@@ -470,7 +470,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 	ThermoPhase& th = thermo(iPh);
 	thermoSPhase_List_[i] = &th;
 	int nsp = th.nSpecies();
-	int kstart = getGlobalSpeciesIndex(iPh);
+	int kstart = globalSpeciesIndex(iPh);
 	for (int kk = 0; kk < nsp; kk++) {
 	    KRsolid_speciesList_[KRsolid] = kstart + kk;
 	    std::string kname = th.speciesName(kk);
@@ -1647,7 +1647,7 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
     if (!doErr) {
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	    int iStart = getGlobalSpeciesIndex(iPh, 0);
+	    int iStart = globalSpeciesIndex(iPh, 0);
 	    ThermoPhase* th = & thermo(iPh);
 	    int nSpecies = th->nSpecies();
 	    double denom = phaseMoles_final_[iPh] + phaseMoles_init_[iPh] + 1.0E-20;
@@ -1687,7 +1687,7 @@ void Electrode_SimpleDiff::checkMoles_final_init(bool doErr)
 	for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	    int kstart = 0;
 	    int iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	    int iStart = getGlobalSpeciesIndex(iPh, 0);
+	    int iStart = globalSpeciesIndex(iPh, 0);
 	    ThermoPhase* th = & thermo(iPh);
 	    int nSpecies = th->nSpecies();
 	    for (int kSp = 0; kSp < nSpecies; kSp++) {
@@ -1802,7 +1802,7 @@ double Electrode_SimpleDiff::fixMoleBalance_final_init()
     for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	int kstart = 0;
 	int iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	int iStart = getGlobalSpeciesIndex(iPh, 0);
+	int iStart = globalSpeciesIndex(iPh, 0);
 	ThermoPhase* th = & thermo(iPh);
 	int nSpecies = th->nSpecies();
 	for (int kSp = 0; kSp < nSpecies; kSp++) {
@@ -2288,7 +2288,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 		kstart = 0;
 		for (jPh = 0; jPh < numSPhases_; jPh++) {
 		    iPh = phaseIndeciseKRsolidPhases_[jPh];
-		    int iStart = getGlobalSpeciesIndex(iPh, 0);
+		    int iStart = globalSpeciesIndex(iPh, 0);
 		    ThermoPhase* th = & thermo(iPh);
 		    int nSpecies = th->nSpecies();
 		    for (int kSp = 0; kSp < nSpecies; kSp++) {
@@ -2310,7 +2310,7 @@ int Electrode_SimpleDiff::predictSolnResid()
 	    kstart = 0;
 	    for (jPh = 0; jPh < numSPhases_; jPh++) {
 		iPh = phaseIndeciseKRsolidPhases_[jPh];
-		int iStart = getGlobalSpeciesIndex(iPh, 0);
+		int iStart = globalSpeciesIndex(iPh, 0);
 		ThermoPhase* th = & thermo(iPh);
 		int nSpecies = th->nSpecies();
 		for (int kSp = 0; kSp < nSpecies; kSp++) {
@@ -3038,7 +3038,7 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
             for (size_t ph = 0; ph < (size_t) numSPhases_; ph++) {
                 int iph = phaseIndeciseKRsolidPhases_[ph];
                 if (numSpeciesInKRSolidPhases_[ph] > 1) {
-                    int iStart = getGlobalSpeciesIndex(iph, 0);
+                    int iStart = globalSpeciesIndex(iph, 0);
                     for (int sp = 0; sp < numSpeciesInKRSolidPhases_[ph]; sp++) {
 			size_t i = iStart + sp;
 			if (i == k) {
@@ -3260,7 +3260,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 	    kstart = 0;
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
+                int iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
          
@@ -3331,7 +3331,7 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
     int kstart = 0;
     for (int jPh = 0; jPh < numSPhases_; jPh++) {
 	int iPh = phaseIndeciseKRsolidPhases_[jPh];
-	//int iStart = getGlobalSpeciesIndex(iPh, 0);
+	//int iStart = globalSpeciesIndex(iPh, 0);
 	ThermoPhase* th = & thermo(iPh);
 	int nSpecies = th->nSpecies();
 	numFields = numSPhases_;
@@ -3339,8 +3339,7 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
 	title = "Residual for total cell phase moles for " + th->name();
 	iEqn = kstart;
 	showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numFields, iField, &phaseMoles_KRsolid_Cell_init_[0],
-		     &phaseMoles_KRsolid_Cell_final_[0], numEqnsCell_, iEqn, errorField, &atolResidNLS_[1],
-		     res);
+		     &phaseMoles_KRsolid_Cell_final_[0], numEqnsCell_, iEqn, errorField, &atolResidNLS_[1], res);
 
 	numFields = numKRSpecies_;
 	for (int kSp = 1; kSp < nSpecies; kSp++) {

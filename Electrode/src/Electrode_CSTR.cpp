@@ -933,7 +933,7 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
         double DphaseMoles = 0.;
         for (size_t sp = 0; sp < (size_t) numSpecInSolidPhases_[ph]; ++sp)
         {
-          size_t isp = getGlobalSpeciesIndex(iph, sp);
+          size_t isp = globalSpeciesIndex(iph, sp);
           DphaseMoles += DspMoles_final_[isp];
         }
         DphMoles_final_[iph] = DphaseMoles;
@@ -1253,7 +1253,7 @@ int  Electrode_CSTR::predictSoln()
             justDiedPhase_[iph] = 0;
             DTmin = 1.0E+300;
             for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                isp = getGlobalSpeciesIndex(iph,sp);
+                isp = globalSpeciesIndex(iph,sp);
                 deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycle_;
                 tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycle_;
                 if (spMoles_init_[isp] > 0.0) {
@@ -1329,7 +1329,7 @@ int  Electrode_CSTR::predictSoln()
                 DTmin = 1.0E+300;
                 int iph = phaseIndexSolidPhases_[ph];
                 for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                    isp = getGlobalSpeciesIndex(iph,sp);
+                    isp = globalSpeciesIndex(iph,sp);
                     deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     if (spMoles_init_[isp] > 0.0) {
@@ -1378,14 +1378,14 @@ int  Electrode_CSTR::predictSoln()
             if (justDiedPhase_[iph]) {
                 phaseMoles_final_[iph] = 0.0;
                 for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                    isp = getGlobalSpeciesIndex(iph,sp);
+                    isp = globalSpeciesIndex(iph,sp);
                     spMf_final_[isp] = spMf_init_[isp];
 		    spMoles_final_[isp] = 0.0;
                 }
             } else {
                 double sum = 0.0;
                 for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                    isp = getGlobalSpeciesIndex(iph,sp);
+                    isp = globalSpeciesIndex(iph,sp);
                     spMoles_final_[isp] = spMoles_init_[isp] +  DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     if (spMoles_final_[isp] < 0.0) {
                         spMoles_final_[isp] = 0.1 * spMoles_init_[isp];
@@ -1395,12 +1395,12 @@ int  Electrode_CSTR::predictSoln()
                 phaseMoles_final_[iph]= sum;
 		if ( sum > 1.0E-300) {
 		    for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-			isp = getGlobalSpeciesIndex(iph,sp);
+			isp = globalSpeciesIndex(iph,sp);
 			spMf_final_[isp] =  spMoles_final_[isp] /  phaseMoles_final_[iph];
 		    }
 		} else {
 		    for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-			isp = getGlobalSpeciesIndex(iph,sp);
+			isp = globalSpeciesIndex(iph,sp);
 			spMf_final_[isp] = spMf_init_[isp];
 		    }
 		}
@@ -1445,8 +1445,8 @@ void  Electrode_CSTR::unpackNonlinSolnVector(const double* const y)
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
         int iph = phaseIndexSolidPhases_[ph];
         int sp;
-        int isp = getGlobalSpeciesIndex(iph, 0);
-        int iStart = getGlobalSpeciesIndex(iph, 0);
+        int isp = globalSpeciesIndex(iph, 0);
+        int iStart = globalSpeciesIndex(iph, 0);
         if (numSpecInSolidPhases_[ph] == 1) {
             spMf_final_[isp] = 1.0;
             spMoles_final_[isp] = phaseMoles_final_[iph];
@@ -1521,7 +1521,7 @@ void  Electrode_CSTR::packNonlinSolnVector(double* const y) const
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
         int iph = phaseIndexSolidPhases_[ph];
         int sp;
-        int isp = getGlobalSpeciesIndex(iph, 0);
+        int isp = globalSpeciesIndex(iph, 0);
         if (numSpecInSolidPhases_[ph] == 1) {
             //spMf_final_[isp] = 1.0;
             //spMoles_final_[isp] = phaseMoles_final_[iph];
@@ -1637,7 +1637,7 @@ void  Electrode_CSTR::initialPackSolver_nonlinFunction()
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
         for (int sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
             int iph = phaseIndexSolidPhases_[ph];
-            int isp = getGlobalSpeciesIndex(iph,sp);
+            int isp = globalSpeciesIndex(iph,sp);
             if (sp != phaseMFBig_[iph]) {
                 yvalNLS_[index]  = spMf_final_[isp];
                 ylowNLS_[index]  = 0.0;
@@ -1709,10 +1709,10 @@ void  Electrode_CSTR::determineBigMoleFractions()
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
         int iph = phaseIndexSolidPhases_[ph];
         phaseMFBig_[iph] = 0;
-        int iStart =  getGlobalSpeciesIndex(iph, 0);
+        int iStart =  globalSpeciesIndex(iph, 0);
         double xBig = spMf_final_[iStart];
         for (int sp = 1; sp < numSpecInSolidPhases_[ph]; sp++) {
-            int isp = getGlobalSpeciesIndex(iph, sp);
+            int isp = globalSpeciesIndex(iph, sp);
             if (spMf_final_[isp] > xBig) {
                 phaseMFBig_[iph] = sp;
                 xBig = spMf_final_[isp];
@@ -1962,7 +1962,7 @@ REDO:
             for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
                 int iph = phaseIndexSolidPhases_[ph];
                 if (numSpecInSolidPhases_[ph] > 1) {
-                    int iStart = getGlobalSpeciesIndex(iph, 0);
+                    int iStart = globalSpeciesIndex(iph, 0);
                     for (int sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
                         if (sp != phaseMFBig_[iph]) {
                             size_t i = iStart + sp;
@@ -2058,7 +2058,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
                     bool allNeg = true;
                     if (numSpecInSolidPhases_[ph] > 1) {
                         for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                            int isp = getGlobalSpeciesIndex(iph,sp);
+                            int isp = globalSpeciesIndex(iph, sp);
                             tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTdeath;
                             if (spMoles_init_[isp] > 0.0 ||  DspMoles_final_[isp] > 0.0) {
                                 if (tmp > 0.0) {
@@ -2143,7 +2143,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
         if (numSpecInSolidPhases_[ph] > 1) {
             phaseMoles_pos_[iph] = 0.0;
             for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                int isp = getGlobalSpeciesIndex(iph,sp);
+                int isp = globalSpeciesIndex(iph,sp);
                 tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
                 if (tmp > 0.0) {
                     phaseMoles_pos_[iph] += tmp;
@@ -2166,7 +2166,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
         int iph = phaseIndexSolidPhases_[ph];
         if (numSpecInSolidPhases_[ph] > 1) {
             for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                int isp = getGlobalSpeciesIndex(iph,sp);
+                int isp = globalSpeciesIndex(iph,sp);
                 double frac;
                 if (DphMoles_final_[iph] == 0.0 && phaseMoles_init_[iph] == 0.0) {
                     frac = spMf_init_[isp];
@@ -2185,7 +2185,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
                     } else {
                         double ptmp = 0.0;
                         for (int ssp = 0; ssp < numSpecInSolidPhases_[ph]; ssp++) {
-                            int iisp = getGlobalSpeciesIndex(iph, ssp);
+                            int iisp = globalSpeciesIndex(iph, ssp);
                             tmp = spMoles_init_[iisp] + DspMoles_final_[iisp] * deltaTsubcycleCalc_;
                             if (tmp > 0.0) {
                                 ptmp += tmp;
@@ -2330,7 +2330,7 @@ void  Electrode_CSTR::setResidAtolNLS()
 
         for (int sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
             int iph = phaseIndexSolidPhases_[ph];
-            //int isp = getGlobalSpeciesIndex(iph,sp);
+            //int isp = globalSpeciesIndex(iph,sp);
             if (sp != phaseMFBig_[iph]) {
                 atolNLS_.push_back(1.0E-14);
                 atolResidNLS_[index] = atolNLS_[index];
@@ -2509,8 +2509,6 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     delete [] netROP;
 
 }
-
-
 //====================================================================================================================
 // Evaluate the residual function
 /*
@@ -2537,7 +2535,6 @@ int Electrode_CSTR::evalResidNJ(const double tdummy, const double delta_t_dummy,
     return retn;
 }
 //====================================================================================================================
-
 int Electrode_CSTR::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     for (int k = 0; k < neq_; k++) {
@@ -2678,11 +2675,11 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
                 break;
             }
             for (int sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                int isp = getGlobalSpeciesIndex(iph,sp);
+                size_t isp = globalSpeciesIndex(iph,sp);
                 if (spMoles_final_[isp] > 0.0) {
                     if (spMoles_final_[isp] > spMoles_init_[isp] * 1.0E-6) {
                         if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
-                            printf(" XXX integrate(): species in zeroed phase nonzero %d = %g\n", isp,    spMoles_final_[isp]);
+                            printf(" XXX integrate(): species in zeroed phase nonzero %lu = %g\n", isp, spMoles_final_[isp]);
                             printf(" XXX integrate(): Phase didn't die like it should have %d %s\n", iph, ppp.c_str());
                         }
                         spMoles_final_[isp] = 0.0;
@@ -2694,7 +2691,8 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
                 } else if (spMoles_final_[isp] < 0.0) {
                     if (fabs(spMoles_final_[isp]) > spMoles_init_[isp] * 1.0E-6) {
                         if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
-                            printf(" XXX integrate(): species in zeroed phase nonzero %d = %g\n", isp,    spMoles_final_[isp]);
+                            printf(" XXX integrate(): species in zeroed phase nonzero %lu = %g\n", 
+                                   isp, spMoles_final_[isp]);
                         }
                         spMoles_final_[isp] = 0.0;
                         stepAcceptable = false;
@@ -2706,12 +2704,13 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
             }
         } else {
             for (int sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                int isp = getGlobalSpeciesIndex(iph,sp);
+                size_t isp = globalSpeciesIndex(iph,sp);
                 if (spMoles_final_[isp] < 0.0) {
                     if (spMoles_final_[isp] > -atolVal) {
                         spMoles_final_[isp] = 0.0;
                     } else {
-                        printf(" XXX integrate(): species in nonzeroed phase below zero %d = %g\n", isp,    spMoles_final_[isp]);
+                        printf(" XXX integrate(): species in nonzeroed phase below zero %lu = %g\n", 
+                               isp, spMoles_final_[isp]);
                         stepAcceptable = false;
                         break;
                     }

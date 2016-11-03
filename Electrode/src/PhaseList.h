@@ -21,7 +21,6 @@ namespace Cantera
 #endif
 {
 //==================================================================================================================================
-//!
 //!   Class PhaseList is a list of Phases. It's used as a container class.
 /*!
  *    %PhaseList maintains a global species list, containing all of the species in all of the phases within %PhaseList.
@@ -71,7 +70,7 @@ namespace Cantera
  *        Change interface routine names one by one to make them conformal to a standard.
  *             ' get' name is used for return vectors in the parameter list.
  *             Determine whether to use globalSpeciesIndex() or speciesIndex() as a general naming convention.
- *
+ *        For bad matches, don't throw an error. Instead return npos.
  */
 class PhaseList
 {
@@ -305,7 +304,8 @@ public:
      *   @param[in]          ttp                 Pointer to the ThermoPhase index
      *   @param[in]          k                   Value of the local species index 
      *
-     *   @return                                 Returns the value of the global species index.
+     *   @return                                 Returns the value of the global species index. 
+     *                                           If the parameters don't identify an index, return npos.
      */
     size_t getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k = 0) const;
 
@@ -315,14 +315,29 @@ public:
      * The volume phases are first in this list, followed by the surface phases. The global species index is the
      * index in this list.
      *
-     * @param[in]          globPhaseIndex        global phase Index of the volume or  surface Phase.
+     * @param[in]          iphGlob               global phase Index of the volume or  surface Phase.
      * @param[in]          k                     local species index within the phase.  Default = 0.
      *
-     * @return                               Returns the global species index within the PhaseList object. 
-     *                                       If the parameters don't identify an index negative 1 is returned, or the 
-     *                                       an error is thrown.
+     * @return                                   Returns the global species index within the PhaseList object. 
+     *                                           If the parameters don't identify an index, return npos
+     *
+     *  @deprecated (has a get in front of it)
      */
-    size_t getGlobalSpeciesIndex(size_t globPhaseIndex, size_t k = 0) const;
+    size_t getGlobalSpeciesIndex(size_t iphGlob, size_t k = 0) const;
+
+    //! Get the global species index for a phase
+    /*!
+     * PhaseList maintains a global species list, containing all of the species in all of the phases within PhaseList.
+     * The volume phases are first in this list, followed by the surface phases. The global species index is the index in this list.
+     *
+     * @param[in]          iphGlob               global phase Index of the volume or  surface Phase.
+     * @param[in]          k                     local species index within the phase.  Default = 0.
+     *
+     * @return                                   Returns the global species index within the PhaseList object. 
+     *                                           If the parameters don't identify an index, npos  is returned.
+     */
+    size_t globalSpeciesIndex(size_t iphGlob, size_t k = 0) const;
+
 
     //! Return the global index of a species named 'name'
     /*!

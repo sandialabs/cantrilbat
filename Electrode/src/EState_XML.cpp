@@ -226,27 +226,26 @@ ETimeState& ETimeState::operator=(const ETimeState& r)
 //==================================================================================================================================
 XML_Node* ETimeState::write_ETimeState_ToXML() const
  {
-     const std::string fmt = "%22.14E";
-     XML_Node* xes = es_->write_electrodeState_ToXML();
-     if (!xes) {
-	 return NULL;
-     }
      XML_Node* xmi = new XML_Node("timeState");
      if (stateType_ == "t_init" || stateType_ == "t_final" ||  stateType_ == "t_intermediate") {
 	 xmi->addAttribute("type", stateType_);
      } else {
-	 throw Electrode_Error( "ETimeState::write_ETimeState_ToXML()",
-			      " Unknown state " + stateType_);
+	 throw Electrode_Error( "ETimeState::write_ETimeState_ToXML()", " Unknown state " + stateType_);
      }
      xmi->addAttribute("domain", domainNumber_);
      xmi->addAttribute("cellNumber", cellNumber_);
+     // write the time out with 15 digits of accuracy -> want a restart capability, but don't want roundoff diffs.
+     const std::string fmt = "%22.14E";
      xmi->addChild("time", time_, fmt);
-#ifdef NEW_XML
+
+     // Create a new node with the solution written into it
+     XML_Node* xes = es_->write_electrodeState_ToXML();
+     if (!xes) {
+	 return NULL;
+     }
+     // Then, add this node (without a copy) to the tree
      xmi->addChildToTree(xes);
-#else
-     xmi->addChild(*xes);
-     delete xes;
-#endif
+
      return xmi;
  }
 //==================================================================================================================================
@@ -259,7 +258,7 @@ void ETimeState::read_ETimeState_fromXML(const ZZCantera::XML_Node& xTimeState, 
 	throw Electrode_Error("read_ETimeState_fromXML", "Error: expecting timeState node but got " + xTimeState.name());
     }
 
-    string ss = xTimeState["cellNumber"];
+    std::string ss = xTimeState["cellNumber"];
     cellNumber_ = atoi(ss.c_str());
     if (cellNumber_ != e_id.electrodeCellNumber_) {
 	throw Electrode_Error( " ETimeState::read_ETimeState_fromXML",  "different cellNumbers");
@@ -285,18 +284,17 @@ void ETimeState::read_ETimeState_fromXML(const ZZCantera::XML_Node& xTimeState, 
     }
     iOwnES_ = 1;
     
-    string typeString;
-    string timeValStr;
+    std::string typeString;
+    std::string timeValStr;
     ZZctml::getNamedStringValue(xTimeState, "time", timeValStr, typeString);
     time_ = fpValueCheck(timeValStr);
 
-    const XML_Node* xEState =  xTimeState.findByName("electrodeState");
+    const XML_Node* xEState = xTimeState.findByName("electrodeState");
     if (!xEState) {
-	throw Electrode_Error("ETimeState::read_ETimeState_fromXML()",
-			      "Could not find the XML element electrodeState");
+	throw Electrode_Error("ETimeState::read_ETimeState_fromXML()", "Could not find the XML element electrodeState");
     }
 
-    es_ =  createEState_fromXML(*xEState, e_id);
+    es_ = createEState_fromXML(*xEState, e_id);
 }
 //==================================================================================================================================
 //  Compare the current state of this object against another guest state to see if they are the same
@@ -312,8 +310,8 @@ void ETimeState::read_ETimeState_fromXML(const ZZCantera::XML_Node& xTimeState, 
  *
  *     @return                           Returns true
  */
-bool ETimeState::compareOtherTimeState(const ETimeState* const ETSguest, double molarAtol, int nDigits,
-				       bool includeHist, int printLvl) const
+bool ETimeState::compareOtherTimeState(const ETimeState* const ETSguest, double molarAtol, int nDigits, 
+                                       bool includeHist, int printLvl) const
 {
     EState* esGuest_ =  ETSguest->es_;
  
