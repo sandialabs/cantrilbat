@@ -462,7 +462,7 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 	ThermoPhase& th = thermo(iPh);
 	thermoSPhase_List_[i] = &th;
 	int nsp = th.nSpecies();
-	int kstart = getGlobalSpeciesIndex(iPh);
+	int kstart = globalSpeciesIndex(iPh);
 	for (int kk = 0; kk < nsp; kk++) {
 	    KRsolid_speciesList_[KRsolid] = kstart + kk;
 	    std::string kname = th.speciesName(kk);
@@ -1401,7 +1401,7 @@ void Electrode_DiffTALE::checkMoles_final_init() const
     bool doErr = false;
     for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
 	int iPh = phaseIndeciseKRsolidPhases_[jRPh];
-	int iStart = getGlobalSpeciesIndex(iPh, 0);
+	int iStart = globalSpeciesIndex(iPh, 0);
 	ThermoPhase* th = & thermo(iPh);
 	int nSpecies = th->nSpecies();
 	    
@@ -1673,7 +1673,7 @@ int Electrode_DiffTALE::predictSolnResid()
             double SolidVolCreation = 0.0;
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
+                size_t iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
                 for (int kSp = 0; kSp < nSpecies; kSp++) {
@@ -2065,7 +2065,7 @@ int Electrode_DiffTALE::predictSolnResid2()
         if (iCell == numRCells_ - 1) {
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
+                int iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
                 for (int kSp = 0; kSp < nSpecies; kSp++) {
@@ -2908,7 +2908,7 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
             for (int ph = 0; ph < numSPhases_; ph++) {
                 int iph = phaseIndeciseKRsolidPhases_[ph];
                 if (numSpeciesInKRSolidPhases_[ph] > 1) {
-                    int iStart = getGlobalSpeciesIndex(iph, 0);
+                    int iStart = globalSpeciesIndex(iph, 0);
                     for (int sp = 0; sp < numSpeciesInKRSolidPhases_[ph]; sp++) {
 			size_t i = iStart + sp;
 			if (i == k) {
@@ -3349,7 +3349,7 @@ int Electrode_DiffTALE::calcResid(double* const resid, const ResidEval_Type_Enum
 	    kstart = 0;
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
+                int iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
                 resid[cIndexPhStart + kstart] -= DphMolesSrc_final_[iPh];
@@ -3770,7 +3770,7 @@ int Electrode_DiffTALE::calcResid_2(double* const resid, const ResidEval_Type_En
 	    kstart = 0;
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
+                int iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
                 resid[cIndexPhStart + kstart] -= DphMolesSrc_final_[iPh];
@@ -3858,7 +3858,7 @@ void Electrode_DiffTALE::showResidual(int indentSpaces, const double * const res
     int kstart = 0;
     for (int jPh = 0; jPh < numSPhases_; jPh++) {
 	int iPh = phaseIndeciseKRsolidPhases_[jPh];
-	//int iStart = getGlobalSpeciesIndex(iPh, 0);
+	//int iStart = globalSpeciesIndex(iPh, 0);
 	ThermoPhase* th = & thermo(iPh);
 	int nSpecies = th->nSpecies();
 

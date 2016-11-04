@@ -942,7 +942,7 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
             kinOrder[kph] = jph;
             PLtoKinPhaseIndex_[jph] = kph;
 
-            size_t PLkstart = pl->getGlobalSpeciesIndex(jph, 0);
+            size_t PLkstart = pl->globalSpeciesIndex(jph, 0);
             size_t nspPhase = tt.nSpecies();
             for (size_t k = 0; k < nspPhase; k++) {
                 if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {

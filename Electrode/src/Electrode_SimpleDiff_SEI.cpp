@@ -637,7 +637,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 
             for (jPh = 0; jPh < numSPhase_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
+                int iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
                 resid[cIndexPhStart] -= DphMolesSrc_final_[iPh];

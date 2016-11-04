@@ -2568,11 +2568,11 @@ int  Electrode_MP_RxnExtent::predictSoln()
                 return -1;
             }
 
-            for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-                int iph = phaseIndexSolidPhases_[ph];
-                int nsp = numSpecInSolidPhases_[ph];
-                for (int sp = 0; sp < nsp; sp++) {
-                    int isp = getGlobalSpeciesIndex(iph,sp);
+            for (size_t ph = 0; ph <  phaseIndexSolidPhases_.size(); ph++) {
+                size_t iph = phaseIndexSolidPhases_[ph];
+                size_t nsp = numSpecInSolidPhases_[ph];
+                for (size_t sp = 0; sp < nsp; sp++) {
+                    size_t isp = globalSpeciesIndex(iph, sp);
                     spMoles_final_[isp] = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     if (spMoles_final_[isp] < 0.0) {
                         spMoles_final_[isp] = 0.0;

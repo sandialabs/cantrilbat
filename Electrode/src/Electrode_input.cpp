@@ -312,7 +312,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->CapZeroDoDCoeffPhases), nTotPhases, 0);
 
      int nVolPhases = right.m_pl->nVolPhases();
-     for (int iph = 0; iph < nVolPhases; iph++) {
+     for (size_t iph = 0; iph < static_cast<size_t>(nVolPhases); iph++) {
 	 int kstart =  right.m_pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
 	 m_BG->XmolPLPhases[iph]          = m_BG->XmolPLSpecVec + kstart;
 	 m_BG->MolalitiesPLPhases[iph]    = m_BG->MolalitiesPLSpecVec + kstart;
@@ -359,7 +359,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      }
 
      if (ElementNames) {
-        for (int i = 0; i < nTotElements; i++) {
+        for (size_t i = 0; i < static_cast<size_t>(nTotElements); i++) {
             free(ElementNames[i]);
         }
         free(ElementNames);
@@ -1671,7 +1671,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
      *  of the mole numbers and mole fractions that exist in the input file.
      */
     for (size_t iph = 0; iph < m_pl->nPhases(); iph++) {
-        int  kstart = m_pl->getGlobalSpeciesIndex(iph, 0);
+        int  kstart = m_pl->globalSpeciesIndex(iph, 0);
         ThermoPhase* tphase = &(m_pl->thermo(iph));
         size_t nsp = tphase->nSpecies();
         // Find the name of the input block

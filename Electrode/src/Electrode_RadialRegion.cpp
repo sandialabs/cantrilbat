@@ -1038,7 +1038,7 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
      */
     jPh = 0;
     iPh = phaseIndeciseKRsolidPhases_[jPh];
-    int iStart = getGlobalSpeciesIndex(iPh, 0);
+    int iStart = globalSpeciesIndex(iPh, 0);
     ThermoPhase* th = & thermo(iPh);
     int nSpecies = th->nSpecies();
 
@@ -1443,7 +1443,7 @@ int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_
 
             for (jPh = 0; jPh < numSPhases_; jPh++) {
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
-                int iStart = getGlobalSpeciesIndex(iPh, 0);
+                int iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 int nSpecies = th->nSpecies();
 
