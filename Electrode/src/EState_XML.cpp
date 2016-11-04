@@ -117,11 +117,11 @@ EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_string)
     return pos->second;
 }
 //====================================================================================================================
-/*
- *  Defining memory for a static member of the clase
- */
+
+//!  Defining memory for a static member of the clase
 EState_Factory* EState_Factory::s_factory = 0;
 #if defined(THREAD_SAFE_CANTERA)
+//! Mutex for writing to the Electrode XML file
 boost::mutex EState_Factory::estate_mutex;
 #endif
 
@@ -420,10 +420,10 @@ ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index) const
 //==================================================================================================================================
 void ETimeInterval::read_ETimeInterval_fromXML(const ZZCantera::XML_Node& xTimeInterval, const ZZCantera::EState_ID_struct& e_id)
 {
-    string nn = xTimeInterval.name();
+    std::string nn = xTimeInterval.name();
     if (nn != "globalTimeStep") {
 	throw Electrode_Error("ETimeInterval::read_ETimeInterval_fromXML()",
-			      "Was expecting the name globalTimeStep, but got instead: " + nn);
+			      "Was expecting the name \"globalTimeStep\", but got instead: " + nn);
     }
     nn = xTimeInterval["index"];
     index_ = atoi(nn.c_str());

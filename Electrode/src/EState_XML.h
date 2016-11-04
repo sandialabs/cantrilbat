@@ -107,6 +107,9 @@ class EState_Factory : public Cantera::FactoryBase
 public:
 
     //! Static function that creates a static instance of the factory.
+    /*!
+     *  @return                                  Returns a pointer to teh EState_Factory Singelton.
+     */
     static EState_Factory* factory();
 
     //! Delete the static instance of this factory
@@ -130,6 +133,9 @@ public:
 
 private:
     //! static member of a single instance
+    /*!
+     *  @return                                  Returns a pointer to teh EState_Factory Singelton.
+     */
     static EState_Factory* s_factory;
 
 protected:
@@ -146,7 +152,8 @@ private:
 //==================================================================================================================================
 //!  Class representing an EState time state object
 /*!
- *
+ *   This represents the information conatined in the "timeState" XML element. Basically, we can translate beteen the XML
+ *   representation and this class' contents.
  */
 class ETimeState {
 
@@ -161,6 +168,14 @@ public:
      */
     ETimeState(const ETimeState& r);
 
+    //! Regular Constructor
+    /*!
+     *  The XML node with the TimeState and the solution is read into the class.
+     *
+     *  @param[in]           xETime              XML node with the name "timeState". 
+     *  @param[in]           e_id                ID information about the electrode. A check is done to see
+     *                                           that what we are reading is what we think we are reading.
+     */
     ETimeState(const ZZCantera::XML_Node& xETime, const ZZCantera::EState_ID_struct& e_id);
 
     //! Destructor
@@ -200,12 +215,13 @@ public:
     /*!
      *    We compare the state of the solution up to a certain number of digits.
      *
-     *     @param[in]       ESguest          Guest state object to be compared against
+     *     @param[in]       ETSguest         Guest state object to be compared against
      *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
      *                                       Note from this value, we can get all other absolute tolerance inputs.
      *     @param[in]       nDigits          Number of digits to compare against
      *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
-     *     @param[in]       printLvl         print level of the routine
+     *                                       Defaults to false.
+     *     @param[in]       printLvl         print level of the routine. Defaults to 0
      *
      *     @return                           Returns true
      */
@@ -257,9 +273,11 @@ public:
 };
 //==================================================================================================================================
 
-//! Structure to hold time interval information
+//! Structure to hold information on the global time step 
 /*!
- *    This can be saved and written out to an XML element
+ *    This can be saved and written out to an XML element with the name, "globalTimeStep"
+ *   This represents the information contained in the "globalTimeStep" XML element. Basically, we can translate beteen the XML
+ *   representation and this class' contents.
  */
 class ETimeInterval 
 {
@@ -271,6 +289,11 @@ public:
     ~ETimeInterval();
 
     //! Constructor
+    /*!
+     *  @param[in]           xTimeInterval       XML node with the name "globalTimeStep"
+     *  @param[in]           e_id                ID information about the electrode. A check is done to see
+     *                                           that what we are reading is what we think we are reading.
+     */
     ETimeInterval(const ZZCantera::XML_Node& xTimeInterval, const ZZCantera::EState_ID_struct& e_id);
 
     //! Copy Constructor
@@ -310,11 +333,22 @@ public:
     bool compareOtherETimeInterval(const ETimeInterval* const ETIguest, double molarAtol, double unitlessAtol, int nDigits,
 				   bool includeHist, int compareType, int printLvl) const;
 
+    //! Return the starting time of the interval
+    /*!
+     *  @return                                  Return the starting time
+     */
     double startingTime() const;
 
+    //! Return the ending time of the interval
+    /*!
+     *  @return                                  Return the end time
+     */
     double endingTime() const;
 
     //! Return the electrode moles at the initial time in kmol
+    /*!
+     *  @return                                  return the electrode moles
+     */
     double electrodeInitialMoles() const;
 
     //! The default value of the interval type is "global"
@@ -340,11 +374,13 @@ public:
     double deltaTime_init_next_;
 };
 
-
 //==================================================================================================================================
 //! Structure to hold electrode time evolution information
 /*!
- *    This can be saved and written out to an XML element
+ *    The Time evolution information involves the solution over a number of global time steps.
+ *    This class storres a vector of pointers to global time interval information, ETimeInterval Objects
+ *
+ *    This structure can be  written out to an XML element
  */
 class ElectrodeTimeEvolutionOutput
 {
@@ -432,11 +468,13 @@ public:
      *     @return                           Returns true if the times are the same and the states are the same.
      */
     bool compareOtherTimeEvolutionSub(const ElectrodeTimeEvolutionOutput* const ETOguest,
-				      int& numZonesNeededToPass,
-				      double molarAtol, double unitlessAtol, int nDigits,
+				      int& numZonesNeededToPass, double molarAtol, double unitlessAtol, int nDigits,
 				      bool includeHist, int compareType, int printLvl) const;
 
     //! Return the electrode moles at the initial time in kmol
+    /*!
+     *  @return                                  Returns the number of moles in the electrode initially (kmol)
+     */
     double electrodeInitialMoles() const;
 
     //! Storred value of the electrodeOutput index
