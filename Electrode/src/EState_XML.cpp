@@ -32,6 +32,10 @@ namespace esmodel
 Map_ESEnum_String gMap_ESEnum_String;
 
 //==================================================================================================================================
+//! Create String maps for the Types of EState objects
+/*!
+ *  We automatically create the inversion of the maps
+ */
 static void create_string_maps()
 {
     if (gMap_ESEnum_String.string_maps_created) {
@@ -54,7 +58,6 @@ static void create_string_maps()
         std::string lll =  ZZCantera::lowercase(pos->second);
         string_estate_types[lll] = pos->first;
     }
-
 }
 //=================================================================================================================================
 ZZCantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index)
@@ -86,7 +89,7 @@ ZZCantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int ind
     return eRecord;
 }
 //==================================================================================================================================
-std::string EState_Type_Enum_to_string(const EState_Type_Enum& etype)
+std::string EState_Type_Enum_to_string(const ZZCantera::EState_Type_Enum& etype)
 {
     if (!gMap_ESEnum_String.string_maps_created) {
         create_string_maps();
@@ -118,11 +121,10 @@ EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_string)
 }
 //====================================================================================================================
 
-//!  Defining memory for a static member of the clase
 EState_Factory* EState_Factory::s_factory = 0;
+
 #if defined(THREAD_SAFE_CANTERA)
-//! Mutex for writing to the Electrode XML file
-boost::mutex EState_Factory::estate_mutex;
+boost::mutex EState_Factory::state_mutex;
 #endif
 
 //==================================================================================================================================
@@ -912,14 +914,6 @@ ZZCantera::EState* EState_Factory::newEStateObject(std::string model)
     return ee;
 }
 //==================================================================================================================================
-
-ZZCantera::XML_Node* getElectrodeIndentification()
-{
-
-    return 0;
-}
-
-//==================================================================================================================================
 ZZCantera::XML_Node* selectLastGlobalTimeStepInterval(ZZCantera::XML_Node* xSoln, int& globalTimeStepNum)
 {
     /*
@@ -962,7 +956,7 @@ ZZCantera::XML_Node* selectLastGlobalTimeStepInterval(ZZCantera::XML_Node* xSoln
     return xGlobalTimeSteps[jMax];
 }
 //==================================================================================================================================
-ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node& xmlGlobalTimeStep, double& timeVal, 
+ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCantera::XML_Node& xmlGlobalTimeStep, double& timeVal, 
                                                                   int printSteps)
 {
     string typeString;
@@ -1002,7 +996,7 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node
     return eStateX;
 }
 //====================================================================================================================================
-bool get_Estate_Indentification(const ZZCantera::XML_Node& xSoln, EState_ID_struct & e_id)
+bool get_Estate_Indentification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct& e_id)
 {
 
     bool retn = true;
@@ -1188,12 +1182,7 @@ void writeElectrodeOutputFile(std::string fileName, const esmodel::ElectrodeTime
      ZZCantera::XML_Node root("--");
      ZZCantera::XML_Node& ct = root.addChild("ctml");
      ZZCantera::XML_Node* x_eteo = e_teo.write_ElectrodeTimeEvolutionOutput_ToXML();
-#ifdef NEW_XML
      ct.addChildToTree(x_eteo);
-#else
-     ct.addChild(*x_eteo);
-     delete x_eteo;
-#endif
      std::fstream s(fileName.c_str(), fstream::in | fstream::out | fstream::trunc);
      root.write(s);
      s.close();

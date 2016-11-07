@@ -17,10 +17,12 @@
  */
 #ifdef useZuzaxNamespace
 #ifndef ZZCantera
+//! Define a common name for the Zuzax namespace
 #define ZZCantera Zuzax
 #endif
 #else
 #ifndef ZZCantera
+//! Define a common name for the Zuzax namespace
 #define ZZCantera Cantera
 #endif
 #endif

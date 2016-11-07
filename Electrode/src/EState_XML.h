@@ -19,6 +19,7 @@
 #include <vector>
 //---------------------------------------------------------------------------------------------------------------------------------
 
+
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -59,9 +60,6 @@ struct Map_ESEnum_String {
 };
 
 
-
-
-
 //! Singleton variable for this structure.
 /*!
  *   We use the prefix gMap to indicate that it is global
@@ -91,6 +89,7 @@ Zuzax::EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_stri
 Cantera::EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_string);
 #endif
 
+//==================================================================================================================================
 //==================================================================================================================================
 //! Factory class for EState object managers.
 /*!
@@ -564,6 +563,15 @@ ZZCantera::XML_Node* selectLastGlobalTimeStepInterval(ZZCantera::XML_Node* xElec
 ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCantera::XML_Node& xmlGlobalTimeStep, double& timeVal,
 								int printSteps = 0);
 
+//! Reads the "ElectrodeIdentification" node of an XMl file
+/*!
+ *  This routine looks under the current node for the XML node named   "ElectrodeIdentification". It then fills in the fields
+ *  of the EState_ID_struct with the contents of that node.
+ *
+ *  @param[in]               xSoln               XML node containing the solution
+ *  @param[in,out]           e_id                EState_ID_struct containing the structure to be filled in 
+ *  @return                                      Returns true if successful
+ */
 bool get_Estate_Indentification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct & e_id);
 
 //!   Read an EState XMLfile returning the last time step and its corresponding time
@@ -595,12 +603,32 @@ ZZCantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double
  */
 ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, const ZZCantera::EState_ID_struct & e_id);
 
+//! Create an ElectrodeTimeEvolutionOutput object by reading its contents from an XML tree.
+/*!
+ *  @param[in]               xNode               Node containing multiple electrodeOutput nodes
+ *  @param[in]               index               index of the ElectrodeOutput in the output file. Defaults to one
+ *
+ *  @return                                      Returns a pointer to the created ElectrodeTimeEvolutionOutput object
+ */
+esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const ZZCantera::XML_Node& xNode, int index = 1);
 
-esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const ZZCantera::XML_Node& Xfile, int index = 1);
-
+//! Create an ElectrodeTimeEvolutionOutput object by reading its contents from an XML file.
+/*!
+ *  @param[in]               XMLfileName         string File Name of the XML file
+ *  @param[in]               index               index of the ElectrodeOutput in the output file. Defaults to one.
+ *
+ *  @return                                      Returns a pointer to the created ElectrodeTimeEvolutionOutput object
+ */
 esmodel::ElectrodeTimeEvolutionOutput* readFileElectrodeOutput(const std::string& XMLfileName, int index = 1);
 
-//! write the output file
+//! Write the complete solution to an output file
+/*!
+ *  Write an ElectrodeTimeEvolutionOutput object to the output file.
+ *
+ *  @param[in]               fileName            File to be written. It will be overwritten
+ *  @param[in]               e_teo               ElectrodeTimeEvolutionOutput object containing the Electrode's time history
+ *                                               This object is the intermediate between the Electrode and the file output
+ */
 void writeElectrodeOutputFile(std::string fileName, const esmodel::ElectrodeTimeEvolutionOutput& e_teo);
 
 }
