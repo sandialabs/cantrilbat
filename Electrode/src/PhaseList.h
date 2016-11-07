@@ -306,8 +306,19 @@ public:
      *
      *   @return                                 Returns the value of the global species index. 
      *                                           If the parameters don't identify an index, return npos.
+     *  @deprecated (has a get in front of it)
      */
     size_t getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k = 0) const;
+
+    //! Get the global species index given the ThermoPhase and the local species index
+    /*!
+     *   @param[in]          ttp                 Pointer to the ThermoPhase index
+     *   @param[in]          k                   Value of the local species index 
+     *
+     *   @return                                 Returns the value of the global species index. 
+     *                                           If the parameters don't identify an index, return npos.
+     */
+    size_t globalSpeciesIndex(const ThermoPhase* const ttp, size_t k = 0) const;
 
     //! Get the global species index for a volume or surface phase
     /*!

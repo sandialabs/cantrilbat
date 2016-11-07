@@ -27,7 +27,7 @@ Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
     jac_electronSource(0.0)
 {
     size_t solnPhaseIndex = electrode->solnPhaseIndex();
-    electrolytePhaseSpeciesStart = electrode->getGlobalSpeciesIndex(electrode->solnPhaseIndex());
+    electrolytePhaseSpeciesStart = electrode->globalSpeciesIndex(electrode->solnPhaseIndex());
     tp_solnPhase = & electrode->phase(solnPhaseIndex);
     jac_lyteSpeciesSource.resize(tp_solnPhase->nSpecies(), 0.0);
 }

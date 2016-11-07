@@ -762,6 +762,20 @@ size_t PhaseList::globalPhaseIndex(const std::string& phaseName, bool phaseIDAft
     return npos;
 }
 //==================================================================================================================================
+size_t PhaseList::globalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
+{
+    size_t iphGlob;
+#ifdef DEBUG_MODE
+    iphGlob = getGlobalPhaseIndex(ttp);
+    if (iphGlob == npos) {
+        return npos;
+    }
+#else
+    if ((iphGlob = getGlobalPhaseIndex(ttp)) == npos) return npos;
+#endif
+    return globalSpeciesIndex(iphGlob, k);
+}
+//==================================================================================================================================
 size_t PhaseList::getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
 {
     size_t iphGlob;
@@ -775,6 +789,7 @@ size_t PhaseList::getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) 
 #endif
     return globalSpeciesIndex(iphGlob, k);
 }
+
 //==================================================================================================================================
 size_t PhaseList::globalSpeciesIndex(const std::string& speciesName, const std::string phaseName) const
 {

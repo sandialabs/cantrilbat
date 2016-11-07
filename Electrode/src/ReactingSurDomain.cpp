@@ -306,7 +306,7 @@ void ReactingSurDomain::limitROP(const double* const nMoles)
 	for (size_t p = 0; p < nPhases(); ++p) {
 	    if (m_rxnPhaseIsProduct[j][p] && netRev > 0.0) {
 		ThermoPhase* tp = m_thermo[p];
-		size_t PLkstart = m_pl->getGlobalSpeciesIndex(tp);
+		size_t PLkstart = m_pl->globalSpeciesIndex(tp);
 		double phase_moles = 0.0;
 
 		for (size_t kk = 0; kk < tp->nSpecies(); ++kk) {
@@ -321,7 +321,7 @@ void ReactingSurDomain::limitROP(const double* const nMoles)
 	    }
 	    else if (m_rxnPhaseIsReactant[j][p] && netFwd > 0.0) {
 		ThermoPhase* tp = m_thermo[p];
-		size_t PLkstart = m_pl->getGlobalSpeciesIndex(tp);
+		size_t PLkstart = m_pl->globalSpeciesIndex(tp);
 
 		double phase_moles = 0.0;
 		for(size_t kk = 0; kk < tp->nSpecies(); ++kk) {
