@@ -275,8 +275,8 @@ public:
 
 //! Structure to hold information on the global time step 
 /*!
- *    This can be saved and written out to an XML element with the name, "globalTimeStep"
- *   This represents the information contained in the "globalTimeStep" XML element. Basically, we can translate beteen the XML
+ *   This can be saved and written out to an XML element with the name, "globalTimeStep"
+ *   This represents the information contained in the "globalTimeStep" XML element. Basically, this object translates beteen the XML
  *   representation and this class' contents.
  */
 class ETimeInterval 
@@ -298,30 +298,48 @@ public:
 
     //! Copy Constructor
     /*!
-     *   @param[in]   right Object to be copied
+     *   @param[in]                              right Object to be copied
      */
     ETimeInterval(const ETimeInterval& right);
 
+
+    //! Assignment operator
+    /*!
+     *   @param[in]                              right Object to be copied
+     *
+     *   @return                                 Reference to the current object to be copied
+     */
+    ETimeInterval& operator=(const ETimeInterval& right);
+
+    // implement move operator
+
     //! Create/Malloc an XML Node containing the ETimeInterval data contained in this object
     /*!
-     *   @param[in]  index       Index to assign to the globalTimeStep. This defaults to -1 to indicate
-     *                           that the storred index should be used. Global time steps start from the value 1 usually.
+     *   @param[in]          index               Index to assign to the globalTimeStep. This defaults to -1 to indicate
+     *                                           that the storred index should be used. Global time steps start 
+     *                                           from the value 1 usually.
      *
-     *   @return   Returns the malloced XML_Node with name globalTimeStep containing the information in this
-     *             object. The calling program is responsible for freeing this.
+     *   @return                                 Returns the malloced XML_Node with name globalTimeStep containing the 
+     *                                           information in this object. The calling program is responsible for freeing this.
      */
     ZZCantera::XML_Node* write_ETimeInterval_ToXML(int index = -1) const;
 
     //! Read the time interval object from an XML file
+    /*!
+     *  @param[in]           xTimeInterval       Reference to an XML node with the name "globalTimeStep"
+     *  @param[in]           e_id                Reference to the EState_ID_struct containing ID information about the electrode. 
+     *                                           A check is done to see that what we are reading is what we think we are reading.
+     */
     void read_ETimeInterval_fromXML(const ZZCantera::XML_Node& xTimeInterval, const ZZCantera::EState_ID_struct& e_id);
 
     //!  Compare the current state of this object against another guest state to see if they are the same
     /*!
      *    We compare the state of the solution up to a certain number of digits.
      *
-     *     @param[in]       ETIguest         Guest time interval to be compared against
-     *     @param[in]       molarAtol        Absolute tolerance of the molar numbers in the state.
+     *     @param[in]       ETIguest         Pointer to the guest ETimeInterval object to be compared against
+     *     @param[in]       molarAtol        Absolute tolerance of the mole numbers in the state.
      *                                       Note from this value, we can get all other absolute tolerance inputs.
+     *     @param[in]       unitlessAtol     Absolute tolerance for other number in the state, most notably the value of the time
      *     @param[in]       nDigits          Number of digits to compare against
      *     @param[in]       includeHist      Include capacityDischarged and nextDeltaT variables in final bool comparison
      *     @param[in]       compareType      Comparison type:
@@ -350,6 +368,8 @@ public:
      *  @return                                  return the electrode moles
      */
     double electrodeInitialMoles() const;
+   
+    // --------------------------------------- D A T A ----------------------------------------------------------------
 
     //! The default value of the interval type is "global"
     /*!

@@ -159,6 +159,8 @@ void  EState_Factory::deleteFactory()
     }
 }
 //==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 ETimeState::ETimeState() :
     cellNumber_(0),
     domainNumber_(0),
@@ -169,7 +171,6 @@ ETimeState::ETimeState() :
     iOwnES_(true)
 {
 }
-
 //==================================================================================================================================
 ETimeState::ETimeState(const ETimeState& r) :
     cellNumber_(r.cellNumber_),
@@ -340,6 +341,8 @@ ETimeState::~ETimeState()
     }
 }
 //==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 ETimeInterval::ETimeInterval() :
      intervalType_("global"),
      index_(-1),
@@ -348,7 +351,6 @@ ETimeInterval::ETimeInterval() :
      deltaTime_init_next_(1.0E-8)
 {
 }
-
 //==================================================================================================================================
 ETimeInterval::~ETimeInterval() 
 {
@@ -361,11 +363,7 @@ ETimeInterval::~ETimeInterval()
 }
 //==================================================================================================================================
 ETimeInterval::ETimeInterval(const ZZCantera::XML_Node& xTimeInterval, const ZZCantera::EState_ID_struct& e_id) :
-    intervalType_("global"),
-     index_(-1),
-     numIntegrationSubCycles_(1),
-     etsList_(0),
-     deltaTime_init_next_(1.0E-8)
+    ETimeInterval()
 {
     read_ETimeInterval_fromXML(xTimeInterval, e_id);
 }
@@ -381,6 +379,32 @@ ETimeInterval::ETimeInterval(const ETimeInterval& right) :
      for (size_t k = 0; k < (size_t) (numIntegrationSubCycles_+1); ++k) {
          etsList_[k] = new ETimeState(*(right.etsList_[k]));
      }
+}
+//==================================================================================================================================
+ETimeInterval& ETimeInterval::operator=(const ETimeInterval& right)
+{
+     if (this != &right) {
+         intervalType_ = right.intervalType_;
+         index_ = right.index_;
+         numIntegrationSubCycles_ = right.numIntegrationSubCycles_;
+
+         for (size_t k = 0; k < etsList_.size(); ++k) {
+            if (etsList_[k]) {
+                delete (etsList_[k]);
+            }
+         }
+         etsList_.resize( right.etsList_.size(), 0);
+         for (size_t k = 0; k < etsList_.size(); ++k) {
+             if (right.etsList_[k]) {
+                 etsList_[k] = new ETimeState( *(right.etsList_[k]) );
+             } else {
+                 etsList_[k] = nullptr;
+             }
+         }
+
+         deltaTime_init_next_ = right.deltaTime_init_next_;
+     }
+     return *this;
 }
 //==================================================================================================================================
 // Create/Malloc an XML Node containing the ETimeInterval data contained in this object
@@ -636,7 +660,6 @@ void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(con
     }
 }
 //==================================================================================================================================
-
 bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolution(const ElectrodeTimeEvolutionOutput* const ETOguest,
 							     double molarAtol, double unitlessAtol, int nDigits,
 							     bool includeHist, int compareType, int printLvl) const
@@ -939,7 +962,8 @@ ZZCantera::XML_Node* selectLastGlobalTimeStepInterval(ZZCantera::XML_Node* xSoln
     return xGlobalTimeSteps[jMax];
 }
 //==================================================================================================================================
-ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node& xmlGlobalTimeStep, double& timeVal, int printSteps)
+ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node& xmlGlobalTimeStep, double& timeVal, 
+                                                                  int printSteps)
 {
     string typeString;
     string timeValStr;
@@ -980,7 +1004,6 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const XML_Node
 //====================================================================================================================================
 bool get_Estate_Indentification(const ZZCantera::XML_Node& xSoln, EState_ID_struct & e_id)
 {
-
 
     bool retn = true;
     std::string typeSS;
