@@ -174,7 +174,7 @@ int main(int argc, char **argv)
 
     double pmv[10];
 
-    ThermoPhase *th = electrodeC->getPhase("LiCoO2_Interstitials_cathode");
+    ThermoPhase *th = electrodeC->phasePtr("LiCoO2_Interstitials_cathode");
     th->getPartialMolarVolumes(pmv);
     
     electrodeC->setDeltaTSubcycle(2.5E-4);

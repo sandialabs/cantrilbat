@@ -79,8 +79,6 @@ public:
 
 int main(int argc, char **argv)
 {
-  int i;
- 
 
 
   int retn = 0;
@@ -243,10 +241,10 @@ int main(int argc, char **argv)
     double emu_LiInt = -1.0;
     double emu_electron = -1.0;
 
-    for (int ip = 0; ip < electrodeA->nPhases(); ip++) {
+    for (size_t ip = 0; ip < electrodeA->nPhases(); ip++) {
       ThermoPhase *tp_ptr = & electrodeA->thermo(ip);
       string pname = tp_ptr->name();
-      printf(" phase %d = %s\n", ip, pname.c_str());
+      printf(" phase %d = %s\n", (int) ip, pname.c_str());
       tp_ptr->getChemPotentials(DATA_PTR(mu));
       tp_ptr->getElectrochemPotentials(DATA_PTR(emu));
       for (int k = 0; k < (int) tp_ptr->nSpecies(); k++) {
@@ -317,7 +315,7 @@ int main(int argc, char **argv)
 	   "-----------\n");
     string spname;
    
-    for (i = 0; i < electrodeA->nSpecies(); i++) {
+    for (size_t i = 0; i < electrodeA->nSpecies(); i++) {
       spname = electrodeA->speciesName(i);
       printf("%-12s", spname.c_str());
       printf("  %15.6e %15.6e  %15.6e\n", electrodeA->moleNumSpecies(i),

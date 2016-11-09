@@ -224,6 +224,7 @@ public:
 
     //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
     /*!
+     *  @deprecated (has a get in front of it)
      *     This routine returns the phase index of a phase. This number is the index value of the phase in the VolPhaseList object.
      *
      *     @param[in]     ttp             Pointer to the volume phase ThermoPhase object
@@ -232,13 +233,41 @@ public:
      */
     size_t getVolPhaseIndex(const Zuzax::ThermoPhase* const ttp) const;
 
+    //! Get the volume phase index of a volume phase given its %ThermoPhase pointer
+    /*!
+     *     This routine returns the phase index of a phase. This number is the index value of the phase in the VolPhaseList object.
+     *
+     *     @param[in]     ttp             Pointer to the volume phase ThermoPhase object
+     *
+     *     @return                        Returns the volume phase index number. Returns npos if the phase is not found.
+     */
+    size_t volPhaseIndex(const Zuzax::ThermoPhase* const ttp) const;
+
+    //! Get the surface phase index given the pointer to the surface phase ThermoPhase object
+    /*!
+     *  @deprecated (has a get in front of it)
+     *     @param[in]     sp              Pointer to a surface ThermoPhase
+     *
+     *     @return                        Returns the surface phase index number. Returns npos if the phase is not found.
+     */
+    size_t getSurPhaseIndex(const ThermoPhase* const sp) const;
+
     //! Get the surface phase index given the pointer to the surface phase ThermoPhase object
     /*!
      *     @param[in]     sp              Pointer to a surface ThermoPhase
      *
      *     @return                        Returns the surface phase index number. Returns npos if the phase is not found.
      */
-    size_t getSurPhaseIndex(const ThermoPhase* const sp) const;
+    size_t surPhaseIndex(const ThermoPhase* const sp) const;
+
+    //! Get the edge phase index given the pointer to the edge phase ThermoPhase object
+    /*!
+     *  @deprecated (has a get in front of it)
+     *     @param[in]     ep              Pointer to an edge ThermoPhase
+     *
+     *     @return                        Returns the edge phase index number. Returns npos if the phase is not found.
+     */
+    size_t getEdgePhaseIndex(const ThermoPhase* const ep) const;
 
     //! Get the edge phase index given the pointer to the edge phase ThermoPhase object
     /*!
@@ -246,16 +275,26 @@ public:
      *
      *     @return                        Returns the edge phase index number. Returns npos if the phase is not found.
      */
-    size_t getEdgePhaseIndex(const ThermoPhase* const ep) const;
+    size_t edgePhaseIndex(const ThermoPhase* const ep) const;
+
 
     //! Given a pointer to the ThermoPhase object this returns the global phase index of the phase
     /*!
      *       @param[in]    tp          Pointer to the ThermoPhase object
      * 
      *       @return                   Returns the global phase index. If not found, this returns npos
-     *
+     * @deprecated Uses get
      */
     size_t getGlobalPhaseIndex(const ThermoPhase* const tp) const;
+
+    //! Given a pointer to the ThermoPhase object this returns the global phase index of the phase
+    /*!
+     *       @param[in]    tp          Pointer to the ThermoPhase object
+     * 
+     *       @return                   Returns the global phase index. If not found, this returns npos
+     */
+    size_t globalPhaseIndex(const ThermoPhase* const tp) const;
+
 
     //! Get a %ThermoPhase pointer to the named phase from the list.
     /*!
@@ -263,7 +302,7 @@ public:
      *
      *   @return                           Returns the pointer to the phase. On errors, a NULL pointer is returned.
      */
-    ThermoPhase* getPhase(const char* phaseName) const;
+    ThermoPhase* phasePtr(const char* phaseName) const;
 
     //! Get a %ThermoPhase pointer to the named phase from the list.
     /*!
@@ -271,7 +310,7 @@ public:
      *
      *   @return                           Returns the pointer to the phase. On errors, a NULL pointer is returned.
      */
-    ThermoPhase* getPhase(const std::string& phaseName) const;
+    ThermoPhase* phasePtr(const std::string& phaseName) const;
 
     //! Get the name of the phase given its global phase index
     /*!
@@ -361,6 +400,8 @@ public:
 
     //! Get the global species index for a volume phase
     /*!
+     *  @deprecated Uses get to return a single value
+     *
      * PhaseList maintains a global species list, containing all
      * of the species in all of the phases within PhaseList.
      * The volume phases are first in this list, followed by
@@ -375,8 +416,27 @@ public:
      */
     size_t getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
 
+    //! Get the global species index for a volume phase
+    /*!
+     * PhaseList maintains a global species list, containing all
+     * of the species in all of the phases within PhaseList.
+     * The volume phases are first in this list, followed by
+     * the surface phases. The global species index is the index in this list.
+     *
+     *
+     * @param volPhaseIndex  volume Index of the volume Phase.
+     * @param k              local species index within the phase.                 Default = 0.
+     *
+     * @return
+     *   Returns the global species index within the PhaseList object.
+     */
+    size_t globalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
+
+
     //! Get the global species index for a surface phase
     /*!
+     * @deprecated Uses the name get to return a single val
+     *
      * PhaseList maintains a global species list, containing all
      * of the species in all of the phases within PhaseList.
      * The volume phases are first in this list, followed by
@@ -390,12 +450,36 @@ public:
      */
     size_t getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
 
+    //! Get the global species index for a surface phase
+    /*!
+     * PhaseList maintains a global species list, containing all
+     * of the species in all of the phases within PhaseList.
+     * The volume phases are first in this list, followed by
+     * the surface phases. The global species index is the
+     * index in this list.
+     *
+     * @param surPhaseIndex  surface  Index of the surface Phase.
+     * @param k              local species index within the phase.   Default = 0.
+     *
+     * @return                                   Returns the global species index within the PhaseList object.
+     */
+    size_t globalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
+
     //! Get the global phase index from the global species index
     /*!
+     * @deprecated Uses the name get to return a single val
+     *
      *  @param[in]           kGlob               Global species index
      *  @return                                  return the phase index
      */
     size_t getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const;
+
+    //! Return the global phase index from the global species index
+    /*!
+     *  @param[in]           kGlob               Global species index
+     *  @return                                  return the phase index
+     */
+    size_t phaseIndexFromGlobalSpeciesIndex(size_t kGlob) const;
 
     //! Returns the dimensional phase index given the global phase index
     /*!

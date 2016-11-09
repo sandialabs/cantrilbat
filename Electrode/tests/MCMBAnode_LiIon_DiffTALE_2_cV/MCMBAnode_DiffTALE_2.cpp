@@ -25,7 +25,7 @@
 #include <sstream>
 #include <iomanip>
 
-using namespace std;
+//using namespace std;
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
 #else
@@ -37,13 +37,13 @@ int mpequil_debug_print_lvl = 1;
 int VCS_Debug_Print_Lvl = 3;
 
 void printUsage() {
-    cout << "usage: MCMBAnode_DiffTALE [-h] [-help_cmdfile] [-d #] [anode.inp]"
-         <<  endl;
-    cout << "    -h               : Prints this help" << endl;
-    cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser - add anode.inp for more information" << endl;
-    cout << "   -d #              : Level of debug printing" << endl;
-    cout << "   anode.inp         : Command file (if missing, assume anode.inp)" << endl;
-    cout << endl;
+    std::cout << "usage: MCMBAnode_DiffTALE [-h] [-help_cmdfile] [-d #] [anode.inp]"
+         <<  std::endl;
+    std::cout << "    -h               : Prints this help" << std::endl;
+    std::cout << "    -help_cmdfile    : Prints a list of block commands understood by this parser - add anode.inp for more information" << std::endl;
+    std::cout << "   -d #              : Level of debug printing" << std::endl;
+    std::cout << "   anode.inp         : Command file (if missing, assume anode.inp)" << std::endl;
+   std::cout << std::endl;
 }
 
 //=====================================================================================================
@@ -67,9 +67,9 @@ int main(int argc, char **argv)
    * Process the command line arguments
    */ 
   if (argc > 1) {
-    string tok;
+    std::string tok;
     for (int j = 1; j < argc; j++) {
-      tok = string(argv[j]);
+      tok = std::string(argv[j]);
       if (tok[0] == '-') {
 	int nopt = static_cast<int>(tok.size());
 	for (int n = 1; n < nopt; n++) {
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 	  } else if (tok[n] == 'd') {
 	    int lvl = 2;
 	    if (j < (argc - 1)) {
-	      string tokla = string(argv[j+1]);
+	      std::string tokla = std::string(argv[j+1]);
 	      if (strlen(tokla.c_str()) > 0) {
 		lvl = atoi(tokla.c_str());
 		n = nopt - 1;
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
 
     double pmv[10];
 
-    ThermoPhase *th = electrodeA->getPhase("MCMB_Interstitials_anode");
+    ThermoPhase *th = electrodeA->phasePtr("MCMB_Interstitials_anode");
     th->getPartialMolarVolumes(pmv);
     
 
@@ -188,7 +188,7 @@ int main(int argc, char **argv)
       doublereal net[12];
       double amps = electrodeA->getIntegratedProductionRatesCurrent(net);
  
-      cout << setw(15) << Tfinal << setw(15) << amps << endl;
+      std::cout << std::setw(15) << Tfinal << std::setw(15) << amps << std::endl;
       electrodeA->printElectrode();
       electrodeA->writeSolutionTimeIncrement();
     }

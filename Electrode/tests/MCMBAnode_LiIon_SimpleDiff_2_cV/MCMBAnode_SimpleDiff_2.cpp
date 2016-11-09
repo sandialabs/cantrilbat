@@ -163,7 +163,7 @@ int main(int argc, char **argv)
 
     double pmv[10];
 
-    ThermoPhase *th = electrodeA->getPhase("MCMB_Interstitials_anode");
+    ThermoPhase *th = electrodeA->phasePtr("MCMB_Interstitials_anode");
     th->getPartialMolarVolumes(pmv);
     
 
