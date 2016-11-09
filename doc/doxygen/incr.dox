@@ -801,7 +801,9 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_Factory.h \
                          ../../Electrode/src/Electrode_Factory.cpp \ 
                          ../../Electrode/src/Electrode_Integrator.h \ 
-                         ../../Electrode/src/Electrode_Integrator.cpp  
+                         ../../Electrode/src/Electrode_Integrator.cpp  \
+                         ../../Electrode/src/Electrode_input.h \ 
+                         ../../Electrode/src/Electrode_input.cpp  
 
 
 

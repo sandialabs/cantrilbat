@@ -25,10 +25,18 @@ namespace Cantera
 class NonlinearSolver;
 class SquareMatrix;
 
-
+//==================================================================================================================================
+//! This class stores an overall summary of one time step taken in the integrator
+/*!
+ *  It contains the starting and ending times. It contains the number of nonlinear iterations,
+ *  and a couple of key results like the voltage and the source term for electrons.
+ *  The equals operator is overloaded for comparison of one of these objects with another
+ */
 class TimeStepHistory
 {
 public:
+
+    //! Default constructor
     TimeStepHistory() :
         t_init_(0.0),
         t_final_(0.0),
@@ -43,6 +51,17 @@ public:
     {
     }
 
+    //! Constructor that is used to initialize all of the fields
+    /*!
+     *    @param[in]         t_init              Initial time of the step
+     *    @param[in]         t_final             Final time of the calc called for
+     *    @param[in]         t_final_calc        Final time of calc actually computed
+     *    @param[in]         timeTypeSoln        type of the solution (did we run into a discontinuous point or not)
+     *    @param[in]         numNonLinSolves     Number of nonlinear solves
+     *    @param[in]         solnErrorNorm       Error norm of the solution during integration
+     *    @param[in]         wdotErrorNorm       Error norm on the integrated source terms that are the final product
+     *                                           of this electrode object
+     */ 
     TimeStepHistory(double t_init, double t_final, double t_final_calc, int timeTypeSoln, int numNonLinSolves,
 		    double solnErrorNorm, double  wdotErrorNorm) :
 	t_init_(t_init),
@@ -58,6 +77,10 @@ public:
     {
     }
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               object to be copied
+     */ 
     TimeStepHistory(const TimeStepHistory& right) :
         t_init_(right.t_init_),
         t_final_(right.t_final_),
@@ -72,6 +95,11 @@ public:
     {
     }
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               object to be copied
+     *  @return                                  Returns a reference to the current object
+     */ 
     TimeStepHistory& operator=(const TimeStepHistory& right) 
     { 
 	if (this == &right) {
@@ -90,6 +118,15 @@ public:
 	return *this;
     }
 
+    //!  Overload of the "equals to" operator for the TimeStepHistory object
+    /*!
+     *  Compares the current time step history with a different object. 
+     *  A comparison of times is made with an absolute tolerance of 1.0E-13 (hard coded)
+     *  The number of nonlinear solves is also checked.
+     *  
+     *  @param[in]           other               Reference to the TimeStepHistory object that will be compared against
+     *  @return                                  Returns true if the two objects have the equivalent time step history
+     */
     bool operator==(const TimeStepHistory& other) const
     {
 	if (fabs(t_init_ - other.t_init_) > 1.0E-13) {
@@ -113,12 +150,19 @@ public:
 	return true;
     }
 
+    //! Overload of the "not equals to" operator for the TimeStepHistory object
+    /*!
+     *  Compares the current time step history with a different object. 
+     *  
+     *  @param[in]           other               Reference to the TimeStepHistory object that will be compared against
+     *  @return                                  Returns true if the two objects don't have the equivalent time step history
+     */
     bool operator!=(const TimeStepHistory& other) const
     {
 	return !(*this == other);
     }
-    
 
+    // ------------------------------------------------ D A T A -------------------------------------------------------
 
     //! Initial time step
     double t_init_;
@@ -146,8 +190,6 @@ public:
     //! Number of nonlinear iterations
     int numNonLinSolves_;
 
-  
-
     //! Error norm for that step
     double solnErrorNorm_;
 
@@ -162,7 +204,7 @@ public:
 
     //! SrcTermElectrons
     /*!
-     *   sorc term for the electrons ( kmol s-1)
+     *   source term for the electrons ( kmol s-1)
      */
     double srcTermStepElectrons_;
 
@@ -172,57 +214,138 @@ public:
      */
     double currentStep_;
 
-    //! Current
 };
 //===================================================================================================================================
+//! Complete time step history for a subtime step integration 
+/*!
+ *  SubIntegrations are multiple time steps taken by the Electrode object per global time step
+ *  This object stores all of the information, wich consists of multiple TimeStepHistory objects
+ *  along with some header information.
+ *
+ *  We also use this class to repete time step histories for calculating more accurate jacobians.
+ *  We keep a counter iCounter, which is the current counter. Then we ask for the next time step step 
+ *  using getNextRegularTimeStep() so that we can repeat the time step history during a numerical jacobian calculation.
+ *
+ */
 class SubIntegrationHistory
 {
 public:
-   //! Subintration history
+   //! Subintration history default constructor
     SubIntegrationHistory();
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           right              Object to be copied
+     */
     SubIntegrationHistory(const SubIntegrationHistory& right);
 
+    //! Default destructor
     ~SubIntegrationHistory();
 
+
+    //! Assignment operator
+    /*!
+     *  @param[in]           right              Object to be copied
+     *  @return                                 Returns a reference to the current object
+     */
     SubIntegrationHistory& operator=(const SubIntegrationHistory& right);
 
     //! Wipe out the history and all of the steps
     void clear();
 
-    //! Add a step to the time history
+    //! Add a step to the time history of the subintegration
     /*!
-     *
-     *   @param srcElectronsSt
-     *   @param current      amps = coulumbs / sec 
-     */
-    void addTimeStep(double t_init_, double t_final_, double t_final_calc, int timeTypeSoln, 
+     *    @param[in]         t_init             Initial time of the step
+     *    @param[in]         t_final             Final time of the calc called for
+     *    @param[in]         t_final_calc        Final time of calc actually computed
+     *    @param[in]         timeTypeSoln        type of the solution (did we run into a discontinuous point or not)
+     *    @param[in]         numNonLinSolves     Number of nonlinear solves
+     *    @param[in]         solnErrorNorm       Error norm of the solution during integration
+     *    @param[in]         wdotErrorNorm       Error norm on the integrated source terms that are the final product
+     *                                           of this electrode object
+     *    @param[in]         volts               Returns the volts at the end of the step (volts)
+     *    @param[in]         srcElectronsStep    Source term for electrons over the step (kmol)
+     *    @param[in]         currentStep         Current during the step    (amps)
+     */ 
+    void addTimeStep(double t_init, double t_final, double t_final_calc, int timeTypeSoln, 
 		     int numNonLinSolves, double solnErrorNorm, double wdotErrorNorm, double volts,
 	             double srcElectronsStep, double currentStep);
 
     //!  zero out the time step counter.
     void zeroTimeStepCounter();
 
-
+    //! Advance iCounter if it's below nTimeSteps_
     void advanceTimeStepCounter();
 
+    // Return the next regular time that a time step ended given the value of iCounter
+    /*!
+     *  If we ran out of times, use the stored value of time_step_next to create a good deltaT.
+     *  We skip over special time steps that had discontinuities, because their times were calculated. 
+     *  And, the current calculation will just calculate a slightly different time.
+     *
+     *  (this is a messy routine with lots of logic)
+     *
+     *  @param[in]           currentTime         Current time of the new calculation
+     *  @return                                  Returns the next time to integrate to.
+     */
     double getNextRegularTime(double currentTime) const;
+
+
+    //! This routine does some error checking on the times
+    /*!
+     *  @param[in]           gtinit              value of the global initial time
+     *  @param[in]           gtfinal             value of the global final time
+     *
+     *  @return                                  returns the final counter value
+     */
     int assureTimeInterval(double gtinit, double gtfinal);
 
-    //! supply a history for the integrator to follow
+    //! Supply a history for the integrator to follow
     /*!
+     *  This creates a constant time step history 
+     *
      *   @param tinit Starting global time step
      *   @param tfinal     Final global time step
      *   @param nsteps     number of local regular time steps
      */
     void setConstantStepSizeHistory(double tinit, double tfinal, int nsteps);
-    double globalStartTime() const;
-    double globalEndTime() const;
-    void print(int lvl) const;
-    bool operator==(const SubIntegrationHistory& other) const;
-    bool operator!=(const SubIntegrationHistory& other) const;
 
-    
+    //! Returns the global start time
+    /*!
+     *  @return                                  Returns the global start time
+     */
+    double globalStartTime() const;
+
+    //! Returns the global end time
+    /*!
+     *  @return                                  Returns the global end time
+     */
+    double globalEndTime() const;
+
+    //! Prints out the contents of the object to stdout
+    /*!
+     *  @param[in]           lvl                 Print lvl
+     *                                           0  - one line
+     *                                           1  - table of values
+     *                                           2  - extensive printing
+     */
+    void print(int lvl) const;
+
+    //! Overload of the "==" operator compares two histories to see if they are equivalent
+    /*!
+     *  @param[in]           other               Reference to the other SubIntegrationHistory object to compare against
+     *
+     *  @return                                  Returns true if equivalent
+     */
+    bool operator==(const SubIntegrationHistory& other) const;
+
+    //! Overload of the "!=" operator compares two histories to see if they are different
+    /*!
+     *  @param[in]           other               Reference to the other SubIntegrationHistory object to compare against
+     *
+     *  @return                                  Returns true if they are different
+     */
+    bool operator!=(const SubIntegrationHistory& other) const;
 	
     //! Number of regular time steps, where there are no special events 
     int nTimeStepsRegular_;
@@ -230,15 +353,22 @@ public:
     //! Number of time steps, no matter what the kind.
     int nTimeSteps_;
 
+    //! Vector of stored TimeStepHistory objects for the global time step
+    /*!
+     *  Length:  nTimeSteps_
+     */
     std::vector<TimeStepHistory> TimeStepList_;
 
+    //! Global solution error norm value for the global step
     double GsolnErrorNorm_;
+
+    //! Global solution source term error norm value for the global step
     double GwdotErrorNorm_;
 
     //! Counter for replaying the integration history
     mutable int iCounter;
 
-
+    //! Internal storage for the next time step amount to be taken after the current step
     double time_step_next;
 };
 //==================================================================================================================================
@@ -275,6 +405,10 @@ public:
     Electrode_Integrator& operator=(const Electrode_Integrator& right);
 
     //! Create the electrode model
+    /*!
+     *  @param[in]           ei                            Pointer to the ELECTRODE_KEY_INPUT containing the 
+     *                                                     parsed input for the model
+     */
     int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
 
     //!  Set the electrode initial conditions from the input file.

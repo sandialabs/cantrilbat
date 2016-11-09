@@ -72,8 +72,7 @@ SubIntegrationHistory& SubIntegrationHistory::operator=(const SubIntegrationHist
     return *this;
 }
 //======================================================================================================================
-void  
-SubIntegrationHistory::clear()
+void SubIntegrationHistory::clear()
 {
     nTimeStepsRegular_ = 0;
     nTimeSteps_ = 0;
@@ -84,11 +83,9 @@ SubIntegrationHistory::clear()
     time_step_next = 0.0;
 }
 //======================================================================================================================
-
-//! Add a step to the time history
 void  
-SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final_calc, int timeTypeSoln,int numNonLinSolves,
-				   double solnErrorNorm, double wdotErrorNorm, double volts,
+SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final_calc, int timeTypeSoln,
+                                   int numNonLinSolves, double solnErrorNorm, double wdotErrorNorm, double volts,
 				   double srcElectronsStep, double currentStep)
 {
     /*
@@ -110,7 +107,6 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
 	    throw CanteraError("warning t_final == t_final_calc", "");
 	}
     }
-
     // store time step (note inefficient op - may replace)
     TimeStepList_.push_back(
 	TimeStepHistory(t_init, t_final, t_final_calc , timeTypeSoln, numNonLinSolves, solnErrorNorm, wdotErrorNorm)
@@ -129,30 +125,28 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
     if (timeTypeSoln != 2) {
 	nTimeStepsRegular_++;
     }
-
 }
 //======================================================================================================================
-void  
-SubIntegrationHistory::zeroTimeStepCounter()
+void SubIntegrationHistory::zeroTimeStepCounter()
 {
     iCounter = 0;
 }
 //======================================================================================================================
-void  
-SubIntegrationHistory::advanceTimeStepCounter()
+void SubIntegrationHistory::advanceTimeStepCounter()
 {
     if (iCounter + 1 < nTimeSteps_) {
 	iCounter++;
     }
 }
 //======================================================================================================================
-double
-SubIntegrationHistory::getNextRegularTime(double currentTime) const
+double SubIntegrationHistory::getNextRegularTime(double currentTime) const
 {
     // put in extra assignments for debugging
     //int iC = iCounter;
 
-    if (iCounter >=  nTimeSteps_) {
+    // If we are beyond the stored time step history, then we used the stored value of time_step_next to make
+    // up a good next time.
+    if (iCounter >= nTimeSteps_) {
 	const TimeStepHistory& tshCurrent =  TimeStepList_[iCounter];
 	double tfinal = tshCurrent.t_final_;
 	tfinal += time_step_next;
@@ -165,6 +159,7 @@ SubIntegrationHistory::getNextRegularTime(double currentTime) const
     double t_final = t_final_First;
     double t_final_calc = t_final_calc_First;
 
+    // Step forward in the stored time steps until we find a t_final_calc beyond the input time, currentTime
     while (t_final_calc <= currentTime) {
 	if (iCounter +1 < nTimeSteps_) {
 	    iCounter++;
@@ -177,6 +172,7 @@ SubIntegrationHistory::getNextRegularTime(double currentTime) const
 	}
     }
 
+    // step past special time steps that had discontinuities in them, until you find a regular step
     while (tshCurrent_ptr->timeTypeSoln_ == 2) {
 	if (t_final_calc > t_final) {
 	    return t_final;
@@ -190,49 +186,53 @@ SubIntegrationHistory::getNextRegularTime(double currentTime) const
 	t_final = tshCurrent_ptr->t_final_;
 	t_final_calc = tshCurrent_ptr->t_final_;
     }
+ 
+    // Return a default next time based on the default deltaT if we have run out of times
     if (t_final_calc <= currentTime) {
 	t_final_calc = currentTime + time_step_next;
     }
  
+    // Normal return of the next stored time
     return (t_final_calc);
 }
 //======================================================================================================================
-int
-SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal) 
+int SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal) 
 {
     int iC = 0;
     TimeStepHistory* tshCurrent_ptr = & TimeStepList_[iC];
     double tinit =  tshCurrent_ptr->t_init_;
     if (fabs(gtinit - tinit) > 1.0E-13) {
-	throw CanteraError("shouldn't be here", "");
+	throw CanteraError("SubIntegrationHistory::assureTimeInterval", "The global time, " + fp2str(gtinit) +
+                           ", doesn't agree with the storred initial time for the first step");
     }
-    tshCurrent_ptr =  & TimeStepList_[nTimeSteps_-1];
-    double tfinal =  tshCurrent_ptr->t_final_;
+    tshCurrent_ptr = &TimeStepList_[nTimeSteps_-1];
+    double tfinal = tshCurrent_ptr->t_final_;
     if (tshCurrent_ptr->timeTypeSoln_ == 2) {
-	printf("weird condition\n");
 	tshCurrent_ptr->timeTypeSoln_ = 0;
     }
     if (fabs(gtfinal - tfinal) > 1.0E-13) {
-	throw CanteraError("shouldn't be here", "");
+	throw CanteraError("SubIntegrationHistory::assureTimeInterval", "The global final time, " + fp2str(gtfinal) +
+                           ", doesn't agree with the storred final time for the last step");
     }
     int iCsave = iCounter;
     for (int i = 0; i < nTimeStepsRegular_; i++) {
 	tfinal = getNextRegularTime(tinit);
 	if (tfinal <= tinit) {
-	   throw CanteraError("shouldn't be here", "");
+	   throw CanteraError("SubIntegrationHistory::assureTimeInterval", 
+                              "final time is less than the initial time");
 	}
 	advanceTimeStepCounter();
 	tinit = tfinal;
     }
     if (fabs(tfinal - gtfinal) > 1.0E-13) {
-	throw CanteraError("shouldn't be here", "");
+        throw CanteraError("SubIntegrationHistory::assureTimeInterval", "The global final time, " + fp2str(gtfinal) +
+                           ", doesn't agree with the storred final time for the last step");
     }
     iCounter = iCsave;
     return iCounter;
 }
 //======================================================================================================================
-double
-SubIntegrationHistory::globalStartTime() const
+double SubIntegrationHistory::globalStartTime() const
 {
     if  (TimeStepList_.size() > 0) {
 	const TimeStepHistory& tshCurrent =  TimeStepList_[0];
@@ -241,8 +241,7 @@ SubIntegrationHistory::globalStartTime() const
     return 0.0;
 }
 //======================================================================================================================
-double
-SubIntegrationHistory::globalEndTime() const
+double SubIntegrationHistory::globalEndTime() const
 {
     if  (nTimeSteps_ > 0) {
 	const TimeStepHistory& tshCurrent =  TimeStepList_[nTimeSteps_-1];
@@ -251,8 +250,7 @@ SubIntegrationHistory::globalEndTime() const
     return 0.0;
 }
 //======================================================================================================================
-void
-SubIntegrationHistory::print(int lvl) const
+void SubIntegrationHistory::print(int lvl) const
 {
     if (lvl > 1) {
 	printf("     ===============================================================================================================================\n");
@@ -305,9 +303,7 @@ SubIntegrationHistory::print(int lvl) const
     }
 }
 //======================================================================================================================
-
-void SubIntegrationHistory::
-setConstantStepSizeHistory(double gtinit, double gtfinal, int nsteps)
+void SubIntegrationHistory:: setConstantStepSizeHistory(double gtinit, double gtfinal, int nsteps)
 {
     zeroTimeStepCounter();
     double delta = (gtfinal - gtinit) / nsteps;
@@ -318,7 +314,7 @@ setConstantStepSizeHistory(double gtinit, double gtfinal, int nsteps)
     }
 }
 //======================================================================================================================
-bool  SubIntegrationHistory::operator==(const SubIntegrationHistory& other) const
+bool SubIntegrationHistory::operator==(const SubIntegrationHistory& other) const
 {
     if (nTimeStepsRegular_ != other.nTimeStepsRegular_) {
 	return false;
@@ -347,10 +343,12 @@ bool  SubIntegrationHistory::operator==(const SubIntegrationHistory& other) cons
     return true;
 }
 //======================================================================================================================
-bool  SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) const
+bool SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) const
 {
     return ! (*this == other);
 }
+//======================================================================================================================
+//======================================================================================================================
 //======================================================================================================================
 /*
  *  ELECTRODE_INPUT: constructor
