@@ -24,7 +24,7 @@
 
 #include <string>
 #include <map>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -33,19 +33,39 @@ namespace Cantera
 {
 class RSD_OCVmodel;
 
+//==================================================================================================================================
+//! Structure to hold the mappings between the Electrode_Types_Enum and its string representation
+/*!
+ *  We also keep the OCVModel mappings in this struct as well.
+ *  (Tidy way to keep the material together)
+ */
 struct Map_ETEnum_String {
+
+    //! default constructors 
     Map_ETEnum_String() :
         string_maps_created(false)
     {
     }
+    //! true if the maps have been created
     bool string_maps_created;
+
+    //! Map with key, Electrode_Types_Enum, and the value being the string name for the key
     std::map<Electrode_Types_Enum, std::string> electrode_types_string;
+
+    //! This is the reverse map of the above. Maps the string as key to the Electrode_Types_Enum
     std::map<std::string , Electrode_Types_Enum> string_electrode_types;
 
+    //! Map with key, OCVmodel number, and the value being the string representation
     std::map<int, std::string> OCVmodel_string;
-    std::map<std::string, int> string_OCVmodel;
 
+    //! Map with value being string representation of OCVmodel and the value is the int representation
+    std::map<std::string, int> string_OCVmodel;
 };
+
+//! We define the global gMap_ETEnum_String as the struct that contains these maps.
+/*!
+ *  This is the declaration. The definition is in the cpp file
+ */
 extern Map_ETEnum_String gMap_ETEnum_String;
 
 //! Enum to String routine for the enum Electrode_Types_Enum
@@ -66,7 +86,6 @@ std::string Electrode_Types_Enum_to_string(const Electrode_Types_Enum& etype);
  */
 Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_string);
 
-
 //! String to int routine for the OCV override model types
 /*!
  *   \relates RSD_OCVmodel
@@ -75,7 +94,6 @@ Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_str
  *   @return    Returns the int type for the string.  Unknown models return a value of -1.
  */
 int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string);
-
 
 //!  int type to string routine for OCV model types
 /*!
@@ -87,10 +105,10 @@ int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string);
  */
 std::string modelID_to_stringName_RCD_OCVmodel(int modelID);
 
-
-//! Factory class for thermodynamic property managers.
+//==================================================================================================================================
+//! Factory class for Electrode simulations managers
 /*!
- * This class keeps a list of the known ThermoPhase classes, and is
+ * This class keeps a list of the known Electrode simulation classes, and is
  * used to create new instances of these classes.
  */
 class Electrode_Factory : public ZZCantera::FactoryBase
@@ -156,9 +174,9 @@ private:
     //! Decl for locking mutex for electrode factory singelton
     static boost::mutex electrode_mutex;
 #endif
-
 };
 
+//==================================================================================================================================
 //!  Create a new Electrode Object
 /*!
  * @param model   String to look up the model against
@@ -195,6 +213,7 @@ ELECTRODE_KEY_INPUT* newElectrodeKeyInputObject(std::string model, Electrode_Fac
  */
 RSD_OCVmodel* newRSD_OCVmodel(std::string model, Electrode_Factory *f = 0);
 
-
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

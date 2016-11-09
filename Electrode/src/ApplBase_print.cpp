@@ -75,7 +75,6 @@ void pr_sf_lj(const string s, const int w, const int crop)
         }
     }
 }
-
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/
@@ -182,12 +181,12 @@ void dnt(const int i)
 /**********************************************************************/
 /**********************************************************************/
 
-void print_map(const map<string,double>& m, const string& prefix)
+void print_map(const std::map<std::string,double>& m, const std::string& prefix)
 {
     if (prefix.size() > 0) {
         cout << prefix;
     }
-    map<string,double>::const_iterator it;
+    std::map<std::string,double>::const_iterator it;
     for (it = m.begin(); it != m.end(); it++) {
         if (it != m.begin()) {
             cout << " ";

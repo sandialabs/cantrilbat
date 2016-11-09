@@ -37,16 +37,17 @@ boost::mutex Electrode_Factory::electrode_mutex;
 #endif
 //====================================================================================================================
 
-
+// This is the definition for this global struct. 
 Map_ETEnum_String gMap_ETEnum_String;
+
 //====================================================================================================================
 static void create_string_maps()
 {
     if (gMap_ETEnum_String.string_maps_created) {
         return;
     }
-    std::map<Electrode_Types_Enum, std::string>& electrode_types_string = gMap_ETEnum_String.electrode_types_string;
-    std::map<std::string , Electrode_Types_Enum>& string_electrode_types= gMap_ETEnum_String.string_electrode_types;
+    auto& electrode_types_string = gMap_ETEnum_String.electrode_types_string;
+    auto& string_electrode_types= gMap_ETEnum_String.string_electrode_types;
 
     gMap_ETEnum_String.string_maps_created = true;
     electrode_types_string[BASE_TYPE_ET]                       =  "BaseType";
@@ -64,29 +65,25 @@ static void create_string_maps()
     electrode_types_string[MP_RXNEXTENT_LISI_ET]               =  "MP_RxnExtent_LiSi";
     electrode_types_string[RADIAL_DIFF_REGIONS_ET]             =  "Radial_Diff_Regions";
 
-
     // create the OCV model map
     createOCVmodel_map(gMap_ETEnum_String.OCVmodel_string);
 
-
     // Invert the maps automatically.
-    for (std::map<Electrode_Types_Enum, std::string>::iterator pos = electrode_types_string.begin();
-            pos != electrode_types_string.end(); ++pos) {
+    for (auto pos = electrode_types_string.begin(); pos != electrode_types_string.end(); ++pos) {
         string_electrode_types[pos->second] = pos->first;
         std::string lll =  ZZCantera::lowercase(pos->second);
         string_electrode_types[lll] = pos->first;
     }
 
     // Invert the maps automatically.
-    for (std::map<int, std::string>::iterator pos = gMap_ETEnum_String.OCVmodel_string.begin();
-            pos != gMap_ETEnum_String.OCVmodel_string.end(); ++pos) {
+    for (auto pos = gMap_ETEnum_String.OCVmodel_string.begin(); pos != gMap_ETEnum_String.OCVmodel_string.end(); ++pos) {
         gMap_ETEnum_String.string_OCVmodel[pos->second] = pos->first;
         std::string lll =  ZZCantera::lowercase(pos->second);
         gMap_ETEnum_String.string_OCVmodel[lll] = pos->first;
     }
 
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Enum to String routine for the enum Electrode_Types_Enum
 /*
  *  @param etype The model of the electrode
@@ -253,7 +250,7 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
     }
     return ee;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //    Create a new ELECTRODE_KEY_INPUT Object given a model name
 /*
  * @param model   String to look up the model
@@ -305,7 +302,7 @@ ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string m
     }
     return ei;
 }
-//====================================================================================================================
+//==================================================================================================================================
 RSD_OCVmodel* Electrode_Factory::newRSD_OCVmodel(std::string smodel)
 {
     int  ieos = stringName_RCD_OCVmodel_to_modelID(smodel);
@@ -331,7 +328,7 @@ RSD_OCVmodel* Electrode_Factory::newRSD_OCVmodel(std::string smodel)
     }
     return ei;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Create a new  instance of an Electrode object
 /*
  * @param model   String to look up the model against
@@ -350,7 +347,7 @@ Electrode* newElectrodeObject(std::string model, Electrode_Factory* f)
     }
     return f->newElectrodeObject(model);
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Create a new ELECTRODE_KEY_INPUT Object
 /*
  * @param model   String to look up the model against
@@ -369,7 +366,7 @@ ELECTRODE_KEY_INPUT* newElectrodeKeyInputObject(std::string model, Electrode_Fac
     }
     return f->newElectrodeKeyInputObject(model);
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Create a new RSD_OCVmodel Object
 /*
  * @param model   String to look up the model against
@@ -388,6 +385,6 @@ RSD_OCVmodel* newRSD_OCVmodel(std::string smodel, Electrode_Factory *f)
    return f->newRSD_OCVmodel(smodel);
 }
 
-//====================================================================================================================
+//==================================================================================================================================
 } // End of ZZCantera Namespace
 //----------------------------------------------------------------------------------------------------------------------------------

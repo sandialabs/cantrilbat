@@ -797,7 +797,12 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/EState.h \
                          ../../Electrode/src/EState.cpp \
                          ../../Electrode/src/EState_XML.h \
-                         ../../Electrode/src/EState_XML.cpp
+                         ../../Electrode/src/EState_XML.cpp \
+                         ../../Electrode/src/Electrode_Factory.h \
+                         ../../Electrode/src/Electrode_Factory.cpp \ 
+                         ../../Electrode/src/Electrode_Integrator.h \ 
+                         ../../Electrode/src/Electrode_Integrator.cpp  
+
 
 
 # This tag can be used to specify the character encoding of the source files
