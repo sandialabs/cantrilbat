@@ -1064,16 +1064,14 @@ ProblemStatementCell::InitForInput()
     }
   }
 
-  const ZZCantera::Elements *eObj = pl->getGlobalElements();
+  const ZZCantera::Elements *eObj = pl->globalElements();
 
   for (int e = 0; e < nTotElements_; e++) {
     string eName = eObj->elementName(e);
     strncpy(ElementNames_[e], eName.c_str(), MPEQUIL_MAX_NAME_LEN);
   }
 
-
 }
-
-
-} //namespace m1d
 //===================================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------

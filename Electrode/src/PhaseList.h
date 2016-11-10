@@ -552,28 +552,12 @@ public:
      */
     ThermoPhase& thermo(const std::string& phaseName) const;
 
-    //! Return the reference to the %ThermoPhase of a single volume or surface phase
-    /*!
-     *  @param[in]        iphGlob           global phase index
-     *
-     *  @return                             Return a reference to the ThermoPhase object
-     */
-    ThermoPhase& phase(int iphGlob) const;
-
-    //! Return the reference to the %ThermoPhase of a single volume or surface phase
-    /*!
-     *  @param[in]        iphGlob           global phase index
-     *
-     *  @return                             Return a reference to the ThermoPhase object
-     */
-    ThermoPhase& phase(size_t iphGlob) const;
-
     //! Return the common Elements object as a const pointer
     /*!
      *  @return                                  Return a pointer to a const Element object containing a description of the elements 
      *                                           in the problem.
      */
-    const Elements* getGlobalElements() const;
+    const Elements* globalElements() const;
 
     //! Return the element name of the eth global element
     /*!
@@ -748,11 +732,11 @@ public:
 
     //! Return the species name given the global species index
     /*!
-     *  @param[in]           iGlobSpeciesIndex   global species index within the PhaseList object
+     *  @param[in]           kGlob               global species index within the PhaseList object
      *
      *  @return returns the species name
      */
-    std::string speciesName(size_t iGlobSpeciesIndex) const;
+    std::string speciesName(size_t kGlob) const;
 
     //! Set the state of all the phases within the PhaseList to a given temperature and pressure
     /*!

@@ -561,7 +561,7 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
 
     ElementNames = mdp_alloc_VecFixedStrings(nTotElements,
                    MPEQUIL_MAX_NAME_LEN_P1);
-    const Elements* eObj = pl->getGlobalElements();
+    const Elements* eObj = pl->globalElements();
 
     for (int e = 0; e < nTotElements; e++) {
         std::string eName = eObj->elementName(e);

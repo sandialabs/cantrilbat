@@ -1369,31 +1369,6 @@ PhaseList::thermo(size_t iphGlob) const
 }
 //==================================================================================================================================
 ThermoPhase&
-PhaseList::phase(int iphGlob) const
-{
-#ifdef DEBUG_MODE
-    if (iphGlob < 0) {
-        throw CanteraError("PhaseList::phase()", "index out of range");
-    }
-#endif
-    return phase((size_t) iphGlob);
-}
-//==================================================================================================================================
-ThermoPhase&
-PhaseList::phase(size_t iphGlob) const
-{
-#ifdef DEBUG_MODE
-    if (iphGlob == npos) {
-        throw CanteraError("PhaseList::phase()", "index out of range");
-    }
-    if (iphGlob >= (NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases)) {
-        throw CanteraError("PhaseList::phase()", "index out of range");
-    }
-#endif
-    return *(PhaseList_[iphGlob]);
-}
-//==================================================================================================================================
-ThermoPhase&
 PhaseList::thermo(const char* const phaseName) const
 {
 #ifdef DEBUG_MODE
@@ -1415,7 +1390,7 @@ PhaseList::thermo(const std::string& phaseName) const
     throw CanteraError("PhaseList::thermo()", "Can't find phase named, " + phaseName + ", in list of phases");
 }
 //==================================================================================================================================
-const Elements* PhaseList ::getGlobalElements() const
+const Elements* PhaseList ::globalElements() const
 {
     return &m_GlobalElementObj;
 }

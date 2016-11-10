@@ -2203,7 +2203,7 @@ double Electrode::phaseMoles(int iph) const
 //================================================================================================
 double Electrode::elementMoles(int ieG) const
 {
-    const Elements* elemList = getGlobalElements();
+    const Elements* elemList = globalElements();
     std::string eN = elemList->elementName(ieG);
     return elementMoles(eN);
 }
@@ -2228,7 +2228,7 @@ double Electrode::elementMoles(std::string eN) const
 //================================================================================================
 double Electrode::elementSolidMoles(int ieG) const
 {
-    const Elements* elemList = getGlobalElements();
+    const Elements* elemList = globalElements();
     std::string eN = elemList->elementName(ieG);
     return elementMoles(eN);
 }
