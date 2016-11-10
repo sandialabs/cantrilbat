@@ -2094,7 +2094,7 @@ porousLiKCl_LiSiAnode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
       Electrode *ee = Electrode_Cell_[iCell];
       //first we need the FeS2 mass per CV to compare with capacity variables
       double MW_Li13Si4 = 473.25 * 1e3; //molecular mass in g/kmol
-      const Elements* elemList = ee->getGlobalElements();
+      const Elements* elemList = ee->globalElements();
       int iSi = elemList->elementIndex("Si");
       double mass_Li13Si4_CV = 0.25 * MW_Li13Si4 * ee->elementMoles( iSi );
       double ampSecTomAmpHr = 3.6;  //convert from [Amp-sec] to [mAmp-hr]

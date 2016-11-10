@@ -739,7 +739,7 @@ void IOoptions::InitForInput(PhaseList *pl) {
      */
     ElementNames = mdp_alloc_VecFixedStrings(nTotElements,
                                              132);
-    const Elements *eObj = pl->getGlobalElements();
+    const Elements *eObj = pl->globalElements();
     for (int e = 0; e < nTotElements; e++) {
       string eName = eObj->elementName(e);
       strncpy(ElementNames[e], eName.c_str(), 132);

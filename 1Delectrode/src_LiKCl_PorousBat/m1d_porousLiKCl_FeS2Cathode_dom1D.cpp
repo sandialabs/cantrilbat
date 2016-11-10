@@ -2088,7 +2088,7 @@ porousLiKCl_FeS2Cathode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_Gl
       Electrode *ee = Electrode_Cell_[iCell];
       //first we need the FeS2 mass per CV to compare with capacity variables
       double MW_FeS2 = 119.98 * 1e3; //molecular mass in g/kmol
-      const  Elements *elem = ee->getGlobalElements();
+      const  Elements *elem = ee->globalElements();
       int iFe = elem->elementIndex("Fe");
       double mass_FeS2_CV = MW_FeS2 * ee->elementMoles( iFe);
       double ampSecTomAmpHr = 3.6;  //convert from [Amp-sec] to [mAmp-hr]

@@ -17,6 +17,7 @@
 #include <string>
 
 
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -26,6 +27,7 @@ namespace Cantera
 
 class PhaseList;
 
+//==================================================================================================================================
 //! Import all phases found in a single file into a PhaseList object
 /*!
  *  Import all phases found in a single file into a PhaseList object, in an additive fashion.
@@ -38,5 +40,7 @@ class PhaseList;
  */
 size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canteraFile);
 
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
