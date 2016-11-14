@@ -168,6 +168,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
     }
 
     VolPhaseHasKinetics  = right.VolPhaseHasKinetics;
+    VolPhaseToGlobPhaseIndex_ = right.VolPhaseToGlobPhaseIndex_;
 
     m_NumSurPhases = right.m_NumSurPhases;
     m_NumEdgePhases = right.m_NumEdgePhases;
@@ -193,6 +194,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
         SurPhaseXMLNodes[i] = &(SurPhaseList[i]->xml());
     }
     SurPhaseHasKinetics = right.SurPhaseHasKinetics;
+    SurPhaseToGlobPhaseIndex_ = right.SurPhaseToGlobPhaseIndex_;
 
     EdgePhaseList.resize(right.m_NumSurPhases, 0);
     if (IOwnPhasePointers) {
@@ -210,6 +212,7 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
         EdgePhaseXMLNodes[i] = &(EdgePhaseList[i]->xml());
     }
     EdgePhaseHasKinetics = right.EdgePhaseHasKinetics;
+    EdgePhaseToGlobPhaseIndex_ = right.EdgePhaseToGlobPhaseIndex_;
 
     m_numElements = right.m_numElements;
 
@@ -379,6 +382,7 @@ void PhaseList::addVolPhase(ThermoPhase* const vp, XML_Node* vPhase, bool ordere
 
     m_lastPhaseIndexAdded = NumVolPhases_;
     m_dimLastPhaseAdded = 3; 
+    VolPhaseToGlobPhaseIndex_.push_back(NumVolPhases_);
     NumVolPhases_++;
     VolPhaseList.resize(NumVolPhases_, 0);
     VolPhaseList[NumVolPhases_ - 1] = vp;
@@ -520,6 +524,7 @@ void PhaseList::addSurPhase(ThermoPhase* const sp, XML_Node* sPhase)
     m_NumSurPhases++;
     SurPhaseList.resize(m_NumSurPhases, 0);
     SurPhaseList[m_NumSurPhases - 1] = sp;
+    SurPhaseToGlobPhaseIndex_.push_back(m_lastPhaseIndexAdded);
 
     size_t nSpecies = sp->nSpecies();
     m_NumTotPhases++;
@@ -635,6 +640,7 @@ void PhaseList::addEdgePhase(ThermoPhase* const sp, XML_Node* ePhase)
     m_NumEdgePhases++;
     EdgePhaseList.resize(m_NumEdgePhases, 0);
     EdgePhaseList[m_NumEdgePhases - 1] = sp;
+    EdgePhaseToGlobPhaseIndex_.push_back(m_lastPhaseIndexAdded); 
 
     size_t nSpecies = sp->nSpecies();
     m_NumTotPhases++;

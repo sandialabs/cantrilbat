@@ -772,7 +772,7 @@ public:
      *                                           that the previous species positions are swapped into the new species
      *                                           positions.
      */ 
-    virtual void resizeGlobalSpeciesVectorForAddedPhase(std::vector<doublevalue>& speciesProp);
+    void resizeGlobalSpeciesVectorForAddedPhase(std::vector<doublevalue>& speciesProp);
 
     /***********************************************************************/
     /*                BASIC INDEXING DATA                                  */
@@ -813,6 +813,9 @@ protected:
      */
     std::vector<int> VolPhaseHasKinetics;
 
+    //! Index of global phase index given volume phase index
+    std::vector<size_t> VolPhaseToGlobPhaseIndex_;
+
     //! Number of surface phases
     size_t m_NumSurPhases;
 
@@ -834,6 +837,9 @@ protected:
     //! Boolean vector indicating whether surface phase has kinetics
     std::vector<int> SurPhaseHasKinetics;
 
+    //! Index of global phase index given surface phase index
+    std::vector<size_t> SurPhaseToGlobPhaseIndex_;
+
     //! Vector of edge phases existing in the problem
     std::vector<ThermoPhase*> EdgePhaseList;
 
@@ -842,6 +848,9 @@ protected:
 
     //! Boolean vector indicating whether edge phase has kinetics
     std::vector<int> EdgePhaseHasKinetics;
+
+    //! Index of global phase index given edge phase index
+    std::vector<size_t> EdgePhaseToGlobPhaseIndex_;
 
     //! Vector of phases in the problem
     std::vector<ThermoPhase*> PhaseList_;
