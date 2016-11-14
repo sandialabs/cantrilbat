@@ -55,7 +55,14 @@ PhaseList::PhaseList(bool ownership) :
     PhaseNames_(0),
     m_numElements(0),
     m_PhaseSpeciesStartIndex(0),
-    IOwnPhasePointers(ownership)
+    IOwnPhasePointers(ownership),
+    m_lastPhaseIndexAdded(npos),
+    m_nSpLastPhaseAdded(npos),
+    m_dimLastPhaseAdded(npos),
+    m_lastPhaseIndexDeleted(npos),
+    m_nSpLastPhaseDeleted(npos),
+    m_dimLastPhaseDeleted(npos)
+
 {
     m_PhaseSpeciesStartIndex.resize(1, 0);
 }
@@ -230,6 +237,12 @@ PhaseList& PhaseList::operator=(const PhaseList& right)
         PhaseList_[i + istart] = EdgePhaseList[i];
         PhaseNames_[i + istart] = EdgePhaseList[i]->name();
     }
+    m_lastPhaseIndexAdded = right.m_lastPhaseIndexAdded;
+    m_nSpLastPhaseAdded = right.m_nSpLastPhaseAdded;
+    m_dimLastPhaseAdded = right.m_dimLastPhaseAdded;
+    m_lastPhaseIndexDeleted = right.m_lastPhaseIndexDeleted;
+    m_nSpLastPhaseDeleted = right.m_nSpLastPhaseDeleted;
+    m_dimLastPhaseDeleted = right.m_dimLastPhaseDeleted;
 
     return *this;
 }
@@ -364,6 +377,8 @@ void PhaseList::addVolPhase(ThermoPhase* const vp, XML_Node* vPhase, bool ordere
         throw CanteraError("PhaseList::addVolPhase()", "number of dimensions isn't three");
     }
 
+    m_lastPhaseIndexAdded = NumVolPhases_;
+    m_dimLastPhaseAdded = 3; 
     NumVolPhases_++;
     VolPhaseList.resize(NumVolPhases_, 0);
     VolPhaseList[NumVolPhases_ - 1] = vp;
@@ -372,6 +387,7 @@ void PhaseList::addVolPhase(ThermoPhase* const vp, XML_Node* vPhase, bool ordere
     m_NumTotPhases++;
     m_NumTotSpecies += nSpecies;
     m_totNumVolSpecies += nSpecies;
+    m_nSpLastPhaseAdded = nSpecies;
 
     /*
      * Store XML node
@@ -499,6 +515,8 @@ void PhaseList::addSurPhase(ThermoPhase* const sp, XML_Node* sPhase)
     if (sp->nDim() <= 1) {
         throw CanteraError("PhaseList::addSurPhase()", "Number of dimensions is one or less");
     }
+    m_lastPhaseIndexAdded = NumVolPhases_ + m_NumSurPhases;
+    m_dimLastPhaseAdded = 2;
     m_NumSurPhases++;
     SurPhaseList.resize(m_NumSurPhases, 0);
     SurPhaseList[m_NumSurPhases - 1] = sp;
@@ -507,6 +525,7 @@ void PhaseList::addSurPhase(ThermoPhase* const sp, XML_Node* sPhase)
     m_NumTotPhases++;
     m_NumTotSpecies += nSpecies;
     m_totNumSurSpecies += nSpecies;
+    m_nSpLastPhaseAdded = nSpecies;
 
     /*
      * Store XML node
@@ -611,6 +630,8 @@ void PhaseList::addEdgePhase(ThermoPhase* const sp, XML_Node* ePhase)
         throw CanteraError("PhaseList::addEdgePhase()", "Number of dimensions is two or greater");
     }
   
+    m_lastPhaseIndexAdded = NumVolPhases_ + m_NumSurPhases + m_NumEdgePhases;
+    m_dimLastPhaseAdded = 1;
     m_NumEdgePhases++;
     EdgePhaseList.resize(m_NumEdgePhases, 0);
     EdgePhaseList[m_NumEdgePhases - 1] = sp;
@@ -619,6 +640,7 @@ void PhaseList::addEdgePhase(ThermoPhase* const sp, XML_Node* ePhase)
     m_NumTotPhases++;
     m_NumTotSpecies += nSpecies;
     m_totNumEdgeSpecies += nSpecies;
+    m_nSpLastPhaseAdded = nSpecies;
 
     /*
      * Store XML node
@@ -1637,6 +1659,39 @@ void PhaseList::calcElementMaps(bool forceAll)
             }
         }
     }
+}
+//==================================================================================================================================
+void PhaseList::resizeGlobalSpeciesVectorForAddedPhase(std::vector<doublevalue>& speciesProp)
+{
+   if (m_lastPhaseIndexAdded == npos) {
+       return;
+   } 
+   size_t cursize = speciesProp.size();
+   size_t newsize = cursize + m_nSpLastPhaseAdded;
+   if (m_totNumSurSpecies != newsize) {
+      throw CanteraError("PhaseList()::resizeGlobalSpeciesVectorForLastPhaseAdded()", " possible misapplied situation");
+   }
+   speciesProp.resize(newsize, 0.0);
+   size_t nspck = m_PhaseSpeciesStartIndex[m_lastPhaseIndexAdded+1] - m_PhaseSpeciesStartIndex[m_lastPhaseIndexAdded];
+   if (nspck !=  m_nSpLastPhaseAdded) {
+       throw CanteraError("PhaseList()::resizeGlobalSpeciesVectorForLastPhaseAdded()", "species check failure");
+   }
+   size_t kNewStart = m_PhaseSpeciesStartIndex[m_NumTotPhases];
+   size_t numSpeciesToMove = kNewStart - m_PhaseSpeciesStartIndex[m_lastPhaseIndexAdded+1];
+   if (numSpeciesToMove > 0) {
+       size_t kOldStart = kNewStart - m_nSpLastPhaseAdded;
+       // have to do this by hand as there is overlapping memory 
+       for (size_t k = 0; k < numSpeciesToMove; ++k) {
+           speciesProp[kNewStart - k] = speciesProp[kOldStart - k];
+       }
+       // Zero the entries for the new phase, if we have to.
+       if (m_lastPhaseIndexAdded != (m_NumTotPhases - 1)) {
+           kNewStart = m_PhaseSpeciesStartIndex[m_lastPhaseIndexAdded];
+           for (size_t k = 0; k < m_nSpLastPhaseAdded; ++k) { 
+               speciesProp[kNewStart + k] = 0.0;
+           }
+       }
+   }
 }
 //==================================================================================================================================
 }

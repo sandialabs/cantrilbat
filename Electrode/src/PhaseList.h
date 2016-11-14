@@ -762,6 +762,18 @@ public:
      */
     void calcElementMaps(bool forceAll);
 
+    //! Resize a global species vector for a phase that's just been added.
+    /*!
+     *  The properties for the added phase are filled with zeroes.
+     *  The properties for the other phases are adjusted so that they're in the correct spots in the vector
+     *  due to the added phase. Essentially we swap the values in the back of the vector so that they're in the correct locations.
+     *  
+     *  @param[in,out]       speciesProp         Reference to a std:vector<double> which will be resized and modified so
+     *                                           that the previous species positions are swapped into the new species
+     *                                           positions.
+     */ 
+    virtual void resizeGlobalSpeciesVectorForAddedPhase(std::vector<doublevalue>& speciesProp);
+
     /***********************************************************************/
     /*                BASIC INDEXING DATA                                  */
     /***********************************************************************/
@@ -900,6 +912,23 @@ private:
      */
     std::vector< std::vector<size_t> > m_localToGlobalEMap;
 
+    //! Index of the last phase added
+    size_t m_lastPhaseIndexAdded;
+
+    //! Number of species in the last phase added
+    size_t m_nSpLastPhaseAdded;
+
+    //! Dim of the last phase added
+    size_t m_dimLastPhaseAdded;
+
+    //! Index of the last phase deleted
+    size_t m_lastPhaseIndexDeleted;
+
+    //! Number of species in the last phase added
+    size_t m_nSpLastPhaseDeleted;
+
+    //! Dim of the last phase deleted
+    size_t m_dimLastPhaseDeleted;
 
 };
 //==================================================================================================================================
