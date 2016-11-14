@@ -126,7 +126,7 @@ void printVolSpecies(ThermoPhase *g_ptr, int k) {
     //StoichSubstance* issp = static_cast<StoichSubstance*>(g_ptr);
     double dens = g_ptr->density();
     double mw = g_ptr->molecularWeight(0);
-    double mV = 1.0 / (dens * mw);
+    double mV = mw / (dens );
     dnt(1); cout << "StoichSubstance constant density = "
 		 << dens << " kg m-3 " << endl;
     dnt(1); cout << "species Molar Volume = " << mV

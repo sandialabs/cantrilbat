@@ -249,13 +249,13 @@ void setup_input_pass3(BlockEntry *cf,
   BG.PhaseMoles.resize(nVolPhases + nSurPhases, 0.0);
 
   for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
-    size_t kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+    size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
     BG.XmolPLPhases[iph] =   BG.XmolPLSpecVec + kstart;
     BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
   }
   for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
    size_t tph = iph + pl->nVolPhases();
-   size_t kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iph);
+   size_t kstart =  pl->globalSpeciesIndexSurPhaseIndex(iph);
    BG.XmolPLPhases[tph] =   BG.XmolPLSpecVec + kstart;
    BG.MolalitiesPLPhases[tph] =  BG.MolalitiesPLSpecVec + kstart;
   }
@@ -272,7 +272,7 @@ void setup_input_pass3(BlockEntry *cf,
      */
     BlockEntry *bbathphase = new BlockEntry(phaseBath.c_str());
     cf->addSubBlock(bbathphase);
-    int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+    int kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
 
     /* --------------------------------------------------------------
      * BG.BathSpeciesID - 
@@ -360,7 +360,7 @@ void setup_input_pass3(BlockEntry *cf,
      */
     BlockEntry *bbathphase = new BlockEntry(phaseBath.c_str());
     cf->addSubBlock(bbathphase);
-    int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
+    int kstart =  pl->globalSpeciesIndexSurPhaseIndex(iphS);
 
     /* --------------------------------------------------------------
      * BG.BathSpeciesID - 

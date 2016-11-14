@@ -71,6 +71,8 @@ namespace Cantera
  *             ' get' name is used for return vectors in the parameter list.
  *             Determine whether to use globalSpeciesIndex() or speciesIndex() as a general naming convention.
  *        For bad matches, don't throw an error. Instead return npos.
+ *        Add the ability to handle non-dim ordered lists of phases.
+ *
  */
 class PhaseList
 {
@@ -412,7 +414,7 @@ public:
      * @return
      *   Returns the global species index within the PhaseList object.
      */
-    size_t getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
+    //size_t getGlobalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
 
     //! Get the global species index for a volume phase
     /*!
@@ -446,7 +448,7 @@ public:
      *
      * @return                                   Returns the global species index within the PhaseList object.
      */
-    size_t getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
+    //size_t getGlobalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
 
     //! Get the global species index for a surface phase
     /*!
@@ -470,7 +472,7 @@ public:
      *  @param[in]           kGlob               Global species index
      *  @return                                  return the phase index
      */
-    size_t getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const;
+    //size_t getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const;
 
     //! Return the global phase index from the global species index
     /*!
@@ -897,6 +899,8 @@ private:
      *    m_localToGlobalEMap[globPhaseIndex][mLocalIndex];
      */
     std::vector< std::vector<size_t> > m_localToGlobalEMap;
+
+
 };
 //==================================================================================================================================
 }

@@ -313,7 +313,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
 
      int nVolPhases = right.m_pl->nVolPhases();
      for (size_t iph = 0; iph < static_cast<size_t>(nVolPhases); iph++) {
-	 int kstart =  right.m_pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+	 int kstart =  right.m_pl->globalSpeciesIndexVolPhaseIndex(iph);
 	 m_BG->XmolPLPhases[iph]          = m_BG->XmolPLSpecVec + kstart;
 	 m_BG->MolalitiesPLPhases[iph]    = m_BG->MolalitiesPLSpecVec + kstart;
 	 m_BG->CapLeftCoeffPhases[iph]    = m_BG->CapLeftCoeffSpecVec + kstart;
@@ -930,7 +930,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     BG.PhaseMass.resize(nVolPhases + pl->nSurPhases(), 0.0);
 
     for (size_t iph = 0; iph < (size_t) nVolPhases; iph++) {
-        int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+        int kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
         BG.XmolPLPhases[iph] =   BG.XmolPLSpecVec + kstart;
         BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
         BG.CapLeftCoeffPhases[iph] = BG.CapLeftCoeffSpecVec + kstart;
@@ -938,7 +938,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     }
     for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
         size_t tph = iph + pl->nVolPhases();
-        int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iph);
+        int kstart =  pl->globalSpeciesIndexSurPhaseIndex(iph);
         BG.XmolPLPhases[tph] =   BG.XmolPLSpecVec + kstart;
         BG.MolalitiesPLPhases[tph] =  BG.MolalitiesPLSpecVec + kstart;
         BG.CapLeftCoeffPhases[tph] = BG.CapLeftCoeffSpecVec + kstart;
@@ -962,7 +962,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          */
         BlockEntry* bbathphase = new BlockEntry(phaseBath.c_str());
         cf->addSubBlock(bbathphase);
-        int kstart = pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+        int kstart = pl->globalSpeciesIndexVolPhaseIndex(iph);
 
         /* --------------------------------------------------------------
          * BG.PotentialPLPhases[iph]
@@ -1082,7 +1082,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          */
         BlockEntry* bbathphase = new BlockEntry(phaseBath.c_str());
         cf->addSubBlock(bbathphase);
-        int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
+        int kstart =  pl->globalSpeciesIndexSurPhaseIndex(iphS);
 
 
         /* --------------------------------------------------------------

@@ -96,24 +96,57 @@ public:
 
 //! Structure for storring the input for OCVoverride models
 struct OCV_Override_input {
+
+    //! Default constructor
     OCV_Override_input();
+
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               Object to be copied
+     */
     OCV_Override_input(const OCV_Override_input& right);
+
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *  @return                                  Returns a reference to the current object
+     */
     OCV_Override_input& operator=(const OCV_Override_input& right);
+
+    //! Destructor
     ~OCV_Override_input();
 
+    //! Number of times
     int numTimes;
+
+    //! PhaseID of the surface, where the reactions are taking place
     int surfacePhaseID;
+
+    //! String name of the OCV model
     std::string OCVModel;
+
+    //! String name of the bulk species whose thermo is to be replaced
     std::string replacedSpeciesName;
    
-    //! the global species id for the species whose thermo will be replaced
+    //! The global species id for the species whose thermo will be replaced
     int replacedGlobalSpeciesID;
+
+    //! Local value of the species ID in the ThermoPhase object whose thermo is being modified
     int replacedLocalSpeciesID;
+
+    //! PhaseID within the ReactingSurface object of the phase containing the replaced species
     int replacedSpeciesPhaseID;
+
     //! OCV_Format defaults to 0
     int OCV_Format_;
+
+    //! Name of the species which will be used as a surrogate for the depth of discharge.
     std::string DoDSurrogateSpeciesName;
+
+    //! Identity of the species whose mole fraction will be identified as being equivalent to the Depth of discharge variable
     size_t MF_DoD_LocalSpeciesID;
+
+    //! ReactionID of the reaction whose Delta Thermo has been fit to experiment
     int rxnID;
 
     //! Reaction whose deltaS value is modeled by the dOCVdT calculation. This is usually the
@@ -121,10 +154,18 @@ struct OCV_Override_input {
     //! and the half-cell for the reference electrode reaction.
     int rxnID_deltaS;
 
+    //! Temperature derivative type
     int temperatureDerivType;
+
+    //! Value of the temperature at which this formula is based
     double temperatureBase;
+
+    //! Value for the dOCVdT. Sometimes this is just set to a constant value
     double temperatureDerivValue;
+
+    //! String name for the temperature derivative model for the OCV
     std::string OCVTempDerivModel;
+
 };
 
 //===================================================================================================================================

@@ -887,6 +887,7 @@ size_t PhaseList::globalSpeciesIndex(size_t iphGlob, size_t k) const
 }
 //==================================================================================================================================
 // deprecated
+/*
 size_t PhaseList::getGlobalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) const
 {
 #ifdef DEBUG_MODE
@@ -904,6 +905,7 @@ size_t PhaseList::getGlobalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) co
     return ( m_PhaseSpeciesStartIndex[iphVol] + k);
 #endif
 }
+*/
 //==================================================================================================================================
 size_t PhaseList::globalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) const
 {
@@ -924,6 +926,7 @@ size_t PhaseList::globalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) const
 }
 //==================================================================================================================================
 // deprecated
+/*
 size_t PhaseList::getGlobalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) const
 {
 #ifdef DEBUG_MODE
@@ -941,6 +944,7 @@ size_t PhaseList::getGlobalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) co
     return ( m_PhaseSpeciesStartIndex[NumVolPhases_ + iphSur] + k);
 #endif
 }
+*/
 //==================================================================================================================================
 size_t PhaseList::globalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) const
 {
@@ -961,6 +965,7 @@ size_t PhaseList::globalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) const
 }
 //==================================================================================================================================
 // deprecated
+/*
 size_t PhaseList::getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const
 {
 #ifdef DEBUG_MODE
@@ -976,6 +981,7 @@ size_t PhaseList::getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const
     }
     return npos;
 }
+*/
 //==================================================================================================================================
 size_t PhaseList::phaseIndexFromGlobalSpeciesIndex(size_t kGlob) const
 {
@@ -1051,11 +1057,10 @@ getLocalIndecisesFromGlobalSpeciesIndex(size_t kGlob, size_t& iphGlob, size_t& k
     AssertTrace(kGlob != npos);
     AssertTrace(kGlob < m_NumTotSpecies);
 #endif
-    iphGlob = getPhaseIndexFromGlobalSpeciesIndex(kGlob);
+    iphGlob = phaseIndexFromGlobalSpeciesIndex(kGlob);
 #ifdef DEBUG_MODE
     if (iphGlob == npos) {
-         throw CanteraError("PhaseList::getLocalIndecisesFromGlobalSpeciesIndex()",
-                            "Could not fund phase index");
+         throw CanteraError("PhaseList::getLocalIndecisesFromGlobalSpeciesIndex()", "Could not fund phase index");
     }
 #endif
     k = (kGlob - m_PhaseSpeciesStartIndex[iphGlob]);
@@ -1558,7 +1563,7 @@ std::string PhaseList::speciesName(size_t kGlob) const
 #ifdef DEBUG_MODE
     AssertTrace(kGlob != npos);
     AssertTrace(kGlob < m_NumTotSpecies);
-    size_t iphGlob = getPhaseIndexFromGlobalSpeciesIndex(kGlob);
+    size_t iphGlob = phaseIndexFromGlobalSpeciesIndex(kGlob);
     size_t kStart = m_PhaseSpeciesStartIndex[iphGlob];
     size_t kLocal = kGlob - kStart;
     ThermoPhase& tp = thermo(iphGlob);
