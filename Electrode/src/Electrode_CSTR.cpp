@@ -1700,12 +1700,10 @@ int Electrode_CSTR::calcDeltaSolnVariables(const double t, const double* const y
 
     return 1;
 }
-
 //====================================================================================================================
 //   Determine the big mole fraction in the phase
 void  Electrode_CSTR::determineBigMoleFractions()
 {
-
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
         int iph = phaseIndexSolidPhases_[ph];
         phaseMFBig_[iph] = 0;

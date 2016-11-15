@@ -43,7 +43,6 @@ This may involve the smallest amount of work.
 
 
 
-
 PROBLEM - 
 
 The calcResid() problem is meant to handle discontinuities in functions wrt deltaT by 
@@ -64,22 +63,10 @@ becomes unimportant and small.
 We could also see if we can utilize the phase death problem to in a subcycle iteration scheme.
 
 
+SOLUTION METHOD FOR THE RESULTING TIME EQUATIONS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+GFCEO -> To solve these systems, we can fall back on the general DAE solution methods supplied by
+         Cantera using the DAE_Solver class
 
 
 

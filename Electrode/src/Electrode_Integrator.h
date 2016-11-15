@@ -537,13 +537,22 @@ public:
      * adding in potential seed values, or die, creating a different equation set and time step equation.
      * We set the phaseExistence flags in the kinetics solver to reflect phase pops.
      *
-     * @return   Returns the success of the operation
-     *                 1  A predicted solution is achieved
-     *                 2  A predicted solution with a multispecies phase pop is acheived
-     *                 0  A predicted solution is not achieved, but go ahead anyway
-     *                -1  The predictor suggests that the time step be reduced and a retry occur.
+     * @return                                   Returns the success of the operation
+     *                                           -  1  A predicted solution is achieved
+     *                                           -  2  A predicted solution with a multispecies phase pop is acheived
+     *                                           -  0  A predicted solution is not achieved, but go ahead anyway
+     *                                           - -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     virtual int predictSoln();
+
+    //! predict the derivative of the solution
+    /*!
+     * @return                                   Returns the success of the operation
+     *                                           -  1  A predicted solution is achieved
+     *                                           -  2  A predicted solution with a multispecies phase pop is acheived
+     *                                           -  0  A predicted solution is not achieved, but go ahead anyway
+     *                                           - -1  The predictor suggests that the time step be reduced and a retry occur.
+     */
     virtual int predictSolnDot();
 
     //! Extract the ROP of the multiple reaction fronts from Cantera within this routine
@@ -704,7 +713,8 @@ public:
      *                      differenced or that the residual doesn't take this issue into account)
      * @param delta_x       Value of the delta used in the numerical differencing
      *
-     * @return
+     * @return                                   Returns a value of 1 if everything went well
+     *                                           Returns negative numbers to indicate types of failures
      */
     virtual int evalResidNJ(const double t, const double delta_t,
                             const double* const y,
@@ -714,16 +724,33 @@ public:
                             const int id_x = -1,
                             const double delta_x = 0.0);
 
-    //! calculate the residual
+    //! Calculate the residual
     /*!
      *
      *  (virtual fucntion from Electrode_Integrator)
      *
-     *  @return  1 Means a good calculation that produces a valid result
-     *           0 Bad calculation that means that the current nonlinear iteration should be terminated
+     * @return                                   Returns a value of 1 if everything went well
+     *                                           Returns negative numbers to indicate types of failures
      */
     virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
+    //! Evaluate the residual function for the "Globally Fully Coupled Electrode Object" formulation
+    /*!
+     *
+     * @param t             Time                    (input)
+     * @param delta_t       The current value of the time step (input)
+     * @param y             Solution vector (input, do not modify)
+     * @param ydot          Rate of change of solution vector. (input, do not modify)
+     * @param resid         Value of the residual that is computed (output)
+     * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
+     * @param id_x          Index of the variable that is being numerically differenced to find
+     *                      the jacobian (defaults to -1, which indicates that no variable is being
+     *                      differenced or that the residual doesn't take this issue into account)
+     * @param delta_x       Value of the delta used in the numerical differencing
+     *
+     * @return                                   Returns a value of 1 if everything went well
+     *                                           Returns negative numbers to indicate types of failures
+     */
     virtual int GFCEO_evalResidNJ(const double t, const double delta_t,
                             const double* const y,
                             const double* const ydot,
@@ -737,8 +764,8 @@ public:
      *  @param[out]          resid               Value of the residual
      *  @param[in]           ResidEval_Type_Enum evalType residual type
      *
-     *  @return  1 Means a good calculation that produces a valid result
-     *           0 Bad calculation that means that the current nonlinear iteration should be terminated
+     *  @return                                  1 Means a good calculation that produces a valid result
+     *                                           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
     virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
