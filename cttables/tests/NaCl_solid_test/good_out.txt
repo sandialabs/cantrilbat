@@ -152,7 +152,7 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)" IN PHASE "NaCl(S)"
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.027015 m3/kmol
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.027015 m3/kmol
         StoichSubstance constant density = 2163.33 kg m-3 
-        species Molar Volume = 7.90948E-06 m**3 / kmol <- constant
+        species Molar Volume = 0.027015 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
@@ -229,7 +229,7 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)_nist" IN PHASE "NaCl(S)_nist"
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0269942 m3/kmol
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.0269942 m3/kmol
         StoichSubstance constant density = 2165 kg m-3 
-        species Molar Volume = 7.90339E-06 m**3 / kmol <- constant
+        species Molar Volume = 0.0269942 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity

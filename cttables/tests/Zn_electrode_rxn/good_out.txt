@@ -436,7 +436,7 @@ INFORMATION TABLE FOR SPECIES "Zn(S)" IN PHASE "Zn(S)"
         Partial    Molar Volume at (T,P) of (300,101325) = 0.0241969 m3/kmol
         StandState Molar Volume at (T,P) of (300,101325) = 0.0241969 m3/kmol
         StoichSubstance constant density = 2702 kg m-3 
-        species Molar Volume = 5.66069E-06 m**3 / kmol <- constant
+        species Molar Volume = 0.0241969 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity

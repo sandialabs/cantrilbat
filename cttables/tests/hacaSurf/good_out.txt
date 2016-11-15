@@ -415,7 +415,7 @@ INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
         Partial    Molar Volume at (T,P) of (1400,101325) = 0.00341222 m3/kmol
         StandState Molar Volume at (T,P) of (1400,101325) = 0.00341222 m3/kmol
         StoichSubstance constant density = 3520 kg m-3 
-        species Molar Volume = 2.36526E-05 m**3 / kmol <- constant
+        species Molar Volume = 0.00341222 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity

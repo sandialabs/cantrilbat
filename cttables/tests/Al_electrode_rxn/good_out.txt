@@ -388,7 +388,7 @@ INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
         Partial    Molar Volume at (T,P) of (300,101325) = 0.00998577 m3/kmol
         StandState Molar Volume at (T,P) of (300,101325) = 0.00998577 m3/kmol
         StoichSubstance constant density = 2702 kg m-3 
-        species Molar Volume = 1.37166E-05 m**3 / kmol <- constant
+        species Molar Volume = 0.00998577 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity

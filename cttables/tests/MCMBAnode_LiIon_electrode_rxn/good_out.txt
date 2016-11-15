@@ -84,7 +84,7 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_elect
         Partial    Molar Volume at (T,P) of (700,101325) = 0.545 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0.545 m3/kmol
         StoichSubstance constant density = 0.001 kg m-3 
-        species Molar Volume = 1.83486E+06 m**3 / kmol <- constant
+        species Molar Volume = 0.545 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity

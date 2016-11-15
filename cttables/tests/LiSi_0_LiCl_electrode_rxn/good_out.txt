@@ -85,7 +85,7 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
         Partial    Molar Volume at (T,P) of (700,101325) = 5.45e-09 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 5.45e-09 m3/kmol
         StoichSubstance constant density = 100000 kg m-3 
-        species Molar Volume = 0.0183486 m**3 / kmol <- constant
+        species Molar Volume = 5.45E-09 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
@@ -285,7 +285,7 @@ INFORMATION TABLE FOR SPECIES "Li22Si5(S)" IN PHASE "Li22Si5(S)"
         Partial    Molar Volume at (T,P) of (700,101325) = 0.548932 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0.548932 m3/kmol
         StoichSubstance constant density = 534 kg m-3 
-        species Molar Volume = 6.3885E-06 m**3 / kmol <- constant
+        species Molar Volume = 0.548932 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
@@ -343,7 +343,7 @@ INFORMATION TABLE FOR SPECIES "Li13Si4(S)" IN PHASE "Li13Si4(S)"
         Partial    Molar Volume at (T,P) of (700,101325) = 0.163367 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0.163367 m3/kmol
         StoichSubstance constant density = 1240 kg m-3 
-        species Molar Volume = 3.981E-06 m**3 / kmol <- constant
+        species Molar Volume = 0.163367 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity

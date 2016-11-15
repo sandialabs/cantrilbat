@@ -120,7 +120,7 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.037524 m3/kmol
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.037524 m3/kmol
         StoichSubstance constant density = 1986.76 kg m-3 
-        species Molar Volume = 6.75153E-06 m**3 / kmol <- constant
+        species Molar Volume = 0.037524 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
