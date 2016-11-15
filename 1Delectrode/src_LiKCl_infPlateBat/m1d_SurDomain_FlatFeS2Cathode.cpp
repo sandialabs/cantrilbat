@@ -312,7 +312,7 @@ SurDomain_FlatFeS2Cathode::residEval(Epetra_Vector &res,
   ElectrodeC_->getPhaseMoleFlux(0, &phaseMoleFlux_[0]);
   int sf = ElectrodeC_->solnPhaseIndex();
   double solnMoleFlux = phaseMoleFlux_[sf];
-  int speciesIndex0 = ElectrodeC_->getGlobalSpeciesIndex(sf, 0);
+  int speciesIndex0 = ElectrodeC_->globalSpeciesIndex(sf, 0);
 
   /*
    *  Loop over the equations that the boundary conditions are going to be applied to
@@ -620,7 +620,7 @@ SurDomain_FlatFeS2Cathode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
     int numVar = nv->NumEquations;
     int sf = ElectrodeC_->solnPhaseIndex();
-    int speciesIndex0 = ElectrodeC_->getGlobalSpeciesIndex(sf, 0);
+    int speciesIndex0 = ElectrodeC_->globalSpeciesIndex(sf, 0);
 
     updateDependencies(soln_ptr, t);
 
@@ -758,7 +758,7 @@ SurDomain_FlatFeS2Cathode::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_
 
   int numVar = nv->NumEquations;
   int sf = ElectrodeC_->solnPhaseIndex();
-  int speciesIndex0 = ElectrodeC_->getGlobalSpeciesIndex(sf, 0);
+  size_t speciesIndex0 = ElectrodeC_->globalSpeciesIndex(sf, 0);
 
   updateDependencies(soln_GlAll_ptr, t);
 

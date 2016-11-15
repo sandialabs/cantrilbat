@@ -208,12 +208,9 @@ getKineticsTables(TemperatureTable& TT, PhaseList *pl,
     T = TT[i];
     for (iph = 0; iph < nPhases; iph++) {
       ThermoPhase &gRef = kin.thermo(iph);
-      int kstart = pl->getGlobalSpeciesIndex(&gRef);
-     
+      size_t kstart = pl->globalSpeciesIndex(&gRef);
       gRef.setState_TPX(T, BG.Pressure, BG.XmolPLSpecVec +kstart);
     }
-
-   
 
     kin.getFwdRateConstants(Rarray);
     for (j = 0; j < nReactions; j++) {
@@ -243,7 +240,7 @@ getKineticsTables(TemperatureTable& TT, PhaseList *pl,
     Tdelta = T + deltaT;
     for (iph = 0; iph < nPhases; iph++) {
       ThermoPhase &gRef = kin.thermo(iph);
-      int kstart = pl->getGlobalSpeciesIndex(&gRef);
+      int kstart = pl->globalSpeciesIndex(&gRef);
       
       gRef.setState_TPX(Tdelta, BG.Pressure, BG.XmolPLSpecVec +kstart);
     }
@@ -306,9 +303,8 @@ getKineticsTables(TemperatureTable& TT, PhaseList *pl,
      
   for (iph = 0; iph < nPhases; iph++) {
     ThermoPhase &gRef = kin.thermo(iph);
-    int kstart = pl->getGlobalSpeciesIndex(&gRef);
-    gRef.setState_TPX(BG.Temperature, BG.Pressure,
-		      BG.XmolPLSpecVec + kstart);
+    size_t kstart = pl->globalSpeciesIndex(&gRef);
+    gRef.setState_TPX(BG.Temperature, BG.Pressure, BG.XmolPLSpecVec + kstart);
   }
 
 
@@ -1133,7 +1129,7 @@ void processCurrentVsPotTable(RxnMolChange *rmc,
   //
   for (iph = 0; iph < nPhases; iph++) {
       ThermoPhase &gRef = kin.thermo(iph);
-      int kstart = pl->getGlobalSpeciesIndex(&gRef); 
+      size_t kstart = pl->globalSpeciesIndex(&gRef); 
       gRef.setState_TPX(BG.Temperature, BG.Pressure, BG.XmolPLSpecVec +kstart);
     } 
   tp = &(iK->thermo(iMetal));
@@ -1407,7 +1403,7 @@ getGERKineticsTables(TemperatureTable& TT, PhaseList *pl,
     T = TT[i];
     for (iph = 0; iph < nPhases; iph++) {
       ThermoPhase &gRef = kin.thermo(iph);
-      int kstart = pl->getGlobalSpeciesIndex(&gRef);     
+      int kstart = pl->globalSpeciesIndex(&gRef);     
       gRef.setState_TPX(T, BG.Pressure, BG.XmolPLSpecVec +kstart);
     }
 
@@ -1444,7 +1440,7 @@ getGERKineticsTables(TemperatureTable& TT, PhaseList *pl,
     Tdelta = T + deltaT;
     for (iph = 0; iph < nPhases; iph++) {
       ThermoPhase &gRef = kin.thermo(iph);
-      int kstart = pl->getGlobalSpeciesIndex(&gRef);      
+      int kstart = pl->globalSpeciesIndex(&gRef);      
       gRef.setState_TPX(Tdelta, BG.Pressure, BG.XmolPLSpecVec +kstart);
     }
     if (iKin) {

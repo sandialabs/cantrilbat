@@ -701,18 +701,6 @@ void PhaseList::addEdgePhase(ThermoPhase* const sp, XML_Node* ePhase)
     calcElementMaps(true); 
 }
 //==================================================================================================================================
-// deprecated
-size_t PhaseList::getVolPhaseIndex(const ThermoPhase* const vp) const
-{
-    for (size_t i = 0; i < NumVolPhases_; i++) {
-        const ThermoPhase* const temp = VolPhaseList[i];
-        if (temp == vp) {
-            return i;
-        }
-    }
-    return npos;
-}
-//==================================================================================================================================
 size_t PhaseList::volPhaseIndex(const ThermoPhase* const vp) const
 {
     for (size_t i = 0; i < NumVolPhases_; i++) {
@@ -724,35 +712,11 @@ size_t PhaseList::volPhaseIndex(const ThermoPhase* const vp) const
     return npos;
 }
 //==================================================================================================================================
-// deprecated
-size_t PhaseList::getSurPhaseIndex(const ThermoPhase* const sp) const
-{
-    for (size_t i = 0; i < m_NumSurPhases; i++) {
-        const ThermoPhase* const temp = SurPhaseList[i];
-        if (temp == sp) {
-            return i;
-        }
-    }
-    return npos;
-}
-//==================================================================================================================================
 size_t PhaseList::surPhaseIndex(const ThermoPhase* const sp) const
 {
     for (size_t i = 0; i < m_NumSurPhases; i++) {
         const ThermoPhase* const temp = SurPhaseList[i];
         if (temp == sp) {
-            return i;
-        }
-    }
-    return npos;
-}
-//==================================================================================================================================
-// deprecated
-size_t PhaseList::getEdgePhaseIndex(const ThermoPhase* const ep) const
-{
-    for (size_t i = 0; i < m_NumEdgePhases; i++) {
-        const ThermoPhase* const temp = EdgePhaseList[i];
-        if (temp == ep) {
             return i;
         }
     }
@@ -778,17 +742,6 @@ std::string PhaseList::phaseName(size_t globalPhaseIndex) const
 std::string PhaseList::phaseID(size_t globalPhaseIndex) const
 {
     return thermo(globalPhaseIndex).id();
-}
-//==================================================================================================================================
-// deprecated
-size_t PhaseList::getGlobalPhaseIndex(const ThermoPhase* const tp) const
-{
-    for (size_t i = 0; i < m_NumTotPhases; i++) {
-        if (tp == PhaseList_[i]) {
-            return i;
-        }
-    }
-    return npos;
 }
 //==================================================================================================================================
 size_t PhaseList::globalPhaseIndex(const ThermoPhase* const tp) const
@@ -839,21 +792,6 @@ size_t PhaseList::globalSpeciesIndex(const ThermoPhase* const ttp, size_t k) con
     return globalSpeciesIndex(iphGlob, k);
 }
 //==================================================================================================================================
-size_t PhaseList::getGlobalSpeciesIndex(const ThermoPhase* const ttp, size_t k) const
-{
-    size_t iphGlob;
-#ifdef DEBUG_MODE
-    iphGlob = globalPhaseIndex(ttp);
-    if (iphGlob == npos) {
-        return npos;
-    }
-#else
-    if ((iphGlob = globalPhaseIndex(ttp)) == npos) return npos;
-#endif
-    return globalSpeciesIndex(iphGlob, k);
-}
-
-//==================================================================================================================================
 size_t PhaseList::globalSpeciesIndex(const std::string& speciesName, const std::string pName) const
 {
     size_t iphGlob;
@@ -890,18 +828,6 @@ size_t PhaseList::globalSpeciesIndex(const std::string& speciesName, const std::
     return npos;
 }
 //==================================================================================================================================
-// deprecated
-size_t PhaseList::getGlobalSpeciesIndex(size_t iphGlob, size_t k) const
-{
-#ifdef DEBUG_MODE
-    AssertTrace(iphGlob < m_NumTotPhases);
-    size_t istart = m_PhaseSpeciesStartIndex[iphGlob];
-    return (istart + k);
-#else
-    return (m_PhaseSpeciesStartIndex[iphGlob] + k);
-#endif
-}
-//==================================================================================================================================
 size_t PhaseList::globalSpeciesIndex(size_t iphGlob, size_t k) const
 {
 #ifdef DEBUG_MODE
@@ -913,27 +839,6 @@ size_t PhaseList::globalSpeciesIndex(size_t iphGlob, size_t k) const
     return (m_PhaseSpeciesStartIndex[iphGlob] + k);
 #endif
 }
-//==================================================================================================================================
-// deprecated
-/*
-size_t PhaseList::getGlobalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) const
-{
-#ifdef DEBUG_MODE
-    if ( ! m_OrderedByDimensionality) {
-      throw CanteraError("not done", "not done yet");
-    }
-    AssertTrace(iphVol != npos);
-    AssertTrace(k != npos);
-    AssertTrace(iphVol < NumVolPhases_);
-    const ThermoPhase* const tp = VolPhaseList[iphVol];
-    AssertTrace(k < tp->nSpecies());
-    size_t istart = m_PhaseSpeciesStartIndex[iphVol];
-    return (istart + k);
-#else
-    return ( m_PhaseSpeciesStartIndex[iphVol] + k);
-#endif
-}
-*/
 //==================================================================================================================================
 size_t PhaseList::globalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) const
 {
@@ -953,27 +858,6 @@ size_t PhaseList::globalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k) const
 #endif
 }
 //==================================================================================================================================
-// deprecated
-/*
-size_t PhaseList::getGlobalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) const
-{
-#ifdef DEBUG_MODE
-    if ( ! m_OrderedByDimensionality) {
-      throw CanteraError("not done", "not done yet");
-    }
-    AssertTrace(iphSur != npos);
-    AssertTrace(k != npos);
-    AssertTrace(iphSur < m_NumSurPhases);
-    const ThermoPhase* const tp = SurPhaseList[iphSur];
-    AssertTrace(k < tp->nSpecies());
-    size_t phaseIndex = NumVolPhases_ + iphSur;
-    return ( m_PhaseSpeciesStartIndex[phaseIndex] + k);
-#else
-    return ( m_PhaseSpeciesStartIndex[NumVolPhases_ + iphSur] + k);
-#endif
-}
-*/
-//==================================================================================================================================
 size_t PhaseList::globalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) const
 {
 #ifdef DEBUG_MODE
@@ -991,25 +875,6 @@ size_t PhaseList::globalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k) const
     return ( m_PhaseSpeciesStartIndex[NumVolPhases_ + iphSur] + k);
 #endif
 }
-//==================================================================================================================================
-// deprecated
-/*
-size_t PhaseList::getPhaseIndexFromGlobalSpeciesIndex(size_t kGlob) const
-{
-#ifdef DEBUG_MODE
-    AssertTrace(kGlob != npos);
-    if (kGlob >= m_PhaseSpeciesStartIndex[m_NumTotPhases]) {
-        throw CanteraError("PhaseList::getPhaseIndexFromGlobalSpeciesIndex ", "indexing error");
-    }
-#endif
-    for (size_t iphGlob = 0; iphGlob < m_NumTotPhases; iphGlob++) {
-        if (kGlob < m_PhaseSpeciesStartIndex[iphGlob + 1]) {
-            return iphGlob;
-        }
-    }
-    return npos;
-}
-*/
 //==================================================================================================================================
 size_t PhaseList::phaseIndexFromGlobalSpeciesIndex(size_t kGlob) const
 {

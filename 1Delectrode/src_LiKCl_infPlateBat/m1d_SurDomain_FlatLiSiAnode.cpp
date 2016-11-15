@@ -307,7 +307,7 @@ SurDomain_FlatLiSiAnode::residEval(Epetra_Vector &res,
   ElectrodeA_->getPhaseMoleFlux(0, &phaseMoleFlux_[0]);
   int sf = ElectrodeA_->solnPhaseIndex();
   double solnMoleFlux = phaseMoleFlux_[sf];
-  int speciesIndex0 = ElectrodeA_->getGlobalSpeciesIndex(sf, 0);
+  int speciesIndex0 = ElectrodeA_->globalSpeciesIndex(sf, 0);
 
   /*
    *  Loop over the equations that the boundary conditions are going to be applied to
@@ -600,7 +600,7 @@ SurDomain_FlatLiSiAnode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   int numVar = nv->NumEquations;
 
   int sf = ElectrodeA_->solnPhaseIndex();
-  int speciesIndex0 = ElectrodeA_->getGlobalSpeciesIndex(sf, 0);
+  int speciesIndex0 = ElectrodeA_->globalSpeciesIndex(sf, 0);
   updateDependencies(soln_ptr, t);
   /*
    * Calculate the rates of production of all species in the Electrode
@@ -742,7 +742,7 @@ SurDomain_FlatLiSiAnode::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_pt
 
   int numVar = nv->NumEquations;
   int sf = ElectrodeA_->solnPhaseIndex();
-  int speciesIndex0 = ElectrodeA_->getGlobalSpeciesIndex(sf, 0);
+  int speciesIndex0 = ElectrodeA_->globalSpeciesIndex(sf, 0);
 
   updateDependencies(soln_GlAll_ptr, t);
 

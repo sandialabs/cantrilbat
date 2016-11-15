@@ -122,6 +122,7 @@ rebaseline:
 #
 $(OBJ_ALL): Makefile
 $(DEPENDS): Makefile
+$(DEPENDS):  MCMBThermo.cpp MCMB.cpp
 
 MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
             $(CANTERA_CORE_LIBS_DEP)
@@ -130,7 +131,7 @@ MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP)
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-MCMB: MCMB.o
+MCMB: MCMB.o $(CANTERA_CORE_LIBS_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o MCMB MCMB.o \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 

@@ -714,7 +714,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     for (size_t ph = 0; ph < NumVolPhases_; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
-        size_t iph = getGlobalPhaseIndex(tp);
+        size_t iph = globalPhaseIndex(tp);
         if (static_cast<int>(iph) == metalPhaseIndex() || static_cast<int>(iph) == solnPhaseIndex()) {
             //do nothing
         } else {

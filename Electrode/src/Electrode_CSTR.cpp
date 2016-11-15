@@ -300,7 +300,7 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     numSpecInSolidPhases_.clear();
     for (size_t ph = 0; ph < NumVolPhases_; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
-        int iph = getGlobalPhaseIndex(tp);
+        int iph = globalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
             //do nothing
         } else {

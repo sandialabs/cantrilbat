@@ -75,7 +75,7 @@ setAllBathSpeciesConditions(Electrode *electrode) {
  
     ThermoPhase *tphase = &(electrode->thermo(iph));
 
-    size_t kstart =  electrode->getGlobalSpeciesIndex(iph,0);
+    size_t kstart =  electrode->globalSpeciesIndex(iph,0);
     double *xmol = &(electrodeMF[kstart]);
   /*
    * We need to set the state here. Note, mass fractions
@@ -236,7 +236,7 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
 	exit(-1);
       }
 
-      int kstart =  electrode->getGlobalSpeciesIndex(iphKin,0);
+      int kstart =  electrode->globalSpeciesIndex(iphKin,0);
       gRef.setState_TPX(T, electrode->pressure(), &electrodeMF[kstart]);
     }
 
@@ -270,7 +270,7 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
     Tdelta = T + deltaT;
     for (iphKin = 0; iphKin < nPhases; iphKin++) {
       ThermoPhase &gRef = kin.thermo(iphKin);
-      int kstart =  electrode->getGlobalSpeciesIndex(iphKin,0);
+      int kstart =  electrode->globalSpeciesIndex(iphKin,0);
       gRef.setState_TPX(Tdelta, electrode->pressure(), &electrodeMF[kstart]);
     }
 
@@ -332,7 +332,7 @@ getKineticsTables(TemperatureTable& TT, Electrode *electrode,
      
   for (iphKin = 0; iphKin < nPhases; iphKin++) {
     ThermoPhase &gRef = kin.thermo(iphKin);
-    int kstart =  electrode->getGlobalSpeciesIndex(iphKin,0);
+    int kstart =  electrode->globalSpeciesIndex(iphKin,0);
     gRef.setState_TPX(Tdelta, electrode->pressure(), &electrodeMF[kstart]);
     
   
@@ -683,7 +683,7 @@ void printKineticsTable(Electrode *electrode, int j,
       printf("Electron_Transfer Base_Potential |");
     }
     printf("\n");
-    for (int iph = 0; iph < rmc->m_nPhases; iph++) {
+    for (size_t iph = 0; iph < rmc->m_nPhases; iph++) {
       ThermoPhase &tpRef = kin.thermo(iph);
       string sname = tpRef.name();
       dnt(2);
@@ -1257,7 +1257,7 @@ getGERKineticsTables(TemperatureTable& TT, Electrode *electrode,
     electrode->getMoleFractions(electrodeMF);
     for (iphKin = 0; iphKin < nPhases; iphKin++) {
       ThermoPhase &gRef = kin.thermo(iphKin);
-      int kstart =  electrode->getGlobalSpeciesIndex(iphKin,0);
+      int kstart =  electrode->globalSpeciesIndex(iphKin,0);
       gRef.setState_TPX(T, electrode->pressure(), &(electrodeMF[kstart]));
     }
 
@@ -1297,7 +1297,7 @@ getGERKineticsTables(TemperatureTable& TT, Electrode *electrode,
     electrode->getMoleFractions(electrodeMF);
     for (iphKin = 0; iphKin < nPhases; iphKin++) {
       ThermoPhase &gRef = kin.thermo(iphKin);
-      int kstart =  electrode->getGlobalSpeciesIndex(iphKin,0);
+      int kstart =  electrode->globalSpeciesIndex(iphKin,0);
       gRef.setState_TPX(T, electrode->pressure(), &electrodeMF[kstart]);
     }
 
@@ -1528,7 +1528,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
     printf("Electron_Transfer Base_Potential |");
   }
   printf("\n");
-  for (int iph = 0; iph < rmc->m_nPhases; iph++) {
+  for (size_t iph = 0; iph < rmc->m_nPhases; iph++) {
     ThermoPhase &tpRef = kin.thermo(iph);
     string sname = tpRef.name();
     dnt(2);

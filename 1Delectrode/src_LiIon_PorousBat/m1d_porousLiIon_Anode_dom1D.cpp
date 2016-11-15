@@ -830,7 +830,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
      *   Find the species index for the first species in the electrode object pertaining to the electrolyte
      */
     int sf = Electrode_Cell_[0]->solnPhaseIndex();
-    int indexStartEOelectrolyte = Electrode_Cell_[0]->getGlobalSpeciesIndex(sf, 0);
+    int indexStartEOelectrolyte = Electrode_Cell_[0]->globalSpeciesIndex(sf, 0);
 
     /*
      * offset of the electolyte solution unknowns at the current node
@@ -2372,7 +2372,7 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
      *   Find the species index for the first species in the electrode object pertaining to the electrolyte
      */
     int sf = Electrode_Cell_[0]->solnPhaseIndex();
-    int indexStartEOelectrolyte = Electrode_Cell_[0]->getGlobalSpeciesIndex(sf, 0);
+    int indexStartEOelectrolyte = Electrode_Cell_[0]->globalSpeciesIndex(sf, 0);
 
     for (int itimes = 0; itimes < doTimes; itimes++) {
 	if (doPrint) {
@@ -3290,12 +3290,12 @@ porousLiIon_Anode_dom1D::writeSolutionTecplotHeader()
         // print mole numbers of active materials
         for (int vph = 0; vph < numVolPhasesE; vph++) {
             ThermoPhase* tp = &(ee0->volPhase(vph));
-            int iph = ee0->getGlobalPhaseIndex(tp);
+            int iph = ee0->globalPhaseIndex(tp);
             if (iph == metalPhase || iph == solnPhase) {
 
             } else {
                 int nspPhase = tp->nSpecies();
-                int kStart =  ee0->getGlobalSpeciesIndex(iph, 0);
+                int kStart = ee0->globalSpeciesIndex(iph, 0);
                 for (int k = 0; k < nspPhase; k++) {
                     string sss = ee0->speciesName(kStart + k);
                     fprintf(ofp, "\"MoleDens %s [kmol/m^3]\" \n", sss.c_str());
@@ -3633,12 +3633,12 @@ porousLiIon_Anode_dom1D::writeSolutionTecplot(const Epetra_Vector* soln_GlAll_pt
 	size_t numVolPhasesE =  ee->nVolPhases();
 	for (size_t vph = 0; vph < numVolPhasesE; vph++) {
 	    ThermoPhase* tp = &(ee->volPhase(vph));
-	    int iph = ee->getGlobalPhaseIndex(tp);
+	    int iph = ee->globalPhaseIndex(tp);
 	    if (iph == metalPhase || iph == solnPhase) {
 		
 	    } else {
 		int nspPhase = tp->nSpecies();
-		int kStart = ee->getGlobalSpeciesIndex(iph, 0);
+		int kStart = ee->globalSpeciesIndex(iph, 0);
 		for (size_t k = 0; k < (size_t) nspPhase; k++) {
 		    for (size_t iCell = 0; iCell < (size_t) NumLcCells;  ++iCell) {
                         if (spmoles_Cell.size() -1 < nSpeciesElectrode_*iCell + kStart + k) {
@@ -4090,12 +4090,12 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 
         for (int vph = 0; vph < numVolPhasesE; vph++) {
             ThermoPhase* tp = &(ee0->volPhase(vph));
-            int iph = ee0->getGlobalPhaseIndex(tp);
+            int iph = ee0->globalPhaseIndex(tp);
             if (iph == metalPhase || iph == solnPhase) {
 
             } else {
                 int nspPhase = tp->nSpecies();
-                int kStart =  ee0->getGlobalSpeciesIndex(iph, 0);
+                int kStart = ee0->globalSpeciesIndex(iph, 0);
                 for (int k = 0; k < nspPhase; k++) {
                     string sss = ee0->speciesName(kStart + k);
                     ss.print0("%-15.15s ", sss.c_str());
@@ -4116,12 +4116,12 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             ee->getMoleNumSpecies(DATA_PTR(spmoles));
             for (int vph = 0; vph < numVolPhasesE; vph++) {
                 ThermoPhase* tp = &(ee->volPhase(vph));
-                int iph = ee->getGlobalPhaseIndex(tp);
+                int iph = ee->globalPhaseIndex(tp);
                 if (iph == metalPhase || iph == solnPhase) {
 
                 } else {
                     int nspPhase = tp->nSpecies();
-                    int kStart =  ee->getGlobalSpeciesIndex(iph, 0);
+                    int kStart = ee->globalSpeciesIndex(iph, 0);
                     for (int k = 0; k < nspPhase; k++) {
                         ss.print0("% -15.6E ", spmoles[kStart + k] / crossSectionalArea_);
                     }

@@ -574,7 +574,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
    *   Find the species index for the first species in the electrode object pertaining to the electrolyte
    */
   int sf = Electrode_->solnPhaseIndex();
-  int speciesIndex0 = Electrode_->getGlobalSpeciesIndex(sf, 0);
+  int speciesIndex0 = Electrode_->globalSpeciesIndex(sf, 0);
 
   /*
    * offset of the electolyte solution unknowns at the current node

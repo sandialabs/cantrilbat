@@ -656,7 +656,7 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
      *   Find the species index for the first species in the electrode object pertaining to the electrolyte
      */
     int sf = Electrode_Cell_[0]->solnPhaseIndex();
-    int speciesIndexLip = Electrode_Cell_[0]->getGlobalSpeciesIndex(sf, 0);
+    int speciesIndexLip = Electrode_Cell_[0]->globalSpeciesIndex(sf, 0);
 
     /*
      * offset of the electolyte solution unknowns at the current node
@@ -1988,12 +1988,12 @@ porousLiKCl_LiSiAnode_dom1D::writeSolutionTecplotHeader()
     // print mole numbers of active materials
     for (int vph = 0; vph < numVolPhasesE; vph++) {
       ThermoPhase *tp = &(ee0->volPhase(vph));
-      int iph = ee0->getGlobalPhaseIndex(tp);
+      int iph = ee0->globalPhaseIndex(tp);
       if (iph == metalPhase || iph == solnPhase) {
 	
       } else {
 	int nspPhase = tp->nSpecies();
-	int kStart =  ee0->getGlobalSpeciesIndex(iph, 0);
+	int kStart = ee0->globalSpeciesIndex(iph, 0);
 	for (int k = 0; k < nspPhase; k++) {
 	  string sss = ee0->speciesName(kStart + k);
 	  fprintf(ofp, "\"Moles %s [mol/m^2] (per electrode area)\" \t", sss.c_str() );
@@ -2123,12 +2123,12 @@ porousLiKCl_LiSiAnode_dom1D::writeSolutionTecplot(const Epetra_Vector *soln_GlAl
       ee->getMoleNumSpecies(DATA_PTR(spmoles));
       for (int vph = 0; vph < numVolPhasesE; vph++) {
 	ThermoPhase *tp = &(ee->volPhase(vph));
-	int iph = ee->getGlobalPhaseIndex(tp);
+	int iph = ee->globalPhaseIndex(tp);
 	if (iph == metalPhase || iph == solnPhase) {
 	  
 	} else {
 	  int nspPhase = tp->nSpecies();
-	  int kStart =  ee->getGlobalSpeciesIndex(iph, 0);
+	  int kStart = ee->globalSpeciesIndex(iph, 0);
 	  for (int k = 0; k < nspPhase; k++) {
 	    fprintf(ofp, "%g \t", spmoles[kStart + k] / electrodeCrossSectionalArea_);
 	  }
@@ -2452,12 +2452,12 @@ porousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 
     for (int vph = 0; vph < numVolPhasesE; vph++) {
       ThermoPhase *tp = &(ee0->volPhase(vph));
-      int iph = ee0->getGlobalPhaseIndex(tp);
+      int iph = ee0->globalPhaseIndex(tp);
       if (iph == metalPhase || iph == solnPhase) {
 	
       } else {
 	int nspPhase = tp->nSpecies();
-	int kStart =  ee0->getGlobalSpeciesIndex(iph, 0);
+	int kStart =  ee0->globalSpeciesIndex(iph, 0);
 	for (int k = 0; k < nspPhase; k++) {
 	  string sss = ee0->speciesName(kStart + k);
 	  ss.print0("%-15.15s ", sss.c_str());
@@ -2478,12 +2478,12 @@ porousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
       ee->getMoleNumSpecies(DATA_PTR(spmoles));
       for (int vph = 0; vph < numVolPhasesE; vph++) {
 	ThermoPhase *tp = &(ee->volPhase(vph));
-	int iph = ee->getGlobalPhaseIndex(tp);
+	int iph = ee->globalPhaseIndex(tp);
 	if (iph == metalPhase || iph == solnPhase) {
 
 	} else {
 	  int nspPhase = tp->nSpecies();
-	  int kStart =  ee->getGlobalSpeciesIndex(iph, 0);
+	  int kStart = ee->globalSpeciesIndex(iph, 0);
 	  for (int k = 0; k < nspPhase; k++) {
 	    ss.print0("% -15.6E ", spmoles[kStart + k] / electrodeCrossSectionalArea_);
 	  }

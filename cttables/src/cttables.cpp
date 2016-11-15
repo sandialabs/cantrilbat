@@ -1264,7 +1264,7 @@ setBathSpeciesConditions(ThermoPhase& g, PhaseList *pl, int printLvl) {
 
   //int nsp = g.nSpecies();
 
-  int iph = pl->getGlobalPhaseIndex(&g);
+  int iph = pl->globalPhaseIndex(&g);
   if (iph < 0) {
     throw CanteraError(" ", "phase not found");
   }
@@ -1311,7 +1311,7 @@ printBathSpeciesConditions(ThermoPhase& g, PhaseList *pl, int printLvl) {
 
   int nsp = g.nSpecies();
 
-  int iph = pl->getGlobalPhaseIndex(&g);
+  int iph = pl->globalPhaseIndex(&g);
   if (iph < 0) {
     throw CanteraError(" ", "phase not found");
   }
@@ -1688,7 +1688,7 @@ int main(int argc, char** argv) {
       gThermoMainPhase->realNumberRangeBehavior_ = DONOTHING_CTRB;
       //gThermoMainPhase->realNumberRangeBehavior_ = CHANGE_OVERFLOW_CTRB;
       //gThermoMainPhase->realNumberRangeBehavior_ = THROWON_OVERFLOW_CTRB;
-      int iph = pl->getGlobalPhaseIndex(gThermoMainPhase);
+      int iph = pl->globalPhaseIndex(gThermoMainPhase);
 
       int nSpecies = gThermoMainPhase->nSpecies();
       string phaseBath = "Bath Specification for Phase ";
