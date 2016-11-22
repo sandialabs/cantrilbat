@@ -166,7 +166,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     Pressure(ZZCantera::OneAtm),
     Vol(1.0),
     m_BG(0),
-    MoleNumber(0),
     MoleFraction(0),
     PotentialPLPhases(0),
     PhaseInclude(0),
@@ -217,7 +216,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     Pressure(OneAtm),
     Vol(1.0),
     m_BG(0),
-    MoleNumber(0),
     MoleFraction(0),
     PotentialPLPhases(0),
     PhaseInclude(0),
@@ -322,8 +320,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
 
      //---
    
-     mdpUtil::mdp_realloc_dbl_1(&MoleNumber, nTotSpecies, 0, 0.0);
-     mdpUtil::mdp_copy_dbl_1(MoleNumber, right.MoleNumber, nTotSpecies);
+     MoleNumber = right.MoleNumber;
 
      mdpUtil::mdp_realloc_dbl_1(&MoleFraction, nTotSpecies, 0, 0.0);
      mdpUtil::mdp_copy_dbl_1(MoleFraction, right.MoleFraction, nTotSpecies);
@@ -468,7 +465,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
     m_BG=0;
 
     delete [] PhaseInclude;
-    delete [] MoleNumber;
     delete [] MoleFraction;
     delete [] PotentialPLPhases;
     free(SpeciesNames);
@@ -529,8 +525,9 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
      */
     PhaseInclude = new int[nTotPhases];
     std::fill(PhaseInclude, PhaseInclude+nTotPhases, 1);
-    MoleNumber = new double[nTotSpecies];
-    std::fill(MoleNumber, MoleNumber+nTotSpecies, 0.0);
+
+    MoleNumber.resize(nTotSpecies, 0.0);
+
     MoleFraction = new double[nTotSpecies];
     std::fill(MoleFraction, MoleFraction+nTotSpecies, 0.0);
     PotentialPLPhases = new double[nTotPhases];
@@ -1257,12 +1254,10 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     /* ------------------------------------------------------------------
      * Block Input For initial number of moles of species
-     *
+     * -> optional block where not all entries must be specified in that block
+     * -> Each entry must match an entry in SpeciesNames of which there are nTotSpecies.
      */
-    BlockEntry* BESIM =
-        new BE_StrDbl("Species Initial KMoles", &MoleNumber,
-                      0, 0, SpeciesNames, nTotSpecies, 1,
-                      "MoleNumber");
+    BlockEntry* BESIM = new BE_StrVecDbl("Species Initial KMoles", &MoleNumber, 0, 0, SpeciesNames, nTotSpecies, 1, "MoleNumber");
     cf->addSubBlock(BESIM);
 
     /* ------------------------------------------------------------------

@@ -52,30 +52,38 @@ class Electrode;
 class ElectrodeBath
 {
 public:
+
     //! species mole fractions in one phase
     double* XmolPLSpecVec;
+
     //! species mole fractions in each phase of phase list
     double** XmolPLPhases;
+
     //! species molalities in one phase
     double* MolalitiesPLSpecVec;
+
     //! species molalities in each phase of phase list
     double** MolalitiesPLPhases;
 
     //! Capacity Left coefficients in each phase of the phase list
     double** CapLeftCoeffPhases;
+
     //! Capacity Left coefficients in one phase
     double* CapLeftCoeffSpecVec;
 
     //! Capacity  coefficients in each phase of the phase list
     double** CapZeroDoDCoeffPhases;
+
     //! Capacity Left coefficients in one phase
     double* CapZeroDoDCoeffSpecVec;
 
     //! total moles of given phase
     std::vector<double> PhaseMoles;
+
     //! total mass of given phase
     std::vector<double> PhaseMass;
 
+    //! Default constructor
     ElectrodeBath();
 
     //! Copy Constructor
@@ -86,10 +94,12 @@ public:
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
+     *  @return                                  Returns a reference to the current object
      */
     ElectrodeBath& operator=(const ElectrodeBath& right);
 
+    //! Destructor
     ~ElectrodeBath();
 };
 //===================================================================================================================================
@@ -387,20 +397,25 @@ public:
     //! Electrode Bath Gas Structure
     ElectrodeBath* m_BG;
 
+    //! Vector of mole numbers of the species
+    std::vector<double> MoleNumber;
+    //double* MoleNumber;
 
-    double* MoleNumber;
     double* MoleFraction;
     double* PotentialPLPhases;
     int*    PhaseInclude;
-    int    ProblemType;
+
+    //! Problem type
+    int ProblemType;
 
     //! Vector of species names
     /*!
      *  c string format
-     *  length nTotSpecies
+     *  length: nTotSpecies
      */
     char** SpeciesNames;
 
+    //! Names of the phases
     char** PhaseNames;
 
     //!  Names of the elements
@@ -537,6 +552,11 @@ public:
 };
 //===================================================================================================================================
 
+//! Utility class to store the reaction index and reaction multiplier for an entry in formulating a global reaction
+/*!
+ *  global reactions are made up of a linear combination of local reactions. Here we specify the contribution from
+ *  one elementary reaction.
+ */
 class ERSSpec
 {
 public:
@@ -552,13 +572,24 @@ public:
         m_reactionMultiplier(0.0) {
     }
 
+    //! Default destructor
     ~ERSSpec() {
     }
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               Object to be copied
+     */
     ERSSpec(const ERSSpec& right) {
         m_reactionIndex      = right.m_reactionIndex;
         m_reactionMultiplier = right.m_reactionMultiplier;
     }
+
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *  @return                                  Returns a reference to the current object
+     */
     ERSSpec& operator=(const ERSSpec& right) {
         if (&right == this) {
             return *this;
