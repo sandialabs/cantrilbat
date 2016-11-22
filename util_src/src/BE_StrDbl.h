@@ -25,15 +25,11 @@ namespace BEInput
 {
 
 
-//!  BlockEntry of a vector of related double values into a common
-//!  vector of doubles
+//!  BlockEntry of a vector of related double values into a common  vector of doubles
 /*!
- *   This sets up the <b>BlockEntry</b> special case for the entry of
- *    multiple
- *   double inputs into a common vector.  It declares interfaces
- *   for specifying the
- *   entry and for processing the entry once a match is
- *   made in the input deck. The general form of the input is
+ *   This sets up the <b>BlockEntry</b> special case for the entry of  multiple
+ *   double inputs into a common vector.  It declares interfaces for specifying the
+ *   entry and for processing the entry once a match is  made in the input deck. The general form of the input is
  *
  *   \f[
  *    \begin{array}[t]{l}
@@ -114,10 +110,8 @@ namespace BEInput
  *      int subReqd = 1;
  *      int listLength = 3;
  *      char *charList[3] = {"H2O(l)", "K+", "Cl-"};
- *      BE_StrDbl *d2 = new BE_StrDbl("Molar Volume",
- *                                     &gI.molarVolume, reqd, subReqd,
- *                                     charList, listLength, true,
- *                                     "molarVolume", besmd);
+ *      BE_StrDbl *d2 = new BE_StrDbl("Molar Volume", &gI.molarVolume, reqd, subReqd,
+ *                                     charList, listLength, true, "molarVolume", besmd);
  *      d2->set_default(0.01);
  *      d2->set_limits(10., 1.0E-9);
  * @endcode
@@ -246,10 +240,8 @@ public:
      * @param parentBlock_input Pointer to the parent block. Set to
      *                 zero if this is no parent block
      */
-    BE_StrDbl(const char* blockName, double** hndlAddr,
-              int numTimesRequired, int numSubLERequired,
-              char** charList, int listLength, int constructLE,
-              const char* varName,
+    BE_StrDbl(const char* blockName, double** hndlAddr, int numTimesRequired, int numSubLERequired,
+              char** charList, int listLength, int constructLE, const char* varName,
               BlockEntry* parentBlock_input = 0);
 
     //! Copy constructor

@@ -20,8 +20,7 @@ namespace BEInput
 {
 
 //==================================================================================================================================
-//!  %BlockEntry of a vector of related std::vector<double> values into a common
-//!  vector of vector<double>
+//!  %BlockEntry of a vector of related std::vector<double> values into a common  vector of vector<double>
 /*!
  *   This sets up the <b>BlockEntry</b> special case for the entry of
  *    multiple double inputs into a common vector.  It declares interfaces
@@ -107,10 +106,8 @@ namespace BEInput
  *      int subReqd = 1;
  *      int listLength = 3;
  *      char *charList[3] = {"H2O(l)", "K+", "Cl-"};
- *      BE_StrVecDbl *d2 = new BE_StrVecDbl("Molar Volume",
- *                                     &gI.molarVolume, reqd, subReqd,
- *                                     charList, listLength, true,
- *                                     "molarVolume", besmd);
+ *      BE_StrVecDbl *d2 = new BE_StrVecDbl("Molar Volume",  &gI.molarVolume, reqd, subReqd,
+ *                                          charList, listLength, true, "molarVolume", besmd);
  *      d2->set_default(0.01);
  *      d2->set_limits(10., 1.0E-9);
  * @endcode
@@ -218,36 +215,32 @@ public:
      * The double value at address, addrVal, is assigned the value
      * read in from the input file.
      *
-     * @param blockName   C character string setting up the name
-     *                  of the block to match
-     * @param ptrVecDbl Address of the std::vector of doubles, external to the
-     *                  object, which will get assigned the value of
-     *                  the expressions. (default 0)
-     * @param numTimesRequired Number of Required blocks in the input file.
-     *                  A fault is triggered if this number is nonzero
-     *                  and the BlockName isn't found in the input file.
-     * @param numSubLERequired Number of times each sub LineEntry
-     *                  generated within the block is required.
-     *                  0 or 1 allowed.
-     * @param charList  Vector of C strings containing the character
-     *                  strings to match
-     * @param listLength Length of the charList vector.
-     * @param constructLE Boolean indicating whether to construct the
-     *                  Individual Line entry commands (this must be true)
-     * @param varName   Variable name that is defined by this command.
-     *                  This is only used for IO purposes.
-     * @param parentBlock_input Pointer to the parent block. Set to
-     *                 zero if this is no parent block
+     * @param[in]            blockName           C character string setting up the name of the block to match
+     * @param[in]            ptrVecDbl           Address of the std::vector of doubles, external to the
+     *                                           object, which will get assigned the value of
+     *                                           the expressions. Defaults to  0, in which case the values
+     *                                           are storred solely within the Block structure and must be retrieved
+     *                                           from there one read in))
+     * @param[in]            numTimesRequired    Number of Required blocks in the input file.
+     *                                           A fault is triggered if this number is nonzero
+     *                                           and the BlockName isn't found in the input file.
+     * @param[in]            numSubLERequired    Number of times each sub LineEntry
+     *                                           generated within the block is required. 0 or 1 allowed.
+     * @param[in]            charList            Vector of C strings containing the character strings to match
+     * @param[in]            listLength          Length of the charList vector.
+     * @param[in]            constructLE         Boolean indicating whether to construct the
+     *                                           individual Line entry commands (this must be true)
+     * @param[in]            varName             Variable name that is defined by this command. This is only used for IO purposes.
+     * @param[in]            parentBlock_input   Pointer to the parent block. Set to zero if this is not a parent block
      */
     BE_StrVecDbl(const char* blockName, std::vector<double>* ptrVecDbl,
                  int numTimesRequired, int numSubLERequired,
                  char** charList, int listLength, int constructLE,
-                 const char* varName,
-                 BlockEntry* parentBlock_input = 0);
+                 const char* varName, BlockEntry* parentBlock_input = 0);
 
     //! Copy constructor
     /*!
-     * @param right Object to be copied
+     * @param[in]            right               Object to be copied
      */
     BE_StrVecDbl(const BE_StrVecDbl& right);
 
@@ -270,36 +263,32 @@ public:
     //! Destructor
     ~BE_StrVecDbl();
 
-    //! Virtual function called at the start of internally processing
-    //! the block
+    //! Virtual function called at the start of internally processing the block when it is 
+    //! encountered within the input deck
     /*!
      *  This function may be used to start the process of setting up
-     *  internal data functions when the block is first called.
-     *  This is also where the current block processes the
-     *  arguments specified on the START BLOCK line.
+     *  internal data functions when the block is first called within the input deck
+     *  This is also where the current block processes the arguments specified on the START BLOCK line.
      *
      *  The default behavior is listed below.
      *
      *   -  An Error exit will occur if
-     *      a blockARgTok string is actually supplied.
+     *      a blockArgTok string is actually supplied.
      *
      *   -  We increment the NumProcessedBlocks counter, which
-     *      keeps track of the number of times this particular object has
-     *      been called for parent block.
+     *      keeps track of the number of times this particular object has been called for parent block.
      *
      *   -  A dependency check is made to make sure that the
      *      required dependencies for this block have been satisfied.
      *
-     * Derived classes may override the default behavior. Usually
-     * derived classes will call the base class Initialization function
-     * and perhaps do some other processing.
+     *  Derived classes may override the default behavior. Usually
+     *  derived classes will call the base class Initialization function and perhaps do some other processing.
+     *  Here, we set the default value of the vector both in the Handle to the external vector and in the vector within this object.
      *
-     *  @param ifp_input  File pointer to read additional keylines
-     *                    in the recursive calls to read_block
-     *                    Default = stdin
+     *  @param[in]           ifp_input           File pointer to read additional keylines in the recursive calls to read_block
+     *                                           Default = stdin
      *
-     *  @param blockArgPtr pointer to the TOKEN structure representing
-     *                     the argument list for the START BLOCK
+     *  @param[in]           blockArgPtr         pointer to the TOKEN structure representing the argument list for the START BLOCK
      */
     void Initialization(FILE* ifp_input, const TK_TOKEN* blockArgPtr);
 
@@ -356,17 +345,18 @@ public:
 
     //! Return the current value as a const pointer to void
     /*!
-     *  The calling function must know how to interpret the
-     *  pointer to void. This is not very far fetched, since
+     *  The calling function must know how to interpret the pointer to void. This is not very far fetched, since
      *  it should know that the value must be a boolean.
      *
-     *  @return Returns a pointer to current std::vector of doubles as a pointer to void.
+     *  @return                                  Returns a pointer to current std::vector of doubles as a pointer to void.
      */
     virtual const void* currentValueAsVoidP() const;
 
-    //! Set the default value of this card
+    //! Set the default value of the entries in the vector
     /*!
-     * @param defValue Boolean value that will be the default.
+     *  If this is not explicitly called, the default entry for the vector is set at 0.0.
+     *
+     * @param[in]            defValue            Boolean value that will be the default.
      */
     virtual void set_default(double defValue);
 
@@ -459,8 +449,7 @@ protected:
     int defaultLE_made;
 
     //! Vector of the current values
-    //double *m_currentVecValues;
-    std::vector<double>* currentVecValues_;
+    std::vector<double> currentVecValues_;
 
 };
 }
