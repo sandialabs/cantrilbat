@@ -178,6 +178,7 @@ end block Bath specification for Phase airNASA9
 #include "LE_OneDbl.h"
 #include "LE_OneDblUnits.h"
 #include "LE_OneInt.h"
+#include "LE_OneSizet.h"
 #include "LE_OneStr.h"
 #include "LE_PickList.h"
 #include "LE_StrListDbl.h"

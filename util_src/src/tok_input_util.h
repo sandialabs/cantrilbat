@@ -118,7 +118,7 @@ public:
 };
 //==================================================================================================================================
 //!  Special int value that denotes that there is no default value that can be supplied
-#define NO_DEFAULT_INT     -68361
+#define NO_DEFAULT_INT     68361
 
 //!  Special int value that denotes that there is no default boolean that can be supplied
 #define NO_DEFAULT_BOOLEAN NO_DEFAULT_INT

@@ -32,7 +32,7 @@ static std::string integerToStr(int n)
     char buf[30];
     (void) sprintf(buf, "%d", n);
     return std::string(buf);
-};
+}
 //==================================================================================================================================
 BI_InputError::BI_InputError(std::string procedure, std::string msg) :
     m_procedure_msg(procedure + ": " + msg)
