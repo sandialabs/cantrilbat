@@ -1010,7 +1010,7 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     // the solid phase where we will get the relative extent.
     
     size_t phase_id = m_pl->phaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
-    string phaseName = m_pl->phaseName(phase_id);
+    string phaseName = m_pl->phase_name(phase_id);
     //
     //  Since the pointers must all be the same, we look up the ThermoPhase pointer in the phase list
     //  and send that to the RSD_OCVmodel object

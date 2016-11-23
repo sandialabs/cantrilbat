@@ -259,6 +259,8 @@ public:
      */
     size_t globalPhaseIndex(const ThermoPhase* const tp) const;
 
+
+
     //! Get a %ThermoPhase pointer to the named phase from the list.
     /*!
      *   @param[in]        pName           CString containing the name of the phase
@@ -277,28 +279,61 @@ public:
 
     //! Get the name of the phase given its global phase index
     /*!
+     * This is the value of the name() member function within the %ThermoPhase object.
+     *
      * @param[in]            iphGlob             global phase Index of the volume or surface Phase.
      *
      * @return                                   Returns the global phase name as a string
      */
-    std::string phaseName(size_t iphGlob) const;
+    std::string phase_name(size_t iphGlob) const;
+
+    //! Returns the phaseIDString of the phase
+    /*!
+     *   @param[in]          iphGlob             global phase Index of the volume, surface, or edge Phase.
+     *   @return                                 Returns the fully qualified name of the phase, "id();name()"
+     */
+    std::string phaseIDString(size_t iphGlob) const;
+
+    //! Returns the phaseID object for the phase
+    /*!
+     *   @param[in]          iphGlob             global phase Index of the volume, surface, or edge Phase.
+     *   @return                                 Returns the phaseID structure that fully qualifies the identity of the phase
+     */
+    phaseID phaseIdentifier(size_t iphGlob) const;
 
     //! Get the id() of the phase given its global phase index
     /*!
+     *  This is the value of the id() member function within the %ThermoPhase object
+     *
      * @param[in]            iphGlob             global phase Index of the volume or surface Phase.
      *
      * @return                                   Returns the global phase id() as a string
      */
     std::string phase_id(size_t iphGlob) const;
 
-    //! Return the global index of a phase given its name
+    //! Return the global index of a phase given its fully qualified string name in phaseIDString format
     /*!
-     *  @param[in]           pName               Name of the phase
-     *  @param[in]           phaseIDAfter
+     *  @param[in]           pIDStr              String name of the phase in the phaseIDString format
      *
      *  @return                                  Returns the global index
      */
-    size_t globalPhaseIndex(const std::string& pName, bool phaseIDAfter = false) const;
+    size_t globalPhaseIndex(const std::string& pIDStr) const;
+
+    //! Return the global index of a phase given its fully qualified phaseIdentifier
+    /*!
+     *  @param[in]           pID                 Reference to a phaseID object, which qualifies the phase identity
+     *
+     *  @return                                  Returns the global index of the first phase that matches the phaseID object
+     */
+    size_t globalPhaseIndex(const phaseID& pID) const;
+
+    //! Return the global index of a phase given its phase name only
+    /*!
+     *  @param[in]           pname               String name of the phase, i.e., the name() function within the Phase object
+     *
+     *  @return                                  Returns the global phase index. If not found, this returns npos
+     */
+    size_t globalPhaseNameIndex(const std::string& pname) const;
 
     //! Get the global species index given the ThermoPhase and the local species index
     /*!
@@ -323,14 +358,24 @@ public:
      */
     size_t globalSpeciesIndex(size_t iphGlob, size_t k = 0) const;
 
-    //! Return the global index of a species named 'name'
+    //! Return the global index of a species named
     /*!
-     * @param[in]            speciesName         String name of the species
-     * @param[in]            pName               String name of the phase. This defaults to "", in which case the index of the first match is returned
+     * @param[in]            sIDStr              String name of the species in speciesIDString format.
+     * @param[in]            pname               String name of the phase. This defaults to "", in which case the index of the first match is returned
      *
-     * @return  Returns the global index of the species.
+     * @return                                   Returns the global index of the species.
+     *                                           It returns npos if not found
      */
-    size_t globalSpeciesIndex(const std::string& speciesName, const std::string pName="") const;
+    size_t globalSpeciesIndex(const std::string& sname, const std::string pname="") const;
+
+    //! Return the global index of a species given a speciesID object
+    /*!
+     * @param[in]            sID                 Reference to a speciesID object
+     *
+     * @return                                   Returns the global index of the species.
+     *                                           It returns npos if not found
+     */
+    size_t globalSpeciesIndex(const speciesID& sID) const;
 
     //! Get the global species index for a volume phase
     /*!
@@ -386,6 +431,8 @@ public:
      *   @param[in]          kGlob               Global species index
      *   @param[out]         iphGlob             On return this contains the global phase index
      *   @param[out]         k                   On return this contains the local species index
+     *
+     *   Throws a CanteraError if kGlob is not in bounds
      */
     void getLocalIndecisesFromGlobalSpeciesIndex(size_t kGlob, size_t& iphGlob, size_t& k) const;
 
@@ -414,32 +461,38 @@ public:
      *  @param[in]        iphGlob           global phase index
      *
      *  @return                             Return a reference to the ThermoPhase object
+     *
+     *  Throws a CanteraError if iphGlob is out of bounds.
      */
     ThermoPhase& thermo(int iphGlob) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param[in]        iphGlob           global phase index
+     *  @param[in]        iphGlob                global phase index
      *
-     *  @return                             Return a reference to the ThermoPhase object
+     *  @return                                  Return a reference to the ThermoPhase object
      */
     ThermoPhase& thermo(size_t iphGlob) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param[in]        pNamePtr           Character string name of the phase
+     *  @param[in]        pNamePtr               Character string name of the phase
      *
      *  @return                                  Return a reference to the ThermoPhase object
+     *
+     *  Throws a CanteraError if pNamePtr is not found
      */
     ThermoPhase& thermo(const char* const pNamePtr) const;
 
     //! Return the reference to the %ThermoPhase of a single volume or surface phase
     /*!
-     *  @param[in]        pName  String name of the phase
+     *  @param[in]           pname               String name of the phase. This is the name returned from the name() Phase function
      *
-     *  @return                      Return a reference to the ThermoPhase object
+     *  @return                                  Return a reference to the ThermoPhase object
+     *
+     *  Throws a CanteraError if pname is not found
      */
-    ThermoPhase& thermo(const std::string& pName) const;
+    ThermoPhase& thermo(const std::string& pname) const;
 
     //! Return the common Elements object as a const pointer
     /*!
@@ -634,6 +687,24 @@ public:
      *  @return returns the species name
      */
     std::string speciesName(size_t kGlob) const;
+
+    //! Returns the speciesIDString name, an expanded species name of a species, which includes the phase id and phase name 
+    /*!
+     *  This is guaranteed to be unique within a Zuzax problem.
+     *
+     *   @param[in]          kGlob               Global species index within the  PhaseList structure
+     *
+     *   @return                                 The "phaseID;phaseName:speciesName" string
+     */
+    std::string speciesIDString(size_t kGlob) const;
+
+    //! Returns the species identifier for the species given its global index
+    /*!
+     *  @param[in]          kGlob               Global species index within the PhaseList object
+     *
+     *  @return                                 The speciesID object for that species
+     */
+    speciesID speciesIdentifier(size_t kGlob) const;
 
     //! Set the state of all the phases within the PhaseList to a given temperature and pressure
     /*!

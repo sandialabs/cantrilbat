@@ -3635,7 +3635,7 @@ int Electrode::solnPhaseIndex() const
 //====================================================================================================================
 int Electrode::numSolnPhaseSpecies() const
 {
-    return phasePtr(phaseName(solnPhase_).c_str())->nSpecies();
+    return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
 //====================================================================================================================
 // Return the number of extra print tables

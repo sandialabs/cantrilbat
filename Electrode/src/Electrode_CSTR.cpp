@@ -2279,8 +2279,6 @@ int Electrode_CSTR::GFCEO_calcResid(double* const resid, const ResidEval_Type_En
 	resid[index] = phaseMoles_dot_[iph] - DphMoles_final_[iph];
         index++;
     }
-    
-
 }
 //==================================================================================================================
 //   Set the Residual absolute error tolerances
@@ -2660,7 +2658,7 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
 
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
         int iph = phaseIndexSolidPhases_[ph];
-        std::string ppp = phaseName(iph);
+        std::string ppp = phase_name(iph);
         if (justDiedPhase_[iph]) {
             if (!justDied_[iph]) {
                 if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {

@@ -400,7 +400,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
    
     KRsolid_phaseNames_.resize(numSPhases_);
     for (int iPh = 0; iPh < numSPhases_; iPh++) {
-	KRsolid_phaseNames_[iPh] = phaseName(phaseIndeciseKRsolidPhases_[iPh]);
+	KRsolid_phaseNames_[iPh] = phase_name(phaseIndeciseKRsolidPhases_[iPh]);
     }
 
     /*
