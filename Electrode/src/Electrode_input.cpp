@@ -255,18 +255,18 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      NumberCanteraFiles              = right.NumberCanteraFiles;
 
      if (CanteraFileNames) {
-        for (int i = 0; CanteraFileNames[i] != 0; i++) {
+        for (size_t i = 0; CanteraFileNames[i] != 0; i++) {
             free(CanteraFileNames[i]);
         }
         free(CanteraFileNames);
      }
      if (!right.CanteraFileNames) {
-       CanteraFileNames = 0;
+         CanteraFileNames = 0;
      } else {
-       CanteraFileNames = (char**) mdpUtil::mdp_alloc_ptr_1(NumberCanteraFiles +1);
-       for (int i = 0; i <  NumberCanteraFiles     ; i++) {
-          CanteraFileNames[i] = TKInput::copy_string(right.CanteraFileNames[i]);
-       }
+         CanteraFileNames = (char**) mdpUtil::mdp_alloc_ptr_1(NumberCanteraFiles +1);
+         for (int i = 0; i < NumberCanteraFiles; i++) {
+             CanteraFileNames[i] = TKInput::copy_string(right.CanteraFileNames[i]);
+         }
      }
 
      Temperature                      = right.Temperature;
@@ -300,9 +300,9 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
    
      mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->CapZeroDoDCoeffPhases), nTotPhases, 0);
 
-     int nVolPhases = right.m_pl->nVolPhases();
+     size_t nVolPhases = right.m_pl->nVolPhases();
      for (size_t iph = 0; iph < static_cast<size_t>(nVolPhases); iph++) {
-	 int kstart =  right.m_pl->globalSpeciesIndexVolPhaseIndex(iph);
+	 size_t kstart =  right.m_pl->globalSpeciesIndexVolPhaseIndex(iph);
 	 m_BG->XmolPLPhases[iph]          = m_BG->XmolPLSpecVec + kstart;
 	 m_BG->MolalitiesPLPhases[iph]    = m_BG->MolalitiesPLSpecVec + kstart;
 	 m_BG->CapLeftCoeffPhases[iph]    = m_BG->CapLeftCoeffSpecVec + kstart;
@@ -318,24 +318,24 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      ProblemType = right.ProblemType;
 
      if (SpeciesNames) {
-        for (int i = 0; i < nTotSpecies; i++) {
+        for (size_t i = 0; i < nTotSpecies; i++) {
             free(SpeciesNames[i]);
         }
         free(SpeciesNames);
      }
      SpeciesNames = (char**) mdp_alloc_ptr_1(nTotSpecies);
-     for (int i = 0; i < nTotSpecies; i++) {
+     for (size_t i = 0; i < nTotSpecies; i++) {
 	SpeciesNames[i] = TKInput::copy_string(right.SpeciesNames[i]);
      }
 
      if (PhaseNames) {
-        for (int i = 0; i < nTotPhases; i++) {
+        for (size_t i = 0; i < nTotPhases; i++) {
             free(PhaseNames[i]);
         }
         free(PhaseNames);
      }
      PhaseNames = (char**) mdp_alloc_ptr_1(nTotPhases);
-     for (int i = 0; i < nTotPhases; i++) {
+     for (size_t i = 0; i < nTotPhases; i++) {
 	PhaseNames[i] = TKInput::copy_string(right.PhaseNames[i]);
      }
 
@@ -346,40 +346,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
         free(ElementNames);
      }
      ElementNames = (char**) mdp_alloc_ptr_1(nTotElements);
-     for (int i = 0; i < nTotElements; i++) {
-	ElementNames[i] = TKInput::copy_string(right.ElementNames[i]);
-     }
-     
-     if (SpeciesNames) {
-        for (int i = 0; i < nTotSpecies; i++) {
-            free(SpeciesNames[i]);
-        }
-        free(SpeciesNames);
-     }
-     SpeciesNames = (char**) mdp_alloc_ptr_1(nTotSpecies);
-     for (int i = 0; i < nTotSpecies; i++) {
-	SpeciesNames[i] = TKInput::copy_string(right.SpeciesNames[i]);
-     }
-
-     if (PhaseNames) {
-        for (int i = 0; i < nTotPhases; i++) {
-            free(PhaseNames[i]);
-        }
-        free(PhaseNames);
-     }
-     PhaseNames = (char**) mdp_alloc_ptr_1(nTotPhases);
-     for (int i = 0; i < nTotPhases; i++) {
-	PhaseNames[i] = TKInput::copy_string(right.PhaseNames[i]);
-     }
-
-     if (ElementNames) {
-        for (int i = 0; i < nTotElements; i++) {
-            free(ElementNames[i]);
-        }
-        free(ElementNames);
-     }
-     ElementNames = (char**) mdp_alloc_ptr_1(nTotElements);
-     for (int i = 0; i < nTotElements; i++) {
+     for (size_t i = 0; i < nTotElements; i++) {
 	ElementNames[i] = TKInput::copy_string(right.ElementNames[i]);
      }
 

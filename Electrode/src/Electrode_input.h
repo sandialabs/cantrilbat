@@ -404,8 +404,6 @@ public:
     //! Vector of the electric potential of the PhaseList Phases
     std::vector<double> PotentialPLPhases;
 
-    int*    PhaseInclude;
-
     //! Problem type
     int ProblemType;
 
@@ -520,13 +518,13 @@ public:
     EGRInput** m_EGRList;
 
     //! Number of total phases in the phase list
-    int nTotPhases;
+    size_t nTotPhases;
 
     //! Total number of species in the Phase List
-    int nTotSpecies;
+    size_t nTotSpecies;
 
     //! Total number of elements
-    int nTotElements;
+    size_t nTotElements;
 
     //! Initial conditions for the electrode in terms of the initial discharged capacity
     /*!
