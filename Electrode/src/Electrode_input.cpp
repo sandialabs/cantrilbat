@@ -164,9 +164,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     CanteraFileNames(0),
     Temperature(300.),
     Pressure(ZZCantera::OneAtm),
-    Vol(1.0),
     m_BG(0),
-    MoleFraction(0),
     PotentialPLPhases(0),
     PhaseInclude(0),
     ProblemType(TP),
@@ -214,9 +212,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     CanteraFileNames(0),
     Temperature(300.),
     Pressure(OneAtm),
-    Vol(1.0),
     m_BG(0),
-    MoleFraction(0),
     PotentialPLPhases(0),
     PhaseInclude(0),
     ProblemType(TP),
@@ -279,7 +275,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
 
      Temperature                      = right.Temperature;
      Pressure                         = right.Pressure;
-     Vol                              = right.Vol;
      nTotSpecies                      = right.nTotSpecies;
      nTotPhases                       = right.nTotPhases;
      nTotElements                     = right.nTotElements;
@@ -321,9 +316,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      //---
    
      MoleNumber = right.MoleNumber;
-
-     mdpUtil::mdp_realloc_dbl_1(&MoleFraction, nTotSpecies, 0, 0.0);
-     mdpUtil::mdp_copy_dbl_1(MoleFraction, right.MoleFraction, nTotSpecies);
+     MoleFraction = right.MoleFraction;
 
      mdpUtil::mdp_realloc_dbl_1(&PotentialPLPhases, nTotPhases, 0, 0.0);
      mdpUtil::mdp_copy_dbl_1(PotentialPLPhases, right.PotentialPLPhases, nTotPhases);
@@ -465,7 +458,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
     m_BG=0;
 
     delete [] PhaseInclude;
-    delete [] MoleFraction;
     delete [] PotentialPLPhases;
     free(SpeciesNames);
     free(PhaseNames);
@@ -527,28 +519,24 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
     std::fill(PhaseInclude, PhaseInclude+nTotPhases, 1);
 
     MoleNumber.resize(nTotSpecies, 0.0);
+    MoleFraction.resize(nTotSpecies, 0.0);
 
-    MoleFraction = new double[nTotSpecies];
-    std::fill(MoleFraction, MoleFraction+nTotSpecies, 0.0);
     PotentialPLPhases = new double[nTotPhases];
     std::fill(PotentialPLPhases, PotentialPLPhases+nTotPhases, 0.0);
     ElementAbundances = new double[nTotElements];
     std::fill(ElementAbundances, ElementAbundances+nTotElements, 0.0);
 
-
-    SpeciesNames = mdp_alloc_VecFixedStrings(nTotSpecies,
-                   MPEQUIL_MAX_NAME_LEN_P1);
-    PhaseNames = mdp_alloc_VecFixedStrings(nTotPhases,
-                                           MPEQUIL_MAX_NAME_LEN_P1);
-    int kT = 0;
-    for (int iphase = 0; iphase < nTotPhases; iphase++) {
+    SpeciesNames = mdp_alloc_VecFixedStrings(nTotSpecies, MPEQUIL_MAX_NAME_LEN_P1);
+    PhaseNames = mdp_alloc_VecFixedStrings(nTotPhases, MPEQUIL_MAX_NAME_LEN_P1);
+    size_t kT = 0;
+    for (size_t iphase = 0; iphase < static_cast<size_t>(nTotPhases); iphase++) {
         ThermoPhase* tPhase = &(pl->thermo(iphase));
 
-        string id = tPhase->id();
+        std::string id = tPhase->id();
         strncpy(PhaseNames[iphase], id.c_str(), MPEQUIL_MAX_NAME_LEN);
-        int nspecies = tPhase->nSpecies();
-        tPhase->getMoleFractions(MoleFraction + kT);
-        for (int k = 0; k < nspecies; k++) {
+        size_t nspecies = tPhase->nSpecies();
+        tPhase->getMoleFractions(MoleFraction.data() + kT);
+        for (size_t k = 0; k < nspecies; k++) {
             string sname = tPhase->speciesName(k);
             strncpy(SpeciesNames[kT], sname.c_str(), MPEQUIL_MAX_NAME_LEN);
             kT++;
@@ -556,11 +544,10 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
 
     }
 
-    ElementNames = mdp_alloc_VecFixedStrings(nTotElements,
-                   MPEQUIL_MAX_NAME_LEN_P1);
+    ElementNames = mdp_alloc_VecFixedStrings(nTotElements, MPEQUIL_MAX_NAME_LEN_P1);
     const Elements* eObj = pl->globalElements();
 
-    for (int e = 0; e < nTotElements; e++) {
+    for (size_t e = 0; e < static_cast<size_t>(nTotElements); e++) {
         std::string eName = eObj->elementName(e);
         strncpy(ElementNames[e], eName.c_str(), MPEQUIL_MAX_NAME_LEN);
     }
@@ -1004,10 +991,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         /* --------------------------------------------------------------
          * BG.BathSpeciesMoleFractions -
          *
-         * Create a PickList Line Element made out of the list of
-         * species
+         * Create a PickList Line Element made out of the list of species
          */
-        // double *xstart = BG.XmolPLSpecVec + kstart;
         BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLPhases[iph]), 0,
                                             SpeciesNames+kstart, nSpecies, 0, "XBathmol");
         bpmc->generateDefLE();
@@ -1085,11 +1070,9 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         /* --------------------------------------------------------------
          * BG.BathSpeciesMoleFractions -
          *
-         * Create a PickList Line Element made out of the list of
-         * species
+         * Create a PickList Line Element made out of the list of species
          */
-        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction",
-                                            &(BG.XmolPLPhases[iph]), 0,
+        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLPhases[iph]), 0,
                                             SpeciesNames+kstart, nSpecies, 0, "XBathmol");
         bpmc->generateDefLE();
         bbathphase->addSubBlock(bpmc);
@@ -1102,10 +1085,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     OCVoverride_ptrList.resize(pl->nSurPhases(), 0);
     for (size_t iphS = 0; iphS < (size_t)pl->nSurPhases(); iphS++) {
         std::string phaseBath = "Open Circuit Potential Override for interface ";
-        //size_t iph = pl->nVolPhases() + iphS;
         ThermoPhase* tp = &(pl->surPhase(iphS));
         string phaseNm = tp->name();
-        //size_t nSpecies = tp->nSpecies();
         phaseBath += phaseNm;
 
         OCV_Override_input* ocv_input_ptr = OCVoverride_ptrList[iphS];
@@ -1121,8 +1102,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         // 
         BlockEntry* bOCVoverride = new BlockEntry(phaseBath.c_str());
         cf->addSubBlock(bOCVoverride);
-
-        //int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
 
         /* --------------------------------------------------------------
          *      ocv_input.OCVModel = string   (required)
@@ -1277,7 +1256,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  in the pointer to the vector of structures .. PO.m_EGRList
      *
      */
-
 
     BlockEntry* sbEGR = new BE_MultiBlock("Extra Global Reaction",
                                           &(numExtraGlobalRxns),
@@ -1471,9 +1449,6 @@ setElectrodeBathSpeciesConditions(ThermoPhase& g, ELECTRODE_KEY_INPUT& EI, Elect
 
     }
 }
-
-
-
 //======================================================================================================================
 int
 ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
@@ -1666,7 +1641,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
      *  of the mole numbers and mole fractions that exist in the input file.
      */
     for (size_t iph = 0; iph < m_pl->nPhases(); iph++) {
-        int  kstart = m_pl->globalSpeciesIndex(iph, 0);
+        size_t  kstart = m_pl->globalSpeciesIndex(iph, 0);
         ThermoPhase* tphase = &(m_pl->thermo(iph));
         size_t nsp = tphase->nSpecies();
         // Find the name of the input block
@@ -1700,7 +1675,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                 }
                 tphase->setMoleFractions(molF);
             } else {
-                tphase->getMoleFractions(MoleFraction + kstart);
+                tphase->getMoleFractions(MoleFraction.data() + kstart);
             }
 	    /*
 	     *  Process the Phase Mass entry
@@ -1733,10 +1708,9 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                         printf("Dynamic cast failed for some reason\n");
                         exit(-1);
                     }
-                    m_ptr->setState_TPM(Temperature, Pressure,
-                                        m_BG->MolalitiesPLPhases[iph]);
+                    m_ptr->setState_TPM(Temperature, Pressure, m_BG->MolalitiesPLPhases[iph]);
                     m_ptr->getMoleFractions(m_BG->XmolPLPhases[iph]);
-                    m_ptr->getMoleFractions(MoleFraction + kstart);
+                    m_ptr->getMoleFractions(MoleFraction.data() + kstart);
                 }
             }
             /*
@@ -1762,7 +1736,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             for (size_t k = 0; k < nsp; k++) {
                 MoleNumber[kstart + k] = 0.0;
             }
-            tphase->getMoleFractions(MoleFraction + kstart);
+            tphase->getMoleFractions(MoleFraction.data() + kstart);
         }
 
     }
@@ -1772,7 +1746,6 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
     //
     for (size_t iphS = 0; iphS < (size_t) m_pl->nSurPhases(); iphS++) {
 	std::string phaseBath = "Open Circuit Potential Override for interface ";
-        //size_t iph = m_pl->nVolPhases() + iphS;
         ThermoPhase* tp = &(m_pl->surPhase(iphS));
         string phaseNm = tp->name();
         phaseBath += phaseNm;

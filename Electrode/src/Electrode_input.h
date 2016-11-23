@@ -392,16 +392,15 @@ public:
     //! Pressure of the electrode (Pascal)
     double Pressure;
 
-    double Vol;
-
     //! Electrode Bath Gas Structure
     ElectrodeBath* m_BG;
 
     //! Vector of mole numbers of the species
     std::vector<double> MoleNumber;
-    //double* MoleNumber;
 
-    double* MoleFraction;
+    //! Vector of mole fractions of the species
+    std::vector<double> MoleFraction;
+
     double* PotentialPLPhases;
     int*    PhaseInclude;
 
