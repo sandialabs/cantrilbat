@@ -1391,7 +1391,7 @@ setElectrodeBathSpeciesConditions(ThermoPhase& g, ELECTRODE_KEY_INPUT& EI, Elect
 int
 ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
 {
-    int  retn = MPEQUIL_SUCCESS;
+    int  retn = 0;
 
     if (printLvl_ > 1) {
         printf("\n");

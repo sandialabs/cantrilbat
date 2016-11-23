@@ -32,8 +32,6 @@
 #define MPEQUIL_MAX_NAME_LEN_P1 81
 #define MPEQUIL_MAX_NAME_LEN    80
 
-#define MPEQUIL_SUCCESS 0
-
 //-----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -191,6 +189,9 @@ class ELECTRODE_KEY_INPUT
 public:
 
     //! Constructor
+    /*!
+     *  @param[in]           printLvl            print level. This defaults to 0
+     */
     ELECTRODE_KEY_INPUT(int printLvl = 0);
 
     //! Copy Constructor
@@ -202,6 +203,7 @@ public:
     //! Assignment operator
     /*!
      *  @param right object to be copied
+     *  @return                                  Returns a reference to the current object
      */
     ELECTRODE_KEY_INPUT& operator=(const ELECTRODE_KEY_INPUT& right);
 
@@ -340,6 +342,9 @@ public:
      *
      *  @param commandFile  Current command file
      *  @param cf           Block entry input
+     *
+     *  @return                                Returns 0 for success
+     *                                         returns -1 for failure 
      */
     int electrode_input(std::string commandFile, BEInput::BlockEntry* cf);
 
@@ -357,6 +362,12 @@ public:
      *      setup_input_child1(cf);
      *      process_electrode_input();
      *      post_input_child1();
+     *
+     *  @param commandFile  Current command file
+     *  @param cf           Block entry input
+     *
+     *  @return                                Returns 0 for success
+     *                                         returns -1 for failure 
      */
     virtual int electrode_input_child(std::string commandFile, BEInput::BlockEntry* cf);
 
@@ -514,6 +525,7 @@ public:
     double RxnExtTopLimit;
     double RxnExtBotLimit;
 
+    //! Number of extra global reactions
     int numExtraGlobalRxns;
     EGRInput** m_EGRList;
 
@@ -537,8 +549,7 @@ public:
 
     //! PhaseList object
     /*!
-     * this includes all of the phases, "period".
-     *  In particular this includes the surface phases
+     * this includes all of the phases, "period". In particular this includes the surface phases
      */
     ZZCantera::PhaseList* m_pl;
 

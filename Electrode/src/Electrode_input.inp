@@ -141,8 +141,7 @@ Particle Number to Follow = 2.0E8
 !     available volume fraction of electrode.
 !
 !     When this value is specified, value associated with entering the mass
-!     of electrode material will cause error inputs, as this is conflicting
-!     and/or duplicative entries.
+!     of electrode material will cause error inputs, as this is conflicting and/or duplicative entries.
 !
 !-----------------------------------------------------------------------------------------------------------
 Electrode Porosity = 0.35
