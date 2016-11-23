@@ -401,7 +401,9 @@ public:
     //! Vector of mole fractions of the species
     std::vector<double> MoleFraction;
 
-    double* PotentialPLPhases;
+    //! Vector of the electric potential of the PhaseList Phases
+    std::vector<double> PotentialPLPhases;
+
     int*    PhaseInclude;
 
     //! Problem type

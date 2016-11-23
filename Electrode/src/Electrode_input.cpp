@@ -165,8 +165,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     Temperature(300.),
     Pressure(ZZCantera::OneAtm),
     m_BG(0),
-    PotentialPLPhases(0),
-    PhaseInclude(0),
     ProblemType(TP),
     SpeciesNames(0),
     PhaseNames(0),
@@ -213,8 +211,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     Temperature(300.),
     Pressure(OneAtm),
     m_BG(0),
-    PotentialPLPhases(0),
-    PhaseInclude(0),
     ProblemType(TP),
     SpeciesNames(0),
     PhaseNames(0),
@@ -317,14 +313,9 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
    
      MoleNumber = right.MoleNumber;
      MoleFraction = right.MoleFraction;
+     PotentialPLPhases = right.PotentialPLPhases;
 
-     mdpUtil::mdp_realloc_dbl_1(&PotentialPLPhases, nTotPhases, 0, 0.0);
-     mdpUtil::mdp_copy_dbl_1(PotentialPLPhases, right.PotentialPLPhases, nTotPhases);
-
-     mdpUtil::mdp_realloc_int_1(&PhaseInclude, nTotPhases, 0);
-     mdpUtil::mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
-     
-     ProblemType                       = right.ProblemType;
+     ProblemType = right.ProblemType;
 
      if (SpeciesNames) {
         for (int i = 0; i < nTotSpecies; i++) {
@@ -358,15 +349,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      for (int i = 0; i < nTotElements; i++) {
 	ElementNames[i] = TKInput::copy_string(right.ElementNames[i]);
      }
-
-     mdp_realloc_dbl_1(&PotentialPLPhases, nTotPhases, 0, 0.0);
-     mdp_copy_dbl_1(PotentialPLPhases, right.PotentialPLPhases, nTotPhases);
-
-     mdp_realloc_int_1(&PhaseInclude, nTotPhases, 0);
-     mdp_copy_int_1(PhaseInclude, right.PhaseInclude, nTotPhases);
      
-     ProblemType                       = right.ProblemType;
-
      if (SpeciesNames) {
         for (int i = 0; i < nTotSpecies; i++) {
             free(SpeciesNames[i]);
@@ -457,8 +440,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
     }
     m_BG=0;
 
-    delete [] PhaseInclude;
-    delete [] PotentialPLPhases;
     free(SpeciesNames);
     free(PhaseNames);
     free(ElementNames);
@@ -482,15 +463,12 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
     delete m_pl;
     m_pl = 0;
 }
-
-/****************************************************************************
- *
+//==================================================================================================================================
+/*
  *  In this routine, we fill in the fields in the ELECTRODE_KEY_INPUT
  *  structure that will be needed to parse the keyword input.
- *  We also size the vectors in the structure appropriately, now
- *  we know the extent of the problem.
- *  The information to do this has already been gathered into the PhaseList
- *  structure
+ *  We also size the vectors in the structure appropriately, now we know the extent of the problem.
+ *  The information to do this has already been gathered into the PhaseList structure
  *
  *  These are:
  *         nTotPhases
@@ -501,7 +479,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
  *         ElementNames
  *
  *  The sized fields include:
- *         PhaseInclude
  *         MoleNumber
  *         MoleNumberIG
  *         ElementAbundances
@@ -512,17 +489,11 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
     nTotSpecies = pl->nSpecies();
     nTotElements = pl->nElements();
 
-    /*
-     * Include all Phases by default
-     */
-    PhaseInclude = new int[nTotPhases];
-    std::fill(PhaseInclude, PhaseInclude+nTotPhases, 1);
-
     MoleNumber.resize(nTotSpecies, 0.0);
     MoleFraction.resize(nTotSpecies, 0.0);
+  
+    PotentialPLPhases.resize(nTotPhases, 0.0);
 
-    PotentialPLPhases = new double[nTotPhases];
-    std::fill(PotentialPLPhases, PotentialPLPhases+nTotPhases, 0.0);
     ElementAbundances = new double[nTotElements];
     std::fill(ElementAbundances, ElementAbundances+nTotElements, 0.0);
 
