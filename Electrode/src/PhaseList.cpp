@@ -734,14 +734,14 @@ size_t PhaseList::edgePhaseIndex(const ThermoPhase* const ep) const
     return npos;
 }
 //==================================================================================================================================
-std::string PhaseList::phaseName(size_t globalPhaseIndex) const
+std::string PhaseList::phaseName(size_t iphGlob) const
 {
-    return PhaseNames_[globalPhaseIndex];
+    return PhaseNames_[iphGlob];
 }
 //==================================================================================================================================
-std::string PhaseList::phaseID(size_t globalPhaseIndex) const
+std::string PhaseList::phase_id(size_t iphGlob) const
 {
-    return thermo(globalPhaseIndex).id();
+    return thermo(iphGlob).id();
 }
 //==================================================================================================================================
 size_t PhaseList::globalPhaseIndex(const ThermoPhase* const tp) const

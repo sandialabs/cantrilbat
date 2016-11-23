@@ -283,13 +283,13 @@ public:
      */
     std::string phaseName(size_t iphGlob) const;
 
-    //! Get the ID of the phase given its global phase index
+    //! Get the id() of the phase given its global phase index
     /*!
      * @param[in]            iphGlob             global phase Index of the volume or surface Phase.
      *
-     * @return                                   Returns the global phase ID() as a string
+     * @return                                   Returns the global phase id() as a string
      */
-    std::string phaseID(size_t iphGlob) const;
+    std::string phase_id(size_t iphGlob) const;
 
     //! Return the global index of a phase given its name
     /*!
