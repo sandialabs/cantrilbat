@@ -5,7 +5,7 @@
  */
 
 /*
- * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * Copywrite 2016 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
  * See file License.txt for licensing information.
@@ -19,199 +19,113 @@
 namespace BEInput
 {
 
-//!  This class sets up the case where there may be multiple
-//!  blocks of the same type.
+//!  BlockEntry of an arbitrary number of subblocks, putting the information into
+//!  an external vector of pointers to storage structures
 /*!
- *  All input from within a block
- *  must be sent to elements of a single structure.
+ *  All input from within a block can be sent to elements of a single structure,
+ *  or queried from within the block structure after processing.
  *  This class will create a vector of "structures" for each
  *  block it encounters in the input file, mallocing additional
- *  elements of the structure as  needed.
+ *  elements of the structure as needed.
  *  It's kind of tricky, so I will attempt to explain fully.
- *  The structure will be called storStruct in the discussion
- *  below.
+ *  The structure, which is the templated type T, will be called storStruct in the discussion below.
  *
  *  It can be used to handle the input of an indefinate number
  *  of identical blocks in the input file. You set up the block
  *  in the same way as any other block in the input file. However,
- *  all of the line entries below the Multiblock must write to the
+ *  all of the line entries below the MultiblockVec must write to the
  *  same structure.
  *
- *  The vector of storStruct pointers will look like this in the
- *  calling program.
- *         struct storStruct **storVec;
+ *  The vector of storStruct pointers will look like this in the calling program.
+ *
+ *         std::vector<storStruct*> storVec;
  *
  *  On return there will be a vector of filled structures that can
  *  be accessed via the following method. The ith structure may be
  *  accessed via:
  *
- *        struct storStruct *storPtr = storVec[i];
+ *        storStruct* storPtr = storVec[i];
  *        double dataP = storPtr->dataP;
  *
  *  The class calculates an offset between one malloced storStruct
  *  structure and the next storStruct structure. It then adjusts the
- *  write addresses of all underlying line entries by the
- *  value of the offset (in a very raw manor).
- *  Therefore, subsequent writes will be directed
- *  to the next storStruct structure in the vector of storStruct
- *  structures if the initial line entry write addresses all
- *  point to the initial element of the storStruct vector.
- *  This later requirement, of course, is in the hands of the user,
- *  so the user should take care.
- *
- *
- * Example:
- *
- *
- */
-
-//!  BlockEntry of a vector of related double values into a common
-//!  vector of doubles
-/*!
- *   This sets up the <b>BlockEntry</b> special case for the entry of
- *    multiple
- *   double inputs into a common vector.  It declares interfaces
- *   for specifying the
- *   entry and for processing the entry once a match is
- *   made in the input deck. The general form of the input is
- *
- *   \f[
- *    \begin{array}[t]{l}
- *      \mathrm{Start\ block\ BlockName} \\
- *         \mathrm{\ \ \ KeyName1\ =\ }\mathrm{double} \\
- *         \mathrm{\ \ \ KeyName2\ =\ }\mathrm{double} \\
- *         \mathrm{\ \ \ \ \ \ \ \ \ ...  }  \\
- *       \mathrm{End\ block\ BlockName}
- *     \end{array}
- *   \f]
- *
- *  The <I>BlockName</I> variable  may be consist of multiple
- *  tokens. It is tokenized and compared in a case insensitive format
- *  at the start of the processing and before any matching
- *  is carried out.
- *   \f$ \mathrm{KeyName1} \f$  \f$ \mathrm{KeyName1} \f$ are character
- *  Keynames generated from a permissible list of length \f$ ListLength\f$.
- *  They may also consist of multiple tokens, and they are
- *  compared on a case insensitive format.
- *
- *  \f$ \mathrm{double} \f$ represents a single double.
- *  The code will check that
- *  the rhs consists of single tokens.
- *  The token must be a well formed double value.
- *  The following tokens are understood and accepted in
- *  place of \f$ \mathrm{double} \f$ : <tt>DBL_MAX</tt>,  <tt>DBL_MIN</tt>,
- *  and <tt>Default</tt>. If <tt>DBL_MAX</tt> or  <tt>DBL_MIN</tt> is
- *  encountered, the value is set to the respective value as defined
- *  in the file math.h. If the value <tt>Default</tt> is encountered,
- *  the CurrValue is set to the default value, DefaultVal,
- *  specified for the object.
- *
- *  If the default value specified for the object
- *  is set to <tt>NO_DEFAULT_DBL</tt>, which is the initial value for
- *  DefaultVal, then an error is thrown when <tt>default</tt>
- *  is encountered on the rhs.
- *
- *  During preprocessing each of the possible character KeyNames
- *  generates it's own #BEInput::LE_OneDbl LineEntry object. The address of
- *  that is written to is equal to the base address plus the
- *  index of that particular character KeyName.
- *
- *  During #Wrapup() of the block, all of the individual doubles
- *  in the underlying LineEntries are collected at the block level.
- *  This is useful for later querying the results on the block
- *  level.
- *
- *  These doubles are assigned to the m_CurrentVecValues[iList]
- *  entry and CurrValue of this object.
- *  And, it is optionally written out to an external address, as
- *  (*HndlDblVecAddr)[iList],
- *  that was supplied during the construction of the object.
- *  The object may then later be queried, using either the
- *  #currentTypedValue() or #currentValueAsVoidP()
- *  functions for the value of CurrValue and m_CurrentVecValues[i]
- *  during subsequent processing.
- *
- *  A maximum and minimum allowed double value may be set as a requirement.
- *  on each double entry.
+ *  write addresses of all underlying line entries by the value of the offset (in a very raw manor).
+ *  Therefore, subsequent writes will be directed to the next storStruct structure in the vector of storStruct
+ *  pointers if the initial line entry write addresses all point to the initial element of the storStruct pointer vector.
+ *  This later requirement, of course, is in the hands of the user, so the user should take care
+ *  or all hell will break loose.
  *
  * <H2> Example of Usage </H2>
  *
- *
  *  Example:
  *
- *   The example below sets up a required keyline entry, putting the value in
- *   the global address globInput.molarVolume
+ *   The example below sets up a required MultiBlock and keyline entry for entry of an arbitrary
+ *   number of blocks
  *
  * @code
  *      struct globInput {
  *         int nSpecies;
- *         double *molarVolume;
- *         globInput() : nSpecies(3), molarVolume(0) {};
- *      } gI;
+ *         std::string pNames;
+ *         int gasLiquid;
+ *      }; 
+ *      std::vector<globInput*> m_phases
+ *      m_phases.push_back(new globInput());
+ *      int numPhases;
  *
- *      BlockEntry *besmd = new BlockEntry("Fluid Properties");
- *      int reqd = 1;
- *      int subReqd = 1;
- *      int listLength = 3;
- *      char *charList[3] = {"H2O(l)", "K+", "Cl-"};
- *      BE_StrDbl *d2 = new BE_StrDbl("Molar Volume",
- *                                     &gI.molarVolume, reqd, subReqd,
- *                                     charList, listLength, true,
- *                                     "molarVolume", besmd);
- *      d2->set_default(0.01);
- *      d2->set_limits(10., 1.0E-9);
+ *      BlockEntry *besmd = 
+ *           new BE_MultiBlockVec<globInput>("Phase Definition", &numPhases, &m_phases, 1);
+ *      rootBlock->addSubBlock(besmd);
+ *      globInput* gI = m_phases[0];
+ * 
+ *      LE_OneInt* ins = new LE_OneInt("Number of Species", &(gI->nSpecies), 1, "nSpecies");
+ *      ins->set_default(1);
+ *      besmd->addLineEntry(ins);
+ *   
+ *      LE_OneStr* pName = new LE_OneStr("Phase Name",  &(gI->pNames), 15, 1, 0, "PhaseName");
+ *      besmd->addLineEntry(pName);
+ *
+ *      LE_OneInt* ing = new LE_OneInt("Type of phase", &(gI->gasLiquid), 1, "GasLiquid");
+ *      ing->set_default(1);
+ *      besmd->addLineEntry(ing);
+ *                                           
  * @endcode
  *
- *  An example of the input deck entry for this BlockEntry follows.
+ *  An example of the input deck entry for this MultiBlockVec  follows.
  *  Note, the line may be enclosed in any number of nested blocks,
  *  as long as the last nested block is named "Fluid Properties".
- *  All white space differences and capitalization differences
- *  are ignored.
+ *  All white space differences and capitalization differences are ignored.
  *
  *  @code
- *       Start Block Fluid Properties
- *         Start Block Molar Volume
- *            K+     = 0.001
- *            Cl-    = 0.002
- *            H2O(l) = 0.1
- *         End  Block Molar Volume
- *       End Block   Fluid Properties
+ *    Start Block rootBlock
+ *       Start Block Phase Definition
+ *           Phase Name = WaterVapor
+ *           Number of Species = 3
+ *           Type of phase = 0
+ *       End Block Phase Definition
+ *
+ *       Start Block Phase Definition
+ *           Phase Name = Brine
+ *           Number of Species = 33
+ *           Type of phase = 1
+ *       End Block   Phase Definition
+ *
+ *       Start Block Phase Definition
+ *           Phase Name = CuO
+ *           Number of Species = 1
+ *           Type of phase = 2
+ *       End Block   Phase Definition
+ *    End Block rootBlock
  *  @endcode
  *
- *  It is an error for the Block "Fluid Properties" to not
- *  have exactly one "Fluid Properties" sub block. And, within
- *  that block it is required that every possible LineEntry
- *  generated actually be present.
+ *  It is an error for the Block "rootBlock"  to have zero "Phase Definition" blocks.
+ *  However, it may have an arbitrary number of them as long as there is one.
+ *  In this case, on exit, m_mphases will have a length of 3 with the globInput struct
+ *  filled up with the appropriate inputs from the three blocks.
  *
- *  Examples of executing the code and extracting values follow.
- *
- *  The input file containing the entry may be processed via a
- *  command similar to the following
- *
- *  @code
- *     FILE *ifp = fopen("inputFile.txt", "r");
- *     besmd->read_block(ifp);
- *  @endcode
- *
- *
- *  After running the above code,
- *  the value of <tt>gI.molarVolume[]</tt> is [0.1, 0.001, 0.002].
- *
- *  Also, we may alternatively query the <tt>besmd</tt> structure to find the
- *  the value in two ways:
- *
- *  @code
- *   BlockEntry *le = besmd->searchBlockEntry("Molar Volume");
- *   const double *molarVolume =
- *         *(dynamic_cast<const double *>(be->currentValueAsVoidP()));
- *
- *   BlockEntry *be = besmd->searchBlockEntry("Molar Volume");
- *   BE_StrDbl *be_dbl = dynamic_cast<BE_StrDbl *>(be);
- *   const double * molarVolume = be_dbl->currentTypedValue();
- *  @endcode
- *
- *  Using this alternative, we could have set the external address used in
- *  the constructor of <B>%BE_StrDbl</B> to 0.
+ *  Alternatively, the user can process the rootBlock structure to extract all of the
+ *  information input as well. There will be a total of 4 MultiBlockVec blocks
+ *  defined in that structure, with the first three filled up with user information,
+ *  and the last block empty, with a read count of zero.
  *
  *
  *  <H2> Setting Dependencies on this card </H2>
@@ -244,8 +158,7 @@ namespace BEInput
  *                 dependency check is made against the target
  *                 %BaseEntry.
  *
- *  This card may service dependency requests from other cards
- *  using the base service request, #ansDepCheck().
+ *  This card may service dependency requests from other cards using the base service request, #ansDepCheck().
  *
  * @ingroup blockentryModule
  */
@@ -254,45 +167,23 @@ class BE_MultiBlockVec : public BlockEntry
 {
 public:
 
-
-    //! Constructor for the BE_Multiblock class.
+    //! Constructor for the BE_MultiBlockVec<T> class.
     /*!
      *
-     * @param blockName Block name of the block. Note there can
-     *                  be multiple blocks with the same name.
+     * @param                blockName           Block name of the block. Note there can be multiple blocks with the same name.
      *
-     * @param hndlnumstructures This is a pointer to the location
-     *          where the number of multiblocks processed will be
-     *          storred. It is an optional entry, and not necessarily
-     *          needed since the vector of pointers to storage structures
-     *          is null terminated. However, the last storStruct
-     *          structure in the vector will be unfilled with data.
-     *          So, it's convenient to have this entry.
+     * @param                hndlnumstructures   This is a pointer to the location where the number of multiblocks processed will be
+     *                                           stored. It is an optional entry, and not necessarily needed.
+     *                                           However, it's convenient. 
      *
-     * @param hndlStructVec This is the handle to the vector
-     *         of pointers to storStruct structures. Typically, using the
-     *         example above, you would use (&storVec) as the argument
-     *         here.
+     * @param                hndlStructVec       This is the handle to the vector of pointers to storStruct structures, T. 
+     *                                           Typically, using the example above, you would use (&storVec) as the argument here.
      *
-     * @param fptr This is a function pointer to a function that
-     *             returns (pointer to void) and takes a
-     *             (pointer to void) as its one argument.
-     *             It creates a new malloced structure and returns
-     *             a pointer to the structure. for example:
      *
-     *           void * newStorStruct(void *fdata) {
-     *              void *ptr =  new storStruct(fdata);
-     *              return (ptr);
-     *           }
-     * @param function_data_loc This is the data location of anything
-     *               needed in the constructor call of the new operation
-     *               in the function pointed to by fptr.
+     * @param                numTimesRequired    Number of times this block is required.
      *
-     * @param numTR Number of times this block is required.
-     *
-     * @param parentBlock_input Pointer to the parent block. Set to
-     *                 zero if this is no parent block
-     *
+     * @param                parentBlock_input   Pointer to the parent block. Set to zero if there is no parent block,
+     *                                           or it will be hooked up later
      */
     BE_MultiBlockVec(const char* blockName, int* hndlnumstructures, std::vector<T*>* hndlStructVec, int numTimesRequired,
                      BlockEntry* parentBlock_input = 0);
@@ -353,8 +244,7 @@ public:
     void Initialization(FILE* ifp_input, const TK_TOKEN* blockArgTok);
 
 
-    //! Virtual function called at the start of internally processing
-    //! the block
+    //! Virtual function called at the start of internally processing the block
     /*!
      *  Virtual program that supercedes the BlockEntry::Wrapup program.
      *  Actually, this is where a lot of the special work within
@@ -388,8 +278,7 @@ public:
      * and perhaps do some other processing.
      *
      *  @param ifp_input  File pointer to read additional keylines
-     *                    in the recursive calls to read_block
-     *                    Default = stdin
+     *                    in the recursive calls to read_block  Default = stdin
      *
      *  @param blockArgTok pointer to the TOKEN structure representing
      *                     the argument list for the START BLOCK
@@ -399,8 +288,7 @@ public:
 private:
     //! Expand the underlying external structure list by one
     /*!
-     *   Then, it malloces both a new
-     *  vector of storStruct pointers and then malloces a new
+     *   Then, it malloces both a new  vector of storStruct pointers and then malloces a new
      *  storStruct pointer itself by calling m_fRetnNewStruct(),
      *  and then adjusting all of the underlying line element
      *  addresses to write into locations in that new structure.
@@ -409,26 +297,26 @@ private:
      *  This function may be used to start the process of setting up
      *  internal data functions when the block is first called.
      *
-     *    @return Returns the difference between the old pointer and the new pointer
+     *    @return                                Returns the difference between the old pointer and the new pointer
      */
     LONG_PTR expandStructListByOne();
 
 public:
 
-    //! Return the current value as a pointer to T
+    //! Return the current value as a pointer to T, the external storage structure
     /*!
      * This is a nonvirtual function since the return type
-     * is specific to this child.
+     * is specific to this child. The current block points to one external storage structure
      */
     const T* currentTypedValue() const;
 
-    //! Return the current value as a const pointer to void
+    //! Return the current value as a const pointer to void. It's a pointer to T, 
+    //! the external storage structure
     /*!
-     *  The calling function must know how to interpret the
-     *  pointer to void. This is not very far fetched, since
+     *  The calling function must know how to interpret the pointer to void. This is not very far fetched, since
      *  it should know that the value must be a boolean.
      *
-     *  @return Returns a pointer to current 
+     *  @return                                  Returns a pointer to current storage structure
      */
     virtual const void* currentValueAsVoidP() const;
 
@@ -441,21 +329,15 @@ private:
     int m_numStructures;
 
     /**
-     *  This is a pointer to the location
-     *  where the number of multiblocks processed will be
-     *  storred. It is an optional entry, and not necessarily
-     *  needed since the vector of pointers to storage structures
-     *  is null terminated. However, the last storStruct
-     *  structure in the vector will be unfilled with data.
-     *  So, it's convenient to have this entry.
+     *  This is a pointer to the location where the number of multiblocks processed will be
+     *  stored. It is an optional entry, and not necessarily needed since the vector of pointers to storage structures 
+     *  has its own size dimension. However, it's a convenience.
      */
     int* hndlNumStructures;
 
     /**
-     *  This is the handle to the vector
-     *  of pointers to storStruct structures. Typically, using the
-     *  example above, you would use (&storVec) as the argument
-     *  here.
+     *  This is the handle to the vector of pointers to storStruct structures, T. This may be zero, in which case
+     *  all input must be obtained from the BlockEntry structure at the end of processing.
      */
     std::vector<T*>* HndlStructVec;
 
