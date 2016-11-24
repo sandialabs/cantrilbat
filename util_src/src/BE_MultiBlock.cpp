@@ -176,8 +176,7 @@ LONG_PTR BE_MultiBlock::expandStructListByOne()
         }
 
         // Expand the list
-        mdp_realloc_ptr_1(HndlStructVec, m_numStructures + 2,
-                          m_numStructures);
+        mdp_realloc_ptr_1(HndlStructVec, m_numStructures + 2, m_numStructures);
 
 
         // get the pointer to the vector of structures

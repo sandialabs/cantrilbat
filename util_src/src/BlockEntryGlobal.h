@@ -196,6 +196,7 @@ end block Bath specification for Phase airNASA9
 #include "BE_MolalityComp.h"
 #include "BE_StrVecDbl.h"
 #include "BE_MoleComp_VecDbl.h"
+#include "BE_MultiBlockVec.h"
 //
 // List of individual Units conversion classes
 //
