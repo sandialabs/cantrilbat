@@ -350,23 +350,24 @@ public:
      * PhaseList maintains a global species list, containing all of the species in all of the phases within PhaseList.
      * The volume phases are first in this list, followed by the surface phases. The global species index is the index in this list.
      *
-     * @param[in]          iphGlob               global phase Index of the volume or  surface Phase.
-     * @param[in]          k                     local species index within the phase.  Default = 0.
+     * @param[in]            iphGlob             global phase Index of the volume or  surface Phase.
+     * @param[in]            k                   local species index within the phase.  Default = 0.
      *
      * @return                                   Returns the global species index within the PhaseList object. 
      *                                           If the parameters don't identify an index, npos  is returned.
      */
     size_t globalSpeciesIndex(size_t iphGlob, size_t k = 0) const;
 
-    //! Return the global index of a species named
+    //! Return the global index of a species named in the speciesIDString format
     /*!
      * @param[in]            sIDStr              String name of the species in speciesIDString format.
-     * @param[in]            pname               String name of the phase. This defaults to "", in which case the index of the first match is returned
+     * @param[in]            pname               String name of the phase. This defaults to "", in which case the index of the first match 
+     *                                           from the speciesIDString match is returned.
      *
      * @return                                   Returns the global index of the species.
      *                                           It returns npos if not found
      */
-    size_t globalSpeciesIndex(const std::string& sname, const std::string pname="") const;
+    size_t globalSpeciesIndex(const std::string& sIDStr, const std::string pname="") const;
 
     //! Return the global index of a species given a speciesID object
     /*!
@@ -385,13 +386,12 @@ public:
      * the surface phases. The global species index is the index in this list.
      *
      *
-     * @param volPhaseIndex  volume Index of the volume Phase.
-     * @param k              local species index within the phase.                 Default = 0.
+     * @param[in]            iphVol              volume Index of the volume Phase.
+     * @param[in]            k                   local species index within the phase. Defaults to 0.
      *
-     * @return
-     *   Returns the global species index within the PhaseList object.
+     * @return                                   Returns the global species index within the PhaseList object.
      */
-    size_t globalSpeciesIndexVolPhaseIndex(size_t volPhaseIndex, size_t k = 0) const;
+    size_t globalSpeciesIndexVolPhaseIndex(size_t iphVol, size_t k = 0) const;
 
     //! Get the global species index for a surface phase
     /*!
@@ -401,17 +401,17 @@ public:
      * the surface phases. The global species index is the
      * index in this list.
      *
-     * @param surPhaseIndex  surface  Index of the surface Phase.
-     * @param k              local species index within the phase.   Default = 0.
+     * @param[in]            iphSur              Surface Index of the surface Phase.
+     * @param[in]            k                   local species index within the phase.   Default = 0.
      *
      * @return                                   Returns the global species index within the PhaseList object.
      */
-    size_t globalSpeciesIndexSurPhaseIndex(size_t surPhaseIndex, size_t k = 0) const;
+    size_t globalSpeciesIndexSurPhaseIndex(size_t iphSur, size_t k = 0) const;
 
     //! Return the global phase index from the global species index
     /*!
      *  @param[in]           kGlob               Global species index
-     *  @return                                  return the phase index
+     *  @return                                  return the global phase index
      */
     size_t phaseIndexFromGlobalSpeciesIndex(size_t kGlob) const;
 
@@ -747,7 +747,7 @@ protected:
      *  If false, then the PhaseList_[] order is mixed up. It's still true that the order of the volume
      *  phases within it's own list is ordered according to where they appear in the PhaseList_ []vector.
      */
-    bool  m_OrderedByDimensionality;
+    bool m_OrderedByDimensionality;
 
     //! Total number of volume and surface phases defined in the object
     size_t m_NumTotPhases;
