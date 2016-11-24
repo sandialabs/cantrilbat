@@ -656,25 +656,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
     BaseEntry::set_SkipUnknownEntries(3);
 }
 //========================================================================================================================
-/*
- *
- * generic function Wrapper around new, in order to create a function
- * pointer for BE_MultiBlock
- */
-/*
-static void* getNewEGRInput(void* data_loc)
-{
-    void* ptr = new EGRInput();
-    return ptr;
-}
-*/
-//========================================================================================================================
-static void* getNewERSSpec(void* data_loc)
-{
-    void* ptr = new ERSSpec();
-    return ptr;
-}
-//========================================================================================================================
 void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 {
     /*
@@ -932,11 +913,9 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         pczc->generateDefLE();
         bbathphase->addSubBlock(pczc);
 
-
         /* --------------------------------------------------------------
          *
          */
-
         if (tp->activityConvention() == cAC_CONVENTION_MOLALITY) {
             ZZCantera::MolalityVPSSTP* m_ptr = dynamic_cast<ZZCantera::MolalityVPSSTP*>(tp);
             if (m_ptr == 0) {
@@ -947,22 +926,15 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
             double mwS = m_ptr->molecularWeight(indS);
             BE_MolalityComp* bmolal =
                 new BE_MolalityComp("Bath Species Molalities", &(BG.MolalitiesPLPhases[iph]), 0,
-                                    SpeciesNames+kstart, nSpecies, indS, mwS,
-                                    "MolalitiesBath");
-            //bmolal->generateDefLE();
+                                    SpeciesNames+kstart, nSpecies, indS, mwS, "MolalitiesBath");
             bbathphase->addSubBlock(bmolal);
-
         }
-
     }
-    // ---------------------------------------------------------------------------------
- 
     // ---------------------------------------------------------------------------------
     /*
      *  Specify a block for each surface phase to receive inputs on composition
      *  and voltage
      */
-
     for (size_t iphS = 0; iphS < pl->nSurPhases(); iphS++) {
         string phaseBath = "Bath Specification for Phase ";
         size_t iph = pl->nVolPhases() + iphS;
@@ -1135,13 +1107,10 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     iREBot->set_default(-1.0);
     rb->addLineEntry(iREBot);
 
-
-
     /*
      *   SPECIFY OTHER WAYS TO INPUT THE CONCENTRATION, without
      *   breaking it down via phases.
      */
-
 
     /* ------------------------------------------------------------------
      * Block Input For initial number of moles of species
@@ -1168,13 +1137,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  in the pointer to the vector of structures .. PO.m_EGRList
      *
      */
-/*
-    BlockEntry* sbEGR = new BE_MultiBlock("Extra Global Reaction",
-                                          &(numExtraGlobalRxns),
-                                          (void***) &(m_EGRList),
-                                          getNewEGRInput, (void*) 0,
-                                          0);
-*/
     BlockEntry* sbEGR = 
         new BEInput::BE_MultiBlockVec<Zuzax::EGRInput>("Extra Global Reaction", &(numExtraGlobalRxns), &(m_EGRList), 0);
  
@@ -1188,48 +1150,36 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     /* --------------------------------------------------------------
      * EGR -> Special Species
      *
-     * Create a PickList Line Element made out of the list of
-     * species
+     * Create a PickList Line Element made out of the list of species
      */
-    LE_PickList* egrSS =
-        new LE_PickList("Special Species", &(egr_ptr->m_SS_KinSpeciesKindex),
-                        (const char**) SpeciesNames, nTotSpecies,
-                        1, "Special_Species");
+    LE_PickList* egrSS = new LE_PickList("Special Species", &(egr_ptr->m_SS_KinSpeciesKindex), (const char**) SpeciesNames,
+                                         nTotSpecies, 1, "Special_Species");
     egrSS->set_default(0);
     sbEGR->addLineEntry(egrSS);
 
-    BlockEntry* sbERS = new BE_MultiBlock("Elementary Reaction Specification",
-                                          &(egr_ptr->m_numElemReactions),
-                                          (void***) &(egr_ptr->m_ERSList),
-                                          getNewERSSpec, (void*) 0, 0);
+    BlockEntry* sbERS = new BEInput::BE_MultiBlockVec<Zuzax::ERSSpec>("Elementary Reaction Specification",
+                                                                       &(egr_ptr->m_numElemReactions), &(egr_ptr->m_ERSList), 0);
     sbEGR->addSubBlock(sbERS);
     /*
-     * OK now define items in the block
+     * OK now define items in that block
      */
     ERSSpec* ers_ptr = egr_ptr->m_ERSList[0];
-
 
     /* ------------------------------------------------------------------
      *  Define a reaction index
      */
-    LE_OneInt* iRxnIndex =
-        new LE_OneInt("Reaction Index", &(ers_ptr->m_reactionIndex), 1, "ReactionIndex");
+    LE_OneInt* iRxnIndex = new LE_OneInt("Reaction Index", &(ers_ptr->m_reactionIndex), 1, "ReactionIndex");
     iRxnIndex->set_default(-1);
     sbERS->addLineEntry(iRxnIndex);
 
-    LE_OneDbl* iRxnMult =
-        new LE_OneDbl("Reaction Multiplier", &(ers_ptr->m_reactionMultiplier), 1,
-                      "ReactionMultiplier");
+    LE_OneDbl* iRxnMult = new LE_OneDbl("Reaction Multiplier", &(ers_ptr->m_reactionMultiplier), 1, "ReactionMultiplier");
     iRxnMult->set_default(0.0);
     sbERS->addLineEntry(iRxnMult);
-
 
     BaseEntry::set_SkipUnknownEntries(3);
 }
 //======================================================================================================================
-/******************************************************************************
- *  Read the input file
- *
+/*
  *  printFlag 0 = no output
  *            1 = error message output
  *            2 = output -> processed lines
