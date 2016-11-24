@@ -15,13 +15,20 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "BlockEntryGlobal.h"
+#include "BE_MultiBlockVec.hpp"
 #include "mdp_allo.h"
 
 using namespace std;
 using namespace BEInput;
 using namespace ca_ab;
 using namespace mdpUtil;
+//==================================================================================================================================
+//  Explicit instanteations of needed templated BE_MultiBlockVec classes
 
+template class BEInput::BE_MultiBlockVec<Zuzax::EGRInput> ;
+template class BEInput::BE_MultiBlockVec<Zuzax::ERSSpec> ;
+
+//==================================================================================================================================
 //-----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -29,7 +36,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-//================================================================================================
+//==================================================================================================================================
 ElectrodeBath::ElectrodeBath() :
     XmolPLSpecVec(0),
     XmolPLPhases(0),
@@ -41,7 +48,7 @@ ElectrodeBath::ElectrodeBath() :
     CapZeroDoDCoeffSpecVec(0)
 {
 }
-//================================================================================================
+//==================================================================================================================================
 ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
     XmolPLSpecVec(0),
     XmolPLPhases(0),
@@ -54,7 +61,7 @@ ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
 {
     operator=(right);
 }
-//================================================================================================
+//==================================================================================================================================
  ElectrodeBath& ElectrodeBath::operator=(const ElectrodeBath& right)
  {
     if (this == &right) {
@@ -76,7 +83,7 @@ ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
  
     return *this;
  }
-//================================================================================================
+//==================================================================================================================================
 ElectrodeBath::~ElectrodeBath() 
 {
     mdpUtil::mdp_safe_free((void**) &XmolPLSpecVec);
@@ -88,8 +95,9 @@ ElectrodeBath::~ElectrodeBath()
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffPhases);
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffSpecVec);
 }
-//====================================================================================================================================================
-//====================================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 OCV_Override_input::OCV_Override_input() :
     numTimes(0),
     surfacePhaseID(-1),
@@ -108,7 +116,7 @@ OCV_Override_input::OCV_Override_input() :
     OCVTempDerivModel("Constant 0.0")
 {
 }
-//===================================================================================================================================================
+//==================================================================================================================================
 OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
     numTimes(right.numTimes),
     surfacePhaseID(right.surfacePhaseID),
@@ -127,7 +135,7 @@ OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
     OCVTempDerivModel(right.OCVTempDerivModel)
 {
 }
-//===================================================================================================================================================
+//==================================================================================================================================
 OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& right)
 {
     if (this == &right) {
@@ -151,12 +159,13 @@ OCV_Override_input& OCV_Override_input::operator=(const OCV_Override_input& righ
 
     return *this;
 }
-//===================================================================================================================================================
+//==================================================================================================================================
 OCV_Override_input::~OCV_Override_input()
 {
 }
-//===================================================================================================================================================
-//===================================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     printLvl_(printLvl),
     commandFile_(""),
@@ -185,7 +194,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     RxnExtTopLimit(-1.0),
     RxnExtBotLimit(-1.0),
     numExtraGlobalRxns(0),
-    m_EGRList(0),
     nTotPhases(0),
     nTotSpecies(0),
     nTotElements(0),
@@ -197,12 +205,10 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     m_BG = new ElectrodeBath();
     m_pl = new PhaseList();
 
-    //m_EGRList = new EGRInput*[2];
-    m_EGRList = (EGRInput**) mdpUtil::mdp_alloc_ptr_1(2);
+    m_EGRList.resize(1, nullptr);
     m_EGRList[0] = new EGRInput();
-    m_EGRList[1] = 0;
 }
-//===============================================================================================
+//==================================================================================================================================
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     printLvl_(right.printLvl_),
     commandFile_(""),
@@ -231,7 +237,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     RxnExtTopLimit(-1.0),
     RxnExtBotLimit(-1.0),
     numExtraGlobalRxns(0),
-    m_EGRList(0),
     nTotPhases(0),
     nTotSpecies(0),
     nTotElements(0),
@@ -242,9 +247,9 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
 {   
     ELECTRODE_KEY_INPUT::operator=(right);
 }
-//===============================================================================================
- ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& right)
- {
+//==================================================================================================================================
+ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& right)
+{
      if (this == &right) {
         return *this;
      }
@@ -369,16 +374,12 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      RxnExtBotLimit                      = right.RxnExtBotLimit;
      numExtraGlobalRxns                  = right.numExtraGlobalRxns;
 
-     if (m_EGRList) {
-        EGRInput** ptr;
-        for (ptr = m_EGRList; *ptr != 0; ptr++) {
-            delete *ptr;
-        }
-        free(m_EGRList);
-    }
-     m_EGRList = (EGRInput**) mdp_alloc_ptr_1(numExtraGlobalRxns+1);
+     for (EGRInput* ep : m_EGRList) {
+         delete ep;
+     }
+     m_EGRList.resize(numExtraGlobalRxns, nullptr);
      for (int i = 0; i < numExtraGlobalRxns  ; i++) {
-	 m_EGRList[i] = new EGRInput(* right.m_EGRList[i]);
+	 m_EGRList[i] = new EGRInput(*(right.m_EGRList[i]));
      }
 
      RelativeCapacityDischargedPerMole   = right.RelativeCapacityDischargedPerMole;
@@ -392,8 +393,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
      relativeLocalToGlobalTimeStepMinimum = right.relativeLocalToGlobalTimeStepMinimum;
    
      return *this;
- }
-//==============================================================================================================================================
+}
+//==================================================================================================================================
 ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
 {
     if (CanteraFileNames) {
@@ -415,18 +416,9 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
     for (size_t j = 0; j < OCVoverride_ptrList.size(); j++) {
          delete OCVoverride_ptrList[j];
     }
-
-    if (m_EGRList) {
-
-      
-        EGRInput** ptr;
-        for (ptr = m_EGRList; *ptr != 0; ptr++) {
-            delete *ptr;
-        }
-
-        free(m_EGRList);
+    for (EGRInput* ep : m_EGRList) {
+        delete ep;
     }
-
     delete m_pl;
     m_pl = 0;
 }
@@ -493,21 +485,17 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
 //======================================================================================================================
 EGRInput::EGRInput() :
     m_SS_KinSpeciesKindex(0),
-    m_numElemReactions(0),
-    m_ERSList(0)
+    m_numElemReactions(0)
 {
-    m_ERSList = (ERSSpec**) mdpUtil::mdp_alloc_ptr_1(2);
+    m_ERSList.resize(1, nullptr);
     m_ERSList[0] = new ERSSpec();
 }
 //======================================================================================================================
 EGRInput::EGRInput(const EGRInput& right) :
-    m_SS_KinSpeciesKindex(0),
-    m_numElemReactions(0),
-    m_ERSList(0)
+    m_SS_KinSpeciesKindex( right.m_SS_KinSpeciesKindex ),
+    m_numElemReactions(    right.m_numElemReactions )
 {
-    m_SS_KinSpeciesKindex = right.m_SS_KinSpeciesKindex;
-    m_numElemReactions = right.m_numElemReactions;
-    m_ERSList = (ERSSpec**) mdpUtil::mdp_alloc_ptr_1(m_numElemReactions + 2);
+    m_ERSList.resize(m_numElemReactions);
     for (int i = 0; i < m_numElemReactions; i++) {
         m_ERSList[i] = new ERSSpec(*(right.m_ERSList[i]));
     }
@@ -515,43 +503,28 @@ EGRInput::EGRInput(const EGRInput& right) :
 //======================================================================================================================
 EGRInput& EGRInput::operator=(const EGRInput& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
-
-    if (m_ERSList) {
-        ERSSpec** ptr;
-        for (ptr = m_ERSList; *ptr != 0; ptr++) {
-            delete *ptr;
-        }
-        mdpUtil::mdp_safe_free((void**) &m_ERSList);
+    for (ERSSpec* ptr : m_ERSList) {
+        delete ptr;
     }
-
     m_SS_KinSpeciesKindex = right.m_SS_KinSpeciesKindex;
     m_numElemReactions = right.m_numElemReactions;
-    m_ERSList = (ERSSpec**) mdpUtil::mdp_alloc_ptr_1(m_numElemReactions + 2);
+    m_ERSList.resize(m_numElemReactions, nullptr);
     for (int i = 0; i < m_numElemReactions; i++) {
-        m_ERSList[i] = new ERSSpec(*(right.m_ERSList[i]));
+        if (right.m_ERSList[i]) {
+            m_ERSList[i] = new ERSSpec(*(right.m_ERSList[i]));
+        }
     }
-    /*
-     * Return the reference to the current object
-     */
     return *this;
-
 }
 //======================================================================================================================
 EGRInput::~EGRInput()
 {
-    if (m_ERSList) {
-        ERSSpec** ptr;
-        for (ptr = m_ERSList; *ptr != 0; ptr++) {
-            delete *ptr;
-        }
+    for (ERSSpec* ptr : m_ERSList) {
+        delete ptr;
     }
-    mdpUtil::mdp_safe_free((void**) &m_ERSList);
 }
 //======================================================================================================================
 void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
@@ -688,12 +661,13 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
  * generic function Wrapper around new, in order to create a function
  * pointer for BE_MultiBlock
  */
-
+/*
 static void* getNewEGRInput(void* data_loc)
 {
     void* ptr = new EGRInput();
     return ptr;
 }
+*/
 //========================================================================================================================
 static void* getNewERSSpec(void* data_loc)
 {
@@ -1194,12 +1168,16 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  in the pointer to the vector of structures .. PO.m_EGRList
      *
      */
-
+/*
     BlockEntry* sbEGR = new BE_MultiBlock("Extra Global Reaction",
                                           &(numExtraGlobalRxns),
                                           (void***) &(m_EGRList),
                                           getNewEGRInput, (void*) 0,
                                           0);
+*/
+    BlockEntry* sbEGR = 
+        new BEInput::BE_MultiBlockVec<Zuzax::EGRInput>("Extra Global Reaction", &(numExtraGlobalRxns), &(m_EGRList), 0);
+ 
     cf->addSubBlock(sbEGR);
 
     /*

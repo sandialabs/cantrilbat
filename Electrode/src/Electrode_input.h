@@ -527,7 +527,12 @@ public:
 
     //! Number of extra global reactions
     int numExtraGlobalRxns;
-    EGRInput** m_EGRList;
+
+    //! Vector of ExtraGlobalReactions that will be filled in by the MultiBlockVec input structure
+    /*!
+     *   The pointers will be allocated and filled in by the BE_MultiBlockVec routine
+     */
+    std::vector<EGRInput*> m_EGRList;
 
     //! Number of total phases in the phase list
     size_t nTotPhases;
@@ -566,8 +571,10 @@ public:
 /*!
  *  global reactions are made up of a linear combination of local reactions. Here we specify the contribution from
  *  one elementary reaction.
+ *  
+ *  Destructor, Copy constructor and assigment operator all use the default compiler ones.
  */
-class ERSSpec
+struct ERSSpec
 {
 public:
     //! Index value of the reaction index that is contributing to the global reaction
@@ -581,37 +588,10 @@ public:
         m_reactionIndex(-1),
         m_reactionMultiplier(0.0) {
     }
-
-    //! Default destructor
-    ~ERSSpec() {
-    }
-
-    //! Copy constructor
-    /*!
-     *  @param[in]           right               Object to be copied
-     */
-    ERSSpec(const ERSSpec& right) {
-        m_reactionIndex      = right.m_reactionIndex;
-        m_reactionMultiplier = right.m_reactionMultiplier;
-    }
-
-    //! Assignment operator
-    /*!
-     *  @param[in]           right               Object to be copied
-     *  @return                                  Returns a reference to the current object
-     */
-    ERSSpec& operator=(const ERSSpec& right) {
-        if (&right == this) {
-            return *this;
-        }
-        m_reactionIndex      = right.m_reactionIndex;
-        m_reactionMultiplier = right.m_reactionMultiplier;
-        return *this;
-    }
 };
 //===================================================================================================================================
 
-class EGRInput
+struct EGRInput
 {
 public:
     int m_SS_KinSpeciesKindex;
@@ -619,7 +599,7 @@ public:
 
     //! List of ERSSpec structs which specifies which elementary reaction contributes to the
     //! global vector and what the reaction multiplier is
-    ERSSpec** m_ERSList;
+    std::vector<ERSSpec* > m_ERSList;
 
     EGRInput();
 
