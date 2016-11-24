@@ -14,10 +14,9 @@
 #include "BE_BlockEntry.h"
 #include "LE_LineEntry.h"
 #include "mdp_allo.h"
+
 #include <set>
-
 #include <string>
-
 #include <cstdlib>
 
 using namespace std;
@@ -30,17 +29,6 @@ namespace BEInput
 const int BE_ANY_INDEX = -7777779;
 
 //==================================================================================================================================
-/*
- *  BlockEntry Constructor
- *
- *
- * Input
- *   FILE *ifp_input = current value of the file pointer
- *                     default is stdin
- *   parentBlock_inp = pointer to the parent of the current block
- *                     default is 0, indicating that this block is the
- *                     top main block that has no parent blocks.
- */
 BlockEntry::BlockEntry(const char* blockName, int numTimesRequired, BlockEntry* parentBlock_inp) :
     BaseEntry(blockName, numTimesRequired),
     ParentBlock(parentBlock_inp),
@@ -51,9 +39,6 @@ BlockEntry::BlockEntry(const char* blockName, int numTimesRequired, BlockEntry* 
     m_SkipUnknownEntries(1),
     m_adjustAddress(0)
 {
-    /*
-     * Check on sizes
-     */
     size_t pz = sizeof(void*);
     size_t lpz = sizeof(LONG_PTR);
     if (pz > lpz) {
@@ -61,14 +46,7 @@ BlockEntry::BlockEntry(const char* blockName, int numTimesRequired, BlockEntry* 
         exit(-1);
     }
 }
-
 //==================================================================================================================================
-/*
- *
- * BlockEntry(const BlockEntry&) :
- *
- * copy constructor: Deep copy of block structure
- */
 BlockEntry::BlockEntry(const BlockEntry& b) :
     BaseEntry(b),
     ParentBlock(b.ParentBlock),
@@ -92,12 +70,7 @@ BlockEntry::BlockEntry(const BlockEntry& b) :
             b.SubBlocks[iSB]->duplMyselfAsBlockEntry();
     }
 }
-
 //==================================================================================================================================
-/*
- *
- *  BlockEntry& operator=(const BlockEntry&)
- */
 BlockEntry& BlockEntry::operator=(const BlockEntry& b)
 {
     if (&b != this) {
@@ -146,40 +119,19 @@ BlockEntry& BlockEntry::operator=(const BlockEntry& b)
     }
     return *this;
 }
-
 //==================================================================================================================================
-/*
- *
- * BlockEntry* duplMyselfAsBlockEntry()
- *
- *     Duplicate the block as a base class
- */
 BlockEntry* BlockEntry::duplMyselfAsBlockEntry() const
 {
     BlockEntry* newBE = new BlockEntry(*this);
     return newBE;
 }
-
 //==================================================================================================================================
-/*
- *
- * BaseEntry* duplMyselfAsBaseEntry()
- *
- *     Duplicate the block as a base class, BaseEntry
- */
 BaseEntry* BlockEntry::duplMyselfAsBaseEntry() const
 {
     BlockEntry* newBE = duplMyselfAsBlockEntry();
     return (BaseEntry*) newBE;
 }
-
 //==================================================================================================================================
-/*
- *  Block_List Destructor (virtual function):
- *       We may be responsible for releasing memory here.
- *       We must also loop over keylists and subblocks and release
- *       memory.
- */
 BlockEntry::~BlockEntry(void)
 {
 #ifdef DEBUG_DESTRUCTOR
@@ -209,7 +161,6 @@ BlockEntry::~BlockEntry(void)
         mdp_safe_free((void**)&BlockLineInput);
     }
 }
-
 //==================================================================================================================================
 void BlockEntry::clear()
 {
@@ -240,12 +191,9 @@ void BlockEntry::clear()
     numLineInput = 0;
     m_adjustAddress = 0;
 }
-
 //==================================================================================================================================
 /*
- *
- *  read_block handles the I/O of block commands. It is designed so that
- *  it can be called recursively.
+ *  read_block handles the I/O of block commands. It is designed so that it can be called recursively.
  *
  *  The basic idea is that a line of input is read, stripping comments
  *  so that a line must be interpretted.
@@ -446,24 +394,17 @@ BlockEntry::read_block(FILE* input_file, TK_TOKEN* endArgPtr,
     }
 }
 //==================================================================================================================================
-/************************************************************************
- *
- * read_this_block_only()
- *
+/* 
  *  This function will skip ahead to read a subblock within a block
- *  structure. Actually, it doesn't check the block structure
- *  until it gets within the actual block.
+ *  structure. Actually, it doesn't check the block structure until it gets within the actual block.
  */
-void BlockEntry::
-read_this_block_only(FILE* input_file)
+void BlockEntry::read_this_block_only(FILE* input_file)
 {
     BOOLEAN OK;
     struct TOKEN keyLineTok;  /* Structure to hold the key string itself */
-    struct TOKEN keyArgTok;   /* Structure to hold the arguments to the
-				 key string  */
+    struct TOKEN keyArgTok;   /* Structure to hold the arguments to the key string  */
     struct TOKEN subBlockEndArg;
     bool found_and_processed = false;
-
 
     /*
      *   Read the next line from the stream that isn't totally made
@@ -516,15 +457,10 @@ read_this_block_only(FILE* input_file)
         }
     }
 }
-
 //==================================================================================================================================
-
 /*
- * skip_block:
- *
  *  skip_block skips a block and all embedded blocks. On entry
- *  the file position should be just after the block header of the
- *  block to be skipped.
+ *  the file position should be just after the block header of the  block to be skipped.
  *
  *    Input
  *  --------------
@@ -539,10 +475,8 @@ read_this_block_only(FILE* input_file)
  *    parentBlock - pointer to the block class that is the parent
  *                  to the current block. (default no parent indicates
  *                  that this is the top block.
- *
  */
-void BlockEntry::skip_block(FILE* input_file, TK_TOKEN* blockName,
-                            BlockEntry* parentBlock)
+void BlockEntry::skip_block(FILE* input_file, TK_TOKEN* blockName, BlockEntry* parentBlock)
 {
     BOOLEAN OK;
     int blockLevel = 1;
@@ -604,7 +538,6 @@ void BlockEntry::skip_block(FILE* input_file, TK_TOKEN* blockName,
 
 }
 //==================================================================================================================================
-
 // Virtual function called at the start of internally processing the block
 /*
  *  This function may be used to start the process of setting up
@@ -732,20 +665,14 @@ void BlockEntry::adjustAddress(LONG_PTR adjustAAA)
         }
     }
 }
-
 //==================================================================================================================================
 void BlockEntry::set_default(double defValue)
 {
-    throw BI_InputError("BlockEntry::set_default",
-                        "base entry called and not overriden");
+    throw BI_InputError("BlockEntry::set_default", "base entry called and not overriden");
 }
 //==================================================================================================================================
 /*
- *
- * ZeroLineCount():
- *
- *  This call zeroes the line count information out. this is needed
- *  when BlockEntry is used in a multiple pass format.
+ *  This call zeroes the line count information out. This is needed when BlockEntry is used in a multiple pass format.
  */
 void BlockEntry::ZeroLineCount()
 {
@@ -763,16 +690,11 @@ void BlockEntry::ZeroLineCount()
         }
     }
 }
-
 //==================================================================================================================================
 /*
- * print_keyLine() (static function):
- *
  *   Prints a line of input to standard out.
- *
  */
-void BlockEntry::print_keyLine(const TK_TOKEN* keyLineTok,
-                               const TK_TOKEN* keyArgTok)
+void BlockEntry::print_keyLine(const TK_TOKEN* keyLineTok, const TK_TOKEN* keyArgTok)
 {
     int i;
     printf("\t\"%s\"", keyLineTok->orig_str);
@@ -784,7 +706,6 @@ void BlockEntry::print_keyLine(const TK_TOKEN* keyLineTok,
     }
     printf("\n");
 }
-
 //==================================================================================================================================
 /*
  * print_indent (BlockEntry static function)
@@ -795,12 +716,9 @@ void BlockEntry::print_indent(int ilvl)
         printf("    ");
     }
 }
-
+//==================================================================================================================================
 /*
- *  print_usage():
- *
- *    This routine will print a summary of the permissible line Entries
- *    and subblocks for this particular block
+ *    This routine will print a summary of the permissible line Entries and subblocks for this particular block
  */
 void BlockEntry::print_usage(int indent_lvl) const
 {
@@ -871,19 +789,15 @@ void BlockEntry::print_usage(int indent_lvl) const
         printf("\n");
     }
 }
-
 //==================================================================================================================================
 /*
- *  match_block():
- *
- *    Match the block name as defined by a sequence of tokens.
- *    Return the address of the block entry.
+ *    Match the block name as defined by a sequence of tokens. Return the address of the block entry.
  *
  *    This function will lop off unwanted trailing "block" "end" and "start"
  *    words from the token list.
  *
  *    If the contribIndex is 0 or pos, an exact match with the index is
- *    required. if contribIndex is < 0, the following procedure is used.
+ *    required. if contribIndex is < 0, the following procedure is used:
  *
  *    The value of the lowest  multiContribIndex value for a block that
  *    hasn't been processed gets selected.
@@ -940,7 +854,6 @@ BlockEntry* BlockEntry::match_block(const TK_TOKEN* keyLinePtr, int contribIndex
     }
     return (biBest);
 }
-
 //==================================================================================================================================
 BlockEntry* BlockEntry::match_block_argName(const TK_TOKEN* keyLinePtr, bool includedMatch,
                                             int contribIndex, const TK_TOKEN* keyArgName) const
@@ -999,8 +912,6 @@ BlockEntry* BlockEntry::match_block_argName(const TK_TOKEN* keyLinePtr, bool inc
 }
 //=============================================================================================================
 /*
- *  match_block():
- *
  *    Match the block name as defined by a character string, which
  *    is translated into a token object.
  *    Return the address of the block entry.
@@ -1017,8 +928,6 @@ BlockEntry* BlockEntry::match_block(const char* blockstring, int contribIndex, b
 }
 //=================================================================================================================
 /*
- *  Initialize_SubBlock() (virtual function):
- *
  * Do initialization of the subblock at the current block lvl.
  *
  *  Input
@@ -1036,8 +945,6 @@ void BlockEntry::Initialize_SubBlock(BlockEntry* subBlockPtr, const TK_TOKEN* ke
 }
 //===================================================================================================================
 /*
- *  Wrapup_SubBlock() (virtual function):
- *
  * Do wrapup of the subblock at the current block lvl.
  *
  *  Input
@@ -1045,17 +952,12 @@ void BlockEntry::Initialize_SubBlock(BlockEntry* subBlockPtr, const TK_TOKEN* ke
  *    subBlockPtr = pointer to the subblock object
  *    subBlockEndPtr  = arguments to the subblock call.
  */
-void BlockEntry::Wrapup_SubBlock(BlockEntry* subBlockPtr,
-                                 const TK_TOKEN* subBlockEndPtr)
+void BlockEntry::Wrapup_SubBlock(BlockEntry* subBlockPtr, const TK_TOKEN* subBlockEndPtr)
 {
 }
 //==========================================================================================================
 /*
- *
- * match_keyLine():
- *
- *    See if a match exists between the character string and the keyLine
- *    structure.
+ *    See if a match exists between the character string and the keyLine structure.
  */
 LineEntry* BlockEntry::match_keyLine(const TK_TOKEN* lineEntryTok, int contribIndex) const
 {
@@ -1073,8 +975,7 @@ LineEntry* BlockEntry::match_keyLine(const TK_TOKEN* lineEntryTok, int contribIn
                     leBest = le;
                     multiContribIndexBest = multiContribIndex;
                 } else if (multiContribIndex == multiContribIndexBest) {
-                    throw BI_InputError("BlockEntry::match_keyLine",
-                                        "Two LineEntries are the same:");
+                    throw BI_InputError("BlockEntry::match_keyLine", "Two LineEntries are the same:");
                 }
             }
         }
@@ -1083,38 +984,26 @@ LineEntry* BlockEntry::match_keyLine(const TK_TOKEN* lineEntryTok, int contribIn
 }
 //==========================================================================================================
 /*
- * process_LineEntry() (virtual function):
- *
  *   The basic approach is to pass the control of dealing with line entries
  *   down to the individual LineEntry objects themselves.
  */
-void BlockEntry::process_LineEntry(LineEntry* curLE,
-                                   const TK_TOKEN* keyArgTokPtr)
+void BlockEntry::process_LineEntry(LineEntry* curLE, const TK_TOKEN* keyArgTokPtr)
 {
     curLE->process_LineEntry(keyArgTokPtr);
     if (BaseEntry::s_PrintProcessedLine) {
         curLE->print_ProcessedLine(keyArgTokPtr);
     }
 }
-
 //==================================================================================================================================
 /*
- * skip_lineEntry() (virtual function):
- *
- *  Currently, this is just a holder for perhaps printing more
- *  debugging information.
+ *  Currently, this is just a holder for perhaps printing more debugging information.
  */
-void BlockEntry::skip_lineEntry(FILE* ifp, const TK_TOKEN* keyLineTok,
-                                const TK_TOKEN* keyArgTokPtr) const
+void BlockEntry::skip_lineEntry(FILE* ifp, const TK_TOKEN* keyLineTok, const TK_TOKEN* keyArgTokPtr) const
 {
 }
-
 //==================================================================================================================================
 /*
- * addSubBlock
- *
- *   This adds a subblock entry structure to the current BlockEntry
- *   structure.
+ *   This adds a subblock entry structure to the current BlockEntry  structure.
  */
 void BlockEntry::addSubBlock(BlockEntry* sb)
 {
@@ -1149,13 +1038,9 @@ void BlockEntry::addSubBlock(BlockEntry* sb)
     numSubBlocks++;
     sb->ParentBlock = this;
 }
-
 //==================================================================================================================================
 /*
- * addLineEntry
- *
- *   This adds a Line Entry structure to the current BlockEntry
- *   structure.
+ *   This adds a Line Entry structure to the current BlockEntry structure.
  */
 void BlockEntry::addLineEntry(LineEntry* le)
 {
@@ -1192,14 +1077,10 @@ void BlockEntry::addLineEntry(LineEntry* le)
     BlockLineInput[numLineInput+1] = 0;
     numLineInput++;
 }
-
 //==================================================================================================================================
 /*
- *  reportNumProcessedLines
- *
  * This does a recursive search for a Line Entry on the current block
- * and all subblocks of the current block, using a character string
- * as the input.
+ * and all subblocks of the current block, using a character string as the input.
  */
 int BlockEntry::reportNumProcessedLines(const char* lineName) const
 {
@@ -1212,7 +1093,6 @@ int BlockEntry::reportNumProcessedLines(const char* lineName) const
     }
     return 0;
 }
-
 //==================================================================================================================================
 /*
  *
@@ -1299,14 +1179,10 @@ bool BlockEntry::checkRequirements(bool throwSpecificError)
     }
     return true;
 }
-
 //==================================================================================================================================
 /*
- * searchLineEntry:
- *
  *    This does a recursive search for a LineEntry on the current block
- * and all subblocks of the current block, using a character string
- * as the input.
+ * and all subblocks of the current block, using a character string as the input.
  */
 LineEntry* BlockEntry::
 searchLineEntry(const char* const lineName) const
@@ -1319,13 +1195,9 @@ searchLineEntry(const char* const lineName) const
     delete tok_ptr;
     return le;
 }
-
 //==================================================================================================================================
 /*
- * searchLineEntry:
- *
- *  This does a recursive search for a LineEntry on the current block
- * and all subblocks of the current block.
+ *  This does a recursive search for a LineEntry on the current block and all subblocks of the current block.
  */
 LineEntry* BlockEntry::searchLineEntry(const TK_TOKEN* const nameLE) const
 {
@@ -1349,10 +1221,7 @@ LineEntry* BlockEntry::searchLineEntry(const TK_TOKEN* const nameLE) const
 }
 //==================================================================================================================
 /*
- * searchBlockEntry:
- *
- * This does a recursive search for a Block Entry
- * name under the current block
+ * This does a recursive search for a Block Entry name under the current block
  * and under all subblocks of the current block.
  */
 BlockEntry* BlockEntry::searchBlockEntry(const char* const bName, bool includedMatch,
@@ -1368,10 +1237,7 @@ BlockEntry* BlockEntry::searchBlockEntry(const char* const bName, bool includedM
 }
 //==================================================================================================================================
 /*
- * searchBlockEntry:
- *
- * This does a recursive search for a Block Entry
- * name under the current block
+ * This does a recursive search for a Block Entry name under the current block
  * and under all subblocks of the current block.
  */
 BlockEntry* BlockEntry::searchBlockEntry(const TK_TOKEN* const nameBN, bool includedMatch,
@@ -1453,9 +1319,7 @@ std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const char* cnameBN,
     return cc;
 }
 //=================================================================================================================
-
-// This does a recursive search for a Block Entry name
-// and under all subblocks of the current block.
+// This does a recursive search for a Block Entry name and under all subblocks of the current block.
 /*
  * It uses a TOKEN ptr as the search input
  *
@@ -1511,7 +1375,6 @@ std::set<const BlockEntry*> BlockEntry::collectBlockEntries(const TK_TOKEN* cons
                 }
             }
         }
-
         if (SubBlocks) {
             for (int i = 0; i < numSubBlocks; i++) {
                 BlockEntry* sbi = SubBlocks[i];
