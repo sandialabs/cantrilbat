@@ -25,10 +25,8 @@ namespace BEInput
  *   This sets up the line entry special case. We make sure to call the base class constructor here to do
  *   much of the initialization.
  */
-BE_MultiBlockNested::BE_MultiBlockNested(const char* blockName,
-                                         int* hndlnumstructures,
-                                         int numTR,
-                                         BlockEntry* parentBlock_input) :
+BE_MultiBlockNested::BE_MultiBlockNested(const char* blockName, int* hndlnumstructures,
+                                         int numTR, BlockEntry* parentBlock_input) :
     BlockEntry(blockName, numTR, parentBlock_input),
     m_numStructures(0),
     hndlNumStructures(hndlnumstructures),
@@ -52,7 +50,6 @@ BE_MultiBlockNested::BE_MultiBlockNested(const BE_MultiBlockNested& b) :
     hndlNumStructures(b.hndlNumStructures),
     originalBlockPtr_(b.originalBlockPtr_)
 {
- 
 }
 //==================================================================================================================================
 /*
