@@ -37,7 +37,7 @@ namespace Cantera
     void getCoverageDependence(const XML_Node& node,
 			       ThermoPhase& surfphase);
     void getStick(const XML_Node& node, Kinetics& kin,
-		  doublereal& A, doublereal& b, doublereal& E);
+		  doublevalue& A, doublevalue& b, doublevalue& E);
 
     void getRateCoefficient(const XML_Node &kf, Kinetics & kin, 
 			    int negA);

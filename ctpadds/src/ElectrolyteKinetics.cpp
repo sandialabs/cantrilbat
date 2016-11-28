@@ -119,7 +119,7 @@ namespace Cantera
    *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
    *                  at least m_ii.
    */
-  void ElectrolyteKinetics::getFwdRatesOfProgress(doublereal* fwdROP) { 
+  void ElectrolyteKinetics::getFwdRatesOfProgress(doublevalue* fwdROP) { 
     updateROP(); 
     copy(m_kdata->m_ropf.begin(), m_kdata->m_ropf.end(), fwdROP);
   }
@@ -135,7 +135,7 @@ namespace Cantera
    *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
    *                  at least m_ii.
    */
-  void ElectrolyteKinetics::getRevRatesOfProgress(doublereal* revROP) { 
+  void ElectrolyteKinetics::getRevRatesOfProgress(doublevalue* revROP) { 
     updateROP(); 
     copy(m_kdata->m_ropr.begin(), m_kdata->m_ropr.end(), revROP);
   }
@@ -151,7 +151,7 @@ namespace Cantera
    *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
    *                  at least m_ii.
    */
-  void ElectrolyteKinetics::getNetRatesOfProgress(doublereal* netROP) { 
+  void ElectrolyteKinetics::getNetRatesOfProgress(doublevalue* netROP) { 
     updateROP(); 
     copy(m_kdata->m_ropnet.begin(), m_kdata->m_ropnet.end(), netROP);
   }
@@ -166,7 +166,7 @@ namespace Cantera
    * total number of species.
    */
   void ElectrolyteKinetics::
-  getNetProductionRates(doublereal* net) {
+  getNetProductionRates(doublevalue* net) {
     /*
      * We do the work here. We calculate reactions rates of progress and
      * store them in the vector m_kdata->m_ropnet
@@ -195,7 +195,7 @@ namespace Cantera
    * net, which must be dimensioned at least as large as the
    * total number of species.
    */
-  void ElectrolyteKinetics::getCreationRates(doublereal* cdot) {
+  void ElectrolyteKinetics::getCreationRates(doublevalue* cdot) {
     /*
      * Update the rates of progress of the reactions
      */
@@ -213,7 +213,7 @@ namespace Cantera
    * ddot, which must be dimensioned at least as large as the
    * total number of species.
    */
-  void ElectrolyteKinetics::getDestructionRates(doublereal* ddot) {
+  void ElectrolyteKinetics::getDestructionRates(doublevalue* ddot) {
     /*
      * Update the rates of progress of the reactions
      */
@@ -272,7 +272,7 @@ namespace Cantera
    */
   void ElectrolyteKinetics::
   _update_rates_T() {
-    doublereal T = thermo().temperature();
+    doublevalue T = thermo().temperature();
     /*
      * Calculate logC0 if all the same.
      */
@@ -280,7 +280,7 @@ namespace Cantera
       m_kdata->m_logC0_scalar = log(thermo().standardConcentration(0));
     }
 
-    doublereal logT = log(T);
+    doublevalue logT = log(T);
     /**
      * Update the forward rate constants. We only update those
      * rate constants which have a temperature dependence in 
@@ -345,8 +345,8 @@ namespace Cantera
      */
     size_t nsp;
     size_t ik = 0;
-    doublereal rt = GasConstant*thermo(0).temperature();
-    doublereal rrt = 1.0/rt;
+    doublevalue rt = GasConstant*thermo(0).temperature();
+    doublevalue rrt = 1.0/rt;
     size_t np = nPhases();
     for (n = 0; n < np; n++) {
       thermo(n).getStandardChemPotentials(&m_mu0[0] + m_start[n]);
@@ -396,10 +396,10 @@ namespace Cantera
    *               for all reactions.
    */
   void ElectrolyteKinetics::
-  getEquilibriumConstants(doublereal* kc) {
+  getEquilibriumConstants(doublevalue* kc) {
     int n, nsp, k, ik=0;
-    doublereal rt = GasConstant*thermo(0).temperature();
-    doublereal rrt = 1.0/rt;
+    doublevalue rt = GasConstant*thermo(0).temperature();
+    doublevalue rrt = 1.0/rt;
     int np = nPhases();
     /*
      *  Get the standard state chemical potentials of the species.
@@ -441,7 +441,7 @@ namespace Cantera
    *
    *  units = J kmol-1
    */
-  void ElectrolyteKinetics::getDeltaGibbs(doublereal* deltaG) {
+  void ElectrolyteKinetics::getDeltaGibbs(doublevalue* deltaG) {
     /*
      * Get the chemical potentials of the species in the 
      * solid solution.Note this works as ElectrolyteKinetics is 
@@ -470,7 +470,7 @@ namespace Cantera
    *
    *  units = J kmol-1
    */
-  void ElectrolyteKinetics::getDeltaEnthalpy(doublereal* deltaH) {
+  void ElectrolyteKinetics::getDeltaEnthalpy(doublevalue* deltaH) {
     /*
      * Get the partial molar enthalpy of all species in the 
      * ideal gas.
@@ -498,7 +498,7 @@ namespace Cantera
    *
    *  units = J kmol-1 Kelvin-1
    */
-  void ElectrolyteKinetics::getDeltaEntropy( doublereal* deltaS) {
+  void ElectrolyteKinetics::getDeltaEntropy( doublevalue* deltaS) {
     /*
      * Get the partial molar entropy of all species in the
      * solid solution.
@@ -526,7 +526,7 @@ namespace Cantera
    *
    *  units = J kmol-1
    */
-  void ElectrolyteKinetics::getDeltaSSGibbs(doublereal* deltaG) {
+  void ElectrolyteKinetics::getDeltaSSGibbs(doublevalue* deltaG) {
     /*
      *  Get the standard state chemical potentials of the species.
      *  This is the array of chemical potentials at unit activity 
@@ -556,7 +556,7 @@ namespace Cantera
    *
    *  units = J kmol-1
    */
-  void ElectrolyteKinetics::getDeltaSSEnthalpy(doublereal* deltaH) {
+  void ElectrolyteKinetics::getDeltaSSEnthalpy(doublevalue* deltaH) {
     /*
      *  Get the standard state enthalpies of the species.
      *  This is the array of chemical potentials at unit activity 
@@ -567,7 +567,7 @@ namespace Cantera
     for (size_t n = 0; n < np; n++) {
       thermo(n).getEnthalpy_RT(&m_grt[0] + m_start[n]);
     }
-    doublereal RT = thermo().temperature() * GasConstant;
+    doublevalue RT = thermo().temperature() * GasConstant;
     for (size_t k = 0; k < m_kk; k++) {
       m_grt[k] *= RT;
     }
@@ -589,7 +589,7 @@ namespace Cantera
    *
    *  units = J kmol-1 Kelvin-1
    */
-  void ElectrolyteKinetics::getDeltaSSEntropy(doublereal* deltaS) {
+  void ElectrolyteKinetics::getDeltaSSEntropy(doublevalue* deltaS) {
     /*
      *  Get the standard state entropy of the species.
      *  We define these here as the entropies of the pure
@@ -599,7 +599,7 @@ namespace Cantera
     for (size_t n = 0; n < np; n++) {
       thermo(n).getEntropy_R(&m_grt[0] + m_start[n]);
     }
-    doublereal R = GasConstant;
+    doublevalue R = GasConstant;
     for (size_t k = 0; k < m_kk; k++) {
       m_grt[k] *= R;
     }
@@ -610,7 +610,7 @@ namespace Cantera
     m_rxnstoich.getReactionDelta(m_ii, &m_grt[0], deltaS);
   }
 
-  void ElectrolyteKinetics::getActivationEnergies(doublereal *E) {
+  void ElectrolyteKinetics::getActivationEnergies(doublevalue *E) {
     copy(m_E.begin(), m_E.end(), E);
   }
 
@@ -700,7 +700,7 @@ namespace Cantera
    * located in the solid kinetics data class are up to date.
    */
   void ElectrolyteKinetics::
-  getFwdRateConstants(doublereal *kfwd) {
+  getFwdRateConstants(doublevalue *kfwd) {
     _update_rates_T();
     _update_rates_C();
     const vector_fp& rf = m_kdata->m_rfn;
@@ -721,12 +721,12 @@ namespace Cantera
    * doIrreversible is overridden.
    */
   void ElectrolyteKinetics::
-  getRevRateConstants(doublereal *krev, bool doIrreversible) {
+  getRevRateConstants(doublevalue *krev, bool doIrreversible) {
     _update_rates_T();
     _update_rates_C();
     const vector_fp& rf = m_kdata->m_rfn;
     if (doIrreversible) {
-      doublereal *tmpKc = &m_kdata->m_ropnet[0];
+      doublevalue *tmpKc = &m_kdata->m_ropnet[0];
       getEquilibriumConstants(tmpKc);
       for (size_t i = 0; i < m_ii; i++) {
 	krev[i] = rf[i] * m_perturb[i] / tmpKc[i];

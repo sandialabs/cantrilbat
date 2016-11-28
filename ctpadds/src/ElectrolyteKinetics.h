@@ -65,7 +65,7 @@ namespace Cantera
      * for all species, this entry will contain the log of the
      * common standard concentration.
      */
-    doublereal m_logC0_scalar;
+    doublevalue m_logC0_scalar;
 
     /**
      * Rate of progress vector for the forward direction of each
@@ -94,7 +94,7 @@ namespace Cantera
     /**
      * Last temperature at which the ROP vectors were evalulated at
      */
-    doublereal m_temp;
+    doublevalue m_temp;
 
     /**
      * Value of the forward rate constants at the current
@@ -172,7 +172,7 @@ namespace Cantera
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-    virtual void getFwdRatesOfProgress(doublereal* fwdROP);
+    virtual void getFwdRatesOfProgress(doublevalue* fwdROP);
 
     /**
      * Returns a vector containing the reverse rate of progress of the ith
@@ -183,7 +183,7 @@ namespace Cantera
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-    virtual void getRevRatesOfProgress(doublereal* revROP);
+    virtual void getRevRatesOfProgress(doublevalue* revROP);
 
     /**
      * Returns a vector containing the net rate of progress of the ith
@@ -193,7 +193,7 @@ namespace Cantera
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-    virtual void getNetRatesOfProgress(doublereal* netROP);
+    virtual void getNetRatesOfProgress(doublevalue* netROP);
 
     /*
      * Get the equilibrium constants of all reactions, whether
@@ -203,7 +203,7 @@ namespace Cantera
      *               will contain the equilibrium constants
      *               for all reactions.
      */
-    virtual void getEquilibriumConstants(doublereal* kc);
+    virtual void getEquilibriumConstants(doublevalue* kc);
 
     /**
      * Return the vector of values for the reaction gibbs free energy
@@ -213,7 +213,7 @@ namespace Cantera
      *
      *  units = J kmol-1
      */
-    virtual void getDeltaGibbs(doublereal* deltaG);
+    virtual void getDeltaGibbs(doublevalue* deltaG);
 
     /**
      * Return the vector of values for the reactions change in
@@ -223,7 +223,7 @@ namespace Cantera
      *
      *  units = J kmol-1
      */
-    virtual void getDeltaEnthalpy(doublereal* deltaH);
+    virtual void getDeltaEnthalpy(doublevalue* deltaH);
 
     //! Return the vector of values for the change in
     //! entropy due to each reaction
@@ -237,7 +237,7 @@ namespace Cantera
      *        Length = m_ii, number of reactions
      *         
      */
-    virtual void getDeltaEntropy(doublereal* deltaS);
+    virtual void getDeltaEntropy(doublevalue* deltaS);
 
     /**
      * Return the vector of values for the reaction 
@@ -247,7 +247,7 @@ namespace Cantera
      *
      *  units = J kmol-1
      */
-    virtual void getDeltaSSGibbs(doublereal* deltaG);
+    virtual void getDeltaSSGibbs(doublevalue* deltaG);
 
     /**
      * Return the vector of values for the change in the
@@ -257,7 +257,7 @@ namespace Cantera
      *
      *  units = J kmol-1
      */
-    virtual void getDeltaSSEnthalpy(doublereal* deltaH);
+    virtual void getDeltaSSEnthalpy(doublevalue* deltaH);
 
     /**
      * Return the vector of values for the change in the
@@ -267,7 +267,7 @@ namespace Cantera
      *
      *  units = J kmol-1 Kelvin-1
      */
-    virtual void getDeltaSSEntropy(doublereal* deltaS);
+    virtual void getDeltaSSEntropy(doublevalue* deltaS);
 
     //@}
     /**
@@ -281,7 +281,7 @@ namespace Cantera
      * net, which must be dimensioned at least as large as the
      * total number of species.
      */
-    virtual void getNetProductionRates(doublereal* net);
+    virtual void getNetProductionRates(doublevalue* net);
 
     /**
      * Species creation rates [kmol/m^3 s^1]. Return the species
@@ -289,7 +289,7 @@ namespace Cantera
      * cdot, which must be dimensioned at least as large as the
      * total number of species.
      */
-    virtual void getCreationRates(doublereal* cdot);
+    virtual void getCreationRates(doublevalue* cdot);
 
     /**
      * Species destruction rates [kmol/m^3 s^1]. Return the species
@@ -297,7 +297,7 @@ namespace Cantera
      * ddot, which must be dimensioned at least as large as the
      * total number of species.
      */
-    virtual void getDestructionRates(doublereal* ddot);
+    virtual void getDestructionRates(doublevalue* ddot);
 
     //@}
     /**
@@ -310,7 +310,7 @@ namespace Cantera
      *  Return the reactant stoichiometric coefficient for the
      *  kth species in the ith reaction
      */
-    virtual doublereal reactantStoichCoeff(size_t k, size_t i) const {
+    virtual doublevalue reactantStoichCoeff(size_t k, size_t i) const {
       return m_rrxn[k][i];
     }
 
@@ -318,7 +318,7 @@ namespace Cantera
      *  Return the product stoichiometric coefficient for the
      *  kth species in the ith reaction
      */
-    virtual doublereal productStoichCoeff(size_t k, size_t i) const {
+    virtual doublevalue productStoichCoeff(size_t k, size_t i) const {
       return m_prxn[k][i];
     }
 
@@ -326,7 +326,7 @@ namespace Cantera
      *  Return the net stoichiometric coefficient for the
      *  kth species in the ith reaction
      */
-    virtual doublereal netStoichCoeff(size_t k, size_t i) const {
+    virtual doublevalue netStoichCoeff(size_t k, size_t i) const {
       return (m_prxn[k][i] - m_rrxn[k][i]);
     }
 
@@ -362,7 +362,7 @@ namespace Cantera
      * length is the number of reactions. units depends
      * on many issues.
      */
-    virtual void getFwdRateConstants(doublereal *kfwd);
+    virtual void getFwdRateConstants(doublevalue *kfwd);
 
     /**
      * Return the reverse rate constants.
@@ -372,9 +372,9 @@ namespace Cantera
      * for irreversible reactions if the default for
      * doIrreversible is overridden.
      */
-    virtual void getRevRateConstants(doublereal *krev, 
+    virtual void getRevRateConstants(doublevalue *krev, 
 				     bool doIrreversible = false);
-    virtual void getActivationEnergies(doublereal *E);
+    virtual void getActivationEnergies(doublevalue *E);
 
     //@}
     /**
@@ -584,7 +584,7 @@ namespace Cantera
      *  species k in reaction i has a reactant stoichiometric
      *  coefficient of ns.
      */
-    mutable std::vector<std::map<int, doublereal> >     m_rrxn;
+    mutable std::vector<std::map<int, doublevalue> >     m_rrxn;
 
     /**
      * This vector of maps contains the stoichiometric
@@ -601,7 +601,7 @@ namespace Cantera
      *  species k in reaction i has a product stoichiometric
      *  coefficient of ns.
      */
-    mutable std::vector<std::map<int, doublereal> >     m_prxn;
+    mutable std::vector<std::map<int, doublevalue> >     m_prxn;
 
     /*
      * Vector of length m_ii, containing the net change in
@@ -625,7 +625,7 @@ namespace Cantera
      *  m_rstoich[i][k] is the reactant stoichiometric
      *  coefficient for species k in reaction i.
      */
-    std::map<size_t, std::map<size_t, doublereal> >  m_rstoich;
+    std::map<size_t, std::map<size_t, doublevalue> >  m_rstoich;
 
     /**
      * Stoichiometric matrix in a product-first format.
@@ -633,7 +633,7 @@ namespace Cantera
      *  m_pstoich[i][k] is the product stoichiometric
      *  coefficient for species k in reaction i.
      */
-    std::map<size_t, std::map<size_t, doublereal> >  m_pstoich;
+    std::map<size_t, std::map<size_t, doublevalue> >  m_pstoich;
 
     /**
      * Vector of strings of length m_ii, the number of 
@@ -734,8 +734,7 @@ namespace Cantera
      * They aren't used for anything but reaction path
      * analysis, as far as I can figure out.
      */
-    void installGroups(size_t irxn, const std::vector<grouplist_t>& r,
-		       const std::vector<grouplist_t>& p);
+    void installGroups(size_t irxn, const std::vector<grouplist_t>& r, const std::vector<grouplist_t>& p);
 	
     /*
      * Update the inverse of the equilibrium constants in molar units.
@@ -756,7 +755,7 @@ namespace Cantera
     void registerReaction(size_t rxnNumber, int type, int loc);
 
 
-    void applyButlerVolmerCorrection(doublereal* kf);
+    void applyButlerVolmerCorrection(doublevalue* kf);
 
     /**
      * boolean indicating that the class is ready for processing of 

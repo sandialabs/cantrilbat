@@ -56,7 +56,7 @@ namespace Cantera
    * \f[        k =  A T^(b) exp (-E_a / RT). \f]
    */
   static void getArrhenius(const XML_Node& node, int& highlow, 
-			   doublereal& A, doublereal& b, doublereal& E) {
+			   doublevalue& A, doublevalue& b, doublevalue& E) {
         
     if (node["name"] == "k0") 
       highlow = 0;
@@ -75,14 +75,14 @@ namespace Cantera
     vector<XML_Node*> n_cov;
     node.getChildren("coverage", n_cov);
     int k, nc = static_cast<int>(n_cov.size());
-    doublereal e;
+    doublevalue e;
     string spname;
     if (nc > 0) {
       for (int n = 0; n < nc; n++) {
 	const XML_Node& cnode = *n_cov[n];
 	spname = cnode["species"];
 	k = surfphase.speciesIndex(spname);
-	cov.push_back(doublereal(k));
+	cov.push_back(doublevalue(k));
 	cov.push_back(getFloat(cnode, "a"));
 	cov.push_back(getFloat(cnode, "m"));
 	e = getFloat(cnode, "e", "actEnergy");
@@ -109,12 +109,12 @@ namespace Cantera
      *   E - Units 1/Kelvin
      */
   void ReactionDataElectrode::getStick(const XML_Node& node, Kinetics& kin,
-				       doublereal& A, doublereal& b, doublereal& E) {
+				       doublevalue& A, doublevalue& b, doublevalue& E) {
     int nr = reactants.size();
     int k, klocal, not_surf = 0;
     int np = 0;
-    doublereal f = 1.0;
-    doublereal n_order;
+    doublevalue f = 1.0;
+    doublevalue n_order;
     /*
      * species is the name of the special reactant whose surface
      * flux rate will be calculated.
@@ -175,7 +175,7 @@ namespace Cantera
 			 "reactions with exactly 1 gas/liquid species.");
     }
 
-    doublereal cbar = sqrt(8.0*GasConstant/(Pi*ispMW));
+    doublevalue cbar = sqrt(8.0*GasConstant/(Pi*ispMW));
     A = 0.25 * getFloat(node, "A", "-") * cbar * f;
     b = getFloat(node, "b") + 0.5;
     E = getFloat(node, "E", "actEnergy");

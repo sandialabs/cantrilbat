@@ -183,7 +183,7 @@ Kinetics* SolidKinetics::duplMyselfAsKinetics(const std::vector<thermo_t*> & tpV
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-void SolidKinetics::getFwdRatesOfProgress(doublereal* fwdROP) { 
+void SolidKinetics::getFwdRatesOfProgress(doublevalue* fwdROP) { 
     updateROP(); 
     copy(m_ropf.begin(), m_ropf.end(), fwdROP);
 }
@@ -201,7 +201,7 @@ void SolidKinetics::getFwdRatesOfProgress(doublereal* fwdROP) {
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-void SolidKinetics::getRevRatesOfProgress(doublereal* revROP) { 
+void SolidKinetics::getRevRatesOfProgress(doublevalue* revROP) { 
     updateROP(); 
     copy(m_ropr.begin(), m_ropr.end(), revROP);
 }
@@ -217,7 +217,7 @@ void SolidKinetics::getRevRatesOfProgress(doublereal* revROP) {
      *                  of the ith reaction [kmol/m^3 s^1]. Dimensioned
      *                  at least m_ii.
      */
-void SolidKinetics::getNetRatesOfProgress(doublereal* netROP) { 
+void SolidKinetics::getNetRatesOfProgress(doublevalue* netROP) { 
     updateROP(); 
     copy(m_ropnet.begin(), m_ropnet.end(), netROP);
 }
@@ -232,7 +232,7 @@ void SolidKinetics::getNetRatesOfProgress(doublereal* netROP) {
      * total number of species.
      */
 void SolidKinetics::
-getNetProductionRates(doublereal* net) {
+getNetProductionRates(doublevalue* net) {
 	/*
 	 * We do the work here. We calculate reactions rates of progress and
 	 * store them in the vector m_kdata->m_ropnet
@@ -260,7 +260,7 @@ getNetProductionRates(doublereal* net) {
      * net, which must be dimensioned at least as large as the
      * total number of species.
      */
-    void SolidKinetics::getCreationRates(doublereal* cdot) {
+    void SolidKinetics::getCreationRates(doublevalue* cdot) {
 	/*
 	 * Update the rates of progress of the reactions
 	 */
@@ -279,7 +279,7 @@ getNetProductionRates(doublereal* net) {
      * ddot, which must be dimensioned at least as large as the
      * total number of species.
      */
-    void SolidKinetics::getDestructionRates(doublereal* ddot) {
+    void SolidKinetics::getDestructionRates(doublevalue* ddot) {
 	/*
 	 * Update the rates of progress of the reactions
 	 */
@@ -330,7 +330,7 @@ getNetProductionRates(doublereal* net) {
  */
 void SolidKinetics::
 _update_rates_T() {
-    doublereal T = thermo().temperature();
+    doublevalue T = thermo().temperature();
     /*
      * Calculate logC0 if all the same.
      */
@@ -338,7 +338,7 @@ _update_rates_T() {
 	m_logC0_scalar = log(thermo().standardConcentration(0));
     }
     
-    doublereal logT = log(T);
+    doublevalue logT = log(T);
     /**
      * Update the forward rate constants. We only update those
      * rate constants which have a temperature dependence in 
@@ -421,13 +421,13 @@ _update_rates_T() {
 						DATA_PTR(logProdC0));
 	}
  
-        doublereal rrt = 1.0/(GasConstant * thermo().temperature());
+        doublevalue rrt = 1.0/(GasConstant * thermo().temperature());
 	/*
 	 * Branch on whether the standard concentration is the same 
 	 * constant for all species or not.
 	 */
 	if (logC0AllTheSameConstant) {
-	  doublereal logc0 = m_logC0_scalar;
+	  doublevalue logc0 = m_logC0_scalar;
 	  for (i = 0; i < m_nrev; i++) {
             irxn = m_revindex[i];
             m_rkc[irxn] = exp(m_rkc[irxn]*rrt - m_dn[irxn]*logc0);
@@ -459,7 +459,7 @@ _update_rates_T() {
      *               for all reactions.
      */
     void SolidKinetics::
-    getEquilibriumConstants(doublereal* kc) {
+    getEquilibriumConstants(doublevalue* kc) {
         size_t i;
 	
 	/*
@@ -505,9 +505,9 @@ _update_rates_T() {
 	 * Branch on whether the standard concentration is the same 
 	 * constant for all species or not.
 	 */
-	doublereal rrt = 1.0/(GasConstant * thermo().temperature());
+	doublevalue rrt = 1.0/(GasConstant * thermo().temperature());
 	if (logC0AllTheSameConstant) {
-	  const doublereal logC0 = m_logC0_scalar;
+	  const doublevalue logC0 = m_logC0_scalar;
 	  for (size_t i = 0; i < m_ii; i++) {
             kc[i] = exp(- rkc[i]*rrt + m_dn[i]*logC0);
 	  }
@@ -529,7 +529,7 @@ _update_rates_T() {
 	 *
      *  units = J kmol-1
      */
-    void SolidKinetics::getDeltaGibbs(doublereal* deltaG) {
+    void SolidKinetics::getDeltaGibbs(doublevalue* deltaG) {
 	/*
 	 * Get the chemical potentials of the species in the 
 	 * solid solution.Note this works as SolidKinetics is 
@@ -563,7 +563,7 @@ _update_rates_T() {
      *
      *  units = J kmol-1
      */
-    void SolidKinetics::getDeltaEnthalpy(doublereal* deltaH) {
+    void SolidKinetics::getDeltaEnthalpy(doublevalue* deltaH) {
 	/*
 	 * Get the partial molar enthalpy of all species in the 
 	 * solid solution. Note this works as SolidKinetics is 
@@ -596,7 +596,7 @@ _update_rates_T() {
      *
      *  units = J kmol-1 Kelvin-1
      */
-    void SolidKinetics::getDeltaEntropy( doublereal* deltaS) {
+    void SolidKinetics::getDeltaEntropy( doublevalue* deltaS) {
 	/*
 	 * Get the partial molar entropy of all species in the
 	 * solid solution. Note this works as SolidKinetics is 
@@ -629,7 +629,7 @@ _update_rates_T() {
      *
      *  units = J kmol-1
      */
-    void SolidKinetics::getDeltaSSGibbs(doublereal* deltaG) {
+    void SolidKinetics::getDeltaSSGibbs(doublevalue* deltaG) {
 	/*
 	 *  Get the standard state chemical potentials of the species.
          *  This is the array of chemical potentials at unit activity 
@@ -662,7 +662,7 @@ _update_rates_T() {
      *
      *  units = J kmol-1
      */
-    void SolidKinetics::getDeltaSSEnthalpy(doublereal* deltaH) {
+    void SolidKinetics::getDeltaSSEnthalpy(doublevalue* deltaH) {
 	/*
 	 *  Get the standard state enthalpies of the species.
          *  This is the array of chemical potentials at unit activity 
@@ -670,7 +670,7 @@ _update_rates_T() {
 	 *  species at the temperature and pressure of the solution.
 	 */
 	thermo().getEnthalpy_RT(DATA_PTR(m_grt));
-	doublereal RT = thermo().temperature() * GasConstant;
+	doublevalue RT = thermo().temperature() * GasConstant;
 	for (size_t k = 0; k < m_kk; k++) {
 	  m_grt[k] *= RT;
 	}
@@ -699,14 +699,14 @@ _update_rates_T() {
      *
      *  units = J kmol-1 Kelvin-1
      */
-    void SolidKinetics::getDeltaSSEntropy(doublereal* deltaS) {
+    void SolidKinetics::getDeltaSSEntropy(doublevalue* deltaS) {
 	/*
 	 *  Get the standard state entropy of the species.
 	 *  We define these here as the entropies of the pure
 	 *  species at the temperature and pressure of the solution.
 	 */
 	thermo().getEntropy_R(DATA_PTR(m_grt));
-	doublereal R = GasConstant;
+	doublevalue R = GasConstant;
 	for (size_t k = 0; k < m_kk; k++) {
 	  m_grt[k] *= R;
 	}
@@ -811,7 +811,7 @@ void SolidKinetics::updateROP() {
      * located in the solid kinetics data class are up to date.
      */
     void SolidKinetics::
-    getFwdRateConstants(doublereal *kfwd) {
+    getFwdRateConstants(doublevalue *kfwd) {
         _update_rates_T();
 	_update_rates_C();
 	const vector_fp& rf = m_rfn;
@@ -832,12 +832,12 @@ void SolidKinetics::updateROP() {
      * doIrreversible is overridden.
      */
     void SolidKinetics::
-    getRevRateConstants(doublereal *krev, bool doIrreversible) {
+    getRevRateConstants(doublevalue *krev, bool doIrreversible) {
 	_update_rates_T();
 	_update_rates_C();
 	const vector_fp& rf = m_rfn;
 	if (doIrreversible) {
-	  doublereal *tmpKc = DATA_PTR(m_ropnet);
+	  doublevalue *tmpKc = DATA_PTR(m_ropnet);
 	  getEquilibriumConstants(tmpKc);
 	  for (size_t i = 0; i < m_ii; i++) {
 	    krev[i] = rf[i] * m_perturb[i] / tmpKc[i];
@@ -1349,13 +1349,13 @@ addReaction(ReactionData& r) {
      *  m_kdata->m_logProdC0
      */
 void SolidKinetics::finalize() {
-    doublereal rstoiV, pstoiV;
+    doublevalue rstoiV, pstoiV;
     if (!m_finalized) {
 	size_t i;
         
 	for (i = 0; i < m_ii; i++) {
-	    std::map<size_t, doublereal>& rstoichIrxn = m_rstoich[i];
-	    std::map<size_t, doublereal>& pstoichIrxn = m_pstoich[i];
+	    std::map<size_t, doublevalue>& rstoichIrxn = m_rstoich[i];
+	    std::map<size_t, doublevalue>& pstoichIrxn = m_pstoich[i];
 	    for (size_t k = 0; k < m_kk; k++) {
                 rstoiV = reactantStoichCoeff(k, i);
                 if (rstoiV != 0.0) {
