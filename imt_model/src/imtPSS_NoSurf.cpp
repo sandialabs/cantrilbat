@@ -297,7 +297,7 @@ namespace Cantera
    *  (virtual fucntion from InterfacialMassTransfer_Integrator)
    *
    */
-  int imtPSS_NoSurf::calcResid(doublereal * const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf::calcResid(doublevalue* const resid, const ResidEval_Type_Enum evalType)
   {
     resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
     return 1;
@@ -432,7 +432,7 @@ namespace Cantera
 	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
-	doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
+	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);
 	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
 	int nphRS = RSD_List_[isph]->nPhases();
 	int kIndexKin = 0;

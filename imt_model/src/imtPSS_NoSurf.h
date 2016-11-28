@@ -176,7 +176,7 @@ namespace Cantera
      *  @return Returns 1 if everything is ok.
      *          Returns 0 if the current conditions can not be calculated.
      */
-    virtual int calcResid(doublereal * const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(doublevalue * const resid, const ResidEval_Type_Enum evalType);
 
     // ----------------------------------------------------------------------------------------------
     // ----------------------------- GET CONDITIONS OUT --------------------------------------------
@@ -202,7 +202,7 @@ namespace Cantera
      *  @return Tfinal    Final time to integrate to.
      *                       
      */
-    double integratedSourceTerm(doublereal* const spMoleDelta);
+    double integratedSourceTerm(doublevalue* const spMoleDelta);
 
 
 
@@ -219,7 +219,7 @@ namespace Cantera
      *
      *  @return Tfinal    Final time to integrate to.
      */
-    double integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta);
+    double integrateAndPredictSourceTerm(doublevalue deltaT, doublevalue* const spMoleDelta);
 
     // --------------------------- GET MOLE NUMBERS ------------------------------------------------
 

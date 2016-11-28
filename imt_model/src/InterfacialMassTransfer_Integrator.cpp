@@ -351,7 +351,7 @@ namespace Cantera
    * @param Tinitial   This is the New initial time. This time is compared against the "old"
    *                   final time, to see if there is any problem.
    */
-  void  InterfacialMassTransfer_Integrator::resetStartingCondition(doublereal Tinitial) 
+  void  InterfacialMassTransfer_Integrator::resetStartingCondition(doublevalue Tinitial) 
   {
     /*
      * If the initial time is input, then the code doesn't advance
@@ -1148,7 +1148,7 @@ namespace Cantera
    *  (virtual fucntion from InterfacialMassTransfer_Integrator)
    *
    */
-  int InterfacialMassTransfer_Integrator::calcResid(doublereal * const resid, const ResidEval_Type_Enum evalType)
+  int InterfacialMassTransfer_Integrator::calcResid(doublevalue * const resid, const ResidEval_Type_Enum evalType)
   {
     throw CanteraError(" InterfacialMassTransfer_Integrator::calcResid()",  "unimplemented");
   }
@@ -1291,9 +1291,9 @@ namespace Cantera
    *            1  Means a successful operation
    *            0  Means an unsuccessful operation
    */
-  int InterfacialMassTransfer_Integrator::calcDeltaSolnVariables(const doublereal t, const doublereal * const ySoln,
-						   const doublereal * const ySolnDot, doublereal * const deltaYSoln,
-						   const doublereal * const solnWeights)
+  int InterfacialMassTransfer_Integrator::calcDeltaSolnVariables(const doublevalue t, const doublevalue * const ySoln,
+						   const doublevalue * const ySolnDot, doublevalue * const deltaYSoln,
+						   const doublevalue * const solnWeights)
   {
     int retn = ResidJacEval::calcDeltaSolnVariables(t, ySoln, ySolnDot,deltaYSoln,solnWeights);
     return retn;
@@ -1494,7 +1494,7 @@ namespace Cantera
    *  This routine assumes that the underlying objects have been updated.
    *  It uses the default Backwards Euler integration rule, which doesn't take into account of issues with surfaces going away
    */
-  void InterfacialMassTransfer_Integrator::getNetProductionRates(doublereal* const net) const
+  void InterfacialMassTransfer_Integrator::getNetProductionRates(doublevalue* const net) const
   {
     mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
@@ -1550,7 +1550,7 @@ namespace Cantera
    *  This routine assumes that the underlying objects have been updated.
    *  It uses the default Backwards Euler integration rule, which doesn't take into account of issues with surfaces going away
    */
-  void InterfacialMassTransfer_Integrator::getNetProductionRatesRSD(const int isk, doublereal* const net) const
+  void InterfacialMassTransfer_Integrator::getNetProductionRatesRSD(const int isk, doublevalue* const net) const
   {
     mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
@@ -1604,7 +1604,7 @@ namespace Cantera
    *  @param isk Surface ID to get the fluxes from.      
    *  @param phaseMassFlux  Returns the mass fluxes of the phases
    */
-  void InterfacialMassTransfer_Integrator::getPhaseMassFlux(doublereal* const phaseMassFlux) const
+  void InterfacialMassTransfer_Integrator::getPhaseMassFlux(doublevalue* const phaseMassFlux) const
   {
     mdpUtil::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
 
@@ -1637,7 +1637,7 @@ namespace Cantera
    *  @param isk Surface ID to get the fluxes from.      
    *  @param phaseMassFlux  Returns the mass fluxes of the phases
    */
-  void InterfacialMassTransfer_Integrator::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux) const
+  void InterfacialMassTransfer_Integrator::getPhaseMoleFlux(const int isk, doublevalue* const phaseMoleFlux) const
   { 
     mdpUtil::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
     for (int isk = 0; isk < numSurfaces_; isk++) {
@@ -1742,11 +1742,11 @@ namespace Cantera
    *                      differenced or that the residual doesn't take this issue into account)
    * @param delta_x       Value of the delta used in the numerical differencing
    */
-  int InterfacialMassTransfer_Integrator::evalResidNJ(const doublereal t, const doublereal delta_t,
-					const doublereal * const y, const doublereal * const ySolnDot,
-					doublereal * const resid,
+  int InterfacialMassTransfer_Integrator::evalResidNJ(const doublevalue t, const doublevalue delta_t,
+					const doublevalue * const y, const doublevalue * const ySolnDot,
+					doublevalue * const resid,
 					const ResidEval_Type_Enum evalType, const int id_x,
-					const doublereal delta_x)
+					const doublevalue delta_x)
   {
     int retn = 1;
     if ((evalType == Base_ShowSolution) || (enableExtraPrinting_ && detailedResidPrintFlag_ > 1)) {
@@ -1843,7 +1843,7 @@ namespace Cantera
    * @param y             Solution vector (output)
    * @param ydot          Rate of change of solution vector. (output)
    */
-  int InterfacialMassTransfer_Integrator::getInitialConditions(const doublereal t0, doublereal * const y, doublereal * const ydot)
+  int InterfacialMassTransfer_Integrator::getInitialConditions(const doublevalue t0, doublevalue * const y, doublevalue * const ydot)
   {
     return 0;
   }
@@ -1923,7 +1923,7 @@ namespace Cantera
       const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
       RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
-      doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
+      doublevalue * spNetProdPerArea = (doublevalue *) spNetProdPerArea_List_.ptrColumn(isph);
       mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
       int nphRS = RSD_List_[isph]->nPhases();
       int kIndexKin = 0;

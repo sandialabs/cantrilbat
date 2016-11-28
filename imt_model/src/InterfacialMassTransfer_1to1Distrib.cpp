@@ -354,7 +354,7 @@ namespace Cantera
 	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
-	doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
+	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);
 	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
 	int nphRS = RSD_List_[isph]->nPhases();
 	int kIndexKin = 0;

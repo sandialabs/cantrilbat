@@ -114,7 +114,7 @@ namespace Cantera
      *  @return Tfinal    Final time to integrate to.
      *                       
      */
-    double integratedSourceTerm(doublereal* const spMoleDelta);
+    double integratedSourceTerm(doublevalue* const spMoleDelta);
 
 
     //! Calculate the integrated source term for the electrode over an interval in time.
@@ -130,7 +130,7 @@ namespace Cantera
      *
      *  @return Tfinal    Final time to integrate to.
      */
-    double integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta);
+    double integrateAndPredictSourceTerm(doublevalue deltaT, doublevalue* const spMoleDelta);
 
 
   

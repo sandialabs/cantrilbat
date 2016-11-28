@@ -1197,7 +1197,7 @@ namespace Cantera
   //====================================================================================================================
 
   //================================================================================================
-  void  InterfacialMassTransfer::setState_TP(doublereal temperature, doublereal presA, doublereal presB)
+  void  InterfacialMassTransfer::setState_TP(doublevalue temperature, doublevalue presA, doublevalue presB)
   {
     if (presB == -1.0) {
       presB = presA;
@@ -1528,12 +1528,12 @@ namespace Cantera
   }
 
   //====================================================================================================================
-  doublereal InterfacialMassTransfer::phaseMoles(int iph) const {
+  doublevalue InterfacialMassTransfer::phaseMoles(int iph) const {
     return phaseMoles_final_[iph];
   } 
   
   //================================================================================================
-  doublereal InterfacialMassTransfer::elementMoles(int ie) const {
+  doublevalue InterfacialMassTransfer::elementMoles(int ie) const {
     return 0.0;
   } 
   //================================================================================================
@@ -1563,15 +1563,15 @@ namespace Cantera
     return tmp;
   }
   //================================================================================================
-  void  InterfacialMassTransfer::getMoleFractions(doublereal* const x) const {
+  void  InterfacialMassTransfer::getMoleFractions(doublevalue* const x) const {
     mdpUtil::mdp_copy_dbl_1(x, &(spMf_final_[0]), m_NumTotSpecies);
   }
   //================================================================================================
-  void  InterfacialMassTransfer::getMoleNumSpecies(doublereal* const n) const {
+  void  InterfacialMassTransfer::getMoleNumSpecies(doublevalue* const n) const {
     mdpUtil::mdp_copy_dbl_1(n, &(spMoles_final_[0]), m_NumTotSpecies);
   }
   //================================================================================================
-  void  InterfacialMassTransfer::getMoleNumPhases(doublereal* const np) const {
+  void  InterfacialMassTransfer::getMoleNumPhases(doublevalue* const np) const {
     mdpUtil::mdp_copy_dbl_1(np, &(phaseMoles_final_[0]), m_NumTotPhases);
   }
   //================================================================================================
@@ -1760,7 +1760,7 @@ namespace Cantera
    *  This routine assumes that the underlying objects have been updated.
    *  It uses the default Backwards Euler integration rule, which doesn't take into account of issues with surfaces going away
    */
-  void InterfacialMassTransfer::getNetProductionRates(doublereal* const net) const
+  void InterfacialMassTransfer::getNetProductionRates(doublevalue* const net) const
   {
     mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
@@ -1816,7 +1816,7 @@ namespace Cantera
    *  This routine assumes that the underlying objects have been updated.
    *  It uses the default Backwards Euler integration rule, which doesn't take into account of issues with surfaces going away
    */
-  void InterfacialMassTransfer::getNetProductionRatesRSD(const int isk, doublereal* const net) const
+  void InterfacialMassTransfer::getNetProductionRatesRSD(const int isk, doublevalue* const net) const
   {
     mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
@@ -1870,7 +1870,7 @@ namespace Cantera
    *  @param isk Surface ID to get the fluxes from.      
    *  @param phaseMassFlux  Returns the mass fluxes of the phases
    */
-  void InterfacialMassTransfer::getPhaseMassFlux(doublereal* const phaseMassFlux) const
+  void InterfacialMassTransfer::getPhaseMassFlux(doublevalue* const phaseMassFlux) const
   {
     mdpUtil::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
 
@@ -1903,7 +1903,7 @@ namespace Cantera
    *  @param isk Surface ID to get the fluxes from.      
    *  @param phaseMassFlux  Returns the mass fluxes of the phases
    */
-  void InterfacialMassTransfer::getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux) const
+  void InterfacialMassTransfer::getPhaseMoleFlux(const int isk, doublevalue* const phaseMoleFlux) const
   { 
     mdpUtil::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
     for (int isk = 0; isk < numSurfaces_; isk++) {
@@ -2001,7 +2001,7 @@ namespace Cantera
     return massflux / area / dens;
   }
   //====================================================================================================================
-  void InterfacialMassTransfer::getIntegratedProductionRates(doublereal* const net) const
+  void InterfacialMassTransfer::getIntegratedProductionRates(doublevalue* const net) const
   {
     double invDelT = 1.0;
     if (t_final_final_ > t_init_init_) {
@@ -2019,7 +2019,7 @@ namespace Cantera
    *            phases in the object)
    *            units = kmol
    */
-  void InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm(doublereal* const phaseMolesCreated) const
+  void InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm(doublevalue* const phaseMolesCreated) const
   { 
     if (!pendingIntegratedStep_) {
       throw CanteraError(" InterfacialMassTransfer::getIntegratedPhaseMoleSourceTerm",
@@ -2129,10 +2129,10 @@ namespace Cantera
    *                      differenced or that the residual doesn't take this issue into account)
    * @param delta_x       Value of the delta used in the numerical differencing
    */
-  int InterfacialMassTransfer::integrateResid(const doublereal tfinal, const doublereal deltaTsubcycle,
- 		                const doublereal * const y, const doublereal * const ydot,
-		                doublereal * const resid,
-		                const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x)
+  int InterfacialMassTransfer::integrateResid(const doublevalue tfinal, const doublevalue deltaTsubcycle,
+ 		                const doublevalue * const y, const doublevalue * const ydot,
+		                doublevalue * const resid,
+		                const ResidEval_Type_Enum evalType, const int id_x, const doublevalue delta_x)
   { 
   
     //double tinit = tfinal - deltaTsubcycle;
@@ -2147,12 +2147,12 @@ namespace Cantera
       spMoles_final_[k] = y[k];
     }
 
-    vector<doublereal> phaseMoles_tmp(m_NumTotPhases, 0.0);
-    vector<doublereal> spMf_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> spMoles_tmp(m_NumTotSpecies, 0.0);
-    vector<doublereal> Xf_tmp(m_NumTotSpecies, 0.0);
+    vector<doublevalue> phaseMoles_tmp(m_NumTotPhases, 0.0);
+    vector<doublevalue> spMf_tmp(m_NumTotSpecies, 0.0);
+    vector<doublevalue> spMoles_tmp(m_NumTotSpecies, 0.0);
+    vector<doublevalue> Xf_tmp(m_NumTotSpecies, 0.0);
 
-    vector<doublereal> srcTerm(m_NumTotSpecies, 0.0);
+    vector<doublevalue> srcTerm(m_NumTotSpecies, 0.0);
     static  vector<int> justBornMultiSpecies;
     
  
@@ -2654,7 +2654,7 @@ namespace Cantera
    *
    *  @return Tfinal    Final time to integrate to.                     
    */
-  double InterfacialMassTransfer::integratedSourceTerm(doublereal* const spMoleDelta) const 
+  double InterfacialMassTransfer::integratedSourceTerm(doublevalue* const spMoleDelta) const 
   {
     if (t_final_ == t_init_) {
       throw CanteraError(" InterfacialMassTransfer::integratedSourceTerm()", "tfinal == tinit");
@@ -2688,7 +2688,7 @@ namespace Cantera
    *  @return Tfinal    Final time to integrate to.
    */
   /*
-  double InterfacialMassTransfer::integrateAndPredictSourceTerm(doublereal deltaT, doublereal* const spMoleDelta) 
+  double InterfacialMassTransfer::integrateAndPredictSourceTerm(doublevalue deltaT, doublevalue* const spMoleDelta) 
   {
     integrate(deltaT);
     mdpUtil::mdp_copy_dbl_1(spMoleDelta, &(spMoleIntegratedSourceTerm_[0]), m_NumTotSpecies);
@@ -2814,7 +2814,7 @@ namespace Cantera
 	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
-	doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
+	doublevalue * spNetProdPerArea = (doublevalue *) spNetProdPerArea_List_.ptrColumn(isph);
 	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
 	int nphRS = RSD_List_[isph]->nPhases();
 	int kIndexKin = 0;
@@ -2863,7 +2863,7 @@ namespace Cantera
    *  deltaT of the integration step. However, there are many times where a smaller natural delta T is
    *  required to solve the equation system
    */
-  void InterfacialMassTransfer::setDeltaTSubcycle(doublereal deltaTsubcycle)
+  void InterfacialMassTransfer::setDeltaTSubcycle(doublevalue deltaTsubcycle)
   {
     deltaTsubcycleNext_ = deltaTsubcycle;
     deltaTsubcycle_init_next_ = deltaTsubcycle;
@@ -2871,7 +2871,7 @@ namespace Cantera
   } 
   //====================================================================================================================
   //   Set the maximum deltaT used for the subcycle step
-  void InterfacialMassTransfer::setDeltaTSubcycleMax(doublereal deltaTsubcycle)
+  void InterfacialMassTransfer::setDeltaTSubcycleMax(doublevalue deltaTsubcycle)
   {
     deltaTsubcycleMax_ = deltaTsubcycle;
   }
@@ -2880,7 +2880,7 @@ namespace Cantera
   /*
    *   This may be used as a virtual function
    */
-  void InterfacialMassTransfer::calculateTimeDerivatives(doublereal deltaTsubcycle)
+  void InterfacialMassTransfer::calculateTimeDerivatives(doublevalue deltaTsubcycle)
   {
     if (deltaTsubcycle <= 0.0) {
       deltaTsubcycle = 1.0;

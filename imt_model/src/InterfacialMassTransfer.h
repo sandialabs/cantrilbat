@@ -540,19 +540,19 @@ namespace Cantera
      *  deltaT of the integration step. However, there are many times where a smaller natural delta T is
      *  required to solve the equation system
      */
-    virtual void setDeltaTSubcycle(doublereal deltaTSubcycle);
+    virtual void setDeltaTSubcycle(doublevalue deltaTSubcycle);
 
     //! Set the maximum value of the subcycle delta T
     /*!
      *  @param deltaTSubcycle  Maximum value of the subcycle time step
      */
-    void setDeltaTSubcycleMax(doublereal deltaTSubcycle);
+    void setDeltaTSubcycleMax(doublevalue deltaTSubcycle);
 
     //!  Calculate the time derivatives of the mole numbers at the current subcycle step
     /*!
      *   This may be used as a virtual function
      */
-    virtual void calculateTimeDerivatives(doublereal deltaTsubcycle);
+    virtual void calculateTimeDerivatives(doublevalue deltaTsubcycle);
 
     //! This function calculates the integrated source term given a final_final state value 
     /*!
@@ -575,10 +575,10 @@ namespace Cantera
      *                      differenced or that the residual doesn't take this issue into account)
      * @param delta_x       Value of the delta used in the numerical differencing
      */
-    virtual int integrateResid(const doublereal tfinal, const doublereal delta_t,
-			       const doublereal * const y, const doublereal * const ydot,
-			       doublereal * const resid,
-			       const ResidEval_Type_Enum evalType, const int id_x, const doublereal delta_x);
+    virtual int integrateResid(const doublevalue tfinal, const doublevalue delta_t,
+			       const doublevalue * const y, const doublevalue * const ydot,
+			       doublevalue * const resid,
+			       const ResidEval_Type_Enum evalType, const int id_x, const doublevalue delta_x);
 
  
     // ----------------------------------------------------------------------------------------------
@@ -596,7 +596,7 @@ namespace Cantera
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/s]. Return the species
      */
-    void getNetProductionRates(doublereal* const net) const;
+    void getNetProductionRates(doublevalue* const net) const;
 
     //! Get the net production rates of all species in the object
     //! at the current final conditions from one surface kinetics object
@@ -604,7 +604,7 @@ namespace Cantera
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/s]. Return the species
      */
-    void getNetProductionRatesRSD(const int isk, doublereal* const net) const;
+    void getNetProductionRatesRSD(const int isk, doublevalue* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     //!  at the current final conditions and t_final
@@ -614,7 +614,7 @@ namespace Cantera
      *  @param isk Surface ID to get the fluxes from.      
      *  @param phaseMassFlux  Returns the mass fluxes of the phases
      */
-    void getPhaseMassFlux(doublereal* const phaseMassFlux) const;
+    void getPhaseMassFlux(doublevalue* const phaseMassFlux) const;
 
     //!  Returns the current and the net production rates of the phases in kmol/m2/s from a single surface
     //!  at the current final conditions and t_final
@@ -624,7 +624,7 @@ namespace Cantera
      *  @param isk Surface ID to get the fluxes from.      
      *  @param phaseMassFlux  Returns the mass fluxes of the phases
      */
-    void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux) const;
+    void getPhaseMoleFlux(const int isk, doublevalue* const phaseMoleFlux) const;
 
     //!  Returns the computed mass flux of species into the A phase at final conditions
     /*!
@@ -670,7 +670,7 @@ namespace Cantera
      *
      *   @param net   Species net production rates [kmol/s].
      */
-    void getIntegratedProductionRates(doublereal* const net) const;
+    void getIntegratedProductionRates(doublevalue* const net) const;
 
     //! Report the integrated source term for the electrode over an interval in time.
     /*!
@@ -682,7 +682,7 @@ namespace Cantera
      *
      *  @return Tfinal    Final time to integrate to.
      */
-    double integratedSourceTerm(doublereal* const spMoleDelta) const;
+    double integratedSourceTerm(doublevalue* const spMoleDelta) const;
 
     //! Returns the integrated moles created for each phase in the object
     //! over the current global time step
@@ -691,7 +691,7 @@ namespace Cantera
      *            phases in the object)
      *            units = kmol
      */
-    virtual void getIntegratedPhaseMoleSourceTerm(doublereal* const phaseMolesCreated) const;
+    virtual void getIntegratedPhaseMoleSourceTerm(doublevalue* const phaseMolesCreated) const;
 
     //! Returns the integrated mass created for a particular phase in the object
     //! over the current global time step
@@ -757,7 +757,7 @@ namespace Cantera
      *             Length = number of phases in PhaseList
      *             units are kmol
      */
-    void getMoleNumPhases(doublereal* const np) const;
+    void getMoleNumPhases(doublevalue* const np) const;
 
     //! Return the mole number of a single species
     /*!
@@ -772,7 +772,7 @@ namespace Cantera
      *   @param x  Vector of mole fractions. Index is the same as PhaseList's global species index
      *             Length = number of species in PhaseList
      */
-    void getMoleFractions(doublereal* const x) const;
+    void getMoleFractions(doublevalue* const x) const;
 
     //! Return the mole fraction of a single species
     /*!
@@ -786,7 +786,7 @@ namespace Cantera
      *             Length = number of species in PhaseList
      *             units are kmol
      */
-    void getMoleNumSpecies(doublereal* const n) const;
+    void getMoleNumSpecies(doublevalue* const n) const;
 
     //! Get the total number of moles in the system
     /*!
@@ -1359,27 +1359,27 @@ namespace Cantera
 
 
     //!  Mole fraction of solnA at the boundary at the start of global time step
-    std::vector<doublereal> spMF_solnA_BC_init_init_;
+    std::vector<doublevalue> spMF_solnA_BC_init_init_;
        //!  Mole fraction of solnA at the boundary at the end of global time step
-    std::vector<doublereal> spMF_solnA_BC_init_;
+    std::vector<doublevalue> spMF_solnA_BC_init_;
 
    //!  Mole fraction of solnA at the boundary at the end of global time step
-    std::vector<doublereal> spMF_solnA_BC_final_;
+    std::vector<doublevalue> spMF_solnA_BC_final_;
 
     //!  Mole fraction of solnA at the boundary at the end of global time step
-    std::vector<doublereal> spMF_solnA_BC_final_final_;
+    std::vector<doublevalue> spMF_solnA_BC_final_final_;
 
     //!  Mole fraction of solnB at the boundary at the start of global time step
-    std::vector<doublereal> spMF_solnB_BC_init_init_;
+    std::vector<doublevalue> spMF_solnB_BC_init_init_;
     
     //!  Mole fraction of solnB at the boundary at the end of subgrid iteration step
-    std::vector<doublereal> spMF_solnB_BC_init_;
+    std::vector<doublevalue> spMF_solnB_BC_init_;
 
    //!  Mole fraction of solnB at the boundary at the end of subgrid iteration step
-    std::vector<doublereal> spMF_solnB_BC_final_;
+    std::vector<doublevalue> spMF_solnB_BC_final_;
 
     //!  Mole fraction of solnB at the boundary at the end of global time step
-    std::vector<doublereal> spMF_solnB_BC_final_final_;
+    std::vector<doublevalue> spMF_solnB_BC_final_final_;
 
  
 

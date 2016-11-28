@@ -232,7 +232,7 @@ namespace Cantera
      *  @return Returns 1 if everything is ok.
      *          Returns 0 if the current conditions can not be calculated.
      */
-    virtual int calcResid(doublereal * const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(doublevalue * const resid, const ResidEval_Type_Enum evalType);
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
@@ -298,13 +298,13 @@ namespace Cantera
      *
      * @return 
      */
-    virtual int evalResidNJ(const doublereal t, const doublereal delta_t,
-			    const doublereal * const y,
-			    const doublereal * const ydot,
-			    doublereal * const resid,
+    virtual int evalResidNJ(const doublevalue t, const doublevalue delta_t,
+			    const doublevalue * const y,
+			    const doublevalue * const ydot,
+			    doublevalue * const resid,
 			    const ResidEval_Type_Enum evalType = Base_ResidEval,
 			    const int id_x = -1, 
-			    const doublereal delta_x = 0.0);
+			    const doublevalue delta_x = 0.0);
 
     //! Fill in the initial conditions
     /*! 
@@ -316,7 +316,7 @@ namespace Cantera
      * @param y             Solution vector (output)
      * @param ydot          Rate of change of solution vector. (output)
      */
-    virtual int getInitialConditions(const doublereal t0, doublereal * const y, doublereal * const ydot);
+    virtual int getInitialConditions(const doublevalue t0, doublevalue * const y, doublevalue * const ydot);
       
       
     //! Return the number of equations in the equation system
@@ -345,9 +345,9 @@ namespace Cantera
      *            1  Means a successful operation
      *            0  Means an unsuccessful operation
      */
-    virtual int calcDeltaSolnVariables(const doublereal t, const doublereal * const ySoln,
-				       const doublereal * const ySolnDot, doublereal * const deltaYSoln,
-				       const doublereal *const solnWeights);
+    virtual int calcDeltaSolnVariables(const doublevalue t, const doublevalue * const ySoln,
+				       const doublevalue * const ySolnDot, doublevalue * const deltaYSoln,
+				       const doublevalue *const solnWeights);
 
   
     //! Unpack the soln vector
@@ -465,7 +465,7 @@ namespace Cantera
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/s]. Return the species
      */
-    void getNetProductionRates(doublereal* const net) const;
+    void getNetProductionRates(doublevalue* const net) const;
 
     //! Get the net production rates of all species in the object
     //! at the current final conditions from one surface kinetics object
@@ -473,7 +473,7 @@ namespace Cantera
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/s]. Return the species
      */
-    void getNetProductionRatesRSD(const int isk, doublereal* const net) const;
+    void getNetProductionRatesRSD(const int isk, doublevalue* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     //!  at the current final conditions and t_final
@@ -483,7 +483,7 @@ namespace Cantera
      *  @param isk Surface ID to get the fluxes from.      
      *  @param phaseMassFlux  Returns the mass fluxes of the phases
      */
-    void getPhaseMassFlux(doublereal* const phaseMassFlux) const;
+    void getPhaseMassFlux(doublevalue* const phaseMassFlux) const;
 
     //!  Returns the current and the net production rates of the phases in kmol/m2/s from a single surface
     //!  at the current final conditions and t_final
@@ -493,7 +493,7 @@ namespace Cantera
      *  @param isk Surface ID to get the fluxes from.      
      *  @param phaseMassFlux  Returns the mass fluxes of the phases
      */
-    void getPhaseMoleFlux(const int isk, doublereal* const phaseMoleFlux) const;
+    void getPhaseMoleFlux(const int isk, doublevalue* const phaseMoleFlux) const;
 
     //! Returns the computed Stefan velocity for phase A in the object
     //! at the current final conditions. 
@@ -609,34 +609,34 @@ namespace Cantera
   protected:
 
     //! value of the comptued time constant
-    doublereal deltaTsubcycleCalc_;
+    doublevalue deltaTsubcycleCalc_;
  
 
     //! Absolute tolerance for nonlinear residual
-    std::vector<doublereal> residAtolNLS_;
+    std::vector<doublevalue> residAtolNLS_;
 
     //! Relative tolerance for nonlinear residual
-    doublereal rtolResidNLS_;
+    doublevalue rtolResidNLS_;
 
     //! Vector of absolute tolerances for the nonlinear solution values for the problem
-    std::vector<doublereal> atolNLS_;
+    std::vector<doublevalue> atolNLS_;
 
     //!  Vector of relative tolerances for the solution variables for the nonlinear solution of the
     //!  time stepping problem
-    doublereal rtolNLS_;
+    doublevalue rtolNLS_;
 
     //! Vector of low bounds on the solution variables for the nonlinear solver
-    std::vector<doublereal> ylowNLS_;
+    std::vector<doublevalue> ylowNLS_;
 
     //! Vector of high bounds on the solution variables for the nonlinear solver
-    std::vector<doublereal> yhighNLS_;
+    std::vector<doublevalue> yhighNLS_;
 
-    std::vector<doublereal> yvalNLS_;
-    std::vector<doublereal> ydotNLS_;
+    std::vector<doublevalue> yvalNLS_;
+    std::vector<doublevalue> ydotNLS_;
 
   
 
-    std::vector<doublereal> deltaBoundsMagnitudesNLS_;
+    std::vector<doublevalue> deltaBoundsMagnitudesNLS_;
 
     //! Boolean vector indicating a phase just died on this subgrid integration step
     /*!
@@ -676,14 +676,14 @@ namespace Cantera
     std::vector<double> IntegratedSrc_Errors_globalStep_;
 
     //! Relative tolerance for the integrated global src term vectors
-    doublereal rtol_IntegratedSrc_global_;
+    doublevalue rtol_IntegratedSrc_global_;
 
     //! Absolute tolerance for the integrated global src term vectors
     std::vector<double> atol_IntegratedSrc_global_;
 
     
-    doublereal IntegratedSrc_normError_local_;
-    doublereal IntegratedSrc_normError_global_;
+    doublevalue IntegratedSrc_normError_local_;
+    doublevalue IntegratedSrc_normError_global_;
 
     char buf_[1024];
 

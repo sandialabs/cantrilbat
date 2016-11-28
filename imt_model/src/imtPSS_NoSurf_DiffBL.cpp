@@ -1056,7 +1056,7 @@ namespace Cantera
    *
    *   We define that Velo_A_CVB_final_ = 0.0 as a start of the calculation.
    */
-  int imtPSS_NoSurf_DiffBL::calcResid_F1(doublereal * const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf_DiffBL::calcResid_F1(doublevalue* const resid, const ResidEval_Type_Enum evalType)
   {
     resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
 
@@ -1167,7 +1167,7 @@ namespace Cantera
    *
    *   We define that Velo_A_CVB_final_ = 0.0 as a start of the calculation.
    */
-  int imtPSS_NoSurf_DiffBL::calcResid_F2(doublereal * const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf_DiffBL::calcResid_F2(doublevalue* const resid, const ResidEval_Type_Enum evalType)
   {
     resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
 
@@ -1280,7 +1280,7 @@ namespace Cantera
    *
    *   We define that Velo_A_CVB_final_ = 0.0 as a start of the calculation.
    */
-  int imtPSS_NoSurf_DiffBL::calcResid(doublereal * const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf_DiffBL::calcResid(doublevalue* const resid, const ResidEval_Type_Enum evalType)
   {
 
 #ifdef DEBUG_METHOD_F1
@@ -1948,7 +1948,7 @@ namespace Cantera
 	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
-	doublereal * spNetProdPerArea = (doublereal *) spNetProdPerArea_List_.ptrColumn(isph);
+	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);
 	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
 	int nphRS = RSD_List_[isph]->nPhases();
 	int kIndexKin = 0;
