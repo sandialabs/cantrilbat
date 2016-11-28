@@ -115,7 +115,7 @@ namespace Cantera
      * in mix_defs.h.
      */
     int IdealSolidSolnPhase::eosType() const {
-	integer res;
+	int res;
 	switch (m_formGC) {
 	case 0:
 	    res = cIdealSolidSolnPhase0;
