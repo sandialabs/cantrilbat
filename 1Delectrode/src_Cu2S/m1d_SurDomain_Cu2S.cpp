@@ -356,7 +356,7 @@ Cu2S_TopSurface::saveDomain(Zuzax::XML_Node& oNode,
                             const double t,
                             bool duplicateOnAllProcs)
 {
-  // const doublereal* s = soln_GLALL_ptr + loc();
+  // const double* s = soln_GLALL_ptr + loc();
   // Find the number of global equations on this domain, whether it's local or not
   //int numEquationsGb = SDD_.NumEquationsPerNode;
   // Find the global node number of the node where this domain resides
@@ -442,7 +442,7 @@ Cu2S_TopSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     //Zuzax::writelog(buf);
     ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
     //Zuzax::writelog(buf);
-    doublereal x0 = nv->x0NodePos();
+    double x0 = nv->x0NodePos();
     ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
     //Zuzax::writelog(buf);
     ss.drawline0(indentSpaces, 80);
@@ -819,7 +819,7 @@ Cu2S_BotSurface::saveDomain(Zuzax::XML_Node& oNode,
                             const double t,
                             bool duplicateOnAllProcs)
 {
-  // const doublereal* s = soln_GLALL_ptr + loc();
+  // const double* s = soln_GLALL_ptr + loc();
   // Find the number of global equations on this domain, whether it's local or not
   //int numEquationsGb = SDD_.NumEquationsPerNode;
   // Find the global node number of the node where this domain resides
@@ -907,7 +907,7 @@ Cu2S_BotSurface::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     //Zuzax::writelog(buf);
     ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
     //Zuzax::writelog(buf);
-    doublereal x0 = nv->x0NodePos();
+    double x0 = nv->x0NodePos();
     ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
     //Zuzax::writelog(buf);
     ss.drawline0(indentSpaces, 80);

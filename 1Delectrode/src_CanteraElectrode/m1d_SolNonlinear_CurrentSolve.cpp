@@ -101,7 +101,6 @@ SolNonlinear_CurrentSolve::~SolNonlinear_CurrentSolve()
 void SolNonlinear_CurrentSolve::get_res(const double time_curr, const double rdelta_t, const Epetra_Vector_Ghosted *solnBase_ptr,
                                         const Epetra_Vector_Ghosted *solnDotBase_ptr)
 {
-
 }
 //=====================================================================================================================
 // Set the absolute tolerances for the solution variables

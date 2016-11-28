@@ -134,8 +134,8 @@ public:
    *                              1 - at the right cell boundary
    */
   void
-  SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
-		   const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
+  SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+		   const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
 		   int type);
 
   void
@@ -150,7 +150,7 @@ public:
    * @param solnElectrolyte
      */
   virtual void
-  updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
+  updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
 
   //void
   //getVoltagesOld(const double * const solnElectrolyte, const double * const solnSolid);

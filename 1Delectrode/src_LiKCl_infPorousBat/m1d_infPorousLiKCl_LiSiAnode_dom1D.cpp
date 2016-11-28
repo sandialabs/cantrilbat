@@ -1167,7 +1167,7 @@ infPorousLiKCl_LiSiAnode_dom1D::calcElectrode()
 }
 //=====================================================================================================================
 void
-infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop1Old(const doublereal* const solnElectrolyte_Curr, int type)
+infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop1Old(const double* const solnElectrolyte_Curr, int type)
 {
   if (type == 0) {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
@@ -1178,7 +1178,7 @@ infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop1Old(const doublereal* const soln
 //==================================================================================================================================
 void
 infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const NodalVars* const nv,
-					      const doublereal* const solnElectrolyte_Curr)
+					      const double* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, solnElectrolyte_Curr);
@@ -1191,8 +1191,8 @@ infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop1(const NodalVars* const nv,
 }
 //=====================================================================================================================
 void
-infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
-						 const doublereal * const solnElectrolyte_CurrR,
+infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop2Old(const double* const solnElectrolyte_CurrL,
+						 const double* const solnElectrolyte_CurrR,
 						 int type)
 {
   for (int i = 0; i < BDD_ptr_->NumEquationsPerNode; i++) {
@@ -1215,7 +1215,7 @@ infPorousLiKCl_LiSiAnode_dom1D::SetupThermoShop2Old(const doublereal * const sol
  * @param solnElectrolyte
  */
 void
-infPorousLiKCl_LiSiAnode_dom1D::updateElectrolyteOld(const doublereal* const solnElectrolyte_Curr)
+infPorousLiKCl_LiSiAnode_dom1D::updateElectrolyteOld(const double* const solnElectrolyte_Curr)
 {
   /*
    * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -1245,7 +1245,7 @@ infPorousLiKCl_LiSiAnode_dom1D::updateElectrolyteOld(const doublereal* const sol
 //=====================================================================================================================
 void
 infPorousLiKCl_LiSiAnode_dom1D::updateElectrolyte(const NodalVars* const nv,
-					       const doublereal* const solnElectrolyte_Curr)
+					       const double* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -1684,7 +1684,7 @@ infPorousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr
     indent += " ";
   }
   const char *ind = indent.c_str();
-  doublereal v;
+  double v;
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
   // Number of points in each vector
   string sss = id();
@@ -1713,7 +1713,7 @@ infPorousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("\n%s    %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1742,7 +1742,7 @@ infPorousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr
 
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("%s    %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1765,7 +1765,7 @@ infPorousLiKCl_LiSiAnode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr
     ss.print0("\n");
     drawline0(indentSpaces, 80);
   }
-  doublereal x;
+  double x;
   int iCell;
   for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));

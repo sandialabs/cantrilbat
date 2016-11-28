@@ -214,7 +214,7 @@ public:
      *
      * @return  returns the time that the calculation was advanced to
      */
-    virtual doublereal step(double t_max);
+    virtual double step(double t_max);
 
     //! Recalculate the solution weights based on the current values
     virtual void setSolnWeights();
@@ -272,21 +272,21 @@ public:
     /*!
      * @param    hmax              value of the maximum time step size
      */
-    void  setMaxStep(doublereal hmax);
+    void  setMaxStep(double hmax);
 
  
     //! Set the minimum time step size allowed in the calculation
     /*!
      * @param hmin value of the maximum time step size
      */
-    void setMinStep(doublereal hmin);
+    void setMinStep(double hmin);
 
     //! Set the time step for algebraic discontinuities
     /*!
      * @param h_AUD                 Delta_t at which the algebraic constraints are linearly removed from the time step 
      *                              truncation error tolerance criteria
      */
-    void setTimeStep_AUD(doublereal h_AUD);
+    void setTimeStep_AUD(double h_AUD);
 
     //! Set the maximum number of time steps
     /*!

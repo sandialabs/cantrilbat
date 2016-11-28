@@ -172,7 +172,7 @@ int main(int argc, char **argv)
       Tfinal = Tinitial + deltaT;
       iface->integrate(deltaT);
       iface->getMoleNumSpecies(DATA_PTR(molNum));
-      doublereal net[30];
+      double net[30];
       iface->getIntegratedProductionRates(net);
       cout << setw(15) << Tfinal << setw(15) << 0.0 << endl;
       iface->printInterfacialMassTransfer(1, false);

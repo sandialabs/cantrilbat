@@ -149,9 +149,9 @@ namespace Cantera
      * property manager. They are polynomial functions of temperature.
      * @see SpeciesThermo
      */
-    doublereal IdealSolidSolnPhase::
+    doublevalue IdealSolidSolnPhase::
     enthalpy_mole() const {
-	doublereal htp = (GasConstant * temperature() * 
+	doublevalue htp = (GasConstant * temperature() * 
 			  mean_X(DATA_PTR(enthalpy_RT_ref())));
 	return (htp + (pressure() - m_Pref)/molarDensity());
     }
@@ -171,8 +171,8 @@ namespace Cantera
      * property manager.
      * @see SpeciesThermo
      */
-    doublereal IdealSolidSolnPhase::intEnergy_mole() const {
-	doublereal htp = (GasConstant * temperature() * 
+    doublevalue IdealSolidSolnPhase::intEnergy_mole() const {
+	doublevalue htp = (GasConstant * temperature() * 
 			  mean_X(DATA_PTR(enthalpy_RT_ref())));
 	return (htp - m_Pref / molarDensity());
     }
@@ -191,7 +191,7 @@ namespace Cantera
      * temperature since the volume expansivities are equal to zero.
      * @see SpeciesThermo
      */
-    doublereal IdealSolidSolnPhase::entropy_mole() const {
+    doublevalue IdealSolidSolnPhase::entropy_mole() const {
 	return GasConstant * 
 	    (mean_X(DATA_PTR(entropy_R_ref())) - sum_xlogx());
     }
@@ -209,8 +209,8 @@ namespace Cantera
      * \f$ \hat g^0_k(T,P) \f$ are computed by the member function, gibbs_RT().
      * @see SpeciesThermo
      */
-    doublereal IdealSolidSolnPhase::gibbs_mole() const {
-	doublereal g = mean_X(DATA_PTR(gibbs_RT_ref()));
+    doublevalue IdealSolidSolnPhase::gibbs_mole() const {
+	doublevalue g = mean_X(DATA_PTR(gibbs_RT_ref()));
 	return (GasConstant * temperature() * (g + sum_xlogx()));
     }
 
@@ -228,7 +228,7 @@ namespace Cantera
      * property manager.
      * @see SpeciesThermo
      */
-    doublereal IdealSolidSolnPhase::cp_mole() const {
+    doublevalue IdealSolidSolnPhase::cp_mole() const {
 	return GasConstant * mean_X(DATA_PTR(cp_R_ref()));
     }
 
@@ -260,7 +260,7 @@ namespace Cantera
 	/*
 	 * Calculate the molarVolume of the solution (m**3 kmol-1)
 	 */
-	const doublereal * const dtmp = moleFractdivMMW();
+	const doublevalue * const dtmp = moleFractdivMMW();
         double invDens = dot(m_speciesMolarVolume.begin(),
 			     m_speciesMolarVolume.end(), dtmp);
 	setDensity(1.0/invDens);
@@ -283,7 +283,7 @@ namespace Cantera
      *        class
      */
     void IdealSolidSolnPhase::
-    setDensity(doublereal rho) {
+    setDensity(doublevalue rho) {
 	double dens = density();
 	if (rho != dens) {
 	  throw CanteraError("IdealSolidSolnPhase::setDensity",
@@ -301,7 +301,7 @@ namespace Cantera
      *        class
      */  
     void IdealSolidSolnPhase::
-    setMolarDensity(doublereal n) {
+    setMolarDensity(doublevalue n) {
 	throw CanteraError("IdealSolidSolnPhase::setMolarDensity",
 			   "Density is not an independent variable");
     }
@@ -359,8 +359,8 @@ namespace Cantera
      *          will contain the generalized concentrations.
      */
     void IdealSolidSolnPhase::
-    getActivityConcentrations(doublereal* c) const {
-	const doublereal * const dtmp = moleFractdivMMW();
+    getActivityConcentrations(doublevalue* c) const {
+	const doublevalue * const dtmp = moleFractdivMMW();
 	const double mmw = meanMolecularWeight();
 	switch (m_formGC) {
 	case 0:
@@ -399,7 +399,7 @@ namespace Cantera
      * a change from the ThermoPhase base class, where it was
      * an optional parameter.
      */ 
-    doublereal IdealSolidSolnPhase::
+    doublevalue IdealSolidSolnPhase::
     standardConcentration(int k) const {
 	switch (m_formGC) {
 	case 0:
@@ -414,7 +414,7 @@ namespace Cantera
 	}
 	return 0.0;
     }
-    doublereal IdealSolidSolnPhase::
+    doublevalue IdealSolidSolnPhase::
     referenceConcentration(int k) const {
 	switch (m_formGC) {
 	case 0:
@@ -440,7 +440,7 @@ namespace Cantera
      * a change from the ThermoPhase base class, where it was
      * an optional parameter.
      */ 
-    doublereal IdealSolidSolnPhase::
+    doublevalue IdealSolidSolnPhase::
     logStandardConc(int k) const {
 	_updateThermo();
 	double res;
@@ -511,7 +511,7 @@ namespace Cantera
      *
      */
      void IdealSolidSolnPhase::
-     getActivityCoefficients(doublereal *ac) const {
+     getActivityCoefficients(doublevalue *ac) const {
        for (size_t k = 0; k < m_kk; k++) {
           ac[k] = 1.0;
        } 
@@ -534,10 +534,10 @@ namespace Cantera
      * 
      */
     void IdealSolidSolnPhase::
-    getChemPotentials(doublereal* mu) const {
-        doublereal delta_p = m_Pcurrent - m_Pref;
-        doublereal xx;
-        doublereal RT = temperature() * GasConstant;
+    getChemPotentials(doublevalue* mu) const {
+        doublevalue delta_p = m_Pcurrent - m_Pref;
+        doublevalue xx;
+        doublevalue RT = temperature() * GasConstant;
         const vector_fp& g_RT = gibbs_RT_ref();
         for (size_t k = 0; k < m_kk; k++) {
             xx = fmax(SmallNumber, moleFraction(k));
@@ -564,10 +564,10 @@ namespace Cantera
      *  
      */
     void IdealSolidSolnPhase::
-    getChemPotentials_RT(doublereal* mu) const {
-	doublereal RT = temperature() * GasConstant;
-	doublereal delta_pdRT = (m_Pcurrent - m_Pref) / RT;
-        doublereal xx;
+    getChemPotentials_RT(doublevalue* mu) const {
+	doublevalue RT = temperature() * GasConstant;
+	doublevalue delta_pdRT = (m_Pcurrent - m_Pref) / RT;
+        doublevalue xx;
         const vector_fp& g_RT = gibbs_RT_ref();
         for (size_t k = 0; k < m_kk; k++) {
             xx = fmax(SmallNumber, moleFraction(k));
@@ -595,9 +595,9 @@ namespace Cantera
      * @see SpeciesThermo 
      */
     void IdealSolidSolnPhase::
-    getPartialMolarEnthalpies(doublereal* hbar) const {
+    getPartialMolarEnthalpies(doublevalue* hbar) const {
 	const vector_fp& _h = enthalpy_RT_ref();
-	doublereal rt = GasConstant * temperature();
+	doublevalue rt = GasConstant * temperature();
 	scale(_h.begin(), _h.end(), hbar, rt);
     }
 
@@ -619,10 +619,10 @@ namespace Cantera
      * @see SpeciesThermo
      */
     void IdealSolidSolnPhase::
-    getPartialMolarEntropies(doublereal* sbar) const {
+    getPartialMolarEntropies(doublevalue* sbar) const {
 	const vector_fp& _s = entropy_R_ref();
-	doublereal r = GasConstant;
-	doublereal xx;
+	doublevalue r = GasConstant;
+	doublevalue xx;
 	for (size_t k = 0; k < m_kk; k++) {
 	  xx = fmax(SmallNumber, moleFraction(k));
 	  sbar[k] = r * (_s[k] - log(xx));
@@ -640,7 +640,7 @@ namespace Cantera
      * constant species molar volumes.
      */  
     void IdealSolidSolnPhase::
-    getPartialMolarVolumes(doublereal* vbar) const {
+    getPartialMolarVolumes(doublevalue* vbar) const {
 	copy(m_speciesMolarVolume.begin(),
 	     m_speciesMolarVolume.end(), vbar);
     }
@@ -666,11 +666,11 @@ namespace Cantera
      * species <I>k<\I> at the reference pressure, \f$P_{ref}\f$.
      */
     void IdealSolidSolnPhase::
-    getPureGibbs(doublereal* gpure) const {
+    getPureGibbs(doublevalue* gpure) const {
 	const vector_fp& gibbsrt = gibbs_RT_ref();
-	doublereal RT = _RT();
-	const doublereal * const gk = DATA_PTR(gibbsrt);
-	doublereal delta_p = (m_Pcurrent - m_Pref);
+	doublevalue RT = _RT();
+	const doublevalue * const gk = DATA_PTR(gibbsrt);
+	doublevalue delta_p = (m_Pcurrent - m_Pref);
 	for (size_t k = 0; k < m_kk; k++) {
 	  gpure[k] = RT * gk[k] + delta_p * m_speciesMolarVolume[k];
 	}
@@ -692,11 +692,11 @@ namespace Cantera
      *           standard state gibbs function for species k. 
      */
     void IdealSolidSolnPhase::
-    getGibbs_RT(doublereal* grt) const {
+    getGibbs_RT(doublevalue* grt) const {
 	const vector_fp& gibbsrt = gibbs_RT_ref();
-	doublereal RT = _RT();
-	const doublereal * const gk = DATA_PTR(gibbsrt);
-	doublereal delta_prt = (m_Pcurrent - m_Pref)/ RT;
+	doublevalue RT = _RT();
+	const doublevalue * const gk = DATA_PTR(gibbsrt);
+	doublevalue delta_prt = (m_Pcurrent - m_Pref)/ RT;
 	for (int k = 0; k < (int) m_kk; k++) {
 	  grt[k] = gk[k] + delta_prt * m_speciesMolarVolume[k];
 	}
@@ -718,9 +718,9 @@ namespace Cantera
      * species <I>k<\I> at the reference pressure, \f$P_{ref}\f$.
      */
     void IdealSolidSolnPhase::
-    getEnthalpy_RT(doublereal* hrt) const {
+    getEnthalpy_RT(doublevalue* hrt) const {
 	const vector_fp& _h = enthalpy_RT_ref();
-	doublereal delta_prt = ((m_Pcurrent - m_Pref) / 
+	doublevalue delta_prt = ((m_Pcurrent - m_Pref) / 
 				(GasConstant * temperature()));
 	for (size_t k = 0; k < m_kk; k++) {
 	  hrt[k] = _h[k] + delta_prt * m_speciesMolarVolume[k];
@@ -740,7 +740,7 @@ namespace Cantera
      *           standard state entropy of species k.  
      */
     void IdealSolidSolnPhase::
-    getEntropy_R(doublereal* sr) const {
+    getEntropy_R(doublevalue* sr) const {
 	const vector_fp& _s = entropy_R_ref();
 	copy(_s.begin(), _s.end(), sr);
     }
@@ -762,7 +762,7 @@ namespace Cantera
      *           constant pressure heat capacity for species k. 
      */
     void IdealSolidSolnPhase::
-    getCp_R(doublereal* cpr) const {
+    getCp_R(doublevalue* cpr) const {
 	const vector_fp& _cpr = cp_R_ref();
 	copy(_cpr.begin(), _cpr.end(), cpr);
     }
@@ -784,7 +784,7 @@ namespace Cantera
 	return m_h0_RT;
     }
 
-    void IdealSolidSolnPhase::gibbs_ref(doublereal *g) const {
+    void IdealSolidSolnPhase::gibbs_ref(doublevalue *g) const {
 	_updateThermo();
 	double tmp = GasConstant * temperature();
 	for (size_t k = 0; k != m_kk; k++) {
@@ -980,8 +980,8 @@ namespace Cantera
 	 * Obtain the limits of the temperature from the species
 	 * thermo handler's limits.
 	 */
-        doublereal tmin = m_spthermo->minTemp();
-        doublereal tmax = m_spthermo->maxTemp();
+        doublevalue tmin = m_spthermo->minTemp();
+        doublevalue tmax = m_spthermo->maxTemp();
         if (tmin > 0.0) m_tmin = tmin;
         if (tmax > 0.0) m_tmax = tmax;
 
@@ -1013,13 +1013,13 @@ namespace Cantera
      *
      */
     void IdealSolidSolnPhase::
-    setToEquilState(const doublereal* lambda_RT) 
+    setToEquilState(const doublevalue* lambda_RT) 
     {
         const vector_fp& grt = gibbs_RT_ref();
 
         // set the pressure and composition to be consistent with
         // the temperature, 
-        doublereal pres = 0.0;
+        doublevalue pres = 0.0;
         for (size_t k = 0; k < m_kk; k++) {
             m_pp[k] = -grt[k];
             for (int m = 0; m < m_mm; m++) {
@@ -1053,7 +1053,7 @@ namespace Cantera
      * units - \f$ m^3 kmol^-1 \f$
      */
     void IdealSolidSolnPhase::
-    getSpeciesMolarVolumes(doublereal *smv) const
+    getSpeciesMolarVolumes(doublevalue *smv) const
     {
 	copy(m_speciesMolarVolume.begin(), m_speciesMolarVolume.end(), smv);
     }
@@ -1071,7 +1071,7 @@ namespace Cantera
      */
     void IdealSolidSolnPhase::
     _updateThermo() const {
-        doublereal tnow = temperature();
+        doublevalue tnow = temperature();
         if (m_tlast != tnow) {
 	  /*
 	   * Update the thermodynamic functions of the reference state.
@@ -1079,8 +1079,8 @@ namespace Cantera
 	  m_spthermo->update(tnow, DATA_PTR(m_cp0_R), 
 			     DATA_PTR(m_h0_RT), DATA_PTR(m_s0_R));
 	  m_tlast = tnow;
-	  doublereal rrt = 1.0 / (GasConstant * tnow);
-	  doublereal deltaE;
+	  doublevalue rrt = 1.0 / (GasConstant * tnow);
+	  doublevalue deltaE;
 	  for (size_t k = 0; k < m_kk; k++) {
 	    deltaE = rrt * m_pe[k];
 	    m_h0_RT[k] += deltaE;

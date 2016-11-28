@@ -172,7 +172,7 @@ namespace Cantera
          * property manager. They are polynomial functions of temperature.
          * @see SpeciesThermo
          */
-        virtual doublereal enthalpy_mole() const;
+        virtual double enthalpy_mole() const;
 
         /**
          * Molar internal energy of the solution. Units: J/kmol.
@@ -189,7 +189,7 @@ namespace Cantera
          * property manager.
          * @see SpeciesThermo
          */
-        virtual doublereal intEnergy_mole() const;
+        virtual doublevalue intEnergy_mole() const;
 
         /**
          * Molar entropy of the solution. Units: J/kmol/K.
@@ -204,7 +204,7 @@ namespace Cantera
 	 * temperature since the volume expansivities are equal to zero.
          * @see SpeciesThermo
          */
-        virtual doublereal entropy_mole() const;
+        virtual doublevalue entropy_mole() const;
 
 	/**
          * Molar gibbs free energy of the solution. Units: J/kmol.
@@ -219,7 +219,7 @@ namespace Cantera
 	 * \f$ \hat g^0_k(T,P) \f$ are computed by the member function, gibbs_RT().
          * @see SpeciesThermo
          */
-        virtual doublereal gibbs_mole() const;
+        virtual doublevalue gibbs_mole() const;
 
         /**
          * Molar heat capacity at constant pressure of the solution.
@@ -235,7 +235,7 @@ namespace Cantera
          * property manager.
          * @see SpeciesThermo
          */
-        virtual doublereal cp_mole() const;
+        virtual doublevalue cp_mole() const;
 
         /**
          * Molar heat capacity at constant volume of the solution.
@@ -245,7 +245,7 @@ namespace Cantera
          * \f[ \hat c_v(T,P) = \hat c_p(T,P) \f]
 	 * The two heat capacities are equal.
          */
-        virtual doublereal cv_mole() const {
+        virtual doublevalue cv_mole() const {
             return cp_mole();
         }
 
@@ -266,7 +266,7 @@ namespace Cantera
 	 * For this incompressible system, we return the internally storred
 	 * independent value of the pressure.
          */ 
-        virtual doublereal pressure() const {
+        virtual doublevalue pressure() const {
             return m_Pcurrent;
         }
 
@@ -275,7 +275,7 @@ namespace Cantera
 	 * This method sets a constant within the object.
 	 * The mass density is not a function of pressure.
          */
-        virtual void setPressure(doublereal p) {
+        virtual void setPressure(doublevalue p) {
 	    m_Pcurrent = p;
         }
 
@@ -320,7 +320,7 @@ namespace Cantera
 	 *  NOTE: This is an overwritten function from the State.h
 	 *        class
 	 */
-	void setDensity(doublereal rho);
+	void setDensity(doublevalue rho);
 
 	/**
 	 * Overwritten setMolarDensity() function is necessary because the
@@ -331,7 +331,7 @@ namespace Cantera
 	 *  NOTE: This is an overwritten function from the State.h
 	 *        class
 	 */
-	void setMolarDensity(doublereal rho);
+	void setMolarDensity(doublevalue rho);
 
 
         //@}
@@ -415,7 +415,7 @@ namespace Cantera
 	 * @param c[] Pointer to array of doubles of length m_kk, which on exit
 	 *           will contain the generalized concentrations.
          */
-        virtual void getActivityConcentrations(doublereal* c) const;
+        virtual void getActivityConcentrations(doublevalue* c) const;
 
         /**
          * The standard concentration \f$ C^0_k \f$ used to normalize
@@ -431,7 +431,7 @@ namespace Cantera
 	 * a change from the ThermoPhase base class, where it was
 	 * an optional parameter.
          */ 
-	virtual doublereal standardConcentration(int k) const;
+	virtual doublevalue standardConcentration(int k) const;
 
 	/**
          * The reference (ie standard) concentration \f$ C^0_k \f$ used to normalize
@@ -442,7 +442,7 @@ namespace Cantera
 	 * suggest changing the name). This is the inverse of the species molar
 	 * volume.
          */ 
-	virtual doublereal referenceConcentration(int k) const;
+	virtual doublevalue referenceConcentration(int k) const;
 
 	/**
 	 * Returns the log of the standard concentration of the kth species
@@ -451,7 +451,7 @@ namespace Cantera
 	 * a change from the ThermoPhase base class, where it was
 	 * an optional parameter.
 	 */ 
-	virtual doublereal logStandardConc(int k) const;
+	virtual doublevalue logStandardConc(int k) const;
 
 	/**
 	 * Returns the units of the standard and general concentrations
@@ -482,7 +482,7 @@ namespace Cantera
         /**
          * Get the array of species activity coefficients
          */
-        virtual void getActivityCoefficients(doublereal * ac) const;
+        virtual void getActivityCoefficients(doublevalue * ac) const;
 
         /**
          * Get the species chemical potentials. Units: J/kmol.
@@ -498,7 +498,7 @@ namespace Cantera
 	 * \f]
 	 *  where \f$ \mu^o_k(T,p) = \mu^{ref}_k(T) + V_k * (p - p_o)\f$
 	 */
-        virtual void getChemPotentials(doublereal* mu) const;
+        virtual void getChemPotentials(doublevalue* mu) const;
 
 	/** 
          * Get the array of non-dimensional species solution
@@ -511,7 +511,7 @@ namespace Cantera
 	 * \f$ \mu^{ref}_k(T)\f$ is the chemical potential of pure
 	 * species <I>k</I> at the reference pressure, \f$P_{ref}\f$.
          */
-        virtual void getChemPotentials_RT(doublereal* mu) const;
+        virtual void getChemPotentials_RT(doublevalue* mu) const;
 
 	//@}
         /// @name  Partial Molar Properties of the Solution ----------------------------------
@@ -532,7 +532,7 @@ namespace Cantera
          * property manager. They are polynomial functions of temperature.
          * @see SpeciesThermo
 	 */
-        virtual void getPartialMolarEnthalpies(doublereal* hbar) const;
+        virtual void getPartialMolarEnthalpies(doublevalue* hbar) const;
 
         /**
          * Returns an array of partial molar entropies of the species in the
@@ -548,7 +548,7 @@ namespace Cantera
          * property manager. They are polynomial functions of temperature.
          * @see SpeciesThermo
          */
-        virtual void getPartialMolarEntropies(doublereal* sbar) const;
+        virtual void getPartialMolarEntropies(doublevalue* sbar) const;
 
         /**
          * returns an array of partial molar volumes of the species
@@ -557,7 +557,7 @@ namespace Cantera
 	 * For this solution, thepartial molar volumes are equal to the
 	 * constant species molar volumes.
          */
-        virtual void getPartialMolarVolumes(doublereal* vbar) const;
+        virtual void getPartialMolarVolumes(doublevalue* vbar) const;
 
 	//@}
         /// @name  Properties of the Standard State of the Species in the Solution -------------------------------------
@@ -575,7 +575,7 @@ namespace Cantera
 	 * \f$ \mu^{ref}_k(T)\f$ is the chemical potential of pure
 	 * species <I>k</I> at the reference pressure, \f$P_{ref}\f$.
          */
-        virtual void getPureGibbs(doublereal* gpure) const;
+        virtual void getPureGibbs(doublevalue* gpure) const;
 
 	/**
 	 *  Get the standard state chemical potentials of the species.
@@ -589,7 +589,7 @@ namespace Cantera
 	 *
 	 *  units = J / kmol
 	 */
-        virtual void getStandardChemPotentials(doublereal* mu0) const {
+        virtual void getStandardChemPotentials(doublevalue* mu0) const {
             getPureGibbs(mu0);
         }
 
@@ -608,7 +608,7 @@ namespace Cantera
 	 *           will contain the nondimensional 
 	 *           standard state gibbs function for species k. 
          */
-        virtual void getGibbs_RT(doublereal* grt) const;
+        virtual void getGibbs_RT(doublevalue* grt) const;
 
 	/**
          * Get the array of nondimensional Enthalpy functions for the 
@@ -627,7 +627,7 @@ namespace Cantera
 	 *            will contain the nondimensional 
 	 *            standard state enthalpy of species k. 
          */
-        void getEnthalpy_RT(doublereal* hrt) const;
+        void getEnthalpy_RT(doublevalue* hrt) const;
 
 	/**
          * Get the nondimensional Entropies for the species
@@ -641,7 +641,7 @@ namespace Cantera
 	 *           will contain the nondimensional 
 	 *           standard state entropy for species k. 
          */
-        void getEntropy_R(doublereal* sr) const;
+        void getEntropy_R(doublevalue* sr) const;
 
 	/**
          * Get the nondimensional heat capacity at constant pressure
@@ -658,7 +658,7 @@ namespace Cantera
 	 *           will contain the nondimensional 
 	 *           constant pressure heat capacity for species k. 
          */
-        void getCp_R(doublereal* cpr) const;
+        void getCp_R(doublevalue* cpr) const;
 
 	//@}
         /// @name Thermodynamic Values for the Species Reference States --------------------
@@ -691,7 +691,7 @@ namespace Cantera
 	 *  of the solution and the reference pressure for the species.
 	 *  units = J/kmol
 	 */
-        virtual void gibbs_ref(doublereal *g) const;
+        virtual void gibbs_ref(doublevalue *g) const;
 
 	/**
 	 *  Returns a reference to the vector of nondimensional
@@ -723,12 +723,12 @@ namespace Cantera
             return m_cp0_R;
         }
 
-        virtual void setPotentialEnergy(int k, doublereal pe) {
+        virtual void setPotentialEnergy(int k, doublevalue pe) {
             m_pe[k] = pe;
             _updateThermo();
         }
 
-        virtual doublereal potentialEnergy(int k) const {
+        virtual doublevalue potentialEnergy(int k) const {
             return m_pe[k];
         }
 	//@}
@@ -796,7 +796,7 @@ namespace Cantera
 	 * as large as the number of species. 
 	 *
 	 */
-        virtual void setToEquilState(const doublereal* lambda_RT);
+        virtual void setToEquilState(const doublevalue* lambda_RT);
 
 
 	/**
@@ -832,20 +832,20 @@ namespace Cantera
 	 * Maximum temperature that this phase can accurately describe
 	 * the thermodynamics.
 	 */
-        doublereal m_tmin;
+        doublevalue m_tmin;
 
 	/**
 	 * Minimum temperature that this phase can accurately describe
 	 * the thermodynamics.
 	 */
-	doublereal m_tmax;
+	doublevalue m_tmax;
 	/**
 	 * Value of the reference pressure for all species in this phase.
 	 * The T dependent polynomials are evaluated at the reference
 	 * pressure. Note, because this is a single value, all species
 	 * are required to have the same reference pressure.
 	 */
-	doublereal m_Pref;
+	doublevalue m_Pref;
 
 	/**
 	 * m_Pcurrent = The current pressure
@@ -854,7 +854,7 @@ namespace Cantera
 	 * The density variable which is inherited as part of the State class,
 	 * m_dens, is always kept current whenever T, P, or X[] change. 
 	 */
-	doublereal m_Pcurrent;
+	doublevalue m_Pcurrent;
 
 	/**
 	 * Species molar volume \f$ m^3 kmol^-1 \f$
@@ -865,7 +865,7 @@ namespace Cantera
 	 *  Value of the temperature at which the thermodynamics functions
 	 * for the reference state of the species were last evaluated.
 	 */
-        mutable doublereal   m_tlast;
+        mutable doublevalue   m_tlast;
 
 	/**
 	 * Vector containing the species reference enthalpies at T = m_tlast

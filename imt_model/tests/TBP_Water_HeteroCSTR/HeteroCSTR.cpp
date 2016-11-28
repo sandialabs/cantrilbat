@@ -155,7 +155,7 @@ namespace Cantera
    
       // iface_->integrate(deltaT);
     
-      doublereal net[30];
+      double net[30];
       //   iface_->getIntegratedProductionRates(net);
 
       iface_->getNetProductionRates(net);
@@ -424,7 +424,7 @@ int main(int argc, char **argv)
       iface->calcIntegratedSourceTerm();
 
       iface->getMoleNumSpecies(DATA_PTR(molNum));
-      doublereal net[30];
+      double net[30];
       iface->getNetProductionRates(net);
       cout << setw(15) << Tfinal << setw(15) << 0.0 << endl;
       iface->printInterfacialMassTransfer(1, false);

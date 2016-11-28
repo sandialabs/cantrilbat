@@ -199,7 +199,7 @@ int main(int argc, char **argv)
       int numSubIntegrations = electrodeA->integrate(deltaT);
       Tfinal = electrodeA->timeFinalFinal();
       electrodeA->getMoleNumSpecies(molNum);
-      doublereal net[12];
+      double net[12];
       double amps = electrodeA->getIntegratedProductionRatesCurrent(net);
  
       cout << setw(15) << Tfinal << setw(15) << amps << numSubIntegrations << endl;

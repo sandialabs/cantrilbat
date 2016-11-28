@@ -854,21 +854,16 @@ BatteryResidEval::write_IV(const int ievent,
 }
 //==================================================================================================================================
 void
-BatteryResidEval::writeGlobalTecplot(const int ievent,
-				     const bool doTimeDependentResid,
-				     const double time_current,
-				     const double delta_t_n,
-				     int istep,
-				     const Epetra_Vector_Ghosted &y_n,
-				     const Epetra_Vector_Ghosted * const ydot_n_ptr,
-				     const Solve_Type_Enum solveType, 
+BatteryResidEval::writeGlobalTecplot(const int ievent, const bool doTimeDependentResid, const double time_current,
+				     const double delta_t_n, int istep, const Epetra_Vector_Ghosted &y_n, 
+                                     const Epetra_Vector_Ghosted * const ydot_n_ptr, const Solve_Type_Enum solveType, 
 				     const double delta_t_np1)
 {
     static int headerWritten = false;
     int numRtn;
     // Create a communications vector
-    std::vector<doublereal> volInfoVector;
-    std::vector<doublereal> varsVector;
+    std::vector<double> volInfoVector;
+    std::vector<double> varsVector;
     std::string requestID;
     std::string name;
     VarType vt;

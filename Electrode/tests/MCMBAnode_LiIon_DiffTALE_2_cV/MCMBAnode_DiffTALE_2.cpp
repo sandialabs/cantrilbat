@@ -185,7 +185,7 @@ int main(int argc, char **argv)
       Tfinal = Tinitial + deltaT;
       electrodeA->integrate(deltaT);
       electrodeA->getMoleNumSpecies(molNum);
-      doublereal net[12];
+      double net[12];
       double amps = electrodeA->getIntegratedProductionRatesCurrent(net);
  
       std::cout << std::setw(15) << Tfinal << std::setw(15) << amps << std::endl;

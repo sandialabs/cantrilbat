@@ -296,10 +296,10 @@ public:
   std::vector<double> EndXLoc_Domain;
 
   //! Left boundary of the first bulk domain
-  doublereal XLoc_LeftBoundary;
+  double XLoc_LeftBoundary;
 
   //! Right boundary of the last domain
-  doublereal XLoc_RightBoundary;
+  double XLoc_RightBoundary;
 
   //! pointer to the Problem residual 
   ProblemResidEval *problemResid_;

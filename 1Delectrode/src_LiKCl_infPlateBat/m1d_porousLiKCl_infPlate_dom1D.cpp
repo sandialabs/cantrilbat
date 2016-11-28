@@ -702,7 +702,7 @@ porousLiKCl_infPlate_dom1D::residEval(Epetra_Vector &res,
  *                              0 - at the current cell center
  */
 void
-porousLiKCl_infPlate_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiKCl_infPlate_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, solnElectrolyte_Curr);
@@ -710,8 +710,8 @@ porousLiKCl_infPlate_dom1D::SetupThermoShop1(const NodalVars* const nv, const do
 
 //===================================================================================================================
 void
-porousLiKCl_infPlate_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
-                                              const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
+porousLiKCl_infPlate_dom1D::SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+                                              const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
                                               int type)
 {
 
@@ -779,7 +779,7 @@ porousLiKCl_infPlate_dom1D::SetupThermoShop2(const NodalVars* const nvL, const d
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte given the solution vector
 void
-porousLiKCl_infPlate_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiKCl_infPlate_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.

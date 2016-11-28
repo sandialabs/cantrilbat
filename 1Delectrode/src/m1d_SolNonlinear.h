@@ -871,7 +871,7 @@ protected:
 
   int m_maxAge;
   int m_nv, m_np, m_n;
-  doublereal m_elapsed;
+  double m_elapsed;
 
   /***********************************************************************************************
    *   INTERNAL COMMUNICATORS

@@ -58,8 +58,7 @@ public:
   int nEquations() const {
     return 1;
   }
- int evalSS(const doublereal t, const doublereal * const x,
-                       doublereal * const r) {
+ int evalSS(const double t, const double* const x, double* const r) {
    m_ee->setVoltages(0.0, x[0]);
    m_ee->integrate(m_deltaT);
    double amps = m_ee->getIntegratedProductionRatesCurrent(srcNet);

@@ -54,7 +54,7 @@ public:
     /*!
      *
      */
-    virtual int evalSS(const doublereal t, const doublereal * const x, doublereal * const r);
+    virtual int evalSS(const double t, const double* const x, double* const r);
 
     void set_deltaT(double deltaT);
 

@@ -286,17 +286,17 @@ void BEulerInt::setMethodBEMT(BEulerMethodType t)
     m_method = t;
 }
 //=====================================================================================================================
-void BEulerInt::setMaxStep(doublereal hmax)
+void BEulerInt::setMaxStep(double hmax)
 {
     delta_t_max = hmax;
 }
 //=====================================================================================================================
-void BEulerInt::setMinStep(doublereal hmin)
+void BEulerInt::setMinStep(double hmin)
 {
     delta_t_min = hmin;
 }
 //=====================================================================================================================
-void BEulerInt::setTimeStep_AUD(doublereal h_AUD)
+void BEulerInt::setTimeStep_AUD(double h_AUD)
 {
     delta_t_AUD_ = h_AUD;
 }
@@ -1670,7 +1670,7 @@ double BEulerInt::integratePRE(double tout)
  * corrector approach. We use an implicit algorithm here.
  *
  */
-doublereal BEulerInt::step(double t_max)
+double BEulerInt::step(double t_max)
 {
     double CJ = 0.0;
     bool step_failed = false;

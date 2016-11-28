@@ -170,13 +170,13 @@ public:
     /*!
      *  units: amps / m2
      */
-    doublereal currentNeeded_;
+    double currentNeeded_;
 
     //! 
-    doublereal currentActual_;
+    double currentActual_;
 
     //! Value of the cathode voltage at the last time step
-    doublereal cathodeVoltageOld_;
+    double cathodeVoltageOld_;
 
     double timeOld_;
 
@@ -240,10 +240,10 @@ public:
     m1d::TimeDepFunctionPtr TimeDepFuncPtr_voltageBC_;
 
     //! Value of the cathode voltage at the current time step
-    doublereal cathodeVoltageBest_;
+    double cathodeVoltageBest_;
 
     //! Value of the derivative of the cathode voltage
-    doublereal cathodeVoltageDot_;
+    double cathodeVoltageDot_;
 
     //! Boundary condition function
     //BoundaryCondition * BC_TimeDep_;
@@ -252,18 +252,18 @@ public:
     //TimeDepFunctionPtr TimeDep_;
 
     //! Minimum Value of the cathode voltage to be attempted at the current step
-    doublereal cathodeVoltageMin_;
+    double cathodeVoltageMin_;
 
     //! Maxium Value of the cathode voltage to be attempted at the current step
-    doublereal cathodeVoltageMax_;
+    double cathodeVoltageMax_;
 
     //! Maximum Delta value of the cathode voltage to be taken during the root solver
-    doublereal cathodeVoltageDelta_;
+    double cathodeVoltageDelta_;
 
     //! Print level
     int printLvl_;
 
-    doublereal rtol_;
+    double rtol_;
 
 };
 

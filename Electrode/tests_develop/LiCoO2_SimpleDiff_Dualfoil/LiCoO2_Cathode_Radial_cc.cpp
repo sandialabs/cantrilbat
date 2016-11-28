@@ -203,7 +203,7 @@ int main(int argc, char **argv)
 
     double coul = 0.0;
  
-    doublereal net[12];
+    double net[12];
     nT = 50; 
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal; 

@@ -1352,7 +1352,7 @@ printBathSpeciesConditions(ThermoPhase& g, PhaseList *pl, int printLvl) {
     cout << " torr " << endl;
     dnt(1); cout << "Temperature (where needed) = " << BG.Temperature
 		 << " Kelvin" << endl;
-    doublereal volts = g.electricPotential();
+    double volts = g.electricPotential();
     dnt(1); cout << "Voltage (where needed) = " << volts
 		 << " Volts" << endl;
     dnt(1); cout << "Carrier Species (used in diff. calcs) = " 

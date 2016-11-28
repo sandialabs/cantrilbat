@@ -24,27 +24,27 @@ using namespace Cantera;
 #endif
 
 
-double findV(Electrode *electrode, doublereal Itarget,
+double findV(Electrode *electrode, double Itarget,
 			      double Elow, double Ehigh,
-			      int printLvl, doublereal err,
+			      int printLvl, double err,
 			      int maxsteps) {
  
-  doublereal deltaVoltage;
-  doublereal dT, dTa, dTmax, Enew;
-  doublereal Inow;
-  doublereal Ilow = Undef;
-  doublereal Ihigh = Undef;
-  doublereal Ierr, IConvErr;
-  doublereal Enow;
-  doublereal dIdV = 0.0;
+  double deltaVoltage;
+  double dT, dTa, dTmax, Enew;
+  double Inow;
+  double Ilow = Undef;
+  double Ihigh = Undef;
+  double Ierr, IConvErr;
+  double Enow;
+  double dIdV = 0.0;
 
   InterfaceKinetics *iK = electrode->reactingSurface(0);
 
   deltaVoltage = electrode->voltage();
-  doublereal Epast = deltaVoltage - 0.01;
+  double Epast = deltaVoltage - 0.01;
   //electrode->setDeltaVoltage(Epast);
   electrode->setVoltages(Epast, 0.0);
-  doublereal Ipast = processGERCurrent(electrode->m_rmcEGR[0], electrode, 0, *iK,  *(electrode->m_egr[0]));
+  double Ipast = processGERCurrent(electrode->m_rmcEGR[0], electrode, 0, *iK,  *(electrode->m_egr[0]));
   //electrode->setDeltaVoltage(Epast + 0.01);
   electrode->setVoltages(Epast + 0.01, 0.0);
 

@@ -241,7 +241,7 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
     pdss_ptr = vpss->providePDSS(k);
     ptype = pdss_ptr->reportPDSSType();
  
-    doublereal minTemp, maxTemp, refPressure;
+    double minTemp, maxTemp, refPressure;
     pdss_ptr->reportParams(kindex, type, &c[0], minTemp, maxTemp, refPressure);
 
     dnt(2); printf("PDSS Species index    = %d\n", (int) kindex);

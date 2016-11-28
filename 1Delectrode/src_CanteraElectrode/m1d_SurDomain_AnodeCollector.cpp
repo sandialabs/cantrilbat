@@ -358,7 +358,7 @@ void SurDomain_AnodeCollector::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         drawline0(ss, indentSpaces, 80);
         ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
         ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
-        doublereal x0 = nv->x0NodePos();
+        double x0 = nv->x0NodePos();
         ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         drawline0(ss, indentSpaces, 80);
         ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
@@ -596,7 +596,7 @@ SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid,
 void SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* soln_GLALL_ptr,
                                           const Epetra_Vector* solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
-    // const doublereal* s = soln_GLALL_ptr + loc();
+    // const double* s = soln_GLALL_ptr + loc();
     // Find the number of global equations on this domain, whether it's local or not
     //int numEquationsGb = SDD_.NumEquationsPerNode;
     // Find the global node number of the node where this domain resides

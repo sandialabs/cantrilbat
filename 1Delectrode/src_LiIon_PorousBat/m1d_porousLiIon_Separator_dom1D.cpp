@@ -2155,7 +2155,7 @@ porousLiIon_Separator_dom1D::eval_SpeciesElemBalance(const int ifunc,
 }
 //==================================================================================================================================
 void
-porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     updateElectrolyte(nv, solnElectrolyte_Curr);
   
@@ -2167,7 +2167,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop1(const NodalVars* const nv, const d
 //==================================================================================================================================
 void
 porousLiIon_Separator_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
-						   const doublereal* const solnElectrolyte_Curr)
+						   const double* const solnElectrolyte_Curr)
 {
     //
     // Calculate the EnthalpyPhi values at the CV interface and store these in  EnthalpyPhiPM_lyte_Curr_[]
@@ -2182,8 +2182,8 @@ porousLiIon_Separator_dom1D::SetupThermoShop1Extra(const NodalVars* const nv,
 }
 //==================================================================================================================================
 void
-porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
-                                              const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
+porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+                                              const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
                                               int type)
 {
    // Needs major work
@@ -2252,7 +2252,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
 //=====================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte given the solution vector
 void
-porousLiIon_Separator_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Separator_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -2754,7 +2754,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         indent += " ";
     }
     const char* ind = indent.c_str();
-    doublereal v;
+    double v;
     GlobalIndices* gi = LI_ptr_->GI_ptr_;
     // Number of points in each vector
     string sss = id();
@@ -2797,7 +2797,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 
             for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-                doublereal x = nv->xNodePos();
+                double x = nv->xNodePos();
                 ss.print0("\n%s   %4d  % -10.4E ", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
@@ -2854,7 +2854,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 
             for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-                doublereal x = nv->xNodePos();
+                double x = nv->xNodePos();
                 ss.print0("%s   %4d  % -10.4E ", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
@@ -2951,7 +2951,7 @@ porousLiIon_Separator_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     }
     NodalVars* nvl;
     NodalVars* nvr;
-    doublereal x;
+    double x;
     int iCell;
     for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));

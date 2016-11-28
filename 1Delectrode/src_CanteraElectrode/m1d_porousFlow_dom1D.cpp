@@ -830,7 +830,7 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
  * @param soln_Curr  Current value of the solution vector at the current node
  */
 void
-porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr)
+porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const soln_Curr)
 {
     if (porosityEquationProbType_  &  Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
 	double vfo = volumeFractionOther(cIndex_cc_);
@@ -841,7 +841,7 @@ porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* 
 }
 //===================================================================================================================================
 void
-porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.

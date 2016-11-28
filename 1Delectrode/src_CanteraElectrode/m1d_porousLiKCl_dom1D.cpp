@@ -322,7 +322,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
   double fluxR = 0.0;
 
   const Epetra_Vector &soln = *soln_ptr;
-  const doublereal * solnDot_Cellptr = 0;
+  const double* solnDot_Cellptr = 0;
   //const Epetra_Vector &solnDot = *solnDot_ptr;
   const Epetra_Vector &solnOld = *solnOld_ptr;
 
@@ -874,15 +874,15 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiKCl_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, solnElectrolyte_Curr);
 }
 //=====================================================================================================================
 void
-porousLiKCl_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal * const solnElectrolyte_CurrL,
-                                    const NodalVars* const nvR, const doublereal * const solnElectrolyte_CurrR,
+porousLiKCl_dom1D::SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+                                    const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
                                     int type)
 {
   for (int i = 0; i < BDT_pms_ptr_->NumEquationsPerNode; i++) {
@@ -905,8 +905,8 @@ porousLiKCl_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal
    *  @param solnDotElectrolyte   Vector of the solution dot at the current cell and bulk domain
    */
   void
-  porousLiKCl_dom1D::updateElectrolyteOld(const doublereal * const solnElectrolyte_Curr, 
-				       const doublereal * const solnDotElectrolyte_Curr)
+  porousLiKCl_dom1D::updateElectrolyteOld(const double* const solnElectrolyte_Curr, 
+				       const double* const solnDotElectrolyte_Curr)
   {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -960,7 +960,7 @@ porousLiKCl_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal
  * @param solnElectrolyte
  */
 void
-porousLiKCl_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiKCl_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -1171,7 +1171,7 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     indent += " ";
   }
   const char *ind = indent.c_str();
-  doublereal v;
+  double v;
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
   // Number of points in each vector
   string sss = id();
@@ -1199,7 +1199,7 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 
       for (iGbNode = BDT_pms_ptr_->FirstGbNode; iGbNode <= BDT_pms_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("\n%s    %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1230,7 +1230,7 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
 
       for (iGbNode = BDT_pms_ptr_->FirstGbNode; iGbNode <= BDT_pms_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("%s    %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1253,7 +1253,7 @@ porousLiKCl_dom1D::showSolution(const Epetra_Vector *soln_GlAll_ptr,
   }
   NodalVars *nvl;
   NodalVars *nvr;
-  doublereal x;
+  double x;
   int iCell;
   for (iGbNode = BDT_pms_ptr_->FirstGbNode; iGbNode <= BDT_pms_ptr_->LastGbNode; iGbNode++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));

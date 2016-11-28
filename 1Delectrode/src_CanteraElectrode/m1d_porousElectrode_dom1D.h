@@ -318,7 +318,7 @@ protected:
      *   Vector of partial molar enthalpy  (KRSpecies)
      *   Units of Joules/(kmol)
      */
-    std::vector<doublereal> EnthalpyPhiPM_metal_Curr_;
+    std::vector<double> EnthalpyPhiPM_metal_Curr_;
 
     //! Counter to calculate the number of electrode subcycles
     /*!

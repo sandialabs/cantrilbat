@@ -211,7 +211,7 @@ int main(int argc, char **argv)
 
 	double coul = 0.0;
  
-	doublereal net[12];
+	double net[12];
 	int nT = 50;
 	double deltaT = tfinalEnd / nT;
 

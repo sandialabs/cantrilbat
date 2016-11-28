@@ -96,7 +96,7 @@ namespace beuler
 
 
     //! Value of the derivative of the cathode voltage
-    doublereal cathodeVoltageDot_;
+    double cathodeVoltageDot_;
 
     //! Boundary condition function
     m1d::BoundaryCondition * BC_TimeDep_;

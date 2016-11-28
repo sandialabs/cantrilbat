@@ -175,7 +175,7 @@ int main(int argc, char **argv)
 
       iface->integrate(deltaT);
       iface->getMoleNumSpecies(DATA_PTR(molNum));
-      doublereal net[12];
+      doublevalue net[12];
       iface->getIntegratedProductionRates(net);
 
       cout << setw(15) << Tfinal << setw(15) << 0.0 << endl;

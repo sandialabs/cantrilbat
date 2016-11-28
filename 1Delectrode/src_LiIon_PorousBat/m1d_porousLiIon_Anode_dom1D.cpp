@@ -2750,7 +2750,7 @@ porousLiIon_Anode_dom1D::calcElectrode()
  *                              0 - at the current cell center
  */
 void
-porousLiIon_Anode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Anode_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
     updateElectrolyte(nv, solnElectrolyte_Curr);
@@ -2764,7 +2764,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop1(const NodalVars* const nv, const doubl
 //==================================================================================================================================
 void
 porousLiIon_Anode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv, 
-					       const doublereal* const solnElectrolyte_Curr)
+					       const double* const solnElectrolyte_Curr)
 {
     //
     // Calculate the EnthalpyPhi values at the CV interface and store these in  EnthalpyPhiPM_lyte_Curr_[]
@@ -2791,8 +2791,8 @@ porousLiIon_Anode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv,
  *                              1 - at the right cell boundary
  */
 void
-porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
-                                          const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
+porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+                                          const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
                                           int type)
 {
     double tempL = getPointTemperature(nvL, solnElectrolyte_CurrL);
@@ -2871,7 +2871,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
  * @param solnElectrolyte
  */
 void
-porousLiIon_Anode_dom1D::updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr)
+porousLiIon_Anode_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -3799,7 +3799,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         indent += " ";
     }
     const char* ind = indent.c_str();
-    doublereal v;
+    double v;
     GlobalIndices* gi = LI_ptr_->GI_ptr_;
     // Number of points in each vector
     string sss = id();
@@ -3854,7 +3854,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
             for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
 
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-                doublereal x = nv->xNodePos();
+                double x = nv->xNodePos();
                 ss.print0("\n%s %4d  % -11.4E", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < 5; n++) {
@@ -3909,7 +3909,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
 
             for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
                 NodalVars* nv = gi->NodalVars_GbNode[iGbNode];
-                doublereal x = nv->xNodePos();
+                double x = nv->xNodePos();
                 ss.print0("%s %4d   % -11.4E ", ind, iGbNode, x);
                 int istart = nv->EqnStart_GbEqnIndex;
                 for (n = 0; n < nrem; n++) {
@@ -3960,7 +3960,7 @@ porousLiIon_Anode_dom1D::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         drawline0(indentSpaces, 80);
     }
     print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
-    doublereal x;
+    double x;
     int iCell;
     for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));

@@ -205,7 +205,7 @@ public:
      * @param solnElectrolyte_Curr  Current value of the solution vector
      */
     void
-    SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+    SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
     //! Do extra stuff at a single node that is normally not needed.
     /*!
@@ -214,7 +214,7 @@ public:
      * @param solnElectrolyte_Curr  Current value of the solution vector
      */
     void
-    SetupThermoShop1Extra(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+    SetupThermoShop1Extra(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
 
     //!  Setup shop at a particular point in the domain, calculating intermediate quantites
@@ -230,8 +230,8 @@ public:
      *                              1 - at the right cell boundary
      */
     void
-    SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
-                     const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
+    SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+                     const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
                      int type);
 
     void
@@ -247,7 +247,7 @@ public:
      *   @param solnElectrolyte    
      */
     virtual void
-    updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
+    updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
 
     virtual void
     getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);

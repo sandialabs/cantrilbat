@@ -1163,7 +1163,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::calcElectrode()
 }
 //=====================================================================================================================
 void
-infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const doublereal * const solnElectrolyte_Curr, int type)
+infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const double* const solnElectrolyte_Curr, int type)
 {
   if (type == 0) {
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
@@ -1173,8 +1173,8 @@ infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const doublereal * const s
 }
 //=====================================================================================================================
 void
-infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const doublereal * const solnElectrolyte_CurrL,
-                                                   const doublereal * const solnElectrolyte_CurrR,
+infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const double* const solnElectrolyte_CurrL,
+                                                   const double* const solnElectrolyte_CurrR,
                                                    int type)
 {
   for (int i = 0; i < BDD_ptr_->NumEquationsPerNode; i++) {
@@ -1197,7 +1197,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const doublereal * const s
  * @param solnElectrolyte
  */
 void
-infPorousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const doublereal * const solnElectrolyte_Curr)
+infPorousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const double* const solnElectrolyte_Curr)
 {
   /*
    * Get the temperature: Check to see if the temperature is in the solution vector.
@@ -1635,7 +1635,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_p
   char ind[120];
   strcpy(ind, ind1);
   ind[118] = '\0';
-  doublereal v;
+  double v;
   GlobalIndices *gi = LI_ptr_->GI_ptr_;
   // Number of points in each vector
   string sss = id();
@@ -1663,7 +1663,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_p
 
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("\n%s    %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1692,7 +1692,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_p
 
       for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
         NodalVars *nv = gi->NodalVars_GbNode[iGbNode];
-        doublereal x = nv->xNodePos();
+        double x = nv->xNodePos();
         ss.print0("%s    %-10.4E ", ind, x);
         int ibulk = nv->OffsetIndex_BulkDomainEqnStart_BDN[0];
         int istart = nv->EqnStart_GbEqnIndex;
@@ -1716,7 +1716,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::showSolution(const Epetra_Vector *soln_GlAll_p
     ss.print0("\n");
     drawline0(indentSpaces, 80);
   }
-  doublereal x;
+  double x;
   int iCell;
   for (iGbNode = BDD_ptr_->FirstGbNode; iGbNode <= BDD_ptr_->LastGbNode; iGbNode++) {
     print0_sync_start(0, ss, *(LI_ptr_->Comm_ptr_));

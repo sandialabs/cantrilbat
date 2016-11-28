@@ -255,7 +255,7 @@ int main(int argc, char **argv)
 
       electrodeC->integrate(deltaT);
       electrodeC->getMoleNumSpecies(molNum);
-      doublereal net[12];
+      double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
  
       cout << setw(15) << Tfinal << setw(15) << amps << endl;

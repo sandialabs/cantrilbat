@@ -221,7 +221,7 @@ public:
      * @param solnElectrolyte_Curr  Current value of the solution vector
      */
     void
-    SetupThermoShop1(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+    SetupThermoShop1(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
     //! Setup shop at a single node, doing the extra stuff needed at domain boundaries.
     /*!
@@ -229,7 +229,7 @@ public:
      *  @param solnElectrolyte_Curr
      */
     void
-    SetupThermoShop1Extra(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+    SetupThermoShop1Extra(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
     //!  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects
@@ -244,8 +244,8 @@ public:
      *                              1 - at the right cell boundary
      */
     void
-    SetupThermoShop2(const NodalVars* const nvL, const doublereal* const solnElectrolyte_CurrL,
-                     const NodalVars* const nvR, const doublereal* const solnElectrolyte_CurrR,
+    SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+                     const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
                      int type);
 
     //! Calculate gradients and fluxes at the current point
@@ -265,7 +265,7 @@ public:
      * @param solnElectrolyte
      */
     void
-    updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
+    updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
 
     //! Functions updates the Electrode object from the current values that are stored within the object
     void

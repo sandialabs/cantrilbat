@@ -79,8 +79,8 @@ namespace Cantera
   /*!
    *
    */
-  int CurrentFunc::evalSS(const doublereal t, const doublereal * const x,
-			  doublereal * const r) {
+  int CurrentFunc::evalSS(const double t, const double* const x, double* const r) 
+  {
     /*
      *   Set the cathode collector voltage in the main function
      */

@@ -639,10 +639,10 @@ void printKineticsTable(Electrode *electrode, int j,
       int idim = tpRef.nDim();
       if (idim < ndim) ndim = idim;
     }
-    doublereal unitsROP[6] = { 1.0,(double) (-ndim), 0.0, 0.0, 0.0, -1.0 };
-    doublereal unitskfwd[6];
-    doublereal unitskrev[6] ;
-    doublereal unitsSpecies[6];
+    double unitsROP[6] = { 1.0,(double) (-ndim), 0.0, 0.0, 0.0, -1.0 };
+    double unitskfwd[6];
+    double unitskrev[6] ;
+    double unitsSpecies[6];
     for (int i = 0; i < 6; i++) {
       unitskfwd[i] = unitsROP[i];
       unitskrev[i] = unitsROP[i];
@@ -1485,10 +1485,10 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
     int idim = tpRef.nDim();
     if (idim < ndim) ndim = idim;
   }
-  doublereal unitsROP[6] = { 1.0, (double)(-ndim), 0.0, 0.0, 0.0, -1.0 };
-  doublereal unitskfwd[6];
-  doublereal unitskrev[6] ;
-  doublereal unitsSpecies[6];
+  double unitsROP[6] = { 1.0, (double)(-ndim), 0.0, 0.0, 0.0, -1.0 };
+  double unitskfwd[6];
+  double unitskrev[6] ;
+  double unitsSpecies[6];
   for (int i = 0; i < 6; i++) {
     unitskfwd[i] = unitsROP[i];
     unitskrev[i] = unitsROP[i];

@@ -628,10 +628,10 @@ void printKineticsTable(PhaseList *pl, int j,
       int idim = tpRef.nDim();
       if (idim < ndim) ndim = idim;
     }
-    doublereal unitsROP[6] = { 1.0, double(-ndim), 0.0, 0.0, 0.0, -1.0 };
-    doublereal unitskfwd[6];
-    doublereal unitskrev[6] ;
-    doublereal unitsSpecies[6];
+    double unitsROP[6] = { 1.0, double(-ndim), 0.0, 0.0, 0.0, -1.0 };
+    double unitskfwd[6];
+    double unitskrev[6] ;
+    double unitsSpecies[6];
     for (int i = 0; i < 6; i++) {
       unitskfwd[i] = unitsROP[i];
       unitskrev[i] = unitsROP[i];
@@ -1552,14 +1552,14 @@ void printAffinityHeader(ZZCantera::RxnMolChange *rmc, PhaseList *pl, int iRxn, 
 	throw CanteraError("printAffinityHeader()",  "error calling getAffinityRxnFormulation");
     }
     
-    const doublereal affinityPowerFwd = aj.affinityPowerFwd;
-    const doublereal equilibPowerFwd = aj.equilibPowerFwd;
+    const double affinityPowerFwd = aj.affinityPowerFwd;
+    const double equilibPowerFwd = aj.equilibPowerFwd;
     const size_t numForwardRxnSpecies = aj.numForwardRxnSpecies;
     const size_t numRevFwdRxnSpecies = aj.numRevFwdRxnSpecies;
     const std::vector<size_t>& affinSpec_FRC = aj.affinSpec_FRC;
-    const std::vector<doublereal>&  affinOrder_FRC = aj.affinOrder_FRC;
+    const std::vector<double>&  affinOrder_FRC = aj.affinOrder_FRC;
     const std::vector<size_t>& affinSpec_RFRC = aj.affinSpec_RFRC;
-    const std::vector<doublereal>&  affinOrder_RFRC = aj.affinOrder_RFRC;
+    const std::vector<double>&  affinOrder_RFRC = aj.affinOrder_RFRC;
 
     dnt(1); printf("Forward Affinity Power = %g \n", affinityPowerFwd);
     dnt(1); printf("Equlibrium Power Value = %g \n", equilibPowerFwd);
@@ -1789,11 +1789,11 @@ void processAffinityTable(ZZCantera::RxnMolChange *rmc, PhaseList *pl, int irxn,
 			   " >getAffinityRxnFormulation() failed ");
     }
     /*
-     const doublereal affinityPowerFwd = aj.affinityPowerFwd;
-     const doublereal equilibPowerFwd = aj.equilibPowerFwd;
+     const double affinityPowerFwd = aj.affinityPowerFwd;
+     const double equilibPowerFwd = aj.equilibPowerFwd;
      const size_t numForwardRxnSpecies = aj.numForwardRxnSpecies;
      const std::vector<size_t>& affinSpec_FRC = aj.affinSpec_FRC;
-     const std::vector<doublereal>&  affinOrder_FRC = aj.affinOrder_FRC;
+     const std::vector<double>&  affinOrder_FRC = aj.affinOrder_FRC;
     */
    
     delete [] actConc;
@@ -1945,10 +1945,10 @@ void printGERKineticsTable(PhaseList *pl, int iGER,
     int idim = tpRef.nDim();
     if (idim < ndim) ndim = idim;
   }
-  doublereal unitsROP[6] = { 1.0, double(-ndim), 0.0, 0.0, 0.0, -1.0 };
-  doublereal unitskfwd[6];
-  doublereal unitskrev[6] ;
-  doublereal unitsSpecies[6];
+  double unitsROP[6] = { 1.0, double(-ndim), 0.0, 0.0, 0.0, -1.0 };
+  double unitskfwd[6];
+  double unitskrev[6] ;
+  double unitsSpecies[6];
   for (int i = 0; i < 6; i++) {
     unitskfwd[i] = unitsROP[i];
     unitskrev[i] = unitsROP[i];

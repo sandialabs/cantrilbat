@@ -67,8 +67,7 @@ namespace Cantera {
   class Kinetics;
 }
 
-double findV(ZZCantera::Electrode *electrode, doublereal Itarget,
-	     double Elow, double Ehigh, int printLvl, doublereal err, int maxsteps);
+double findV(ZZCantera::Electrode *electrode, double Itarget, double Elow, double Ehigh, int printLvl, double err, int maxsteps);
 
 /**********************************************************************/
 /**********************************************************************/

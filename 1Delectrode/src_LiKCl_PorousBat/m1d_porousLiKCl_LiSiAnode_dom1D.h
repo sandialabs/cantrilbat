@@ -191,7 +191,7 @@ public:
    *                              0 - at the current cell center
    */
   virtual void
-  SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
+  SetupThermoShop1(const NodalVars* const nv, const double* const soln_Curr);
 
 
   //!  Setup the thermo shop at a particular point in the domain, calculating intermediate quantites
@@ -207,8 +207,8 @@ public:
    *                              1 - at the right cell boundary
    */
   void
-  SetupThermoShop2(const NodalVars* const nvL, const doublereal * const solnElectrolyte_CurrL,
-                   const NodalVars* const nvR, const doublereal * const solnElectrolyte_CurrR,
+  SetupThermoShop2(const NodalVars* const nvL, const double* const solnElectrolyte_CurrL,
+                   const NodalVars* const nvR, const double* const solnElectrolyte_CurrR,
                    int type);
 
   //! Calculate gradients and fluxes at the current point
@@ -230,10 +230,10 @@ public:
    *  @param solnDotElectrolyte   Vector of the solution dot at the current cell and bulk domain
    */
   void
-  updateElectrolyteOld(const doublereal * const solnElectrolyte, const doublereal * const solnDotElectrolyte);
+  updateElectrolyteOld(const double* const solnElectrolyte, const double* const solnDotElectrolyte);
 
   virtual void
-  updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte_Curr);
+  updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr);
 
   //! Functions updates the Electrode object from the current values that are stored within the object
   void

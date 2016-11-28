@@ -212,7 +212,7 @@ int main(int argc, char **argv)
       // electrodeC->integrate(deltaT);
     
       electrodeC->getMoleNumSpecies(molNum);
-      doublereal net[12];
+      double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
       coul  += amps * deltaT;
       fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E\n", Tfinal, coul, coul/3600. , volts);

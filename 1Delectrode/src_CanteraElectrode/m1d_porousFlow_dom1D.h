@@ -127,7 +127,7 @@ public:
      * @param nv         NodalVars structure for the current node
      * @param soln_Curr  Current value of the solution vector
      */
-    virtual void SetupThermoShop1(const NodalVars* const nv, const doublereal* const soln_Curr);
+    virtual void SetupThermoShop1(const NodalVars* const nv, const double* const soln_Curr);
 
 
     //! Function updates the ThermoPhase object for the electrolyte given the solution vector
@@ -138,7 +138,7 @@ public:
      * @param solnElectrolyte
      */
     virtual void
-    updateElectrolyte(const NodalVars* const nv, const doublereal* const solnElectrolyte);
+    updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
 
     virtual void
     getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
@@ -238,24 +238,24 @@ public:
      *   Vector of Molar heat capacity const press (iCell)
      *   Units of Joules/(K)
      */
-    std::vector<doublereal> CpMolar_lyte_Cell_;
+    std::vector<double> CpMolar_lyte_Cell_;
 
-    std::vector<doublereal> CpMolar_solid_Cell_;
-    std::vector<doublereal> CpMolar_total_Cell_;
+    std::vector<double> CpMolar_solid_Cell_;
+    std::vector<double> CpMolar_total_Cell_;
 
     //!  Partial molar Enthalpy  of the electrolyte species located in all of the cells
     /*!
      *   Vector of partial molar enthalpy  (KRSpecies, iCell)
      *   Units of Joules/(kmol)
      */
-    std::vector<doublereal> EnthalpyPM_lyte_Cell_;
+    std::vector<double> EnthalpyPM_lyte_Cell_;
 
     //!  Molar Enthalpy of the electrolyte phase located in all of the cells
     /*!
      *   Vector of molar enthalpy  (iCell)
      *   Units of Joules/(kmol)
      */
-    std::vector<doublereal> EnthalpyMolar_lyte_Cell_;
+    std::vector<double> EnthalpyMolar_lyte_Cell_;
 
     //
     // ------------------- Porosity of the Domain -----------------------------------------------------------------------
@@ -407,8 +407,8 @@ protected:
      *   Vector of partial molar enthalpy  (KRSpecies)
      *   Units of Joules/(kmol)
      */
-    std::vector<doublereal> EnthalpyPM_lyte_Curr_;
-    std::vector<doublereal> EnthalpyPhiPM_lyte_Curr_;
+    std::vector<double> EnthalpyPM_lyte_Curr_;
+    std::vector<double> EnthalpyPhiPM_lyte_Curr_;
 
     //! Value of the molar Enthalpy of the electrolyte at the current location
     /*!

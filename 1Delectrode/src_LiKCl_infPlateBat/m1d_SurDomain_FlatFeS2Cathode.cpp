@@ -540,7 +540,7 @@ SurDomain_FlatFeS2Cathode::saveDomain(ZZCantera::XML_Node& oNode,
                                       const double t,
                                       bool duplicateOnAllProcs)
 {
-  // const doublereal* s = soln_GLALL_ptr + loc();
+  // const double* s = soln_GLALL_ptr + loc();
   // Find the number of global equations on this domain, whether it's local or not
   //int numEquationsGb = SDD_.NumEquationsPerNode;
   // Find the global node number of the node where this domain resides
@@ -641,7 +641,7 @@ SurDomain_FlatFeS2Cathode::showSolution(const Epetra_Vector *soln_GlAll_ptr,
     ZZCantera::writelog(buf);
     sprintf(buf, "%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
     ZZCantera::writelog(buf);
-    doublereal x0 = nv->x0NodePos();
+    double x0 = nv->x0NodePos();
     sprintf(buf, "%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
     ZZCantera::writelog(buf);
     drawline(indentSpaces, 80);
@@ -777,7 +777,7 @@ SurDomain_FlatFeS2Cathode::writeSolutionTecplot(const Epetra_Vector *soln_GlAll_
     fprintf( ofp, "%g \t", t );
 
     //x-position
-    doublereal x0 = nv->x0NodePos();
+    double x0 = nv->x0NodePos();
     fprintf( ofp, "%g \t", x0 );
 
     //Delta Voltage
