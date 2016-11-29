@@ -1,17 +1,22 @@
 /**
- * @file PhaseList.h
- * This file contains definitions for the class PhaseList (see \ref ExtendedPhaseGroups and
- * class \link Zuzax::PhaseList PhaseList\endlink).
+ * @file PhaseList.h 
+ *    Definitions for the  base class within Zuzax that handles indexing
+ *    within multiphase applications (see \ref ExtendedPhaseGroups  and class \link Zuzax::PhaseList\endlink).
+ */
+
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #ifndef CT_PHASELIST_H
 #define CT_PHASELIST_H
 
-#include "cantera/base/xml.h"
-#include "cantera/thermo/ThermoPhase.h"
-#include "cantera/thermo/Elements.h"
 #include "cantera/base/config.h"
 #include "cantera/base/Array.h"
+#include "cantera/thermo/Elements.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace 
@@ -20,6 +25,12 @@ namespace  Zuzax
 namespace Cantera
 #endif
 {
+// Forward declarations
+class speciesID;
+class phaseID;
+class XML_Node;
+class ThermoPhase;
+
 //==================================================================================================================================
 //!   Class PhaseList is a list of Phases. It's used as a container class.
 /*!
@@ -68,8 +79,6 @@ namespace Cantera
  *        Continue optimization.
  *        Change addPhase routines to return the global phase index.
  *        Change interface routine names one by one to make them conformal to a standard.
- *             ' get' name is used for return vectors in the parameter list.
- *             Determine whether to use globalSpeciesIndex() or speciesIndex() as a general naming convention.
  *        For bad matches, don't throw an error. Instead return npos.
  *        Add the ability to handle non-dim ordered lists of phases.
  *

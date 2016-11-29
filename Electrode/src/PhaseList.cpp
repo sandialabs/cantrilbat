@@ -1,5 +1,7 @@
-/*
- * $Id: PhaseList.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ * @file PhaseList.h 
+ *    Declarations for the  base class within Zuzax that handles indexing
+ *    within multiphase applications (see \ref ExtendedPhaseGroups and class \link Zuzax::PhaseList\endlink).
  */
 
 /*
@@ -10,12 +12,10 @@
  */
 
 #include "PhaseList.h"
-#include "Electrode_Exception.h"
-#include "cantera/thermo.h"
 
-#include <new>
+#include "cantera/thermo/ThermoPhase.h"
+#include "cantera/thermo/ThermoFactory.h"
 
-using namespace std;
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -1152,8 +1152,8 @@ int PhaseList::compareOtherPL(const PhaseList* const plGuest) const
 	int numBestAgreement = 0;
 	int numCurrentAgreement = 0;
 	const ThermoPhase* tpa = SurPhaseList[i];
-	string ida = tpa->id();
-	string pna = tpa->name();
+	std::string ida = tpa->id();
+	std::string pna = tpa->name();
 	int iEOSa = tpa->eosType();
 	const std::vector<std::string>&  sNa_list = tpa->speciesNames();
 	for (size_t iGuest =  0; i <  plGuest->m_NumSurPhases; ++i) {
