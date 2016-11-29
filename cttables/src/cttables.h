@@ -14,7 +14,6 @@
 #define CTTABLES_H
 
 #include "cantera/base/config.h"
-#include "IdealReactingGas.h"
 #include "cantera/transport.h"
 #include "cttInput.h"
 #include "mdp_allo.h"

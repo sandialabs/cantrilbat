@@ -63,7 +63,7 @@ PURIFY=@PURIFY@
 OBJ_CTTABLES= cttables.o cttables_kin.o cttables_vol.o  \
               cttInput.o sortAlgorithms.o cttables_thermo.o 
 
-OBJ_CANTERA_ADDONS =  IdealReactingGas.o ReactingVolDomain.o
+OBJ_CANTERA_ADDONS =   ReactingVolDomain.o
 
 CTTABLES_EXE=cttables$(EXE_EXT)
 ATOFCHECKER_EXE=atofChecker$(EXE_EXT)

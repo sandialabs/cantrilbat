@@ -17,8 +17,6 @@
 //  well-formatted Chemkin ELEMENT section.
 //
 
-#include "IdealReactingGas.h"
-
 #include "TemperatureTable.h"
 
 #include "LE_PickList.h"

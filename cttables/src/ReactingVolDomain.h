@@ -17,7 +17,6 @@
 #ifndef REACTINGVOLDOMAIN_H
 #define REACTINGVOLDOMAIN_H
  
-#include "cantera/thermo/IdealGasPhase.h"
 #include "cantera/kinetics/GasKinetics.h"
 #include "cantera/kinetics/InterfaceKinetics.h"
 #include "cantera/transport.h"
