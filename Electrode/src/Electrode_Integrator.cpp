@@ -2546,17 +2546,16 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
 }
 
 //====================================================================================================================
-double Electrode_Integrator::l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
+double Electrode_Integrator::l0normM(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
                                      const std::vector<double>& atolVec, const double rtol)
 {
     double max0 = 0.0;
     double denom, diff, ee;
-    for (size_t k = 0; k <(size_t) num; k++) {
+    for (size_t k = 0; k < num; k++) {
         diff = fabs(v1[k] - v2[k]);
         denom = rtol * MAX(fabs(v1[k]), fabs(v2[k]));
         denom = MAX(denom, atolVec[k]);
         ee = diff / denom;
-        // Put in the if statement here so that we can grab the answer in the debugger
         if (ee > max0) {
             max0 = ee;
         }

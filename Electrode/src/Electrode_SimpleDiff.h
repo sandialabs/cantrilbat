@@ -622,7 +622,7 @@ public:
      *
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
      */
-    virtual void unpackNonlinSolnVector(const double* const y);
+    virtual void unpackNonlinSolnVector(const double* const y) override;
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!

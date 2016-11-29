@@ -178,9 +178,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     SpeciesNames(0),
     PhaseNames(0),
     ElementNames(0),
-    ElementAbundances(0),
-    specifiedElementAbundances(false),
-    specifiedBlockKmolSpecies(0),
     xmlStateInfoLevel(0),
     electrodeModelName(""),
     electrodeCapacityType(0),
@@ -221,9 +218,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     SpeciesNames(0),
     PhaseNames(0),
     ElementNames(0),
-    ElementAbundances(0),
-    specifiedElementAbundances(false),
-    specifiedBlockKmolSpecies(0),
     xmlStateInfoLevel(0),
     electrodeModelName(""),
     electrodeCapacityType(0),
@@ -355,11 +349,6 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
 	ElementNames[i] = TKInput::copy_string(right.ElementNames[i]);
      }
 
-     mdp_realloc_dbl_1(&ElementAbundances, nTotElements, 0, 0.0);
-     mdp_copy_dbl_1(ElementAbundances, right.ElementAbundances, nTotElements);
-
-     specifiedElementAbundances          = right.specifiedElementAbundances;
-     specifiedBlockKmolSpecies           = right.specifiedBlockKmolSpecies;
      xmlStateInfoLevel                   = right.xmlStateInfoLevel;
      electrodeModelName                  = right.electrodeModelName;
      electrodeCapacityType               = right.electrodeCapacityType;
@@ -411,7 +400,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
     free(SpeciesNames);
     free(PhaseNames);
     free(ElementNames);
-    delete [] ElementAbundances;
 
     for (size_t j = 0; j < OCVoverride_ptrList.size(); j++) {
          delete OCVoverride_ptrList[j];
@@ -440,7 +428,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
  *  The sized fields include:
  *         MoleNumber
  *         MoleNumberIG
- *         ElementAbundances
  */
 void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
 {
@@ -452,9 +439,6 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
     MoleFraction.resize(nTotSpecies, 0.0);
   
     PotentialPLPhases.resize(nTotPhases, 0.0);
-
-    ElementAbundances = new double[nTotElements];
-    std::fill(ElementAbundances, ElementAbundances+nTotElements, 0.0);
 
     SpeciesNames = mdp_alloc_VecFixedStrings(nTotSpecies, MPEQUIL_MAX_NAME_LEN_P1);
     PhaseNames = mdp_alloc_VecFixedStrings(nTotPhases, MPEQUIL_MAX_NAME_LEN_P1);
@@ -1097,13 +1081,11 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     BlockEntry* rb = new BlockEntry("Reaction Extent Limits", 0);
     cf->addSubBlock(rb);
-    LE_OneDbl* iRETop =  new LE_OneDbl("Reaction Extent Top Limit", &(RxnExtTopLimit), 1,
-                                       "RxnExtTopLimit");
+    LE_OneDbl* iRETop =  new LE_OneDbl("Reaction Extent Top Limit", &(RxnExtTopLimit), 1, "RxnExtTopLimit");
     iRETop->set_default(-1.0);
     rb->addLineEntry(iRETop);
 
-    LE_OneDbl* iREBot =  new LE_OneDbl("Reaction Extent Bottom Limit", &(RxnExtBotLimit), 1,
-                                       "RxnExtBotLimit");
+    LE_OneDbl* iREBot =  new LE_OneDbl("Reaction Extent Bottom Limit", &(RxnExtBotLimit), 1, "RxnExtBotLimit");
     iREBot->set_default(-1.0);
     rb->addLineEntry(iREBot);
 

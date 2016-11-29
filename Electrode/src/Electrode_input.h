@@ -433,9 +433,6 @@ public:
      *  List of the names of the elements in C-style, nullterminated strings
      */
     char** ElementNames;
-    double* ElementAbundances;
-    bool  specifiedElementAbundances;
-    int   specifiedBlockKmolSpecies;
 
     //! Storage for the OCV override information
     /*
@@ -521,8 +518,18 @@ public:
      */
     double porosity;
 
-
+    //! Maximum reaction extent at the top 
+    /*!
+     *  Maximum amount of the RxnExt variable that the electrode can be charged to
+     *  -> defaults to -1.0, which indicates that there is no limit on this variable
+     */
     double RxnExtTopLimit;
+
+    //! Maximum reaction extent at the bottom
+    /*!
+     *  Maximum amount of the RxnExt variable that the electrode can be discharged to
+     *  -> defaults to -1.0, which indicates that there is no limit on this variable
+     */
     double RxnExtBotLimit;
 
     //! Number of extra global reactions

@@ -376,8 +376,7 @@ public:
 /*!
  * Complete problem statement
  *
-
-*/
+ */
 class Electrode_Integrator : public Electrode , public ZZCantera::ResidJacEval
 {
 public:
@@ -401,6 +400,8 @@ public:
     //! Assignment operator
     /*!
      *  @param right object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
      */
     Electrode_Integrator& operator=(const Electrode_Integrator& right);
 
@@ -683,7 +684,6 @@ public:
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ----------------------------------------------
     // ---------------------------------------------------------------------------------------------
 
- 
 protected:
     //! Set the Residual and Solution absolute error tolerance vectors
     /*!
@@ -716,20 +716,29 @@ public:
      * @return                                   Returns a value of 1 if everything went well
      *                                           Returns negative numbers to indicate types of failures
      */
-    virtual int evalResidNJ(const double t, const double delta_t,
-                            const double* const y,
-                            const double* const ydot,
-                            double* const resid,
-                            const ResidEval_Type_Enum evalType = Base_ResidEval,
-                            const int id_x = -1,
-                            const double delta_x = 0.0);
+    virtual int evalResidNJ(const double t, const double delta_t, const double* const y,
+                            const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const int id_x = -1, const double delta_x = 0.0);
 
     //! Calculate the residual
     /*!
+     *  (virtual function from Electrode_Integrator)
      *
-     *  (virtual fucntion from Electrode_Integrator)
+     *  This is the main routine for calculating the residual for the time step. All preliminary calculations have been
+     *  carried out, and we are ready to assemble the residual vector.
      *
-     * @return                                   Returns a value of 1 if everything went well
+     *   Previously, we should have called:
+     *        unpackNonlinSolnVector()
+     *        updateState()
+     *        extractInfo(); 
+     *        updateSpeciesMoleChangeFinal();
+     *
+     *  @param[in]           resid               Residual vector. Length = neq_
+     *
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *                                           Other types are JacBase_ResidEval, JacDelta_ResidEval, and Base_ShowSolution.
+     *
+     *  @return                                  Returns a value of 1 if everything went well
      *                                           Returns negative numbers to indicate types of failures
      */
     virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
@@ -773,13 +782,13 @@ public:
     /*!
      * (virtual from NonlinearSolver)
      *
-     * Values for both the solution and the value of ydot may be provided.
+     * Values for both the initial value of the solution and the value of ydot at t0 are provided to the calling program
      *
-     * @param t0            Time                    (input)
-     * @param y             Solution vector (output)
-     * @param ydot          Rate of change of solution vector. (output)
+     * @param[in]            t0                  Time                    (input)
+     * @param[out]           ySoln               Solution vector (output)
+     * @param[out]           ySolnDot            Rate of change of solution vector. (output)
      */
-    virtual int getInitialConditions(const double t0, double* const y, double* const ydot);
+    virtual int getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot) override;
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
@@ -790,27 +799,31 @@ public:
      *        delta_y[i] = atol[i] + 1.0E-6 ysoln[i]
      *        delta_y[i] = atol[i] + MAX(1.0E-6 ysoln[i] * 0.01 * solnWeights[i])
      *
-     * @param t             Time                    (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input, do not modify)
-     * @param delta_y       Value of the delta to be used in calculating the numerical jacobian
-     * @param solnWeights   Value of the solution weights that are used in determining convergence (default = 0)
+     * @param[in]            t                   Time                    (input)
+     * @param[in]            ySoln               Solution vector (input, do not modify)
+     * @param[in]            ySolnDot            Rate of change of solution vector. (input, do not modify)
+     * @param[in]            deltaYSoln          Value of the delta to be used in calculating the numerical jacobian
+     * @param[in]            solnWeights         Value of the solution weights that are used in determining convergence (default = 0)
      *
-     * @return Returns a flag to indicate that operation is successful.
-     *            1  Means a successful operation
-     *            0  Means an unsuccessful operation
+     * @return                                   Returns a flag to indicate that operation is successful.
+     *                                           - 1  Means a successful operation
+     *                                           - 0  Means an unsuccessful operation
      */
     virtual int calcDeltaSolnVariables(const double t, const double* const ySoln,
                                        const double* const ySolnDot, double* const deltaYSoln,
                                        const double* const solnWeights);
 
-    //! Unpack the soln vector
+    //! Unpack the solution vector on return from the time stepper
     /*!
      *  (virtual from Electrode_Integrator)
      *
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+     *
+     *  @param[in]           ySoln               Solution vector as returned from the time stepper.
+     *                                           What the solution actually refers to depends on the individual Electrode objects.
+     *                                           y[0] is always the current  deltaTsubcycleCalc_ value
      */
-    virtual void unpackNonlinSolnVector(const double* const y);
+    virtual void unpackNonlinSolnVector(const double* const ySoln);
 
     //! Check to see that the preceding step is a successful one
     /*!
@@ -822,16 +835,28 @@ public:
      */
     virtual bool  checkSubIntegrationStepAcceptable() const;
 
+    //! Calculate the value of the solution derivatives, solnDot_final_[], at the end of the time step
+    /*!
+     *  We set the solnDot_final_[0] value to zero, as this is the calculated  deltaTsubcycleCalc_ value.
+     *  If we don't have a good idea of the initial solnDot at the start of the subcycle, we copy solnDot_final_[] into solnDot_init_[]
+     *  Right now, we only signal a bad initial solnDot for the entrance to this routine.
+     */
     virtual void calc_solnDot_final();
 
-    //!  Calculate the norm of the difference between the predicted answer and the final converged answer
-    //!  for the current time step
+    //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+     *   The norm calculated by this routine is used to determine whether the time step is accurate enough. Two norms are taken,
+     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the predictions
+     *   from the final answer is used as the final error predictor 
      *
-     *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver for 
+     *                                           the current time step.
+     *
+     *  @return                                  Returns the norm of the difference. Normally this is the weighted L0 norm 
+     *                                           of the difference between predictor and the corrector.
+     *                                           The less of the deviation in the two norms is now taken as the answer.
      */
     virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS);
 
@@ -923,13 +948,20 @@ public:
      *                L0_i    =     || Actual_i - Pred_i || / ( MAX(||Abstol_i|| )
      *
      *  Also stores:
-     *                errorLocal_i = L0_i * rtol
      *
-     *  so that errorLocal has the magnitude of the normalized error associated with it.
+     *                errorLocalNLS[i] = L0[i] * rtol
+     *
+     *  so that errorLocalNLS has the magnitude of the normalized error associated with it, mitigated by Abstol[i]
+     *
+     *  @param[in]           v1                  First vector to compare against. Length >= num
+     *  @param[in]           v2                  Second vector to compare against. Length >= num
+     *  @param[in]           num                 Length of the comparision. (usually equal to v1.size()
+     *  @param[in]           atolVec             Absolute tolerance vector. Length >= num
+     *  @param[in]           rtol                Relative tolerance
      * 
-     *   @return  returns the maximum value of Lo_i for all i.
+     *   @return                                 returns the maximum value of Lo_i for all i.
      */
-    double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
+    double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
                    const std::vector<double>& atolVec, const double rtol);
 
     // ----------------------------------------------------------------------------------------------
@@ -1078,16 +1110,38 @@ public:
      */
     virtual void printResid_ResidSatisfaction();
 
+    // Sets the base timeHistory record to the current timeHistory record
+    /*!
+     *  @return                                  Returns the number of time steps in the current timeHistory record
+     */
     int setTimeHistoryBaseFromCurrent();
-    int setTimeHistoryBase( const SubIntegrationHistory &timeHistory);
 
+    //! Sets the timeHistory_base_ member to the argument object
+    /*!
+     *  During calculation of jacobians, the base time step history is followed.
+     *
+     *  @param[in]           timeHistory         SubIntegrationHistory object to set the base to
+     *
+     *  @return                                  Returns the number of steps in the timeHistory record
+     */
+    int setTimeHistoryBase(const SubIntegrationHistory& timeHistory);
+
+    //! Returns an object containing the subcycle time integration history
+    /*!
+     *  Return the history record of the current substep time integration.
+     *
+     *  @param[in]           returnBase          If true this returns the timeHistory_base_ member.
+     *                                           If false this returns the current timeHistory_current_ member.
+     *
+     *  @return                                  Returns a changeable SubIntegrationHistory object
+     */
     SubIntegrationHistory& timeHistory(bool returnBase = false);
 
-    //! Set the Maximum number of subcycles of integration before yielding an error message
+    //! Set the Maximum number of subcycles of integration before throwing an error 
     /*!
      *   This is the maximum number of subcycles no matter what the type of subsycles
      *
-     *   Default value is 50000
+     *  @param[in]           maxN                Number of time step subcyles. Default value is 50000
      */
     void setMaxNumberSubCycles(int maxN);
 

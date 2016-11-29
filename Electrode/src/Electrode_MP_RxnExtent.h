@@ -469,7 +469,7 @@ public:
     /*!
      *  This function unpacks the solution vector into deltaTsubcycleCalc_  and   RelativeExtentRxn_final_
      */
-    void unpackNonlinSolnVector(const double* const y);
+    virtual void unpackNonlinSolnVector(const double* const y) override;
 
 
     // Main internal routine to calculate the rate constant

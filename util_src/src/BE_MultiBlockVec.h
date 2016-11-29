@@ -307,6 +307,8 @@ public:
     /*!
      * This is a nonvirtual function since the return type
      * is specific to this child. The current block points to one external storage structure
+     *
+     *  @return                                  Returns a pointer to the current storage structure
      */
     const T* currentTypedValue() const;
 

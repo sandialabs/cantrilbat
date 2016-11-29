@@ -2531,10 +2531,10 @@ int Electrode_CSTR::evalResidNJ(const double tdummy, const double delta_t_dummy,
     return retn;
 }
 //====================================================================================================================
-int Electrode_CSTR::getInitialConditions(const double t0, double* const y, double* const ydot)
+int Electrode_CSTR::getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot)
 {
     for (int k = 0; k < neq_; k++) {
-        y[k] = 0.0;
+        ySoln[k] = 0.0;
     }
     return 1;
 }

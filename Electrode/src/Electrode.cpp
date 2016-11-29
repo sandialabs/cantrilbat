@@ -4022,8 +4022,7 @@ int Electrode::integrate_ResidJacEval::evalResidNJ(double t, const double deltaT
     return retn;
 }
 //  -----------------------------------------------------------------------------------------------------------------
-int Electrode::integrate_ResidJacEval::getInitialConditions(const double t0, double* const y,
-        double* const ydot)
+int Electrode::integrate_ResidJacEval::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     int ne = nEquations();
     for (int k = 0; k < ne; k++) {

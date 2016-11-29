@@ -3705,26 +3705,22 @@ void Electrode_MP_RxnExtent::setFinalFinalStateFromFinal()
 }
 
 
-//  -----------------------------------------------------------------------------------------------------------------
-int Electrode_MP_RxnExtent::getInitialConditions(const double t0, double* const y, double* const ydot)
+//==================================================================================================================================
+int Electrode_MP_RxnExtent::getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot)
 {
     for (int k = 0; k < neq_; k++) {
-        y[k] = 0.0;
+        ySoln[k] = 0.0;
     }
     return 1;
 }
-//====================================================================================================================
-double
-Electrode_MP_RxnExtent::filterNewStep(const double timeCurrent,
-                                      const double* const ybase,
-                                      double* const step0)
+//==================================================================================================================================
+double Electrode_MP_RxnExtent::filterNewStep(const double timeCurrent, const double* const ybase, double* const step0)
 {
     return -1;
 }
-//====================================================================================================================
-int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const double t, const double* const ySoln,
-        const double* const ySolnDot, double* const deltaYSoln,
-        const double* const solnWeights)
+//==================================================================================================================================
+int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const double t, const double* const ySoln, const double* const ySolnDot,
+                                                   double* const deltaYSoln, const double* const solnWeights)
 {
     if (!solnWeights) {
         for (int i = 0; i < neq_; i++) {
@@ -3737,33 +3733,20 @@ int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const double t, const double*
     }
     return 1;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Evaluate the residual function
-/*
- * @param t             Time                    (input)
- * @param delta_t       The current value of the time step (input)
- * @param y             Solution vector (input, do not modify)
- * @param ydot          Rate of change of solution vector. (input, do not modify)
- * @param resid         Value of the residual that is computed (output)
- * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
- * @param id_x          Index of the variable that is being numerically differenced to find
- *                      the jacobian (defaults to -1, which indicates that no variable is being
- *                      differenced or that the residual doesn't take this issue into account)
- * @param delta_x       Value of the delta used in the numerical differencing
- */
 int Electrode_MP_RxnExtent::evalResidNJ(const double tdummy, const double delta_t_dummy,
-                                        const double* const y,
+                                        const double* const ySoln,
                                         const double* const ySolnDot,
                                         double* const resid,
                                         const ResidEval_Type_Enum evalType,
                                         const int id_x,
                                         const double delta_x)
 {
-    int retn =  integrateResid(tdummy, delta_t_dummy, y, ySolnDot, resid, evalType, id_x, delta_x);
+    int retn =  integrateResid(tdummy, delta_t_dummy, ySoln, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 void  Electrode_MP_RxnExtent::setState_TP(double temperature, double pressure)
 {
     temperature_ = temperature;
