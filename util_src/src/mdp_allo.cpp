@@ -491,6 +491,46 @@ int* mdp_alloc_int_1(int nvalues, const int val)
     }
     return array;
 }
+
+//==================================================================================================================================
+size_t* mdp_alloc_size_t_1(int nvalues, const int val)
+/*
+ *
+ *  mdp_alloc_size_t_1:
+ *
+ *    Allocate and initialize a one dimensional array of size_t.
+ *
+ *    Input
+ *    -------
+ *        nvalues = Length of the array
+ *        val     = intialization value
+ *    Return
+ *    ------
+ *        Pointer to the intialized integer array
+ *        Failures are indicated by returning the NULL pointer.
+ */
+{
+    size_t* array;
+    if (nvalues <= 0) {
+        nvalues = 1;
+    }
+    array= (size_t*) mdp_array_alloc(1, nvalues, sizeof(size_t));
+    if (array != NULL) {
+        if (val != MDP_INT_NOINIT) {
+            if (val == 0) {
+                (void) memset(array, 0, sizeof(size_t)*nvalues);
+            } else {
+                for (int i = 0; i < nvalues; i++) {
+                    array[i] = val;
+                }
+            }
+        }
+    } else {
+        mdp_alloc_eh("mdp_alloc_int_1", nvalues * sizeof(size_t));
+    }
+    return array;
+}
+
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
@@ -527,13 +567,49 @@ void mdp_safe_alloc_int_1(int** array_hdl, int nvalues, const int val)
         mdp_alloc_eh2("mdp_safe_alloc_int_1");
     }
 }
+
+/****************************************************************************/
+/****************************************************************************/
+/****************************************************************************/
+
+void mdp_safe_alloc_size_t_1(size_t** array_hdl, int nvalues, const int val)
+
+/*************************************************************************
+*
+*  mdp_safe_alloc_int_1:
+*
+*    Allocates and/or initialize a one dimensional array of integers.
+*
+*    Input
+*    -------
+*        *array_hdl = Previous value of pointer. If non-NULL will try to free the memory at this address.
+*        nvalues = Length of the array
+*        val     = intialization value
+*    Output
+*    ------
+*        *array_hdl = This value is initialized to the correct address of the array.
+*                     A NULL value in the position indicates an error.
+**************************************************************************/
+{
+    if (array_hdl == NULL) {
+        mdp_alloc_eh("mdp_safe_alloc_int_1: handle is NULL", MDP_ALLOC_INTERFACE_ERROR);
+        return;
+    }
+    if (*array_hdl != NULL) {
+        mdp_safe_free((void**) array_hdl);
+    }
+    *array_hdl = mdp_alloc_size_t_1(nvalues, val);
+    if (*array_hdl == NULL) {
+        mdp_alloc_eh2("mdp_safe_alloc_int_1");
+    }
+}
+
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
 
 void
-mdp_realloc_int_1(int** array_hdl, int new_length, int old_length,
-                  const int defval)
+mdp_realloc_int_1(int** array_hdl, int new_length, int old_length, const int defval)
 
 /*************************************************************************
 *
@@ -609,6 +685,83 @@ mdp_realloc_int_1(int** array_hdl, int new_length, int old_length,
         mdp_alloc_eh("mdp_realloc_int_1", static_cast<int>(bytenum));
     }
 }
+
+/****************************************************************************/
+
+void
+mdp_realloc_size_t_1(size_t** array_hdl, int new_length, int old_length, const int defval)
+
+/*************************************************************************
+*
+*  mdp_realloc_size_t_1_(array_hdl, new_num_ptrs, old_num_ptrs);
+*
+*    Reallocates a one dimensional array of ints.
+*    This routine always allocates space for at least one int.
+*    Calls the smalloc() routine to ensure that all malloc
+*    calls go through one location. This routine will then copy
+*    the pertinent information from the old array to the new array.
+*
+*    Input
+*    -------
+*        array_hdl    = Pointer to the global variable that
+*                       holds the old and (eventually new)
+*                       address of the array of integers to be reallocated
+*        new_length   = Length of the array
+*        old_length   = Length of the old array
+**************************************************************************/
+{
+   if (new_length == old_length) {
+        return;
+    }
+    if (new_length <= 0) {
+#ifdef MDP_MPDEBUGIO
+        fprintf(stderr, "Warning: mdp_realloc_size_t_1 P_%d: called with n = %d\n", MDP_MP_myproc, new_length);
+#else
+        fprintf(stderr, "Warning: mdp_realloc_size_t_1: called with n = %d\n", new_length);
+#endif
+        new_length = 1;
+    }
+    if (old_length < 0) {
+        old_length = 0;
+    }
+    if (new_length == old_length) {
+        return;
+    }
+    size_t bytenum = new_length * sizeof(size_t);
+    size_t* array = (size_t*) smalloc(bytenum);
+    if (array != NULL) {
+        if (*array_hdl) {
+            if (old_length > 0) {
+                bytenum = sizeof(size_t) * old_length;
+            } else {
+                bytenum = 0;
+            }
+            if (new_length < old_length) {
+                bytenum = sizeof(size_t) * new_length;
+            }
+            if (bytenum > 0) {
+                (void) memcpy((void*) array, (const void*) *array_hdl, bytenum);
+            }
+            mdp_safe_free((void**) array_hdl);
+        } else {
+            old_length = 0;
+        }
+        *array_hdl = array;
+        if ((defval != MDP_INT_NOINIT) && (new_length > old_length)) {
+            if (defval == 0) {
+                bytenum = sizeof(size_t) * (new_length - old_length);
+                (void) memset((void*)(array+old_length), 0, bytenum);
+            } else {
+                for (int i = old_length; i < new_length; i++) {
+                    array[i] = defval;
+                }
+            }
+        }
+    } else {
+        mdp_alloc_eh("mdp_realloc_size_t_1", static_cast<int>(bytenum));
+    }
+}
+
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
@@ -1646,6 +1799,33 @@ void mdp_copy_int_1(int* const copyTo,
 }
 
 /****************************************************************************/
+
+void mdp_copy_size_t_1(size_t* const copyTo, const size_t* const copyFrom, int len)
+
+/**************************************************************************
+ *
+ * mdp_copy_size_t_1:
+ *
+ * Copies one size_t vector into another size_t vector
+ *
+ * Input
+ * -------------
+ *  *copyFrom = Vector of values to be copied
+ *  len       = Length of the vector
+ *
+ * Output
+ * ------------
+ * *copyTo   = Vector of values to receive the copy
+ *
+ **************************************************************************/
+{
+    if (len > 0) {
+        size_t bytelen = len * sizeof(size_t);
+        (void) memcpy((void*)copyTo, (const void*)copyFrom, bytelen);
+    }
+}
+
+/****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
 //==================================================================================================================================
@@ -1813,6 +1993,27 @@ void mdp_zero_int_1(int* const v, int len)
         (void) memset((void*)v, 0, bytelen);
     }
 }
+
+//==================================================================================================================================
+void mdp_zero_size_t_1(size_t* const v, int len)
+/*
+ *
+ * mdp_zero_size_t_1:
+ *
+ * Zeroes out an int vector (special form of mdp_allo_int_1())
+ *
+ * Input
+ * -------------
+ *  v = Vector of values to be set to zero
+ *  len       = Length of the vector
+ */
+{
+    if (len > 0) {
+        size_t bytelen = len * sizeof(size_t);
+        (void) memset((void*)v, 0, bytelen);
+    }
+}
+
 //==================================================================================================================================
 void mdp_init_dbl_2(double** const v, double value, int len1, int len2)
 /*

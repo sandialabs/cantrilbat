@@ -156,6 +156,17 @@ extern void mdp_safe_free(void** hndVec);
  */
 extern int* mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
 
+//! Allocate a vector of size_t 
+/*!
+ *  The vector is initialized, unless the default int value is set to MDP_INT_NOINIT
+ *
+ * @param len  Length of the vector
+ * @param defval Default value for the int, defaults to MDP_INT_NOINIT
+ *
+ * @return returns a pointer to the vector
+ */
+extern size_t* mdp_alloc_size_t_1(int len, const int defval = MDP_INT_NOINIT);
+
 //! Allocate a vector of integers, potentially freeing memory first
 /*!
  *  The vector is initialized, unless the default int value is set to MDP_INT_NOINIT
@@ -175,6 +186,26 @@ extern int* mdp_alloc_int_1(int len, const int defval = MDP_INT_NOINIT);
  *                     A NULL value in the position indicates an error.
  */
 extern void mdp_safe_alloc_int_1(int** array_hdl, int len,  const int defval = MDP_INT_NOINIT);
+
+//! Allocate a vector of size_t, potentially freeing memory first
+/*!
+ *  The vector is initialized, unless the default int value is set to MDP_INT_NOINIT
+ *
+ * Input
+ * --------------
+ * @param array_hdl Previous value of pointer. If non-NULL will try
+ *                to free the memory at this address before doing
+ *                a new alloc
+ * @param len  Length of the vector
+ * @param defval Default value for the int, defaults to MDP_INT_NOINIT
+ *
+ * Output
+ * ---------
+ * @return  *array_hdl = This value is initialized to the correct address
+ *                     of the array.
+ *                     A NULL value in the position indicates an error.
+ */
+extern void mdp_safe_alloc_size_t_1(size_t** array_hdl, int len, const int defval = MDP_INT_NOINIT);
 
 //!    Reallocates a one dimensional array of ints, copying old information to the new array
 /*!
@@ -204,6 +235,34 @@ extern void mdp_safe_alloc_int_1(int** array_hdl, int len,  const int defval = M
  */
 extern void mdp_realloc_int_1(int** array_hdl, int new_len, int old_len,
                               const int defval = MDP_INT_NOINIT);
+
+//!    Reallocates a one dimensional array of size_t, copying old information to the new array
+/*!
+ *    Reallocates a one dimensional array of ints. This routine always allocates space for at least one int.
+ *    Calls the smalloc() routine to ensure that all malloc
+ *    calls go through one location. This routine will then copy
+ *    the pertinent information from the old array to the
+ *    new array.
+ *
+ *     NewArray[0:old_len-1] = OldArray[0:old_len-1];
+ *     NewArray[old_len:new_len-1] = defval;
+ *
+ * Input
+ * --------------
+ * @param array_hdl Previous value of pointer. If non-NULL will try
+ *                to free the memory at this address before doing
+ *                a new alloc
+ * @param new_len  New Length of the vector
+ * @param old_len  New Length of the vector
+ * @param defval Default value for the int, defaults to MDP_INT_NOINIT
+ *
+ * Output
+ * ---------
+ * @return  *array_hdl = This value is initialized to the correct address of the array.
+ *                     A NULL value in the position indicates an error.
+ */
+extern void mdp_realloc_size_t_1(size_t** array_hdl, int new_len, int old_len,
+                                 const int defval = MDP_INT_NOINIT);
 
 
 //! Allocates a 2D matrix of integers with column pointers located at the front of the allocation
@@ -551,6 +610,14 @@ extern void mdp_copy_dbl_2(double** const copyTo, const double** const copyFrom,
  */
 extern void mdp_copy_int_1(int* const copyTo, const int* const copyFrom, int len);
 
+//! Copies one size_t vector into another int vector
+/*!
+ * @param[in]   copyFrom  Vector to  copy
+ * @param[in]   len       Length of the first dimension
+ * @param[out]  copyTo    Array to receive the copy ( must have length >= len)
+ */
+extern void mdp_copy_size_t_1(size_t* const copyTo, const size_t* const copyFrom, int len);
+
 //!  Copies one 2D int array into another 2D int array
 /*!
  *   This does a straight copy of the first len1 * len2 data from one array into the other array without any checks
@@ -590,6 +657,13 @@ void mdp_zero_dbl_1(double* const v, size_t len);
  *  @param[in]         len       Length of the vector
  */
 extern void mdp_zero_int_1(int* const v, int len);
+
+//! Zeroes out an size_t vector 
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         len       Length of the vector
+ */
+extern void mdp_zero_size_t_1(size_t* const v, int len);
 
 //! Assigns a single value to a double matrix. Contiguous data for the matrix is assumed.
 /*!
