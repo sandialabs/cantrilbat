@@ -32,14 +32,18 @@ namespace Cantera
 #endif 
 {
  
+  // Forward references
   class Transport;
   class PhaseList;
 
+  //! Utility class that wraps PhaseList and adds homogeneous kinetics to it
   class ReactingVolDomain
   {
   public:
+    //! Base constructor
     ReactingVolDomain();
-    /*ReactingVolDomain(XML_Node& root, std::string id);*/
+
+    //! Virtual destructor
     virtual ~ReactingVolDomain();
 
     /**
@@ -54,9 +58,14 @@ namespace Cantera
     bool importFromPL(Cantera::PhaseList *pl, int ivkin, int iskin);
 #endif
 
+    //! returns ready if we have been initialized.
+    /*!
+     *  @return                                  Returns true if we have been initialized
+     */
     bool ready() { return m_ok; }
-    friend std::ostream& operator<<(std::ostream& s,
-				    ReactingVolDomain &vd);
+
+
+    friend std::ostream& operator<<(std::ostream& s, ReactingVolDomain &vd);
 
     ThermoPhase& thermo(int n=0) {
       return (m_InterfaceKinetics->thermo(n));
@@ -76,7 +85,10 @@ namespace Cantera
      * This object owns the Kinetics object
      */
     InterfaceKinetics *m_InterfaceKinetics;
+
+    //! Pointer to the transport mechanism
     Transport* m_transport;
+
     int numPhases;
     std::vector<ThermoPhase *>tpList;
     std::vector<XML_Node *> xmlList;
