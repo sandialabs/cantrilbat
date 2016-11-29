@@ -222,8 +222,6 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
   delete vprob;
   return iconv;
 }
-
-
 //======================================================================================================================
 
 
@@ -381,12 +379,8 @@ int main(int argc, char **argv)
     int printFlag = mpequil_debug_print_lvl;
     int estimateInit = 0;
  
-    if (electrodeA_input->specifiedElementAbundances) {
-      mpequil_equilibrate(electrodeA, estimateInit, printFlag);
-    } else {
-      printFlag = 9;
-      vcs_equilibrate_1(*mpA, TP, estimateInit, printFlag);
-    }
+    printFlag = 9;
+    vcs_equilibrate_1(*mpA, TP, estimateInit, printFlag);
 
     ee_equilA->uploadMP();
 
@@ -491,12 +485,8 @@ int main(int argc, char **argv)
     printFlag = mpequil_debug_print_lvl;
     estimateInit = 0;
  
-    if (electrodeC_input->specifiedElementAbundances) {
-      mpequil_equilibrate(electrodeC, estimateInit, printFlag);
-    } else {
-      printFlag = 9;
-      vcs_equilibrate_1(*mpC, TP, estimateInit, printFlag);
-    }
+    printFlag = 9;
+    vcs_equilibrate_1(*mpC, TP, estimateInit, printFlag);
 
     ee_equilC->uploadMP();
 
