@@ -14,9 +14,9 @@
 #define REACTINGSURDOMAIN_H
 
 #include "cantera/kinetics/ElectrodeKinetics.h"
+#include "cantera/multiphase/PhaseList.h"
 
 #include "RSD_OCVmodel.h"
-#include "PhaseList.h"
 
 #include <string>
 #include <vector>

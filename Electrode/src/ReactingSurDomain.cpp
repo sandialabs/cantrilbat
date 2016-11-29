@@ -11,11 +11,10 @@
  */
 
 #include "ReactingSurDomain.h"
-#include "PhaseList.h"
-//#include "RxnMolChange.h"
-#include "cantera/kinetics.h"
-#include "Electrode_input.h"
 
+#include "cantera/kinetics.h"
+
+#include "Electrode_input.h"
 #include "Electrode_Factory.h"
 
 #include "mdp_allo.h"

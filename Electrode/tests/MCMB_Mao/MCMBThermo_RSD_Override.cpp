@@ -14,10 +14,7 @@
 #include "cantera/numerics/NonlinearSolver.h"
 
 
-
-//#include "Electrode_SimpleDiff.h"
-//#include "Electrode_RadialDiffRegions.h"  
-#include "PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 #include "ReactingSurDomain.h"
 
 #include "Electrode_input.h"

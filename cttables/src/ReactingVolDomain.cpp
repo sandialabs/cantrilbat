@@ -14,7 +14,7 @@
 
 #include "ReactingVolDomain.h"
 #include "importAllCTML.h"
-#include "PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 #include "cantera/base/ctml.h"
 
 #include <cstdio>

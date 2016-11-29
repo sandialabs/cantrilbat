@@ -22,7 +22,7 @@
 #include "cantera/solvers.h"
 
 
-#include "../../Electrode/src/PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 
 
 #include "BlockEntryGlobal.h"

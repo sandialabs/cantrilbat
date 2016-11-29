@@ -11,7 +11,8 @@
 
 
 #include "ReactingSurDomain.h"
-#include "../../Electrode/src/PhaseList.h"
+
+#include "cantera/multiphase/PhaseList.h"
 #include "cantera/kinetics/RxnMolChange.h"
 #include "cantera/kinetics.h"
 #include "cantera/base/ctml.h"

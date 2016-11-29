@@ -24,7 +24,7 @@ namespace BEInput {
 #include "cantera/thermo.h"
 #include "cantera/kinetics.h"
 #include "mdp_allo.h"
-#include "PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 #include "Electrode_defs.h"
 #define UNITS_KCAL_CGS 0
 #define UNITS_KJOULE   1

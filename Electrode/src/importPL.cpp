@@ -17,7 +17,8 @@
 
 
 #include "importPL.h"
-#include "PhaseList.h"
+
+#include "cantera/multiphase/PhaseList.h"
 #include "importAllCTML.h"
 
 #include <vector>

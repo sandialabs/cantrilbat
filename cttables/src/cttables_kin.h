@@ -16,7 +16,7 @@
 
 #include "cttables.h"
 #include "TemperatureTable.h"
-#include "PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 #include "cantera/kinetics/RxnMolChange.h"
 #include "cantera/kinetics/ExtraGlobalRxn.h"
 

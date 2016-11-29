@@ -28,7 +28,7 @@
 
 #include "mdp_allo.h"
 
-#include "PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 
 //#include "IdealSolidSolnPhase.h"
 

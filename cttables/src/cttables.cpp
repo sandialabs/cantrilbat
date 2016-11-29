@@ -29,7 +29,7 @@
 
 #include "cantera/thermo/IdealSolidSolnPhase.h"
 #include "cantera/thermo/MolalityVPSSTP.h"
-#include "PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 #include "cantera/base/clockWC.h"
 
 // Kinetics includes

@@ -18,7 +18,7 @@
 
 #include "tok_input_util.h"
 
-#include "../../Electrode/src/PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 #include "ReactingSurDomain.h"
 #include "ExternalField.h"
 

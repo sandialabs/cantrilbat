@@ -34,7 +34,7 @@
 
 #include "cantera/transport.h"
 
-#include "../../Electrode/src/PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 #include "cantera/thermo/IdealSolidSolnPhase.h"
 #include "cantera/thermo/IdealMolalSoln.h"
 #include "cantera/thermo/DebyeHuckel.h"

@@ -14,7 +14,7 @@
 #include "cantera/base/config.h"
 #include "Electrode_defs.h"
 
-#include "PhaseList.h"
+#include "cantera/multiphase/PhaseList.h"
 //  adding this file here because most applications will use the object
 #include "BE_BlockEntry.h"
 
