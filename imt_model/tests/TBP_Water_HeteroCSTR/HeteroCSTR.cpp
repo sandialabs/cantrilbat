@@ -117,7 +117,7 @@ namespace Cantera
       }
       netTBP.resize(nSpeciesB_, 0.0);
 
-      int bstart = iface_->getGlobalSpeciesIndex(solnBPhase_);
+      int bstart = iface_->globalSpeciesIndex(solnBPhase_);
 
       for (int k = 0; k < nSpeciesB_; k++) {
 	molNumVector_[k + bstart] = vec[k + bstart];
@@ -150,7 +150,7 @@ namespace Cantera
 
       iface_->setSolnA_BoundaryConcentrations(y, Temp_, Pres_);
 
-      int bstart = iface_->getGlobalSpeciesIndex(solnBPhase_);
+      int bstart = iface_->globalSpeciesIndex(solnBPhase_);
       iface_->setSolnB_BoundaryConcentrations(&y[bstart], Temp_, Pres_);
    
       // iface_->integrate(deltaT);
