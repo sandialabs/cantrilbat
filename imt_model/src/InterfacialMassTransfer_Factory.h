@@ -30,7 +30,7 @@
 
 #include "cantera/solvers.h"
 
-#include "PhaseList.h"
+//#include "PhaseList.h"
 #include "BlockEntryGlobal.h"
 #include "InterfacialMassTransfer.h"
 #include "InterfacialMassTransfer_input.h"

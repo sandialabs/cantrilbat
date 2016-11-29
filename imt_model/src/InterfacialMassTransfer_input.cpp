@@ -13,7 +13,6 @@
 #include "cantera/equilibrium.h"
 #include "cantera/thermo/MolalityVPSSTP.h"
 
-#include "PhaseList.h"
 
 #include "BlockEntryGlobal.h"
 
@@ -45,7 +44,6 @@ namespace Cantera
  * MPEQUIL_KEY_INPUT(): constructor
  */
 IMT_KEY_INPUT::IMT_KEY_INPUT () :
-  CanteraFNSurface(""),
   NumberCanteraFiles(1),
   CanteraFileNames(0),
   Temperature(300.),
@@ -79,7 +77,6 @@ IMT_KEY_INPUT::IMT_KEY_INPUT () :
 }
 //======================================================================================================================
   IMT_KEY_INPUT::IMT_KEY_INPUT (const IMT_KEY_INPUT & right) :
-  CanteraFNSurface(""),
   NumberCanteraFiles(1),
   CanteraFileNames(0),
   Temperature(300.),
@@ -233,7 +230,6 @@ IMT_KEY_INPUT::~IMT_KEY_INPUT () {
  *         SpeciesNames
  *         PhaseNames
  *         ElementNames 
- *         CanteraFNSurface
  *
  *  The sized fields include:
  *         PhaseInclude
@@ -260,31 +256,26 @@ void IMT_KEY_INPUT::InitForInput(const ZZCantera::PhaseList * const pl) {
 					   MPEQUIL_MAX_NAME_LEN_P1);
   PhaseNames = mdp_alloc_VecFixedStrings(nTotPhases,
 					 MPEQUIL_MAX_NAME_LEN_P1);
-  int kT = 0;
-  for (int iphase = 0; iphase < nTotPhases; iphase++) {
+  size_t kT = 0;
+  for (size_t iphase = 0; iphase < nTotPhases; iphase++) {
     ThermoPhase *tPhase = &(pl->thermo(iphase));
 
-    string id = tPhase->id();
+    std::string id = tPhase->id();
     strncpy(PhaseNames[iphase], id.c_str(), MPEQUIL_MAX_NAME_LEN);
-    int nspecies = tPhase->nSpecies();
+    size_t nspecies = tPhase->nSpecies();
     tPhase->getMoleFractions(MoleFraction + kT);
-    for (int k = 0; k < nspecies; k++) {
-      string sname = tPhase->speciesName(k);
+    for (size_t k = 0; k < nspecies; k++) {
+      std::string sname = tPhase->speciesName(k);
       strncpy(SpeciesNames[kT], sname.c_str(), MPEQUIL_MAX_NAME_LEN);
       kT++;
     }
  
   }
 
-  if (pl->nSurPhases() > 0) {
-    CanteraFNSurface = pl->firstSurfaceFile();
-  }
+  ElementNames = mdp_alloc_VecFixedStrings(nTotElements, MPEQUIL_MAX_NAME_LEN_P1);
+  const Elements *eObj = pl->globalElements();
 
-  ElementNames = mdp_alloc_VecFixedStrings(nTotElements,
-					   MPEQUIL_MAX_NAME_LEN_P1);
-  const Elements *eObj = pl->getGlobalElements();
-
-  for (int e = 0; e < nTotElements; e++) {
+  for (size_t e = 0; e < nTotElements; e++) {
     std::string eName = eObj->elementName(e);
     strncpy(ElementNames[e], eName.c_str(), MPEQUIL_MAX_NAME_LEN);
   }
@@ -399,7 +390,8 @@ static void setup_input_pass3(BlockEntry *cf,
 {
 
   PhaseList *pl = ei->m_pl;
-  int iph;
+  size_t iph;
+
   /* ---------------------------------------------------------------
    *
    */
@@ -424,9 +416,7 @@ static void setup_input_pass3(BlockEntry *cf,
    * Configure the application Pressure
    */
   BE_UnitConversion *ucPres = new BE_UnitConversionPressure();
-  LE_OneDblUnits *b5 = new LE_OneDblUnits("Phase A Pressure",
-					  &(ei->PressureA), 0,
-					  "PO.PressureA", ucPres);
+  LE_OneDblUnits *b5 = new LE_OneDblUnits("Phase A Pressure", &(ei->PressureA), 0, "PO.PressureA", ucPres);
   b5->set_default(OneAtm);
   b5->set_limits(1.E20, 0.0);
   cf->addLineEntry(b5);
@@ -455,7 +445,7 @@ static void setup_input_pass3(BlockEntry *cf,
   /*
    *  Set up the Bath Gas BG object to receive input
    */
-  int nVolPhases = pl->nVolPhases();
+  size_t nVolPhases = pl->nVolPhases();
 
   ElectrodeBath &BG = *(ei->m_BG);
 
@@ -469,13 +459,13 @@ static void setup_input_pass3(BlockEntry *cf,
   BG.PhaseMass.resize(nVolPhases + pl->nSurPhases(), 0.0);
 
   for (iph = 0; iph < nVolPhases; iph++) {
-    int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
+    size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
     BG.XmolPLPhases[iph] =   BG.XmolPLSpecVec + kstart;
     BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
   }
   for (iph = 0; iph < pl->nSurPhases(); iph++) {
-    int tph = iph + pl->nVolPhases();
-    int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iph);
+    size_t tph = iph + pl->nVolPhases();
+    size_t kstart =  pl->globalSpeciesIndexSurPhaseIndex(iph);
     BG.XmolPLPhases[tph] =   BG.XmolPLSpecVec + kstart;
     BG.MolalitiesPLPhases[tph] =  BG.MolalitiesPLSpecVec + kstart;
   }
@@ -494,7 +484,7 @@ static void setup_input_pass3(BlockEntry *cf,
    */
   BlockEntry *bphaseA = new BlockEntry(phaseBath.c_str());
   cf->addSubBlock(bphaseA);
-  int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(ei->solnAIndex_);
+  size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(ei->solnAIndex_);
 
   /* --------------------------------------------------------------
    *     Specify the phase A mole fractions
@@ -502,10 +492,7 @@ static void setup_input_pass3(BlockEntry *cf,
    * Create a PickList Line Element made out of the list of  species
    */
   string phaseMF = "Phase " + ei->PhaseAName + " Mole Fraction";
-  BE_MoleComp_VecDbl *bmfA = new BE_MoleComp_VecDbl(phaseMF.c_str(),
-						    &(ei->XmfPhaseA_), 1,
-						    ei->SpeciesNames+kstart,
-						    nSpeciesA, 0, "XMoleFractionA");
+  BE_MoleComp_VecDbl *bmfA = new BE_MoleComp_VecDbl(phaseMF.c_str(), &(ei->XmfPhaseA_), 1, ei->SpeciesNames+kstart, nSpeciesA, 0, "XMoleFractionA");
   bmfA->generateDefLE();
   bphaseA->addSubBlock(bmfA);
   /* 
@@ -518,7 +505,7 @@ static void setup_input_pass3(BlockEntry *cf,
    */
   phaseBath = "Boundary Condition Specification for Phase ";
   ThermoPhase *tpB = &(pl->volPhase(ei->solnBIndex_));
-  int nSpeciesB = tpB->nSpecies();
+  size_t nSpeciesB = tpB->nSpecies();
   phaseBath += ei->PhaseBName; 
   /*
    *  create a section method description block and start writing
@@ -526,7 +513,7 @@ static void setup_input_pass3(BlockEntry *cf,
    */
   BlockEntry *bphaseB = new BlockEntry(phaseBath.c_str());
   cf->addSubBlock(bphaseB);
-  kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(ei->solnBIndex_);
+  kstart = pl->globalSpeciesIndexVolPhaseIndex(ei->solnBIndex_);
 
   /* --------------------------------------------------------------
    *     Specify the phase A mole fractions
@@ -534,17 +521,13 @@ static void setup_input_pass3(BlockEntry *cf,
    * Create a PickList Line Element made out of the list of  species
    */ 
   phaseMF = "Phase " + ei->PhaseBName + " Mole Fraction";  
-  BE_MoleComp_VecDbl *bmfB = new BE_MoleComp_VecDbl(phaseMF.c_str(),
-						    &(ei->XmfPhaseB_), 1,
-						    ei->SpeciesNames+kstart,
-						    nSpeciesB, 0, "XMoleFractionB");
+  BE_MoleComp_VecDbl *bmfB = new BE_MoleComp_VecDbl(phaseMF.c_str(), &(ei->XmfPhaseB_), 1, ei->SpeciesNames+kstart,
+                                                    nSpeciesB, 0, "XMoleFractionB");
   bmfB->generateDefLE();
   bphaseB->addSubBlock(bmfB);
   /* 
    * --------------------------------------------------------------------------------------------------------- 
    */
-
-  
 
   /*
    *  Specify a block for each Phase to receive inputs on composition
@@ -563,10 +546,7 @@ static void setup_input_pass3(BlockEntry *cf,
      */
     BlockEntry *bbathphase = new BlockEntry(phaseBath.c_str());
     cf->addSubBlock(bbathphase);
-    int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
-
-
- 
+    size_t kstart = pl->globalSpeciesIndexVolPhaseIndex(iph);
 
     /* --------------------------------------------------------------
      * BG.PhaseMoles
@@ -620,12 +600,8 @@ static void setup_input_pass3(BlockEntry *cf,
       int indS = m_ptr->solventIndex();
       double mwS = m_ptr->molecularWeight(indS);
       BE_MolalityComp *bmolal = 
-	new BE_MolalityComp("Bath Species Molalities",
-			    &(BG.MolalitiesPLPhases[iph]), 0,
-			    ei->SpeciesNames+kstart, nSpecies, 
-			    indS, mwS,
-			    "MolalitiesBath");
-      //bmolal->generateDefLE();
+          new BE_MolalityComp("Bath Species Molalities", &(BG.MolalitiesPLPhases[iph]), 0, ei->SpeciesNames+kstart, nSpecies, 
+			    indS, mwS, "MolalitiesBath");
       bbathphase->addSubBlock(bmolal);
 
     }
@@ -633,14 +609,13 @@ static void setup_input_pass3(BlockEntry *cf,
   }
 
 
-
   /*
    *  Specify a block for each surface Phase to receive inputs on composition
    *  and voltage
    */
 
-  for (int iphS = 0; iphS < pl->nSurPhases(); iphS++) {
-    string phaseBath = "Bath Specification for Phase ";
+  for (size_t iphS = 0; iphS < pl->nSurPhases(); iphS++) {
+    std::string phaseBath = "Bath Specification for Phase ";
     iph = pl->nVolPhases() + iphS;
     ThermoPhase *tp = &(pl->surPhase(iphS));
     string phaseNm = tp->name();
@@ -652,9 +627,7 @@ static void setup_input_pass3(BlockEntry *cf,
      */
     BlockEntry *bbathphase = new BlockEntry(phaseBath.c_str());
     cf->addSubBlock(bbathphase);
-    int kstart =  pl->getGlobalSpeciesIndexSurPhaseIndex(iphS);
-
-
+    size_t kstart = pl->globalSpeciesIndexSurPhaseIndex(iphS);
 
     /* --------------------------------------------------------------
      * BG.BathSpeciesMoleFractions - 
@@ -662,8 +635,7 @@ static void setup_input_pass3(BlockEntry *cf,
      * Create a PickList Line Element made out of the list of 
      * species
      */
-    BE_MoleComp *bpmc = new BE_MoleComp("Bath Species Mole Fraction",
-					&(BG.XmolPLPhases[iph]), 0,
+    BE_MoleComp *bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLPhases[iph]), 0,
 					ei->SpeciesNames+kstart, nSpecies, 0, "XBathmol");
     bpmc->generateDefLE();
     bbathphase->addSubBlock(bpmc);
@@ -747,8 +719,6 @@ bool process_electrode_input(BlockEntry *cf, string fileName, int printFlag) {
   }
   return true;
 }
-
-
 
 /*****************************************************************/
 /*****************************************************************/
@@ -893,7 +863,6 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
     importAllCTMLIntoPhaseList(pl, fn);
     if (surNotFound && (pl->nSurPhases() > 0)) {
       surNotFound = false;
-      //   pl->CanteraFNSurface = fn;
     }
   }
   /*
@@ -942,10 +911,10 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
   ElectrodeBath *BG = ei->m_BG;
 
 
-  for (int iph = 0; iph < pl->nVolPhases(); iph++) {
+  for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
     string phaseBath = "Bath Specification for Phase ";
     ThermoPhase *tp = &(pl->volPhase(iph));
-    int nSpecies = tp->nSpecies();
+    size_t nSpecies = tp->nSpecies();
     string phaseNm = tp->name();
     //int nSpecies = tp->nSpecies();
     phaseBath += phaseNm; 
@@ -954,8 +923,8 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
     double *molF = BG->XmolPLPhases[iph];
     if (numTimes > 0) {
       double kmol = BG->PhaseMoles[iph]; //if not kmol given, compute from mass
-      int kstart =  pl->getGlobalSpeciesIndexVolPhaseIndex(iph);
-      for (int k = 0; k < nSpecies; k++) {
+      size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
+      for (size_t k = 0; k < nSpecies; k++) {
 	ei->MoleFraction[kstart + k] = molF[k];
       }
       tp->setMoleFractions(molF);
@@ -966,12 +935,11 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
 	kmol = BG->PhaseMass[iph] / tp->meanMolecularWeight();
 	BG->PhaseMoles[iph] = kmol;
       } else if ( BG->PhaseMass[iph] > 0.0 ) {
-	throw CanteraError("electrode_input()",
-			   "both number of moles and mass of phase specified");
+	throw CanteraError("electrode_input()", "both number of moles and mass of phase specified");
       }
  
       //update number of moles (gets done again in electrode_model_init())
-      for (int k = 0; k < nSpecies; k++) {
+      for (size_t k = 0; k < nSpecies; k++) {
 	ei->MoleNumber[kstart + k] += molF[k] * kmol;
       }
     }
@@ -990,10 +958,6 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
 //=========================================================================================
  int imt_model_init(IMT_KEY_INPUT *ei,  BEInput::BlockEntry *cf)
 {
-
-  int iph;
-
- 
   ElectrodeBath *BG_ptr = ei->m_BG;
 
   PhaseList *pl = ei->m_pl;
@@ -1001,10 +965,10 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
    *  Loop Over all phases in the PhaseList, adding these
    *  formally to the electrodeCell object.
    */
-  for (iph = 0; iph < pl->nPhases(); iph++) {
+  for (size_t iph = 0; iph < pl->nPhases(); iph++) {
   
     ThermoPhase *tphase = &(pl->thermo(iph));
-    int nSpecies = tphase->nSpecies();
+    size_t nSpecies = tphase->nSpecies();
 
     // Find the name of the input block
     string phaseBath = "Bath Specification for Phase "; 
@@ -1053,8 +1017,8 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
      *  Setup the global arrays in the electrode object
      */
     //    int kstart = electrodeA->getGlobalSpeciesIndex(iph, 0);
-    int  istart = pl->getGlobalSpeciesIndex(iph, 0);
-    for (int k = 0; k < nSpecies; k++) {
+    size_t istart = pl->globalSpeciesIndex(iph, 0);
+    for (size_t k = 0; k < nSpecies; k++) {
       molesSpecies[k] =  totalMoles * BG_ptr->XmolPLPhases[iph][k];
       // electrodeA->spMf[kstart+k] = BG_ptr->XmolPLPhases[iph][k];
       //      electrodeA->spMoles[kstart+k] = totalMoles * BG_ptr->XmolPLPhases[iph][k];
@@ -1071,9 +1035,6 @@ imt_input(IMT_KEY_INPUT *ei, string commandFile, BlockEntry *cf)
    * volume phases only.
    */
   //  electrodeA->downloadMP(); 
-
-
-
   return 0;
 }
 //=========================================================================================
@@ -1081,7 +1042,6 @@ int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INP
 		    BEInput::BlockEntry *cf)
 {
 
-  int i, iph;
 
  
   ElectrodeBath *BG_ptr = ei->m_BG;
@@ -1098,10 +1058,10 @@ int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INP
    *  Loop Over all phases in the PhaseList, adding these
    *  formally to the electrodeCell object.
    */
-  for (iph = 0; iph < electrodeA->nPhases(); iph++) {
+  for (size_t iph = 0; iph < electrodeA->nPhases(); iph++) {
   
     ThermoPhase *tphase = &(electrodeA->thermo(iph));
-    int nSpecies = tphase->nSpecies();
+    size_t nSpecies = tphase->nSpecies();
 
     // Find the name of the input block
     string phaseBath = "Bath Specification for Phase "; 
@@ -1157,7 +1117,7 @@ int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INP
      *  Setup the global arrays in the electrode object
      */
     //    int kstart = electrodeA->getGlobalSpeciesIndex(iph, 0);
-    for (int k = 0; k < nSpecies; k++) {
+    for (size_t k = 0; k < nSpecies; k++) {
       molesSpecies[k] =  totalMoles * BG_ptr->XmolPLPhases[iph][k];
       // electrodeA->spMf[kstart+k] = BG_ptr->XmolPLPhases[iph][k];
       //      electrodeA->spMoles[kstart+k] = totalMoles * BG_ptr->XmolPLPhases[iph][k];
@@ -1170,7 +1130,6 @@ int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INP
 
 
   }
-
 
 
   /*
@@ -1187,16 +1146,15 @@ int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INP
   printf("            species     phaseID        phaseName   ");
   printf(" Initial_Estimated_KMols\n");
 
-  for (iph = 0; iph < electrodeA->nPhases(); iph++) {
+  for (size_t iph = 0; iph < electrodeA->nPhases(); iph++) {
     ThermoPhase *tphase = &(electrodeA->thermo(iph));
-    int nspeciesP = tphase->nSpecies();
+    size_t nspeciesP = tphase->nSpecies();
     string pName = tphase->id();
-    int kstart =  electrodeA->getGlobalSpeciesIndex(iph, 0);
-    for (i = 0; i < nspeciesP; i++) {
-      int kT = kstart + i;
-      string spName = tphase->speciesName(i);
-      printf("%16s      %5d   %16s",
-	     spName.c_str(), iph, pName.c_str()); 
+    size_t kstart = electrodeA->globalSpeciesIndex(iph, 0);
+    for (size_t i = 0; i < nspeciesP; i++) {
+      size_t kT = kstart + i;
+      std::string spName = tphase->speciesName(i);
+      printf("%16s      %5d   %16s", spName.c_str(), static_cast<int>(iph), pName.c_str()); 
       printf("             %-10.5g", electrodeA->moleNumSpecies(kT));
       printf("\n");
    
@@ -1211,17 +1169,17 @@ int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INP
   printf("  PhaseName    PhaseNum SingSpec GasPhase NumSpec");
   printf("  TMolesInert       TKmols\n");
    
-  for (iph = 0; iph < electrodeA->nPhases(); iph++) {
+  for (size_t iph = 0; iph < electrodeA->nPhases(); iph++) {
     ThermoPhase *tphase = &(electrodeA->thermo(iph));
-    int nspeciesP = tphase->nSpecies();
-    string pName = tphase->id();
-    printf("%16s %5d ", pName.c_str(), iph);
+    size_t nspeciesP = tphase->nSpecies();
+    std::string pName = tphase->id();
+    printf("%16s %5d ", pName.c_str(), static_cast<int>(iph));
     if (nspeciesP > 1) {
       printf("  no  ");
     } else {
       printf("  yes ");
     }
-    printf("%8d  ", nspeciesP);
+    printf("%8d  ", static_cast<int>(nspeciesP));
     printf(" %11g  ", 0.0);
     printf("%16e\n", electrodeA->phaseMoles(iph));
   }
@@ -1232,24 +1190,20 @@ int imt_model_print(ZZCantera::InterfacialMassTransfer *electrodeA,  IMT_KEY_INP
   printf("\n"); print_char('-', 80); printf("\n");
   printf("             Information about Elements\n");
   printf("     ElementName  Abundance_Kmols\n");
-  for (i = 0; i < electrodeA->nElements(); ++i) {
-    string eName = electrodeA->elementName(i);
+  for (size_t i = 0; i < electrodeA->nElements(); ++i) {
+    std::string eName = electrodeA->elementName(i);
     printf("%12s ", eName.c_str());
     printf("  %11g \n", electrodeA->elementMoles(i));
   }
-
 
   printf("\n"); print_char('=', 80); printf("\n");
   print_char('=', 20);
   printf(" mpequil: END OF PROBLEM STATEMENT ");
   print_char('=', 23); printf("\n");
   print_char('=', 80); printf("\n\n");
-
   
   return 0;
 }
-
-
 //=========================================================================================
 
 }

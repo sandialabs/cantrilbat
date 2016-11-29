@@ -34,7 +34,7 @@
 
 #include "cantera/transport.h"
 
-#include "PhaseList.h"
+#include "../../Electrode/src/PhaseList.h"
 #include "cantera/thermo/IdealSolidSolnPhase.h"
 #include "cantera/thermo/IdealMolalSoln.h"
 #include "cantera/thermo/DebyeHuckel.h"
@@ -59,35 +59,38 @@ namespace Cantera
 #endif 
 {
 
- 
 
-  /*
-   *
-   * importAllCTML() static routine processPhasePL
-   *
-   *
-   *    Import all phases found in a single file into a PhaseList object.
-   * Note: all phases are imported and instantiated by using the
-   *       constructor call with a reference to the phase XML object.
-   *       This starts a process whereby the thermophase object
-   *       completely initializes itself.
-   */
-  static void processPhasePL(XML_Node *xmlphase, PhaseList *pl, std::string canteraFile)
-  {
-    ThermoPhase *tPhase = processExpandedThermoPhase(xmlphase);
+//==================================================================================================================================
+//!  Given an XML_Node pointing to a phase, add the phase to a PhaseList object
+/*!
+ *   Import all phases found in a single file into a PhaseList object.
+ *   All phases are imported and instantiated by using the constructor call with a reference to the phase XML object.
+ *   This starts a process whereby the ThermoPhase object completely initializes itself. The phase is separated into separate lists
+ *   based on the "dim" attribute.
+ *
+ *   @param[in]           xmlphase                  XML_Node pointer, pointing to a phase named "phase"
+ *   @param[in]           pl                        Pointer to the PhaseList
+ *   @param[in]           canteraFile               Name of the file, used for error printouts
+ */
+static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const std::string& canteraFile)
+{
+    ThermoPhase* tPhase = processExpandedThermoPhase(xmlphase);
+    //ThermoPhase* tPhase = newPhase(*xmlphase);
     if (!tPhase) {
-      printf("processPhasePL ERROR: tPhase = 0\n");
-      exit(-1);
+        throw CanteraError("processPhasePL()",
+                           "ERROR: tPhase = 0 while processing phase in file, " + canteraFile);
     }
-    string dimS = xmlphase->operator[]("dim");
+    std::string dimS = xmlphase->operator[]("dim");
     if (dimS == "3") {
-      pl->addVolPhase(tPhase, xmlphase, canteraFile);
+        pl->addVolPhase(tPhase, xmlphase);
     } else if (dimS == "2") {
-      pl->addSurPhase(tPhase, xmlphase, canteraFile);
+        pl->addSurPhase(tPhase, xmlphase);
     } else {
-      throw CanteraError("processPhasePL", "unknown dim string: " + dimS);
+        throw CanteraError("processPhasePL",
+                           "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
     }
-  }
+}
+//================================================================================================================================
 
   /*
    *

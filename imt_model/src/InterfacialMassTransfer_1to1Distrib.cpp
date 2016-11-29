@@ -15,7 +15,7 @@
 #include "cantera/solvers.h"
 
 
-#include "PhaseList.h"
+//#include "PhaseList.h"
 
 
 //#include "BlockEntryGlobal.h"
@@ -177,7 +177,6 @@ namespace Cantera
    *                   final time, to see if there is any problem.
    */
   void  InterfacialMassTransfer_1to1Distrib::resetStartingCondition(double Tinitial) {
-    int i;
 
     if (pendingIntegratedStep_ != 1) {
 #ifdef DEBUG_ELECTRODE
@@ -199,16 +198,15 @@ namespace Cantera
     }
 
 
-
     t_init_init_ = Tinitial;
 
     // reset surface quantities
-    for (i = 0; i < m_NumSurPhases; i++) {
+    for (size_t i = 0; i < m_NumSurPhases; i++) {
       surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
     }
 
     // Reset total species quantities
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t  k = 0; k < m_NumTotSpecies; k++) {
       spMoles_init_[k] = spMoles_final_[k];
       spMoles_init_init_[k] = spMoles_final_[k];
     }
@@ -217,11 +215,10 @@ namespace Cantera
     mdpUtil::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
 
     // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
       phaseMoles_init_[i] = phaseMoles_final_[i];
       phaseMoles_init_init_[i] = phaseMoles_final_[i];
     }
-
 
     /*
      *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps
@@ -235,7 +232,6 @@ namespace Cantera
 
     pendingIntegratedStep_ = 0;
   }
- 
 
   //====================================================================================================================
   void InterfacialMassTransfer_1to1Distrib::printInterfacialMassTransfer_List(int pSrc, bool subTimeStep) {
@@ -243,7 +239,7 @@ namespace Cantera
     printf("         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   \n");
     printf("     ============================================================================================\n");
     double egv = TotalVol();
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
       std::string pname = PhaseNames_[iph];
       ThermoPhase &tp = thermo(iph);
       double mv = tp.molarVolume();
@@ -258,9 +254,8 @@ namespace Cantera
       printf("\n");
     }
     printf("     ============================================================================================\n");
-
-
   }
+
   //====================================================================================================================
   // Print conditions of the electrode for the current integration step to stdout
   /*
@@ -271,7 +266,6 @@ namespace Cantera
    *                       time step. The default is to print out the global values 
    */
   void InterfacialMassTransfer_1to1Distrib::printInterfacialMassTransfer(int pSrc, bool subTimeStep) {
-    int iph;
     double egv = TotalVol();
     printf("   ==============================================================================================\n");
     if (subTimeStep) {
@@ -285,7 +279,7 @@ namespace Cantera
     printf("                    DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n", 
 	   DomainNumber_, CellNumber_, counterNumberIntegrations_);
     printf("   ==============================================================================================\n");
-    printf("          Number of surfaces = %d\n", numSurfaces_);
+    printf("          Number of surfaces = %d\n", static_cast<int>(numSurfaces_));
 
     printf("          Total Volume = %10.3E\n", egv);
     printf("          Temperature = %g\n", Temp_);
@@ -293,25 +287,24 @@ namespace Cantera
 
 
     printInterfacialMassTransfer_List(pSrc, subTimeStep);
-
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
       printInterfacialMassTransfer_Phase(iph, pSrc, subTimeStep);   
     }
   }
+
   //===================================================================================================================
- 
-  void InterfacialMassTransfer_1to1Distrib::printInterfacialMassTransfer_Phase(int iph, int pSrc, bool subTimeStep) {
-    int isph;
+  void InterfacialMassTransfer_1to1Distrib::printInterfacialMassTransfer_Phase(size_t iph, int pSrc, bool subTimeStep) {
+    size_t isph;
     double *netROP = new double[m_NumTotSpecies];
     ThermoPhase &tp = thermo(iph);
     string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     if (printLvl_ <= 1) {
       return;
     }
     printf("     ============================================================================================\n");
-    printf("          Phase %d %s \n", iph,pname.c_str() );
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str() );
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
  
 
@@ -326,7 +319,7 @@ namespace Cantera
     if (printLvl_ >= 3) {
       printf("\n");
       printf("                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)\n");
-      for (int k = 0; k < nsp; k++) {
+      for (size_t k = 0; k < nsp; k++) {
 	string sname = tp.speciesName(k);
 	if (pSrc) {
 	  if (subTimeStep) {
@@ -356,21 +349,21 @@ namespace Cantera
       
 	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);
 	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
-	int nphRS = RSD_List_[isph]->nPhases();
-	int kIndexKin = 0;
-	for (int kph = 0; kph < nphRS; kph++) {
-	  int jph = RSD_List_[isph]->kinOrder[kph];
-	  int istart = m_PhaseSpeciesStartIndex[jph];
-	  int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-	  for (int k = 0; k < nsp; k++) {
+	size_t nphRS = RSD_List_[isph]->nPhases();
+	size_t kIndexKin = 0;
+	for (size_t kph = 0; kph < nphRS; kph++) {
+	  size_t jph = RSD_List_[isph]->kinOrder[kph];
+	  size_t istart = m_PhaseSpeciesStartIndex[jph];
+	  size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+	  for (size_t k = 0; k < nsp; k++) {
 	    spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
 	    kIndexKin++;
 	  }
 	}
 	printf("\n");
 	printf("                           spName                  SourceRateLastStep (kmol/m2/s) \n");
-	for (int k = 0; k <  m_NumTotSpecies; k++) {
-	  string ss = speciesName(k);
+	for (size_t k = 0; k <  m_NumTotSpecies; k++) {
+	  std::string ss = speciesName(k);
 	  printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
 	}
       }
@@ -379,7 +372,6 @@ namespace Cantera
     delete [] netROP;
 
   }
-
 
   //====================================================================================================================
   // Write out CSV tabular data on the integrations
@@ -396,7 +388,7 @@ namespace Cantera
    */
   void InterfacialMassTransfer_1to1Distrib::writeCSVData(int itype) { 
     if (printLvl_ < 2) return;
-    int k;
+    size_t k;
     static std::string globOutputName;
     static std::string intOutputName;
     static FILE *fpG = 0;
@@ -469,9 +461,6 @@ namespace Cantera
     if (itype == 2) {
       fpG = fopen(globOutputName.c_str(), "a");
       fprintf(fpG,"  %12.5E ,  %12.5E ,", t_init_init_, t_final_final_);
-
- 
-
   
       for (k = 0; k < m_NumTotSpecies; k++) {	
 	fprintf(fpG, " %12.5E           ,",  spMoles_final_[k]);
@@ -485,10 +474,7 @@ namespace Cantera
       fclose(fpG);
     }
 
-
   }
- 
-
   
   //====================================================================================================================
 } // 

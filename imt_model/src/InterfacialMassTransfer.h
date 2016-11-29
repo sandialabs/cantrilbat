@@ -18,7 +18,7 @@
 
 #include "tok_input_util.h"
 
-#include "PhaseList.h"
+#include "../../Electrode/src/PhaseList.h"
 #include "ReactingSurDomain.h"
 #include "ExternalField.h"
 
@@ -282,7 +282,7 @@ namespace Cantera
     /*!
      *  @param iSurf  returns a pointer to that reacting surface
      */
-    ZZCantera::ReactingSurDomain * reactingSurface(int iSurf);
+    ZZCantera::ReactingSurDomain * reactingSurface(size_t iSurf);
 
   
     //! Set the phase existence flag in the electrode kinetics object so that kinetics 
@@ -314,21 +314,21 @@ namespace Cantera
      *           object. A value of -1 in this slot means that the phase doesn't
      *           participate in the  current ReactingSurDomain object
      */
-    int ReactingSurfacePhaseIndex(int isk, int PLph) const;
+    size_t ReactingSurfacePhaseIndex(size_t isk, size_t PLph) const;
 
     //! Reactant stoichiometric coefficient
     /*!
      * Get the reactant stoichiometric coefficient for the kth global species
      * in the ith reaction of the reacting surface domain with index isk.
      */
-    double reactantStoichCoeff(const int isk, int kGlobal, int i);
+    double reactantStoichCoeff(const size_t isk, size_t kGlobal, size_t i);
 
     //! Product stoichiometric coefficient
     /*!
      * Get the product stoichiometric coefficient for the kth global species
      * in the ith reaction of the reacting surface domain with index isk.
      */
-    double productStoichCoeff(const int isk, int kGlobal, int i);
+    double productStoichCoeff(const size_t isk, size_t kGlobal, size_t i);
 
     //! Specify the external fields are discretized with respect to the time coordinate
     /*!
@@ -493,7 +493,7 @@ namespace Cantera
      *                     units = kmol
      *                     size = number of species in the electrolyte phase 
      */
-    virtual void setPhaseMoleNumbers(int iph, const double * const moleNum);
+    virtual void setPhaseMoleNumbers(size_t iph, const double * const moleNum);
 
     // ---------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATIONS -----------------------------------------
@@ -700,7 +700,7 @@ namespace Cantera
      *            phases in the object)
      *            units = kmol
      */
-    virtual double getIntegratedPhaseMassSourceTerm(int iph) const;
+    virtual double getIntegratedPhaseMassSourceTerm(size_t iph) const;
 
     //! Returns the integrated mass created for phase A in the object
     //! over the current global time step
@@ -741,7 +741,7 @@ namespace Cantera
 
      * @return Returns the number of moles in kmol
      */
-    double phaseMoles(int iph) const;
+    double phaseMoles(size_t iph) const;
 
     //! Returns the number of moles of a n elemenet
     /*!
@@ -749,7 +749,7 @@ namespace Cantera
      *
      * @return Returns the number of moles in kmol
      */
-    double elementMoles(int ie) const;
+    double elementMoles(size_t ie) const;
 
     //! Get mole numbers of all phases in the phase object
     /*!
@@ -765,7 +765,7 @@ namespace Cantera
      *    
      *  @return Returns the mole number. Units are kmol.
      */
-    double moleNumSpecies(int globalSpeciesIndex) const;
+    double moleNumSpecies(size_t globalSpeciesIndex) const;
 
     //! Get mole fractions of all species in the phase object
     /*!
@@ -778,7 +778,7 @@ namespace Cantera
     /*!
      *  @param globalSpeciesIndex  PhaseList's global species index
      */
-    double moleFraction(int globalSpeciesIndex) const;
+    double moleFraction(size_t globalSpeciesIndex) const;
 
     //! Get mole numbers of all species in the phase object
     /*!
@@ -802,7 +802,7 @@ namespace Cantera
      *
      *  @return  returns the chemical potential (J/kmol)
      */
-    double speciesChemPotential(int globalSpeciesIndex) const;
+    double speciesChemPotential(size_t globalSpeciesIndex) const;
 
     //! Returns the current potential drop across the electrode
     /*!
@@ -816,7 +816,7 @@ namespace Cantera
      *
      * @return Returns the voltage in volts
      */
-    double phaseVoltage(int iph) const;
+    double phaseVoltage(size_t iph) const;
 
     // ------------------------- GET VOLUMES -----------------------------------------------------------
 
@@ -926,7 +926,7 @@ namespace Cantera
      *
      * @param iph     Phase id.
      */
-    virtual void updatePhaseNumbers(int iph);
+    virtual void updatePhaseNumbers(size_t iph);
 
     // ---------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -1046,8 +1046,7 @@ namespace Cantera
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values 
      */
-    virtual void printInterfacialMassTransferPhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
-
+    virtual void printInterfacialMassTransferPhase(size_t iPhase, int pSrc = 1,  bool subTimeStep = false);
  
     //! Write out CSV tabular data on the integrations
     /*!
@@ -1412,7 +1411,7 @@ namespace Cantera
      *  This vector has length number of surfaces in the problem
      *  If a surface doesn't have kinetics associated with it, the position is set to null.
      */
-    std::vector<int> numRxns_;
+    std::vector<size_t> numRxns_;
 
     //! Vector indicating that a surface is currently kinetically active
     /*!
@@ -1456,7 +1455,7 @@ namespace Cantera
      *   of the domain. They also aren't associated with a surface species of any kind. And,
      *   currently, they don't exist.
      */
-    int numSurfaces_;
+    size_t numSurfaces_;
 
     //! Vector of the surface area for each Reacting Surface
     //! in the electrode. 
@@ -1551,19 +1550,19 @@ namespace Cantera
     /*!
      * 
      */
-    int solnAPhase_;
+    size_t solnAPhase_;
 
     //! Number of species in the A phase
-    int nSpeciesA_;
+    size_t nSpeciesA_;
 
     //! Phase ID of the solution on the lhs
     /*!
      * 
      */
-    int solnBPhase_; 
+    size_t solnBPhase_; 
 
     //! Number of species in the B phase
-    int nSpeciesB_;
+    size_t nSpeciesB_;
 
 
     //! global index within this object for the electron species

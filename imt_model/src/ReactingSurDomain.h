@@ -122,7 +122,6 @@ namespace Cantera
     /*
      *
      */
- 
 
     //! Pointer to the transport operator
     Transport* m_transport;
@@ -131,7 +130,7 @@ namespace Cantera
     std::vector<RxnMolChange *> rmcVector;
    
     //! Number of phases within the class
-    int numPhases;
+    size_t numPhases;
 
   public:
     //!  Vector of pointers to xml trees
@@ -148,7 +147,7 @@ namespace Cantera
      *        kph = phase index in the interface kinetics object
      *        iph = phase index in the PhaseList object
      */
-    std::vector<int> kinOrder;
+    std::vector<size_t> kinOrder;
 
     //! Vector of the indexes of each phase in the ReactionSurfaceDomain object
     //! given the index withint the PhaseList object
@@ -163,13 +162,13 @@ namespace Cantera
      *  A value of -1 in this slot means that the phase doesn't participate in the 
      *  current ReactingSurDomain object
      */
-    std::vector<int> PLtoKinPhaseIndex_;
+    std::vector<size_t> PLtoKinPhaseIndex_;
 
-    std::vector<int> PLtoKinSpeciesIndex_;
+    std::vector<size_t> PLtoKinSpeciesIndex_;
 
     //! ID of the phase in the PhaseList object that has the kinetics
     //! object
-    int iphaseKin;
+    size_t iphaseKin;
 
     std::vector<int> tplRead;
 

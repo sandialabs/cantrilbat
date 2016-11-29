@@ -15,7 +15,7 @@
 #include "tok_input_util.h"
 
 
-#include "PhaseList.h"
+#include "../../Electrode/src/PhaseList.h"
 #include "ReactingSurDomain.h"
 
 
@@ -128,9 +128,6 @@ public:
    */
   void InitForInput(const ZZCantera::PhaseList  * const pl);
 
-  //! This is assigned to the first surface phase found in the PhaseList
-  std::string CanteraFNSurface;
-
   int NumberCanteraFiles;
   char **CanteraFileNames;
   double Temperature;
@@ -205,14 +202,14 @@ public:
   //! species mole fractions in each phase of phase list
   std::vector<double> XmfPhaseB_;
 
-  int nTotPhases;
+  size_t nTotPhases;
 
 
   //! Total number of species in the kinetic species list
-  int nTotSpecies;
+  size_t nTotSpecies;
 
   //! Total number of elements
-  int nTotElements;
+  size_t nTotElements;
 
 
   //! PhaseList object 

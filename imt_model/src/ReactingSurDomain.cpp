@@ -1,9 +1,6 @@
 /**
  * @file ReactingVolDomain.cpp
  *
- * $Author: hkmoffa $
- * $Revision: 507 $
- * $Date: 2013-01-07 15:48:29 -0700 (Mon, 07 Jan 2013) $
  */
 
 /*
@@ -12,14 +9,19 @@
  * U.S. Government retains certain rights in this software.
  */
 
+
 #include "ReactingSurDomain.h"
-#include "PhaseList.h"
+#include "../../Electrode/src/PhaseList.h"
 #include "cantera/kinetics/RxnMolChange.h"
 #include "cantera/kinetics.h"
-//#include "Cantera/kernel/importKinetics.h"
+#include "cantera/base/ctml.h"
 
-//static int DebugPrinting = 1;
 
+#ifdef useZuzaxNamespace
+#define ZZctml ztml
+#else
+#define ZZctml ctml
+#endif
 
 using namespace std;
 #ifdef useZuzaxNamespace
@@ -43,7 +45,7 @@ namespace Cantera
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
-    iphaseKin(-1),
+    iphaseKin(npos),
     tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
@@ -68,7 +70,7 @@ namespace Cantera
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
-    iphaseKin(-1),
+    iphaseKin(npos),
     tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
@@ -211,11 +213,11 @@ namespace Cantera
    *
    *  Note -> The output doesn't cover kinetics.
    */
-  std::ostream& operator<<(std::ostream& s, 
-			   ReactingSurDomain& mix) {
+  std::ostream& operator<<(std::ostream& s, ReactingSurDomain& mix)
+  {
     ThermoPhase *th;
     InterfaceKinetics *iK = &mix;
-    for (int i = 0; i < mix.numPhases; i++) {
+    for (size_t i = 0; i < mix.numPhases; i++) {
       th = &(iK->thermo(i));
       std::string r = th->report(true);
       s << r;
@@ -225,10 +227,9 @@ namespace Cantera
   //====================================================================================================================
   /*
    */
-  bool ReactingSurDomain::
-  importFromPL(PhaseList *pl, int ivkin, int iskin)  {
+  bool ReactingSurDomain::importFromPL(PhaseList *pl, int ivkin, int iskin)  
+  {
     try {
-      int iph;
       m_pl = pl;
       
       XML_Node *kinXMLPhase = 0;
@@ -254,9 +255,9 @@ namespace Cantera
       std::vector<ThermoPhase *> tpList;
       tpList.clear();
       tplRead.resize(nPhasesFound, 0);
-      kinOrder.resize(nPhasesFound, -1);
+      kinOrder.resize(nPhasesFound, npos);
       xmlList.clear();
-      iphaseKin = -1; 
+      iphaseKin = npos; 
       if (iskin >= 0) {
 	iphaseKin = iskin + pl->nVolPhases();
 	m_DoSurfKinetics = true;
@@ -285,13 +286,13 @@ namespace Cantera
 	if (phaseArrayXML) {
 	  vector<string> phase_ids;
 	  ZZctml::getStringArray(*phaseArrayXML, phase_ids);
-	  int npToFind = phase_ids.size();
-	  for (iph = 0; iph < npToFind; iph++) {
+	  size_t npToFind = phase_ids.size();
+	  for (size_t iph = 0; iph < npToFind; iph++) {
 	    string phaseID = phase_ids[iph];
 	    bool found = false;
-	    for (int jph = 0; jph < pl->nSurPhases(); jph++) {
+	    for (size_t jph = 0; jph < pl->nSurPhases(); jph++) {
 	      XML_Node *xmlPhase_j = pl->surPhaseXMLNode(jph);
-	      string pname = xmlPhase_j->operator[]("id");
+	      std::string pname = xmlPhase_j->operator[]("id");
 	      if (phaseID == pname) {
 		found = true;
 		xmlList.push_back(xmlPhase_j);
@@ -302,7 +303,7 @@ namespace Cantera
 	      }
 	    }
 	    if (!found) {
-	      for (int jph = 0; jph < pl->nVolPhases(); jph++) {
+	      for (size_t jph = 0; jph < pl->nVolPhases(); jph++) {
 		XML_Node *xmlPhase_j = pl->volPhaseXMLNode(jph);
 		string pname = xmlPhase_j->operator[]("id");
 		if (phaseID == pname) {
@@ -324,13 +325,13 @@ namespace Cantera
 	  }
 	}
       } else {
-	for (iph = 0; iph < pl->nSurPhases(); iph++) {
+	for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
 	  xmlList.push_back(pl->surPhaseXMLNode(iph));
 	  tpList.push_back(&(pl->surPhase(iph)));
 	  tplRead[numPhases] = 1;
 	  numPhases++;
 	}
-	for (iph = 0; iph < pl->nVolPhases(); iph++) {
+	for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
 	  xmlList.push_back(pl->volPhaseXMLNode(iph));
 	  tpList.push_back(&(pl->volPhase(iph)));
 	  tplRead[numPhases] = 1;
@@ -353,15 +354,15 @@ namespace Cantera
       /*
        *  Create a mapping between the ReactingSurfPhase to the PhaseList phase
        */
-      int nKinPhases = nPhases();
-      kinOrder.resize(nKinPhases, -1);
-      PLtoKinPhaseIndex_.resize(pl->nPhases(), -1);
-      PLtoKinSpeciesIndex_.resize(pl->nSpecies(), -1);
-      for (int kph = 0; kph < nKinPhases; kph++) {
+      size_t nKinPhases = nPhases();
+      kinOrder.resize(nKinPhases, npos);
+      PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
+      PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
+      for (size_t kph = 0; kph < nKinPhases; kph++) {
 	ThermoPhase &tt = thermo(kph);
 	string kname = tt.id();
-	int jph = -1;
-	for (int iph = 0; iph < pl->nPhases(); iph++) {
+	size_t jph = npos;
+	for (size_t iph = 0; iph < pl->nPhases(); iph++) {
 	  ThermoPhase &pp = pl->thermo(iph);
 	  string iname = pp.id();
 	  if (iname == kname) {
@@ -370,16 +371,16 @@ namespace Cantera
 	    break;
 	  }
 	}
-	if (jph == -1) {
+	if (jph == npos) {
 	  throw CanteraError("importFromPL", "not found");
 	}
 	kinOrder[kph] = jph;
 	PLtoKinPhaseIndex_[jph] = kph;
 
-        int PLkstart = pl->getGlobalSpeciesIndex(jph, 0);
-        int nspPhase = tt.nSpecies(); 
-	for (int k = 0; k < nspPhase; k++) {
-          if (PLtoKinSpeciesIndex_[k + PLkstart] != -1) {
+        size_t PLkstart = pl->globalSpeciesIndex(jph, 0);
+        size_t nspPhase = tt.nSpecies(); 
+	for (size_t k = 0; k < nspPhase; k++) {
+          if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
              throw CanteraError("ReactingSurDomain::importFromPL()",
                                 "Indexing error found while initializing  PLtoKinSpeciesIndex_");
           }
@@ -394,9 +395,9 @@ namespace Cantera
       speciesCreationRates_.resize(m_kk, 0.0);
       speciesDestructionRates_.resize(m_kk, 0.0);
 
-      int nr = nReactions();
+      size_t nr = nReactions();
       rmcVector.resize(nr,0);
-      for (int i = 0; i < nr; i++) {
+      for (size_t i = 0; i < nr; i++) {
 	rmcVector[i] = new RxnMolChange(this, i);
       }
       return true;
@@ -404,8 +405,7 @@ namespace Cantera
     }
     catch (CanteraError) {
       showErrors(cout);
-      throw CanteraError("ReactingSurDomain::importFromXML",
-			 "error encountered");
+      throw CanteraError("ReactingSurDomain::importFromXML", "error encountered");
       return false;
     }
   }

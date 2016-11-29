@@ -15,7 +15,7 @@
 #include "cantera/solvers.h"
 
 
-#include "PhaseList.h"
+//#include "PhaseList.h"
 
 
 #include "imtPSS_NoSurf_DiffBL.h"
@@ -286,11 +286,11 @@ namespace Cantera
     AssertThrow(BLThickness_A_final_ > 0.0, "imtPSS_NoSurf_DiffBL::setInitialConditions()");
     AssertThrow(BLThickness_B_final_ > 0.0, "imtPSS_NoSurf_DiffBL::setInitialConditions()");
 
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       spMF_solnA_BC_final_[k] = ei->XmfPhaseA_[k]; 
     }
     int astart = 0;
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       spMf_final_[k + astart] = ei->XmfPhaseA_[k]; 
     }
     ThermoPhase *tpA = & thermo(solnAPhase_);
@@ -298,16 +298,16 @@ namespace Cantera
     double mv_A = tpA->molarVolume();
     double grossAVol = surfaceAreaRS_final_[0] * BLThickness_A_final_ * 0.5;
     
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       spMoles_final_[k + astart] = spMf_final_[k + astart] * grossAVol / mv_A;
     }
 
 
-    for (int k = 0; k < nSpeciesB_; k++) {
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       spMF_solnB_BC_final_[k] = ei->XmfPhaseB_[k]; 
     }
     int bstart =  m_PhaseSpeciesStartIndex[solnBPhase_];
-    for (int k = 0; k < nSpeciesB_; k++) {
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       spMf_final_[k + bstart] = ei->XmfPhaseB_[k]; 
     }
     ThermoPhase *tpB = & thermo(solnBPhase_);
@@ -315,7 +315,7 @@ namespace Cantera
     double mv_B = tpB->molarVolume();
     double grossBVol = surfaceAreaRS_final_[0] * BLThickness_B_final_ * 0.5;
     
-    for (int k = 0; k < nSpeciesB_; k++) {
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       spMoles_final_[k + bstart] = spMf_final_[k + bstart] * grossBVol / mv_B;
     }
     updateState();
@@ -367,21 +367,21 @@ namespace Cantera
 							     bool setInitial)
   {
     ThermoPhase &tpA = thermo(solnAPhase_);
-    int nsp = tpA.nSpecies();
+    size_t nsp = tpA.nSpecies();
     AssertTrace(nsp == ( m_PhaseSpeciesStartIndex[solnAPhase_+1] - m_PhaseSpeciesStartIndex[solnAPhase_]));
 
     double sum = 0.0;
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k < nsp; k++) {
       sum += solnAMoleNum[k];
     }
 
     if (setInitial) {
-      for (int k = 0; k < nsp; k++) {
+      for (size_t k = 0; k < nsp; k++) {
 	spMF_solnA_BC_init_init_[k] =  solnAMoleNum[k] / sum;
       }
       Pres_solnA_BC_init_init_ = presA;
     } else {
-      for (int k = 0; k < nsp; k++) {
+      for (size_t k = 0; k < nsp; k++) {
 	spMF_solnA_BC_final_final_[k] =  solnAMoleNum[k] / sum;
       }
       Pres_solnA_BC_final_final_ = presA;
@@ -419,21 +419,21 @@ namespace Cantera
 							     const double * extFieldBValues, bool setInitial)
   {
     ThermoPhase &tpB = thermo(solnBPhase_);
-    int nsp = tpB.nSpecies();
+    size_t nsp = tpB.nSpecies();
     AssertTrace(nsp == ( m_PhaseSpeciesStartIndex[solnBPhase_+1] - m_PhaseSpeciesStartIndex[solnBPhase_]));
 
     double sum = 0.0;
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k < nsp; k++) {
       sum += solnBMoleNum[k];
     }
 
     if (setInitial) {
-      for (int k = 0; k < nsp; k++) {
+      for (size_t k = 0; k < nsp; k++) {
 	spMF_solnB_BC_init_init_[k] =  solnBMoleNum[k] / sum;
       }
       Pres_solnB_BC_init_init_ = presB;
     } else {
-      for (int k = 0; k < nsp; k++) {
+      for (size_t k = 0; k < nsp; k++) {
 	spMF_solnB_BC_final_final_[k] =  solnBMoleNum[k] / sum;
       }
       Pres_solnB_BC_final_final_ = presB;
@@ -456,9 +456,9 @@ namespace Cantera
      *   - we stick the origin on the interface. Within that reference frame the Stefan velocity causes a
      *     net advective flux which helps the mass transport in one direction and hinders it in the other direction.
      */
-    int astart = 0;
+    size_t astart = 0;
     double moleASum = 0.0;
-    for (int k = 1; k < nSpeciesA_; k++)  {
+    for (size_t k = 1; k < nSpeciesA_; k++)  {
      
       /*
        *  The residual involves the mole balance of material in the phase A. Here is the reaction term and the
@@ -492,7 +492,7 @@ namespace Cantera
     double advecB_B  =  Velo_B_Interface_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
     
     double moleBSum = 0.0;
-    for (int k = 1; k < nSpeciesB_; k++)  {
+    for (size_t k = 1; k < nSpeciesB_; k++)  {
      
       /*
 
@@ -524,7 +524,7 @@ namespace Cantera
     soln_predict_[0] =  deltaTsubcycleCalc_;
 
     double retn = 1;
-    for (int k = 0; k < nSpeciesA_; k++)  {
+    for (size_t k = 0; k < nSpeciesA_; k++)  {
       soln_predict_[1 + astart + k] = spMoles_final_[astart + k];
       if (spMoles_init_[astart + k] > 0.0) {
 	if (spMoles_final_[astart + k] < 0.33 * spMoles_init_[astart + k]) {
@@ -533,7 +533,7 @@ namespace Cantera
       }
     }
 
-    for (int k = 0; k < nSpeciesB_; k++)  {
+    for (size_t k = 0; k < nSpeciesB_; k++)  {
       soln_predict_[1+ bstart + k] = spMoles_final_[bstart + k];
       if (spMoles_init_[bstart + k] > 0.0) {
 	if (spMoles_final_[bstart + k] < 0.33 * spMoles_init_[bstart + k]) {
@@ -565,13 +565,13 @@ namespace Cantera
    */
   int  imtPSS_NoSurf_DiffBL::predictSoln()
   {
-    if (neq_ != 1 + 2 + nSpeciesA_ + nSpeciesB_) {
+    if ((size_t) neq_ != 1 + 2 + nSpeciesA_ + nSpeciesB_) {
       printf("we shouldn't be here\n");
     }
     deltaTsubcycleCalc_ = deltaTsubcycle_;
     soln_predict_[0] = deltaTsubcycleCalc_; 
-    int astart = 0;
-    int bstart;
+    size_t astart = 0;
+    size_t bstart;
     /*
      *  Take the unpacked solution and calculate the consistent and full final state
      */
@@ -613,7 +613,7 @@ namespace Cantera
        */
       astart = 0;
       double moleASum = 0.0;
-      for (int k = 1; k < nSpeciesA_; k++)  {
+      for (size_t k = 1; k < nSpeciesA_; k++)  {
      
 	/*
 	 *  The residual involves the mole balance of material in the phase A. Here is the reaction term and the
@@ -648,12 +648,12 @@ namespace Cantera
 #ifdef DEBUG_MODE_NOT
       printf("resid_1_drho_dt = %13.7E\n",  (densA_final_ - densA_init_) /  deltaTsubcycleCalc_ * grossAVol_ );
       printf("          densA_final_ = %16.10E",  densA_final_);
-      for (int ii = 0; ii < nSpeciesA_; ii++) {
+      for (size_t ii = 0; ii < nSpeciesA_; ii++) {
 	printf(" %16.10E ", spMf_final_[ii]);
       } 
       printf("\n");
       printf("          densA_init_  = %16.10E",  densA_init_);
-      for (int ii = 0; ii < nSpeciesA_; ii++) {
+      for (size_t ii = 0; ii < nSpeciesA_; ii++) {
 	printf(" %16.10E ", spMf_init_[ii]);
       } 
       printf("\n");
@@ -703,7 +703,7 @@ namespace Cantera
       double advecB_B = Velo_B_CVB_final_ * deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
     
       double moleBSum = 0.0;
-      for (int k = 1; k < nSpeciesB_; k++)  {
+      for (size_t k = 1; k < nSpeciesB_; k++)  {
      
 	/*
 	 *  The residual involves the mole balance of material in the phase A. Here is the reaction term and the
@@ -775,7 +775,7 @@ namespace Cantera
     soln_predict_[0] = deltaTsubcycleCalc_;
     soln_predict_[1] = Velo_S_Interface_final_;
     double retn = 1;
-    for (int k = 0; k < nSpeciesA_; k++)  {
+    for (size_t k = 0; k < nSpeciesA_; k++)  {
       soln_predict_[2 + astart + k] = spMoles_final_[astart + k];
       if (spMoles_init_[astart + k] > 0.0) {
 	if (spMoles_final_[astart + k] < 0.33 * spMoles_init_[astart + k]) {
@@ -784,7 +784,7 @@ namespace Cantera
       }
     }
     soln_predict_[2 + bstart] = Velo_B_CVB_final_;
-    for (int k = 0; k < nSpeciesB_; k++)  {
+    for (size_t k = 0; k < nSpeciesB_; k++)  {
       soln_predict_[3 + bstart + k] = spMoles_final_[bstart + k];
       if (spMoles_init_[bstart + k] > 0.0) {
 	if (spMoles_final_[bstart + k] < 0.33 * spMoles_init_[bstart + k]) {
@@ -807,7 +807,6 @@ namespace Cantera
    *                   final time, to see if there is any problem.
    */
   void  imtPSS_NoSurf_DiffBL::resetStartingCondition(double Tinitial) {
-    int i;
 
     if (pendingIntegratedStep_ != 1) {
 #ifdef DEBUG_ELECTRODE
@@ -835,12 +834,12 @@ namespace Cantera
     setInitStateFromFinal(true);
 
     // reset surface quantities
-    for (i = 0; i < m_NumSurPhases; i++) {
+    for (size_t i = 0; i < m_NumSurPhases; i++) {
       surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
     }
 
     // Reset total species quantities
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
       spMoles_init_[k] = spMoles_final_[k];
       spMoles_init_init_[k] = spMoles_final_[k];
     }
@@ -849,7 +848,7 @@ namespace Cantera
     mdpUtil::mdp_zero_dbl_1(DATA_PTR(spMoleIntegratedSourceTermLast_), m_NumTotSpecies);
 
     // Reset the total phase moles quantities
-    for (i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; i++) {
       phaseMoles_init_[i] = phaseMoles_final_[i];
       phaseMoles_init_init_[i] = phaseMoles_final_[i];
     }
@@ -894,9 +893,9 @@ namespace Cantera
     ylowNLS_[1] = -1.0E50;
     yhighNLS_[1] = 1.0E50;
 
-    int astart = 0;
+    size_t astart = 0;
     double sum = 0.0;
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       yvalNLS_[ 2 + k] =   spMoles_final_[k + astart];
       sum +=  yvalNLS_[ 2 + k];
       ylowNLS_[ 2 + k] = 0; 
@@ -908,8 +907,8 @@ namespace Cantera
     ylowNLS_[2 + nSpeciesA_] = -1.0E50;
     yhighNLS_[2 + nSpeciesA_] = 1.0E50;
 
-    int bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
-    for (int k = 0; k < nSpeciesB_; k++) {
+    size_t bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       yvalNLS_[ 3 + nSpeciesA_ + k] = spMoles_final_[k + bstart]; 
       sum +=  yvalNLS_[ 1 + nSpeciesA_ + k];
       ylowNLS_[ 3 + nSpeciesA_ + k] = 0; 
@@ -917,13 +916,13 @@ namespace Cantera
     }
 
 
-    for (int k = 0; k < nSpeciesA_; k++) {    
+    for (size_t k = 0; k < nSpeciesA_; k++) {    
       atolNLS_[ 2 + k] = 1.0E-13 * sum;
       residAtolNLS_[ 2 + k ] =   1.0E-13 * sum;
       deltaBoundsMagnitudesNLS_[ 2 + k] = MAX( 1.0E-9 * sum, 0.5 * spMoles_final_[k + astart]);
     }
 
-    for (int k = 0; k < nSpeciesB_; k++) {
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       atolNLS_[ 3 + nSpeciesA_ + k] = 1.0E-13 * sum;
       residAtolNLS_[ 3 + nSpeciesA_ + k ] =   1.0E-13 * sum;
       deltaBoundsMagnitudesNLS_[ 3 + nSpeciesA_ + k] = MAX( 1.0E-9 * sum, 0.5 * spMoles_final_[k + bstart]);
@@ -955,9 +954,9 @@ namespace Cantera
 
 
     // A species 
-    int astart = 0;
+    size_t astart = 0;
     double sum = 0.0;
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       yvalNLS_[ 2 + k] =   spMoles_final_[k + astart];
       sum +=  yvalNLS_[ 2 + k];
       ylowNLS_[ 2 + k] = 0; 
@@ -971,8 +970,8 @@ namespace Cantera
     yhighNLS_[2 + nSpeciesA_] = 1.0E50;
 
     // B species 
-    int bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
-    for (int k = 0; k < nSpeciesB_; k++) {
+    size_t bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       yvalNLS_[ 3 + nSpeciesA_ + k] = spMoles_final_[k + bstart]; 
       sum +=  yvalNLS_[ 3 + nSpeciesA_ + k];
       ylowNLS_[ 3 + nSpeciesA_ + k] = 0; 
@@ -984,13 +983,13 @@ namespace Cantera
 			 "sum <= 0.0");
     }
 
-    for (int k = 0; k < nSpeciesA_; k++) {    
+    for (size_t k = 0; k < nSpeciesA_; k++) {    
       atolNLS_[ 2 + k] = 1.0E-13 * sum;
       residAtolNLS_[ 2 + k ] =   1.0E-13 * sum;
       deltaBoundsMagnitudesNLS_[ 2 + k] = MAX( 1.0E-9 * sum, 0.5 * spMoles_final_[k + astart]);
     }
 
-    for (int k = 0; k < nSpeciesB_; k++) {
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       atolNLS_[ 3 + nSpeciesA_ + k] = 1.0E-13 * sum;
       residAtolNLS_[ 3 + nSpeciesA_ + k ] =   1.0E-13 * sum;
       deltaBoundsMagnitudesNLS_[ 3 + nSpeciesA_ + k] = MAX( 1.0E-9 * sum, 0.5 * spMoles_final_[k + bstart]);
@@ -1067,10 +1066,10 @@ namespace Cantera
      *   - we stick the origin on the interface. Within that reference frame the Stefan velocity causes a
      *     net advective flux which helps the mass transport in one direction and hinders it in the other direction.
      */
-    int astart = 0;
-    int arstart = 2;
+    size_t astart = 0;
+    size_t arstart = 2;
     double moleASum = 0.0;
-    for (int k = 0; k < nSpeciesA_; k++)  {
+    for (size_t k = 0; k < nSpeciesA_; k++)  {
       moleASum += spMoles_final_[astart + k];
       /*
        *  The residual involves the mole balance of material in the phase A. Here is the reaction term and the
@@ -1107,12 +1106,12 @@ namespace Cantera
      *   - we stick the origin on the interface. Within that reference frame the Stefan velocity causes a
      *     net advective flux which helps the mass transport in one direction and hinders it in the other direction.
      */
-    int bstart =  m_PhaseSpeciesStartIndex[solnBPhase_];
-    int brstart =  3 + nSpeciesA_;
+    size_t bstart =  m_PhaseSpeciesStartIndex[solnBPhase_];
+    size_t brstart =  3 + nSpeciesA_;
     double moleBSum = 0.0;
     double advecS_B = Velo_S_Interface_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
     double advecCVB_B  =  Velo_B_CVB_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
-    for (int k = 0; k < nSpeciesB_; k++)  {
+    for (size_t k = 0; k < nSpeciesB_; k++)  {
       moleBSum += spMoles_final_[bstart + k];
       /*
        *  The residual involves the mol balance of material in the phase A. Here is the reaction term and the
@@ -1178,10 +1177,10 @@ namespace Cantera
      *   - we stick the origin on the interface. Within that reference frame the Stefan velocity causes a
      *     net advective flux which helps the mass transport in one direction and hinders it in the other direction.
      */
-    int astart = 0;
-    int arstart = 2;
+    size_t astart = 0;
+    size_t arstart = 2;
     double moleASum = 0.0;
-    for (int k = 0; k < nSpeciesA_; k++)  {
+    for (size_t k = 0; k < nSpeciesA_; k++)  {
       moleASum += spMoles_final_[astart + k];
       /*
        *  The residual involves the mole balance of material in the phase A. Here is the reaction term and the
@@ -1218,12 +1217,12 @@ namespace Cantera
      *   - we stick the origin on the interface. Within that reference frame the Stefan velocity causes a
      *     net advective flux which helps the mass transport in one direction and hinders it in the other direction.
      */
-    int bstart =  m_PhaseSpeciesStartIndex[solnBPhase_];
-    int brstart =  3 + nSpeciesA_;
+    size_t bstart =  m_PhaseSpeciesStartIndex[solnBPhase_];
+    size_t brstart =  3 + nSpeciesA_;
     double moleBSum = 0.0;
     double advecS_B = Velo_S_Interface_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
     double advecCVB_B  =  Velo_B_CVB_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
-    for (int k = 0; k < nSpeciesB_; k++)  {
+    for (size_t k = 0; k < nSpeciesB_; k++)  {
       moleBSum += spMoles_final_[bstart + k];
       /*
        *  The residual involves the mol balance of material in the phase A. Here is the reaction term and the
@@ -1300,12 +1299,12 @@ namespace Cantera
      *   - we stick the origin on the interface. Within that reference frame the Stefan velocity causes a
      *     net advective flux which helps the mass transport in one direction and hinders it in the other direction.
      */
-    int astart = 0;
-    int arstart = 2;
+    size_t astart = 0;
+    size_t arstart = 2;
     double mfSum = spMf_final_[astart];
     double moleASum = spMoles_final_[astart];
     //double mfSum = spMf_final_[astart];
-    for (int k = 1; k < nSpeciesA_; k++) {
+    for (size_t k = 1; k < nSpeciesA_; k++) {
       moleASum += spMoles_final_[astart + k];
       mfSum += spMf_final_[astart + k];
       /*
@@ -1356,12 +1355,12 @@ namespace Cantera
 #ifdef DEBUG_MODE_NOT
     printf("resid_1_drho_dt = %13.7E\n",  (densA_final_ - densA_init_) /  deltaTsubcycleCalc_ * grossAVol_ );
     printf("          densA_final_ = %16.10E",  densA_final_);
-    for (int ii = 0; ii < nSpeciesA_; ii++) {
+    for (size_t ii = 0; ii < nSpeciesA_; ii++) {
       printf(" %16.10E ", spMf_final_[ii]);
     }
     printf("\n");
     printf("          densA_init_  = %16.10E",  densA_init_);
-    for (int ii = 0; ii < nSpeciesA_; ii++) {
+    for (size_t ii = 0; ii < nSpeciesA_; ii++) {
       printf(" %16.10E ", spMf_init_[ii]);
     } 
     printf("\n");
@@ -1378,13 +1377,13 @@ namespace Cantera
      *   - we stick the origin on the interface. Within that reference frame the Stefan velocity causes a
      *     net advective flux which helps the mass transport in one direction and hinders it in the other direction.
      */
-    int bstart =  m_PhaseSpeciesStartIndex[solnBPhase_];
-    int brstart =  3 + nSpeciesA_;
+    size_t bstart =  m_PhaseSpeciesStartIndex[solnBPhase_];
+    size_t brstart =  3 + nSpeciesA_;
     double moleBSum = spMoles_final_[bstart];
     double advecS_B = Velo_S_Interface_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
     double advecCVB_B  =  Velo_B_CVB_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
 
-    for (int k = 1; k < nSpeciesB_; k++)  {
+    for (size_t k = 1; k < nSpeciesB_; k++)  {
       moleBSum += spMoles_final_[bstart + k];
       /*
        *  The residual involves the mol balance of material in the phase A. Here is the reaction term and the
@@ -1445,7 +1444,7 @@ namespace Cantera
   {
     double deltaMoles, rxnMoles, fluxMoles, advMoles, denom, resid1, normResid;
  
-    int astart = 0;
+    size_t astart = 0;
     //int arstart = 2;
     double mfSum = 0.0;
     double moleASum = 0.0;
@@ -1456,7 +1455,7 @@ namespace Cantera
 
    
     printf("\t\t      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid \n");
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       moleASum += spMoles_final_[astart + k];
       mfSum += spMf_final_[astart + k];
       /*
@@ -1492,7 +1491,8 @@ namespace Cantera
 	normResid = resid1;
       }
       
-      printf("\t\t    %3d %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  \n", k, deltaMoles, rxnMoles, fluxMoles, advMoles, resid1, normResid);
+      printf("\t\t    %3d %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  \n", static_cast<int>(k), deltaMoles,
+             rxnMoles, fluxMoles, advMoles, resid1, normResid);
     }
   
     printf("\t\t      k  Mole Sum        GrossVol\n");
@@ -1539,7 +1539,7 @@ namespace Cantera
     double advecS_B = Velo_S_Interface_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
     double advecCVB_B  =  Velo_B_CVB_final_ *  deltaTsubcycleCalc_ * surfaceAreaRS_final_[0];
     printf("\t\t      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid \n");
-    for (int k = 0; k < nSpeciesB_; k++) {
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       moleBSum += spMoles_final_[bstart + k];
       mfSum += spMf_final_[bstart + k];
       /*
@@ -1575,7 +1575,8 @@ namespace Cantera
 	normResid = resid1;
       }
       
-      printf("\t\t    %3d %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  \n", k, deltaMoles, rxnMoles, fluxMoles, advMoles, resid1, normResid);
+      printf("\t\t    %3d %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  %14.7E  \n", static_cast<int>(k), deltaMoles, rxnMoles, 
+            fluxMoles, advMoles, resid1, normResid);
     }
   
     printf("\t\t      k  Mole Sum        GrossVol\n");
@@ -1631,28 +1632,28 @@ namespace Cantera
     deltaTsubcycleCalc_ = y[0];
     t_final_ = t_init_ + deltaTsubcycleCalc_;
     Velo_S_Interface_final_ = y[1];
-    int astart = 0;
-    for (int k = 0; k < nSpeciesA_; k++) {
+    size_t astart = 0;
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       spMoles_final_[k + astart] = y[2 + k];
     }
     Velo_B_CVB_final_ = y[2 + nSpeciesA_];
 
-    int bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
-    for (int k = 0; k < nSpeciesB_; k++) {
+    size_t bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       spMoles_final_[k + bstart] = y[3 + nSpeciesA_ +  k];
     }
 #else 
     deltaTsubcycleCalc_ = y[0];
     t_final_ = t_init_ + deltaTsubcycleCalc_;
     Velo_S_Interface_final_ = y[1];
-    int astart = 0;
-    for (int k = 0; k < nSpeciesA_; k++) {
+    size_t astart = 0;
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       spMoles_final_[k + astart] = y[2 + k];
     }
     Velo_B_CVB_final_ = y[2 + nSpeciesA_];
 
-    int bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
-    for (int k = 0; k < nSpeciesB_; k++) {
+    size_t bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       spMoles_final_[k + bstart] = y[3 + nSpeciesA_ +  k];
     }
 
@@ -1697,26 +1698,26 @@ namespace Cantera
     double gradT = 0.0;
     ThermoPhase *tpA = & thermo(solnAPhase_);
     int astart = 0;
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t k = 0; k < nSpeciesA_; k++) {
       gradX_phaseA_[k] = (spMf_final_[k + astart] - spMF_solnA_BC_final_[k]) / BLThickness_A_final_;
     }
   
     tranA_->getSpeciesFluxes(1, &gradT,  nSpeciesA_,  DATA_PTR(gradX_phaseA_),
 			     nSpeciesA_, DATA_PTR(jKmolfluxA_));
-    for (int k = 0; k < nSpeciesA_; k++) {
+    for (size_t  k = 0; k < nSpeciesA_; k++) {
       double mwk = tpA->molecularWeight(k);
       jKmolfluxA_[k] /= mwk;
     }
 
     ThermoPhase *tpB = & thermo(solnBPhase_);
-    int bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
-    for (int k = 0; k < nSpeciesB_; k++) {
+    size_t bstart = m_PhaseSpeciesStartIndex[solnBPhase_];
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       gradX_phaseB_[k] = (spMF_solnB_BC_final_[k] - spMf_final_[k + bstart]) / BLThickness_B_final_;
     }
   
     tranB_->getSpeciesFluxes(1, &gradT,  nSpeciesB_,  DATA_PTR(gradX_phaseB_),
 			     nSpeciesB_, DATA_PTR(jKmolfluxB_));
-    for (int k = 0; k < nSpeciesB_; k++) {
+    for (size_t k = 0; k < nSpeciesB_; k++) {
       double mwk = tpB->molecularWeight(k);
       jKmolfluxB_[k] /= mwk;
     }
@@ -1797,14 +1798,13 @@ namespace Cantera
   // ---------------------------------------------------------------------------------------------
 
 
-
   //====================================================================================================================
   void imtPSS_NoSurf_DiffBL::printInterfacialMassTransfer_List(int pSrc, bool subTimeStep) {
     printf("\n");
     printf("         PName                   MoleNum      molarVol     Volume       FractVol     Voltage   \n");
     printf("     ============================================================================================\n");
     double egv = TotalVol();
-    for (int iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
       std::string pname = PhaseNames_[iph];
       ThermoPhase &tp = thermo(iph);
       double mv = tp.molarVolume();
@@ -1832,7 +1832,6 @@ namespace Cantera
    *                       time step. The default is to print out the global values 
    */
   void imtPSS_NoSurf_DiffBL::printInterfacialMassTransfer(int pSrc, bool subTimeStep) {
-    int iph;
     double egv = TotalVol();
     printf("   ==============================================================================================\n");
     if (subTimeStep) {
@@ -1846,7 +1845,7 @@ namespace Cantera
     printf("                    DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n", 
 	   DomainNumber_, CellNumber_, counterNumberIntegrations_);
     printf("   ==============================================================================================\n");
-    printf("          Number of surfaces = %d\n", numSurfaces_);
+    printf("          Number of surfaces = %d\n", static_cast<int>(numSurfaces_));
 
     printf("          Total Volume = %10.3E\n", egv);
     printf("          Temperature = %g\n", Temp_);
@@ -1872,7 +1871,7 @@ namespace Cantera
 
     printInterfacialMassTransfer_List(pSrc, subTimeStep);
 
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
       printInterfacialMassTransfer_Phase(iph, pSrc, subTimeStep);   
     }
 
@@ -1889,18 +1888,18 @@ namespace Cantera
   }
   //===================================================================================================================
  
-  void imtPSS_NoSurf_DiffBL::printInterfacialMassTransfer_Phase(int iph, int pSrc, bool subTimeStep) {
-    int isph;
+  void imtPSS_NoSurf_DiffBL::printInterfacialMassTransfer_Phase(size_t iph, int pSrc, bool subTimeStep) {
+    size_t isph;
     double *netROP = new double[m_NumTotSpecies];
     ThermoPhase &tp = thermo(iph);
-    string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    std::string pname = tp.id();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     if (printLvl_ <= 1) {
       return;
     }
     printf("     ============================================================================================\n");
-    printf("          Phase %d %s \n", iph,pname.c_str() );
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str() );
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
  
 
@@ -1915,7 +1914,7 @@ namespace Cantera
     if (printLvl_ >= 3) {
       printf("\n");
       printf("                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)\n");
-      for (int k = 0; k < nsp; k++) {
+      for (size_t k = 0; k < nsp; k++) {
 	string sname = tp.speciesName(k);
 	if (pSrc) {
 	  if (subTimeStep) {
@@ -1950,20 +1949,20 @@ namespace Cantera
       
 	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);
 	mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
-	int nphRS = RSD_List_[isph]->nPhases();
-	int kIndexKin = 0;
-	for (int kph = 0; kph < nphRS; kph++) {
-	  int jph = RSD_List_[isph]->kinOrder[kph];
-	  int istart = m_PhaseSpeciesStartIndex[jph];
-	  int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-	  for (int k = 0; k < nsp; k++) {
+	size_t nphRS = RSD_List_[isph]->nPhases();
+	size_t kIndexKin = 0;
+	for (size_t kph = 0; kph < nphRS; kph++) {
+	  size_t jph = RSD_List_[isph]->kinOrder[kph];
+	  size_t istart = m_PhaseSpeciesStartIndex[jph];
+	  size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+	  for (size_t  k = 0; k < nsp; k++) {
 	    spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
 	    kIndexKin++;
 	  }
 	}
 	printf("\n");
 	printf("                           spName                  SourceRateLastStep (kmol/m2/s) \n");
-	for (int k = 0; k <  m_NumTotSpecies; k++) {
+	for (size_t k = 0; k <  m_NumTotSpecies; k++) {
 	  string ss = speciesName(k);
 	  printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
 	}
@@ -1973,7 +1972,6 @@ namespace Cantera
     delete [] netROP;
 
   }
-
 
   //====================================================================================================================
   // Write out CSV tabular data on the integrations
@@ -1990,7 +1988,7 @@ namespace Cantera
    */
   void imtPSS_NoSurf_DiffBL::writeCSVData(int itype) { 
     if (printLvl_ < 2) return;
-    int k;
+    size_t k;
     static std::string globOutputName;
     static std::string intOutputName;
     static FILE *fpG = 0;

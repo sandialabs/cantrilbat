@@ -462,7 +462,6 @@ namespace Cantera
     //! Get the net production rates of all species in the object
     //! at the current final conditions from all surface kinetics objects
     /*!
-     * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/s]. Return the species
      */
     void getNetProductionRates(doublevalue* const net) const;
@@ -473,7 +472,7 @@ namespace Cantera
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/s]. Return the species
      */
-    void getNetProductionRatesRSD(const int isk, doublevalue* const net) const;
+    void getNetProductionRatesRSD(const size_t isk, doublevalue* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     //!  at the current final conditions and t_final
@@ -493,7 +492,7 @@ namespace Cantera
      *  @param isk Surface ID to get the fluxes from.      
      *  @param phaseMassFlux  Returns the mass fluxes of the phases
      */
-    void getPhaseMoleFlux(const int isk, doublevalue* const phaseMoleFlux) const;
+    void getPhaseMoleFlux(const size_t isk, doublevalue* const phaseMoleFlux) const;
 
     //! Returns the computed Stefan velocity for phase A in the object
     //! at the current final conditions. 
@@ -601,7 +600,7 @@ namespace Cantera
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values 
      */
-    virtual void printInterfacialMassTransferPhase(int iPhase, int pSrc = 1, bool subTimeStep = false);
+    virtual void printInterfacialMassTransferPhase(size_t iPhase, int pSrc = 1, bool subTimeStep = false);
  
     // ---------------------------------------------------------------------------------------------
     // --------------------------------- MEMBER DATA -----------------------------------------------
@@ -642,9 +641,9 @@ namespace Cantera
     /*!
      *  Length = m_NumTotPhases
      */
-    std::vector<int> phaseJustDied_;
+    std::vector<size_t> phaseJustDied_;
 
-    std::vector<int> phaseJustBorn_;
+    std::vector<size_t> phaseJustBorn_;
 
     //! Vector of predicted solutions
     /*!

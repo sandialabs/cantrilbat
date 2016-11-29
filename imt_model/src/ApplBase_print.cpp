@@ -100,10 +100,10 @@ void pr_df(const double d, const int w, const int p) {
  */
 
 void pr_dfp(const double d, const int p) {
-  int pp = cout.precision(p);
+  cout.precision(p);
   cout.setf(ios_base::fixed, ios_base::floatfield);
   cout << d;
-  pp = cout.precision(6);
+  cout.precision(6);
   cout.setf(ios_base::fmtflags(0), ios_base::floatfield);
 }
 /**********************************************************************/

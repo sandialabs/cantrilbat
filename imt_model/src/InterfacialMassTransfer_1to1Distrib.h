@@ -160,8 +160,7 @@ namespace Cantera
     void printInterfacialMassTransfer(int pSrc, bool subTimeStep);
 
 
-
-    void printInterfacialMassTransfer_Phase(int iph, int pSrc, bool subTimeStep);
+    void printInterfacialMassTransfer_Phase(size_t iph, int pSrc, bool subTimeStep);
 
     //! Write out CSV tabular data on the integrations
     /*!

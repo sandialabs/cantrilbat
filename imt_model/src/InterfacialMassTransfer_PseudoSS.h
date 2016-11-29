@@ -205,7 +205,7 @@ namespace Cantera
     void printInterfacialMassTransfer(int pSrc, bool subTimeStep);
 
 
-    void printInterfacialMassTransfer_Phase(int iph, int pSrc, bool subTimeStep);
+    void printInterfacialMassTransfer_Phase(size_t iph, int pSrc, bool subTimeStep);
 
     //! Write out CSV tabular data on the integrations
     /*!
@@ -229,7 +229,7 @@ namespace Cantera
     ZZCantera::ImplicitSurfChem *isc_prob;
 
     //! Number of unknowns in the surface problem
-    int neq_isc_prob_;
+    size_t neq_isc_prob_;
 
 
   };

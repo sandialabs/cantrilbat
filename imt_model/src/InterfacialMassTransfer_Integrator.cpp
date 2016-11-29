@@ -98,8 +98,6 @@ namespace Cantera
     yvalNLS_(0),
     ydotNLS_(0),
     deltaBoundsMagnitudesNLS_(0),
-    phaseJustDied_(0),
-    phaseJustBorn_(0),
     pSolve_(0),
     jacPtr_(0),
     numIntegratedSrc_(0),
@@ -138,8 +136,6 @@ namespace Cantera
     yvalNLS_(0),
     ydotNLS_(0),
     deltaBoundsMagnitudesNLS_(0),
-    phaseJustDied_(0),
-    phaseJustBorn_(0),
     pSolve_(0),
     jacPtr_(0),
     numIntegratedSrc_(0),
@@ -193,8 +189,6 @@ namespace Cantera
     ydotNLS_                            = right.ydotNLS_;
     deltaBoundsMagnitudesNLS_           = right.deltaBoundsMagnitudesNLS_;
 
-    phaseJustDied_                      = right.phaseJustDied_;
-    phaseJustBorn_                      = right.phaseJustBorn_;
    
     SAFE_DELETE(pSolve_);
     pSolve_                             = new NonlinearSolver(this);
@@ -557,8 +551,8 @@ namespace Cantera
         }
 
 	// Zero needed counters
-	mdpUtil::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
-	mdpUtil::mdp_init_int_1(DATA_PTR(phaseJustBorn_), 0, m_NumTotPhases);
+	mdpUtil::mdp_init_size_t_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
+	mdpUtil::mdp_init_size_t_1(DATA_PTR(phaseJustBorn_), 0, m_NumTotPhases);
 
 	/*
 	 * Ok at this point we have a time step deltaTsubcycle_
@@ -1048,7 +1042,7 @@ namespace Cantera
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
       /*
        *   Only loop over surfaces that have kinetics objects associated with them
        */
@@ -1093,7 +1087,7 @@ namespace Cantera
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
       /*
        *   Only loop over surfaces that have kinetics objects associated with them
        */
@@ -1103,8 +1097,8 @@ namespace Cantera
 
 	if (ActiveKineticsSurf_[isk]) {
 	  double mult =  0.5* (surfaceAreaRS_init_[isk] + surfaceAreaRS_final_[isk]); 
-	  for (int i = 0; i < m_NumTotSpecies; i++){
-	    for (int j = 0; j < numRxns_[isk]; j++){
+	  for (size_t i = 0; i < m_NumTotSpecies; i++){
+	    for (size_t j = 0; j < numRxns_[isk]; j++){
 	      DspMoles_final_[i] +=  mult * productStoichCoeff(isk,i,j) * netROP[j];
 	      DspMoles_final_[i] -=  mult * reactantStoichCoeff(isk,i,j) * netROP[j];
 	    }
@@ -1188,7 +1182,7 @@ namespace Cantera
     /*
      *  Calculate the integrated source term
      */
-    for (int i = 0; i < m_NumTotSpecies; i++) {
+    for (size_t i = 0; i < m_NumTotSpecies; i++) {
       IntegratedSrc_Predicted[i] = DspMoles_final_[i] * deltaTsubcycle_;
     }
 
@@ -1224,7 +1218,7 @@ namespace Cantera
     /*
      *  Calculate the integrated source term
      */
-    for (int i = 0; i < m_NumTotSpecies; i++) {
+    for (size_t i = 0; i < m_NumTotSpecies; i++) {
       spMoleIntegratedSourceTermLast_[i] = DspMoles_final_[i] * deltaTsubcycle_;
     }
   }
@@ -1237,7 +1231,7 @@ namespace Cantera
    */
   void InterfacialMassTransfer_Integrator::accumulateSrcTermsOnCompletedStep()
     {
-      for (int i = 0; i < m_NumTotSpecies; i++) {
+      for (size_t i = 0; i < m_NumTotSpecies; i++) {
 	spMoleIntegratedSourceTerm_[i] += spMoleIntegratedSourceTermLast_[i]; 
       }
     }
@@ -1321,13 +1315,13 @@ namespace Cantera
     return true;
   } 
   //=================================================================================================================
-  double l0norm2M(const std::vector<double> &v1,const std::vector<double> &v2, int num, double rtol,
+  double l0norm2M(const std::vector<double> &v1,const std::vector<double> &v2, size_t num, double rtol,
 		const std::vector<double> &atolVec)
   {
     double max0 = 0.0;
     double denom, diff, ee;
     
-    for (int k = 0; k < num; k++) {
+    for (size_t k = 0; k < num; k++) {
       diff =  fabs(v1[k] - v2[k]);
       denom = 0.5 * (fabs(v1[k]) + fabs(v2[k])) * rtol + atolVec[k];
       ee = fabs( diff/ denom);
@@ -1364,7 +1358,7 @@ namespace Cantera
    */
   void InterfacialMassTransfer_Integrator::predictorCorrectorGlobalSrcTermErrorVector()
   {
-    for (int k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; k++) {
       IntegratedSrc_Errors_local_[k] = IntegratedSrc_Predicted[k] - spMoleIntegratedSourceTermLast_[k];
     }
   }
@@ -1413,11 +1407,11 @@ namespace Cantera
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
     printf(" DeltaT                  | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
 	   deltaTsubcycle_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolNLS_[0], tmp);
-    for (int i = 1; i < (int) yval.size(); i++) {
+    for (size_t i = 1; i < yval.size(); i++) {
       denom = 0.5 * (fabs(yval[i]) + fabs(soln_predict_[i])) * rtolNLS_ + atolNLS_[i];
       tmp = fabs((yval[i] - soln_predict_[i])/ denom);
       printf(" soln %3d                |                %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
-	     i, soln_predict_[i],  yval[i], yval[i] - soln_predict_[i], atolNLS_[i], tmp);
+	     static_cast<int>(i), soln_predict_[i],  yval[i], yval[i] - soln_predict_[i], atolNLS_[i], tmp);
     }
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
     printf("                                                                                                        %10.3E\n",
@@ -1504,7 +1498,7 @@ namespace Cantera
     /*
      *  For each Reacting surface
      */ 
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
       if (ActiveKineticsSurf_[isk]) {
 	/*
 	 *  Just assume surface area is equal to final value
@@ -1517,24 +1511,24 @@ namespace Cantera
 	/*
 	 * Number of phases in the reacting species.
 	 */
-	int nphRS = RSD_List_[isk]->nPhases();
+	size_t nphRS = RSD_List_[isk]->nPhases();
 
 	int kIndexKin = 0;
 	/*
 	 *  Loop over the phases defined in the Reacting Surface Domain object
 	 */
-	for (int kph = 0; kph < nphRS; kph++) {
+	for (size_t kph = 0; kph < nphRS; kph++) {
 	  /*
 	   *  Find the phase Id of the current phase in the InterfacialMassTransfer object
 	   */
-	  int jph = RSD_List_[isk]->kinOrder[kph];
+	  size_t jph = RSD_List_[isk]->kinOrder[kph];
 
 	  /*
 	   *  Find the starting species index within the InterfacialMassTransfer object
 	   */
-	  int istart = m_PhaseSpeciesStartIndex[jph];
-	  int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-	  for (int k = 0; k < nsp; k++) {
+	  size_t istart = m_PhaseSpeciesStartIndex[jph];
+	  size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+	  for (size_t k = 0; k < nsp; k++) {
 	    net[istart + k] += rsSpeciesProductionRates[kIndexKin] * area;
 	    kIndexKin++;
 	  }
@@ -1550,7 +1544,7 @@ namespace Cantera
    *  This routine assumes that the underlying objects have been updated.
    *  It uses the default Backwards Euler integration rule, which doesn't take into account of issues with surfaces going away
    */
-  void InterfacialMassTransfer_Integrator::getNetProductionRatesRSD(const int isk, doublevalue* const net) const
+  void InterfacialMassTransfer_Integrator::getNetProductionRatesRSD(const size_t isk, doublevalue* const net) const
   {
     mdpUtil::mdp_zero_dbl_1(net, m_NumTotSpecies);
     /*
@@ -1572,24 +1566,24 @@ namespace Cantera
       /*
        * Number of phases in the reacting species.
        */
-      int nphRS = RSD_List_[isk]->nPhases();
+      size_t nphRS = RSD_List_[isk]->nPhases();
 
-      int kIndexKin = 0;
+      size_t  kIndexKin = 0;
       /*
        *  Loop over the phases defined in the Reacting Surface Domain object
        */
-      for (int kph = 0; kph < nphRS; kph++) {
+      for (size_t kph = 0; kph < nphRS; kph++) {
 	/*
 	 *  Find the phase Id of the current phase in the InterfacialMassTransfer object
 	 */
-	int jph = RSD_List_[isk]->kinOrder[kph];
+	size_t jph = RSD_List_[isk]->kinOrder[kph];
 
 	/*
 	 *  Find the starting species index within the InterfacialMassTransfer object
 	 */
-	int istart = m_PhaseSpeciesStartIndex[jph];
-	int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-	for (int k = 0; k < nsp; k++) {
+	size_t istart = m_PhaseSpeciesStartIndex[jph];
+	size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+	for (size_t k = 0; k < nsp; k++) {
 	  net[istart + k] += rsSpeciesProductionRates[kIndexKin] * area;
 	  kIndexKin++;
 	}
@@ -1608,18 +1602,18 @@ namespace Cantera
   {
     mdpUtil::mdp_zero_dbl_1(phaseMassFlux, m_NumTotPhases);
 
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
       if (ActiveKineticsSurf_[isk]) { 
 	const vector<double> &rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
 	double area =  0.5 * (surfaceAreaRS_init_[isk] + surfaceAreaRS_final_[isk]);
-	int nphRS = RSD_List_[isk]->nPhases();
-	int kIndexKin = 0;
-	for (int kph = 0; kph < nphRS; kph++) {
-	  int jph = RSD_List_[isk]->kinOrder[kph];
+	size_t nphRS = RSD_List_[isk]->nPhases();
+	size_t kIndexKin = 0;
+	for (size_t kph = 0; kph < nphRS; kph++) {
+	  size_t jph = RSD_List_[isk]->kinOrder[kph];
 	  ThermoPhase &tp = thermo(jph);
-	  int istart = m_PhaseSpeciesStartIndex[jph];
-	  int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-	  for (int k = 0; k < nsp; k++) {
+	  size_t istart = m_PhaseSpeciesStartIndex[jph];
+	  size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+	  for (size_t k = 0; k < nsp; k++) {
 	    double net = rsSpeciesProductionRates[kIndexKin] * area;
 	    double mw = tp.molecularWeight(k);
 	    phaseMassFlux[jph] += net * mw;
@@ -1637,21 +1631,21 @@ namespace Cantera
    *  @param isk Surface ID to get the fluxes from.      
    *  @param phaseMassFlux  Returns the mass fluxes of the phases
    */
-  void InterfacialMassTransfer_Integrator::getPhaseMoleFlux(const int isk, doublevalue* const phaseMoleFlux) const
+  void InterfacialMassTransfer_Integrator::getPhaseMoleFlux(const size_t isk, doublevalue* const phaseMoleFlux) const
   { 
     mdpUtil::mdp_zero_dbl_1(phaseMoleFlux, m_NumTotPhases);
-    for (int isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; isk++) {
       if (ActiveKineticsSurf_[isk]) {
 	const vector<double> &rsSpeciesProductionRates = RSD_List_[isk]->calcNetProductionRates();
 	double area = 0.5 * (surfaceAreaRS_init_[isk] + surfaceAreaRS_final_[isk]);
-	int nphRS = RSD_List_[isk]->nPhases();
-	int PLph, RSph;
-	int kIndexKin = 0;
+	size_t nphRS = RSD_List_[isk]->nPhases();
+	size_t PLph, RSph;
+	size_t kIndexKin = 0;
 	for (RSph = 0; RSph < nphRS; RSph++) {
 	  PLph = RSD_List_[isk]->kinOrder[RSph];
-	  int istart = m_PhaseSpeciesStartIndex[PLph];
-	  int nsp = m_PhaseSpeciesStartIndex[PLph+1] - istart;
-	  for (int k = 0; k < nsp; k++) {
+	  size_t istart = m_PhaseSpeciesStartIndex[PLph];
+	  size_t nsp = m_PhaseSpeciesStartIndex[PLph+1] - istart;
+	  for (size_t k = 0; k < nsp; k++) {
 	    double net = rsSpeciesProductionRates[kIndexKin]* area;
 	    phaseMoleFlux[PLph] += net;
 	    kIndexKin++;
@@ -1766,7 +1760,7 @@ namespace Cantera
              DomainNumber_, CellNumber_, counterNumberIntegrations_);
     }
     if ((evalType != JacDelta_ResidEval)) {
-      mdpUtil::mdp_init_int_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
+      mdpUtil::mdp_init_size_t_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
     }
     /*
      *  UNPACK THE SOLUTION VECTOR
@@ -1849,7 +1843,6 @@ namespace Cantera
   }
   //====================================================================================================================
   void InterfacialMassTransfer_Integrator::printInterfacialMassTransfer(int pSrc, bool subTimeStep) {
-    int iph;
     double *netROP = new double[m_NumTotSpecies];
     double egv = TotalVol();
     printf("   ===============================================================\n");
@@ -1861,14 +1854,14 @@ namespace Cantera
       printf("                   time init  = %g\n", t_init_init_);
     }
     printf("   ===============================================================\n");
-    printf("          Number of surfaces = %d\n", numSurfaces_);
+    printf("          Number of surfaces = %d\n", static_cast<int>(numSurfaces_));
     printf("          Total Volume = %10.3E\n", egv);
     printf("          Temperature = %g\n", Temp_);
     printf("          Pressure A = %g\n", Pres_A_Interface_final_);
     printf("          Pressure B = %g\n", Pres_B_Interface_final_);
 
 
-    for (iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
       printInterfacialMassTransferPhase(iph, pSrc);
       printf("     ===============================================================\n");
     }
@@ -1876,15 +1869,15 @@ namespace Cantera
   }
   //===================================================================================================================
  
-  void InterfacialMassTransfer_Integrator::printInterfacialMassTransferPhase(int iph, int pSrc, bool subTimeStep) {
-    int isph;
+  void InterfacialMassTransfer_Integrator::printInterfacialMassTransferPhase(size_t iph, int pSrc, bool subTimeStep) {
+    size_t isph;
     double *netROP = new double[m_NumTotSpecies];
     ThermoPhase &tp = thermo(iph);
     string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iph,pname.c_str() );
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str() );
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
  
  
@@ -1897,8 +1890,8 @@ namespace Cantera
     }
     printf("\n");
     printf("                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
-    for (int k = 0; k < nsp; k++) {
-      string sname = tp.speciesName(k);
+    for (size_t k = 0; k < nsp; k++) {
+      std::string sname = tp.speciesName(k);
       if (pSrc) {
 	if (subTimeStep) { 
 	  printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],
@@ -1925,28 +1918,27 @@ namespace Cantera
       
       doublevalue * spNetProdPerArea = (doublevalue *) spNetProdPerArea_List_.ptrColumn(isph);
       mdpUtil::mdp_zero_dbl_1(spNetProdPerArea, m_NumTotSpecies);
-      int nphRS = RSD_List_[isph]->nPhases();
-      int kIndexKin = 0;
-      for (int kph = 0; kph < nphRS; kph++) {
-	int jph = RSD_List_[isph]->kinOrder[kph];
-	int istart = m_PhaseSpeciesStartIndex[jph];
-	int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-	for (int k = 0; k < nsp; k++) {
+      size_t nphRS = RSD_List_[isph]->nPhases();
+      size_t kIndexKin = 0;
+      for (size_t kph = 0; kph < nphRS; kph++) {
+	size_t jph = RSD_List_[isph]->kinOrder[kph];
+	size_t istart = m_PhaseSpeciesStartIndex[jph];
+	size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+	for (size_t k = 0; k < nsp; k++) {
 	  spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
 	  kIndexKin++;
 	}
       }
       printf("\n");
       printf("                           spName                  Source (kmol/m2/s) \n");
-      for (int k = 0; k <  m_NumTotSpecies; k++) {
-	string ss = speciesName(k);
+      for (size_t k = 0; k <  m_NumTotSpecies; k++) {
+	std::string ss = speciesName(k);
 	printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
       }
     }
     delete [] netROP;
 
   }
-
 
 } // End of namespace Cantera
 //======================================================================================================================
