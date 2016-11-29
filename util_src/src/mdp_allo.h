@@ -682,6 +682,14 @@ extern void mdp_init_dbl_2(double** const v, double value, int len1, int len2);
  */
 extern void mdp_init_int_1(int* const v, int value, int len);
 
+//!  Assigns a single value to a size_t vector
+/*!
+ *  @param[in,out]     v         Vector of values to be assigned
+ *  @param[in]         value     Value to assign with
+ *  @param[in]         len       Length of the vector
+ */
+extern void mdp_init_size_t_1(size_t* const v, size_t value, int len);
+
 //==================================================================================================================================
 /*
  * subtractRD.cpp

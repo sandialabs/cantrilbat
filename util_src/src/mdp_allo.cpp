@@ -2100,6 +2100,49 @@ void mdp_init_int_1(int* const v, int value, int len)
         }
     }
 }
+
+//==================================================================================================================================
+void mdp_init_size_t_1(size_t* const v, size_t value, int len)
+/**************************************************************************
+ *
+ * mdp_init_int_1:
+ *
+ * Assigns a single value to a int vector
+ *
+ * Input
+ * -------------
+ *  v = Vector of values to be assigned
+ *  value = value to assign with
+ *  len       = Length of the vector
+ **************************************************************************/
+{
+    if (len > 0) {
+        if (value == 0) {
+            size_t bytelen = len * sizeof(size_t);
+            (void) memset((void*)v, 0, bytelen);
+        } else {
+            int m = len % 7;
+            if (m != 0) {
+                for (int i = 0; i < m; i++) {
+                    v[i] = value;
+                }
+                if (len < 7) {
+                    return;
+                }
+            }
+            for (int i = m; i < len; i += 7) {
+                v[i  ] = value;
+                v[i+1] = value;
+                v[i+2] = value;
+                v[i+3] = value;
+                v[i+4] = value;
+                v[i+5] = value;
+                v[i+6] = value;
+            }
+        }
+    }
+}
+
 /****************************************************************************/
 /*                      END of mdp_allo.cpp                                 */
 /****************************************************************************/
