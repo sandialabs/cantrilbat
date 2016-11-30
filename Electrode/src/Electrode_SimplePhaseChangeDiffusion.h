@@ -170,9 +170,9 @@ protected:
      */
     double MD_OuterSolidPhase_;
 
-    int index_Li_int_;
+    size_t index_Li_int_;
 
-    int pindex_Li7_int;
+    size_t pindex_Li7_int;
 
 
     //! Phase index of the solid phase that comprises the inner solid

@@ -717,6 +717,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     phaseMoles_dot_.resize(m_NumTotPhases, 0.0);
     phaseVoltages_.resize(m_NumTotPhases, 0.0);
     phaseMolarVolumes_.resize(m_NumTotPhases, 0.0);
+    justBornPhase_.resize(m_NumTotPhases, 0);
     justDiedPhase_.resize(m_NumTotPhases, 0);
 
     // resize volume phase vectors
@@ -733,9 +734,6 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     numRxns_.resize(numSurfaces_, 0);
     ActiveKineticsSurf_.resize(numSurfaces_, 0);
     sphaseMolarAreas_.resize(numSurfaces_, 0.0);
-
-
-
 
     // Resize species vectors
     spMoles_init_.resize(m_NumTotSpecies, 0.0);
@@ -2238,8 +2236,8 @@ double Electrode::elementSolidMoles(std::string eN) const
             const ThermoPhase* tp_ptr = &thermo(iph);
             size_t ie = tp_ptr->elementIndex(eN);
             if (ie != npos) {
-                int nsp = thermo(iph).nSpecies();
-                int kStart = m_PhaseSpeciesStartIndex[iph];
+                size_t nsp = thermo(iph).nSpecies();
+                size_t kStart = m_PhaseSpeciesStartIndex[iph];
                 for (size_t ik = 0; ik < nsp; ik++) {
                     double na = thermo(iph).nAtoms(ik, ie);
                     sum += na * spMoles_final_[kStart + ik];
@@ -5028,11 +5026,11 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
         ThermoPhase& tp = thermo(iph);
         phiPhase = phaseVoltages_[iph];
 
-        int istart = m_PhaseSpeciesStartIndex[iph];
-        int nsp = tp.nSpecies();
-        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+        if (iph == metalPhase_ || iph == solnPhase_) {
+	    for (size_t ik = 0; ik < nsp; ik++) {
+		size_t k = istart + ik;
 		double cc = tp.charge(ik);
 		double deltaNH = enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
@@ -5048,8 +5046,8 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
 		}
 	    }
         } else {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;  
+	    for (size_t ik = 0; ik < nsp; ik++) {
+		size_t k = istart + ik;  
 		double cc = tp.charge(ik);
 		double deltaNH = enthalpyMolar_final_[k] * spMoles_final_[k] - enthalpyMolar_init_[k] * spMoles_init_[k];
 #ifdef DEBUG_THERMAL
@@ -5141,11 +5139,11 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old()
     double tt = temperature_;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase& tp = thermo(iph);
-        int istart = m_PhaseSpeciesStartIndex[iph];
-        int nsp = tp.nSpecies();
-        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+        if (iph == metalPhase_ || iph == solnPhase_) {
+	    for (size_t ik = 0; ik < nsp; ik++) {
+		size_t k = istart + ik;
 		double deltaNS = tt * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
 		double deltaN = spMoles_final_[k] - spMoles_init_[k]; 
@@ -5154,8 +5152,8 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old()
 		q_alt -= deltaNS;
 	    }
         } else {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
+	    for (size_t ik = 0; ik < nsp; ik++) {
+		size_t k = istart + ik;
 		double deltaNS = tt * (entropyMolar_final_[k] * spMoles_final_[k] - entropyMolar_init_[k] * spMoles_init_[k]);
 #ifdef DEBUG_THERMAL
 		double deltaN = spMoles_final_[k] - spMoles_init_[k];
@@ -5201,8 +5199,8 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep_Old()
 		}
 	    }
         } else {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;  
+	    for (size_t ik = 0; ik < nsp; ik++) {
+		size_t k = istart + ik;  
 		double cc = tp.charge(ik);
 		double deltaNG = chempotMolar_final_[k] * spMoles_final_[k] - chempotMolar_init_[k] * spMoles_init_[k];
 #ifdef DEBUG_THERMAL
@@ -5256,9 +5254,9 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
 {
   double result = 0.0;
 
-  int species_index = 0;
-  int solnSpeciesStart = m_PhaseSpeciesStartIndex[solnPhase_];
-  int nsp = thermo(solnPhase_).nSpecies();
+  size_t species_index = 0;
+  size_t solnSpeciesStart = m_PhaseSpeciesStartIndex[solnPhase_];
+  size_t nsp = thermo(solnPhase_).nSpecies();
   if (sourceType >= VOLUME_SOURCE) {
 
   }
@@ -5273,8 +5271,8 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
     result = spMoleIntegratedSourceTerm_[kElectron_];
     break;
   case ELECTROLYTE_PHASE_SOURCE:
-    for (int ik = 0; ik < nsp; ik++) {
-      int k = solnSpeciesStart + ik;
+    for (size_t ik = 0; ik < nsp; ik++) {
+      size_t k = solnSpeciesStart + ik;
       result += spMoleIntegratedSourceTerm_[k];
     }
     break;
@@ -5303,7 +5301,7 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
  *    Flags are set in the kinetics object to tell the kinetics object which phases
  *    have zero moles.  The zero mole indicator is taken from phaseMoles_final_[]. Therefore,
  *    the final state is queried.
- *    There is a special case. Phases that are in justBornPhase_[] vector are allowed to
+ *    There is a special case. Phases that have a 1 in the justBornPhase_[] vector are allowed to
  *    be set to exist even if their phase moles are zero.
  *
  * @param assumeStableSingleSpeciesPhases Assume that single phases are stable. This
@@ -5350,10 +5348,8 @@ void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpec
                     }
                 }
 
-                for (size_t iiph = 0; iiph < justBornPhase_.size(); iiph++) {
-                    if (iph == justBornPhase_[iiph]) {
-                        rsd->setPhaseExistence(jph, true);
-                    }
+                if (justBornPhase_[iph]) {
+                    rsd->setPhaseExistence(jph, true);
                 }
             }
         }

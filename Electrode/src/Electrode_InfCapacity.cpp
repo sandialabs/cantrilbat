@@ -119,7 +119,6 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
                                      Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType,
                                      Subgrid_Integration_RunType_Enum subIntegrationType)
 {
-
     double prodTmp;
     double sa_final;
     counterNumberIntegrations_++;
@@ -130,8 +129,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     std::vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
     std::vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
     std::vector<double> delta(m_NumTotSpecies, 0.0);
-    std::vector<int> justBornMultiSpecies(0);
-
+    std::vector<size_t> justBornMultiSpecies;
 
     std::copy(spMoles_init_init_.begin(), spMoles_init_init_.end(), spMoles_init_.begin());
     std::copy(spMoles_init_init_.begin(), spMoles_init_init_.end(), spMoles_final_.begin());
@@ -157,7 +155,6 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
         tfinal_ = t_final_final_;
     }
 
-    justBornPhase_.clear();
     /*
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
@@ -192,19 +189,19 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
              *  Get the net production vector
              */
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-            int nphRS = RSD_List_[isk]->nPhases();
-            int jph, kph;
-            int kIndexKin = 0;
+            size_t nphRS = RSD_List_[isk]->nPhases();
+            size_t jph, kph;
+            size_t kIndexKin = 0;
             for (kph = 0; kph < nphRS; kph++) {
                 jph = RSD_List_[isk]->kinOrder[kph];
-                int istart = m_PhaseSpeciesStartIndex[jph];
-                int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-                for (int k = 0; k < nsp; k++) {
+                size_t istart = m_PhaseSpeciesStartIndex[jph];
+                size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+                for (size_t k = 0; k < nsp; k++) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                     if (rsSpeciesProductionRates[kIndexKin] > 0.0) {
                         if ((phaseMoles_init_[jph] <= 0.0) && (jph != metalPhase_)) {
                             bool notFound = true;
-                            for (int iiph = 0; iiph < (int)justBornMultiSpecies.size(); iiph++) {
+                            for (size_t iiph = 0; iiph < justBornMultiSpecies.size(); iiph++) {
                                 if (jph == justBornMultiSpecies[iiph]) {
                                     notFound = false;
                                 }
@@ -241,19 +238,19 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
 
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase& tp = thermo(iph);
-        string pname = tp.id();
-        int istart = m_PhaseSpeciesStartIndex[iph];
-        int nsp = tp.nSpecies();
-        for (int ik = 0; ik < nsp; ik++) {
-            int k = istart + ik;
+        std::string pname = tp.id();
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+        for (size_t ik = 0; ik < nsp; ik++) {
+            size_t k = istart + ik;
             // HKM -> Note this technique lead to round off error for this case. spMoleIntegratedSourceTerm_[k]
             //        had numerical roundoff error in the 5th or 6th digit.
             //    spMoleIntegratedSourceTerm_[k] = (spMoles_tmp[k] - spMoles_init_[k]);
 
-            if ((int) iph == solnPhase_) {
+            if (iph == solnPhase_) {
                 continue;
             }
-            if ((int) iph == metalPhase_) {
+            if (iph == metalPhase_) {
                 continue;
             }
             // NOTHING CHANGES HERE -> this is what we mean by infinite capacity

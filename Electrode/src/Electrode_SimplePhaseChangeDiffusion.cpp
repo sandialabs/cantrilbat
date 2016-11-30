@@ -29,14 +29,15 @@ namespace Cantera
 #endif
 {
 //======================================================================================================================
-/*
- *  ELECTRODE_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
 Electrode_SimplePhaseChangeDiffusion::Electrode_SimplePhaseChangeDiffusion() :
     Electrode(),
+    phaseIndexOuterSolidPhase_(-1),
+    MD_OuterSolidPhase_(0.0),
+    index_Li_int_(npos),
+    pindex_Li7_int(npos),
+    phaseIndexInnerSolidPhase_(-1),
+    MD_InnerSolidPhase_(0.0),
+
     zeroedInnerRadius_(false) ,
     deltaTZeroed_(0.0),
     NoInnerSolid_(false),
@@ -47,26 +48,14 @@ Electrode_SimplePhaseChangeDiffusion::Electrode_SimplePhaseChangeDiffusion() :
     CAP_init_(0.0),
     CAP_final_(0.0)
 {
-
-
 }
-
 //======================================================================================================================
 // Copy Constructor
 /*
  * @param right Object to be copied
  */
 Electrode_SimplePhaseChangeDiffusion::Electrode_SimplePhaseChangeDiffusion(const Electrode_SimplePhaseChangeDiffusion& right) :
-    Electrode(),
-    zeroedInnerRadius_(false),
-    deltaTZeroed_(0.0),
-    NoInnerSolid_(false),
-    SolidInnerKSpecies_(-1),
-    SolidInnerKSpeciesReacStoichCoeff_(0.0),
-    SolidOuterKSpecies_(-1),
-    SolidOuterKSpeciesProdStoichCoeff_(0.0),
-    CAP_init_(0.0),
-    CAP_final_(0.0)
+    Electrode_SimplePhaseChangeDiffusion()
 {
     /*
      * Call the assignment operator.
@@ -148,7 +137,7 @@ Electrode_SimplePhaseChangeDiffusion::electrode_model_create(ELECTRODE_KEY_INPUT
     /*
      *  Identify the global index of the inner solid phase
      */
-    int pindex_Li13_int = globalPhaseIndex("Li13Si4(S)");
+    size_t pindex_Li13_int = globalPhaseIndex("Li13Si4(S)");
     phaseIndexInnerSolidPhase_ = pindex_Li13_int;
 
     tp = & thermo(pindex_Li13_int);
@@ -382,7 +371,7 @@ void  Electrode_SimplePhaseChangeDiffusion::check_final_CAP()
 
     cap *= particleNumberToFollow_;
 
-    int kStart = m_PhaseSpeciesStartIndex[pindex_Li7_int];
+    size_t kStart = m_PhaseSpeciesStartIndex[pindex_Li7_int];
     double spi = spMoles_final_[kStart];
 
     double denom = cap + spi + 1.0E4 * molarAtol_;
@@ -715,19 +704,19 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
              *  Get the net production vector
              */
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-            int nphRS = RSD_List_[isk]->nPhases();
-            int jph, kph;
-            int kIndexKin = 0;
+            size_t nphRS = RSD_List_[isk]->nPhases();
+            size_t jph, kph;
+            size_t kIndexKin = 0;
             for (kph = 0; kph < nphRS; kph++) {
                 jph = RSD_List_[isk]->kinOrder[kph];
-                int istart = m_PhaseSpeciesStartIndex[jph];
-                int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-                for (int k = 0; k < nsp; k++) {
+                size_t istart = m_PhaseSpeciesStartIndex[jph];
+                size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+                for (size_t k = 0; k < nsp; k++) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                     if (rsSpeciesProductionRates[kIndexKin] > 0.0) {
                         if ((phaseMoles_init_[jph] <= 0.0) && (jph != metalPhase_)) {
                             bool notFound = true;
-                            for (int iiph = 0; iiph < (int)justBornMultiSpecies.size(); iiph++) {
+                            for (size_t iiph = 0; iiph < justBornMultiSpecies.size(); iiph++) {
                                 if (jph == justBornMultiSpecies[iiph]) {
                                     notFound = false;
                                 }
@@ -748,7 +737,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
     }
 
     updateState();
-    int kStart = m_PhaseSpeciesStartIndex[pindex_Li7_int];
+    size_t kStart = m_PhaseSpeciesStartIndex[pindex_Li7_int];
     ThermoPhase* tphase = & thermo(pindex_Li7_int);
 
     if (mf_external_final_ <= 1.0E-64) {
@@ -791,7 +780,6 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
 //===============================================================================================================
 void Electrode_SimplePhaseChangeDiffusion::updateState()
 {
-
     /*
      * This may be redundant. However, I want to make sure mole fractions are
      * consistent with final moles.
@@ -1046,10 +1034,10 @@ restartStep:
             int retn = phasePop(bornMultiSpecies, DATA_PTR(Xf_tmp), deltaTsubcycle);
             if (retn == 0) {
                 tp->setMoleFractions(DATA_PTR(Xf_tmp));
-                int istart = m_PhaseSpeciesStartIndex[bornMultiSpecies];
-                int nsp =  m_PhaseSpeciesStartIndex[bornMultiSpecies+1] - istart;
-                for (int kp = 0; kp < nsp; kp++) {
-                    int k = istart + kp;
+                size_t istart = m_PhaseSpeciesStartIndex[bornMultiSpecies];
+                size_t nsp =  m_PhaseSpeciesStartIndex[bornMultiSpecies+1] - istart;
+                for (size_t kp = 0; kp < nsp; kp++) {
+                    size_t k = istart + kp;
                     spMf_tmp[k] = Xf_tmp[kp];
                 }
                 if (bornMultiSpecies == pindex_Li7_int) {
@@ -1204,7 +1192,7 @@ restartStep:
         }
 
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
-            int iph = phaseIndexFromGlobalSpeciesIndex(k);
+            size_t iph = phaseIndexFromGlobalSpeciesIndex(k);
             if (iph == metalPhase_) {
                 continue;
             }
@@ -1213,7 +1201,7 @@ restartStep:
              *  to get it to zero.
              */
             if (spMoles_tmp[k] < 0.0) {
-                printf("Warning sPMoles_tmp[%d, iph=%d] = %g\n", (int) k, iph, spMoles_tmp[k]);
+                printf("Warning sPMoles_tmp[%d, iph=%d] = %g\n", static_cast<int>(k), static_cast<int>(iph), spMoles_tmp[k]);
                 spMoles_tmp[k] = 0.0;
             }
         }
@@ -1224,29 +1212,27 @@ restartStep:
         for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
             ThermoPhase& tp = thermo(iph);
             string pname = tp.id();
-            int istart = m_PhaseSpeciesStartIndex[iph];
-            int nsp = tp.nSpecies();
-            for (int ik = 0; ik < nsp; ik++) {
-                int k = istart + ik;
+            size_t istart = m_PhaseSpeciesStartIndex[iph];
+            size_t nsp = tp.nSpecies();
+            for (size_t ik = 0; ik < nsp; ik++) {
+                size_t k = istart + ik;
                 spMoleIntegratedSourceTerm_[k] += (spMoles_tmp[k] - spMoles_init_[k]);
                 spMoleIntegratedSourceTermLast_[k] = (spMoles_tmp[k] - spMoles_init_[k]);
-                if (iph == (size_t) solnPhase_) {
+                if (iph == solnPhase_) {
                     continue;
                 }
-                if (iph == (size_t) metalPhase_) {
+                if (iph == metalPhase_) {
                     continue;
                 }
                 spMoles_final_[k] = spMoles_tmp[k];
             }
         }
 
-
         if (tfinal_ >= (t_final_final_)) {
             notDone = false;
         }
 
         updateState();
-
 
         /*
          *  Do a check on the final molar amounts of the inner solid
@@ -1336,7 +1322,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iphI, int pSr
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iph,pname.c_str());
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     if ((size_t) iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
@@ -1397,13 +1383,13 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iphI, int pSr
 
         double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-        int nphRS = RSD_List_[isph]->nPhases();
-        int kIndexKin = 0;
-        for (int kph = 0; kph < nphRS; kph++) {
-            int jph = RSD_List_[isph]->kinOrder[kph];
-            int istart = m_PhaseSpeciesStartIndex[jph];
-            int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-            for (int k = 0; k < nsp; k++) {
+        size_t nphRS = RSD_List_[isph]->nPhases();
+        size_t kIndexKin = 0;
+        for (size_t kph = 0; kph < nphRS; kph++) {
+            size_t jph = RSD_List_[isph]->kinOrder[kph];
+            size_t istart = m_PhaseSpeciesStartIndex[jph];
+            size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+            for (size_t k = 0; k < nsp; k++) {
                 spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                 kIndexKin++;
             }

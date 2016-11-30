@@ -2857,7 +2857,6 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
      */
     //calcResid_2(resid, evalType);
     calcResid(resid, evalType);
-
   
     int index = 1;
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
@@ -2886,15 +2885,7 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
                 printf("      |              | ");
             }
             if (justDiedPhase_[iph]) {
-                if (justDiedPhase_[2] && justDiedPhase_[3]) {
-                    printf("we are here 2 & 3 - how?\n");
-                }
-#ifdef DEBUG_ELECTRODE
-                if (justDiedPhase_[3]) {
-                    printf("we are here - 3 death\n");
-                }
-#endif
-                printf("   --- PHASE DEATH ---");
+                printf("   --- PHASE DEATH for phase %d ---", iph);
             }
             printf("\n");
         }

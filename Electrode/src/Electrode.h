@@ -2922,17 +2922,17 @@ protected:
      */
     std::vector<double> phaseMoles_dot_;
 
-    //! Vector of phase numbers for phases that are just coming into existence
+    //! Boolean vector to indicate phases that are just coming into existence during an intermediate step
     /*!
      *   This is a vector that is pertinent for intermediate time steps.
-     *   A phase will be just Born when it is coming into existence at that
-     *   particular intermediate time step.
+     *   A phase will be just Born when it is coming into existence at that particular intermediate time step.
      *
-     *   length = number of phases being born.
+     *   length = number of total phases
+     *   value = 0 or 1
      */
-    std::vector<size_t> justBornPhase_;
+    std::vector<int> justBornPhase_;
 
-    //! Vector of phase numbers for phases that are just dying
+    //! Boolean vector to indicate phases that are just dying during an intermediate step
     /*!
      *   This is a vector that is pertinent for intermediate time steps.
      *   A phase will be just Died when it goes out of existence at that
@@ -2941,8 +2941,9 @@ protected:
      *  Note this vector may have an effect on the algorithm.
      *
      *  Length = number of total phases
+     *  value = 0 or 1 
      */
-    std::vector<size_t> justDiedPhase_;
+    std::vector<int> justDiedPhase_;
 
     // ---------------   SURFACE AREAS -----------------------------------------
 

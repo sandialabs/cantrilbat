@@ -943,12 +943,16 @@ protected:
     int minPH_;
 
 
-    std::vector<int> phaseMFBig_;
+    std::vector<size_t> phaseMFBig_;
 
-    //! Actual vector of phases that have died during the current subgrid step.
+    //! Contains a boolean for phases which have died during the current subgrid step.
+    /*!
+     *  length: m_NumTotPhases
+     *  either has a value of 0 or 1
+     */
     std::vector<int> justDied_;
 
-    std::vector<double>    phaseMoles_final_lagged_;
+    std::vector<double> phaseMoles_final_lagged_;
 
     std::vector<double> DphMoles_final_;
 

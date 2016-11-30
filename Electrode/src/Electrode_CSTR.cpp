@@ -1,5 +1,5 @@
-/*
- * $Id: Electrode_CSTR.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file Electrode_CSTR.h
  */
 
 #include "Electrode_CSTR.h"
@@ -97,10 +97,6 @@ Electrode_CSTR::Electrode_CSTR() :
     numSpecInSolidPhases_(0),
     deltaSpMoles_(0),
     minPH_(-1),
-    //spMoles_predict_(0),
-    //soln_predict_(0),
-    phaseMFBig_(0),
-    justDied_(0),
     phaseMoles_final_lagged_(0),
     DphMoles_final_(0),
     KineticsPhaseExistence_(0)
@@ -142,8 +138,6 @@ Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
     deltaSpMoles_(0),
     minPH_(-1),
 
-    phaseMFBig_(0),
-    justDied_(0),
     phaseMoles_final_lagged_(0),
     DphMoles_final_(0),
     KineticsPhaseExistence_(0)
@@ -1854,22 +1848,17 @@ REDO:
             return -2;
         }
 
-        for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-            int iph = phaseIndexSolidPhases_[ph];
+        for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+            size_t iph = phaseIndexSolidPhases_[ph];
             if (justDied_[iph] != justDiedPhase_[iph]) {
-                int index = 1 + ph;
+                size_t index = 1 + ph;
                 std::vector<double>& ylow = pSolve_->lowBoundsConstraintVector();
                 if (justDied_[iph] == 1) {
 #ifdef DEBUG_ELECTRODE
                     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
                         printf("\t\tPhase %d has just died according to the residual\n", iph);
                     }
-                    if (justDiedPhase_[3]) {
-                        printf("we are here 3 death in residual - how?\n");
-                    }
 #endif
-                    // HKM OK we have shown that this logic is BOGUS!!!
-
                     justDiedPhase_[iph] = 1;
                     if (ylow[index] >= 0.0) {
                         ylow[index] = -1.0E30;
@@ -1957,11 +1946,11 @@ REDO:
             printf("\t\t %20s  %12.4e  %12.4e  %12.4e | %12.4e %12.4e", ss.c_str(), spMoles_init_[k], spMoles_final_[k],
                    spMf_final_[k], src, spMoles_init_[k] + src);
             bool found = false;
-            for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-                int iph = phaseIndexSolidPhases_[ph];
+            for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+                size_t iph = phaseIndexSolidPhases_[ph];
                 if (numSpecInSolidPhases_[ph] > 1) {
-                    int iStart = globalSpeciesIndex(iph, 0);
-                    for (int sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
+                    size_t iStart = globalSpeciesIndex(iph, 0);
+                    for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
                         if (sp != phaseMFBig_[iph]) {
                             size_t i = iStart + sp;
                             if (i == k) {
@@ -1977,9 +1966,7 @@ REDO:
                 printf("      |              | ");
             }
             printf("\n");
-
         }
-
     }
 
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
@@ -2023,7 +2010,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
 
     int index = 0;
 
-    int sp;
+    size_t sp;
     std::vector<double> phaseMoles_pos_(m_NumTotPhases, 0.0);
     // The first residual is the size of the time step
     resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
@@ -2047,8 +2034,8 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
     int minPHtmp = minPH_;
     if (evalType != JacDelta_ResidEval) {
 
-        for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-            int iph = phaseIndexSolidPhases_[ph];
+        for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+            size_t iph = phaseIndexSolidPhases_[ph];
 
             if (phaseMoles_init_[iph] > 0.0) {
                 if ((DphMoles_final_[iph] < 0.0) &&
@@ -2056,7 +2043,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
                     bool allNeg = true;
                     if (numSpecInSolidPhases_[ph] > 1) {
                         for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                            int isp = globalSpeciesIndex(iph, sp);
+                            size_t isp = globalSpeciesIndex(iph, sp);
                             tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTdeath;
                             if (spMoles_init_[isp] > 0.0 ||  DspMoles_final_[isp] > 0.0) {
                                 if (tmp > 0.0) {
@@ -2136,12 +2123,12 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
     }
     index++;
 
-    for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-        int iph = phaseIndexSolidPhases_[ph];
+    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+        size_t iph = phaseIndexSolidPhases_[ph];
         if (numSpecInSolidPhases_[ph] > 1) {
             phaseMoles_pos_[iph] = 0.0;
             for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                int isp = globalSpeciesIndex(iph,sp);
+                size_t isp = globalSpeciesIndex(iph, sp);
                 tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
                 if (tmp > 0.0) {
                     phaseMoles_pos_[iph] += tmp;
@@ -2152,19 +2139,19 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
         }
     }
 
-    for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-        int iph = phaseIndexSolidPhases_[ph];
+    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+        size_t iph = phaseIndexSolidPhases_[ph];
         double tmp3 = phaseMoles_init_[iph] + DphMoles_final_[iph] * deltaTsubcycleCalc_;
         resid[index] = phaseMoles_final_[iph] - tmp3;
         index++;
     }
 
 
-    for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-        int iph = phaseIndexSolidPhases_[ph];
+    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+        size_t iph = phaseIndexSolidPhases_[ph];
         if (numSpecInSolidPhases_[ph] > 1) {
             for (sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                int isp = globalSpeciesIndex(iph,sp);
+                size_t isp = globalSpeciesIndex(iph,sp);
                 double frac;
                 if (DphMoles_final_[iph] == 0.0 && phaseMoles_init_[iph] == 0.0) {
                     frac = spMf_init_[isp];
@@ -2182,8 +2169,8 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
                         frac = (spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_) / phaseMoles_pos_[iph];
                     } else {
                         double ptmp = 0.0;
-                        for (int ssp = 0; ssp < numSpecInSolidPhases_[ph]; ssp++) {
-                            int iisp = globalSpeciesIndex(iph, ssp);
+                        for (size_t ssp = 0; ssp < numSpecInSolidPhases_[ph]; ssp++) {
+                            size_t iisp = globalSpeciesIndex(iph, ssp);
                             tmp = spMoles_init_[iisp] + DspMoles_final_[iisp] * deltaTsubcycleCalc_;
                             if (tmp > 0.0) {
                                 ptmp += tmp;
