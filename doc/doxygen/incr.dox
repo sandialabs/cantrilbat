@@ -777,8 +777,6 @@ WARN_LOGFILE           =
 
 INPUT                  = ../../util_src/src \
                          . \
-                         ../../Electrode/src/PhaseList.h \
-                         ../../Electrode/src/PhaseList.cpp \
                          ../../Electrode/src/importPL.h \
                          ../../Electrode/src/importPL.cpp  \
                          ../../Electrode/src/ReactingSurDomain.h \

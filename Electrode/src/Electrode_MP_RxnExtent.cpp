@@ -480,10 +480,10 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     }
 
 
-    for (size_t ph = 0; ph < NumVolPhases_; ph++) {
+    for (size_t ph = 0; ph < m_NumVolPhases; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
         size_t iph = globalPhaseIndex(tp);
-        if (static_cast<int>(iph) == metalPhaseIndex() || static_cast<int>(iph) == solnPhaseIndex()) {
+        if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
             //do nothing
         } else {
             phaseIndexSolidPhases_.push_back(iph);
@@ -699,8 +699,6 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
                            " Expecting a child ELECTRODE_KEY_INPUT object,ELECTRODE_MP_RxnExtent_KEY_INPUT,  and didn't get it");
     }
 
-
-
     int flag = Electrode_Integrator::setInitialConditions(ei);
     if (flag != 0) {
         return flag;
@@ -712,10 +710,10 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
         setRelativeCapacityDischargedPerMole(ei->RelativeCapacityDischargedPerMole);
     }
 
-    for (size_t ph = 0; ph < NumVolPhases_; ph++) {
+    for (size_t ph = 0; ph < m_NumVolPhases; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
         size_t iph = globalPhaseIndex(tp);
-        if (static_cast<int>(iph) == metalPhaseIndex() || static_cast<int>(iph) == solnPhaseIndex()) {
+        if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
             //do nothing
         } else {
             phaseIndexSolidPhases_.push_back(iph);
@@ -4579,20 +4577,19 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     printf("     ============================================================================================\n");
     printf("          PHASE %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
-    if (iph >= NumVolPhases_) {
+    if (iph >= m_NumVolPhases) {
         printf("                Molar Volume = %11.5E cm3 gmol-1\n", 0.0);
         printf("                Molar Area   = %11.5E cm2 gmol-1\n", mv * 10.);
     } else {
         printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
     }
-
-    if (iphI == metalPhase_) {
+    if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -4607,15 +4604,15 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
             printf("                Current = NA amps \n");
         }
     }
-    if (iphI == metalPhase_ || iphI == solnPhase_) {
+    if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                Electric Potential = %g volts\n", tp.electricPotential());
     }
     /*
      * Do specific surface phase printouts
      */
     double radius;
-    if (iph >= NumVolPhases_) {
-        //isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        //isph = iph - m_NumVolPhases;
         if (indexOfReactingSurface_ == 1) {
             isurf = 1;
         } else {
@@ -4657,8 +4654,8 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
     if (printDetail > 3) {
         printf("\n");
         printf("                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)\n");
-        for (int k = 0; k < nsp; k++) {
-            string sname = tp.speciesName(k);
+        for (size_t k = 0; k < nsp; k++) {
+            std::string sname = tp.speciesName(k);
             if (pSrc) {
                 if (subTimeStep) {
                     printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],
@@ -4681,25 +4678,25 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
         }
     }
     if (pSrc) {
-        if (iph >= NumVolPhases_) {
+        if (iph >= m_NumVolPhases) {
             const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-            int nphRS = RSD_List_[isurf]->nPhases();
+            size_t nphRS = RSD_List_[isurf]->nPhases();
             int kIndexKin = 0;
-            for (int kph = 0; kph < nphRS; kph++) {
-                int jph = RSD_List_[isurf]->kinOrder[kph];
-                int istart = m_PhaseSpeciesStartIndex[jph];
-                int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+            for (size_t kph = 0; kph < nphRS; kph++) {
+                size_t jph = RSD_List_[isurf]->kinOrder[kph];
+                size_t istart = m_PhaseSpeciesStartIndex[jph];
+                size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
                 if (goNowhere_) {
-                    for (int k = 0; k < nsp; k++) {
+                    for (size_t k = 0; k < nsp; k++) {
                         spNetProdPerArea[istart + k] = 0.0;
                         kIndexKin++;
                     }
                 } else {
-                    for (int k = 0; k < nsp; k++) {
+                    for (size_t k = 0; k < nsp; k++) {
                         spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                         kIndexKin++;
                     }

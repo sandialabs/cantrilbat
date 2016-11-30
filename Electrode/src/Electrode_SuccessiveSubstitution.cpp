@@ -96,13 +96,13 @@ int Electrode_SuccessiveSubstitution::integrate(double deltaT, double rtolResid,
 {
 
     counterNumberIntegrations_++;
-    vector<double> phaseMoles_tmp(m_NumTotPhases, 0.0);
-    vector<double> phaseMoles_init_init(m_NumTotPhases, 0.0);
-    vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
-    vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
-    vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
-    vector<double> delta(m_NumTotSpecies, 0.0);
-    vector<int> justBornMultiSpecies(0);
+    std::vector<double> phaseMoles_tmp(m_NumTotPhases, 0.0);
+    std::vector<double> phaseMoles_init_init(m_NumTotPhases, 0.0);
+    std::vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> delta(m_NumTotSpecies, 0.0);
+    std::vector<size_t> justBornMultiSpecies(0);
 
     std::copy(spMoles_init_.begin(), spMoles_init_.end(), spMoles_init_init_.begin());
     std::copy(spMoles_final_.begin(), spMoles_final_.end(), spMoles_final_final_.begin());
@@ -180,7 +180,7 @@ redoTS:
          * We start a predictor corrector damping cycle here
          */
         for (int iPredCorr = 0; iPredCorr < 200; iPredCorr++) {
-            int bornMultiSpecies = -1;
+            size_t bornMultiSpecies = npos;
 
 restartStep:
 
@@ -339,21 +339,21 @@ restartStep:
              * algorithm to work.
              *  The seed needs to be set at a fraction of the initial mole number
              */
-            if (bornMultiSpecies >= 0) {
+            if (bornMultiSpecies != npos) {
                 ThermoPhase* tp = PhaseList_[bornMultiSpecies];
                 tp->getMoleFractions(DATA_PTR(Xf_tmp));
                 int retn = phasePop(bornMultiSpecies, DATA_PTR(Xf_tmp), deltaTsubcycle_);
                 if (retn == 0) {
                     tp->setMoleFractions(DATA_PTR(Xf_tmp));
-                    int istart = m_PhaseSpeciesStartIndex[bornMultiSpecies];
-                    int nsp =  m_PhaseSpeciesStartIndex[bornMultiSpecies+1] - istart;
-                    for (int kp = 0; kp < nsp; kp++) {
-                        int k = istart + kp;
+                    size_t istart = m_PhaseSpeciesStartIndex[bornMultiSpecies];
+                    size_t nsp =  m_PhaseSpeciesStartIndex[bornMultiSpecies+1] - istart;
+                    for (size_t kp = 0; kp < nsp; kp++) {
+                        size_t k = istart + kp;
                         spMf_tmp[k] = Xf_tmp[kp];
                     }
                 }
                 justBornMultiSpecies.push_back(bornMultiSpecies);
-                bornMultiSpecies = -1;
+                bornMultiSpecies = npos;
                 goto   restartStep;
             }
 
@@ -584,13 +584,13 @@ int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const 
         spMoles_final_[k] = y[k];
     }
 
-    vector<double> phaseMoles_tmp(m_NumTotPhases, 0.0);
-    vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
-    vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
-    vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> phaseMoles_tmp(m_NumTotPhases, 0.0);
+    std::vector<double> spMf_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
+    std::vector<double> Xf_tmp(m_NumTotSpecies, 0.0);
 
-    vector<double> srcTerm(m_NumTotSpecies, 0.0);
-    static  vector<int> justBornMultiSpecies;
+    std::vector<double> srcTerm(m_NumTotSpecies, 0.0);
+    static  std::vector<size_t> justBornMultiSpecies;
 
 #ifdef OLD_FOLLOW
     followElectrolyteMoles_ = 1;
@@ -642,16 +642,16 @@ int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const 
         if (ActiveKineticsSurf_[isk]) {
             ReactingSurDomain* rsd = RSD_List_[isk];
             int nph = rsd->nPhases();
-            for (int jph = 0; jph < nph; jph++) {
-                int iph = rsd->kinOrder[jph];
+            for (size_t jph = 0; jph < nph; jph++) {
+                size_t iph = rsd->kinOrder[jph];
                 if (iph == metalPhase_) {
                     continue;
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
-                if ((size_t) iph >=  NumVolPhases_) {
+                if (iph >=  NumVolPhases_) {
                     // we are in a surface phase
-                    int isur = iph -  NumVolPhases_;
+                    size_t isur = iph -  NumVolPhases_;
                     double sa_init = surfaceAreaRS_init_[isur];
                     double sa_final = surfaceAreaRS_final_[isur];
                     if (sa_init > 0.0 || sa_final > 0.0) {
@@ -669,7 +669,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const 
                 if (iph == bornMultiSpecies) {
                     rsd->setPhaseExistence(jph, true);
                 }
-                for (int iiph = 0; iiph < (int) justBornMultiSpecies.size(); iiph++) {
+                for (size_t iiph = 0; iiph <  justBornMultiSpecies.size(); iiph++) {
                     if (iph == justBornMultiSpecies[iiph]) {
                         rsd->setPhaseExistence(jph, true);
                     }
@@ -705,19 +705,19 @@ int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const 
              *  Get the net production vector
              */
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-            int nphRS = RSD_List_[isk]->nPhases();
-            int jph, kph;
+            size_t nphRS = RSD_List_[isk]->nPhases();
+            size_t jph, kph;
             int kIndexKin = 0;
             for (kph = 0; kph < nphRS; kph++) {
                 jph = RSD_List_[isk]->kinOrder[kph];
-                int istart = m_PhaseSpeciesStartIndex[jph];
-                int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-                for (int k = 0; k < nsp; k++) {
+                size_t istart = m_PhaseSpeciesStartIndex[jph];
+                size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+                for (size_t k = 0; k < nsp; k++) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                     if (rsSpeciesProductionRates[kIndexKin] > 0.0) {
                         if ((phaseMoles_init_[jph] <= 0.0) && (jph != metalPhase_)) {
                             bool notFound = true;
-                            for (int iiph = 0; iiph < (int)justBornMultiSpecies.size(); iiph++) {
+                            for (size_t iiph = 0; iiph < justBornMultiSpecies.size(); iiph++) {
                                 if (jph == justBornMultiSpecies[iiph]) {
                                     notFound = false;
                                 }

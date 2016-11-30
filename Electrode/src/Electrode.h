@@ -515,7 +515,7 @@ public:
      *
      *   @return                          Returns the number of reactions
      */
-    size_t nReactions(int isk) const ;
+    size_t nReactions(size_t isk) const ;
 
     //! Return a vector of surface phase areas.
     /*!
@@ -608,7 +608,7 @@ public:
      *                     units = kmol
      *                     size = number of species in the electrolyte phase
      */
-    virtual void setPhaseMoleNumbers(int iph, const double* const moleNum);
+    virtual void setPhaseMoleNumbers(size_t iph, const double* const moleNum);
     
   
 protected:
@@ -667,7 +667,7 @@ public:
      *
      *   @return                     Returns the current columb sec-1 m-2
      */
-    doublevalue getNetSurfaceProductionRatesCurrent(const int isk, doublevalue* const net) const;
+    doublevalue getNetSurfaceProductionRatesCurrent(const size_t isk, doublevalue* const net) const;
 
     //! Get the net production rates of all species in the electrode object
     //! at the current conditions from one surface kinetics object
@@ -677,7 +677,7 @@ public:
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/m^2/s]. Return the species    
      */
-    void getNetSurfaceProductionRates(const int isk, doublevalue* const net) const;
+    void getNetSurfaceProductionRates(const size_t isk, doublevalue* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     /*!
@@ -687,7 +687,7 @@ public:
      *  @param[in]          isk                  Surface ID to get the fluxes from.
      *  @param[out]         phaseMassFlux        Returns the mass fluxes of the phases
      */
-    void getPhaseMassFlux(const int isk, doublevalue* const phaseMassFlux);
+    void getPhaseMassFlux(const size_t isk, doublevalue* const phaseMassFlux);
 
     //!  Returns the net production rates of the phases in kmol/m2/s from a single surface
     /*!
@@ -697,7 +697,7 @@ public:
      *  @param[in]          isk                  Surface ID to get the fluxes from.
      *  @param[out]         phaseMoleFlux        Returns the vector of mole fluxes of the phases (kmol/m2/s)
      */
-    void getPhaseMoleFlux(const int isk, doublevalue* const phaseMoleFlux);
+    void getPhaseMoleFlux(const size_t isk, doublevalue* const phaseMoleFlux);
     
     //!  Returns the phase molar production rates given the species production rates
     /*!
@@ -1426,7 +1426,7 @@ public:
      *
      * @return                                  Returns the number of moles in kmol
      */
-    double elementSolidMoles(int ie) const;
+    double elementSolidMoles(size_t ie) const;
 
     
 
@@ -1444,7 +1444,7 @@ public:
      *
      *   @return                              Returns the electrochemical potential (J / kmol)
      */
-    double speciesElectrochemPotential(int globalSpeciesIndex) const;
+    double speciesElectrochemPotential(size_t globalSpeciesIndex) const;
 
     //! Returns the chemical potential of a single species
     /*!
@@ -1452,7 +1452,7 @@ public:
      *
      *   @return                              Returns the chemical potential (J / kmol)
      */
-    double speciesChemPotential(int globalSpeciesIndex) const;
+    double speciesChemPotential(size_t globalSpeciesIndex) const;
 
     //! Get mole fractions of all species in the phase object
     /*!
@@ -1467,7 +1467,7 @@ public:
      *
      *  @return                              Returns the mole fraction of the indicated species
      */
-    double moleFraction(int globalSpeciesIndex) const;
+    double moleFraction(size_t globalSpeciesIndex) const;
 
     //! Get mole numbers of all species in the phase object
     /*!
@@ -1496,7 +1496,7 @@ public:
      *
      *  @return                                  Returns the mole number. Units are kmol.
      */
-    double moleNumSpecies(int globalSpeciesIndex) const;
+    double moleNumSpecies(size_t globalSpeciesIndex) const;
 
     //! Returns the index of a phase in the ReactionSurfaceDomain object
     //! given the index of that phase in the PhaseList object
@@ -1507,10 +1507,10 @@ public:
      *                                         Electrode_Model object.
      *
      *  @return                                Returns the index of the phase in the current ReactingSurDomain
-     *                                         object. A value of -1 in this slot means that the phase doesn't
+     *                                         object. A value of npos in this slot means that the phase doesn't
      *                                         participate in the current ReactingSurDomain object
      */
-    int ReactingSurfacePhaseIndex(int isk, int PLph) const;
+    size_t ReactingSurfacePhaseIndex(size_t isk, size_t PLph) const;
 
     //! Take the state (i.e., the final state) within the Electrode object and push it down
     //! to the ThermoPhase objects and other variables that are part of the Electrode object
@@ -1649,7 +1649,7 @@ protected:
      *
      *   @return                               Returns the reactant stoichiometric coefficient.
      */
-    double reactantStoichCoeff(const int isk, int kGlobal, int i) const;
+    double reactantStoichCoeff(const size_t isk, size_t kGlobal, size_t i) const;
 
     //! Product stoichiometric coefficient
     /*!
@@ -1662,7 +1662,7 @@ protected:
      *
      *  @return                                 Returns the product stoichiometric coefficient
      */
-    double productStoichCoeff(const int isk, int kGlobal, int i) const;
+    double productStoichCoeff(const size_t isk, size_t kGlobal, size_t i) const;
 
 public:
 
@@ -1922,13 +1922,13 @@ public:
      *
      *  @return                               Returns the kinetic species index
      */
-    int kKinSpecElectron(const int isph) const;
+    size_t kKinSpecElectron(const size_t isph) const;
 
     //!  Return the global species index of the electron in the Electrode object
     /*!
      *  @return                               Returns the global species index of the electron in the PhaseList
      */
-    int kSpecElectron() const;
+    size_t kSpecElectron() const;
 
     //! Return the global index of the phase corresponding to the currently active metal
     /*!
@@ -1936,19 +1936,19 @@ public:
      *
      *  @return                              Returns the index of the metal phase in the PhaseList
      */
-    int metalPhaseIndex() const;
+    size_t metalPhaseIndex() const;
 
     //! Return the index of the phase corresponding to the soln
     /*!
      *   @return                             Returns the index of thesolution phase within the %PhaseList 
      */
-    int solnPhaseIndex() const;
+    size_t solnPhaseIndex() const;
 
     //! Returns the number of species in the electrolyte soln phase
     /*!
      *  @return                              Returns the number os species in the electrolyte phase
      */ 
-    virtual int numSolnPhaseSpecies() const;
+    virtual size_t numSolnPhaseSpecies() const;
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  --------------------------------------------------------
@@ -2930,7 +2930,7 @@ protected:
      *
      *   length = number of phases being born.
      */
-    std::vector<int> justBornPhase_;
+    std::vector<size_t> justBornPhase_;
 
     //! Vector of phase numbers for phases that are just dying
     /*!
@@ -2942,7 +2942,7 @@ protected:
      *
      *  Length = number of total phases
      */
-    std::vector<int> justDiedPhase_;
+    std::vector<size_t> justDiedPhase_;
 
     // ---------------   SURFACE AREAS -----------------------------------------
 
@@ -3214,26 +3214,25 @@ protected:
      *  this is the phase where the electron species exists.
      *      This object doesn't have to have a positive mole number to be active
      */
-    int metalPhase_;
+    size_t metalPhase_;
 
     //! Phase ID of the electrolyte solution
     /*!
      *  This is the phase where the product ions exist
      */
-    int solnPhase_;
+    size_t solnPhase_;
 
     //! Global index within this object of the electron species
-    int kElectron_;
+    size_t kElectron_;
 
-    //! Global index within each of the Reacting surface/ interfacial kinetics object
-    //! for the electron species
+    //! Global index within each of the Reacting surface/ interfacial kinetics object for the electron species
     /*!
      *  Length is equal to the number of surfaces
      *
-     *  A value of -1 indicates that either there is no surface kinetics object or there
+     *  A value of npos indicates that either there is no surface kinetics object or there
      *  is no electron that participates in the surface reactions
      */
-    std::vector<int> kKinSpecElectron_sph_;
+    std::vector<size_t> kKinSpecElectron_sph_;
 
     //! This is the Phi_metal - Phi_soln.
     //! In other words, the voltage drop across the interface.

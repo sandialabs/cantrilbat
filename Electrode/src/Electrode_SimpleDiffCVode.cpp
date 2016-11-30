@@ -552,10 +552,10 @@ void  Electrode_SimpleDiff::calcRate(double deltaTsubcycle)
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_SimpleDiff::extractInfo(std::vector<int>& justBornMultiSpecies)
+void  Electrode_SimpleDiff::extractInfo(std::vector<size_t>& justBornMultiSpecies)
 {
 
-    int bornMultiSpecies = -1;
+    size_t bornMultiSpecies = npos;
     double fwdROP[5], revROP[5], netROP[5];
 
 
@@ -582,9 +582,9 @@ void  Electrode_SimpleDiff::extractInfo(std::vector<int>& justBornMultiSpecies)
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
-                if (iph >=  NumVolPhases_) {
+                if (iph >=  m_NumVolPhases) {
                     // we are in a surface phase
-                    int isur = iph -  NumVolPhases_;
+                    size_t isur = iph -  m_NumVolPhases;
                     double sa_init = surfaceAreaRS_init_[isur];
                     double sa_final = surfaceAreaRS_final_[isur];
                     if (sa_init > 0.0 || sa_final > 0.0) {
@@ -602,7 +602,7 @@ void  Electrode_SimpleDiff::extractInfo(std::vector<int>& justBornMultiSpecies)
                 if (iph == bornMultiSpecies) {
                     rsd->setPhaseExistence(jph, true);
                 }
-                for (int iiph = 0; iiph < (int) justBornMultiSpecies.size(); iiph++) {
+                for (size_t iiph = 0; iiph <  justBornMultiSpecies.size(); iiph++) {
                     if (iph == justBornMultiSpecies[iiph]) {
                         rsd->setPhaseExistence(jph, true);
                     }
@@ -755,7 +755,7 @@ int Electrode_SimpleDiff::integrate(double deltaT, double rtolResid, double atol
 
     double deltaTsubcycle = deltaT;
     double deltaTsubcycleNext =  deltaT;
-    std::vector<int> justBornMultiSpecies(0);
+    std::vector<size_t> justBornMultiSpecies(0);
     tinit_ = t_init_init_;
     tfinal_ = tinit_;
     t_final_final_ = t_init_init_ + deltaT;
@@ -811,7 +811,7 @@ int Electrode_SimpleDiff::integrate(double deltaT, double rtolResid, double atol
 
 
         justBornMultiSpecies.clear();
-        int bornMultiSpecies = -1;
+        size_t bornMultiSpecies = npos;
 
         if (phaseMoles_init_[phaseIndexOuterSolidPhase_] <= 0.0) {
             justBornMultiSpecies.push_back(phaseIndexOuterSolidPhase_);
@@ -832,9 +832,9 @@ restartStep:
                         continue;
                     }
                     double mm = phaseMoles_init_[iph];
-                    if (iph >=  NumVolPhases_) {
+                    if (iph >=  m_NumVolPhases) {
                         // we are in a surface phase
-                        int isur = iph -  NumVolPhases_;
+                        int isur = iph -  m_NumVolPhases;
                         double sa_init = surfaceAreaRS_init_[isur];
                         double sa_final = surfaceAreaRS_final_[isur];
                         if (sa_init > 0.0 || sa_final > 0.0) {
@@ -914,7 +914,7 @@ restartStep:
          * algorithm to work.
          *  The seed needs to be set at a fraction of the initial mole number
          */
-        if (bornMultiSpecies >= 0) {
+        if (bornMultiSpecies != npos) {
             ThermoPhase* tp = PhaseList_[bornMultiSpecies];
             tp->getMoleFractions(DATA_PTR(Xf_tmp));
             int retn = phasePop(bornMultiSpecies, DATA_PTR(Xf_tmp), deltaTsubcycle);
@@ -934,7 +934,7 @@ restartStep:
                 }
             }
             justBornMultiSpecies.push_back(bornMultiSpecies);
-            bornMultiSpecies = -1;
+            bornMultiSpecies = npos;
             goto   restartStep;
         }
 
@@ -1230,8 +1230,8 @@ void Electrode_SimpleDiff::printElectrodePhase(int iph, int pSrc, bool subTimeSt
     if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
-    if (iph >= NumVolPhases_) {
-        isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        isph = iph - m_NumVolPhases;
         printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
         printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
         int ddd =  isExternalSurface_[isph];

@@ -924,7 +924,7 @@ void Electrode_RadialRegion::updateStateDistrib(bool zeroGlobals)
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_RadialRegion::extractInfoJustBorn(std::vector<int>& justBornMultiSpecies)
+void  Electrode_RadialRegion::extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies)
 {
 
     updateState();
@@ -1776,8 +1776,8 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
     if (iphI == metalPhase_ || iphI == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
-    if (iph >= NumVolPhases_) {
-        isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        isph = iph - m_NumVolPhases;
         printf("                surface area (final) = %11.5E m2\n",  surfaceAreaRS_final_[isph]);
         printf("                surface area (init)  = %11.5E m2\n",  surfaceAreaRS_init_[isph]);
         int ddd =  isExternalSurface_[isph];
@@ -1811,7 +1811,7 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
             }
         }
     }
-    if (iph >= NumVolPhases_) {
+    if (iph >= m_NumVolPhases) {
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 

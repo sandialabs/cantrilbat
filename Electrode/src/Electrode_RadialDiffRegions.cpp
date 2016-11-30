@@ -500,7 +500,7 @@ void Electrode_RadialDiffRegions::updateState()
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_RadialDiffRegions::extractInfoJustBorn(std::vector<int>& justBornMultiSpecies)
+void  Electrode_RadialDiffRegions::extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies)
 {
     updateState();
 }
@@ -540,16 +540,16 @@ void Electrode_RadialDiffRegions::printElectrode(int pSrc, bool subTimeStep)
 void Electrode_RadialDiffRegions::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
     size_t iph = iphI;
-    int isph = -1;
+    size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
-    string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    std::string pname = tp.id();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
     printf("          Phase %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
-    if (iphI == metalPhase_) {
+    if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -564,7 +564,7 @@ void Electrode_RadialDiffRegions::printElectrodePhase(int iphI, int pSrc, bool s
             printf("                Current = NA amps \n");
         }
     }
-    if (iphI == metalPhase_ || iphI == solnPhase_) {
+    if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
     if (iph >= NumVolPhases_) {
@@ -580,8 +580,8 @@ void Electrode_RadialDiffRegions::printElectrodePhase(int iphI, int pSrc, bool s
     }
     printf("\n");
     printf("                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
-    for (int k = 0; k < nsp; k++) {
-        string sname = tp.speciesName(k);
+    for (size_t k = 0; k < nsp; k++) {
+        std::string sname = tp.speciesName(k);
         if (pSrc) {
             if (subTimeStep) {
                 printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],

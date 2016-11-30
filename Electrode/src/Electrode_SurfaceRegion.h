@@ -78,7 +78,7 @@ public:
     void init_sizes();
 
     //! Get all of the reaction rates and parameters from Cantera
-    void extractInfoJustBorn(std::vector<int>& justBornMultiSpecies);
+    void extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies);
 
 
     //! Print conditions of the electrode for the current integration step to stdout

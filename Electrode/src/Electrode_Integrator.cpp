@@ -2443,7 +2443,7 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
 
     int m = m_NumTotPhases;
     if ((size_t) numSurfaces_ > m_NumSurPhases) {
-        m = numSurfaces_ + NumVolPhases_;
+        m = numSurfaces_ + m_NumVolPhases;
     }
     for (iph = 0; iph < m; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
@@ -2455,16 +2455,16 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
 void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
     size_t iph = iphI;
-    int isph = -1;
+    size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     std::string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
     printf("          Phase %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
-    if (iphI == metalPhase_) {
+    if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -2479,11 +2479,11 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
             printf("                Current = NA amps \n");
         }
     }
-    if (iphI == metalPhase_ || iphI == solnPhase_) {
+    if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
-    if (iph >= NumVolPhases_) {
-        isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        isph = iph - m_NumVolPhases;
         printf("                surface area (final) = %11.5E m2\n",  surfaceAreaRS_final_[isph]);
         printf("                surface area (init)  = %11.5E m2\n",  surfaceAreaRS_init_[isph]);
         int ddd =  isExternalSurface_[isph];
@@ -2495,7 +2495,7 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
     }
     printf("\n");
     printf("                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k < nsp; k++) {
         std::string sname = tp.speciesName(k);
         if (pSrc) {
             if (subTimeStep) {
@@ -2517,7 +2517,7 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
             }
         }
     }
-    if (iph >= NumVolPhases_) {
+    if (iph >= m_NumVolPhases) {
         const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 

@@ -322,9 +322,6 @@ public:
     double calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const;
 #endif
 
-
- 
-
     //!  Identify the metal phase and the electrons species
     /*!
      *   We fill in the internal variables, metalPhaseRS_ and kElectronRS_ here
@@ -537,7 +534,6 @@ public:
      *  A value of -1 or npos in this slot means that the phase doesn't participate in the
      *  current ReactingSurDomain object
      */
-    //std::vector<int> PLtoKinPhaseIndex_;
     std::vector<size_t> PLtoKinPhaseIndex_;
 
     //! Vector of the indexes of each species in the ReactionSurfaceDomain object

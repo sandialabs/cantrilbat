@@ -76,7 +76,7 @@ public:
 
     void calcRate(double deltaT);
 
-    void extractInfo(std::vector<int>& justBornMultiSpecies);
+    void extractInfo(std::vector<size_t>& justBornMultiSpecies);
 
 
     //! Print conditions of the electrode for the current integration step to stdout

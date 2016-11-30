@@ -638,14 +638,11 @@ void  Electrode_SimplePhaseChangeDiffusion::calcRate(double deltaTsubcycle)
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
-void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBornMultiSpecies)
+void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& justBornMultiSpecies)
 {
 
-    int bornMultiSpecies = -1;
+    size_t bornMultiSpecies = npos;
     double fwdROP[5], revROP[5], netROP[5];
-
-
-
 
     updateState();
     /*
@@ -668,9 +665,9 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
-                if ((size_t) iph >=  NumVolPhases_) {
+                if ((size_t) iph >=  m_NumVolPhases) {
                     // we are in a surface phase
-                    int isur = iph -  NumVolPhases_;
+                    int isur = iph -  m_NumVolPhases;
                     double sa_init = surfaceAreaRS_init_[isur];
                     double sa_final = surfaceAreaRS_final_[isur];
                     if (sa_init > 0.0 || sa_final > 0.0) {
@@ -685,7 +682,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<int>& justBo
                         rsd->setPhaseExistence(jph, true);
                     }
                 }
-                if (iph == (size_t) bornMultiSpecies) {
+                if (iph == bornMultiSpecies) {
                     rsd->setPhaseExistence(jph, true);
                 }
                 for (size_t iiph = 0; iiph < justBornMultiSpecies.size(); iiph++) {
@@ -824,7 +821,7 @@ void Electrode_SimplePhaseChangeDiffusion::updateState()
         tphase->getPartialMolarVolumes(& (VolPM_[kStart]));
         tphase->getElectrochemPotentials(& (spElectroChemPot_[kStart]));
 
-        if ( iph < (size_t) NumVolPhases_) {
+        if (iph < m_NumVolPhases) {
             phaseMolarVolumes_[iph] = tphase->molarVolume();
         }
 
@@ -889,7 +886,7 @@ int Electrode_SimplePhaseChangeDiffusion::integrate(double deltaT, double  Globa
 
     double deltaTsubcycle = deltaT;
     double deltaTsubcycleNext =  deltaT;
-    std::vector<int> justBornMultiSpecies(0);
+    std::vector<size_t> justBornMultiSpecies(0);
     tinit_ = t_init_init_;
     tfinal_ = tinit_;
     t_final_final_ = t_init_init_ + deltaT;
@@ -940,7 +937,7 @@ int Electrode_SimplePhaseChangeDiffusion::integrate(double deltaT, double  Globa
 
 
         justBornMultiSpecies.clear();
-        int bornMultiSpecies = -1;
+        size_t bornMultiSpecies = npos;
 
         if (phaseMoles_init_[phaseIndexOuterSolidPhase_] <= 0.0) {
             justBornMultiSpecies.push_back(phaseIndexOuterSolidPhase_);
@@ -954,16 +951,16 @@ restartStep:
 
             if (ActiveKineticsSurf_[isk]) {
                 ReactingSurDomain* rsd = RSD_List_[isk];
-                int nph = rsd->nPhases();
-                for (int jph = 0; jph < nph; jph++) {
-                    int iph = rsd->kinOrder[jph];
+                size_t nph = rsd->nPhases();
+                for (size_t jph = 0; jph < nph; jph++) {
+                    size_t iph = rsd->kinOrder[jph];
                     if (iph == metalPhase_) {
                         continue;
                     }
                     double mm = phaseMoles_init_[iph];
-                    if ((size_t) iph >=  NumVolPhases_) {
+                    if (iph >= m_NumVolPhases) {
                         // we are in a surface phase
-                        int isur = iph -  NumVolPhases_;
+                        size_t isur = iph -  m_NumVolPhases;
                         double sa_init = surfaceAreaRS_init_[isur];
                         double sa_final = surfaceAreaRS_final_[isur];
                         if (sa_init > 0.0 || sa_final > 0.0) {
@@ -1043,7 +1040,7 @@ restartStep:
          * algorithm to work.
          *  The seed needs to be set at a fraction of the initial mole number
          */
-        if (bornMultiSpecies >= 0) {
+        if (bornMultiSpecies != npos) {
             ThermoPhase* tp = PhaseList_[bornMultiSpecies];
             tp->getMoleFractions(DATA_PTR(Xf_tmp));
             int retn = phasePop(bornMultiSpecies, DATA_PTR(Xf_tmp), deltaTsubcycle);
@@ -1063,7 +1060,7 @@ restartStep:
                 }
             }
             justBornMultiSpecies.push_back(bornMultiSpecies);
-            bornMultiSpecies = -1;
+            bornMultiSpecies = npos;
             goto   restartStep;
         }
 
@@ -1329,18 +1326,19 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrode(int pSrc, bool subTime
 }
 //===================================================================================================================
 
-void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
+void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
+    size_t iph = iphI;
     int isph = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
-    string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    std::string pname = tp.name();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
     printf("          Phase %d %s \n", iph,pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
-    if (iph == metalPhase_) {
+    if ((size_t) iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -1358,8 +1356,8 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
     if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
-    if ((size_t) iph >= NumVolPhases_) {
-        isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        isph = iph - m_NumVolPhases;
         printf("                surface area (final) = %11.5E m2\n",  surfaceAreaRS_final_[isph]);
         printf("                surface area (init)  = %11.5E m2\n",  surfaceAreaRS_init_[isph]);
         int ddd =  isExternalSurface_[isph];
@@ -1371,8 +1369,8 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
     }
     printf("\n");
     printf("                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
-    for (int k = 0; k < nsp; k++) {
-        string sname = tp.speciesName(k);
+    for (size_t k = 0; k < nsp; k++) {
+        std::string sname = tp.speciesName(k);
         if (pSrc) {
             if (subTimeStep) {
                 printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],
@@ -1393,7 +1391,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iph, int pSrc
             }
         }
     }
-    if ((size_t) iph >= NumVolPhases_) {
+    if (iph >= m_NumVolPhases) {
         const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 

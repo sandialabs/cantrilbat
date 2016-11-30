@@ -140,10 +140,9 @@ Electrode::Electrode() :
                 m_egr(0),
                 m_rmcEGR(0),
                 OCVoverride_ptrList_(0),
-                metalPhase_(-1),
-                solnPhase_(-1),
-                kElectron_(-1),
-                kKinSpecElectron_sph_(0),
+                metalPhase_(npos),
+                solnPhase_(npos),
+                kElectron_(npos),
                 deltaVoltage_(0.0),
                 electronKmolDischargedToDate_(0.0),
                 capacityLeftSpeciesCoeff_(0),
@@ -263,10 +262,9 @@ Electrode::Electrode(const Electrode& right) :
                 m_egr(0),
                 m_rmcEGR(0),
                 OCVoverride_ptrList_(0),
-                metalPhase_(-1),
-                solnPhase_(-1),
-                kElectron_(-1),
-                kKinSpecElectron_sph_(0),
+                metalPhase_(npos),
+                solnPhase_(npos),
+                kElectron_(npos),
                 deltaVoltage_(0.0),
                 electronKmolDischargedToDate_(0.0),
                 capacityLeftSpeciesCoeff_(0),
@@ -785,7 +783,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         }
     }
     if (isphfound == npos) {
-        for (size_t i = 0; i < NumVolPhases_; i++) {
+        for (size_t i = 0; i < m_NumVolPhases; i++) {
             if (VolPhaseHasKinetics[i]) {
                 break;
             }
@@ -951,7 +949,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         }
     }
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         phaseMoles_init_[iph] = phaseMoles_final_[iph];
         phaseMoles_init_init_[iph] = phaseMoles_final_[iph];
     }
@@ -960,23 +958,23 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      * Identify the phases which will ID the voltage drops
      *  metalPhase_ = Phase where the electron exists.
      */
-    metalPhase_ = -1;
-    solnPhase_ = -1;
-    kElectron_ = -1;
+    metalPhase_ = npos;
+    solnPhase_ = npos;
+    kElectron_ = npos;
     //   InterfaceKinetics *iK = m_rSurDomain;
     ReactingSurDomain* rsd = RSD_List_[0];
     std::vector<RxnMolChange*>& rmcV = rsd->rmcVector;
-    int nr = rmcV.size();
+    size_t nr = rmcV.size();
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tp = &(thermo(iph));
-        int nSpecies = tp->nSpecies();
-        int nElements = tp->nElements();
-        int eElectron = tp->elementIndex("E");
-        if (eElectron >= 0) {
-            for (int k = 0; k < nSpecies; k++) {
+        size_t nSpecies = tp->nSpecies();
+        size_t nElements = tp->nElements();
+        size_t eElectron = tp->elementIndex("E");
+        if (eElectron != npos) {
+            for (size_t k = 0; k < nSpecies; k++) {
                 if (tp->nAtoms(k, eElectron) == 1) {
                     int ifound = 1;
-                    for (int e = 0; e < nElements; e++) {
+                    for (size_t e = 0; e < nElements; e++) {
                         if (tp->nAtoms(k, e) != 0.0) {
                             if (e != eElectron) {
                                 ifound = 0;
@@ -990,10 +988,10 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                 }
             }
         }
-        if ((int) iph != metalPhase_) {
+        if (iph != metalPhase_) {
             size_t jph = rsd->PLtoKinPhaseIndex_[iph];
             if (jph != npos) {
-                for (int i = 0; i < nr; i++) {
+                for (size_t i = 0; i < nr; i++) {
                     RxnMolChange* rmc = rmcV[i];
                     if (rmc->m_phaseChargeChange[jph] != 0) {
                         if (rmc->m_phaseDims[jph] == 3) {
@@ -1005,16 +1003,16 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             }
         }
     }
-    if (solnPhase_ == -1) {
+    if (solnPhase_ == npos) {
         throw CanteraError("Electrode::electrode_model_create()", "Couldn't find soln phase");
     }
-    if (metalPhase_ == -1) {
+    if (metalPhase_ == npos) {
         throw CanteraError("Electrode::electrode_model_create()", "Couldn't find metal phase");
     }
 
-    kKinSpecElectron_sph_.resize(numSurfaces_, -1);
+    kKinSpecElectron_sph_.resize(numSurfaces_, npos);
     for (size_t isurf = 0; isurf < numSurfaces_; isurf++) {
-        kKinSpecElectron_sph_[isurf] = -1;
+        kKinSpecElectron_sph_[isurf] = npos;
         ReactingSurDomain* rsd = RSD_List_[isurf];
         if (rsd) {
             std::vector<RxnMolChange*>& rmcV = rsd->rmcVector;
@@ -1022,14 +1020,14 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                 InterfaceKinetics* iK = rsd;
                 for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
                     ThermoPhase* tp = &(thermo(iph));
-                    int nSpecies = tp->nSpecies();
-                    int nElements = tp->nElements();
-                    int eElectron = tp->elementIndex("E");
-                    if (eElectron >= 0) {
-                        for (int k = 0; k < nSpecies; k++) {
+                    size_t nSpecies = tp->nSpecies();
+                    size_t nElements = tp->nElements();
+                    size_t eElectron = tp->elementIndex("E");
+                    if (eElectron != npos) {
+                        for (size_t k = 0; k < nSpecies; k++) {
                             if (tp->nAtoms(k, eElectron) == 1) {
                                 int ifound = 1;
-                                for (int e = 0; e < nElements; e++) {
+                                for (size_t e = 0; e < nElements; e++) {
                                     if (tp->nAtoms(k, e) != 0.0) {
                                         if (e != eElectron) {
                                             ifound = 0;
@@ -1044,10 +1042,10 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                             }
                         }
                     }
-                    if ((int) iph != metalPhase_) {
+                    if (iph != metalPhase_) {
                         size_t jph = rsd->PLtoKinPhaseIndex_[iph];
                         if (jph != npos) {
-                            for (int i = 0; i < nr; i++) {
+                            for (size_t i = 0; i < nr; i++) {
                                 RxnMolChange* rmc = rmcV[i];
                                 if (rmc->m_phaseChargeChange[jph] != 0) {
                                     if (rmc->m_phaseDims[jph] == 3) {
@@ -1070,11 +1068,11 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  Find the maximum number of reactions in any reacting domain and the max of the number of species in the 
      *  Electrode object.
      */
-    int mR = spMoles_final_.size();
-    for (int isk = 0; isk < (int) RSD_List_.size(); isk++) {
+    size_t mR = spMoles_final_.size();
+    for (size_t isk = 0; isk <  RSD_List_.size(); isk++) {
         ReactingSurDomain* rsd = RSD_List_[isk];
         if (rsd) {
-            int nr = rsd->nReactions();
+            size_t nr = rsd->nReactions();
             if (mR < nr) {
                 mR = nr;
             }
@@ -1199,18 +1197,17 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     ElectrodeBath* BG = ei->m_BG;
 
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if ((int) iph == solnPhase_ || (int) iph == metalPhase_) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
+        size_t nspPhase = tp.nSpecies();
 
         double* vv = BG->CapZeroDoDCoeffPhases[iph];
         double* vl = BG->CapLeftCoeffPhases[iph];
-        for (int k = 0; k < nspPhase; k++) {
-            int iGlobSpeciesIndex = kStart + k;
-
+        for (size_t k = 0; k < nspPhase; k++) {
+            size_t iGlobSpeciesIndex = kStart + k;
             capacityLeftSpeciesCoeff_[iGlobSpeciesIndex] = vl[k];
             capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = vv[k];
 
@@ -1255,7 +1252,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  Now that we have identified the model type, make sure our list of phases is what
      *  we expect from the model type.
      */
-    int nRSD = RSD_List_.size();
+    size_t nRSD = RSD_List_.size();
     if (electrodeChemistryModelType_ == 1) {
         pmatch(PhaseNames_, 2, "Li13Si4(S)");
         pmatch(PhaseNames_, 3, "Li7Si3(S)");
@@ -1324,12 +1321,12 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 //==================================================================================================================================
 int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 {
-    int nspecies = 0;
+    size_t nspecies = 0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
 
         ThermoPhase* tphase = &(thermo(iph));
-        int nSpecies = tphase->nSpecies();
-        int kstart = nspecies;
+        size_t nSpecies = tphase->nSpecies();
+        size_t kstart = nspecies;
         nspecies += nSpecies;
 
         /*
@@ -1338,13 +1335,13 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
          *  later.
          */
         double sum = 0.0;
-        for (int k = 0; k < nSpecies; k++) {
+        for (size_t k = 0; k < nSpecies; k++) {
             spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] = ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
             sum += ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
         }
 
         if (sum > 0.0) {
-            for (int k = 0; k < nSpecies; k++) {
+            for (size_t k = 0; k < nSpecies; k++) {
                 spMf_final_[kstart + k] = spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] / sum;
             }
             tphase->setMoleFractions(&(spMf_final_[kstart]));
@@ -1808,16 +1805,16 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
  *                     units = kmol
  *                     size = number of species in the electrolyte phase
  */
-void Electrode::setPhaseMoleNumbers(int iph, const double* const moleNum)
+void Electrode::setPhaseMoleNumbers(size_t iph, const double* const moleNum)
 {
     if (pendingIntegratedStep_) {
         if (iph != solnPhase_) {
             throw CanteraError("Electrode::setPhaseMoleNumbers", "called when there is a pending step");
         }
     }
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
-    for (int k = 0; k < nsp; k++) {
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
+    for (size_t k = 0; k < nsp; k++) {
         spMoles_final_[istart + k] = std::max(moleNum[k], 0.0);
         spMoles_init_[istart + k] = spMoles_final_[istart + k];
         spMoles_init_init_[istart + k] = spMoles_final_[istart + k];
@@ -2077,11 +2074,11 @@ void Electrode::updateState_Phase(int iphI)
     tp.setElectricPotential(phaseVoltages_[iph]);
     tp.getPartialMolarVolumes(&(VolPM_[istart]));
     tp.getElectrochemPotentials(&(spElectroChemPot_[istart]));
-    if (iph < NumVolPhases_) {
+    if (iph < m_NumVolPhases) {
         phaseMolarVolumes_[iph] = tp.molarVolume();
     } else {
         phaseMolarVolumes_[iph] = 0.0;
-        int isurf = iph - NumVolPhases_;
+        size_t isurf = iph - m_NumVolPhases;
         sphaseMolarAreas_[isurf] = tp.molarVolume();
     }
     // Right now we use the Cp calculation from Cantera until we expand Cantera to calculate Cv
@@ -2226,7 +2223,7 @@ double Electrode::elementMoles(std::string eN) const
     return sum;
 }
 //================================================================================================
-double Electrode::elementSolidMoles(int ieG) const
+double Electrode::elementSolidMoles(size_t ieG) const
 {
     const Elements* elemList = globalElements();
     std::string eN = elemList->elementName(ieG);
@@ -2237,13 +2234,13 @@ double Electrode::elementSolidMoles(std::string eN) const
 {
     double sum = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if ((int) iph != solnPhase_) {
+        if (iph != solnPhase_) {
             const ThermoPhase* tp_ptr = &thermo(iph);
             size_t ie = tp_ptr->elementIndex(eN);
             if (ie != npos) {
                 int nsp = thermo(iph).nSpecies();
                 int kStart = m_PhaseSpeciesStartIndex[iph];
-                for (int ik = 0; ik < nsp; ik++) {
+                for (size_t ik = 0; ik < nsp; ik++) {
                     double na = thermo(iph).nAtoms(ik, ie);
                     sum += na * spMoles_final_[kStart + ik];
                 }
@@ -2253,31 +2250,31 @@ double Electrode::elementSolidMoles(std::string eN) const
     return sum;
 }
 //================================================================================================
-double Electrode::speciesElectrochemPotential(int iGlobalSpIndex) const
+double Electrode::speciesElectrochemPotential(size_t iGlobalSpIndex) const
 {
     // DANGER -> Check to see this is updated
 
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getElectrochemPotentials(&(spElectroChemPot_[kStart]));
     }
     return spElectroChemPot_[iGlobalSpIndex];
 }
 //================================================================================================
-double Electrode::speciesChemPotential(int iGlobalSpIndex) const
+double Electrode::speciesChemPotential(size_t iGlobalSpIndex) const
 {
     // DANGER -> Check to see this is updated
 
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getChemPotentials(&(spElectroChemPot_[kStart]));
     }
     double tmp = spElectroChemPot_[iGlobalSpIndex];
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getElectrochemPotentials(&(spElectroChemPot_[kStart]));
     }
     return tmp;
@@ -2303,12 +2300,12 @@ void Electrode::getMoleNumPhases(double* const np) const
     std::copy( phaseMoles_final_.begin(), phaseMoles_final_.end(), np);
 }
 //================================================================================================
-double Electrode::moleFraction(int globalSpeciesIndex) const
+double Electrode::moleFraction(size_t globalSpeciesIndex) const
 {
     return spMf_final_[globalSpeciesIndex];
 }
 //================================================================================================
-double Electrode::moleNumSpecies(int globalSpeciesIndex) const
+double Electrode::moleNumSpecies(size_t globalSpeciesIndex) const
 {
     return spMoles_final_[globalSpeciesIndex];
 }
@@ -2323,7 +2320,7 @@ double Electrode::moleNumSpecies(int globalSpeciesIndex) const
  *           object. A value of -1 in this slot means that the phase doesn't
  *           participate in the  current ReactingSurDomain object
  */
-int Electrode::ReactingSurfacePhaseIndex(int isk, int PLph) const
+size_t Electrode::ReactingSurfacePhaseIndex(size_t isk, size_t PLph) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
@@ -2357,12 +2354,12 @@ double Electrode::porosity() const
 double Electrode::SolidVol() const
 {
     double vol = 0.0;
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        if (iph != (size_t) solnPhase_) {
-            for (int k = 0; k < nspPhase; k++) {
+        size_t nspPhase = tp.nSpecies();
+        if (iph != solnPhase_) {
+            for (size_t k = 0; k < nspPhase; k++) {
                 vol += spMoles_final_[kStart + k] * VolPM_[kStart + k];
             }
         }
@@ -2373,12 +2370,12 @@ double Electrode::SolidVol() const
 double Electrode::SolidTotalMoles() const
 {
     double tot = 0.0;
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        if (iph != (size_t) solnPhase_ && (iph != (size_t) metalPhase_)) {
-            for (int k = 0; k < nspPhase; k++) {
+        size_t nspPhase = tp.nSpecies();
+        if (iph != solnPhase_ && (iph != metalPhase_)) {
+            for (size_t k = 0; k < nspPhase; k++) {
                 tot += spMoles_final_[kStart + k];
             }
         }
@@ -2390,12 +2387,12 @@ double Electrode::TotalVol(bool ignoreErrors) const
 {
     double vol = 0.0;
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         double psum = 0.0;
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
+        size_t nspPhase = tp.nSpecies();
+        for (size_t k = 0; k < nspPhase; k++) {
             vol += spMoles_final_[kStart + k] * VolPM_[kStart + k];
             psum += spMoles_final_[kStart + k] * VolPM_[kStart + k];
         }
@@ -2426,13 +2423,13 @@ void Electrode::getPhaseVol(double* const phaseVols) const
 {
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseVols[iph] = 0.0;
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
+        size_t nspPhase = tp.nSpecies();
+        for (size_t k = 0; k < nspPhase; k++) {
             phaseVols[iph] += spMoles_final_[kStart + k] * VolPM_[kStart + k];
         }
-        if (iph >= NumVolPhases_) {
+        if (iph >= m_NumVolPhases) {
             phaseVols[iph] = 0.0;
         }
     }
@@ -2453,12 +2450,12 @@ double Electrode::SolidHeatCapacityCV() const
     }
 
     double heatCapacity = 0.0;
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        if (iph != (size_t) solnPhase_) {
-            for (size_t k = 0; k < (size_t) nspPhase; k++) {
+        size_t nspPhase = tp.nSpecies();
+        if (iph != solnPhase_) {
+            for (size_t k = 0; k < nspPhase; k++) {
                heatCapacity += spMoles_final_[kStart + k] * CvPM_[kStart + k];
             }
         }
@@ -2481,12 +2478,10 @@ double Electrode::SolidEnthalpy() const
     }
 
     double enthalpy = 0.0;
-    for (size_t iph = 0; iph < (size_t) NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         int kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        size_t nspPhase = tp.nSpecies();
-        if (iph != (size_t) solnPhase_) {
-            for (size_t k = 0; k < (size_t) nspPhase; k++) {
+        if (iph != solnPhase_) {
+            for (size_t k = 0; k < thermo(iph).nSpecies(); k++) {
                enthalpy += spMoles_final_[kStart + k] * enthalpyMolar_final_[kStart + k];
             }
         }
@@ -2499,7 +2494,7 @@ int Electrode::nSurfaces() const
     return numSurfaces_;
 }
 //====================================================================================================================
-size_t Electrode::nReactions(int isk) const
+size_t Electrode::nReactions(size_t isk) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
@@ -2646,7 +2641,7 @@ void Electrode::updateState_OnionOut()
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         ThermoPhase* tphase = &(thermo(iph));
         std::string pName = tphase->id();
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         /*
          * A direct call to tphase to set the state is unnecessary,
          * because m_mp will do it anyway.
@@ -2660,7 +2655,7 @@ void Electrode::updateState_OnionOut()
         tphase->getPartialMolarVolumes(&(VolPM_[kStart]));
         tphase->getElectrochemPotentials(&(spElectroChemPot_[kStart]));
 
-        if (iph < NumVolPhases_) {
+        if (iph < m_NumVolPhases) {
             phaseMolarVolumes_[iph] = tphase->molarVolume();
         } else {
             phaseMolarVolumes_[iph] = 0.0;
@@ -2703,7 +2698,7 @@ void Electrode::updateSurfaceAreas()
      * Here we assume that the surface just creates species enough to fill the available surface sites
      */
     int i = 0;
-    for (size_t iph = NumVolPhases_; iph < m_NumTotPhases; iph++, i++) {
+    for (size_t iph = m_NumVolPhases; iph < m_NumTotPhases; iph++, i++) {
         ThermoPhase* tphase = &(thermo(iph));
         sphaseMolarAreas_[i] = tphase->molarVolume();
         int kstart = m_PhaseSpeciesStartIndex[iph];
@@ -2740,7 +2735,7 @@ bool Electrode::stateToPhaseFlagsReconciliation(bool flagErrors)
  * Get the reactant stoichiometric coefficient for the kth global species
  * in the ith reaction of the reacting surface domain with index isk.
  */
-double Electrode::reactantStoichCoeff(const int isk, int kGlobal, int i) const
+double Electrode::reactantStoichCoeff(const size_t isk, size_t kGlobal, size_t i) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     size_t krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
@@ -2756,7 +2751,7 @@ double Electrode::reactantStoichCoeff(const int isk, int kGlobal, int i) const
  * Get the reactant stoichiometric coefficient for the kth global species
  * in the ith reaction of the reacting surface domain with index isk.
  */
-double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
+double Electrode::productStoichCoeff(const size_t isk, size_t kGlobal, size_t i) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     size_t krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
@@ -2771,7 +2766,7 @@ double Electrode::productStoichCoeff(const int isk, int kGlobal, int i) const
 /*
  *  This routine assumes that the underlying objects have been updated
  */
-void Electrode::getNetSurfaceProductionRates(const int isk, doublevalue* const net) const
+void Electrode::getNetSurfaceProductionRates(const size_t isk, doublevalue* const net) const
 {
     std::fill_n(net, m_NumTotSpecies, 0.);
     /*
@@ -2826,7 +2821,7 @@ void Electrode::getIntegratedSpeciesProductionRates(double* const net) const
 /*
  *    columb sec-1 m-2
  */
-double Electrode::getNetSurfaceProductionRatesCurrent(const int isk, double* const net) const
+double Electrode::getNetSurfaceProductionRatesCurrent(const size_t isk, double* const net) const
 {
     getNetSurfaceProductionRates(isk, net);
     // kmol sec-1 m-2
@@ -2836,7 +2831,7 @@ double Electrode::getNetSurfaceProductionRatesCurrent(const int isk, double* con
 }
 //====================================================================================================================
 //  Return the global species index of the electron in the Electrode object
-int Electrode::kSpecElectron() const
+size_t Electrode::kSpecElectron() const
 {
     return kElectron_;
 }
@@ -2925,7 +2920,7 @@ double Electrode::integratedLocalCurrent() const
  *  @param isk Surface ID to get the fluxes from.
  *  @param phaseMassFlux  Returns the mass fluxes of the phases
  */
-void Electrode::getPhaseMassFlux(const int isk, double* const phaseMassFlux)
+void Electrode::getPhaseMassFlux(const size_t isk, double* const phaseMassFlux)
 {
     std::fill_n(phaseMassFlux, m_NumTotPhases, 0.);
 
@@ -2956,7 +2951,7 @@ void Electrode::getPhaseMassFlux(const int isk, double* const phaseMassFlux)
  *  @param isk Surface ID to get the fluxes from.
  *  @param phaseMassFlux  Returns the mass fluxes of the phases
  */
-void Electrode::getPhaseMoleFlux(const int isk, double* const phaseMoleFlux)
+void Electrode::getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux)
 {
     std::fill_n(phaseMoleFlux, m_NumTotPhases, 0.);
     if (ActiveKineticsSurf_[isk]) {
@@ -3077,8 +3072,8 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
     double length = rsd->rmcVector.size();
     double PhiRxn = 0.0;
 
-    int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
-    if (metalPhaseRS >= 0) {
+    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    if (metalPhaseRS != npos) {
         RxnMolChange* rmc = rsd->rmcVector[rxnIndex];
         /*
          *  Compute open circuit potential from first reaction
@@ -3618,22 +3613,22 @@ double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
     return iCurr;
 }
 //====================================================================================================================
-int Electrode::kKinSpecElectron(int isurf) const
+size_t Electrode::kKinSpecElectron(size_t isurf) const
 {
     return kKinSpecElectron_sph_[isurf];
 }
 //====================================================================================================================
-int Electrode::metalPhaseIndex() const
+size_t Electrode::metalPhaseIndex() const
 {
     return metalPhase_;
 }
 //====================================================================================================================
-int Electrode::solnPhaseIndex() const
+size_t Electrode::solnPhaseIndex() const
 {
     return solnPhase_;
 }
 //====================================================================================================================
-int Electrode::numSolnPhaseSpecies() const
+size_t Electrode::numSolnPhaseSpecies() const
 {
     return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
@@ -3785,16 +3780,16 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
             size_t nph = rsd->nPhases();
             for (size_t jph = 0; jph < nph; jph++) {
                 size_t iph = rsd->kinOrder[jph];
-                if (iph == (size_t) metalPhase_) {
+                if (iph == metalPhase_) {
                     continue;
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
                 ThermoPhase& tp = thermo(iph);
-                int nsp = tp.nSpecies();
-                if ((size_t) iph >= NumVolPhases_) {
+                size_t nsp = tp.nSpecies();
+                if (iph >= m_NumVolPhases) {
                     // we are in a surface phase
-                    int isur = iph - NumVolPhases_;
+                    size_t isur = iph - m_NumVolPhases;
                     double sa_init = surfaceAreaRS_init_[isur];
                     double sa_final = surfaceAreaRS_final_[isur];
                     if (sa_init > 0.0 || sa_final > 0.0) {
@@ -4865,7 +4860,7 @@ void Electrode::speciesProductionRates(double* const spMoleDot)
 double Electrode::integratedEnthalpySourceTerm()
 {
     double energySource = 0.0;
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         ThermoPhase& tp = thermo(iph);
         //int nspPhase = tp.nSpecies();
 	// HKM -> this formula is in error. Enthalpy per mole could have changed over the interval.
@@ -5186,11 +5181,11 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep_Old()
         ThermoPhase& tp = thermo(iph);
         phiPhase = phaseVoltages_[iph];
 
-        int istart = m_PhaseSpeciesStartIndex[iph];
-        int nsp = tp.nSpecies();
-        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
-	    for (int ik = 0; ik < nsp; ik++) {
-		int k = istart + ik;
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+        if (iph == metalPhase_ || iph == solnPhase_) {
+	    for (size_t ik = 0; ik < nsp; ik++) {
+		size_t k = istart + ik;
 		double cc = tp.charge(ik);
 		double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
@@ -5327,16 +5322,16 @@ void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpec
             size_t nph = rsd->nPhases();
             for (size_t jph = 0; jph < nph; jph++) {
                 size_t iph = rsd->kinOrder[jph];
-                if (iph == (size_t) metalPhase_) {
+                if (iph == metalPhase_) {
                     continue;
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
                 ThermoPhase& tp = thermo(iph);
                 size_t nsp = tp.nSpecies();
-                if ((size_t) iph >= NumVolPhases_) {
+                if (iph >= m_NumVolPhases) {
                     // we are in a surface phase
-                    int isur = iph - NumVolPhases_;
+                    size_t isur = iph - m_NumVolPhases;
                     double sa_init = surfaceAreaRS_init_[isur];
                     double sa_final = surfaceAreaRS_final_[isur];
                     if (sa_init > 0.0 || sa_final > 0.0) {
@@ -5356,7 +5351,7 @@ void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpec
                 }
 
                 for (size_t iiph = 0; iiph < justBornPhase_.size(); iiph++) {
-                    if (iph == (size_t) justBornPhase_[iiph]) {
+                    if (iph == justBornPhase_[iiph]) {
                         rsd->setPhaseExistence(jph, true);
                     }
                 }
@@ -5375,7 +5370,7 @@ void Electrode::printElectrodePhaseList(int pSrc, bool subTimeStep)
         std::string pname = PhaseNames_[iph];
         ThermoPhase& tp = thermo(iph);
         double mv = tp.molarVolume();
-        if (iph >= NumVolPhases_) {
+        if (iph >= m_NumVolPhases) {
             mv = 0.0;
         }
         double pv = mv * phaseMoles_final_[iph];
@@ -5385,7 +5380,7 @@ void Electrode::printElectrodePhaseList(int pSrc, bool subTimeStep)
         printf(" %12.3E", mv);
         printf(" %12.3E", pv);
         printf(" %12.3E", pv / egv);
-        if ((int) iph == metalPhase_ || (int) iph == solnPhase_) {
+        if (iph == metalPhase_ || iph == solnPhase_) {
             printf(" %12.5E", tp.electricPotential());
         } else {
             printf("             ");
@@ -5460,7 +5455,7 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
 
     int m = m_NumTotPhases;
     if ((size_t) numSurfaces_ > m_NumSurPhases) {
-        m = numSurfaces_ + NumVolPhases_;
+        m = numSurfaces_ + m_NumVolPhases;
     }
     for (iph = 0; iph < m; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
@@ -5488,9 +5483,9 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     int isurf = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
-    string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    std::string pname = tp.name();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     if (printLvl_ <= 1) {
         return;
     }
@@ -5498,13 +5493,13 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     printf("          PHASE %d %s \n", iphI, pname.c_str());
     printf("                Total Moles  = %11.5E kmol\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
-    if (iph >= NumVolPhases_) {
+    if (iph >= m_NumVolPhases) {
         printf("                Molar Volume = %11.5E cm3 gmol-1\n", 0.0);
         printf("                Molar Area   = %11.5E cm2 gmol-1\n", mv * 10.);
     } else {
         printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
     }
-    if (iph == (size_t) metalPhase_) {
+    if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -5519,15 +5514,15 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             printf("                Current = NA amps \n");
         }
     }
-    if (iph == (size_t) metalPhase_ || iph == (size_t) solnPhase_) {
+    if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                Voltage = %g volts\n", tp.electricPotential());
     }
     /*
      * Do specific surface phase printouts
      */
     double radius;
-    if (iph >= NumVolPhases_) {
-        isurf = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        isurf = iph - m_NumVolPhases;
         radius = sqrt(surfaceAreaRS_final_[isurf] / (4.0 * Pi * particleNumberToFollow_));
         radius *= 1.0E6;
         printf("                surface area (final) = %11.5E m**2      Radius(final) = %11.5E um\n",
@@ -5556,8 +5551,8 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     if (printLvl_ >= 3) {
         printf("\n");
         printf("                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)\n");
-        for (int k = 0; k < nsp; k++) {
-            string sname = tp.speciesName(k);
+        for (size_t k = 0; k < nsp; k++) {
+            std::string sname = tp.speciesName(k);
             if (pSrc) {
                 if (subTimeStep) {
                     printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(),
@@ -5580,7 +5575,7 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
         }
     }
     if (printLvl_ >= 4) {
-        if (iph >= NumVolPhases_) {
+        if (iph >= m_NumVolPhases) {
             const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
@@ -5591,8 +5586,8 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             for (size_t kph = 0; kph < nphRS; kph++) {
                 size_t jph = RSD_List_[isurf]->kinOrder[kph];
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
-                int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-                for (int k = 0; k < nsp; k++) {
+                size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
+                for (size_t k = 0; k < nsp; k++) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                     kIndexKin++;
                 }

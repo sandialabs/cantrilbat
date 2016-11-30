@@ -300,7 +300,7 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     numSpecInSolidPhases_.clear();
     for (size_t ph = 0; ph < NumVolPhases_; ph++) {
         ThermoPhase* tp = VolPhaseList[ph];
-        int iph = globalPhaseIndex(tp);
+        size_t iph = globalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
             //do nothing
         } else {
@@ -2401,12 +2401,12 @@ void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
     size_t iph = iphI;
-    int isph = -1;
+    size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
-    string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    std::string pname = tp.id();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     if (printLvl_ <= 1) {
         return;
     }
@@ -2415,7 +2415,7 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
     printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
-    if (iphI == metalPhase_) {
+    if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -2430,7 +2430,7 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             printf("                Current = NA amps \n");
         }
     }
-    if (iphI == metalPhase_ || iphI == solnPhase_) {
+    if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                Electric Potential = %g\n", tp.electricPotential());
     }
     /*
@@ -2450,8 +2450,8 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     if (printLvl_ >= 3) {
         printf("\n");
         printf("                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)\n");
-        for (int k = 0; k < nsp; k++) {
-            string sname = tp.speciesName(k);
+        for (size_t k = 0; k < nsp; k++) {
+            std::string sname = tp.speciesName(k);
             if (pSrc) {
                 if (subTimeStep) {
                     printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],

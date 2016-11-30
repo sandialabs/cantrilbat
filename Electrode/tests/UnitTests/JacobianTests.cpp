@@ -61,7 +61,7 @@ public:
                         Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR)
   {return 0;}
 
-  virtual int numSolnPhaseSpecies() const { return 3; }
+  virtual size_t numSolnPhaseSpecies() const { return 3; }
 
   virtual double integratedEnthalpySourceTerm()
   { return temperature_; }
