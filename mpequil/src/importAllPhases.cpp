@@ -64,14 +64,12 @@ static void processPhasePL(XML_Node *xmlphase,  MPEQUIL_INPUT *pi)
       exit(-1);
     }
 
-    mdp_realloc_ptr_1((void ***)&(pi->tplist),
-		      pi->nphase+1, pi->nphase);
+    mdp_realloc_ptr_1((void ***)&(pi->tplist), pi->nphase+1, pi->nphase);
     pi->tplist[pi->nphase] = tPhase;
     pi->nphase++;
-    MultiPhase *mp = pi->m_mp;
+    MP_EquilStatic *mp = pi->m_mp;
     mp->addPhase(tPhase, 0.0);
 }
-
 /**************************************************************************
  *
  * importAllCTML() -> static routine findXMLAllPhasePL
@@ -100,7 +98,6 @@ static void findXMLAllPhasePL(XML_Node *root, MPEQUIL_INPUT *pi)
       }
     }
 }
-
 /**************************************************************************
  *
  * importAllCTML()
@@ -114,13 +111,11 @@ int importAllCTML(MPEQUIL_INPUT *pi, string canteraFile) {
       xc = get_XML_File(canteraFile);
     }  catch (CanteraError) {
       throw CanteraError("importAllCTML",
-			 string("Could not find/process file, ") +
-			 canteraFile + string(" -> aborting"));
+			 string("Could not find/process file, ") + canteraFile + string(" -> aborting"));
     }
     if (!xc) {
       throw CanteraError("importAllCTML",
-			 string("Could not find/process file, ") +
-			 canteraFile + string(" -> aborting")); 
+			 string("Could not find/process file, ") + canteraFile + string(" -> aborting")); 
     }
     findXMLAllPhasePL(xc, pi);
     int nphases = pi->nphase;

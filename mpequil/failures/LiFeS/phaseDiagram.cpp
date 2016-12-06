@@ -110,7 +110,7 @@ void createPhaseDiagram() {
   int Ntmax = 11;
 
   // populate multiphase
-  MultiPhase mmm;
+  MP_EquilStatic mmm;
   mmm.addPhase(S_solid,0.);
   mmm.addPhase(S_liquid,0.);
   mmm.addPhase(gas,0.);
@@ -118,8 +118,7 @@ void createPhaseDiagram() {
   mmm.addPhase(Fe1_xS,0);
   mmm.addPhase(Li3Fe2S4,0);
   mmm.addPhase(Li2_xFe1_xS2,0);
-  mmm.init();
-  int nPhases = mmm.nPhases();
+  size_t nPhases = mmm.nPhases();
 
   int iS_solid = 0;
   int iS_liquid = 1;

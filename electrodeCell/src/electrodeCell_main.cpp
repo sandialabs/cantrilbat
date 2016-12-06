@@ -56,7 +56,7 @@ void printUsage() {
 //! This routine converts the MPEQUIL_INPUT problem into a VCS_PROB
 //! structure
 
-int mpequil_convert(ZZCantera::Electrode *electrode, ZZVCSnonideal::VCS_PROB *vprob,  ZZCantera::MultiPhase *mix) {
+int mpequil_convert(ZZCantera::Electrode *electrode, ZZVCSnonideal::VCS_PROB *vprob,  ZZCantera::MP_EquilStatic *mix) {
 
   /*
    *     Extract the current state information
@@ -96,7 +96,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
 
   Electrode_Equilibrium *ee_equil = new Electrode_Equilibrium(electrode);
 
-  MultiPhase *mix = ee_equil->MultiPhase_Obj();
+  MP_EquilStatic *mix = ee_equil->MultiPhase_Obj();
   /*
    * Malloc a new vcs problem strcutre
    */
@@ -374,7 +374,7 @@ int main(int argc, char **argv)
      */
     Electrode_Equilibrium* ee_equilA = new Electrode_Equilibrium(electrodeA);
     ee_equilA->setupEquilibriumProblem();
-    MultiPhase *mpA =  ee_equilA->MultiPhase_Obj();
+    MP_EquilStatic *mpA =  ee_equilA->MultiPhase_Obj();
 
     int printFlag = mpequil_debug_print_lvl;
     int estimateInit = 0;
@@ -480,7 +480,7 @@ int main(int argc, char **argv)
      */
     Electrode_Equilibrium* ee_equilC = new Electrode_Equilibrium(electrodeC);
     ee_equilC->setupEquilibriumProblem();
-    MultiPhase *mpC =  ee_equilC->MultiPhase_Obj();
+    MP_EquilStatic *mpC =  ee_equilC->MultiPhase_Obj();
 
     printFlag = mpequil_debug_print_lvl;
     estimateInit = 0;

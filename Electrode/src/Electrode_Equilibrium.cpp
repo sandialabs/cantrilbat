@@ -26,10 +26,10 @@ namespace Cantera
 {
 //====================================================================================================================
 Electrode_Equilibrium::Electrode_Equilibrium(Electrode* elect) :
-                ee_(elect),
-                m_mp(0),
-                LiFixed_(0),
-                printLvl_(0)
+    ee_(elect),
+    m_mp(0),
+    LiFixed_(0),
+    printLvl_(0)
 {
     if (ee_) {
         printLvl_ = std::max(0, printLvl_ - 3);
@@ -37,10 +37,10 @@ Electrode_Equilibrium::Electrode_Equilibrium(Electrode* elect) :
 }
 //====================================================================================================================
 Electrode_Equilibrium::Electrode_Equilibrium(const Electrode_Equilibrium& right) :
-                ee_(right.ee_),
-                m_mp(0),
-                LiFixed_(0),
-                printLvl_(0)
+    ee_(right.ee_),
+    m_mp(0),
+    LiFixed_(0),
+    printLvl_(0)
 {
     /*
      * Call the assignment operator.
@@ -57,15 +57,8 @@ Electrode_Equilibrium::~Electrode_Equilibrium()
     LiFixed_ = 0;
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 Electrode_Equilibrium& Electrode_Equilibrium::operator=(const Electrode_Equilibrium& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
@@ -99,7 +92,7 @@ int Electrode_Equilibrium::setupEquilibriumProblem()
     if (m_mp) {
         delete m_mp;
     }
-    m_mp = new MultiPhase();
+    m_mp = new MP_EquilStatic();
 
     PhaseIndex_mp_.resize(ee_->NumVolPhases_);
     for (size_t iph = 0; iph < ee_->NumVolPhases_; iph++) {
@@ -318,7 +311,7 @@ void Electrode_Equilibrium::getPhaseMoleFractions(int iphase, double* const mole
 /*
  * @return returns a multiphase object
  */
-MultiPhase* Electrode_Equilibrium::MultiPhase_Obj()
+MP_EquilStatic* Electrode_Equilibrium::MultiPhase_Obj()
 {
     return m_mp;
 }

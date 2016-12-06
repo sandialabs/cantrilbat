@@ -40,7 +40,7 @@ LCXX_FLAGS =  @CXXFLAGS@
 
 # How to compile C++ source files to object files
 .cpp.o:
-	$(CXX) -c $< -I$(CANTERA_INCDIR) $(CXX_FLAGS)
+	$(CXX) -c $< $(CXX_FLAGS)
 
 # How to compile the dependency file
 .cpp.d:

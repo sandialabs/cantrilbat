@@ -74,7 +74,7 @@ MPEQUIL_KEY_INPUT::~MPEQUIL_KEY_INPUT () {
 /****************************************************************************
  *
  */
-void MPEQUIL_KEY_INPUT::InitForInput(MultiPhase *mp) {
+void MPEQUIL_KEY_INPUT::InitForInput(MP_EquilStatic *mp) {
     int nTotPhases = mp->nPhases();
     int nTotSpecies = mp->nSpecies();
     int nTotElements = mp->nElements();
@@ -168,7 +168,7 @@ static void setup_input_pass2(BlockEntry *cf)
  */
 static void setup_input_pass3(BlockEntry *cf, MPEQUIL_INPUT *pi)
 {
-    MultiPhase *mp = pi->m_mp;
+    MP_EquilStatic *mp = pi->m_mp;
     /* ---------------------------------------------------------------
      *
      */
@@ -402,8 +402,8 @@ mpequil_input(MPEQUIL_INPUT *pi, std::string commandFile)
      * Read in all of the phase specifications from the cantera
      * input files into the PhaseList structure.
      */
-    pi->m_mp = new MultiPhase();
-    MultiPhase *mp = pi->m_mp;
+    pi->m_mp = new MP_EquilStatic();
+    MP_EquilStatic *mp = pi->m_mp;
     for (int i = 0; i < PO.NumberCanteraFiles; i++) {
       PO.CanteraFN1 = PO.CanteraFileNames[i];
       if (!strcmp(PO.CanteraFileNames[i], "gas.xml")) {
@@ -431,7 +431,6 @@ mpequil_input(MPEQUIL_INPUT *pi, std::string commandFile)
     if (!ok) {
       return -1;
     }
-    mp->init();
    
     pi->nspecies= mp->nSpecies();
     pi->ne = mp->nElements();

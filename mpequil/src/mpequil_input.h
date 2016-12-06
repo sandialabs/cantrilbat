@@ -62,7 +62,7 @@ public:
     double *ElementAbundances;
     bool  specifiedElementAbundances;
     std::string Title;
-    void InitForInput(ZZCantera::MultiPhase *);
+    void InitForInput(ZZCantera::MP_EquilStatic *);
 	
 };
 extern MPEQUIL_KEY_INPUT PO;
@@ -77,7 +77,7 @@ public:
 
   ZZCantera::ThermoPhase **tplist;
 
-  ZZCantera::MultiPhase *m_mp;
+  ZZCantera::MP_EquilStatic *m_mp;
 
   //* Integer representing the Problem type.
   /*!

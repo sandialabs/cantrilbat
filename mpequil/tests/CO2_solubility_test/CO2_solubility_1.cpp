@@ -113,8 +113,7 @@ int main(int argc, char **argv) {
     gas.setState_TPX(300.0, pres, "H2O:0.12, CO2:0.88");
 
 
-
-    ZZCantera::MultiPhase mmm;
+    ZZCantera::MP_EquilStatic mmm;
     
     mmm.addPhase(HMW, 10.);
     mmm.addPhase(solid, 0.001);

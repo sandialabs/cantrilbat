@@ -30,9 +30,9 @@ namespace Cantera
 #endif 
 {
 
-class MultiPhase;
+class MP_EquilStatic;
 class FixedChemPotSSTP;
-
+//==================================================================================================================================
 //! Class which determines the stability of phases due to kinetics
 /*!
  *  Note, I believe I can make this class simpler
@@ -102,7 +102,7 @@ public:
     /*!
      * @return returns a multiphase object
      */
-    MultiPhase* MultiPhase_Obj();
+    MP_EquilStatic* MultiPhase_Obj();
 
 protected:
 
@@ -115,7 +115,7 @@ protected:
      *    with the electrode object
      *
      */
-    MultiPhase* m_mp;
+    MP_EquilStatic* m_mp;
 
     //! Mapping between MultiPhase objects ThermoPhase objects to the Electrode objects
     /*!
@@ -136,9 +136,8 @@ public:
     int printLvl_;
 
 };
-
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
 

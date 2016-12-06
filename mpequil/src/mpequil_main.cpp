@@ -67,7 +67,7 @@ void printUsage() {
 #ifdef USE_VCSNONIDEAL
 int mpequil_convert(MPEQUIL_INPUT *prob_input, ZZVCSnonideal::VCS_PROB *vprob) {
 
-  ZZCantera::MultiPhase *mix = prob_input->m_mp;
+  ZZCantera::MP_EquilStatic *mix = prob_input->m_mp;
   /*
    *     Extract the current state information
    *     from the MultiPhase object and
@@ -127,7 +127,7 @@ int mpequil_convert(MPEQUIL_INPUT *prob_input, ZZVCSnonideal::VCS_PROB *vprob) {
 #ifdef USE_VCSNONIDEAL
 int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printFlag) {
 
-  MultiPhase *mix = prob_input->m_mp;
+  MP_EquilStatic *mix = prob_input->m_mp;
   /*
    * Malloc a new vcs problem strcutre
    */
@@ -340,7 +340,7 @@ int main(int argc, char **argv)
     /*
      * Call the thermo Program
      */
-    MultiPhase *mp =  prob_input->m_mp;
+    MP_EquilStatic *mp =  prob_input->m_mp;
 
 #ifdef USE_VCSNONIDEAL
     int printFlag = mpequil_debug_print_lvl;

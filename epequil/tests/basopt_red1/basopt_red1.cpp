@@ -32,9 +32,8 @@ int main(int argc, char **argv) {
     double pres = 1.0E5;
     g.setState_TPX(2000.0, pres, "C2H2:0.9, CH:0.1");
 
-    MultiPhase mphase;
+    MP_EquilStatic mphase;
     mphase.addPhase(&g, 10.0);
-    mphase.init();
     int usedZeroedSpecies = 0;
     vector<size_t> orderVectorSpecies;
     vector<size_t> orderVectorElements;
