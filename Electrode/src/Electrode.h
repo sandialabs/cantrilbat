@@ -1160,10 +1160,9 @@ public:
 	 *  @param[out]    y           Initial conditions of the solution unknowns
 	 *  @param[out]   ydot         Intial time derivatives of the solutions
 	 *
-	 *  @return                    Returns 1 if the problem is ok
+	 *  @return                                     Returns 1 if the problem is ok
 	 */
-        int  getInitialConditions(const doublevalue t0, doublevalue* const y,
-                                  doublevalue* const ydot);
+        int  getInitialConditions(const doublevalue t0, doublevalue* const y, doublevalue* const ydot) override;
 
 
         //! Return the number of equations in the equation system

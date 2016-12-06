@@ -625,10 +625,13 @@ public:
     // ---------------------------- INTEGRATED SOURCE TERM CALCULATIONS ------- ----------------------------------------------
     // ---------------------------------------------------------------------------------------------
 
-    //! Returns the number of integrated source terms whose errors are controlled by this integrator
-    int numIntegratedSrcTerms() const;
+    //!  Returns the number of integrated source terms whose errors are controlled by this integrator
+    /*!
+     *   @return                                 Returns the number of integrated source terms
+     */
+    size_t numIntegratedSrcTerms() const;
 
-    //!  Gather the predicted solution values and the predicted integrated source terms
+    //! Gather the predicted solution values and the predicted integrated source terms
     /*!
      *  (virtual from Electrode_Integrator)
      *
@@ -638,45 +641,46 @@ public:
     virtual void gatherIntegratedSrcPrediction();
 
 
-    //!  Calculate the integrated source terms and do other items now that we have a completed time step
+    //! Calculate the integrated source terms and do other items now that we have a completed time step
     /*!
      *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step, and we are calculating post-processed quantities like source terms.
      */
     virtual void calcSrcTermsOnCompletedStep();
 
-
     //! Accumulate src terms and other results from the local step into the global holding bins.
     /*!
      *  Accumulate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step and we have satisfied all accuracy requirements.
      *  The step is good. We now accumulate the results before going on to a new local step.
+     *  For example, for the species source terms, we add the value of spMoleIntegratedSourceTermLast_[i], which is the source term
+     *  from the last sub-global interval time step to the accumulation vector for the global time step,
+     *  spMoleIntegratedSourceTerm_[i] in order to keep track of the global time step terms.
+     *
+     *  @param[in]           remove              If true we remove the contributions from the last sub-time step
+     *                                           from the sum of the previous sub-time steps. default is false
      */
     virtual void accumulateSrcTermsOnCompletedStep(bool remove = false);
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
-     *   The tolerances are based on controlling the integrated electron source term
-     *   for the electrode over the integration interval.  The integrated source term
-     *   has units of kmol.
+     *  The tolerances are based on controlling the integrated global source term (e.g., electron source term)
+     *  for the electrode over the integration interval.  The integrated source term has units of kmol.
      *
-     *   Because the electron is only one molar quantity within a bunch of molar quantities,
-     *   this requirement will entail that we control the source terms of all species within the
-     *   electrode to the tolerance requirements of the electron source term.
+     *  Because the electron is only one molar quantity within a bunch of molar quantities,
+     *  this requirement will entail that we control the source terms of all species within the
+     *  electrode to the tolerance requirements of the electron source term.
      *
-     *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
-     *                     This is a unitless quantity
-     *   @param atolResid  Absolute tolerance cutoff for the electron source term over the interval.
-     *                     Below this value we do not care about the results.
-     *                     atol has units of kmol.
+     *  @param[in]           rtolResid           Relative tolerance allowed for the global source term over the interval.
+     *                                           This is a unitless quantity
      */
     virtual void setNLSGlobalSrcTermTolerances(double rtolResid);
 
-
     //! Zero vectors that are accumulated over local time step to represent global time step quantities
     /*!
-     *    the integrated source term
-     *    Estimated global time step errors
+     *  Zero the integrated source term contributions such as spMoleIntegratedSourceTerm_. We do this when
+     *  we are starting a new global time step or reintegrating the current global time step.
+     *  Estimated global time step errors.
      */
     virtual void zeroGlobalStepAccumulationTerms();
 
@@ -771,24 +775,12 @@ public:
     //! Calculate the residual for the Electrode object for the Global problem
     /*!
      *  @param[out]          resid               Value of the residual
-     *  @param[in]           ResidEval_Type_Enum evalType residual type
+     *  @param[in]           evalType            ResidEval_Type_Enum type
      *
      *  @return                                  1 Means a good calculation that produces a valid result
      *                                           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
     virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType);
-
-    //! Fill in the initial conditions
-    /*!
-     * (virtual from NonlinearSolver)
-     *
-     * Values for both the initial value of the solution and the value of ydot at t0 are provided to the calling program
-     *
-     * @param[in]            t0                  Time                    (input)
-     * @param[out]           ySoln               Solution vector (output)
-     * @param[out]           ySolnDot            Rate of change of solution vector. (output)
-     */
-    virtual int getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot) override;
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
@@ -1251,7 +1243,7 @@ protected:
     SquareMatrix* jacPtr_;
 
     //! Number of degrees of freedom in the integrated source terms that constitute the output
-    int numIntegratedSrc_;
+    size_t numIntegratedSrc_;
 
     //! Predicted integrated source term vector for the local step
     std::vector<double> IntegratedSrc_Predicted;

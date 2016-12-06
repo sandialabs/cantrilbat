@@ -759,8 +759,7 @@ protected:
      */
     int electrodeType_;
 
-    //! Define the number of species that are defined to have radially distributed distributions
-    //! within the solid
+    //! Define the number of species that are defined to have radially distributed distributions within the solid
     /*!
      *   Note, for this object there is only one radial distribution. This concept will be enhanced
      *   in later formulations.
@@ -770,7 +769,7 @@ protected:
     int numKRSpecies_;
 
     //!  Number of cells involved with the radial distribution, including the 1/2 end cells
-    int numRCells_;
+    size_t numRCells_;
 
     //! Number of phases which have radial distributions of their species
     int numSPhases_;

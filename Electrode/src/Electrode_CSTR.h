@@ -742,7 +742,7 @@ public:
      *                      differenced or that the residual doesn't take this issue into account)
      * @param delta_x       Value of the delta used in the numerical differencing
      *
-     * @return
+     * @return                                   Returns 1 if everything is ok. Different values mean an error has occurred.
      */
     virtual int evalResidNJ(const double t, const double delta_t,
                             const double* const y,
@@ -752,16 +752,18 @@ public:
                             const int id_x = -1,
                             const double delta_x = 0.0);
 
-    //! Fill in the initial conditions
+    //! Fill in the initial conditions at the given time value
     /*!
+     *  (Virtual from ResidJacEval.h)
      * Values for both the solution and the value of ydot may be provided.
      *
      * @param t0            Time                    (input)
      * @param y             Solution vector (output)
      * @param ydot          Rate of change of solution vector. (output)
+     *
+     * @return                                   Returns 1 if everything is ok. Error otherwise
      */
-    virtual int getInitialConditions(const double t0, double* const y,
-                                     double* const ydot);
+    virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
 
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
@@ -933,16 +935,17 @@ protected:
      */
     double SrcDot_RxnExtent_final_;
 
-    std::vector<int> phaseIndexSolidPhases_;
-    std::vector<int> numSpecInSolidPhases_;
+    std::vector<size_t> phaseIndexSolidPhases_;
+    std::vector<size_t> numSpecInSolidPhases_;
 
     //! Change in the number of moles of species during the current step
     std::vector<double> deltaSpMoles_;
 
-    //! Phase which is predicted to die first during the current nonlinear problem
-    int minPH_;
+    //! Phase index which is predicted to die first during the current nonlinear problem
+    size_t minPH_;
 
-
+    //! Vector of species indexes for each phase in the problem which are the largest mole fraction
+    //! in that phase
     std::vector<size_t> phaseMFBig_;
 
     //! Contains a boolean for phases which have died during the current subgrid step.

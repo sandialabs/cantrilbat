@@ -1030,9 +1030,12 @@ public:
      * @param t0            Time                    (input)
      * @param y             Solution vector (output)
      * @param ydot          Rate of change of solution vector. (output)
+     *
+     * @return                                   Returns a flag to indicate that operation is successful.
+     *                                           -  1  Means a successful operation
+     *                                           -  0  Means an unsuccessful operation
      */
-    virtual int getInitialConditions(const double t0, double* const y,
-                                     double* const ydot);
+    virtual int getInitialConditions(const double t0, double* const y, double* const ydot);
 
 
 

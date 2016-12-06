@@ -655,7 +655,7 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
      *   times the production rate of these reactions as the absolute tolerance for the calculation.
      */
     double sm = SolidTotalMoles();
-    for (int i = 0; i <  numIntegratedSrc_; i++) {
+    for (size_t i = 0; i <  numIntegratedSrc_; i++) {
         atol_IntegratedSrc_global_[i] = 1.0E-14 * sm;
     }
 
@@ -1639,8 +1639,7 @@ void  Electrode_Integrator::zeroGlobalStepAccumulationTerms()
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 }
 //==================================================================================================================
-// Number of degrees of freedom in the integrated source terms that constitute the output
-int Electrode_Integrator::numIntegratedSrcTerms() const
+size_t Electrode_Integrator::numIntegratedSrcTerms() const
 {
     return numIntegratedSrc_;
 }
@@ -2360,21 +2359,6 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
         rr = retn;
     }
     return rr;
-}
-//====================================================================================================================
-// Fill in the initial conditions
-/*
- * (virtual from NonlinearSolver)
- *
- * Values for both the solution and the value of ydot may be provided.
- *
- * @param t0            Time                    (input)
- * @param y             Solution vector (output)
- * @param ydot          Rate of change of solution vector. (output)
- */
-int  Electrode_Integrator::getInitialConditions(const double t0, double* const y, double* const ydot)
-{
-    return 0;
 }
 //====================================================================================================================
 // Print conditions of the electrode for the current integration step to stdout

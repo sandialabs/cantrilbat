@@ -161,7 +161,7 @@ public:
      *                              1  Means a successful operation
      *                             -0 or neg value Means an unsuccessful operation
      */
-    virtual int getInitialConditions(const double t0, double* const y, double* const ydot);
+    virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
 
 
     //! Filter the solution predictions

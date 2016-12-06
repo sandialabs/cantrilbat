@@ -2100,7 +2100,7 @@ void Electrode_MP_RxnExtent::setNLSGlobalSrcTermTolerances(double rtolResid)
     double sum = SolidTotalMoles();
     double val = 1.0E-14 * sum;
 
-    for (int i = 0; i < numIntegratedSrc_; i++) {
+    for (size_t i = 0; i < numIntegratedSrc_; i++) {
         atol_IntegratedSrc_global_[i] = val;
     }
     rtol_IntegratedSrc_global_ = rtolResid;
