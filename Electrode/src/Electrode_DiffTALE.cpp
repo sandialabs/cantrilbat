@@ -2288,7 +2288,7 @@ int Electrode_DiffTALE::predictSoln()
 
     return retn;
 }
-//==================================================================================================================
+//==================================================================================================================================
 void Electrode_DiffTALE::check_yvalNLS_init(bool doOthers)
 {
     packNonlinSolnVector(DATA_PTR(yvalNLS_init_));
@@ -2302,8 +2302,7 @@ void Electrode_DiffTALE::check_yvalNLS_init(bool doOthers)
 	}
     }
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 // Unpack the soln vector
 /*
  *  (virtual from Electrode_Integrator)
@@ -2355,7 +2354,7 @@ void Electrode_DiffTALE::unpackNonlinSolnVector(const double* const y)
 	}
     }
 }
-//==================================================================================================================
+//==================================================================================================================================
 /*
  * --------------------------------------------------------------------------------------------------------------
  *         Residual (Time)                                     deltaSubcycleCalc_                   0
@@ -2401,7 +2400,7 @@ void Electrode_DiffTALE::packNonlinSolnVector(double* const y) const
 	}
     }
 }
-//==================================================================================================================
+//==================================================================================================================================
 //   Calculate the integrated source terms and do other items now that we have a completed time step
 /*
  *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
@@ -2432,7 +2431,7 @@ void Electrode_DiffTALE::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
 }
-//==================================================================================================================
+//==================================================================================================================================
 //  Gather the predicted solution values and the predicted integrated source terms
 /*
  *  (virtual from Electrode_Integrator)
@@ -2449,10 +2448,8 @@ void  Electrode_DiffTALE::gatherIntegratedSrcPrediction()
         IntegratedSrc_Predicted[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
     }
 }
-
-//====================================================================================================================
-//  Calculate the norm of the difference between the predicted answer and the final converged answer
-//  for the current time step
+//==================================================================================================================================
+//  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
 /*
  *  (virtual from Electrode_Integrator)
  *
@@ -2463,7 +2460,6 @@ void  Electrode_DiffTALE::gatherIntegratedSrcPrediction()
 double Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
     double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
-
     double pnorm_dot = l0normM(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
     if (pnorm_dot < pnorm) {
 #ifdef DEBUG_MODE
@@ -2474,10 +2470,9 @@ double Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(const std::vector<
 #endif
 	pnorm = pnorm_dot;
     }
-
     return pnorm;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Calculate the vector of predicted errors in the source terms that this integrator is responsible for
 /*
  *  (virtual from Electrode_Integrator)
@@ -2491,7 +2486,6 @@ double Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(const std::vector<
  */
 void Electrode_DiffTALE::predictorCorrectorGlobalSrcTermErrorVector()
 {
-
 }
 //====================================================================================================================
 static double relv(double a, double b, double atol)
@@ -2505,10 +2499,8 @@ static double relv(double a, double b, double atol)
     }
     return fabs((a - b)/ denom);
 }
-
-//====================================================================================================================
-void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval,
-						   double pnormSrc, double pnormSoln) const
+//==================================================================================================================================
+void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const
 {
     double atolVal =  1.0E-8;
     double denom;
@@ -2596,17 +2588,12 @@ void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval
     }
     printf("total Lattices           | %14.7E %14.7E %14.7E | %14.7E |            |            |\n", numLattices_init_,
 	   numLattices_pred_, numLattices_final_,  numLattices_final_ -  numLattices_init_);
-
-
-
-
-   
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
     printf("                                                                                                        %10.3E\n",
            pnormSoln);
 
 }
-//==================================================================================================================
+//==================================================================================================================================
 // Set the base tolerances for the nonlinear solver within the integrator
 /*
  *   The tolerances are based on controlling the integrated electron source term

@@ -584,7 +584,7 @@ public:
 
     //! Pack the nonlinear solver proplem
     /*!
-     *  formulate the nonlinear solver problem to be solved.
+     *  Formulate the nonlinear solver problem to be solved.
      *     Fields to be filled in
      *             yvalNLS_
      *             ylowNLS_
@@ -593,7 +593,13 @@ public:
      */
     virtual void initialPackSolver_nonlinFunction();
 
-    //! formulate and/or check the value of yvalNLS_init
+    //! Formulate and/or check the value of yvalNLS_init_
+    /*!
+     *  Create the initial value of the nonlinear solution vector at the init time, yvalNLS_init_[].
+     *
+     *  @param[in]           doOthers            If true copy this solution vector into the the times yvalNLS_init_init_[],
+     *                                           yvalNLS_[]_ and yvalNLS_final_final_[]
+     */
     virtual void check_yvalNLS_init(bool doOthers);
 
     //! Check the nonlinear residual equations for completeness and the ability to be solved

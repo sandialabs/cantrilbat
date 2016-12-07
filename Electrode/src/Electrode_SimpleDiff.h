@@ -772,7 +772,7 @@ protected:
     size_t numRCells_;
 
     //! Number of phases which have radial distributions of their species
-    int numSPhases_;
+    size_t numSPhases_;
 
     //! Total number of equations defined at each node of the radial mesh
     int numEqnsCell_;
@@ -879,7 +879,7 @@ protected:
     std::vector<int> phaseIndeciseNonKRsolidPhases_;
 
     //! Number of phases that are not distributed
-    int numNonSPhases_;
+    size_t numNonSPhases_;
 
     //! Total concentration of each of the solid phases that are distributed - global final state
     /*!
