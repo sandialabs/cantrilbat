@@ -524,8 +524,7 @@ oc[0] = -0.023098
                            V_C6-bulk               3.658E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 12.0527 beat out pnorm 57.5316
-		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 12.0527, is greater than 2
+		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 57.5316, is greater than 2
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
@@ -644,8 +643,7 @@ Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 12.0527 beat
                            V_C6-bulk               4.146E-01
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(): pnorm_dot 7.46141 beat out pnorm 9.63204
-		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 7.46141, is greater than 2
+		decide_normHighLogic(): WARNING Step rejected because time step truncation error norm, 9.63204, is greater than 2
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
