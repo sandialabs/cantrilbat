@@ -764,14 +764,16 @@ public:
      *  This function advances the initial state to the final state that was calculated
      *  in the last integration step.
      *
-     * @param[in]      Tinitial        This is the new initial time. This time is compared against the "old"
-     *                                 final time, to see if there is any problem.
+     *  @param[in]           Tinitial            This is the new initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem. The two should be the same.
+     *                                           If Tinitial is t_init_init, we redo the time step.
      *
-     * @param[in]      doTestsAlways   Assume that we are resetting the current time step after a successful new
-     *                                 time step
-     *                                 
+     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doTestsAlways = false);
+    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false);
 
     //! Revert the object's conditions to the initial conditions
     /*!

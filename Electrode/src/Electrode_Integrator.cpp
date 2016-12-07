@@ -661,7 +661,7 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
 
     return numDofs;
 }
-//===================================================================================================================
+//==================================================================================================================================
 //    The internal state of the electrode must be kept for the initial and
 //    final times of an integration step.
 /*
@@ -675,41 +675,39 @@ void  Electrode_Integrator::resetStartingCondition(double Tinitial, bool doReset
 {
     bool resetToInitInit = false;
     /*
-     * If the initial time is input, then the code doesn't advance
+     * If the initial time is input, then the code doesn't advance. We clear stuff and redo the current global time step
      */
     double tbase = MAX(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doResetAlways) {
         resetToInitInit = true;
-        //return;
     }
     /*
      *  Clear the time step histories for the base and current timeHistories.
      */
     timeHistory_base_.clear();
     timeHistory_current_.clear();
-
+    //  Call the base class function
     Electrode::resetStartingCondition(Tinitial, doResetAlways);
-
-
-
     /*
      *  Zero the global error vectors
      */
     std::fill(errorGlobalNLS_.begin(), errorGlobalNLS_.end(), 0.0);
     int neqNLS = nEquations();
-
+    /*
+     *  Advance the solution to the state of the final_final values from the previous global step
+     */
     if (!resetToInitInit) {
-    for (int i = 0; i < neqNLS; i++) {
-        solnDot_init_init_[i] = solnDot_final_final_[i];
-        solnDot_init_[i]      = solnDot_final_final_[i];
-        solnDot_final_[i]     = solnDot_final_final_[i];
-        yvalNLS_init_init_[i] = yvalNLS_final_final_[i];
-        yvalNLS_init_[i]      = yvalNLS_final_final_[i];
-        yvalNLS_[i]           = yvalNLS_final_final_[i];
-    }
+        for (int i = 0; i < neqNLS; i++) {
+            solnDot_init_init_[i] = solnDot_final_final_[i];
+            solnDot_init_[i]      = solnDot_final_final_[i];
+            solnDot_final_[i]     = solnDot_final_final_[i];
+            yvalNLS_init_init_[i] = yvalNLS_final_final_[i];
+            yvalNLS_init_[i]      = yvalNLS_final_final_[i];
+            yvalNLS_[i]           = yvalNLS_final_final_[i];
+        }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Calculate the change in the state of the system when integrating from T_initial_initial_
 //  to t_final_final_
 /*

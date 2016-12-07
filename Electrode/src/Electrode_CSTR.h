@@ -503,22 +503,27 @@ public:
      */
     virtual void speciesProductionRates(double* const spMoleDot);
 
-    // ---------------------------------------------------------------------------------------------
-    // ----------------------------- CARRY OUT INTEGRATIONS -----------------------------------------
-    // ---------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // ----------------------------- CARRY OUT INTEGRATIONS ------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
 
-
-    //! The internal state of the electrode must be kept for the initial and
-    //! final times of an integration step.
+    //! Reset the Internal state of the electrode at the start of a new global integration step or a redo of the current global step
     /*!
+     *  (virtual from Electrode)
      *  This function advances the initial state to the final state that was calculated
-     *  in the last integration step. If the initial time is input, then the code doesn't advance
-     *  or change anything.
+     *  in the last integration step. If the initial time is input, then the code doesn't advance or change anything.
      *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
+     *  @param[in]           Tinitial            This is the New initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem. They should be the same.
+     *                                           If Tinitial == t_init_init, we redo the time step.
+     *
+     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
+     *                                           Defaults to false.
      */
-    void  resetStartingCondition(double Tinitial, bool doTestsAlways = false);
+    void  resetStartingCondition(double Tinitial, bool doTestsAlways = false) override;
 
     //! Check to see that the preceding step is a successful one
     /*!

@@ -462,26 +462,30 @@ public:
      */
     virtual int setupIntegratedSourceTermErrorControl();
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // ----------------------------- CARRY OUT INTEGRATION OF EQUATIONS-------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // ----------------------------- CARRY OUT INTEGRATION OF EQUATIONS-------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
 
-    //! The internal state of the electrode must be kept for the initial and
-    //! final times of an integration step.
-    /*
-     *  This function advances the initial state to the final state that was calculated
-     *  in the last integration step.
-     *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
-     */
-    virtual void  resetStartingCondition(double Tinitial, bool doTestsAlways = false);
-
-    //!  Calculate the change in the state of the system when integrating from T_initial_initial_
-    //!  to t_final_final_
+    //! Reset the Internal state of the electrode at the start of a new global integration step or a redo of the current global step
     /*!
-     *  All information is kept internal within this routine. This may be done continuously
-     *  and the solution is not updated.
+     *  (virtual from Electrode)
+     *  This function advances the initial state to the final state that was calculated in the last integration step.
+     *
+     *  @param[in]           Tinitial            This is the New initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem. They should be the same.
+     *                                           If Tinitial == t_init_init, we redo the time step.
+     *
+     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
+     *                                           Defaults to false.
+     */
+    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
+
+    //!  Calculate the change in the state of the system when integrating from T_initial_initial_  to t_final_final_
+    /*!
+     *  All information is kept internal within this routine. This may be done continuously and the solution is not updated.
      *
      *  Note the tolerance parameters refere to the nonlinear solves within the calculation
      *  They do not refer to time step parameters.
@@ -546,9 +550,9 @@ public:
      */
     virtual int predictSoln();
 
-    //! predict the derivative of the solution
+    //!  Predict the derivative of the solution
     /*!
-     * @return                                   Returns the success of the operation
+     *   @return                                 Returns the success of the operation
      *                                           -  1  A predicted solution is achieved
      *                                           -  2  A predicted solution with a multispecies phase pop is acheived
      *                                           -  0  A predicted solution is not achieved, but go ahead anyway
@@ -558,7 +562,7 @@ public:
 
     //! Extract the ROP of the multiple reaction fronts from Cantera within this routine
     /*!
-     *  (virtual fucntion from Electrode_Integrator)
+     *  (virtual function from Electrode_Integrator)
      *
      *   In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
      *   The function loops over active ReactingSurDomain objects. It calculates ROP_ for each reaction by

@@ -622,7 +622,7 @@ void
 Electrode_RadialRegion::initializeAsEvenDistribution()
 {
     int jRPh;
-    int iPh;
+    size_t iPh;
     int kspStart;
     int nSpecies;
     int kSp;
@@ -1758,7 +1758,7 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
     printf("     ===============================================================\n");
     printf("          Phase %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
-    if (iphI == metalPhase_) {
+    if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -1773,7 +1773,7 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
             printf("                Current = NA amps \n");
         }
     }
-    if (iphI == metalPhase_ || iphI == solnPhase_) {
+    if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                  Voltage = %g\n", tp.electricPotential());
     }
     if (iph >= m_NumVolPhases) {

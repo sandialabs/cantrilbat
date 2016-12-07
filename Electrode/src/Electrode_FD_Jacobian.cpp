@@ -218,8 +218,8 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
         jac_electronSource =  0.5 *(  individualSpeciesSource[0] + individualSpeciesSource[1]);
 	set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, CURRENT_SOURCE), individualSpeciesSource, dof_delta);
 
-	for (int sp = 0; sp < electrode->numSolnPhaseSpecies(); ++sp) {
-	    int idx = sp + electrolytePhaseSpeciesStart;
+	for (size_t sp = 0; sp < electrode->numSolnPhaseSpecies(); ++sp) {
+	    size_t idx = sp + electrolytePhaseSpeciesStart;
 	    individualSpeciesSource[0] = speciesSources[0][idx];
 	    individualSpeciesSource[1] = speciesSources[1][idx];
             jac_lyteSpeciesSource[sp] = 0.5 *(  individualSpeciesSource[0] + individualSpeciesSource[1]);
@@ -246,7 +246,7 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
 	jac_dof_Atol.resize(centerpoint.size(), 0.0);
     }
 
-    int electronIndex = electrode->kSpecElectron();
+    size_t electronIndex = electrode->kSpecElectron();
 
     jac_centerpoint = centerpoint;
     jac_dt = dt;
@@ -321,8 +321,8 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
         jac_electronSource = (individualSpeciesSource[0]);
 	set_jacobian_entry( DOF_SOURCE_PAIR(*dof_it, CURRENT_SOURCE), individualSpeciesSource, -0.5 * dof_delta);
 
-	for (int sp = 0; sp < electrode->numSolnPhaseSpecies(); ++sp) {
-	    int idx = sp + electrolytePhaseSpeciesStart;
+	for (size_t sp = 0; sp < electrode->numSolnPhaseSpecies(); ++sp) {
+	    size_t idx = sp + electrolytePhaseSpeciesStart;
 	    individualSpeciesSource[0] = speciesSources[0][idx];
 	    individualSpeciesSource[1] = speciesSources[1][idx];
             jac_lyteSpeciesSource[sp] = individualSpeciesSource[0];

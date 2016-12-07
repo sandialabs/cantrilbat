@@ -4051,35 +4051,27 @@ int Electrode::integrateResid(const double tfinal, const double deltaTsubcycle, 
     return 0;
 }
 //====================================================================================================================
-// The internal state of the electrode must be kept for the initial and
-// final times of an integration step.
+// The internal state of the electrode must be kept for the initial and final times of an integration step.
 /*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step. 
+ *  This function advances the initial state to the final state that was calculated  in the last integration step. 
  *
  *  If the initial time is input, then the code doesn't advance
  *  or change anything. It reverts the code to the t_init_init condition wiping clean variables that are filled
  *  with the integration.
  *
- *  We also assume that the final state is equal to the final_final state. If this is not the case
- *  then this is an error.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
+ *  We also assume that the final state is equal to the final_final state. If this is not the case then this is an error.
  */
-void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
+void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
     bool resetToInitInit = false;
- 
     /*
      * If this routine is called with Tinitial = t_init_init_, then we should return without doing anything
      * We have already advanced the time step to the new time.
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doTestsAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doResetAlways) {
         resetToInitInit = true;
     }
-
     /*
      *  The final_final time must be equal to the new Tinitial time if we are not resetting to the initial condition
      */ 
@@ -4091,7 +4083,6 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 			       "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
 	}
     }
-
     /*
      *  Make sure that tfinal and tfinal_final_ are the same. This is a comfort condition
      */
@@ -4100,7 +4091,6 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
                            "tfinal_ " + fp2str(tfinal_) + " is not equal to t_final_final_ " + fp2str(t_final_final_) + 
                            " This condition is needed for some transfers.");
     }
-
     /*
      * Set the new time to the new value, Tinitial, which is also equal to tfinal_ and t_final_final_
      */
@@ -4123,13 +4113,10 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 	}
     }
     pendingIntegratedStep_ = 0;
-
     /*
      *  Below is close to a  redo of Electrode::setInitInitStateFromFinalFinal()
      *  Not sure if I should combine the two treatments.
      */
-
-   
     //
     // Major change: do a full state change function here eventually
     //
@@ -4148,8 +4135,6 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
     integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 
-   
-
     /*
      *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps
      *  because we want jacobian calculations to mainly use the same time step history, so that the answers are
@@ -4161,7 +4146,6 @@ void Electrode::resetStartingCondition(double Tinitial, bool doTestsAlways)
 	}
 	deltaTsubcycle_init_next_ = 1.0E300;
     }
-   
 }
 //====================================================================================================================
 // Returns the initial global time

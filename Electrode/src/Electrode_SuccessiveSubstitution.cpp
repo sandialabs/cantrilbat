@@ -205,19 +205,19 @@ restartStep:
                  */
                 if (ActiveKineticsSurf_[isk]) {
                     ReactingSurDomain* rsd = RSD_List_[isk];
-                    int nph = rsd->nPhases();
-                    for (int jph = 0; jph < nph; jph++) {
-                        int iph = rsd->kinOrder[jph];
+                    size_t nph = rsd->nPhases();
+                    for (size_t jph = 0; jph < nph; jph++) {
+                        size_t iph = rsd->kinOrder[jph];
                         if (iph == metalPhase_) {
                             continue;
                         }
                         double mm = phaseMoles_init_[iph];
                         double mmf = phaseMoles_final_[iph];
                         ThermoPhase& tp = thermo(iph);
-                        int nsp = tp.nSpecies();
-                        if ((size_t) iph >=  NumVolPhases_) {
+                        size_t nsp = tp.nSpecies();
+                        if (iph >=  NumVolPhases_) {
                             // we are in a surface phase
-                            int isur = iph -  NumVolPhases_;
+                            size_t isur = iph -  NumVolPhases_;
                             double sa_init = surfaceAreaRS_init_[isur];
                             double sa_final = surfaceAreaRS_final_[isur];
                             if (sa_init > 0.0 || sa_final > 0.0) {
@@ -238,7 +238,7 @@ restartStep:
                         if (iph == bornMultiSpecies) {
                             rsd->setPhaseExistence(jph, true);
                         }
-                        for (int iiph = 0; iiph < (int) justBornMultiSpecies.size(); iiph++) {
+                        for (size_t iiph = 0; iiph < justBornMultiSpecies.size(); iiph++) {
                             if (iph == justBornMultiSpecies[iiph]) {
                                 rsd->setPhaseExistence(jph, true);
                             }
@@ -274,19 +274,19 @@ restartStep:
                      *  Get the net production vector
                      */
                     std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-                    int nphRS = RSD_List_[isk]->nPhases();
-                    int jph, kph;
-                    int kIndexKin = 0;
+                    size_t nphRS = RSD_List_[isk]->nPhases();
+                    size_t jph, kph;
+                    size_t kIndexKin = 0;
                     for (kph = 0; kph < nphRS; kph++) {
                         jph = RSD_List_[isk]->kinOrder[kph];
-                        int istart = m_PhaseSpeciesStartIndex[jph];
-                        int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-                        for (int k = 0; k < nsp; k++) {
+                        size_t istart = m_PhaseSpeciesStartIndex[jph];
+                        size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+                        for (size_t k = 0; k < nsp; k++) {
                             spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                             if (rsSpeciesProductionRates[kIndexKin] > 0.0) {
                                 if ((phaseMoles_init_[jph] <= 0.0) && (jph != metalPhase_)) {
                                     bool notFound = true;
-                                    for (int iiph = 0; iiph < (int)justBornMultiSpecies.size(); iiph++) {
+                                    for (size_t iiph = 0; iiph < justBornMultiSpecies.size(); iiph++) {
                                         if (jph == justBornMultiSpecies[iiph]) {
                                             notFound = false;
                                         }
@@ -614,14 +614,10 @@ int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const 
 
     justBornMultiSpecies.clear();
 
-
     /*
      * We start a predictor corrector damping cycle here
      */
-
-    int bornMultiSpecies = -1;
-
-
+    size_t bornMultiSpecies = npos;
 
     /*
      *   Set the internal objects to the correct conditions
@@ -641,7 +637,7 @@ int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const 
          */
         if (ActiveKineticsSurf_[isk]) {
             ReactingSurDomain* rsd = RSD_List_[isk];
-            int nph = rsd->nPhases();
+            size_t nph = rsd->nPhases();
             for (size_t jph = 0; jph < nph; jph++) {
                 size_t iph = rsd->kinOrder[jph];
                 if (iph == metalPhase_) {

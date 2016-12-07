@@ -824,12 +824,12 @@ double Electrode_DiffTALE::SolidVol() const
  */
 double Electrode_DiffTALE::SolidHeatCapacityCV() const
 {
-    int jRPh, iPh;
+    size_t jRPh, iPh;
     if (!doThermalPropertyCalculations_) {
         for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-            for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
+            for (jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
                 iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
-                int istart = m_PhaseSpeciesStartIndex[iph];
+                size_t istart = m_PhaseSpeciesStartIndex[iph];
                 ThermoPhase& tp = thermo(iph);
                 tp.getPartialMolarCp(&(CvPM_[istart]));
             }
@@ -837,10 +837,10 @@ double Electrode_DiffTALE::SolidHeatCapacityCV() const
 
         for (int iCell = 0; iCell < numRCells_; iCell++) {
             int indexMidKRSpecies =  iCell * numKRSpecies_;
-            int kstart = 0;
-            for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+            size_t kstart = 0;
+            for (jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
                 ThermoPhase* th = thermoSPhase_List_[jRPh];
-                int nSpecies = th->nSpecies();
+                size_t nSpecies = th->nSpecies();
                 th->setState_TPX(temperature_, pressure_, &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
                 th->getPartialMolarCp(&partialMolarCpKRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
                 kstart += nSpecies;
@@ -852,24 +852,24 @@ double Electrode_DiffTALE::SolidHeatCapacityCV() const
     //
     // For no-distributed phases, we do the normal heatCapacity calc.
     //
-    for (jRPh = 0; jRPh < numNonSPhases_; jRPh++) {
+    for (jRPh = 0; jRPh < (size_t) numNonSPhases_; jRPh++) {
         iPh = phaseIndeciseNonKRsolidPhases_[jRPh];
-        int kStart = m_PhaseSpeciesStartIndex[iPh];
+        size_t kStart = m_PhaseSpeciesStartIndex[iPh];
         ThermoPhase& tp = thermo(iPh);
-        int nspPhase = tp.nSpecies();
+        size_t nspPhase = tp.nSpecies();
         if (iPh != solnPhase_) {
-            for (int k = 0; k < nspPhase; k++) {
+            for (size_t k = 0; k < nspPhase; k++) {
                 heatCapacity += spMoles_final_[kStart + k] * CvPM_[kStart + k];
             }
         }
     }
 
     for (int iCell = 0; iCell < numRCells_; iCell++) {
-        int kstart = iCell * numKRSpecies_;
-        for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+        size_t kstart = iCell * numKRSpecies_;
+        for (jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
             ThermoPhase* th = thermoSPhase_List_[jRPh];
-            int nSpecies = th->nSpecies();
-            for (int kSp = 0; kSp < nSpecies; kSp++) {
+            size_t nSpecies = th->nSpecies();
+            for (size_t kSp = 0; kSp < nSpecies; kSp++) {
                 heatCapacity += spMoles_KRsolid_Cell_final_[kstart + kSp] * partialMolarCpKRSpecies_Cell_final_[kstart + kSp];
             }
             kstart += nSpecies;
@@ -2615,7 +2615,7 @@ void Electrode_DiffTALE::setNLSGlobalSrcTermTolerances(double rtolResid)
     double sum = SolidTotalMoles();
     double val = 1.0E-14 * sum;
 
-    for (int i = 0; i < numIntegratedSrc_; i++) {
+    for (size_t i = 0; i < numIntegratedSrc_; i++) {
         atol_IntegratedSrc_global_[i] = val;
     }
     rtol_IntegratedSrc_global_ = rtolResid;
@@ -2872,7 +2872,7 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
                 printf("      |              | ");
             }
             if (justDiedPhase_[iph]) {
-                printf("   --- PHASE DEATH for phase %d ---", iph);
+                printf("   --- PHASE DEATH for phase %d ---", static_cast<int>(iph));
             }
             printf("\n");
         }
@@ -2883,11 +2883,11 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
             printf("\t\t %20s  %12.4e  %12.4e  %12.4e | %12.4e %12.4e", ss.c_str(), spMoles_init_[k], spMoles_final_[k],
                    spMf_final_[k], src, spMoles_init_[k] + src);
             bool found = false;
-            for (int ph = 0; ph < numSPhases_; ph++) {
-                int iph = phaseIndeciseKRsolidPhases_[ph];
+            for (size_t ph = 0; ph < (size_t) numSPhases_; ph++) {
+                size_t iph = phaseIndeciseKRsolidPhases_[ph];
                 if (numSpeciesInKRSolidPhases_[ph] > 1) {
-                    int iStart = globalSpeciesIndex(iph, 0);
-                    for (int sp = 0; sp < numSpeciesInKRSolidPhases_[ph]; sp++) {
+                    size_t iStart = globalSpeciesIndex(iph, 0);
+                    for (size_t sp = 0; sp < (size_t) numSpeciesInKRSolidPhases_[ph]; sp++) {
 			size_t i = iStart + sp;
 			if (i == k) {
 			    found = true;
@@ -4542,12 +4542,12 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();
     
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
     printf("          Phase %d %s \n", iphI, pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
-    if (iphI == metalPhase_) {
+    if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {
             deltaT = tfinal_ - tinit_;
@@ -4562,7 +4562,7 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
             printf("                Current = NA amps \n");
         }
     }
-    if (iphI == metalPhase_ || iphI == solnPhase_) {
+    if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                Electric Potential = %g\n", tp.electricPotential());
     }
     if (iph >= NumVolPhases_) {
@@ -4578,8 +4578,8 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
     }
     printf("\n");
     printf("                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
-    for (int k = 0; k < nsp; k++) {
-        string sname = tp.speciesName(k);
+    for (size_t k = 0; k < nsp; k++) {
+        std::string sname = tp.speciesName(k);
         if (pSrc) {
             if (subTimeStep) {
                 printf("                %-22s %10.3E %10.3E %10.3E %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k], spMf_init_[istart + k],
@@ -4643,8 +4643,8 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
 	    concTot_iph_final[iCell] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh];
 	    concTot_iph_init[iCell] = concTot_SPhase_Cell_init_[iCell * numSPhases_ + jPh];
 
-	    for (int kSp = 0; kSp < nsp; kSp++) {
-		int iKRSpecies = kstartKRSolidPhases_[jPh] + kSp;
+	    for (size_t kSp = 0; kSp < nsp; kSp++) {
+		size_t iKRSpecies = kstartKRSolidPhases_[jPh] + kSp;
 		concKRSpecies_iph_init[istart + kSp] = concKRSpecies_Cell_init_[jstart + iKRSpecies];
 		concKRSpecies_iph_final[istart + kSp] = concKRSpecies_Cell_final_[jstart + iKRSpecies];
 		mf_iph_init[istart + kSp]  = spMf_KRSpecies_Cell_init_[jstart + iKRSpecies];
@@ -4655,10 +4655,10 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
 	    }
 	}
 	std::vector<string> speciesNames;
-	for (int kSp = 0; kSp < nsp; kSp++) {
+	for (size_t kSp = 0; kSp < nsp; kSp++) {
 	    speciesNames.push_back( tp.speciesName(kSp));
 	}
-        string pName = tp.name();
+        std::string pName = tp.name();
 	std::vector<string> pNames;
 	pNames.push_back(pName);
 
@@ -4683,10 +4683,7 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
 
 
     }
-
-
     delete [] netROP;
-
 }
 //==================================================================================================================================
 } // End namespace
