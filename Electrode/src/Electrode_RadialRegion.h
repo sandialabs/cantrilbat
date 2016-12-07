@@ -169,9 +169,14 @@ public:
      */
     virtual Electrode_Types_Enum electrodeType() const;
 
-    //! create the electrode model
-    int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
-
+    //!  Setup the electrode using the ELECTRODE_KEY_INPUT object that is read from an input file
+    /*!
+     *   (virtual from Electrode)
+     *   @param[in]          ei                  ELECTRODE_KEY_INPUT pointer object
+     *
+     *   @return                                 Returns 0 if successful, -1 if not.
+     */
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Specify initial conditions from an input file
     /*!

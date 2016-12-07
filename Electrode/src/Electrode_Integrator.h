@@ -405,12 +405,14 @@ public:
      */
     Electrode_Integrator& operator=(const Electrode_Integrator& right);
 
-    //! Create the electrode model
+    //!  Create the electrode model from the key input
     /*!
-     *  @param[in]           ei                            Pointer to the ELECTRODE_KEY_INPUT containing the 
-     *                                                     parsed input for the model
+     *   (virtual from Electrode)
+     *   @param[in]          ei                  Pointer to the ELECTRODE_KEY_INPUT containing the parsed input for the model
+     *
+     *   @return                                 Returns 0 if successful and -1 if not successful
      */
-    int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //!  Set the electrode initial conditions from the input file.
     /*!

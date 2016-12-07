@@ -332,12 +332,8 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     xRegion_final_ = 0;
     xRegion_final_final_ = 0;
 
-
-
     return 0;
 }
-
-
 //======================================================================================================================
 //   Set the electrode initial conditions from the input file.
 /*

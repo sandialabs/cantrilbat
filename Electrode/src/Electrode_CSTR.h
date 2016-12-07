@@ -120,11 +120,14 @@ public:
      */
     virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei);
 
-    //!  Setup the electrode
+    //!  Setup the electrode using the ELECTRODE_KEY_INPUT object that is read from an input file
     /*!
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *   (virtual from Electrode)
+     *   @param[in]          ei                  ELECTRODE_KEY_INPUT pointer object
+     *
+     *   @return                                 Returns 0 if successful, -1 if not.
      */
-    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //!  Set the electrode initial conditions from the input file.
     /*!
