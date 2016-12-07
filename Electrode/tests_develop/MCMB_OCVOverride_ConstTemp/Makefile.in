@@ -57,7 +57,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: MCMB MCMBThermo 
+all: .depends MCMB MCMBThermo 
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -82,7 +82,7 @@ CFLAGS = @CXXFLAGS@
 #
 # Both the C and C++ compiler predefines
 #
-CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+CCFLAGS = $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
@@ -100,7 +100,7 @@ depends:
 	$(MAKE) .depends
 
 .depends: $(DEPENDS)
-	cat *.d > .depends
+	cat $(DEPENDS) > .depends
 
 test: 
 	@MAKE@ -s
@@ -121,8 +121,8 @@ rebaseline:
 #######################################################################################################################
 #
 $(OBJ_ALL): Makefile
-$(DEPENDS): Makefile
-$(DEPENDS):  MCMBThermo.cpp MCMB.cpp
+$(DEPENDS): Makefile $(CTAPPLBASE_DEP)
+$(DEPENDS): MCMBThermo.cpp MCMB.cpp
 
 MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
             $(CANTERA_CORE_LIBS_DEP)
