@@ -732,7 +732,22 @@ public:
      */
     virtual double openCircuitVoltage(int isk,  bool comparedToReferenceElectrode = false);
 
-    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1, bool comparedToReferenceElectrode = false) const;
+    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions! based on a single reaction
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *   When there is more than a single reaction, pick open circuit potential for a reaction that is
+     *   closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
+     *
+     *   @param[in]     isk                           Reacting surface domain id
+     *   @param[in]     iReaction                     Explicit index of the reaction. If npos, then it attempts
+     *                                                to pick the reaction that best represents the open circuit potential.
+     *
+     *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
+     *
+     *   @return                                      Returns the OCV (volts)
+     */
+    virtual double openCircuitVoltageRxn(size_t isk, size_t iReaction = npos, bool comparedToReferenceElectrode = false) const override;
 
     //! Returns the equilibrium  open circuit voltage for the current conditions 
     /*!

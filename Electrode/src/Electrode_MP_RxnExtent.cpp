@@ -1717,7 +1717,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
             double mult = (surfaceAreaRS_init_[2] + surfaceAreaRS_final_[2]);
             mult /= 2.0;
             for (size_t i = 0; i < m_totNumVolSpecies; i++) {
-                for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
+                for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j] ;
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
                 }
@@ -1726,7 +1726,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
             double mult = surfaceAreaRS_init_[0] + 2.0 * surfaceAreaRS_final_[0];
             mult /= 3.0;
             for (size_t i = 0; i < m_totNumVolSpecies; i++) {
-                for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
+                for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j] ;
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
                 }
@@ -1735,7 +1735,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
             double mult = surfaceAreaRS_init_[1] + surfaceAreaRS_final_[1];
             mult /= 2.0;
             for (size_t i = 0; i < m_totNumVolSpecies; i++) {
-                for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
+                for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j)  * ROP_[j];
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
                 }
@@ -1795,7 +1795,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
             double fac =  SrcDot_ExtentRxn_final_;
 
             for (size_t i = 0; i < m_totNumVolSpecies; i++) {
-                for (int j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
+                for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  fac * productStoichCoeff(indexOfReactingSurface_,i, j);
                     DspMoles_final_[i] -=  fac * reactantStoichCoeff(indexOfReactingSurface_,i,j);
                 }
@@ -1812,8 +1812,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
 #endif
     }
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 //
 /*
  *  @return   Returns the success of the operation
@@ -1824,8 +1823,6 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
  */
 int Electrode_MP_RxnExtent::predictSoln_SpeciaType1()
 {
-
-
     double rInt = 0.5 * (Radius_internal_final_ + Radius_internal_init_);
     double theta1 = Radius_internal_init_ * surfaceAreaRS_final_[1] / (Radius_internal_final_ + DaOuter_Bar_) / spMoles_FeS2_Normalization_;
     double rop = (ca_Lip_ * krExt_ - kfExt_ * Lin_);
@@ -4013,17 +4010,17 @@ double Electrode_MP_RxnExtent::calculateRadiusInner(double relativeExtentRxn_fin
 //====================================================================================================================
 double Electrode_MP_RxnExtent::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 {
-    return openCircuitVoltageRxn(isk, -1, comparedToReferenceElectrode);
+    return openCircuitVoltageRxn((size_t) isk, npos, comparedToReferenceElectrode);
 }
 //======================================================================================================================
-double Electrode_MP_RxnExtent::openCircuitVoltageRxn(int isk, int iReaction, bool comparedToReferenceElectrode) const
+double Electrode_MP_RxnExtent::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool comparedToReferenceElectrode) const
 {
-    if (isk != indexOfReactingSurface_) {
+    if (isk != (size_t) indexOfReactingSurface_) {
         return 0.0;
     }
     //FIXME: This function is not const and is only used for a debug check here, is that debug check really important?
     //double voltBase = Electrode::openCircuitVoltage(indexOfReactingSurface_);
-    double volts =  openCircuitVoltage_Region(RelativeExtentRxn_final_, xRegion_final_);
+    double volts = openCircuitVoltage_Region(RelativeExtentRxn_final_, xRegion_final_);
     /*if (fabs(voltBase - volts) > 1.0E-6) {
         throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltage()",
                            "Internal inconsistency: " +  fp2str(voltBase) + "  " + fp2str(volts));

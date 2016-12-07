@@ -731,7 +731,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     surfaceAreaRS_init_init_.resize(numSurfaces_, 0.0);
     surfaceAreaRS_final_final_.resize(numSurfaces_, 0.0);
     RSD_List_.resize(numSurfaces_, 0);
-    numRxns_.resize(numSurfaces_, 0);
+    numRxns_.resize(numSurfaces_, static_cast<size_t>(0));
     ActiveKineticsSurf_.resize(numSurfaces_, 0);
     sphaseMolarAreas_.resize(numSurfaces_, 0.0);
 
@@ -941,7 +941,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     numExtraGlobalRxns = ei->numExtraGlobalRxns;
     if (numExtraGlobalRxns > 0) {
         m_EGRList.resize(numExtraGlobalRxns, 0);
-        for (int i = 0; i < numExtraGlobalRxns; i++) {
+        for (size_t i = 0; i < numExtraGlobalRxns; i++) {
             AssertTrace(!m_EGRList[i]);
             m_EGRList[i] = new EGRInput(*(ei->m_EGRList[i]));
         }
@@ -3114,14 +3114,14 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
  *  closest to equilibrium given the cell voltage since this one
  *  is the one for which open circuit is most relevant.
  */
-double Electrode::openCircuitVoltageRxn(int isk, int iReaction, bool comparedToReferenceElectrode) const
+double Electrode::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool comparedToReferenceElectrode) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         return 0.0;
     }
-    int rxnIndex = 0;
-    if (iReaction >= 0) {
+    size_t rxnIndex = 0;
+    if (iReaction != npos) {
         rxnIndex = iReaction;
     }
 
@@ -3131,11 +3131,11 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction, bool comparedToR
 	rsd->getDeltaGibbs(DATA_PTR(deltaG_));
     }
 
-    int nR = rsd->nReactions();
+    size_t nR = rsd->nReactions();
     double ERxn = 0.0; // store open circuit voltage here
 
-    int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
-    if (metalPhaseRS >= 0) {
+    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    if (metalPhaseRS != npos) {
 
         RxnMolChange* rmc = rsd->rmcVector[rxnIndex];
         /*
@@ -3151,17 +3151,15 @@ double Electrode::openCircuitVoltageRxn(int isk, int iReaction, bool comparedToR
         printf(" ERxn_SS = %g\n",  ERxn_SS);
 #endif
   
-        if (iReaction >= 0) {
+        if (iReaction != npos) {
             return ERxn;
         }
         /*
-         *  Compute open circuit potential from other reactions.
-         *  Pick open circuit potential for reaction that is
-         *  closest to equilibrium given cell voltage since this one
-         *  is the one for which open circuit is most relevant.
+         *  Compute open circuit potential from other reactions.  Pick open circuit potential for reaction that is
+         *  closest to equilibrium given cell voltage since this one is the one for which open circuit is most relevant.
          */
         if (nR > 1) {
-            for (int i = 1; i < nR; i++) {
+            for (size_t i = 1; i < nR; i++) {
                 rmc = rsd->rmcVector[i];
                 nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
                 if (nStoichElectrons != 0.0) {
@@ -3555,7 +3553,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 /*
  *  The overpotential is the current voltage minus the open circuit voltage.
  */
-double Electrode::overpotential(int isk)
+double Electrode::overpotential(size_t isk)
 {
     double Erxn = openCircuitVoltage(isk);
     return (deltaVoltage_ - Erxn);
@@ -3582,7 +3580,7 @@ double Electrode::overpotentialRxn(int isk, int irxn)
  * However, the InterfaceKinetics version of this method was implemented to let
  * i0 = kf / Kc^0.5 for non-electrochemical reactions.
  */
-double Electrode::getExchangeCurrentDensity(int isk, int irxn) const
+double Electrode::getExchangeCurrentDensity(size_t isk, size_t irxn) const
 {
     double iCurr = 0.0;
     ReactingSurDomain* rsd = RSD_List_[isk];
@@ -3693,7 +3691,7 @@ void Electrode::addExtraGlobalRxn(EGRInput* egr_ptr)
 //======================================================================================================================
 int Electrode::processExtraGlobalRxnPathways()
 {
-    for (int i = 0; i < numExtraGlobalRxns; i++) {
+    for (size_t i = 0; i < numExtraGlobalRxns; i++) {
         addExtraGlobalRxn(m_EGRList[i]);
     }
     return numExtraGlobalRxns;

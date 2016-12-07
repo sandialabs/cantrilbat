@@ -1782,7 +1782,6 @@ public:
      *  the current concentrations because it looks for the reaction
      *  closest to equilibrium given the current cell voltage.
      *
-     *
      *  (virtual function from Electrode.h)
      *
      *  @param[in]   isk                  Reacting surface domain id
@@ -1793,20 +1792,20 @@ public:
      */
     virtual double openCircuitVoltageSSRxn(int isk, int iReaction = -1) const;
 
-    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions
-    //! based on a single reaction (virtual)
+    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions based on a single reaction
     /*!
-     *  When there is more than a single reaction, pick open circuit potential for a reaction that is
-     *  closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
+     *   When there is more than a single reaction, pick open circuit potential for a reaction that is
+     *   closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
      *
      *   @param[in]     isk                           Reacting surface domain id
-     *   @param[in]     iReaction                     Explicit index of the reaction. If -1, then it attempts
+     *   @param[in]     iReaction                     Explicit index of the reaction. If npos, then it attempts
      *                                                to pick the reaction that best represents the open circuit potential.
+     *
      *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
      *
      *   @return                                      Returns the OCV (volts)
      */
-    virtual double openCircuitVoltageRxn(int isk, int iReaction = -1, bool comparedToReferenceElectrode = false) const;
+    virtual double openCircuitVoltageRxn(size_t isk, size_t iReaction = npos, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
     /*!
@@ -1890,19 +1889,18 @@ public:
      *  @return                                 Returns the exchange current in units of amps / m2
      */
 // Deprecate
-    double  getExchangeCurrentDensity(int isk, int irxn) const;
+    double getExchangeCurrentDensity(size_t isk, size_t irxn) const;
 
     //! Returns the overpotential for the current conditions
     /*!
-     *  The overpotential is the current voltage minus the open circuit voltage.
-     *  This routine calculates the open circuit voltage for the surface via a rootfinder.
-     *  The OCV is a half-cell calculation.
+     *   The overpotential is the current voltage minus the open circuit voltage.
+     *   This routine calculates the open circuit voltage for the surface via a rootfinder. The OCV is a half-cell calculation.
      *
-     *   @param[in]     isk                     Reacting surface number
+     *   @param[in]          isk                 Reacting surface number
      *
-     *   @return                                Returns the overpotential of a given reacting surface (volts)
+     *   @return                                 Returns the overpotential of a given reacting surface (volts)
      */
-    double overpotential(int isk);
+    double overpotential(size_t isk);
 
     //! Returns the overpotential for the current conditions based on a particular reaction
     /*!
@@ -2548,7 +2546,7 @@ protected:
      */
     Electrode_Capacity_Type_Enum  electrodeCapacityType_;
 
-    //! true if there is a pending integration step
+    //! Boolean, true if there is a pending integration step
     /*!
      *  We keep track of whether there is a pending integration step with this variable
      */
@@ -2869,25 +2867,23 @@ protected:
      */
     std::vector<ReactingSurDomain*> RSD_List_;
 
-    //! Vector of the number of reactions in a ReactingSurface object in the problem
+    //!  Vector of the number of reactions in a ReactingSurface object in the problem
     /*!
-     *  This vector has length number of surfaces in the problem.
-     *  If a surface doesn't have kinetics associated with it, the position is set to 0.
+     *   This vector has length number of surfaces in the problem.
+     *   If a surface doesn't have kinetics associated with it, the position is set to 0.
      *
-     *     Length = number of surfaces that may be present: numSurfaces_
+     *   Length = number of surfaces that may be present: numSurfaces_
      */
-    std::vector<int> numRxns_;
+    std::vector<size_t> numRxns_;
 
-    //! Vector indicating that a surface is currently kinetically active
+    //!  Vector of booleans indicating that a surface is currently kinetically active
     /*!
      *   To be true, the surface must have a kinetics object and the surface area must have a
-     *   nonzero positive value. Mole numbers for one side of the interfacial reaction
-     *   should also be present.
+     *   nonzero positive value. Mole numbers for one side of the interfacial reaction should also be present.
      *
-     *   This is used to trigger the calculation of the rates of progress of reactions that
-     *   are on the surface.
+     *   This is used to trigger the calculation of the rates of progress of reactions that are on the surface.
      *
-     *     Length = number of surfaces that may be present: numSurfaces_
+     *   Length = number of surfaces that may be present: numSurfaces_
      */
     std::vector<int> ActiveKineticsSurf_;
 
@@ -3179,7 +3175,7 @@ protected:
     std::string electrodeName_;
 
     //! Number of extra global reaction pathways specified
-    int numExtraGlobalRxns;
+    size_t numExtraGlobalRxns;
 
     //! Vector of EGRInput structures
     /*!
