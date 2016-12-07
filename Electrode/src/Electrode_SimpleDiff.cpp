@@ -12,6 +12,7 @@
 #include "cantera/integrators.h"
 #include "Electrode_RadialDiffRegions.h"
 #include "EState_RadialDistrib.h"
+#include "cantera/base/vec_functions.h"
 
 using namespace std;
 using namespace BEInput;
@@ -480,11 +481,6 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     }
 
     /*
-     *  Calculate the number of equations to be solved in the nonlinear system
-     */
-    neq_ = 1 +  numEqnsCell_ * numRCells_;
-    
-    /*
      *  We will do a cursory check of surface phases here. The assumption for this object
      *  until further work is that there is one surface, and that it is the exterior
      *  surface of the particle
@@ -501,7 +497,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     surfIndexExteriorSurface_ = 0;
  
     /*
-     * Initialize the arrays in this object now that we know the number of equations
+     * Initialize the arrays in this object now that we can know the number of equations
      */
     init_sizes();
 
@@ -640,9 +636,16 @@ void Electrode_SimpleDiff::resizeMoleNumbersToGeometry()
     }
 }
 //====================================================================================================================
+size_t Electrode_SimpleDiff::nEquations_calc() const
+{
+    size_t neq = 1 +  numEqnsCell_ * numRCells_;
+    return neq;
+}
+//====================================================================================================================
 void
 Electrode_SimpleDiff::init_sizes()
 {
+    neq_ = nEquations_calc();
     size_t kspCell =  numKRSpecies_ *  numRCells_;
     size_t nPhCell = numSPhases_ * numRCells_;
 
@@ -2453,7 +2456,6 @@ void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
 	}
     }
 }
-
 //====================================================================================================================
 // Unpack the soln vector
 /*
@@ -2826,7 +2828,7 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
 
     }
 
-    if ((int) atolNLS_.size() !=  neq_) {
+    if (atolNLS_.size() !=  neq_) {
         printf("ERROR\n");
         exit(-1);
     }
@@ -2958,13 +2960,10 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
      */
     updateSpeciesMoleChangeFinal();
 
-    for (int i = 0; i < neq_; i++) {
-	resid[i] = 0.0;
-    }
-
     /*
      * Calculate the residual
      */
+    zeroD(neq_, resid);
     calcResid(resid, evalType);
 
     size_t index = 1;

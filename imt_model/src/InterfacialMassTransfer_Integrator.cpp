@@ -1000,7 +1000,7 @@ namespace Cantera
       throw CanteraError(" InterfacialMassTransfer_Integrator::setResidAtolNLS()",
 			 "total moles is small or negative");
     }
-    for (int i = 0; i <  neq_; i++) {
+    for (size_t i = 0; i <  neq_; i++) {
      residAtolNLS_[i] = 1.0E-14 * sm;
      atolNLS_[i] = 1.0E-14 * sm;
     }

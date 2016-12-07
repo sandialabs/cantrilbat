@@ -88,7 +88,7 @@ enum DOFS
 
 class Electrode_Equilibrium;
 
-
+//==================================================================================================================================
 //! Electrode class is the base class used to model porous electrodes
 /*!
  * Complete problem statement

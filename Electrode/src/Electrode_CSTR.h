@@ -730,12 +730,13 @@ public:
 
     //! Return the number of equations in the equation system that is used to solve the ODE integration
     /*!
+     *  (virtual from Electrode_Integrator)
      *  This will be
      *           1   for the deltaT
      *           nSolidPhases   Total moles in each solid phases
      *           Xmol           Mole fraction of species in each solid phase, except for largest mole fraction
      */
-    virtual int nEquations() const;
+    virtual size_t nEquations_calc() const override;
 
     //! Evaluate the residual function
     /*!

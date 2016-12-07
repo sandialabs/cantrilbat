@@ -13,6 +13,8 @@
 #include "Electrode_RadialDiffRegions.h"
 #include "EState_RadialDistrib.h"
 
+#include "cantera/base/vec_functions.h"
+
 using namespace std;
 using namespace BEInput;
 using namespace TKInput;
@@ -472,18 +474,13 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     }
 
     /*
-     *  Calculate the number of equations to be solved in the nonlinear system
-     */
-    neq_ = 1 +  numEqnsCell_ * numRCells_;
-    
-    /*
      *  We will do a cursory check of surface phases here. The assumption for this object
      *  until further work is that there is one surface, and that it is the exterior
      *  surface of the particle
      */
     if (m_NumSurPhases != 1) {
-	printf("Unhandled situation about surface phases\n");
-	exit(-1);
+        throw CanteraError("Electrode_DiffTALE::electrode_model_create()",
+                          "Unhandled situation about surface phases\n");
     }
 
     /*
@@ -493,7 +490,7 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     surfIndexExteriorSurface_ = 0;
  
     /*
-     * Initialize the arrays in this object now that we know the number of equations
+     * Initialize the arrays in this object now that we can know the number of equations
      */
     init_sizes();
 
@@ -516,7 +513,6 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *                         (note, this means internal diffusion is not tracked here
      *      (already set up)
      */ 
-  
     create_solvers();
 
     /*
@@ -590,9 +586,16 @@ Electrode_DiffTALE::electrode_stateSave_create()
     return rr;
 }
 //====================================================================================================================
+size_t Electrode_DiffTALE::nEquations_calc() const
+{
+    size_t neq = 1 +  numEqnsCell_ * numRCells_;
+    return neq;
+}
+//====================================================================================================================
 void
 Electrode_DiffTALE::init_sizes()
 {
+    neq_ = nEquations_calc();
     int kspCell =  numKRSpecies_ *  numRCells_;
     int nPhCell = numSPhases_ * numRCells_;
 
@@ -2701,9 +2704,8 @@ void  Electrode_DiffTALE::setResidAtolNLS()
 	}
 
     }
-
   
-    if ((int) atolNLS_.size() !=  neq_) {
+    if (atolNLS_.size() !=  neq_) {
         printf("ERROR\n");
         exit(-1);
     }
@@ -2835,13 +2837,10 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
      */
     updateSpeciesMoleChangeFinal();
 
-    for (int i = 0; i < neq_; i++) {
-	resid[i] = 0.0;
-    }
-
     /*
      * Calculate the residual
      */
+    zeroD(neq_, resid);
     //calcResid_2(resid, evalType);
     calcResid(resid, evalType);
   

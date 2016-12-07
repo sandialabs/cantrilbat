@@ -8,6 +8,7 @@
 #include "BE_BlockEntry.h"
 
 #include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/base/vec_functions.h"
 
 using namespace std;
 using namespace BEInput;
@@ -258,8 +259,7 @@ int
 Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
 
-
-    int flag = Electrode::electrode_model_create(eibase);
+    int flag = Electrode_Integrator::electrode_model_create(eibase);
     if (flag != 0) {
         return flag;
     }
@@ -314,8 +314,6 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
         solidMoles += phaseMoles_final_[iph];
     }
     RelativeExtentRxn_NormalizationFactor_ = solidMoles;
-
-
 
     if (ei->RxnExtTopLimit >= 0.0) {
         RelativeExtentRxn_RegionBoundaries_.resize(2);
@@ -430,6 +428,7 @@ Electrode_CSTR::electrode_stateSave_create()
 //   local routine to resize arrays that this object is responsible for
 void Electrode_CSTR::init_sizes()
 {
+    neq_ = nEquations_calc();
     DspMoles_final_.resize(m_NumTotSpecies, 0.0);
 
     int maxNumRxns = RSD_List_[0]->nReactions();
@@ -445,23 +444,17 @@ void Electrode_CSTR::init_sizes()
     phaseMFBig_.resize(m_NumTotPhases, 0);
     justDied_.resize(m_NumTotPhases, 0);
     justBornPhase_.resize(m_NumTotPhases, 0);
-    neq_ = nEquations();
     //soln_predict_.resize(neq_, 0.0);
     //spMoles_predict_.resize(m_NumTotSpecies, 0.0);
 }
 
 //======================================================================================================================
-//! Create and malloc the solvers
-/*!
- * @return   returns 1 if ok
- */
 int Electrode_CSTR::create_solvers()
 {
-    int neqNLS = nEquations();
+    int neqNLS = nEquations_calc();
     Electrode_Integrator::create_solvers();
     atolNLS_.resize(neqNLS, 1.0E-12);
     atolResidNLS_.resize(neqNLS, 1.0E-12);
-
     return neqNLS;
 }
 //======================================================================================================================
@@ -744,7 +737,7 @@ double Electrode_CSTR::capacityRaw(int platNum) const
     }
     double capZeroDoD = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -808,7 +801,7 @@ double Electrode_CSTR::capacityLeftRaw(int platNum, double voltsMax, double volt
     }
     double capLeft = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
+        if (iph == solnPhase_ || iph ==  metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -948,7 +941,7 @@ double Electrode_CSTR::capacityLeftDot(int platNum, double voltsMax, double volt
 {
     double capLeftDot = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -966,16 +959,15 @@ double Electrode_CSTR::capacityDot(int platNum) const
 {
     double capDot = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == (size_t) solnPhase_ || iph == (size_t)  metalPhase_) {
+        if (iph ==  solnPhase_ || iph == metalPhase_) {
             continue;
         }
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
+        size_t nspPhase = tp.nSpecies();
+        for (size_t k = 0; k < nspPhase; k++) {
             double ll =  DspMoles_final_[kStart + k];
             capDot += ll * capacityZeroDoDSpeciesCoeff_[kStart + k];
-
         }
     }
     return capDot * Faraday;
@@ -990,11 +982,10 @@ double Electrode_CSTR::RxnExtentDot(int platNum, double voltsMax, double voltsMi
     double reDot = - capLeftDot / capZero + capLeft * capDot / ( capZero * capZero);
     return reDot;
 }
-
 //================================================================================================================
 void Electrode_CSTR::speciesProductionRates(double* const spMoleDot)
 {     
-    std::fill_n(spMoleDot, m_NumTotSpecies, 0.0);
+    zeroD(m_NumTotSpecies, spMoleDot);
     //
     //  For non-pending we calculate the instantaneous value
     // 
@@ -1074,10 +1065,10 @@ int  Electrode_CSTR::predictSoln()
          */
         std::fill(justBornPhase_.begin(), justBornPhase_.end(), 0);
         RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
-        copy(spMf_init_.begin(), spMf_init_.end(), spMf_final_.begin());
-        copy(spMoles_init_.begin(), spMoles_init_.end(), spMoles_final_.begin());
-        copy(phaseMoles_init_.begin(), phaseMoles_init_.end(), phaseMoles_final_.begin());
-        copy(surfaceAreaRS_init_.begin(), surfaceAreaRS_init_.end(), surfaceAreaRS_final_.begin());
+        std::copy(spMf_init_.begin(), spMf_init_.end(), spMf_final_.begin());
+        std::copy(spMoles_init_.begin(), spMoles_init_.end(), spMoles_final_.begin());
+        std::copy(phaseMoles_init_.begin(), phaseMoles_init_.end(), phaseMoles_final_.begin());
+        std::copy(surfaceAreaRS_init_.begin(), surfaceAreaRS_init_.end(), surfaceAreaRS_final_.begin());
         deltaTsubcycleCalc_ = deltaTsubcycle_;
 	solidMoles_init_ = SolidTotalMoles();
 
@@ -1105,7 +1096,7 @@ int  Electrode_CSTR::predictSoln()
           // FIXME: this if block that sets vleft, vright, vtop, vbot will always have them overwritten
           // by the following block on lines 1026-1034. Should those lines be in an else clause?
             if (onRegionBoundary_init_ == 0) {
-                vleft =  openCircuitVoltage_Region(-1);
+                vleft = openCircuitVoltage_Region(-1);
                 vright = openCircuitVoltage_Region(0);
                 if (electrodeType_ == ELECTRODETYPE_CATHODE) {
                     vtop = vleft;
@@ -1229,14 +1220,14 @@ int  Electrode_CSTR::predictSoln()
 	//
         double DT, DTmin, tmp;
         int hasAPos, hasANeg;
-        for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+        for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
             hasAPos = 0;
             hasANeg = 0;
             int iph = phaseIndexSolidPhases_[ph];
             justDiedPhase_[iph] = 0;
             DTmin = 1.0E+300;
             for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                size_t isp = globalSpeciesIndex(iph,sp);
+                size_t isp = globalSpeciesIndex(iph, sp);
                 deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycle_;
                 tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycle_;
                 if (spMoles_init_[isp] > 0.0) {
@@ -1306,13 +1297,13 @@ int  Electrode_CSTR::predictSoln()
 	//  Here we calculate justDiedPhase_[] vector
 	//
         if (minDT < 1.15 * deltaTsubcycleCalc_) {
-            for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+            for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
                 hasAPos = 0;
                 hasANeg = 0;
                 DTmin = 1.0E+300;
                 int iph = phaseIndexSolidPhases_[ph];
                 for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-                    size_t isp = globalSpeciesIndex(iph,sp);
+                    size_t isp = globalSpeciesIndex(iph, sp);
                     deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
                     if (spMoles_init_[isp] > 0.0) {
@@ -1626,14 +1617,13 @@ void  Electrode_CSTR::initialPackSolver_nonlinFunction()
             }
         }
     }
-    if ((int) index !=  nEquations()) {
+    if (static_cast<int>(index) != nEquations()) {
         printf("we have a prob\n");
         exit(-1);
     }
 }
 //====================================================================================================================
-// Return the number of equations in the equation system that is used to solve the ODE integration
-int Electrode_CSTR::nEquations() const
+size_t Electrode_CSTR::nEquations_calc() const
 {
     size_t neq = phaseIndexSolidPhases_.size();
     neq++;
@@ -1642,7 +1632,7 @@ int Electrode_CSTR::nEquations() const
             neq += numSpecInSolidPhases_[i] - 1;
         }
     }
-    return (int) neq;
+    return neq;
 }
 //====================================================================================================================
 //  Return a vector of delta y's for calculation of the numerical Jacobian
@@ -2306,7 +2296,7 @@ void  Electrode_CSTR::setResidAtolNLS()
         }
 
     }
-    if ((int) atolNLS_.size() !=  neq_) {
+    if (atolNLS_.size() !=  neq_) {
         printf("ERROR\n");
         exit(-1);
     }
@@ -2504,9 +2494,7 @@ int Electrode_CSTR::evalResidNJ(const double tdummy, const double delta_t_dummy,
 //====================================================================================================================
 int Electrode_CSTR::getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot)
 {
-    for (int k = 0; k < neq_; k++) {
-        ySoln[k] = 0.0;
-    }
+    zeroD(neq_, ySoln);
     return 1;
 }
 //==============================================================================================================

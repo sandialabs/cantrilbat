@@ -1626,22 +1626,22 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
 			 Kinetics &kin,
 			 ExtraGlobalRxn &egr)
 {
-  int k;
+  size_t k;
   //InterfaceKinetics *iK = electrode->m_rSurDomain;
   ReactingSurDomain *iK = electrode->currOuterReactingSurface();
-  int nr = iK->nReactions();
+  size_t nr = iK->nReactions();
   std::vector<double> deltaG;
   deltaG.resize(nr, 0.0);
   std::vector<double> deltaSSG;
   deltaSSG.resize(nr, 0.0);
-  int iphMetal = electrode->metalPhaseIndex();
-  int RSphMetal = iK->PLtoKinPhaseIndex_[iphMetal];
+  size_t iphMetal = electrode->metalPhaseIndex();
+  size_t RSphMetal = iK->PLtoKinPhaseIndex_[iphMetal];
   //int RSphMetal = electrode->CurrReactingSurfacePhaseIndex(iphMetal);
   double phi0Metal = electrode->phaseVoltage(iphMetal);
   double nStoichElectrons = - rmc->m_phaseChargeChange[RSphMetal];
 
-  int iphSoln = electrode->solnPhaseIndex();
-  int jphSoln =  iK->PLtoKinPhaseIndex_[iphSoln];
+  size_t iphSoln = electrode->solnPhaseIndex();
+  size_t jphSoln =  iK->PLtoKinPhaseIndex_[iphSoln];
   //int jphSoln = electrode->CurrReactingSurfacePhaseIndex(iphSoln);
   ThermoPhase& tpJSoln = kin.thermo(jphSoln);
   double phi0Soln = tpJSoln.electricPotential();
@@ -1655,7 +1655,7 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
   ThermoPhase *tps = &(iK->thermo(iSurf));
   SurfPhase *tpSurface = dynamic_cast<SurfPhase *>(tps);
 
-  int nSurfSpecies = tpSurface->nSpecies();
+  size_t nSurfSpecies = tpSurface->nSpecies();
   vector<double> thetaSurf(nSurfSpecies, 0.0);
   tpSurface->getCoverages(DATA_PTR(thetaSurf));
 
@@ -1665,10 +1665,9 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
   string rs = egr.reactionString();
   dnt(1); printf("Voltage Dependence for Rxn: %s", rs.c_str());
   printf("\n\n");
-  dnt(2); printf("ThermoPhase index pertaining to the solution = %d\n", jphSoln);
-  dnt(2); printf("ThermoPhase index pertaining to the metal = %d\n", RSphMetal); 
-  dnt(2); printf("Kinetic Species Index pertaining to the electrons = %d\n", 
-		 electrode->kKinSpecElectron(0));
+  dnt(2); printf("ThermoPhase index pertaining to the solution = %d\n", static_cast<int>(jphSoln));
+  dnt(2); printf("ThermoPhase index pertaining to the metal = %d\n", static_cast<int>(RSphMetal)); 
+  dnt(2); printf("Kinetic Species Index pertaining to the electrons = %d\n", static_cast<int>(electrode->kKinSpecElectron(0)));
   dnt(2); printf("Input Electric Potential of the Metal = %g Volts\n", phi0Metal);
   dnt(2); printf("Input Electric Potential of the Soln  = %g Volts\n", phi0Soln);
   dnt(2); printf("Input Voltage                         = %g Volts\n", V0);
@@ -1723,7 +1722,7 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
   dnt(2); printf(" TABLE that uses the Surface Solver to Solve for Surface Site Concentrations\n");
  
 
-  int nSS = MIN(nSurfSpecies, 6);
+  size_t nSS = MIN(nSurfSpecies, 6);
   twidth = 104 + nSS * 11;
   dnt(2); print_char('-', twidth); printf("\n");
   dnt(2);

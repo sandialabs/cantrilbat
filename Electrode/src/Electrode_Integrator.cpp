@@ -436,10 +436,7 @@ Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
     IntegratedSrc_normError_global_(0.0),
     relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
 {
-    /*
-     * Call the assignment operator.
-     */
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
 // Assignment operator
@@ -561,20 +558,24 @@ Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 int  Electrode_Integrator::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 {
     Electrode::setInitialConditions(ei);
-
+    nEquations_calc();
     create_solvers();
-
     return 0;
 }
 //===================================================================================================================
-int
-Electrode_Integrator::create_solvers()
+size_t Electrode_Integrator::nEquations_calc() const
+{
+    throw CanteraError("Electrode_Integrator::nEquations_calc()", "Parent member function called");
+    return 0;
+}
+//===================================================================================================================
+int Electrode_Integrator::create_solvers()
 {
     //
     //  Note: We must have a valid count of the number of unknowns in the nonlinear problem
-    //        when we call this. If we don't, then the solver arrays won't be malloced with the right amount
-    //        of space.
-    int neqNLS = nEquations();
+    //        when we call this. If we don't, then the solver arrays won't be malloced with the right amount of space.
+    size_t neqNLS = nEquations();
+    neq_ = neqNLS;
 
     if (pSolve_) {
         int m = nEquations();
@@ -759,7 +760,8 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     //  -> Note we haven't malloced the memory initially because we need to know the
     //     number of equations.
     if (pSolve_ == 0) {
-        int neqNLS = create_solvers();
+        size_t neqNLS = nEquations_calc();
+        create_solvers();
         if (neqNLS != neq_) {
             exit(-1);
         }
@@ -1118,6 +1120,11 @@ topConvergence:
              *             deltaBoundsMagnitudesNLS_
              */
             initialPackSolver_nonlinFunction();
+            /*
+             *  Calculate consistent ydotNLS_ going into the nonlinear solver
+             */
+            calc_ydotNLS_final();
+
             jacPtr_->m_useReturnErrorCode = 1;
 
             /*
@@ -1819,17 +1826,16 @@ void  Electrode_Integrator::check_yvalNLS_init(bool doOthers)
 void Electrode_Integrator::setInitStateFromFinal(bool setInitInit)
 {
     Electrode::setInitStateFromFinal(setInitInit);
-    int neqNLS = nEquations();
     if (solnDot_init_.empty()) {
 	create_solvers();
     }
     // We carry over the time derivative of the solution from the old step to the new step here.
-    for (int i = 0; i < neqNLS; i++) {
+    for (size_t i = 0; i < neq_; i++) {
 	solnDot_init_[i] = solnDot_final_[i];
 	yvalNLS_init_[i] = yvalNLS_[i];
     }
     if (setInitInit) {
-	for (int i = 0; i < neqNLS; i++) {
+	for (size_t i = 0; i < neq_; i++) {
 	    solnDot_init_init_[i] =  solnDot_final_[i];
 	    yvalNLS_init_init_[i] =  yvalNLS_[i];
 	}
@@ -1840,9 +1846,8 @@ void Electrode_Integrator::setInitInitStateFromFinalFinal()
 {
     Electrode::setInitInitStateFromFinalFinal();
 
-    int neqNLS = nEquations();
     if( solnDot_init_.empty() ) create_solvers();
-    for (int i = 0; i < neqNLS; i++) {
+    for (size_t i = 0; i < neq_; i++) {
 	solnDot_init_init_[i] = solnDot_final_final_[i];
 	solnDot_init_[i]      = solnDot_final_final_[i];
 	solnDot_final_[i]     = solnDot_final_final_[i];
@@ -1954,31 +1959,77 @@ void Electrode_Integrator::unpackNonlinSolnVector(const double* const y)
 {
     throw CanteraError(" Electrode_Integrator::unpackNonlinSolnVector()", "unimplemented");
 }
-//====================================================================================================================
-// Check to see that the preceding step is a successful one
-/*
- *   We check to see if the preceding step is a successful one.
- *
- *  @return Returns a bool true if the step is acceptable, and false if it is unacceptable.
- */
+//==================================================================================================================================
 bool Electrode_Integrator::checkSubIntegrationStepAcceptable() const
 {
     return true;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_Integrator::calc_solnDot_final()
 {
-    for (int i = 0; i < neq_; i++) {
-	solnDot_final_[i] = (yvalNLS_[i] - yvalNLS_init_[i]) / deltaTsubcycleCalc_; 
+    const int m_order = 1;
+    doublevalue c1;
+    switch (m_order) {
+    case 0:
+        for (size_t i = 0; i < neq_; i++) {
+	    solnDot_final_[i] = c1 * (yvalNLS_[i] - yvalNLS_init_[i]); 
+        }
+    case 1:             /* First order forward Euler/backward Euler */
+        c1 = 1.0 / deltaTsubcycleCalc_;
+        for (size_t i = 0; i < neq_; i++) {
+	    solnDot_final_[i] = c1 * (yvalNLS_[i] - yvalNLS_init_[i]); 
+        }
+        return;
+    case 2:             /* Second order Adams-Bashforth / Trapezoidal Rule */
+        c1 = 2.0 / deltaTsubcycleCalc_;
+        for (size_t i = 0; i < neq_; i++) {
+            solnDot_final_[i] = c1 * (yvalNLS_[i] - yvalNLS_init_[i]) - solnDot_init_[i];
+        }
+        return;
+    default:
+        throw CanteraError("calc_solnDot_final()", "Case not covered");
     }
+
     solnDot_final_[0] = 0.0;
     if (!haveGood_solnDot_init_) {
-        for (int i = 0; i < neq_; i++) {
+        for (size_t i = 0; i < neq_; i++) {
             solnDot_init_[i] = solnDot_final_[i]; 
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
+// This routine must agree with calc_ydot() within the Zuzax' nonlinear solver, NonlinearSolver
+// ydotNLS_[] is updated within the nonlinear solver as yvalNLS_ is updated. This routine serves to initialize the values on
+// going into the nonlinear solver.
+double Electrode_Integrator::calc_ydotNLS_final()
+{
+    const int m_order = 1;
+    doublevalue c1;
+    switch (m_order) {
+    case 0:             
+        c1 = 0.0;
+        for (size_t i = 0; i < neq_; i++) {
+            ydotNLS_[i] = solnDot_init_[i];
+        }
+        break;
+    case 1:             /* First order forward Euler/backward Euler */
+        c1 = 1.0 / deltaTsubcycleCalc_;
+        for (size_t i = 0; i < neq_; i++) {
+            ydotNLS_[i] = c1 * (yvalNLS_[i] - yvalNLS_init_[i]);
+        }
+        break;
+    case 2:             /* Second order Adams-Bashforth / Trapezoidal Rule */
+        c1 = 2.0 / deltaTsubcycleCalc_;
+        for (size_t i = 0; i < neq_; i++) {
+            ydotNLS_[i] = c1 * (yvalNLS_[i] - yvalNLS_init_[i]) - solnDot_init_[i];
+        }
+        break;
+    default:
+        throw CanteraError("calc_ydotNLS_final()", "Case not covered");
+    }
+    return c1;
+}
+//==================================================================================================================================
 //  Calculate the norm of the difference between the predicted answer and the final converged answer
 //  for the current time step
 /*
@@ -2005,7 +2056,7 @@ double Electrode_Integrator::predictorCorrectorWeightedSolnNorm(const std::vecto
  */
 void Electrode_Integrator::accumulateLocalErrorToGlobalErrorOnCompletedStep()
 {
-    for (int k = 0; k < neq_; k++) {
+    for (size_t k = 0; k < neq_; k++) {
         errorGlobalNLS_[k] += errorLocalNLS_[k];
     }
 }
@@ -2019,12 +2070,6 @@ void Electrode_Integrator::accumulateLocalErrorToGlobalErrorOnCompletedStep()
 bool Electrode_Integrator::decide_normHighLogic(double pnorm, int num_newt_its, int iterSubCycle)
 {
     double deltaT = t_final_final_ - t_init_init_;
-
-    /*
-     *
-     */
-   
-
     /*
      *  The fundamental decision is to reject the step out of time step truncation error if pnorm is greater than 2
      */
@@ -2198,7 +2243,7 @@ int  Electrode_Integrator::residEval_BaseChecks()
 {
     return 1;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //     Print details about the satisfaction of the residual
 /*
  *  (virtual from Electrode_Integrator)
@@ -2206,32 +2251,17 @@ int  Electrode_Integrator::residEval_BaseChecks()
 void  Electrode_Integrator::printResid_ResidSatisfaction()
 {
 }
-//====================================================================================================================
-//  Pack the nonlinear solver proplem
-/*
- *  formulate the nonlinear solver problem to be solved.
- *     Fields to be filled in
- *             yvalNLS_
- *             ylowNLS_
- *             yhighNLS_
- *             atolNLS_
- *             deltaBoundsMagnitudesNLS_
- *             ysType
- */
+//==================================================================================================================================
 void Electrode_Integrator::initialPackSolver_nonlinFunction()
 {
     throw CanteraError(" Electrode_Integrator::initialPackSolver_nonlinFunction()",  "unimplemented");
 }
-//====================================================================================================================
-// Check the nonlinear residual equations for completeness and the ability to be solved
-/*
- *
- */
+//==================================================================================================================================
 int Electrode_Integrator::check_nonlinResidConditions()
 {
     return 0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Report the number of state variables and their relative integration errors during the
 // current global integration step
 /*
@@ -2260,7 +2290,7 @@ double Electrode_Integrator::reportStateVariableIntegrationError(int& numSV, dou
     }
     return vmax;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Residual calculation for the solution of the Nonlinear integration problem
 /*
  * @param t             Time                    (input)

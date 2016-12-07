@@ -191,6 +191,7 @@ protected:
     //! Residual function that loops back.
     calcPhaseStabFunc_ResidJacEval* m_resid;
 
+    //  TODO: Change the name of this
     int neq_;
 
     double fValue_;

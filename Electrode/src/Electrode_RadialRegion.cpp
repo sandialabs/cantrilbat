@@ -430,16 +430,8 @@ Electrode_RadialRegion::operator=(const Electrode_RadialRegion& right)
     return *this;
 }
 //======================================================================================================================
-/*
- *
- * :destructor
- *
- * We need to manually free all of the arrays.
- */
 Electrode_RadialRegion::~Electrode_RadialRegion()
 {
-
-
 }
 //======================================================================================================================
 //    Return the type of electrode
@@ -476,7 +468,7 @@ Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     /*
      * Find phase name
      */
-    int index = ee_->globalPhaseIndex(phaseName);
+    size_t index = ee_->globalPhaseIndex(phaseName);
 
     phaseIndeciseKRsolidPhases_.resize(1);
     phaseIndeciseKRsolidPhases_[0] = index;
@@ -491,10 +483,10 @@ Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *   2 + sum (nsp_each_distrib_phase)
      */
     numKRSpecies_ = 0;
-    for (int i = 0; i < (int) phaseIndeciseKRsolidPhases_.size(); i++) {
+    for (size_t i = 0; i <  phaseIndeciseKRsolidPhases_.size(); i++) {
         int iPh =  phaseIndeciseKRsolidPhases_[i];
         ThermoPhase& th = thermo(iPh);
-        int nsp = th.nSpecies();
+        size_t nsp = th.nSpecies();
         numKRSpecies_ += nsp;
     }
     numEqnsCell_ =  numKRSpecies_ + 2;
@@ -505,9 +497,8 @@ Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     MolarVolume_refLat_Ref_ = 55.55;
 
-
     /*
-     * Initialize the arrays in this object now that we know the number of equations
+     * Initialize the arrays in this object now that we can know the number of equations
      */
     init_sizes();
 
@@ -515,9 +506,6 @@ Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  Initialize the species
      */
     initializeAsEvenDistribution();
-
-
-
 
     return 0;
 }
@@ -553,9 +541,16 @@ Electrode_RadialRegion::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     return 0;
 }
 //====================================================================================================================
+size_t Electrode_RadialRegion::nEquations_calc() const
+{
+    size_t neq = 1 +  numEqnsCell_ * numRCells_;
+    return neq;
+}
+//====================================================================================================================
 void
 Electrode_RadialRegion::init_sizes()
 {
+    neq_ = nEquations_calc();
     int kspCell = numKRSpecies_ *  numRCells_;
     int kphCell = numSPhases_ * numRCells_;
 

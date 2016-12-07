@@ -281,7 +281,7 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& rig
     if (!Li_liq_) {
         throw CanteraError("", "");
     }
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
 // Assignment operator
@@ -500,10 +500,10 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  in the electrode. Then, we will set the moles of A and B to be 1/2 of that no matter
      *  where the electrode is in the DOD.
      */
-    int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
-    int is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
-    int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
-    int is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
+    size_t ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
+    size_t is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
+    size_t ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
+    size_t is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
 
     /*
      *  Now save the mole numbers as a normalization number
@@ -670,6 +670,14 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
    
 
     return 0;
+}
+//====================================================================================================================
+// Number of equations is hard coded to equal 2
+size_t Electrode_MP_RxnExtent::nEquations_calc() const
+{
+    // First equation is deltaT
+    // Second equation is extent or reaction
+    return 2;
 }
 //====================================================================================================================
 //   Set the electrode initial conditions from the input file.
@@ -851,7 +859,6 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     return 0;
 }
-
 //====================================================================================================================
 int
 Electrode_MP_RxnExtent::electrode_stateSave_create()
@@ -990,7 +997,6 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
  */
 void Electrode_MP_RxnExtent::developBaseE0()
 {
-
     /*
      * Calculate Hf_Base_
      */
@@ -3698,12 +3704,10 @@ void Electrode_MP_RxnExtent::setFinalFinalStateFromFinal()
     Radius_internal_final_final_ = Radius_internal_final_;
     molarVolume_final_final_ = molarVolume_final_;
 }
-
-
 //==================================================================================================================================
 int Electrode_MP_RxnExtent::getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot)
 {
-    for (int k = 0; k < neq_; k++) {
+    for (size_t k = 0; k < neq_; k++) {
         ySoln[k] = 0.0;
     }
     return 1;
@@ -3718,11 +3722,11 @@ int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const double t, const double*
                                                    double* const deltaYSoln, const double* const solnWeights)
 {
     if (!solnWeights) {
-        for (int i = 0; i < neq_; i++) {
+        for (size_t i = 0; i < neq_; i++) {
             deltaYSoln[i] = m_atol + fabs(1.0E-6 * ySoln[i]);
         }
     } else {
-        for (int i = 0; i < neq_; i++) {
+        for (size_t i = 0; i < neq_; i++) {
             deltaYSoln[i] = fmax(1.0E-2 * solnWeights[i], 1.0E-6 * fabs(ySoln[i]));
         }
     }

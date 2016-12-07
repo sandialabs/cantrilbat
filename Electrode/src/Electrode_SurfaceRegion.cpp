@@ -57,12 +57,8 @@ Electrode_SurfaceRegion::Electrode_SurfaceRegion() :
     rRefPos_final_(0.0),
     rRefPos_init_(0.0),
     rRefPos_init_init_(0.0)
-
 {
-
-
 }
-
 //======================================================================================================================
 // Copy Constructor
 /*
@@ -184,6 +180,11 @@ Electrode_SurfaceRegion::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     }
 
 
+    return 0;
+}
+//===================================================================================================================
+size_t Electrode_SurfaceRegion::nEquations_calc() const
+{
     return 0;
 }
 //====================================================================================================================

@@ -135,6 +135,14 @@ public:
      */
     virtual int electrode_stateSave_create();
 
+    //! Calculate the number of equations that will be solved during the nonlinear solver step.
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *  All classes which inherit from this routine must have a class that determines this value.
+     *
+     *  @return                                  Returns the number of unknowns in the nonlinear problem and time-stepping problem.
+     */
+    virtual size_t nEquations_calc() const override;
 
     //! Initialize the sizes
     void init_sizes();
