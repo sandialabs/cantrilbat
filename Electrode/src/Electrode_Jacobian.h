@@ -20,7 +20,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
+//==================================================================================================================================
 //! Base class for computing Electrode object sensitivities
 /*!
  *  This is a base class defining an interface that is used to get sensitivity
@@ -108,8 +108,7 @@ public:
       return it->second;
   }
 
-  // These 3 functions enable the user to specify which Jacobian entries need to be
-  // calculated.
+  // These 3 functions enable the user to specify which Jacobian entries need to be calculated.
 
   //! This function adds a vector of entries into the list of entries that need to be computed
   /*!

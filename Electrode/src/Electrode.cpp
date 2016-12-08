@@ -1,6 +1,6 @@
 /**
  *  @file Electrode.cpp
- *     Headers for the declartion class for the base Electrode class
+ *     Definitions of member functions for the base Electrode class, used to model Electrode processes
  *     (see \ref electrode_mgr and class \link Zuzax::Electrode Electrode\endlink).
  */
 
@@ -16,12 +16,11 @@
 #include "Electrode_FuncCurrent.h"
 #include "Electrode_Exception.h"
 #include "Electrode_input.h"
+
 #include "cantera/numerics/RootFind.h"
 #include "cantera/numerics/solveProb.h"
-#include "ApplBase_print.h"
 #include "cantera/kinetics/ExtraGlobalRxn.h"
-
-//using namespace std;
+#include "ApplBase_print.h"
 
 
 #ifndef SAFE_DELETE
@@ -1539,7 +1538,6 @@ void Electrode::setElectrodeSizeParams(double electrodeArea, double electrodeThi
  */
 void Electrode::resizeMoleNumbersToGeometry()
 {
-
     double partVol = 4.0 * Pi * Radius_exterior_final_ * Radius_exterior_final_ * Radius_exterior_final_ / 3.0;
     double targetSolidVol = partVol * particleNumberToFollow_;
     double currentSolidVol = Electrode::SolidVol();
@@ -1574,10 +1572,10 @@ void Electrode::resizeMoleNumbersToGeometry()
     double currentSolnVol = totalVol - currentSolidVol;
     ratio = targetSolnVol / currentSolnVol;
 
-    int istart = m_PhaseSpeciesStartIndex[solnPhase_];
-    int nspSoln = m_PhaseSpeciesStartIndex[solnPhase_ + 1] - m_PhaseSpeciesStartIndex[solnPhase_];
-    for (int kk = 0; kk < nspSoln; kk++) {
-        int k = istart + kk;
+    size_t istart = m_PhaseSpeciesStartIndex[solnPhase_];
+    size_t nspSoln = m_PhaseSpeciesStartIndex[solnPhase_ + 1] - m_PhaseSpeciesStartIndex[solnPhase_];
+    for (size_t kk = 0; kk < nspSoln; kk++) {
+        size_t k = istart + kk;
         spMoles_final_[k] *= ratio;
         spMoles_init_[k] = spMoles_final_[k];
         spMoles_init_init_[k] = spMoles_final_[k];
@@ -1593,8 +1591,6 @@ void Electrode::resizeMoleNumbersToGeometry()
         throw CanteraError("Electrode::resizeMoleNumbersToGeometry() Error",
                            "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
     }
-
-   
     capacityInitialZeroDod_ = Electrode::capacity();
     Electrode::resetCapacityDischargedToDate();
 }
@@ -1735,7 +1731,7 @@ ZZCantera::ReactingSurDomain* Electrode::reactingSurface(int iSurf)
  */
 void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial)
 {
-    int istart = m_PhaseSpeciesStartIndex[solnPhase_];
+    size_t istart = m_PhaseSpeciesStartIndex[solnPhase_];
     ThermoPhase& tp = thermo(solnPhase_);
     size_t nsp = tp.nSpecies();
     AssertTrace(nsp == (m_PhaseSpeciesStartIndex[solnPhase_+1] - m_PhaseSpeciesStartIndex[solnPhase_]));
@@ -2982,10 +2978,10 @@ void Electrode::getPhaseProductionRates(const double* const speciesProductionRat
         phaseProductionRates[iph] = 0.0;
         ThermoPhase& tp = thermo(iph);
         //string pname = tp.id();
-        int istart = m_PhaseSpeciesStartIndex[iph];
-        int nsp = tp.nSpecies();
-        for (int ik = 0; ik < nsp; ik++) {
-            int k = istart + ik;
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+        for (size_t ik = 0; ik < nsp; ik++) {
+            size_t k = istart + ik;
             phaseProductionRates[iph] += speciesProductionRates[k];
         } 
     }
@@ -3001,10 +2997,10 @@ void Electrode::getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfere
         phaseMolesTransfered[iph] = 0.0;
         ThermoPhase& tp = thermo(iph);
         //string pname = tp.id();
-        int istart = m_PhaseSpeciesStartIndex[iph];
-        int nsp = tp.nSpecies();
-        for (int ik = 0; ik < nsp; ik++) {
-            int k = istart + ik;
+        size_t istart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = tp.nSpecies();
+        for (size_t ik = 0; ik < nsp; ik++) {
+            size_t k = istart + ik;
             phaseMolesTransfered[iph] += spMoleIntegratedSourceTerm_[k];
         }
         sum += fabs(phaseMolesTransfered[iph]);
@@ -3068,12 +3064,12 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
     if (!rsd) {
         return 0.0;
     }
-    int rxnIndex = 0;
+    size_t rxnIndex = 0;
     if (iReaction >= 0) {
         rxnIndex = iReaction;
     }
     rsd->getDeltaSSGibbs(DATA_PTR(deltaG_));
-    double length = rsd->rmcVector.size();
+    size_t length = rsd->rmcVector.size();
     double PhiRxn = 0.0;
 
     size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
@@ -3097,7 +3093,7 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
          *  is the one for which open circuit is most relevant.
          */
         if (length > 1) {
-            for (int i = 1; i < length; i++) {
+            for (size_t i = 1; i < length; i++) {
                 rmc = rsd->rmcVector[i];
                 nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
                 if (nStoichElectrons != 0.0) {
@@ -3120,8 +3116,8 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
  *  closest to equilibrium given the cell voltage since this one
  *  is the one for which open circuit is most relevant.
  */
-double Electrode::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool comparedToReferenceElectrode) const
-{
+	double Electrode::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool comparedToReferenceElectrode) const
+	{
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         return 0.0;
@@ -3201,13 +3197,10 @@ void Electrode::getOpenCircuitVoltages(int isk, double* Erxn, bool comparedToRef
     } else {
 	rsd->getDeltaGibbs(DATA_PTR(deltaG_));
     }
-
-
-    //find number of reactions
+    // find number of reactions
     size_t nr = rsd->rmcVector.size();
-
-    int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
-    if (metalPhaseRS >= 0) {
+    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    if (metalPhaseRS != npos) {
         RxnMolChange* rmc;
         double nStoichElectrons;
         for (size_t i = 0; i < nr; i++) {
@@ -3253,7 +3246,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     static int oIts = 0;
     double nStoichElectrons = 0.0;
     double deltaT = 0.005;
-    int rxnIndex = 0;
+    size_t rxnIndex = 0;
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         return 0.0;
@@ -3272,18 +3265,18 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
         printf("we are here, oIts = %d\n", oIts);
     }
     RxnMolChange* rmc = 0;
-    int nR = rsd->nReactions();
+    size_t nR = rsd->nReactions();
     // If we don't have any reactions we can't do the calculation
     if (nR == 0) {
         return 0.0;
     }
-    int nP = rsd->nPhases();
+    size_t nP = rsd->nPhases();
     double ERxn = 0.0; // store open circuit voltage here
 
     std::vector<int> phaseExistsInit(nP, 1);
     std::vector<int> phaseStabInit(nP, 1);
 
-    for (int iph = 0; iph < nP; iph++) {
+    for (size_t iph = 0; iph < nP; iph++) {
         phaseExistsInit[iph] = rsd->phaseStability(iph);
         phaseStabInit[iph] = rsd->phaseStability(iph);
         if (printLvl_ > printDebug) {
@@ -3294,8 +3287,8 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     }
 
     // If we don't have a metal phase, we don't know how to do the calculation (lazy I think)
-    int metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
-    if (metalPhaseRS < 0) {
+    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    if (metalPhaseRS == npos) {
         return 0.0;
     }
     double phiMin = +100.;
@@ -3308,8 +3301,8 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     //
     //  Our first check is to see whether there is one reaction occurring between phases which are allowed to exist
     //
-    for (int i = 0; i < nR; i++) {
-        int rxnIndex = i;
+    for (size_t i = 0; i < nR; i++) {
+        size_t rxnIndex = i;
         rmc = rsd->rmcVector[rxnIndex];
         /*
          *  Compute open circuit potential for the current reaction reaction
@@ -3317,7 +3310,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
         nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
         if (nStoichElectrons != 0.0) {
 	    numERxns++;
-            for (int jph = 0; jph < nP; jph++) {
+            for (size_t jph = 0; jph < nP; jph++) {
 		//  \todo check to see whether this needs deltaG additions to see what direction it is going.
 		// If this phase participates in the reaction mechanism ...
                 if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
@@ -3340,7 +3333,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 
         if (printLvl_ > printDebug) {
             std::string rstring = rsd->reactionString(i);
-            printf("%d %100.100s %g  \n", i, rstring.c_str(), ERxn);
+            printf("%d %100.100s %g  \n", static_cast<int>(i), rstring.c_str(), ERxn);
         }
         if (reactionTurnedOn[i]) {
             thereIsOneTurnedOn = true;
@@ -3389,8 +3382,8 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     double ERxnMin = 0.0;;
     double ERxnMax = 0.0;
     numERxns = 0;
-    int iR = -1;
-    for (int i = 0; i < nR; i++) {
+    size_t iR = npos;
+    for (size_t i = 0; i < nR; i++) {
         bool electReact = false;
         bool electProd = false;
         /*
@@ -3432,7 +3425,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
             if (!thereIsOneTurnedOn) {
                 if (electProd) {
                     if (ERxn > deltaVoltage_) {
-                        for (int jph = 0; jph < nP; jph++) {
+                        for (size_t jph = 0; jph < nP; jph++) {
                             if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
                                 phaseExists[jph] = 1;
                                 phaseStab[jph] = 1;
@@ -3442,7 +3435,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
                 }
                 if (electReact) {
                     if (ERxn <= deltaVoltage_) {
-                        for (int jph = 0; jph < nP; jph++) {
+                        for (size_t jph = 0; jph < nP; jph++) {
                             if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
                                 phaseExists[jph] = 1;
                                 phaseStab[jph] = 1;
@@ -3469,7 +3462,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
     
     if (!thereIsOneTurnedOn) {
         rmc = rsd->rmcVector[rxnIndex];
-        for (int jph = 0; jph < nP; jph++) {
+        for (size_t jph = 0; jph < nP; jph++) {
             if (rmc->m_phaseReactantMoles[jph] > 0.0 || rmc->m_phaseProductMoles[jph] > 0.0) {
                 phaseExists[jph] = 1;
                 phaseStab[jph] = 1;
@@ -3477,7 +3470,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
         }
     }
 
-    for (int iph = 0; iph < nP; iph++) {
+    for (size_t iph = 0; iph < nP; iph++) {
         rsd->setPhaseExistence(iph, phaseExists[iph]);
         rsd->setPhaseStability(iph, phaseStab[iph]);
         if (printLvl_ > printDebug) {
@@ -3670,18 +3663,18 @@ RxnMolChange* Electrode::rxnMolChangesEGR(int iegr)
     return m_rmcEGR[iegr];
 }
 //====================================================================================================================
-void Electrode::addExtraGlobalRxn(EGRInput* egr_ptr)
+void Electrode::addExtraGlobalRxn(EGRInput* const egr_ptr)
 {
     InterfaceKinetics* iKA = RSD_List_[0];
-    int nReactionsA = iKA->nReactions();
+    size_t nReactionsA = iKA->nReactions();
 
     ZZCantera::ExtraGlobalRxn* egr = new ExtraGlobalRxn(iKA);
     double* RxnVector = new double[nReactionsA];
-    for (int i = 0; i < nReactionsA; i++) {
+    for (size_t i = 0; i < nReactionsA; i++) {
         RxnVector[i] = 0.0;
     }
 
-    for (int iErxn = 0; iErxn < egr_ptr->m_numElemReactions; iErxn++) {
+    for (size_t iErxn = 0; iErxn < (size_t) egr_ptr->m_numElemReactions; iErxn++) {
         ERSSpec* ers_ptr = egr_ptr->m_ERSList[iErxn];
         RxnVector[ers_ptr->m_reactionIndex] = ers_ptr->m_reactionMultiplier;
     }
@@ -3715,11 +3708,11 @@ int Electrode::numExtraGlobalRxnPathways() const
 //===================================================================================================================
 Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, int iphaseTarget, double* const Xmf_stable,
         double deltaTsubcycle) :
-                ResidEval(),
-                ee_(ee),
-                iphaseTarget_(iphaseTarget),
-                Xmf_stable_(Xmf_stable),
-                deltaTsubcycle_(deltaTsubcycle)
+    ResidEval(),
+    ee_(ee),
+    iphaseTarget_(iphaseTarget),
+    Xmf_stable_(Xmf_stable),
+    deltaTsubcycle_(deltaTsubcycle)
 {
 }
 //===================================================================================================================
@@ -3731,8 +3724,8 @@ int Electrode::phasePop_Resid::evalSS(const double t, const double* const y, dou
 //===================================================================================================================
 int Electrode::phasePop_Resid::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
-    int ne = nEquations();
-    for (int k = 0; k < ne; k++) {
+    size_t ne = nEquations();
+    for (size_t k = 0; k < ne; k++) {
         y[k] = Xmf_stable_[k];
     }
     return 1;
@@ -5384,7 +5377,7 @@ void Electrode::printElectrodePhaseList(int pSrc, bool subTimeStep)
  */
 void Electrode::printElectrode(int pSrc, bool subTimeStep)
 {
-    int iph;
+    size_t iph;
     double egv = TotalVol();
     double tsm = SolidTotalMoles();
     printf("   ==============================================================================================\n");
@@ -5437,8 +5430,8 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
     printf("\n");
     printElectrodePhaseList(pSrc, subTimeStep);
 
-    int m = m_NumTotPhases;
-    if ((size_t) numSurfaces_ > m_NumSurPhases) {
+    size_t m = m_NumTotPhases;
+    if (numSurfaces_ > m_NumSurPhases) {
         m = numSurfaces_ + m_NumVolPhases;
     }
     for (iph = 0; iph < m; iph++) {
@@ -5464,7 +5457,7 @@ void Electrode::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
 {
     size_t iph = iphI;
-    int isurf = -1;
+    size_t isurf = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     std::string pname = tp.name();
@@ -5566,7 +5559,7 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             size_t nphRS = RSD_List_[isurf]->nPhases();
-            int kIndexKin = 0;
+            size_t kIndexKin = 0;
             for (size_t kph = 0; kph < nphRS; kph++) {
                 size_t jph = RSD_List_[isurf]->kinOrder[kph];
                 size_t istart = m_PhaseSpeciesStartIndex[jph];

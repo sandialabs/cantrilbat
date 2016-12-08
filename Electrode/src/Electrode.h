@@ -1,6 +1,10 @@
-/*
- * $Id: Electrode.h 604 2013-05-24 16:27:35Z hkmoffa $
+/**
+ *  @file Electrode.h
+ *     Headers for the declarations of the base Electrode class, used to model 
+ *     Electrode processes
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode Electrode\endlink).
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -18,7 +22,6 @@
 #include "ReactingSurDomain.h"
 
 #include "Electrode_defs.h"
-//#include "ExtraGlobalRxn.h"
 #include "EState.h"
 
 #include "Electrode_Exception.h"
