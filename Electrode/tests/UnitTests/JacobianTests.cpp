@@ -40,8 +40,8 @@ public:
     metalPhase_ = 1;
     phaseVoltages_.resize(2);
     fake_electrolyte_mole_nums.resize(3);
-    NumVolPhases_ = 1;
-    VolPhaseList.push_back( new MockThermoPhase_lyte());
+    m_NumVolPhases = 1;
+    VolPhaseList_.push_back( new MockThermoPhase_lyte());
   }
 
   virtual ~MockElectrode() {}

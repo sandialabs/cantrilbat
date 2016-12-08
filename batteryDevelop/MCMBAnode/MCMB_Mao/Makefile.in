@@ -63,7 +63,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends MCMBThermo MCMB MCMBThermo_RSD_Override
+all: .dependsT MCMBThermo MCMB MCMBThermo_RSD_Override
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -127,8 +127,9 @@ depends:
 	$(RM) $(DEPENDS)
 	$(MAKE) .depends
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 test: 
 	@MAKE@
@@ -178,5 +179,5 @@ test_clean:
 
 clean:
 	@MAKE@ test_clean
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) MCMBThermo_RSD_Override MCMB
+	$(RM) *.o  .depends .dependsT *.d *~  $(PROGRAM) MCMBThermo_RSD_Override MCMB
 

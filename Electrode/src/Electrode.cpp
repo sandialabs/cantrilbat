@@ -775,14 +775,14 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      */
     size_t isphfound = npos;
     for (size_t isph = 0; isph < m_NumSurPhases; isph++) {
-        if (SurPhaseHasKinetics[isph]) {
+        if (SurPhaseHasKinetics_[isph]) {
             isphfound = isph;
             break;
         }
     }
     if (isphfound == npos) {
         for (size_t i = 0; i < m_NumVolPhases; i++) {
-            if (VolPhaseHasKinetics[i]) {
+            if (VolPhaseHasKinetics_[i]) {
                 break;
             }
         }
@@ -795,7 +795,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         // Right now there is a correspondence between isph and isurf for the initial read in.
         // However this may break in the future. Therefore, I've put in this logic for future expansion
         int isph = isurf;
-        if (SurPhaseHasKinetics[isph]) {
+        if (SurPhaseHasKinetics_[isph]) {
             ReactingSurDomain* rsd = new ReactingSurDomain();
             int ok = rsd->importFromPL(this, isph);
             if (!ok) {

@@ -311,8 +311,8 @@ namespace Cantera
     /*
      * Do specific surface phase printouts
      */
-    if (iph >= NumVolPhases_) {
-      isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+      isph = iph - m_NumVolPhases;
       printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
       printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
     }
@@ -343,8 +343,8 @@ namespace Cantera
       }
     }
     if (printLvl_ >= 4) {
-      if (iph >= NumVolPhases_) {
-	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+      if (iph >= m_NumVolPhases) {
+	const std::vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
 	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);
@@ -410,8 +410,6 @@ namespace Cantera
 	 string sss = speciesName(k);
 	 fprintf(fpI, " SRC_%-20.20s,",  sss.c_str());
        }
-
-
        fprintf(fpI, " iType");
        fprintf(fpI, "\n");
        fclose(fpI);

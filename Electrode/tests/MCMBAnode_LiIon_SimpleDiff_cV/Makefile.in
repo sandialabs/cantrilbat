@@ -16,7 +16,7 @@ BLESSED_FILES = good_out.txt soln_0_0_blessed.xml \
 DATA = anode.inp problem_setup.sh \
        ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml
 
-all: .depends $(PROGRAM)
+all: .dependsT $(PROGRAM)
 
 ################################################################################################################
 #                          Setup The Cantera Directory locations
@@ -104,15 +104,15 @@ $(PROGRAM): $(OBJ) $(UTILSRC_DEP) $(LIBRARY_DEP_LIST)
 DEPENDS = $(OBJ:.o=.d) 
 
 # Set up the dependency list for .d files:
-# We use the .a files in the list because that's a gross indicator of the package having changed.
-$(DEPENDS): Makefile $(LIBRARY_DEP_LIST) $(PROGRAM).cpp
+$(DEPENDS): Makefile  $(PROGRAM).cpp
 
 depends:
 	$(RM) $(DEPENDS)
 	$(MAKE) -s  .depends
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat $(DEPENDS) > .depends
+	touch .dependsT
 
 
 ifeq ($(wildcard .depends), .depends)
@@ -149,7 +149,7 @@ test_clean:
 
 clean:
 	$(RM) runInProgress.txt runBad runGood 
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) 
+	$(RM) *.o  .depends .dependsT *.d *~  $(PROGRAM) 
 
 dist_clean:
 	@MAKE@ -s test_clean

@@ -1308,11 +1308,11 @@ void Electrode_SimpleDiff::updateState_Phase(int iphI)
     tp.setElectricPotential(phaseVoltages_[iph]);
     tp.getPartialMolarVolumes(&(VolPM_[istart]));
     tp.getElectrochemPotentials(&(spElectroChemPot_[istart]));
-    if (iph < NumVolPhases_) {
+    if (iph < m_NumVolPhases) {
         phaseMolarVolumes_[iph] = tp.molarVolume();
     } else {
         phaseMolarVolumes_[iph] = 0.0;
-        size_t isurf = iph - NumVolPhases_;
+        size_t isurf = iph - m_NumVolPhases;
         sphaseMolarAreas_[isurf] = tp.molarVolume();
     }
     if (doThermalPropertyCalculations_) {
@@ -3605,7 +3605,7 @@ void Electrode_SimpleDiff::updateSpeciesMoleChangeFinal()
 
     double surfaceArea_star =  4. * Pi / 3. * (r_init * r_init + r_init * r_final + r_final * r_final);
     double mult = surfaceArea_star * particleNumberToFollow_;
-    for (size_t i = 0; i < m_totNumVolSpecies; i++) {
+    for (size_t i = 0; i < m_NumVolSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
     }
 }
@@ -4311,8 +4311,8 @@ void Electrode_SimpleDiff::printElectrodePhase(int iphI, int pSrc, bool subTimeS
     if (iph == metalPhase_ || iph == solnPhase_) {
         printf("                Electric Potential = %g\n", tp.electricPotential());
     }
-    if (iph >= NumVolPhases_) {
-        isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        isph = iph - m_NumVolPhases;
         printf("                surface area (final) = %11.5E m2\n",  surfaceAreaRS_final_[isph]);
         printf("                surface area (init)  = %11.5E m2\n",  surfaceAreaRS_init_[isph]);
         int ddd =  isExternalSurface_[isph];
@@ -4346,7 +4346,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iphI, int pSrc, bool subTimeS
             }
         }
     }
-    if (iph >= NumVolPhases_) {
+    if (iph >= m_NumVolPhases) {
         const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 

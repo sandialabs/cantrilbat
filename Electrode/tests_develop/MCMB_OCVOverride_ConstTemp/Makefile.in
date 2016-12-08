@@ -57,7 +57,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends MCMB MCMBThermo 
+all: .dependsT MCMB MCMBThermo 
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -99,8 +99,9 @@ depends:
 	$(RM) $(DEPENDS)
 	$(MAKE) .depends
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat $(DEPENDS) > .depends
+	touch .dependsT
 
 test: 
 	@MAKE@ -s
@@ -121,7 +122,7 @@ rebaseline:
 #######################################################################################################################
 #
 $(OBJ_ALL): Makefile
-$(DEPENDS): Makefile $(CTAPPLBASE_DEP)
+$(DEPENDS): Makefile
 $(DEPENDS): MCMBThermo.cpp MCMB.cpp
 
 MCMBThermo: MCMBThermo.o  $(CTAPPLBASE_DEP) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \

@@ -379,7 +379,7 @@ namespace Cantera
     size_t isph;
     double *netROP = new double[m_NumTotSpecies];
     ThermoPhase &tp = thermo(iph);
-    string pname = tp.id();
+    std::string pname = tp.id();
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     size_t nsp = tp.nSpecies();
     if (printLvl_ <= 1) {
@@ -388,13 +388,12 @@ namespace Cantera
     printf("     ============================================================================================\n");
     printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str() );
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
- 
 
     /*
      * Do specific surface phase printouts
      */
-    if (iph >= NumVolPhases_) {
-      isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+      isph = iph - m_NumVolPhases;
       printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
       printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
     }
@@ -425,8 +424,8 @@ namespace Cantera
       }
     }
     if (printLvl_ >= 4) {
-      if (iph >= NumVolPhases_) {
-	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+      if (iph >= m_NumVolPhases) {
+	const std::vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
 	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);

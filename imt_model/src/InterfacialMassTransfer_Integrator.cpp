@@ -1883,8 +1883,8 @@ namespace Cantera
  
     printf("                  Voltage = %g\n", tp.electricPotential());
     
-    if (iph >= NumVolPhases_) {
-      isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+      isph = iph - m_NumVolPhases;
       printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
       printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
     }
@@ -1912,8 +1912,8 @@ namespace Cantera
 	}
       }
     }
-    if (iph >= NumVolPhases_) {
-      const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+    if (iph >= m_NumVolPhases) {
+      const std::vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
       RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
       doublevalue * spNetProdPerArea = (doublevalue *) spNetProdPerArea_List_.ptrColumn(isph);

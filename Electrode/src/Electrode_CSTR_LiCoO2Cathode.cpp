@@ -100,8 +100,8 @@ void  Electrode_CSTR_LiCoO2Cathode::setCapacityCoeff_LiCoO2()
 {
     double  capacityLeftSpeciesCoeff=  1.0;
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
-        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
 

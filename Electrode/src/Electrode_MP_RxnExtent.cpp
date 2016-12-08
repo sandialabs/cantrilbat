@@ -481,7 +481,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 
 
     for (size_t ph = 0; ph < m_NumVolPhases; ph++) {
-        ThermoPhase* tp = VolPhaseList[ph];
+        ThermoPhase* tp = VolPhaseList_[ph];
         size_t iph = globalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
             //do nothing
@@ -719,7 +719,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     }
 
     for (size_t ph = 0; ph < m_NumVolPhases; ph++) {
-        ThermoPhase* tp = VolPhaseList[ph];
+        ThermoPhase* tp = VolPhaseList_[ph];
         size_t iph = globalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
             //do nothing
@@ -736,10 +736,10 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
      *  in the electrode. Then, we will set the moles of A and B to be 1/2 of that no matter
      *  where the electrode is in the DOD.
      */
-    int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
-    int is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
-    int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
-    int is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
+    size_t ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
+    size_t is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
+    size_t ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
+    size_t is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
 
     /*
      *  Now save the mole numbers as a normalization number
@@ -1722,7 +1722,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         if (locationOfReactingSurface_== 0) {
             double mult = (surfaceAreaRS_init_[2] + surfaceAreaRS_final_[2]);
             mult /= 2.0;
-            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_NumVolSpecies; i++) {
                 for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j] ;
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
@@ -1731,7 +1731,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         } else  if (locationOfReactingSurface_== 1) {
             double mult = surfaceAreaRS_init_[0] + 2.0 * surfaceAreaRS_final_[0];
             mult /= 3.0;
-            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_NumVolSpecies; i++) {
                 for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j] ;
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
@@ -1740,7 +1740,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         } else  if (locationOfReactingSurface_== 2) {
             double mult = surfaceAreaRS_init_[1] + surfaceAreaRS_final_[1];
             mult /= 2.0;
-            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_NumVolSpecies; i++) {
                 for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  mult * productStoichCoeff(indexOfReactingSurface_,i,j)  * ROP_[j];
                     DspMoles_final_[i] -=  mult * reactantStoichCoeff(indexOfReactingSurface_,i,j) * ROP_[j];
@@ -1761,7 +1761,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
         if (goNowhere_ == 1) {
             SrcDot_ExtentRxn_final_ = 0.0;
             SrcDot_RelativeExtentRxn_final_ = 0.0;
-            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_NumVolSpecies; i++) {
                 DspMoles_final_[i] = 0.0;
             }
         } else {
@@ -1800,7 +1800,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
 
             double fac =  SrcDot_ExtentRxn_final_;
 
-            for (size_t i = 0; i < m_totNumVolSpecies; i++) {
+            for (size_t i = 0; i < m_NumVolSpecies; i++) {
                 for (size_t j = 0; j < numRxns_[indexOfReactingSurface_]; j++) {
                     DspMoles_final_[i] +=  fac * productStoichCoeff(indexOfReactingSurface_,i, j);
                     DspMoles_final_[i] -=  fac * reactantStoichCoeff(indexOfReactingSurface_,i,j);

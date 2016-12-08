@@ -286,8 +286,8 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     phaseIndexSolidPhases_.clear();
     numSpecInSolidPhases_.clear();
-    for (size_t ph = 0; ph < NumVolPhases_; ph++) {
-        ThermoPhase* tp = VolPhaseList[ph];
+    for (size_t ph = 0; ph < m_NumVolPhases; ph++) {
+        ThermoPhase* tp = VolPhaseList_[ph];
         size_t iph = globalPhaseIndex(tp);
         if (iph == metalPhaseIndex() || iph == solnPhaseIndex()) {
             //do nothing
@@ -309,8 +309,8 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  This value can be overriden in child objects, but so far, this is not necessary.
      */
     double solidMoles = 0.0;
-    for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-        int iph = phaseIndexSolidPhases_[ph];
+    for (size_t ph = 0; ph <  phaseIndexSolidPhases_.size(); ph++) {
+        size_t iph = phaseIndexSolidPhases_[ph];
         solidMoles += phaseMoles_final_[iph];
     }
     RelativeExtentRxn_NormalizationFactor_ = solidMoles;
@@ -436,7 +436,7 @@ void Electrode_CSTR::init_sizes()
 
     deltaSpMoles_.resize(m_NumTotSpecies, 0.0);
 
-    phaseMFBig_.resize(NumVolPhases_, 0);
+    phaseMFBig_.resize(m_NumVolPhases, 0);
 
     KineticsPhaseExistence_.resize(m_NumTotPhases, 1);
     phaseMoles_final_lagged_.resize(m_NumTotPhases, 0.0);
@@ -900,15 +900,15 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
     std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.0);
     double mult = (surfaceAreaRS_init_[0] + surfaceAreaRS_final_[0]);
     mult /= 2.0;
-    for (size_t i = 0; i < m_totNumVolSpecies; i++) {
+    for (size_t i = 0; i < m_NumVolSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
     }
 
     // Also need to update DphMoles_final_ since it is used in the residual calculation.
     for (size_t ph = 0; ph <  phaseIndexSolidPhases_.size(); ph++) {
-        int iph = phaseIndexSolidPhases_[ph];
+        size_t iph = phaseIndexSolidPhases_[ph];
         double DphaseMoles = 0.;
-        for (size_t sp = 0; sp < (size_t) numSpecInSolidPhases_[ph]; ++sp)
+        for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; ++sp)
         {
           size_t isp = globalSpeciesIndex(iph, sp);
           DphaseMoles += DspMoles_final_[isp];
@@ -1010,12 +1010,12 @@ void Electrode_CSTR::speciesProductionRates(double* const spMoleDot)
 	     *  loop over the phases in the reacting surface
 	     *  Get the net production vector
 	     */
-	    int nphRS = RSD_List_[isk]->nPhases();
-	    int jph, kph;
-	    int kIndexKin = 0;
+	    size_t nphRS = RSD_List_[isk]->nPhases();
+	    size_t jph, kph;
+	    size_t kIndexKin = 0;
 	    for (kph = 0; kph < nphRS; kph++) {
 		jph = RSD_List_[isk]->kinOrder[kph];
-		int istart = m_PhaseSpeciesStartIndex[jph];
+		size_t istart = m_PhaseSpeciesStartIndex[jph];
 		size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
 		for (size_t k = 0; k < nsp; k++) {
 		    spMoleDot[istart + k] += rsSpeciesProductionRates[kIndexKin] * surfaceAreaRS_final_[isk];
@@ -2397,8 +2397,8 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     /*
      * Do specific surface phase printouts
      */
-    if (iph >= NumVolPhases_) {
-        isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+        isph = iph - m_NumVolPhases;
         printf("                surface area (final) = %11.5E m2\n",  surfaceAreaRS_final_[isph]);
         printf("                surface area (init)  = %11.5E m2\n",  surfaceAreaRS_init_[isph]);
         int ttt = isExternalSurface_[isph];
@@ -2435,20 +2435,20 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
         }
     }
     if (printLvl_ >= 4) {
-        if (iph >= NumVolPhases_) {
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
+        if (iph >= m_NumVolPhases) {
+            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
             double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             if (!goNowhere_) {
-                int nphRS = RSD_List_[isph]->nPhases();
-                int kIndexKin = 0;
-                for (int kph = 0; kph < nphRS; kph++) {
-                    int jph = RSD_List_[isph]->kinOrder[kph];
-                    int istart = m_PhaseSpeciesStartIndex[jph];
-                    int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-                    for (int k = 0; k < nsp; k++) {
+                size_t nphRS = RSD_List_[isph]->nPhases();
+                size_t kIndexKin = 0;
+                for (size_t kph = 0; kph < nphRS; kph++) {
+                    size_t jph = RSD_List_[isph]->kinOrder[kph];
+                    size_t istart = m_PhaseSpeciesStartIndex[jph];
+                    size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+                    for (size_t k = 0; k < nsp; k++) {
                         spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                         kIndexKin++;
                     }

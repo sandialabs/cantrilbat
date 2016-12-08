@@ -93,10 +93,9 @@ int Electrode_Equilibrium::setupEquilibriumProblem()
         delete m_mp;
     }
     m_mp = new MP_EquilStatic();
-
-    PhaseIndex_mp_.resize(ee_->NumVolPhases_);
-    for (size_t iph = 0; iph < ee_->NumVolPhases_; iph++) {
-        ThermoPhase* tp = ee_->VolPhaseList[iph];
+    PhaseIndex_mp_.resize(ee_->m_NumVolPhases);
+    for (size_t iph = 0; iph < ee_->m_NumVolPhases; iph++) {
+        ThermoPhase* tp = ee_->VolPhaseList_[iph];
         m_mp->addPhase(tp, ee_->phaseMoles_final_[iph]);
         PhaseIndex_mp_[iph] = iph;
     }
@@ -113,7 +112,6 @@ int Electrode_Equilibrium::setupEquilibriumProblem()
     printLvl_ = std::max(0, printLvl_ - 3);
     return 0;
 }
-
 //===========================================================================================================
 int Electrode_Equilibrium::addLiIonPlusElectronBathPhase()
 {

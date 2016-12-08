@@ -221,7 +221,7 @@ namespace Cantera
 
     ThermoPhase *tpA = & thermo(solnAPhase_);
 
-    XML_Node* xmlA = VolPhaseXMLNodes[solnAPhase_];
+    XML_Node* xmlA = VolPhaseXMLNodes_[solnAPhase_];
     std::string transportModel;
     if (xmlA->hasChild("transport")) {   
       const XML_Node& tranNode = xmlA->child("transport");
@@ -236,7 +236,7 @@ namespace Cantera
 
     ThermoPhase *tpB = & thermo(solnBPhase_);
 
-    XML_Node* xmlB = VolPhaseXMLNodes[solnBPhase_];
+    XML_Node* xmlB = VolPhaseXMLNodes_[solnBPhase_];
     std::string transportModelB;
     if (xmlB->hasChild("transport")) {   
       const XML_Node& tranNode = xmlB->child("transport");
@@ -1906,8 +1906,8 @@ namespace Cantera
     /*
      * Do specific surface phase printouts
      */
-    if (iph >= NumVolPhases_) {
-      isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+      isph = iph - m_NumVolPhases;
       printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
       printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
     }
@@ -1943,8 +1943,8 @@ namespace Cantera
 
 
     if (printLvl_ >= 4) {
-      if (iph >= NumVolPhases_) {
-	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+      if (iph >= m_NumVolPhases) {
+	const std::vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
 	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);

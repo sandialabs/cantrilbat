@@ -430,7 +430,7 @@ void Electrode::setCapacityCoeff_LiSi() const
 
     double  capacityLeftSpeciesCoeffLi13Si4 =  DoDElectronTmp;
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
@@ -545,7 +545,7 @@ void Electrode::setCapacityCoeff_LiSi_Li() const
 
     double  capacityLeftSpeciesCoeffLi13Si4 =  DoDElectronTmp;
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
@@ -612,7 +612,7 @@ void Electrode::setCapacityCoeff_FeS2() const
 
     double  capacityLeftSpeciesCoeffFeS2 =  DoDElectronTmp;
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
             continue;
         }
@@ -775,8 +775,8 @@ void Electrode::setCapacityCoeff_FeS2_Combo() const
 
     double  capacityLeftSpeciesCoeffFeS2 =  DoDElectronTmp;
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
-        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
+        if (iph ==  solnPhase_ || iph ==  metalPhase_) {
             continue;
         }
 
@@ -862,8 +862,8 @@ void Electrode::setCapacityCoeff_MCMB() const
 {
     double  capacityLeftSpeciesCoeff=  1.0;
 
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
-        if (iph == (size_t) solnPhase_ || iph == (size_t) metalPhase_) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
+        if (iph ==  solnPhase_ || iph ==  metalPhase_) {
             continue;
         }
 

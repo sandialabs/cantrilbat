@@ -215,9 +215,9 @@ restartStep:
                         double mmf = phaseMoles_final_[iph];
                         ThermoPhase& tp = thermo(iph);
                         size_t nsp = tp.nSpecies();
-                        if (iph >=  NumVolPhases_) {
+                        if (iph >= m_NumVolPhases) {
                             // we are in a surface phase
-                            size_t isur = iph -  NumVolPhases_;
+                            size_t isur = iph -  m_NumVolPhases;
                             double sa_init = surfaceAreaRS_init_[isur];
                             double sa_final = surfaceAreaRS_final_[isur];
                             if (sa_init > 0.0 || sa_final > 0.0) {
@@ -645,9 +645,9 @@ int Electrode_SuccessiveSubstitution::integrateResid(const double tfinal, const 
                 }
                 double mm = phaseMoles_init_[iph];
                 double mmf = phaseMoles_final_[iph];
-                if (iph >=  NumVolPhases_) {
+                if (iph >=  m_NumVolPhases) {
                     // we are in a surface phase
-                    size_t isur = iph -  NumVolPhases_;
+                    size_t isur = iph -  m_NumVolPhases;
                     double sa_init = surfaceAreaRS_init_[isur];
                     double sa_final = surfaceAreaRS_final_[isur];
                     if (sa_init > 0.0 || sa_final > 0.0) {

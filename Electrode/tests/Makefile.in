@@ -53,7 +53,7 @@ test:
 
 
 clean:
-	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@  clean
+	cd LiCoO2_LiIonCathode_CSTR_thermal;   /bin/rm -f .depends ;   @MAKE@  clean
 	cd FeS2_3_MPNewman_cV_restart; @MAKE@ clean
 	cd FeS2_4_MPNewman_cc ; @MAKE@  clean
 	cd FeS2_4_cMPNewman_cc ; @MAKE@  clean

@@ -349,8 +349,8 @@ namespace Cantera
     /*
      * Do specific surface phase printouts
      */
-    if (iph >= NumVolPhases_) {
-      isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+      isph = iph - m_NumVolPhases;
       printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
       printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
     }
@@ -381,8 +381,8 @@ namespace Cantera
       }
     }
     if (printLvl_ >= 4) {
-      if (iph >= NumVolPhases_) {
-	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+      if (iph >= m_NumVolPhases) {
+	const std::vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
 	doublevalue* spNetProdPerArea = (doublevalue*) spNetProdPerArea_List_.ptrColumn(isph);
@@ -401,7 +401,7 @@ namespace Cantera
 	printf("\n");
 	printf("                           spName                  SourceRateLastStep (kmol/m2/s) \n");
 	for (size_t k = 0; k <  m_NumTotSpecies; k++) {
-	  string ss = speciesName(k);
+	  std::string ss = speciesName(k);
 	  printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
 	}
       }
@@ -410,8 +410,6 @@ namespace Cantera
     delete [] netROP;
 
   }
-
-
   //====================================================================================================================
   // Write out CSV tabular data on the integrations
   /*

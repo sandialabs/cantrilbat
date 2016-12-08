@@ -535,7 +535,7 @@ namespace Cantera
  
     // resize volume phase vectors
 
-    PhaseIndex_mp_.resize(NumVolPhases_, -1);
+    PhaseIndex_mp_.resize(m_NumVolPhases, -1);
 
     // resize surface phase vectors
     numSurfaces_ = m_NumSurPhases;
@@ -576,14 +576,14 @@ namespace Cantera
     size_t isfound = npos;
     //int ivfound = -1;
     for (size_t i = 0; i < m_NumSurPhases; i++) {
-      if (SurPhaseHasKinetics[i]) {
+      if (SurPhaseHasKinetics_[i]) {
 	isfound =  i;
 	break;
       }
     }
     if (isfound == npos) {
-      for (size_t i = 0; i < NumVolPhases_; i++) {
-	if (VolPhaseHasKinetics[i]) {
+      for (size_t i = 0; i < m_NumVolPhases; i++) {
+	if (VolPhaseHasKinetics_[i]) {
 	  //ivfound = i;
 	  break;
 	}
@@ -594,7 +594,7 @@ namespace Cantera
      * Assign a reacting surface to each surface in the PhaseList object
      */
     for (size_t i = 0; i < m_NumSurPhases; i++) {
-      if (SurPhaseHasKinetics[i]) {
+      if (SurPhaseHasKinetics_[i]) {
 	ReactingSurDomain *rsd = new ReactingSurDomain();
 	int ok = rsd->importFromPL(this, -1, i);
 	if (!ok) {
@@ -698,7 +698,7 @@ namespace Cantera
      * Set up the MultiPhase object. Right now it will contain all of the
      * volume phases only.
      */
-    for (size_t iph = 0; iph < NumVolPhases_; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
       PhaseIndex_mp_[iph] = iph;
       phaseMoles_init_[iph] = phaseMoles_final_[iph];
       phaseMoles_init_init_[iph] = phaseMoles_final_[iph];
@@ -765,7 +765,7 @@ namespace Cantera
     double volA = ei->SurfaceArea * ei->BLThickness_A;
     double sum = 0.0;
     double curr_volA = 0.0;
-    ThermoPhase *tp = VolPhaseList[solnAPhase_];
+    ThermoPhase *tp = VolPhaseList_[solnAPhase_];
     double mv = tp->molarVolume();
     double phaseM = phaseMoles_final_[solnAPhase_];
     size_t numSpecA = tp->nSpecies();
@@ -793,7 +793,7 @@ namespace Cantera
     double volB = ei->SurfaceArea * ei->BLThickness_B;
     sum = 0.0;
     double curr_volB = 0.0;
-    tp = VolPhaseList[solnBPhase_];
+    tp = VolPhaseList_[solnBPhase_];
     mv = tp->molarVolume();
     phaseM = phaseMoles_final_[solnBPhase_];
     kstart = globalSpeciesIndex(solnBPhase_, 0);
@@ -815,8 +815,8 @@ namespace Cantera
     phaseMoles_final_[solnBPhase_] = sum;
 
     for (size_t i = 0; i < m_NumSurPhases; i++) {
-      size_t iph = NumVolPhases_ + i;
-      tp = SurPhaseList[i];
+      size_t iph = m_NumVolPhases + i;
+      tp = SurPhaseList_[i];
       SurfPhase *sp = dynamic_cast<SurfPhase *>(tp);
       double sd = sp->siteDensity();
       phaseM = phaseMoles_final_[iph];
@@ -934,7 +934,7 @@ namespace Cantera
     double volA = ei->SurfaceArea * ei->BLThickness_A;
     double sum = 0.0;
     double curr_volA = 0.0;
-    ThermoPhase *tp = VolPhaseList[solnAPhase_];
+    ThermoPhase *tp = VolPhaseList_[solnAPhase_];
     double mv = tp->molarVolume();
     double phaseM = phaseMoles_final_[solnAPhase_];
     size_t numSpecA = tp->nSpecies();
@@ -962,7 +962,7 @@ namespace Cantera
     double volB = ei->SurfaceArea * ei->BLThickness_B;
     sum = 0.0;
     double curr_volB = 0.0;
-    tp = VolPhaseList[solnBPhase_];
+    tp = VolPhaseList_[solnBPhase_];
     mv = tp->molarVolume();
     phaseM = phaseMoles_final_[solnBPhase_];
     kstart = globalSpeciesIndex(solnBPhase_, 0);
@@ -985,8 +985,8 @@ namespace Cantera
 
 
     for (size_t i = 0; i < m_NumSurPhases; i++) {
-      size_t iph = NumVolPhases_ + i;
-      tp = SurPhaseList[i];
+      size_t iph = m_NumVolPhases + i;
+      tp = SurPhaseList_[i];
       SurfPhase *sp = dynamic_cast<SurfPhase *>(tp);
       double sd = sp->siteDensity();
       phaseM = phaseMoles_final_[iph];
@@ -1064,9 +1064,9 @@ namespace Cantera
 	  double mmf = phaseMoles_final_[iph];
 	  ThermoPhase &tp = thermo(iph);
           size_t nsp = tp.nSpecies();
-	  if (iph >=  NumVolPhases_) {
+	  if (iph >=  m_NumVolPhases) {
 	    // we are in a surface phase
-	    size_t isur = iph -  NumVolPhases_;
+	    size_t isur = iph -  m_NumVolPhases;
 	    double sa_init = surfaceAreaRS_init_[isur];
 	    double sa_final = surfaceAreaRS_final_[isur];
 	    if (sa_init > 0.0 || sa_final > 0.0) {
@@ -1477,7 +1477,7 @@ namespace Cantera
       tp.getMoleFractions(&(spMf_final_[istart]));
     }
     tp.getPartialMolarVolumes(&(VolPM_[istart]));
-    if (iph >= NumVolPhases_) {
+    if (iph >= m_NumVolPhases) {
       nsp = tp.nSpecies();
       for (int k = 0; k < nsp; k++) {
 	VolPM_[istart + k] = 0.0;
@@ -1485,7 +1485,7 @@ namespace Cantera
     }
     tp.getChemPotentials(&(spChemPot_[istart]));
     
-    if (iph < NumVolPhases_) {
+    if (iph < m_NumVolPhases) {
       phaseMolarVolumes_[iph] = tp.molarVolume();
     } else {
       phaseMolarVolumes_[iph] = 0.0;
@@ -1688,7 +1688,7 @@ namespace Cantera
       tphase->getPartialMolarVolumes(& (VolPM_[kStart]));
       tphase->getChemPotentials(& (spChemPot_[kStart]));
 
-      if (iph < NumVolPhases_) {
+      if (iph < m_NumVolPhases) {
 	phaseMolarVolumes_[iph] = tphase->molarVolume();
       }
     }
@@ -2180,9 +2180,9 @@ namespace Cantera
 
 	  double mm = phaseMoles_init_[iph];
 	  double mmf = phaseMoles_final_[iph];
-	  if (iph >=  NumVolPhases_) {
+	  if (iph >=  m_NumVolPhases) {
 	    // we are in a surface phase
-	    size_t isur = iph -  NumVolPhases_;
+	    size_t isur = iph -  m_NumVolPhases;
 	    double sa_init = surfaceAreaRS_init_[isur];
 	    double sa_final = surfaceAreaRS_final_[isur];
 	    if (sa_init > 0.0 || sa_final > 0.0) {
@@ -2742,8 +2742,8 @@ namespace Cantera
     /*
      * Do specific surface phase printouts
      */
-    if (iph >= NumVolPhases_) {
-      isph = iph - NumVolPhases_;
+    if (iph >= m_NumVolPhases) {
+      isph = iph - m_NumVolPhases;
       printf("                surface area (final) = %g\n",  surfaceAreaRS_final_[isph]);
       printf("                surface area (init)  = %g\n",  surfaceAreaRS_init_[isph]);
 
@@ -2777,8 +2777,8 @@ namespace Cantera
       }
     }
     if (printLvl_ >= 4) {
-      if (iph >= NumVolPhases_) {
-	const vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
+      if (iph >= m_NumVolPhases) {
+	const std::vector<double> &rsSpeciesProductionRates = RSD_List_[isph]->calcNetProductionRates();
 	RSD_List_[isph]->getNetRatesOfProgress(netROP);
       
 	doublevalue * spNetProdPerArea = (doublevalue *) spNetProdPerArea_List_.ptrColumn(isph);
