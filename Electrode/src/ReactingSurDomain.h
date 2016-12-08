@@ -22,7 +22,7 @@
 #include <vector>
 
 class RxnMolChange;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -33,6 +33,7 @@ namespace Cantera
 // Forward declartion for structure. This is fully defined in Electrode_input.h
 struct OCV_Override_input;
 
+//==================================================================================================================================
 //!  ReactingSurDomain is a class of reaction that combines the PhaseList information with the Cantera ElectrodeKinetics class
 /*!
  *      This is an inheritance class for the ElectrodeKinetics class of Cantera.
@@ -46,6 +47,9 @@ struct OCV_Override_input;
  *
  *      The standard state thermodynamic functions for the delta of reactions are not overridden. They 
  *      still refer to the unchanged thermodynamics values.
+ *
+ *      todo: This class is missing some obvious member functions, that are probably carried out manually within the Electrode
+ *            object
  */
 class ReactingSurDomain : public ZZCantera::ElectrodeKinetics
 {
@@ -554,6 +558,7 @@ public:
     //! Index mapping kinetics species index to the PhaseList species index.
     /*!
      *   Length is the number of species in the kinetics species list
+     *   Length:   m_NumKinSpecies;
      */
     std::vector<size_t> KintoPLSpeciesIndex_;
 
@@ -716,8 +721,8 @@ public:
 protected:
 
     friend class RSD_OCVmodel;
-
 };
-
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

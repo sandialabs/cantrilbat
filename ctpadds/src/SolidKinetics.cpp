@@ -125,7 +125,6 @@ SolidKinetics& SolidKinetics::operator=(const SolidKinetics& right)
     BulkKinetics::operator=(right);
     
 
-    //m_kk = right.m_kk;
     //  m_rates = right.m_rates;
     //m_index = right.m_index;
     // m_reactantStoich = right.m_reactantStoich;
@@ -241,7 +240,7 @@ getNetProductionRates(doublevalue* net) {
 	/*
 	 * Zero out the return vector
 	 */
-    fill(net, net + m_kk, 0.0);
+    fill(net, net + m_NumKinSpecies, 0.0);
 	/*
 	 * Go call the stoichiometry managers to obtain the production
 	 * rates of the species.
@@ -265,7 +264,7 @@ getNetProductionRates(doublevalue* net) {
 	 * Update the rates of progress of the reactions
 	 */
 	updateROP();
-	fill(cdot, cdot + m_kk, 0.0);
+	fill(cdot, cdot + m_NumKinSpecies, 0.0);
 	m_revProductStoich.incrementSpecies(DATA_PTR(m_ropf), cdot);
 	m_irrevProductStoich.incrementSpecies(DATA_PTR(m_ropf), cdot);
     }
@@ -287,10 +286,9 @@ getNetProductionRates(doublevalue* net) {
 	/*
 	 * zero the matrix
 	 */
-	fill(ddot, ddot + m_kk, 0.0);
+	std::fill(ddot, ddot + m_NumKinSpecies, 0.0);
 	m_reactantStoich.incrementSpecies(DATA_PTR(m_ropf), ddot);
     }
-
 
     /************************************************************************
      *
@@ -357,8 +355,8 @@ _update_rates_T() {
     updateKc();
     
     m_ROP_ok = false;
-};
-//================================================================================
+}
+//==================================================================================================================================
     /***********************************************************************
      *
      * _update_rates_C():
@@ -411,7 +409,7 @@ _update_rates_T() {
 	vector_fp& logProdC0 = m_logProdC0;
 	if (logC0ProdVariable) {
 	    vector_fp& logC0_vector = m_logC0_vector;
-	  for (size_t i = 0; i < m_kk; ++i) {
+	  for (size_t i = 0; i < m_NumKinSpecies; ++i) {
 	    m_logC0_vector[i] = thermo().logStandardConc(i);
 	  }
 	  fill(logProdC0.begin(), logProdC0.end(), 0.0);
@@ -489,7 +487,7 @@ _update_rates_T() {
 	vector_fp& logProdC0 = m_logProdC0;
 	if (logC0ProdVariable) {
 	  vector_fp& logC0_vector = m_logC0_vector;
-	  for (size_t i = 0; i < m_kk; ++i) {
+	  for (size_t i = 0; i < m_NumKinSpecies; ++i) {
 	    logC0_vector[i] = thermo().logStandardConc(i);
 	  }
 	  fill(logProdC0.begin(), logProdC0.end(), 0.0);
@@ -671,7 +669,7 @@ _update_rates_T() {
 	 */
 	thermo().getEnthalpy_RT(DATA_PTR(m_grt));
 	doublevalue RT = thermo().temperature() * GasConstant;
-	for (size_t k = 0; k < m_kk; k++) {
+	for (size_t k = 0; k < m_NumKinSpecies; k++) {
 	  m_grt[k] *= RT;
 	}
 	/*
@@ -707,7 +705,7 @@ _update_rates_T() {
 	 */
 	thermo().getEntropy_R(DATA_PTR(m_grt));
 	doublevalue R = GasConstant;
-	for (size_t k = 0; k < m_kk; k++) {
+	for (size_t k = 0; k < m_NumKinSpecies; k++) {
 	  m_grt[k] *= R;
 	}
 	/*
@@ -1149,18 +1147,18 @@ addReaction(ReactionData& r) {
      */
     void SolidKinetics::init() { 
         BulkKinetics::init();
-        m_kk = thermo().nSpecies();
-	if (m_kk <= 0) {
+        m_NumKinSpecies = thermo().nSpecies();
+	if (m_NumKinSpecies <= 0) {
 	  throw CanteraError("SolidKinetics::init",
-			     "m_kk is zero or less");
+			     "m_NumKinSpecies is zero or less");
 	}
-        //m_rrxn.resize(m_kk);
-        //m_prxn.resize(m_kk);
-        m_actConc.resize(m_kk);
-        m_grt.resize(m_kk);
-	//m_kdata->m_logC0_vector.resize(m_kk);
+        //m_rrxn.resize(m_NumKinSpecies);
+        //m_prxn.resize(m_NumKinSpecies);
+        m_actConc.resize(m_NumKinSpecies);
+        m_grt.resize(m_NumKinSpecies);
+	//m_kdata->m_logC0_vector.resize(m_NumKinSpecies);
 
-	m_logC0_vector.resize(m_kk);
+	m_logC0_vector.resize(m_NumKinSpecies);
 
     }
 
@@ -1356,7 +1354,7 @@ void SolidKinetics::finalize() {
 	for (i = 0; i < m_ii; i++) {
 	    std::map<size_t, doublevalue>& rstoichIrxn = m_rstoich[i];
 	    std::map<size_t, doublevalue>& pstoichIrxn = m_pstoich[i];
-	    for (size_t k = 0; k < m_kk; k++) {
+	    for (size_t k = 0; k < m_NumKinSpecies; k++) {
                 rstoiV = reactantStoichCoeff(k, i);
                 if (rstoiV != 0.0) {
 		    rstoichIrxn[k] = rstoiV;
@@ -1376,7 +1374,7 @@ void SolidKinetics::finalize() {
 	 * object.
 	 */
 	vector_fp& logC0_vector = m_logC0_vector;
-	for (size_t i = 0; i < m_kk; ++i) {
+	for (size_t i = 0; i < m_NumKinSpecies; ++i) {
 	    logC0_vector[i] = thermo().logStandardConc(i);
 	}
 	m_logC0_scalar =  logC0_vector[0];

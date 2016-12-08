@@ -172,7 +172,7 @@ namespace Cantera
    *   This routine calls thet getNetProductionRate function
    *   and then returns a reference to the result.
    *
-   * @return Vector of length m_kk containing the species net 
+   * @return Vector of length m_NumKinSpecies containing the species net 
    *         production rates
    */
   const std::vector<double> & ReactingSurDomain::calcNetProductionRates() {
@@ -185,7 +185,7 @@ namespace Cantera
    *   This routine calls thet getCreationRate function
    *   and then returns a reference to the result.
    *
-   * @return Vector of length m_kk containing the species creation rates
+   * @return Vector of length m_NumKinSpecies containing the species creation rates
    */
   const std::vector<double> & ReactingSurDomain::calcCreationRates() {
     getCreationRates(&speciesCreationRates_[0]);
@@ -197,7 +197,7 @@ namespace Cantera
    *   This routine calls thet getDestructionRate function
    *   and then returns a reference to the result.
    *
-   * @return Vector of length m_kk containing the species destruction rates
+   * @return Vector of length m_NumKinSpecies containing the species destruction rates
    */
   const std::vector<double> & ReactingSurDomain::calcDestructionRates() {
     getDestructionRates(&speciesDestructionRates_[0]);
@@ -392,9 +392,9 @@ namespace Cantera
       /*
        * Resize the arrays based on species number
        */
-      speciesProductionRates_.resize(m_kk, 0.0);
-      speciesCreationRates_.resize(m_kk, 0.0);
-      speciesDestructionRates_.resize(m_kk, 0.0);
+      speciesProductionRates_.resize(m_NumKinSpecies, 0.0);
+      speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
+      speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
 
       size_t nr = nReactions();
       rmcVector.resize(nr,0);

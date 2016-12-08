@@ -20,6 +20,7 @@
 #include "mdp_allo.h"
 
 using namespace std;
+
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -27,12 +28,6 @@ namespace Cantera
 #endif
 {
 //====================================================================================================================
-/*
- * Constructor #1 for the IdealReactingGas object.
- *
- * infile = input file location
- * id = ?
- */
 ReactingSurDomain::ReactingSurDomain() :
     ElectrodeKinetics(),
     numPhases_(0),
@@ -69,11 +64,6 @@ ReactingSurDomain::ReactingSurDomain() :
 {
 }
 //====================================================================================================================
-// Copy Constructor for the %Kinetics object.
-/*
- * Currently, this is not fully implemented. If called it will
- * throw an exception.
- */
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     ElectrodeKinetics(),
     numPhases_(0),
@@ -108,9 +98,6 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     deltaS_species_(0.0),
     deltaH_species_(0.0)
 {
-    /*
-     * Call the assignment operator
-     */
     operator=(right);
 }
 //==================================================================================================================================
@@ -266,7 +253,7 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
  *   This routine calls thet getNetProductionRate function
  *   and then returns a reference to the result.
  *
- * @return Vector of length m_kk containing the species net (kmol s-1 m-2)
+ * @return Vector of length m_NumKinSpecies containing the species net (kmol s-1 m-2)
  *         production rates
  */
 const std::vector<double>& ReactingSurDomain::calcNetSurfaceProductionRateDensities()
@@ -363,7 +350,7 @@ const std::vector<double>& ReactingSurDomain::calcNetSurfaceROP()
  *   This routine calls thet getCreationRate function
  *   and then returns a reference to the result.
  *
- * @return Vector of length m_kk containing the species creation rates (kmol s-1 m-2)
+ * @return Vector of length m_NumKinSpecies containing the species creation rates (kmol s-1 m-2)
  */
 const std::vector<double>& ReactingSurDomain::calcSurfaceCreationRateDensities()
 {
@@ -376,7 +363,7 @@ const std::vector<double>& ReactingSurDomain::calcSurfaceCreationRateDensities()
  *   This routine calls thet getDestructionRate function
  *   and then returns a reference to the result.
  *
- * @return Vector of length m_kk containing the species destruction rates (kmol s-1 m-2)
+ * @return Vector of length m_NumKinSpecies containing the species destruction rates (kmol s-1 m-2)
  */
 const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensities()
 {
@@ -385,7 +372,7 @@ const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensitie
 }
 //==================================================================================================================================
 // Note: signs have been checked to be correct in this routine.
-double ReactingSurDomain::getCurrentDensityRxn(double * const currentDensityRxn) 
+double ReactingSurDomain::getCurrentDensityRxn(double* const currentDensityRxn) 
 {
     double netCurrentDensity = 0.0;
     double ps, rs;
@@ -434,7 +421,6 @@ double ReactingSurDomain::getLimitedCurrentDensityRxn(const double* n)
     }   
     return netCurrentDensity;
 }
-
 //==================================================================================================================================
 #ifdef DONOTREMOVE
 double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  double* nStoich, double* OCV, double* io,
@@ -605,7 +591,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	//
 	//  Eqn. (65) of writeup
 	//
-	for (size_t k = 0; k < m_kk; k++) {
+	for (size_t k = 0; k < m_NumKinSpecies; k++) {
 	    double reactCoeff = reactantStoichCoeff(k, irxn);
 	    double prodCoeff =  productStoichCoeff(k, irxn);
 
@@ -618,7 +604,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 		iO /= pow(m_StandardConc[k], prodCoeff*b);
 	    }
 	}
-	for (size_t k = 0; k < m_kk; k++) {
+	for (size_t k = 0; k < m_NumKinSpecies; k++) {
 	    double reactCoeff = reactantStoichCoeff(k, irxn);
 	    if (reactCoeff != 0.0) {
 		iO *= pow(m_actConc[k],      -reactCoeff);
@@ -659,7 +645,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	double omb = 1.0 - b;
 
 
-	for (size_t k = 0; k < m_kk; k++) {
+	for (size_t k = 0; k < m_NumKinSpecies; k++) {
 	    double reactCoeff = reactantStoichCoeff(k, irxn);
 	    double prodCoeff =  productStoichCoeff(k, irxn);
 
@@ -703,7 +689,6 @@ double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double i
  *  This is a "friend" function to the class IdealReactingGas.
  *  Both this function and report are in the Cantera namespace.
  *
-
  *  Note -> The output doesn't cover kinetics.
  */
 std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd)
@@ -763,23 +748,22 @@ void ReactingSurDomain::identifyMetalPhase()
 	    }
 	}
     }
-
 }
 //==================================================================================================================================
 void ReactingSurDomain::init()
 {
     ElectrodeKinetics::init();
-    m_Enthalpies_rspec.resize(m_kk, 0.0);
-    m_Entropies_rspec.resize(m_kk, 0.0);
-    m_GibbsOCV_rspec.resize(m_kk, 0.0);
-    m_Enthalpies_Before_rspec.resize(m_kk, 0.0);
-    m_Entropies_Before_rspec.resize(m_kk, 0.0);
-    m_Gibbs_Before_rspec.resize(m_kk, 0.0);
-    speciesProductionRates_.resize(m_kk, 0.0);
-    speciesCreationRates_.resize(m_kk, 0.0);
-    speciesDestructionRates_.resize(m_kk, 0.0);
-    KintoPLSpeciesIndex_.resize(m_kk, npos);
-    limitedNetProductionRates_.resize(m_kk, 0.0);
+    m_Enthalpies_rspec.resize(m_NumKinSpecies, 0.0);
+    m_Entropies_rspec.resize(m_NumKinSpecies, 0.0);
+    m_GibbsOCV_rspec.resize(m_NumKinSpecies, 0.0);
+    m_Enthalpies_Before_rspec.resize(m_NumKinSpecies, 0.0);
+    m_Entropies_Before_rspec.resize(m_NumKinSpecies, 0.0);
+    m_Gibbs_Before_rspec.resize(m_NumKinSpecies, 0.0);
+    speciesProductionRates_.resize(m_NumKinSpecies, 0.0);
+    speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
+    speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
+    KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
+    limitedNetProductionRates_.resize(m_NumKinSpecies, 0.0);
 }
 //==================================================================================================================================
 void ReactingSurDomain::finalize()
@@ -880,8 +864,7 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
 
                     if (!found) {
                         throw CanteraError("ReactingSurDomain::importFromPL()",
-                                           "Phase, requested in phaseArray, was not found: "
-                                           + phaseID);
+                                           "Phase, requested in phaseArray, was not found: " + phaseID);
                     }
                 }
             }
@@ -921,7 +904,7 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
         kinOrder.resize(nKinPhases, npos);
         PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
-	KintoPLSpeciesIndex_.resize(m_kk, npos);
+	KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
 	//size_t kKinIndex = 0;
         for (size_t kph = 0; kph < nKinPhases; kph++) {
             ThermoPhase& tt = thermo(kph);
@@ -956,14 +939,14 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
         /*
          * Resize the arrays based on kinetic species number
          */
-        speciesProductionRates_.resize(m_kk, 0.0);
-        speciesCreationRates_.resize(m_kk, 0.0);
-        speciesDestructionRates_.resize(m_kk, 0.0);
+        speciesProductionRates_.resize(m_NumKinSpecies, 0.0);
+        speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
+        speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
 
 
-	m_Enthalpies_rspec.resize(m_kk, 0.0);
-	m_Entropies_rspec.resize(m_kk, 0.0);
-	m_GibbsOCV_rspec.resize(m_kk, 0.0);
+	m_Enthalpies_rspec.resize(m_NumKinSpecies, 0.0);
+	m_Entropies_rspec.resize(m_NumKinSpecies, 0.0);
+	m_GibbsOCV_rspec.resize(m_NumKinSpecies, 0.0);
 
         /*
          * Resize the arrays based on the number of reactions
@@ -982,12 +965,10 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
 
     } catch (CanteraError) {
         showErrors(cout);
-        throw CanteraError("ReactingSurDomain::importFromPL()",
-                           "error encountered");
+        throw CanteraError("ReactingSurDomain::importFromPL()", "error encountered");
         return false;
     }
 }
-
 //====================================================================================================================
 // An an override for the OCV
 void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
@@ -1028,7 +1009,6 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     OCVmodel_->setup_RelExtent(tp, kspec);
 
     kReplacedSpeciesRS_  = PLtoKinSpeciesIndex_[ocv_ptr_->replacedGlobalSpeciesID];
- 
 }
 //====================================================================================================================
 void ReactingSurDomain::deriveEffectiveChemPot()
@@ -1297,8 +1277,8 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //
     // Calculate the replaced entropies and enthalpies
     //
-    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_Entropies_rspec), DATA_PTR(m_Entropies_Before_rspec), m_kk);
-    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_Enthalpies_rspec), DATA_PTR(m_Enthalpies_Before_rspec), m_kk);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_Entropies_rspec), DATA_PTR(m_Entropies_Before_rspec), m_NumKinSpecies);
+    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_Enthalpies_rspec), DATA_PTR(m_Enthalpies_Before_rspec), m_NumKinSpecies);
     m_Entropies_rspec[kReplacedSpeciesRS_] += deltaS_species_;
     m_Enthalpies_rspec[kReplacedSpeciesRS_] += deltaH_species_;
     //
@@ -1532,7 +1512,7 @@ void ReactingSurDomain::getDeltaSSEnthalpy(double* deltaH)
         thermo(n).getEnthalpy_RT(DATA_PTR(m_grt) + m_start[n]);
     }
     double RT = GasConstant * m_surf->temperature();
-    for (size_t k = 0; k < m_kk; k++) {
+    for (size_t k = 0; k < m_NumKinSpecies; k++) {
         m_grt[k] *= RT;
     }
     /*
@@ -1552,7 +1532,7 @@ void ReactingSurDomain::getDeltaSSEnthalpy(double* deltaH)
 }
 //=======================================================================================================================
 // Modification for OCV override when called for
-void ReactingSurDomain::getDeltaSSGibbs(double* deltaGSS)
+void ReactingSurDomain::getDeltaSSGibbs(double* const deltaGSS)
 {
     /*
      *  Get the standard state gibbs free energy of the species.
@@ -1580,7 +1560,7 @@ void ReactingSurDomain::getDeltaSSGibbs(double* deltaGSS)
     }
 }
 //==================================================================================================================================
-void ReactingSurDomain::getDeltaSSEntropy(double* deltaS)
+void ReactingSurDomain::getDeltaSSEntropy(double* const deltaS)
 {
     /*
      *  Get the standard state entropy of the species.
@@ -1589,7 +1569,7 @@ void ReactingSurDomain::getDeltaSSEntropy(double* deltaS)
     for (size_t n = 0; n < nPhases(); n++) {
         thermo(n).getEntropy_R(DATA_PTR(m_grt) + m_start[n]);
     }
-    for (size_t k = 0; k < m_kk; k++) {
+    for (size_t k = 0; k < m_NumKinSpecies; k++) {
         m_grt[k] *= GasConstant;
     }
     /*
