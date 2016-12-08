@@ -41,13 +41,25 @@ namespace Cantera
 #endif
 {
 
-class ELECTRODE_KEY_INPUT;
-class EGRInput;
 
+//==================================================================================================================================
+/**
+ * @defgroup electrode_proc  Electrode Transport and Kinetics Processes
+ */
 
+/// @defgroup electrode_mgr Kinetics Managers
+/// @section electrode_modman Models and Managers for Electrode Objects
+///
+///   An Electrode manager is a C++ class that implements an Electrode 
+///   model. An Electrode model is a set of assumptions about how a particle, electronically connected to a source or sink of
+///   electrons and connected to an electrolyte with its own source of ions and voltage conditions, reacts under an implied
+///   voltage difference.
+///
+/// @ingroup electrodeproc
+
+//==================================================================================================================================
 //!  The SOURCES enum lists the source terms that are supplied by the electrode object to the calling
-//!  routine.  This is currently only used in the Jacobian wrapper. However, it may be used
-//!  more widely in the future later.
+//!  routine.  This is currently only used in the Jacobian wrapper. However, it may be used more widely in the future later.
 enum SOURCES
 {
     //! Source of the current
@@ -59,7 +71,7 @@ enum SOURCES
     //! End of the Source list
     MAX_SOURCE
 };
-
+//==================================================================================================================================
 //!  The DOFS enum lists the independent degrees of freedom that the electrode object can handle. 
 //!  This is currently only used in the Jacobian wrapper. However, it may be used more widely in the future.
 enum DOFS
@@ -77,15 +89,15 @@ enum DOFS
     PRESSURE,
 
     //! Species
-    SPECIES  ,
-
+    SPECIES,
 
     //! End of the dof list
     MAX_DOF 
 };
+//==================================================================================================================================
 
-
-
+class ELECTRODE_KEY_INPUT;
+class EGRInput;
 class Electrode_Equilibrium;
 
 //==================================================================================================================================

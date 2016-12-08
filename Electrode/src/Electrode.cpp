@@ -1,8 +1,9 @@
 /**
  *  @file Electrode.cpp
  *     Headers for the declartion class for the base Electrode class
- *     (see \ref electrode_objects and class \link Zuzax::Electrode Electrode\endlink).
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode Electrode\endlink).
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -20,17 +21,14 @@
 #include "ApplBase_print.h"
 #include "cantera/kinetics/ExtraGlobalRxn.h"
 
-using namespace std;
+//using namespace std;
 
-#ifndef MIN
-#define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
-#endif
+
 #ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
+//! Delete a malloced quantity and set the pointer to 0
+#define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = nullptr ; }
 #endif
 
-// HKM debug code to turn it back to the bad way of doing things to see what the damage was
-//#define OLD_FOLLOW 1
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -858,24 +856,24 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  Loop Over all phases in the PhaseList, adding these
      *  formally to the Electrode object.
      */
-    int nspecies = 0;
+    size_t nspecies = 0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
 	// Get the pointer to the ThermoPhase object
         ThermoPhase* tphase = &(thermo(iph));
-        int nSpecies = tphase->nSpecies();
+        size_t nSpecies = tphase->nSpecies();
 
         // Find the name of the input block
-        string phaseBath = "Bath Specification for Phase ";
-        string phaseNm = tphase->name();
+        std::string phaseBath = "Bath Specification for Phase ";
+        std::string phaseNm = tphase->name();
         phaseBath += phaseNm;
 
         /*
          * Search the ReactingSurDomain to see if the current phase is in
          * the object
          */
-        string pname = tphase->id();
+        std::string pname = tphase->id();
 
-        int kstart = nspecies;
+        size_t kstart = nspecies;
         nspecies += nSpecies;
 
         /*
@@ -886,14 +884,14 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 	 *  of this process.
          */
         double sum = 0.0;
-        for (int k = 0; k < nSpecies; k++) {
+        for (size_t k = 0; k < nSpecies; k++) {
             spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] = ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
             spMoles_init_[m_PhaseSpeciesStartIndex[iph] + k] = spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k];
             sum += ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
         }
 
         if (sum > 1.0E-300) {
-            for (int k = 0; k < nSpecies; k++) {
+            for (size_t k = 0; k < nSpecies; k++) {
                 spMf_final_[kstart + k] = spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] / sum;
                 spMf_init_[kstart + k] = spMf_final_[kstart + k];
                 spMf_init_init_[kstart + k] = spMf_final_[kstart + k];
@@ -2095,9 +2093,9 @@ void Electrode::updateState_Phase(int iphI)
        tp.getChemPotentials(&(chempotMolar_final_[istart]));
     }
 }
-//================================================================================================
-void Electrode::updatePhaseNumbersTmp(const vector<double>& spMoles_tmp, vector<double>& phaseMoles_tmp,
-        vector<double>& spMf_tmp) const
+//==================================================================================================================================
+void Electrode::updatePhaseNumbersTmp(const std::vector<double>& spMoles_tmp, std::vector<double>& phaseMoles_tmp,
+        std::vector<double>& spMf_tmp) const
 {
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         size_t istart = m_PhaseSpeciesStartIndex[iph];
@@ -2120,7 +2118,7 @@ void Electrode::updatePhaseNumbersTmp(const vector<double>& spMoles_tmp, vector<
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Calculates the change in the surface area of all external and internal interfaces within the electrode
 /*
  *  (virtual)
@@ -2134,7 +2132,7 @@ double Electrode::calcSurfaceAreaChange(double deltaT)
     double sa_final = surfaceAreaRS_init_[0];
     return sa_final;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 double Electrode::updateElectrolytePseudoMoles()
 {
     /*
@@ -2162,7 +2160,7 @@ double Electrode::updateElectrolytePseudoMoles()
     followElectrolyteMoles_ = origFEM;
     return electrolytePseudoMoles_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode::turnOffFollowElectrolyteMoles()
 {
     followElectrolyteMoles_ = 0;
@@ -2172,7 +2170,7 @@ void Electrode::turnOffFollowElectrolyteMoles()
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
     updateState_Phase(solnPhase_);
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode::turnOnFollowElectrolyteMoles()
 {
     if (followElectrolyteMoles_ == 0) {
@@ -2193,24 +2191,24 @@ void Electrode::turnOnFollowElectrolyteMoles()
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 const std::vector<bool>& Electrode::getExternalSurfaceBooleans() const
 {
     return isExternalSurface_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode::phaseMoles(int iph) const
 {
     return phaseMoles_final_[iph];
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::elementMoles(int ieG) const
 {
     const Elements* elemList = globalElements();
     std::string eN = elemList->elementName(ieG);
     return elementMoles(eN);
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::elementMoles(std::string eN) const
 {
     double sum = 0.0;
@@ -2218,24 +2216,24 @@ double Electrode::elementMoles(std::string eN) const
         const ThermoPhase* tp_ptr = &thermo(iph);
         size_t ie = tp_ptr->elementIndex(eN);
         if (ie != npos) {
-            int nsp = thermo(iph).nSpecies();
-            int kStart = m_PhaseSpeciesStartIndex[iph];
-            for (int ik = 0; ik < nsp; ik++) {
-                int na = thermo(iph).nAtoms(ik, ie);
+            size_t nsp = thermo(iph).nSpecies();
+            size_t kStart = m_PhaseSpeciesStartIndex[iph];
+            for (size_t ik = 0; ik < nsp; ik++) {
+                double na = thermo(iph).nAtoms(ik, ie);
                 sum += na * spMoles_final_[kStart + ik];
             }
         }
     }
     return sum;
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::elementSolidMoles(size_t ieG) const
 {
     const Elements* elemList = globalElements();
     std::string eN = elemList->elementName(ieG);
     return elementMoles(eN);
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::elementSolidMoles(std::string eN) const
 {
     double sum = 0.0;
@@ -2789,7 +2787,7 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, doublevalue* cons
         /*
          *  Get the species production rates for the reacting surface
          */
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
         /*
          *  loop over the phases in the reacting surface
@@ -2931,16 +2929,16 @@ void Electrode::getPhaseMassFlux(const size_t isk, double* const phaseMassFlux)
     std::fill_n(phaseMassFlux, m_NumTotPhases, 0.);
 
     if (ActiveKineticsSurf_[isk]) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
         size_t nphRS = RSD_List_[isk]->nPhases();
         size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; kph++) {
             size_t jph = RSD_List_[isk]->kinOrder[kph];
             ThermoPhase& tp = thermo(jph);
-            int istart = m_PhaseSpeciesStartIndex[jph];
-            int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-            for (int k = 0; k < nsp; k++) {
+            size_t istart = m_PhaseSpeciesStartIndex[jph];
+            size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
+            for (size_t k = 0; k < nsp; k++) {
                 double net = rsSpeciesProductionRates[kIndexKin];
                 double mw = tp.molecularWeight(k);
                 phaseMassFlux[jph] += net * mw;
@@ -2961,14 +2959,14 @@ void Electrode::getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux)
 {
     std::fill_n(phaseMoleFlux, m_NumTotPhases, 0.);
     if (ActiveKineticsSurf_[isk]) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
         size_t nphRS = RSD_List_[isk]->nPhases();
-        int kIndexKin = 0;
+        size_t kIndexKin = 0;
         for (size_t RSph = 0; RSph < nphRS; RSph++) {
             size_t PLph = RSD_List_[isk]->kinOrder[RSph];
-            int istart = m_PhaseSpeciesStartIndex[PLph];
-            int nsp = m_PhaseSpeciesStartIndex[PLph + 1] - istart;
-            for (int k = 0; k < nsp; k++) {
+            size_t istart = m_PhaseSpeciesStartIndex[PLph];
+            size_t nsp = m_PhaseSpeciesStartIndex[PLph + 1] - istart;
+            for (size_t k = 0; k < nsp; k++) {
                 double net = rsSpeciesProductionRates[kIndexKin];
                 phaseMoleFlux[PLph] += net;
                 kIndexKin++;
@@ -3290,7 +3288,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
         phaseStabInit[iph] = rsd->phaseStability(iph);
         if (printLvl_ > printDebug) {
             ThermoPhase& tp = rsd->thermo(iph);
-            string pname = tp.name();
+            std::string pname = tp.name();
             printf(" %20s %d  %d \n", pname.c_str(), phaseExistsInit[iph], phaseStabInit[iph]);
         }
     }
@@ -3341,7 +3339,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
 	}
 
         if (printLvl_ > printDebug) {
-            string rstring = rsd->reactionString(i);
+            std::string rstring = rsd->reactionString(i);
             printf("%d %100.100s %g  \n", i, rstring.c_str(), ERxn);
         }
         if (reactionTurnedOn[i]) {
@@ -3484,7 +3482,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
         rsd->setPhaseStability(iph, phaseStab[iph]);
         if (printLvl_ > printDebug) {
             ThermoPhase& tp = rsd->thermo(iph);
-            string pname = tp.name();
+            std::string pname = tp.name();
             printf(" %20s %d  %d \n", pname.c_str(), phaseExists[iph], phaseStab[iph]);
         }
     }
@@ -3545,7 +3543,7 @@ double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
         rsd->setPhaseStability(iph, phaseStabInit[iph]);
         if (printLvl_ > printDebug) {
             ThermoPhase& tp = rsd->thermo(iph);
-            string pname = tp.name();
+            std::string pname = tp.name();
             printf(" %20s %d  %d \n", pname.c_str(), phaseExistsInit[iph], phaseStabInit[iph]);
         }
     }
@@ -3749,17 +3747,17 @@ int Electrode::phasePop_Resid::nEquations() const
 //===================================================================================================================
 int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid)
 {
-    int k;
-    vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
+    size_t k;
+    std::vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
 
     ThermoPhase* tptarget = PhaseList_[iphaseTarget];
-    int nspPhase = tptarget->nSpecies();
+    size_t nspPhase = tptarget->nSpecies();
     if (nspPhase == 1) {
         resid[0] = Xf_phase[0] - 1.0;
         return 0;
     }
 
-    int kstartTarget = m_PhaseSpeciesStartIndex[iphaseTarget];
+    size_t kstartTarget = m_PhaseSpeciesStartIndex[iphaseTarget];
     /*
      *   Set the internal objects to the correct conditions
      *    -> This will be the final conditions.
@@ -3835,7 +3833,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
              *  Get the species production rates for the reacting surface
              */
             //    m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 
             double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
             /*
@@ -3843,20 +3841,20 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
              *  Get the net production vector
              */
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-            int nphRS = RSD_List_[isk]->nPhases();
-            int jph, kph;
-            int kIndexKin = 0;
+            size_t nphRS = RSD_List_[isk]->nPhases();
+            size_t jph, kph;
+            size_t kIndexKin = 0;
             for (kph = 0; kph < nphRS; kph++) {
                 jph = RSD_List_[isk]->kinOrder[kph];
-                int istart = m_PhaseSpeciesStartIndex[jph];
-                int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-                for (int k = 0; k < nsp; k++) {
+                size_t istart = m_PhaseSpeciesStartIndex[jph];
+                size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
+                for (size_t k = 0; k < nsp; k++) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                     if (rsSpeciesProductionRates[kIndexKin] > 0.0) {
                         if (phaseMoles_init_[jph] <= 0.0) {
                             if (nsp > 1) {
-                                int bornMultiSpecies = jph;
-                                if (iphaseTarget != bornMultiSpecies) {
+                                size_t bornMultiSpecies = jph;
+                                if ((size_t) iphaseTarget != bornMultiSpecies) {
                                     throw CanteraError("", "two multispecies phases");
                                 }
                             }
@@ -3897,17 +3895,17 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
      * Calculate the total moles
      */
     double ptotal = 0.0;
-    for (int kp = 0; kp < nspPhase; kp++) {
+    for (size_t kp = 0; kp < nspPhase; kp++) {
         k = kp + kstartTarget;
         ptotal += spMoles_tmp[k];
     }
     if (ptotal <= 0.0) {
         return -1;
     }
-    int kmax = 0;
+    size_t kmax = 0;
     double xmax = Xf_phase[0];
     double xsum = 0.0;
-    for (int kp = 0; kp < nspPhase; kp++) {
+    for (size_t kp = 0; kp < nspPhase; kp++) {
         k = kp + kstartTarget;
         resid[kp] = Xf_phase[kp] - spMoles_tmp[k] / ptotal;
         if (Xf_phase[kp] > xmax) {
@@ -3923,11 +3921,11 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
 //===================================================================================================================
 int Electrode::phasePop(int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle)
 {
-    int k;
-    vector<double> Xf_phase(m_NumTotSpecies, 0.0);
+    size_t k;
+    std::vector<double> Xf_phase(m_NumTotSpecies, 0.0);
     int retn = 1;
     ThermoPhase* tptarget = PhaseList_[iphaseTarget];
-    int nspPhase = tptarget->nSpecies();
+    size_t nspPhase = tptarget->nSpecies();
     if (nspPhase == 1) {
         Xmf_stable[0] = 1.0;
         return 0;
@@ -3937,12 +3935,12 @@ int Electrode::phasePop(int iphaseTarget, double* const Xmf_stable, double delta
     }
     tptarget->setMoleFractions(DATA_PTR(Xf_phase));
 
-    int kstartTarget = m_PhaseSpeciesStartIndex[iphaseTarget];
+    size_t kstartTarget = m_PhaseSpeciesStartIndex[iphaseTarget];
 
     /*
      * Check starting conditions
      */
-    for (int kp = 0; kp < nspPhase; kp++) {
+    for (size_t kp = 0; kp < nspPhase; kp++) {
         k = kp + kstartTarget;
         if (spMoles_init_[k] != 0.0) {
             throw CanteraError(" Electrode::phasePop", "spMoles_init_[k] != 0.0");
@@ -4818,7 +4816,7 @@ void Electrode::speciesProductionRates(double* const spMoleDot)
 	     *  Get the species production rates for the reacting surface
 	     */
 	    // TODO: Check this logic for end of region conditions and goNowhere issues
-	    const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+	    const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
 	    
 	    /*
 	     *  loop over the phases in the reacting surface
@@ -4901,8 +4899,8 @@ double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
     double nstoich, ocv, io, nu, beta, resist;
     double iCurr;
     double q = 0.0;
-    static vector<double> s_deltaS;
-    static vector<double> iCurrDens;
+    static std::vector<double> s_deltaS;
+    static std::vector<double> iCurrDens;
     if (RSD_List_[isk]) {
          ReactingSurDomain* rsd = RSD_List_[isk];
          double sa = surfaceAreaRS_final_[isk];
@@ -4947,8 +4945,8 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
     double nstoich, ocv, io, nu, beta, resist;
     double iCurr;
     double q = 0.0;
-    static vector<double> s_deltaH;
-    static vector<double> iCurrDens;
+    static std::vector<double> s_deltaH;
+    static std::vector<double> iCurrDens;
    
     if (RSD_List_[isk]) {
          ReactingSurDomain* rsd = RSD_List_[isk];
@@ -5562,7 +5560,7 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     }
     if (printLvl_ >= 4) {
         if (iph >= m_NumVolPhases) {
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
+            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
@@ -5581,14 +5579,13 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
             printf("\n");
             printf("                           spName                  SourceRateLastStep (kmol/m2/s) \n");
             for (size_t k = 0; k < m_NumTotSpecies; k++) {
-                string ss = speciesName(k);
+                std::string ss = speciesName(k);
                 printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
             }
         }
     }
     printf("     ============================================================================================\n");
     delete[] netROP;
-
 }
 //====================================================================================================================
 // Determines the level of printing for each step.
@@ -5681,12 +5678,12 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpI, "  Capacity ,");
 
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
-            string sss = speciesName(k);
+            std::string sss = speciesName(k);
             fprintf(fpI, " MN_%-20.20s,", sss.c_str());
         }
 
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
-            string sss = speciesName(k);
+            std::string sss = speciesName(k);
             fprintf(fpI, " SRC_%-20.20s,", sss.c_str());
         }
 
@@ -5725,12 +5722,12 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpG, "  Capacity ,");
 
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
-            string sss = speciesName(k);
+            std::string sss = speciesName(k);
             fprintf(fpG, " MN_%-20.20s,", sss.c_str());
         }
 
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
-            string sss = speciesName(k);
+            std::string sss = speciesName(k);
             fprintf(fpG, " SRC_%-20.20s,", sss.c_str());
         }
 

@@ -1,7 +1,7 @@
 /**
  *  @file Electrode_Factory.h
  *     Headers for the factory class that can create known %Electrode objects
- *     (see \ref electrode_objects and class \link Zuzax::Electrode_Factory Electrode_Factory\endlink).
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_Factory Electrode_Factory\endlink).
  */
 
 /*
