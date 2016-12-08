@@ -213,19 +213,16 @@ public:
      *   This will be equal to the srcTerm divided by the step length
      */
     double currentStep_;
-
 };
 //===================================================================================================================================
 //! Complete time step history for a subtime step integration 
 /*!
  *  SubIntegrations are multiple time steps taken by the Electrode object per global time step
- *  This object stores all of the information, wich consists of multiple TimeStepHistory objects
- *  along with some header information.
+ *  This object stores all of the information, which consists of multiple TimeStepHistory objects along with some header information.
  *
  *  We also use this class to repete time step histories for calculating more accurate jacobians.
- *  We keep a counter iCounter, which is the current counter. Then we ask for the next time step step 
+ *  We keep a counter iCounter, which is the current counter. Then, we ask for the next time step step 
  *  using getNextRegularTimeStep() so that we can repeat the time step history during a numerical jacobian calculation.
- *
  */
 class SubIntegrationHistory
 {
@@ -1422,7 +1419,6 @@ protected:
     std::vector<double> IntegratedSrc_final_;
 
     //! Evaluation of the current error in the integrated source term for the current local step
-
     std::vector<double> IntegratedSrc_Errors_local_;
 
     //! Evaluation of the current error in the integrated source term for the current global step
@@ -1445,25 +1441,35 @@ protected:
     //! Maximum number of subGlobal time step iterations
     int maxNumberSubGlobalTimeSteps_;
 
-
+    //! Norm of the error in the source terms for the current subgrid time step
+    /*!
+     *  This is the L2 norm of the estimated errors in the source term vector produced by this object
+     */
     double IntegratedSrc_normError_local_;
+
+    //! Norm of the sum of the error in the source terms for the current global time step
+    /*!
+     *  We add the errors for the local grid time steps
+     */
     double IntegratedSrc_normError_global_;
 
-
+    //! This is the base time step history for use with numerical jacobian calculations
+    /*!
+     *  A numerical jacobian calculation consists of a base calculation and a delta calculation, one where the external variable
+     *  value is delta'd and the calculation is repeted, using the same time step history. This variable stores the base time
+     *  step history so that it can be repeted again.
+     */
     SubIntegrationHistory timeHistory_base_;
+
+    //! This variable stores the current time step history for the current subgrid time step calculation
+    /*!
+     *  Stores the time step history of the current calculation
+     */
     SubIntegrationHistory timeHistory_current_;
-
-
-
-    char buf_[1024];
-
 
 public:
     //! relative minimum time step ratio
     double relativeLocalToGlobalTimeStepMinimum_;
-
-    using  ZZCantera::ResidJacEval::neq_;
-
 };
 //==================================================================================================================================
 }

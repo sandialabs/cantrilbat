@@ -26,7 +26,6 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
 //======================================================================================================================
 SubIntegrationHistory::SubIntegrationHistory() :
     nTimeStepsRegular_(0),
@@ -37,7 +36,6 @@ SubIntegrationHistory::SubIntegrationHistory() :
     iCounter(0),
     time_step_next(0.0)
 {
-
 }
 //======================================================================================================================
 SubIntegrationHistory::SubIntegrationHistory(const SubIntegrationHistory& right) :
@@ -49,12 +47,10 @@ SubIntegrationHistory::SubIntegrationHistory(const SubIntegrationHistory& right)
     iCounter(right.iCounter),
     time_step_next(right.time_step_next)
 {
-
 }
 //======================================================================================================================
 SubIntegrationHistory::~SubIntegrationHistory()
 {
-
 }
 //======================================================================================================================
 SubIntegrationHistory& SubIntegrationHistory::operator=(const SubIntegrationHistory& right)
@@ -120,7 +116,6 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
     time_step_next = t_final - t_init;
     GsolnErrorNorm_ += solnErrorNorm;
     GwdotErrorNorm_ += wdotErrorNorm;
-  
     nTimeSteps_++;
     if (timeTypeSoln != 2) {
 	nTimeStepsRegular_++;
@@ -141,9 +136,6 @@ void SubIntegrationHistory::advanceTimeStepCounter()
 //======================================================================================================================
 double SubIntegrationHistory::getNextRegularTime(double currentTime) const
 {
-    // put in extra assignments for debugging
-    //int iC = iCounter;
-
     // If we are beyond the stored time step history, then we used the stored value of time_step_next to make
     // up a good next time.
     if (iCounter >= nTimeSteps_) {
@@ -193,7 +185,7 @@ double SubIntegrationHistory::getNextRegularTime(double currentTime) const
     }
  
     // Normal return of the next stored time
-    return (t_final_calc);
+    return t_final_calc;
 }
 //======================================================================================================================
 int SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal) 
@@ -359,96 +351,29 @@ bool SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) const
 Electrode_Integrator::Electrode_Integrator() :
     Electrode(),
     deltaTsubcycleCalc_(0.0),
-    atolResidNLS_(0),
     rtolResidNLS_(1.0E-6),
-    atolNLS_(0),
-    ylowNLS_(0),
-    yhighNLS_(0),
-    yvalNLS_(0),
-    ydotNLS_(0),
-    deltaBoundsMagnitudesNLS_(0),
-    phaseJustDied_(0),
-    phaseJustBorn_(0),
-    soln_predict_(0),
     haveGood_solnDot_init_(false),
-    solnDot_init_(0),
-    solnDot_final_(0),
-    solnDot_final_final_(0),
-    solnDot_init_init_(0),
-    soln_predict_fromDot_(0),
     predictDotBetter_(false),
-    pSolve_(0),
-    jacPtr_(0),
+    pSolve_(nullptr),
+    jacPtr_(nullptr),
     numIntegratedSrc_(0),
-    IntegratedSrc_Predicted(0),
-    IntegratedSrc_final_(0),
-    IntegratedSrc_Errors_local_(0),
-
-    IntegratedSrc_Errors_globalStep_(0),
     rtol_IntegratedSrc_global_(1.0E-4),
-    atol_IntegratedSrc_global_(0),
     maxNumberSubCycles_(50000),
     maxNumberSubGlobalTimeSteps_(1000),
     IntegratedSrc_normError_local_(0.0),
     IntegratedSrc_normError_global_(0.0),
     relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
 {
-
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
-    Electrode(),
-    deltaTsubcycleCalc_(0.0),
-    atolResidNLS_(0),
-    rtolResidNLS_(1.0E-6),
-    atolNLS_(0),
-    ylowNLS_(0),
-    yhighNLS_(0),
-    yvalNLS_(0),
-    ydotNLS_(0),
-    deltaBoundsMagnitudesNLS_(0),
-    phaseJustDied_(0),
-    phaseJustBorn_(0),
-    soln_predict_(0),
-    haveGood_solnDot_init_(false),
-    solnDot_init_(0),
-    solnDot_final_(0),
-    solnDot_final_final_(0),
-    solnDot_init_init_(0),
-    soln_predict_fromDot_(0),
-    predictDotBetter_(false),
-    pSolve_(0),
-    jacPtr_(0),
-    numIntegratedSrc_(0),
-    IntegratedSrc_Predicted(0),
-    IntegratedSrc_final_(0),
-    IntegratedSrc_Errors_local_(0),
-    IntegratedSrc_Errors_globalStep_(0),
-    rtol_IntegratedSrc_global_(1.0E-4),
-    atol_IntegratedSrc_global_(0),
-    maxNumberSubCycles_(50000),
-    maxNumberSubGlobalTimeSteps_(1000),
-    IntegratedSrc_normError_local_(0.0),
-    IntegratedSrc_normError_global_(0.0),
-    relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
+    Electrode_Integrator()
 {
     operator=(right);
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
-Electrode_Integrator&
-Electrode_Integrator::operator=(const Electrode_Integrator& right)
+Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
@@ -501,7 +426,6 @@ Electrode_Integrator::operator=(const Electrode_Integrator& right)
 
     timeHistory_base_                   = right.timeHistory_base_;
     timeHistory_current_                = right.timeHistory_current_;
-
 
     relativeLocalToGlobalTimeStepMinimum_ = right.relativeLocalToGlobalTimeStepMinimum_;
     /*
@@ -2556,7 +2480,6 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
     delete [] netROP;
 
 }
-
 //====================================================================================================================
 double Electrode_Integrator::l0normM(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
                                      const std::vector<double>& atolVec, const double rtol)
