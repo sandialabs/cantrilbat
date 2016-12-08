@@ -496,9 +496,13 @@ public:
      *                   final time, to see if there is any problem.
      * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
      */
-    virtual void  resetStartingCondition(double Tinitial, bool doResetAlways = false);
+    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false);
 
-    void updateState_Phase(int);
+    //! Update the stat of a single phase
+    /*!
+     *  @param[in]           iph                 Index of the phase within the %PhaseList object
+     */    
+    void updateState_Phase(size_t iph);
 
     //! Take the state (i.e., the final state) within the Electrode_SimpleDiff and push it up
     //! to the zero-dimensional parent object

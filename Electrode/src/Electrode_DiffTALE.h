@@ -411,7 +411,11 @@ public:
      */
     virtual void  resetStartingCondition(double Tinitial, bool doResetAlways = false);
 
-    virtual void updateState_Phase(int iph);
+    //! Update the state of a single phase
+    /*!
+     *  @param[in]           iph                 Index of the phase within the %PhaseList object
+     */
+    virtual void updateState_Phase(size_t iph);
 
     //! Take the state (i.e., the final state) within the Electrode_DiffTALE and push it up
     //! to the zero-dimensional parent object

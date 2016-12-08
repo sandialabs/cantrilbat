@@ -1279,9 +1279,8 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
  *
  * HKM -> Delete this ??
  */
-void Electrode_SimpleDiff::updateState_Phase(int iphI)
+void Electrode_SimpleDiff::updateState_Phase(size_t iph)
 { 
-    size_t iph = iphI;
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
     size_t nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;

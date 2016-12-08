@@ -1703,12 +1703,12 @@ ZZCantera::ReactingSurDomain* Electrode::currOuterReactingSurface()
     }
     return 0;
 }
-//====================================================================================================================
-ZZCantera::ReactingSurDomain* Electrode::reactingSurface(int iSurf)
+//==================================================================================================================================
+ZZCantera::ReactingSurDomain* Electrode::reactingSurface(size_t iSurf)
 {
     return RSD_List_[iSurf];
 }
-//================================================================================================
+//==================================================================================================================================
 // Set the mole numbers in the electrolyte phase
 /*
  *  We set the mole numbers of the electrolyte phase separately from
@@ -2002,20 +2002,19 @@ double Electrode::getFinalTime() const
  *
  * @param iph     Phase id.
  */
-void Electrode::updateState_Phase(int iphI)
+void Electrode::updateState_Phase(size_t iph)
 {
-    AssertTrace(iphI >= 0);
-    size_t iph = iphI;
-    int istart = m_PhaseSpeciesStartIndex[iph];
+    AssertTrace(iph != npos);
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
-    int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
+    size_t nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
     double tmp = 0.0;
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k < nsp; k++) {
         tmp += spMoles_final_[istart + k];
     }
     phaseMoles_final_[iph] = tmp;
     if (tmp > 1.0E-200) {
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; k++) {
             spMf_final_[istart + k] = spMoles_final_[istart + k] / tmp;
         }
 #ifdef OLD_FOLLOW
@@ -2023,7 +2022,7 @@ void Electrode::updateState_Phase(int iphI)
             if (!followElectrolyteMoles_) {
                 ThermoPhase& tp = thermo(solnPhase_);
                 tp.getMoleFractions(&spMf_final_[istart]);
-                for (int k = 0; k < nsp; k++) {
+                for (size_t k = 0; k < nsp; k++) {
                     spMoles_final_[istart + k] = electrolytePseudoMoles_ * spMf_final_[istart + k];
                 }
                 phaseMoles_final_[iph] = electrolytePseudoMoles_;
@@ -2042,7 +2041,7 @@ void Electrode::updateState_Phase(int iphI)
         /*
          * For the current method the spMf_final_[] contains the valid information.
          */
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; k++) {
             tmp = spMf_final_[istart + k];
             if (tmp < 0.0 || tmp > 1.0) {
                 throw CanteraError("Electrode::updatePhaseNumbers()",
@@ -2057,7 +2056,7 @@ void Electrode::updateState_Phase(int iphI)
 	// mole fraction vector when the phase is zero, and we are just trying to get a 1 on the
 	// diagonal. In this case we need to respect  spMF_final_[].
 	// However we check for out of bounds values.
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; k++) {
             tmp = spMf_final_[istart + k];
             if (tmp < 0.0 || tmp > 1.0) {
                 throw CanteraError("Electrode::updatePhaseNumbers()",

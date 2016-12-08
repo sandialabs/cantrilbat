@@ -418,7 +418,7 @@ public:
      *                                           If the surface doesn't have reactions associated with it,
      *                                           a null is returned.
      */
-    ZZCantera::ReactingSurDomain* reactingSurface(int iSurf);
+    ZZCantera::ReactingSurDomain* reactingSurface(size_t iSurf);
 
     //! Set the temperature and pressure of the electrode
     /*!
@@ -624,7 +624,6 @@ public:
      *                     size = number of species in the electrolyte phase
      */
     virtual void setPhaseMoleNumbers(size_t iph, const double* const moleNum);
-    
   
 protected:
     //! Update all state information for a single phase from the mole numbers in the spMoles_final_[] vector
@@ -655,9 +654,9 @@ protected:
      *  using this vector to set the mole fractions, using the ThermoPhase object
      *  to get the mole fractions.
      *
-     * @param          iph                       Phase id.
+     * @param[in]            iph                 Index of the phase within the %PhaseList object
      */
-    void updateState_Phase(int iph);
+    void updateState_Phase(size_t iph);
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------

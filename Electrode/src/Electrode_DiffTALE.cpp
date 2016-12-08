@@ -998,21 +998,20 @@ void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doResetAlw
 //================================================================================================================
 //  update the global phase numbers 
 /*
- *     This is for distributed phases
+ *    This is for distributed phases
  *    We don't calculate a mole fraction vector here. It doesn't make sense to do so.
  *    Instead we take the value of the exterior cell's mole fraction vector.
  *
  *  update phaseMoles_final_[]
  */
-void Electrode_DiffTALE::updateState_Phase(int iphI)
+void Electrode_DiffTALE::updateState_Phase(size_t iph)
 { 
-    size_t iph = iphI;
     int istart = m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = thermo(iph);
-    int nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
+    size_t nsp = m_PhaseSpeciesStartIndex[iph + 1] - istart;
     
     double tmp = 0.0;
-    for (int k = 0; k < nsp; k++) {
+    for (size_t k = 0; k < nsp; k++) {
         tmp += spMoles_final_[istart + k];
     }
     /*
@@ -1023,7 +1022,7 @@ void Electrode_DiffTALE::updateState_Phase(int iphI)
     } else  if (tmp < -1.0E-200) {
 	phaseMoles_final_[iph] = tmp;
     } else {
-	for (int k = 0; k < nsp; k++) {
+	for (size_t k = 0; k < nsp; k++) {
 	    spMoles_final_[istart + k] = 0.0;
 	    phaseMoles_final_[iph] = 0.0;
 	}
@@ -1037,7 +1036,7 @@ void Electrode_DiffTALE::updateState_Phase(int iphI)
         phaseMolarVolumes_[iph] = tp.molarVolume();
     } else {
         phaseMolarVolumes_[iph] = 0.0;
-        int isurf = iph - m_NumVolPhases;
+        size_t isurf = iph - m_NumVolPhases;
         sphaseMolarAreas_[isurf] = tp.molarVolume();
     }
 }
