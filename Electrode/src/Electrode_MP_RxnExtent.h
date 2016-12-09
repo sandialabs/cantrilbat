@@ -655,7 +655,7 @@ public:
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false);
+    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false) override;
 
 
     //! Print condition of a phase in the electrode
@@ -667,7 +667,7 @@ public:
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrodePhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
+    virtual void printElectrodePhase(size_t iPhase, int pSrc = 1,  bool subTimeStep = false) override;
 
     //! Returns the molar volume of the Electrode given the extent of reaction
     /*!
@@ -708,7 +708,7 @@ public:
      *   @param iReaction   Explicit index of the reaction. If -1, then it attempts
      *                      to pick the reaction that best represents the open circuit potential.
      */
-    virtual double openCircuitVoltageSSRxn(int isk, int iReaction = -1) const;
+    virtual double openCircuitVoltageSSRxn(size_t isk, size_t iReaction = npos) const override;
     
 
     //! Calculate the standard state open circuit voltage at the final state
@@ -737,7 +737,7 @@ public:
      *
      * @return Returns the voltage
      */
-    virtual double openCircuitVoltage(int isk,  bool comparedToReferenceElectrode = false);
+    virtual double openCircuitVoltage(size_t isk,  bool comparedToReferenceElectrode = false) override;
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions! based on a single reaction
     /*!

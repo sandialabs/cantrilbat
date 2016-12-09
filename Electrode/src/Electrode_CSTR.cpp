@@ -2359,9 +2359,8 @@ void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 
 }
 //===================================================================================================================
-void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_CSTR::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
     size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
@@ -2372,7 +2371,7 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
         return;
     }
     printf("     ============================================================================================\n");
-    printf("          PHASE %d %s \n", iphI, pname.c_str());
+    printf("          PHASE %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
     printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
@@ -2464,7 +2463,6 @@ void Electrode_CSTR::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
     }
     printf("     ============================================================================================\n");
     delete [] netROP;
-
 }
 //====================================================================================================================
 // Evaluate the residual function
@@ -2509,10 +2507,9 @@ int Electrode_CSTR::getInitialConditions(const double t0, double* const ySoln, d
 
  *                   final time, to see if there is any problem.
  */
-void  Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways)
+void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
     bool resetToInitInit = false;
-
     /*
      * If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
      * Then, we don't advance the time step.

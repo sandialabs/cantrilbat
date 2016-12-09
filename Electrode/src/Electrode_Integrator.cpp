@@ -2387,10 +2387,8 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
 
 }
 //===================================================================================================================
-
-void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_Integrator::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
     size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
@@ -2398,7 +2396,7 @@ void Electrode_Integrator::printElectrodePhase(int iphI, int pSrc, bool subTimeS
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iphI, pname.c_str());
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;

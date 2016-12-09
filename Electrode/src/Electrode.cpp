@@ -1867,7 +1867,7 @@ void Electrode::setState_relativeExtentRxn(double relativeExtentRxn)
 // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------
 // -----------------------------------------------------------------------------------------------------------------
 
-//================================================================================================
+//==================================================================================================================================
 void Electrode::setTime(double time)
 {
     // if we are in a pending step, this is an error.
@@ -1965,11 +1965,10 @@ double Electrode::getFinalTime() const
  *  The following fields are state variables
  *
  *  Summary: State Variables
- *              spMoles_final_[kGlobal]  : kGlobal in solid phase species
+ *              spMoles_final_[kGlob]  :  iph entries in Global Species PhaseList vector
  *
  *              phaseMoles_final_[iph]  : When the phase moles are negative
- *              spMf_final_[kGlobal]
- *
+ *              spMf_final_[kGlobal]      iph entries in Global Species PhaseList vector
  *
  *           Independent Variables
  *              spMoles_final_[kGlobal]  :    kGlobal in electrolyte phase
@@ -1977,15 +1976,15 @@ double Electrode::getFinalTime() const
  *              Temperature
  *              Pressure
  *
- *            spElectroChemPot_[]
+ *   The following member data fields are set by this function:
  *
- *   The following fields in this object are set:
- *            phaseMoles_final_[iph]          iph in solid phase electrode
- *            spMf_final_[kGlobal]            kGlobal in solid phase species
- *            VolPM_[kGlobal]                 kGlobal in solid phase species
- *            spElectroChemPot_[kGlobal]      kGlobal in solid phase species
- *            ThermoPhase[iph]                iph in solid phase electrode
- *           	phaseMolarVolumes_[iph]         iph in solid phase electrode
+ *            spElectroChemPot_[]            iph entries in Global Species PhaseList vector
+ *            phaseMoles_final_[iph]         iph entries in Global Phase PhaseList vector
+ *            spMf_final_[]                  iph entries in Global Species PhaseList vector
+ *            VolPM_[]                       iph entries in Global Species PhaseList vector
+ *            spElectroChemPot_[]            iph entries in Global Species PhaseList vector
+ *            ThermoPhase[iph]               setState using TPX and electricPotential
+ *            phaseMolarVolumes_[]           iph entries in Global Species PhaseList vector 
  *
  *  If we are not following  the mole numbers in the electrode, we set the
  *  total moles to the internal constant, electrolytePseudoMoles_, while
@@ -1998,9 +1997,6 @@ double Electrode::getFinalTime() const
  *  The algorithms should already have arranged this issue before calling this routine.
  *  However, this routine does have a method for handling this. For positive mole numbers, the spMoles vector
  *  is treated as the state vector. For negative mole numbers,
- *
- *
- * @param iph     Phase id.
  */
 void Electrode::updateState_Phase(size_t iph)
 {
@@ -2033,11 +2029,8 @@ void Electrode::updateState_Phase(size_t iph)
         /*
          *  We are here when the phase moles are less than zero. This is a permissible condition when we
          *  are calculating a phase death, as we solve for the time when the phase moles is exactly zero.
-         *  letting the phaseMoles go negative during the solve.
+         *  Letting the phase moles go negative during the solve is a necessary requirement
          */
-        //if (phaseMoles_final_[iph] < 0.0) {
-        //    throw CanteraError("Electrode::updatePhaseNumbers()", "unexpected condition");
-        //}
         /*
          * For the current method the spMf_final_[] contains the valid information.
          */
@@ -2065,7 +2058,6 @@ void Electrode::updateState_Phase(size_t iph)
             spMoles_final_[istart + k] = 0.0;
             phaseMoles_final_[iph] = 0.0;
         }
-
     }
 
     // Here we set the state within the phase object
@@ -2192,12 +2184,12 @@ const std::vector<bool>& Electrode::getExternalSurfaceBooleans() const
     return isExternalSurface_;
 }
 //==================================================================================================================================
-double Electrode::phaseMoles(int iph) const
+double Electrode::phaseMoles(size_t iph) const
 {
     return phaseMoles_final_[iph];
 }
 //==================================================================================================================================
-double Electrode::elementMoles(int ieG) const
+double Electrode::elementMoles(size_t ieG) const
 {
     const Elements* elemList = globalElements();
     std::string eN = elemList->elementName(ieG);
@@ -2488,7 +2480,7 @@ double Electrode::SolidEnthalpy() const
     return enthalpy;
 }
 //====================================================================================================================
-int Electrode::nSurfaces() const
+size_t Electrode::nSurfaces() const
 {
     return numSurfaces_;
 }
@@ -3057,14 +3049,14 @@ double Electrode::getIntegratedThermalEnergySourceTerm_reversibleEntropy()
  *  the current concentrations because it looks for the reaction
  *  closest to equilibrium given the current cell voltage.
  */
-double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
+double Electrode::openCircuitVoltageSSRxn(size_t isk, size_t iReaction) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         return 0.0;
     }
     size_t rxnIndex = 0;
-    if (iReaction >= 0) {
+    if (iReaction != npos) {
         rxnIndex = iReaction;
     }
     rsd->getDeltaSSGibbs(DATA_PTR(deltaG_));
@@ -3081,7 +3073,7 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
         if (nStoichElectrons != 0.0) {
             PhiRxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
         }
-        if (iReaction >= 0) {
+        if (iReaction != npos) {
             return PhiRxn;
         }
 
@@ -3107,7 +3099,7 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
     }
     return 0.0;
 }
-//=================================================================================================
+//==================================================================================================================================
 // Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions.
 /*
  *  When there is more than a single reaction,
@@ -3175,13 +3167,13 @@ double Electrode::openCircuitVoltageSSRxn(int isk, int iReaction) const
     }
     return 0.0;
 }
-//=================================================================================================
+//==================================================================================================================================
 // Returns the equilibrium OCV for all reactions on the selected ReactingSurfaceDomain at the current conditions.
 /*
  *  When there is more than a single reaction,
  *  there may be many open circuit voltages, one for each for reaction.
  */
-void Electrode::getOpenCircuitVoltages(int isk, double* Erxn, bool comparedToReferenceElectrode) const
+void Electrode::getOpenCircuitVoltages(size_t isk, double* Erxn, bool comparedToReferenceElectrode) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
@@ -3224,7 +3216,7 @@ void Electrode::getOpenCircuitVoltages(int isk, double* Erxn, bool comparedToRef
     return;
 }
 //======================================================================================================
-double Electrode::openCircuitVoltage_MixtureAveraged(int isk,  bool comparedToReferenceElectrode)
+double Electrode::openCircuitVoltage_MixtureAveraged(size_t isk,  bool comparedToReferenceElectrode)
 {
     return Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
 }
@@ -3235,7 +3227,7 @@ double Electrode::openCircuitVoltage_MixtureAveraged(int isk,  bool comparedToRe
  *  is zero net electron production.  It leaves the object unchanged. However, it
  *  does change the voltage of the phases during the calculation, so this is a nonconst function.
  */
-double Electrode::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
+double Electrode::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)
 {
 #ifdef DEBUG_OCV
     static int s_numIters = 0;
@@ -3557,27 +3549,12 @@ double Electrode::overpotential(size_t isk)
     return (deltaVoltage_ - Erxn);
 }
 //====================================================================================================================
-// Returns the overpotential for the current conditions based on a particular reaction
-/*
- *  The overpotential is the current voltage minus the open circuit voltage.
- *  This routine calculates the open circuit voltage for the surface by calling a
- *  openCircuitVoltageRxn() routine.
- *
- *   @param isk   reacting surface number
- *   @param irxn  Reaction number
- */
-double Electrode::overpotentialRxn(int isk, int irxn)
+double Electrode::overpotentialRxn(size_t isk, size_t irxn)
 {
     double Erxn = openCircuitVoltageRxn(isk, irxn);
     return (deltaVoltage_ - Erxn);
 }
 //====================================================================================================================
-// Returns the vector of exchange current densities for given surface
-/*
- * For an exchange current to be relevant, we need the reaction to involve an electron.
- * However, the InterfaceKinetics version of this method was implemented to let
- * i0 = kf / Kc^0.5 for non-electrochemical reactions.
- */
 double Electrode::getExchangeCurrentDensity(size_t isk, size_t irxn) const
 {
     double iCurr = 0.0;
@@ -3601,7 +3578,6 @@ double Electrode::getExchangeCurrentDensity(size_t isk, size_t irxn) const
 	    iCurr = 0.0;
 	}
 #endif
-
         return io;
     }
     return iCurr;
@@ -3657,7 +3633,7 @@ void Electrode::setRelativeCapacityDischargedPerMole(double relDischargedPerMole
     throw CanteraError(" Electrode::setRelativeCapacityDischargedPerMole()", "not implemented");
 }
 //====================================================================================================================
-RxnMolChange* Electrode::rxnMolChangesEGR(int iegr)
+RxnMolChange* Electrode::rxnMolChangesEGR(size_t iegr)
 {
     return m_rmcEGR[iegr];
 }
@@ -3687,7 +3663,7 @@ void Electrode::addExtraGlobalRxn(EGRInput* const egr_ptr)
     delete[] RxnVector;
 }
 //======================================================================================================================
-int Electrode::processExtraGlobalRxnPathways()
+size_t Electrode::processExtraGlobalRxnPathways()
 {
     for (size_t i = 0; i < numExtraGlobalRxns; i++) {
         addExtraGlobalRxn(m_EGRList[i]);
@@ -3695,17 +3671,17 @@ int Electrode::processExtraGlobalRxnPathways()
     return numExtraGlobalRxns;
 }
 //====================================================================================================================
-ZZCantera::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(int iegr)
+ZZCantera::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(size_t iegr)
 {
     return m_egr[iegr];
 }
 //===================================================================================================================
-int Electrode::numExtraGlobalRxnPathways() const
+size_t Electrode::numExtraGlobalRxnPathways() const
 {
     return numExtraGlobalRxns;
 }
 //===================================================================================================================
-Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, int iphaseTarget, double* const Xmf_stable,
+Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, size_t iphaseTarget, double* const Xmf_stable,
         double deltaTsubcycle) :
     ResidEval(),
     ee_(ee),
@@ -3737,7 +3713,7 @@ int Electrode::phasePop_Resid::nEquations() const
     return nsp;
 }
 //===================================================================================================================
-int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid)
+int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid)
 {
     size_t k;
     std::vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
@@ -3801,7 +3777,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
                         rsd->setPhaseExistence(jph, true);
                     }
                 }
-                if (iph == (size_t) iphaseTarget) {
+                if (iph == iphaseTarget) {
                     rsd->setPhaseExistence(jph, true);
                 }
             }
@@ -3846,7 +3822,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
                         if (phaseMoles_init_[jph] <= 0.0) {
                             if (nsp > 1) {
                                 size_t bornMultiSpecies = jph;
-                                if ((size_t) iphaseTarget != bornMultiSpecies) {
+                                if (iphaseTarget != bornMultiSpecies) {
                                     throw CanteraError("", "two multispecies phases");
                                 }
                             }
@@ -3911,7 +3887,7 @@ int Electrode::phasePopResid(int iphaseTarget, const double* const Xf_phase, dou
     return 0;
 }
 //===================================================================================================================
-int Electrode::phasePop(int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle)
+int Electrode::phasePop(size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle)
 {
     size_t k;
     std::vector<double> Xf_phase(m_NumTotSpecies, 0.0);
@@ -5453,9 +5429,8 @@ void Electrode::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
            capLeft, capZero);
 }
 //===================================================================================================================
-void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
     size_t isurf = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
@@ -5466,7 +5441,7 @@ void Electrode::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
         return;
     }
     printf("     ============================================================================================\n");
-    printf("          PHASE %d %s \n", iphI, pname.c_str());
+    printf("          PHASE %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total Moles  = %11.5E kmol\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
     if (iph >= m_NumVolPhases) {
@@ -5639,7 +5614,7 @@ void Electrode::writeCSVData(int itype)
     static FILE* fpI = 0;
     static int runNumber = -1;
     bool ignoreErrors = false;
-    int isk = 0;  // reacting surface assumption
+    size_t isk = 0;  // reacting surface assumption
     if (itype < 0) {
         ignoreErrors = true;
     }

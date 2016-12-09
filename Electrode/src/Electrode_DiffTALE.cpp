@@ -4443,34 +4443,25 @@ void Electrode_DiffTALE::setFinalFinalStateFromFinal()
 	rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
     }
 }
-//====================================================================================================================
-// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
-/*
- *  This routine uses a root finder to find the voltage at which there
- *  is zero net electron production.  It leaves the object unchanged. However, it
- *  does change the voltage of the phases during the calculation, so this is a non const function.
- *
- * @param isk  Reacting surface domain id
- */
- double  Electrode_DiffTALE::openCircuitVoltage(int isk)
- {
+//==================================================================================================================================
+double Electrode_DiffTALE::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)
+{
      /*
-      *  Load the conditions of the last cell into the ThermoPhase object
+      *  Load the conditions of the last cell into the ThermoPhase object and then call the base function
       */
-     int iCell = numRCells_ - 1;
-     int kspCell = iCell * numKRSpecies_;
-     for (int jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	ThermoPhase* tp =  thermoSPhase_List_[jRPh];
-	double* spMf_ptr =  &(spMf_KRSpecies_Cell_final_[kspCell]);
+    size_t iCell = numRCells_ - 1;
+    int kspCell = iCell * numKRSpecies_;
+    for (size_t jRPh = 0; jRPh < (size_t) numSPhases_; jRPh++) {
+	ThermoPhase* tp = thermoSPhase_List_[jRPh];
+	double* spMf_ptr = &(spMf_KRSpecies_Cell_final_[kspCell]);
 	tp->setState_TPX(temperature_, pressure_, spMf_ptr);
-	int nsp = tp->nSpecies();
+	size_t nsp = tp->nSpecies();
 	kspCell += nsp;
-     }
-     
-     double val = Electrode::openCircuitVoltage(isk);
-     return val;
- }
-//====================================================================================================================
+    }
+    double val = Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
+    return val;
+}
+//==================================================================================================================================
 void Electrode_DiffTALE::printElectrode(int pSrc, bool subTimeStep)
 {
     vector<std::string> colNames;
@@ -4530,11 +4521,9 @@ void Electrode_DiffTALE::printElectrode(int pSrc, bool subTimeStep)
     delete [] netROP;
 }
 //===================================================================================================================
-
-void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_DiffTALE::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
-    int isph = -1;
+    size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();
@@ -4542,7 +4531,7 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iphI, pname.c_str());
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
@@ -4606,10 +4595,10 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
         size_t nphRS = RSD_List_[isph]->nPhases();
         size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; kph++) {
-            int jph = RSD_List_[isph]->kinOrder[kph];
-            int istart = m_PhaseSpeciesStartIndex[jph];
-            int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-            for (int k = 0; k < nsp; k++) {
+            size_t jph = RSD_List_[isph]->kinOrder[kph];
+            size_t istart = m_PhaseSpeciesStartIndex[jph];
+            size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+            for (size_t k = 0; k < nsp; k++) {
                 spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                 kIndexKin++;
             }
@@ -4625,7 +4614,7 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
      * Add distributed printouts.
      */
     if (distribPhIndexKRsolidPhases_[iph] >= 0) {
-	int jPh = distribPhIndexKRsolidPhases_[iph];
+	size_t jPh = distribPhIndexKRsolidPhases_[iph];
 	std::vector<double> concKRSpecies_iph_init(numRCells_ * nsp);
 	std::vector<double> concKRSpecies_iph_final(numRCells_ * nsp);
 	std::vector<double> mf_iph_init(numRCells_ * nsp);
@@ -4634,9 +4623,9 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
 	std::vector<double> spMoles_iph_final(numRCells_ * nsp);
 	std::vector<double> concTot_iph_final(numRCells_);
 	std::vector<double> concTot_iph_init(numRCells_);
-	for (int iCell = 0; iCell < numRCells_; iCell++) {
-	    int istart = iCell * nsp;
-	    int jstart = iCell * numKRSpecies_;
+	for (size_t iCell = 0; iCell < (size_t) numRCells_; iCell++) {
+	    size_t istart = iCell * nsp;
+	    size_t jstart = iCell * numKRSpecies_;
 	    concTot_iph_final[iCell] = concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh];
 	    concTot_iph_init[iCell] = concTot_SPhase_Cell_init_[iCell * numSPhases_ + jPh];
 
@@ -4659,26 +4648,18 @@ void Electrode_DiffTALE::printElectrodePhase(int iphI, int pSrc, bool subTimeSte
 	std::vector<string> pNames;
 	pNames.push_back(pName);
 
-	string title = "    Species Cell Moles (final and init)";
+	std::string title = "    Species Cell Moles (final and init)";
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &spMoles_iph_init[0], &spMoles_iph_final[0],
 			      speciesNames, nsp);
-
 	title = "    Phase Concentration (kmol /m3) (final and init)";
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &concTot_iph_init[0], &concTot_iph_final[0],
 			      pNames, 1);
-
-
 	title = "   Species Concentrations (kmol /m3) (final and init)";
-
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &concKRSpecies_iph_init[0], &concKRSpecies_iph_final[0],
 			      speciesNames, nsp);
-
         title = "   Mole Fractions (final and init)";
-
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &mf_iph_init[0], &mf_iph_final[0],
 			      speciesNames, nsp);
-
-
     }
     delete [] netROP;
 }

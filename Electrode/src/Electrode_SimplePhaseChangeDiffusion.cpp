@@ -1311,11 +1311,9 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrode(int pSrc, bool subTime
     delete [] netROP;
 }
 //===================================================================================================================
-
-void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
-    int isph = -1;
+    size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     std::string pname = tp.name();

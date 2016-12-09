@@ -1105,18 +1105,18 @@ public:
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false);
+    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false) override;
 
     //! Print condition of a phase in the electrode
     /*!
-     *  @param iPhase        Print the phase
+     *  @param iph           Print the phase
      *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
      *                       to the final_final time.
      *                       The default is to print out the source terms
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrodePhase(int iPhase, int pSrc = 1, bool subTimeStep = false);
+    virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
     //! Print a header for the residual printout
     /*!

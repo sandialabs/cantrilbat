@@ -45,11 +45,11 @@ namespace Cantera
 Electrode_SurfaceRegion::Electrode_SurfaceRegion() :
     Electrode_Integrator(),
     rsd_(0),
-    indexSurfaceRegion_(-1),
+    indexSurfaceRegion_(npos),
     numSurfaceSpecies_(0),
     numSurfacePhases_(0),
     numKRSpeciesLeft_(0),
-    indexRNode_(-1),
+    indexRNode_(npos),
     rnodePos_final_(0.0),
     rnodePos_init_(0.0),
     rnodePos_init_init_(0.0),
@@ -60,42 +60,15 @@ Electrode_SurfaceRegion::Electrode_SurfaceRegion() :
 {
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode_SurfaceRegion::Electrode_SurfaceRegion(const Electrode_SurfaceRegion& right) :
-    Electrode_Integrator(),
-    rsd_(0),
-    indexSurfaceRegion_(-1),
-    numSurfaceSpecies_(0),
-    numSurfacePhases_(0),
-    numKRSpeciesLeft_(0),
-    indexRNode_(-1),
-    rnodePos_final_(0.0),
-    rnodePos_init_(0.0),
-    rnodePos_init_init_(0.0),
-    rRefPos_final_final_(0.0),
-    rRefPos_final_(0.0),
-    rRefPos_init_(0.0),
-    rRefPos_init_init_(0.0)
+    Electrode_SurfaceRegion()
 {
-    /*
-     * Call the assignment operator.
-     */
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 Electrode_SurfaceRegion&
 Electrode_SurfaceRegion::operator=(const Electrode_SurfaceRegion& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
@@ -116,30 +89,13 @@ Electrode_SurfaceRegion::operator=(const Electrode_SurfaceRegion& right)
     rRefPos_init_             = right.rRefPos_init_;
     rRefPos_init_init_        = right.rRefPos_init_init_;
 
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //======================================================================================================================
-/*
- *
- * Destructor
- *
- * We need to manually free all of the arrays.
- */
 Electrode_SurfaceRegion::~Electrode_SurfaceRegion()
 {
-
-
 }
 //======================================================================================================================
-//    Return the type of electrode
-/*
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
 Electrode_Types_Enum Electrode_SurfaceRegion::electrodeType() const
 {
     return SIMPLE_DIFF_ET;
@@ -160,16 +116,11 @@ Electrode_SurfaceRegion::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     init_sizes();
 
 
-
-
     return 0;
 }
-
 //=====================================================================================================================
-int
-Electrode_SurfaceRegion::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
+int Electrode_SurfaceRegion::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
-
     /*
      *  Downcast the Key input to make sure we are being fed the correct child object
      */
@@ -257,7 +208,7 @@ void Electrode_SurfaceRegion::printElectrode(int pSrc, bool subTimeStep)
 {
 }
 //===================================================================================================================
-void Electrode_SurfaceRegion::printElectrodePhase(int iph, int pSrc, bool subTimeStep)
+void Electrode_SurfaceRegion::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
 }
 //======================================================================================================================

@@ -31,19 +31,18 @@
 #include <vector>
 #include <cstring>
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput 
 {
     class BlockEntry;
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-
 
 //==================================================================================================================================
 /**
@@ -522,7 +521,7 @@ public:
      *
      *   @return                          Returns the number of surfaces
      */
-    int nSurfaces() const;
+    size_t nSurfaces() const;
 
     //! Return the number of reactions in a reacting surface domain given by the index
     /*!
@@ -626,6 +625,7 @@ public:
     virtual void setPhaseMoleNumbers(size_t iph, const double* const moleNum);
   
 protected:
+
     //! Update all state information for a single phase from the mole numbers in the spMoles_final_[] vector
     /*!
      *  We use the field spMoles_final_[] to set the field phaseMoles_final_[].
@@ -633,7 +633,7 @@ protected:
      *  We do not clip the mole numbers to be positive. We allow negative mole numbers.
      *  We make sure that the mole fractions sum to one.
      *
-     *   The following fields in this object are set:
+     *   The following fields are set by this member function:
      *
      *            spMf_final_[istart + k]
      *            VolPM_[istart + k]
@@ -643,15 +643,15 @@ protected:
      *            phaseVoltages_[iph]
      *            phaseMolarVolumes_[iph]
      *
+     *            spElectroChemPot_[]
      *            CvPM_[istart + k]
      *            enthalpyMolar_final_[istart + k]
      *            entropyMolar_final_[istart + k]
      *            chempotMolar_final_[istart + k]
      *
-     *
-     *  If we are not following  the mole numbers in the electrode, we set the
+     *  If we are not following the mole numbers in the electrolyte, we set the
      *  total moles to the internal constant, electrolytePseudoMoles_, while
-     *  using this vector to set the mole fractions, using the ThermoPhase object
+     *  using this member function to set the mole fractions, using the ThermoPhase object
      *  to get the mole fractions.
      *
      * @param[in]            iph                 Index of the phase within the %PhaseList object
@@ -1168,7 +1168,7 @@ public:
                          doublevalue* const resid,
                          const ResidEval_Type_Enum evalType = Base_ResidEval,
                          const int id_x = -1,
-                         const doublevalue delta_x = 0.0);
+                         const doublevalue delta_x = 0.0) override;
 
 	//!  Fill in the initial conditions for the nonlinear problem
 	/*!
@@ -1185,7 +1185,7 @@ public:
 	/*!
 	 *   @return           Returns the number of equations in the nonlinear system to be solved
 	 */
-        int nEquations() const;
+        virtual int nEquations() const override;
 
         //! Pointer that is used as a self-reference
         Electrode* ee_;
@@ -1203,7 +1203,7 @@ public:
      *
      *   @return                                  Returns 1 if everything is ok
      */
-    int phasePopResid(int iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid);
+    int phasePopResid(size_t iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid);
 
     //! Run a phase pop calculation, determining if a phase is stable to come into existence
     /*!
@@ -1216,7 +1216,7 @@ public:
      *
      *  @return                                   Returns 1 if the phase will pop and 0 otherwise
      */
-    int phasePop(int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
+    int phasePop(size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------------
@@ -1417,7 +1417,7 @@ public:
      *
      * @return                                  Returns the number of moles in a phase in kmol
      */
-    double phaseMoles(int iph) const;
+    double phaseMoles(size_t iph) const;
 
     //! Returns the number of moles of an element
     /*!
@@ -1425,7 +1425,7 @@ public:
      *
      * @return Returns the number of moles in kmol
      */
-    double elementMoles(int ie) const;
+    double elementMoles(size_t ie) const;
 
     //! Returns the number of moles of an element
     /*!
@@ -1442,7 +1442,6 @@ public:
      * @return                                  Returns the number of moles in kmol
      */
     double elementSolidMoles(size_t ie) const;
-
     
 
     //! Returns the number of moles of an element not including the electrolyte
@@ -1729,14 +1728,14 @@ public:
     /*!
      *  (virtual from Electrode class)
      *
-     *  @param[in]   iPhase        Index of the phase
+     *  @param[in]   iph           Index of the phase
      *  @param[in]   pSrc          Print Source terms that have occurred during the step from the initial_initial
      *                             to the final_final time.
      *                             The default is to print out the source terms
      *  @param[in]  subTimeStep    Print out conditions from the most recent subTimeStep and not the global
      *                             time step. The default is to print out the global values
      */
-    virtual void printElectrodePhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
+    virtual void printElectrodePhase(size_t iph, int pSrc = 1,  bool subTimeStep = false);
 
     //! Return the number of extra print tables
     /*!
@@ -1751,8 +1750,7 @@ public:
      *   @param colValues    Value of the columns (length is the length of the column)
      */
 // Deprecate? this doesn't appear to be used
-    virtual void getPrintTable(int itable, std::vector<std::string>& colNames,
-                               std::vector<double>& colValues) const;
+    virtual void getPrintTable(int itable, std::vector<std::string>& colNames, std::vector<double>& colValues) const;
 
     //! Toggle switch for Printing for the predictor corrector
     /*!
@@ -1776,7 +1774,6 @@ public:
      *
      *   0 No printing (default)
      *   1 printing is turned on 
-
      */
     static int s_printLvl_DEBUG_SPECIAL;
 
@@ -1804,7 +1801,7 @@ public:
      *
      *  @return                           Returns the OCV (volts)
      */
-    virtual double openCircuitVoltageSSRxn(int isk, int iReaction = -1) const;
+    virtual double openCircuitVoltageSSRxn(size_t isk, size_t iReaction = npos) const;
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions based on a single reaction
     /*!
@@ -1835,7 +1832,7 @@ public:
      *
      *   @return                                       Returns the OCV (volts)
      */
-    virtual double openCircuitVoltage(int isk, bool comparedToReferenceElectrode = false);
+    virtual double openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode = false);
 
     //! Get the open circuit potential at the mixture averaged conditions of the electrode
     /*!
@@ -1848,7 +1845,7 @@ public:
      *
      *   @return                                      Returns the OCV (volts)
      */
-    virtual double openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
+    virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false);
 
     //! Returns the vector of OCV's for all reactions on the selected ReactingSurfaceDomain for the
     //! current conditions.
@@ -1861,7 +1858,7 @@ public:
      *  @param[out]     ocv                            Vector of open circuit voltages (length number of reactions)
      *  @param[in]      comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
      */
-    void getOpenCircuitVoltages(int isk, double* const ocv, bool comparedToReferenceElectrode = false) const;
+    void getOpenCircuitVoltages(size_t isk, double* const ocv, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the exchange current density for a given surface reaction in A/m^2
     /*!
@@ -1927,7 +1924,7 @@ public:
      *
      *   @return                                Returns the overpotential of a given reaciton on a reacting surface (volts)
      */
-    double overpotentialRxn(int isk, int irxn = -1);
+    double overpotentialRxn(size_t isk, size_t irxn = npos);
 
     //! Return the kinetics species index of the electron for the surface phase, isph
     /*!
@@ -2257,7 +2254,6 @@ public:
      */
     void setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei);
 
-
     // --------------            EXTRA GLOBAL RXN PATHWAYS  -----------------------------
 
     //! Get the RxnMolChange pointer object for a single extra global reaciton
@@ -2266,7 +2262,7 @@ public:
      *
      *  @return                            Returns a pointer to the RxnMolChange object for the global reaction
      */
-    RxnMolChange*   rxnMolChangesEGR(int iegr);
+    RxnMolChange* rxnMolChangesEGR(size_t iegr);
 
     //!  Return a pointer to the extra global rxn object 
     /*!
@@ -2276,7 +2272,7 @@ public:
      *
      *  @return                             Returns a pointer to the ExtraGlobalRxn object
      */
-    ZZCantera::ExtraGlobalRxn* extraGlobalRxnPathway(int iegr);
+    ZZCantera::ExtraGlobalRxn* extraGlobalRxnPathway(size_t iegr);
 
 private:
     //! Add a global reaction object to the internal list
@@ -2297,14 +2293,14 @@ private:
      *
      *  @todo           Figure out the current usage of extra global rxns
      */
-    int processExtraGlobalRxnPathways();
+    size_t processExtraGlobalRxnPathways();
 
 public:
     //! Returns the number of extra global reactions that arel defined
     /*!
      *   @return                            Returns the number of extra global pathways.
      */
-    int numExtraGlobalRxnPathways() const;
+    size_t numExtraGlobalRxnPathways() const;
 
 // Deprecate
     //! Calculate phaseMoles and species mole fractions without changing the current electrode object
@@ -3503,11 +3499,9 @@ public:
     //! Boolean that turns on and off Nonlinear Residual layer printing
     bool enableExtraPrinting_;
 
-
 private:
-    // -----------------------------------------------------------------------------------------------------------------
-
-    //! Class that calculates the residual for a phase Pop Kinetics evaluation
+    // -----------------------------------------------------------------------------------------------------------------------------
+    //! Class within a class that calculates the residual for a phase Pop Kinetics evaluation
     /*!
      *  This class calculates a problem based on the kinetic equations for a phase to pop into existence.
      *  This problem can be very nonlinear.
@@ -3524,7 +3518,7 @@ private:
 	 *    @param[in]          Xmf_stable      Mole fractions of target phase that are thermodynamically stable.
 	 *    @param[in]          deltaTsubcycle  Current value of Delta T
 	 */
-        phasePop_Resid(Electrode* ee, int iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
+        phasePop_Resid(Electrode* ee, size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
 
 	//! Evalulate the steady state residual
 	/*!
@@ -3561,10 +3555,10 @@ private:
         Electrode* ee_;
 
 	//! Target phase for popping
-        int iphaseTarget_;
+        size_t iphaseTarget_;
 
 	//! Vector of mole fractions within the phase
-        double*   Xmf_stable_;
+        double* Xmf_stable_;
 
 	//! DeltaT subcycle -> not sure why this is needed
         double deltaTsubcycle_;
@@ -3572,10 +3566,9 @@ private:
     public:
 
     };
-    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
 
-
-
+    //! Make the state class a friend
     friend class ZZCantera::EState;
 
     //! Set the State of this object from the state of the Electrode object
@@ -3594,15 +3587,11 @@ private:
      */
     friend void ZZCantera::EState::copyElectrode_intoState(const ZZCantera::Electrode* const e);
 
+    //! make the equilibrium class a friend
     friend class ZZCantera::Electrode_Equilibrium;
 };
-
+//==================================================================================================================================
 }
-
-int electrode_input(ZZCantera::ELECTRODE_KEY_INPUT* input,  std::string commandFile,
-                    BEInput::BlockEntry* cf);
-
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/**********************************************************************************************************************/
+

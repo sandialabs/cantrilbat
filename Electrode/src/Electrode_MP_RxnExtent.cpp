@@ -3810,7 +3810,7 @@ double Electrode_MP_RxnExtent::relativeExtentRxn(double time) const
     throw CanteraError("Electrode_MP_RxnExtent::relativeExtentRxn(double time)", "unknown time: " + fp2str(time));
     return 0.0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode_MP_RxnExtent::molarVolume_relExtentRxn(double relativeExtentRxn) const
 {
     int numRegions = RegionBoundaries_ExtentRxn_.size() - 1;
@@ -3825,11 +3825,10 @@ double Electrode_MP_RxnExtent::molarVolume_relExtentRxn(double relativeExtentRxn
     double molarVol = molarVolumeRegions_[ireg] * relRegion + molarVolumeRegions_[ireg+1] * (1.0 - relRegion);
     return molarVol;
 }
-//====================================================================================================================
-
-double Electrode_MP_RxnExtent::openCircuitVoltageSSRxn(int isk, int iReaction) const
+//==================================================================================================================================
+double Electrode_MP_RxnExtent::openCircuitVoltageSSRxn(size_t isk, size_t iReaction) const
 {
-    if (isk != indexOfReactingSurface_) {
+    if (isk != (size_t) indexOfReactingSurface_) {
         return 0.0;
         //  printf("Electrode_MP_RxnExtent::openCircuitVoltageSS() ERROR: bad isk\n");
         // exit(-1);
@@ -3842,18 +3841,14 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSSRxn(int isk, int iReaction) c
     }
     return voltsSSBase;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode_MP_RxnExtent::openCircuitVoltageSS_Region(double relativeExtentRxn, int xRegion) const
 {
-
     double lb;
     double voltage, voltage_b, voltage_3;
     double nElectrons = relativeExtentRxn;
-
-
     if ((temperature_ < 650) | (temperature_ > 800)) {
-        throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltageSS_Region()",
-                           "Temperature outside region of fit");
+        throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltageSS_Region()", "Temperature outside region of fit");
     }
     int ireg = findRegion(relativeExtentRxn);
     if (ireg != xRegion) {
@@ -3883,9 +3878,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSS_Region(double relativeExtent
         ireg = 3;
     }
 
-
     Electrode_Types_Enum et = electrodeType();
-
     if (et == MP_RXNEXTENT_ET) {
     switch (xRegion) {
     case 0:
@@ -3917,10 +3910,8 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSS_Region(double relativeExtent
     }
     return voltage;
 }
-//=======================================================================================================
-double 
-Electrode_MP_RxnExtent::openCircuitVoltageSS_Region_NoCheck(double relativeExtentRxn,
-							    int xRegion) const
+//==================================================================================================================================
+double Electrode_MP_RxnExtent::openCircuitVoltageSS_Region_NoCheck(double relativeExtentRxn, int xRegion) const
 {
     double voltage, voltage_b, voltage_3, lb;
     switch (xRegion) {
@@ -3948,13 +3939,13 @@ Electrode_MP_RxnExtent::openCircuitVoltageSS_Region_NoCheck(double relativeExten
     }
     return voltage;
 }
-//============================================================================================================
+//==================================================================================================================================
 double Electrode_MP_RxnExtent::openCircuitVoltageSS_final() const
 {
     double volts = openCircuitVoltageSS_Region(RelativeExtentRxn_final_, xRegion_final_);
     return volts;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Calculate the inner radius at the final state
 /*
  *  An inner radius is needed for diffusion approximations. Here we calculate the inner radius
@@ -4011,12 +4002,12 @@ double Electrode_MP_RxnExtent::calculateRadiusInner(double relativeExtentRxn_fin
     }
     return  radius_inner;
 }
-//====================================================================================================================
-double Electrode_MP_RxnExtent::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
+//==================================================================================================================================
+double Electrode_MP_RxnExtent::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)
 {
-    return openCircuitVoltageRxn((size_t) isk, npos, comparedToReferenceElectrode);
+    return openCircuitVoltageRxn(isk, npos, comparedToReferenceElectrode);
 }
-//======================================================================================================================
+//==================================================================================================================================
 double Electrode_MP_RxnExtent::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool comparedToReferenceElectrode) const
 {
     if (isk != (size_t) indexOfReactingSurface_) {
@@ -4031,7 +4022,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageRxn(size_t isk, size_t iReactio
     }*/
     return volts;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode_MP_RxnExtent::openCircuitVoltage_Region(double relativeExtentRxn, int xRegion, bool comparedToReferenceElectrode) const
 {
     double voltsSS = openCircuitVoltageSS_Region(relativeExtentRxn, xRegion);
@@ -4566,13 +4557,10 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
 }
-
 //====================================================================================================================
-void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_MP_RxnExtent::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
     int printDetail = 10;
-    //int isph;
     int isurfA;
     int isurf=-1;
     double* netROP = new double[m_NumTotSpecies];
@@ -4581,7 +4569,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     size_t nsp = tp.nSpecies();
     printf("     ============================================================================================\n");
-    printf("          PHASE %d %s \n", iphI, pname.c_str());
+    printf("          PHASE %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
     if (iph >= m_NumVolPhases) {
@@ -4613,7 +4601,6 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
      */
     double radius;
     if (iph >= m_NumVolPhases) {
-        //isph = iph - m_NumVolPhases;
         if (indexOfReactingSurface_ == 1) {
             isurf = 1;
         } else {
@@ -4686,7 +4673,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(int iphI, int pSrc, bool subTim
             double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
             std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
             size_t nphRS = RSD_List_[isurf]->nPhases();
-            int kIndexKin = 0;
+            size_t kIndexKin = 0;
             for (size_t kph = 0; kph < nphRS; kph++) {
                 size_t jph = RSD_List_[isurf]->kinOrder[kph];
                 size_t istart = m_PhaseSpeciesStartIndex[jph];

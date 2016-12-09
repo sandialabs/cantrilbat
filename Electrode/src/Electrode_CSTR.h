@@ -707,8 +707,7 @@ public:
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrodePhase(int iPhase, int pSrc = 1,  bool subTimeStep = false);
-
+    virtual void printElectrodePhase(size_t iPhase, int pSrc = 1,  bool subTimeStep = false) override;
 
     // ---------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  --------------------
@@ -725,7 +724,6 @@ public:
      *   Calculates atolNLS_[]
      */
     virtual void setResidAtolNLS();
-
 
 
     //! Return the number of equations in the equation system that is used to solve the ODE integration

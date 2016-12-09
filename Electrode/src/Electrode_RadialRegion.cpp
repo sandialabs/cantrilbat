@@ -1740,18 +1740,16 @@ void Electrode_RadialRegion::printElectrode(int pSrc, bool subTimeStep)
     delete [] netROP;
 }
 //===================================================================================================================
-
-void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_RadialRegion::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
-    int isph = -1;
+    size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
-    string pname = tp.id();
-    int istart = m_PhaseSpeciesStartIndex[iph];
-    int nsp = tp.nSpecies();
+    std::string pname = tp.id();
+    size_t istart = m_PhaseSpeciesStartIndex[iph];
+    size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iphI, pname.c_str());
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
@@ -1784,8 +1782,8 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
     }
     printf("\n");
     printf("                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)\n");
-    for (int k = 0; k < nsp; k++) {
-        string sname = tp.speciesName(k);
+    for (size_t k = 0; k < nsp; k++) {
+        std::string sname = tp.speciesName(k);
         if (pSrc) {
             if (subTimeStep) {
                 printf("                %-22s %10.3E %10.3E   %10.3E  %10.3E\n", sname.c_str(), spMf_final_[istart + k],
@@ -1826,7 +1824,7 @@ void Electrode_RadialRegion::printElectrodePhase(int iphI, int pSrc, bool subTim
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
         for (size_t k = 0; k <  m_NumTotSpecies; k++) {
-            string ss = speciesName(k);
+            std::string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }
     }

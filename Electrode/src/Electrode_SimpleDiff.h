@@ -472,18 +472,18 @@ public:
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false);
+    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false) override;
 
     //! Print condition of a phase in the electrode
     /*!
-     *  @param iPhase        Print the phase
+     *  @param iph           Print the phase
      *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
      *                       to the final_final time.
      *                       The default is to print out the source terms
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrodePhase(int iPhase, int pSrc = 1, bool subTimeStep = false);
+    virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
 
     //! The internal state of the electrode must be kept for the initial and
@@ -496,7 +496,7 @@ public:
      *                   final time, to see if there is any problem.
      * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
      */
-    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false);
+    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
     //! Update the stat of a single phase
     /*!
@@ -735,20 +735,37 @@ public:
      *
      *  @param resid   Calculated residual vector whose form is described above
      */
-    int  calcResid(double* const resid, const ResidEval_Type_Enum evalType);
- 
+    int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
 
-    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
+    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions
     /*!
+     *  (virtual from Electrode)
      *  This routine uses a root finder to find the voltage at which there
      *  is zero net electron production.  It leaves the object unchanged. However, it
      *  does change the voltage of the phases during the calculation, so this is a non const function.
      *
-     * @param isk  Reacting surface domain id
+     * @param[in]       isk                            Reacting surface domain id
+     * @param[in]       comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
+     *                                                 the current conditions (false) or compared to the voltage wrt the 
+     *                                                 reference electrode (true). The later is akin to using the standard 
+     *                                                 state thermo functions for the electrolyte species.
+     *
+     *   @return                                       Returns the OCV (volts)
      */
-    virtual double openCircuitVoltage(int isk, bool comparedToReferenceElectrode = false);
+    virtual double openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode = false) override;
 
-    virtual double openCircuitVoltage_MixtureAveraged(int isk, bool comparedToReferenceElectrode = false);
+    //! Get the open circuit potential at the mixture averaged conditions of the electrode
+    /*!
+     *  (virtual from Electrode)
+     *   This routine creates a mixture averaged condition of the electrode (eliminating any diffusion process)
+     *   before calculating the OCV. The result is the same as  openCircuitVoltage() in the base class.
+     *
+     *   @param[in]     isk                           Reacting surface domain id
+     *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
+     *
+     *   @return                                      Returns the OCV (volts)
+     */
+    virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false) override;
 
 #ifdef DEBUG_THERMAL
     double netElectrons();

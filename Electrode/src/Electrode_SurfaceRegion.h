@@ -59,10 +59,10 @@ public:
      *
      *  @return Returns an enum type, called   Electrode_Types_Enum
      */
-    virtual Electrode_Types_Enum electrodeType() const;
+    virtual Electrode_Types_Enum electrodeType() const override;
 
     //! create the electrode model
-    int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Specify initial conditions from an input file
     /*!
@@ -72,7 +72,7 @@ public:
      *
      *    @param  Return flag. Returns a zero if everything is ok. Anything else is a fatal error.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Initialize the sizes
     void init_sizes();
@@ -86,10 +86,8 @@ public:
      */
     virtual size_t nEquations_calc() const override;
 
-
     //! Get all of the reaction rates and parameters from Cantera
     void extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies);
-
 
     //! Print conditions of the electrode for the current integration step to stdout
     /*!
@@ -99,18 +97,18 @@ public:
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false);
+    virtual void printElectrode(int pSrc = 1, bool subTimeStep = false) override;
 
     //! Print condition of a phase in the electrode
     /*!
-     *  @param iPhase        Print the phase
+     *  @param iph           Print the phase
      *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
      *                       to the final_final time.
      *                       The default is to print out the source terms
      *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
      *                       time step. The default is to print out the global values
      */
-    virtual void printElectrodePhase(int iPhase, int pSrc = 1, bool subTimeStep = false);
+    virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
     //! The internal state of the electrode must be kept for the initial and
     //! final times of an integration step.
@@ -123,8 +121,7 @@ public:
      *                   final time, to see if there is any problem.
      * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
      */
-    virtual void  resetStartingCondition(double Tinitial, bool doResetAlways = false);
-
+    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
     //! Take the state (i.e., the final state) within the Electrode_Model and push it down
     //! to the ThermoPhase objects and propogate it to all other aspects of the final state
@@ -147,10 +144,7 @@ public:
      *  prerequisites: The object must have been already created.
      *
      */
-    virtual void updateState();
-
-
-
+    virtual void updateState() override;
 
 protected:
 
@@ -158,24 +152,23 @@ protected:
     ReactingSurDomain* rsd_;
 
     //! Surface index of the surface
-    int indexSurfaceRegion_;
+    size_t indexSurfaceRegion_;
 
     //! Number of Surface species defined on the surface
-    int numSurfaceSpecies_;
+    size_t numSurfaceSpecies_;
 
     //! Number of Surface phases defined on the surface
-    int numSurfacePhases_;
+    size_t numSurfacePhases_;
 
     //! Define the number of species that are defined to have radially distributed distributions
     //! in the domain to the left
     /*!
      *
      */
-    int numKRSpeciesLeft_;
-
+    size_t numKRSpeciesLeft_;
 
     //! global index of the surface node
-    int indexRNode_;
+    size_t indexRNode_;
 
     //! Node position of the surface - final_final
     double rnodePos_final_final_;

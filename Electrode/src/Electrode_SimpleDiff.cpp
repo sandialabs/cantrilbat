@@ -341,7 +341,7 @@ int Electrode_SimpleDiff::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
      *  Find the command file
      */
     ELECTRODE_KEY_INPUT* ei = *(ei_ptr);
-    string commandFile = ei->commandFile_;
+    std::string commandFile = ei->commandFile_;
     BlockEntry* cf = ei->lastBlockEntryPtr_;
     ei_radial->printLvl_ = ei->printLvl_;
     /*
@@ -1008,10 +1008,6 @@ void Electrode_SimpleDiff::setState_exteriorSurface()
     }
 }
 //=============================================================================================================================
-// Overpotential term for the heat generation
-/*
- *
- */
 double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(size_t isk)
 {
     if (isk != 0) {
@@ -1037,7 +1033,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(size_t isk)
 
     size_t nr = rsd->nReactions();
     for (size_t irxn = 0; irxn < nr; irxn++) {
-	double overpotential = overpotentialRxn(isk, (int) irxn);
+	double overpotential = overpotentialRxn(isk, irxn);
 #ifdef DONOTREMOVE
 	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
 #else
@@ -1048,18 +1044,13 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_overpotential(size_t isk)
 	    iCurr = 0.0;
 	}
 #endif
-
 	if (nstoich != 0.0) {
 	    q += surfaceArea_star * iCurr * overpotential;
 	}
     }
     return q;
 }
-//====================================================================================================================
-// Reversible Enthalpy term leading to heat generation
-/*
- *
- */
+//==================================================================================================================================
 double Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
 {
     if (isk != 0) {
@@ -1113,16 +1104,11 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy(size_t is
 	}
 	
     }
-    
     return q; 
 }
 //===========================================================================================================================================
-// Reversible Entropy term leading to  heat generation
-/*  
- *  (virtual from Electrode.h)
- *
+/*
  *   NOTES:
- *
  *   first, we will assume isk = 0, because there is only one surface in this class.
  */
 double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
@@ -1137,8 +1123,8 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
     double nstoich, ocv, io, nu, beta, resist;
     double iCurrDT;
     double q = 0.0;
-    static vector<double> s_deltaH;
-    static vector<double> iCurrDens;
+    static std::vector<double> s_deltaH;
+    static std::vector<double> iCurrDens;
 
     //   
     //   set the ThermoPhases to the exterior surface conditions
@@ -1903,7 +1889,7 @@ void Electrode_SimpleDiff::fixCapacityBalances_final()
 #endif
 
 #ifdef DEBUG_MASSLOSS
-    string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
+    std::string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
     FILE *fp = fopen(fff.c_str(), "a");
     if (firstTime) {
 	fprintf(fp,"                  \"cap\"               \"capLeft\"             \" capDischarged\"            \"spMoles4\"   "
@@ -3006,7 +2992,7 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
         }
 	printf("\t\t      SpeciesName        Moles_Init    Moles_final   SpMF       |   Src_Moles  Pred_Moles_Final\n");
         for (size_t k = 0; k < m_NumTotSpecies; k++) {
-            string ss = speciesName(k);
+            std::string ss = speciesName(k);
             double src =  DspMoles_final_[k] * deltaTsubcycleCalc_;
             printf("\t\t %20s  %12.4e  %12.4e  %12.4e | %12.4e %12.4e", ss.c_str(), spMoles_init_[k], spMoles_final_[k],
                    spMf_final_[k], src, spMoles_init_[k] + src);
@@ -3254,12 +3240,9 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type_En
 //=======================================================================================================================
 void  Electrode_SimpleDiff::showSolution(int indentSpaces)
 {
-
-
-    string title = "Phase Concentrations (kmol m-3)";
+    std::string title = "Phase Concentrations (kmol m-3)";
     showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &concTot_SPhase_Cell_final_[0], KRsolid_phaseNames_,
 		 numSPhases_);
-
     title = "Species Concentrations (kmol /m3)";
     showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &concKRSpecies_Cell_final_[0], KRsolid_speciesNames_,
 		 numKRSpecies_);
@@ -3337,7 +3320,7 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	printf("%s        z   ", indent.c_str());
 	for (n = 0; n < 5; n++) {
 	    int ivar = iBlock * 5 + n;
-	    string name = varNames[ivar];
+	    std::string name = varNames[ivar];
 	    printf(" %15s", name.c_str());
 	}
 	printf("\n");
@@ -3360,7 +3343,7 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	printf("%s        z   ", indent.c_str());
 	for (n = 0; n < nrem; n++) {
 	    int ivar = numBlockRows * 5 + n;
-	    string name = varNames[ivar];
+	    std::string name = varNames[ivar];
 	    printf(" %15s", name.c_str());
 	}
 	printf("\n");
@@ -3400,7 +3383,7 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
 	printf("%s        z      | ", indent.c_str());
 	for (n = 0; n < 4; n++) {
 	    int ivar = iBlock * 4 + n;
-	    string name = varNames[ivar];
+	    std::string name = varNames[ivar];
 	    printf("(f) %-13.13s (i) | ", name.c_str());
 	}
 	printf("\n");
@@ -4170,53 +4153,37 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
     }
 }
 //==================================================================================================================================
-// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
-/*
- *  This routine uses a root finder to find the voltage at which there
- *  is zero net electron production.  It leaves the object unchanged. However, it
- *  does change the voltage of the phases during the calculation, so this is a non const function.
- *
- * @param isk  Reacting surface domain id
- */
- double  Electrode_SimpleDiff::openCircuitVoltage(int isk, bool comparedToReferenceElectrode)
- {
-     /*
-      *  Load the conditions of the last cell into the ThermoPhase object
-      */
-     size_t iCell = numRCells_ - 1;
-     size_t kspCell = iCell * numKRSpecies_;
-     for (size_t jRPh = 0; jRPh < numSPhases_; jRPh++) {
-	ThermoPhase* tp =  thermoSPhase_List_[jRPh];
+double  Electrode_SimpleDiff::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)
+{
+    /*
+     *  Load the conditions of the last cell into the ThermoPhase object
+     */
+    size_t iCell = numRCells_ - 1;
+    size_t kspCell = iCell * numKRSpecies_;
+    for (size_t jRPh = 0; jRPh < numSPhases_; jRPh++) {
+        ThermoPhase* tp =  thermoSPhase_List_[jRPh];
 	double* spMf_ptr =  &(spMf_KRSpecies_Cell_final_[kspCell]);
 	tp->setState_TPX(temperature_, pressure_, spMf_ptr);
 	size_t nsp = tp->nSpecies();
 	kspCell += nsp;
-     }
-     double val = Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
-     return val;
+    }
+    double val = Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
+    return val;
  }
 //==================================================================================================================================
-// Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
-/*
- *  This routine uses a root finder to find the voltage at which there
- *  is zero net electron production.  It leaves the object unchanged. However, it
- *  does change the voltage of the phases during the calculation, so this is a non const function.
- *
- * @param isk  Reacting surface domain id
- */
- double  Electrode_SimpleDiff::openCircuitVoltage_MixtureAveraged(int isk, bool compareToReferenceElectrode)
- {
-     /*
-      *  Load the conditions of the Averaged values into the ThermoPhase object
-      */
-     for (size_t jRPh = 0; jRPh < numSPhases_; jRPh++) {
+double  Electrode_SimpleDiff::openCircuitVoltage_MixtureAveraged(size_t isk, bool compareToReferenceElectrode)
+{
+    /*
+     *  Load the conditions of the Averaged values into the ThermoPhase object
+     */
+    for (size_t jRPh = 0; jRPh < numSPhases_; jRPh++) {
         size_t iPh = phaseIndeciseKRsolidPhases_[jRPh]; 
-        ThermoPhase* tp =  thermoSPhase_List_[jRPh];
+        ThermoPhase* tp = thermoSPhase_List_[jRPh];
         double* spMf_ptr = &spMf_final_[m_PhaseSpeciesStartIndex[iPh]]; 
         tp->setState_TPX(temperature_, pressure_, spMf_ptr);
-     }
-     double val = Electrode::openCircuitVoltage(isk, compareToReferenceElectrode);
-     return val;
+    }
+    double val = Electrode::openCircuitVoltage_MixtureAveraged(isk, compareToReferenceElectrode);
+    return val;
  }
 //===================================================================================================================================
 void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
@@ -4278,19 +4245,16 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     delete [] netROP;
 }
 //===================================================================================================================
-
-void Electrode_SimpleDiff::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_SimpleDiff::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
     size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
-    string pname = tp.id();
-    
+    std::string pname = tp.id();
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iphI, pname.c_str());
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
@@ -4365,7 +4329,7 @@ void Electrode_SimpleDiff::printElectrodePhase(int iphI, int pSrc, bool subTimeS
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
         for (size_t k = 0; k <  m_NumTotSpecies; k++) {
-            string ss = speciesName(k);
+            std::string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }
     }
@@ -4419,55 +4383,45 @@ void Electrode_SimpleDiff::printElectrodePhase(int iphI, int pSrc, bool subTimeS
 	for (size_t kSp = 0; kSp < nsp; kSp++) {
 	    speciesNames.push_back( tp.speciesName(kSp) );
 	}
-        string pName = tp.name();
+        std::string pName = tp.name();
 	std::vector<string> pNames;
 	pNames.push_back(pName);
 
 	string title = "    Species Cell Moles (final and init)";
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &spMoles_iph_init[0], &spMoles_iph_final[0],
 			      speciesNames, nsp);
-
 	title = "    Phase Concentration (kmol /m3) (final and init)";
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &concTot_iph_init[0], &concTot_iph_final[0],
 			      pNames, 1);
-
-
 	title = "   Species Concentrations (kmol /m3) (final and init)";
-
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &concKRSpecies_iph_init[0], &concKRSpecies_iph_final[0],
 			      speciesNames, nsp);
-
         title = "   Mole Fractions (final and init)";
-
 	showOneFieldInitFinal(title, 14, &rnodePos_final_[0], numRCells_, &mf_iph_init[0], &mf_iph_final[0],
 			      speciesNames, nsp);
-
-
     }
-
-
     delete [] netROP;
-
 }
+//==================================================================================================================================
 #ifdef DEBUG_THERMAL
 double Electrode_SimpleDiff::netElectrons()
 {
     double nett;
 
-     ReactingSurDomain* rsd = RSD_List_[0];
+    ReactingSurDomain* rsd = RSD_List_[0];
      //double sa = surfaceAreaRS_final_[0];
-     double r_init  = Radius_exterior_init_;
-     double r_final = Radius_exterior_final_;
+    double r_init  = Radius_exterior_init_;
+    double r_final = Radius_exterior_final_;
 
-     double surfaceArea_star =  4. * Pi / 3. * (r_init * r_init + r_init * r_final + r_final * r_final) *  particleNumberToFollow_;
-     double iCurrDens[6];
-     double iCurrDT= rsd->getCurrentDensityRxn(&(iCurrDens[0]));
-     double deltaM0 = iCurrDT * surfaceArea_star / Faraday;
-     double rrr = iCurrDT / Faraday;
-     nett =  deltaM0 * deltaTsubcycle_;
-     printf("netROP = %13.7E\n", rrr);
-     printf ("delta electrons = %13.7E\n", nett);
-     return nett;
+    double surfaceArea_star =  4. * Pi / 3. * (r_init * r_init + r_init * r_final + r_final * r_final) *  particleNumberToFollow_;
+    double iCurrDens[6];
+    double iCurrDT= rsd->getCurrentDensityRxn(&(iCurrDens[0]));
+    double deltaM0 = iCurrDT * surfaceArea_star / Faraday;
+    double rrr = iCurrDT / Faraday;
+    nett =  deltaM0 * deltaTsubcycle_;
+    printf("netROP = %13.7E\n", rrr);
+    printf ("delta electrons = %13.7E\n", nett);
+    return nett;
 }
 #endif
 //==================================================================================================================================

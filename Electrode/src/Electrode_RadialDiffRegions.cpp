@@ -536,10 +536,8 @@ void Electrode_RadialDiffRegions::printElectrode(int pSrc, bool subTimeStep)
     delete [] netROP;
 }
 //===================================================================================================================
-
-void Electrode_RadialDiffRegions::printElectrodePhase(int iphI, int pSrc, bool subTimeStep)
+void Electrode_RadialDiffRegions::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
-    size_t iph = iphI;
     size_t isph = npos;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
@@ -547,7 +545,7 @@ void Electrode_RadialDiffRegions::printElectrodePhase(int iphI, int pSrc, bool s
     size_t istart = m_PhaseSpeciesStartIndex[iph];
     size_t nsp = tp.nSpecies();
     printf("     ===============================================================\n");
-    printf("          Phase %d %s \n", iphI, pname.c_str());
+    printf("          Phase %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
@@ -622,12 +620,11 @@ void Electrode_RadialDiffRegions::printElectrodePhase(int iphI, int pSrc, bool s
         printf("\n");
         printf("                           spName                  Source (kmol/m2/s) \n");
         for (size_t k = 0; k <  m_NumTotSpecies; k++) {
-            string ss = speciesName(k);
+            std::string ss = speciesName(k);
             printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
         }
     }
     delete [] netROP;
-
 }
 //==================================================================================================================================
 } // End of #ifdef useZuzaxNamespace
