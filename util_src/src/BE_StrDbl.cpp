@@ -110,7 +110,7 @@ BE_StrDbl::BE_StrDbl(const char* blockName, double* const fixedAddr, int numTime
     m_currentVecValues(nullptr)
 {
     if (fixedAddr) {
-        HndlDblVec = (double**) &fixedAddr;
+        HndlDblVec = (double**) &m_fixedAddr;
     }
     char* item(0);
     PrintString[0] = '\0';

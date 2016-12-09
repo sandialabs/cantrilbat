@@ -1,5 +1,6 @@
-/*
- * $Id: Electrode_input.cpp 576 2013-03-27 23:13:53Z hkmoffa $
+/**
+ *  @file Electrode_input.cpp
+ *
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -18,7 +19,7 @@
 #include "BE_MultiBlockVec.hpp"
 #include "mdp_allo.h"
 
-using namespace std;
+using std::cout; using std::endl;
 using namespace BEInput;
 using namespace ca_ab;
 using namespace mdpUtil;
@@ -37,27 +38,70 @@ namespace Cantera
 #endif
 {
 //==================================================================================================================================
-ElectrodeBath::ElectrodeBath() :
-    XmolPLSpecVec(0),
-    XmolPLPhases(0),
-    MolalitiesPLSpecVec(0),
-    MolalitiesPLPhases(0),
-    CapLeftCoeffPhases(0),
-    CapLeftCoeffSpecVec(0),
-    CapZeroDoDCoeffPhases(0),
-    CapZeroDoDCoeffSpecVec(0)
+EGRInput::EGRInput() :
+    m_RSD_index(0),
+    m_SS_KinSpeciesKindex(0),
+    m_numElemReactions(0)
+{
+    m_ERSList.resize(1, nullptr);
+    m_ERSList[0] = new ERSSpec();
+}
+//==================================================================================================================================
+EGRInput::EGRInput(const EGRInput& right) :
+    m_RSD_index(right.m_RSD_index),
+    m_SS_KinSpeciesKindex( right.m_SS_KinSpeciesKindex ),
+    m_numElemReactions(    right.m_numElemReactions )
+{
+    m_ERSList.resize(m_numElemReactions);
+    for (size_t i = 0; i < static_cast<size_t>(m_numElemReactions); i++) {
+        m_ERSList[i] = new ERSSpec(*(right.m_ERSList[i]));
+    }
+}
+//==================================================================================================================================
+EGRInput& EGRInput::operator=(const EGRInput& right)
+{
+    if (this == &right) {
+        return *this;
+    }
+    for (ERSSpec* ptr : m_ERSList) {
+        delete ptr;
+    }
+    m_RSD_index = right.m_RSD_index;
+    m_SS_KinSpeciesKindex = right.m_SS_KinSpeciesKindex;
+    m_numElemReactions = right.m_numElemReactions;
+    m_ERSList.resize(m_numElemReactions, nullptr);
+    for (size_t i = 0; i < static_cast<size_t>(m_numElemReactions); i++) {
+        if (right.m_ERSList[i]) {
+            m_ERSList[i] = new ERSSpec(*(right.m_ERSList[i]));
+        }
+    }
+    return *this;
+}
+//==================================================================================================================================
+EGRInput::~EGRInput()
+{
+    for (ERSSpec* ptr : m_ERSList) {
+        delete ptr;
+    }
+}
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+ElectrodeBath::ElectrodeBath(PhaseList& pl) :
+    m_pl(pl),
+    XmolPLSpecVec(nullptr),
+    XmolPLPhases(nullptr),
+    MolalitiesPLSpecVec(nullptr),
+    MolalitiesPLPhases(nullptr),
+    CapLeftCoeffPhases(nullptr),
+    CapLeftCoeffSpecVec(nullptr),
+    CapZeroDoDCoeffPhases(nullptr),
+    CapZeroDoDCoeffSpecVec(nullptr)
 {
 }
 //==================================================================================================================================
 ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
-    XmolPLSpecVec(0),
-    XmolPLPhases(0),
-    MolalitiesPLSpecVec(0),
-    MolalitiesPLPhases(0),
-    CapLeftCoeffPhases(0),
-    CapLeftCoeffSpecVec(0),
-    CapZeroDoDCoeffPhases(0),
-    CapZeroDoDCoeffSpecVec(0)
+    ElectrodeBath(right.m_pl)
 {
     operator=(right);
 }
@@ -68,6 +112,7 @@ ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
         return *this;
      }
 
+    m_pl                         = right.m_pl;
     // Shallow pointer representation -> this is wrong and must be fixed up in parent routine.
     XmolPLSpecVec                = right.XmolPLSpecVec;
     XmolPLPhases                 = right.XmolPLPhases;
@@ -199,8 +244,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     maxNumberSubGlobalTimeSteps(1000),
     relativeLocalToGlobalTimeStepMinimum(1.0E-3)
 {
-    m_BG = new ElectrodeBath();
     m_pl = new PhaseList();
+    m_BG = new ElectrodeBath(*m_pl);
 
     m_EGRList.resize(1, nullptr);
     m_EGRList[0] = new EGRInput();
@@ -451,7 +496,7 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
         size_t nspecies = tPhase->nSpecies();
         tPhase->getMoleFractions(MoleFraction.data() + kT);
         for (size_t k = 0; k < nspecies; k++) {
-            string sname = tPhase->speciesName(k);
+            std::string sname = tPhase->speciesName(k);
             strncpy(SpeciesNames[kT], sname.c_str(), MPEQUIL_MAX_NAME_LEN);
             kT++;
         }
@@ -467,49 +512,7 @@ void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
     }
 }
 //======================================================================================================================
-EGRInput::EGRInput() :
-    m_SS_KinSpeciesKindex(0),
-    m_numElemReactions(0)
-{
-    m_ERSList.resize(1, nullptr);
-    m_ERSList[0] = new ERSSpec();
-}
 //======================================================================================================================
-EGRInput::EGRInput(const EGRInput& right) :
-    m_SS_KinSpeciesKindex( right.m_SS_KinSpeciesKindex ),
-    m_numElemReactions(    right.m_numElemReactions )
-{
-    m_ERSList.resize(m_numElemReactions);
-    for (int i = 0; i < m_numElemReactions; i++) {
-        m_ERSList[i] = new ERSSpec(*(right.m_ERSList[i]));
-    }
-}
-//======================================================================================================================
-EGRInput& EGRInput::operator=(const EGRInput& right)
-{
-    if (this == &right) {
-        return *this;
-    }
-    for (ERSSpec* ptr : m_ERSList) {
-        delete ptr;
-    }
-    m_SS_KinSpeciesKindex = right.m_SS_KinSpeciesKindex;
-    m_numElemReactions = right.m_numElemReactions;
-    m_ERSList.resize(m_numElemReactions, nullptr);
-    for (int i = 0; i < m_numElemReactions; i++) {
-        if (right.m_ERSList[i]) {
-            m_ERSList[i] = new ERSSpec(*(right.m_ERSList[i]));
-        }
-    }
-    return *this;
-}
-//======================================================================================================================
-EGRInput::~EGRInput()
-{
-    for (ERSSpec* ptr : m_ERSList) {
-        delete ptr;
-    }
-}
 //======================================================================================================================
 void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
 {
@@ -655,8 +658,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      * Configure the characteristic particle size
      */
     BE_UnitConversion* ucLength = new BE_UnitConversionLength();
-    LE_OneDblUnits* dpSize = new LE_OneDblUnits("Particle Diameter", &(particleDiameter),
-            1, "particleDiameter", ucLength);
+    LE_OneDblUnits* dpSize = new LE_OneDblUnits("Particle Diameter", &(particleDiameter), 1, "particleDiameter", ucLength);
     dpSize->set_default(1.0E-6);
     dpSize->set_limits(1.0, 0.0);
     cf->addLineEntry(dpSize);
@@ -667,8 +669,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      * Configure the number of particles to follow -> we are setting up an
      * extrinsic measure for the size of the system
      */
-    LE_OneDbl* dpNum = new LE_OneDbl("Particle Number to Follow", &(particleNumberToFollow),
-                                     0, "particleNumbertoFollow");
+    LE_OneDbl* dpNum = new LE_OneDbl("Particle Number to Follow", &(particleNumberToFollow), 0, "particleNumbertoFollow");
     dpNum->set_default(-1.0);
     dpNum->set_limits(1.0E28, 1.0);
     cf->addLineEntry(dpNum);
@@ -680,8 +681,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      * extrinsic measure for the size of the system
      */
     BE_UnitConversion* ucLength2 = new BE_UnitConversionLength();
-    LE_OneDblUnits* eArea = new LE_OneDblUnits("Electrode Gross Area", &(electrodeGrossArea),
-            0, "electrodeGrossArea", ucLength2);
+    LE_OneDblUnits* eArea = new LE_OneDblUnits("Electrode Gross Area", &(electrodeGrossArea), 0, "electrodeGrossArea", ucLength2);
     eArea->set_default(-1.0);
     eArea->set_limits(1.0E28, 1.0E-20);
     cf->addLineEntry(eArea);
@@ -696,8 +696,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      * extrinsic measure for the size of the system
      */
     BE_UnitConversion* ucLength2d = new BE_UnitConversionLength();
-    LE_OneDblUnits* eDiameter = new LE_OneDblUnits("Electrode Gross Diameter", &(electrodeGrossDiameter),
-            0, "electrodeGrossDiameter", ucLength2d);
+    LE_OneDblUnits* eDiameter = new LE_OneDblUnits("Electrode Gross Diameter", &(electrodeGrossDiameter), 
+                                                    0, "electrodeGrossDiameter", ucLength2d);
     eDiameter->set_default(-1.0);
     eDiameter->set_limits(1.0E28, 1.0E-20);
     cf->addLineEntry(eDiameter);
@@ -716,7 +716,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      */
     BE_UnitConversion* ucLength3 = new BE_UnitConversionLength();
     LE_OneDblUnits* eThickness = new LE_OneDblUnits("Electrode Gross Thickness", &(electrodeGrossThickness),
-            0, "electrodeGrossThickness", ucLength3);
+                                                    0, "electrodeGrossThickness", ucLength3);
     eThickness->set_default(-1.0);
     eThickness->set_limits(1.0E28, 1.0E-20);
     cf->addLineEntry(eThickness);
@@ -791,7 +791,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     BG.PhaseMass.resize(nVolPhases + pl->nSurPhases(), 0.0);
 
     for (size_t iph = 0; iph < (size_t) nVolPhases; iph++) {
-        int kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
+        size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
         BG.XmolPLPhases[iph] =   BG.XmolPLSpecVec + kstart;
         BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
         BG.CapLeftCoeffPhases[iph] = BG.CapLeftCoeffSpecVec + kstart;
@@ -812,9 +812,9 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  and voltage
      */
     for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
-        string phaseBath = "Bath Specification for Phase ";
+        std::string phaseBath = "Bath Specification for Phase ";
         ThermoPhase* tp = &(pl->volPhase(iph));
-        string phaseNm = tp->name();
+        std::string phaseNm = tp->name();
         int nSpecies = tp->nSpecies();
         phaseBath += phaseNm;
         /*
@@ -823,7 +823,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          */
         BlockEntry* bbathphase = new BlockEntry(phaseBath.c_str());
         cf->addSubBlock(bbathphase);
-        int kstart = pl->globalSpeciesIndexVolPhaseIndex(iph);
+        size_t kstart = pl->globalSpeciesIndexVolPhaseIndex(iph);
 
         /* --------------------------------------------------------------
          * BG.PotentialPLPhases[iph]
@@ -853,7 +853,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          * BG.PhaseMass
          *  Input the mass for the phase
          */
-        LE_OneDbl* iTMass =   new LE_OneDbl("Phase Mass", &(BG.PhaseMass[iph]), 0, "PhaseMass");
+        LE_OneDbl* iTMass = new LE_OneDbl("Phase Mass", &(BG.PhaseMass[iph]), 0, "PhaseMass");
         iTMass->set_default(0.0);
         iVolt->set_limits(0.0, 1.0E9);
         bbathphase->addLineEntry(iTMass);
@@ -870,7 +870,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *
          * Create a PickList Line Element made out of the list of species
          */
-        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLPhases[iph]), 0,
+        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLSpecVec[kstart]), 0,
                                             SpeciesNames+kstart, nSpecies, 0, "XBathmol");
         bpmc->generateDefLE();
         bbathphase->addSubBlock(bpmc);
@@ -920,11 +920,10 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  and voltage
      */
     for (size_t iphS = 0; iphS < pl->nSurPhases(); iphS++) {
-        string phaseBath = "Bath Specification for Phase ";
-        size_t iph = pl->nVolPhases() + iphS;
+        std::string phaseBath = "Bath Specification for Phase ";
         ThermoPhase* tp = &(pl->surPhase(iphS));
-        string phaseNm = tp->name();
-        int nSpecies = tp->nSpecies();
+        std::string phaseNm = tp->name();
+        size_t nSpecies = tp->nSpecies();
         phaseBath += phaseNm;
         /*
          *  create a section method description block and start writing
@@ -932,15 +931,14 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          */
         BlockEntry* bbathphase = new BlockEntry(phaseBath.c_str());
         cf->addSubBlock(bbathphase);
-        int kstart =  pl->globalSpeciesIndexSurPhaseIndex(iphS);
-
+        size_t kstart = pl->globalSpeciesIndexSurPhaseIndex(iphS);
 
         /* --------------------------------------------------------------
          * BG.BathSpeciesMoleFractions -
          *
          * Create a PickList Line Element made out of the list of species
          */
-        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLPhases[iph]), 0,
+        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLSpecVec[kstart]), 0,
                                             SpeciesNames+kstart, nSpecies, 0, "XBathmol");
         bpmc->generateDefLE();
         bbathphase->addSubBlock(bpmc);
@@ -954,7 +952,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     for (size_t iphS = 0; iphS < (size_t)pl->nSurPhases(); iphS++) {
         std::string phaseBath = "Open Circuit Potential Override for interface ";
         ThermoPhase* tp = &(pl->surPhase(iphS));
-        string phaseNm = tp->name();
+        std::string phaseNm = tp->name();
         phaseBath += phaseNm;
 
         OCV_Override_input* ocv_input_ptr = OCVoverride_ptrList[iphS];
@@ -980,8 +978,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *  
          *   default name = "Constant"
          */
-        LE_OneStr* smodel = new LE_OneStr("Open Circuit Voltage Model", &(ocv_input_ptr->OCVModel), 
-                                          10, 1, 1, "OCVModel");
+        LE_OneStr* smodel = new LE_OneStr("Open Circuit Voltage Model", &(ocv_input_ptr->OCVModel), 10, 1, 1, "OCVModel");
         smodel->set_default("Constant");
         bOCVoverride->addLineEntry(smodel);
 
@@ -990,8 +987,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *
          *   Name of the replaced species
          */
-        LE_OneStr* rspec = new LE_OneStr("Replaced Species", &(ocv_input_ptr->replacedSpeciesName), 
-                                          1, 1, 1, "ReplacedSpeciesName");
+        LE_OneStr* rspec = new LE_OneStr("Replaced Species", &(ocv_input_ptr->replacedSpeciesName), 1, 1, 1, "ReplacedSpeciesName");
         rspec->set_default("");
         bOCVoverride->addLineEntry(rspec);
 
@@ -1001,8 +997,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *   Integer name of the reaction. Since most models just have one reaction, we will start
          *   with assuming that it's the first reaction in the mechanism 
          */
-        LE_OneInt* rid = new LE_OneInt("Identify Reaction for OCV Model", 
-                                       &(ocv_input_ptr->rxnID), 1, "OCVModel_rxnID");
+        LE_OneInt* rid = new LE_OneInt("Identify Reaction for OCV Model", &(ocv_input_ptr->rxnID), 1, "OCVModel_rxnID");
         rid->set_default(0);
         bOCVoverride->addLineEntry(rid);
 
@@ -1032,8 +1027,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *                  further in the input deck.
          */
         const char* ccTD[3] = {"zero", "species", "model"};
-        LE_PickList* plTD = new LE_PickList("Temperature Derivative", 
-                                            &(ocv_input_ptr->temperatureDerivType),
+        LE_PickList* plTD = new LE_PickList("Temperature Derivative", &(ocv_input_ptr->temperatureDerivType),
                                             ccTD, 3, 1, "OCVModel_tempDerivType");
         plTD->set_default(0);
         bOCVoverride->addLineEntry(plTD);
@@ -1059,9 +1053,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *  
          *   default name = "Constant"
          */
-        LE_OneStr* rtdmodel = new LE_OneStr("Open Circuit Voltage Temperature Derivative Model", 
-                                          &(ocv_input_ptr->OCVTempDerivModel),
-                                          10, 0, 1, "OCVTempDerivModel");
+        LE_OneStr* rtdmodel = new LE_OneStr("Open Circuit Voltage Temperature Derivative Model", &(ocv_input_ptr->OCVTempDerivModel),
+                                            10, 0, 1, "OCVTempDerivModel");
         rtdmodel->set_default("Constant 0.0");
         bOCVoverride->addLineEntry(rtdmodel);
 
@@ -1081,11 +1074,11 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     BlockEntry* rb = new BlockEntry("Reaction Extent Limits", 0);
     cf->addSubBlock(rb);
-    LE_OneDbl* iRETop =  new LE_OneDbl("Reaction Extent Top Limit", &(RxnExtTopLimit), 1, "RxnExtTopLimit");
+    LE_OneDbl* iRETop = new LE_OneDbl("Reaction Extent Top Limit", &(RxnExtTopLimit), 1, "RxnExtTopLimit");
     iRETop->set_default(-1.0);
     rb->addLineEntry(iRETop);
 
-    LE_OneDbl* iREBot =  new LE_OneDbl("Reaction Extent Bottom Limit", &(RxnExtBotLimit), 1, "RxnExtBotLimit");
+    LE_OneDbl* iREBot = new LE_OneDbl("Reaction Extent Bottom Limit", &(RxnExtBotLimit), 1, "RxnExtBotLimit");
     iREBot->set_default(-1.0);
     rb->addLineEntry(iREBot);
 
@@ -1104,10 +1097,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     /* ------------------------------------------------------------------
      * Specify the initial relative amount of capacity discharged
-     *
      */
-    LE_OneDbl* iCapDis =  new LE_OneDbl("Capacity Discharged Per Initial Mole",
-                                        &(RelativeCapacityDischargedPerMole), 0,
+    LE_OneDbl* iCapDis =  new LE_OneDbl("Capacity Discharged Per Initial Mole", &(RelativeCapacityDischargedPerMole), 0,
                                         "RelCapacityDischarged");
     iCapDis->set_default(-1.0);
     cf->addLineEntry(iCapDis);
@@ -1117,7 +1108,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      *  The number of occurances of the block is .... PO.numExtraGlobalRxns
      *  All of the data defined in the block is
      *  in the pointer to the vector of structures .. PO.m_EGRList
-     *
      */
     BlockEntry* sbEGR = 
         new BEInput::BE_MultiBlockVec<Zuzax::EGRInput>("Extra Global Reaction", &(numExtraGlobalRxns), &(m_EGRList), 0);
@@ -1128,6 +1118,14 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      * OK now define items in the block
      */
     EGRInput* egr_ptr = m_EGRList[0];
+
+    /* ------------------------------------------------------------------
+     *  Define the reacting surface domain index
+     *  -> optional, default is 0
+     */
+    LE_OneSizet* iRSDIndex = new LE_OneSizet("Reacting Surface Domain Index", &(egr_ptr->m_RSD_index), 0, "ReactingSurfaceDomainIndex");
+    iRSDIndex->set_default(0);
+    sbEGR->addLineEntry(iRSDIndex);
 
     /* --------------------------------------------------------------
      * EGR -> Special Species
@@ -1167,9 +1165,8 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
  *            2 = output -> processed lines
  *            3 = output -> original line and processed lines
  */
-bool process_electrode_input(BlockEntry* cf, string fileName, int printFlag, int pass)
+bool process_electrode_input(BlockEntry* cf, std::string fileName, int printFlag, int pass)
 {
-
     if (printFlag > 2) {
         TKInput::set_tok_input_print_flag(1);
         BaseEntry::set_printProcessedLine(true);
@@ -1193,8 +1190,7 @@ bool process_electrode_input(BlockEntry* cf, string fileName, int printFlag, int
     }
     if (printFlag > 1) {
         printf("==========================================================\n");
-        printf(" STARTING PROCESSING COMMAND FILE %s, PASS # %d\n",
-               fileName.c_str(), pass);
+        printf(" STARTING PROCESSING COMMAND FILE %s, PASS # %d\n", fileName.c_str(), pass);
         printf("==========================================================\n");
     }
     try {
@@ -1213,88 +1209,60 @@ bool process_electrode_input(BlockEntry* cf, string fileName, int printFlag, int
     fclose(ifp);
     if (printFlag > 1) {
         printf("=========================================================\n");
-        printf(" FINISHED PROCESSING COMMAND FILE %s, PASS # %d\n",
-               fileName.c_str(), pass);
+        printf(" FINISHED PROCESSING COMMAND FILE %s, PASS # %d\n", fileName.c_str(), pass);
         printf("=========================================================\n");
     }
     return true;
 }
-
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
+//==================================================================================================================================
 /*
- *  Set the bath gas for the one thermophase. Note, we hardcode
- *  what we want here. An input deck might be the more appropriate
- *  place to set these properties.
+ *  Set the bath conditions for the one ThermoPhase
  */
-void
-setElectrodeBathSpeciesConditions(ThermoPhase& g, ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, int iph, int printLvl)
+void setElectrodeBathSpeciesConditions(ThermoPhase& tp, ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, int iph, int printLvl)
 {
-
-    int nsp = g.nSpecies();
-
-
+    size_t nsp = tp.nSpecies();
+    size_t kstart = BG.m_pl.globalSpeciesIndex(iph, 0);
+    //g.setState_TPX(EI.Temperature, EI.Pressure, BG.XmolPLPhases[iph]);
+    tp.setState_TPX(EI.Temperature, EI.Pressure, BG.XmolPLSpecVec + kstart);
+    tp.setElectricPotential(EI.PotentialPLPhases[iph]);
     /*
-     * We need to set the state here. Note, mass fractions
-     * don't matter, since we are only querying the
-     * standard state of the species.
-     */
-    g.setState_TPX(EI.Temperature, EI.Pressure, BG.XmolPLPhases[iph]);
-
-    /*
-     * Set the electric potential
-     */
-    g.setElectricPotential(EI.PotentialPLPhases[iph]);
-
-    /*
-     * Print out table summarizing bath gas conditions
+     * Print out table summarizing bath gas conditions, if requested
      */
     if (printLvl) {
         double* C = new double [nsp];
         double* act = new double [nsp];
-        g.getConcentrations(C);
-        g.getActivities(act);
+        tp.getConcentrations(C);
+        tp.getActivities(act);
         print_char('=', 100);
-        cout << endl;
+        std::cout << "\n";
         dnt(0);
-        cout << " SUMMARY OF SPECIES IN THE MECHANISM WITH A DESCRIPTION "
-             << " OF BATH COMPOSITION: " << endl;
-        cout << endl;
+        std::cout << " SUMMARY OF SPECIES IN THE MECHANISM WITH A DESCRIPTION OF BATH COMPOSITION:\n\n"; 
         dnt(1);
-        cout << "Total pressure = " << EI.Pressure * 760. / OneAtm;
-        cout << " torr " << endl;
+        std::cout << "Total pressure = " << (EI.Pressure * 760. / OneAtm) << " torr \n";
         dnt(1);
-        cout << "Temperature (where needed) = " << EI.Temperature
-             << " Kelvin" << endl;
+        std::cout << "Temperature (where needed) = " << EI.Temperature << " Kelvin\n";
         dnt(1);
-        cout << "Voltage (where needed) = " << EI.PotentialPLPhases[iph]
-             << " Volts" << endl;
-
-
+        std::cout << "Voltage (where needed) = " << EI.PotentialPLPhases[iph] << " Volts\n";
         dnt(4);
-        cout << "Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities";
-        cout << endl;
+        std::cout << "Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities\n";
         dnt(4);
-        cout << "-----------------------------------------------------------------------------";
-        cout << endl;
-        string spN;
-        for (int k = 0; k < (int) g.nSpecies(); k++) {
+        std::cout << "-----------------------------------------------------------------------------\n";
+        std::string spN;
+        for (size_t k = 0; k < nsp; k++) {
             dnt(4);
             pr_if(k+1, 5);
-            spN = g.speciesName(k);
+            spN = tp.speciesName(k);
             pr_sf(spN, 16);
             pr_df(BG.XmolPLPhases[iph][k], 16, 4);
             pr_de(C[k] * 1.0E-3, 16, 3);
             pr_de(act[k], 16, 3);
-            cout << endl;
+            std::cout << "\n";
         }
         dnt(4);
-        cout << "------------------------------------------------------------------------------";
-        cout << endl;
+        std::cout << "------------------------------------------------------------------------------";
+        std::cout << std::endl;
         delete [] C;
         delete [] act;
-
     }
 }
 //======================================================================================================================
@@ -1302,7 +1270,6 @@ int
 ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
 {
     int  retn = 0;
-
     if (printLvl_ > 1) {
         printf("\n");
         print_char('=', 80);
@@ -1404,7 +1371,6 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
     if (!ok) {
         return -1;
     }
-
     /*
      *  Post process the results
      *   -> here we figure out what the MoleNumber[] and MoleFraction[] vectors should be
@@ -1489,14 +1455,15 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
      *  of the mole numbers and mole fractions that exist in the input file.
      */
     for (size_t iph = 0; iph < m_pl->nPhases(); iph++) {
-        size_t  kstart = m_pl->globalSpeciesIndex(iph, 0);
+        size_t kstart = m_pl->globalSpeciesIndex(iph, 0);
         ThermoPhase* tphase = &(m_pl->thermo(iph));
         size_t nsp = tphase->nSpecies();
         // Find the name of the input block
-        string phaseBath = "Bath Specification for Phase ";
-        string phaseNm = tphase->name();
+        std::string phaseBath = "Bath Specification for Phase ";
+        std::string phaseNm = tphase->name();
         phaseBath += phaseNm;
-        double* molF = m_BG->XmolPLPhases[iph];
+        //double* molF = m_BG->XmolPLPhases[iph];
+        double* const molF = m_BG->XmolPLSpecVec + kstart;
         bool molVecSpecified = false;
         BEInput::BlockEntry* pblock = cf->searchBlockEntry(phaseBath.c_str());
         int numTimes = 0;
@@ -1557,7 +1524,8 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                         exit(-1);
                     }
                     m_ptr->setState_TPM(Temperature, Pressure, m_BG->MolalitiesPLPhases[iph]);
-                    m_ptr->getMoleFractions(m_BG->XmolPLPhases[iph]);
+                    m_ptr->getMoleFractions(molF);
+                    // m_ptr->getMoleFractions(m_BG->XmolPLPhases[iph]);
                     m_ptr->getMoleFractions(MoleFraction.data() + kstart);
                 }
             }
@@ -1595,7 +1563,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
     for (size_t iphS = 0; iphS < (size_t) m_pl->nSurPhases(); iphS++) {
 	std::string phaseBath = "Open Circuit Potential Override for interface ";
         ThermoPhase* tp = &(m_pl->surPhase(iphS));
-        string phaseNm = tp->name();
+        std::string phaseNm = tp->name();
         phaseBath += phaseNm;
 
 	BEInput::BlockEntry* pblock = cf->searchBlockEntry(phaseBath.c_str());

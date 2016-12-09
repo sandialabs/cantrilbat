@@ -27,8 +27,6 @@
 
 #include "ReactingSurDomain.h"
 
-//#include "ExtraGlobalRxn.h"
-
 #include "BlockEntry.h"
 
 #include "Electrode_input.h"

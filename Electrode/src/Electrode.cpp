@@ -141,7 +141,6 @@ Electrode::Electrode() :
 		integratedThermalEnergySourceTerm_reversibleEntropy_Last_(0.0),
                 electrodeName_("Electrode"),
                 numExtraGlobalRxns(0),
-                m_EGRList(0),
                 m_egr(0),
                 m_rmcEGR(0),
                 OCVoverride_ptrList_(0),
@@ -263,7 +262,6 @@ Electrode::Electrode(const Electrode& right) :
 		integratedThermalEnergySourceTerm_reversibleEntropy_Last_(0.0),
                 electrodeName_("Electrode"),
                 numExtraGlobalRxns(0),
-                m_EGRList(0),
                 m_egr(0),
                 m_rmcEGR(0),
                 OCVoverride_ptrList_(0),
@@ -464,7 +462,6 @@ Electrode& Electrode::operator=(const Electrode& right)
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = right.integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
     electrodeName_ = right.electrodeName_;
     numExtraGlobalRxns = right.numExtraGlobalRxns;
-    ZZCantera::deepStdVectorPointerCopy<EGRInput>(right.m_EGRList, m_EGRList);
     ZZCantera::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
     ZZCantera::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
     ZZCantera::deepStdVectorPointerCopy<OCV_Override_input>(right.OCVoverride_ptrList_, OCVoverride_ptrList_);
@@ -565,12 +562,6 @@ Electrode& Electrode::operator=(const Electrode& right)
 //======================================================================================================================
 Electrode::~Electrode()
 {
-    size_t is = m_EGRList.size();
-    for (size_t i = 0; i < is; i++) {
-        delete m_EGRList[i];
-        m_EGRList[i] = 0;
-    }
-
     if (RSD_List_.size() > 0) {
     for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
        
@@ -581,7 +572,7 @@ Electrode::~Electrode()
     }
     //m_rSurDomain = 0;
 
-    is = m_egr.size();
+    size_t is = m_egr.size();
     for (size_t i = 0; i < is; i++) {
         if (m_egr[i]) {
             delete m_egr[i];
@@ -944,13 +935,6 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     // Copy over the input parameters for extra global reactions
     //
     numExtraGlobalRxns = ei->numExtraGlobalRxns;
-    if (numExtraGlobalRxns > 0) {
-        m_EGRList.resize(numExtraGlobalRxns, 0);
-        for (size_t i = 0; i < numExtraGlobalRxns; i++) {
-            AssertTrace(!m_EGRList[i]);
-            m_EGRList[i] = new EGRInput(*(ei->m_EGRList[i]));
-        }
-    }
 
     for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         phaseMoles_init_[iph] = phaseMoles_final_[iph];
@@ -1086,7 +1070,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     //
     // Process Extra global reactions
     //
-    processExtraGlobalRxnPathways();
+    processExtraGlobalRxnPathways(ei->m_EGRList);
 
     /*
      *  Set up the particleDiameter_ and particleNumberToFollow_ fields.
@@ -3637,23 +3621,28 @@ RxnMolChange* Electrode::rxnMolChangesEGR(size_t iegr)
 {
     return m_rmcEGR[iegr];
 }
-//====================================================================================================================
-void Electrode::addExtraGlobalRxn(EGRInput* const egr_ptr)
+//==================================================================================================================================
+void Electrode::addExtraGlobalRxn(const EGRInput& egri)
 {
-    InterfaceKinetics* iKA = RSD_List_[0];
+    size_t rsdI = egri.m_RSD_index;
+    InterfaceKinetics* iKA = RSD_List_[rsdI];
+    if (!iKA) {
+       throw CanteraError("Electrode::addExtraGlobalRxn()",
+                          "No kinetics object for reacting surface domain " + int2str(rsdI));
+    }
     size_t nReactionsA = iKA->nReactions();
 
-    ZZCantera::ExtraGlobalRxn* egr = new ExtraGlobalRxn(iKA);
+    ZZCantera::ExtraGlobalRxn* egr = new ExtraGlobalRxn(*iKA);
     double* RxnVector = new double[nReactionsA];
     for (size_t i = 0; i < nReactionsA; i++) {
         RxnVector[i] = 0.0;
     }
 
-    for (size_t iErxn = 0; iErxn < (size_t) egr_ptr->m_numElemReactions; iErxn++) {
-        ERSSpec* ers_ptr = egr_ptr->m_ERSList[iErxn];
+    for (size_t iErxn = 0; iErxn < (size_t) egri.m_numElemReactions; iErxn++) {
+        ERSSpec* ers_ptr = egri.m_ERSList[iErxn];
         RxnVector[ers_ptr->m_reactionIndex] = ers_ptr->m_reactionMultiplier;
     }
-    egr->setupElemRxnVector(RxnVector, egr_ptr->m_SS_KinSpeciesKindex);
+    egr->setupElemRxnVector(RxnVector, egri.m_SS_KinSpeciesKindex);
 
     RxnMolChange* rmcEGR = new RxnMolChange(iKA, egr);
 
@@ -3662,25 +3651,25 @@ void Electrode::addExtraGlobalRxn(EGRInput* const egr_ptr)
 
     delete[] RxnVector;
 }
-//======================================================================================================================
-size_t Electrode::processExtraGlobalRxnPathways()
+//==================================================================================================================================
+size_t Electrode::processExtraGlobalRxnPathways(const std::vector<EGRInput*>& EGRList)
 {
     for (size_t i = 0; i < numExtraGlobalRxns; i++) {
-        addExtraGlobalRxn(m_EGRList[i]);
+        addExtraGlobalRxn(*(EGRList[i]));
     }
     return numExtraGlobalRxns;
 }
-//====================================================================================================================
+//==================================================================================================================================
 ZZCantera::ExtraGlobalRxn* Electrode::extraGlobalRxnPathway(size_t iegr)
 {
     return m_egr[iegr];
 }
-//===================================================================================================================
+//==================================================================================================================================
 size_t Electrode::numExtraGlobalRxnPathways() const
 {
     return numExtraGlobalRxns;
 }
-//===================================================================================================================
+//==================================================================================================================================
 Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, size_t iphaseTarget, double* const Xmf_stable,
         double deltaTsubcycle) :
     ResidEval(),
@@ -3690,13 +3679,13 @@ Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, size_t iphaseTarget, do
     deltaTsubcycle_(deltaTsubcycle)
 {
 }
-//===================================================================================================================
+//==================================================================================================================================
 int Electrode::phasePop_Resid::evalSS(const double t, const double* const y, double* const r)
 {
     int retn = ee_->phasePopResid(iphaseTarget_, y, deltaTsubcycle_, r);
     return retn;
 }
-//===================================================================================================================
+//==================================================================================================================================
 int Electrode::phasePop_Resid::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     size_t ne = nEquations();

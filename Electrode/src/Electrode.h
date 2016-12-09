@@ -2268,32 +2268,31 @@ public:
     /*!
      *  These global reactions are linear combinations of actual reactions that describe a global reaction
      *
-     *  @param[in]         iegr             index of the pathway
+     *  @param[in]           iegr                index of the pathway
      *
-     *  @return                             Returns a pointer to the ExtraGlobalRxn object
+     *  @return                                  Returns a pointer to the ExtraGlobalRxn object
      */
     ZZCantera::ExtraGlobalRxn* extraGlobalRxnPathway(size_t iegr);
 
 private:
     //! Add a global reaction object to the internal list
     /*!
-     *  These global reaction pathways are made up of a linear combination of
-     *  existing reactions.
+     *  These global reaction pathways are made up of a linear combination of existing reactions.
      *
-     *   @param[in]         egr_ptr          Input struct describing the reaction
+     *   @param[in]          egr_ptr             Input struct describing the reaction
      */
-    void addExtraGlobalRxn(EGRInput* egr_ptr);
+    void addExtraGlobalRxn(const EGRInput& egr);
 
     //! This uility routine runs addExtraGlobalRxn on all of the input global reactions
     /*!
      *   we calculate the ExtraGlobalRxn object for each reaction and the RxnMolChange object for the 
      *   global reactions and store then within the object
      *
-     *  @return                             Returns the number of extra global reactions
+     *  @param[in]           EGRList        Reference to a vector of pointers to EGRInput
      *
-     *  @todo           Figure out the current usage of extra global rxns
+     *  @return                             Returns the number of extra global reactions
      */
-    size_t processExtraGlobalRxnPathways();
+    size_t processExtraGlobalRxnPathways(const std::vector<EGRInput*>& EGRList);
 
 public:
     //! Returns the number of extra global reactions that arel defined
@@ -3186,15 +3185,6 @@ protected:
 
     //! Number of extra global reaction pathways specified
     size_t numExtraGlobalRxns;
-
-    //! Vector of EGRInput structures
-    /*!
-     *  Each of these structures sets up a global reaction. 
-     *  A global reaction is made up of a linear combination of elementary reactions.
-     *
-     *  @todo:  We don't need this in the structure itself. We can eliminate this member variable.
-     */
-    std::vector<EGRInput*> m_EGRList;
 
 public:
     //! Pointer vector of ExtraGlobalRxn objects

@@ -836,7 +836,7 @@ void doKineticsTablesHetero(PhaseList *pl,  InterfaceKinetics *gKinetics, Temper
 
     for (int iextra = 0; iextra < IOO.numExtraGlobalRxns; iextra++) {
 	struct EGRInput * egr_ptr = IOO.m_EGRList[iextra];
-	ExtraGlobalRxn *egr = new ExtraGlobalRxn(gKinetics);
+	ExtraGlobalRxn *egr = new ExtraGlobalRxn(*gKinetics);
 	double *RxnVector  = new double[nReactions];
 	for (size_t i = 0; i < nReactions; i++) {
 	    RxnVector[i] = 0.0;
@@ -1879,7 +1879,7 @@ void printGERKineticsTable(PhaseList *pl, int iGER,
   /*
    * Print out reactants
    */
-  const vector_int& reactants = egr.reactants();
+  const std::vector<size_t>& reactants = egr.reactants();
   int nReac = reactants.size();
   dnt(1); 
   if (nReac == 1) {
@@ -1897,7 +1897,7 @@ void printGERKineticsTable(PhaseList *pl, int iGER,
   /*
    * Print out products
    */
-  const vector_int& products = egr.products();
+  const std::vector<size_t>& products = egr.products();
   int nProd = products.size();
   dnt(1); 
   if (nProd == 1) {

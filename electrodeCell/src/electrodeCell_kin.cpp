@@ -1421,7 +1421,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
   /*
    * Print out reactants
    */
-  const vector_int& reactants = egr.reactants();
+  const std::vector<size_t>& reactants = egr.reactants();
   int nReac = reactants.size();
   dnt(1); 
   if (nReac == 1) {
@@ -1439,7 +1439,7 @@ void printGERKineticsTable(Electrode *electrode, int iGER,
   /*
    * Print out products
    */
-  const vector_int& products = egr.products();
+  const std::vector<size_t>& products = egr.products();
   int nProd = products.size();
   dnt(1); 
   if (nProd == 1) {

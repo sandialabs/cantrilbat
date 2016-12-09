@@ -51,6 +51,9 @@ class ElectrodeBath
 {
 public:
 
+    //! Reference to the PhaseList
+    PhaseList& m_pl;
+
     //! species mole fractions in one phase
     double* XmolPLSpecVec;
 
@@ -82,7 +85,7 @@ public:
     std::vector<double> PhaseMass;
 
     //! Default constructor
-    ElectrodeBath();
+    ElectrodeBath(PhaseList& pl);
 
     //! Copy Constructor
     /*!
@@ -403,7 +406,7 @@ public:
     //! Pressure of the electrode (Pascal)
     double Pressure;
 
-    //! Electrode Bath Gas Structure
+    //! Electrode Bath  Structure
     ElectrodeBath* m_BG;
 
     //! Vector of mole numbers of the species
@@ -561,7 +564,7 @@ public:
 
     //! PhaseList object
     /*!
-     * this includes all of the phases, "period". In particular this includes the surface phases
+     *   This includes all of the phases, "period". In particular this includes the surface phases
      */
     ZZCantera::PhaseList* m_pl;
 
@@ -597,34 +600,58 @@ public:
     }
 };
 //===================================================================================================================================
-
+//! Small all-public struct that constructs a global reaction out of a linear combination of single-step reactions
 struct EGRInput
 {
 public:
+
+    //! Index of the Reacting Surface domain where the kinetics object is located
+    size_t m_RSD_index;
+   
+    //! Kinetic species that indicates the species to follow through the reaction
+    /*!
+     * 
+     */
     int m_SS_KinSpeciesKindex;
+
+    //! Number of single-step reactions in the vector
     int m_numElemReactions;
 
     //! List of ERSSpec structs which specifies which elementary reaction contributes to the
-    //! global vector and what the reaction multiplier is
-    std::vector<ERSSpec* > m_ERSList;
+    //! global vector and what the reaction multiplier is for each reaction
+    /*!
+     *   Length:  m_numElemReactions
+     */
+    std::vector<ERSSpec*> m_ERSList;
 
+    //! Constructor
     EGRInput();
 
+    //! Copy constuctor
+    /*!
+     *  @param[in]           right               Object to be copied
+     */
     EGRInput(const EGRInput& right);
 
+    //! assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *  @return                                  Returns a reference to the object
+     */
     EGRInput& operator=(const EGRInput& right);
+
+    //! destructor
     ~EGRInput();
 };
 //===================================================================================================================================
 
-void setElectrodeBathSpeciesConditions(ZZCantera::ThermoPhase& g,
+void setElectrodeBathSpeciesConditions(ZZCantera::thermo_t_double& g,
                                        ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, int iph, int printLvl);
 
 
 //===================================================================================================================================
 
-bool process_electrode_input(BEInput::BlockEntry* cf, std::string fileName, int printFlag = 0,
-                             int pass = 0);
+bool process_electrode_input(BEInput::BlockEntry* cf, std::string fileName, int printFlag = 0, int pass = 0);
 //===================================================================================================================================
 } // end of namespace
 //-----------------------------------------------------------------------------------------------------------------------------------
