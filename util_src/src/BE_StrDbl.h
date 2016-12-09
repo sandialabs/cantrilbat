@@ -5,11 +5,6 @@
  *  \link BEInput::BE_StrDbl BE_StrDbl\endlink).
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 243 $
- * $Date: 2012-07-03 11:39:08 -0600 (Tue, 03 Jul 2012) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -24,7 +19,7 @@
 namespace BEInput
 {
 
-
+//==================================================================================================================================
 //!  BlockEntry of a vector of related double values into a common  vector of doubles
 /*!
  *   This sets up the <b>BlockEntry</b> special case for the entry of  multiple
@@ -209,38 +204,72 @@ public:
 
     //! Main constructor for a double keyline entry.
     /*!
-     *   This sets up the BlockEntry special case.
+     *  This sets up the BlockEntry special case consisting of setting a vector value of doubles with names
      *
-     *  When the keyline in the input file of the following form is
-     *  found:
+     * @param[in]            blockName           C character string setting up the name of the block to match
      *
-     *  "charListName = [double]"
+     * @param[in]            hndlAddr            Pointer value to a vector of doubles external to the object
+     *                                           which will get assigned the value of the expressions. 
+     *                                           If value is zero, then the values are stored internal to the object solely,
+     *                                           and the user will have to retrieve them manually.
      *
-     * The double value at address, addrVal, is assigned the value
-     * read in from the input file.
+     * @param[in]            numTimesRequired    Number of Required blocks in the input file.
+     *                                           A fault is triggered if this number is nonzero and the BlockName isn't found
+     *                                           in the input file.
      *
-     * @param blockName   C character string setting up the name
-     *                  of the block to match
-     * @param hndlAddr   Address of the vector of doubles, external to the
-     *                  object, which will get assigned the value of
-     *                  the expressions. (default 0)
-     * @param numTimesRequired Number of Required blocks in the input file.
-     *                  A fault is triggered if this number is nonzero
-     *                  and the BlockName isn't found in the input file.
-     * @param numSubLERequired Number of times each sub LineEntry
-     *                  generated within the block is required.
-     *                  0 or 1 allowed.
-     * @param charList  Vector of C strings containing the character
-     *                  strings to match
-     * @param listLength Length of the charList vector.
-     * @param constructLE Boolean indicating whether to construct the
-     *                  Individual Line entry commands (this must be true)
-     * @param varName   Variable name that is defined by this command.
-     *                  This is only used for IO purposes.
-     * @param parentBlock_input Pointer to the parent block. Set to
-     *                 zero if this is no parent block
+     * @param[in]            numSubLERequired    Number of times each sub LineEntry generated within the block is required.
+     *                                           0 or 1 allowed.
+     *
+     * @param[in]            charList            Vector of C strings containing the character strings to match
+     *
+     * @param[in]            listLength          Length of the charList vector.
+     *
+     * @param[in]            constructLE         Boolean indicating whether to construct the individual Line entry commands 
+     *                                            (this must be true)
+     *
+     * @param[in]            varName             Variable name that is defined by this command.
+     *                                           This is only used for IO purposes.
+     *
+     * @param[in]            parentBlock_input   Pointer to the parent block. Set to zero if there is no parent block,
+     *                                           or if this block will be added to parent block manually. Defaults to zero.
      */
     BE_StrDbl(const char* blockName, double** hndlAddr, int numTimesRequired, int numSubLERequired,
+              char** charList, int listLength, int constructLE, const char* varName,
+              BlockEntry* parentBlock_input = 0);
+
+    //! Altnerative constructor for a  block of doubles entry using a fixed address for the external vector
+    /*!
+     *  This sets up the BlockEntry special case consisting of setting a vector value of doubles with names
+     *
+     * @param[in]            blockName           C character string setting up the name of the block to match
+     *
+     * @param[in]            fixedAddr           Pointer value to a fixed address external to the object
+     *                                           which will get assigned the value of the expressions. 
+     *                                           If value is zero, then the values are stored internal to the object solely,
+     *                                           and the user will have to retrieve them manually.
+     *
+     * @param[in]            numTimesRequired    Number of Required blocks in the input file.
+     *                                           A fault is triggered if this number is nonzero and the BlockName isn't found
+     *                                           in the input file.
+     *
+     * @param[in]            numSubLERequired    Number of times each sub LineEntry generated within the block is required.
+     *                                           0 or 1 allowed.
+     *
+     * @param[in]            charList            Vector of C strings containing the character strings to match
+     *
+     * @param[in]            listLength          Length of the charList vector.
+     *
+     * @param[in]            constructLE         Boolean indicating whether to construct the individual Line entry commands 
+     *                                            (this must be true)
+     *
+     * @param[in]            varName             Variable name that is defined by this command.
+     *                                           This is only used for IO purposes.
+     *
+     * @param[in]            parentBlock_input   Pointer to the parent block. Set to zero if there is no parent block,
+     *                                           or if this block will be added to parent block manually. Defaults to zero.
+     */
+
+    BE_StrDbl(const char* blockName, double* const fixedAddr, int numTimesRequired, int numSubLERequired,
               char** charList, int listLength, int constructLE, const char* varName,
               BlockEntry* parentBlock_input = 0);
 
@@ -269,13 +298,11 @@ public:
     //! Destructor
     ~BE_StrDbl();
 
-    //! Virtual function called at the start of internally processing
-    //! the block
+    //! Virtual function called at the start of internally processing the block
     /*!
      *  This function may be used to start the process of setting up
      *  internal data functions when the block is first called.
-     *  This is also where the current block processes the
-     *  arguments specified on the START BLOCK line.
+     *  This is also where the current block processes the arguments specified on the START BLOCK line.
      *
      *  The default behavior is listed below.
      *
@@ -302,10 +329,8 @@ public:
      */
     void Initialization(FILE* ifp_input, const TK_TOKEN* blockArgPtr);
 
-    //! This virtual function is used to wrap up the setup of the current
-    //! block before returning to the parent block.
+    //! This virtual function is used to wrap up the setup of the current block before returning to the parent block.
     /*!
-     *
      *  The default behavior is listed below.
      *
      *   -  An Error exit will occur if
@@ -401,16 +426,18 @@ public:
 
 protected:
 
-    /**
-     *  following is the handle to the double vector that
-     *  will receive the input. In other words, this
-     *  stores the address of the vector of doubles. It
-     *  may be malloced within this routine. However, it
+    //!  Handle to the double vector that  will receive the input.
+    /*!
+     *  In other words, this stores the address of the vector of doubles. It may be malloced within this routine. However, it
      *  is never owned and thus never freed by this routine.
      */
     double** HndlDblVec;
 
-
+    //! If the handle has a fixed address, we store that address here and note that it should never be changed
+    /*!
+     *  If the address is not fixed, then this is nullptr
+     */
+    double* m_fixedAddr;
 
     //! Max value that this number can attain
     double MaxVal;
@@ -421,8 +448,7 @@ protected:
     //! Default value
     double DefaultVal;
 
-    //! Number of times each LineEntry generated by this
-    //! block is required. ( 0 or 1).
+    //! Number of times each LineEntry generated by this block is required. ( 0 or 1).
     int m_numTimesRequiredLE;
 
     //! Vector of C strings representing entries in the vector
@@ -431,8 +457,7 @@ protected:
      */
     char** CharList;
 
-    //! Length of the length of the vector of doubles and the
-    //! corresponding character list.
+    //! Length of the length of the vector of doubles and the corresponding character list.
     int ListLength;
 
     //! Current list entry that was last set
@@ -440,27 +465,28 @@ protected:
 
     //! Current value
     /*!
-     *  Initially this gets set to the default. Then when
-     * the keyline is called, this gets set to the value of
-     * the argument of the keyline.
+     *  Initially this gets set to the default. Then when the keyline is called, this gets set to the value of the 
+     *  argument of the keyline.
      */
     double CurrValue;
 
-    //! PrintString -> name of the variable that this keyLine update,
-    //! as it will appear on descriptive printouts.
+    //! PrintString -> name of the variable that this keyLine update, as it will appear on descriptive printouts.
     /*!
-     * This defaults to the name of the keyline
+     *  This defaults to the name of the keyline
      */
     char PrintString[MAX_INPUT_STR_LN+1];
 
-    //!   This is true if the default line Entries for this class
-    //!  have already been generated. False, if they have yet to be
-    //!   generated
+    //! This is true if the default line Entries for this class have already been generated. False, if they have yet to be generated
     int defaultLE_made;
 
-    //! Vector of the current values
+    //! Malloced vector of the current values
+    /*!
+     *  Length: ListLength
+     */
     double* m_currentVecValues;
-
 };
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
+

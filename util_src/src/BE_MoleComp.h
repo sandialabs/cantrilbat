@@ -221,29 +221,31 @@ public:
      * The double value at address, addrVal, is assigned the value
      * read in from the input file.
      *
-     * @param blockName   C character string setting up the name
+     * @param[in] blockName   C character string setting up the name
      *                  of the block to match
-     * @param hndlAddr   Address of the vector of doubles, external to the
-     *                  object, which will get assigned the value of
-     *                  the expressions. (default 0)
-     * @param numTimesRequired Number of Required blocks in the input file.
+     * @param[in] hndlAddr  Address of the pointer to the vector of doubles, external to the
+     *                  object, which will get assigned the value of  the expressions. (default 0)
+     * @param[in] numTimesRequired Number of Required blocks in the input file.
      *                  A fault is triggered if this number is nonzero
      *                  and the BlockName isn't found in the input file.
-     * @param charList  Vector of C strings containing the character
+     * @param[in] charList  Vector of C strings containing the character
      *                  strings to match
-     * @param listLength Length of the charList vector.
-     * @param constructLE Boolean indicating whether to construct the
+     * @param[in]            listLength Length of the charList vector.
+     * @param[in]            constructLE Boolean indicating whether to construct the
      *                  Individual Line entry commands (this must be true)
-     * @param varName   Variable name that is defined by this command.
+     * @param[in]            varName   Variable name that is defined by this command.
      *                  This is only used for IO purposes.
-     * @param parentBlock_input Pointer to the parent block. Set to
+     * @param[in]            parentBlock_input Pointer to the parent block. Set to
      *                 zero if this is no parent block
      */
-    BE_MoleComp(const char* blockName, double** hndlAddr,
-                int numTimesRequired,
-                char** charList, int listLength, int constructLE,
-                const char* varName,
+    BE_MoleComp(const char* blockName, double** hndlAddr, int numTimesRequired,
+                char** charList, int listLength, int constructLE, const char* varName,
                 BlockEntry* parentBlock_input = 0);
+
+    BE_MoleComp(const char* blockName, double* const fixedAddr, int numTimesRequired,
+                char** charList, int listLength, int constructLE, const char* varName,
+                BlockEntry* parentBlock_input = 0);
+
 
     //! Copy constructor
     /*!
@@ -253,9 +255,9 @@ public:
 
     //! Copy assignment operator
     /*!
-     * @param right Object to be copied
+     *  @param[in]           right               Object to be copied
      *
-     *  @return                    Returns a reference to the current object
+     *  @return                                  Returns a reference to the current object
      */
     BE_MoleComp& operator=(const BE_MoleComp& right);
 

@@ -27,7 +27,7 @@ using namespace mdpUtil;
 
 namespace BEInput
 {
-
+//==================================================================================================================================
 /*
  * BE_StrDbl Constructor:
  *
@@ -35,16 +35,13 @@ namespace BEInput
  *   We make sure to call the base class constructor here to do
  *   much of the initialization.
  */
-BE_StrDbl::BE_StrDbl(const char* blockName, double** hndlAAA,
-                     int numTimesRequired, int numSubLERequired,
-                     char** charList, int ll, int constructLE,
-                     const char* varName,  BlockEntry* parentBlock_input) :
-    BlockEntry(blockName, numTimesRequired,
-               parentBlock_input),
+BE_StrDbl::BE_StrDbl(const char* blockName, double** hndlAAA, int numTimesRequired, int numSubLERequired,
+                     char** charList, int ll, int constructLE, const char* varName,  BlockEntry* parentBlock_input) :
+    BlockEntry(blockName, numTimesRequired, parentBlock_input),
     HndlDblVec(hndlAAA),
+    m_fixedAddr(nullptr),
     MaxVal(DBL_MAX),
     MinVal(-DBL_MAX),
-    //DefaultVal(NO_DEFAULT_DOUBLE),
     DefaultVal(0.0),
     m_numTimesRequiredLE(numSubLERequired),
     CharList(0),
@@ -55,9 +52,6 @@ BE_StrDbl::BE_StrDbl(const char* blockName, double** hndlAAA,
     m_currentVecValues(0)
 {
     char* item(0);
-    /*
-     * Set the limits and the default values
-     */
     PrintString[0] = '\0';
     /*
      * Set up the block's character list
@@ -67,8 +61,7 @@ BE_StrDbl::BE_StrDbl(const char* blockName, double** hndlAAA,
             mdp_alloc_VecFixedStrings(ListLength, MAX_INPUT_STR_LN+1);
         for (int i = 0; i < ListLength; i++) {
             item = charList[i];
-            if (!item) throw BI_InputError("BE_StrDbl::BE_StrDbl",
-                                               "char list item is null");
+            if (!item) throw BI_InputError("BE_StrDbl::BE_StrDbl", "char list item is null");
             strncpy(CharList[i], item, MAX_INPUT_STR_LN);
             CharList[i][MAX_INPUT_STR_LN] = '\0';
         }
@@ -96,17 +89,60 @@ BE_StrDbl::BE_StrDbl(const char* blockName, double** hndlAAA,
             *HndlDblVec = mdp_alloc_dbl_1(ListLength, DefaultVal);
         }
     }
+    // Create an internal vector to hold the results
     m_currentVecValues = mdp_alloc_dbl_1(ListLength, DefaultVal);
 }
-
-/*
- * BE_StrDbl(const BE_StrDbl&):
- *
- * copy constructor
- */
+//==================================================================================================================================
+BE_StrDbl::BE_StrDbl(const char* blockName, double* const fixedAddr, int numTimesRequired, int numSubLERequired,
+                     char** charList, int ll, int constructLE, const char* varName,  BlockEntry* parentBlock_input) :
+    BlockEntry(blockName, numTimesRequired, parentBlock_input),
+    HndlDblVec(nullptr),
+    m_fixedAddr(fixedAddr),
+    MaxVal(DBL_MAX),
+    MinVal(-DBL_MAX),
+    DefaultVal(0.0),
+    m_numTimesRequiredLE(numSubLERequired),
+    CharList(0),
+    ListLength(ll),
+    CurrListValue(0),
+    CurrValue(0.0),
+    defaultLE_made(0),
+    m_currentVecValues(nullptr)
+{
+    if (fixedAddr) {
+        HndlDblVec = (double**) &fixedAddr;
+    }
+    char* item(0);
+    PrintString[0] = '\0';
+    if (charList) {
+        CharList = mdp_alloc_VecFixedStrings(ListLength, MAX_INPUT_STR_LN+1);
+        for (int i = 0; i < ListLength; i++) {
+            item = charList[i];
+            if (!item) throw BI_InputError("BE_StrDbl::BE_StrDbl", "char list item is null");
+            strncpy(CharList[i], item, MAX_INPUT_STR_LN);
+            CharList[i][MAX_INPUT_STR_LN] = '\0';
+        }
+    }
+    if (varName) {
+        strncpy(PrintString, varName, MAX_INPUT_STR_LN);
+    } else {
+        strncpy(PrintString, blockName, MAX_INPUT_STR_LN);
+    }
+    PrintString[MAX_INPUT_STR_LN] = '\0';
+    /*
+     * Ok, now we are ready to instantiate the list of lineEntries for
+     * this class
+     */
+    if (constructLE) {
+        generateDefLE();
+    }
+    m_currentVecValues = mdp_alloc_dbl_1(ListLength, DefaultVal);
+}
+//==================================================================================================================================
 BE_StrDbl::BE_StrDbl(const BE_StrDbl& b) :
     BlockEntry(b),
     HndlDblVec(b.HndlDblVec),
+    m_fixedAddr(b.m_fixedAddr),
     MaxVal(b.MaxVal),
     MinVal(b.MinVal),
     DefaultVal(b.DefaultVal),
@@ -115,7 +151,7 @@ BE_StrDbl::BE_StrDbl(const BE_StrDbl& b) :
     ListLength(b.ListLength),
     CurrListValue(b.CurrListValue),
     CurrValue(b.CurrValue),
-    m_currentVecValues(0)
+    m_currentVecValues(nullptr)
 {
     if (ListLength > 0) {
         char* item;
@@ -123,8 +159,7 @@ BE_StrDbl::BE_StrDbl(const BE_StrDbl& b) :
             mdp_alloc_VecFixedStrings(ListLength, MAX_INPUT_STR_LN+1);
         for (int i = 0; i < ListLength; i++) {
             item = b.CharList[i];
-            if (!item) throw BI_InputError("BE_StrDbl::BE_StrDbl",
-                                               "char list item is null");
+            if (!item) throw BI_InputError("BE_StrDbl::BE_StrDbl", "char list item is null");
             strncpy(CharList[i], item, MAX_INPUT_STR_LN);
             CharList[i][MAX_INPUT_STR_LN] = '\0';
         }
@@ -133,17 +168,13 @@ BE_StrDbl::BE_StrDbl(const BE_StrDbl& b) :
     }
     strncpy(PrintString, b.PrintString, MAX_INPUT_STR_LN+1);
 }
-
-/*
- * BE_StrDbl& operator=(const BE_StrDbl &b) :
- *
- *  assignment operator
- */
+//==================================================================================================================================
 BE_StrDbl& BE_StrDbl::operator=(const BE_StrDbl& b)
 {
     if (&b != this) {
         BlockEntry::operator=(b);
         HndlDblVec  = b.HndlDblVec;
+        m_fixedAddr = b.m_fixedAddr;
         MaxVal     = b.MaxVal;
         MinVal     = b.MinVal;
         DefaultVal = b.DefaultVal;
@@ -156,38 +187,26 @@ BE_StrDbl& BE_StrDbl::operator=(const BE_StrDbl& b)
         mdp_safe_free((void**) &m_currentVecValues);
         if (ListLength > 0) {
             char* item;
-            CharList =
-                mdp_alloc_VecFixedStrings(ListLength, MAX_INPUT_STR_LN+1);
+            CharList = mdp_alloc_VecFixedStrings(ListLength, MAX_INPUT_STR_LN+1);
             for (int i = 0; i < ListLength; i++) {
                 item = b.CharList[i];
-                if (!item) throw BI_InputError("LE_StrListDbl::LE_StrListDbl",
-                                                   "char list item is null");
+                if (!item) throw BI_InputError("LE_StrListDbl::LE_StrListDbl", "char list item is null");
                 strncpy(CharList[i], item, MAX_INPUT_STR_LN);
                 CharList[i][MAX_INPUT_STR_LN] = '\0';
             }
-
             m_currentVecValues = mdp_alloc_dbl_1(ListLength, DefaultVal);
             mdp_copy_dbl_1(m_currentVecValues, b.m_currentVecValues, ListLength);
         }
     }
     return *this;
 }
-/*
- * BlockEntry* duplMyselfAsBlockEntry();  (virtual)
- *
- *  Duplicate yourself in a list of the base class
- */
+//==================================================================================================================================
 BlockEntry* BE_StrDbl::duplMyselfAsBlockEntry() const
 {
     BE_StrDbl* newBE = new BE_StrDbl(*this);
     return (BlockEntry*) newBE;
 }
-
-/*
- * BE_StrDbl destructor: (virtual function)
- *
- * We malloced memory here, so we must explicitly call free.
- */
+//==================================================================================================================================
 BE_StrDbl::~BE_StrDbl()
 {
 #ifdef DEBUG_DESTRUCTOR
@@ -196,24 +215,29 @@ BE_StrDbl::~BE_StrDbl()
     mdp_safe_free((void**) &CharList);
     mdp_safe_free((void**) &m_currentVecValues);
 }
-
+//==================================================================================================================================
 /*
- *  generateDefLE():
- *
  *   This subroutine will set up a default set of line entries for this
- *   block. The limits and default value are inherited from the
- *   block element object.
+ *   block. The limits and default value are inherited from the block element object.
  */
 void BE_StrDbl::generateDefLE()
 {
-    if (*HndlDblVec == 0) {
-        *HndlDblVec = mdp_alloc_dbl_1(ListLength, 0.0);
+    if (HndlDblVec) {
+        if (*HndlDblVec == 0) {
+            *HndlDblVec = mdp_alloc_dbl_1(ListLength, 0.0);
+        }
     }
-    double* AddrVal = *HndlDblVec;
+    double* AddrVal = nullptr;
+    if (HndlDblVec) {
+        AddrVal = *HndlDblVec;
+    }
+    LE_OneDbl* led = nullptr;
     for (int i = 0; i < ListLength; i++) {
-        LE_OneDbl* led =
-            new LE_OneDbl(CharList[i], AddrVal + i,
-                          m_numTimesRequiredLE, CharList[i]);
+        if (AddrVal) {
+            led = new LE_OneDbl(CharList[i], AddrVal + i, m_numTimesRequiredLE, CharList[i]);
+        } else {
+            led = new LE_OneDbl(CharList[i], m_currentVecValues + i, m_numTimesRequiredLE, CharList[i]);
+        }
         if (DefaultVal != NO_DEFAULT_DOUBLE) {
             led->set_default(DefaultVal);
         }
@@ -222,10 +246,8 @@ void BE_StrDbl::generateDefLE()
     }
     defaultLE_made = 1;
 }
-
+//==================================================================================================================================
 /*
- *  Initialization() (virtual function)
- *
  *  This function is called when the block is seen in the input deck
  *  but before anything is done.
  */
@@ -238,7 +260,7 @@ void BE_StrDbl::Initialization(FILE* ifp_input, const TK_TOKEN* blockArgTok)
      */
     if (DefaultVal != NO_DEFAULT_DOUBLE) {
         if (HndlDblVec) {
-            double* AddrVal = *HndlDblVec;
+            double* const AddrVal = *HndlDblVec;
             for (int i = 0; i < ListLength; i++) {
                 AddrVal[i] = DefaultVal;
             }
@@ -248,13 +270,10 @@ void BE_StrDbl::Initialization(FILE* ifp_input, const TK_TOKEN* blockArgTok)
         }
     }
 }
-
+//==================================================================================================================================
 /*
- *  Wrapup() (virtual function)
- *
  *  This function is called when the end block line for the
- *  current block is read. Cleanup is done, and debugging printouts
- *  as well.
+ *  current block is read. Cleanup is done, and debugging printouts as well.
  */
 void BE_StrDbl::Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgTok)
 {
@@ -279,13 +298,10 @@ void BE_StrDbl::Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgTok)
     }
     BlockEntry::Wrapup(ifp_input, blockArgTok);
 }
-
+//==================================================================================================================================
 /*
- * adjustAddress:
- *
  *  Note, the input is a incremental adjustment. The cumulative
  *  adjustment is kept in the class object.
- *
  */
 void BE_StrDbl::adjustAddress(LONG_PTR adjustAAA)
 {
@@ -297,26 +313,20 @@ void BE_StrDbl::adjustAddress(LONG_PTR adjustAAA)
     LONG_PTR pdiff = pnew - pold;
     BlockEntry::adjustAddress(pdiff);
 }
-
+//==================================================================================================================================
 const double* BE_StrDbl::currentTypedValue() const
 {
     return m_currentVecValues;
 }
-
-/*
- * currentValueAsVoidP() (virtual)
- */
+//==================================================================================================================================
 const void* BE_StrDbl::currentValueAsVoidP() const
 {
     return static_cast<const void*>(m_currentVecValues);
 }
-
+//==================================================================================================================================
 /*
- * set_default():
- *
- *   Set the Default value for entries in the list. Note, this value
- *  is imposed on all array elements when the block is initialized,
- *  if a default is specified.
+ *  Set the Default value for entries in the list. Note, this value
+ *  is imposed on all array elements when the block is initialized, if a default is specified.
  */
 void BE_StrDbl::set_default(double def)
 {
@@ -333,11 +343,7 @@ void BE_StrDbl::set_default(double def)
         }
     }
 }
-
-/*
- * set_limits()
- *
- */
+//==================================================================================================================================
 void BE_StrDbl::set_limits(double maxV, double minV)
 {
     MaxVal = maxV;
@@ -346,7 +352,7 @@ void BE_StrDbl::set_limits(double maxV, double minV)
         LE_OneDbl* led;
         LineEntry* le;
         for (int i = 0; i < ListLength; i++) {
-            le =  BlockLineInput[i];
+            le = BlockLineInput[i];
             led = dynamic_cast<LE_OneDbl*>(le);
             if (led) {
                 led->set_limits(maxV, minV);
@@ -354,11 +360,7 @@ void BE_StrDbl::set_limits(double maxV, double minV)
         }
     }
 }
-
-/*
- * set_PrintString()
- *
- */
+//==================================================================================================================================
 void BE_StrDbl::set_PrintString(const char* ps)
 {
     if (ps) {
@@ -366,5 +368,7 @@ void BE_StrDbl::set_PrintString(const char* ps)
         PrintString[MAX_INPUT_STR_LN] = '\0';
     }
 }
-/**********************************************************************/
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
+

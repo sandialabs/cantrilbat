@@ -233,10 +233,8 @@ public:
      * @param[in]            varName             Variable name that is defined by this command. This is only used for IO purposes.
      * @param[in]            parentBlock_input   Pointer to the parent block. Set to zero if this is not a parent block
      */
-    BE_StrVecDbl(const char* blockName, std::vector<double>* ptrVecDbl,
-                 int numTimesRequired, int numSubLERequired,
-                 char** charList, int listLength, int constructLE,
-                 const char* varName, BlockEntry* parentBlock_input = 0);
+    BE_StrVecDbl(const char* blockName, std::vector<double>* ptrVecDbl, int numTimesRequired, int numSubLERequired,
+                 char** charList, int listLength, int constructLE, const char* varName, BlockEntry* parentBlock_input = 0);
 
     //! Copy constructor
     /*!
@@ -379,9 +377,8 @@ public:
      */
     void set_PrintString(const char* ps);
 
-    //!   This subroutine will set up a default set of LineEntries for this
-    //!  block. The limits and default value are inherited from the
-    //!  block element object.
+    //!  This subroutine will set up a default set of LineEntries for this
+    //!  block. The limits and default value are inherited from the block element object.
     /*!
      *  The type of LineEntries are LE_OneDbl
      *  All LineEntries are made optional
@@ -397,10 +394,7 @@ protected:
      *  may be malloced within this routine. However, it
      *  is never owned and thus never freed by this routine.
      */
-    //double **HndlDblVec;
-
     std::vector<double>* HndlVecDbl_;
-
 
     //! Max value that this number can attain
     double MaxVal;

@@ -12,8 +12,8 @@
  * See file License.txt for licensing information.
  */
 
-#ifndef LEONEINT_H
-#define LEONEINT_H
+#ifndef LEONESIZET_H
+#define LEONESIZET_H
 
 #include "LE_LineEntry.h"
 

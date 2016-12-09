@@ -6,11 +6,6 @@
  *  \link BEInput::BE_MoleComp BE_MoleComp\endlink).
  */
 /*
- * $Author: hkmoffa $
- * $Revision: 5 $
- * $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -19,9 +14,10 @@
 
 #include "BE_MoleComp.h"
 
-using namespace BEInput;
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput
 {
+//==================================================================================================================================
 /*
  * BE_MoleComp Constructor:
  *
@@ -29,15 +25,9 @@ namespace BEInput
  *   We make sure to call the base class constructor here to do
  *   much of the initialization.
  */
-BE_MoleComp::BE_MoleComp(const char* blockName, double** hndlAAA,
-                         int numTimesRequired,
-                         char** charList, int listLength,
-                         int constructLE,
-                         const char* varName,
-                         BlockEntry* parentBlock_input) :
-    BE_StrDbl(blockName, hndlAAA, numTimesRequired, 0,
-              charList,listLength, constructLE,
-              varName, parentBlock_input)
+BE_MoleComp::BE_MoleComp(const char* blockName, double** hndlAAA, int numTimesRequired,
+                         char** charList, int listLength, int constructLE, const char* varName, BlockEntry* parentBlock_input) :
+    BE_StrDbl(blockName, hndlAAA, numTimesRequired, 0, charList,listLength, constructLE, varName, parentBlock_input)
 {
     /*
      * We set the default to 0. This means that the mole fraction
@@ -46,22 +36,25 @@ BE_MoleComp::BE_MoleComp(const char* blockName, double** hndlAAA,
     set_default(0.0);
     set_limits(1.0, 0.0);
 }
+//==================================================================================================================================
 
-/*
- * BE_MoleComp(const BE_MoleComp&)
- *
- * Copy constructor
- */
+BE_MoleComp::BE_MoleComp(const char* blockName, double* const fixedAddr, int numTimesRequired,
+                         char** charList, int listLength, int constructLE, const char* varName, BlockEntry* parentBlock_input) :
+    BE_StrDbl(blockName, fixedAddr, numTimesRequired, 0, charList,listLength, constructLE, varName, parentBlock_input)
+{
+    /*
+     * We set the default to 0. This means that the mole fraction
+     * vector is zeroed just before being filled.
+     */
+    set_default(0.0);
+    set_limits(1.0, 0.0);
+}
+//==================================================================================================================================
 BE_MoleComp::BE_MoleComp(const BE_MoleComp& b) :
     BE_StrDbl(b)
 {
 }
-
-/*
- *  BE_MoleComp& operator=(const BE_MoleComp&);
- *
- *  Assignment operator
- */
+//==================================================================================================================================
 BE_MoleComp& BE_MoleComp::operator=(const BE_MoleComp& b)
 {
     if (&b != this) {
@@ -69,7 +62,7 @@ BE_MoleComp& BE_MoleComp::operator=(const BE_MoleComp& b)
     }
     return *this;
 }
-
+//==================================================================================================================================
 /*
  * BlockEntry* duplMyselfAsBlockEntry();
  *
@@ -81,6 +74,7 @@ BlockEntry* BE_MoleComp::duplMyselfAsBlockEntry() const
     return (BlockEntry*) newBE;
 }
 
+//==================================================================================================================================
 /*
  * BE_MoleComp destructor: (virtual function)
  *
@@ -93,6 +87,7 @@ BE_MoleComp::~BE_MoleComp()
 #endif
 }
 
+//==================================================================================================================================
 /*
  *  Wrapup() (virtual function)
  *
@@ -127,4 +122,6 @@ void BE_MoleComp::Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgTok)
 
     BE_StrDbl::Wrapup(ifp_input, blockArgTok);
 }
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
