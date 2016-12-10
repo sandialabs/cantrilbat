@@ -1,5 +1,5 @@
 /**
- * @file wallClock.cpp
+ * @file mdp_wallClock.cpp
  *    Definitions for a simple class that implements an Ansi C wall clock and interval timer
  *     (see \ref mdpUtil::wallClock).
  */

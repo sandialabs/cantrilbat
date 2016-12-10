@@ -2741,7 +2741,7 @@ double Electrode::productStoichCoeff(const size_t isk, size_t kGlobal, size_t i)
 /*
  *  This routine assumes that the underlying objects have been updated
  */
-void Electrode::getNetSurfaceProductionRates(const size_t isk, doublevalue* const net) const
+void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net) const
 {
     std::fill_n(net, m_NumTotSpecies, 0.);
     /*
@@ -5574,7 +5574,6 @@ void Electrode::setDeltaTSubcycle(double deltaTsubcycle)
     deltaTsubcycle_init_init_ = deltaTsubcycle;
 }
 //====================================================================================================================
-//   Set the maximum deltaT used for the subcycle step
 void Electrode::setDeltaTSubcycleMax(double deltaTsubcycle)
 {
     deltaTsubcycleMax_ = deltaTsubcycle;

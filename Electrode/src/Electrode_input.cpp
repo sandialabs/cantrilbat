@@ -90,7 +90,6 @@ EGRInput::~EGRInput()
 ElectrodeBath::ElectrodeBath(PhaseList& pl) :
     m_pl(pl),
     XmolPLSpecVec(nullptr),
-    XmolPLPhases(nullptr),
     MolalitiesPLSpecVec(nullptr),
     MolalitiesPLPhases(nullptr),
     CapLeftCoeffPhases(nullptr),
@@ -115,7 +114,6 @@ ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
     m_pl                         = right.m_pl;
     // Shallow pointer representation -> this is wrong and must be fixed up in parent routine.
     XmolPLSpecVec                = right.XmolPLSpecVec;
-    XmolPLPhases                 = right.XmolPLPhases;
     MolalitiesPLSpecVec          = right.MolalitiesPLSpecVec;
     MolalitiesPLPhases           = right.MolalitiesPLPhases;
     CapLeftCoeffPhases           = right.CapLeftCoeffPhases;
@@ -132,7 +130,6 @@ ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
 ElectrodeBath::~ElectrodeBath() 
 {
     mdpUtil::mdp_safe_free((void**) &XmolPLSpecVec);
-    mdpUtil::mdp_safe_free((void**) &XmolPLPhases);
     mdpUtil::mdp_safe_free((void**) &MolalitiesPLSpecVec);
     mdpUtil::mdp_safe_free((void**) &MolalitiesPLPhases);
     mdpUtil::mdp_safe_free((void**) &CapLeftCoeffPhases);
@@ -327,8 +324,6 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      mdpUtil::mdp_realloc_dbl_1(&(m_BG->XmolPLSpecVec), nTotSpecies+2, 0, 0.0);
      mdpUtil::mdp_copy_dbl_1(m_BG->XmolPLSpecVec, (right.m_BG)->XmolPLSpecVec, nTotSpecies);
 
-     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->XmolPLPhases), nTotPhases, 0);
-
      mdpUtil::mdp_realloc_dbl_1(&(m_BG->MolalitiesPLSpecVec), nTotSpecies+2, 0, 0.0);
      mdpUtil::mdp_copy_dbl_1(m_BG->MolalitiesPLSpecVec, (right.m_BG)->MolalitiesPLSpecVec, nTotSpecies);
 
@@ -347,7 +342,6 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      size_t nVolPhases = right.m_pl->nVolPhases();
      for (size_t iph = 0; iph < static_cast<size_t>(nVolPhases); iph++) {
 	 size_t kstart =  right.m_pl->globalSpeciesIndexVolPhaseIndex(iph);
-	 m_BG->XmolPLPhases[iph]          = m_BG->XmolPLSpecVec + kstart;
 	 m_BG->MolalitiesPLPhases[iph]    = m_BG->MolalitiesPLSpecVec + kstart;
 	 m_BG->CapLeftCoeffPhases[iph]    = m_BG->CapLeftCoeffSpecVec + kstart;
 	 m_BG->CapZeroDoDCoeffPhases[iph] = m_BG->CapZeroDoDCoeffSpecVec + kstart;
@@ -779,7 +773,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     BG.XmolPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
     BG.MolalitiesPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.XmolPLPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
     BG.MolalitiesPLPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
 
     BG.CapLeftCoeffSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
@@ -792,7 +785,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     for (size_t iph = 0; iph < (size_t) nVolPhases; iph++) {
         size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
-        BG.XmolPLPhases[iph] =   BG.XmolPLSpecVec + kstart;
         BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
         BG.CapLeftCoeffPhases[iph] = BG.CapLeftCoeffSpecVec + kstart;
         BG.CapZeroDoDCoeffPhases[iph] = BG.CapZeroDoDCoeffSpecVec + kstart;
@@ -800,7 +792,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
         size_t tph = iph + pl->nVolPhases();
         int kstart =  pl->globalSpeciesIndexSurPhaseIndex(iph);
-        BG.XmolPLPhases[tph] =   BG.XmolPLSpecVec + kstart;
         BG.MolalitiesPLPhases[tph] =  BG.MolalitiesPLSpecVec + kstart;
         BG.CapLeftCoeffPhases[tph] = BG.CapLeftCoeffSpecVec + kstart;
         BG.CapZeroDoDCoeffPhases[tph] = BG.CapZeroDoDCoeffSpecVec + kstart;
@@ -1201,7 +1192,7 @@ bool process_electrode_input(BlockEntry* cf, std::string fileName, int printFlag
         cf->read_block(ifp, &tok_out, &tok_in, 0);
     } catch (BI_InputError& bi) {
         /*
-         * This catches error messages
+         * This catches the block input error messages
          */
         cout << bi.errorMessage() << endl;
         return false;
@@ -1218,11 +1209,10 @@ bool process_electrode_input(BlockEntry* cf, std::string fileName, int printFlag
 /*
  *  Set the bath conditions for the one ThermoPhase
  */
-void setElectrodeBathSpeciesConditions(ThermoPhase& tp, ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, int iph, int printLvl)
+void setElectrodeBathSpeciesConditions(ZZCantera::thermo_t_double& tp, ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, size_t iph, int printLvl)
 {
     size_t nsp = tp.nSpecies();
     size_t kstart = BG.m_pl.globalSpeciesIndex(iph, 0);
-    //g.setState_TPX(EI.Temperature, EI.Pressure, BG.XmolPLPhases[iph]);
     tp.setState_TPX(EI.Temperature, EI.Pressure, BG.XmolPLSpecVec + kstart);
     tp.setElectricPotential(EI.PotentialPLPhases[iph]);
     /*
@@ -1253,7 +1243,7 @@ void setElectrodeBathSpeciesConditions(ThermoPhase& tp, ELECTRODE_KEY_INPUT& EI,
             pr_if(k+1, 5);
             spN = tp.speciesName(k);
             pr_sf(spN, 16);
-            pr_df(BG.XmolPLPhases[iph][k], 16, 4);
+            pr_df(BG.XmolPLSpecVec[kstart + k], 16, 4);
             pr_de(C[k] * 1.0E-3, 16, 3);
             pr_de(act[k], 16, 3);
             std::cout << "\n";
@@ -1265,11 +1255,10 @@ void setElectrodeBathSpeciesConditions(ThermoPhase& tp, ELECTRODE_KEY_INPUT& EI,
         delete [] act;
     }
 }
-//======================================================================================================================
-int
-ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
+//==================================================================================================================================
+int ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
 {
-    int  retn = 0;
+    int retn = 0;
     if (printLvl_ > 1) {
         printf("\n");
         print_char('=', 80);
@@ -1289,17 +1278,14 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
     if (printLvl_ >= 5) {
         printBIProclevel = 3;
     }
-
     /*
      *  Save the name of the input file
      */
     commandFile_ = commandFile;
-
     /*
      *  Store the pointer to the BlockEntry structure that is used to parse the command file
      */
     lastBlockEntryPtr_ = cf;
-
     /*
      * Setup and process the input deck for first time.
      * -> Might have to print out the input and quit as well.
@@ -1309,7 +1295,7 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
     if (!ok) {
         return -1;
     }
-    /**
+    /*
      * Setup and process the input deck for second time.
      * -> Might have to print out the input and quit as well.
      */
@@ -1323,41 +1309,38 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
     for (; CanteraFileNames[ifiles] != 0; ifiles++) {
     }
     if (ifiles != NumberCanteraFiles) {
-        printf("Number of requested files differ\n");
-        exit(-1);
+        throw CanteraError("ELECTRODE_KEY_INPUT::electrode_input()",
+                           "Number of requested files differ");
     }
 
     /*
      * Read in all of the phase specifications from the cantera
      * input files into the PhaseList structure.
      */
-    PhaseList* pl = m_pl;
     std::string fn;
     bool surNotFound = true;
     for (int i = 0; i < NumberCanteraFiles; i++) {
         fn = CanteraFileNames[i];
-        importAllCTMLIntoPhaseList(pl, fn);
-        if (surNotFound && (pl->nSurPhases() > 0)) {
+        importAllCTMLIntoPhaseList(m_pl, fn);
+        if (surNotFound && (m_pl->nSurPhases() > 0)) {
             surNotFound = false;
         }
     }
     /*
      * Setup internally for next pass through the input file.
      */
-    InitForInput(pl);
+    InitForInput(m_pl);
 
     /*
      * Setup and process the input deck for third time
      * -> Might have to print out the input and quit as well.
      */
     setup_input_pass3(cf);
-    //cf->print_usage();
-    //exit(-1);
 
     /*
      * Possibly change the print level for the last
      */
-    Electrode_Types_Enum ieos =  string_to_Electrode_Types_Enum(electrodeModelName);
+    Electrode_Types_Enum ieos = string_to_Electrode_Types_Enum(electrodeModelName);
     if (ieos != MP_RXNEXTENT_ET) {
         if (printLvl_ >= 3) {
             printBIProclevel = 3;
@@ -1381,7 +1364,7 @@ ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf)
 
     return retn;
 }
-//======================================================================================================================
+//==================================================================================================================================
 int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEntry* cf)
 {
     cf->clear();
@@ -1389,8 +1372,6 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
      *  Redo the base input
      */
     electrode_input(commandFile, cf);
-
-    //cf->print_usage();
     /*
      *  Extend the input options for the child
      */
@@ -1407,11 +1388,8 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
         return -1;
     }
     post_input_child1(cf);
-
-    //cf->print_usage();
     setup_input_child2(cf);
     //cf->print_usage();
-
     printBIProclevel = 1;
     if (printLvl_ == 2) {
         printBIProclevel = 2;
@@ -1423,19 +1401,15 @@ int ELECTRODE_KEY_INPUT::electrode_input_child(std::string commandFile, BlockEnt
         return -1;
     }
     post_input_child2(cf);
-
     setup_input_child3(cf);
-
     ok = process_electrode_input(cf, commandFile, printBIProclevel, 5);
     if (!ok) {
         return -1;
     }
     post_input_child3(cf);
-
-
     return 0;
 }
-//=========================================================================================
+//==================================================================================================================================
 //   Initialize some of the fields in the ELECTRODE_KEY_INPUT structure by
 //   post processing some of the data entries
 /*

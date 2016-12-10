@@ -31,6 +31,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
+
 class RSD_OCVmodel;
 
 //==================================================================================================================================
@@ -71,7 +72,7 @@ extern Map_ETEnum_String gMap_ETEnum_String;
 //==================================================================================================================================
 //! Enum to String routine for the enum Electrode_Types_Enum
 /*!
- *  @param[in]               etype               The model of the electrode
+ *  @param[in]               etype               The model of the electrode given as an Electrode_Types_Enum
  *
  *  @return                                      Returns the characteristic string for that Electrode Model
  */
@@ -91,9 +92,10 @@ Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_str
 //==================================================================================================================================
 //! String to int routine for the OCV override model types
 /*!
- *   \relates RSD_OCVmodel
+ *  
  *
  *   @param[in]              input_string        The string representation for the  OCV override model.
+ *
  *   @return                                     Returns the int type for the string.  Unknown models return a value of -1.
  */
 int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string);
@@ -101,7 +103,6 @@ int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string);
 //==================================================================================================================================
 //!  int type to string routine for OCV model types
 /*!
- *  \relates RSD_OCVmodel
  * 
  *  @param[in]      modelID                      int type for the string OCV model
  *

@@ -346,7 +346,7 @@ public:
      * @param electrodeThickness  Width of the electrode
      * @param porosity            Volume of the electrolyte phase and other non-electrode phases.
      */
-    virtual void setElectrodeSizeParams(doublevalue electrodeArea, doublevalue electrodeThickness, doublevalue porosity);
+    virtual void setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity);
 
 protected:
     //! Resize the solid phase and electrolyte mole numbers within the object
@@ -376,7 +376,7 @@ public:
      *                         to the given value.
      */
 // Uncalled
-    void resizeSolutionNumbersToPorosity(doublevalue porosityReset = -1.0);
+    void resizeSolutionNumbersToPorosity(double porosityReset = -1.0);
 
     //! resize the surface areas according to the input geometry.
     /*!
@@ -426,7 +426,7 @@ public:
      * @param temperature    Temperature (Kelvin)
      * @param pressure       Pressure (Pa)
      */
-    void setState_TP(doublevalue temperature, doublevalue pressure);
+    void setState_TP(double temperature, double pressure);
 
     //! return the current temperature
     /*!
@@ -671,7 +671,7 @@ public:
      *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
      *                     electrode. (kmol s-1)
      */
-    virtual void speciesProductionRates(doublevalue* const spMoleDot);
+    virtual void speciesProductionRates(double* const spMoleDot);
 
     //!  Returns the current and the net production rates of all species in the electrode object
     //!  at the current conditions from one surface kinetics object
@@ -681,7 +681,7 @@ public:
      *
      *   @return                     Returns the current columb sec-1 m-2
      */
-    doublevalue getNetSurfaceProductionRatesCurrent(const size_t isk, doublevalue* const net) const;
+    double getNetSurfaceProductionRatesCurrent(const size_t isk, double* const net) const;
 
     //! Get the net production rates of all species in the electrode object
     //! at the current conditions from one surface kinetics object
@@ -691,7 +691,7 @@ public:
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/m^2/s]. Return the species    
      */
-    void getNetSurfaceProductionRates(const size_t isk, doublevalue* const net) const;
+    void getNetSurfaceProductionRates(const size_t isk, double* const net) const;
 
     //!  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
     /*!
@@ -701,7 +701,7 @@ public:
      *  @param[in]          isk                  Surface ID to get the fluxes from.
      *  @param[out]         phaseMassFlux        Returns the mass fluxes of the phases
      */
-    void getPhaseMassFlux(const size_t isk, doublevalue* const phaseMassFlux);
+    void getPhaseMassFlux(const size_t isk, double* const phaseMassFlux);
 
     //!  Returns the net production rates of the phases in kmol/m2/s from a single surface
     /*!
@@ -711,7 +711,7 @@ public:
      *  @param[in]          isk                  Surface ID to get the fluxes from.
      *  @param[out]         phaseMoleFlux        Returns the vector of mole fluxes of the phases (kmol/m2/s)
      */
-    void getPhaseMoleFlux(const size_t isk, doublevalue* const phaseMoleFlux);
+    void getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux);
     
     //!  Returns the phase molar production rates given the species production rates
     /*!
@@ -721,7 +721,7 @@ public:
      *
      *   @param[out] phaseMoleFlux          Vector of phase production rates (kmol sec-1)
      */
-    void getPhaseProductionRates(const doublevalue* const speciesProductionRates, doublevalue* const phaseMoleFlux) const;
+    void getPhaseProductionRates(const double* const speciesProductionRates, double* const phaseMoleFlux) const;
 
     //! Overpotential term for the heat generation from a single surface for the current global time step
     /*!
@@ -853,10 +853,10 @@ public:
      *                        nonlinear solver. Anything other than a 1 causes an immediate failure
      *                        of the nonlinear solver to occur.
      */
-    virtual int integrateResid(const doublevalue tfinal, const doublevalue delta_t,
-                               const doublevalue* const y, const doublevalue* const ydot,
-                               doublevalue* const resid,
-                               const ResidEval_Type_Enum evalType, const int id_x, const doublevalue delta_x);
+    virtual int integrateResid(const double tfinal, const double delta_t,
+                               const double* const y, const double* const ydot,
+                               double* const resid,
+                               const ResidEval_Type_Enum evalType, const int id_x, const double delta_x);
 
     //!  Calculate the change in the state of the system when integrating from Tinitial to Tfinal
     //!  at constant current, finding the required voltage to produce that current in an
@@ -892,8 +892,8 @@ public:
      *
      *  @return                   Return the voltage used to obtain the requested current.
      */
-    virtual double integrateConstantCurrent(doublevalue& current, doublevalue& deltaT, doublevalue phiMax = 100., 
-                                            doublevalue phiMin = -100., int maxIntegrationSteps = 5000);
+    virtual double integrateConstantCurrent(double& current, double& deltaT, double phiMax = 100., 
+                                            double phiMin = -100., int maxIntegrationSteps = 5000);
 
     //! Set the deltaT used for the subcycle time step
     /*!
@@ -905,13 +905,13 @@ public:
      *
      *  @deprecated  Is there any reason not to have child objects handle this as part of their adaptive time stepping?
      */
-    virtual void setDeltaTSubcycle(doublevalue deltaTSubcycle);
+    virtual void setDeltaTSubcycle(double deltaTSubcycle);
 
     //! Set the maximum value of the subcycle delta T
     /*!
      *  @param[in]           deltaTSubcycleMax   Maximum value of the subcycle time step
      */
-    void setDeltaTSubcycleMax(doublevalue deltaTSubcycleMax);
+    void setDeltaTSubcycleMax(double deltaTSubcycleMax);
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -969,7 +969,7 @@ public:
      *  @return Tfinal    Final time to integrate to.
      *
      */
-    virtual double integratedSpeciesSourceTerm(doublevalue* const spMoleDelta);
+    virtual double integratedSpeciesSourceTerm(double* const spMoleDelta);
 
     //! Report the enthalpy source term for the electrode over an interval in time
     /*!
@@ -1065,7 +1065,7 @@ public:
      *
      *   @return                             Returns the current, amps = columb sec-1
      */
-    doublevalue getIntegratedProductionRatesCurrent(doublevalue* const net) const;
+    double getIntegratedProductionRatesCurrent(double* const net) const;
 
     //!  Returns the net current in the electrode object
     //!  at the current conditions over the current last local time step
@@ -1075,7 +1075,7 @@ public:
      *
      *   @return                                  Returns the current columb sec-1 = amps
      */
-    doublevalue integratedLocalCurrent() const;
+    double integratedLocalCurrent() const;
 
     //!  Returns the net production rates of all species in the electrode object over the last integration step
     /*!
@@ -1084,7 +1084,7 @@ public:
      *
      *   @param[out]       net                    Species net production rates [kmol/s].
      */
-    void getIntegratedSpeciesProductionRates(doublevalue* const net) const;
+    void getIntegratedSpeciesProductionRates(double* const net) const;
 
     //!  Returns the net current in the electrode object
     //!  at the current conditions over the current global time step
@@ -1094,7 +1094,7 @@ public:
      *
      *   @return                                  Returns the current columb sec-1 = amps
      */
-    doublevalue integratedCurrent() const;
+    double integratedCurrent() const;
 
     //! Returns the integrated moles transfered for each phase in the electrode object over the time step
     /*!
@@ -1104,7 +1104,7 @@ public:
      *            phases in the electrode object)
      *            units = kmol
      */
-    virtual void getIntegratedPhaseMoleTransfer(doublevalue* const phaseMolesTransfered);
+    virtual void getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered);
 
     //! Returns the integrated thermal energy source term (Joules)
     /*!
@@ -1162,13 +1162,13 @@ public:
 	 *
 	 *  @return             Returns 1 if the residual is ok.
          */
-        int  evalResidNJ(const doublevalue t, const doublevalue delta_t,
-                         const doublevalue* const y,
-                         const doublevalue* const ydot,
-                         doublevalue* const resid,
+        virtual int  evalResidNJ(const double t, const double delta_t,
+                         const double* const y,
+                         const double* const ydot,
+                         double* const resid,
                          const ResidEval_Type_Enum evalType = Base_ResidEval,
                          const int id_x = -1,
-                         const doublevalue delta_x = 0.0) override;
+                         const double delta_x = 0.0) override;
 
 	//!  Fill in the initial conditions for the nonlinear problem
 	/*!
@@ -1178,7 +1178,7 @@ public:
 	 *
 	 *  @return                                     Returns 1 if the problem is ok
 	 */
-        int  getInitialConditions(const doublevalue t0, doublevalue* const y, doublevalue* const ydot) override;
+        virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
 
 
         //! Return the number of equations in the equation system
@@ -1473,7 +1473,7 @@ public:
      *   @param x  Vector of mole fractions. Index is the same as PhaseList's global species index
      *             Length = number of species in PhaseList
      */
-    void getMoleFractions(doublevalue* const x) const;
+    void getMoleFractions(double* const x) const;
 
     //! Return the mole fraction of a single species
     /*!
@@ -1488,21 +1488,21 @@ public:
      *   @param[out]     n                    Vector of mole numbers. Index is the same as PhaseList's global species index
      *                                        Length = number of species in PhaseList.  Units are kmol.
      */
-    void getMoleNumSpecies(doublevalue* const n) const;
+    void getMoleNumSpecies(double* const n) const;
 
     //! Return the vector of mole numbers of all species in the PhaseList
     /*!
      *     @return                           Return a const reference to a vector of mole numbers.
      *                                       The length is the number of species in PhaseList, and the units are kmol.
      */
-    const std::vector<doublevalue> & getMoleNumSpecies() const;
+    const std::vector<double> & getMoleNumSpecies() const;
 
     //! Get mole numbers of all phases in the phase object
     /*!
      *   @param[out] np     Vector of mole numbers. Index is the same as PhaseList  index
      *                      Length = number of phases in PhaseList.  Units are kmol.
      */
-    void getMoleNumPhases(doublevalue* const np) const;
+    void getMoleNumPhases(double* const np) const;
 
     //! Return the mole number of a single species
     /*!
@@ -2279,9 +2279,9 @@ private:
     /*!
      *  These global reaction pathways are made up of a linear combination of existing reactions.
      *
-     *   @param[in]          egr_ptr             Input struct describing the reaction
+     *   @param[in]          egri                Reference to the input struct describing the global reaction
      */
-    void addExtraGlobalRxn(const EGRInput& egr);
+    void addExtraGlobalRxn(const EGRInput& egri);
 
     //! This uility routine runs addExtraGlobalRxn on all of the input global reactions
     /*!
@@ -2308,8 +2308,8 @@ public:
      *  @param[out]          phaseMoles_tmp      Calculated vector of phase mole numbers (kmol)
      *  @param[out]          spMf_tmp            Calculated vector of species mole fractions
      */
-    void updatePhaseNumbersTmp(const std::vector<doublevalue>& spMoles_tmp,
-                               std::vector<doublevalue>& phaseMoles_tmp, std::vector<doublevalue>& spMf_tmp) const;
+    void updatePhaseNumbersTmp(const std::vector<double>& spMoles_tmp,
+                               std::vector<double>& phaseMoles_tmp, std::vector<double>& spMf_tmp) const;
 
     //-----------------------------------------------------------------------------------------------------------------
     // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------------------------
@@ -3521,7 +3521,7 @@ private:
 	 *
 	 *     @return                            A return of zero indicates success. Anthing else is a failure
 	 */
-        int evalSS(const doublevalue t, const doublevalue* const y,  doublevalue* const r);
+        int evalSS(const double t, const double* const y,  double* const r);
 
 	//! get the initial conditions for the problem
 	/*!
@@ -3531,7 +3531,7 @@ private:
 	 *
 	 *     @return                            A return of zero indicates success. Anthing else is a failure
 	 */
-        int getInitialConditions(const doublevalue t0, doublevalue* const y, doublevalue* const ydot);
+        int getInitialConditions(const double t0, double* const y, double* const ydot);
 
 
         //! Return the number of equations in the equation system

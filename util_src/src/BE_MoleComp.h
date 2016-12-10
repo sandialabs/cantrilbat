@@ -20,7 +20,6 @@
 namespace BEInput
 {
 
-
 //!  BlockEntry of a vector of mole fractions (or mass fractions)
 //!  into a vector of doubles, where normalization of the sum of mole
 //!  fractions to one occurs after the end block statement.
@@ -94,8 +93,7 @@ namespace BEInput
  *
  *  Example:
  *
- *   The example below sets up a required keyline entry, putting the value in
- *   the global address globInput.molarVolume
+ *   The example below sets up a required keyline entry, putting the value in the global address globInput.molarVolume
  *
  * @code
  *      struct globInput {
@@ -109,16 +107,12 @@ namespace BEInput
  *      int subReqd = 1;
  *      int listLength = 3;
  *      char *charList[3] = {"H2", "O2", "N2"};
- *      BE_MoleComp *d2 = new BE_MoleComp("Gas Mole Fractions",
- *                                     &gI.moleFractions, reqd,
- *                                     charList, listLength, true,
- *                                     "moleFractions", besmd);
+ *      BE_MoleComp *d2 = new BE_MoleComp("Gas Mole Fractions", &gI.moleFractions, reqd,
+ *                                        charList, listLength, true, "moleFractions", besmd);
  * @endcode
  *
- *  An example of the input deck entry for this BlockEntry follows.
- *  Note, the line may be enclosed in any number of nested blocks,
- *  as long as the last nested block is named "Fluid Properties".
- *  All white space differences and capitalization differences
+ *  An example of the input deck entry for this BlockEntry follows.  Note, the line may be enclosed in any number of nested blocks,
+ *  as long as the last nested block is named "Fluid Properties". All white space differences and capitalization differences
  *  are ignored.
  *
  *  @code
@@ -131,15 +125,12 @@ namespace BEInput
  *       End Block   Fluid Properties
  *  @endcode
  *
- *  It is an error for the Block "Fluid Properties" to not
- *  have exactly one "Fluid Properties" sub block. And, within
- *  that block it is required that every possible LineEntry
- *  generated actually be present.
+ *  It is an error for the Block "Fluid Properties" to not have exactly one "Fluid Properties" sub block. And, within
+ *  that block it is required that every possible LineEntry generated actually be present.
  *
  *  Examples of executing the code and extracting values follow.
  *
- *  The input file containing the entry may be processed via a
- *  command similar to the following
+ *  The input file containing the entry may be processed via a command similar to the following
  *
  *  @code
  *     FILE *ifp = fopen("inputFile.txt", "r");
@@ -206,46 +197,61 @@ class BE_MoleComp : public BE_StrDbl
 {
 public:
 
-    //! Main constructor for a double keyline entry.
+    //! Main constructor for species composition entry block whose entries are normalized to one
     /*!
-     *   This sets up the line entry special case for mole fraction
-     *   entry.
-     *   We make sure to call the base class constructor here to do
-     *   much of the initialization.
+     *   This sets up a BE_StrDbl special case for species composition entry.
      *
-     *  When the keyline in the input file of the following form is
-     *  found:
+     * @param[in]            blockName           C character string setting up the name of the block to match
      *
-     *  "charListName = [double]"
+     * @param[in]            hndlAddr            Address of the pointer to the vector of doubles, external to the
+     *                                           object, which will get assigned the value of  the expressions. (default 0)
      *
-     * The double value at address, addrVal, is assigned the value
-     * read in from the input file.
+     * @param[in]            numTimesRequired    Number of Required blocks in the input file.
+     *                                           A fault is triggered if this number is nonzero
+     *                                           and the BlockName isn't found in the input file.
      *
-     * @param[in] blockName   C character string setting up the name
-     *                  of the block to match
-     * @param[in] hndlAddr  Address of the pointer to the vector of doubles, external to the
-     *                  object, which will get assigned the value of  the expressions. (default 0)
-     * @param[in] numTimesRequired Number of Required blocks in the input file.
-     *                  A fault is triggered if this number is nonzero
-     *                  and the BlockName isn't found in the input file.
-     * @param[in] charList  Vector of C strings containing the character
-     *                  strings to match
-     * @param[in]            listLength Length of the charList vector.
-     * @param[in]            constructLE Boolean indicating whether to construct the
-     *                  Individual Line entry commands (this must be true)
-     * @param[in]            varName   Variable name that is defined by this command.
-     *                  This is only used for IO purposes.
-     * @param[in]            parentBlock_input Pointer to the parent block. Set to
-     *                 zero if this is no parent block
+     * @param[in]            charList            Vector of C strings containing the character  strings to match
+     *
+     * @param[in]            listLength          Length of the charList vector.
+     *
+     * @param[in]            constructLE         Boolean indicating whether to construct the
+     *                                           Individual Line entry commands (this must be true)
+     * @param[in]            varName             Variable name that is defined by this command.
+     *                                           This is only used for IO purposes.
+     * @param[in]            parentBlock_input   Pointer to the parent block. Set to zero if this is no parent block
+     *                                           or if you are to add this block to parent block manually (usual case)
      */
     BE_MoleComp(const char* blockName, double** hndlAddr, int numTimesRequired,
-                char** charList, int listLength, int constructLE, const char* varName,
-                BlockEntry* parentBlock_input = 0);
+                char** charList, int listLength, int constructLE, const char* varName, BlockEntry* parentBlock_input = 0);
 
+    //! Alt constructor for a composition entry block whose entries are normalized to one
+    /*!
+     *  This differs from the first constructor in that the pointer to the doubles is assumed to have been already malloced
+     *  and is fixed. Therefore, we don't use a handle.
+     *
+     * @param[in]            blockName           C character string setting up the name of the block to match
+     *
+     * @param[in]            fixedAddr           Address of the the vector of doubles, external to the
+     *                                           object, which will get assigned the value of the expressions.
+     *                                           This address is assumed not to move.
+     *
+     * @param[in]            numTimesRequired    Number of required blocks in the input file.
+     *                                           A fault is triggered if this number is nonzero
+     *                                           and the BlockName isn't found in the input file.
+     *
+     * @param[in]            charList            Vector of C strings containing the character  strings to match
+     *
+     * @param[in]            listLength          Length of the charList vector.
+     *
+     * @param[in]            constructLE         Boolean indicating whether to construct the
+     *                                           Individual Line entry commands (this must be true)
+     * @param[in]            varName             Variable name that is defined by this command.
+     *                                           This is only used for IO purposes.
+     * @param[in]            parentBlock_input   Pointer to the parent block. Set to zero if this is no parent block
+     *                                           or if you are to add this block to parent block manually (usual case)
+     */
     BE_MoleComp(const char* blockName, double* const fixedAddr, int numTimesRequired,
-                char** charList, int listLength, int constructLE, const char* varName,
-                BlockEntry* parentBlock_input = 0);
-
+                char** charList, int listLength, int constructLE, const char* varName, BlockEntry* parentBlock_input = 0);
 
     //! Copy constructor
     /*!

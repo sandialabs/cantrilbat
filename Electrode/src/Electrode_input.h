@@ -45,8 +45,9 @@ class Electrode;
 //===================================================================================================================================
 //! This class contain information about the electrode input from the input file
 /*!
-*   TODO: There is no reason for this class. It should be transfered into the ELECTRODE_KEY_INPUT class
-*/
+ *   TODO: There is no reason for this class. It should be transfered into the ELECTRODE_KEY_INPUT class
+ *       Or there is a general reason for this class. And it should be in Zuzax.
+ */
 class ElectrodeBath
 {
 public:
@@ -56,9 +57,6 @@ public:
 
     //! species mole fractions in one phase
     double* XmolPLSpecVec;
-
-    //! species mole fractions in each phase of phase list
-    double** XmolPLPhases;
 
     //! species molalities in one phase
     double* MolalitiesPLSpecVec;
@@ -85,6 +83,9 @@ public:
     std::vector<double> PhaseMass;
 
     //! Default constructor
+    /*!
+     *  @param[in]           pl                  Reference to the PhaseList object
+     */
     ElectrodeBath(PhaseList& pl);
 
     //! Copy Constructor
@@ -644,14 +645,32 @@ public:
     ~EGRInput();
 };
 //===================================================================================================================================
-
-void setElectrodeBathSpeciesConditions(ZZCantera::thermo_t_double& g,
-                                       ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, int iph, int printLvl);
-
-
+//! Set up the default conditions for a single ThermoPhases within the Electrode object
+/*!
+ *  @param[in]               tp                  Reference to the ThermoPhase 
+ *  @param[in]               ei                  reference to the ELECTRODE_KEY_INPUT object
+ *  @param[in]               BG                  Reference to the ElectrodeBath object which contains default initial conditions
+ *  @param[in]               iph                 Phase index within the PhaseList
+ *  @param[in]               printLvl            Print level   
+ */
+void setElectrodeBathSpeciesConditions(ZZCantera::thermo_t_double& tp, ELECTRODE_KEY_INPUT& ei, ElectrodeBath& BG, 
+                                       size_t iph, int printLvl);
 //===================================================================================================================================
-
+//! Process the electrode input deck using a file
+/*!
+ *  We process the input deck from a file. We catch Block input errors. Therefore, the return bool should be
+ *  checked for error status. 
+ *
+ *  @param[in]               cf                  Pointer to the block entry structure used to parse the input file
+ *  @param[in]               fileName            file name
+ *  @param[in]               printFlag           print flag
+ *  @param[in]               pass                Current value of the number of passes through the input file
+ *
+ *  @return                                      Returns true if the processing didn't produce an error
+ *                                               Returns false if there was an error.
+ */
 bool process_electrode_input(BEInput::BlockEntry* cf, std::string fileName, int printFlag = 0, int pass = 0);
+
 //===================================================================================================================================
 } // end of namespace
 //-----------------------------------------------------------------------------------------------------------------------------------

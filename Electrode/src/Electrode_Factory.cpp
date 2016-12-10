@@ -1,5 +1,12 @@
 /*
- * $Id: Electrode_Factory.cpp 604 2013-05-24 16:27:35Z hkmoffa $
+ * @file Electrode_Factory.cpp
+ */
+
+/*
+ * Copyright 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #include "Electrode_Factory.h"
@@ -26,7 +33,6 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
 //====================================================================================================================
 /*
  *  Defining memory for a static member of the clase
@@ -41,6 +47,11 @@ boost::mutex Electrode_Factory::electrode_mutex;
 Map_ETEnum_String gMap_ETEnum_String;
 
 //====================================================================================================================
+//! Routine to create the maps used in the factory lookups
+/*!
+ *  If you are adding an Electrode type:
+ *      Add your Name and 
+ */
 static void create_string_maps()
 {
     if (gMap_ETEnum_String.string_maps_created) {
