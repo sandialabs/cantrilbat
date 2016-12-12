@@ -53,7 +53,7 @@ class ElectrodeBath
 public:
 
     //! Reference to the PhaseList
-    PhaseList& m_pl;
+    PhaseList* m_pl;
 
     //! species mole fractions in one phase
     double* XmolPLSpecVec;
@@ -86,7 +86,7 @@ public:
     /*!
      *  @param[in]           pl                  Reference to the PhaseList object
      */
-    ElectrodeBath(PhaseList& pl);
+    ElectrodeBath(PhaseList* pl_ptr = nullptr);
 
     //! Copy Constructor
     /*!
@@ -375,6 +375,15 @@ public:
      */
     virtual int electrode_input_child(std::string commandFile, BEInput::BlockEntry* cf);
 
+    // -------------------------------------------------- D A T A -----------------------------------------------------
+
+    //! PhaseList object
+    /*!
+     *   This includes all of the phases, "period". In particular this includes the surface phases
+     */
+    ZZCantera::PhaseList* m_pl;
+
+
     //! Print level
     /*!
      *     0 no printout
@@ -407,8 +416,8 @@ public:
     //! Pressure of the electrode (Pascal)
     double Pressure;
 
-    //! Electrode Bath  Structure
-    ElectrodeBath* m_BG;
+    //! Electrode Bath Structure
+    ElectrodeBath m_BG;
 
     //! Vector of mole numbers of the species
     std::vector<double> MoleNumber;
@@ -562,12 +571,6 @@ public:
      *  Some objects don't support setting the initial conditions by this method.
      */
     double RelativeCapacityDischargedPerMole;
-
-    //! PhaseList object
-    /*!
-     *   This includes all of the phases, "period". In particular this includes the surface phases
-     */
-    ZZCantera::PhaseList* m_pl;
 
     //! Maximum number of subGlobal time step iterations
     int maxNumberSubGlobalTimeSteps;

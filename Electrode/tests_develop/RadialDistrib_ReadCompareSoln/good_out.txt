@@ -1,16 +1,22 @@
- comparison at times 0.0004 and 0.0004
-EState::compareOtherState start comparison of types CSTR_LiCoO2Cathode vs. CSTR_LiCoO2Cathode
-
- type = t_init  time = 0.0002
- type = t_final  time = 0.0004
-read global time step num 2
-[==========] Running 2 tests from 1 test case.
+ comparison at times 1 and 1
+		EState_RadialDistrib::compareOtherState() Start comparison of types SimpleDiff vs. SimpleDiff
+		EState::compareOtherState() Start comparison of types SimpleDiff vs. SimpleDiff
+		EState:: SUCCESS: States are the same
+		EState_RadialDistrib:: SUCCESS: States are the same
+ type = t_init  time = 0.99
+ type = t_intermediate  time = 0.993375
+ type = t_intermediate  time = 0.99675
+ type = t_final  time = 1
+read global time step num 100
+[==========] Running 3 tests from 1 test case.
 [----------] Global test environment set-up.
-[----------] 2 tests from EStateComparisonTest
+[----------] 3 tests from EStateComparisonTest
 [ RUN      ] EStateComparisonTest.ShouldWork
 [       OK ] EStateComparisonTest.ShouldWork
 [ RUN      ] EStateComparisonTest.ReadWriteRead
 [       OK ] EStateComparisonTest.ReadWriteRead
+[ RUN      ] EStateComparisonTest.Read2Fail
+[       OK ] EStateComparisonTest.Read2Fail
 [----------] Global test environment tear-down
-[==========] 2 tests from 1 test case ran.
-[  PASSED  ] 2 tests.
+[==========] 3 tests from 1 test case ran.
+[  PASSED  ] 3 tests.

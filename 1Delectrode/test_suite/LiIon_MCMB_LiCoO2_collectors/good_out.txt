@@ -259,6 +259,7 @@ Species name 3 is MgO(S)
         li_site = (double) with default 0
     END BLOCK Species Initial KMoles
     START BLOCK Extra Global Reaction           (OPTIONAL BLOCK)
+        Reacting Surface Domain Index = (integer) with limits (-2147483647, 2147483647) with default 0
         Special Species = (LIST) with default electron_Li_LiIon : 0 (REQUIRED LINE) where:
             LIST = 
                 electron_Li_LiIon : 0
@@ -433,6 +434,7 @@ Species name 3 is MgO(S)
         li_site = (double) with default 0
     END BLOCK Species Initial KMoles
     START BLOCK Extra Global Reaction           (OPTIONAL BLOCK)
+        Reacting Surface Domain Index = (integer) with limits (-2147483647, 2147483647) with default 0
         Special Species = (LIST) with default electron_Li_LiIon : 0 (REQUIRED LINE) where:
             LIST = 
                 electron_Li_LiIon : 0

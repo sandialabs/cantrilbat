@@ -1,6 +1,6 @@
  comparison at times 0.0004 and 0.0004
-EState::compareOtherState start comparison of types CSTR_LiCoO2Cathode vs. CSTR_LiCoO2Cathode
-
+		EState::compareOtherState() Start comparison of types CSTR_LiCoO2Cathode vs. CSTR_LiCoO2Cathode
+		EState:: SUCCESS: States are the same
  type = t_init  time = 0.0002
  type = t_final  time = 0.0004
 read global time step num 2

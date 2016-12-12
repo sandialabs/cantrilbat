@@ -87,7 +87,7 @@ EGRInput::~EGRInput()
 //==================================================================================================================================
 //==================================================================================================================================
 //==================================================================================================================================
-ElectrodeBath::ElectrodeBath(PhaseList& pl) :
+ElectrodeBath::ElectrodeBath(PhaseList* pl) :
     m_pl(pl),
     XmolPLSpecVec(nullptr),
     MolalitiesPLSpecVec(nullptr),
@@ -209,13 +209,14 @@ OCV_Override_input::~OCV_Override_input()
 //==================================================================================================================================
 //==================================================================================================================================
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
+    m_pl(new PhaseList()),
     printLvl_(printLvl),
     commandFile_(""),
     NumberCanteraFiles(1),
     CanteraFileNames(0),
     Temperature(300.),
     Pressure(ZZCantera::OneAtm),
-    m_BG(0),
+    m_BG(m_pl), 
     ProblemType(TP),
     SpeciesNames(0),
     PhaseNames(0),
@@ -237,25 +238,21 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     nTotSpecies(0),
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
-    m_pl(0),
     maxNumberSubGlobalTimeSteps(1000),
     relativeLocalToGlobalTimeStepMinimum(1.0E-3)
 {
-    m_pl = new PhaseList();
-    m_BG = new ElectrodeBath(*m_pl);
-
     m_EGRList.resize(1, nullptr);
     m_EGRList[0] = new EGRInput();
 }
 //==================================================================================================================================
 ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
+    m_pl(right.m_pl),
     printLvl_(right.printLvl_),
     commandFile_(""),
     NumberCanteraFiles(1),
     CanteraFileNames(0),
     Temperature(300.),
     Pressure(OneAtm),
-    m_BG(0),
     ProblemType(TP),
     SpeciesNames(0),
     PhaseNames(0),
@@ -277,7 +274,6 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     nTotSpecies(0),
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
-    m_pl(0),
     maxNumberSubGlobalTimeSteps(1000),
     relativeLocalToGlobalTimeStepMinimum(1.0E-3)
 {   
@@ -289,6 +285,11 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      if (this == &right) {
         return *this;
      }
+
+     if (m_pl && (m_pl != right.m_pl)) {
+	 delete m_pl;
+     }
+     m_pl = new ZZCantera::PhaseList(*(right.m_pl));
 
      printLvl_                       = right.printLvl_;
      commandFile_                    = right.commandFile_;
@@ -315,36 +316,33 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      nTotSpecies                      = right.nTotSpecies;
      nTotPhases                       = right.nTotPhases;
      nTotElements                     = right.nTotElements;
-     if (m_BG) {
-	 delete m_BG;
-     } 
     
-     m_BG = new ElectrodeBath(*right.m_BG);
+     m_BG = right.m_BG;
 
-     mdpUtil::mdp_realloc_dbl_1(&(m_BG->XmolPLSpecVec), nTotSpecies+2, 0, 0.0);
-     mdpUtil::mdp_copy_dbl_1(m_BG->XmolPLSpecVec, (right.m_BG)->XmolPLSpecVec, nTotSpecies);
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG.XmolPLSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG.XmolPLSpecVec, (right.m_BG).XmolPLSpecVec, nTotSpecies);
 
-     mdpUtil::mdp_realloc_dbl_1(&(m_BG->MolalitiesPLSpecVec), nTotSpecies+2, 0, 0.0);
-     mdpUtil::mdp_copy_dbl_1(m_BG->MolalitiesPLSpecVec, (right.m_BG)->MolalitiesPLSpecVec, nTotSpecies);
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG.MolalitiesPLSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG.MolalitiesPLSpecVec, (right.m_BG).MolalitiesPLSpecVec, nTotSpecies);
 
-     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->MolalitiesPLPhases), nTotPhases, 0);
+     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG.MolalitiesPLPhases), nTotPhases, 0);
 
-     mdpUtil::mdp_realloc_dbl_1(&(m_BG->CapLeftCoeffSpecVec), nTotSpecies+2, 0, 0.0);
-     mdpUtil::mdp_copy_dbl_1(m_BG->CapLeftCoeffSpecVec, (right.m_BG)->CapLeftCoeffSpecVec, nTotSpecies);
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG.CapLeftCoeffSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG.CapLeftCoeffSpecVec, (right.m_BG).CapLeftCoeffSpecVec, nTotSpecies);
 
-     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->CapLeftCoeffPhases), nTotPhases, 0);
+     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG.CapLeftCoeffPhases), nTotPhases, 0);
      
-     mdpUtil::mdp_realloc_dbl_1(&(m_BG->CapZeroDoDCoeffSpecVec), nTotSpecies+2, 0, 0.0);
-     mdpUtil::mdp_copy_dbl_1(m_BG->CapZeroDoDCoeffSpecVec, (right.m_BG)->CapZeroDoDCoeffSpecVec, nTotSpecies);
+     mdpUtil::mdp_realloc_dbl_1(&(m_BG.CapZeroDoDCoeffSpecVec), nTotSpecies+2, 0, 0.0);
+     mdpUtil::mdp_copy_dbl_1(m_BG.CapZeroDoDCoeffSpecVec, (right.m_BG).CapZeroDoDCoeffSpecVec, nTotSpecies);
    
-     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG->CapZeroDoDCoeffPhases), nTotPhases, 0);
+     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG.CapZeroDoDCoeffPhases), nTotPhases, 0);
 
      size_t nVolPhases = right.m_pl->nVolPhases();
      for (size_t iph = 0; iph < static_cast<size_t>(nVolPhases); iph++) {
 	 size_t kstart =  right.m_pl->globalSpeciesIndexVolPhaseIndex(iph);
-	 m_BG->MolalitiesPLPhases[iph]    = m_BG->MolalitiesPLSpecVec + kstart;
-	 m_BG->CapLeftCoeffPhases[iph]    = m_BG->CapLeftCoeffSpecVec + kstart;
-	 m_BG->CapZeroDoDCoeffPhases[iph] = m_BG->CapZeroDoDCoeffSpecVec + kstart;
+	 m_BG.MolalitiesPLPhases[iph]    = m_BG.MolalitiesPLSpecVec + kstart;
+	 m_BG.CapLeftCoeffPhases[iph]    = m_BG.CapLeftCoeffSpecVec + kstart;
+	 m_BG.CapZeroDoDCoeffPhases[iph] = m_BG.CapZeroDoDCoeffSpecVec + kstart;
      }
 
      //---
@@ -412,10 +410,6 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
 
      RelativeCapacityDischargedPerMole   = right.RelativeCapacityDischargedPerMole;
 
-     if (m_pl) {
-	 delete m_pl;
-     }
-     m_pl = new ZZCantera::PhaseList(*(right.m_pl));
 
      maxNumberSubGlobalTimeSteps         = right.maxNumberSubGlobalTimeSteps;
      relativeLocalToGlobalTimeStepMinimum = right.relativeLocalToGlobalTimeStepMinimum;
@@ -431,10 +425,6 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
         }
         free(CanteraFileNames);
     }
-    if (m_BG) {
-      delete(m_BG);
-    }
-    m_BG=0;
 
     free(SpeciesNames);
     free(PhaseNames);
@@ -768,33 +758,31 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
      */
     int nVolPhases = pl->nVolPhases();
 
-    ElectrodeBath& BG = *(m_BG);
 
+    m_BG.XmolPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
+    m_BG.MolalitiesPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
+    m_BG.MolalitiesPLPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
 
-    BG.XmolPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.MolalitiesPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.MolalitiesPLPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
+    m_BG.CapLeftCoeffSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
+    m_BG.CapLeftCoeffPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
+    m_BG.CapZeroDoDCoeffSpecVec = mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
+    m_BG.CapZeroDoDCoeffPhases = (double**) mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
 
-    BG.CapLeftCoeffSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.CapLeftCoeffPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
-    BG.CapZeroDoDCoeffSpecVec = mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    BG.CapZeroDoDCoeffPhases = (double**) mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
-
-    BG.PhaseMoles.resize(nVolPhases + pl->nSurPhases(), 0.0);
-    BG.PhaseMass.resize(nVolPhases + pl->nSurPhases(), 0.0);
+    m_BG.PhaseMoles.resize(nVolPhases + pl->nSurPhases(), 0.0);
+    m_BG.PhaseMass.resize(nVolPhases + pl->nSurPhases(), 0.0);
 
     for (size_t iph = 0; iph < (size_t) nVolPhases; iph++) {
         size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
-        BG.MolalitiesPLPhases[iph] =  BG.MolalitiesPLSpecVec + kstart;
-        BG.CapLeftCoeffPhases[iph] = BG.CapLeftCoeffSpecVec + kstart;
-        BG.CapZeroDoDCoeffPhases[iph] = BG.CapZeroDoDCoeffSpecVec + kstart;
+        m_BG.MolalitiesPLPhases[iph] =  m_BG.MolalitiesPLSpecVec + kstart;
+        m_BG.CapLeftCoeffPhases[iph] = m_BG.CapLeftCoeffSpecVec + kstart;
+        m_BG.CapZeroDoDCoeffPhases[iph] = m_BG.CapZeroDoDCoeffSpecVec + kstart;
     }
     for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
         size_t tph = iph + pl->nVolPhases();
         int kstart =  pl->globalSpeciesIndexSurPhaseIndex(iph);
-        BG.MolalitiesPLPhases[tph] =  BG.MolalitiesPLSpecVec + kstart;
-        BG.CapLeftCoeffPhases[tph] = BG.CapLeftCoeffSpecVec + kstart;
-        BG.CapZeroDoDCoeffPhases[tph] = BG.CapZeroDoDCoeffSpecVec + kstart;
+        m_BG.MolalitiesPLPhases[tph] =  m_BG.MolalitiesPLSpecVec + kstart;
+        m_BG.CapLeftCoeffPhases[tph] = m_BG.CapLeftCoeffSpecVec + kstart;
+        m_BG.CapZeroDoDCoeffPhases[tph] = m_BG.CapZeroDoDCoeffSpecVec + kstart;
     }
 
     // ---------------------------------------------------------------------------------
@@ -831,7 +819,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          * BG.PhaseMoles
          *  Input the number of moles for the phase
          */
-        LE_OneDbl* iTMoles = new LE_OneDbl("Phase Moles", &(BG.PhaseMoles[iph]), 0, "PhaseMoles");
+        LE_OneDbl* iTMoles = new LE_OneDbl("Phase Moles", &(m_BG.PhaseMoles[iph]), 0, "PhaseMoles");
         iTMoles->set_default(0.0);
         iVolt->set_limits(0.0, 1.0E9);
         bbathphase->addLineEntry(iTMoles);
@@ -844,7 +832,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          * BG.PhaseMass
          *  Input the mass for the phase
          */
-        LE_OneDbl* iTMass = new LE_OneDbl("Phase Mass", &(BG.PhaseMass[iph]), 0, "PhaseMass");
+        LE_OneDbl* iTMass = new LE_OneDbl("Phase Mass", &(m_BG.PhaseMass[iph]), 0, "PhaseMass");
         iTMass->set_default(0.0);
         iVolt->set_limits(0.0, 1.0E9);
         bbathphase->addLineEntry(iTMass);
@@ -861,7 +849,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *
          * Create a PickList Line Element made out of the list of species
          */
-        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLSpecVec[kstart]), 0,
+        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(m_BG.XmolPLSpecVec[kstart]), 0,
                                             SpeciesNames+kstart, nSpecies, 0, "XBathmol");
         bpmc->generateDefLE();
         bbathphase->addSubBlock(bpmc);
@@ -872,7 +860,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *  Create a StrDbl block vector made out of the list of species.
 	 *  We store the capacity coefficients for the species here
          */
-        BE_StrDbl* pclc= new BE_StrDbl("Capacity Left Coefficients", &(BG.CapLeftCoeffPhases[iph]), 0, 0,
+        BE_StrDbl* pclc= new BE_StrDbl("Capacity Left Coefficients", &(m_BG.CapLeftCoeffPhases[iph]), 0, 0,
                                        SpeciesNames+kstart, nSpecies, 0, "CapLeftCoeff");
         pclc->generateDefLE();
         bbathphase->addSubBlock(pclc);
@@ -883,7 +871,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          * Create a PickList Line Element made out of the list of  species
          */
         BE_StrDbl* pczc= new BE_StrDbl("Capacity At Zero DoD Coefficients",
-                                       &(BG.CapZeroDoDCoeffPhases[iph]), 0, 0, SpeciesNames+kstart,
+                                       &(m_BG.CapZeroDoDCoeffPhases[iph]), 0, 0, SpeciesNames+kstart,
                                        nSpecies, 0, "CapZeroDoDCoeff");
         pczc->generateDefLE();
         bbathphase->addSubBlock(pczc);
@@ -900,7 +888,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
             int indS = m_ptr->solventIndex();
             double mwS = m_ptr->molecularWeight(indS);
             BE_MolalityComp* bmolal =
-                new BE_MolalityComp("Bath Species Molalities", &(BG.MolalitiesPLPhases[iph]), 0,
+                new BE_MolalityComp("Bath Species Molalities", &(m_BG.MolalitiesPLPhases[iph]), 0,
                                     SpeciesNames+kstart, nSpecies, indS, mwS, "MolalitiesBath");
             bbathphase->addSubBlock(bmolal);
         }
@@ -929,7 +917,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
          *
          * Create a PickList Line Element made out of the list of species
          */
-        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(BG.XmolPLSpecVec[kstart]), 0,
+        BE_MoleComp* bpmc = new BE_MoleComp("Bath Species Mole Fraction", &(m_BG.XmolPLSpecVec[kstart]), 0,
                                             SpeciesNames+kstart, nSpecies, 0, "XBathmol");
         bpmc->generateDefLE();
         bbathphase->addSubBlock(bpmc);
@@ -1212,7 +1200,7 @@ bool process_electrode_input(BlockEntry* cf, std::string fileName, int printFlag
 void setElectrodeBathSpeciesConditions(ZZCantera::thermo_t_double& tp, ELECTRODE_KEY_INPUT& EI, ElectrodeBath& BG, size_t iph, int printLvl)
 {
     size_t nsp = tp.nSpecies();
-    size_t kstart = BG.m_pl.globalSpeciesIndex(iph, 0);
+    size_t kstart = BG.m_pl->globalSpeciesIndex(iph, 0);
     tp.setState_TPX(EI.Temperature, EI.Pressure, BG.XmolPLSpecVec + kstart);
     tp.setElectricPotential(EI.PotentialPLPhases[iph]);
     /*
@@ -1437,7 +1425,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
         std::string phaseNm = tphase->name();
         phaseBath += phaseNm;
         //double* molF = m_BG->XmolPLPhases[iph];
-        double* const molF = m_BG->XmolPLSpecVec + kstart;
+        double* const molF = m_BG.XmolPLSpecVec + kstart;
         bool molVecSpecified = false;
         BEInput::BlockEntry* pblock = cf->searchBlockEntry(phaseBath.c_str());
         int numTimes = 0;
@@ -1450,7 +1438,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
         if (numTimes > 0) {
             BEInput::LineEntry*  pbpmoles = pblock->searchLineEntry("Phase Moles");
             int nt_pmoles = pbpmoles->get_NumTimesProcessed();
-            double kmol = m_BG->PhaseMoles[iph];
+            double kmol = m_BG.PhaseMoles[iph];
 
             BEInput::BlockEntry* pbsmf = pblock->searchBlockEntry("Bath Species Mole Fraction");
             if (pbsmf) {
@@ -1474,8 +1462,8 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                 if (pbpm) {
                     nt = pbpm->get_NumTimesProcessed();
                     if (nt > 0) {
-                        kmol = m_BG->PhaseMass[iph] / tphase->meanMolecularWeight();
-                        m_BG->PhaseMoles[iph] = kmol;
+                        kmol = m_BG.PhaseMass[iph] / tphase->meanMolecularWeight();
+                        m_BG.PhaseMoles[iph] = kmol;
                     }
                 }
             }
@@ -1483,8 +1471,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             if (!molVecSpecified) {
                 bool molalVecSpecified = false;
                 if (pblock) {
-                    BEInput::BlockEntry* pbsmm =
-                        pblock->searchBlockEntry("Bath Species Molalities");
+                    BEInput::BlockEntry* pbsmm = pblock->searchBlockEntry("Bath Species Molalities");
                     if (pbsmm) {
                         if (pbsmm->get_NumTimesProcessed() > 0) {
                             molalVecSpecified = true;
@@ -1497,16 +1484,15 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                         printf("Dynamic cast failed for some reason\n");
                         exit(-1);
                     }
-                    m_ptr->setState_TPM(Temperature, Pressure, m_BG->MolalitiesPLPhases[iph]);
+                    m_ptr->setState_TPM(Temperature, Pressure, m_BG.MolalitiesPLPhases[iph]);
                     m_ptr->getMoleFractions(molF);
-                    // m_ptr->getMoleFractions(m_BG->XmolPLPhases[iph]);
                     m_ptr->getMoleFractions(MoleFraction.data() + kstart);
                 }
             }
             /*
              * From the bath specification, get the total number of moles of the phase
              */
-            double totalMoles = m_BG->PhaseMoles[iph];
+            double totalMoles = m_BG.PhaseMoles[iph];
 	    /*
 	     *  Set the electric potential of the phase 
 	     */
@@ -1534,7 +1520,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
     //
     // Post process the OCV override structure
     //
-    for (size_t iphS = 0; iphS < (size_t) m_pl->nSurPhases(); iphS++) {
+    for (size_t iphS = 0; iphS < m_pl->nSurPhases(); iphS++) {
 	std::string phaseBath = "Open Circuit Potential Override for interface ";
         ThermoPhase* tp = &(m_pl->surPhase(iphS));
         std::string phaseNm = tp->name();
@@ -1575,18 +1561,18 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
             // And, we haven't yet read in the kinetics mechanism. We do this in the ReactingSurDomain setup.
             // 
 
-	    double * CapZeroDoDCoeff = m_BG->CapZeroDoDCoeffPhases[phaseID];
+	    double* CapZeroDoDCoeff = m_BG.CapZeroDoDCoeffPhases[phaseID];
 
-	    double* CapLeftCoef  =   m_BG->CapLeftCoeffPhases[phaseID];
+	    double* CapLeftCoef = m_BG.CapLeftCoeffPhases[phaseID];
 
-	    int nsp = m_pl->thermo(phaseID).nSpecies();
+	    size_t nsp = m_pl->thermo(phaseID).nSpecies();
 	    //
 	    //  Find a species in the replacing phase whose mole fraction can be used as a simple DoD indicator.
 	    //    (Confirmed to work for at least one case (MCMB -as an anode).
 	    //
-	    size_t ik = -1;
+	    size_t ik = npos;
             bool foundNonzeroCapacity = false;
-	    for (size_t k = 0; k < (size_t) nsp; k++) {
+	    for (size_t k = 0; k <  nsp; k++) {
 		if (CapZeroDoDCoeff[k] == 1.0) {
                     foundNonzeroCapacity = true;
 		    if (CapLeftCoef[k] == 0.0) {
@@ -1618,7 +1604,6 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
 		    			  "Couldn't determine easily the DoD variable. Specify it explicitly");
 		}
 	    }
-
 
 	}
     }

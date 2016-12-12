@@ -368,8 +368,8 @@ void Electrode::setCapacityCalcParams(std::string sName, double coeffLeft, doubl
  */
 void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
 {
-    double** CapLeftPhase = ei->m_BG->CapLeftCoeffPhases;
-    double** CapZeroDoDPhase = ei->m_BG->CapZeroDoDCoeffPhases;
+    double** CapLeftPhase = (ei->m_BG).CapLeftCoeffPhases;
+    double** CapZeroDoDPhase = (ei->m_BG).CapZeroDoDCoeffPhases;
     double* capLeft = 0;
     double* capZero = 0;
     bool foundNonZeroLeft = false;
@@ -381,16 +381,16 @@ void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
 	throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Capacity Zero DoD coefficients not set in the input file");
     }
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == (size_t) metalPhase_) {
+        if (iph == metalPhase_) {
             continue;
         }
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
+        size_t nspPhase = tp.nSpecies();
 	capLeft = CapLeftPhase[iph];
 	capZero = CapZeroDoDPhase[iph];
-        for (int k = 0; k < nspPhase; k++) {
-            int iGlobSpeciesIndex = kStart + k;
+        for (size_t k = 0; k < nspPhase; k++) {
+            size_t iGlobSpeciesIndex = kStart + k;
             std::string sss = speciesName(iGlobSpeciesIndex);
 	    capacityLeftSpeciesCoeff_[iGlobSpeciesIndex] =  capLeft[k];
 	    capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = capZero[k];

@@ -1181,7 +1181,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     spMoles_init_init_ = spMoles_final_;
     spMoles_final_final_ = spMoles_final_;
 
-    ElectrodeBath* BG = ei->m_BG;
+    ElectrodeBath* BG = &(ei->m_BG);
 
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         if (iph == solnPhase_ || iph == metalPhase_) {
