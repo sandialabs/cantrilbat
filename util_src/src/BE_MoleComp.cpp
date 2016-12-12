@@ -63,46 +63,27 @@ BE_MoleComp& BE_MoleComp::operator=(const BE_MoleComp& b)
     return *this;
 }
 //==================================================================================================================================
-/*
- * BlockEntry* duplMyselfAsBlockEntry();
- *
- *  Duplicate myself in a list of base class objects
- */
 BlockEntry* BE_MoleComp::duplMyselfAsBlockEntry() const
 {
     BE_MoleComp* newBE = new BE_MoleComp(*this);
     return (BlockEntry*) newBE;
 }
-
 //==================================================================================================================================
-/*
- * BE_MoleComp destructor: (virtual function)
- *
- * We malloced memory here, so we must explicitly call free.
- */
 BE_MoleComp::~BE_MoleComp()
 {
 #ifdef DEBUG_DESTRUCTOR
     printf("~BE_MoleComp called for %s\n", BlockName.orig_str);
 #endif
 }
-
 //==================================================================================================================================
 /*
- *  Wrapup() (virtual function)
- *
  *  This function is called when the end block line for the
- *  current block is read. Cleanup is done, and debugging printouts
- *  as well.
+ *  current block is read. Cleanup is done, and debugging printouts as well.
  *  We require the mole fractions to sum to almost 1.0. Small errors
- *  are gotten rid of by normalization. Large errors produce
- *  errors.
+ *  are gotten rid of by normalization. Large errors produce  errors.
  */
 void BE_MoleComp::Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgTok)
 {
-    /*
-     * Normalize
-     */
     double sum = 0.0;
     double* AddrVal = *HndlDblVec;
     for (int i = 0; i < ListLength; i++) {
@@ -119,7 +100,6 @@ void BE_MoleComp::Wrapup(FILE* ifp_input, const TK_TOKEN* blockArgTok)
             AddrVal[i] /= sum;
         }
     }
-
     BE_StrDbl::Wrapup(ifp_input, blockArgTok);
 }
 //==================================================================================================================================
