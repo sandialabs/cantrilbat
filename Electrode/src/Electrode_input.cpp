@@ -91,7 +91,6 @@ ElectrodeBath::ElectrodeBath(PhaseList* pl) :
     m_pl(pl),
     XmolPLSpecVec(nullptr),
     MolalitiesPLSpecVec(nullptr),
-    MolalitiesPLPhases(nullptr),
     CapLeftCoeffPhases(nullptr),
     CapLeftCoeffSpecVec(nullptr),
     CapZeroDoDCoeffPhases(nullptr),
@@ -115,7 +114,6 @@ ElectrodeBath::ElectrodeBath(const ElectrodeBath &right) :
     // Shallow pointer representation -> this is wrong and must be fixed up in parent routine.
     XmolPLSpecVec                = right.XmolPLSpecVec;
     MolalitiesPLSpecVec          = right.MolalitiesPLSpecVec;
-    MolalitiesPLPhases           = right.MolalitiesPLPhases;
     CapLeftCoeffPhases           = right.CapLeftCoeffPhases;
     CapLeftCoeffSpecVec          = right.CapLeftCoeffSpecVec;
     CapZeroDoDCoeffPhases        = right.CapZeroDoDCoeffPhases;
@@ -131,7 +129,6 @@ ElectrodeBath::~ElectrodeBath()
 {
     mdpUtil::mdp_safe_free((void**) &XmolPLSpecVec);
     mdpUtil::mdp_safe_free((void**) &MolalitiesPLSpecVec);
-    mdpUtil::mdp_safe_free((void**) &MolalitiesPLPhases);
     mdpUtil::mdp_safe_free((void**) &CapLeftCoeffPhases);
     mdpUtil::mdp_safe_free((void**) &CapLeftCoeffSpecVec);
     mdpUtil::mdp_safe_free((void**) &CapZeroDoDCoeffPhases);
@@ -325,8 +322,6 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      mdpUtil::mdp_realloc_dbl_1(&(m_BG.MolalitiesPLSpecVec), nTotSpecies+2, 0, 0.0);
      mdpUtil::mdp_copy_dbl_1(m_BG.MolalitiesPLSpecVec, (right.m_BG).MolalitiesPLSpecVec, nTotSpecies);
 
-     mdpUtil::mdp_realloc_ptr_1((void ***) &(m_BG.MolalitiesPLPhases), nTotPhases, 0);
-
      mdpUtil::mdp_realloc_dbl_1(&(m_BG.CapLeftCoeffSpecVec), nTotSpecies+2, 0, 0.0);
      mdpUtil::mdp_copy_dbl_1(m_BG.CapLeftCoeffSpecVec, (right.m_BG).CapLeftCoeffSpecVec, nTotSpecies);
 
@@ -340,7 +335,6 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      size_t nVolPhases = right.m_pl->nVolPhases();
      for (size_t iph = 0; iph < static_cast<size_t>(nVolPhases); iph++) {
 	 size_t kstart =  right.m_pl->globalSpeciesIndexVolPhaseIndex(iph);
-	 m_BG.MolalitiesPLPhases[iph]    = m_BG.MolalitiesPLSpecVec + kstart;
 	 m_BG.CapLeftCoeffPhases[iph]    = m_BG.CapLeftCoeffSpecVec + kstart;
 	 m_BG.CapZeroDoDCoeffPhases[iph] = m_BG.CapZeroDoDCoeffSpecVec + kstart;
      }
@@ -761,7 +755,6 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
 
     m_BG.XmolPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
     m_BG.MolalitiesPLSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
-    m_BG.MolalitiesPLPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
 
     m_BG.CapLeftCoeffSpecVec = mdpUtil::mdp_alloc_dbl_1(nTotSpecies + 2, 0.0);
     m_BG.CapLeftCoeffPhases = (double**) mdpUtil::mdp_alloc_ptr_1(nVolPhases + pl->nSurPhases());
@@ -772,15 +765,13 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     m_BG.PhaseMass.resize(nVolPhases + pl->nSurPhases(), 0.0);
 
     for (size_t iph = 0; iph < (size_t) nVolPhases; iph++) {
-        size_t kstart =  pl->globalSpeciesIndexVolPhaseIndex(iph);
-        m_BG.MolalitiesPLPhases[iph] =  m_BG.MolalitiesPLSpecVec + kstart;
+        size_t kstart = pl->globalSpeciesIndexVolPhaseIndex(iph);
         m_BG.CapLeftCoeffPhases[iph] = m_BG.CapLeftCoeffSpecVec + kstart;
         m_BG.CapZeroDoDCoeffPhases[iph] = m_BG.CapZeroDoDCoeffSpecVec + kstart;
     }
     for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
         size_t tph = iph + pl->nVolPhases();
-        int kstart =  pl->globalSpeciesIndexSurPhaseIndex(iph);
-        m_BG.MolalitiesPLPhases[tph] =  m_BG.MolalitiesPLSpecVec + kstart;
+        size_t kstart = pl->globalSpeciesIndexSurPhaseIndex(iph);
         m_BG.CapLeftCoeffPhases[tph] = m_BG.CapLeftCoeffSpecVec + kstart;
         m_BG.CapZeroDoDCoeffPhases[tph] = m_BG.CapZeroDoDCoeffSpecVec + kstart;
     }
@@ -877,7 +868,9 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
         bbathphase->addSubBlock(pczc);
 
         /* --------------------------------------------------------------
+         * BG.BG.MolalitiesPLSpecVec -
          *
+         *  Create a Molalities Block for entering molalities directly
          */
         if (tp->activityConvention() == cAC_CONVENTION_MOLALITY) {
             ZZCantera::MolalityVPSSTP* m_ptr = dynamic_cast<ZZCantera::MolalityVPSSTP*>(tp);
@@ -887,9 +880,9 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
             }
             int indS = m_ptr->solventIndex();
             double mwS = m_ptr->molecularWeight(indS);
-            BE_MolalityComp* bmolal =
-                new BE_MolalityComp("Bath Species Molalities", &(m_BG.MolalitiesPLPhases[iph]), 0,
-                                    SpeciesNames+kstart, nSpecies, indS, mwS, "MolalitiesBath");
+            size_t kstart = pl->globalSpeciesIndexVolPhaseIndex(iph);
+            BE_MolalityComp* bmolal = new BE_MolalityComp("Bath Species Molalities", &(m_BG.MolalitiesPLSpecVec[kstart]), 0,
+                                                          SpeciesNames+kstart, nSpecies, indS, mwS, "MolalitiesBath");
             bbathphase->addSubBlock(bmolal);
         }
     }
@@ -1484,7 +1477,7 @@ int ELECTRODE_KEY_INPUT::post_input_pass3(const BEInput::BlockEntry* cf)
                         printf("Dynamic cast failed for some reason\n");
                         exit(-1);
                     }
-                    m_ptr->setState_TPM(Temperature, Pressure, m_BG.MolalitiesPLPhases[iph]);
+                    m_ptr->setState_TPM(Temperature, Pressure, m_BG.MolalitiesPLSpecVec + kstart);
                     m_ptr->getMoleFractions(molF);
                     m_ptr->getMoleFractions(MoleFraction.data() + kstart);
                 }

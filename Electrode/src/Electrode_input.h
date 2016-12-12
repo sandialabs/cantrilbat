@@ -1,6 +1,10 @@
-/*
- * $Id: Electrode_input.h 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file Electrode_input.h 
+ *     Headers for the declarations of the base Electrode_iput class, used to accumulate input information read in
+ *     from an Electrode input file before transfering it to the Electrode object
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_input Electrode_input\endlink).
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -15,7 +19,6 @@
 #include "Electrode_defs.h"
 
 #include "cantera/multiphase/PhaseList.h"
-//  adding this file here because most applications will use the object
 #include "BE_BlockEntry.h"
 
 #include "cantera/base/ctml.h"
@@ -41,28 +44,26 @@ namespace Cantera
 {
 
 class Electrode;
+class EGRInput;
 
 //===================================================================================================================================
 //! This class contain information about the electrode input from the input file
 /*!
- *   TODO: There is no reason for this class. It should be transfered into the ELECTRODE_KEY_INPUT class
- *       Or there is a general reason for this class. And it should be in Zuzax.
+ *   We use this as a temporary holding area for variable inputs from the input file. The ELECTRODE_KEY_INPUT class
+ *   then shorts it out.
  */
 class ElectrodeBath
 {
 public:
 
-    //! Reference to the PhaseList
+    //! Pointer to the PhaseList
     PhaseList* m_pl;
 
-    //! species mole fractions in one phase
+    //! Species mole fractions in one phase
     double* XmolPLSpecVec;
 
-    //! species molalities in one phase
+    //! Species molalities in one phase
     double* MolalitiesPLSpecVec;
-
-    //! species molalities in each phase of phase list
-    double** MolalitiesPLPhases;
 
     //! Capacity Left coefficients in each phase of the phase list
     double** CapLeftCoeffPhases;
@@ -105,8 +106,10 @@ public:
     ~ElectrodeBath();
 };
 //===================================================================================================================================
-
 //! Structure for storring the input for OCVoverride models
+/*!
+ *
+ */
 struct OCV_Override_input {
 
     //! Default constructor
@@ -177,16 +180,21 @@ struct OCV_Override_input {
 
     //! String name for the temperature derivative model for the OCV
     std::string OCVTempDerivModel;
-
 };
-
 //===================================================================================================================================
-class EGRInput;
-
-
 //! Storage for Command file input
 /*!
- * This is the current command file specification of the problem statement.
+ *  This is the current command file specification of the problem statement.
+ *  We use the class to accumulate input information read in from an Electrode input file before transfering it to the 
+ *  Electrode object.
+ *
+ *  All member data are public, so that we can use this data source easily
+ *
+ *  The  basic idea is to read the input file three times. 
+ *    The first time we read in the cantera files.
+ *    The second time we initialize the ThermoPhases
+ *    The third time, we set up the input deck so that we can read in all of the information and do error checking
+ *    on the phases and names that are input.
  */
 class ELECTRODE_KEY_INPUT
 {
@@ -210,7 +218,6 @@ public:
      *  @return                                  Returns a reference to the current object
      */
     ELECTRODE_KEY_INPUT& operator=(const ELECTRODE_KEY_INPUT& right);
-
 
     //! Virtual destructor
     virtual ~ELECTRODE_KEY_INPUT();
@@ -382,7 +389,6 @@ public:
      *   This includes all of the phases, "period". In particular this includes the surface phases
      */
     ZZCantera::PhaseList* m_pl;
-
 
     //! Print level
     /*!
@@ -577,13 +583,11 @@ public:
 
     //! relative minimum time step ratio
     double relativeLocalToGlobalTimeStepMinimum;
-
 };
 //===================================================================================================================================
-
 //! Utility class to store the reaction index and reaction multiplier for an entry in formulating a global reaction
 /*!
- *  global reactions are made up of a linear combination of local reactions. Here we specify the contribution from
+ *  Global reactions are made up of a linear combination of local reactions. Here we specify the contribution from
  *  one elementary reaction.
  *  
  *  Destructor, Copy constructor and assigment operator all use the default compiler ones.

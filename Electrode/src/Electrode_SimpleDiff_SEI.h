@@ -1,5 +1,5 @@
-/*
- * $Id: Electrode_SimpleDiff_SEI.h 298 2012-08-08 20:15:48Z hkmoffa $
+/**
+ * @file Electrode_SimpleDiff_SEI.h
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -8,24 +8,21 @@
  * may require a license from the United States Government.
  */
 
-#ifndef _ELECTRODE_SIMPLEDIFF_H
-#define _ELECTRODE_SIMPLEDIFF_H
-
-
+#ifndef _ELECTRODE_SIMPLEDIFF_SEI_H
+#define _ELECTRODE_SIMPLEDIFF_SEI_H
 
 #include "Electrode.h"
 #include "Electrode_Integrator.h"
 #include "cantera/integrators.h"
 #include "cantera/numerics/ResidJacEval.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-
-
+//==================================================================================================================================
 //! This class is a derived class used to model phase - change electrodes
 /*!
  * Complete problem statement
@@ -377,7 +374,6 @@ protected:
 
     std::vector<double> Diff_Coeff_KRSolid_;
 
-
     std::vector<double> DphMolesSrc_final_;
 
     //! we identify the phases here as being the exterior surface
@@ -386,10 +382,8 @@ protected:
      */
     int surfIndexExteriorSurface_;
 
-
     //!  Value of the total flux at the outer edge - kmol m-2 s-1
     double NTflux_final_;
-
 
     //! Local value of the diffusion coefficient
     double DiffCoeff_;
@@ -401,9 +395,7 @@ protected:
 
 
 };
-
+//==================================================================================================================================
 }
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
