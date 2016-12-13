@@ -21,10 +21,6 @@
     <!--      melting temperature = 3125 K -->
     <species name="MgO(S)">
       <atomArray> Mg:1 O:1 </atomArray>
-     <standardState  model="constant_incompressible">
-        <!--   molar volume from density and molar mass -->
-        <molarVolume units="m3/kmol"> 0.011258 </molarVolume>
-      </standardState>
       <thermo> 
         <Shomate Pref="1 bar" Tmax="3125.0" Tmin="250.0">
           <!-- source : http://webbook.nist.gov MgO solid phase heat
