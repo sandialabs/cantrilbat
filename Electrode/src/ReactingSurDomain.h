@@ -1,8 +1,7 @@
 /**
  * @file ReactingSurDomain.h
  *  Declarations for the ElectrodeKinetics object that does handles interactions with the PhaseList object
- *  (see \ref ExtendedPhaseGroups and class \link Zuzax::ReactingSurDomain ReactingSurDomain\endlink).
-
+ *  (see class \link Zuzax::ReactingSurDomain ReactingSurDomain\endlink).
  */
 /*
  * Copywrite (2005) Sandia Corporation. Under the terms of
@@ -572,9 +571,6 @@ public:
      *    The list is needed to carry out shallow pointer assignments when an Electrode object is copied.
      */
     std::vector<std::string> tpList_IDs_;
-
-    //! Temp vector that may be eliminated in the future.
-    std::vector<int> tplRead;
 
     //! If there is a surface kinetics mechanism associated with this object, this is true. 
     /*!

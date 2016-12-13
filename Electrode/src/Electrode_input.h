@@ -2,7 +2,7 @@
  *  @file Electrode_input.h 
  *     Headers for the declarations of the base Electrode_iput class, used to accumulate input information read in
  *     from an Electrode input file before transfering it to the Electrode object
- *     (see \ref electrode_mgr and class \link Zuzax::Electrode_input Electrode_input\endlink).
+ *     (see \ref electrode_mgr and class \link Zuzax::ELECTRODE_KEY_INPUT ELECTRODE_KEY_INPUT\endlink).
  */
 
 /*
@@ -24,16 +24,11 @@
 #include "cantera/base/ctml.h"
 #include <string>
 #include <vector>
-/*
- *-----------------------------------------------------------------------------
- *
- * Include file containing constant declarations for inputs to
- * mpequil
- *
- *-----------------------------------------------------------------------------
- */
-#define MPEQUIL_MAX_NAME_LEN_P1 81
+
+//! Maximum length of a name
 #define MPEQUIL_MAX_NAME_LEN    80
+//! Maximum length of a name plus 1
+#define MPEQUIL_MAX_NAME_LEN_P1 81
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
@@ -85,7 +80,7 @@ public:
 
     //! Default constructor
     /*!
-     *  @param[in]           pl                  Reference to the PhaseList object
+     *  @param[in]           pl_ptr             Pointer to the PhaseList. Defaults to null
      */
     ElectrodeBath(PhaseList* pl_ptr = nullptr);
 

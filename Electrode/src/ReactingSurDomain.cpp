@@ -1,7 +1,7 @@
 /**
  * @file ReactingSurDomain.cpp
  *  Definitions for the ElectrodeKinetics object that does handles interactions with the PhaseList object
- *  (see \ref ExtendedPhaseGroups and class \link Zuzax::ReactingSurDomain ReactingSurDomain\endlink).
+ *  (see class \link Zuzax::ReactingSurDomain ReactingSurDomain\endlink).
  */
 
 /*
@@ -19,7 +19,7 @@
 
 #include "mdp_allo.h"
 
-using namespace std;
+//using namespace std;
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -38,7 +38,6 @@ ReactingSurDomain::ReactingSurDomain() :
     KintoPLSpeciesIndex_(0),
     iphaseKin_(npos),
     tpList_IDs_(0),
-    tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
     limitedROP_(0),
@@ -74,7 +73,6 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     KintoPLSpeciesIndex_(0),
     iphaseKin_(npos),
     tpList_IDs_(0),
-    tplRead(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
     limitedROP_(0),
@@ -109,7 +107,6 @@ ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
     KintoPLSpeciesIndex_(0),
     iphaseKin_(iskin + pl->nVolPhases()),
-    tplRead(pl->nPhases(),0),
     m_DoSurfKinetics(true),
     speciesProductionRates_(0),
     limitedROP_(0),
@@ -170,7 +167,6 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     KintoPLSpeciesIndex_ = right.KintoPLSpeciesIndex_;
     iphaseKin_      = right.iphaseKin_;
     tpList_IDs_     = right.tpList_IDs_;
-    tplRead         = right.tplRead;
     m_DoSurfKinetics = right.m_DoSurfKinetics;
     speciesProductionRates_ = right.speciesProductionRates_;
     limitedROP_     = right.limitedROP_;
@@ -776,8 +772,7 @@ void ReactingSurDomain::finalize()
     limitedROP_.resize(m_ii, 0.0);
 }
 //==================================================================================================================================
-bool ReactingSurDomain::
-importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
+bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
 {
     try {
         //
@@ -798,10 +793,9 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
         /*
          * Resize the internal list of pointers and get a pointer to the vacant ThermoPhase pointer
          */
-        std::vector<ThermoPhase*> tpList;
+        std::vector<thermo_t_double*> tpList;
         tpList.clear();
         tpList_IDs_.clear();
-        tplRead.resize(nPhasesFound, 0);
         kinOrder.resize(nPhasesFound, npos);
         xmlList.clear();
         iphaseKin_ = npos;
@@ -813,7 +807,6 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
             xmlList.push_back(kinXMLPhase);
             tpList.push_back(kinPhase);
             tpList_IDs_.push_back(kinPhase->id());
-            tplRead[numPhases_] = 1;
             numPhases_++;
         }
 
@@ -827,7 +820,7 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
             XML_Node* xmlPhase = kinXMLPhase;
             phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
             if (phaseArrayXML) {
-                vector<string> phase_ids;
+                std::vector<std::string> phase_ids;
                 ZZctml::getStringArray(*phaseArrayXML, phase_ids);
                 size_t npToFind = phase_ids.size();
                 for (size_t iph = 0; iph < npToFind; iph++) {
@@ -841,7 +834,6 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
                             xmlList.push_back(xmlPhase_j);
                             tpList.push_back(&(pl->surPhase(jph)));
                             tpList_IDs_.push_back(pl->surPhase(jph).id());
-                            tplRead[jph] = 1;
                             numPhases_++;
                             break;
                         }
@@ -849,13 +841,12 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
                     if (!found) {
                         for (size_t jph = 0; jph < pl->nVolPhases(); jph++) {
                             XML_Node* xmlPhase_j = pl->volPhaseXMLNode(jph);
-                            string pname = xmlPhase_j->operator[]("id");
+                            std::string pname = xmlPhase_j->operator[]("id");
                             if (phaseID == pname) {
                                 found = true;
                                 xmlList.push_back(xmlPhase_j);
                                 tpList.push_back(&(pl->volPhase(jph)));
                                 tpList_IDs_.push_back(pl->volPhase(jph).id());
-                                tplRead[jph] = 1;
                                 numPhases_++;
                                 break;
                             }
@@ -873,14 +864,12 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
                 xmlList.push_back(pl->surPhaseXMLNode(iph));
                 tpList.push_back(&(pl->surPhase(iph)));
                 tpList_IDs_.push_back(pl->surPhase(iph).id());
-                tplRead[numPhases_] = 1;
                 numPhases_++;
             }
             for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
                 xmlList.push_back(pl->volPhaseXMLNode(iph));
                 tpList.push_back(&(pl->volPhase(iph)));
                 tpList_IDs_.push_back(pl->volPhase(iph).id());
-                tplRead[numPhases_] = 1;
                 numPhases_++;
             }
         }
@@ -907,8 +896,8 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
 	KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
 	//size_t kKinIndex = 0;
         for (size_t kph = 0; kph < nKinPhases; kph++) {
-            ThermoPhase& tt = thermo(kph);
-            string kname = tt.id();
+            thermo_t_double& tt = thermo(kph);
+            std::string kname = tt.id();
             size_t jph = npos;
             for (size_t iph = 0; iph < pl->nPhases(); iph++) {
                 ThermoPhase& pp = pl->thermo(iph);
@@ -943,7 +932,6 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
         speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
         speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
 
-
 	m_Enthalpies_rspec.resize(m_NumKinSpecies, 0.0);
 	m_Entropies_rspec.resize(m_NumKinSpecies, 0.0);
 	m_GibbsOCV_rspec.resize(m_NumKinSpecies, 0.0);
@@ -964,7 +952,7 @@ importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
         return true;
 
     } catch (CanteraError) {
-        showErrors(cout);
+        showErrors(std::cout);
         throw CanteraError("ReactingSurDomain::importFromPL()", "error encountered");
         return false;
     }
@@ -990,12 +978,12 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     // the solid phase where we will get the relative extent.
     
     size_t phase_id = m_pl->phaseIndexFromGlobalSpeciesIndex(ocv_ptr_->replacedGlobalSpeciesID);
-    string phaseName = m_pl->phase_name(phase_id);
+    std::string phaseName = m_pl->phase_name(phase_id);
     //
     //  Since the pointers must all be the same, we look up the ThermoPhase pointer in the phase list
     //  and send that to the RSD_OCVmodel object
     //
-    ThermoPhase* tp = &(m_pl->thermo(phase_id));
+    thermo_t_double* tp = &(m_pl->thermo(phase_id));
     //
     //  We also find the species which we will use as the relative extent variable. Typically it is 
     //  not the same as the species we used as the replaced species, at least for anodes
