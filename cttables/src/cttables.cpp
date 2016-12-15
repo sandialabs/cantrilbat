@@ -1668,7 +1668,12 @@ int main(int argc, char** argv) {
     /*
      * Import thermo and kinetics for multiple phases
      */
-    ok = rVolDomain->importFromPL(pl, ivfound, isfound);
+    if (isfound >= 0) {
+        ok = rVolDomain->importSurKinFromPL(pl, isfound);
+    } else if (ivfound >= 0) {
+        ok = rVolDomain->importVolKinFromPL(pl, ivfound);
+
+    }
     if (!ok) {
       throw CanteraError("cttables main:",
 			 "rVolDomain returned an error"); 
@@ -1678,7 +1683,7 @@ int main(int argc, char** argv) {
     gThermoMainPhase = rVolDomain->tpList[0];
     gKinetics = rVolDomain->m_kinetics;
 
-    for (int iphase = 0; iphase < rVolDomain->numPhases; iphase++) {
+    for (size_t iphase = 0; iphase < rVolDomain->m_NumKinPhases; iphase++) {
       gThermoMainPhase = rVolDomain->tpList[iphase];
       //
       // Change the default behavior of phases to print out INF's and not to change the numbers.
@@ -1774,10 +1779,10 @@ int main(int argc, char** argv) {
 			      IOO.NumAddedVoltages,
 			      IOO.AddedVoltages);
 
-    for (int iphaseRVD = 0; iphaseRVD < rVolDomain->numPhases; iphaseRVD++) {
+    for (size_t iphaseRVD = 0; iphaseRVD < rVolDomain->m_NumKinPhases; iphaseRVD++) {
       gThermoMainPhase = rVolDomain->tpList[iphaseRVD];
 
-      int nSpecies = gThermoMainPhase->nSpecies();
+      size_t nSpecies = gThermoMainPhase->nSpecies();
    
       /*
        *  Import and set up the transport properties
@@ -1786,7 +1791,7 @@ int main(int argc, char** argv) {
           skipTransport = true;
       }
       if (! skipTransport) {
-	xmlPhase = rVolDomain->xmlList[0];
+	xmlPhase = & rVolDomain->thermo(0).xml();
 	haveSpeciesTransportProps = setupGasTransport(xmlPhase, *gThermoMainPhase);
 	if (!haveSpeciesTransportProps) {
 	    skipTransport = true;
@@ -1855,7 +1860,7 @@ int main(int argc, char** argv) {
 	       << "\", using the Ideal Gas Thermodynamics Functions:" 
 	       << endl;
 	}
-	for (int k = 0; k < nSpecies; k++) {
+	for (size_t k = 0; k < nSpecies; k++) {
 	  printIdealGasSpeciesTable(*gThermoMainPhase, k, *TT_ptr, Cp_Table, 
 				    Hrel_Table, Grel_Table,
 				    S_Table,haveSpeciesTransportProps, 
@@ -1871,7 +1876,7 @@ int main(int argc, char** argv) {
 	/*
 	 * Loop over the species printing out a table
 	 */
-	for (int k = 0; k < nSpecies; k++) {
+	for (size_t k = 0; k < nSpecies; k++) {
 	  printThermoPhaseSpeciesTable(gThermoMainPhase, k, *TT_ptr, Cp_Table, 
 				       Hrel_Table, Grel_Table,
 				       S_Table, haveSpeciesTransportProps,
