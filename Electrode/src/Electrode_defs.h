@@ -26,19 +26,20 @@
 #define ZZCantera Cantera
 #endif
 #endif
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-
+//==================================================================================================================================
 /*!
  *    \addtogroup electrodeobj
  *    @{
  */
 
+//==================================================================================================================================
 //!  Enum Type identifying the models for the Electrodes
 /*!
  *  Note that this Enum class may be extended in other contexts.
@@ -97,9 +98,7 @@ enum Electrode_Types_Enum {
     RADIAL_DIFF_REGIONS_ET
 
 };
-
-
-
+//==================================================================================================================================
 //! Description of what the capacity means in terms of direction, and the specification of 
 //! whether this electrode will be used as an anode or a cathode in the calculation.
 /*!
@@ -128,7 +127,7 @@ enum Electrode_Capacity_Type_Enum {
     //!  Capacity that is neither anodic or cathodic.
     CAPACITY_OTHER_ECT
 };
-
+//==================================================================================================================================
 //! NEW CONCEPT
 //!  Integration routine needs to know the context in which it is being called in order
 //!  to make decisions about how it will be treating the time stepping.

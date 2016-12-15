@@ -26,11 +26,14 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
+//! Definition for an anode type of electrode
 #define ELECTRODETYPE_ANODE   0
+
+//! Definition for a cathode type of electrode
 #define ELECTRODETYPE_CATHODE 1
 
 
+//==================================================================================================================================
 //! Extra input for the CSTR Model
 /*!
  *
@@ -40,37 +43,38 @@ class ELECTRODE_CSTR_KEY_INPUT : public ELECTRODE_KEY_INPUT
 public:
 
     //! Constructor
+    /*!
+     *  @param[in]           printLvl            Print level. Defaults to zero.
+     */
     ELECTRODE_CSTR_KEY_INPUT(int printLvl = 0);
 
     //! Destructor
     virtual ~ELECTRODE_CSTR_KEY_INPUT();
 
-    //!  First pass through the child setup system
+    //! First pass through the child setup system
     /*!
-     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this
-     *    pass.
-     *  @param cf    Pointer to the BlockEntry record
+     *  Typically we will fill in all vectors that depend on the value of numRegions_ in this  pass.
+     *
+     *  @param[in]           cf                  Pointer to the BlockEntry record
      */
     void setup_input_child1(BEInput::BlockEntry* cf);
 
-    //!  Second pass through the child setup system
+    //! Second pass through the child setup system
     /*!
-     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this
-     *    pass.
-     *  @param cf    Pointer to the BlockEntry record
+     *  Typically we will fill in all vectors that depend on the value of numRegions_ in this  pass.
+     *
+     *  @param[in]           cf                  Pointer to the BlockEntry record
      */
     void setup_input_child2(BEInput::BlockEntry* cf);
 
     //! Resistance of the boundary region
     /*!
-     *  Resistance of the boundary region.
-     *   units = ohms
-     *   default = 0 ohms
+     *  Units:    ohms
+     *  default: 0.0  ohms
      */
     double boundaryResistance_;
-
 };
-
+//==================================================================================================================================
 
 //! Electrode_CSTR class is an electrode that models a particle as a CSTR
 /*!
@@ -819,6 +823,8 @@ public:
      *   For cathodes, the open circuit plateaus are ramped going downwards.
      *       A big positive voltage means that the DoD will stay or trend to 0
      *       A big negative voltage means that the DoD will stay or trend to 1.
+     *
+     * @TODO: duplicate of base class capability -> refactor
      */
     int electrodeType_;
 
