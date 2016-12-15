@@ -249,7 +249,7 @@ bool ReactingVolDomain::importSurKinFromPL(PhaseList* pl, size_t iphSurKin)
         tpList[iph] = &(pl->thermo(iph));
     }
     
-    XML_Node* xmlPhase = pl->surPhaseXMLNode(iphSurKin);
+    XML_Node* xmlPhase = &(pl->surPhaseXMLNode(iphSurKin));
     m_InterfaceKinetics = processExpandedInterfaceKinetics(xmlPhase, tpList);
     if (!m_InterfaceKinetics) {
         if (DebugPrinting) {
@@ -308,7 +308,7 @@ bool ReactingVolDomain::importVolKinFromPL(PhaseList* pl, size_t iphVolKin)
             tpList[iph] = &(pl->thermo(iph));
         }
         if (iphVolKin != npos) {
-	    XML_Node* xmlPhase = pl->volPhaseXMLNode(iphVolKin);
+	    XML_Node* xmlPhase = &(pl->volPhaseXMLNode(iphVolKin));
             m_kinetics = processExpandedKinetics(xmlPhase, tpList);
             if (!m_kinetics) {
                 if (DebugPrinting) {

@@ -786,7 +786,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         if (iskin == npos || iskin >= pl->nSurPhases()) {
            throw Electrode_Error("ReactingSurDomain::importFromPL()", "index of surface reaction not within bounds");
         }
-        kinXMLPhase = pl->surPhaseXMLNode(iskin);
+        kinXMLPhase = &( pl->surPhaseXMLNode(iskin));
         kinPhase = &(pl->surPhase(iskin));
 
         size_t nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
@@ -827,7 +827,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
                     std::string phaseID = phase_ids[iph];
                     bool found = false;
                     for (size_t jph = 0; jph < pl->nSurPhases(); jph++) {
-                        XML_Node* xmlPhase_j = pl->surPhaseXMLNode(jph);
+                        XML_Node* xmlPhase_j = &(pl->surPhaseXMLNode(jph));
                         std::string pname = xmlPhase_j->operator[]("id");
                         if (phaseID == pname) {
                             found = true;
@@ -840,7 +840,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
                     }
                     if (!found) {
                         for (size_t jph = 0; jph < pl->nVolPhases(); jph++) {
-                            XML_Node* xmlPhase_j = pl->volPhaseXMLNode(jph);
+                            XML_Node* xmlPhase_j = &(pl->volPhaseXMLNode(jph));
                             std::string pname = xmlPhase_j->operator[]("id");
                             if (phaseID == pname) {
                                 found = true;
@@ -861,13 +861,13 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
             }
         } else {
             for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
-                xmlList.push_back(pl->surPhaseXMLNode(iph));
+                xmlList.push_back(&(pl->surPhaseXMLNode(iph)));
                 tpList.push_back(&(pl->surPhase(iph)));
                 tpList_IDs_.push_back(pl->surPhase(iph).id());
                 numPhases_++;
             }
             for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
-                xmlList.push_back(pl->volPhaseXMLNode(iph));
+                xmlList.push_back(&(pl->volPhaseXMLNode(iph)));
                 tpList.push_back(&(pl->volPhase(iph)));
                 tpList_IDs_.push_back(pl->volPhase(iph).id());
                 numPhases_++;
@@ -880,7 +880,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          * eventually the source term vector will be constructed
          * from the list of ThermoPhases in the vector, tpList
          */
-        XML_Node* xmlPhase = pl->surPhaseXMLNode(iskin);
+        XML_Node* xmlPhase = &(pl->surPhaseXMLNode(iskin));
         bool ok = importKinetics(*xmlPhase, tpList, this);
         if (!ok) {
             throw CanteraError("ReactingSurDomain::importFromPL()", "importKinetics() returned an error");
