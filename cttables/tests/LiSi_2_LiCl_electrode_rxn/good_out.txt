@@ -5,57 +5,6 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "LiSi_2_surface", with name, "LiSi_2_surface", with eosType, "Surface"
-     
-        Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
-        Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = lisi_2_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
-          -----------------------------------------------------------------------------
-              1     lisi_2_site          1.0000       3.000E-11       1.000E+00
-          ------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "lisi_2_site" IN PHASE "LiSi_2_surface"
-        Overall, this is the 1th species in mechanism
-        It is the 1th species in the phase
-        Elemental Composition:               ElementEntropy298
-                                                     0.000 J/gmol/K 
-        Electronic Charge = 0.000000
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.000000  kJ/gmol 
-        DeltaGf (298.15K) = 0.000000  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 1.80664E+15 # per cm2 
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
-|-----------|----------------------------------------------------------|--------------|
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    600.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    650.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    700.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    723.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    750.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    800.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    850.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    900.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
----------------------------------------------------------------------------------------
-     ====================================================================================================
       Bath Composition for Phase id, "metal_Li_LiCl_electrons", with name, "metal_Li_LiCl_electrons", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
@@ -370,6 +319,57 @@ INFORMATION TABLE FOR SPECIES "Li12Si7(S)" IN PHASE "Li12Si7(S)"
 |    850.00 |   288.7225       -494.0700       526.1722     920.9323   |    -963.2824 | 
 |    900.00 |   315.0681       -540.8763       527.6431     951.0494   |   -1010.0887 | 
 |    950.00 |   341.4858       -589.1491       529.0538     979.6156   |   -1058.3615 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "LiSi_2_surface", with name, "LiSi_2_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = lisi_2_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1     lisi_2_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "lisi_2_site" IN PHASE "LiSi_2_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
+        DeltaGf (298.15K) = 0.000000  kJ/gmol 
+                Phase and Species Reference Pressure = 101325 Pa
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    600.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    650.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    700.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    723.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    750.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    800.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    850.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    900.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
 
 ================================================================================================================================

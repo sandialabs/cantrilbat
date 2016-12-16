@@ -5,103 +5,6 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "platinum_surface", with name, "platinum_surface", with eosType, "Surface"
-     
-        Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
-        Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = pt_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
-          -----------------------------------------------------------------------------
-              1         pt_site          0.9000       2.700E-11       9.000E-01
-              2         H*_site          0.1000       3.000E-12       1.000E-01
-          ------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "pt_site" IN PHASE "platinum_surface"
-        Overall, this is the 1th species in mechanism
-        It is the 1th species in the phase
-        Elemental Composition:               ElementEntropy298
-                                                     0.000 J/gmol/K 
-        Electronic Charge = 0.000000
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.000000 kcal/gmol
-        DeltaGf (298.15K) = 0.000000 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 1.80664E+15 # per cm2 
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
-|-----------|----------------------------------------------------------|--------------|
-|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    373.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    380.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
----------------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "H*_site" IN PHASE "platinum_surface"
-        Overall, this is the 2th species in mechanism
-        It is the 2th species in the phase
-        Elemental Composition:               ElementEntropy298
-                    H: 1      |                     65.340
-                                                    65.340 J/gmol/K 
-        Electronic Charge = 0.000000
-        Molecular Weight = 1.00794 gm/mol
-        Heat of formation (298.15K) = -3.585090 kcal/gmol
-        DeltaGf (298.15K) = 12.914531 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 1.80664E+15 # per cm2 
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =         -15000000 J kmol-1
-                                S  =             10000 J kmol-1 K-1
-                                Cp =             10000 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
-|-----------|----------------------------------------------------------|--------------|
-|    273.15 |    -0.0598         -0.6554         2.3901       2.1807   |      -4.2405 | 
-|    298.15 |     0.0000         -0.7126         2.3901       2.3901   |      -4.2977 | 
-|    300.00 |     0.0044         -0.7170         2.3901       2.4048   |      -4.3021 | 
-|    320.00 |     0.0522         -0.7667         2.3901       2.5591   |      -4.3518 | 
-|    333.15 |     0.0837         -0.8010         2.3901       2.6553   |      -4.3861 | 
-|    340.00 |     0.1000         -0.8193         2.3901       2.7040   |      -4.4044 | 
-|    360.00 |     0.1478         -0.8748         2.3901       2.8406   |      -4.4599 | 
-|    373.15 |     0.1793         -0.9127         2.3901       2.9264   |      -4.4978 | 
-|    380.00 |     0.1956         -0.9329         2.3901       2.9698   |      -4.5180 | 
-|    400.00 |     0.2434         -0.9935         2.3901       3.0924   |      -4.5786 | 
-|    420.00 |     0.2912         -1.0566         2.3901       3.2090   |      -4.6417 | 
-|    440.00 |     0.3390         -1.1219         2.3901       3.3202   |      -4.7070 | 
----------------------------------------------------------------------------------------
-     ====================================================================================================
       Bath Composition for Phase id, "Pt_H2electrons", with name, "Pt_H2electrons", with eosType, "MetalSHEelectrons"
      
         Total pressure = 760 torr 
@@ -459,6 +362,103 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "h2gas"
 |    420.00 |     0.8487        -13.2713         7.0031      33.6188   |     -13.2713 | 
 |    440.00 |     0.9888        -13.9469         7.0057      33.9447   |     -13.9469 | 
 ---------------------------------------------------------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "platinum_surface", with name, "platinum_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 300 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = pt_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         pt_site          0.9000       2.700E-11       9.000E-01
+              2         H*_site          0.1000       3.000E-12       1.000E-01
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "pt_site" IN PHASE "platinum_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
+        DeltaGf (298.15K) = 0.000000 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "H*_site" IN PHASE "platinum_surface"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                                                    65.340 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 1.00794 gm/mol
+        Heat of formation (298.15K) = -3.585090 kcal/gmol
+        DeltaGf (298.15K) = 12.914531 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =         -15000000 J kmol-1
+                                S  =             10000 J kmol-1 K-1
+                                Cp =             10000 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    273.15 |    -0.0598         -0.6554         2.3901       2.1807   |      -4.2405 | 
+|    298.15 |     0.0000         -0.7126         2.3901       2.3901   |      -4.2977 | 
+|    300.00 |     0.0044         -0.7170         2.3901       2.4048   |      -4.3021 | 
+|    320.00 |     0.0522         -0.7667         2.3901       2.5591   |      -4.3518 | 
+|    333.15 |     0.0837         -0.8010         2.3901       2.6553   |      -4.3861 | 
+|    340.00 |     0.1000         -0.8193         2.3901       2.7040   |      -4.4044 | 
+|    360.00 |     0.1478         -0.8748         2.3901       2.8406   |      -4.4599 | 
+|    373.15 |     0.1793         -0.9127         2.3901       2.9264   |      -4.4978 | 
+|    380.00 |     0.1956         -0.9329         2.3901       2.9698   |      -4.5180 | 
+|    400.00 |     0.2434         -0.9935         2.3901       3.0924   |      -4.5786 | 
+|    420.00 |     0.2912         -1.0566         2.3901       3.2090   |      -4.6417 | 
+|    440.00 |     0.3390         -1.1219         2.3901       3.3202   |      -4.7070 | 
+---------------------------------------------------------------------------------------
 
 ================================================================================================================================
 

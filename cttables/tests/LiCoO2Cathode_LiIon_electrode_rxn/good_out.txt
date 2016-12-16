@@ -5,34 +5,77 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "cathode_surface", with name, "cathode_surface", with eosType, "Surface"
+      Bath Composition for Phase id, "LiCoO2_Interstitials_cathode", with name, "LiCoO2_Interstitials_cathode", with eosType, "UnknownPhaseType"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = li_site
+        Carrier Species (used in diff. calcs) = LiCoO2
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1         li_site          1.0000       3.000E-11       1.000E+00
+              1          LiCoO2          0.8000       3.270E-05       8.004E-01
+              2            CoO2          0.2000       8.175E-06             INF
           ------------------------------------------------------------------------------
 
 =======================================================================================
-INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
+INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Interstitials_cathode"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
         Elemental Composition:               ElementEntropy298
-                                                     0.000 J/gmol/K 
+                   Li: 1      |                     29.085
+                   Co: 1      |                     30.067
+                    O: 2      |                    205.147
+                                                   264.299 J/gmol/K 
         Electronic Charge = 0.000000
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.000000 kcal/gmol
-        DeltaGf (298.15K) = 0.000000 kcal/gmol
+        Molecular Weight = 97.873 gm/mol
+        Heat of formation (298.15K) = 680.767614 kcal/gmol
+        DeltaGf (298.15K) = 759.568360 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (298.15,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = 3.33333e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 1.80664E+15 # per cm2 
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =        2848328304 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |     0.0000          0.0000         0.0000       0.0000   |     680.7676 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |     680.7676 | 
+|    300.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    310.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    320.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    330.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    340.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    350.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+|    360.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:               ElementEntropy298
+                   Co: 1      |                     30.067
+                    O: 2      |                    205.147
+                                                   235.214 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 90.932 gm/mol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
+        DeltaGf (298.15K) = 70.129054 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
                 at T = 298.15 K, H  =                 0 J kmol-1
@@ -249,77 +292,34 @@ INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
 |    360.00 |     0.0001         -4.3021         0.0024      11.9508   |    -123.8051 | 
 ---------------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "LiCoO2_Interstitials_cathode", with name, "LiCoO2_Interstitials_cathode", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "cathode_surface", with name, "cathode_surface", with eosType, "Surface"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = LiCoO2
+        Carrier Species (used in diff. calcs) = li_site
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1          LiCoO2          0.8000       3.270E-05       8.004E-01
-              2            CoO2          0.2000       8.175E-06             INF
+              1         li_site          1.0000       3.000E-11       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
-INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Interstitials_cathode"
+INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
         Elemental Composition:               ElementEntropy298
-                   Li: 1      |                     29.085
-                   Co: 1      |                     30.067
-                    O: 2      |                    205.147
-                                                   264.299 J/gmol/K 
+                                                     0.000 J/gmol/K 
         Electronic Charge = 0.000000
-        Molecular Weight = 97.873 gm/mol
-        Heat of formation (298.15K) = 680.767614 kcal/gmol
-        DeltaGf (298.15K) = 759.568360 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =        2848328304 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
-|-----------|----------------------------------------------------------|--------------|
-|    290.00 |     0.0000          0.0000         0.0000       0.0000   |     680.7676 | 
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |     680.7676 | 
-|    300.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
-|    310.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
-|    320.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
-|    330.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
-|    340.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
-|    350.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
-|    360.00 |    -0.0000         -0.0000         0.0000       0.0000   |     680.7676 | 
----------------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
-        Overall, this is the 2th species in mechanism
-        It is the 2th species in the phase
-        Elemental Composition:               ElementEntropy298
-                   Co: 1      |                     30.067
-                    O: 2      |                    205.147
-                                                   235.214 J/gmol/K 
-        Electronic Charge = 0.000000
-        Molecular Weight = 90.932 gm/mol
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
-        DeltaGf (298.15K) = 70.129054 kcal/gmol
+        DeltaGf (298.15K) = 0.000000 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
                 at T = 298.15 K, H  =                 0 J kmol-1
@@ -344,7 +344,7 @@ INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
 
 ================================================================================================================================
 
-INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
+INFORMATION TABLE FOR Reaction "0" IN PHASE "LiCoO2_Interstitials_cathode"
 
         LiCoO2 <=> Li+  + electron_Li_LiIon + CoO2
 
@@ -357,9 +357,9 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |LiCoO2_Interstitials_cathode|   3           0      -6.941 |             0                 0 |
                |metal_Li_LiIon_electrons|   3           1    0.000545 |            -1                 0 |
                |         ECDMC_LiPF6|   3           1      6.9405 |             1                 0 |
-               |LiCoO2_Interstitials_cathode|   3           0      -6.941 |             0                 0 |
                |     cathode_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------
 
@@ -384,9 +384,9 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
         ----------------------------------------------------------------------------------------------------
         Voltage Dependence for Rxn: LiCoO2 <=> Li+  + electron_Li_LiIon + CoO2
 
-               ThermoPhase index pertaining to the solution = 1
-               ThermoPhase index pertaining to the metal = 0
-               Kinetic Species Index pertaining to the electrons = 0
+               ThermoPhase index pertaining to the solution = 2
+               ThermoPhase index pertaining to the metal = 1
+               Kinetic Species Index pertaining to the electrons = 2
                Input Electric Potential of the Metal = 0 Volts
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage = phi_Metal - phi_Soln  = 0 Volts
@@ -487,11 +487,11 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
 
 ==========================================================================================================================================
 
-INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiIon_electrons"
+INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "LiCoO2_Interstitials_cathode"
 
-        electron_Li_LiIon + Li+ + CoO2 = LiCoO2
+        CoO2 + electron_Li_LiIon + Li+ = LiCoO2
 
-        There are 3 reactants: electron_Li_LiIon (1) Li+ (1) CoO2 (1) 
+        There are 3 reactants: CoO2 (1) electron_Li_LiIon (1) Li+ (1) 
         There is one product: LiCoO2 (1) 
         Reaction Type = Global Extra Rxn - not in mechanism
         Reaction is reversible
@@ -499,9 +499,9 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiI
         This reaction is a charge transfer reaction, n = 1
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |LiCoO2_Interstitials_cathode|   3           0       6.941 |             0                 0 |
                |metal_Li_LiIon_electrons|   3          -1   -0.000545 |             1                 0 |
                |         ECDMC_LiPF6|   3          -1     -6.9405 |            -1                 0 |
-               |LiCoO2_Interstitials_cathode|   3           0       6.941 |             0                 0 |
                |     cathode_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------
 
@@ -523,11 +523,11 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiI
 |  360.0 |       NAN       NAN       nan |     683.31    680.39     -8.09  |  7.10E-24  6.35E-18      9.80 |       NAN       NAN      -nan |
 |------------------------------------------------------------------------------------------------------------------------------------------|
         ----------------------------------------------------------------------------------------------------
-        Voltage Dependence for Rxn: electron_Li_LiIon + Li+ + CoO2 = LiCoO2
+        Voltage Dependence for Rxn: CoO2 + electron_Li_LiIon + Li+ = LiCoO2
 
-               ThermoPhase index pertaining to the solution = 1
-               ThermoPhase index pertaining to the metal = 0
-               Kinetic Species Index for the electrons = 0
+               ThermoPhase index pertaining to the solution = 2
+               ThermoPhase index pertaining to the metal = 1
+               Kinetic Species Index for the electrons = 2
                Input Electric Potential of the Metal = 0 Volts
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage                         = 0 Volts

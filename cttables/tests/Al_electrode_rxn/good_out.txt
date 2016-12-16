@@ -5,57 +5,63 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "aluminum_surface", with name, "aluminum_surface", with eosType, "Surface"
+      Bath Composition for Phase id, "Al(S)", with name, "Al(S)", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 300 Kelvin
         Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = al_site
+        Carrier Species (used in diff. calcs) = Al(S)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1         al_site          1.0000       3.000E-11       1.000E+00
+              1           Al(S)          1.0000       1.001E-01       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
-INFORMATION TABLE FOR SPECIES "al_site" IN PHASE "aluminum_surface"
+INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
         Elemental Composition:               ElementEntropy298
-                                                     0.000 J/gmol/K 
+                   Al: 1      |                     28.275
+                                                    28.275 J/gmol/K 
         Electronic Charge = 0.000000
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.000000  kJ/gmol 
-        DeltaGf (298.15K) = 0.000000  kJ/gmol 
+        Molecular Weight = 26.9815 gm/mol
+        Heat of formation (298.15K) = -0.000046  kJ/gmol 
+        DeltaGf (298.15K) = 0.000281  kJ/gmol 
                 Phase and Species Reference Pressure = 101325 Pa
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 1.80664E+15 # per cm2 
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
+        Minimum Temperature = 250 K
+        Maximum Temperature = 1075 K
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.00998577 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.00998577 m3/kmol
+        StoichSubstance constant density = 2702 kg m-3 
+        species Molar Volume = 0.00998577 m**3 / kmol <- constant
+        Press dependence -> (U, S, V, and Cp are independent)
+                         -> (H and G dependent): h(T) = u(T) + pv
+        standard Concentration value =  unity
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 250 < T < 1075: 
+                         28.0892         -5.414849          8.560423           3.42737
+                       -0.277375         -9.146887          61.90981
+               High temperature polynomials: 1075 < T < 1075: 
+                         28.0892         -5.414849          8.560423           3.42737
+                       -0.277375         -9.146887          61.90981
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
 |-----------|----------------------------------------------------------|--------------|
-|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    373.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    380.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    273.15 |    -0.5979         -7.7489        23.6011      26.1799   |      -7.7490 | 
+|    298.15 |     0.0000         -8.4299        24.2063      28.2739   |      -8.4299 | 
+|    300.00 |     0.0448         -8.4823        24.2458      28.4238   |      -8.4824 | 
+|    320.00 |     0.5337         -9.0667        24.6366      30.0014   |      -9.0667 | 
+|    333.15 |     0.8592         -9.4678        24.8630      30.9982   |      -9.4679 | 
+|    340.00 |     1.0299         -9.6819        24.9730      31.5053   |      -9.6819 | 
+|    360.00 |     1.5324        -10.3265        25.2690      32.9413   |     -10.3265 | 
+|    373.15 |     1.8659        -10.7656        25.4467      33.8510   |     -10.7657 | 
+|    380.00 |     2.0405        -10.9991        25.5349      34.3147   |     -10.9992 | 
+|    400.00 |     2.5536        -11.6987        25.7787      35.6308   |     -11.6987 | 
+|    420.00 |     3.0715        -12.4240        26.0066      36.8941   |     -12.4240 | 
+|    440.00 |     3.5938        -13.1741        26.2232      38.1090   |     -13.1742 | 
 ---------------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "metalElectrons", with name, "metalElectrons", with eosType, "IdealGas"
@@ -360,68 +366,62 @@ INFORMATION TABLE FOR SPECIES "Al+++" IN PHASE "AlCl_electrolyte"
 |    440.00 |   -15.6604        156.6259      -204.6656    -391.5597   |    -385.8655 | 
 ---------------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "Al(S)", with name, "Al(S)", with eosType, "StoichSubstance"
+      Bath Composition for Phase id, "aluminum_surface", with name, "aluminum_surface", with eosType, "Surface"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 300 Kelvin
         Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = Al(S)
+        Carrier Species (used in diff. calcs) = al_site
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1           Al(S)          1.0000       1.001E-01       1.000E+00
+              1         al_site          1.0000       3.000E-11       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
-INFORMATION TABLE FOR SPECIES "Al(S)" IN PHASE "Al(S)"
+INFORMATION TABLE FOR SPECIES "al_site" IN PHASE "aluminum_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
         Elemental Composition:               ElementEntropy298
-                   Al: 1      |                     28.275
-                                                    28.275 J/gmol/K 
+                                                     0.000 J/gmol/K 
         Electronic Charge = 0.000000
-        Molecular Weight = 26.9815 gm/mol
-        Heat of formation (298.15K) = -0.000046  kJ/gmol 
-        DeltaGf (298.15K) = 0.000281  kJ/gmol 
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
+        DeltaGf (298.15K) = 0.000000  kJ/gmol 
                 Phase and Species Reference Pressure = 101325 Pa
-        Minimum Temperature = 250 K
-        Maximum Temperature = 1075 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.00998577 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 0.00998577 m3/kmol
-        StoichSubstance constant density = 2702 kg m-3 
-        species Molar Volume = 0.00998577 m**3 / kmol <- constant
-        Press dependence -> (U, S, V, and Cp are independent)
-                         -> (H and G dependent): h(T) = u(T) + pv
-        standard Concentration value =  unity
-        SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 250 < T < 1075: 
-                         28.0892         -5.414849          8.560423           3.42737
-                       -0.277375         -9.146887          61.90981
-               High temperature polynomials: 1075 < T < 1075: 
-                         28.0892         -5.414849          8.560423           3.42737
-                       -0.277375         -9.146887          61.90981
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
 |-----------|----------------------------------------------------------|--------------|
-|    273.15 |    -0.5979         -7.7489        23.6011      26.1799   |      -7.7490 | 
-|    298.15 |     0.0000         -8.4299        24.2063      28.2739   |      -8.4299 | 
-|    300.00 |     0.0448         -8.4823        24.2458      28.4238   |      -8.4824 | 
-|    320.00 |     0.5337         -9.0667        24.6366      30.0014   |      -9.0667 | 
-|    333.15 |     0.8592         -9.4678        24.8630      30.9982   |      -9.4679 | 
-|    340.00 |     1.0299         -9.6819        24.9730      31.5053   |      -9.6819 | 
-|    360.00 |     1.5324        -10.3265        25.2690      32.9413   |     -10.3265 | 
-|    373.15 |     1.8659        -10.7656        25.4467      33.8510   |     -10.7657 | 
-|    380.00 |     2.0405        -10.9991        25.5349      34.3147   |     -10.9992 | 
-|    400.00 |     2.5536        -11.6987        25.7787      35.6308   |     -11.6987 | 
-|    420.00 |     3.0715        -12.4240        26.0066      36.8941   |     -12.4240 | 
-|    440.00 |     3.5938        -13.1741        26.2232      38.1090   |     -13.1742 | 
+|    273.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    373.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    380.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    400.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    420.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    440.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
 
 ================================================================================================================================
 
-INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
+INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
 
         Al(S) <=> Al+++  + 3 electronSHE
 
@@ -434,9 +434,9 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
+               |               Al(S)|   3          -1     -26.982 |             0                 0 |
                |      metalElectrons|   3           3    0.001635 |            -3                 0 |
                |    AlCl_electrolyte|   3           1       26.98 |             3                 0 |
-               |               Al(S)|   3          -1     -26.982 |             0                 0 |
                |    aluminum_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------
 
@@ -464,9 +464,9 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
         ----------------------------------------------------------------------------------------------------
         Voltage Dependence for Rxn: Al(S) <=> Al+++  + 3 electronSHE
 
-               ThermoPhase index pertaining to the solution = 1
-               ThermoPhase index pertaining to the metal = 0
-               Kinetic Species Index pertaining to the electrons = 0
+               ThermoPhase index pertaining to the solution = 2
+               ThermoPhase index pertaining to the metal = 1
+               Kinetic Species Index pertaining to the electrons = 1
                Input Electric Potential of the Metal = 0 Volts
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage = phi_Metal - phi_Soln  = 0 Volts

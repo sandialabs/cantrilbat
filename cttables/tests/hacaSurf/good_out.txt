@@ -5,111 +5,6 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "soot_interface", with name, "soot_interface", with eosType, "Surface"
-     
-        Total pressure = 760 torr 
-        Temperature (where needed) = 1400 Kelvin
-        Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = Csoot-H
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
-          -----------------------------------------------------------------------------
-              1         Csoot-*          0.5000       1.961E-11       5.161E-01
-              2         Csoot-H          0.5000       1.961E-11       5.161E-01
-          ------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
-        Overall, this is the 1th species in mechanism
-        It is the 1th species in the phase
-        Elemental Composition:               ElementEntropy298
-                    C: 1      |                      5.740
-                                                     5.740 J/gmol/K 
-        Electronic Charge = 0.000000
-        Molecular Weight = 12.011 gm/mol
-        Heat of formation (298.15K) = 45.797496 kcal/gmol
-        DeltaGf (298.15K) = 35.879352 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 2.28841E+15 # per cm2 
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T =  1000 K, H  =         216312800 J kmol-1
-                                S  =             81588 J kmol-1 K-1
-                                Cp =          35187.44 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
-|-----------|----------------------------------------------------------|--------------|
-|    298.15 |     0.0000         -2.7795         8.4100       9.3226   |      43.0180 | 
-|    300.00 |     0.0156         -2.7968         8.4100       9.3746   |      43.0007 | 
-|    400.00 |     0.8566         -3.8610         8.4100      11.7940   |      41.9365 | 
-|    500.00 |     1.6976         -5.1378         8.4100      13.6706   |      40.6597 | 
-|    600.00 |     2.5386         -6.5838         8.4100      15.2040   |      39.2137 | 
-|    700.00 |     3.3796         -8.1707         8.4100      16.5004   |      37.6268 | 
-|    800.00 |     4.2206         -9.8781         8.4100      17.6234   |      35.9194 | 
-|    900.00 |     5.0616        -11.6910         8.4100      18.6139   |      34.1065 | 
-|   1000.00 |     5.9026        -13.5975         8.4100      19.5000   |      32.2000 | 
-|   1100.00 |     6.7436        -15.5882         8.4100      20.3016   |      30.2093 | 
-|   1200.00 |     7.5846        -17.6555         8.4100      21.0333   |      28.1420 | 
-|   1300.00 |     8.4256        -19.7929         8.4100      21.7065   |      26.0046 | 
-|   1400.00 |     9.2666        -21.9951         8.4100      22.3298   |      23.8024 | 
-|   1500.00 |    10.1076        -24.2574         8.4100      22.9100   |      21.5401 | 
-|   1600.00 |    10.9486        -26.5758         8.4100      23.4528   |      19.2217 | 
----------------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
-        Overall, this is the 2th species in mechanism
-        It is the 2th species in the phase
-        Elemental Composition:               ElementEntropy298
-                    H: 1      |                     65.340
-                    C: 1      |                      5.740
-                                                    71.080 J/gmol/K 
-        Electronic Charge = 0.000000
-        Molecular Weight = 13.0189 gm/mol
-        Heat of formation (298.15K) = 5.497448 kcal/gmol
-        DeltaGf (298.15K) = 13.189236 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 2.28841E+15 # per cm2 
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T =  1000 K, H  =          47697600 J kmol-1
-                                S  =             87864 J kmol-1 K-1
-                                Cp =          35187.44 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
-|-----------|----------------------------------------------------------|--------------|
-|    298.15 |    -0.0000         -3.2268         8.4100      10.8226   |       2.2707 | 
-|    300.00 |     0.0156         -3.2468         8.4100      10.8746   |       2.2506 | 
-|    400.00 |     0.8566         -4.4610         8.4100      13.2940   |       1.0364 | 
-|    500.00 |     1.6976         -5.8878         8.4100      15.1707   |      -0.3903 | 
-|    600.00 |     2.5386         -7.4838         8.4100      16.7040   |      -1.9864 | 
-|    700.00 |     3.3796         -9.2207         8.4100      18.0004   |      -3.7233 | 
-|    800.00 |     4.2206        -11.0781         8.4100      19.1234   |      -5.5807 | 
-|    900.00 |     5.0616        -13.0410         8.4100      20.1139   |      -7.5435 | 
-|   1000.00 |     5.9026        -15.0975         8.4100      21.0000   |      -9.6000 | 
-|   1100.00 |     6.7436        -17.2382         8.4100      21.8016   |     -11.7407 | 
-|   1200.00 |     7.5846        -19.4555         8.4100      22.5334   |     -13.9580 | 
-|   1300.00 |     8.4256        -21.7429         8.4100      23.2065   |     -16.2454 | 
-|   1400.00 |     9.2666        -24.0951         8.4100      23.8298   |     -18.5976 | 
-|   1500.00 |    10.1076        -26.5074         8.4100      24.4100   |     -21.0100 | 
-|   1600.00 |    10.9486        -28.9758         8.4100      24.9528   |     -23.4784 | 
----------------------------------------------------------------------------------------
-     ====================================================================================================
       Bath Composition for Phase id, "gas", with name, "gas", with eosType, "IdealGas"
      
         Total pressure = 760 torr 
@@ -445,6 +340,111 @@ INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
 |   1400.00 |     6.5560          7.9812         5.9500      -1.0180   |      13.0252 | 
 |   1500.00 |     7.1510          8.0622         5.9500      -0.6075   |      13.1062 | 
 |   1600.00 |     7.7460          8.1036         5.9500      -0.2235   |      13.1476 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "soot_interface", with name, "soot_interface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 1400 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Csoot-H
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         Csoot-*          0.5000       1.961E-11       5.161E-01
+              2         Csoot-H          0.5000       1.961E-11       5.161E-01
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    C: 1      |                      5.740
+                                                     5.740 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 12.011 gm/mol
+        Heat of formation (298.15K) = 45.797496 kcal/gmol
+        DeltaGf (298.15K) = 35.879352 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 2.28841E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T =  1000 K, H  =         216312800 J kmol-1
+                                S  =             81588 J kmol-1 K-1
+                                Cp =          35187.44 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000         -2.7795         8.4100       9.3226   |      43.0180 | 
+|    300.00 |     0.0156         -2.7968         8.4100       9.3746   |      43.0007 | 
+|    400.00 |     0.8566         -3.8610         8.4100      11.7940   |      41.9365 | 
+|    500.00 |     1.6976         -5.1378         8.4100      13.6706   |      40.6597 | 
+|    600.00 |     2.5386         -6.5838         8.4100      15.2040   |      39.2137 | 
+|    700.00 |     3.3796         -8.1707         8.4100      16.5004   |      37.6268 | 
+|    800.00 |     4.2206         -9.8781         8.4100      17.6234   |      35.9194 | 
+|    900.00 |     5.0616        -11.6910         8.4100      18.6139   |      34.1065 | 
+|   1000.00 |     5.9026        -13.5975         8.4100      19.5000   |      32.2000 | 
+|   1100.00 |     6.7436        -15.5882         8.4100      20.3016   |      30.2093 | 
+|   1200.00 |     7.5846        -17.6555         8.4100      21.0333   |      28.1420 | 
+|   1300.00 |     8.4256        -19.7929         8.4100      21.7065   |      26.0046 | 
+|   1400.00 |     9.2666        -21.9951         8.4100      22.3298   |      23.8024 | 
+|   1500.00 |    10.1076        -24.2574         8.4100      22.9100   |      21.5401 | 
+|   1600.00 |    10.9486        -26.5758         8.4100      23.4528   |      19.2217 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    H: 1      |                     65.340
+                    C: 1      |                      5.740
+                                                    71.080 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 13.0189 gm/mol
+        Heat of formation (298.15K) = 5.497448 kcal/gmol
+        DeltaGf (298.15K) = 13.189236 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 2.28841E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T =  1000 K, H  =          47697600 J kmol-1
+                                S  =             87864 J kmol-1 K-1
+                                Cp =          35187.44 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |    -0.0000         -3.2268         8.4100      10.8226   |       2.2707 | 
+|    300.00 |     0.0156         -3.2468         8.4100      10.8746   |       2.2506 | 
+|    400.00 |     0.8566         -4.4610         8.4100      13.2940   |       1.0364 | 
+|    500.00 |     1.6976         -5.8878         8.4100      15.1707   |      -0.3903 | 
+|    600.00 |     2.5386         -7.4838         8.4100      16.7040   |      -1.9864 | 
+|    700.00 |     3.3796         -9.2207         8.4100      18.0004   |      -3.7233 | 
+|    800.00 |     4.2206        -11.0781         8.4100      19.1234   |      -5.5807 | 
+|    900.00 |     5.0616        -13.0410         8.4100      20.1139   |      -7.5435 | 
+|   1000.00 |     5.9026        -15.0975         8.4100      21.0000   |      -9.6000 | 
+|   1100.00 |     6.7436        -17.2382         8.4100      21.8016   |     -11.7407 | 
+|   1200.00 |     7.5846        -19.4555         8.4100      22.5334   |     -13.9580 | 
+|   1300.00 |     8.4256        -21.7429         8.4100      23.2065   |     -16.2454 | 
+|   1400.00 |     9.2666        -24.0951         8.4100      23.8298   |     -18.5976 | 
+|   1500.00 |    10.1076        -26.5074         8.4100      24.4100   |     -21.0100 | 
+|   1600.00 |    10.9486        -28.9758         8.4100      24.9528   |     -23.4784 | 
 ---------------------------------------------------------------------------------------
 
 ================================================================================================================================

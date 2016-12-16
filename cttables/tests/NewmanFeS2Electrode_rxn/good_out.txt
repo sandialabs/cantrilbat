@@ -5,57 +5,6 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "FeS2_surface", with name, "FeS2_surface", with eosType, "Surface"
-     
-        Total pressure = 760 torr 
-        Temperature (where needed) = 700 Kelvin
-        Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = fes2_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
-          -----------------------------------------------------------------------------
-              1       fes2_site          1.0000       3.000E-11       1.000E+00
-          ------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "fes2_site" IN PHASE "FeS2_surface"
-        Overall, this is the 1th species in mechanism
-        It is the 1th species in the phase
-        Elemental Composition:               ElementEntropy298
-                                                     0.000 J/gmol/K 
-        Electronic Charge = 0.000000
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.000000 kcal/gmol
-        DeltaGf (298.15K) = 0.000000 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 1.80664E+15 # per cm2 
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
-|-----------|----------------------------------------------------------|--------------|
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    600.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    650.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    700.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    723.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    750.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    800.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    850.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    900.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
-|    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
----------------------------------------------------------------------------------------
-     ====================================================================================================
       Bath Composition for Phase id, "metal_Li_LiCl_electrons", with name, "metal_Li_LiCl_electrons", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
@@ -256,6 +205,104 @@ unknown species PDSS thermo type 107
 |    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
      ====================================================================================================
+      Bath Composition for Phase id, "LiKCl_Margules", with name, "LiKCl_Margules", with eosType, "UnknownPhaseType"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = LiCl(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1         LiCl(L)          1.0000       4.883E-02       1.000E+00
+              2          KCl(L)          0.0000       0.000E+00       0.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "LiCl(L)" IN PHASE "LiKCl_Margules"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                   Cl: 1      |                    111.535
+                                                   140.620 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 42.3937 gm/mol
+        Heat of formation (298.15K) = -94.589754 kcal/gmol
+        DeltaGf (298.15K) = -72.438444 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 700 K
+        Maximum Temperature = 2000 K
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 700 < T < 2000: 
+                        73.18025         -9.047232          -0.31639          0.079587
+                        0.013594         -417.1314          157.6711
+               High temperature polynomials: 2000 < T < 2000: 
+                        73.18025         -9.047232          -0.31639          0.079587
+                        0.013594         -417.1314          157.6711
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  298.15*|     0.0000         -4.7262        16.8761      15.8519   |     -99.3160 | 
+|**  600.00*|     4.9877        -11.4737        16.1790      27.4356   |    -106.0634 | 
+|**  650.00*|     5.7938        -12.8782        16.0660      28.7261   |    -107.4679 | 
+|    700.00 |     6.5943        -14.3445        15.9530      29.9126   |    -108.9343 | 
+|    723.00 |     6.9606        -15.0385        15.9010      30.4275   |    -109.6282 | 
+|    750.00 |     7.3891        -15.8679        15.8400      31.0094   |    -110.4577 | 
+|    800.00 |     8.1783        -17.4442        15.7271      32.0281   |    -112.0339 | 
+|    850.00 |     8.9618        -19.0696        15.6141      32.9781   |    -113.6594 | 
+|    900.00 |     9.7397        -20.7410        15.5010      33.8674   |    -115.3307 | 
+|    950.00 |    10.5119        -22.4554        15.3880      34.7025   |    -117.0452 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "KCl(L)" IN PHASE "LiKCl_Margules"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:               ElementEntropy298
+                    K: 1      |                     64.670
+                   Cl: 1      |                    111.535
+                                                   176.205 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 74.551 gm/mol
+        Heat of formation (298.15K) = -100.810627 kcal/gmol
+        DeltaGf (298.15K) = -74.111856 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 700 K
+        Maximum Temperature = 2000 K
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 700 < T < 2000: 
+                        73.59698                 0                 0                 0
+                               0         -443.7341          175.7209
+               High temperature polynomials: 2000 < T < 2000: 
+                        73.59698                 0                 0                 0
+                               0         -443.7341          175.7209
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|**  298.15*|    -0.0000         -6.1751        17.5901      20.7115   |    -106.9858 | 
+|**  600.00*|     5.3096        -14.4981        17.5901      33.0129   |    -115.3088 | 
+|**  650.00*|     6.1891        -16.1845        17.5901      34.4208   |    -116.9951 | 
+|    700.00 |     7.0686        -17.9385        17.5901      35.7244   |    -118.7491 | 
+|    723.00 |     7.4732        -18.7667        17.5901      36.2931   |    -119.5774 | 
+|    750.00 |     7.9481        -19.7554        17.5901      36.9380   |    -120.5660 | 
+|    800.00 |     8.8276        -21.6310        17.5901      38.0732   |    -122.4416 | 
+|    850.00 |     9.7071        -23.5616        17.5901      39.1396   |    -124.3722 | 
+|    900.00 |    10.5866        -25.5439        17.5901      40.1450   |    -126.3546 | 
+|    950.00 |    11.4661        -27.5752        17.5901      41.0961   |    -128.3858 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
       Bath Composition for Phase id, "FeS2_A(S)", with name, "FeS2_A(S)", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
@@ -371,6 +418,110 @@ INFORMATION TABLE FOR SPECIES "FeS2_B(S)" IN PHASE "FeS2_B(S)"
 |    850.00 |     9.6337        -16.3781        18.9575      30.6021   |     -57.6701 | 
 |    900.00 |    10.5876        -17.9357        19.1997      31.6925   |     -59.2277 | 
 |    950.00 |    11.5537        -19.5466        19.4456      32.7372   |     -60.8386 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "Li(L)", with name, "Li(L)", with eosType, "StoichSubstanceVPSSTP"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = Li(L)
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1           Li(L)          1.0000       6.679E-02       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "Li(L)" IN PHASE "Li(L)"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                                                    29.085 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 6.941 gm/mol
+        Heat of formation (298.15K) = 0.568776 kcal/gmol
+        DeltaGf (298.15K) = -0.878249 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 298 K
+        Maximum Temperature = 3000 K
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.0149726 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.0149726 m3/kmol
+        Molar Volume formulation for eos type 55 is not known to cttables
+        SHOMATE Polynomial format: 2 zones
+               Low  temperature polynomials: 298 < T < 700: 
+                        32.46972         -2.635975         -6.327128          4.230359
+                        0.005686         -7.117319           74.2936
+               High temperature polynomials: 700 < T < 3000: 
+                        26.00896          5.632375         -4.013227          0.873686
+                         0.34415          -4.19969          66.36284
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |    -0.0000         -2.4184         7.4803       8.1115   |      -1.8497 | 
+|    600.00 |     2.1946         -5.7332         7.0602      13.2131   |      -5.1644 | 
+|    650.00 |     2.5459         -6.4081         6.9929      13.7755   |      -5.8394 | 
+|    700.00 |     2.8940         -7.1100         6.9280      14.2914   |      -6.5412 | 
+|    723.00 |     3.0534         -7.4411         6.9245      14.5151   |      -6.8723 | 
+|    750.00 |     3.2403         -7.8364         6.9207      14.7689   |      -7.2676 | 
+|    800.00 |     3.5862         -8.5861         6.9148      15.2154   |      -8.0174 | 
+|    850.00 |     3.9318         -9.3575         6.9096      15.6344   |      -8.7887 | 
+|    900.00 |     4.2771        -10.1492         6.9047      16.0292   |      -9.5804 | 
+|    950.00 |     4.6222        -10.9601         6.8997      16.4024   |     -10.3913 | 
+---------------------------------------------------------------------------------------
+     ====================================================================================================
+      Bath Composition for Phase id, "FeS2_surface", with name, "FeS2_surface", with eosType, "Surface"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 700 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = fes2_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1       fes2_site          1.0000       3.000E-11       1.000E+00
+          ------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "fes2_site" IN PHASE "FeS2_surface"
+        Overall, this is the 1th species in mechanism
+        It is the 1th species in the phase
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
+        DeltaGf (298.15K) = 0.000000 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 3.33333e+07 m2/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000: 
+                at T = 298.15 K, H  =                 0 J kmol-1
+                                S  =                 0 J kmol-1 K-1
+                                Cp =                 0 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    600.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    650.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    700.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    723.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    750.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    800.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    850.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    900.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
+|    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
 
 ================================================================================================================================
@@ -501,8 +652,8 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
         Carrier Species (used in diff. calcs) = LiCl(L)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1         LiCl(L)          0.0000            -NAN            -NAN
-              2          KCl(L)          0.0000            -NAN            -NAN
+              1         LiCl(L)          1.0000       4.883E-02       1.000E+00
+              2          KCl(L)          0.0000       0.000E+00       0.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "FeS2_A(S)", with name, "FeS2_A(S)", with eosType, "StoichSubstance"
@@ -535,7 +686,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
         Carrier Species (used in diff. calcs) = Li(L)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1           Li(L)          0.0000       6.679E-02       1.000E+00
+              1           Li(L)          1.0000       6.679E-02       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "FeS2_surface", with name, "FeS2_surface", with eosType, "Surface"
