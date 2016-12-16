@@ -6,25 +6,22 @@
  *     This file contains routines which are global routines, i.e.,
  *     not part of any object. These routine take as input, ctml
  *     pointers to data, and pointers to Cantera objects. The purpose
- *     of these routines is to intialize the Cantera objects with data
- *     from the ctml tree structures.
+ *     of these routines is to intialize the Cantera objects with data from the ctml tree structures.
  */
+
 /*
  * Copywrite (2006) Sandia Corporation. Under the terms of
  * Contract DE-AC04-94AL85000 with Sandia Corporation, the
  * U.S. Government retains certain rights in this software.
  */
 
-
 #include "importPL.h"
 
 #include "cantera/multiphase/PhaseList.h"
+#include "cantera/base/xml.h"
+
 #include "importAllCTML.h"
 
-#include <vector>
-#include "cstdio"
-
-using namespace std;
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -46,8 +43,7 @@ namespace Cantera
  */
 static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const std::string& canteraFile)
 {
-    ThermoPhase* tPhase = processExpandedThermoPhase(xmlphase);
-    //ThermoPhase* tPhase = newPhase(*xmlphase);
+    thermo_t_double* tPhase = processExpandedThermoPhase(xmlphase);
     if (!tPhase) { 
 	throw CanteraError("processPhasePL()",
 			   "ERROR: tPhase = 0 while processing phase in file, " + canteraFile);
@@ -57,9 +53,10 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
         pl->addVolPhase(tPhase, xmlphase);
     } else if (dimS == "2") {
         pl->addSurPhase(tPhase, xmlphase);
+    } else if (dimS == "1") {
+        pl->addEdgePhase(tPhase, xmlphase);
     } else {
-        throw CanteraError("processPhasePL", 
-			   "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
+        throw CanteraError("processPhasePL()", "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
     }
 }
 //==================================================================================================================================
@@ -80,12 +77,12 @@ static void findXMLAllPhasePL(XML_Node* const root, PhaseList* const pl, const s
     if (!root) {
         return;
     }
-    string idattrib;
-    string rname = root->name();
+    std::string idattrib;
+    std::string rname = root->name();
     if (rname == "phase") {
         processPhasePL(sc, pl, canteraFile);
     }
-    const vector<XML_Node*>& vsc = root->children();
+    const std::vector<XML_Node*>& vsc = root->children();
     for (size_t n = 0; n < root->nChildren(); n++) {
         sc = vsc[n];
         if (sc->name() == "phase") {
@@ -98,17 +95,6 @@ static void findXMLAllPhasePL(XML_Node* const root, PhaseList* const pl, const s
     }
 }
 //==================================================================================================================================
-/*
- *
- * importAllCTMLIntoPhaseList()
- *
- *  Import all phases found in a single file into a PhaseList object, in an additive fashion.
- *  This returns the number of phases found, processed, and added  to the PhaseList object.
- *
- *      pl -> Pointer to the PhaseList object
- *      canteraFile -> Cantera CTML file
- *
- */
 size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canteraFile)
 {
     XML_Node* xc = 0;
@@ -116,12 +102,10 @@ size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canter
         xc = get_XML_File(canteraFile);
     }  catch (CanteraError) {
         showErrors();
-        throw CanteraError("importAllCTMLIntoPhaseList",
-                           string("Could not find/process file, ") + canteraFile + string(" -> aborting"));
+        throw CanteraError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
     }
     if (!xc) {
-        throw CanteraError("importAllCTMLIntoPhaseList",
-                           string("Could not find/process file, ") + canteraFile + string(" -> aborting"));
+        throw CanteraError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
     }
     // Search the first 3 levels of the XML tree for a phase node. -> I don't think there is any need to go further.
     findXMLAllPhasePL(xc, pl, canteraFile, 2);

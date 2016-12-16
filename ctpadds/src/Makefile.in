@@ -147,11 +147,11 @@ CTLIB_DEP  = $(CANTERA_LIBDIR)/libthermo.a \
              $(CANTERA_LIBDIR)/libtpx.a 
 CTLIB     =  -L$(CANTERA_LIBDIR) $(CANTERA_LIBS)
 
-OBJ_CTPADDS =  importAllCTML.o  SolidKinetics.o  \
+OBJ_CTPADDS =  importAllCTML.o  importPL.o SolidKinetics.o  \
                ElectrolyteKinetics.o \
                ReactionDataElectrode.o
 
-HDR_CTPADDS =  importAllCTML.h  SolidKinetics.h  \
+HDR_CTPADDS =  importAllCTML.h importPL.h  SolidKinetics.h  \
                ElectrolyteKinetics.h \
                ReactionDataElectrode.h
 
