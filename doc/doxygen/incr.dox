@@ -801,7 +801,16 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_Integrator.h \ 
                          ../../Electrode/src/Electrode_Integrator.cpp  \
                          ../../Electrode/src/Electrode_input.h \ 
-                         ../../Electrode/src/Electrode_input.cpp  
+                         ../../Electrode/src/Electrode_input.cpp  \
+                         ../../Electrode/src/Electrode_CSTR.h \ 
+                         ../../Electrode/src/Electrode_CSTR.cpp  \
+                         ../../Electrode/src/Electrode_Jacobian.h  \
+                         ../../Electrode/src/Electrode_Jacobian.cpp  \
+                         ../../Electrode/src/Electrode_FD_Jacobian.h  \
+                         ../../Electrode/src/Electrode_FD_Jacobian.cpp  \
+                         ../../Electrode/src/Electrode_XMLWriter.cpp  \
+
+
 
 
 

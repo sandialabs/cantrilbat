@@ -236,13 +236,12 @@ namespace Cantera
       XML_Node *kinXMLPhase = 0;
       ThermoPhase *kinPhase = 0;
 
-      //XML_Node *vPhase = pl->SurPhaseXMLNodes[0];
       if (iskin >= 0) {
-	kinXMLPhase = pl->surPhaseXMLNode(iskin);
+	kinXMLPhase =&( pl->surPhaseXMLNode(iskin) );
 	kinPhase = &(pl->surPhase(iskin));
       } else    if (ivkin >= 0) {
-	kinXMLPhase = pl->surPhaseXMLNode(ivkin);
-	kinPhase = &(pl->surPhase(ivkin));
+	kinXMLPhase = &( pl->volPhaseXMLNode(ivkin) );
+	kinPhase = &(pl->volPhase(ivkin));
       }
       //AssertThrow(vPhase, "vPhase must be defined");
 
@@ -285,14 +284,14 @@ namespace Cantera
 	XML_Node *xmlPhase = kinXMLPhase;
 	phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
 	if (phaseArrayXML) {
-	  vector<string> phase_ids;
+	  std::vector<std::string> phase_ids;
 	  ZZctml::getStringArray(*phaseArrayXML, phase_ids);
 	  size_t npToFind = phase_ids.size();
 	  for (size_t iph = 0; iph < npToFind; iph++) {
-	    string phaseID = phase_ids[iph];
+	    std::string phaseID = phase_ids[iph];
 	    bool found = false;
 	    for (size_t jph = 0; jph < pl->nSurPhases(); jph++) {
-	      XML_Node *xmlPhase_j = pl->surPhaseXMLNode(jph);
+	      XML_Node *xmlPhase_j = &( pl->surPhaseXMLNode(jph) );
 	      std::string pname = xmlPhase_j->operator[]("id");
 	      if (phaseID == pname) {
 		found = true;
@@ -305,8 +304,8 @@ namespace Cantera
 	    }
 	    if (!found) {
 	      for (size_t jph = 0; jph < pl->nVolPhases(); jph++) {
-		XML_Node *xmlPhase_j = pl->volPhaseXMLNode(jph);
-		string pname = xmlPhase_j->operator[]("id");
+		XML_Node *xmlPhase_j = &( pl->volPhaseXMLNode(jph) );
+		std::string pname = xmlPhase_j->operator[]("id");
 		if (phaseID == pname) {
 		  found = true;
 		  xmlList.push_back(xmlPhase_j);
@@ -327,13 +326,13 @@ namespace Cantera
 	}
       } else {
 	for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
-	  xmlList.push_back(pl->surPhaseXMLNode(iph));
+	  xmlList.push_back(&( pl->surPhaseXMLNode(iph) ));
 	  tpList.push_back(&(pl->surPhase(iph)));
 	  tplRead[numPhases] = 1;
 	  numPhases++;
 	}
 	for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
-	  xmlList.push_back(pl->volPhaseXMLNode(iph));
+	  xmlList.push_back(&( pl->volPhaseXMLNode(iph) ));
 	  tpList.push_back(&(pl->volPhase(iph)));
 	  tplRead[numPhases] = 1;
 	  numPhases++;
@@ -346,7 +345,7 @@ namespace Cantera
        * eventually the source term vector will be constructed
        * from the list of ThermoPhases in the vector, tpList
        */
-      XML_Node *xmlPhase = pl->surPhaseXMLNode(iskin);
+      XML_Node *xmlPhase = &( pl->surPhaseXMLNode(iskin) );
       bool ok = importKinetics(*xmlPhase, tpList, this);
       if (!ok) {
 	throw CanteraError("", "err");

@@ -10,12 +10,9 @@
  * U.S. Government retains certain rights in this software.
  */
 
-/*
- * $Id: cttInput.h 497 2013-01-07 21:17:04Z hkmoffa $
- */
-
 #ifndef CTTINPUT_H
 #define CTTINPUT_H
+
 
 namespace BEInput {
   class BlockEntry;
@@ -25,7 +22,22 @@ namespace BEInput {
 #include "cantera/kinetics.h"
 #include "mdp_allo.h"
 #include "cantera/multiphase/PhaseList.h"
-#include "Electrode_defs.h"
+
+/*
+ * Use ZZCantera for namespace identification
+ */
+#ifdef useZuzaxNamespace
+#ifndef ZZCantera
+//! Define a common name for the Zuzax namespace
+#define ZZCantera Zuzax
+#endif
+#else
+#ifndef ZZCantera
+//! Define a common name for the Zuzax namespace
+#define ZZCantera Cantera
+#endif
+#endif
+
 #define UNITS_KCAL_CGS 0
 #define UNITS_KJOULE   1
 #define UNITS_CGS      2

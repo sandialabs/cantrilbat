@@ -65,6 +65,7 @@ UTILSRC_LIB=-L$(UTILSRC_DIR) -lutil_src
 UTILSRC_DEP=$(UTILSRC_DIR)/libutil_src.a
 
 CTPADDS_DIR = ../../ctpadds/src
+
 APPL_BASE_DIR= ../../Electrode/src
 APPL_BASE_INC= -I$(APPL_BASE_DIR)
 APPL_BASE_DEP= $(APPL_BASE_DIR)/libElectrode.a $(CTPADDS_DIR)/libctpadds.a
@@ -88,7 +89,7 @@ INCLUDE_DIRS = -I../src \
 		$(APPL_BASE_INC) \
 	        $(TRILINOS_INC) \
                -I$(MPI_INCLUDE_DIR) \
-               -I$(UTILSRC_DIR) -I../..
+               -I$(UTILSRC_DIR) -I$(CTPADDS_DIR) -I../..
 
 GDEFINES=@CXX_GDEFINES@
 # C++ compile flags

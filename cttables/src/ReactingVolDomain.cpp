@@ -36,11 +36,7 @@ ReactingVolDomain::ReactingVolDomain() :
     m_NumKinSpecies(0),
     m_iphGlobKin(npos),
     m_DoSurfKinetics(false),
-    m_DoHomogKinetics(false),
-    m_ok(false),
-    m_XMLPhaseTree(0),
-    m_XMLTree_owned(true),
-    m_I_Own_Thermo(false)
+    m_DoHomogKinetics(false)
 {
 }
 //==================================================================================================================================
@@ -53,16 +49,6 @@ ReactingVolDomain::~ReactingVolDomain()
     if (m_InterfaceKinetics) {
         delete m_InterfaceKinetics;
         m_InterfaceKinetics = 0;
-    }
-
-    if (m_XMLTree_owned) {
-        delete m_XMLPhaseTree;
-    }
-    if (m_I_Own_Thermo) {
-        for (size_t i = 0; i < tpList.size(); i++) {
-            delete tpList[i];
-            tpList[i] = 0;
-        }
     }
 }
 //==================================================================================================================================
@@ -103,18 +89,13 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
          * get a pointer to the vacant ThermoPhase pointer
          */
         tpList.resize(nPhasesFound, 0);
-        tplRead.resize(nPhasesFound, 0);
         kinOrder.resize(nPhasesFound, npos);
-        xmlList.resize(nPhasesFound, 0);
-
-
 
         m_iphGlobKin = npos;
         XML_Node* phaseArrayXML = 0;
         if (nPhasesFound >= 0) {
             for (size_t iph = 0; iph < nPhasesFound; iph++) {
                 XML_Node* xmlPhase = phaseChildren[iph];
-                xmlList[iph] = xmlPhase;
                 tpList[iph] = processExpandedThermoPhase(xmlPhase);
                 XML_Node* kineticsXML = xmlPhase->findNameID("kinetics", "");
                 phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
@@ -129,8 +110,6 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
                 }
             }
         }
-
-
 
         numPhases = 0;
         phaseArrayXML = 0;
@@ -147,9 +126,7 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
                     for (size_t jph = 0; jph < nPhasesFound; jph++) {
                         if (phaseChildren[jph]->id() == phaseID) {
                             XML_Node* xmlPhase = phaseChildren[jph];
-                            xmlList[numPhases] = xmlPhase;
                             tpList[numPhases] = processExpandedThermoPhase(xmlPhase);
-                            tplRead[jph] = 1;
                             kinOrder[numPhases] = iph;
                             numPhases++;
                         }
@@ -158,14 +135,6 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
                         throw CanteraError("import", "phase not found");
                     }
                 }
-            }
-            if (!tplRead[m_iphGlobKin]) {
-                XML_Node* xmlPhase = phaseChildren[m_iphGlobKin];
-                xmlList[numPhases] = xmlPhase;
-                tpList[numPhases] = processExpandedThermoPhase(xmlPhase);
-                tplRead[m_iphGlobKin] = 1;
-                kinOrder[numPhases] = m_iphGlobKin;
-                numPhases++;
             }
         }
 
@@ -176,24 +145,12 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
                  * const XML_Node tree located at x.
                  */
                 XML_Node* xmlPhase = phaseChildren[iph];
-                xmlList[numPhases] = xmlPhase;
                 tpList[numPhases] = processExpandedThermoPhase(xmlPhase);
                 kinOrder[numPhases] = m_iphGlobKin;
-                tplRead[m_iphGlobKin] = 1;
                 numPhases++;
             }
         }
 
-        for (size_t iph = 0; iph < nPhasesFound; iph++) {
-            if (! tplRead[m_iphGlobKin]) {
-                XML_Node* xmlPhase = phaseChildren[iph];
-                xmlList[numPhases] = xmlPhase;
-                tpList[numPhases] = processExpandedThermoPhase(xmlPhase);
-                kinOrder[numPhases] = iph;
-                tplRead[m_iphGlobKin] = 1;
-                numPhases++;
-            }
-        }
 
         if (nPhasesFound > (size_t) numPhases) {
             for (size_t iph = 0; iph < nPhasesFound - numPhases; iph++) {
@@ -258,6 +215,7 @@ bool ReactingVolDomain::importSurKinFromPL(PhaseList* pl, size_t iphSurKin)
     } else { 
 
         m_NumKinPhases = m_InterfaceKinetics->nPhases();
+        kinOrder.resize(m_NumKinPhases, npos);
         PLtoKinPhaseIndex_.resize(m_NumPLPhases, npos);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
         KintoPLSpeciesIndex_.resize(m_InterfaceKinetics->nKinSpecies(), npos);
@@ -311,22 +269,26 @@ bool ReactingVolDomain::importVolKinFromPL(PhaseList* pl, size_t iphVolKin)
 	    XML_Node* xmlPhase = &(pl->volPhaseXMLNode(iphVolKin));
             m_kinetics = processExpandedKinetics(xmlPhase, tpList);
             if (!m_kinetics) {
+                m_NumKinPhases = 0;
+                m_NumKinSpecies = 0;
                 if (DebugPrinting) {
                     printf("No kinetics object was found - that's ok\n");
                 }
-                return false;
+                return true;
             }
             /*
              *  Create a mapping between the ReactingSurfPhase to the PhaseList phase
              */
+            m_NumKinPhases = m_kinetics->nPhases();
+            m_NumKinSpecies = m_kinetics->nKinSpecies();
+        } else {
+            m_NumKinPhases = 0;
+            m_NumKinSpecies = 0;
         }
-        m_NumKinPhases = m_kinetics->nPhases();
-        m_NumKinSpecies = m_kinetics->nKinSpecies();
         kinOrder.resize(m_NumKinPhases, npos);
-        PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
+        PLtoKinPhaseIndex_.resize(m_NumPLPhases, npos);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
         KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
-        //size_t kKinIndex = 0;
         for (size_t kph = 0; kph < m_NumKinPhases; kph++) {
             thermo_t_double& tt = thermo(kph);
             std::string kname = tt.id();
@@ -359,9 +321,6 @@ bool ReactingVolDomain::importVolKinFromPL(PhaseList* pl, size_t iphVolKin)
                 KintoPLSpeciesIndex_[kstart + k] = k + PLkstart;
             }
         }
-
-
-
     } catch (CanteraError) {
         showErrors(cout);
         throw CanteraError("ReactingVolDomain::importFromXML", "error encountered");

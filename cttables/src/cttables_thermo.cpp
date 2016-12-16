@@ -45,6 +45,7 @@ using namespace std;
 //
 // Gather the entropy of the elements of a species at 298 K. this is useful for going back and forth from the
 // gibbs free energy of formation and the absolute gibbs free energy in NIST format.
+// 
 //
 double entropyElem298(ZZCantera::ThermoPhase *g_ptr, size_t k)
 {
@@ -53,7 +54,10 @@ double entropyElem298(ZZCantera::ThermoPhase *g_ptr, size_t k)
     for (size_t m = 0; m < g_ptr->nElements(); m++) {
 	double na = g_ptr->nAtoms(k, m);
 	if (na != 0.0) {
-	    se = g_ptr->entropyElement298(m);
+	    se = g_ptr->entropyElement298(m, true);
+            if (se == ENTROPY298_UNKNOWN) {
+                 return ENTROPY298_UNKNOWN;
+            } 
 	    stotal += se * na;
 	}
     }
@@ -216,7 +220,11 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
       bs = c[1] / (4.184 * 1000.);
       cs = c[4] * 1.0E6 / 4.184;
     
-      dg_consistent =  Mu0_tr_pr + 298.15 * (stotal);
+      if (stotal == ENTROPY298_UNKNOWN) {
+          dg_consistent = ENTROPY298_UNKNOWN;
+      } else {
+          dg_consistent =  Mu0_tr_pr + 298.15 * (stotal);
+      }
       dnt(1); printf("MinEQ3 format:  (a varient of Shomate1 format) \n");
       dnt(2); printf("temperature polynomials (Shomate Form): %g < T < %g: \n", minTemp, maxTemp);
       dnt(2); printf("%17.11g %17.11g %17.11g %17.11g\n", c[0],  c[1], c[2], c[3]);
@@ -227,7 +235,11 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
       dnt(2); printf("        S0_Tr_Pr = %16.9g cal/gmol/K\n", S0_tr_pr / (4.184 * 1.0E3));
       dnt(2); printf("                 = %16.6g  J /gmol/K\n", S0_tr_pr / 1.0E3);
       dnt(2); printf("       mu0_Tr_Pr = %16.6g kJ /gmol\n",   Mu0_tr_pr / 1.0E6);
-      dnt(2); printf(" Delta G0_consis = %16.6g kJ /gmol\n", dg_consistent / 1.0E6);
+      if (dg_consistent == ENTROPY298_UNKNOWN) {
+          dnt(2); printf(" Delta G0_consis = [UNAVAILABE BECAUSE ENTROPY298 NOT INPUT]\n");
+      } else {
+          dnt(2); printf(" Delta G0_consis = %16.6g kJ /gmol\n", dg_consistent / 1.0E6);
+      }
       dnt(2); printf("               a = %16.9g cal/gkmol/K\n", as);
       dnt(2); printf("               b = %16.9g cal/kmol/K2\n", bs);
       dnt(2); printf("               c = %16.9g cal-K/gmol\n", cs);
@@ -284,7 +296,6 @@ void printThermoCoeffSpecies(ThermoPhase *g_ptr, int k) {
   default:
     printf("unknown species reference thermo type %d\n", rt);
   }
-
     
 }
 /*************************************************************************/

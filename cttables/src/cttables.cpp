@@ -374,42 +374,42 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
       }
     }
     if (tModel == cMixtureAveraged || tModel == CK_MixtureAveraged) {
-      if (haveSpeciesTransportProps) {
-	MixTransport * mt = dynamic_cast<MixTransport *>(GTran);
+        if (haveSpeciesTransportProps) {
+            MixTransport * mt = dynamic_cast<MixTransport *>(GTran);
 	
-//	GasTransportData td = mt->getGasTransportData(k);
-	dnt(1); 
-	double wellDepth = mt->m_eps[k] / Boltzmann;
-	cout << "L-J Potential Well Depth = "
-	     << wellDepth << " K" << endl;
-	dnt(1); 
-	double diameter = mt->m_sigma[k] * 1.0E10;
-	cout << "L-J collision diameter = " << diameter 
-	     << " Angstroms" << endl;
-	dnt(1); 
-	double dipoleMoment = 1.0E25 / SqrtTen * mt->m_dipole(k,k);
-	cout << "Dipole Moment = " << dipoleMoment << " Debeye" << endl;
-	dnt(1); 
-	double polarizability = mt->m_alpha[k] * 1.0E30;
-	cout << "Polarizability = "; pr_dfp(polarizability, 2);
-	cout << " Angstroms**3" << endl;
-	dnt(1); 
-	double rotRelaxNumber = mt->m_zrot[k];
-	cout << "Rotational Collision Number at 298 K = " 
-	     <<  rotRelaxNumber << endl;
-	dnt(1); 
-	double crot = mt->m_crot[k];
-	if (crot == 0.0) {
-	  cout <<"This molecule is monatomic" << endl;
-	} else if (crot == 1.0) {
-	  cout <<"This molecule is linear" << endl;
-	} else if (crot == 1.5) {
-	  cout <<"This molecule is nonlinear" << endl;
-	} else {
-          throw CanteraError("", "Unknown crot = " + ZZCantera::fp2str(crot));
+            //	GasTransportData td = mt->getGasTransportData(k);
+            dnt(1); 
+            double wellDepth = mt->m_eps[k] / Boltzmann;
+            cout << "L-J Potential Well Depth = "
+                 << wellDepth << " K" << endl;
+            dnt(1); 
+            double diameter = mt->m_sigma[k] * 1.0E10;
+            cout << "L-J collision diameter = " << diameter 
+                 << " Angstroms" << endl;
+            dnt(1); 
+            double dipoleMoment = 1.0E25 / SqrtTen * mt->m_dipole(k,k);
+            cout << "Dipole Moment = " << dipoleMoment << " Debeye" << endl;
+            dnt(1); 
+            double polarizability = mt->m_alpha[k] * 1.0E30;
+            cout << "Polarizability = "; pr_dfp(polarizability, 2);
+            cout << " Angstroms**3" << endl;
+            dnt(1); 
+            double rotRelaxNumber = mt->m_zrot[k];
+            cout << "Rotational Collision Number at 298 K = " 
+                 <<  rotRelaxNumber << endl;
+            dnt(1); 
+            double crot = mt->m_crot[k];
+            if (crot == 0.0) {
+                cout <<"This molecule is monatomic" << endl;
+            } else if (crot == 1.0) {
+                cout <<"This molecule is linear" << endl;
+            } else if (crot == 1.5) {
+                cout <<"This molecule is nonlinear" << endl;
+            } else {
+                throw CanteraError("", "Unknown crot = " + ZZCantera::fp2str(crot));
+            }
+	
         }
-	
-      }
     }
     /*
      * Print out the Heat of Formation at 298.15 K
@@ -432,9 +432,9 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
      * Optionally print out the internal energy at 298.15 K
      */
     if (IOO.IntEnergyColumn) {
-      dnt(1);
-      cout << "Int Energy (298.15K, refPres) = "; pr_dfp(U298[k], 4);
-      printf(" %8s\n", UIO.sGibbs.c_str());
+        dnt(1);
+        cout << "Int Energy (298.15K, refPres) = "; pr_dfp(U298[k], 4);
+        printf(" %8s\n", UIO.sGibbs.c_str());
     }
   
     /*
@@ -444,25 +444,25 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
     double presRef = sThermo.refPressure(k);
     double presRefPhase = g.refPressure();
     if (IOO.OutputUnits == UNITS_KCAL_CGS) {
-      if (doubleEqual(presRef, presRefPhase)) {
-	dnt(1); cout << "Phase and Species Reference Pressure = " 
-		     << presRefPhase *10. << " erg cm-2" << endl;
-      } else {
-      dnt(1); cout << "Phase Reference Pressure = " 
-		   << presRefPhase *10. << " erg cm-2" << endl;
-      dnt(1); cout << "Species Reference Pressure = " 
-		   << presRef  *10. << " erg cm-2" << endl;
-      }
+        if (doubleEqual(presRef, presRefPhase)) {
+            dnt(1); cout << "Phase and Species Reference Pressure = " 
+                         << presRefPhase *10. << " erg cm-2" << endl;
+        } else {
+            dnt(1); cout << "Phase Reference Pressure = " 
+                         << presRefPhase *10. << " erg cm-2" << endl;
+            dnt(1); cout << "Species Reference Pressure = " 
+                         << presRef  *10. << " erg cm-2" << endl;
+        }
     } else  if (IOO.OutputUnits == UNITS_KJOULE) {
-      if (doubleEqual(presRef, presRefPhase)) {
-	dnt(1);  cout << "Phase and Species Reference Pressure = " 
-		      << presRefPhase << " Pa" << endl;
-      } else {
-        dnt(1); cout << "Phase Reference Pressure = " 
-		     << presRefPhase << " Pa" << endl;
-        dnt(1); cout << "Species Reference Pressure = " 
-		     << presRef  << " Pa" << endl;
-      }
+        if (doubleEqual(presRef, presRefPhase)) {
+            dnt(1);  cout << "Phase and Species Reference Pressure = " 
+                          << presRefPhase << " Pa" << endl;
+        } else {
+            dnt(1); cout << "Phase Reference Pressure = " 
+                         << presRefPhase << " Pa" << endl;
+            dnt(1); cout << "Species Reference Pressure = " 
+                         << presRef  << " Pa" << endl;
+        }
     }
     double minTemp = g.minTemp(k);
     double maxTemp = g.maxTemp(k);
@@ -638,9 +638,8 @@ void printIdealGasSpeciesTable(ThermoPhase &g,
     }
     printf("\n");
 }
-/***************************************************************************/
-/***************************************************************************/
-/***************************************************************************/
+
+//=====================================================================================================================================
 /**
  *  This routine will print out a table of information about
  *  a species in an ideal gas thermo phse. It explicitly
@@ -694,15 +693,19 @@ void printThermoPhaseSpeciesTable(ThermoPhase *g_ptr,
   for (size_t m = 0; m < g_ptr->nElements(); m++) {
     double na = g_ptr->nAtoms(k, m);
     if (na != 0.0) {
-	double se = g_ptr->entropyElement298(m);
-	dnt(3); pr_sf(g_ptr->elementName(m), 3);
+	double se = g_ptr->entropyElement298(m, true);
+        dnt(3); pr_sf(g_ptr->elementName(m), 3);
 	cout << ": " << na << "      |              ";
-	pr_df( se * na / 1.0E3, 13, 3);
+        if (se == ENTROPY298_UNKNOWN) { 
+            printf("[UNAVAILABLE] ");
+        } else {
+	    pr_df( se * na / 1.0E3, 13, 3);
+        }
 	printf("\n");
     }
   }
   double ch = g_ptr->charge(k);
-  if (ch != 0.0) {
+  if (ch != 0.0 &&  elementEntropyTotal != ENTROPY298_UNKNOWN) {
        double entCh = g_ptr->entropyCharge(ch);
        dnt(3); pr_sf("E-", 3);
        cout << ": " << ch << "      |              ";
@@ -711,7 +714,11 @@ void printThermoPhaseSpeciesTable(ThermoPhase *g_ptr,
        elementEntropyTotal += entCh;
   }
   dnt(3); printf("                           ");
-  pr_df( elementEntropyTotal / 1.0E3, 13, 3);
+  if (elementEntropyTotal == ENTROPY298_UNKNOWN) {
+      printf("    [UNAVAILABLE] ");
+  } else {
+      pr_df( elementEntropyTotal / 1.0E3, 13, 3);
+  }
   printf(" J/gmol/K \n");
 
   dnt(1); cout << "Electronic Charge = "; 
@@ -1648,7 +1655,7 @@ int main(int argc, char** argv) {
     int numSurPhases = pl->nSurPhases();
     int numVolPhases = pl->nVolPhases();
     int isfound = -1;
-    int ivfound = -1;
+    size_t ivfound = npos;
     for (i = 0; i < numSurPhases; i++) {
       if (pl->surPhaseHasKinetics(i)) {
 	isfound = i;
@@ -1670,94 +1677,89 @@ int main(int argc, char** argv) {
      */
     if (isfound >= 0) {
         ok = rVolDomain->importSurKinFromPL(pl, isfound);
-    } else if (ivfound >= 0) {
+    } else {
         ok = rVolDomain->importVolKinFromPL(pl, ivfound);
-
     }
     if (!ok) {
-      throw CanteraError("cttables main:",
-			 "rVolDomain returned an error"); 
+      throw CanteraError("cttables main:", "rVolDomain returned an error"); 
     }
     
 
     gThermoMainPhase = rVolDomain->tpList[0];
     gKinetics = rVolDomain->m_kinetics;
 
-    for (size_t iphase = 0; iphase < rVolDomain->m_NumKinPhases; iphase++) {
-      gThermoMainPhase = rVolDomain->tpList[iphase];
-      //
-      // Change the default behavior of phases to print out INF's and not to change the numbers.
-      //
-      // Eventually we'll make a keyline command for this.
-      //
-      gThermoMainPhase->realNumberRangeBehavior_ = DONOTHING_CTRB;
-      //gThermoMainPhase->realNumberRangeBehavior_ = CHANGE_OVERFLOW_CTRB;
-      //gThermoMainPhase->realNumberRangeBehavior_ = THROWON_OVERFLOW_CTRB;
-      int iph = pl->globalPhaseIndex(gThermoMainPhase);
+    for (size_t iphase = 0; iphase < rVolDomain->m_NumPLPhases; iphase++) {
+        gThermoMainPhase = rVolDomain->tpList[iphase];
+        //
+        // Change the default behavior of phases to print out INF's and not to change the numbers.
+        //
+        // Eventually we'll make a keyline command for this.
+        //
+        gThermoMainPhase->realNumberRangeBehavior_ = DONOTHING_CTRB;
+        // gThermoMainPhase->realNumberRangeBehavior_ = CHANGE_OVERFLOW_CTRB;
+        // gThermoMainPhase->realNumberRangeBehavior_ = THROWON_OVERFLOW_CTRB;
+        size_t iph = pl->globalPhaseIndex(gThermoMainPhase);
 
-      int nSpecies = gThermoMainPhase->nSpecies();
-      string phaseBath = "Bath Specification for Phase ";
-    
-      string phaseNm = gThermoMainPhase->name();
-      phaseBath += phaseNm; 
+        size_t nSpecies = gThermoMainPhase->nSpecies();
+        std::string phaseBath = "Bath Specification for Phase ";
+        std::string phaseNm = gThermoMainPhase->name();
+        phaseBath += phaseNm; 
 
-      /*
-       * Set up default bath gas conditions
-       */
-      mdp_safe_free((void **) &BG.Xmol);
-      BG.Xmol = mdp_alloc_dbl_1(nSpecies,0.0);
-
-      mdp_safe_free((void **) &BG.Molalities);
-      BG.Molalities = mdp_alloc_dbl_1(nSpecies,0.0);
-  
-      gThermoMainPhase->getMoleFractions(BG.Xmol);
-
-      bool molVecSpecified = false;
-      BlockEntry *pblock = cf->searchBlockEntry(phaseBath.c_str());
-      if (pblock) {
-	BlockEntry *pbsmf =
-	  pblock->searchBlockEntry("Bath Species Mole Fraction");
-	if (pbsmf) {
-	  if (pbsmf->get_NumTimesProcessed() > 0) {
-	    molVecSpecified = true;
-	  }
-	}
-      }
-
-      if (molVecSpecified) {
-	for (int k = 0; k < nSpecies; k++) {
-	  BG.Xmol[k] = BG.XmolPLPhases[iph][k];
-	}
-      } else {
-	for (int k = 0; k < nSpecies; k++) {
-	  BG.XmolPLPhases[iph][k] =  BG.Xmol[k];
-	}
-      }
-
-      bool molalVecSpecified = false;
-      if (pblock) {
-	BlockEntry *pbsmm =
-	  pblock->searchBlockEntry("Bath Species Molalities");
-	if (pbsmm) {
-	  if (pbsmm->get_NumTimesProcessed() > 0) {
-	    molalVecSpecified = true;
-	  }
-	}
-      }
-      if (molalVecSpecified) {
-	MolalityVPSSTP * m_ptr = dynamic_cast<MolalityVPSSTP *>(gThermoMainPhase);
-	if (m_ptr == 0) {
-	  printf("Dynamic cast failed for some reason\n");
-	  exit(-1);
-	}
-	m_ptr->setState_TPM(BG.Temperature, BG.Pressure,
-			    BG.MolalitiesPLPhases[iph]);
-	m_ptr->getMoleFractions(BG.XmolPLPhases[iph]);
-
-      }
-   
-
-      setBathSpeciesConditions(*gThermoMainPhase, pl, 0); 
+        /*
+         * Set up default bath gas conditions
+         */
+        mdp_safe_free((void **) &BG.Xmol);
+        BG.Xmol = mdp_alloc_dbl_1(nSpecies, 0.0);
+        
+        mdp_safe_free((void **) &BG.Molalities);
+        BG.Molalities = mdp_alloc_dbl_1(nSpecies,0.0);
+        
+        gThermoMainPhase->getMoleFractions(BG.Xmol);
+        
+        bool molVecSpecified = false;
+        BlockEntry *pblock = cf->searchBlockEntry(phaseBath.c_str());
+        if (pblock) {
+            BlockEntry *pbsmf = pblock->searchBlockEntry("Bath Species Mole Fraction");
+            if (pbsmf) {
+                if (pbsmf->get_NumTimesProcessed() > 0) {
+                    molVecSpecified = true;
+                }
+            }
+        }
+        
+        if (molVecSpecified) {
+            for (size_t k = 0; k < nSpecies; k++) {
+                BG.Xmol[k] = BG.XmolPLPhases[iph][k];
+            }
+        } else {
+            for (size_t k = 0; k < nSpecies; k++) {
+                BG.XmolPLPhases[iph][k] =  BG.Xmol[k];
+            }
+        }
+        
+        bool molalVecSpecified = false;
+        if (pblock) {
+            BlockEntry *pbsmm =
+                pblock->searchBlockEntry("Bath Species Molalities");
+            if (pbsmm) {
+                if (pbsmm->get_NumTimesProcessed() > 0) {
+                    molalVecSpecified = true;
+                }
+            }
+        }
+        if (molalVecSpecified) {
+            MolalityVPSSTP * m_ptr = dynamic_cast<MolalityVPSSTP *>(gThermoMainPhase);
+            if (m_ptr == 0) {
+                printf("Dynamic cast failed for some reason\n");
+                exit(-1);
+            }
+            m_ptr->setState_TPM(BG.Temperature, BG.Pressure, BG.MolalitiesPLPhases[iph]);
+            m_ptr->getMoleFractions(BG.XmolPLPhases[iph]);
+            
+        }
+        
+        
+        setBathSpeciesConditions(*gThermoMainPhase, pl, 0); 
     }
   
     delete cf;
@@ -1766,20 +1768,13 @@ int main(int argc, char** argv) {
      *  Formulate a vector of temperatures to be used in
      *  the species and reaction tables
      */
-    TT_ptr = new TemperatureTable(IOO.m_TTnpts, true,
-				  IOO.m_TTTlow,
-				  IOO.m_TTDeltaT,
-				  IOO.NumAddedTemps,
-				  IOO.AddedTemperatures);
+    TT_ptr = new TemperatureTable(IOO.m_TTnpts, true, IOO.m_TTTlow,
+				  IOO.m_TTDeltaT, IOO.NumAddedTemps, IOO.AddedTemperatures);
 
-    VV_ptr = new VoltageTable(IOO.m_VVnpts, 
-			      IOO.m_VVVlow,
-			      IOO.m_VVDeltaV,
-			      IOO.VVincZero,
-			      IOO.NumAddedVoltages,
-			      IOO.AddedVoltages);
+    VV_ptr = new VoltageTable(IOO.m_VVnpts,  IOO.m_VVVlow, IOO.m_VVDeltaV,
+			      IOO.VVincZero,  IOO.NumAddedVoltages, IOO.AddedVoltages);
 
-    for (size_t iphaseRVD = 0; iphaseRVD < rVolDomain->m_NumKinPhases; iphaseRVD++) {
+    for (size_t iphaseRVD = 0; iphaseRVD < rVolDomain->m_NumPLPhases; iphaseRVD++) {
       gThermoMainPhase = rVolDomain->tpList[iphaseRVD];
 
       size_t nSpecies = gThermoMainPhase->nSpecies();
@@ -1815,22 +1810,19 @@ int main(int argc, char** argv) {
 
      
       /*
-       *  Go get all of the thermo quantities for the species
-       *  tables.
+       *  Go get all of the thermo quantities for the species tables.
        */
       DenseMatrix Cp_Table(TT_ptr->size(), nSpecies);
       DenseMatrix Hrel_Table(TT_ptr->size(), nSpecies);
       DenseMatrix Urel_Table(TT_ptr->size(), nSpecies);
       DenseMatrix Grel_Table(TT_ptr->size(), nSpecies);
       DenseMatrix S_Table(TT_ptr->size(), nSpecies);
-      vector<double> H298(nSpecies);
-      vector<double> U298(nSpecies);
-      if ((size_t) nSpecies > S298.size()) {
+      std::vector<double> H298(nSpecies);
+      std::vector<double> U298(nSpecies);
+      if (nSpecies > S298.size()) {
           S298.resize(nSpecies);
       }
-      getThermoTables(*TT_ptr, Cp_Table, Hrel_Table, Grel_Table,
-		      S_Table, H298, *gThermoMainPhase,
-		      Urel_Table, U298);
+      getThermoTables(*TT_ptr, Cp_Table, Hrel_Table, Grel_Table, S_Table, H298, *gThermoMainPhase, Urel_Table, U298);
 
       /*
        * Go get all of the transport quantities for the species
@@ -1840,8 +1832,7 @@ int main(int argc, char** argv) {
       DenseMatrix Cond_Table(TT_ptr->size(), nSpecies);
       DenseMatrix Diff_Table(TT_ptr->size(), nSpecies);
       if (! skipTransport) {
-	getGenericTransportTables(*TT_ptr, *gThermoMainPhase, Visc_Table, 
-				  Cond_Table, Diff_Table);
+          getGenericTransportTables(*TT_ptr, *gThermoMainPhase, Visc_Table, Cond_Table, Diff_Table);
       }
 
       /*
@@ -1852,37 +1843,31 @@ int main(int argc, char** argv) {
        * Loop over the species printing out a table
        */
       if (DebugPrinting) {
-	cout << "EOS type = " << gThermoMainPhase->eosType() << endl;
+          cout << "EOS type = " << gThermoMainPhase->eosType() << endl;
       }
       if (gThermoMainPhase->eosType() == cIdealGas) {
-	if (DebugPrinting) {
-	  cout << "PrintOut of Phase, \"" << gThermoMainPhase->id() 
-	       << "\", using the Ideal Gas Thermodynamics Functions:" 
-	       << endl;
-	}
-	for (size_t k = 0; k < nSpecies; k++) {
-	  printIdealGasSpeciesTable(*gThermoMainPhase, k, *TT_ptr, Cp_Table, 
-				    Hrel_Table, Grel_Table,
-				    S_Table,haveSpeciesTransportProps, 
-				    Visc_Table, Cond_Table,
-				    Diff_Table, H298, Urel_Table, U298);
-	}
+	  if (DebugPrinting) {
+              cout << "PrintOut of Phase, \"" << gThermoMainPhase->id() 
+                   << "\", using the Ideal Gas Thermodynamics Functions:" << std::endl;
+	  }
+	  for (size_t k = 0; k < nSpecies; k++) {
+              printIdealGasSpeciesTable(*gThermoMainPhase, k, *TT_ptr, Cp_Table, 
+                                        Hrel_Table, Grel_Table, S_Table,haveSpeciesTransportProps, 
+                                        Visc_Table, Cond_Table, Diff_Table, H298, Urel_Table, U298);
+	  }
       } else {
-	if (DebugPrinting) {
-	  cout << "PrintOut of Phase, \"" << gThermoMainPhase->id() 
-	       << "\", using Generic Thermodynamics Functions:" 
-	       << endl;
-	}
-	/*
-	 * Loop over the species printing out a table
-	 */
-	for (size_t k = 0; k < nSpecies; k++) {
-	  printThermoPhaseSpeciesTable(gThermoMainPhase, k, *TT_ptr, Cp_Table, 
-				       Hrel_Table, Grel_Table,
-				       S_Table, haveSpeciesTransportProps,
-				       Visc_Table, Cond_Table,
-				       Diff_Table, H298, Urel_Table, U298);
-	}
+	  if (DebugPrinting) {
+	    cout << "PrintOut of Phase, \"" << gThermoMainPhase->id() 
+	         << "\", using Generic Thermodynamics Functions:" << endl;
+	  }
+	  /*
+	   * Loop over the species printing out a table
+	   */
+	  for (size_t k = 0; k < nSpecies; k++) {
+              printThermoPhaseSpeciesTable(gThermoMainPhase, k, *TT_ptr, Cp_Table, 
+                                           Hrel_Table, Grel_Table, S_Table, haveSpeciesTransportProps,
+                                           Visc_Table, Cond_Table, Diff_Table, H298, Urel_Table, U298);
+	  }
       }
     }
     if (rVolDomain->m_kinetics) {
@@ -1892,7 +1877,6 @@ int main(int argc, char** argv) {
 	doKineticsTablesHetero(pl, rVolDomain->m_InterfaceKinetics, *TT_ptr); 
     }
 
-
     fclose(inputFP);
     delete rVolDomain;
     rVolDomain = 0;
@@ -1900,14 +1884,13 @@ int main(int argc, char** argv) {
     pl = 0;
     delete TT_ptr;
     TT_ptr = 0;
-
     appdelete();
 
   } catch (CanteraError) {
     showErrors(cout);
     return 0;
   }
-  //printf("total time = %g\n", tt.secondsWC());
   return 0;
 }
-/*******************************************************************/
+//==================================================================================================================================
+

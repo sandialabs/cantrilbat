@@ -164,12 +164,15 @@ extern void printBathSpeciesConditions(ZZCantera::ThermoPhase& g,
 
 
 double entropyElem298(ZZCantera::ThermoPhase *g_ptr, size_t k);
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
 
-
-extern void printVolSpecies(ZZCantera::ThermoPhase *, int);
+//==================================================================================================================================
+//! Print out volume information about the Standard State
+/*!
+ *  @param[in]               tp                  Pointer to the ThermoPhase
+ *  @param[in]               k                   species Index
+ */
+void printVolSpecies(ZZCantera::ThermoPhase *tp, size_t k);
+//==================================================================================================================================
 
 extern void printThermoCoeffSpecies(ZZCantera::ThermoPhase *, int);
 /**********************************************************************/

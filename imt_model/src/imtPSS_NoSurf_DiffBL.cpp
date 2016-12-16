@@ -221,7 +221,8 @@ namespace Cantera
 
     ThermoPhase *tpA = & thermo(solnAPhase_);
 
-    XML_Node* xmlA = VolPhaseXMLNodes_[solnAPhase_];
+    XML_Node* xmlA = &( volPhaseXMLNode(solnAPhase_) );
+
     std::string transportModel;
     if (xmlA->hasChild("transport")) {   
       const XML_Node& tranNode = xmlA->child("transport");
@@ -236,7 +237,8 @@ namespace Cantera
 
     ThermoPhase *tpB = & thermo(solnBPhase_);
 
-    XML_Node* xmlB = VolPhaseXMLNodes_[solnBPhase_];
+    XML_Node* xmlB = &( volPhaseXMLNode(solnBPhase_) );
+
     std::string transportModelB;
     if (xmlB->hasChild("transport")) {   
       const XML_Node& tranNode = xmlB->child("transport");

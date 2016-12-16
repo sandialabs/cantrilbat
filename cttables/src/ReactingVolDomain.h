@@ -19,7 +19,7 @@
 #include <string>
 #include <iostream>
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -33,7 +33,9 @@ class PhaseList;
 
 //==================================================================================================================================
 //! Utility class that wraps PhaseList and adds homogeneous or heterogeneous kinetics to it
-
+/*!
+ *  
+ */
 class ReactingVolDomain
 {
 public:
@@ -66,16 +68,6 @@ public:
      *  @return                                  Returns true if Kinetics is setup and ready to go
      */
     bool importVolKinFromPL(PhaseList* pl, size_t iphVolKin);
-
-    //! returns ready if we have been initialized.
-    /*!
-     *  @return                                  Returns true if we have been initialized
-     */
-    bool ready()
-    {
-        return m_ok;
-    }
-
 
     //! Print out the information in a ReactingVolumeDomain
     friend std::ostream& operator<<(std::ostream& s, ReactingVolDomain& vd);
@@ -112,8 +104,6 @@ public:
 
     //! List of ThermoPhase pointers   
     std::vector<ThermoPhase*>tpList;
-
-    std::vector<XML_Node*> xmlList;
 
     //! Mapping between the phase order in the InterfaceKinetics or Kinetics object and the overall phase order
     //! in the PhaseList object
@@ -168,8 +158,6 @@ public:
     //! Phase Index within the PhaseList which is the owning phase of the kinetics object
     size_t m_iphGlobKin;
 
-    std::vector<size_t> tplRead;
-
     //! String representing the transport model
     std::string transportModel;
 
@@ -178,14 +166,8 @@ public:
 
     //! do homogeneous kinetics
     bool m_DoHomogKinetics;
-
-protected:
-    bool m_ok;
-    XML_Node* m_XMLPhaseTree;
-private:
-    bool m_XMLTree_owned;
-    bool m_I_Own_Thermo;
 };
 //==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

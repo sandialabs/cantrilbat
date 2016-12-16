@@ -374,7 +374,7 @@ int main(int argc, char **argv)
     std::vector<ThermoPhase *> aqList;
     aqList.push_back(tpB_ptr);
 
-    XML_Node *xB = iface->volPhaseXMLNode(iface->solnBPhase_);
+    XML_Node *xB = &( iface->volPhaseXMLNode(iface->solnBPhase_) );
 
     importKinetics(*xB, aqList, tbpKinetics);
 
