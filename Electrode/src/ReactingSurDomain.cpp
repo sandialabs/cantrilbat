@@ -30,8 +30,6 @@ namespace Cantera
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain() :
     ElectrodeKinetics(),
-    numPhases_(0),
-    xmlList(0),
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
@@ -65,8 +63,6 @@ ReactingSurDomain::ReactingSurDomain() :
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     ElectrodeKinetics(),
-    numPhases_(0),
-    xmlList(0),
     kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
@@ -101,7 +97,6 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
 //==================================================================================================================================
 ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     ElectrodeKinetics(),
-    numPhases_(0),
     kinOrder(pl->nPhases(), npos),
     PLtoKinPhaseIndex_(pl->nPhases(), npos),
     PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
@@ -158,9 +153,6 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     //
     ElectrodeKinetics::operator=(right);
 
-    numPhases_      = right.numPhases_;
-    // Shallow copy of xmlList pointers -> beware
-    xmlList         = right.xmlList;
     kinOrder        = right.kinOrder;
     PLtoKinPhaseIndex_ = right.PLtoKinPhaseIndex_;
     PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
@@ -690,8 +682,9 @@ double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double i
 std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd)
 {
     ThermoPhase* th;
-    ElectrodeKinetics* iK = &rsd;
-    for (size_t i = 0; i < rsd.numPhases_; i++) {
+    ElectrodeKinetics* iK = static_cast<ElectrodeKinetics*>(&rsd);
+    size_t np = rsd.nPhases();
+    for (size_t i = 0; i < np; i++) {
         th = &(iK->thermo(i));
         std::string r = th->report(true);
         s << r;
@@ -779,99 +772,30 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         //  Store the PhaseList as a shallow pointer within the object
         //
         m_pl = pl;
-
-        XML_Node* kinXMLPhase = 0;
-        ThermoPhase* kinPhase = 0;
+   
 
         if (iskin == npos || iskin >= pl->nSurPhases()) {
            throw Electrode_Error("ReactingSurDomain::importFromPL()", "index of surface reaction not within bounds");
         }
-        kinXMLPhase = &( pl->surPhaseXMLNode(iskin));
-        kinPhase = &(pl->surPhase(iskin));
+        XML_Node* kinXMLPhase = &( pl->surPhaseXMLNode(iskin));
+    
 
-        size_t nPhasesFound = pl->nSurPhases() + pl->nVolPhases();
+        size_t nPhasesFound = pl->nPhases();
         /*
          * Resize the internal list of pointers and get a pointer to the vacant ThermoPhase pointer
          */
         std::vector<thermo_t_double*> tpList;
-        tpList.clear();
         tpList_IDs_.clear();
         kinOrder.resize(nPhasesFound, npos);
-        xmlList.clear();
-        iphaseKin_ = npos;
+
         iphaseKin_ = iskin + pl->nVolPhases();
         m_DoSurfKinetics = true;
 
-        numPhases_ = 0;
-        if (iphaseKin_ != npos) {
-            xmlList.push_back(kinXMLPhase);
-            tpList.push_back(kinPhase);
-            tpList_IDs_.push_back(kinPhase->id());
-            numPhases_++;
-        }
-
-        /*
-         *  OK, we have settled in on the kinetics object that we will process.
-         *  Now, go look at the phaseArray XML field to get a listing of the ThermoPhases
-         *  involved with the kinetics object.
-         */
-        XML_Node* phaseArrayXML = 0;
-        if (iphaseKin_ != npos) {
-            XML_Node* xmlPhase = kinXMLPhase;
-            phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
-            if (phaseArrayXML) {
-                std::vector<std::string> phase_ids;
-                ZZctml::getStringArray(*phaseArrayXML, phase_ids);
-                size_t npToFind = phase_ids.size();
-                for (size_t iph = 0; iph < npToFind; iph++) {
-                    std::string phaseID = phase_ids[iph];
-                    bool found = false;
-                    for (size_t jph = 0; jph < pl->nSurPhases(); jph++) {
-                        XML_Node* xmlPhase_j = &(pl->surPhaseXMLNode(jph));
-                        std::string pname = xmlPhase_j->operator[]("id");
-                        if (phaseID == pname) {
-                            found = true;
-                            xmlList.push_back(xmlPhase_j);
-                            tpList.push_back(&(pl->surPhase(jph)));
-                            tpList_IDs_.push_back(pl->surPhase(jph).id());
-                            numPhases_++;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        for (size_t jph = 0; jph < pl->nVolPhases(); jph++) {
-                            XML_Node* xmlPhase_j = &(pl->volPhaseXMLNode(jph));
-                            std::string pname = xmlPhase_j->operator[]("id");
-                            if (phaseID == pname) {
-                                found = true;
-                                xmlList.push_back(xmlPhase_j);
-                                tpList.push_back(&(pl->volPhase(jph)));
-                                tpList_IDs_.push_back(pl->volPhase(jph).id());
-                                numPhases_++;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!found) {
-                        throw CanteraError("ReactingSurDomain::importFromPL()",
-                                           "Phase, requested in phaseArray, was not found: " + phaseID);
-                    }
-                }
-            }
-        } else {
-            for (size_t iph = 0; iph < pl->nSurPhases(); iph++) {
-                xmlList.push_back(&(pl->surPhaseXMLNode(iph)));
-                tpList.push_back(&(pl->surPhase(iph)));
-                tpList_IDs_.push_back(pl->surPhase(iph).id());
-                numPhases_++;
-            }
-            for (size_t iph = 0; iph < pl->nVolPhases(); iph++) {
-                xmlList.push_back(&(pl->volPhaseXMLNode(iph)));
-                tpList.push_back(&(pl->volPhase(iph)));
-                tpList_IDs_.push_back(pl->volPhase(iph).id());
-                numPhases_++;
-            }
+        
+        for (size_t iph = 0; iph < nPhasesFound; iph++) {
+            thermo_t_double* tp =  &( m_pl->thermo(iph) );
+            tpList.push_back(tp);
+            tpList_IDs_.push_back(tp->id());
         }
 
         /*
@@ -880,8 +804,8 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          * eventually the source term vector will be constructed
          * from the list of ThermoPhases in the vector, tpList
          */
-        XML_Node* xmlPhase = &(pl->surPhaseXMLNode(iskin));
-        bool ok = importKinetics(*xmlPhase, tpList, this);
+      
+        bool ok = importKinetics(*kinXMLPhase, tpList, this);
         if (!ok) {
             throw CanteraError("ReactingSurDomain::importFromPL()", "importKinetics() returned an error");
         }
@@ -894,7 +818,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
 	KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
-	//size_t kKinIndex = 0;
+
         for (size_t kph = 0; kph < nKinPhases; kph++) {
             thermo_t_double& tt = thermo(kph);
             std::string kname = tt.id();
@@ -957,7 +881,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         return false;
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 // An an override for the OCV
 void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
 {
@@ -1130,7 +1054,7 @@ void ReactingSurDomain::deriveEffectiveThermo()
 
     //  Wastefull, but for now get a complete SSG and G vector.
     // Also
-    for (size_t n = 0; n < numPhases_; n++) {
+    for (size_t n = 0; n < nPhases(); n++) {
 	size_t nsp = thermo(n).nSpecies();
 	size_t kinSpecOff = m_start[n];
 	thermo(n).getChemPotentials(DATA_PTR(m_mu) + kinSpecOff);
@@ -1322,7 +1246,7 @@ void ReactingSurDomain::getDeltaGibbs(double* deltaG)
       * kinetics mechanism -> We store them in the vector m_mu[]. which later can get modified for OCV override
       * issues.
       */
-     for (size_t n = 0; n < numPhases_; n++) {
+     for (size_t n = 0; n < nPhases(); n++) {
          m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
      }
 
@@ -1346,7 +1270,7 @@ void ReactingSurDomain::getDeltaGibbs(double* deltaG)
 //==================================================================================================================================
 void ReactingSurDomain::getDeltaGibbs_Before(double* const deltaG)
 {
-    for (size_t n = 0; n < numPhases_; n++) {
+    for (size_t n = 0; n < nPhases(); n++) {
          m_thermo[n]->getChemPotentials(DATA_PTR(m_Gibbs_Before_rspec) + m_start[n]);
     }
     if (deltaG) {
@@ -1363,7 +1287,8 @@ void ReactingSurDomain::getDeltaElectrochemPotentials(double* deltaG)
       * kinetics mechanism -> We store them in the vector m_mu[]. which later can get modified for OCV override
       * issues.
       */
-     for (size_t n = 0; n < numPhases_; n++) {
+     size_t np = nPhases();
+     for (size_t n = 0; n < np; n++) {
          m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
      }
 
@@ -1372,7 +1297,7 @@ void ReactingSurDomain::getDeltaElectrochemPotentials(double* deltaG)
 	 deriveEffectiveChemPot();
      }
 
-     for (size_t n = 0; n < numPhases_; n++) {
+     for (size_t n = 0; n < np; n++) {
 	 ThermoPhase& tp = thermo(n);
 	 double ve = Faraday * tp.electricPotential();
 	 size_t nsp =  tp.nSpecies();
@@ -1393,7 +1318,7 @@ void ReactingSurDomain::getDeltaEnthalpy(double* deltaH)
     /*
      *  Get the partial molar enthalpy of all species
      */
-    for (size_t n = 0; n < numPhases_; n++) {
+    for (size_t n = 0; n < nPhases(); n++) {
         thermo(n).getPartialMolarEnthalpies(DATA_PTR(m_Enthalpies_rspec) + m_start[n]);
     }
     /*
@@ -1415,7 +1340,7 @@ void ReactingSurDomain::getDeltaEnthalpy(double* deltaH)
 // Modification for OCV override when called for.
 void ReactingSurDomain::getDeltaEnthalpy_Before(double* const deltaH)
 {
-    for (size_t n = 0; n < numPhases_; n++) {
+    for (size_t n = 0; n < nPhases(); n++) {
         thermo(n).getPartialMolarEnthalpies(DATA_PTR(m_Enthalpies_Before_rspec) + m_start[n]);
     }
     if (deltaH) {
@@ -1429,7 +1354,7 @@ void ReactingSurDomain::getDeltaEntropy(double* deltaS)
     /*
      *   Get the partial molar entropy of all species in all phases of the kinetics object
      */
-    for (size_t n = 0; n < numPhases_; n++) {
+    for (size_t n = 0; n < nPhases(); n++) {
         thermo(n).getPartialMolarEntropies(DATA_PTR(m_Entropies_rspec) + m_start[n]);
     }
     /*
@@ -1449,7 +1374,7 @@ void ReactingSurDomain::getDeltaEntropy(double* deltaS)
 // Modification for OCV override when called for
 void ReactingSurDomain::getDeltaEntropy_Before(double* const deltaS)
 {
-    for (size_t n = 0; n < numPhases_; n++) {
+    for (size_t n = 0; n < nPhases(); n++) {
         thermo(n).getPartialMolarEntropies(DATA_PTR(m_Entropies_Before_rspec) + m_start[n]);
     }
     if (deltaS) {
@@ -1469,7 +1394,7 @@ void ReactingSurDomain::getDeltaGibbs_electrolyteSS(double* deltaG_special)
      /*
       * Use m_grt, because this vector we are creating is a mixed beast
       */
-     for (size_t n = 0; n < numPhases_; n++) {
+     for (size_t n = 0; n < nPhases(); n++) {
 	 ThermoPhase* tp = m_thermo[n];
 	 if (n == solnPhaseIndex_) {
 	     tp->getStandardChemPotentials(DATA_PTR(m_grt) + m_start[n]);

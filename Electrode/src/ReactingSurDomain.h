@@ -505,12 +505,6 @@ public:
     //   -----------------------------------   DATA --------------------------------------------------------------------------
     //
 
-    //! Number of phases within the class
-    size_t numPhases_;
-
-    //!  Vector of pointers to xml trees
-    std::vector<XML_Node*> xmlList;
-
     //! Mapping between the phase order in the InterfaceKinetics object
     //! and the overall order in the PhaseList object
     /*!

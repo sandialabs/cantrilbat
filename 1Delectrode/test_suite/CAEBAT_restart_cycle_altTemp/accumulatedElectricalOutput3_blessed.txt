@@ -1,2 +1,2 @@
        tinit  ,       tfinal  ,  Volts_Anode ,    Volts_Sep , Volts_Cathode,  Volts_Total ,    Volts_OCV ,   OCV_Anode  ,  OCV_Cathode ,      Current , Resist_anode ,  Resist_sep  , Resist_cathod,  Resist_Total
-  2.00000E-01 ,   3.00000E-01 , -2.91648E-02 ,  4.44235E-07 ,  3.77084E+00 ,  3.80000E+00 ,  4.01231E+00 , -4.09031E-02 ,  3.97141E+00 ,  3.00405E+01 ,  3.90750E-04 ,  1.47878E-08 ,  6.67681E-03 ,  7.06758E-03
+  2.00000E-01 ,   3.00000E-01 , -2.91648E-02 ,  4.44235E-07 ,  3.77084E+00 ,  3.80000E+00 ,  4.01231E+00 , -4.09043E-02 ,  3.97141E+00 ,  3.00405E+01 ,  3.90789E-04 ,  1.47878E-08 ,  6.67681E-03 ,  7.06762E-03
