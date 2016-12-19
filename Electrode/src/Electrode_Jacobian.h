@@ -1,5 +1,5 @@
-/*
- * $Id: Electrode_Jacobian.h
+/**
+ *  @file Electrode_Jacobian.h
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -41,30 +41,50 @@ class Electrode_Jacobian {
 
 public:
 
-  //! This pair definition marries an independent variable specififed by a DOF enum with a source term specified by the SOURCES enum.
-  //!  The two of them together signifies a Jacobian term (i.e., an entry in a 2D matrix). 
+  //! This pair definition marries an independent variable specified by a DOF enum with a source term specified by the SOURCES enum.
+  //! The two of them together signifies a Jacobian term (i.e., an entry in a 2D matrix). 
+  /*!
+   *  The DOFS and SOURCES enum is defined in the Electrode.h file
+   */
   typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR;
 
   //! Constructor
   /*!
-   *  @param[in]   elect               Takes a pointer to the underlying electrode object
+   *  @param[in]             elect               Takes a pointer to the underlying electrode object
    */
   Electrode_Jacobian(Electrode* elect);
 
   //! Copy Constructor
+  /*!
+   *  @param[in]             right               Object to be copied
+   */
   Electrode_Jacobian(const Electrode_Jacobian& right);
 
   //! Assignment Operator
+  /*!
+   *  @param[in]             right               Object to be copied
+   *
+   *  @return                                    Returns a reference to the current object
+   */
   Electrode_Jacobian& operator=(const Electrode_Jacobian& right);
 
   //! Destructor
   virtual ~Electrode_Jacobian();
 
+  //! Returns a string given an enum DOFS value
+  /*!
+   *  The enum DOFS are used to represent degrees of freedom for the independent unknowns, that we are trying to find the jacobian
+   *  values for.
+   *
+   *  @param[in]             dd                  enum DOFS value
+   *
+   *  @return                                    Returns a string representing the enum
+   */
   std::string dofsString(enum DOFS dd) const;
 
   //! Create a default setup of the Jacobian
   /*!
-   *  @param[out]   centerpoint            Value of the dofs
+   *  @param[out]            centerpoint         Value of the dofs
    */ 
   virtual void default_setup(std::vector<double>& centerpoint) = 0;
 
@@ -77,17 +97,17 @@ public:
    *  Species mole fractions are specified starting at centerpoint[SPECIES] and should be in the order expected by
    *  electrode->setElectrolyteMoleNumbers.
    *
-   *    @param[in]       centerpoint           External varialbes to be used for the calculation
-   *    @param[in]       dt                    Delta T
-   *    @param[in,out]   dof_Deltas            Input deltas for the dofs, or output dofs.
-   *    @param[in]       useDefaultDeltas      Boolean indicating whether deltas are computed or input
+   *    @param[in]           centerpoint         The current vector of values of the external variables to be used for the calculation
+   *    @param[in]           dt                  Delta T
+   *    @param[in,out]       dof_Deltas          Input deltas for the dofs, or output dofs.
+   *    @param[in]           useDefaultDeltas    Boolean indicating whether deltas are computed or input
    */
-  virtual void compute_jacobian(const std::vector<double> & centerpoint, const double dt,
+  virtual void compute_jacobian(const std::vector<double>& centerpoint, const double dt,
                                 double* dof_Deltas = 0, bool useDefaultDeltas = true) = 0;
 
   //! Print the jacobian out as a table to stdout
   /*!
-   *  @param[in]  indentSpaces      Number of indent spaces
+   *  @param[in]             indentSpaces        Number of indent spaces
    */
   virtual void print_jacobian(int indentSpaces = 0) const = 0;
 
@@ -134,31 +154,52 @@ public:
    */
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
+  // --------------------------------------------- D A T A ------------------------------------------------------------
 protected:
 
   //! Pointer to the electrode object
-  Electrode*  electrode;
+  Electrode* electrode;
 
   //! Index within the electrode object for the start of the electrolyte species
   int electrolytePhaseSpeciesStart;
 
   // Store the desired Jacobian contributions as a map from [dof, source] -> result
+  /*!
+   *  The jacobian is d ( source ) / d ( dof )
+   *
+   *  The map is ok here, since the jacobian is small and all memory is pretty scattered at this point
+   */
   std::map< DOF_SOURCE_PAIR, double > jacobian;
 
-
-  //! Jacobian centerpoint storage
+  //! Jacobian centerpoint storage for the DOFS
+  /*!
+   *  This is a vector of the values of the DOFS around which the Jacobian is being calculated.
+   *  It has a length equal to the number of degrees of freedom, DOFS, which includes a vector over the electrolyte
+   *  species concentrations. The length is taken from the input centerpoint vector from compute_jacobian
+   */
   std::vector<double> jac_centerpoint;
 
   //! Jacobian delta_t
+  /*!
+   *  This is the global time step value over which we are computing source terms from perhaps multiple local time steps
+   *  taken by the integration of the electrode object.
+   */
   double jac_dt;
 
   //! Jacobian t_init_init;
+  /*!
+   *  Initial time for the global time step. The final time is (jac_t_init_init + jac_dt)
+   */
   double jac_t_init_init;
 
-  ThermoPhase* tp_solnPhase;
+  //! Pointer to the %ThermoPhase object that represents the electrolyte solution phase
+  thermo_t_double* tp_solnPhase;
 
-  int jac_numSubs_Max;
-  int jac_numSubs_Min;
+  //! Maximum number of subintegration steps to complete global time integration using Electrode object
+  size_t jac_numSubs_Max;
+
+  //! Minimum number of subintegration steps to complete global time integration using Electrode object
+  size_t jac_numSubs_Min;
 
   double jac_energySource;
   double jac_electrolytePhaseSource;
@@ -169,9 +210,8 @@ protected:
 private:
  
 };
-
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
 

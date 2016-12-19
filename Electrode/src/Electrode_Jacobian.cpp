@@ -20,8 +20,8 @@ Electrode_Jacobian::Electrode_Jacobian(Electrode* elect) :
     jac_dt(0.0),
     jac_t_init_init(0.0),
     tp_solnPhase(0),
-    jac_numSubs_Max(0),
-    jac_numSubs_Min(0),
+    jac_numSubs_Max(1),
+    jac_numSubs_Min(1),
     jac_energySource(0.0),
     jac_electrolytePhaseSource(0.0),
     jac_electronSource(0.0)

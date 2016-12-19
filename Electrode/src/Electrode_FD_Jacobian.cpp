@@ -142,7 +142,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
     double energySource[2];
     double electrolytePhaseSource[2];
     double individualSpeciesSource[2];
-    int numSubs;
+    size_t numSubs;
 
     int electronIndex = electrode->kSpecElectron();
 
@@ -150,7 +150,7 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
     jac_dt = dt;
     jac_t_init_init = electrode->timeInitInit();
     std::vector<double> perturbed_point = centerpoint;
-    jac_numSubs_Max = -1;
+    jac_numSubs_Max = 0;
     jac_numSubs_Min = 10000000;
     // 
     //   Calculate the deltas for the jacobian and then report it back if needed
@@ -192,12 +192,12 @@ void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerp
                exit(-1);
             } 
 	    //perturbed_point[*dof_it] += jac_Delta[*dof_it] * std::pow(-1.0, negative);
-	    run_electrode_integration(perturbed_point, dt);
+	    numSubs = run_electrode_integration(perturbed_point, dt);
 
 	    // Store off the source term results in temporary storage
 	    energySource[negative] = electrode->getIntegratedSourceTerm(ZZCantera::ENTHALPY_SOURCE);
 	    electrolytePhaseSource[negative] = electrode->getIntegratedSourceTerm(ZZCantera::ELECTROLYTE_PHASE_SOURCE);
-	    numSubs = electrode->integratedSpeciesSourceTerm(&speciesSources[negative][0]);
+	    electrode->integratedSpeciesSourceTerm(&speciesSources[negative][0]);
 
 	    perturbed_point[*dof_it] = centerpoint[*dof_it];
 	    jac_numSubs_Max = std::max( jac_numSubs_Max, numSubs);
@@ -241,7 +241,7 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
     double energySource[2];
     double electrolytePhaseSource[2];
     double individualSpeciesSource[2];
-    int numSubs;
+    size_t numSubs;
     if (centerpoint.size() > jac_dof_Atol.size()) {
 	jac_dof_Atol.resize(centerpoint.size(), 0.0);
     }
@@ -272,7 +272,7 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
     //
     //  Calculate the base point
     //
-    run_electrode_integration(perturbed_point, dt, true);
+    numSubs = run_electrode_integration(perturbed_point, dt, true);
     //
     //  Store the results
     //
@@ -351,10 +351,10 @@ void Electrode_FD_Jacobian::print_jacobian(int indentSpaces) const
     int domainNumber = electrode->electrodeDomainNumber_;
     printf(" Electrode jacobian: %d %d, Time_init = %g, Time_final = %g dt = %g",
 	   cellNumber, domainNumber, jac_t_init_init,  jac_t_init_init + jac_dt, jac_dt);
-    if (  jac_numSubs_Max ==   jac_numSubs_Min) {
-	printf(" Equal numSub = %d\n",  jac_numSubs_Max);
+    if (jac_numSubs_Max == jac_numSubs_Min) {
+	printf(" Equal numSub = %d\n", static_cast<int>(jac_numSubs_Max));
     } else {
-	printf(" Unequal numSub = %d <= num <= %d\n",  jac_numSubs_Min,  jac_numSubs_Max);
+	printf(" Unequal numSub = %d <= num <= %d\n", static_cast<int>(jac_numSubs_Min), static_cast<int>(jac_numSubs_Max));
     }
 
     int cCount = 5 * 17 +  tp_solnPhase->nSpecies() * 17;

@@ -515,7 +515,7 @@ public:
      */
     virtual int integrate(double deltaT, double  GlobalRtolSrcTerm = 1.0E-3,
                           Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
-                          Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR);
+                          Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR) override;
 
     //! Calculate the largest mole fraction in each of the phases
     /*!
