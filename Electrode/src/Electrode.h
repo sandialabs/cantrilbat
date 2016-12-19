@@ -66,9 +66,13 @@ enum SOURCES
 {
     //! Source of the current
     CURRENT_SOURCE = 0,
+    //! Molar source for net species production of the electrolyte phase
     ELECTROLYTE_PHASE_SOURCE,
+    //! Enthalpy source term
     ENTHALPY_SOURCE,
+    //! Individual species sources
     SPECIES_SOURCE,
+    //! Sources for volume
     VOLUME_SOURCE, 
     //! End of the Source list
     MAX_SOURCE
@@ -957,19 +961,17 @@ public:
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    //! Report the integrated source term for the electrode over an interval in time.
+    //! Report the integrated source term for the electrode over an interval in time
     /*!
      *  This is the net change in the moles of species defined in the electrode over that
-     *  interval of time. The conditions at the end of the interval are used to carry
-     *  out the integrations.
+     *  interval of time. The conditions at the end of the interval are used to carry out the integrations.
      *
-     *  @param spMoleDelta The end result in terms of the change in moles of species in the
-     *                     electrode.
+     *  @param               spMoleDelta         The end result in terms of the change in moles of species in the electrode.
      *
-     *  @return Tfinal    Final time to integrate to.
-     *
+     *  old ->return                                  Tfinal  Final time that the electrode object was integrate to
+     *  @return                                       Returns the number of steps taken in the last electrode subintegration
      */
-    virtual double integratedSpeciesSourceTerm(double* const spMoleDelta);
+    virtual size_t integratedSpeciesSourceTerm(double* const spMoleDelta);
 
     //! Report the enthalpy source term for the electrode over an interval in time
     /*!
@@ -1127,6 +1129,7 @@ public:
      *   @return                                   returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
@@ -2684,7 +2687,7 @@ public:
     int choiceDeltaTsubcycle_init_;
 
     //! Number of subcyles taken on the last integration
-    int numIntegrationSubCycles_final_final_;
+    size_t numIntegrationSubCycles_final_final_;
 
     //! Boolean indicating whether we should be doing thermal property calculations during updateState()
     //! calculations.

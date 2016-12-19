@@ -4733,7 +4733,7 @@ double Electrode::integrateConstantCurrent(double& current, double& deltaT, doub
  *
  *  @return Tfinal    Final time to integrate to.
  */
-double Electrode::integratedSpeciesSourceTerm(double* const spMoleDelta)
+size_t Electrode::integratedSpeciesSourceTerm(double* const spMoleDelta)
 {
     if (tfinal_ == tinit_) {
         throw CanteraError(" Electrode::integratedSpeciesSourceTerm()", "tfinal == tinit");
@@ -4742,7 +4742,7 @@ double Electrode::integratedSpeciesSourceTerm(double* const spMoleDelta)
      *  We may do more here to ensure that the last integration is implicit
      */
     std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), spMoleDelta);
-    return tfinal_;
+    return numIntegrationSubCycles_final_final_;
 }
 //====================================================================================================================
 // Calculate the instantaneous time derivative of the species vector as determined by all source terms
@@ -5358,7 +5358,7 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
         printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
 	printf("                numIntegratioSubCycles = %d, SubIntegrationCounter = %d\n",
-	       numIntegrationSubCycles_final_final_, counterNumberSubIntegrations_);
+	       static_cast<int>(numIntegrationSubCycles_final_final_), counterNumberSubIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("          Voltage (phiMetal - phiElectrolyte) = %12.5E volts\n", deltaVoltage_);
