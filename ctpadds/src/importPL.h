@@ -33,10 +33,10 @@ class PhaseList;
  *  Import all phases found in a single file into a PhaseList object, in an additive fashion.
  *  This returns the number of phases found, processed, and added to the PhaseList object.
  *
- * @param[in]                pl                  Pointer to the PhaseList object
- * @param[in]                canteraFile         Cantera CTML file
+ *  @param[in]               pl                  Pointer to the PhaseList object
+ *  @param[in]               canteraFile         Cantera CTML file
  *
- * @return                                       Returns the number of phases added to the PhaseList object.
+ *  @return                                      Returns the number of phases added to the PhaseList object.
  */
 size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canteraFile);
 

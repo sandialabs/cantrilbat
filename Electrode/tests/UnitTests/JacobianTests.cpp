@@ -75,13 +75,13 @@ public:
     }
   }
 
-  virtual double integratedSpeciesSourceTerm(double* const spMoleDelta)
+  virtual size_t integratedSpeciesSourceTerm(double* const spMoleDelta)
   {
     spMoleDelta[0] = deltaVoltage_;
     spMoleDelta[1] = 2*fake_electrolyte_mole_nums[0];
     spMoleDelta[2] = 3*fake_electrolyte_mole_nums[1];
     spMoleDelta[3] = 4*fake_electrolyte_mole_nums[2];
-    return 1.0;
+    return 1;
   }
   
   virtual double getIntegratedSourceTerm(SOURCES sourceType)

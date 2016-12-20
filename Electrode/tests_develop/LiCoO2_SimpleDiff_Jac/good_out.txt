@@ -491,7 +491,7 @@ iterSubCycle = 14
 iterSubCycle = 15
 iterSubCycle = 16
 iterSubCycle = 17
- Electrode jacobian: 0 0, Time_init = 0, Time_final = 0.4 dt = 0.4 Equal numSub = 0
+ Electrode jacobian: 0 0, Time_init = 0, Time_final = 0.4 dt = 0.4 Equal numSub = 17
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -616,7 +616,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 4
- Electrode jacobian: 0 0, Time_init = 0.4, Time_final = 0.8 dt = 0.4 Equal numSub = 0
+ Electrode jacobian: 0 0, Time_init = 0.4, Time_final = 0.8 dt = 0.4 Equal numSub = 4
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -741,7 +741,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 0.8, Time_final = 1.2 dt = 0.4 Equal numSub = 1
+ Electrode jacobian: 0 0, Time_init = 0.8, Time_final = 1.2 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -866,7 +866,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 1.2, Time_final = 1.6 dt = 0.4 Equal numSub = 1
+ Electrode jacobian: 0 0, Time_init = 1.2, Time_final = 1.6 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1366,7 +1366,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 2.8, Time_final = 3.2 dt = 0.4 Equal numSub = 3
+ Electrode jacobian: 0 0, Time_init = 2.8, Time_final = 3.2 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1491,7 +1491,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 3.2, Time_final = 3.6 dt = 0.4 Equal numSub = 3
+ Electrode jacobian: 0 0, Time_init = 3.2, Time_final = 3.6 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1616,7 +1616,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 3.6, Time_final = 4 dt = 0.4 Equal numSub = 3
+ Electrode jacobian: 0 0, Time_init = 3.6, Time_final = 4 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1741,7 +1741,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 4, Time_final = 4.4 dt = 0.4 Equal numSub = 4
+ Electrode jacobian: 0 0, Time_init = 4, Time_final = 4.4 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1866,7 +1866,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 4.4, Time_final = 4.8 dt = 0.4 Equal numSub = 4
+ Electrode jacobian: 0 0, Time_init = 4.4, Time_final = 4.8 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1991,7 +1991,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 4.8, Time_final = 5.2 dt = 0.4 Equal numSub = 5
+ Electrode jacobian: 0 0, Time_init = 4.8, Time_final = 5.2 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -2116,7 +2116,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 2
- Electrode jacobian: 0 0, Time_init = 5.2, Time_final = 5.6 dt = 0.4 Equal numSub = 5
+ Electrode jacobian: 0 0, Time_init = 5.2, Time_final = 5.6 dt = 0.4 Equal numSub = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -2241,7 +2241,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 3
- Electrode jacobian: 0 0, Time_init = 5.6, Time_final = 6 dt = 0.4 Equal numSub = 6
+ Electrode jacobian: 0 0, Time_init = 5.6, Time_final = 6 dt = 0.4 Equal numSub = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -2491,7 +2491,7 @@ iterSubCycle = 17
                            li_site                 0.000E+00
    ==============================================================================================
  NumSubs = 10
- Electrode jacobian: 0 0, Time_init = 6.4, Time_final = 6.8 dt = 0.4 Equal numSub = 6
+ Electrode jacobian: 0 0, Time_init = 6.4, Time_final = 6.8 dt = 0.4 Equal numSub = 10
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -2884,7 +2884,7 @@ iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 11
 iterSubCycle = 12
- Electrode jacobian: 0 0, Time_init = 7.6, Time_final = 8 dt = 0.4 Equal numSub = 8
+ Electrode jacobian: 0 0, Time_init = 7.6, Time_final = 8 dt = 0.4 Equal numSub = 12
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -3045,7 +3045,7 @@ iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 13
 iterSubCycle = 14
- Electrode jacobian: 0 0, Time_init = 8, Time_final = 8.4 dt = 0.4 Equal numSub = 8
+ Electrode jacobian: 0 0, Time_init = 8, Time_final = 8.4 dt = 0.4 Equal numSub = 14
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -3179,7 +3179,7 @@ iterSubCycle = 11
 iterSubCycle = 11
 iterSubCycle = 11
 iterSubCycle = 11
- Electrode jacobian: 0 0, Time_init = 8.4, Time_final = 8.8 dt = 0.4 Equal numSub = 8
+ Electrode jacobian: 0 0, Time_init = 8.4, Time_final = 8.8 dt = 0.4 Equal numSub = 11
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -3331,7 +3331,7 @@ iterSubCycle = 13
 iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 13
- Electrode jacobian: 0 0, Time_init = 8.8, Time_final = 9.2 dt = 0.4 Equal numSub = 9
+ Electrode jacobian: 0 0, Time_init = 8.8, Time_final = 9.2 dt = 0.4 Equal numSub = 13
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -3465,7 +3465,7 @@ iterSubCycle = 11
 iterSubCycle = 11
 iterSubCycle = 11
 iterSubCycle = 11
- Electrode jacobian: 0 0, Time_init = 9.2, Time_final = 9.6 dt = 0.4 Equal numSub = 9
+ Electrode jacobian: 0 0, Time_init = 9.2, Time_final = 9.6 dt = 0.4 Equal numSub = 11
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -3608,7 +3608,7 @@ iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 11
 iterSubCycle = 12
- Electrode jacobian: 0 0, Time_init = 9.6, Time_final = 10 dt = 0.4 Equal numSub = 10
+ Electrode jacobian: 0 0, Time_init = 9.6, Time_final = 10 dt = 0.4 Equal numSub = 12
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -3787,7 +3787,7 @@ iterSubCycle = 13
 iterSubCycle = 14
 iterSubCycle = 15
 iterSubCycle = 16
- Electrode jacobian: 0 0, Time_init = 10, Time_final = 10.4 dt = 0.4 Equal numSub = 10
+ Electrode jacobian: 0 0, Time_init = 10, Time_final = 10.4 dt = 0.4 Equal numSub = 16
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -3984,7 +3984,7 @@ iterSubCycle = 15
 iterSubCycle = 16
 iterSubCycle = 17
 iterSubCycle = 18
- Electrode jacobian: 0 0, Time_init = 10.4, Time_final = 10.8 dt = 0.4 Equal numSub = 10
+ Electrode jacobian: 0 0, Time_init = 10.4, Time_final = 10.8 dt = 0.4 Equal numSub = 18
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -4235,7 +4235,7 @@ iterSubCycle = 21
 iterSubCycle = 22
 iterSubCycle = 23
 iterSubCycle = 24
- Electrode jacobian: 0 0, Time_init = 10.8, Time_final = 11.2 dt = 0.4 Equal numSub = 11
+ Electrode jacobian: 0 0, Time_init = 10.8, Time_final = 11.2 dt = 0.4 Equal numSub = 24
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -4432,7 +4432,7 @@ iterSubCycle = 15
 iterSubCycle = 16
 iterSubCycle = 17
 iterSubCycle = 18
- Electrode jacobian: 0 0, Time_init = 11.2, Time_final = 11.6 dt = 0.4 Equal numSub = 11
+ Electrode jacobian: 0 0, Time_init = 11.2, Time_final = 11.6 dt = 0.4 Equal numSub = 18
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -4638,7 +4638,7 @@ iterSubCycle = 16
 iterSubCycle = 17
 iterSubCycle = 18
 iterSubCycle = 19
- Electrode jacobian: 0 0, Time_init = 11.6, Time_final = 12 dt = 0.4 Equal numSub = 12
+ Electrode jacobian: 0 0, Time_init = 11.6, Time_final = 12 dt = 0.4 Equal numSub = 19
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -4853,7 +4853,7 @@ iterSubCycle = 17
 iterSubCycle = 18
 iterSubCycle = 19
 iterSubCycle = 20
- Electrode jacobian: 0 0, Time_init = 12, Time_final = 12.4 dt = 0.4 Equal numSub = 12
+ Electrode jacobian: 0 0, Time_init = 12, Time_final = 12.4 dt = 0.4 Equal numSub = 20
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -5095,7 +5095,7 @@ iterSubCycle = 20
 iterSubCycle = 21
 iterSubCycle = 22
 iterSubCycle = 23
- Electrode jacobian: 0 0, Time_init = 12.4, Time_final = 12.8 dt = 0.4 Equal numSub = 12
+ Electrode jacobian: 0 0, Time_init = 12.4, Time_final = 12.8 dt = 0.4 Equal numSub = 23
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -5454,7 +5454,7 @@ iterSubCycle = 33
 iterSubCycle = 34
 iterSubCycle = 35
 iterSubCycle = 36
- Electrode jacobian: 0 0, Time_init = 12.8, Time_final = 13.2 dt = 0.4 Equal numSub = 13
+ Electrode jacobian: 0 0, Time_init = 12.8, Time_final = 13.2 dt = 0.4 Equal numSub = 36
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -5966,7 +5966,7 @@ iterSubCycle = 50
 iterSubCycle = 51
 iterSubCycle = 52
 iterSubCycle = 53
- Electrode jacobian: 0 0, Time_init = 13.2, Time_final = 13.6 dt = 0.4 Equal numSub = 13
+ Electrode jacobian: 0 0, Time_init = 13.2, Time_final = 13.6 dt = 0.4 Equal numSub = 53
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -7396,7 +7396,7 @@ iterSubCycle = 152
 iterSubCycle = 153
 iterSubCycle = 154
 iterSubCycle = 155
- Electrode jacobian: 0 0, Time_init = 13.6, Time_final = 14 dt = 0.4 Equal numSub = 14
+ Electrode jacobian: 0 0, Time_init = 13.6, Time_final = 14 dt = 0.4 Equal numSub = 155
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -9096,7 +9096,7 @@ iterSubCycle = 182
 iterSubCycle = 183
 iterSubCycle = 184
 iterSubCycle = 185
- Electrode jacobian: 0 0, Time_init = 14, Time_final = 14.4 dt = 0.4 Equal numSub = 14
+ Electrode jacobian: 0 0, Time_init = 14, Time_final = 14.4 dt = 0.4 Equal numSub = 185
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -10553,7 +10553,7 @@ iterSubCycle = 155
 iterSubCycle = 156
 iterSubCycle = 157
 iterSubCycle = 158
- Electrode jacobian: 0 0, Time_init = 14.4, Time_final = 14.8 dt = 0.4 Equal numSub = 14
+ Electrode jacobian: 0 0, Time_init = 14.4, Time_final = 14.8 dt = 0.4 Equal numSub = 158
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -12136,7 +12136,7 @@ iterSubCycle = 169
 iterSubCycle = 170
 iterSubCycle = 171
 iterSubCycle = 172
- Electrode jacobian: 0 0, Time_init = 14.8, Time_final = 15.2 dt = 0.4 Equal numSub = 15
+ Electrode jacobian: 0 0, Time_init = 14.8, Time_final = 15.2 dt = 0.4 Equal numSub = 172
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -13413,7 +13413,7 @@ iterSubCycle = 135
 iterSubCycle = 136
 iterSubCycle = 137
 iterSubCycle = 138
- Electrode jacobian: 0 0, Time_init = 15.2, Time_final = 15.6 dt = 0.4 Equal numSub = 15
+ Electrode jacobian: 0 0, Time_init = 15.2, Time_final = 15.6 dt = 0.4 Equal numSub = 138
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -13943,7 +13943,7 @@ iterSubCycle = 52
 iterSubCycle = 53
 iterSubCycle = 54
 iterSubCycle = 55
- Electrode jacobian: 0 0, Time_init = 15.6, Time_final = 16 dt = 0.4 Equal numSub = 16
+ Electrode jacobian: 0 0, Time_init = 15.6, Time_final = 16 dt = 0.4 Equal numSub = 55
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -14311,7 +14311,7 @@ iterSubCycle = 34
 iterSubCycle = 35
 iterSubCycle = 36
 iterSubCycle = 37
- Electrode jacobian: 0 0, Time_init = 16, Time_final = 16.4 dt = 0.4 Equal numSub = 16
+ Electrode jacobian: 0 0, Time_init = 16, Time_final = 16.4 dt = 0.4 Equal numSub = 37
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -14481,7 +14481,7 @@ iterSubCycle = 12
 iterSubCycle = 13
 iterSubCycle = 14
 iterSubCycle = 15
- Electrode jacobian: 0 0, Time_init = 16.4, Time_final = 16.8 dt = 0.4 Equal numSub = 16
+ Electrode jacobian: 0 0, Time_init = 16.4, Time_final = 16.8 dt = 0.4 Equal numSub = 15
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -14633,7 +14633,7 @@ iterSubCycle = 13
 iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 13
- Electrode jacobian: 0 0, Time_init = 16.8, Time_final = 17.2 dt = 0.4 Equal numSub = 17
+ Electrode jacobian: 0 0, Time_init = 16.8, Time_final = 17.2 dt = 0.4 Equal numSub = 13
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -14785,7 +14785,7 @@ iterSubCycle = 13
 iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 13
- Electrode jacobian: 0 0, Time_init = 17.2, Time_final = 17.6 dt = 0.4 Equal numSub = 17
+ Electrode jacobian: 0 0, Time_init = 17.2, Time_final = 17.6 dt = 0.4 Equal numSub = 13
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -14937,7 +14937,7 @@ iterSubCycle = 13
 iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 13
- Electrode jacobian: 0 0, Time_init = 17.6, Time_final = 18 dt = 0.4 Equal numSub = 18
+ Electrode jacobian: 0 0, Time_init = 17.6, Time_final = 18 dt = 0.4 Equal numSub = 13
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -15098,7 +15098,7 @@ iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 13
 iterSubCycle = 14
- Electrode jacobian: 0 0, Time_init = 18, Time_final = 18.4 dt = 0.4 Equal numSub = 18
+ Electrode jacobian: 0 0, Time_init = 18, Time_final = 18.4 dt = 0.4 Equal numSub = 14
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -15241,7 +15241,7 @@ iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 11
 iterSubCycle = 12
- Electrode jacobian: 0 0, Time_init = 18.4, Time_final = 18.8 dt = 0.4 Equal numSub = 18
+ Electrode jacobian: 0 0, Time_init = 18.4, Time_final = 18.8 dt = 0.4 Equal numSub = 12
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -15393,7 +15393,7 @@ iterSubCycle = 13
 iterSubCycle = 11
 iterSubCycle = 12
 iterSubCycle = 13
- Electrode jacobian: 0 0, Time_init = 18.8, Time_final = 19.2 dt = 0.4 Equal numSub = 19
+ Electrode jacobian: 0 0, Time_init = 18.8, Time_final = 19.2 dt = 0.4 Equal numSub = 13
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -15572,7 +15572,7 @@ iterSubCycle = 13
 iterSubCycle = 14
 iterSubCycle = 15
 iterSubCycle = 16
- Electrode jacobian: 0 0, Time_init = 19.2, Time_final = 19.6 dt = 0.4 Equal numSub = 19
+ Electrode jacobian: 0 0, Time_init = 19.2, Time_final = 19.6 dt = 0.4 Equal numSub = 16
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -15769,7 +15769,7 @@ iterSubCycle = 15
 iterSubCycle = 16
 iterSubCycle = 17
 iterSubCycle = 18
- Electrode jacobian: 0 0, Time_init = 19.6, Time_final = 20 dt = 0.4 Equal numSub = 19
+ Electrode jacobian: 0 0, Time_init = 19.6, Time_final = 20 dt = 0.4 Equal numSub = 18
 ---------------------------------------------------------------------------------------------------------------------------------------------
    Entry      |  DOF_Value   |   DOF_Delta  |CURRENT_SOURCE|ENTHALPY_SOURC|LYTE_PHASE_SRC|           ECDMC|             Li+|            PF6-|
 ---------------------------------------------------------------------------------------------------------------------------------------------

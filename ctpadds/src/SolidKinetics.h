@@ -128,6 +128,10 @@ namespace Cantera
    * kinetics manager implements standard mass-action reaction rate
    * expressions for condensed phases. It assumes that all
    * stoichiometric coefficients are integers.
+   *
+   *  NOTE: THIS IS NOT USED. This is just a holder or a stub for functionality that may be added in.
+   *        I don't think there is anything different implemented here for solids than the standard
+   *        Cantera treatment.
    */
   class SolidKinetics : public BulkKinetics {
 

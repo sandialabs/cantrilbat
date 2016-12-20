@@ -777,8 +777,10 @@ WARN_LOGFILE           =
 
 INPUT                  = ../../util_src/src \
                          . \
-                         ../../Electrode/src/importPL.h \
-                         ../../Electrode/src/importPL.cpp  \
+                         ../../ctpadds/src/importPL.h \
+                         ../../ctpadds/src/importPL.cpp \
+                         ../../ctpadds/src/importAllCTML.h \
+                         ../../ctpadds/src/importAllCTML.cpp \
                          ../../Electrode/src/ReactingSurDomain.h \
                          ../../Electrode/src/ReactingSurDomain.cpp \
                          ../../Electrode/src/RSD_OCVmodel.h \

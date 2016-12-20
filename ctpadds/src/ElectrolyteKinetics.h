@@ -49,6 +49,8 @@ namespace Cantera
 
   /**
    * Holds mechanism-specific data.
+   *
+   *   NOTE: UNUSED CODE THAT IS WAITING FOR DEVELOPMENT. Not sure if it's needed
    */
   class ElectrolyteKineticsData {
   public:

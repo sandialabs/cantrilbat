@@ -2,7 +2,8 @@
  *  @file importPL.cpp
  *    Definitions for utility routine to read files containing phase descriptions into PhaseList objects.
  *    (see \ref ExtendedPhaseGroups ).
- *
+ */
+/*
  *     This file contains routines which are global routines, i.e.,
  *     not part of any object. These routine take as input, ctml
  *     pointers to data, and pointers to Cantera objects. The purpose
@@ -15,11 +16,11 @@
  * U.S. Government retains certain rights in this software.
  */
 
-#include "importPL.h"
 
 #include "cantera/multiphase/PhaseList.h"
 #include "cantera/base/xml.h"
 
+#include "importPL.h"
 #include "importAllCTML.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -29,6 +30,7 @@ namespace Zuzax
 namespace Cantera
 #endif 
 {
+
 //==================================================================================================================================
 //!  Given an XML_Node pointing to a phase, add the phase to a PhaseList object
 /*!

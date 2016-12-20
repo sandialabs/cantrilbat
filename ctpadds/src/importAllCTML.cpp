@@ -1,9 +1,8 @@
 /**
- *  @file importCTML.cpp
- *
- *     This file contains routines which are global routines, i.e., not part of any object. These routine take as input, ctml
- *     pointers to data, and pointers to Zuzax objects. The purpose
- *     of these routines is to intialize the Zuzax objects with data from the ctml tree structures.
+ *  @file importAllCTML.cpp
+ *     This file contains routines which are global routines, i.e., not part of any object,which take as input, ctml
+ *     pointers to data, and pointers to Zuzax objects in order to initialize the Zuzax objects with data 
+ *     from the ctml tree structures.
  */
 
 /*
@@ -41,11 +40,11 @@ namespace Cantera
 #endif
 {
 //==================================================================================================================================
-ThermoPhase* processExpandedThermoPhase(XML_Node* xmlphase)
+thermo_t_double* processExpandedThermoPhase(XML_Node* const xmlphase)
 {
-    ThermoPhase* tPhase = 0;
+    thermo_t_double* tPhase = nullptr;
     try {
-        tPhase = newPhase(*xmlphase);
+        tPhase = Zuzax::newPhase(*xmlphase);
     } catch (UnknownThermoPhaseModel& uName) {
         const XML_Node& th = xmlphase->child("thermo");
         std::string model = th["model"];
@@ -91,7 +90,7 @@ ThermoPhase* processExpandedThermoPhase(XML_Node* xmlphase)
     return tPhase;
 }
 //==================================================================================================================================
-Kinetics* processExpandedKinetics(XML_Node* xmlPhase, std::vector<thermo_t_double*> tpList)
+Kinetics* processExpandedKinetics(XML_Node* const xmlPhase, std::vector<thermo_t_double*> tpList)
 {
     Kinetics* kin = nullptr;
     if (tpList.size() == 0) {
@@ -139,7 +138,7 @@ Kinetics* processExpandedKinetics(XML_Node* xmlPhase, std::vector<thermo_t_doubl
     return kin;
 }
 //==================================================================================================================================
-InterfaceKinetics* processExpandedInterfaceKinetics(XML_Node* xmlPhase, std::vector<thermo_t_double*> tpList)
+InterfaceKinetics* processExpandedInterfaceKinetics(XML_Node* const xmlPhase, std::vector<thermo_t_double*> tpList)
 {
     InterfaceKinetics* kin = nullptr;
     if (tpList.size() == 0) {
@@ -180,7 +179,7 @@ InterfaceKinetics* processExpandedInterfaceKinetics(XML_Node* xmlPhase, std::vec
     return kin;
 }
 //==================================================================================================================================
-Transport* processExpandedTransport(XML_Node* xmlPhase, thermo_t_double* tp)
+Transport* processExpandedTransport(const XML_Node* const xmlPhase, thermo_t_double* const tp)
 {
     Transport* tran = nullptr;
     if (xmlPhase->hasChild("transport")) {

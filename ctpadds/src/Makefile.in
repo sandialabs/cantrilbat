@@ -106,17 +106,14 @@ all: .depends libctpadds.a $(OBJS_UNUSED)
 importAllCTML.o: importAllCTML.cpp importAllCTML.h
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
 
-SolidKinetics.o: SolidKinetics.cpp SolidKinetics.h
-	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+#SolidKinetics.o: SolidKinetics.cpp SolidKinetics.h
+#	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
 
-ElectrodeKinetics.o: ElectrodeKinetics.cpp ElectrodeKinetics.h
-	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+#ElectrodeKinetics.o: ElectrodeKinetics.cpp ElectrodeKinetics.h
+#	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
 
-ElectrolyteKinetics.o: ElectrolyteKinetics.cpp ElectrolyteKinetics.h
-	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
-
-ReactionDataElectrode.o: ReactionDataElectrode.cpp ReactionDataElectrode.h
-	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
+#ElectrolyteKinetics.o: ElectrolyteKinetics.cpp ElectrolyteKinetics.h
+#	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
 
 HKFT_PDSS.o: HKFT_PDSS.cpp HKFT_PDSS.h
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCALTFLAGS) -c $<
@@ -147,13 +144,9 @@ CTLIB_DEP  = $(CANTERA_LIBDIR)/libthermo.a \
              $(CANTERA_LIBDIR)/libtpx.a 
 CTLIB     =  -L$(CANTERA_LIBDIR) $(CANTERA_LIBS)
 
-OBJ_CTPADDS =  importAllCTML.o  importPL.o SolidKinetics.o  \
-               ElectrolyteKinetics.o \
-               ReactionDataElectrode.o
+OBJ_CTPADDS =  importAllCTML.o  importPL.o SolidKinetics.o   ElectrolyteKinetics.o 
 
-HDR_CTPADDS =  importAllCTML.h importPL.h  SolidKinetics.h  \
-               ElectrolyteKinetics.h \
-               ReactionDataElectrode.h
+HDR_CTPADDS =  importAllCTML.h importPL.h  SolidKinetics.h ElectrolyteKinetics.h 
 
 #
 # Unused objects that we want to keep around for perhaps later implementation
