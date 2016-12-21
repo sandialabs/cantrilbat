@@ -1,13 +1,23 @@
+/**
+ *  @file Electrode_FD_Jacobian.cpp
+ */
+
 /*
- * Electrode_FD_Jacobian.cpp
- *
  *  Created on: Jun 10, 2013
  *      Author: vebruni
+ */
+
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #include "Electrode_FD_Jacobian.h"
 #include "Electrode.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -15,6 +25,11 @@ namespace Cantera
 #endif 
 {
 //===================================================================================================================================
+//! Indent a line
+/*!
+ *  @param[in]               sp                  Number of spaces
+ *  @param[in]               ll                  number of '-' characters in the line
+ */
 static void drawline(int sp, int ll)
 {
   for (int i = 0; i < sp; i++) printf(" ");
@@ -22,6 +37,10 @@ static void drawline(int sp, int ll)
   printf("\n");
 }
 //===================================================================================================================================
+//! Indent a line
+/*!
+ *  @param[in]               sp                  Number of spaces
+ */
 static void indent(int sp) {
     for (int i = 0; i < sp; i++) printf(" ");
 }
@@ -130,7 +149,7 @@ void Electrode_FD_Jacobian::default_dofs_fill(std::vector<double>& centerpoint)
 }
 //===================================================================================================================================
 void Electrode_FD_Jacobian::compute_jacobian(const std::vector<double> & centerpoint, const double dt,
-					     double* dof_Deltas, bool useDefaultDeltas)
+					     double* const dof_Deltas, bool useDefaultDeltas)
 {
     // Temporary storage used to do the centered difference calculation:
     /*
@@ -572,7 +591,7 @@ void Electrode_FD_Jacobian::calc_Perturbations(const std::vector<double>& center
  }
 
 //===================================================================================================================================
-int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double> & dof_values, double dt, bool base)
+int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double>& dof_values, double dt, bool base)
 {
     double  GlobalRtolSrcTerm = 1.0E-3;
     Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS;

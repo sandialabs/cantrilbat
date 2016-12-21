@@ -824,7 +824,7 @@ public:
      *       A big positive voltage means that the DoD will stay or trend to 0
      *       A big negative voltage means that the DoD will stay or trend to 1.
      *
-     * @TODO: duplicate of base class capability -> refactor
+     * @todo duplicate of base class capability -> refactor
      */
     int electrodeType_;
 

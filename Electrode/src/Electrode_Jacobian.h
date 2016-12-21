@@ -103,7 +103,20 @@ public:
    *    @param[in]           useDefaultDeltas    Boolean indicating whether deltas are computed or input
    */
   virtual void compute_jacobian(const std::vector<double>& centerpoint, const double dt,
-                                double* dof_Deltas = 0, bool useDefaultDeltas = true) = 0;
+                                double* dof_Deltas = nullptr, bool useDefaultDeltas = true) = 0;
+
+  //! Calculate a one sided jacobian and store it in the object
+  /*!
+   *  @param[in]           centerpoint         External varialbes to be used for the calculation
+   *  @param[in]           dt                  Delta T
+   *  @param[in]           dof_Deltas          Input deltas for the dofs, or output dofs. Defaults to nullptr
+   *  @param[in]           useDefaultDeltas    Boolean indicating whether deltas are computed or input. Defaults to true.
+   *  @param[in]           baseAlreadyCalculated Boolean indicating whether the base calculation has already been done and storred
+   *                                             internally within the object.
+   */
+  virtual void compute_oneSided_jacobian(const std::vector<double>& centerpoint, const double dt, double* dof_Deltas = nullptr,
+                                         bool useDefaultDeltas = true, bool baseAlreadyCalculated = false) = 0;
+
 
   //! Print the jacobian out as a table to stdout
   /*!
@@ -134,7 +147,7 @@ public:
   /*!
    *  Each entry is a <DOF,SOURCES> pair
    *
-   *  @param[in]       entries                           Vector of entries that need to be computed
+   *  @param[in]       entries                   Vector of entries that need to be computed
    */
   virtual void add_entries_to_compute(const std::vector<DOF_SOURCE_PAIR> &entries);
 
@@ -142,7 +155,7 @@ public:
   /*!
    *  Each entry is a <DOF,SOURCES> pair
    *
-   *  @param[in]       entries                           Sing entry that need to be computed
+   *  @param[in]       entry                     Sing entry that need to be computed
    */
   virtual void add_entry_to_compute(DOF_SOURCE_PAIR entry);
 
@@ -150,7 +163,7 @@ public:
   /*!
    *  Each entry is a <DOF,SOURCES> pair
    *
-   *  @param[in]       entries                           Sing entry that need to be computed
+   *  @param[in]       entry                     Sing entry that need to be computed
    */
   virtual void remove_entry_to_compute(DOF_SOURCE_PAIR entry);
 
@@ -201,9 +214,32 @@ protected:
   //! Minimum number of subintegration steps to complete global time integration using Electrode object
   size_t jac_numSubs_Min;
 
+  //! Value of the enhanced enthalpy produced by the Electrode source during the intervale
+  /*!
+   *  Number of Joules of enthalpy produced during the interval by the electrode object
+   *  Units: Joules
+   */
   double jac_energySource;
+
+  //!  Value for the electolyte phase source during the interval (Electrode is an extensive variable, so units are straight kmol)
+  /*!
+   *  Number of moles of electrolyte produced during the interval by the electrode object
+   *  Units: kmol
+   */
   double jac_electrolytePhaseSource;
-  double  jac_electronSource;
+
+  //!  Value for the electron source during the interval (Electrode is an extensive variable, so units are straight kmol)
+  /*!
+   *  Units: kmol
+   */
+  double jac_electronSource;
+
+  //!  Value for the electolyte species source during the interval (Electrode is an extensive variable, so units are straight kmol)
+  /*!
+   *  Number of moles of each species produced during the interval by the electrode object
+   *  Units: kmol
+   *  Length: number of species in the electrolyte
+   */
   std::vector<double> jac_lyteSpeciesSource;
 
 

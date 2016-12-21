@@ -11,16 +11,15 @@
  * U.S. Government retains certain rights in this software.
  */
 
-#include "importAllCTML.h"
 
 #include "cantera/base/ctml.h"
-
 #include "cantera/thermo/IdealSolidSolnPhase.h"
 #include "cantera/thermo/StoichSubstanceSSTP.h"
 #include "cantera/thermo.h"
 #include "cantera/kinetics.h"
 #include "cantera/transport.h"
 
+#include "importAllCTML.h"
 #include "ElectrolyteKinetics.h"
 #include "SolidKinetics.h"
 
