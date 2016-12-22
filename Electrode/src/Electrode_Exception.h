@@ -4,10 +4,15 @@
  *  (see \ref errorHandling and class Electrode_Error
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
 
 #ifndef ELECTRODE_EXCEPTION_H
 #define ELECTRODE_EXCEPTION_H
-
 
 #include "cantera/base/ctexceptions.h" 
 #include "Electrode_defs.h"
@@ -23,7 +28,7 @@ namespace Cantera
 {
 class Electrode;
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -35,7 +40,7 @@ namespace Cantera
 /*!
  *
  */
-class Electrode_Error : public ZZCantera::CanteraError {
+class Electrode_Error : public ZZCantera::ZuzaxError {
 public:
 
   //! Normal Constructor for the m1d_Error base class
@@ -49,6 +54,18 @@ public:
    * @param[in] msg  Descriptive string describing the type of error message.
    */
   Electrode_Error(const std::string &procedure, const std::string &msg);
+
+  //! Printf-like Constructor for the ZuzaxError base class
+  /*!
+   * In the constructor, a call to the Application class is made to store the strings associated with the generated error condition.
+   *
+   * @param[in]            procedure           String name for the function within which the error was generated.
+   * @param[in]            fmt                 printf-like format string
+   * 
+   * Add parameters for fmt string 
+   */
+  Electrode_Error(const std::string& procedure, const char* fmt, ...);
+
 
   //! Destructor for base class does nothing
   virtual ~Electrode_Error() throw ();
@@ -100,7 +117,7 @@ protected:
  * Assertion must be true or else a Electrode_Error is thrown. A diagnostic string containing the
  * file and line number, indicating where the error occurred is added to the thrown object.
  *
- * @param expr  Boolean expression that must be true
+ * @param[in]                expr                Boolean expression that must be true
  *
  * @ingroup errorhandling
  */
@@ -112,8 +129,9 @@ protected:
  * Assertion must be true or else a CanteraError is thrown. A diagnostic string indicating where the error
  * occurred is added to the thrown object.
  *
- * @param expr       Boolean expression that must be true
- * @param procedure  Character string or std:string expression indicating the procedure where the assertion failed
+ * @param[in]                expr                Boolean expression that must be true
+ * @param[in]                procedure           Character string or std:string expression indicating the procedure where
+ *                                               the assertion failed
  * @ingroup errorhandling
  */
 #  define AssertThrow(expr, procedure)   ((expr) ? (void) 0 :\
@@ -121,17 +139,16 @@ protected:
 
 //!  Assertion must be true or an error is thrown
 /*!
- * Assertion must be true or else a CanteraError is thrown. A
- * diagnostic string indicating where the error occurred is added
- * to the thrown object.
+ *  Assertion must be true or else a CanteraError is thrown. A
+ *  diagnostic string indicating where the error occurred is added to the thrown object.
  *
- * @param expr       Boolean expression that must be true
- * @param procedure  Character string or std:string expression indicating
- *                   the procedure where the assertion failed
- * @param message  Character string or std:string expression contaiing
+ *  @param[in]               expr                Boolean expression that must be true
+ *  @param[in]               procedure           Character string or std:string expression indicating
+ *                                               the procedure where the assertion failed
+ *  @param message  Character string or std:string expression contaiing
  *    a descriptive message is added to the thrown error condition.
  *
- * @ingroup errorhandling
+ *  @ingroup errorhandling
  */
 
 # define AssertThrowMsg(expr, procedure, message) \

@@ -4206,7 +4206,7 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 	printf("                ChemModel Type = %3d , DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeChemistryModelType_, electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
         printf("                numIntegrationSubCycles = %d, SubIntegrationCounter = %d\n",
-	       numIntegrationSubCycles_final_final_, counterNumberSubIntegrations_);
+	       static_cast<int>(numIntegrationSubCycles_final_final_), counterNumberSubIntegrations_);
     }
     printf("   ==============================================================================================\n");
     printf("          Voltage = %g volts\n", deltaVoltage_);

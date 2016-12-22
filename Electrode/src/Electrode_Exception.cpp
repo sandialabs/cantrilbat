@@ -20,10 +20,46 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
+
 //==================================================================================================================================
 Electrode_Error::Electrode_Error(const std::string &proc, const std::string &msg) :
-    ZZCantera::CanteraError("Electrode_Error: " + proc, msg)
+    ZZCantera::ZuzaxError("Electrode_Error: " + proc, msg)
 {
+}
+//==================================================================================================================================
+Electrode_Error::Electrode_Error(const std::string &proc, const char* fmt, ...) :
+    ZZCantera::ZuzaxError()
+{
+    procedure_ = "Electrode_Error: " + proc;    
+    msg_.resize(1024);
+    va_list args;
+    va_start(args, fmt);
+    char* sbuf = const_cast<char*>(msg_.data());
+#ifdef _MSC_VER
+    int n = _vsnprintf(sbuf, 1023, fmt, args);
+#else
+    int n = vsnprintf(sbuf, 1023, fmt, args);
+#endif 
+    if (n < 1024) {
+        // if n is negative, we just go ahead and put a zero at the end of the buffer and write anyway
+        va_end(args);
+        sbuf[1023] = '\0';
+        msg_.resize(n+1);
+    } else {
+        int sze = n + 1;
+        msg_.resize(sze);
+        va_start(args, fmt);
+        sbuf = const_cast<char*>(msg_.data());
+#ifdef _MSC_VER
+        n = _vsnprintf(sbuf, sze-1, fmt, args);
+#else
+        n = vsnprintf(sbuf, sze-1, fmt, args);
+#endif
+        // Negative n is not trapped. We just print anyway.
+        va_end(args); 
+        sbuf[sze-1] = '\0';
+    }
+    save();
 }
 //==================================================================================================================================
 Electrode_Error::~Electrode_Error() throw()
@@ -31,9 +67,10 @@ Electrode_Error::~Electrode_Error() throw()
 }
 //==================================================================================================================================
 Electrode_Error::Electrode_Error() :
-    ZZCantera::CanteraError()
+    ZZCantera::ZuzaxError()
 {
 }
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace esmodel 

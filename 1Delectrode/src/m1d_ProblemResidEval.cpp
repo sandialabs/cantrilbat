@@ -94,6 +94,9 @@ ProblemResidEval::ProblemResidEval(double atol) :
      } catch (CanteraError &cE) {
        ZZCantera::showErrors();
        ZZCantera::popError();
+     } catch (ZuzaxError &cE) {
+       ZZCantera::showErrors();
+       ZZCantera::popError();
      }
     }
   }

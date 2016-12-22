@@ -1,1 +1,10 @@
 
+
+Test for Electrode_Exception
+
+We throw an exception using the printf format, and then catch it. Then, we do a calculation.
+Proved that everything looks good, and no leaks or memory trashing occurs.
+
+
+
+

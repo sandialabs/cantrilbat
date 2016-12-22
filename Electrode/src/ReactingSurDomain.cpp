@@ -877,7 +877,11 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
 
     } catch (CanteraError) {
         showErrors(std::cout);
-        throw CanteraError("ReactingSurDomain::importFromPL()", "error encountered");
+        throw ZuzaxError("ReactingSurDomain::importFromPL()", "error encountered");
+        return false;
+    } catch (ZuzaxError) {
+        showErrors(std::cout);
+        throw ZuzaxError("ReactingSurDomain::importFromPL()", "error encountered");
         return false;
     }
 }
