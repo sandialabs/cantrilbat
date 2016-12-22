@@ -51,15 +51,17 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
 			   "ERROR: tPhase = 0 while processing phase in file, " + canteraFile);
     }
     std::string dimS = xmlphase->operator[]("dim");
+    size_t iphGlob;
     if (dimS == "3") {
-        pl->addVolPhase(tPhase, xmlphase);
+       iphGlob =  pl->addVolPhase(tPhase, xmlphase);
     } else if (dimS == "2") {
-        pl->addSurPhase(tPhase, xmlphase);
+        iphGlob = pl->addSurPhase(tPhase, xmlphase);
     } else if (dimS == "1") {
-        pl->addEdgePhase(tPhase, xmlphase);
+        iphGlob = pl->addEdgePhase(tPhase, xmlphase);
     } else {
         throw CanteraError("processPhasePL()", "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
     }
+    pl->movePhaseOwnership(2, iphGlob);
 }
 //==================================================================================================================================
 //!  Recursive search for XML_Node files named phase

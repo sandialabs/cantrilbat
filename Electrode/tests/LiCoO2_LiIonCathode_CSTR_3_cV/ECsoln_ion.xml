@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<ctml>
+
+  <phase id="ECDMC_LiPF6" dim="3">
+    <state>
+      <temperature units="K">500</temperature>
+    </state>
+    <!-- thermo model identifies the inherited class 
+         from ThermoPhase that will handle the thermodynamics.
+      -->
+    <thermo model="MolarityIonicVPSSTP" />
+    <elementArray datasrc="elements.xml"> H  C O  Li P F </elementArray>
+    <speciesArray datasrc="#species_soln">
+          ECDMC  Li+ PF6-
+    </speciesArray>
+    <reactionArray datasrc="#reactions_soln">
+    </reactionArray>
+    <kinetics model="SolidKinetics" />
+    <standardConc model="unity" />
+  </phase>
+
+ <!-- species data 
+       Note that these entries are for demonstration only, and the thermo
+       is made up.
+  -->
+
+  <speciesData id="species_soln">
+
+    <!-- ECDMC 
+       This is made up thermodynamics
+    -->
+    <species name="ECDMC">
+
+      <atomArray>C:3 O:3 H:4 </atomArray>
+      <thermo>
+         <const_cp Tmax="5000.0" Tmin="100.0">
+           <t0 units="K">298.14999999999998</t0>
+           <h0 units="kJ/mol">    -500.0 </h0>
+           <s0 units="J/mol/K">   100.0   </s0>
+           <cp0 units="J/kmol/K"> 10.0   </cp0>
+        </const_cp>
+      </thermo>
+      <standardState model="constant_incompressible">
+         <molarVolume> 1.5 </molarVolume>
+      </standardState>
+    </species>
+
+   <!-- Li+
+       The thermodynamics and volume information for this species is
+       set to zero by convention
+    -->
+    <species name="Li+">
+      <atomArray> Li:1 </atomArray>
+      <charge> 1 </charge>
+      <thermo>
+         <const_cp Tmax="5000.0" Tmin="100.0">
+           <t0 units="K">298.14999999999998</t0>
+           <h0 units="kJ/mol">    0.0 </h0>
+           <s0 units="J/mol/K">   0.0   </s0>
+           <cp0 units="J/kmol/K"> 0.0    </cp0>
+        </const_cp>
+      </thermo>
+      <standardState model="constant_incompressible">
+         <molarVolume> 0.0 </molarVolume>
+      </standardState>
+    </species>
+
+   <!-- PF6-
+       The thermodynamics and volume information for this species is
+       given by the heat of solution of LiPF6. However, I don't know
+       that information, so it is made up.
+    -->
+    <species name="PF6-">
+      <atomArray> P:1 F:6 </atomArray>
+      <charge> -1 </charge>
+      <thermo>
+         <const_cp Tmax="5000.0" Tmin="100.0">
+           <t0 units="K">298.14999999999998</t0>
+           <h0 units="kJ/mol">    -500.0 </h0>
+           <s0 units="J/mol/K">     50.0   </s0>
+           <cp0 units="J/kmol/K">   10.0    </cp0>
+        </const_cp>
+      </thermo>
+      <standardState model="constant_incompressible">
+         <molarVolume> 1.0 </molarVolume>
+      </standardState>
+    </species>
+
+
+
+
+  </speciesData>
