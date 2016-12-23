@@ -95,17 +95,10 @@ Electrode_CSTR::Electrode_CSTR() :
     DspMoles_final_(0),
     SrcDot_RxnExtent_final_(0.0),
     deltaSpMoles_(0),
-    minPH_(npos),
-    phaseMoles_final_lagged_(0),
-    DphMoles_final_(0),
-    KineticsPhaseExistence_(0)
+    minPH_(npos)
 {
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
     Electrode_Integrator(),
     electrodeType_(right.electrodeType_),
@@ -131,11 +124,7 @@ Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
     SrcDot_RxnExtent_final_(0.0),
 
     deltaSpMoles_(0),
-    minPH_(npos),
-
-    phaseMoles_final_lagged_(0),
-    DphMoles_final_(0),
-    KineticsPhaseExistence_(0)
+    minPH_(npos)
 {
     /*
      * Call the assignment operator.
@@ -143,10 +132,6 @@ Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
     *this = operator=(right);
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
 {
     /*
@@ -194,12 +179,7 @@ Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
     justDied_                            = right.justDied_;
     phaseMoles_final_lagged_             = right.phaseMoles_final_lagged_;
     DphMoles_final_                      = right. DphMoles_final_;
-    KineticsPhaseExistence_              = right.KineticsPhaseExistence_;
 
-
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //======================================================================================================================
@@ -248,15 +228,8 @@ int Electrode_CSTR::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
     *ei_ptr = ei_mp;
     return 0;
 }
-
-
 //======================================================================================================================
-//  Setup the electrode
-/*
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- */
-int
-Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
+int Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
 
     int flag = Electrode_Integrator::electrode_model_create(eibase);
@@ -269,8 +242,8 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_CSTR_KEY_INPUT* ei = dynamic_cast<ELECTRODE_CSTR_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_CSTR::electrode_model_create()",
-                           " Expecting a child ELECTRODE_CSTR_KEY_INPUT object and didn't get it");
+        throw ZuzaxError(" Electrode_CSTR::electrode_model_create()",
+                         " Expecting a child ELECTRODE_CSTR_KEY_INPUT object and didn't get it");
     }
 
     /*
@@ -309,7 +282,7 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  This value can be overriden in child objects, but so far, this is not necessary.
      */
     double solidMoles = 0.0;
-    for (size_t ph = 0; ph <  phaseIndexSolidPhases_.size(); ph++) {
+    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
         size_t iph = phaseIndexSolidPhases_[ph];
         solidMoles += phaseMoles_final_[iph];
     }
@@ -347,9 +320,6 @@ Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
  *    The routine works like an onion initialization. The parent object is initialized before the
  *    child. This means the child object first calls the parent, before it does its own initializations.
  *
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- *
- *  @return  Returns zero if successful, and -1 if not successful.
  */
 int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
@@ -438,7 +408,6 @@ void Electrode_CSTR::init_sizes()
 
     phaseMFBig_.resize(m_NumVolPhases, 0);
 
-    KineticsPhaseExistence_.resize(m_NumTotPhases, 1);
     phaseMoles_final_lagged_.resize(m_NumTotPhases, 0.0);
     DphMoles_final_.resize(m_NumTotPhases, 0.0);
     phaseMFBig_.resize(m_NumTotPhases, 0);
@@ -462,9 +431,6 @@ int Electrode_CSTR::create_solvers()
 /*
  *  We resize all of the information within the electrode from the input parameters
  *
- * @param electrodeArea   Area of the electrode
- * @param electrodeThickness  Width of the electrode
- * @param porosity        Volume of the electrolyte phase
  */
 void Electrode_CSTR::setElectrodeSizeParams(double electrodeArea, double
         electrodeThickness, double porosity)
@@ -609,8 +575,6 @@ bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
  *  Additions include extening the region values to include false values for DoD = 0 and 1
  *  conditions.
  *
- *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
- *                           this is at the DoD = 1.0 condition
  */
 double Electrode_CSTR::openCircuitVoltageSS_Region(int xRegion) const
 {
@@ -656,8 +620,6 @@ double Electrode_CSTR::openCircuitVoltageSS_Region(int xRegion) const
  *  Additions include extending the region values to include false values for DoD = 0 and 1
  *  conditions.
  *
- *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
- *                           this is at the DoD = 1.0 condition
  */
 double Electrode_CSTR::openCircuitVoltage_Region(int xRegion,  bool comparedToReferenceElectrode) const
 {
@@ -691,20 +653,6 @@ double Electrode_CSTR::openCircuitVoltage_Region(int xRegion,  bool comparedToRe
     return (vOffset + ocss);
 }
 //====================================================================================================================
-// Returns the total capacity of the electrode in Amp seconds
-/*
- *  Returns the capacity of the electrode in Amps seconds.
- *  This is the same as the number of coulombs that can be delivered at any voltage.
- *  Note, this number differs from the capacity of electrodes that is usually quoted for
- *  a battery. That number depends on the rate of discharge and also depends on the
- *  specification of a cutoff voltage. Here, we dispense with both of these specifications.
- *  So, it should be considered a theoretical capacity at zero current and minimal cutoff voltage.
- *  It will also include all plateaus that are defined by the electrode object.
- *
- *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
- *
- * @return returns the theoretical capacity of the electrode in Amp sec = coulombs.
- */
 double Electrode_CSTR::capacity(int platNum) const
 {
     if (electrodeChemistryModelType_ == 2) {
@@ -905,11 +853,10 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
     }
 
     // Also need to update DphMoles_final_ since it is used in the residual calculation.
-    for (size_t ph = 0; ph <  phaseIndexSolidPhases_.size(); ph++) {
+    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
         size_t iph = phaseIndexSolidPhases_[ph];
-        double DphaseMoles = 0.;
-        for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; ++sp)
-        {
+        double DphaseMoles = 0.0;
+        for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; ++sp) {
           size_t isp = globalSpeciesIndex(iph, sp);
           DphaseMoles += DspMoles_final_[isp];
         }
@@ -1038,11 +985,6 @@ void Electrode_CSTR::setState_relativeExtentRxn(double relExtentRxn)
  * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
  * We now calculate predicted solution components from these conditions.
  *
- * @return   Returns the success of the operation
- *                 1  A predicted solution is achieved
- *                 2  A predicted solution with a multispecies phase pop is acheived
- *                 0  A predicted solution is not achieved, but go ahead anyway
- *                -1  The predictor suggests that the time step be reduced and a retry occur.
  */
 int  Electrode_CSTR::predictSoln()
 {
@@ -1685,7 +1627,7 @@ void  Electrode_CSTR::determineBigMoleFractions()
         }
     }
 }
-//=========================================================================================
+//==================================================================================================================================
 //  Residual calculation for the solution of the Nonlinear integration problem
 /*
  * @param t             Time                    (input)
@@ -1699,15 +1641,9 @@ void  Electrode_CSTR::determineBigMoleFractions()
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  */
-int Electrode_CSTR::integrateResid(const double t, const double delta_t,
-                                   const double* const y, const double* const ySolnDot,
-                                   double* const resid,
-                                   const ResidEval_Type_Enum evalType, const int id_x,
-                                   const double delta_x)
+int Electrode_CSTR::integrateResid(const double t, const double delta_t, const double* const y, const double* const ySolnDot,
+                                   double* const resid, const ResidEval_Type_Enum evalType, const int id_x, const double delta_x)
 {
-
-    //int neq = nResidEquations();
-
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         printf("\t\t===============================================================================================================================\n");
         printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
@@ -1727,7 +1663,6 @@ int Electrode_CSTR::integrateResid(const double t, const double delta_t,
     if ((evalType != JacDelta_ResidEval)) {
         std::fill(justDied_.begin(), justDied_.end(), 0);
     }
-
     /*
      *  UNPACK THE SOLUTION VECTOR
      */
@@ -1736,7 +1671,6 @@ int Electrode_CSTR::integrateResid(const double t, const double delta_t,
     if (evalType != JacDelta_ResidEval && (evalType != Base_LaggedSolutionComponents)) {
         std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_final_lagged_.begin());
     }
-
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         if (minPH_ != npos) {
             if (deltaTsubcycleCalc_  <= deltaTsubcycle_) {
@@ -1770,23 +1704,18 @@ int Electrode_CSTR::integrateResid(const double t, const double delta_t,
     }
 
 REDO:
-
     updateState();
     extractInfo();
-
-
     /*
      *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
      *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
      *   all species in the electrode.
      */
     updateSpeciesMoleChangeFinal();
-
     /*
      * Calculate the residual
      */
     calcResid(resid, evalType);
-
     /*
      * Change the problem specification for the nonlinear solve in certain circumstances when the solver
      *  is calculating the base residual of a jacobian
@@ -1813,14 +1742,12 @@ REDO:
                 goto REDO ;
             }
         }
-
         if (deltaTsubcycleCalc_ > 1.5 * deltaTsubcycle_) {
             if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
                 printf("\t\tDeltaTCalc is too big. %g %g BAILING FROM RESIDUAL\n", deltaTsubcycleCalc_, deltaTsubcycle_);
             }
             return -2;
         }
-
         for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
             size_t iph = phaseIndexSolidPhases_[ph];
             if (justDied_[iph] != justDiedPhase_[iph]) {
@@ -1837,7 +1764,6 @@ REDO:
                         ylow[index] = -1.0E30;
                     }
                 } else {
-
                     // HKM  -> We have turned off this code, because it leads to multiple errors.
                     //         If a phase has bee slated to be killed off, you need to let the nonlinear solver try to kill
                     //         it off.
@@ -1846,14 +1772,10 @@ REDO:
                     // }
                     // justDiedPhase_[iph] = 0;
 #ifdef STRICT_BOUNDS_NP
-
                     if (ylow[index] < 0.0) {
                         ylow[index] = 0.0;
                     }
 #endif
-                    /*
-                     *
-                     */
                     if (DphMoles_final_[iph] > 0.0) {
                         if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
                             printf("\t\tPhase %d is growing even though it is assigned to die. BAILING FROM RESIDUAL\n", 
@@ -1871,7 +1793,6 @@ REDO:
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
 
         if (minPH_ != npos) {
-
             printf("\t\t minPH = %3d  delTcalc = %16.7E  Pinit/-DelP = %16.7E  Res = %16.7E   \n",
                    static_cast<int>(minPH_),  deltaTsubcycleCalc_, -phaseMoles_init_[minPH_] / DphMoles_final_[minPH_],  resid[0]);
         }
@@ -1879,7 +1800,7 @@ REDO:
         for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
             double src =   DphMoles_final_[iph] * deltaTsubcycleCalc_;
             printf("\t\t %20.20s  %12.4e  %12.4e            %2d | %12.4e %12.4e", PhaseNames_[iph].c_str(), phaseMoles_init_[iph],
-                   phaseMoles_final_[iph], KineticsPhaseExistence_[iph], src,  phaseMoles_init_[iph] + src);
+                   phaseMoles_final_[iph], 1, src,  phaseMoles_init_[iph] + src);
             bool found = false;
             for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
                 size_t jph = phaseIndexSolidPhases_[ph];
@@ -1973,11 +1894,6 @@ REDO:
  *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[1]
  *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[1]
  *
- *  @param yval_retn calculated return vector whose form is described above
-
- *
-   *  @return  1 Means a good calculation that produces a valid result
-   *           0 Bad calculation that means that the current nonlinear iteration should be terminated
  */
 int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
@@ -2178,19 +2094,6 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
     return 1;
 }
 //==================================================================================================================================
-// Evaluate the residual function
-/*
- * @param t             Time                    (input)
- * @param delta_t       The current value of the time step (input)
- * @param y             Solution vector (input, do not modify)
- * @param ydot          Rate of change of solution vector. (input, do not modify)
- * @param resid         Value of the residual that is computed (output)
- * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
- * @param id_x          Index of the variable that is being numerically differenced to find
- *                      the jacobian (defaults to -1, which indicates that no variable is being
- *                      differenced or that the residual doesn't take this issue into account)
- * @param delta_x       Value of the delta used in the numerical differencing
- */
 int Electrode_CSTR::GFCEO_evalResidNJ(const double tdummy, const double delta_t_dummy,
                                 const double* const y, const double* const ySolnDot,
                                 double* const resid, const ResidEval_Type_Enum evalType,
@@ -2579,7 +2482,6 @@ bool  Electrode_CSTR::checkSubIntegrationStepAcceptable() const
     return true;
 }
 //====================================================================================================================
-
 // Possibly change the solution due to phase births and deaths.
 /*
  *   (virtual from Electrode_Integrator)
@@ -2711,13 +2613,6 @@ void Electrode_CSTR::calcSrcTermsOnCompletedStep()
     }
 }
 //====================================================================================================================
-//!  Gather the predicted solution values and the predicted integrated source terms
-/*!
- *  (virtual from Electrode_Integrator)
- *
- *  Both the predicted solution values and the predicted integrated source terms are used
- *  in the time step control
- */
 void Electrode_CSTR::gatherIntegratedSrcPrediction()
 {
     extractInfo();
@@ -2744,24 +2639,12 @@ double Electrode_CSTR::predictorCorrectorWeightedSolnNorm(const std::vector<doub
     return pnorm;
 }
 //====================================================================================================================
-// Calculate the vector of predicted errors in the source terms that this integrator is responsible for
-/*!
- *  (virtual from Electrode_Integrator)
- *
- *    In the base implementation we assume that the there are just one source term, the electron
- *    source term.
- *    However, this will be wrong in almost all cases.
- *    The number of source terms is unrelated to the number of unknowns in the nonlinear problem.
- *    Source terms will have units associated with them.
- *    For example the integrated source term for electrons will have units of kmol
- */
 void Electrode_CSTR::predictorCorrectorGlobalSrcTermErrorVector()
 {
 
 }
 //====================================================================================================================
-void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval,
-        double pnormSrc, double pnormSoln) const
+void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const
 {
     double atolVal =  1.0E-8;
     double denom;
@@ -2793,17 +2676,6 @@ void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval,
 
 }
 //====================================================================================================================
-//!  Calculate the norm of the errors in the global source terms
-/*!
- *  (virtual from Electrode_Integrator)
- *
- *   This routine make use of the source term error vector along with rtols and atols for the
- *   individual source terms to calculated a normalized error measure. This is the single number
- *   that the integration routine will try to control as it calculates a time stepping strategy.
- *
- *   @return  Returns a single nondimensional number representing the normalized error
- *            for the calculation of the source term
- */
 double Electrode_CSTR::predictorCorrectorGlobalSrcTermErrorNorm()
 {
     return 0.0;
@@ -2842,15 +2714,6 @@ double Electrode_CSTR::l0normM(const std::vector<double>& v1, const std::vector<
     return max0;
 }
 //====================================================================================================================
-//   Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (non virtuyal function -> Onionize from in-first)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
 void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)
 {
     Electrode_Integrator::setInitStateFromFinal(setInitInit);
@@ -2916,7 +2779,7 @@ void  Electrode_CSTR::setFinalStateFromInit()
     Electrode_Integrator::setFinalStateFromInit_Oin();
     /*
      * Do stuff not done in base class
-     /*/
+     */
     RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
     xRegion_final_ = xRegion_init_;
     onRegionBoundary_final_ = onRegionBoundary_init_;
@@ -2958,22 +2821,6 @@ void Electrode_CSTR::setInitStateFromFinal(bool setInitInit)
     setInitStateFromFinal_Oin(setInitInit);
 }
 //==================================================================================================================
-// Set the base tolerances for the nonlinear solver within the integrator
-/*
- *   The tolerances are based on controlling the integrated electron source term
- *   for the electrode over the integration interval.  The integrated source term
- *   has units of kmol.
- *
- *   Because the electron is only one molar quantity within a bunch of molar quantities,
- *   this requirement will entail that we control the source terms of all species within the
- *   electrode to the tolerance requirements of the electron source term.
- *
- *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
- *                     This is a unitless quantity
- *   @param atolResid  Absolute tolerance cutoff for the electron source term over the interval.
- *                     Below this value we do not care about the results.
- *                     atol has units of kmol.
- */
 void Electrode_CSTR::setNLSGlobalSrcTermTolerances(double rtolResid)
 {
     double sum = SolidTotalMoles();

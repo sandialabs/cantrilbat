@@ -727,8 +727,7 @@ public:
      *   Calculates atolResidNLS_[]
      *   Calculates atolNLS_[]
      */
-    virtual void setResidAtolNLS();
-
+    virtual void setResidAtolNLS() override;
 
     //! Return the number of equations in the equation system that is used to solve the ODE integration
     /*!
@@ -737,6 +736,8 @@ public:
      *           1   for the deltaT
      *           nSolidPhases   Total moles in each solid phases
      *           Xmol           Mole fraction of species in each solid phase, except for largest mole fraction
+     *
+     *  @return                                  Returns the number of equations in the ODE integration system
      */
     virtual size_t nEquations_calc() const override;
 
@@ -761,7 +762,7 @@ public:
                             double* const resid,
                             const ResidEval_Type_Enum evalType = Base_ResidEval,
                             const int id_x = -1,
-                            const double delta_x = 0.0);
+                            const double delta_x = 0.0) override;
 
     //! Fill in the initial conditions at the given time value
     /*!
@@ -792,7 +793,7 @@ public:
      *
      *  @return returns the relative extent of reaction (dimensionless).
      */
-    virtual double  calcRelativeExtentRxn_final() const;
+    virtual double calcRelativeExtentRxn_final() const override;
 
     double capacityDot(int platNum = -1) const;
     double capacityLeftDot(int platNum = -1, double voltsMax = 50.0, double voltsMin = - 50.0) const;
@@ -800,11 +801,10 @@ public:
     double capacityLeftRaw(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
 	
     double capacityRaw(int platNum = -1) const; 
-    // ----------------------------------------------------------------------------------------------------
 
-    //        MEMBER DATA
 
-    //----------------------------------------------------------------------------------------------------
+    // -------------------------------------       MEMBER DATA --------------------------------------------------------------------
+
 
     /* ----------------------------------------------------------------------------------------------
      *             DATA ASSOCIATED WITH REGION BOUNDARIES, RELATIVE EXTENTS, AND THEIR MARKERS
@@ -948,7 +948,17 @@ protected:
      */
     double SrcDot_RxnExtent_final_;
 
+    //! List of the the volume phases in the PhaseList object  which are actually solid phases that are
+    //! part of the electrode. 
+    /*!
+     *  Right now, everything that is not the metal phase or the electrolyte phase is a solid phase.
+     */
     std::vector<size_t> phaseIndexSolidPhases_;
+
+    //! The number of species in each of those solid phases that are part of the electrode
+    /*!
+     *  Length: phaseIndexSolidPhases_.size()
+     */
     std::vector<size_t> numSpecInSolidPhases_;
 
     //! Change in the number of moles of species during the current step
@@ -964,28 +974,35 @@ protected:
     //! Contains a boolean for phases which have died during the current subgrid step.
     /*!
      *  length: m_NumTotPhases
-     *  either has a value of 0 or 1
+     *  Index:  PhaseList iphGlob
+     *  Either has a value of 0 or 1
      */
     std::vector<int> justDied_;
 
+    //! Lagged phase moles vector
+    /*!
+     *  Values are not updated for jacobian calculations, or for Base_LaggedSolutionComponents calls
+     *  Length: Number phases in PhaseList =  m_NumTotPhases
+     *  Index:  PhaseList iphGlob
+     */
     std::vector<double> phaseMoles_final_lagged_;
 
+    //! Delta phase moles vector
+    /*!
+     *  Changed in the number of moles in each phase during the local time step
+     *  Length: m_NumTotPhases
+     *  Index:  PhaseList iphGlob
+     */
     std::vector<double> DphMoles_final_;
-
-    std::vector<int> KineticsPhaseExistence_;
 
     //!  Total value of the solid moles at the start of the nonlinear iteration
     /*!
      *  units are kmol
      */
     double solidMoles_init_;
-
-
 };
-
+//==================================================================================================================================
 }
-
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
+
