@@ -516,13 +516,11 @@ void Electrode_CSTR::updateSurfaceAreas()
     double totalSA = 4. * Pi * Radius_exterior_final_ * Radius_exterior_final_ * particleNumberToFollow_;
     surfaceAreaRS_final_[0] = totalSA;
 }
-//====================================================================================================================
+//==================================================================================================================================
 bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
 {
     double tol = 1.0E-6;
     int onRegionBoundary_final = -1;
-
-
 
     bool retn = Electrode::stateToPhaseFlagsReconciliation(flagErrors);
     int sz = (int) RelativeExtentRxn_RegionBoundaries_.size();
@@ -535,20 +533,21 @@ bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
             onRegionBoundary_final = RelativeExtentRxn_RegionBoundaries_[i];
         }
     }
+    // If we are before the initial region boundary, we set it to be on the initial boundary
     if (xRegion_final < 0) {
         xRegion_final = 0;
         onRegionBoundary_final = 0;
     }
+    // If we are beyond the final boundary, we set it to be on the final boundary.
     if (xRegion_final >= sz) {
         xRegion_final = sz - 1;
         onRegionBoundary_final = sz - 1;
     }
 
     if (flagErrors) {
-        if (xRegion_final !=  xRegion_final_) {
+        if (xRegion_final != xRegion_final_) {
             printf("Electrode_CSTR::stateToPhaseFlagsReconciliation() WARNING\n"
-                   "                xRegin_final %d is different than storred value %d\n",
-                   xRegion_final,  xRegion_final_);
+                   "                xRegin_final %d is different than storred value %d\n", xRegion_final,  xRegion_final_);
             retn = true;
         }
         if (onRegionBoundary_final != onRegionBoundary_final_) {
@@ -562,7 +561,7 @@ bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
     xRegion_final_ = xRegion_final;
     return retn;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Value of the standard state open circuit voltage for the standard state conditions for region xRegion
 //  at the final_ conditions.
 /*
@@ -846,8 +845,7 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
 {
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(0);
     std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.0);
-    double mult = (surfaceAreaRS_init_[0] + surfaceAreaRS_final_[0]);
-    mult /= 2.0;
+    double mult = (surfaceAreaRS_init_[0] + surfaceAreaRS_final_[0]) / 2.0;
     for (size_t i = 0; i < m_NumVolSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
     }
@@ -881,7 +879,6 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
 	printf("logic error %g %g\n", tmp ,  SrcDot_RxnExtent_final_);
         //exit(-1);
     }
-   
 }
 //================================================================================================================
 double Electrode_CSTR::capacityLeftDot(int platNum, double voltsMax, double voltsMin) const

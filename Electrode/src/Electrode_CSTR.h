@@ -289,7 +289,12 @@ public:
      */
     void extractInfo();
 
-
+    //! Calculate the production rate of species in the electrode at the final time of the time step
+    /*!
+     *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
+     *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
+     *   all species in the electrode.
+     */
     void updateSpeciesMoleChangeFinal();
 
     //! Take the state (i.e., the final state) within the Electrode object and push it down
@@ -347,9 +352,27 @@ public:
      */
     virtual void updateSurfaceAreas();
 
-    //!
-    virtual bool stateToPhaseFlagsReconciliation(bool flagErrors);
+protected:
+    //! This is used to set the phase information that is implicit but not set by a restart or an initialization
+    /*!
+     *  (virtual function from Electrode)
+     *
+     *  This is called immediately after the restart file's contents are loaded into the electrode object.
+     *  We then call this function to calculate the internal flags. Then, we call updateState() to make sure
+     *  all information about the state is self-consistent.
+     *
+     *  We recalculate the values of  onRegionBoundary_final_ and xRegion_final_  based on the current value of 
+     *  RelativeExtentRxn_final_ and the values of RelativeExtentRxn_RegionBoundaries_[i]. 
+     *  We compare against where we thought we were.
+     *
+     *  @param[in]           flagErrors          If true any changes in the current flags caused by a mismatch between the state
+     *                                           and the values of the flags will cause an error exit.
+     *
+     *  @return                                  Returns whether there has been any discovered errors (currently ignored)
+     */
+    virtual bool stateToPhaseFlagsReconciliation(bool flagErrors) override;
 
+public:
     //! Set the final state of the electrode using the relExtentRxn
     /*!
      *  This sets the state of the system, i.e., spmoles_final_[] for the solid phase

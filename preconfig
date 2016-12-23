@@ -138,7 +138,6 @@ BLAS_LIBRARY_NAMES=${BLAS_LIBRARY_NAMES:=""}
 # BLAS_LIBRARY="-lblas"
 #
 # - - - - - - - - - - - - - -
-# LAPACK_LIBRARY_DIR="/home/hkmoffa/arch/linux64_gcc472/lib"
 #
 LAPACK_LIBRARY_NAMES=${LAPACK_LIBRARY_NAMES:="liblapack.a"}
 #
