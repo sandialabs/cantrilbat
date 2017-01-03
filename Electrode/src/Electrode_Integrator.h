@@ -991,8 +991,8 @@ public:
      * 
      *   @return                                 returns the maximum value of Lo_i for all i.
      */
-    double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
-                   const std::vector<double>& atolVec, const double rtol);
+    double l0norm_PC_NLS(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
+                         const std::vector<double>& atolVec, const double rtol);
 
     // ----------------------------------------------------------------------------------------------
     // ----------------------------- GET CONDITIONS OUT ---------------------------------------------------------------------

@@ -231,7 +231,7 @@ public:
     /*!
      *   (inherited from Electrode_Integrator)
      */
-    virtual void extractInfo();
+    virtual void extractInfo() override;
 
     //! Collect mole change information
     /*!

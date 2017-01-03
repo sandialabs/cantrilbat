@@ -842,29 +842,27 @@ public:
      *    nonlinear solver. However, we expose this routine so that the residual can be queried
      *    given all of the inputs.
      *
-     * @param[in]  tfinal      Time                    (input)
-     * @param[in]  delta_t     The current value of the time step (input)
-     * @param[in]  y           Solution vector (input, do not modify)
-     * @param[in]  ydot        Rate of change of solution vector. (input, do not modify)
-     * @param[out] resid       Value of the residual that is computed (output)
-     * @param[in]  evalType    Type of the residual being computed (defaults to Base_ResidEval)
-     * @param[in]  id_x        Index of the variable that is being numerically differenced to find
-     *                         the jacobian (defaults to -1, which indicates that no variable is being
-     *                         differenced or that the residual doesn't take this issue into account)
-     * @param[in]  delta_x     Value of the delta used in the numerical differencing
+     *  @param[in]           tfinal              Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ySolnDot            Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
+     *                                           the jacobian (defaults to -1, which indicates that no variable is being
+     *                                           differenced or that the residual doesn't take this issue into account)
+     *  @param[in]           delta_x             Value of the delta used in the numerical differencing
      *
-     * @return                Returns an integer that gets fed back through evalResidNJ() to the
-     *                        nonlinear solver. Anything other than a 1 causes an immediate failure
-     *                        of the nonlinear solver to occur.
+     *  @return                                  Returns an integer that gets fed back through evalResidNJ() to the
+     *                                           nonlinear solver. Anything other than a 1 causes an immediate failure
+     *                                           of the nonlinear solver to occur.
      */
-    virtual int integrateResid(const double tfinal, const double delta_t,
-                               const double* const y, const double* const ydot,
-                               double* const resid,
-                               const ResidEval_Type_Enum evalType, const int id_x, const double delta_x);
+    virtual int integrateResid(const double tfinal, const double delta_t, const double* const y,
+                               const double* const ySolnDot, double* const resid, const ResidEval_Type_Enum evalType, 
+                               const int id_x, const double delta_x);
 
     //!  Calculate the change in the state of the system when integrating from Tinitial to Tfinal
-    //!  at constant current, finding the required voltage to produce that current in an
-    //!  average sense.
+    //!  at constant current, finding the required voltage to produce that current in an average sense.
     /*!
      *  This function finds the voltage that is necessary to produce an average current over
      *  an interval of time, deltaT.
@@ -1259,12 +1257,12 @@ public:
 
     //! Set the current state of the electrode object based on a relative extent of reaction
     /*!
+     *   (virtual from Electrode)
      *   The relative extent of reaction is a dimensionless number on the order of one
      *   that represents the state of the electrode. A value of zero represents the
-     *   fully charged state, while a value of one (or equivalent) represents a fully
-     *   discharged state. 
+     *   fully charged state, while a value of one (or equivalent) represents a fully discharged state. 
      *
-     *  @param  relativeExtentRxn  Relative extent of reaction variable (input)
+     *  @param[in]           relativeExtentRxn   Relative extent of reaction variable
      */
     virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
@@ -1635,6 +1633,7 @@ public:
 //Can protect
     virtual void updateSurfaceAreas();
 
+protected:
     //! This is used to set the phase information that is implicit but not set by a restart or an initialization
     /*!
      *  (virtual function from Electrode)
@@ -1651,10 +1650,8 @@ public:
      *
      *  @return  Returns whether there has been any discovered errors (currently ignored)
      */
-//Can protect
     virtual bool stateToPhaseFlagsReconciliation(bool flagErrors);
 
-protected:
     //!  Reactant stoichiometric coefficient
     /*!
      *   Get the reactant stoichiometric coefficient for the kth global species
@@ -1995,10 +1992,10 @@ public:
      *
      *  capacity() = depthOfDischarge() + capacityLeft()
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                   If positive or zero, each plateau is treated as a separate entity.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                           If positive or zero, each plateau is treated as a separate entity.
      *
-     *  @return returns the theoretical capacity of the electrode in Amp seconds = coulombs.
+     *  @return                                  returns the theoretical capacity of the electrode in Amp seconds = coulombs
      */
     virtual double capacity(int platNum = -1) const;
 
@@ -2012,10 +2009,10 @@ public:
      *
      *  capacityInitial() = capacity() + capacityLost().
      * 
-     *   @param[in]     platNum              Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                                       If positive or zero, each plateau is treated as a separate entity.
+     *   @param[in]     platNum                  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                           If positive or zero, each plateau is treated as a separate entity.
      *
-     *   @return                             Returns the capacity in units of Amp sec = coulombs
+     *   @return                                 Returns the capacity in units of Amp sec = coulombs
      */
     virtual double capacityInitial(int platNum = -1) const;
 
@@ -2031,10 +2028,10 @@ public:
      *   Note, the current is defined as the amount
      *   of positive charge that goes from the solid into the electrolyte.
      *
-     *   @param[in]  platNum               Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                                     If positive or zero, each plateau is treated as a separate entity.
+     *   @param[in]          platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                           If positive or zero, each plateau is treated as a separate entity.
      *
-     *   @return                           Returns the capacity discharged in units of Amp sec = coulombs
+     *   @return                                 Returns the capacity discharged in units of Amp sec = coulombs
      */
     virtual double capacityDischarged(int platNum = -1) const;
 
@@ -3275,22 +3272,20 @@ protected:
     //! Capacity Coefficient for Calculation of theoreteical zero DoD capacity
     /*!
      *  The capacity of an anode electrode is equal to the number of electrons that can
-     *  be released. The capacity of a cathode is equal to the number of electrons that
-     *  can be accumulated.
+     *  be released. The capacity of a cathode is equal to the number of electrons that can be accumulated.
      *
      *  We determine the capacity of an electrode by multiplying the number of moles
-     *  of each species by this capacityZeroDoDSpeciesCoeff_[] value to get the number
-     *  of electrons that can be discharged.
+     *  of each species by this capacityZeroDoDSpeciesCoeff_[] value to get the number of electrons that can be discharged.
      *
-     *  We determine capacityZeroDoDSpeciesCoeff_[] in the instantiation phase. Basically
-     *  we hard-code the evaluation process based on species names.
+     *  We determine capacityZeroDoDSpeciesCoeff_[] in the instantiation phase. Basically, we hard-code the evaluation process 
+     *  based on species names.
      *
      *  The depth of discharge will be equal to the amount of electrons that
      *  have been discharged divided by the number of electrons that can be released.
      *
      *  For the capacity in multiple plateau situations, we assume that the
-     *  capacity is equal to the number of electrons that can be extracted from all plateaus
-     *  defined in the problem regardless of the E_0 voltage.
+     *  capacity is equal to the number of electrons that can be extracted from all plateaus defined in the problem 
+     *  regardless of the E_0 voltage.
      */
     mutable std::vector<double> capacityZeroDoDSpeciesCoeff_;
 

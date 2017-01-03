@@ -89,23 +89,27 @@ export LAPACK_LIBRARY_NAMES=liblapack_linux64-gcc493.a
 #
 #  Location of the Umfpack library
 #
-export UMFPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/UMFPACK-5.4/lib
+#export UMFPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/UMFPACK-5.4/lib
+export UMFPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/UMFPACK-5.4/lib
 export UMFPACK_LIBRARY_NAMES="libumfpack.a:libamd.a"
 #
 #  Location of the superludist library
 #
-export SUPERLUDIST_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/SuperLU_DIST_2.3/lib
+export SUPERLUDIST_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/SuperLU_DIST_2.3/lib
+#export SUPERLUDIST_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/SuperLU_DIST_2.3/lib
 export SUPERLUDIST_LIBRARY_NAMES=libsuperludist.a
 
-export PARMETIS_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/ParMetis-3.1.1/lib
+export PARMETIS_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/ParMetis-3.1.1/lib
+#export PARMETIS_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/ParMetis-3.1.1/lib
 export PARMETIS_LIBRARY_NAMES="libparmetis.a:libmetis.a"
 
-export Y12M_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/lib
+export Y12M_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
+#export Y12M_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/lib
 export Y12M_LIBRARY_NAMES="liby12m.a"
 
-
-
-TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc493/trilinos_11_2_3_dbg"
+#  Not ready yet so have to fall back to existing dir
+#TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc493/trilinos_11_2_3_dbg"
+TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_11_2_3_dbg"
 export TRILINOS_INSTALL_DIR
 
 DO_MPI='y'

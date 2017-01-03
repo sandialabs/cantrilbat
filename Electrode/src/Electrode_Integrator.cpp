@@ -1965,9 +1965,9 @@ double Electrode_Integrator::calc_ydotNLS_final()
  */
 double Electrode_Integrator::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS)
 {
-    double pnorm = l0normM(soln_predict_, yvalNLS, neq_, atolNLS_, rtolNLS_);
+    double pnorm = l0norm_PC_NLS(soln_predict_, yvalNLS, neq_, atolNLS_, rtolNLS_);
 
-    double pnorm_dot = l0normM(soln_predict_fromDot_, yvalNLS, neq_, atolNLS_, rtolNLS_);
+    double pnorm_dot = l0norm_PC_NLS(soln_predict_fromDot_, yvalNLS, neq_, atolNLS_, rtolNLS_);
 
     if (pnorm_dot < pnorm) {
        pnorm = pnorm_dot;
@@ -2479,8 +2479,8 @@ void Electrode_Integrator::printElectrodePhase(size_t iph, int pSrc, bool subTim
 
 }
 //====================================================================================================================
-double Electrode_Integrator::l0normM(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
-                                     const std::vector<double>& atolVec, const double rtol)
+double Electrode_Integrator::l0norm_PC_NLS(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
+                                           const std::vector<double>& atolVec, const double rtol)
 {
     double max0 = 0.0;
     double denom, diff, ee;
@@ -2492,7 +2492,7 @@ double Electrode_Integrator::l0normM(const std::vector<double>& v1, const std::v
         if (ee > max0) {
             max0 = ee;
         }
-        // Unnormalize the error so that the real level of error is reflected in the storred quantity
+        // Unnormalize the error so that the real relative level of error is reflected in the storred quantity
         errorLocalNLS_[k] = ee * rtol;
     }
     return max0;

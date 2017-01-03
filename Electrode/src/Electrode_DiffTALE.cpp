@@ -2461,8 +2461,8 @@ void  Electrode_DiffTALE::gatherIntegratedSrcPrediction()
  */
 double Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
-    double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
-    double pnorm_dot = l0normM(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
+    double pnorm = l0norm_PC_NLS(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
+    double pnorm_dot = l0norm_PC_NLS(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
     if (pnorm_dot < pnorm) {
 #ifdef DEBUG_MODE
 	if (printLvl_ > 2) {
@@ -2489,7 +2489,7 @@ double Electrode_DiffTALE::predictorCorrectorWeightedSolnNorm(const std::vector<
 void Electrode_DiffTALE::predictorCorrectorGlobalSrcTermErrorVector()
 {
 }
-//====================================================================================================================
+//==================================================================================================================================
 static double relv(double a, double b, double atol)
 {
     if (a == 0.0 && b == 0.0) {

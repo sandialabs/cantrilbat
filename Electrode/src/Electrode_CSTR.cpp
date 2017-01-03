@@ -31,14 +31,11 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
-
 //======================================================================================================================
 ELECTRODE_CSTR_KEY_INPUT::ELECTRODE_CSTR_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
     boundaryResistance_(0.0)
 {
-
 }
 //====================================================================================================================
 ELECTRODE_CSTR_KEY_INPUT::~ELECTRODE_CSTR_KEY_INPUT()
@@ -607,8 +604,7 @@ double Electrode_CSTR::openCircuitVoltageSS_Region(int xRegion) const
     return (vOffset + ocss);
 }
 //====================================================================================================================
-// Value of the open circuit voltage for region xRegion
-// at the final_ conditions.
+// Value of the open circuit voltage for region xRegion at the final_ conditions.
 /*
  *  This is the open circuit potential at the current _final_ conditions.
  *  The value is dependent on the region input. The region input, currently is identified
@@ -620,7 +616,7 @@ double Electrode_CSTR::openCircuitVoltageSS_Region(int xRegion) const
  *  conditions.
  *
  */
-double Electrode_CSTR::openCircuitVoltage_Region(int xRegion,  bool comparedToReferenceElectrode) const
+double Electrode_CSTR::openCircuitVoltage_Region(int xRegion, bool comparedToReferenceElectrode) const
 {
     int doRegion = xRegion;
     double vOffset = 0.0;
@@ -676,7 +672,7 @@ double Electrode_CSTR::capacity(int platNum) const
     double capZeroDoD = capRaw - Faraday * (unFillable + unExtractable);
     return capZeroDoD;
 }
-//========================================================================================================
+//==================================================================================================================================
 double Electrode_CSTR::capacityRaw(int platNum) const
 {
     if (electrodeChemistryModelType_ == 2) {
@@ -687,18 +683,15 @@ double Electrode_CSTR::capacityRaw(int platNum) const
         if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
-        int kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
-            double ll = spMoles_final_[kStart + k];
-            capZeroDoD += ll * capacityZeroDoDSpeciesCoeff_[kStart + k];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
+        for (size_t k = 0; k < NumSpeciesList_[iph]; k++) {
+            capZeroDoD += spMoles_final_[kStart + k] * capacityZeroDoDSpeciesCoeff_[kStart + k];
         }
     }
     double tmp = capZeroDoD * Faraday;
     return tmp;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Amount of charge that the electrode that has available to be discharged
 /*
  *   We report the number in terms of Amp seconds = coulombs
@@ -708,8 +701,7 @@ double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMi
     if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
     }
-    double capLeftRaw = capacityLeftRaw(platNum, voltsMax, voltsMin);
-
+    double capLeftRaw = capacityLeftRaw(platNum);
     double capRaw = capacityRaw(platNum);
     double fac = capRaw / (RelativeExtentRxn_NormalizationFactor_ * Faraday);
 
@@ -741,7 +733,7 @@ double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMi
     return capLeft * Faraday;
 }
 //====================================================================================================================
-double Electrode_CSTR::capacityLeftRaw(int platNum, double voltsMax, double voltsMin) const
+double Electrode_CSTR::capacityLeftRaw(int platNum) const
 {
     if (electrodeChemistryModelType_ == 2) {
         setCapacityCoeff_FeS2();
@@ -751,12 +743,9 @@ double Electrode_CSTR::capacityLeftRaw(int platNum, double voltsMax, double volt
         if (iph == solnPhase_ || iph ==  metalPhase_) {
             continue;
         }
-        int kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
-            double ll = spMoles_final_[kStart + k];
-            capLeft += ll * capacityLeftSpeciesCoeff_[kStart + k];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
+        for (size_t k = 0; k < NumSpeciesList_[iph]; k++) {
+            capLeft += spMoles_final_[kStart + k] * capacityLeftSpeciesCoeff_[kStart + k];
         }
     }
     return capLeft * Faraday;
@@ -881,17 +870,15 @@ void Electrode_CSTR::updateSpeciesMoleChangeFinal()
     }
 }
 //================================================================================================================
-double Electrode_CSTR::capacityLeftDot(int platNum, double voltsMax, double voltsMin) const
+double Electrode_CSTR::capacityLeftDot(int platNum) const
 {
     double capLeftDot = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
-        int kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
+        for (size_t k = 0; k < NumSpeciesList_[iph]; k++) {
             double ll =  DspMoles_final_[kStart + k];
             capLeftDot += ll * capacityLeftSpeciesCoeff_[kStart + k];
         }
@@ -907,21 +894,19 @@ double Electrode_CSTR::capacityDot(int platNum) const
             continue;
         }
         size_t kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        size_t nspPhase = tp.nSpecies();
-        for (size_t k = 0; k < nspPhase; k++) {
-            double ll =  DspMoles_final_[kStart + k];
+        for (size_t k = 0; k < NumSpeciesList_[iph]; k++) {
+            double ll = DspMoles_final_[kStart + k];
             capDot += ll * capacityZeroDoDSpeciesCoeff_[kStart + k];
         }
     }
     return capDot * Faraday;
 }
 //================================================================================================================
-double Electrode_CSTR::RxnExtentDot(int platNum, double voltsMax, double voltsMin) const
+double Electrode_CSTR::RxnExtentDot(int platNum) const
 {
-    double capLeft = capacityLeft(platNum, voltsMax, voltsMin);
+    double capLeft = capacityLeft(platNum, 50., -50.);
     double capZero = capacity(platNum);
-    double capLeftDot = capacityLeftDot(platNum, voltsMax, voltsMin);
+    double capLeftDot = capacityLeftDot(platNum);
     double capDot = capacityDot(platNum);
     double reDot = - capLeftDot / capZero + capLeft * capDot / ( capZero * capZero);
     return reDot;
@@ -1385,7 +1370,7 @@ void  Electrode_CSTR::unpackNonlinSolnVector(const double* const y)
 
     checkStillOnRegionBoundary();
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::checkStillOnRegionBoundary()
 {
   const double upperBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
@@ -1400,22 +1385,22 @@ void Electrode_CSTR::checkStillOnRegionBoundary()
     // onRegionBoundary_final_ = -1;
   //}
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::setOnRegionBoundary()
 {
   const double upperBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
   const double lowerBound = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
-  if(RelativeExtentRxn_final_ >= upperBound) {
+  if (RelativeExtentRxn_final_ >= upperBound) {
     onRegionBoundary_final_ = xRegion_init_ + 1;
     setState_relativeExtentRxn(upperBound);
-  } else if(RelativeExtentRxn_final_ <= lowerBound) {
+  } else if (RelativeExtentRxn_final_ <= lowerBound) {
     onRegionBoundary_final_ = xRegion_init_;
     setState_relativeExtentRxn(lowerBound);
   } else {
     onRegionBoundary_final_ = -1;
   }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void  Electrode_CSTR::packNonlinSolnVector(double* const y) const
 {
 
@@ -2632,7 +2617,7 @@ void Electrode_CSTR::gatherIntegratedSrcPrediction()
  */
 double Electrode_CSTR::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
-    double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
+    double pnorm = l0norm_PC_NLS(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
     return pnorm;
 }
 //====================================================================================================================
@@ -2690,25 +2675,6 @@ void Electrode_CSTR::check_final_state()
         exit(-1);
     }
     setOnRegionBoundary();
-}
-//====================================================================================================================
-double Electrode_CSTR::l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
-                               const std::vector<double>& atolVec, const double rtol) const
-{
-    double max0 = 0.0;
-    double denom, diff, ee;
-
-    for (int k = 0; k < num; k++) {
-
-        diff = fabs(v1[k] - v2[k]);
-        denom = rtol * MAX(fabs(v1[k]), fabs(v2[k]));
-        denom = MAX(denom, atolVec[k]);
-        ee = diff / denom;
-        if (ee > max0) {
-            max0 = ee;
-        }
-    }
-    return max0;
 }
 //====================================================================================================================
 void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)

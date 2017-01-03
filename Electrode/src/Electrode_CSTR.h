@@ -193,14 +193,13 @@ protected:
 
 public:
 
-
     //! Create and malloc the solvers
     /*!
+     * (virtual from Electrode_Integrator)
+     *
      * @return   returns 1 if ok
      */
-    virtual int create_solvers();
-
-
+    virtual int create_solvers() override;
 
     //! Value of the standard state open circuit voltage for the standard state conditions for region xRegion
     //! at the final_ conditions.
@@ -227,15 +226,20 @@ public:
      *  Therefore, this call is basically a wrapper around openCircuitVoltage(isk) which
      *  calculates the open circuit voltage for the isk reacting surface.
      *
-     *  Additions include extending the region values to include false values for DoD = 0 and 1
-     *  conditions.
+     *  Additions include extending the region values to include false values for DoD = 0 and 1 conditions.
      *
-     *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
-     *                           this is at the DoD = 1.0 condition
+     *  @param[in]           xRegion             Value of the region. If -1, this is at the DoD = 0. If nR+1,
+     *                                           this is at the DoD = 1.0 condition
+     *
+     *  @param[in]           comparetoReferenceElectrode  compare against the reference electrode voltage and don't 
+     *                                                    just return the volage. Defaults to false
+     *
+     *  @return                                  Returns the voltage across the interface 
+     *                                           (or the voltage compare to the reference electrode voltage) 
      */
     double openCircuitVoltage_Region(int xRegion, bool comparetoReferenceElectrode = false) const;
 
-    //! Returns the total capacity of the electrode in Amp seconds
+    //! Returns the total capacity of the electrode in Amp seconds = coulombs
     /*!
      *  Returns the capacity of the electrode in Amps seconds.
      *  This is the same as the number of coulombs that can be delivered at any voltage.
@@ -251,15 +255,20 @@ public:
      *
      *  @return returns the theoretical capacity of the electrode in Amp seconds = coulombs.
      */
-    virtual double capacity(int platNum = -1) const;
+    virtual double capacity(int platNum = -1) const override;
 
-    //! Amount of charge that the electrode that has available to be discharged
+    //! Amount of charge that the electrode that has available to be discharged in coulombs
     /*!
      *   We report the number in terms of Amp seconds = coulombs
      *
-     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *   @param[in]     platNum                  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                           If positive or zero, each plateau is treated as a separate entity.
+     *   @param[in]     voltsMax                 Maximum voltage to search for capacity. Defaults to +50 volts
+     *   @param[in]     voltsMin                 Minimum voltage to search for capacity. Defaults to -50 volts
+     *
+     *   @return                                 Returns the capacity left  in units of Amp sec = coulombs
      */
-    virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+    virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const override;
 
     //! Set the relative current capacity discharged per mole
     /*!
@@ -277,17 +286,17 @@ public:
      *                                   per active mole, num
      *                                  0 means that the electrode is fully charged, num means that it is fully discharged.
      *
-     *  @param platNum            Plateau number. Default is -1 which treats all plateaus as a single entity and
-     *                            the relative discharged as a single combined fraction. If platNum is
-     *                            >= 0, then the discharge is relative to the current plateau.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity and
+     *                                           the relative discharged as a single combined fraction. If platNum is
+     *                                           >= 0, then the discharge is relative to the current plateau.
      */
-    virtual void setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum = -1);
+    virtual void setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum = -1) override;
 
     //! Extract information from reaction mechanisms
     /*!
      *   (inherited from Electrode_Integrator)
      */
-    void extractInfo();
+    virtual void extractInfo() override;
 
     //! Calculate the production rate of species in the electrode at the final time of the time step
     /*!
@@ -375,18 +384,17 @@ protected:
 public:
     //! Set the final state of the electrode using the relExtentRxn
     /*!
+     *  (virtual from Electrode)
      *  This sets the state of the system, i.e., spmoles_final_[] for the solid phase
      *  components of the electrode using a single number.
-     *
-     *  It is virtual because there is no way to do this except by knowing about the system
      *
      *  It must be the case that  calcRelativeExtentRxn_final() and setState_relativeExtentRxn()
      *  are inverses of one another. Note, this means that if the state of the system has more than one rank,
      *  then the other ranks are unperturbed by the round trip.
      *
-     *  @param relExtentRxn  input of the relative extent of reaction
+     *  @param[in]           relativeExtentRxn   Value of the relative extent of reaction
      */
-    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
+    virtual void setState_relativeExtentRxn(double relativeExtentRxn) override;
 
     //! Predict the solution
     /*!
@@ -410,10 +418,22 @@ public:
      */
     virtual void unpackNonlinSolnVector(const double* const y) override;
 private:
-    void checkStillOnRegionBoundary();
-    void setOnRegionBoundary();
-public:
 
+    //! This routine doesn't look like it checks anything anymore
+    /*!
+     *  There were some print statements that got commented out
+     */
+    void checkStillOnRegionBoundary();
+
+    //!  This routine makes sure that the reaction extent is confined to the xRegion_init_ region.
+    /*!
+     *  If the extent is above the top of the region it's put on that boundary, and onRegionBoundary_final_ is set
+     *  If the extent is below the bottom of the region it's put on that boundary, and onRegionBoundary_final_ is set
+     *  If the extent is within the region onRegionBoundary_final_ is set to -1.
+     */
+    void setOnRegionBoundary();
+
+public:
 
     //! Pack the nonlinear solver proplem
     /*!
@@ -426,12 +446,11 @@ public:
      */
     virtual void initialPackSolver_nonlinFunction();
 
-
     //! Pack the solution vector
     /*!
      *  @param y  solution vector to be filled
      */
-    void packNonlinSolnVector(double* const y) const ;
+    void packNonlinSolnVector(double* const y) const;
 
     //!  Calculate the norm of the difference between the predicted answer and the final converged answer
     //!  for the current time step
@@ -442,7 +461,7 @@ public:
      *
      *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
      */
-    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS);
+    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS) override;
 
     //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
     /*!
@@ -512,10 +531,6 @@ public:
      */
     virtual void gatherIntegratedSrcPrediction();
 
-    double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
-                   const std::vector<double>& atolVec, const double rtol) const;
-
-
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -561,9 +576,9 @@ public:
      *
      *   We check to see if the preceding step is a successful one.
      *
-     *  @return Returns a bool true if the step is acceptable, and false if it is unacceptable.
+     *  @return                                  Returns a bool true if the step is acceptable, and false if it is unacceptable.
      */
-    virtual bool  checkSubIntegrationStepAcceptable() const;
+    virtual bool  checkSubIntegrationStepAcceptable() const override;
 
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
@@ -678,39 +693,56 @@ public:
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    //!  Residual calculation for the solution of the Nonlinear integration problem
+    //!  Residual calculation for the solution of the Nonlinear time-integration problem
     /*!
+     *    (virtual from Electrode)
      *    Given tfinal and delta_t, and given y and ydot which are estimates of the solution
      *    and solution derivative at tfinal, this function calculates the residual equations.
-     *    It is the residual function used in the nonlinear solver that relaxes the equations
-     *    at each time step.
+     *    It is the residual function used in the nonlinear solver that relaxes the equations at each time step.
      *
      *    This is typically called from evalResidNJ(), which is called directly from the
-     *    nonlinear solver. However, we expose this routine so that the residual can be queried
-     *    given all of the inputs.
+     *    nonlinear solver. However, we expose this routine so that the residual can be queried given all of the inputs.
      *
-     * @param[in]  tfinal      Time                    (input)
-     * @param[in]  delta_t     The current value of the time step (input)
-     * @param[in]  y           Solution vector (input, do not modify)
-     * @param[in]  ydot        Rate of change of solution vector. (input, do not modify)
-     * @param[out] resid       Value of the residual that is computed (output)
-     * @param[in]  evalType    Type of the residual being computed (defaults to Base_ResidEval)
-     * @param[in]  id_x        Index of the variable that is being numerically differenced to find
-     *                         the jacobian (defaults to -1, which indicates that no variable is being
-     *                         differenced or that the residual doesn't take this issue into account)
-     * @param[in]  delta_x     Value of the delta used in the numerical differencing
+     *  @param[in]           tfinal              Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ySolnDot            Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
+     *                                           the jacobian (defaults to -1, which indicates that no variable is being
+     *                                           differenced or that the residual doesn't take this issue into account)
+     *  @param[in]           delta_x             Value of the delta used in the numerical differencing
      *
-     * @return                Returns an integer that gets fed back through evalResidNJ() to the
-     *                        nonlinear solver. Anything other than a 1 causes an immediate failure
-     *                        of the nonlinear solver to occur.
+     *  @return                                  Returns an integer that gets fed back through evalResidNJ() to the
+     *                                           nonlinear solver. Anything other than a 1 causes an immediate failure
+     *                                           of the nonlinear solver to occur.
      */
-    int integrateResid(const double tfinal, const double delta_t,
-                       const double* const y, const double* const ySolnDot,
-                       double* const resid,
-                       const ResidEval_Type_Enum evalType, const int id_x,
-                       const double delta_x);
+    virtual int integrateResid(const double tfinal, const double delta_t, const double* const y, 
+                               const double* const ySolnDot, double* const resid, const ResidEval_Type_Enum evalType,
+                               const int id_x, const double delta_x) override;
 
-    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
+    //! Calculate the residual
+    /*!
+     *  (virtual function from Electrode_Integrator)
+     *  This is the main routine for calculating the residual for the time step. All preliminary calculations have been
+     *  carried out, and we are ready to assemble the residual vector.
+     *
+     *   Previously, we should have called:
+     *        unpackNonlinSolnVector()
+     *        updateState()
+     *        extractInfo(); 
+     *        updateSpeciesMoleChangeFinal();
+     *
+     *  @param[in]           resid               Residual vector. Length = neq_
+     *
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *                                           Other types are JacBase_ResidEval, JacDelta_ResidEval, and Base_ShowSolution.
+     *
+     *  @return                                  Returns a value of 1 if everything went well
+     *                                           Returns negative numbers to indicate types of failures
+     */
+    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType) override;
 
     virtual int GFCEO_evalResidNJ(const double t, const double delta_t,
                             const double* const y,
@@ -818,13 +850,49 @@ public:
      */
     virtual double calcRelativeExtentRxn_final() const override;
 
-    double capacityDot(int platNum = -1) const;
-    double capacityLeftDot(int platNum = -1, double voltsMax = 50.0, double voltsMin = - 50.0) const;
-    double RxnExtentDot(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
-    double capacityLeftRaw(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
-	
-    double capacityRaw(int platNum = -1) const; 
 
+    //! Returns the capacity derivative wrt time in coulombs per second
+    /*!
+     *  @param[in]           platNum             Plateau number. Defaults to -1, which indicates all plateaus.
+     *
+     *  @return                                  Returns the derivative of the capacity with respect to time
+     *                                           in units of coulombs / sec.
+     */
+    double capacityDot(int platNum = -1) const;
+
+    //! Returns the capacity left derivative wrt time in coulombs per second
+    /*!
+     *  @param[in]           platNum             Plateau number. Defaults to -1, which indicates all plateaus.
+     *
+     *  @return                                  Returns the derivative of the capacity with respect to time
+     *                                           in units of coulombs / sec.
+     */
+    double capacityLeftDot(int platNum = -1) const;
+
+    //! Calculates the derivative of the reaction extent wrt time
+    /*!
+     *  @param[in]           platNum             Plateau number. Defaults to -1, which indicates all plateaus.
+     *
+     *  @return                                  Returns the derivative of the reaction extent with respect to time
+     *                                           in units of one / sec.
+     */
+    double RxnExtentDot(int platNum = -1) const;
+
+    //! Returns the capacity left in units of amp sec = coulombs
+    /*!
+     *  @param[in]           platNum             Plateau number. Defaults to -1, which indicates all plateaus.
+     *
+     *  @return                                  Returns the capacity left in units of coulombs
+     */
+    double capacityLeftRaw(int platNum = -1) const;
+	
+    //! Returns the capacity in units of amp sec = coulombs
+    /*!
+     *  @param[in]           platNum             Plateau number. Defaults to -1, which indicates all plateaus.
+     *
+     *  @return                                  Returns the capacity in units of coulombs
+     */
+    double capacityRaw(int platNum = -1) const; 
 
     // -------------------------------------       MEMBER DATA --------------------------------------------------------------------
 

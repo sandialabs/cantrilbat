@@ -13,6 +13,11 @@
 #include "Electrode.h"
 #include "Electrode_Factory.h"
 #include <cmath>
+
+#ifndef MAX
+#define MAX(x,y) (( (x) > (y) ) ? (x) : (y))
+#endif
+
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -159,6 +164,18 @@ bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>&
        }
     }
     return true;
+}
+//==================================================================================================================================
+double l0norm(const std::vector<double>& v1, const std::vector<double>& v2, const std::vector<double>& atolVec, const double rtol)
+{
+    double max0 = 0.0, ee;
+    for (size_t k = 0; k < v1.size(); k++) {
+        ee = fabs(v1[k] - v2[k]) / MAX(rtol * MAX(fabs(v1[k]), fabs(v2[k])), atolVec[k]);
+        if (ee > max0) {
+            max0 = ee;
+        }
+    }
+    return max0;
 }
 //==================================================================================================================================
 }

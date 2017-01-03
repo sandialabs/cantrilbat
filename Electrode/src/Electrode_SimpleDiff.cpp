@@ -2586,9 +2586,9 @@ void  Electrode_SimpleDiff::gatherIntegratedSrcPrediction()
  */
 double Electrode_SimpleDiff::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
-    double pnorm = l0normM(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
+    double pnorm = l0norm_PC_NLS(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
 
-    double pnorm_dot = l0normM(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
+    double pnorm_dot = l0norm_PC_NLS(soln_predict_fromDot_, yval, neq_, atolNLS_, rtolNLS_);
     if (pnorm_dot < pnorm) {
         predictDotBetter_ = true;
 #ifdef DEBUG_MODE

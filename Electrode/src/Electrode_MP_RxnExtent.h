@@ -355,7 +355,7 @@ public:
      *        spNetProdPerArea_List_[isk][kIndexKin]
      *        justBornPhase_[jph]
      */
-    void extractInfo();
+    virtual void extractInfo() override;
 
     double modifyROPForDiffusion();
 
@@ -481,9 +481,9 @@ public:
 
     // Main internal routine to calculate the rate constant
     /*
+     *  (virtual from Electrode_Integrator)
      *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
-     *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes
-     *  in topology.
+     *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes  in topology.
      *
      *  This routine calcules yval_retn, which is the calculated value of the residual for the
      *  nonlinear function
@@ -504,7 +504,7 @@ public:
      *  @return  1 Means a good calculation that produces a valid result
      *           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
-    int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType) override;
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
@@ -956,6 +956,7 @@ public:
      */
     virtual void setFinalFinalStateFromFinal();
 
+protected:
     //! This is used to set Phase information that is implicit but not set by a restart or an initialization
     /*!
      *  (virtual function from Electrode)
@@ -966,9 +967,9 @@ public:
      *  @param flagErrors If true any changes in the current flags caused by a mismatch between the state
      *                    and the values of the flags will cause an error exit.
      */
-    virtual bool stateToPhaseFlagsReconciliation(bool flagErrors);
+    virtual bool stateToPhaseFlagsReconciliation(bool flagErrors) override;
 
-
+public:
 
     //! Set voltage vs extent of reaction for FeS2
     /*!

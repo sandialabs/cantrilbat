@@ -225,6 +225,27 @@ bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>&
  */
 bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<double>& a2, int digits = 6);
 
+//! Create the L0 relative norm of the difference between two vectors
+/*!
+ * This creates a relative norm that is scaled by the current value of rtol, and that can always be compared to 1
+ * for satisfaction of the error criteria. Assumes all vectors have equal lengths.
+ *
+ *     L0_i    =     || Actual_i - Pred_i || / ( rtol * MAX(||Actual_i||, || Pred_i ||)
+ *
+ *   if ||Abstol_i|| > rtol * MAX(||Actual_i||, || Pred_i || 
+ * 
+ *    L0_i    =     || Actual_i - Pred_i || / ( MAX(||Abstol_i|| )
+ *
+ *  @param[in]               v1                  First vector to compare against. Lengt
+ *  @param[in]               v2                  Second vector to compare against. Length >= num
+ *  @param[in]               atolVec             Absolute tolerance vector. Length >= num
+ *  @param[in]               rtol                Relative tolerance
+ * 
+ *   @return                                     returns the maximum value of Lo_i for all i.
+ */
+double l0norm(const std::vector<double>& v1, const std::vector<double>& v2, const std::vector<double>& atolVec,
+              const double rtol);
+
 //==================================================================================================================================
 } // End of esmodel namespace
 //----------------------------------------------------------------------------------------------------------------------------------

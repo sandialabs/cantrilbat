@@ -168,7 +168,7 @@ OCV_Override_input::OCV_Override_input(const OCV_Override_input& right) :
     DoDSurrogateSpeciesName(right.DoDSurrogateSpeciesName),
     MF_DoD_LocalSpeciesID(right.MF_DoD_LocalSpeciesID),
     rxnID(right.rxnID),
-    rxnID_deltaS(rxnID_deltaS),
+    rxnID_deltaS(right.rxnID_deltaS),
     temperatureDerivType(right.temperatureDerivType),
     temperatureBase(right.temperatureBase),
     OCVTempDerivModel(right.OCVTempDerivModel)
