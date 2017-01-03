@@ -1,5 +1,8 @@
 /*
- * $Id: Electrode_CSTR.h 571 2013-03-26 16:44:21Z hkmoffa $
+ *  @file Electrode_CSTR.h
+ *     Headers for the declarations of the Electrode_CSTR class, used to model 
+ *     Electrode processes in particles with no transport limits
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_CSTR Electrode_CSTR\endlink).
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -11,8 +14,6 @@
 #ifndef _ELECTRODE_CSTR_H
 #define _ELECTRODE_CSTR_H
 
-
-//#include "cantera/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_Integrator.h"

@@ -1,5 +1,8 @@
-/*
- * $Id: Electrode_InfCapacity.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file Electrode_InfCapacity.cpp
+ *     Definitions of the Electrode_InfCapacity class, used to model 
+ *     Electrode processes in electrodes with a constant, infinite capacity
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_InfCapacity Electrode_Capacity \endlink).
  */
 
 #include "Electrode_InfCapacity.h"

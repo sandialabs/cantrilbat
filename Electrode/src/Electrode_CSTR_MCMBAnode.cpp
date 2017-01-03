@@ -1,5 +1,15 @@
+/**
+ *  @file Electrode_CSTR_MCMBAnode.cpp
+ *     Definitions for the Electrode_CSTR class, used to model 
+ *     Electrode processes in particles with no transport limits hard-coded for the MCMB Anode
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_CSTR_MCMBAnode Electrode_CSTR_MCMBAnode \endlink).
+ */
+
 /*
- * $Id: Electrode_CSTR_MCMBAnode.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #include "Electrode_CSTR_MCMBAnode.h"
@@ -11,20 +21,13 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-//======================================================================================================================
-/*
- *  ELECTRODE_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
+//==================================================================================================================================
 Electrode_CSTR_MCMBAnode::Electrode_CSTR_MCMBAnode() :
     Electrode_CSTR(),
     ig_SolidLi_(-1),
     ig_SolidV_(-1),
     ip_MCMB_(-1)
 {
-
 }
 //======================================================================================================================
 // Copy Constructor
@@ -37,10 +40,7 @@ Electrode_CSTR_MCMBAnode::Electrode_CSTR_MCMBAnode(const Electrode_CSTR_MCMBAnod
     ig_SolidV_(-1),
     ip_MCMB_(-1)
 {
-    /*
-     * Call the assignment operator.
-     */
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
 // Assignment operator
@@ -154,7 +154,6 @@ Electrode_CSTR_MCMBAnode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     return 0;
 }
-
 //======================================================================================================================
 // Calculate the relative extent of reaction from the current state of the object
 /*
@@ -203,6 +202,6 @@ void Electrode_CSTR_MCMBAnode::setState_relativeExtentRxn(double relExtentRxn)
      */
     updateState_Phase(ip_MCMB_);
 }
-//====================================================================================================================
-} // End of ZZCantera namespace
+//==================================================================================================================================
+} 
 //----------------------------------------------------------------------------------------------------------------------------------

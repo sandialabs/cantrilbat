@@ -295,27 +295,26 @@ public:
      * (virtual from Electrode  - onion Out)
      *
      *    This is one of the most important routines. It sets up the electrode's internal structures
-     *    After the call to this routine, the electrode should be internally ready to be integrated
-     *    and reacted.
+     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
      *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
      *    object and the initial state of that object.
      *    The routine works like an onion Out initialization. The parent object is initialized before the
      *    child. This means the child object first calls the parent, before it does its own initializations.
      *
      *    There are some virtual member functions that won't work until this routine is called.
-     *    That's because the data structures won't be set up for base and child Electrode objects until 
-     *    this is called.
+     *    That's because the data structures won't be set up for base and child Electrode objects until this is called.
      *
-     *  @param ei   BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
-     *              for the child electrode object.
+     *  @param[in]           ei                  BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
+     *                                           for the child electrode object.
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
     virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
 
     //!  Set the electrode initial conditions from the input file.
     /*!
      *   (virtual from Electrode)
+     *
      *   (This is a serial virtual function or an overload function)
      *
      *    This is one of the most important routines. It sets up the initial conditions of the electrode
@@ -327,9 +326,9 @@ public:
      *    The routine works like an onion initialization. The parent object is initialized before the
      *    child. This means the child object first calls the parent, before it does its own initializations.
      *
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *  @param[in]           ei                  ELECTRODE_KEY_INPUT pointer object
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
     virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
 
@@ -803,33 +802,30 @@ public:
      */
     virtual void revertToInitialTime(bool revertToInitInit = true);
 
-    //!  Calculate the change in the state of the system when integrating from T_initial_initial_
-    //!  to t_final_final_
+    //!  Calculate the change in the state of the system when integrating from t_init_init_ to t_final_final_
     /*!
-     *  All information is kept internal within this routine. This may be done continuously
-     *  and the solution is not updated.
+     *  (virtual from Electrode)
+     *  All information is kept internal within this routine. This may be done continuously and the solution is not updated.
      *
      *  Note the tolerance parameters refere to the nonlinear solves within the calculation
      *  They do not refer to time step parameters.
      *
-     *  @param deltaT        DeltaT for the integration step.
-     *  @param GlobalRtolSrcTerm Relative tolerance for the source term vector calcualted from
-     *                       this routine.
-     *                       Defaults to 1.0E-3
-     *  @param fieldInterpolationType Type of interpolation of field variables defaults to T_FINAL_CONST_FIS,
-     *  @param subIntegrationType     Type of subintegration. Defaults to BASE_TIMEINTEGRATION_SIR.
-     *                                In this integration, the program determines its own strategy
-     *                                for the time step.
+     *  @param[in]           deltaT              DeltaT for the integration step.
+     *  @param[in]            GlobalRtolSrcTerm  Relative tolerance for the source term vector calcualted from
+     *                                           this routine.    Defaults to 1.0E-3
      *
-     *  @return Returns the number of subcycle steps it took to complete the full step.
-     *          Failures to complete the integration due to time truncation error issues return a -1.
-     *          Failures due to invalid function calculation attempts return a -2.
-     *          Failures due to invalid arguments return a -3.
+     *  @param[in]           fieldInterpolationType Type of interpolation of field variables defaults to T_FINAL_CONST_FIS,
+     *  @param[in]           subIntegrationType     Type of subintegration. Defaults to BASE_TIMEINTEGRATION_SIR.
+     *                                              In this integration, the program determines its own strategy for the time step.
+     *
+     *  @return                                  Returns the number of subcycle steps it took to complete the full step.
+     *                                           Failures to complete the integration due to time truncation error issues return a -1.
+     *                                           Failures due to invalid function calculation attempts return a -2.
+     *                                           Failures due to invalid arguments return a -3.
      */
     virtual int integrate(double deltaT, double  GlobalRtolSrcTerm = 1.0E-3,
                           Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
                           Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR) = 0;
-
 
     //!  Residual calculation for the solution of the Nonlinear integration problem
     /*!
@@ -1287,9 +1283,7 @@ public:
      *
      * @param setInitInit   Boolean indicating whether you should set the init_init state as well
      */
-//Can protect
     virtual void setInitStateFromFinal(bool setInitInit = false);
-
 
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!

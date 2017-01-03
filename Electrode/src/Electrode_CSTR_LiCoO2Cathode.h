@@ -1,5 +1,8 @@
-/*
- * $Id: Electrode_CSTR_LiCoO2Cathode.h 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file Electrode_CSTR_LiCoO2Cathode.h
+ *     Headers for the declarations of the Electrode_CSTR_LiCoO2Cathode class, used to model 
+ *     Electrode processes in particles with no transport limits hard-coded to a LiCoO2Cathode system
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_CSTR_LiCoO2Cathode Electrode_CSTR_CliCoO2Cathode\endlink).
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -11,21 +14,16 @@
 #ifndef _ELECTRODE_CSTR_LICOO2CATHODE_H
 #define _ELECTRODE_CSTR_LICOO2CATHODE_H
 
-
 #include "Electrode_CSTR.h"
 
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-
-class ELECTRODE_KEY_INPUT;
-
-
+//==================================================================================================================================
 //! Electrode_CSTR class is an electrode that models a particle as a CSTR
 /*!
  *  The base class is close to being a CSTR. This class will have to ensure
@@ -101,9 +99,7 @@ public:
      */
     virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
-
     int Global_LiCoO2_Model_;
-
 
 private:
     int ig_SolidLi_;
@@ -112,10 +108,8 @@ private:
     //! global index of the LiCoO2 phase in the phaselist
     int ip_LiCoO2_;
 };
-
+//==================================================================================================================================
 }
-
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
+

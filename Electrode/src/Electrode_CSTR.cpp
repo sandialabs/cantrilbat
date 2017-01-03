@@ -1,5 +1,8 @@
 /**
- *  @file Electrode_CSTR.h
+ *  @file Electrode_CSTR.cpp
+ *     Definitions for the  Electrode_CSTR class, used to model 
+ *     Electrode processes in particles with no transport limits
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_CSTR Electrode_CSTR\endlink).
  */
 
 #include "Electrode_CSTR.h"
@@ -23,7 +26,8 @@ using namespace BEInput;
 #endif
 
 #ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = 0 ; }
+//! Delete and zero a pointer
+#define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = nullptr ; }
 #endif
 
 //----------------------------------------------------------------------------------------------------------------------------------

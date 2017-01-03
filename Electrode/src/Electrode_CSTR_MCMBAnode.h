@@ -1,6 +1,10 @@
-/*
- * $Id: Electrode_CSTR_MCMBAnode.h 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file Electrode_CSTR.h
+ *     Headers for the declarations of the Electrode_CSTR class, used to model 
+ *     Electrode processes in particles with no transport limits hard-coded for a MCMB Anode
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_CSTR Electrode_CSTR\endlink).
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -13,17 +17,14 @@
 
 #include "Electrode_CSTR.h"
 
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-
-class ELECTRODE_KEY_INPUT;
-
+//==================================================================================================================================
 //! Electrode_CSTR class is an electrode that models a particle as a CSTR
 /*!
  *  The base class is close to being a CSTR. This class will have to ensure
@@ -65,7 +66,6 @@ public:
      */
     virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
 
-
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
      *  (virtual from Electrode.h)
@@ -103,10 +103,8 @@ private:
     //! global index of the MCMB phase in the phaselist
     int ip_MCMB_;
 };
-
+//==================================================================================================================================
 }
-
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
+

@@ -1,9 +1,18 @@
+/**
+ *  @file Electrode_CSTR_LiCoO2Cathode.cpp
+ *     Definitions for the Electrode_CSTR class, used to model 
+ *     Electrode processes in particles with no transport limits hard-coded for LiCoO2 Cathodes
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_CSTR_LiCoO2Cathode Electrode_CSTR_LiCoO2Cathode\endlink).
+ */
+
 /*
- * $Id: Electrode_CSTR_LiCoO2Cathode.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #include "Electrode_CSTR_LiCoO2Cathode.h"
-
 
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
@@ -12,7 +21,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-//======================================================================================================================
+//==================================================================================================================================
 /*
  *  ELECTRODE_INPUT: constructor
  *
@@ -26,10 +35,8 @@ Electrode_CSTR_LiCoO2Cathode::Electrode_CSTR_LiCoO2Cathode() :
     ig_SolidV_(-1),
     ip_LiCoO2_(-1)
 {
-
 }
-
-//======================================================================================================================
+//==================================================================================================================================
 // Copy Constructor
 /*
  * @param right Object to be copied
@@ -73,18 +80,11 @@ Electrode_CSTR_LiCoO2Cathode& Electrode_CSTR_LiCoO2Cathode::operator=(const Elec
      */
     return *this;
 }
-//======================================================================================================================
-/*
- *
- *  ELECTRODE_INPUT:destructor
- *
- * We need to manually free all of the arrays.
- */
+//==================================================================================================================================
 Electrode_CSTR_LiCoO2Cathode::~Electrode_CSTR_LiCoO2Cathode()
 {
-
 }
-//======================================================================================================================
+//==================================================================================================================================
 //! Return the type of electrode
 /*!
  *  Returns the enum type of the electrode. This is used in the factory routine.
@@ -95,7 +95,7 @@ Electrode_Types_Enum  Electrode_CSTR_LiCoO2Cathode::electrodeType() const
 {
     return CSTR_LICO2_CATHODE_ET;
 }
-//======================================================================================================================
+//==================================================================================================================================
 void  Electrode_CSTR_LiCoO2Cathode::setCapacityCoeff_LiCoO2()
 {
     double  capacityLeftSpeciesCoeff=  1.0;
@@ -187,8 +187,6 @@ Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
 
     RelativeExtentRxn_RegionBoundaries_.resize(2);
-
-
     RelativeExtentRxn_RegionBoundaries_[1] = 0.94;
     RelativeExtentRxn_RegionBoundaries_[0] = 0.55;
     //double va_mf = moleFraction(iVaOxide);
@@ -238,7 +236,7 @@ double Electrode_CSTR_LiCoO2Cathode::calcRelativeExtentRxn_final() const
     double li_mf = moleFraction(ig_SolidLi_);
     return (li_mf);
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Set the final state of the electrode using the relExtentRxn
 /*
  *  This sets the state of the system, i.e., spmoles_final_[] for the solid phase
@@ -263,6 +261,6 @@ void Electrode_CSTR_LiCoO2Cathode::setState_relativeExtentRxn(double relExtentRx
      */
     updateState_Phase(ip_LiCoO2_);
 }
-//====================================================================================================================
+//==================================================================================================================================
 } // End of ZZCantera namespace
 //----------------------------------------------------------------------------------------------------------------------------------
