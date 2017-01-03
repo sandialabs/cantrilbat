@@ -44,7 +44,7 @@
  *  For our first step we will assume one domain, with no tie regions !
  */
 
-#include <cantera/equil/MultiPhase.h>
+#include <cantera/multiphase/MultiPhase.h>
 
 #include <string>
 #include <vector>
