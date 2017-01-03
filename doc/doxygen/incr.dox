@@ -801,18 +801,24 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_Factory.h \
                          ../../Electrode/src/Electrode_Factory.cpp \ 
                          ../../Electrode/src/Electrode_Integrator.h \ 
-                         ../../Electrode/src/Electrode_Integrator.cpp  \
+                         ../../Electrode/src/Electrode_Integrator.cpp \
                          ../../Electrode/src/Electrode_input.h \ 
-                         ../../Electrode/src/Electrode_input.cpp  \
+                         ../../Electrode/src/Electrode_input.cpp \
                          ../../Electrode/src/Electrode_CSTR.h \ 
                          ../../Electrode/src/Electrode_CSTR.cpp  \
                          ../../Electrode/src/Electrode_Jacobian.h  \
                          ../../Electrode/src/Electrode_Jacobian.cpp  \
                          ../../Electrode/src/Electrode_FD_Jacobian.h  \
                          ../../Electrode/src/Electrode_FD_Jacobian.cpp  \
-                         ../../Electrode/src/Electrode_XMLWriter.cpp  \
-
-
+                         ../../Electrode/src/Electrode_XMLWriter.cpp \
+                         ../../Electrode/src/Electrode_InfCapacity.h  \
+                         ../../Electrode/src/Electrode_InfCapacity.cpp \
+                         ../../Electrode/src/Electrode_CSTR_MCMBAnode.h  \
+                         ../../Electrode/src/Electrode_CSTR_MCMBAnode.cpp \
+                         ../../Electrode/src/Electrode_CSTR_LiCoO2Cathode.h \
+                         ../../Electrode/src/Electrode_CSTR_LiCoO2Cathode.cpp \
+                         ../../Electrode/src/EState_RadialDistrib.h \
+                         ../../Electrode/src/EState_RadialDistrib.cpp \
 
 
 
