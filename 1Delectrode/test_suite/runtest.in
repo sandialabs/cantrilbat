@@ -171,7 +171,7 @@ Files+=`echo "$readCleanFiles"`
 #  If it is defined in the environment, we use the environment. Autoconf will create a default
 #  value for this variable.  
 #  
-MP_MACHINEFILE=${MP_MACHINEFILE:=@mpi_machinefile@}
+#MP_MACHINEFILE=${MP_MACHINEFILE:=@mpi_machinefile@}
 MPIRUN=mpirun
 MPIOPTS=""
 NP=${NUMBER_PROCESSORS:=1}
@@ -254,9 +254,10 @@ export M1D_PRINT_DEBUGTABLES="false"
 export M1D_PRINT_TIMINGINFORMATION="false"
 #
 # Execute the command
+# $MPIRUN $MPIOPTS -machinefile $MP_MACHINFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
 #
-echo "$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt"
-      $MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
+echo "$MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt"
+      $MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out_raw.txt 2>err_out.txt
 retnStat=$?
 if test $retnStat != "0" 
 then
