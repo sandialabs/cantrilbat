@@ -425,11 +425,11 @@ public:
      *    The routine works like an onion initialization. The parent object is initialized before the
      *    child. This means the child object first calls the parent, before it does its own initializations.
      *
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *  @param               ei                  ELECTRODE_KEY_INPUT pointer object
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Calculate the number of equations that will be solved during the nonlinear solver step.
     /*!
@@ -450,7 +450,7 @@ public:
      *   This means that nEquations() must return a good value.
      *   This means that the function must be called after or at least at the end of electrode_model_create().
      *
-     * @return   returns 1 if ok
+     *  @return                                  Returns 1 if ok
      */
     virtual int create_solvers();
 
@@ -561,6 +561,11 @@ public:
 
     //!  Predict the derivative of the solution
     /*!
+     * (virtual from Electrode_Integrator)
+     * 
+     *  Predicts the solution at the final time from the current derivative of the solution at the initial time.
+     *
+     *
      *   @return                                 Returns the success of the operation
      *                                           -  1  A predicted solution is achieved
      *                                           -  2  A predicted solution with a multispecies phase pop is acheived
@@ -878,15 +883,15 @@ public:
      *  (virtual from Electrode_Integrator)
      *
      *   The norm calculated by this routine is used to determine whether the time step is accurate enough. Two norms are taken,
-     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the predictions
-     *   from the final answer is used as the final error predictor 
+     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the
+     *   predictions from the final answer is used as the final error predictor 
      *
-     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver for 
-     *                                           the current time step.
+     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver
+     *                                           for the current time step.
      *
      *  @return                                  Returns the norm of the difference. Normally this is the weighted L0 norm 
      *                                           of the difference between predictor and the corrector.
-     *                                           The less of the deviation in the two norms is now taken as the answer.
+     *                                           The lesser of the deviation in the two norms is now taken as the answer.
      */
     virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS);
 

@@ -397,19 +397,22 @@ public:
     // ----------------------------- CARRY OUT INTEGRATIONS -----------------------------------------
     // ---------------------------------------------------------------------------------------------
 
-    //! The internal state of the electrode must be kept for the initial and
-    //! final times of an integration step.
+    //! Reset the Internal state of the electrode at the start of a new global integration step or a redo of the current global step
     /*!
-     *  This function advances the initial state to the final state that was calculated
-     *  in the last integration step. If the initial time is input, then the code doesn't advance
-     *  or change anything.
+     *  (virtual from Electrode)
+     *  This function advances the initial state to the final state that was calculated in the last integration step.
      *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
+     *  @param[in]           Tinitial            This is the New initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem. They should be the same.
+     *                                           If Tinitial == t_init_init, we redo the time step.
+     *
+     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
+     *                                           Defaults to false.
      */
-    void  resetStartingCondition(double Tinitial, bool doTestsAlways = false);
-
-
+    void resetStartingCondition(double Tinitial, bool doTestsAlways = false) override;
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
@@ -441,7 +444,6 @@ public:
      */
     virtual void setResidAtolNLS();
 
-
     //! Predict the solution
     /*!
      * Ok at this point we have a time step deltalimiTsubcycle_
@@ -454,7 +456,7 @@ public:
      *                 0  A predicted solution is not achieved, but go ahead anyway
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
-    virtual int predictSoln();
+    virtual int predictSoln() override;
 
     //! Predict the solution using a special limiting behavior
     /*!
@@ -470,14 +472,17 @@ public:
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  --------------------
     // ---------------------------------------------------------------------------------------------
 
-
-
-    //! Unpack the soln vector
+    //! Unpack the solution vector on return from the time stepper
     /*!
-     *  This function unpacks the solution vector into deltaTsubcycleCalc_  and   RelativeExtentRxn_final_
+     *  (virtual from Electrode_Integrator)
+     *
+     *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+     *
+     *  @param[in]           ySoln               Solution vector as returned from the time stepper.
+     *                                           What the solution actually refers to depends on the individual Electrode objects.
+     *                                           y[0] is always the current  deltaTsubcycleCalc_ value
      */
-    virtual void unpackNonlinSolnVector(const double* const y) override;
-
+    virtual void unpackNonlinSolnVector(const double* const ySoln) override;
 
     // Main internal routine to calculate the rate constant
     /*
@@ -582,17 +587,22 @@ public:
      */
     virtual void initialPackSolver_nonlinFunction();
 
-
-    //!  Calculate the norm of the difference between the predicted answer and the final converged answer
-    //!  for the current time step
+    //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+     *   The norm calculated by this routine is used to determine whether the time step is accurate enough. Two norms are taken,
+     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the
+     *   predictions from the final answer is used as the final error predictor 
      *
-     *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver
+     *                                           for the current time step.
+     *
+     *  @return                                  Returns the norm of the difference. Normally this is the weighted L0 norm 
+     *                                           of the difference between predictor and the corrector.
+     *                                           The lesser of the deviation in the two norms is now taken as the answer.
      */
-    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS_);
+    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS_) override;
 
     //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
     /*!

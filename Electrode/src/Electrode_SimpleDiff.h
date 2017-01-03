@@ -119,11 +119,11 @@ public:
      *    The routine works like an onion initialization. The parent object is initialized before the
      *    child. This means the child object first calls the parent, before it does its own initializations.
      *
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *  @param               ei                  ELECTRODE_KEY_INPUT pointer object
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Create an object that saves the electrode state and can print out an XML solution to file
     /*!
@@ -331,16 +331,22 @@ public:
      */
     virtual void gatherIntegratedSrcPrediction();
 
-   //!  Calculate the norm of the difference between the predicted answer and the final converged answer
-    //!  for the current time step
+    //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+     *   The norm calculated by this routine is used to determine whether the time step is accurate enough. Two norms are taken,
+     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the
+     *   predictions from the final answer is used as the final error predictor 
      *
-     *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver
+     *                                           for the current time step.
+     *
+     *  @return                                  Returns the norm of the difference. Normally this is the weighted L0 norm 
+     *                                           of the difference between predictor and the corrector.
+     *                                           The lesser of the deviation in the two norms is now taken as the answer.
      */
-    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS);
+    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS) override;
 
     //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
     /*!
@@ -485,16 +491,20 @@ public:
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
-
-    //! The internal state of the electrode must be kept for the initial and
-    //! final times of an integration step.
-    /*
-     *  This function advances the initial state to the final state that was calculated
-     *  in the last integration step.
+    //! Reset the Internal state of the electrode at the start of a new global integration step or a redo of the current global step
+    /*!
+     *  (virtual from Electrode)
+     *  This function advances the initial state to the final state that was calculated in the last integration step.
      *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
-     * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
+     *  @param[in]           Tinitial            This is the New initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem. They should be the same.
+     *                                           If Tinitial == t_init_init, we redo the time step.
+     *
+     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
+     *                                           Defaults to false.
      */
     virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
@@ -625,17 +635,34 @@ public:
      *                 0  A predicted solution is not achieved, but go ahead anyway
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
-    virtual int predictSoln();
-    virtual int predictSolnDot();
+    virtual int predictSoln() override;
+
+    //!  Predict the derivative of the solution
+    /*!
+     *  (virtual from Electrode_Integrator)
+     * 
+     *  Predicts the solution at the final time from the current derivative of the solution at the initial time.
+     *
+     *   @return                                 Returns the success of the operation
+     *                                           -  1  A predicted solution is achieved
+     *                                           -  2  A predicted solution with a multispecies phase pop is acheived
+     *                                           -  0  A predicted solution is not achieved, but go ahead anyway
+     *                                           - -1  The predictor suggests that the time step be reduced and a retry occur.
+     */
+    virtual int predictSolnDot() override;
   
 
-    //! Unpack the soln vector
+    //! Unpack the solution vector on return from the time stepper
     /*!
      *  (virtual from Electrode_Integrator)
      *
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+     *
+     *  @param[in]           ySoln               Solution vector as returned from the time stepper.
+     *                                           What the solution actually refers to depends on the individual Electrode objects.
+     *                                           y[0] is always the current  deltaTsubcycleCalc_ value
      */
-    virtual void unpackNonlinSolnVector(const double* const y) override;
+    virtual void unpackNonlinSolnVector(const double* const ySoln) override;
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!

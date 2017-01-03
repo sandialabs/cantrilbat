@@ -284,16 +284,22 @@ public:
      */
     virtual void gatherIntegratedSrcPrediction();
 
-   //!  Calculate the norm of the difference between the predicted answer and the final converged answer
-    //!  for the current time step
+    //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+     *   The norm calculated by this routine is used to determine whether the time step is accurate enough. Two norms are taken,
+     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the
+     *   predictions from the final answer is used as the final error predictor 
      *
-     *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver
+     *                                           for the current time step.
+     *
+     *  @return                                  Returns the norm of the difference. Normally this is the weighted L0 norm 
+     *                                           of the difference between predictor and the corrector.
+     *                                           The lesser of the deviation in the two norms is now taken as the answer.
      */
-    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS);
+    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS) override;
 
     //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
     /*!
@@ -501,30 +507,25 @@ public:
      *
      *  Calls predictSolnResid(). If it works that good, if not reduct time step and call again.
      *
-     * @return   Returns the success of the operation
-     *                 1  A predicted solution is achieved
-     *                 2  A predicted solution with a multispecies phase pop is acheived
-     *                 0  A predicted solution is not achieved, but go ahead anyway
-     *                -1  The predictor suggests that the time step be reduced and a retry occur.
+     * @return                                   Returns the success of the operation
+     *                                             1  A predicted solution is achieved
+     *                                             2  A predicted solution with a multispecies phase pop is acheived
+     *                                             0  A predicted solution is not achieved, but go ahead anyway
+     *                                            -1  The predictor suggests that the time step be reduced and a retry occur.
      */
-    virtual int predictSoln();
+    virtual int predictSoln() override;
   
-
-    //! Unpack the soln vector
+    //! Unpack the solution vector on return from the time stepper
     /*!
      *  (virtual from Electrode_Integrator)
      *
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+     *
+     *  @param[in]           ySoln               Solution vector as returned from the time stepper.
+     *                                           What the solution actually refers to depends on the individual Electrode objects.
+     *                                           y[0] is always the current  deltaTsubcycleCalc_ value
      */
-    virtual void unpackNonlinSolnVector(const double* const y) override;
-
-
-
-
-
-
-
-
+    virtual void unpackNonlinSolnVector(const double* const ySoln) override;
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!

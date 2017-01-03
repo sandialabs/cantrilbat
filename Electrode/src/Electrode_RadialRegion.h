@@ -286,18 +286,22 @@ public:
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
-    //! The internal state of the electrode must be kept for the initial and
-    //! final times of an integration step.
-    /*
-     *  This function advances the initial state to the final state that was calculated
-     *  in the last integration step.
+    //! Reset the Internal state of the electrode at the start of a new global integration step or a redo of the current global step
+    /*!
+     *  (virtual from Electrode)
+     *  This function advances the initial state to the final state that was calculated in the last integration step.
      *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
-     * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
+     *  @param[in]           Tinitial            This is the New initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem. They should be the same.
+     *                                           If Tinitial == t_init_init, we redo the time step.
+     *
+     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
+     *                                           Defaults to false.
      */
     virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
-
 
     //! Take the state (i.e., the final state) within the Electrode_Model and push it down
     //! to the ThermoPhase objects and propogate it to all other aspects of the final state

@@ -93,13 +93,15 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     * @param[in]            right               Object to be copied
      */
     Electrode_CSTR(const Electrode_CSTR& right);
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
      */
     Electrode_CSTR& operator=(const Electrode_CSTR& right);
 
@@ -107,26 +109,33 @@ public:
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.
      *
-     *  @return Returns an enum type, called   Electrode_Types_Enum
+     *  @return                                  Returns an enum type, called   Electrode_Types_Enum
      */
     virtual Electrode_Types_Enum electrodeType() const;
 
     //! Set the electrode ID information
+    /*!
+     *  This is used to identify the electrode object within printouts.
+     *
+     *  @param[in]           domainNum           Number of the domain
+     *  @param[in]           cellNum             Cell number
+     */
     void setID(int domainNum, int cellNum);
 
     //! This function will extend the input options for the electrode to included child input
     //! and then return a child object of ELECTRODE_KEY_INPUT
     /*!
-     *  @param ei   Base input for the electrode
-     *              On output it will be an ELECTRODE_CSTR_KEY_INPUT object
+     *  @param[in]           ei                  Base input for the electrode
+     *                                           On output it will be an ELECTRODE_CSTR_KEY_INPUT object
      *
-     *  @return  Returns zero on success, -1 on failure
+     *  @return                                  Returns zero on success, -1 on failure
      */
-    virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei);
+    virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei) override;
 
     //!  Setup the electrode using the ELECTRODE_KEY_INPUT object that is read from an input file
     /*!
      *   (virtual from Electrode)
+     *
      *   @param[in]          ei                  ELECTRODE_KEY_INPUT pointer object
      *
      *   @return                                 Returns 0 if successful, -1 if not.
@@ -147,20 +156,20 @@ public:
      *    The routine works like an onion initialization. The parent object is initialized before the
      *    child. This means the child object first calls the parent, before it does its own initializations.
      *
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *  @param[in]           eibase              ELECTRODE_KEY_INPUT pointer object
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* eibase);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* eibase) override;
 
     //! Create an object that saves the electrode state and can print out an XML solution to file
     /*!
      *  The pointer to the malloced object is saved in the internal variable eState_final_ .
      *  Because there is an object, the state of the electrode will be saved at each step.
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_stateSave_create();
+    virtual int electrode_stateSave_create() override;
 
     //! local routine to resize arrays that this object is responsible for
     void init_sizes();
@@ -197,24 +206,24 @@ public:
     /*!
      * (virtual from Electrode_Integrator)
      *
-     * @return   returns 1 if ok
+     * @return                                   returns 1 if ok
      */
     virtual int create_solvers() override;
 
-    //! Value of the standard state open circuit voltage for the standard state conditions for region xRegion
-    //! at the final_ conditions.
+    //!  Value of the standard state open circuit voltage for the standard state conditions for region xRegion at the _final_
+    //!  conditions.
     /*!
      *  This is the standard state open circuit potential at the current _final_ conditions.
-     *  The value is dependent on the region input. The region input, currently is identified
-     *  with the surface reacting phase object.
+     *  The value is dependent on the region input. The region input, currently is identified with the surface reacting phase object.
      *  Therefore, this call is basically a wrapper around openCircuitVoltageSS(isk) which
      *  calculates the open circuit standard state voltage for the isk reacting surface.
      *
-     *  Additions include extening the region values to include false values for DoD = 0 and 1
-     *  conditions.
+     *  Additions include extening the region values to include false values for DoD = 0 and 1 conditions.
      *
-     *  @param xRegion  Region   Value of the region. If -1, this is at the DoD = 0. If nR+1,
-     *                           this is at the DoD = 1.0 condition
+     *  @param[in]           xRegion            Value of the region. If -1, this is at the DoD = 0. If nR+1,
+     *                                          this is at the DoD = 1.0 condition
+     *
+     *  @return                                 Returns the voltage of the standard state for that region.
      */
     double openCircuitVoltageSS_Region(int xRegion) const;
 
@@ -402,21 +411,26 @@ public:
      * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
      * We now calculate predicted solution components from these conditions.
      *
-     * @return   Returns the success of the operation
-     *                 1  A predicted solution is achieved
-     *                 2  A predicted solution with a multispecies phase pop is acheived
-     *                 0  A predicted solution is not achieved, but go ahead anyway
-     *                -1  The predictor suggests that the time step be reduced and a retry occur.
+     * @return                                   Returns the success of the operation
+     *                                             1  A predicted solution is achieved
+     *                                             2  A predicted solution with a multispecies phase pop is acheived
+     *                                             0  A predicted solution is not achieved, but go ahead anyway
+     *                                            -1  The predictor suggests that the time step be reduced and a retry occur.
      */
-    virtual int predictSoln();
+    virtual int predictSoln() override;
 
-    //! Unpack the soln vector
+    //! Unpack the solution vector on return from the time stepper
     /*!
      *  (virtual from Electrode_Integrator)
      *
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+     *
+     *  @param[in]           ySoln               Solution vector as returned from the time stepper.
+     *                                           What the solution actually refers to depends on the individual Electrode objects.
+     *                                           y[0] is always the current  deltaTsubcycleCalc_ value
      */
-    virtual void unpackNonlinSolnVector(const double* const y) override;
+    virtual void unpackNonlinSolnVector(const double* const ySoln) override;
+
 private:
 
     //! This routine doesn't look like it checks anything anymore
@@ -448,18 +462,26 @@ public:
 
     //! Pack the solution vector
     /*!
-     *  @param y  solution vector to be filled
+     *  Fill up the solution vector with the unknowns for the nonlinear solver for the time step.
+     *
+     *  @param[in]           y                   solution vector to be filled
      */
     void packNonlinSolnVector(double* const y) const;
 
-    //!  Calculate the norm of the difference between the predicted answer and the final converged answer
-    //!  for the current time step
+    //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
+     *   The norm calculated by this routine is used to determine whether the time step is accurate enough. Two norms are taken,
+     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the 
+     *   predictions from the final answer is used as the final error predictor 
      *
-     *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
+     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver for 
+     *                                           the current time step.
+     *
+     *  @return                                  Returns the norm of the difference. Normally this is the weighted L0 norm 
+     *                                           of the difference between predictor and the corrector.
+     *                                           The lesser of the deviation in the two norms is now taken as the answer.
      */
     virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS) override;
 
@@ -568,7 +590,7 @@ public:
      *                                           final_final values produced in the last global step no matter what.
      *                                           Defaults to false.
      */
-    void  resetStartingCondition(double Tinitial, bool doTestsAlways = false) override;
+    void  resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
     //! Check to see that the preceding step is a successful one
     /*!
@@ -1024,6 +1046,11 @@ protected:
      *             DATA ASSOCIATED WITH THE SOLUTION OF NONLINEAR EQUATIONS
      * ---------------------------------------------------------------------------------------------- */
 
+    //! Vector of the rates of progress of the surface reactions
+    /*!
+     *  Length: largest value of maxNumRxns in a reacting surface class
+     *  Units:  kmol / m2 / s
+     */
     std::vector<double> ROP_;
 
     //! Molar source rate for the species vector of all species in the electrode object

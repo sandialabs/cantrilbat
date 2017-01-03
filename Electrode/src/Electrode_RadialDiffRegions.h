@@ -174,13 +174,13 @@ public:
 
     //! Specify initial conditions from an input file
     /*!
-     *    @param ei pointer to a parent Structure containing the input file. The structure will be dynamically
-     *              cast to a type  ELECTRODE_RadialDiffRegions_KEY_INPUT type within the program.
-     *              It is a fatal error not to be able to do the dynamic cast.
+     *    @param[in]         ei                  pointer to a parent Structure containing the input file. The structure will be dynamically
+     *                                           cast to a type  ELECTRODE_RadialDiffRegions_KEY_INPUT type within the program.
+     *                                           It is a fatal error not to be able to do the dynamic cast.
      *
-     *    @param  Return flag. Returns a zero if everything is ok. Anything else is a fatal error.
+     *    @return                                Returns a zero if everything is ok. Anything else is a fatal error.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Initialize the sizes
     void init_sizes();

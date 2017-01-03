@@ -15,6 +15,7 @@
 #include <cmath>
 
 #ifndef MAX
+//! Define a fast max operator for doubles
 #define MAX(x,y) (( (x) > (y) ) ? (x) : (y))
 #endif
 

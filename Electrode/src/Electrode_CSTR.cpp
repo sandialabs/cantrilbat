@@ -14,9 +14,11 @@ using namespace std;
 using namespace BEInput;
 
 #ifndef MAX
+//! define a fast max operator for doubles
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
 #endif
 #ifndef MIN
+//! define a fast min operator for doubles
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
@@ -88,7 +90,6 @@ Electrode_CSTR::Electrode_CSTR() :
     goNowhere_(0),
     deltaT_RegionBoundaryCollision_(1.0E300),
     atolBaseResid_(1.0E-12),
-    ROP_(0),
     DspMoles_final_(0),
     SrcDot_RxnExtent_final_(0.0),
     deltaSpMoles_(0),
@@ -116,7 +117,6 @@ Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
     goNowhere_(0),
     deltaT_RegionBoundaryCollision_(1.0E300),
     atolBaseResid_(1.0E-12),
-    ROP_(0),
     DspMoles_final_(0),
     SrcDot_RxnExtent_final_(0.0),
 
@@ -160,7 +160,6 @@ Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
     deltaT_RegionBoundaryCollision_      = right.deltaT_RegionBoundaryCollision_;
 
     atolBaseResid_                       = right.atolBaseResid_;
-
 
     ROP_                                 = right.ROP_;
     DspMoles_final_                      = right.DspMoles_final_;
