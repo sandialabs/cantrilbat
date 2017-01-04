@@ -34,6 +34,7 @@ namespace Cantera
 class Electrode_CSTR_MCMBAnode : public Electrode_CSTR
 {
 public:
+
     //! Constructor
     Electrode_CSTR_MCMBAnode();
 
@@ -48,7 +49,9 @@ public:
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
      */
     Electrode_CSTR_MCMBAnode& operator=(const Electrode_CSTR_MCMBAnode& right);
 
@@ -58,13 +61,15 @@ public:
      *
      *  @return Returns an enum type, called   Electrode_Types_Enum
      */
-    virtual Electrode_Types_Enum electrodeType() const;
+    virtual Electrode_Types_Enum electrodeType() const override;
 
     //!  Setup the electrode
     /*!
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     * @param[in]            ei                  ELECTRODE_KEY_INPUT pointer object
+     *
+     * @return                                   Returns 0 if successful, -1 if not
      */
-    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
@@ -77,9 +82,9 @@ public:
      *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
      *  that can't be filled with Li....
      *
-     *  @return returns the relative extent of reaction (dimensionless).
+     *  @return                                  returns the relative extent of reaction (dimensionless).
      */
-    virtual double calcRelativeExtentRxn_final() const;
+    virtual double calcRelativeExtentRxn_final() const override;
 
     //! Set the final state of the electrode using the relExtentRxn
     /*!
@@ -92,16 +97,19 @@ public:
      *  are inverses of one another. Note, this means that if the state of the system has more than one rank,
      *  then the other ranks are unperturbed by the round trip.
      *
-     *  @param relExtentRxn  input of the relative extent of reaction
+     *  @param[in]           relExtentRxn        input of the relative extent of reaction
      */
-    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
+    virtual void setState_relativeExtentRxn(double relExtentRxn) override;
 
 private:
-    int ig_SolidLi_;
-    int ig_SolidV_;
+    //! global index of the lithium containing species 
+    size_t ig_SolidLi_;
+
+    //! globa index of the vacancy-type species
+    size_t ig_SolidV_;
 
     //! global index of the MCMB phase in the phaselist
-    int ip_MCMB_;
+    size_t ip_MCMB_;
 };
 //==================================================================================================================================
 }

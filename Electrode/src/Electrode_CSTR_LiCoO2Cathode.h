@@ -47,7 +47,9 @@ public:
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
      */
     Electrode_CSTR_LiCoO2Cathode& operator=(const Electrode_CSTR_LiCoO2Cathode& right);
 
@@ -55,23 +57,27 @@ public:
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.
      *
-     *  @return Returns an enum type, called   Electrode_Types_Enum
+     *  @return                                  Returns an enum type, called   Electrode_Types_Enum
      */
-    virtual Electrode_Types_Enum electrodeType() const;
+    virtual Electrode_Types_Enum electrodeType() const override;
 
-
+    //! Set up the capacity coefficients for LiCoO2.
+    /*!
+     *  This function expects that there is a species named CoO2 and LiCoO2 in the electrode ThermoPhase object
+     */
     void setCapacityCoeff_LiCoO2();
 
     //!  Setup the electrode
     /*!
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *  @param[in]           ei                  ELECTRODE_KEY_INPUT pointer object
+     *
+     *  @return                                  Returns 0 if successful, -1 if not
      */
-    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
-
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
-     *  (virtual from Electrode.h)
+     *  (virtual from Electrode)
      *
      *  Calculate the relative extent of reaction from the final state, spmoles_final.
      *  This is a virtual function because there is no way to do this except by knowing about
@@ -80,9 +86,9 @@ public:
      *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
      *  that can't be filled with Li....
      *
-     *  @return returns the relative extent of reaction (dimensionless).
+     *  @return                                  returns the relative extent of reaction (dimensionless).
      */
-    virtual double calcRelativeExtentRxn_final() const;
+    virtual double calcRelativeExtentRxn_final() const override;
 
     //! Set the final state of the electrode using the relExtentRxn
     /*!
@@ -95,18 +101,22 @@ public:
      *  are inverses of one another. Note, this means that if the state of the system has more than one rank,
      *  then the other ranks are unperturbed by the round trip.
      *
-     *  @param relExtentRxn  input of the relative extent of reaction
+     *  @param[in]           relExtentRxn        input of the relative extent of reaction
      */
-    virtual void setState_relativeExtentRxn(double relativeExtentRxn);
+    virtual void setState_relativeExtentRxn(double relExtentRxn) override;
 
+    //! model id
     int Global_LiCoO2_Model_;
 
 private:
-    int ig_SolidLi_;
-    int ig_SolidV_;
+    //! Global index of the Li containing solid species
+    size_t ig_SolidLi_;
+ 
+    //! Global index of the non-Li containing solid species
+    size_t ig_SolidV_;
 
     //! global index of the LiCoO2 phase in the phaselist
-    int ip_LiCoO2_;
+    size_t ip_LiCoO2_;
 };
 //==================================================================================================================================
 }

@@ -31,53 +31,29 @@ namespace Cantera
 Electrode_CSTR_LiCoO2Cathode::Electrode_CSTR_LiCoO2Cathode() :
     Electrode_CSTR(),
     Global_LiCoO2_Model_(3),
-    ig_SolidLi_(-1),
-    ig_SolidV_(-1),
-    ip_LiCoO2_(-1)
+    ig_SolidLi_(npos),
+    ig_SolidV_(npos),
+    ip_LiCoO2_(npos)
 {
 }
 //==================================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode_CSTR_LiCoO2Cathode::Electrode_CSTR_LiCoO2Cathode(const Electrode_CSTR_LiCoO2Cathode& right) :
-    Electrode_CSTR(),
-    Global_LiCoO2_Model_(3),
-    ig_SolidLi_(-1),
-    ig_SolidV_(-1),
-    ip_LiCoO2_(-1)
+    Electrode_CSTR_LiCoO2Cathode()
 {
-    /*
-     * Call the assignment operator.
-     */
-    *this = operator=(right);
+    operator=(right);
 }
-//======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
+//==================================================================================================================================
 Electrode_CSTR_LiCoO2Cathode& Electrode_CSTR_LiCoO2Cathode::operator=(const Electrode_CSTR_LiCoO2Cathode& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
-
     Electrode_CSTR::operator=(right);
-
 
     Global_LiCoO2_Model_ = right.Global_LiCoO2_Model_;
     ig_SolidLi_          = right.ig_SolidLi_;
     ig_SolidV_           = right.ig_SolidV_;
     ip_LiCoO2_           = right.ip_LiCoO2_;
-
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //==================================================================================================================================
@@ -85,12 +61,6 @@ Electrode_CSTR_LiCoO2Cathode::~Electrode_CSTR_LiCoO2Cathode()
 {
 }
 //==================================================================================================================================
-//! Return the type of electrode
-/*!
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
 Electrode_Types_Enum  Electrode_CSTR_LiCoO2Cathode::electrodeType() const
 {
     return CSTR_LICO2_CATHODE_ET;
@@ -98,20 +68,16 @@ Electrode_Types_Enum  Electrode_CSTR_LiCoO2Cathode::electrodeType() const
 //==================================================================================================================================
 void  Electrode_CSTR_LiCoO2Cathode::setCapacityCoeff_LiCoO2()
 {
-    double  capacityLeftSpeciesCoeff=  1.0;
-
+    double  capacityLeftSpeciesCoeff = 1.0;
     for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
-
-        int kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         std::string pname = PhaseNames_[iph];
         bool found = false;
-        for (int k = 0; k < nspPhase; k++) {
-            int iGlobSpeciesIndex = kStart + k;
+        for (size_t k = 0; k < NumSpeciesList_[iph]; k++) {
+            size_t iGlobSpeciesIndex = kStart + k;
             std::string sss = speciesName(iGlobSpeciesIndex);
             found = false;
             capacityLeftSpeciesCoeff_[iGlobSpeciesIndex] =0.0;
@@ -127,24 +93,15 @@ void  Electrode_CSTR_LiCoO2Cathode::setCapacityCoeff_LiCoO2()
                 capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = capacityLeftSpeciesCoeff;
                 found = true;
             }
-
             if (!found) {
                 throw CanteraError(":setCapacityCoeff_LiCoO2()", "unknown species: " + sss + " in phase " + pname);
             }
-
         }
     }
-
 }
-//======================================================================================================================
-//  Setup the electrode
-/*
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- */
-int
-Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
+//==================================================================================================================================
+int Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 {
-
     int flag = Electrode_CSTR::electrode_model_create(ei);
     if (flag != 0) {
         return flag;
@@ -163,15 +120,15 @@ Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     } else {
         Global_LiCoO2_Model_ = 3;
     }
-    ig_SolidLi_ = -1;
+    ig_SolidLi_ = npos;
     if (Global_LiCoO2_Model_ == 3) {
         ig_SolidLi_ = globalSpeciesIndex("LiCoO2", "LiCoO2_Interstitials_cathode");
     } else if (Global_LiCoO2_Model_ == 1) {
         ig_SolidLi_ = globalSpeciesIndex("LiCoO2", "LiCoO2_Margules_1");
     }
     if (ig_SolidLi_ < 0) {
-        throw CanteraError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()",
-                           "Expected to find species CoO2 in phase LiCoO2_Interstitials_cathode");
+        throw ZuzaxError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()",
+                         "Expected to find species CoO2 in phase LiCoO2_Interstitials_cathode");
     }
     if (Global_LiCoO2_Model_ == 3) {
         ip_LiCoO2_ = globalPhaseIndex("LiCoO2_Interstitials_cathode");
@@ -185,21 +142,15 @@ Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                            "I tried to find the phase LiCoO2_Interstitials_cathode  but failed. May need to generalize the code now");
     }
 
-
     RelativeExtentRxn_RegionBoundaries_.resize(2);
     RelativeExtentRxn_RegionBoundaries_[1] = 0.94;
     RelativeExtentRxn_RegionBoundaries_[0] = 0.55;
-    //double va_mf = moleFraction(iVaOxide);
     double li_mf = moleFraction(ig_SolidLi_);
-
 
     RelativeExtentRxn_init_ = li_mf;
     RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
     RelativeExtentRxn_final_final_ = RelativeExtentRxn_init_;
     RelativeExtentRxn_init_init_ = RelativeExtentRxn_init_;
-
-
-
     if (RelativeExtentRxn_final_ <  RelativeExtentRxn_RegionBoundaries_[0]) {
         throw CanteraError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()", "Relative Extent Rxn outside of bounds");
     }
@@ -217,8 +168,6 @@ Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     return 0;
 }
-
-
 //======================================================================================================================
 // Calculate the relative extent of reaction from the current state of the object
 /*
