@@ -66,19 +66,19 @@ int Electrode_CSTR_MCMBAnode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     init_sizes();
 
     ig_SolidLi_ = globalSpeciesIndex("Li_C6-bulk");
-    if (ig_SolidLi_ < 0) {
+    if (ig_SolidLi_ == npos) {
         throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the species Li_C6-bulk but failed. May need to generalize the code now");
     }
 
     ig_SolidV_  = globalSpeciesIndex("V_C6-bulk");
-    if (ig_SolidV_ < 0) {
+    if (ig_SolidV_ == npos) {
         throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the species V_C6-bulk but failed. May need to generalize the code now");
     }
 
     ip_MCMB_ = globalPhaseIndex("MCMB_Interstitials_anode");
-    if (ip_MCMB_ < 0) {
+    if (ip_MCMB_ == npos) {
         throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the phase MCMB_Interstitials_anode  but failed. May need to generalize the code now");
     }

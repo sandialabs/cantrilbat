@@ -109,9 +109,9 @@ int Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei
     electrodeType_ = ELECTRODETYPE_CATHODE;
 
     ig_SolidV_ = globalSpeciesIndex("CoO2","LiCoO2_Interstitials_cathode");
-    if (ig_SolidV_ < 0) {
+    if (ig_SolidV_ == npos) {
         ig_SolidV_ = globalSpeciesIndex("CoO2","LiCoO2_Margules_1");
-        if (ig_SolidV_ < 0) {
+        if (ig_SolidV_ == npos) {
             throw CanteraError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()",
                                "Expected to find species CoO2 in phase LiCoO2_Interstitials_cathode");
         } else {
@@ -126,7 +126,7 @@ int Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei
     } else if (Global_LiCoO2_Model_ == 1) {
         ig_SolidLi_ = globalSpeciesIndex("LiCoO2", "LiCoO2_Margules_1");
     }
-    if (ig_SolidLi_ < 0) {
+    if (ig_SolidLi_ == npos) {
         throw ZuzaxError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()",
                          "Expected to find species CoO2 in phase LiCoO2_Interstitials_cathode");
     }
@@ -137,7 +137,7 @@ int Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei
     } else {
         ip_LiCoO2_ = globalPhaseIndex("LiCoO2_Interstitials_cathode");
     }
-    if (ip_LiCoO2_ < 0) {
+    if (ip_LiCoO2_ == npos) {
         throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the phase LiCoO2_Interstitials_cathode  but failed. May need to generalize the code now");
     }
