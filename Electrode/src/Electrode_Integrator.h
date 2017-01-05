@@ -1,6 +1,10 @@
-/*
- * $Id: Electrode_Integrator.h 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file Electrode_Integrator.h
+ *     Headers for the declarations of the Electrode_Integrator class, used to perform
+ *     subtimestep integrations on top of the Electrode class
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_Integrator Electrode_Integrator\endlink).
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -11,20 +15,17 @@
 #ifndef _ELECTRODE_INTEGRATOR_H
 #define _ELECTRODE_INTEGRATOR_H
 
-
 #include "Electrode.h"
 #include "cantera/numerics/ResidJacEval.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-
 class NonlinearSolver;
 class SquareMatrix;
-
 //==================================================================================================================================
 //! This class stores an overall summary of one time step taken in the integrator
 /*!

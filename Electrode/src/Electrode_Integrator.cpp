@@ -1,11 +1,18 @@
-/*
- * $Id: Electrode_Integrator.cpp 591 2013-05-09 22:06:20Z hkmoffa $
+/**
+ *  @file Electrode_Integrator.cpp
+ *     Definitions of the Electrode_Integrator class, used to perform subtimestep integrations on top of the Electrode class
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode_Integrator Electrode_Integrator\endlink).
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
 
 #include "Electrode_Integrator.h"
 #include "cantera/numerics/NonlinearSolver.h"
-
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
@@ -26,7 +33,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-//======================================================================================================================
+//==================================================================================================================================
 SubIntegrationHistory::SubIntegrationHistory() :
     nTimeStepsRegular_(0),
     nTimeSteps_(0),
@@ -37,7 +44,7 @@ SubIntegrationHistory::SubIntegrationHistory() :
     time_step_next(0.0)
 {
 }
-//======================================================================================================================
+//==================================================================================================================================
 SubIntegrationHistory::SubIntegrationHistory(const SubIntegrationHistory& right) :
     nTimeStepsRegular_(right.nTimeStepsRegular_),
     nTimeSteps_(right.nTimeSteps_),
@@ -48,11 +55,11 @@ SubIntegrationHistory::SubIntegrationHistory(const SubIntegrationHistory& right)
     time_step_next(right.time_step_next)
 {
 }
-//======================================================================================================================
+//==================================================================================================================================
 SubIntegrationHistory::~SubIntegrationHistory()
 {
 }
-//======================================================================================================================
+//==================================================================================================================================
 SubIntegrationHistory& SubIntegrationHistory::operator=(const SubIntegrationHistory& right)
 {
     if (this == &right) {
@@ -67,7 +74,7 @@ SubIntegrationHistory& SubIntegrationHistory::operator=(const SubIntegrationHist
     time_step_next = right.time_step_next;
     return *this;
 }
-//======================================================================================================================
+//==================================================================================================================================
 void SubIntegrationHistory::clear()
 {
     nTimeStepsRegular_ = 0;
@@ -78,7 +85,7 @@ void SubIntegrationHistory::clear()
     iCounter = 0;
     time_step_next = 0.0;
 }
-//======================================================================================================================
+//==================================================================================================================================
 void  
 SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final_calc, int timeTypeSoln,
                                    int numNonLinSolves, double solnErrorNorm, double wdotErrorNorm, double volts,
@@ -121,19 +128,19 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
 	nTimeStepsRegular_++;
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 void SubIntegrationHistory::zeroTimeStepCounter()
 {
     iCounter = 0;
 }
-//======================================================================================================================
+//==================================================================================================================================
 void SubIntegrationHistory::advanceTimeStepCounter()
 {
     if (iCounter + 1 < nTimeSteps_) {
 	iCounter++;
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 double SubIntegrationHistory::getNextRegularTime(double currentTime) const
 {
     // If we are beyond the stored time step history, then we used the stored value of time_step_next to make
@@ -187,8 +194,8 @@ double SubIntegrationHistory::getNextRegularTime(double currentTime) const
     // Normal return of the next stored time
     return t_final_calc;
 }
-//======================================================================================================================
-int SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal) 
+//==================================================================================================================================
+int SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal)
 {
     int iC = 0;
     TimeStepHistory* tshCurrent_ptr = & TimeStepList_[iC];
@@ -223,7 +230,7 @@ int SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal)
     iCounter = iCsave;
     return iCounter;
 }
-//======================================================================================================================
+//==================================================================================================================================
 double SubIntegrationHistory::globalStartTime() const
 {
     if  (TimeStepList_.size() > 0) {
@@ -232,7 +239,7 @@ double SubIntegrationHistory::globalStartTime() const
     }
     return 0.0;
 }
-//======================================================================================================================
+//==================================================================================================================================
 double SubIntegrationHistory::globalEndTime() const
 {
     if  (nTimeSteps_ > 0) {
@@ -241,7 +248,7 @@ double SubIntegrationHistory::globalEndTime() const
     }
     return 0.0;
 }
-//======================================================================================================================
+//==================================================================================================================================
 void SubIntegrationHistory::print(int lvl) const
 {
     if (lvl > 1) {
@@ -294,7 +301,7 @@ void SubIntegrationHistory::print(int lvl) const
 	printf("     =================================================================================================================================\n");
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 void SubIntegrationHistory:: setConstantStepSizeHistory(double gtinit, double gtfinal, int nsteps)
 {
     zeroTimeStepCounter();
@@ -305,7 +312,7 @@ void SubIntegrationHistory:: setConstantStepSizeHistory(double gtinit, double gt
 	addTimeStep(tinit, tfinal, tfinal, 1, 0, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 bool SubIntegrationHistory::operator==(const SubIntegrationHistory& other) const
 {
     if (nTimeStepsRegular_ != other.nTimeStepsRegular_) {
@@ -314,7 +321,6 @@ bool SubIntegrationHistory::operator==(const SubIntegrationHistory& other) const
     int i_l = 0;
     int i_r = 0;
     do {
- 
 	const TimeStepHistory* tshCurrent =  &TimeStepList_[i_l];
 	const TimeStepHistory* tshCurrent_other =  & other.TimeStepList_[i_r];
 	if (! (*tshCurrent == *tshCurrent_other)) {
@@ -334,20 +340,14 @@ bool SubIntegrationHistory::operator==(const SubIntegrationHistory& other) const
    
     return true;
 }
-//======================================================================================================================
+//===================================================================================================================================
 bool SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) const
 {
     return ! (*this == other);
 }
-//======================================================================================================================
-//======================================================================================================================
-//======================================================================================================================
-/*
- *  ELECTRODE_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 Electrode_Integrator::Electrode_Integrator() :
     Electrode(),
     deltaTsubcycleCalc_(0.0),
@@ -365,13 +365,13 @@ Electrode_Integrator::Electrode_Integrator() :
     relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
 {
 }
-//======================================================================================================================
+//==================================================================================================================================
 Electrode_Integrator::Electrode_Integrator(const Electrode_Integrator& right) :
     Electrode_Integrator()
 {
     operator=(right);
 }
-//======================================================================================================================
+//==================================================================================================================================
 Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator& right)
 {
     if (this == &right) {
@@ -428,26 +428,16 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
     timeHistory_current_                = right.timeHistory_current_;
 
     relativeLocalToGlobalTimeStepMinimum_ = right.relativeLocalToGlobalTimeStepMinimum_;
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
-//======================================================================================================================
-/*
- *
- *  ELECTRODE_INPUT:destructor
- *
- * We need to manually free all of the arrays.
- */
+//==================================================================================================================================
 Electrode_Integrator::~Electrode_Integrator()
 {
     SAFE_DELETE(jacPtr_);
     SAFE_DELETE(pSolve_);
 }
-//======================================================================================================================
-int
-Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
+//==================================================================================================================================
+int Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 {
     Electrode::electrode_model_create(ei);
 
@@ -460,7 +450,7 @@ Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     return 0;
 }
-//======================================================================================================================
+//==================================================================================================================================
 //  Set the initial conditions from the input file.
 /*
  *   (virtual from InterfacialMassTransfer)
@@ -587,11 +577,9 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
     return numDofs;
 }
 //==================================================================================================================================
-//    The internal state of the electrode must be kept for the initial and
-//    final times of an integration step.
+//    The internal state of the electrode must be kept for the initial and final times of an integration step.
 /*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
+ *  This function advances the initial state to the final state that was calculated in the last integration step.
  *
  * @param Tinitial   This is the New initial time. This time is compared against the "old"
  *                   final time, to see if there is any problem.
@@ -2312,7 +2300,7 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
     }
     return rr;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Print conditions of the electrode for the current integration step to stdout
 /*
  *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
@@ -2386,7 +2374,7 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
     }
 
 }
-//===================================================================================================================
+//==================================================================================================================================
 void Electrode_Integrator::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
     size_t isph = npos;
@@ -2476,9 +2464,8 @@ void Electrode_Integrator::printElectrodePhase(size_t iph, int pSrc, bool subTim
         }
     }
     delete [] netROP;
-
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode_Integrator::l0norm_PC_NLS(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
                                            const std::vector<double>& atolVec, const double rtol)
 {
@@ -2497,24 +2484,24 @@ double Electrode_Integrator::l0norm_PC_NLS(const std::vector<double>& v1, const 
     }
     return max0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 int Electrode_Integrator::setTimeHistoryBaseFromCurrent()
 {
     timeHistory_base_ = timeHistory_current_;
     return timeHistory_base_.nTimeStepsRegular_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 int Electrode_Integrator::setTimeHistoryBase(const SubIntegrationHistory &timeHistory)
 {
     timeHistory_base_ = timeHistory;
     return timeHistory.nTimeStepsRegular_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_Integrator::setMaxNumberSubCycles(int maxN)
 {
     maxNumberSubCycles_ = maxN;
 }
-//====================================================================================================================
+//==================================================================================================================================
 SubIntegrationHistory& Electrode_Integrator::timeHistory(bool returnBase)
 {
     if (returnBase) {

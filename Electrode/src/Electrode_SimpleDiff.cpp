@@ -56,35 +56,6 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     KRsolid_phaseNames_(0),
     phaseIndeciseNonKRsolidPhases_(0),
     numNonSPhases_(0),
-    concTot_SPhase_Cell_final_final_(0),
-    concTot_SPhase_Cell_final_(0),
-    concTot_SPhase_Cell_init_(0),
-    concTot_SPhase_Cell_init_init_(0),
-
-    concKRSpecies_Cell_init_(0),
-    concKRSpecies_Cell_final_(0),
-    concKRSpecies_Cell_init_init_(0),
-    concKRSpecies_Cell_final_final_(0),
-
-    spMf_KRSpecies_Cell_final_(0),
-    spMf_KRSpecies_Cell_init_(0),
-    spMf_KRSpecies_Cell_final_final_(0),
-    spMf_KRSpecies_Cell_init_init_(0),
-  
-    rnodePos_final_final_(0),
-    rnodePos_final_(0),
-    rnodePos_init_(0),
-    rnodePos_init_init_(0),
-
-    cellBoundR_final_(0),
-    cellBoundR_init_(0),
-    cellBoundR_init_init_(0),
-    cellBoundR_final_final_(0),
-    cellBoundL_final_(0),
-    cellBoundL_init_(0),
-    cellBoundL_init_init_(0),
-    cellBoundL_final_final_(0),
-
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
     partialMolarVolKRSpecies_Cell_final_(0),
@@ -147,34 +118,7 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     KRsolid_phaseNames_(0),
     phaseIndeciseNonKRsolidPhases_(0),
     numNonSPhases_(0),
-    concTot_SPhase_Cell_final_final_(0),
-    concTot_SPhase_Cell_final_(0),
-    concTot_SPhase_Cell_init_(0),
-    concTot_SPhase_Cell_init_init_(0),
  
-    concKRSpecies_Cell_init_(0),
-    concKRSpecies_Cell_final_(0),
-    concKRSpecies_Cell_init_init_(0),
-    concKRSpecies_Cell_final_final_(0),
-  
-    spMf_KRSpecies_Cell_final_(0),
-    spMf_KRSpecies_Cell_init_(0),
-    spMf_KRSpecies_Cell_final_final_(0),
-    spMf_KRSpecies_Cell_init_init_(0),
-
-    rnodePos_final_final_(0),
-    rnodePos_final_(0),
-    rnodePos_init_(0),
-    rnodePos_init_init_(0),
-
-    cellBoundR_final_(0),
-    cellBoundR_init_(0),
-    cellBoundR_init_init_(0),
-    cellBoundR_final_final_(0),
-    cellBoundL_final_(0),
-    cellBoundL_init_(0),
-    cellBoundL_init_init_(0),
-    cellBoundL_final_final_(0),
 
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
@@ -3022,14 +2966,13 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
 
     }
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
-        printf("\t\t===============================================================================================================================\n");
+        printf("\t\t==================================================================================================="
+               "============================\n");
     }
     return 1;
 }
-//====================================================================================================================
-// Main routine to calculate the residual
+//==================================================================================================================================
 /*
- *
  *  Format of the residual equations
  *                                                             Unknown                           Index
  * --------------------------------------------------------------------------------------------------------------

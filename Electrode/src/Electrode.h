@@ -729,28 +729,28 @@ public:
     //! Overpotential term for the heat generation from a single surface for the current global time step
     /*!
      *   ( units = J / s) 
-     *   @param[in]  isk             Index of the ReactingSurDomain
+     *   @param[in]          isk                 Index of the ReactingSurDomain
      *
-     *   @return                     Returns the thermal energy overpotential term ( units = J / s)                     
+     *   @return                                 Returns the thermal energy overpotential term ( units = J / s)                     
      */
     virtual double thermalEnergySourceTerm_overpotential(size_t isk);
 
-    //! returns the reversible Entropy term leading to heat generation for the current global time step
+    //! Returns the reversible Entropy term leading to heat generation from a single surface for the current global time step
     /*!
-     *   ( units = J / s ) 
+     *   (units = J / s ) 
      *   This is the term due to the reversible entropy production.
-     *    @param[in]    isk             
+     *   @param[in]          isk                 Surface index         
      *
-     *    @return                    Returns the themal energy source term  (units J / s)
+     *   @return                                 Returns the themal energy source term  (units J / s)
      */
     virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
 
-    //! Energy source term due to tthe Enthalpy formation for the current global time step
+    //! Energy source term due to the Enthalpy formation from a single surface for the current global time step
     /*!
-     *  ( units = J / s)
-     *   @param[in]           isk                 Index of the ReactingSurDomain
+     *  (units = J / s)
+     *  @param[in]           isk                 Index of the ReactingSurDomain
      *
-     *  @return                                   Returns the energy source term for enthalpy release (J / s)
+     *  @return                                  Returns the energy source term for enthalpy release (J / s)
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation(size_t isk);
 
@@ -1000,14 +1000,12 @@ public:
      */
     virtual double thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
 
-    //! Reversible Entropy release during a single step
+    //! Reversible Entropy release during a single step (joules)
     /*!
      *  (virtual from Electrode.h)
+     *  Energy released within the electrode during a local time step due to reversible entropy generation
      *
-     *     Energy released within the electrode during a local time step
-     *     due to reversible entropy generation
-     *
-     *   @return                             Returns the reversible energy released (joules)
+     *  @return                                  Returns the reversible energy released (joules)
      */
     virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old();
 
@@ -1015,10 +1013,9 @@ public:
     /*!
      *  (virtual from Electrode.h)
      *
-     *     Energy released within the electrode during a local time step
-     *     due to reversible entropy generation
+     *  Energy released within the electrode during a local time step due to reversible entropy generation
      *
-     *   @return                              Returns the reversible energy released (joules)
+     *  @return                                  Returns the reversible energy released (joules)
      */
     virtual double thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
 

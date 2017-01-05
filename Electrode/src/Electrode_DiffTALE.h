@@ -601,11 +601,10 @@ public:
     //! Main internal routine to calculate the residual
     /*!
      *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
-     *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes
-     *  in topology of type LimitingEventDeltaTsubcycle_
+     *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes in topology 
+     *  of type LimitingEventDeltaTsubcycle_.
      *
-     *  This routine calcules yval_retn, which is the calculated value of the residual for the
-     *  nonlinear function
+     *  This routine calculates resid[], which is the calculated value of the residual for the nonlinear function
      *
      *   resid[i] = y[i] - yval_retn[i]
      *
@@ -621,9 +620,10 @@ public:
      *           ...
      *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[1]
      *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[1]
-
      *
-     *                                                             Unknown                           Index
+     *  The formulation of the residual is as follows:
+     *
+     *           Residual entry:                                   Unknown                           Index   
      * --------------------------------------------------------------------------------------------------------------
      *         Residual (Time)                                     deltaSubcycleCalc_                   0
      *                                                                                            1
@@ -638,11 +638,27 @@ public:
      *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
      *  --------------------------------------------------------------------------------------------------------------
      *
-     *  @param resid   Calculated residual vector whose form is described above
+     *  @param[in]           resid               Residual vector. Length = neq_
+     *
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *                                           Other types are JacBase_ResidEval, JacDelta_ResidEval, and Base_ShowSolution.
+     *
+     *  @return                                  Returns a value of 1 if everything went well.
+     *                                           Returns negative numbers to indicate types of failures.
      */
-    int  calcResid(double* const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType) override;
 
-    int  calcResid_2(double* const resid, const ResidEval_Type_Enum evalType);
+    //! Calculate an alternate formulation of the residual
+    /*!
+     *  @param[in]           resid               Residual vector. Length = neq_
+     *
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *                                           Other types are JacBase_ResidEval, JacDelta_ResidEval, and Base_ShowSolution.
+     *
+     *  @return                                  Returns a value of 1 if everything went well.
+     *                                           Returns negative numbers to indicate types of failures.
+     */
+    int calcResid_2(double* const resid, const ResidEval_Type_Enum evalType);
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions 
     /*!
