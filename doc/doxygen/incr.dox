@@ -819,6 +819,10 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_CSTR_LiCoO2Cathode.cpp \
                          ../../Electrode/src/EState_RadialDistrib.h \
                          ../../Electrode/src/EState_RadialDistrib.cpp \
+                         ../../Electrode/src/Electrode_SimpleDiff.h \
+                         ../../Electrode/src/Electrode_SimpleDiff.cpp \
+                         ../../Electrode/src/Electrode_DiffTALE.h \
+                         ../../Electrode/src/Electrode_DiffTALE.cpp \
 
 
 

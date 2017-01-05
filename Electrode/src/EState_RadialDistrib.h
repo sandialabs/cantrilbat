@@ -1,5 +1,6 @@
-/*
- *  @file EState.h
+/**
+ *  @file EState_RadialDistrib.h  Extension of the save file state for radially distributed
+ *        electrode objects
  */
 
 /*
@@ -13,7 +14,7 @@
 #define _ESTATE_RADIALDISTRIB_H
 
 #include "EState.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -24,7 +25,7 @@ namespace Cantera
 class Electrode_SimpleDiff;
 class Electrode_DiffTALE;
 
-
+//==================================================================================================================================
 //! Child Class for the EState class concept refering to SimpleDiff Electrode object.
 /*!
  *    This class adds the inner_platNum and second_platNum records to the output file.
@@ -40,11 +41,14 @@ public:
     EState_RadialDistrib();
 
     //! Default constructor for the base object
+    /*!
+     *  @param[in]           electrodeType       Type of the electrode
+     */
     EState_RadialDistrib(std::string electrodeType);
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     * @param[in]            right               Object to be copied
      */
     EState_RadialDistrib(const EState_RadialDistrib& right);
 
@@ -53,15 +57,17 @@ public:
 
     //! Assignment operator
     /*!
-     *  @param right  object to be duplicated
+     *  @param[in]           right               object to be duplicated
+     *
+     *  @return                                  Returns a reference to the current object
      */
     EState_RadialDistrib& operator=(const EState_RadialDistrib& right);
 
     //! Duplicator function for this class
     /*!
-     *  @return Returns a duplication of the current state as a pointer to the base class
+     *  @return                                  Returns a duplication of the current state as a pointer to the base class
      */
-    virtual EState* duplMyselfAsEState() const;
+    virtual EState* duplMyselfAsEState() const override;
 
     //! Initialize the object based on an electrode Base class
     /*!
@@ -69,13 +75,15 @@ public:
      *   All of the species and phase identification information is created and the class is
      *   readied for use as a state maintainer.
      *
-     *  @param e    Pointer to the electrode base class
+     *  @param[in]           e                   Pointer to the electrode base class
+     *
+     *  @return                                  Returns 0
      */
-    virtual int initialize(const ZZCantera::Electrode* const e);
+    virtual int initialize(const ZZCantera::Electrode* const e) override;
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!
-     *  @return Returns a malloced XML_Node tree.
+     *  @return                                  Returns a malloced XML_Node tree.
      */
     XML_Node* writeIdentificationToXML() const;
 
@@ -88,15 +96,31 @@ public:
      *
      *  @return pointer to the XML_Node tree
      */
-    virtual XML_Node* write_electrodeState_ToXML() const;
+    virtual XML_Node* write_electrodeState_ToXML() const override;
 
-    //! Read the state from the XML_Node  given by the argument
+    //! Read the state from the XML_Node given by the argument
     /*!
-     *  @param xmlRoot   Root of the xml tree to get the information from
+     *  (Virtual from EState)
+     *  This override contains information for the radially distributed part of the read.
+     *
+     *  @param[in]           xmlEState           electrodeState XML element to be read from.
+     *                                           The electrodeState XML element contains the state of the electrode,
+     *                                           at a particular time, though the time is not part of the record.
      */
-    virtual void readStateFromXML(const XML_Node& xmlEState);
+    virtual void readStateFromXML(const XML_Node& xmlEState) override;
 
+    //! Copy the current contents of a SimpleDiff Electrode into this state
+    /*!
+     *  @param[in]           emp                 Pointer to to a SimpleDiff electrode whose state will be copied into this
+     *                                           container.
+     */
     void copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp);
+
+    //! Copy the current contents of a SimpleDiff Electrode into this state
+    /*!
+     *  @param[in]           emp                 Pointer to to a DiffTALE electrode whose state will be copied into this
+     *                                           container.
+     */
     void copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp);
 
     //! Set the State of this object from the state of the Electrode object
@@ -113,11 +137,21 @@ public:
      *             to choose a child object, and then may invoke an error if the match isn't
      *             correct.
      */
-    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e);
+    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e) override;
 
-    void setStateElectrode_SimpleDiff_fromEState(ZZCantera::Electrode_SimpleDiff* const e) const;
-    void setStateElectrode_DiffTALE_fromEState(ZZCantera::Electrode_DiffTALE* const e) const;
+    //! Set the state of a SimpleDiff electrode object from the contents of this object
+    /*!
+     *  @param[in]           emp                 Pointer to to a SimpleDiff electrode whose state will be set to the state
+     *                                           contained within this object.
+     */
+    void setStateElectrode_SimpleDiff_fromEState(ZZCantera::Electrode_SimpleDiff* const emp) const;
 
+    //! Set the state of a DiffTALE electrode object from the contents of this object
+    /*!
+     *  @param[in]           emp                 Pointer to to a DiffTALE electrode whose state will be set to the state
+     *                                           contained within this object.
+     */
+    void setStateElectrode_DiffTALE_fromEState(ZZCantera::Electrode_DiffTALE* const emp) const;
 
     //! Set the state of the Electrode from the state of this object
     /*!
@@ -136,8 +170,7 @@ public:
      *  @param  e  Changeable pointer to the base class Electrode object. This function may
      *             do dynamic casting to get the correct child Electrode object.
      */
-    virtual void setStateElectrode_fromEState(ZZCantera::Electrode* const e) const;
-
+    virtual void setStateElectrode_fromEState(ZZCantera::Electrode* const e) const override;
 
     //!  Compare the current state of this object against another guest state to see if they are the same
     /*!
@@ -153,11 +186,14 @@ public:
      *     @return                           Returns true
      */
     virtual bool compareOtherState(const EState* const ESguest, double molarAtol, int nDigits, 
-				   bool includeHist = false, int printLvl = 0) const;
+				   bool includeHist = false, int printLvl = 0) const override;
 
-    /* --------------------------------------------------------------------------------------  */
+    /* --------------------------------------------------------------------------------------------------------------------------  */
+    //                      D A T A 
+    /* --------------------------------------------------------------------------------------------------------------------------  */
 protected:
 
+    //! Number of cells in the radial distribution
     int numRCells_;
 
     //! Define the number of species that are defined to have radially distributed distributions
@@ -173,13 +209,13 @@ protected:
     //! Number of phases which have radial distributions of their species
     int numSPhases_;
 
-    //  std::vector<int> numSpeciesPerSPhase_;
 
 
 
     //! Node position of the mesh - final
     std::vector<double> rnodePos_;  
 
+    //! Vector of cell boundaries
     std::vector<double> cellBoundR_;
 
  
@@ -222,9 +258,10 @@ protected:
     /*!
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
-    friend class ZZCantera::Electrode;
-    friend class ZZCantera::Electrode_SimpleDiff;
+    //friend class ZZCantera::Electrode;
+    //friend class ZZCantera::Electrode_SimpleDiff;
 };
-
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

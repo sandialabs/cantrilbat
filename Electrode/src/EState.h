@@ -231,23 +231,23 @@ public:
 
     //! Read the state from the XML_Node tree given by the argument
     /*!
-     *  @param xmlRoot   Root of the xml tree to get the information from
+     *  @param[in]           xmlRoot             Root of the xml tree to get the information from
      */
     void readStateFromXMLRoot(const XML_Node& xmlRoot);
 
-
     //! Read the state from the XML_Node given by the argument
     /*!
-     *  Virtual function -> main way to get the process going and the child functions called.
+     *  (Virtual function from EState) -> main way to get the process going and the child functions called.
      *
-     *  @param[in]    xmlEState                 electrodeState XML element to be read from
-     *                                          The electrodeState XML element contains the state of the electrode.
+     *  @param[in]           xmlEState           electrodeState XML element to be read from.
+     *                                           The electrodeState XML element contains the state of the electrode
+     *                                           at a particular time, though the time is not part of this record.
      */
     virtual void readStateFromXML(const XML_Node& xmlEState);
 
     //! Read identification information from the XML header record
     /*!
-     *  @param xmlEState   reference to the XML node.
+     *  @param[in]           xmlEState           reference to the XML node.
      */
     void readIdentificationFromXML(const XML_Node& xmlEState);
 
@@ -256,7 +256,6 @@ public:
      *  @param[in]           es_ID               Reference to the EState ID structure 
      */
     void readIdentificationFromStruct(const EState_ID_struct& es_ID);
-
 
     //! Set the State of this object from the state of the Electrode object
     /*!

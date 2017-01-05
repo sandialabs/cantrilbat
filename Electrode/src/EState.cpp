@@ -409,11 +409,7 @@ void EState::readIdentificationFromStruct(const EState_ID_struct& es_ID)
     electrodeDomainNumber_ = es_ID.electrodeDomainNumber_;
     electrodeCellNumber_ = es_ID.electrodeCellNumber_;
 }
-//======================================================================================================================
-//  Read the  electrode state from  an XML_Node tree
-/*
- *   
- */
+//==================================================================================================================================
 void EState::readStateFromXML(const XML_Node& xmlEState)
 {
     std::string nodeName = xmlEState.name();

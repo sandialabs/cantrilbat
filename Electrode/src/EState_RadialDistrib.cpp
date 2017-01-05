@@ -1,7 +1,13 @@
-/*
- * $Id: EState_RadialDiffusion.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ *  @file EState_RadialDistrib.cpp  Extension of the save file state for radially distributed
+ *        electrode objects
  */
-
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
 
 #include "cantera/base/ctml.h"
 
@@ -24,12 +30,6 @@ namespace Cantera
 #endif
 {
 //======================================================================================================================
-/*
- * EState constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
 EState_RadialDistrib::EState_RadialDistrib() :
     EState(),
     numRCells_(0),
@@ -46,23 +46,8 @@ EState_RadialDistrib::EState_RadialDistrib() :
     electrodeTypeString_ = "SimpleDiff";
 }
 //======================================================================================================================
-/*
- * EState constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
 EState_RadialDistrib::EState_RadialDistrib(std::string electrodeType) :
-    EState(),
-    numRCells_(0),
-    numKRSpecies_(0),
-    numSPhases_(0),
-    rnodePos_(0),
-    cellBoundR_(0),
-    concTot_SPhase_Cell_(0),
-    concKRSpecies_Cell_(0),
-    spMoles_KRsolid_Cell_(0),
-    onRegionBoundary_(-1)
+    EState_RadialDistrib()
 {
     EST_fileToBeWritten_ = EST_RADIALDISTRIB;
     if (electrodeType == "SimpleDiff") {
@@ -74,43 +59,19 @@ EState_RadialDistrib::EState_RadialDistrib(std::string electrodeType) :
     }
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 EState_RadialDistrib::EState_RadialDistrib(const EState_RadialDistrib& right) :
-    EState(),
-    numRCells_(0),
-    numKRSpecies_(0),
-    numSPhases_(0),
-    rnodePos_(0),
-    cellBoundR_(0),
-    concTot_SPhase_Cell_(0),
-    concKRSpecies_Cell_(0),
-    spMoles_KRsolid_Cell_(0),
-    onRegionBoundary_(-1)
+    EState_RadialDistrib()
 {
     EST_fileToBeWritten_ = EST_MULTIPLATEAU;
 
-    /*
-     * Call the assignment operator.
-     */
     EState_RadialDistrib::operator=(right);
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
-
     EState::operator=(right);
 
     numRCells_                             = right.numRCells_;
@@ -122,9 +83,6 @@ EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib
     concKRSpecies_Cell_                    = right.concKRSpecies_Cell_;
     spMoles_KRsolid_Cell_                  = right.spMoles_KRsolid_Cell_;
     onRegionBoundary_                      = right.onRegionBoundary_;
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //======================================================================================================================
@@ -132,10 +90,6 @@ EState_RadialDistrib::~EState_RadialDistrib()
 {
 }
 //======================================================================================================================
-// Duplicator function for this class
-/*
- *  @return Returns a duplication of the current state as a pointer to the base class
- */
 EState* EState_RadialDistrib::duplMyselfAsEState() const
 {
     EState_RadialDistrib* es = new EState_RadialDistrib(*this);
@@ -175,10 +129,6 @@ int EState_RadialDistrib::initialize(const ZZCantera::Electrode* const ebase)
     return 1;
 }
 //======================================================================================================================
-// Write the ElectrodeState to an XML_Node tree
-/*
- *  @return pointer to the XML_Node tree
- */
 XML_Node* EState_RadialDistrib::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
@@ -201,10 +151,6 @@ XML_Node* EState_RadialDistrib::writeIdentificationToXML() const
     return x;
 }
 //======================================================================================================================
-// Write the ElectrodeState to an XML_Node tree
-/*
- *  @return pointer to the XML_Node tree
- */
 XML_Node* EState_RadialDistrib::write_electrodeState_ToXML() const
 {
     XML_Node* x = EState::write_electrodeState_ToXML();
