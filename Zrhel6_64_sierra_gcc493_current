@@ -109,7 +109,9 @@ export Y12M_LIBRARY_NAMES="liby12m.a"
 
 #  Not ready yet so have to fall back to existing dir
 #TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc493/trilinos_11_2_3_dbg"
-TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_11_2_3_dbg"
+#TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc472/trilinos_11_2_3_dbg"
+TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc493/trilinos_12_10_1_lim_dbg"
+#TRILINOS_INSTALL_DIR="/home/hkmoffa/arch/linux64_gcc493/trilinos_12_10_1_opt_dbg"
 export TRILINOS_INSTALL_DIR
 
 DO_MPI='y'
