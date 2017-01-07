@@ -1964,25 +1964,14 @@ void Electrode_SimpleDiff::check_final_state()
     }
 }
 //========================================================================================================================
-//  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
 /*
- *
- *  Algorithm assumes that species 0 is special. It's usually called the vacancy species. Think of it as the vacency
- *  species. We sum up the diffusive fluxes of all the other species. Then, the diffusive flux of the vacency is calculated
- *  as the negative of that sum. What we are doing is ensuring that the sum of the diffusive flux of all species is equal
- *  to zero.
- *
- *   The diffusive flux is the based on the gradient of the activity concentration rather than the concentration. 
- *   This difference is significant in many battery systems.
- *
  *  1/29/14  Confirmed that this routine makes no assumption that cell boundaries are halfway between nodes 
- *
  */
-void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, bool finalState) const  
+void Electrode_SimpleDiff::diffusiveFluxRCB(double* const fluxRCB, size_t iCell, bool finalState) const  
 { 
     double caC, caR, dcadxR;
     size_t jPh, iPh, kSp;
-    size_t indexMidKRSpecies =  iCell    * numKRSpecies_;
+    size_t indexMidKRSpecies   =  iCell    * numKRSpecies_;
     size_t indexRightKRSpecies = (iCell+1) * numKRSpecies_;
     size_t kstart = 0;
     if (finalState) {
@@ -2055,7 +2044,6 @@ void Electrode_SimpleDiff::diffusiveFluxRCB(double * const fluxRCB, int iCell, b
        
 	    fluxRCB[kstart] = -fluxT;
 	    kstart += nSpecies;
-
 	}
     }
 }
@@ -3242,7 +3230,7 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double * const r
     drawline(124, indentSpaces);
 
 }
-//====================================================================================================================
+//==================================================================================================================================
 void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpaces,
 					 const double * const radialValues, int numRadialVals, 
 					 const double * const vals, const std::vector<std::string> &varNames, int numFields)
@@ -3304,7 +3292,7 @@ void  Electrode_SimpleDiff::showOneField(const std::string &title, int indentSpa
 	printf("\n");
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int indentSpaces, 
 						  const double * const radialValues, int numRadialVals, 
 						  const double * const vals_init,  const double * const vals_final,
@@ -3370,62 +3358,46 @@ void  Electrode_SimpleDiff::showOneFieldInitFinal(const std::string &title, int 
     }
     printf("\n");
 }
-//=============================================================================================================================
-/*
- *
- *  @param                                 val_init[iCell * numFields + iField]
- *  @param                          residual[iCell * numEqnsCell + iEqn]
- */
-void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpaces,
-					 const double * const radialValues, int numRadialVals, 
-					 int numFields, int iField, const double * const val_init,  
-					 const double * const val_final,
-					 int numEqnsCell, int iEqn, const double * const resid_error, 
-					 const double * const solnError_tol, 
-					 const double * const residual)
+//==================================================================================================================================
+void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpaces, const double * const radialValues,
+                                         size_t numRadialVals, size_t numFields, size_t iField, const double * const val_init, 
+					 const double * const val_final, size_t numEqnsCell, size_t iEqn, 
+                                         const double * const resid_error, const double * const solnError_tol, 
+                                         const double * const residual)
 {
-    int iCell;
+    AssertTrace(iField < numFields);
+    AssertTrace(iEqn < numEqnsCell);
+    size_t iCell;
     std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
 	indent += " ";
     }
-  
     drawline(indentSpaces, 80);
     printf("%s  %s       (RelResTol = %g)\n", indent.c_str(), title.c_str(), rtolResidNLS_);
- 
     drawline(indentSpaces, 80);
     printf("%s        z      ", indent.c_str());
-    
     printf(" %-11s", "Init_Value");
     printf(" %-11s", "Final_Value");
-
     printf(" %-11s", "RelResError");
-    
     if (solnError_tol) {
 	printf(" %-11s |  ", "AbsResErrorTol");
     }
     printf(" %-11s\n", "Resid");
-    
     drawline(indentSpaces, 80);
-
     double localResError = 0.0;
     double denom, ee;
-   
- 
-    
-
     for (iCell = 0; iCell < numRadialVals; iCell++) {
 	double r = radialValues[iCell];
 	printf("%s    %- 10.4E ", indent.c_str(), r);
-	int kstart = iCell * numFields + iField;
+	size_t kstart = iCell * numFields + iField;
 	printf(" %- 10.4E ", val_init[kstart]);
 	printf(" %- 10.4E ", val_final[kstart]);
-	int istart = iCell *  numEqnsCell + iEqn;
+	size_t istart = iCell * numEqnsCell + iEqn;
 	if (resid_error) {
 	    printf(" %- 10.4E ", resid_error[istart] / rtolResidNLS_);
 	} else {
 	    denom = rtolResidNLS_ * std::max(residual[istart], 1.0E-100);
-	    denom =  std::max(denom, atolResidNLS_[1 + istart]);
+	    denom = std::max(denom, atolResidNLS_[1 + istart]);
 	    ee = residual[istart] / denom;
 	    localResError = ee;
 	    printf(" %- 10.4E ", localResError);
@@ -3439,14 +3411,7 @@ void  Electrode_SimpleDiff::showOneResid(const std::string &title, int indentSpa
     }
     drawline(indentSpaces, 80);
 }
-//====================================================================================================================
-//  Extract the ROP of the reaction fronts from Cantera within this routine
-/*
- *  In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
- *
- *        ROP_[jRxn]
- *        spNetProdPerArea_List_[isk][kIndexKin]
- */
+//==================================================================================================================================
 void Electrode_SimpleDiff::extractInfo()
 {
     //double mfSig = 0.0;

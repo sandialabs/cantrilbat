@@ -1,4 +1,4 @@
-/*!
+/**
  *   @file Electrode_SimpleDiff.h
  */
 
@@ -21,7 +21,10 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
+
+//! anode type of electrode
 #define ELECTRODETYPE_ANODE   0
+//! cathode type of electrode
 #define ELECTRODETYPE_CATHODE 1
 
 class EState_RadialDistrib;
@@ -220,21 +223,72 @@ public:
 
     void calcRate(double deltaT);
 
-    //!  Print one set of field variables
+    //!  Print a group of radially varying field variables to stdout
     /*!
-     *  @param indentSpaces  Number of spacies to indent the whole group
-     *  @param 
+     *  The fields are printed out 5 to a line, with each preceded by the radial coordinate value.
+     *
+     *  @param[in]           title               Title of the printout (can be multiple lines)
+     *  @param[in]           indentSpaces        Number of spacies to indent the whole group
+     *  @param[in]           radialValues        Value of the radial values of the nodes -> usually starts with 0 and 
+     *                                           goes to the edge of the sphere.
+     *  @param[in]           numRadialVals       Number of radial nodes
+     *  @param[in]           vals                Vector of values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           varNames            string names of the fields
+     *  @param[in]           numFields           Number of variables to be printed out (this is the inner loop).
      */
     void showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
 		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
 
-    void  showOneFieldInitFinal(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
-				const double * const vals_init,  const double * const vals_final,
-				const std::vector<std::string> &varNames, int numFields);
+    //! Print a group of radially varying field variables to stdout. Print the init vs the final for each
+    /*!
+     *  The fields are printed out 4 to a line, with each preceded by the radial coordinate value. Final and init values are 
+     *  printed side-by-side
+     *
+     *  @param[in]           title               Title of the printout (can be multiple lines)
+     *  @param[in]           indentSpaces        Number of spacies to indent the whole group
+     *  @param[in]           radialValues        Value of the radial values of the nodes -> usually starts with 0 and 
+     *                                           goes to the edge of the sphere.
+     *  @param[in]           numRadialVals       Number of radial nodes
+     *  @param[in]           vals_init           Vector of init values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           vals_final          Vector of final values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           varNames            string names of the fields
+     *  @param[in]           numFields           Number of variables to be printed out (this is the inner loop).
+     */
+    void showOneFieldInitFinal(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
+			const double * const vals_init,  const double * const vals_final,
+			const std::vector<std::string> &varNames, int numFields);
 
-    void showOneResid(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
-		      int numFields1, int iTerm, const double * const val_init,  const double * const val_final,
-		      int numEqnsCell, int iEqn,const double * const resid_error,  const double * const solnError_tol,
+    //!  Print out the residual and associated tolerances for one field variable that is distributed over the radial coordinate
+    /*!
+     *  iField and iEqns can be different values
+     *
+     *  @param[in]           title               Title of the printout (can be multiple lines)
+     *  @param[in]           indentSpaces        Number of spacies to indent the whole group
+     *  @param[in]           radialValues        Value of the radial values of the nodes -> usually starts with 0 and 
+     *                                           goes to the edge of the sphere.
+     *  @param[in]           numRadialVals       Number of radial nodes
+     *  @param[in]           numFields           Number of fields that are included in the val_init[] and val_final[] array
+     *                                           (this is the inner loop).
+     *  @param[in]           iField              Actual field to print out the residuals for (0 <= iField < numFields)
+     *  @param[in]           val_init            Vector of values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           val_final           Vector of values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           numEqnsCell         Number of equations per cell included in the residual array
+     *                                           (this is the inner loop).
+     *  @param[in]           iEqn                Actual Equation index to print out for the residuals for (0 <= iEqn < numEqnsCell)
+     *  @param[in]           resid_error         Vector of residual errors (length = numRadialVals * numEqnsCell) 
+     *                                           (can be zero, in which case, it's calculated within the routine)
+     *  @param[in]           solnError_tol       Solution error tolerance. (length = numRadialVals * numEqnsCell)
+     *                                           Can be zero. If existing, its value is printed as AbsResErrorTol 
+     *  @param[in]           residual            value of the residual (length = numRadialVals * numEqnsCell)
+     */
+    void showOneResid(const std::string &title, int indentSpaces, const double * const radialValues, size_t numRadialVals, 
+		      size_t numFields, size_t iField, const double * const val_init, const double * const val_final,
+		      size_t numEqnsCell, size_t iEqn, const double * const resid_error, const double * const solnError_tol,
 		      const double * const residual);
 
     //! Print the solution for the current step to standard output
@@ -591,39 +645,39 @@ public:
      *  This routine equalizes the capacity 
      */
     virtual void fixCapacityBalances_final();
+
     //!
     virtual void check_final_state();
 
-  
-
-    //!  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
+    //! Calculate the diffusive flux of all distributed species at the right cell boundary of the cell, iCell
     /*!
-     *
      *  Algorithm assumes that species 0 is special. It's usually called the vacancy species. Think of it as the vacency
      *  species. We sum up the diffusive fluxes of all the other species. Then, the diffusive flux of the vacency is calculated
      *  as the negative of that sum. What we are doing is ensuring that the sum of the diffusive flux of all species is equal
-     *  to zero.
+     *  to zero. This is necessary if we are to ensure that there are no lattice movements.
      *
-     *   The diffusive flux is the based on the gradient of the activity concentration rather than the concentration. 
-     *   This difference is significant in many battery systems.
+     *  The diffusive flux is the based on the gradient of the activity concentration rather than the concentration. 
+     *  This difference is significant in many battery systems.
      *
-     *  @param fluxRCB  diffusion flux for all distributed species at the right cell boundary
-     *  @param iCell    Cell # 
-     *
+     *  @param[out]          fluxRCB             diffusive flux for all distributed species at the right cell boundary
+     *  @param[in]           iCell               Cell number
+     *  @param[in]           finalState          If true we use the _final_ values of the concentrations.
+     *                                           if false, we use the _init_ values of the concentrations; this is used
+     *                                           to make predictions of the flux. 
      */
-    void diffusiveFluxRCB(double * const fluxRCB, int iCell, bool finalState) const;  
+    void diffusiveFluxRCB(double* const fluxRCB, size_t iCell, bool finalState) const;  
 
     //! Predict the solution
     /*!
-     * Ok at this point we have a time step deltalimiTsubcycle_
-     * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
-     * We now calculate predicted solution components from these conditions.
+     *  Ok at this point we have a time step deltalimiTsubcycle_
+     *  and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+     *  We now calculate predicted solution components from these conditions.
      *
-     * @return   Returns the success of the operation
-     *                 1  A predicted solution is achieved
-     *                 2  A predicted solution with a multispecies phase pop is acheived
-     *                 0  A predicted solution is not achieved, but go ahead anyway
-     *                -1  The predictor suggests that the time step be reduced and a retry occur.
+     * @return                                   Returns the success of the operation
+     *                                            1  A predicted solution is achieved
+     *                                            2  A predicted solution with a multispecies phase pop is acheived
+     *                                            0  A predicted solution is not achieved, but go ahead anyway
+     *                                           -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     int predictSolnResid();
 
@@ -633,17 +687,17 @@ public:
      * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
      * We now calculate predicted solution components from these conditions.
      *
-     *  Calls predictSolnResid(). If it works that good, if not reduct time step and call again.
+     *  Calls predictSolnResid(). If it works that good, if not reduce time step and call again.
      *
-     * @return   Returns the success of the operation
-     *                 1  A predicted solution is achieved
-     *                 2  A predicted solution with a multispecies phase pop is acheived
-     *                 0  A predicted solution is not achieved, but go ahead anyway
-     *                -1  The predictor suggests that the time step be reduced and a retry occur.
+     * @return                                   Returns the success of the operation
+     *                                            1  A predicted solution is achieved
+     *                                            2  A predicted solution with a multispecies phase pop is acheived
+     *                                            0  A predicted solution is not achieved, but go ahead anyway
+     *                                           -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     virtual int predictSoln() override;
 
-    //!  Predict the derivative of the solution
+    //! Predict the solution using the time derivative of the solution from the last step
     /*!
      *  (virtual from Electrode_Integrator)
      * 
@@ -657,7 +711,6 @@ public:
      */
     virtual int predictSolnDot() override;
   
-
     //! Unpack the solution vector on return from the time stepper
     /*!
      *  (virtual from Electrode_Integrator)

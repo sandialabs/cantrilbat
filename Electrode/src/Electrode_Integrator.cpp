@@ -15,14 +15,17 @@
 #include "cantera/numerics/NonlinearSolver.h"
 
 #ifndef SAFE_DELETE
-#define SAFE_DELETE(x)  if (x) { delete x;  x = 0;}
+//! Define a delete and set to null operation
+#define SAFE_DELETE(x)  if (x) { delete x;  x = nullptr;}
 #endif
 
 #ifndef MAX
+//! define a quick max op
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
 #endif
 
 #ifndef MIN
+//! define a quick min op
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 

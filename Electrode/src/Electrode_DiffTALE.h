@@ -1,6 +1,7 @@
-/*
- * $Id: Electrode_DiffTALE.h 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ * @file Electrode_DiffTALE.h 
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -20,12 +21,14 @@ namespace Cantera
 #endif
 {
 
+//! anode type of electrode
 #define ELECTRODETYPE_ANODE   0
+//! cathode type of electrode
 #define ELECTRODETYPE_CATHODE 1
 
 class EState_RadialDistrib;
 
-
+//==================================================================================================================================
 //! This class is a derived class used to model phase - change electrodes
 /*!
  * Complete problem statement
@@ -1121,9 +1124,7 @@ public:
     friend class ZZCantera::EState_RadialDistrib;
 
 };
-
+//==================================================================================================================================
 }
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
