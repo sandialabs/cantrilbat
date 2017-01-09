@@ -706,16 +706,16 @@ protected:
      *
      *   There are a few arrays which have numKRSpecies_ as their inner loop dimension.
      */
-    int numKRSpecies_;
+    size_t numKRSpecies_;
 
     //!  Number of cells involved with the radial distribution, including the 1/2 end cells
-    int numRCells_;
+    size_t numRCells_;
 
     //! Number of phases which have radial distributions of their species
-    int numSPhases_;
+    size_t numSPhases_;
 
     //! Total number of equations defined at each node of the radial mesh
-    int numEqnsCell_;
+    size_t numEqnsCell_;
 
     std::vector<ThermoPhase *> thermoSPhase_List_;
 
@@ -801,7 +801,7 @@ protected:
      *
      *  If distribPhIndex is -1, the phase isn't distributed.
      */
-    std::vector<int> distribPhIndexKRsolidPhases_;
+    std::vector<size_t> distribPhIndexKRsolidPhases_;
 
     //! Number of species in each of the radially distributed phases
     /*!
@@ -827,29 +827,38 @@ protected:
      */
     std::vector<int> phaseIndeciseNonKRsolidPhases_;
 
-    int numNonSPhases_;
-
-    //! Total concentration of each of the solid phases that are distributed - global final state
-    /*!
-     *        concTot_SPhase_Cell_final_final_[numSPhases_ * iCell + iJRPh]
-     */
-    std::vector<double> concTot_SPhase_Cell_final_final_;
+    //! Number of phases that are not distributed
+    size_t numNonSPhases_;
 
     //! Total concentration of each of the solid phases that are distributed - local final state
     /*!
-     *     concTot_SPhase_Cell_final_[numSPhases_ * iCell + iJRPh]
+     *   concTot_SPhase_Cell_final_[numSPhases_ * iCell + iJRPh]
+     *   Length: numRCells_ * numSPhases_
+     *   units: kmol / m3
      */
     std::vector<double> concTot_SPhase_Cell_final_;
 
     //! Total concentration of each of the solid phases that are distributed - local init state
     /*!
-     *     concTot_SPhase_Cell_init_[numSPhases_ * iCell + iJRPh]
+     *   concTot_SPhase_Cell_init_[numSPhases_ * iCell + iJRPh]
+     *   Length: numRCells_ * numSPhases_
+     *   units: kmol / m3
      */
     std::vector<double> concTot_SPhase_Cell_init_;
+
+    //! Total concentration of each of the solid phases that are distributed - global final state
+    /*!
+     *   concTot_SPhase_Cell_final_final_[numSPhases_ * iCell + iJRPh]
+     *   Length: numRCells_ * numSPhases_
+     *   units: kmol / m3
+     */
+    std::vector<double> concTot_SPhase_Cell_final_final_;
 
     //! Total concentration of each of the solid phases that are distributed - global init state
     /*!
      *  concTot_SPhase_Cell_init_init_[numSPhases_ * iCell + iJRPh]
+     *   Length: numRCells_ * numSPhases_
+     *   units: kmol / m3
      */
     std::vector<double> concTot_SPhase_Cell_init_init_;
 
