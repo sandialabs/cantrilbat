@@ -246,6 +246,21 @@ bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<do
 double l0norm(const std::vector<double>& v1, const std::vector<double>& v2, const std::vector<double>& atolVec,
               const double rtol);
 
+//! Return a relative difference between two doubles given an absolute tolerance
+/*!
+ *  Returns the dimensionless value representative of the number of digits of agreement between two number above an 
+ *  absolute tolerance level.
+ *
+ *   rel_diff = fabs( a - b ) / MAX( || a || , || b || , atol , 1.0E-300 )
+ *
+ *  @param[in]               a                   First double
+ *  @param[in]               b                   second double
+ *  @param[in]               atol                absolute tolerance
+ *
+ *  @return                                      Returns the relative normalized difference
+ */
+double relv(double a, double b, double atol);
+
 //==================================================================================================================================
 } // End of esmodel namespace
 //----------------------------------------------------------------------------------------------------------------------------------

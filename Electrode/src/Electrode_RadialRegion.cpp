@@ -39,7 +39,6 @@ ELECTRODE_RadialRegion_KEY_INPUT::ELECTRODE_RadialRegion_KEY_INPUT(int printLvl)
     ELECTRODE_KEY_INPUT(printLvl),
     indexRegion_(0),
     numRadialCells_(3),
-    phaseIndeciseKRsolidPhases_(0),
     solidDiffusionModel_(0),
     diffusionCoeffSpecies_(0),
     defaultDiffusionCoeff_(1.0E-12)
@@ -167,7 +166,6 @@ Electrode_RadialRegion::Electrode_RadialRegion() :
     numSPhases_(1),
     numEqnsCell_(0),
 
-    phaseIndeciseKRsolidPhases_(0),
     KRsolid_speciesList_(0),
 
     spMoles_KRsolid_Cell_final_(0),
@@ -250,7 +248,6 @@ Electrode_RadialRegion::Electrode_RadialRegion(const Electrode_RadialRegion& rig
     numSPhases_(1),
     numEqnsCell_(0),
 
-    phaseIndeciseKRsolidPhases_(0),
     KRsolid_speciesList_(0),
 
     spMoles_KRsolid_Cell_final_(0),
@@ -484,7 +481,7 @@ Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     numKRSpecies_ = 0;
     for (size_t i = 0; i <  phaseIndeciseKRsolidPhases_.size(); i++) {
-        int iPh =  phaseIndeciseKRsolidPhases_[i];
+        size_t iPh =  phaseIndeciseKRsolidPhases_[i];
         ThermoPhase& th = thermo(iPh);
         size_t nsp = th.nSpecies();
         numKRSpecies_ += nsp;
@@ -551,8 +548,8 @@ void
 Electrode_RadialRegion::init_sizes()
 {
     neq_ = nEquations_calc();
-    int kspCell = numKRSpecies_ *  numRCells_;
-    int kphCell = numSPhases_ * numRCells_;
+    size_t kspCell = numKRSpecies_ *  numRCells_;
+    size_t kphCell = numSPhases_ * numRCells_;
 
     phaseIndeciseKRsolidPhases_.resize(numSPhases_, -1);
     KRsolid_speciesList_.resize(numKRSpecies_, -1);
@@ -725,7 +722,6 @@ Electrode_RadialRegion::initializeAsEvenDistribution()
                  * Calculate the total concentration of phases in this cell
                  */
                 concTot_SPhase_Cell_final_[indexMidKRPhases + jRPh] += phaseMoles_final_[iPh] /  particleVol;
-
 
 
             }

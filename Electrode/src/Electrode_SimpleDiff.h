@@ -153,7 +153,6 @@ public:
      *  where the SolidVol() is equal to
      *
      *   SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
-     *
      */
     virtual void resizeMoleNumbersToGeometry() override;
 
@@ -179,20 +178,20 @@ public:
      */
     void initializeAsEvenDistribution();
 
-
     //-------------------------------------------------------------------------------------------------------------------
-    // ----------------------------------- QUERY AND SET VOLTAGES -------------------------------------------------------
+    // ----------------------------------- QUERY VOLUMES ----------------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------
  
-    //!    Return the total volume of solid material
+    //! Return the total volume of solid material (m**3)
     /*!
      *  (virtual from Electrode.h)
      *
-     *       This is the main routine for calculating the
-     *       We leave out the solnPhase_ volume from the calculation
-     *       units = m**3
+     *   This is the main routine for calculating the solid volume of the electode.
+     *   We leave out the solnPhase_ volume from the calculation.
+     *
+     *  @return                                  Returns the solid volume of the electrode (m**3)
      */
-    virtual double SolidVol() const;
+    virtual double SolidVol() const override;
 
     //-------------------------------------------------------------------------------------------------------------------
     // --------------------------------------  QUERY HEAT CAPACITY  -----------------------------------------------------
@@ -203,16 +202,16 @@ public:
      *  This is an extensive quantity.
      *  (virtual from Electrode)
      *
-     *  @return Joule K-1
+     *  @return                                  Joule K-1
      */
     virtual double SolidHeatCapacityCV() const override;
 
     //!  Returns the total enthalpy of the Material in the Solid Electrode
     /*!
-     *  This is an extensive quantity.
      *  (virtual from Electrode)
+     *  This is an extensive quantity.
      *
-     *  @return 
+     *  @return                                  returns the total enthalpy (Joules)
      */
     virtual double SolidEnthalpy() const override;
 
@@ -221,7 +220,25 @@ public:
     //-------------------------------------------------------------------------------------------------------------------
 
 
-    void calcRate(double deltaT);
+    //! Extract information from reaction mechanisms
+    /*!
+     *   (virtual from Electrode_Integrator)
+     *  Calculate the reaction rates on all surfaces
+     */
+    virtual void extractInfo() override;
+
+    //! Collect mole change information
+    /*!
+     *   (virtual from Electrode_Integrator)
+     *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
+     *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
+     *   all species in the electrode due to surface reactions
+     */
+    virtual void updateSpeciesMoleChangeFinal() override;
+
+    //-------------------------------------------------------------------------------------------------------------------
+    // --------------------------------------- PRINTING UTILITIES -------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------
 
     //!  Print a group of radially varying field variables to stdout
     /*!
@@ -304,22 +321,6 @@ public:
      *  @param[in]           residual            Residual vector from the residual calculation routine.
      */
     void showResidual(int indentSpaces, const double* const residual);
-
-    //! Extract information from reaction mechanisms
-    /*!
-     *   (virtual from Electrode_Integrator)
-     *  Calculate the reaction rates on all surfaces
-     */
-    virtual void extractInfo() override;
-
-    //! Collect mole change information
-    /*!
-     *   (virtual from Electrode_Integrator)
-     *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
-     *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
-     *   all species in the electrode due to surface reactions
-     */
-    virtual void updateSpeciesMoleChangeFinal() override;
 
     //-------------------------------------------------------------------------------------------------------------------
     // -------------------------------- QUERY AND SET MOLE NUMBERS-------------------------------------------------------
@@ -621,6 +622,15 @@ public:
      *  works on _final_ state only
      */
     void checkGeometry() const;
+
+    //! Check routine to see if we can account for the mass loss
+    /*!
+     *   Algorithm is to check for mass loss. If there is some, then add moles back into far last cell.
+     *   Note, this works because we have an accounting of all possible sources for
+     *
+     *  @param[in]           doErr               If true we skip some printing if we find significant discrepancies
+     *                                           Defaults to false
+     */
     void checkMoles_final_init(bool doErr = false);
 
     //!  Here we fix the mole balance locally from init state to final state
@@ -872,10 +882,13 @@ public:
     virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false) override;
 
 #ifdef DEBUG_THERMAL
+ 
     double netElectrons();
 #endif
 
 protected:
+
+    // ------------------------------------------------------- D A T A -------------------------------------------------------------
 
     //! Type of the electrode, 0 for anode, 1 for cathode
     /*!
@@ -900,7 +913,7 @@ protected:
      *
      *   There are a few arrays which have numKRSpecies_ as their inner loop dimension.
      */
-    int numKRSpecies_;
+    size_t numKRSpecies_;
 
     //!  Number of cells involved with the radial distribution, including the 1/2 end cells
     size_t numRCells_;
@@ -909,15 +922,23 @@ protected:
     size_t numSPhases_;
 
     //! Total number of equations defined at each node of the radial mesh
-    int numEqnsCell_;
+    size_t numEqnsCell_;
 
+    // Pointers to the ThermoPhase objects that make up the radially distributed portion of this Electrode object
+    /*!
+     *  No attempt is made to malloc a ThermoPhase object for each cell within the radial distribution
+     *  Length: numSPhases_
+     */
     std::vector<ThermoPhase *> thermoSPhase_List_;
 
-    //! Vector of solid species defined on the grid of the spherical particle
+    //! Vector of solid species moles defined on the grid of the spherical particle
     /*!
      *   The inner loop is over the number of species that are defined to have radially dependent
      *   distributions, numKRSpecies;
      *   final state value
+     *
+     *   Length: numRCells_ * numKRSpecies_
+     *   units: kmol 
      */
     std::vector<double> spMoles_KRsolid_Cell_final_;
 
@@ -927,6 +948,9 @@ protected:
      *   The inner loop is over the number of species that are defined to have radially dependent
      *   distributions, numKRSpecies;
      *   init state value
+     *
+     *   Length: numRCells_ * numKRSpecies_
+     *   units: kmol 
      */
     std::vector<double> spMoles_KRsolid_Cell_init_;
 
@@ -936,6 +960,9 @@ protected:
      *   The inner loop is over the number of species that are defined to have radially dependent
      *   distributions, numKRSpecies;
      *   final_final state value
+     *
+     *   Length: numRCells_ * numKRSpecies_
+     *   units: kmol 
      */
     std::vector<double> spMoles_KRsolid_Cell_final_final_;
 
@@ -945,6 +972,9 @@ protected:
      *   The inner loop is over the number of species that are defined to have radially dependent
      *   distributions, numKRSpecies;
      *   init_init state value
+     *
+     *   Length: numRCells_ * numKRSpecies_
+     *   units: kmol 
      */
     std::vector<double> spMoles_KRsolid_Cell_init_init_;
 
@@ -960,8 +990,10 @@ protected:
      *      where
      *           KRsolid = index of the radially distributed species
      *           kElectrodeObject = PhaseList index of the species
+     *
+     *  Length: numKRSpecies_
      */
-    std::vector<int> KRsolid_speciesList_;
+    std::vector<size_t> KRsolid_speciesList_;
 
     //! Species Names for the solid species that are distributed radially through the particle
     std::vector<std::string> KRsolid_speciesNames_;
@@ -969,14 +1001,13 @@ protected:
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     /*!
      *  There are numSPhases_ of these
-     *
      *  The phaseIndex is the index within the Electrode object
-     *
      *  
      *  iPh = phaseIndeciseKRsolidPhases_[distribPhIndex];
      *
+     *  Length: numSPhases_
      */
-    std::vector<int> phaseIndeciseKRsolidPhases_;
+    std::vector<size_t> phaseIndeciseKRsolidPhases_;
 
     //! Returns the distributed phase index given the regular phase Index.
     /*
@@ -985,7 +1016,7 @@ protected:
      *
      *  If distribPhIndex is -1, the phase isn't distributed.
      */
-    std::vector<int> distribPhIndexKRsolidPhases_;
+    std::vector<size_t> distribPhIndexKRsolidPhases_;
 
     //! Number of species in each of the radially distributed phases
     /*!
@@ -993,9 +1024,13 @@ protected:
      *
      *  The phaseIndex is the index within the Electrode object
      */
-    std::vector<int> numSpeciesInKRSolidPhases_;
+    std::vector<size_t> numSpeciesInKRSolidPhases_;
 
-    std::vector<int> kstartKRSolidPhases_;
+    //!  Index of species starting position for each distributed phase within the distributed species vectors
+    /*!
+     *  Length: numSPhases_
+     */
+    std::vector<size_t> kstartKRSolidPhases_;
 
     //! Phase Names of the solid phases comprising the species that are radially distributed
     /*!
@@ -1009,7 +1044,7 @@ protected:
      *
      *  The phaseIndex is the index within the Electrode object
      */
-    std::vector<int> phaseIndeciseNonKRsolidPhases_;
+    std::vector<size_t> phaseIndeciseNonKRsolidPhases_;
 
     //! Number of phases that are not distributed
     size_t numNonSPhases_;
@@ -1236,76 +1271,88 @@ protected:
     //!  Spline System for the nodal points
     /*!
      *  Fraction of the domain's volume which is inside the current node position
+     *  Length: numRCells_
+     *  units:  unitless
      */
     std::vector<double> fracVolNodePos_;
 
     //!  Partial molar volume of all of the solid species located in all of the cells
     /*!
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
-     *   noUnits are m3 / kmol
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  m3 / kmol
      */
     std::vector<double> partialMolarVolKRSpecies_Cell_final_;
 
     //!  Partial molar Heat Capacity  of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar heat capacity const press (KRSpecies, iCell)
-     *   Units of Joules/(kmol K)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol K)
      */
     mutable std::vector<double> partialMolarCpKRSpecies_Cell_final_;
 
     //!  Partial molar Enthalpy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol)
      */
     mutable std::vector<double> partialMolarEnthKRSpecies_Cell_final_;
 
     //!  Partial molar Enthalpy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol)
      */
     mutable std::vector<double> partialMolarEnthKRSpecies_Cell_init_;
 
     //!  Partial molar chemical potential of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol)
      */
     mutable std::vector<double> chemPotKRSpecies_Cell_final_;
 
     //!  Partial molar chemical potential of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol)
      */
     mutable std::vector<double> chemPotKRSpecies_Cell_init_;
 
     //!  Partial molar Entropy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Entropy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol K)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol K)
      */
     mutable std::vector<double> partialMolarEntropyKRSpecies_Cell_final_;
 
     //!  Partial molar Entropy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Entropy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol K)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units: Joules/(kmol K)
      */
     mutable  std::vector<double> partialMolarEntropyKRSpecies_Cell_init_;
 
     //! Rate of progress of the surface reactions
     /*!
-     *   length = maxNumRxns;
+     *   Length: maxNumRxns;
+     *   Units:  kmol/m2/s
      */
     std::vector<double> ROP_;
 
     //!  Molar creation rate of species in the electrode object due to the Exterior surface
     /*!
-     *   This is a quantity over all species in the PhaseList
+     *   This is a quantity over all species in the PhaseList object
      *
-     *    units (kmol sec-1);
+     *   Length: m_NumTotSpecies
+     *   Units:  kmol sec-1;
      */
     std::vector<double> DspMoles_final_;
 
@@ -1315,14 +1362,19 @@ protected:
      */
     double m_rbot0_;
 
+    //! Solid phase diffusion coefficients of the species which are radially diffusing
+    /*!
+     *  Length: numKRSpecies_
+     *  Units:  m2/s
+     */
     std::vector<double> Diff_Coeff_KRSolid_;
 
     //! Molar creation rate of phases in the electrode object.
     /*!
-     *  This is calculated as a sum of species creation rates summed
-     *  up over all cells in the domain
+     *  This is calculated as a sum of species creation rates summed up over all cells in the domain
      *
-     *    units = kmol / s
+     *  Length: m_NumtotPhases
+     *  Units:  kmol / s
      */
     std::vector<double> DphMolesSrc_final_;
 
@@ -1351,15 +1403,20 @@ protected:
     //! Vector of activity coefficients for all KR species at all nodes
     /*!
      *    This is calculated at the final state
+     *
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  unitless
      */
     std::vector<double> actCoeff_Cell_final_;
 
     //! Vector of activity coefficients for all KR species at all nodes
     /*!
      *    This is calculated at the init state
+     *
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  unitless
      */
     std::vector<double> actCoeff_Cell_init_;
-
 
     //! phase id of the phase which will die at the shortest time
     int phaseID_TimeDeathMin_;
@@ -1405,11 +1462,37 @@ protected:
 
 public:
 
+    //! Total number of lattice sites within the electrode at the end of the current subgrid time step (kmol)
+    /*!
+     *  For many problems used by this class, this is a constant
+     */
     double numLattices_final_;
+
+    //! Total number of lattice sites within the electrode at the start of the current time step (kmol)
+    /*!
+     *  For many problems used by this class, this is a constant
+     *  Units: kmol
+     */
     double numLattices_init_;
+
+    //! Total number of lattice sites within the electrode predicted for the end of the current subgrid time step
+    /*!
+     *  For many problems used by this class, this is a constant
+     */
     double numLattices_pred_;
 
+    //! Total number of lattice sites with each Cell at the start of the current electrode subcycle time step
+    /*!
+     *  Length: numRCells_
+     *  Units:  kmol
+     */
     std::vector<double> numLatticeCBR_init_;
+
+    //! Total number of lattice sites with each Cell at the end of the current electrode subcycle time step
+    /*!
+     *  Length: numRCells_
+     *  Units:  kmol
+     */
     std::vector<double> numLatticeCBR_final_;
 
     friend class ZZCantera::EState;

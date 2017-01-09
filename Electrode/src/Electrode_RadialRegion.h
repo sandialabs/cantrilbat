@@ -70,7 +70,7 @@ public:
      *
      *  The iPhaseIndex is the index within the Electrode object.
      */
-    std::vector<int> phaseIndeciseKRsolidPhases_;
+    std::vector<size_t> phaseIndeciseKRsolidPhases_;
 
     //! Solid state diffusion model identification
     /*!

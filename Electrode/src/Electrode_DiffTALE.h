@@ -792,7 +792,7 @@ protected:
      *
      *
      */
-    std::vector<int> phaseIndeciseKRsolidPhases_;
+    std::vector<size_t> phaseIndeciseKRsolidPhases_;
 
     //! Returns the distributed phase index given the regular phase Index.
     /*

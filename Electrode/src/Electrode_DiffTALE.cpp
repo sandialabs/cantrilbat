@@ -60,7 +60,6 @@ Electrode_DiffTALE::Electrode_DiffTALE() :
 
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
-    phaseIndeciseKRsolidPhases_(0),
     distribPhIndexKRsolidPhases_(0),
     numSpeciesInKRSolidPhases_(0),
     KRsolid_phaseNames_(0),
@@ -151,7 +150,6 @@ Electrode_DiffTALE::Electrode_DiffTALE(const Electrode_DiffTALE& right) :
 
     KRsolid_speciesList_(0),
     KRsolid_speciesNames_(0),
-    phaseIndeciseKRsolidPhases_(0),
     distribPhIndexKRsolidPhases_(0),
     numSpeciesInKRSolidPhases_(0),
     KRsolid_phaseNames_(0),
@@ -2490,18 +2488,6 @@ void Electrode_DiffTALE::predictorCorrectorGlobalSrcTermErrorVector()
 {
 }
 //==================================================================================================================================
-static double relv(double a, double b, double atol)
-{
-    if (a == 0.0 && b == 0.0) {
-	return 0.0;
-    }
-    double denom = max(fabs(a), fabs(b));
-    if (denom < atol) {
-	denom = atol;
-    }
-    return fabs((a - b)/ denom);
-}
-//==================================================================================================================================
 void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const
 {
     double atolVal =  1.0E-8;
@@ -2535,7 +2521,7 @@ void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval
 
 	double rLatticeCBR_final_val = yval[index];
 	double rLatticeCBR_final_predict = soln_predict_[index];
-	tmp =  relv(rLatticeCBR_final_predict, rLatticeCBR_final_val,  atolNLS_[index] / rtolNLS_);
+	tmp =  esmodel::relv(rLatticeCBR_final_predict, rLatticeCBR_final_val,  atolNLS_[index] / rtolNLS_);
 	printf("rLatticeCBR     %3d      | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
 	       rLatticeCBR_init_[iCell],
 	       rLatticeCBR_final_predict,
@@ -2546,7 +2532,7 @@ void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval
 
 	double rnodePos_final_val = yval[index];
 	double rnodePos_final_predict = soln_predict_[index];
-	tmp =  relv(rnodePos_final_predict, rnodePos_final_val,  atolNLS_[index]/rtolNLS_);
+	tmp =  esmodel::relv(rnodePos_final_predict, rnodePos_final_val,  atolNLS_[index]/rtolNLS_);
 	printf("rnodePos        %3d      | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
 	       rnodePos_init_[iCell],
 	       rnodePos_final_predict,
@@ -2561,7 +2547,7 @@ void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval
 	    int nsp = numSpeciesInKRSolidPhases_[jRPh];
 	    double concTot_SPhase_Cell_final_val = yval[index];
 	    double concTot_SPhase_Cell_final_predict = soln_predict_[index];
-	    tmp =  relv(concTot_SPhase_Cell_final_predict,  concTot_SPhase_Cell_final_val,  atolNLS_[index] / rtolNLS_);
+	    tmp =  esmodel::relv(concTot_SPhase_Cell_final_predict,  concTot_SPhase_Cell_final_val,  atolNLS_[index] / rtolNLS_);
 	    printf("concTot_SPhase  %3d      | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell,
 		   concTot_SPhase_Cell_init_[iCell * numSPhases_ + jRPh],
 		   concTot_SPhase_Cell_final_predict,
@@ -2574,7 +2560,7 @@ void Electrode_DiffTALE::predictorCorrectorPrint(const std::vector<double>& yval
 		double concKRSpecies_Cell_final_val = yval[index + kSp];
 		double concKRSpecies_Cell_final_predict = soln_predict_[index + kSp];
 
-		tmp = relv(concKRSpecies_Cell_final_val, concKRSpecies_Cell_final_predict, atolNLS_[index + kSp]/rtolNLS_);
+		tmp = esmodel::relv(concKRSpecies_Cell_final_val, concKRSpecies_Cell_final_predict, atolNLS_[index + kSp]/rtolNLS_);
 		printf("ConcKRSpeci     %3d %3d  | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n", iCell, kSp,
 		       concKRSpecies_Cell_init_[iCell * numKRSpecies_ + kSp],
 		       concKRSpecies_Cell_final_predict,
