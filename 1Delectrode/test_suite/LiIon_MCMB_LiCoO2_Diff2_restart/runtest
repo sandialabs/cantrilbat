@@ -61,7 +61,6 @@ fi
 #
 # Specify the MPI environment
 #
-MP_MACHINEFILE=${MP_MACHINEFILE:=/ascldap/users/hkmoffa/arch/linux/lib/machinefile_ceerws0603}
 MPIRUN=mpirun
 MPIOPTS=""
 NP=1
@@ -85,8 +84,8 @@ export M1D_PRINT_TIMINGINFORMATION="false"
 #
 # Execute the command
 #
-echo "$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt"
-$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt
+echo "$MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt"
+$MPIRUN $MPIOPTS -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt
 retnStat=$?
 if test $retnStat != "0" 
 then

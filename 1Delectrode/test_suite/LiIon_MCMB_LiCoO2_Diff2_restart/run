@@ -20,7 +20,6 @@ fi
 #
 # Specify the MPI environment
 #
-MP_MACHINEFILE=${MP_MACHINEFILE:=/home/hkmoffa/arch/linux/lib/machinefile_ceerws0603}
 MPIRUN=mpirun
 MPIOPTS=""
 NP=1
@@ -41,6 +40,6 @@ PROGRAM_OPTS="LiIon_PorousBat.inp"
 #
 # Execute the command
 #
-echo "$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS "
-$MPIRUN $MPIOPTS -machinefile $MP_MACHINEFILE -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  
+echo "$MPIRUN $MPIOPTS  -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS "
+$MPIRUN $MPIOPTS  -np $NP $MULTI1DDOMAIN_EXE $PROGRAM_OPTS  
 
