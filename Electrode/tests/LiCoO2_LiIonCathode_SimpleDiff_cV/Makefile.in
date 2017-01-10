@@ -58,7 +58,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM)
+all: .depends_t $(PROGRAM)
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -115,10 +115,11 @@ DEPENDS = $(OBJ_ANODE:.o=.d)
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) .depends_t
 
-.depends: $(DEPENDS)
+.depends_t: $(DEPENDS)
 	cat *.d > .depends
+	@ touch .depends_t
 
 test: 
 	@gmake -s
@@ -153,19 +154,17 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
+# Clean of the test intermediate files and test results
 test_clean:
-	$(RM) *~  out.txt  diff_out.txt diff_csv.txt err_out.txt runInProgress.txt runBad runGood
+	$(RM) *~  diff_out.txt diff_csv.txt diff_xml.txt diff_summary.txt  err_out.txt runInProgress.txt runBad runGood
+	$(RM)  out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv soln_0_0.xml
 
+# Cleaning of the make process and the test intermediate results
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
-	$(RM) ${PROG} runInProgress.txt runBad runGood
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt .depends_t *breakpoints
+	$(RM) *~  diff_out.txt diff_csv.txt diff_xml.txt diff_summary.txt err_out.txt runInProgress.txt runBad runGood
 
 dist_clean:
 	@MAKE@ clean
-	$(RM)  out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv 
-
-
-
-
-
+	$(RM)  out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv soln_0_0.xml
 
