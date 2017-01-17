@@ -51,7 +51,9 @@ public:
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
      */
     Electrode_DiffTALE& operator=(const Electrode_DiffTALE& right);
 
@@ -59,10 +61,9 @@ public:
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.
      *
-     *  @return Returns an enum type, called   Electrode_Types_Enum
+     *  @return                                  Returns an enum type, called   Electrode_Types_Enum
      */
     virtual Electrode_Types_Enum electrodeType() const;
-
   
     //! Add additional Keylines for child electrode objects, and then read them in
     /*!
@@ -75,15 +76,14 @@ public:
      *   If the command file has been read before, it will then reparse the command file
      *   storring the new information in the  ELECTRODE_RadialRegion_KEY_INPUT structure.
      *
-     *    @param ei_ptr  Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
-     *                   as the child class of  ELECTRODE_KEY_INPUT gets malloced.
+     *    @param[in]         ei_ptr              Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
+     *                                           as the child class of  ELECTRODE_KEY_INPUT gets malloced.
      *
-     *    @return  0 successful but no change in ei
-     *             1 Successful and ei has changed
-     *            -1 unsuccessful fatal error of some kind.
+     *    @return                                 0 successful but no change in ei
+     *                                            1 Successful and ei has changed
+     *                                           -1 unsuccessful fatal error of some kind.
      */
     virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr);
-    
 
     //!  Setup the electrode for first time use
     /*!
@@ -100,12 +100,12 @@ public:
      *    There are some virtual member functions that won't work until this routine is called. That's because
      *    the data structures won't be set up for base and child Electrode objects until this is called.
      *
-     *  @param ei   BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
-     *              for the child electrode object.
+     *  @param[in]           ei                  BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
+     *                                           for the child electrode object.
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //!  Set the electrode initial conditions from the input file.
     /*!
@@ -121,11 +121,11 @@ public:
      *    The routine works like an onion initialization. The parent object is initialized before the
      *    child. This means the child object first calls the parent, before it does its own initializations.
      *
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *  @param[in]           eibase              ELECTRODE_KEY_INPUT pointer object
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* eibase) override;
 
     //! Create an object that saves the electrode state and can print out an XML solution to file
     /*!
@@ -136,7 +136,7 @@ public:
      *
      *  @return  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_stateSave_create();
+    virtual int electrode_stateSave_create() override;
 
     //! Calculate the number of equations that will be solved during the nonlinear solver step.
     /*!
@@ -159,7 +159,6 @@ public:
      *  direction so that the radial concencentrations are constant
      */
     void initializeAsEvenDistribution();
-
  
     //
     // --------------------------------------  QUERY VOLUMES -----------------------------------------------------------
@@ -169,11 +168,11 @@ public:
     /*!
      *  (virtual from Electrode.h)
      *
-     *       This is the main routine for calculating the
-     *       We leave out the solnPhase_ volume from the calculation
-     *       units = m**3
+     *       This is the main routine for calculating the solid volume. We leave out the solnPhase_ volume from the calculation
+     *
+     *  @return                                  Returns the solid volume of the electrode (m3)  
      */
-    virtual double SolidVol() const;
+    virtual double SolidVol() const override;
 
     //
     // --------------------------------------  QUERY HEAT CAPACITY  -----------------------------------------------------
@@ -186,7 +185,7 @@ public:
      *
      *  @return Joule K-1
      */
-    virtual double SolidHeatCapacityCV() const;
+    virtual double SolidHeatCapacityCV() const override;
 
     //
     // --------------------------------------  QUERY ENTHALPY  -----------------------------------------------------------
@@ -199,40 +198,15 @@ public:
      *
      *  @return Joule 
      */
-    virtual double SolidEnthalpy() const;
+    virtual double SolidEnthalpy() const override;
 
     //
     // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
     //
 
-    void calcRate(double deltaT);
-
-    //!  Print one set of field variables
+    //! Extract information from reaction mechanisms about the surface reaction rate
     /*!
-     *  @param indentSpaces  Number of spacies to indent the whole group
-     *  @param 
-     */
-    void showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
-		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
-
-    void  showOneFieldInitFinal(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
-				const double * const vals_init,  const double * const vals_final,
-				const std::vector<std::string> &varNames, int numFields);
-
-    void showOneResid(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
-		      int numFields1, int iTerm, const double * const val_init,  const double * const val_final,
-		      int numEqnsCell, int iEqn,const double * const resid_error,  const double * const solnError_tol,
-		      const double * const residual);
-
-    //! Print the solution to the current step to output
-    void showSolution(int indentSpaces);
-    void showResidual(int indentSpaces,  const double * const residual);
-
-
-
-    //! Extract information from reaction mechanisms
-    /*!
-     *   (inherited from Electrode_Integrator)
+     *   (virtual from Electrode_Integrator)
      */
     virtual void extractInfo() override;
 
@@ -244,7 +218,93 @@ public:
      *
      *   (inherited from Electrode_Integrator)
      */
-    virtual void updateSpeciesMoleChangeFinal();
+    virtual void updateSpeciesMoleChangeFinal() override;
+
+    //-------------------------------------------------------------------------------------------------------------------
+    // --------------------------------------- PRINTING UTILITIES -------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------
+
+    //!  Print a group of radially varying field variables to stdout
+    /*!
+     *  The fields are printed out 5 to a line, with each preceded by the radial coordinate value.
+     *
+     *  @param[in]           title               Title of the printout (can be multiple lines)
+     *  @param[in]           indentSpaces        Number of spacies to indent the whole group
+     *  @param[in]           radialValues        Value of the radial values of the nodes -> usually starts with 0 and 
+     *                                           goes to the edge of the sphere.
+     *  @param[in]           numRadialVals       Number of radial nodes
+     *  @param[in]           vals                Vector of values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           varNames            string names of the fields
+     *  @param[in]           numFields           Number of variables to be printed out (this is the inner loop).
+     */
+    void showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
+		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
+
+    //! Print a group of radially varying field variables to stdout. Print the init vs the final for each
+    /*!
+     *  The fields are printed out 4 to a line, with each preceded by the radial coordinate value. Final and init values are 
+     *  printed side-by-side
+     *
+     *  @param[in]           title               Title of the printout (can be multiple lines)
+     *  @param[in]           indentSpaces        Number of spacies to indent the whole group
+     *  @param[in]           radialValues        Value of the radial values of the nodes -> usually starts with 0 and 
+     *                                           goes to the edge of the sphere.
+     *  @param[in]           numRadialVals       Number of radial nodes
+     *  @param[in]           vals_init           Vector of init values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           vals_final          Vector of final values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           varNames            string names of the fields
+     *  @param[in]           numFields           Number of variables to be printed out (this is the inner loop).
+     */
+    void  showOneFieldInitFinal(const std::string &title, int indentSpaces, const double * const radialValues, size_t numRadialVals, 
+				const double * const vals_init,  const double * const vals_final,
+				const std::vector<std::string> &varNames, int numFields);
+
+    //!  Print out the residual and associated tolerances for one field variable that is distributed over the radial coordinate
+    /*!
+     *   The variables, iField and iEqns, can have different values.
+     *
+     *  @param[in]           title               Title of the printout (can be multiple lines)
+     *  @param[in]           indentSpaces        Number of spacies to indent the whole group
+     *  @param[in]           radialValues        Value of the radial values of the nodes -> usually starts with 0 and 
+     *                                           goes to the edge of the sphere.
+     *  @param[in]           numRadialVals       Number of radial nodes
+     *  @param[in]           numFields           Number of fields that are included in the val_init[] and val_final[] array
+     *                                           (this is the inner loop).
+     *  @param[in]           iField              Actual field to print out the residuals for (0 <= iField < numFields)
+     *  @param[in]           val_init            Vector of values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           val_final           Vector of values to be printed out (cell number is the outer loop)
+     *                                           vals[iCell * numFields + iField]
+     *  @param[in]           numEqnsCell         Number of equations per cell included in the residual array
+     *                                           (this is the inner loop).
+     *  @param[in]           iEqn                Actual Equation index to print out for the residuals for (0 <= iEqn < numEqnsCell)
+     *  @param[in]           resid_error         Vector of residual errors (length = numRadialVals * numEqnsCell) 
+     *                                           (can be zero, in which case, it's calculated within the routine)
+     *  @param[in]           solnError_tol       Solution error tolerance. (length = numRadialVals * numEqnsCell)
+     *                                           Can be zero. If existing, its value is printed as AbsResErrorTol 
+     *  @param[in]           residual            value of the residual (length = numRadialVals * numEqnsCell)
+     */
+    void showOneResid(const std::string &title, int indentSpaces, const double * const radialValues, size_t numRadialVals, 
+		      int numFields, int iField, const double * const val_init,  const double * const val_final,
+		      int numEqnsCell, int iEqn,const double * const resid_error,  const double * const solnError_tol,
+		      const double * const residual);
+
+    //! Print the solution for the current step to standard output
+    /*!
+     *  @param[in]           indentSpaces        Number of spaces to indent each line
+     */
+    void showSolution(int indentSpaces);
+
+    //! Print the satisfaction of the residual for the current subtimestep integration to the standard output
+    /*!
+     *
+     *  @param[in]           indentSpaces        Number of spaces to indent each line
+     *  @param[in]           residual            Residual vector from the residual calculation routine.
+     */
+    void showResidual(int indentSpaces,  const double * const residual);
 
     // Pack the nonlinear solver proplem
     /*
@@ -324,9 +384,7 @@ public:
      *  @param pnormSrc       Norm of the predictor-corrector comparison for the source vector.
      *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
      */
-    virtual void predictorCorrectorPrint(const std::vector<double>& yval,
-                                         double pnormSrc, double pnormSoln) const;
-
+    virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const;
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -343,7 +401,6 @@ public:
      */
     virtual void setInitStateFromFinal(bool setInitInit = false);
 
-
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!
      *  (virtual function from Electrude.h)
@@ -351,7 +408,6 @@ public:
      *  Set the init and init_init state from the final_final state.
      */
     virtual void setInitInitStateFromFinalFinal();
-
 
     //! Set the internal final intermediate state from the internal init state
     /*!
@@ -406,7 +462,6 @@ public:
      *                       time step. The default is to print out the global values
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
-
 
     //! The internal state of the electrode must be kept for the initial and
     //! final times of an integration step.
@@ -466,24 +521,35 @@ public:
      *  works on _final_ state only
      */
     void checkGeometry() const;
+
+    //! Check routine to see if we can account for the mass loss
+    /*!
+     *   Algorithm is to check for mass loss. If there is some, then add moles back into far last cell.
+     *   Note, this works because we have an accounting of all possible sources for
+     *
+     *  @param[in]           doErr               If true we skip some printing if we find significant discrepancies
+     *                                           Defaults to false
+     */
     void checkMoles_final_init() const;
 
+    //! do another check
     virtual void check_final_state();
 
     //!  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
     /*!
-     *
      *  Algorithm assumes that species 0 is special. It's usually called the vacancy species. Think of it as the vacency
      *  species. We sum up the diffusive fluxes of all the other species. Then, the diffusive flux of the vacency is calculated
      *  as the negative of that sum. What we are doing is ensuring that the sum of the diffusive flux of all species is equal
      *  to zero.
      *
-     *   The diffusive flux is the based on the gradient of the activity concentration rather than the concentration. 
-     *   This difference is significant in many battery systems.
+     *  The diffusive flux is the based on the gradient of the activity concentration rather than the concentration. 
+     *  This difference is significant in many battery systems.
      *
-     *  @param fluxRCB  diffusion flux for all distributed species at the right cell boundary
-     *  @param iCell    Cell # 
-     *
+     *  @param[in]           fluxRCB             diffusion flux for all distributed species at the right cell boundary
+     *  @param[in]           iCell               Cell # 
+     *  @param[in]           finalState          If true we use the _final_ values of the concentrations.
+     *                                           if false, we use the _init_ values of the concentrations; this is used
+     *                                           to make predictions of the flux. 
      */
     void diffusiveFluxRCB(double * const fluxRCB, int iCell, bool finalState) const;  
 
@@ -500,12 +566,42 @@ public:
      *                -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     int predictSolnResid();
+
+    // Predict the solution - seconc atempt
+    /*!
+     * Ok at this point we have a time step deltalimiTsubcycle_
+     * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+     * We now calculate predicted solution components from these conditions.
+     *
+     *  Essentially this routine has to come up with data on  deltaSubcycleCalc_  ,  rLatticeCBR_final_[iCell];,
+     *    concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh] and
+     *     concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+     *
+     *         Residual (Time)                                     deltaSubcycleCalc_                   0
+     *                                                                                            1
+     *         Loop over cells                                                            0 <=  iCell < numRCells_
+     *                                                                                     j = numEqnsCell_ * iCell
+     *                    
+     *            Residual (Reference/lattice Position)           rLatticeCBR_final_[iCell];        (1+j)
+     *            Residual (Mesh Position)                        rnodePos_final_[iCell]            (j+1) + 1
+     *            Loop over distributed Phases
+     *            Residual (Concentration _ k=0)                  concTot_SPhase_Cell_final_[iCell * numSPhases_ + jPh]
+     *              . . .
+     *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
+     *
+     * @return                                   Returns the success of the operation
+     *                                            1  A predicted solution is achieved
+     *                                            2  A predicted solution with a multispecies phase pop is achieved
+     *                                            0  A predicted solution is not achieved, but go ahead anyway
+     *                                           -1  The predictor suggests that the time step be reduced and a retry occur.
+     *
+     *          EXPERIMENTAL 
+     */
     int predictSolnResid2();
 
     //! Predict the solution
     /*!
-     * Ok at this point we have a time step deltalimiTsubcycle_
-     * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+     * Ok at this point we have a time step deltalimiTsubcycle_  and initial conditions consisting of phaseMoles_init_ and spMF_init_.
      * We now calculate predicted solution components from these conditions.
      *
      *  Calls predictSolnResid(). If it works that good, if not reduct time step and call again.
@@ -543,7 +639,7 @@ public:
      *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
      *                     This is a unitless quantity
      */
-    virtual void setNLSGlobalSrcTermTolerances(double rtolResid);
+    virtual void setNLSGlobalSrcTermTolerances(double rtolResid) override;
 
     //!   Set the Residual absolute error tolerances
     /*!

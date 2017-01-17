@@ -505,25 +505,7 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 
     return 0;
 }
-//====================================================================================================================
-//  Set the electrode initial conditions from the input file.
-/*!
- *   (virtual from Electrode)
- *   (This is a serial virtual function or an overload function)
- *
- *    This is one of the most important routines. It sets up the initial conditions of the electrode
- *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
- *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
- *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
- *    object and the initial state of that object.
- *
- *    The routine works like an onion initialization. The parent object is initialized before the
- *    child. This means the child object first calls the parent, before it does its own initializations.
- *
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- *
- *  @return  Returns zero if successful, and -1 if not successful.
- */
+//==================================================================================================================================
 int Electrode_DiffTALE::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
@@ -552,7 +534,7 @@ int Electrode_DiffTALE::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     return 0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 int Electrode_DiffTALE::electrode_stateSave_create()
 {
     eState_final_ = new EState_RadialDistrib();
@@ -562,13 +544,13 @@ int Electrode_DiffTALE::electrode_stateSave_create()
     }
     return rr;
 }
-//====================================================================================================================
+//==================================================================================================================================
 size_t Electrode_DiffTALE::nEquations_calc() const
 {
     size_t neq = 1 +  numEqnsCell_ * numRCells_;
     return neq;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_DiffTALE::init_sizes()
 {
     neq_ = nEquations_calc();
@@ -646,9 +628,8 @@ void Electrode_DiffTALE::init_sizes()
 
     size_t maxNumRxns = RSD_List_[0]->nReactions();
     ROP_.resize(maxNumRxns, 0.0);
-
 }
-//====================================================================================================================
+//==================================================================================================================================
 void
 Electrode_DiffTALE::init_grid()
 {
@@ -704,9 +685,8 @@ Electrode_DiffTALE::init_grid()
 	 }
      }
 }
-//====================================================================================================================
-void
-Electrode_DiffTALE::initializeAsEvenDistribution()
+//==================================================================================================================================
+void Electrode_DiffTALE::initializeAsEvenDistribution()
 {
     /*
      *  Overall algorithm is to fill out the final state variables. Then populate the other times
@@ -780,11 +760,7 @@ Electrode_DiffTALE::initializeAsEvenDistribution()
     setInitStateFromFinal(true);
     
 }
-//====================================================================================================================
-//    Return the total volume of solid material
-/*
- *
- */
+//==================================================================================================================================
 double Electrode_DiffTALE::SolidVol() const
 {
     double v0_3 = 4. * Pi * m_rbot0_ * m_rbot0_ * m_rbot0_ / 3.;
@@ -793,14 +769,7 @@ double Electrode_DiffTALE::SolidVol() const
     double svol = (Vext_3 -  v0_3) * particleNumberToFollow_;
     return svol;
 }
-//====================================================================================================================
-//  Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
-/*
- *  This is an extensive quantity.
- *  (virtual from Electrode)
- *
- *  @return Joule K-1
- */
+//==================================================================================================================================
 double Electrode_DiffTALE::SolidHeatCapacityCV() const
 {
     size_t jRPh, iPh;
@@ -856,7 +825,7 @@ double Electrode_DiffTALE::SolidHeatCapacityCV() const
     }
     return heatCapacity;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Returns the total enthalpy of the solid electrode
 /*
  *  This is an extensive quantity.
@@ -3755,7 +3724,12 @@ void  Electrode_DiffTALE::showSolution(int indentSpaces)
     showOneField(title, indentSpaces, &rnodePos_final_[0], numRCells_, &concKRSpecies_Cell_final_[0], KRsolid_speciesNames_,
 		 numKRSpecies_);
 }
-//====================================================================================================================
+//==================================================================================================================================
+//! Draw a line
+/*!
+ *  @param[in]               sp                  Number of indent spaces
+ *  @param[in]               ll                  Number of '-' characters
+ */
 static void drawline(int sp, int ll)
 {
   for (int i = 0; i < sp; i++) {
@@ -3766,26 +3740,20 @@ static void drawline(int sp, int ll)
   }
   printf("\n");
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_DiffTALE::showResidual(int indentSpaces, const double * const residual) 
 {
-
     drawline(124, indentSpaces);
-
     std::string title = "Residual for Lattice Radius CBR (m)";
-
     const double * const res = residual + 1;
     int iTerm = 0;
-
     showOneResid(title, indentSpaces, &cellBoundR_final_[0], numRCells_, 1, 0, &rLatticeCBR_init_[0],
-		 &rLatticeCBR_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
-		 res);
+		 &rLatticeCBR_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1], res);
 
     title = "Residual for position (m)";
     iTerm = 1;
     showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, 1, 0, &rnodePos_init_[0],
-		 &rnodePos_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
-		 res);
+		 &rnodePos_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1], res);
 
     size_t kstart = 0;
     for (size_t jPh = 0; jPh < numSPhases_; jPh++) {
@@ -3806,20 +3774,16 @@ void Electrode_DiffTALE::showResidual(int indentSpaces, const double * const res
 
 	    title = "Residual for total species concentration of " + th->speciesName(kSp);
 	    iTerm = 2 + iKRSpecies;
-	    showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numKRSpecies_, iKRSpecies, &concKRSpecies_Cell_init_[0],
-			 &concKRSpecies_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1],
-			 res);
+	    showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numKRSpecies_, iKRSpecies, 
+                         &concKRSpecies_Cell_init_[0],
+			 &concKRSpecies_Cell_final_[0], numEqnsCell_, iTerm, &errorLocalNLS_[1], &atolResidNLS_[1], res);
 
 	}
 	kstart += nSpecies;
     }
-
-
     drawline(124, indentSpaces);
-
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 void  Electrode_DiffTALE::showOneField(const std::string &title, int indentSpaces,
 					 const double * const radialValues, int numRadialVals, 
 					 const double * const vals, const std::vector<std::string> &varNames, int numFields)
@@ -3881,38 +3845,38 @@ void  Electrode_DiffTALE::showOneField(const std::string &title, int indentSpace
 	printf("\n");
     }
 }
-//====================================================================================================================
+//===================================================================================================================================================
 void  Electrode_DiffTALE::showOneFieldInitFinal(const std::string &title, int indentSpaces, 
-						  const double * const radialValues, int numRadialVals, 
+						  const double * const radialValues, size_t numRadialVals, 
 						  const double * const vals_init,  const double * const vals_final,
 						  const std::vector<std::string> &varNames, int numFields)
 {
-    int n, iCell;
+    size_t n, iCell;
     double v_init, v_final;
     std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
 	indent += " ";
     }
-    int numBlockRows = numFields / 4;
+    size_t numBlockRows = numFields / 4;
     if (title.size() > 0) {
 	drawline(indentSpaces, 80);
 	printf("%s  %s\n", indent.c_str(), title.c_str());
     }
-    for (int iBlock = 0; iBlock < numBlockRows; iBlock++) {
+    for (size_t iBlock = 0; iBlock < numBlockRows; iBlock++) {
 	drawline(indentSpaces, 80);
 	printf("%s        z      | ", indent.c_str());
 	for (n = 0; n < 4; n++) {
-	    int ivar = iBlock * 4 + n;
-	    string name = varNames[ivar];
+	    size_t ivar = iBlock * 4 + n;
+	    std::string name = varNames[ivar];
 	    printf("(f) %-13.13s (i) | ", name.c_str());
 	}
 	printf("\n");
 	drawline(indentSpaces, 80);
 
-	for (iCell = 0; iCell < numRadialVals; iCell++) {
+	for (iCell = 0; iCell < (size_t) numRadialVals; iCell++) {
 	    double r = radialValues[iCell];
 	    printf("%s    %- 10.4E |", indent.c_str(), r);
-	    int istart = iCell * numFields;
+	    size_t istart = iCell * numFields;
 	    for (n = 0; n < 4; n++) {
 		v_init = vals_init[istart + iBlock * 4 + n];
 		v_final = vals_final[istart + iBlock * 4 + n];
@@ -3925,9 +3889,9 @@ void  Electrode_DiffTALE::showOneFieldInitFinal(const std::string &title, int in
     if (nrem > 0) {
 	drawline(indentSpaces, 80);
 	printf("%s        z      | ", indent.c_str());
-	for (n = 0; n < nrem; n++) {
-	    int ivar = numBlockRows * 4 + n;
-	    string name = varNames[ivar];
+	for (n = 0; n < static_cast<size_t>(nrem); n++) {
+	    size_t ivar = numBlockRows * 4 + n;
+	    std::string name = varNames[ivar];
 	    printf("(f) %-13.13s (i) | ", name.c_str());
 	}
 	printf("\n");
@@ -3936,8 +3900,8 @@ void  Electrode_DiffTALE::showOneFieldInitFinal(const std::string &title, int in
 	for (iCell = 0; iCell < numRadialVals; iCell++) {
 	    double r = radialValues[iCell];
 	    printf("%s    %- 10.4E |", indent.c_str(), r);
-	    int istart = iCell * numFields;
-	    for (n = 0; n < nrem; n++) {
+	    size_t istart = iCell * numFields;
+	    for (n = 0; n < static_cast<size_t>(nrem); n++) {
 		v_init = vals_init[istart + numBlockRows * 4 + n];
 		v_final = vals_final[istart + numBlockRows * 4 + n];
 		printf(" %- 10.4E %- 10.4E |", v_final, v_init);
@@ -3947,10 +3911,9 @@ void  Electrode_DiffTALE::showOneFieldInitFinal(const std::string &title, int in
     }
     printf("\n");
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 void  Electrode_DiffTALE::showOneResid(const std::string &title, int indentSpaces,
-					 const double * const radialValues, int numRadialVals, 
+					 const double * const radialValues, size_t numRadialVals, 
 					 int numFields, int iField, const double * const val_init,  
 					 const double * const val_final,
 					 int numEqnsCell, int iEqn, const double * const resid_error, 
