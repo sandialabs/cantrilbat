@@ -1,4 +1,4 @@
-# Doxyfile 1.8.10
+# Doxyfile 1.8.12
 
 # This file describes the settings to be used by the documentation system
 # doxygen (www.doxygen.org) for a project.
@@ -38,7 +38,7 @@ PROJECT_NAME           = cantrilbat
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 2.0
+PROJECT_NUMBER         = 1.3
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -303,6 +303,15 @@ EXTENSION_MAPPING      =
 
 MARKDOWN_SUPPORT       = YES
 
+# When the TOC_INCLUDE_HEADINGS tag is set to a non-zero value, all headings up
+# to that level are automatically included in the table of contents, even if
+# they do not have an id attribute.
+# Note: This feature currently applies only to Markdown headings.
+# Minimum value: 0, maximum value: 99, default value: 0.
+# This tag requires that the tag MARKDOWN_SUPPORT is set to YES.
+
+TOC_INCLUDE_HEADINGS   = 0
+
 # When enabled doxygen tries to link words that correspond to documented
 # classes, or namespaces to their corresponding documentation. Such a link can
 # be prevented in individual cases by putting a % sign in front of the word or
@@ -438,7 +447,7 @@ EXTRACT_PRIVATE        = YES
 # scope will be included in the documentation.
 # The default value is: NO.
 
-EXTRACT_PACKAGE        = NO
+EXTRACT_PACKAGE        = YES
 
 # If the EXTRACT_STATIC tag is set to YES, all static members of a file will be
 # included in the documentation.
@@ -469,7 +478,7 @@ EXTRACT_LOCAL_METHODS  = YES
 # are hidden.
 # The default value is: NO.
 
-EXTRACT_ANON_NSPACES   = NO
+EXTRACT_ANON_NSPACES   = YES
 
 # If the HIDE_UNDOC_MEMBERS tag is set to YES, doxygen will hide all
 # undocumented members inside documented classes or files. If set to NO these
@@ -485,7 +494,7 @@ HIDE_UNDOC_MEMBERS     = NO
 # has no effect if EXTRACT_ALL is enabled.
 # The default value is: NO.
 
-HIDE_UNDOC_CLASSES     = YES
+HIDE_UNDOC_CLASSES     = NO
 
 # If the HIDE_FRIEND_COMPOUNDS tag is set to YES, doxygen will hide all friend
 # (class|struct|union) declarations. If set to NO, these declarations will be
@@ -499,7 +508,7 @@ HIDE_FRIEND_COMPOUNDS  = NO
 # blocks will be appended to the function's detailed documentation block.
 # The default value is: NO.
 
-HIDE_IN_BODY_DOCS      = YES
+HIDE_IN_BODY_DOCS      = NO
 
 # The INTERNAL_DOCS tag determines if documentation that is typed after a
 # \internal command is included. If the tag is set to NO then the documentation
@@ -608,7 +617,7 @@ SORT_BY_SCOPE_NAME     = YES
 # accept a match between prototype and implementation in such cases.
 # The default value is: NO.
 
-STRICT_PROTO_MATCHING  = NO
+STRICT_PROTO_MATCHING  = YES
 
 # The GENERATE_TODOLIST tag can be used to enable (YES) or disable (NO) the todo
 # list. This list is created by putting \todo commands in the documentation.
@@ -749,6 +758,12 @@ WARN_IF_DOC_ERROR      = YES
 
 WARN_NO_PARAMDOC       = NO
 
+# If the WARN_AS_ERROR tag is set to YES then doxygen will immediately stop when
+# a warning is encountered.
+# The default value is: NO.
+
+WARN_AS_ERROR          = NO
+
 # The WARN_FORMAT tag determines the format of the warning messages that doxygen
 # can produce. The string should contain the $file, $line, and $text tags, which
 # will be replaced by the file and line number from which the warning originated
@@ -777,6 +792,20 @@ WARN_LOGFILE           =
 
 INPUT                  = ../../util_src/src \
                          ../../Electrode/src \
+                         ../../ctpadds/src  \
+                         ../../1Delectrode/src  \
+                         ../../1Delectrode/src_CanteraElectrode  \
+                         ../../1Delectrode/src_Cu2S \
+                         ../../1Delectrode/src_LiIon_PorousBat \
+                         ../../1Delectrode/src_LiKCl_PorousBat \
+                         ../../1Delectrode/src_LiKCl_infPorousBat \
+                         ../../1Delectrode/src_LiKCl_infPlateBat \
+                         ../../1Delectrode/src_test \
+                         ../../cttables/src \
+                         ../../mpequil/src \
+                         ../../epequil/src \
+                         ../../electrodeCell/src \
+                         ../../electrodeCell/src \
                          .
 
 # This tag can be used to specify the character encoding of the source files
@@ -799,13 +828,13 @@ INPUT_ENCODING         = UTF-8
 # If left blank the following patterns are tested:*.c, *.cc, *.cxx, *.cpp,
 # *.c++, *.java, *.ii, *.ixx, *.ipp, *.i++, *.inl, *.idl, *.ddl, *.odl, *.h,
 # *.hh, *.hxx, *.hpp, *.h++, *.cs, *.d, *.php, *.php4, *.php5, *.phtml, *.inc,
-# *.m, *.markdown, *.md, *.mm, *.dox, *.py, *.f90, *.f, *.for, *.tcl, *.vhd,
-# *.vhdl, *.ucf, *.qsf, *.as and *.js.
+# *.m, *.markdown, *.md, *.mm, *.dox, *.py, *.pyw, *.f90, *.f95, *.f03, *.f08,
+# *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf and *.qsf.
 
 FILE_PATTERNS          = *.h \
                          *.cpp \
                          *.txt \
-                         *.dox
+                         *.page
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.
@@ -836,7 +865,8 @@ EXCLUDE_SYMLINKS       = NO
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = */build/*
+EXCLUDE_PATTERNS       = */build/* \
+                         *logger*
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
@@ -892,6 +922,10 @@ IMAGE_PATH             =
 # Note that the filter must not add or remove lines; it is applied before the
 # code is scanned, but not when the output code is generated. If lines are added
 # or removed, the anchors will not be placed correctly.
+#
+# Note that for custom extensions or not directly supported extensions you also
+# need to set EXTENSION_MAPPING for the extension otherwise the files are not
+# properly processed by doxygen.
 
 INPUT_FILTER           =
 
@@ -901,6 +935,10 @@ INPUT_FILTER           =
 # (like *.cpp=my_cpp_filter). See INPUT_FILTER for further information on how
 # filters are used. If the FILTER_PATTERNS tag is empty or if none of the
 # patterns match the file name, INPUT_FILTER is applied.
+#
+# Note that for custom extensions or not directly supported extensions you also
+# need to set EXTENSION_MAPPING for the extension otherwise the files are not
+# properly processed by doxygen.
 
 FILTER_PATTERNS        =
 
@@ -1036,7 +1074,7 @@ COLS_IN_ALPHA_INDEX    = 5
 # while generating the index headers.
 # This tag requires that the tag ALPHABETICAL_INDEX is set to YES.
 
-IGNORE_PREFIX          = Cantera::
+IGNORE_PREFIX          = 
 
 #---------------------------------------------------------------------------
 # Configuration options related to the HTML output
@@ -1365,7 +1403,7 @@ QHG_LOCATION           =
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-GENERATE_ECLIPSEHELP   = NO
+GENERATE_ECLIPSEHELP   = YES
 
 # A unique identifier for the Eclipse help plugin. When installing the plugin
 # the directory name containing the HTML and XML files should also have this
@@ -1743,6 +1781,14 @@ LATEX_SOURCE_CODE      = NO
 
 LATEX_BIB_STYLE        = plain
 
+# If the LATEX_TIMESTAMP tag is set to YES then the footer of each generated
+# page will contain the date and time when the page was generated. Setting this
+# to NO can help when comparing the output of multiple runs.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_LATEX is set to YES.
+
+LATEX_TIMESTAMP        = NO
+
 #---------------------------------------------------------------------------
 # Configuration options related to the RTF output
 #---------------------------------------------------------------------------
@@ -1996,7 +2042,7 @@ SEARCH_INCLUDES        = YES
 # preprocessor.
 # This tag requires that the tag SEARCH_INCLUDES is set to YES.
 
-INCLUDE_PATH           =
+INCLUDE_PATH           = ../..
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -2017,7 +2063,11 @@ INCLUDE_FILE_PATTERNS  =
 PREDEFINED             = WITH_HTML_LOGS \
                          THREAD_SAFE_CANTERA \
                          HAVE_CONFIG_H \
-                         DEPRECATED(x)=x
+                         DEPRECATED(x)=x \
+                         __declspec(x)= \
+                         useZuzaxNamespace=1 \
+                         DOXYGEN_SHOULD_IGNORE_THIS
+
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
@@ -2055,7 +2105,7 @@ SKIP_FUNCTION_MACROS   = YES
 # the path). If a tag file is not located in the directory in which doxygen is
 # run, you must also specify the path to the tagfile here.
 
-TAGFILES               =
+TAGFILES               = /ascldap/users/hkmoffa/Cantera/gc/zuzax_master/build/docs/Zuzax.tag=/ascldap/users/hkmoffa/Cantera/gc/zuzax_master/build/docs/doxygen/html
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create a
 # tag file that is based on the input files it reads. See section "Linking to
@@ -2152,7 +2202,7 @@ DOT_NUM_THREADS        = 0
 # The default value is: Helvetica.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-DOT_FONTNAME           = 
+DOT_FONTNAME           =
 
 # The DOT_FONTSIZE tag can be used to set the size (in points) of the font of
 # dot graphs.
@@ -2219,7 +2269,7 @@ UML_LIMIT_NUM_FIELDS   = 10
 # The default value is: NO.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-TEMPLATE_RELATIONS     = NO
+TEMPLATE_RELATIONS     = YES
 
 # If the INCLUDE_GRAPH, ENABLE_PREPROCESSING and SEARCH_INCLUDES tags are set to
 # YES then doxygen will generate a graph for each documented file showing the
