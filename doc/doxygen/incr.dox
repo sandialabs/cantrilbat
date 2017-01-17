@@ -823,6 +823,13 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_SimpleDiff.cpp \
                          ../../Electrode/src/Electrode_DiffTALE.h \
                          ../../Electrode/src/Electrode_DiffTALE.cpp \
+                         ../../Electrode/src/Electrode_MP_RxnExtent.h \
+                         ../../Electrode/src/Electrode_MP_RxnExtent.cpp \
+                         ../../Electrode/src/Electrode_MP_RxnExtent_FeS2.h \
+                         ../../Electrode/src/Electrode_MP_RxnExtent_FeS2.cpp \
+                         ../../Electrode/src/Electrode_FuncCurrent.h \
+                         ../../Electrode/src/Electrode_SurfaceRegion.h \
+                         ../../Electrode/src/Electrode_SurfaceRegion.cpp \
 
 
 

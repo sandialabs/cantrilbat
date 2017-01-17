@@ -463,15 +463,18 @@ public:
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
-    //! The internal state of the electrode must be kept for the initial and
-    //! final times of an integration step.
-    /*
-     *  This function advances the initial state to the final state that was calculated
-     *  in the last integration step.
+    //! Reset the Internal state of the electrode at the start of a new global integration step or a redo of the current global step
+    /*!
+     *  (virtual from Electrode)
+     *  This function advances the initial state to the final state that was calculated in the last integration step.
      *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
-     * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
+     *  @param[in]           Tinitial            This is the New initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem.
+     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
+     *                                           Defaults to false.
      */
     virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
@@ -527,8 +530,6 @@ public:
      *   Algorithm is to check for mass loss. If there is some, then add moles back into far last cell.
      *   Note, this works because we have an accounting of all possible sources for
      *
-     *  @param[in]           doErr               If true we skip some printing if we find significant discrepancies
-     *                                           Defaults to false
      */
     void checkMoles_final_init() const;
 
@@ -651,51 +652,59 @@ public:
      *   Calculates residAtolNLS_[]
      *   Calculates atolNLS_[]
      */
-    void setResidAtolNLS();
+    virtual void setResidAtolNLS() override;
 
     //! Evaluate the residual function
     /*!
      * (virtual from NonlinearSolver)
      *
-     * @param t             Time                    (input)
-     * @param delta_t       The current value of the time step (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input, do not modify)
-     * @param resid         Value of the residual that is computed (output)
-     * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
-     * @param id_x          Index of the variable that is being numerically differenced to find
-     *                      the jacobian (defaults to -1, which indicates that no variable is being
-     *                      differenced or that the residual doesn't take this issue into account)
-     * @param delta_x       Value of the delta used in the numerical differencing
+     * @param[in]            t                   Time                    (input)
+     * @param[in]            delta_t             The current value of the time step (input)
+     * @param[in]            y                   Solution vector (input, do not modify)
+     * @param[in]            ydot                Rate of change of solution vector. (input, do not modify)
+     * @param[out]           resid               Value of the residual that is computed (output)
+     * @param[in]            evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     * @param[in]            id_x                Index of the variable that is being numerically differenced to find
+     *                                           the jacobian (defaults to -1, which indicates that no variable is being
+     *                                           differenced or that the residual doesn't take this issue into account)
+     * @param[in]            delta_x             Value of the delta used in the numerical differencing
      *
-     * @return
+     * @return                                   Returns an integer that gets fed back through evalResidNJ() to the
+     *                                           nonlinear solver. Anything other than a 1 causes an immediate failure
+     *                                           of the nonlinear solver to occur.
      */
-    virtual int evalResidNJ(const double t, const double delta_t,
-                            const double* const y,
-                            const double* const ydot,
-                            double* const resid,
-                            const ResidEval_Type_Enum evalType = Base_ResidEval,
-                            const int id_x = -1,
-                            const double delta_x = 0.0);
+    virtual int evalResidNJ(const double t, const double delta_t, const double* const y, const double* const ydot,
+                            double* const resid, const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const int id_x = -1, const double delta_x = 0.0) override;
 
     //!  Residual calculation for the solution of the Nonlinear integration problem
     /*!
-     * @param t             Time                    (input)
-     * @param delta_t       The current value of the time step (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ySolnDot      Rate of change of solution vector. (input, do not modify)
-     * @param resid         Value of the residual that is computed (output)
-     * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
-     * @param id_x          Index of the variable that is being numerically differenced to find
-     *                      the jacobian (defaults to -1, which indicates that no variable is being
-     *                      differenced or that the residual doesn't take this issue into account)
-     * @param delta_x       Value of the delta used in the numerical differencing
+     *
+     *    Given tfinal and delta_t, and given y and ydot which are estimates of the solution
+     *    and solution derivative at tfinal, this function calculates the residual equations.
+     *    It is the residual function used in the nonlinear solver that relaxes the equations at each time step.
+     *
+     *    This is typically called from evalResidNJ(), which is called directly from the
+     *    nonlinear solver. However, we expose this routine so that the residual can be queried given all of the inputs.
+     *
+     *  @param[in]           tfinal              Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ySolnDot            Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
+     *                                           the jacobian (defaults to -1, which indicates that no variable is being
+     *                                           differenced or that the residual doesn't take this issue into account)
+     *  @param[in]           delta_x             Value of the delta used in the numerical differencing
+     *
+     *  @return                                  Returns an integer that gets fed back through evalResidNJ() to the
+     *                                           nonlinear solver. Anything other than a 1 causes an immediate failure
+     *                                           of the nonlinear solver to occur.
      */
-    int integrateResid(const double t, const double delta_t,
-		       const double* const y, const double* const ySolnDot,
-		       double* const resid,
-		       const ResidEval_Type_Enum evalType, const int id_x,
-		       const double delta_x);
+    virtual int integrateResid(const double tfinal, const double delta_t, const double* const y, const double* const ySolnDot,
+		               double* const resid, const ResidEval_Type_Enum evalType, const int id_x,
+		               const double delta_x) override;
 
     //! Main internal routine to calculate the residual
     /*!
@@ -813,6 +822,11 @@ protected:
     //! Total number of equations defined at each node of the radial mesh
     size_t numEqnsCell_;
 
+    //! Pointers to the ThermoPhase objects that make up the radially distributed portion of this Electrode object
+    /*!
+     *  No attempt is made to malloc a ThermoPhase object for each cell within the radial distribution
+     *  Length: numSPhases_
+     */
     std::vector<ThermoPhase *> thermoSPhase_List_;
 
     //! Vector of solid species defined on the grid of the spherical particle
@@ -879,47 +893,47 @@ protected:
 
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     /*!
-     *  There are numSPhases_ of these
-     *
-     *  The phaseIndex is the index within the Electrode object
-     *
-     *  
+     *  The phase index value is the index within the Electrode object
      *  iPh = phaseIndeciseKRsolidPhases_[distribPhIndex];
      *
-     *
+     *  Length: numSPhases_
      */
     std::vector<size_t> phaseIndeciseKRsolidPhases_;
 
     //! Returns the distributed phase index given the regular phase Index.
-    /*
-     *  
+    /*!
      *  distribPhIndex = phaseIndeciseKRsolidPhases_[iPh];
      *
      *  If distribPhIndex is -1, the phase isn't distributed.
+     *  Length: m_NumTotPhases
      */
     std::vector<size_t> distribPhIndexKRsolidPhases_;
 
     //! Number of species in each of the radially distributed phases
     /*!
-     *  There are numSPhases_ of these
+     *  The index is the distributed phase index number
      *
-     *  The phaseIndex is the index within the Electrode object
+     *  Length: numSPhases_
      */
     std::vector<int> numSpeciesInKRSolidPhases_;
 
+    //!  Index of species starting position for each distributed phase within the distributed species vectors
+    /*!
+     *  Length: numSPhases_
+     */
     std::vector<int> kstartKRSolidPhases_;
 
     //! Phase Names of the solid phases comprising the species that are radially distributed
     /*!
-     *  There are numSPhases_ of these
+     *  Length: numSPhases_
      */
     std::vector<std::string> KRsolid_phaseNames_;
 
     //! Phase indeces of the solid phases comprising the species that are not radially distributed
     /*!
-     *  There are numNonSPhase_ of these
-     *
      *  The phaseIndex is the index within the Electrode object
+     *
+     *  Length: numNonSPhases_
      */
     std::vector<int> phaseIndeciseNonKRsolidPhases_;
 
@@ -960,43 +974,55 @@ protected:
 
     //! molar density of each of the solid phases that are distributed - final state
     /*!
-     * molarDensity_SPhase_Cell_final_[numSPhases_ * iCell + iJRPh]
+     *   molarDensity_SPhase_Cell_final_[numSPhases_ * iCell + iJRPh]
      */
     std::vector<double> molarDensity_SPhase_Cell_final_;
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *      concKRSpecies_Cell_init_[numKRSpecies_ * iCell + iKRSpecies]
+     *   concKRSpecies_Cell_init_[numKRSpecies_ * iCell + iKRSpecies]
+     *   Length: numRCells_ * numKRSpecies_
+     *   units:  mole fractions
      */
     std::vector<double> concKRSpecies_Cell_init_;
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *     concKRSpecies_Cell_final_[numKRSpecies_ * iCell + iKRSpecies]
+     *   concKRSpecies_Cell_final_[numKRSpecies_ * iCell + iKRSpecies]
+     *   Length: numRCells_ * numKRSpecies_
+     *   units:  mole fractions
      */
     std::vector<double> concKRSpecies_Cell_final_;
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *     concKRSpecies_Cell_init_init_[numKRSpecies_ * iCell + iKRSpecies]
+     *   concKRSpecies_Cell_init_init_[numKRSpecies_ * iCell + iKRSpecies]
+     *   Length: numRCells_ * numKRSpecies_
+     *   units:  mole fractions
      */
     std::vector<double> concKRSpecies_Cell_init_init_;
 
     //! total concentration of the solid phases that are distributed - init state
     /*!
-     *     concKRSpecies_Cell_final_final_[numKRSpecies_ * iCell + iKRSpecies]
+     *   concKRSpecies_Cell_final_final_[numKRSpecies_ * iCell + iKRSpecies]
+     *   Length: numRCells_ * numKRSpecies_
+     *   units:  mole fractions
      */
     std::vector<double> concKRSpecies_Cell_final_final_;
 
     //! Mole fraction of the solid phase species that are distributed = final state
     /*!
-     *
+     *   spMf_KRSpecies_Cell_final_[numKRSpecies_ * iCell + iKRSpecies]
+     *   Length: numRCells_ * numKRSpecies_
+     *   units:  mole fractions
      */
     std::vector<double> spMf_KRSpecies_Cell_final_;
 
     //! Mole fraction of the solid phase species that are distributed = final state
     /*!
-     *
+     *   spMf_KRSpecies_Cell_init_[numKRSpecies_ * iCell + iKRSpecies]
+     *   Length: numRCells_ * numKRSpecies_
+     *   units:  mole fractions
      */
     std::vector<double> spMf_KRSpecies_Cell_init_;
 
@@ -1010,45 +1036,107 @@ protected:
     double MolarVolume_Ref_;
 
     //! Node position of the mesh - final_final
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rnodePos_final_final_;
 
     //! Node position of the mesh - final
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rnodePos_final_;
 
     //! Node position of the mesh - init
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rnodePos_init_;
 
     //! Node position of the mesh - init_init
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rnodePos_init_init_;
 
     //! Reference radius at the right cell boundary - global final value
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rLatticeCBR_final_final_;
 
     //! Reference radius at the right cell boundary - local final value
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rLatticeCBR_final_;
 
     //! Reference radius at the right cell boundary - local init value
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rLatticeCBR_init_;
 
     //! Reference radius at the right cell boundary - global init value
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rLatticeCBR_init_init_;
 
+    //! Reference radius at the right cell boundary 
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> rLatticeCBR_ref_;
 
     //! Lattice velocity of the right cell boundary - global final value
+    /*!
+     *  Length: numRCells_
+     *  units:  m/s  (particle radius coordinate)
+     */
     std::vector<double> vLatticeCBR_cell_;
 
+    //! Location of the right boundary of each cell at the end time of subtimestep integration
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> cellBoundR_final_;
   
+    //! Location of the right boundary of each cell at the init time of subtimestep integration
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> cellBoundR_init_;
 
+    //! Location of the left boundary of each cell at the final time of subtimestep integration
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> cellBoundL_final_;
+
+    //! Location of the left boundary of each cell at the init time of subtimestep integration
+    /*!
+     *  Length: numRCells_
+     *  units:  m  (particle radius coordinate)
+     */
     std::vector<double> cellBoundL_init_;
 
     //! Volume of each cell on a per particle basis
     /*!
-     *      Length numRCells:
-     *      units = m3
+     *  Length: numRCells:
+     *  units: = m3
      */
     std::vector<double> volPP_Cell_final_;
 
@@ -1068,35 +1156,39 @@ protected:
     //!  Partial molar volume of all of the solid species located in all of the cells
     /*!
      *   Vector of molar volumes for all solid species in all cells (KRSpecies, iCell)
-     *   noUnits are m3 / kmol
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  m3 / kmol
      */
     std::vector<double> partialMolarVolKRSpecies_Cell_final_;
 
     //!  Partial molar Heat Capacity  of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar heat capacity const press (KRSpecies, iCell)
-     *   Units of Joules/(kmol K)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol K)
      */
     mutable std::vector<double> partialMolarCpKRSpecies_Cell_final_;
 
     //!  Partial molar Enthalpy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol)
      */
-    mutable  std::vector<double> partialMolarEnthKRSpecies_Cell_final_;
+    mutable std::vector<double> partialMolarEnthKRSpecies_Cell_final_;
 
     //!  Partial molar Enthalpy of all of the solid species located in all of the cells
     /*!
      *   Vector of partial molar Enthalpy  (KRSpecies, iCell)
-     *   Units of Joules/(kmol)
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  Joules/(kmol)
      */
-    mutable  std::vector<double> partialMolarEnthKRSpecies_Cell_init_;
-
+    mutable std::vector<double> partialMolarEnthKRSpecies_Cell_init_;
 
     //! Rate of progress of the surface reactions
     /*!
-     *   length = maxNumRxns;
+     *   Length: maxNumRxns;
+     *   Units:  kmol/m2/s
      */
     std::vector<double> ROP_;
 
@@ -1104,7 +1196,8 @@ protected:
     /*!
      *   This is a quantity over all species in the PhaseList
      *
-     *    units (kmol sec-1);
+     *   Length: m_NumTotSpecies
+     *   Units:  kmol sec-1;
      */
     std::vector<double> DspMoles_final_;
 
@@ -1114,6 +1207,11 @@ protected:
      */
     double m_rbot0_;
 
+    //! Solid phase diffusion coefficients of the species which are radially diffusing
+    /*!
+     *  Length: numKRSpecies_
+     *  Units:  m2/s
+     */
     std::vector<double> Diff_Coeff_KRSolid_;
 
     //! Molar creation rate of phases in the electrode object.
@@ -1121,7 +1219,9 @@ protected:
      *  This is calculated as a sum of species creation rates summed
      *  up over all cells in the domain
      *
-     *    units = kmol / s
+     *
+     *  Length: m_NumtotPhases
+     *  Units:  kmol / s
      */
     std::vector<double> DphMolesSrc_final_;
 
@@ -1131,9 +1231,8 @@ protected:
      */
     int surfIndexExteriorSurface_;
 
-    //!  Value of the total flux at the outer edge - kmol m-2 s-1
+    //! Value of the total flux at the outer edge - kmol m-2 s-1
     double NTflux_final_;
-
 
     //! Local value of the diffusion coefficient
     double DiffCoeff_;
@@ -1144,15 +1243,20 @@ protected:
     //! Vector of activity coefficients for all KR species at all nodes
     /*!
      *    This is calculated at the final state
+     *
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  unitless
      */
     std::vector<double> actCoeff_Cell_final_;
 
     //! Vector of activity coefficients for all KR species at all nodes
     /*!
      *    This is calculated at the init state
+     *
+     *   Length: numKRSpecies_ *  numRCells_
+     *   Units:  unitless
      */
     std::vector<double> actCoeff_Cell_init_;
-
 
     //! phase id of the phase which will die at the shortest time
     int phaseID_TimeDeathMin_;
@@ -1160,8 +1264,7 @@ protected:
     //! Cell id of the shortest time to a phase death
     int cellID_TimeDeathMin_;
 
-   //! This integer describes if the system is current on a Region boundary at the start of a subgrid
-    //! integration step
+    //! This integer describes if the system is current on a Region boundary at the start of a subgrid integration step
     /*!  
      *  We define a region boundary here iff all cells are on that boundary
      *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
@@ -1218,11 +1321,37 @@ public:
      */
     int formulationTypeTotalConc_;
 
+    //! Total number of lattice sites within the electrode at the end of the current subgrid time step (kmol)
+    /*!
+     *  For many problems used by this class, this is a constant
+     */
     double numLattices_final_;
+
+    //! Total number of lattice sites within the electrode at the start of the current time step (kmol)
+    /*!
+     *  For many problems used by this class, this is a constant
+     *  Units: kmol
+     */
     double numLattices_init_;
+
+    //! Total number of lattice sites within the electrode predicted for the end of the current subgrid time step
+    /*!
+     *  For many problems used by this class, this is a constant
+     */
     double numLattices_pred_;
 
+    //! Total number of lattice sites with each Cell at the start of the current electrode subcycle time step
+    /*!
+     *  Length: numRCells_
+     *  Units:  kmol
+     */
     std::vector<double> numLatticeCBR_init_;
+
+    //! Total number of lattice sites with each Cell at the end of the current electrode subcycle time step
+    /*!
+     *  Length: numRCells_
+     *  Units:  kmol
+     */
     std::vector<double> numLatticeCBR_final_;
 
     friend class ZZCantera::EState;

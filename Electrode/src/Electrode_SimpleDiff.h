@@ -924,7 +924,7 @@ protected:
     //! Total number of equations defined at each node of the radial mesh
     size_t numEqnsCell_;
 
-    // Pointers to the ThermoPhase objects that make up the radially distributed portion of this Electrode object
+    //! Pointers to the ThermoPhase objects that make up the radially distributed portion of this Electrode object
     /*!
      *  No attempt is made to malloc a ThermoPhase object for each cell within the radial distribution
      *  Length: numSPhases_
@@ -1000,8 +1000,7 @@ protected:
 
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     /*!
-     *  There are numSPhases_ of these
-     *  The phaseIndex is the index within the Electrode object
+     *  The phase index value is the index within the Electrode object
      *  
      *  iPh = phaseIndeciseKRsolidPhases_[distribPhIndex];
      *
@@ -1010,19 +1009,20 @@ protected:
     std::vector<size_t> phaseIndeciseKRsolidPhases_;
 
     //! Returns the distributed phase index given the regular phase Index.
-    /*
-     *  
+    /*!
      *  distribPhIndex = phaseIndeciseKRsolidPhases_[iPh];
      *
      *  If distribPhIndex is -1, the phase isn't distributed.
+     *
+     *  Length: m_NumTotPhases
      */
     std::vector<size_t> distribPhIndexKRsolidPhases_;
 
     //! Number of species in each of the radially distributed phases
     /*!
-     *  There are numSPhases_ of these
+     *  The index is the distributed phase index number
      *
-     *  The phaseIndex is the index within the Electrode object
+     *  Length: numSPhases_
      */
     std::vector<size_t> numSpeciesInKRSolidPhases_;
 
@@ -1034,15 +1034,15 @@ protected:
 
     //! Phase Names of the solid phases comprising the species that are radially distributed
     /*!
-     *  There are numSPhases_ of these
+     *  Length: numSPhases_
      */
     std::vector<std::string> KRsolid_phaseNames_;
 
     //! Phase indeces of the solid phases comprising the species that are not radially distributed
     /*!
-     *  There are numNonSPhase_ of these
-     *
      *  The phaseIndex is the index within the Electrode object
+     *
+     *  Length: numNonSPhases_
      */
     std::vector<size_t> phaseIndeciseNonKRsolidPhases_;
 
