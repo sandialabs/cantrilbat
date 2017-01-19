@@ -707,7 +707,6 @@ public:
     //!  due to the OCV override 
     double deltaH_species_;
 
-
 protected:
 
     friend class RSD_OCVmodel;

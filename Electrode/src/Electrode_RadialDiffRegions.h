@@ -1,6 +1,9 @@
-/*
- * $Id: Electrode_RadialDiffRegions.h 298 2012-08-08 20:15:48Z hkmoffa $
+/**
+ *  @file Electrode_RadialDiffRegions.h
+ *
+ *
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -16,6 +19,7 @@
 #include "Electrode_RadialRegion.h"
 #include "Electrode_SurfaceRegion.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -26,11 +30,10 @@ namespace Cantera
 class Electrode_RadialRegion;
 class Electrode_SurfaceRegion;
 
-//==============================================================================================================================
+//==================================================================================================================================
 //! Extra Input for models with distributed radial diffusion regions
 /*!
- *   this model is used for Electrode_SimpleDiff
- *
+ *   This model is used for Electrode_SimpleDiff
  */
 class ELECTRODE_RadialDiffRegions_KEY_INPUT : public ELECTRODE_KEY_INPUT
 {
@@ -127,7 +130,7 @@ public:
     std::vector<ELECTRODE_RadialRegion_KEY_INPUT> rregions_;
 };
 
-//==============================================================================================================================
+//==================================================================================================================================
 //! This class is a derived class used to model phase - change electrodes
 /*!
  *  The class is an intermediary, support class. It's main purpose is to house the member data
@@ -192,7 +195,6 @@ public:
      */
     void initializeAsEvenDistribution();
 
-
     //! Get all of the reaction rates and parameters from Cantera
     void extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies);
 
@@ -217,7 +219,6 @@ public:
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
-
     //! The internal state of the electrode must be kept for the initial and
     //! final times of an integration step.
     /*
@@ -229,7 +230,6 @@ public:
      * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
      */
     virtual void  resetStartingCondition(double Tinitial, bool doResetAlways = false);
-
 
     //! Take the state (i.e., the final state) within the Electrode_Model and push it down
     //! to the ThermoPhase objects and propogate it to all other aspects of the final state
@@ -254,13 +254,8 @@ public:
      */
     virtual void updateState();
 
-
-
-
-
+    // ------------------------------------------ D A T A -------------------------------------------------------------
 protected:
-
-
     //! Number of Radial diffusion Regions
     int numRadialRegions_;
 
@@ -269,8 +264,6 @@ protected:
 
     //! List of Surface Regions
     std::vector<Electrode_SurfaceRegion*> SurfaceRegionList_;
-
-
 
     //! Molar density of the solid phase in each cell under reference conditions
     /*!
@@ -305,8 +298,6 @@ protected:
     //! Reference radius at the right cell boundary - global init value
     std::vector<double> rRefPos_init_init_;
 
-
-
     //!  Spline system for the nodal equations
     /*!
      *   These factors are the fraction of the exterior node radius that the
@@ -315,9 +306,9 @@ protected:
     std::vector<double> fracNodePos_;
 
 };
-
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 
 #endif
-/*****************************************************************************/
+

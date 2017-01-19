@@ -1,5 +1,5 @@
-/*
- * $Id: Electrode_SurfaceRegion.h 298 2012-08-08 20:15:48Z hkmoffa $
+/**
+ *  @file Electrode_SurfaceRegion.h
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -19,18 +19,15 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
-
+//==================================================================================================================================
 //! This class is a derived class used to model phase-change electrodes
 /*!
  *  The class is an intermediary, support class. It's main purpose is to house the member data
- *  needed to handle the disretization of one region in the radial direction.
- *  Diffusion of material through the region is allowed.
+ *  needed to handle a surface in the middle of two regions that are distributed radially.
  *  The regions can expand and contract through surface reactions.
  *  The surface reactions all occur on interfacial kinetics objects.
  *
- *  Child classes will actually complete each of the physical problems.
- *
+ *  (NOT COMPLETED)
  */
 class Electrode_SurfaceRegion : public Electrode_Integrator
 {
@@ -50,6 +47,8 @@ public:
     //! Assignment operator
     /*!
      *  @param right object to be copied
+     *
+     *  @return                                  Returns a reference to a current object
      */
     Electrode_SurfaceRegion& operator=(const Electrode_SurfaceRegion& right);
 
@@ -57,11 +56,11 @@ public:
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.
      *
-     *  @return Returns an enum type, called   Electrode_Types_Enum
+     *  @return                                  Returns an enum type, called Electrode_Types_Enum
      */
     virtual Electrode_Types_Enum electrodeType() const override;
 
-    //! create the electrode model
+    //! Create the electrode model
     virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Specify initial conditions from an input file
@@ -148,10 +147,10 @@ public:
 
 protected:
 
-    //! Pointer to the reacting surface domain that is located on the surface
+    //! Pointer to the reacting surface domain that is located on this surface
     ReactingSurDomain* rsd_;
 
-    //! Surface index of the surface
+    //! Surface index of the surface phase
     size_t indexSurfaceRegion_;
 
     //! Number of Surface species defined on the surface
@@ -161,13 +160,13 @@ protected:
     size_t numSurfacePhases_;
 
     //! Define the number of species that are defined to have radially distributed distributions
-    //! in the domain to the left
+    //! in the domain to the left 
     /*!
-     *
+     *  The left is defined as the inside of the particle.
      */
     size_t numKRSpeciesLeft_;
 
-    //! global index of the surface node
+    //! Global index of the surface node
     size_t indexRNode_;
 
     //! Node position of the surface - final_final
@@ -194,11 +193,8 @@ protected:
     //! Reference radius at the node at the surface - global init value
     double rRefPos_init_init_;
 
-
 };
-
+//==================================================================================================================================
 }
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/

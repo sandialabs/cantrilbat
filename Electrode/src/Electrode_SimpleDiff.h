@@ -29,11 +29,19 @@ namespace Cantera
 
 class EState_RadialDistrib;
 
-
 //==================================================================================================================================
-//! This class is a derived class used to model phase - change electrodes
+//! This class is a derived class used to model intercalating electrodes where solid phase diffusion of ionic or solid-phase
+//! intermediate species is a rate limiting or at least a slow step
 /*!
- *  distributed radial model
+ *  This is a distributed radial model with a simple diffusion mechanism, with linkages to a simple surface reaction mechanism
+ *  at the exterior of the radial particle.
+ *
+ *  It is assumed throughout the model that there is one and only one ReactingSurDomain object and that it is located
+ *  at the exterior of the particle, between the particle and the electrolyte.
+ *
+ *  The particle can swell due to reaction or diffusion.
+ *
+ *  Various diffusion mechanisms are allowed.
  *
  */
 class Electrode_SimpleDiff : public Electrode_Integrator
@@ -89,11 +97,10 @@ public:
 
     //!  Setup the electrode for first time use
     /*!
-     * (virtual from Electrode  - onion Out)
+     *  (virtual from Electrode  - onion Out)
      *
      *    This is one of the most important routines. It sets up the electrode's internal structures
-     *    After the call to this routine, the electrode should be internally ready to be integrated
-     *    and reacted.
+     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
      *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
      *    object and the initial state of that object.
      *    The routine works like an onion Out initialization. The parent object is initialized before the
@@ -136,7 +143,7 @@ public:
      *  and the electrode object has a restart capability.
      *  If the pointer is null, no restart information is generated
      *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
     virtual int electrode_stateSave_create() override;
 
@@ -219,11 +226,10 @@ public:
     // --------------------------------------------- SURFACE AREAS -------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------
 
-
     //! Extract information from reaction mechanisms
     /*!
      *   (virtual from Electrode_Integrator)
-     *  Calculate the reaction rates on all surfaces
+     *  Calculate the reaction rates on the one exterior surface
      */
     virtual void extractInfo() override;
 
@@ -316,7 +322,6 @@ public:
 
     //! Print the satisfaction of the residual for the current subtimestep integration to the standard output
     /*!
-     *
      *  @param[in]           indentSpaces        Number of spaces to indent each line
      *  @param[in]           residual            Residual vector from the residual calculation routine.
      */
@@ -373,13 +378,13 @@ public:
 
     //! Pack the solution vector
     /*!
-     *  @param y  solution vector to be filled
+     *  @param[in]           y                   solution vector to be filled
      */
     void packNonlinSolnVector(double* const y) const;
 
     //! Check existing or formulate an initial value for the solution vector
     /*!
-     *  @param doOthers Fill the other yvalNLS values with the value
+     *  @param[in]           doOthers            Fill the other yvalNLS values with the value
      */
     virtual void check_yvalNLS_init(bool doOthers) override;
 
@@ -396,8 +401,7 @@ public:
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *  Both the predicted solution values and the predicted integrated source terms are used
-     *  in the time step control
+     *  Both the predicted solution values and the predicted integrated source terms are used in the time step control
      */
     virtual void gatherIntegratedSrcPrediction() override;
 
@@ -428,12 +432,11 @@ public:
      */
     virtual void predictorCorrectorGlobalSrcTermErrorVector() override;
 
-
     //! Print table representing prediction vs. corrector information
     /*!
-     *  @param yval           Vector of corrector values
-     *  @param pnormSrc       Norm of the predictor-corrector comparison for the source vector.
-     *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
+     *  @param[in]           yval                Vector of corrector values
+     *  @param[in]           pnormSrc            Norm of the predictor-corrector comparison for the source vector.
+     *  @param[in]           pnormSoln           Norm of the predictor-corrector comparison for the solution vector.
      */
     virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const override;
 
@@ -484,7 +487,7 @@ public:
      *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
      *  routine as well.
      *
-     * @param setInitInit   Boolean indicating whether you should set the init_init state as well
+     *  @param[in]           setInitInit         Boolean indicating whether you should set the init_init state as well
      */
     virtual void setInitStateFromFinal(bool setInitInit = false);
 
@@ -515,7 +518,7 @@ public:
      *
      *  The final_final is not touched.
      *
-     * @param setFinal   Boolean indicating whether you should set the final as well
+     * @param[in]            setFinal            Boolean indicating whether you should set the final as well
      */
     virtual void setInitStateFromInitInit(bool setFinal = false);
 
@@ -543,12 +546,12 @@ public:
 
     //! Print condition of a phase in the electrode
     /*!
-     *  @param iph           Print the phase
-     *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
-     *                       to the final_final time.
-     *                       The default is to print out the source terms
-     *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
-     *                       time step. The default is to print out the global values
+     *  @param[in]           iph                 Print the phase
+     *  @param[in]           pSrc                Print Source terms that have occurred during the step from the initial_initial
+     *                                           to the final_final time.
+     *                                           The default is to print out the source terms
+     *  @param[in]           subTimeStep         Print out conditions from the most recent subTimeStep and not the global
+     *                                           time step. The default is to print out the global values
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 

@@ -976,7 +976,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy(size_t is
 {
     if (isk != 0) {
 	throw Electrode_Error("Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy",
-			      " isk not equal to zero" + int2str(isk));
+			      " isk not equal to zero: " + int2str(isk));
     }
 #ifdef DEBUG_THERMAL
     printf("Electrode_SimpleDiff::thermalEnergySourceTerm_reversibleEntropy Debugging Output:\n");

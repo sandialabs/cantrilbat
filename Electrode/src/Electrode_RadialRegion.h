@@ -348,6 +348,7 @@ public:
                             double geomFactor,
                             std::vector<double>& radialMesh) const;
 
+    // ---------------------------------- D A T A ---------------------------------------------------------------------
 protected:
 
     //! Define the number of species that are defined to have radially distributed distributions
@@ -393,8 +394,6 @@ protected:
      */
     std::vector<int> KRsolid_speciesList_;
 
-
-
     //! Vector of solid species moles defined on the grid of the spherical particle, local final state
     /*!
      *   The inner loop is over the number of species that are defined to have radially dependent
@@ -416,7 +415,6 @@ protected:
      *     units = kmol m-3.
      */
     std::vector<double> spMoles_KRsolid_Cell_init_;
-
 
     //! Vector of solid species moles defined on the grid of the spherical particle, global final state
     /*!
@@ -590,7 +588,6 @@ protected:
      */
     double MolarVolume_refLat_Ref_;
 
-
     //! Node position of the mesh - final
     /*!
      *  Value of the node associated with the cell
@@ -636,7 +633,6 @@ protected:
 
     //! Reference radius at the right cell boundary - global init value
     std::vector<double> rRefPos_init_init_;
-
 
     //! Value of the Radius' of the right cell boundaries at the end of the local step
     /*!
@@ -703,7 +699,6 @@ protected:
      */
     std::vector<double> partialMolarVolKRSpecies_Cell_init_init_;
 
-
     //!  Spline system for the nodal equations
     /*!
      *   These factors are the fraction of the total lattice growth or shrinkage that the
@@ -722,7 +717,6 @@ protected:
      *    units (kmol sec-1);
      */
     std::vector<double> DspMoles_RightSurf_final_;
-
 
     //! Radius of the left boundary - reference value.
     double radiusLeft_Ref_;
@@ -773,11 +767,10 @@ protected:
     std::vector<double> actCoeff_Cell_final_;
 
 
-     Electrode_RadialDiffRegions* ee_;
+   Electrode_RadialDiffRegions* ee_;
 };
-
+//==================================================================================================================================
 }
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
+
