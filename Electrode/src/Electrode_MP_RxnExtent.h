@@ -35,18 +35,36 @@ namespace Cantera
 class ELECTRODE_KEY_INPUT;
 class EGRInput;
 
+//==================================================================================================================================
+//! Key input for the Reaction extent model
+/*!
+ *
+ */
 class ELECTRODE_MP_RxnExtent_KEY_INPUT : public ELECTRODE_KEY_INPUT
 {
 public:
 
     //! Constructor
+    /*!
+     *  @param[in]           printLvl            Print level. Defaults to 0, no printing
+     */
     ELECTRODE_MP_RxnExtent_KEY_INPUT(int printLvl = 0);
 
     //! Destructor
     virtual ~ELECTRODE_MP_RxnExtent_KEY_INPUT();
 
+    //! Copy Constructor
+    /*!
+     * @param right Object to be copied
+     */
     ELECTRODE_MP_RxnExtent_KEY_INPUT(const ELECTRODE_MP_RxnExtent_KEY_INPUT& right);
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
+     */
     ELECTRODE_MP_RxnExtent_KEY_INPUT& operator=(const ELECTRODE_MP_RxnExtent_KEY_INPUT& right);
 
     //!  First pass through the child setup system
@@ -117,9 +135,9 @@ public:
 
 };
 
-//!  Newman Model
+//==================================================================================================================================
+//!  Newman Model for the reaction extent
 /*!
- *
  *
  *   Treatment of surfaces within the model
  *
@@ -132,8 +150,7 @@ public:
  *
  *   The inner radius is calculated from a calculation involving the relative distance through
  *   the current region. This relative value is equated with the volume of the total plateau
- *   that is current calculated, and then translated into a relative radius of the external
- *   radius value.
+ *   that is current calculated, and then translated into a relative radius of the external radius value.
  *
  */
 class Electrode_MP_RxnExtent : public ZZCantera::Electrode_Integrator
@@ -148,13 +165,15 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     * @param[in]            right               Object to be copied
      */
     Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& right);
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
      */
     Electrode_MP_RxnExtent& operator=(const Electrode_MP_RxnExtent& right);
 
@@ -167,37 +186,72 @@ public:
     virtual Electrode_Types_Enum electrodeType() const;
 
     //! Set the electrode ID information
+    /*!
+     *  @param[in]           domainNum           Value of the domain number
+     *  @param[in]           cellNum             value of the cell number
+     */
     void setID(int domainNum, int cellNum);
 
-    //! Change the ELECTRODE_KEY_INPUT to the correct type, parsing the command file again, and then returning the
-    //!  the struct in its place
-    virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei);
+    //! Change the ELECTRODE_KEY_INPUT to the correct type, parsing the command file again, and then returning the struct in its place
+    /*!
+     *  (virtual function from Electrode)
+     *  (overload virtual function - replaces parent members)
+     *
+     *  This function will replace the ELECTRODE_KEY_INPUT structure with an expanded
+     *  child member structure ELECTRODE_MP_RxnExtent_KEY_INPUT containing the extra information.
+     *
+     *  If the command file has been read before, it will then reparse the command file
+     *  storring the new information in the  ELECTRODE_MP_RxnExtent_KEY_INPUT structure.
+     *
+     *  @param[in]           ei_ptr              Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
+     *                                           as the child class of  ELECTRODE_KEY_INPUT gets malloced.
+     *
+     *  @return                                   0 successful but no change in ei
+     *                                            1 Successful and ei has changed
+     *                                           -1 unsuccessful fatal error of some kind.
+     */
+    virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei) override;
 
     //!  Setup the electrode
     /*!
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
+     *  (virtual from Electrode  - onion Out)
+     * 
+     *  This is one of the most important routines. It sets up the electrode's internal structures
+     *  After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+     *  It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *  object and the initial state of that object.
+     *  The routine works like an onion Out initialization. The parent object is initialized before the
+     *  child. This means the child object first calls the parent, before it does its own initializations.
+     *
+     *  There are some virtual member functions that won't work until this routine is called. That's because
+     *  the data structures won't be set up for base and child Electrode objects until this is called.
+     *
+     *  @param[in]           ei                  BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
+     *                                           for the child electrode object.
+     *
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
+    virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
-    //!  Set the electrode initial conditions from the input file.
+    //! Set the electrode initial conditions from the input file.
     /*!
-     *   (virtual from Electrode)
-     *   (This is a serial virtual function or an overload function)
+     *  (virtual from Electrode)
+     *  (This is a serial virtual function or an overload function)
      *
-     *    This is one of the most important routines. It sets up the initial conditions of the electrode
-     *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
-     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
-     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
-     *    object and the initial state of that object.
+     *  This is one of the most important routines. It sets up the initial conditions of the electrode
+     *  from the input file. The electrode itself has been set up from a call to electrode_model_create().
+     *  After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+     *  It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *  object and the initial state of that object.
+     * 
+     *  The routine works like an onion initialization. The parent object is initialized before the
+     *  child. This means the child object first calls the parent, before it does its own initializations.
      *
-     *    The routine works like an onion initialization. The parent object is initialized before the
-     *    child. This means the child object first calls the parent, before it does its own initializations.
+     *  @param[in]           ei                  ELECTRODE_KEY_INPUT pointer object
      *
-     * @param ei    ELECTRODE_KEY_INPUT pointer object
-     *
-     *  @return  Returns zero if successful, and -1 if not successful.
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Calculate the number of equations that will be solved during the nonlinear solver step.
     /*!
@@ -208,15 +262,23 @@ public:
      */
     virtual size_t nEquations_calc() const override;
 
-    virtual int electrode_stateSave_create();
+    //! Create an object that saves the electrode state and can print out an XML solution to file
+    /*!
+     *  The pointer to the malloced object is saved in the internal variable eState_final_ .
+     *  Because this pointer is now non-null, the state of the electrode will be saved at each step
+     *  and the electrode object has a restart capability. If the pointer is null, no restart information is generated
+     *
+     *  @return                                  Returns zero if successful, and -1 if not successful.
+     */
+    virtual int electrode_stateSave_create() override;
 
     //! Set the sizes of the electrode from the input parameters
     /*!
      *  We resize all of the information within the electrode from the input parameters
      *
-     * @param electrodeArea   Area of the electrode
-     * @param electrodeThickness  Width of the electrode
-     * @param porosity        Volume of the electrolyte phase
+     * @param[in]            electrodeArea       Area of the electrode
+     * @param[in]            electrodeThickness  Width of the electrode
+     * @param[in]            porosity            Volume of the electrolyte phase
      */
     virtual void setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity);
 
@@ -233,16 +295,16 @@ public:
      *   SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
      *
      */
-    virtual void resizeMoleNumbersToGeometry();
+    virtual void resizeMoleNumbersToGeometry() override;
 
     //! Find the initial conditions for the OCV
     void developBaseE0();
 
-    //!  Change the Heat of formation of compound B in the reaction in order to generate a given open circuit
-    //!  voltage at the current temperature
-    /*
-     *  @param  Value of the standard state OCV that is desired
-     *  @param  doPrint  if nonzero, then detailed printing is done from this routine
+    //! Change the Heat of formation of compound B in the reaction in order to generate a given open circuit voltage 
+    //! at the current temperature
+    /*!
+     *  @param[in]           E0                  Value of the standard state OCV that is desired
+     *  @param[in]           doPrint             If nonzero, then detailed printing is done from this routine
      */
     void changeToE0(double E0, int doPrint = 0);
 
@@ -282,7 +344,7 @@ public:
      *       We leave out the solnPhase_ volume from the calculation
      *       units = m**3
      */
-    virtual double SolidVol() const;
+    virtual double SolidVol() const override;
 
     //! Return the total volume in the electrode
     /*!
@@ -291,38 +353,35 @@ public:
      *   This returns the value in the _final_ state
      *   We have to redo these because the molar volume approximation is redone in these routines.
      *
-     *   @return total volume (m**3)
+     *   @return                                 total volume (m**3)
      */
-    virtual double TotalVol(bool ignoreErrors = false) const;
+    virtual double TotalVol(bool ignoreErrors = false) const override;
 
     //!  Returns the total moles in the electrode phases of the electrode
     /*!
-     *  @return total moles (kmol)
+     *  @return                                  total moles (kmol)
      */
-    virtual  double SolidTotalMoles() const;
+    virtual double SolidTotalMoles() const override;
 
     //! Return a vector of the phase volumes for all phases in the electrode
     /*!
-     *  Note the vector is over surface phases as well. Currently, all surface phases have zero
-     *  volume.
+     *  Note the vector is over surface phases as well. Currently, all surface phases have zero volume.
      *
-     *  length = m_NumTotPhases
-     *  units = m**3
+     *  @param[out]          phaseVols           returns a vector containing the volumes of all phases in the PhaseList
+     *                                           length = m_NumTotPhases
+     *                                           units = m**3
      */
-    virtual void getPhaseVol(double* const phaseVols) const;
+    virtual void getPhaseVol(double* const phaseVols) const override;
 
     // ---------------------- SURFACE AREAS -------------------------------------------------------
 
-
-    //! Take the state (i.e., the final state) within the Electrode_Model and push it down
-    //! to the ThermoPhase Objects
+    //! Take the state (i.e., the final state) within the Electrode_Model and push it down to the ThermoPhase Objects
     /*!
-     *  We take the values of spMoles_final_[] and propagate them down to the ThermoPhase
-     *  objects in the electrode.
+     *  We take the values of spMoles_final_[] and propagate them down to the ThermoPhase objects in the electrode.
      *  Here we also take the value of RelativeExtentRxn_final_ and modify the open circuit potential
      *  and other parameters based on its value.
      */
-    virtual void updateState();
+    virtual void updateState() override;
 
     //!  Recalculate the surface areas of the surfaces for the final state
     /*!
@@ -343,7 +402,7 @@ public:
      *    Dependent StateVariables Calculated
      *          surfaceAreaRS_final_[]
      */
-    virtual void updateSurfaceAreas();
+    virtual void updateSurfaceAreas() override;
 
     //!  Extract the ROP of the two reaction fronts from Cantera within this routine
     /*!
@@ -726,9 +785,8 @@ public:
 
     //! Calculate the inner radius at the final state
     /*!
-     *  An inner radius is needed for diffusion approximations. Here we calculate the inner radius
-     *  by the extent of reaction carried out in the current region. Everything is relative
-     *  to the exterior radius.
+     *  An inner radius is needed for diffusion approximations. Here, we calculate the inner radius
+     *  by the extent of reaction carried out in the current region. Everything is relative to the exterior radius.
      *
      *  When the extent of reaction in the current plateau is zero, we assume that the inner
      *  radius is equal to the external radius (mult by (1 -small)). When the extent of reaction is
@@ -736,18 +794,29 @@ public:
      *     (radius_ext * (small))
      *
      *  Here small is defined as 1.0E-8 (will experiment with that number.
+     *
+     *  @param[in]           relativeExtentRxn   Current value of the relative extent of reaction
+     *
+     *  @return                                  Returns the value of the inner radius (m)
      */
     double calculateRadiusInner(double relativeExtentRxn) const;
 
-    //! Returns the equilibrium OCV for the current conditions (virtual)
+    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
     /*!
-     *  The final conditions are assumed
+     *  (virtual from Electrode)
+     *  This routine uses a root finder to find the voltage at which there
+     *  is zero net electron production.  It leaves the object unchanged. However, it
+     *  does change the voltage of the phases during the calculation, so this is a non const function.
      *
-     * @param isk  Reacting surface domain id
+     *  @param[in]           isk                 Reacting surface domain id
+     *  @param[in]           comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
+     *                                                      the current conditions (false) or compared to the voltage wrt the 
+     *                                                 reference electrode (true). The later is akin to using the standard 
+     *                                                 state thermo functions for the electrolyte species.
      *
-     * @return Returns the voltage
+     *   @return                                 Returns the OCV (volts)
      */
-    virtual double openCircuitVoltage(size_t isk,  bool comparedToReferenceElectrode = false) override;
+    virtual double openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode = false) override;
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions! based on a single reaction
     /*!
@@ -926,7 +995,7 @@ public:
      *
      * @param setInitInit   Boolean indicating whether you should set the init_init state as well
      */
-    virtual void setInitStateFromFinal(bool setInitInit = false);
+    virtual void setInitStateFromFinal(bool setInitInit = false) override;
 
     //! Set the internal final intermediate and from the internal init state
     /*!
@@ -935,7 +1004,7 @@ public:
      *  Set the final state from the init state. This is commonly called during a failed time step
      *
      */
-    virtual void setFinalStateFromInit();
+    virtual void setFinalStateFromInit() override;
 
     //! Set the internal initial intermediatefrom the internal initial global state
     /*!
@@ -946,7 +1015,7 @@ public:
      *
      * @param setFinal   Boolean indicating whether you should set the final as well
      */
-    virtual void setInitStateFromInitInit(bool setFinal = false);
+    virtual void setInitStateFromInitInit(bool setFinal = false) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!
@@ -956,7 +1025,7 @@ public:
      *  routine as well.
      *
      */
-    virtual void setInitInitStateFromFinalFinal();
+    virtual void setInitInitStateFromFinalFinal() override;
 
     //! Set the internal final global state from the internal final intermediate state
     /*!
@@ -964,18 +1033,20 @@ public:
      *
      *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
      */
-    virtual void setFinalFinalStateFromFinal();
+    virtual void setFinalFinalStateFromFinal() override;
 
 protected:
-    //! This is used to set Phase information that is implicit but not set by a restart or an initialization
+    //! This is used to set phase information that is implicit but not set by a restart or an initialization
     /*!
      *  (virtual function from Electrode)
      *
-     *  Extra informat that may be needed in advance of a successful updateState() call that specifies all of the
+     *  Extra information that may be needed in advance of a successful updateState() call that specifies all of the
      *  information in the state
      *
-     *  @param flagErrors If true any changes in the current flags caused by a mismatch between the state
-     *                    and the values of the flags will cause an error exit.
+     *  @param[in]           flagErrors          If true any changes in the current flags caused by a mismatch between the state
+     *                                           and the values of the flags will cause an error exit.
+     *
+     *  @return                                  Returns 0
      */
     virtual bool stateToPhaseFlagsReconciliation(bool flagErrors) override;
 
@@ -983,13 +1054,29 @@ public:
 
     //! Set voltage vs extent of reaction for FeS2
     /*!
-     *  hard coded for FeS2 electrode, this sets paramaters such as RegionBoundaries_ExtentRxn_
+     *  Hard coded for FeS2 electrode, this sets paramaters such as RegionBoundaries_ExtentRxn_.
+     *  Currently this hard codes this electrode for the FeS2 system
      *
+     *  @return                                  Returns 0
      */
     int setVoltageVsExtent_FeS2();
 
-    //! Find region
-    int findRegion(double RelativeExtentRxn) const;
+    //! Find the region that the relative extent is currently in
+    /*!
+     *  This is a key routine for the MP_RxnExtent code. 
+     *  We compare the value of relativeExtentRxn against the vector  RegionBoundaries_ExtentRxn[] to see which region we are in.
+     *
+     *  @param[in]           relativeExtentRxn   Current value of the relativeExtent of reaction.
+     *
+     *  @return                                  If RelativeExtentRxn is below the low boundary, return -1
+     *                                           If RelativeExtentRxn is at the low boundary of a region, 
+     *                                               return region number containing the low boundary.
+     *                                           If RelativeExtentRxn is at the high boundary, return the region number
+     *                                               of the next highest region. Therefore if there is only one region
+     *                                               and we are at the high boundary of that region, the routine will return 1,
+     *                                               which is above any region number
+     */
+    int findRegion(double relativeExtentRxn) const;
 
     //! Return the relative extent of reaction
     double relativeExtentRxn(double time) const;
@@ -1070,9 +1157,6 @@ public:
      */
     virtual int getInitialConditions(const double t0, double* const y, double* const ydot);
 
-
-
-
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
      *   There is a default algorithm provided.
@@ -1080,39 +1164,32 @@ public:
      *        delta_y[i] = atol[i] + 1.0E-6 ysoln[i]
      *        delta_y[i] = atol[i] + MAX(1.0E-6 ysoln[i] * 0.01 * solnWeights[i])
      *
-     * @param t             Time                    (input)
-     * @param y             Solution vector (input, do not modify)
-     * @param ydot          Rate of change of solution vector. (input, do not modify)
-     * @param delta_y       Value of the delta to be used in calculating the numerical jacobian
-     * @param solnWeights   Value of the solution weights that are used in determining convergence (default = 0)
+     * @param[in]            t                   Time                    (input)
+     * @param[in]            ySoln               Solution vector (input, do not modify)
+     * @param[in]            ySolnDot            Rate of change of solution vector. (input, do not modify)
+     * @param[in]            deltaYSoln          Value of the delta to be used in calculating the numerical jacobian
+     * @param[in]            solnWeights         Value of the solution weights that are used in determining convergence (default = 0)
      *
-     * @return Returns a flag to indicate that operation is successful.
-     *            1  Means a successful operation
-     *            0  Means an unsuccessful operation
+     * @return                                   Returns a flag to indicate that operation is successful.
+     *                                            1  Means a successful operation
+     *                                            0  Means an unsuccessful operation
      */
-    virtual int calcDeltaSolnVariables(const double t, const double* const ySoln,
-                                       const double* const ySolnDot, double* const deltaYSoln,
-                                       const double* const solnWeights);
+    virtual int calcDeltaSolnVariables(const double t, const double* const ySoln, const double* const ySolnDot,
+                                       double* const deltaYSoln, const double* const solnWeights);
 
     //! Apply a filtering process to the step
     /*!
-     *  @param timeCurrent    Current value of the time
-     *  @param ybase          current value of the solution
-     *  @param step0          Value of the step in the solution vector that will be filtered.
-     *                        The filter is applied to the step values.
+     *  @param[in]           timeCurrent         Current value of the time
+     *  @param[in]           ybase               Current value of the solution
+     *  @param[in,out]       step0               Value of the step in the solution vector that will be filtered.
+     *                                           The filter is applied to the step values.
      *
-     *  @return Returns the norm of the value of the amount filtered
+     *  @return                                  Returns the L2 norm of the value of the amount filtered
      */
-    virtual double  filterNewStep(const double timeCurrent,
-                                      const double* const ybase,
-                                      double* const step0);
-
-
-
-
+    virtual double  filterNewStep(const double timeCurrent, const double* const ybase, double* const step0);
 
 protected:
-
+    // --------------------------------------- D A T A ----------------------------------------------------------------
 
     //! Major internal variable is the Extent
     int numRegions_;
@@ -1128,9 +1205,7 @@ protected:
 
     //! final extent of reaction at the end of the current step
     /*!
-     *  A note about what relative extent is.
-     *
-     *    Relative extent is the amount of reaction per mole of reactant. It extends across
+     *  A note about what relative extent is. Relative extent is the amount of reaction per mole of reactant. It extends across
      *    multiple plateaus. For graphite, it would correspond to the amount of Lithium per 6
      *    moles of carbon.
      *    units = unitless
@@ -1155,16 +1230,19 @@ protected:
     //! Final region for the extent of reaction of the global step
     int xRegion_final_final_;
 
-    //! The time step variable, this is an unknown in the solution vector
-    //   double deltaTsubcycleCalc_;
-
-
+    //! Value of the region boundaries in relative extent of reaction coordinates
+    /*!
+     *  There will be one more than the number of regions, as there is a low and high to each region.
+     *
+     *  Length:  numRegions_ + 1
+     *  Units:   Unitless
+     */
     std::vector<double> RegionBoundaries_ExtentRxn_;
 
     //! Molar source rate for the extent of reaction in the electrode object
     //! for the final time during a time step
     /*!
-     *  units kmol s-1
+     *  Units:  kmol s-1
      */
     double SrcDot_ExtentRxn_final_;
 
@@ -1175,26 +1253,46 @@ protected:
      */
     double SrcDot_RelativeExtentRxn_final_;
 
+    //! Time at which a region dies
     double deltaTdeath_;
 
     //! Vector containing the rates of progress of reactions defined on the surfaces
     /*!
-     *   This concept only works when there is one surface that is reacting
+     *   This concept only works when there is one surface that is reacting.
+     *   Length: m_NumTotSpecies -> a maximum
      *   units =   kmol m-2 s-1
      *
-     *  Length is over the number of reactions that are defined on that surface, numRxns_[isurf];
+     *   Length is over the number of reactions that are defined on that surface, numRxns_[isurf];
      */
     std::vector<double> ROP_;
 
-    //! Molar source rate for the species vector of all species in the electrode object
-    //! for the final time during a time step
+    //! Molar source rate for the species vector of all species in the electrode object for the final time during a time step
     /*!
-     *  units kmol s-1
+     *  Length: m_NumTotSpecies
+     *  Units:  kmol s-1
      */
     std::vector<double> DspMoles_final_;
 
-    std::vector<int> phaseIndexSolidPhases_;
-    std::vector<int> numSpecInSolidPhases_;
+    //! Phase indeces of the solid phases comprising the electrode
+    /*!
+     *  The only phases in the PhaseList which are not included in this vector are the metal phase and the electrolyte phase
+     *  The phase index value, iPh, is the index within the Electrode object
+     *  
+     *  iPh = phaseIndeciseKRsolidPhases_[solidPhIndex];
+     *
+     *  Length: m_NumVolPhases_ - 2 
+     */
+    std::vector<size_t> phaseIndexSolidPhases_;
+
+    //! Number of species in  the solid phases comprising the electrode
+    /*!
+     *  The only phases in the PhaseList which are not included in this vector are the metal phase and the electrolyte phase
+     *  The phase index value, iPh, is the index within the Electrode object
+     *  
+     *  nsp = numSpeciesInSolidPhases_[solidPhIndex];
+     *  Length: m_NumVolPhases_ - 2 
+     */
+    std::vector<size_t> numSpecInSolidPhases_;
 
     ThermoPhase* Li_liq_;
 

@@ -40,13 +40,13 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     * @param[in]            right               Object to be copied
      */
     Electrode_SurfaceRegion(const Electrode_SurfaceRegion& right);
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
      *
      *  @return                                  Returns a reference to a current object
      */
@@ -61,15 +61,33 @@ public:
     virtual Electrode_Types_Enum electrodeType() const override;
 
     //! Create the electrode model
+    /*!
+     *  (virtual from Electrode  - onion Out)
+     *
+     *    This is one of the most important routines. It sets up the electrode's internal structures
+     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *    object and the initial state of that object.
+     *    The routine works like an onion Out initialization. The parent object is initialized before the
+     *    child. This means the child object first calls the parent, before it does its own initializations.
+     *
+     *    There are some virtual member functions that won't work until this routine is called. That's because
+     *    the data structures won't be set up for base and child Electrode objects until this is called.
+     *
+     *  @param[in]           ei                  BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
+     *                                           for the child electrode object.
+     *
+     *  @return                                  Returns zero if successful, and -1 if not successful.
+     */
     virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Specify initial conditions from an input file
     /*!
-     *    @param ei pointer to a parent Structure containing the input file. The structure will be dynamically
-     *              cast to a type  ELECTRODE_SurfaceRegion_KEY_INPUT type within the program.
-     *              It is a fatal error not to be able to do the dynamic cast.
+     *    @param[in]         ei                  pointer to a parent Structure containing the input file. The structure will be dynamically
+     *                                           cast to a type  ELECTRODE_SurfaceRegion_KEY_INPUT type within the program.
+     *                                           It is a fatal error not to be able to do the dynamic cast.
      *
-     *    @param  Return flag. Returns a zero if everything is ok. Anything else is a fatal error.
+     *    @return                                Returns a zero if everything is ok. Anything else is a fatal error.
      */
     virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei) override;
 
@@ -86,6 +104,9 @@ public:
     virtual size_t nEquations_calc() const override;
 
     //! Get all of the reaction rates and parameters from Cantera
+    /*!
+     *  @param[out]          justBornMultiSpecies Vector of phases which are just born
+     */
     void extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies);
 
     //! Print conditions of the electrode for the current integration step to stdout
@@ -100,12 +121,11 @@ public:
 
     //! Print condition of a phase in the electrode
     /*!
-     *  @param iph           Print the phase
-     *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
-     *                       to the final_final time.
-     *                       The default is to print out the source terms
-     *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
-     *                       time step. The default is to print out the global values
+     *  @param[in]           iph                 Print the phase
+     *  @param[in]           pSrc                Print Source terms that have occurred during the step from the initial_initial
+     *                                           to the final_final time. The default is to print out the source terms
+     *  @param[in]           subTimeStep         Print out conditions from the most recent subTimeStep and not the global
+     *                                           time step. The default is to print out the global values
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1, bool subTimeStep = false) override;
 
@@ -116,9 +136,9 @@ public:
      *  This function advances the initial state to the final state that was calculated
      *  in the last integration step.
      *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
-     *                   final time, to see if there is any problem.
-     * @param doResetAlways  Do the reset always, even if the Tinitial value is equal to t_init_init_
+     * @param[in]            Tinitial            This is the New initial time. This time is compared against the "old"
+     *                                           final time, to see if there is any problem.
+     * @param[in]            doResetAlways       Do the reset always, even if the Tinitial value is equal to t_init_init_
      */
     virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 

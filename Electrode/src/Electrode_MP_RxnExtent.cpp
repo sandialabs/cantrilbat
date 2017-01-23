@@ -86,9 +86,8 @@ void ELECTRODE_MP_RxnExtent_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
     cf->addLineEntry(sdm);
     BaseEntry::set_SkipUnknownEntries(3);
 
-
 }
-//====================================================================================================================
+//==================================================================================================================================
 void ELECTRODE_MP_RxnExtent_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* cf)
 {
     LE_StdVecDblVarLength* v1 = new LE_StdVecDblVarLength("Molar Volumes Region Boundaries",
@@ -155,9 +154,7 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent() :
     RegionBoundaries_ExtentRxn_(0),
     SrcDot_ExtentRxn_final_(0.0),
     deltaTdeath_(0.0),
-    ROP_(0),
     DspMoles_final_(0),
-    phaseIndexSolidPhases_(0),
     numSpecInSolidPhases_(0),
     Li_liq_(0),
     Hf_B_base_(0.0),
@@ -201,7 +198,7 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent() :
     ROP_.resize(10);
     Li_liq_ = newPhase("Li_Liquid.xml","Li(L)");
     if (!Li_liq_) {
-        throw CanteraError("", "");
+        throw Electrode_Error("", "");
     }
     setVoltageVsExtent_FeS2();
     soln_predict_.resize(3);
@@ -228,9 +225,6 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& rig
     RegionBoundaries_ExtentRxn_(0),
     SrcDot_ExtentRxn_final_(0.0),
     deltaTdeath_(0.0),
-    ROP_(0),
-    DspMoles_final_(0),
-    phaseIndexSolidPhases_(0),
     numSpecInSolidPhases_(0),
     Li_liq_(0),
     Hf_B_base_(0.0),
@@ -279,7 +273,7 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& rig
     ROP_.resize(10);
     Li_liq_ = newPhase("Li_Liquid.xml","Li(L)");
     if (!Li_liq_) {
-        throw CanteraError("", "");
+        throw Electrode_Error("", "");
     }
     operator=(right);
 }
@@ -442,7 +436,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_MP_RxnExtent_KEY_INPUT* ei = dynamic_cast<ELECTRODE_MP_RxnExtent_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_MP_RxnExtent::electrode_model_create()",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::electrode_model_create()",
                            " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
     radiusSmallBound_  = 1.0E-12;
@@ -469,13 +463,13 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     }
     molarVolume_final_ = molarVolumeRegions_[0];
     if ((int) molarVolumeRegions_.size() != numRegions_ + 1) {
-        throw CanteraError(" Electrode_MP_RxnExtent::electrode_model_create()",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::electrode_model_create()",
                            " Wrong size of molarVolumeRegions_");
     }
 
     diffusionCoeffRegions_ = ei->diffusionCoeffRegions_;
     if ((int) diffusionCoeffRegions_.size() != numRegions_ + 1) {
-        throw CanteraError(" Electrode_MP_RxnExtent::electrode_model_create()",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::electrode_model_create()",
                            " Wrong size of  diffusionCoeffRegions_");
     }
 
@@ -493,6 +487,12 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     developBaseE0();
 
     atolNLS_.resize(2, 1.0E-10);
+
+    size_t maxRxns = 0;
+    for (size_t is = 0; is < numRxns_.size(); is++) {
+        maxRxns = std::max(maxRxns, numRxns_[is]);
+    }
+    ROP_.resize(maxRxns, 0.0);
 
     /*
      *  Figure out the normalizing quantity for between relative and absolute moles of FeS2.
@@ -703,7 +703,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     ELECTRODE_MP_RxnExtent_KEY_INPUT* ei = dynamic_cast<ELECTRODE_MP_RxnExtent_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_MP_RxnExtent::setInitialConditions()",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::setInitialConditions()",
                            " Expecting a child ELECTRODE_KEY_INPUT object,ELECTRODE_MP_RxnExtent_KEY_INPUT,  and didn't get it");
     }
 
@@ -913,7 +913,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     spMoles_FeS2_Normalization_ = spMoles_final_[is_FeS2_A] + spMoles_final_[is_FeS2_B];
     double currentSolidVol = SolidVol();
     if (currentSolidVol <= 0.0) {
-        throw CanteraError("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()",
+        throw Electrode_Error("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()",
                            "current solid volume is zero or less");
     }
     double ratio = targetSolidVol / currentSolidVol;
@@ -940,7 +940,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
 
     currentSolidVol = SolidVol();
     if (fabs(currentSolidVol - targetSolidVol) > 1.0E-8*targetSolidVol) {
-        throw CanteraError("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry() Error",
+        throw Electrode_Error("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry() Error",
                            "Couldn't set the solid volume correctly: " + fp2str(currentSolidVol) + " vs " + fp2str(targetSolidVol));
     }
 
@@ -973,7 +973,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     totalVol = TotalVol();
     double calcPor = (totalVol - currentSolidVol) / totalVol;
     if (fabs(calcPor - porosity_) > 1.0E-6) {
-        throw CanteraError("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry() Error",
+        throw Electrode_Error("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry() Error",
                            "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
     }
 
@@ -984,7 +984,7 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     spMoles_FeS2_Normalization_ = spMoles_final_[is_FeS2_A] + spMoles_final_[is_FeS2_B];
     currentSolidVol = SolidVol();
     if (fabs(currentSolidVol - targetSolidVol) > 1.0E-8*targetSolidVol) {
-        throw CanteraError("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry() Error",
+        throw Electrode_Error("Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry() Error",
                            "Couldn't set the solid volume correctly: " + fp2str(currentSolidVol) + " vs " + fp2str(targetSolidVol));
     }
 
@@ -1274,11 +1274,11 @@ double Electrode_MP_RxnExtent::TotalVol(bool ignoreErrors) const
     double palt = mv * phaseMoles_final_[iph];
     if (!ignoreErrors) {
         if (palt < -1.0E-15) {
-            throw CanteraError(" Electrode_MP_RxnExtent::TotalVol() ",
+            throw Electrode_Error(" Electrode_MP_RxnExtent::TotalVol() ",
                                " phase volume is negative " + fp2str(palt));
         }
         if (psum < -1.0E-15) {
-            throw CanteraError(" Electrode_MP_RxnExtent::TotalVol() ",
+            throw Electrode_Error(" Electrode_MP_RxnExtent::TotalVol() ",
                                " phase volume is negative " + fp2str(psum));
         }
     }
@@ -1286,7 +1286,7 @@ double Electrode_MP_RxnExtent::TotalVol(bool ignoreErrors) const
     if (tp.eosType() != cLattice) {
         if (!ignoreErrors && 0) {
             if (fabs((palt - psum) / denom) > 1.0E-4) {
-                throw CanteraError(" Electrode_MP_RxnExtent::TotalVol() ",
+                throw Electrode_Error(" Electrode_MP_RxnExtent::TotalVol() ",
                                    " internal inconsistency " + fp2str(palt) + " " + fp2str(psum));
             }
         }
@@ -1296,21 +1296,14 @@ double Electrode_MP_RxnExtent::TotalVol(bool ignoreErrors) const
     double vol = svol + psum;
     return vol;
 }
-//====================================================================================================================
-//  Returns the total moles in the electrode phases of the electrode
-/*
- *  @return total moles (kmol)
- */
+//==================================================================================================================================
 double  Electrode_MP_RxnExtent::SolidTotalMoles() const
 {
     return spMoles_FeS2_Normalization_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_MP_RxnExtent::getPhaseVol(double* const phaseVols) const
 {
-
-
-
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseVols[iph] = 0.0;
         int kStart = m_PhaseSpeciesStartIndex[iph];
@@ -1320,8 +1313,6 @@ void Electrode_MP_RxnExtent::getPhaseVol(double* const phaseVols) const
             phaseVols[iph]  += spMoles_final_[kStart + k] * VolPM_[kStart + k];
         }
     }
-
-
     int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
     int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
 
@@ -1339,7 +1330,7 @@ void Electrode_MP_RxnExtent::getPhaseVol(double* const phaseVols) const
     phaseVols[ip_FeS2_A] =  molarVolumeRegions_[ireg] * relRegion * spMoles_FeS2_Normalization_;
     phaseVols[ip_FeS2_B] =  molarVolumeRegions_[ireg] * (1.0 - relRegion) * spMoles_FeS2_Normalization_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Take the state (i.e., the final state) within the Electrode_Model and push it down
 // to the ThermoPhase Objects
 /*
@@ -1808,7 +1799,7 @@ void Electrode_MP_RxnExtent::updateSpeciesMoleChangeFinal()
             }
 
             if (fabs(SrcDot_ExtentRxn_final_  + DspMoles_final_[kElectron_]) > 1.0E-8 * (fabs(SrcDot_ExtentRxn_final_) + 1.0E-22)) {
-                throw CanteraError("", "Logic error");
+                throw Electrode_Error("", "Logic error");
             }
             SrcDot_RelativeExtentRxn_final_  = SrcDot_ExtentRxn_final_ / spMoles_FeS2_Normalization_;
 
@@ -2067,7 +2058,7 @@ int Electrode_MP_RxnExtent::predictSoln_SpeciaType1()
 int  Electrode_MP_RxnExtent::changeRegion(int newRegion)
 {
     if (RelativeExtentRxn_init_ != RelativeExtentRxn_final_) {
-        throw CanteraError(" Electrode_MP_RxnExtent::changeRegion(int newRegion) ",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::changeRegion(int newRegion) ",
                            "function called at the wrong time. extents not the same");
     }
     int tmp =  xRegion_final_;
@@ -2225,7 +2216,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
              */
             double relExtentRxn = RegionBoundaries_ExtentRxn_[onRegionBoundary_init_];
             if (fabs(relExtentRxn - RelativeExtentRxn_init_) > 1.0E-9) {
-                throw CanteraError("predictSoln():", "ERROR : We are confused\n");
+                throw Electrode_Error("predictSoln():", "ERROR : We are confused\n");
             }
 
             /*
@@ -2245,7 +2236,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
                 vbot = openCircuitVoltage_Region(relExtentRxn, onRegionBoundary_init_);
             }
             if (vtop < vbot) {
-                throw CanteraError("predictSoln():", "ERROR: Expected but unexpected\n");
+                throw Electrode_Error("predictSoln():", "ERROR: Expected but unexpected\n");
             }
             //  If the voltage says we move backwards, we decrement the region before doing the prediction
             //  An extra check is supplied to make sure that we are not at the absolute region 0 boundary, where we can't go backwards
@@ -2591,7 +2582,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
     }
 #endif
     if (deltaTsubcycleCalc_ <= 0.0) {
-	throw CanteraError("predictSoln():", "deltaTsubcycleCalc is less than or equal to zero");
+	throw Electrode_Error("predictSoln():", "deltaTsubcycleCalc is less than or equal to zero");
     }
     soln_predict_[0] = deltaTsubcycleCalc_ ;
     soln_predict_[1] = RelativeExtentRxn_final_;
@@ -3106,7 +3097,7 @@ void Electrode_MP_RxnExtent::checkRegion(int regionID) const
         if (regionID == regHigh || regionID == regLow) {
             // we are fine
         } else {
-            throw CanteraError("checkRegion()", "On a boundary but regionID doesn't agree");
+            throw Electrode_Error("checkRegion()", "On a boundary but regionID doesn't agree");
         }
     } else {
         int reg = findRegion(RelativeExtentRxn_final_);
@@ -3118,7 +3109,7 @@ void Electrode_MP_RxnExtent::checkRegion(int regionID) const
                 double reg_deltalow = RelativeExtentRxn_final_ * (1.0 - 1.0E-5);
                 int reg_low = findRegion(reg_deltalow);
                 if (reg_low != regionID) {
-                    throw CanteraError("checkRegion()", "region ID " + int2str(regionID) +
+                    throw Electrode_Error("checkRegion()", "region ID " + int2str(regionID) +
                                        " doesn't agree with current extent " +
                                        fp2str(RelativeExtentRxn_final_) + ", which is in region " + int2str(reg));
                 }
@@ -3126,7 +3117,7 @@ void Electrode_MP_RxnExtent::checkRegion(int regionID) const
                 double reg_deltahigh = RelativeExtentRxn_final_ * (1.0 + 1.0E-5);
                 int reg_high = findRegion(reg_deltahigh);
                 if (reg_high != regionID) {
-                    throw CanteraError("checkRegion()", "region ID " + int2str(regionID) +
+                    throw Electrode_Error("checkRegion()", "region ID " + int2str(regionID) +
                                        " doesn't agree with current extent " +
                                        fp2str(RelativeExtentRxn_final_) + ", which is in region " + int2str(reg));
                 }
@@ -3459,7 +3450,7 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
     tbase = std::max(tbase, t_final_final_);
     if (!resetToInitInit) {
 	if (fabs(Tinitial - t_final_final_) > (1.0E-9 * tbase)) {
-	    throw CanteraError("Electrode_MP_RxnExtent::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
+	    throw Electrode_Error("Electrode_MP_RxnExtent::resetStartingCondition()", "tinit " + fp2str(Tinitial) +" not compat with t_final_final_ "
 			       + fp2str(t_final_final_));
 	}
     }
@@ -3776,7 +3767,6 @@ int Electrode_MP_RxnExtent::setVoltageVsExtent_FeS2()
     return 0;
 }
 //====================================================================================================================
-//  Get the region
 /*
  *     if RelativeExtentRxn is below the low boundary return -1
  *     If RelativeExtentRxn is at the low boundary return region number containing the low boundary
@@ -3807,7 +3797,7 @@ double Electrode_MP_RxnExtent::relativeExtentRxn(double time) const
     if (fabs(time - t_final_final_) < 1.0E-50) {
         return RelativeExtentRxn_final_final_;
     }
-    throw CanteraError("Electrode_MP_RxnExtent::relativeExtentRxn(double time)", "unknown time: " + fp2str(time));
+    throw Electrode_Error("Electrode_MP_RxnExtent::relativeExtentRxn(double time)", "unknown time: " + fp2str(time));
     return 0.0;
 }
 //==================================================================================================================================
@@ -3836,7 +3826,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSSRxn(size_t isk, size_t iReact
     double voltsSSBase = Electrode::openCircuitVoltageSSRxn(isk, iReaction);
     double voltsSS =  openCircuitVoltageSS_Region(RelativeExtentRxn_final_, xRegion_final_);
     if (fabs(voltsSSBase - voltsSS) > 1.0E-6) {
-        throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltageSSRxn()",
+        throw Electrode_Error("Electrode_MP_RxnExtent::openCircuitVoltageSSRxn()",
                            "Internal inconsistency: " +  fp2str(voltsSSBase) + "  " + fp2str(voltsSS));
     }
     return voltsSSBase;
@@ -3848,7 +3838,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSS_Region(double relativeExtent
     double voltage, voltage_b, voltage_3;
     double nElectrons = relativeExtentRxn;
     if ((temperature_ < 650) | (temperature_ > 800)) {
-        throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltageSS_Region()", "Temperature outside region of fit");
+        throw Electrode_Error("Electrode_MP_RxnExtent::openCircuitVoltageSS_Region()", "Temperature outside region of fit");
     }
     int ireg = findRegion(relativeExtentRxn);
     if (ireg != xRegion) {
@@ -3898,7 +3888,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSS_Region(double relativeExtent
         break;
     default:
         voltage = 1000.;
-        //throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltageSS_Region()",
+        //throw Electrode_Error("Electrode_MP_RxnExtent::openCircuitVoltageSS_Region()",
         //			 "nElectrons outside valid region, less than 0.0");
         break;
     }
@@ -3906,7 +3896,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSS_Region(double relativeExtent
     } else if (et == MP_RXNEXTENT_FES2_ET) {
 	voltage = openCircuitVoltageSS_Region_NoCheck(relativeExtentRxn, xRegion);
     } else {
-       throw CanteraError("", "Bad eletrodeType");
+       throw Electrode_Error("", "Bad eletrodeType");
     }
     return voltage;
 }
@@ -3946,19 +3936,6 @@ double Electrode_MP_RxnExtent::openCircuitVoltageSS_final() const
     return volts;
 }
 //==================================================================================================================================
-// Calculate the inner radius at the final state
-/*
- *  An inner radius is needed for diffusion approximations. Here we calculate the inner radius
- *  by the extent of reaction carried out in the current region. Everything is relative
- *  to the exterior radius.
- *
- *  When the extent of reaction in the current plateau is zero, we assume that the inner
- *  radius is equal to the external radius (mult by (1 -small)). When the extent of reaction is
- *  nearly equal to the end of the region, we assume the internal radius is nearly zero
- *     (radius_ext * (small))
- *
- *  Here small is defined as 1.0E-4 (will experiment with that number.
- */
 double Electrode_MP_RxnExtent::calculateRadiusInner(double relativeExtentRxn_final) const
 {
     const double smallFactor = 20.;
@@ -3990,8 +3967,7 @@ double Electrode_MP_RxnExtent::calculateRadiusInner(double relativeExtentRxn_fin
 
     double radius_inner = pow(perCentUnreacted, 0.33333333333333333) * Radius_exterior_final_;
     if (fabs(radius_inner - r) > 0.1) {
-        throw CanteraError(" Electrode_MP_RxnExtent::calculateRadiusInner_final()",
-                           " of concern, look into ");
+        throw Electrode_Error(" Electrode_MP_RxnExtent::calculateRadiusInner_final()", " of concern, look into ");
     }
 
     if (radius_inner < radius_inner_SmallBound) {
@@ -4017,7 +3993,7 @@ double Electrode_MP_RxnExtent::openCircuitVoltageRxn(size_t isk, size_t iReactio
     //double voltBase = Electrode::openCircuitVoltage(indexOfReactingSurface_);
     double volts = openCircuitVoltage_Region(RelativeExtentRxn_final_, xRegion_final_);
     /*if (fabs(voltBase - volts) > 1.0E-6) {
-        throw CanteraError("Electrode_MP_RxnExtent::openCircuitVoltage()",
+        throw Electrode_Error("Electrode_MP_RxnExtent::openCircuitVoltage()",
                            "Internal inconsistency: " +  fp2str(voltBase) + "  " + fp2str(volts));
     }*/
     return volts;
@@ -4118,7 +4094,7 @@ double Electrode_MP_RxnExtent::capacityLeft(int platNum, double voltsMax, double
         printf("                         capacity error at relExtent %17.9E expressed in extent : left_b = %17.9E, left = %17.9E\n",
                RelativeExtentRxn_final_, (4.0 - RelativeExtentRxn_final_), leftR);
         // exit(-1);
-        //  throw CanteraError("Electrode_MP_RxnExtent::capacityLeft() ERROR: cell " + int2str(electrodeCellNumber_) +
+        //  throw Electrode_Error("Electrode_MP_RxnExtent::capacityLeft() ERROR: cell " + int2str(electrodeCellNumber_) +
         //			 ", integrationCounter " + int2str(counterNumberIntegrations_),
         //		 "capacity error at relExtent " + fp2str(RelativeExtentRxn_final_) + " : left_b = "
         //		 + fp2str(left_b) + ", left = " + fp2str(left));
@@ -4143,7 +4119,7 @@ void  Electrode_MP_RxnExtent::setRelativeCapacityDischargedPerMole(double relDis
     } else {
         double bb =  RegionBoundaries_ExtentRxn_[platNum+1] -  RegionBoundaries_ExtentRxn_[platNum];
         if (relDischargedPerMole > bb) {
-            throw CanteraError(" Electrode_MP_RxnExtent::setCapacityDischarged()",
+            throw Electrode_Error(" Electrode_MP_RxnExtent::setCapacityDischarged()",
                                " Too much capacity in plateau " + int2str(platNum) + " assumed");
         }
         relativeExtentRxn =  RegionBoundaries_ExtentRxn_[platNum] + relDischargedPerMole;
@@ -4161,18 +4137,18 @@ void  Electrode_MP_RxnExtent::setRelativeCapacityDischargedPerMole(double relDis
 void  Electrode_MP_RxnExtent::setState_relativeExtentRxn(double relativeExtentRxn)
 {
     if (pendingIntegratedStep_) {
-        throw CanteraError(" Electrode_MP_RxnExtent::setState_relativeExtentRxn()",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::setState_relativeExtentRxn()",
                            " pending integration");
     }
     RelativeExtentRxn_final_ = relativeExtentRxn;
 
     int ll = RegionBoundaries_ExtentRxn_.size();
     if (RelativeExtentRxn_final_ > RegionBoundaries_ExtentRxn_[ll-1]) {
-        throw CanteraError(" Electrode_MP_RxnExtent::setCapacityDischarged()",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::setCapacityDischarged()",
                            " Too much capacity in electrode ");
     }
     if (RelativeExtentRxn_final_ < 0.0) {
-        throw CanteraError(" Electrode_MP_RxnExtent::setCapacityDischarged()",
+        throw Electrode_Error(" Electrode_MP_RxnExtent::setCapacityDischarged()",
                            " Negative capacity in electrode ");
     }
     xRegion_final_ = findRegion(RelativeExtentRxn_final_);
@@ -4271,7 +4247,7 @@ void  Electrode_MP_RxnExtent::manageBirthDeathSuccessfulStep()
 
     if (onRegionBoundary_final_ >= 0) {
         if (fabs(RelativeExtentRxn_final_  - RegionBoundaries_ExtentRxn_[onRegionBoundary_final_]) > 1.0E-5) {
-            throw CanteraError("Electrode_MP_RxnExtent::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
+            throw Electrode_Error("Electrode_MP_RxnExtent::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
                                ", integrationCounter " + int2str(counterNumberIntegrations_),
                                " RelativeExtentRxn_final_ not on boundary and onRegionBoundary_final_ is");
         } else {
@@ -4281,13 +4257,13 @@ void  Electrode_MP_RxnExtent::manageBirthDeathSuccessfulStep()
     }
 
     if (deltaTsubcycle_ <= 0.0) {
-        throw CanteraError("Electrode_MP_RxnExtent::manageBirthDeathSuccessfulStep() ERROR: cell " + int2str(electrodeCellNumber_) +
+        throw Electrode_Error("Electrode_MP_RxnExtent::manageBirthDeathSuccessfulStep() ERROR: cell " + int2str(electrodeCellNumber_) +
                            ", counterNumberIntegrations = "  + int2str(counterNumberIntegrations_) +
                            ", counterNumberSubIntegrations " + int2str(counterNumberSubIntegrations_),
                            "Negative or zero deltaTsubcycle_ = "     + fp2str(deltaTsubcycle_));
     }
     if (deltaTsubcycleCalc_ <= 0.0) {
-        throw CanteraError("Electrode_MP_RxnExtent::manageBirthDeathSuccessfulStep() ERROR: cell " + int2str(electrodeCellNumber_) +
+        throw Electrode_Error("Electrode_MP_RxnExtent::manageBirthDeathSuccessfulStep() ERROR: cell " + int2str(electrodeCellNumber_) +
                            ", counterNumberIntegrations = "    + int2str(counterNumberIntegrations_) +
                            ", counterNumberSubIntegrations = " + int2str(counterNumberSubIntegrations_),
                            "Negative or zero deltaTsubcycleCalc_ = " + fp2str(deltaTsubcycleCalc_));
@@ -4616,7 +4592,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(size_t iph, int pSrc, bool subT
             printf("                FOR PURPOSES OF RXN, Using the external surface area:\n");
             isurfA = 1;
         } else {
-          throw CanteraError("Electrode_MP_RxnExtent::printElectrodePhase", "locationOfReactingSurface_ != 0,1,2");
+            throw Electrode_Error("Electrode_MP_RxnExtent::printElectrodePhase", "locationOfReactingSurface_ != 0,1,2");
         }
 
         radius = sqrt(surfaceAreaRS_final_[isurfA] / (4.0 * Pi * particleNumberToFollow_));

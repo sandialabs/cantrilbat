@@ -38,31 +38,29 @@ namespace Cantera
 //==================================================================================================================================
 //! base error class for m1d package inherits from the exception stl
 /*!
- *
+ *  This error class is built on top of the Zuzax error procedures.
  */
 class Electrode_Error : public ZZCantera::ZuzaxError {
 public:
 
   //! Normal Constructor for the m1d_Error base class
   /*!
-   * This class doesn't have any storage associated with it. In its
-   * constructor, a call to the Application class is made to store
-   * the strings associated with the generated error condition.
+   * This class doesn't have any storage associated with it. In its constructor, 
+   * a call to the Zuzax::Application class is made to store the strings associated with the generated error condition.
    *
-   * @param[in] procedure String name for the function within which the error was
-   *             generated.
-   * @param[in] msg  Descriptive string describing the type of error message.
+   * @param[in]              procedure           String name for the function within which the error was  generated.
+   * @param[in]              msg                 Descriptive string describing the type of error message.
    */
   Electrode_Error(const std::string &procedure, const std::string &msg);
 
-  //! Printf-like Constructor for the ZuzaxError base class
+  //! printf-like constructor for the Electrode_Error base class
   /*!
-   * In the constructor, a call to the Application class is made to store the strings associated with the generated error condition.
+   * The message is formatted according to the standard c printing routines.
    *
-   * @param[in]            procedure           String name for the function within which the error was generated.
-   * @param[in]            fmt                 printf-like format string
+   * @param[in]              procedure           String name for the function within which the error was generated.
+   * @param[in]              fmt                 printf-like format string
    * 
-   * Add parameters for fmt string 
+   *  Add parameters for fmt string according to the printf, fprintf man pages
    */
   Electrode_Error(const std::string& procedure, const char* fmt, ...);
 
@@ -77,9 +75,7 @@ protected:
    *  We want to discourage throwing an error containing no information.
    */
   Electrode_Error();
-
 };
-
 //==================================================================================================================================
 
 //! Provides a line number
@@ -88,6 +84,7 @@ protected:
 //! Provides a line number
 #define STR_TRACE_LINE(s) #s
 
+//==================================================================================================================================
 //! Provides a std::string variable containing the file and line number
 /*!
  *   This is a std:string containing the file name and the line number
@@ -111,7 +108,7 @@ protected:
 #  define AssertThrow(expr, procedure)             ((void) (0))
 #  define AssertThrowMsg(expr,procedure, message)  ((void) (0))
 #else
-
+//==================================================================================================================================
 //! Assertion must be true or an error is thrown
 /*!
  * Assertion must be true or else a Electrode_Error is thrown. A diagnostic string containing the
@@ -124,6 +121,7 @@ protected:
 #  define AssertTrace(expr)  ((expr) ? (void) 0 : \
 			      throw ZZCantera::Electrode_Error(STR_TRACE, std::string("failed assert: ") + #expr))
 
+//==================================================================================================================================
 //!  Assertion must be true or an error is thrown
 /*!
  * Assertion must be true or else a CanteraError is thrown. A diagnostic string indicating where the error
@@ -137,6 +135,7 @@ protected:
 #  define AssertThrow(expr, procedure)   ((expr) ? (void) 0 :\
 					  throw ZZCantera::Electrode_Error(procedure, std::string("failed assert: ") + #expr))
 
+//==================================================================================================================================
 //!  Assertion must be true or an error is thrown
 /*!
  *  Assertion must be true or else a CanteraError is thrown. A
@@ -155,6 +154,7 @@ protected:
              ((expr) ? (void) 0 : throw ZZCantera::Electrode_Error(procedure + std::string(": at failed assert: \"") +\
                                                        std::string(#expr) + std::string("\""), message) )
 
+//==================================================================================================================================
 #endif
 }
 //----------------------------------------------------------------------------------------------------------------------------------

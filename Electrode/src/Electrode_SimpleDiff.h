@@ -77,21 +77,21 @@ public:
   
     //! Add additional Keylines for child electrode objects, and then read them in
     /*!
-     *   (virtual function from Electrode)
-     *   (overload virtual function - replaces parent members)
+     *  (virtual function from Electrode)
+     *  (overload virtual function - replaces parent members)
      *
-     *   This function will replace the ELECTRODE_KEY_INPUT structure with an expanded
-     *   child member structure ELECTRODE_RadialRegion_KEY_INPUT containing the extra information.
+     *  This function will replace the ELECTRODE_KEY_INPUT structure with an expanded
+     *  child member structure ELECTRODE_RadialRegion_KEY_INPUT containing the extra information.
      *
-     *   If the command file has been read before, it will then reparse the command file
-     *   storring the new information in the  ELECTRODE_RadialRegion_KEY_INPUT structure.
+     *  If the command file has been read before, it will then reparse the command file
+     *  storring the new information in the  ELECTRODE_RadialRegion_KEY_INPUT structure.
      *
-     *    @param ei_ptr  Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
-     *                   as the child class of  ELECTRODE_KEY_INPUT gets malloced.
+     *   @param[in]          ei_ptr              Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
+     *                                           as the child class of ELECTRODE_KEY_INPUT gets malloced.
      *
-     *    @return  0 successful but no change in ei
-     *             1 Successful and ei has changed
-     *            -1 unsuccessful fatal error of some kind.
+     *   @return                                  0 successful but no change in ei
+     *                                            1 Successful and ei has changed
+     *                                           -1 unsuccessful fatal error of some kind.
      */
     virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr) override;
 

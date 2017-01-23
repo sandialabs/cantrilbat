@@ -33,15 +33,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
-
-//======================================================================================================================
-/*
- *  ELECTRODE_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
+//==================================================================================================================================
 Electrode_SurfaceRegion::Electrode_SurfaceRegion() :
     Electrode_Integrator(),
     rsd_(0),
@@ -104,21 +96,10 @@ Electrode_Types_Enum Electrode_SurfaceRegion::electrodeType() const
 int
 Electrode_SurfaceRegion::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 {
-
-    /*
-     * Number of cells - hard code for now
-     */
-
-
-    /*
-     * Initialize the arrays in this object now that we know the number of equations
-     */
     init_sizes();
-
-
     return 0;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 int Electrode_SurfaceRegion::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
     /*
@@ -145,16 +126,7 @@ Electrode_SurfaceRegion::init_sizes()
 
 
 }
-
 //====================================================================================================================
-//    The internal state of the electrode must be kept for the initial and final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
 void  Electrode_SurfaceRegion::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
     //bool resetToInitInit = false;
@@ -166,51 +138,23 @@ void  Electrode_SurfaceRegion::resetStartingCondition(double Tinitial, bool doRe
        //resetToInitInit = true; 
     }
     Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
-
 }
-//====================================================================================================================
-//! Take the state (i.e., the final state) within the Electrode_Model and push it down
-//! to the ThermoPhase objects and propogate it to all other aspects of the final state
-/*!
- *  (virtual function from Electrode)
- *  This virtual function should be written so that child routines are not called by parent routines.
- *
- *  We take the values of spMoles_final_[] and propagate them down to the ThermoPhase
- *  objects in the electrode.
- *
- *  We also take the state of the electrode as described by the mole numbers and mole fractions
- *  and calculate the geometrical details involved with the model. This includes the radii and
- *  thicknesses of the regions and the existence of the annular regions with their associated boolean flags.
- *
- *  All of these properties are defined for the _final_ state.
- *
- *  Thus, this is the main routine that reconciles all of the state information within the object.
- *  At the end of this routine, all aspects of the final state are consistent with each other.
- *
- *  prerequisites: The object must have been already created.
- *
- *  Fundamental Variables:
- *       concKRSpecies_Cell_final_[]
- *
- */
+//==================================================================================================================================
 void Electrode_SurfaceRegion::updateState()
 {
 }
-//================================================================================================
-/*
- * There is a small dependence on mf_external and mf_internal exhibited by this function
- */
+//==================================================================================================================================
 void  Electrode_SurfaceRegion::extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies)
 {
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_SurfaceRegion::printElectrode(int pSrc, bool subTimeStep)
 {
 }
-//===================================================================================================================
+//==================================================================================================================================
 void Electrode_SurfaceRegion::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
 }
-//======================================================================================================================
+//==================================================================================================================================
 } // End of namespace
 //--------------------------------------------------------------------------------------------------------------------------------

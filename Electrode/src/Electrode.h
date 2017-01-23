@@ -1799,13 +1799,13 @@ public:
      *   When there is more than a single reaction, pick open circuit potential for a reaction that is
      *   closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
      *
-     *   @param[in]     isk                           Reacting surface domain id
-     *   @param[in]     iReaction                     Explicit index of the reaction. If npos, then it attempts
-     *                                                to pick the reaction that best represents the open circuit potential.
+     *   @param[in]     isk                      Reacting surface domain id
+     *   @param[in]     iReaction                Explicit index of the reaction. If npos, then it attempts
+     *                                           to pick the reaction that best represents the open circuit potential.
      *
      *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
      *
-     *   @return                                      Returns the OCV (volts)
+     *   @return                                 Returns the OCV (volts)
      */
     virtual double openCircuitVoltageRxn(size_t isk, size_t iReaction = npos, bool comparedToReferenceElectrode = false) const;
 
@@ -1815,13 +1815,13 @@ public:
      *  is zero net electron production.  It leaves the object unchanged. However, it
      *  does change the voltage of the phases during the calculation, so this is a non const function.
      *
-     * @param[in]       isk                            Reacting surface domain id
-     * @param[in]       comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
-     *                                                 the current conditions (false) or compared to the voltage wrt the 
+     *  @param[in]           isk                 Reacting surface domain id
+     *  @param[in]           comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
+     *                                                      the current conditions (false) or compared to the voltage wrt the 
      *                                                 reference electrode (true). The later is akin to using the standard 
      *                                                 state thermo functions for the electrolyte species.
      *
-     *   @return                                       Returns the OCV (volts)
+     *   @return                                 Returns the OCV (volts)
      */
     virtual double openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode = false);
 
