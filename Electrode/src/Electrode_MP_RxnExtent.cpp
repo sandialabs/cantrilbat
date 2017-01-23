@@ -1,5 +1,12 @@
+/**
+ *  @file Electrode_MP_RxnExtent.cpp Reaction extent model with multiple regions
+ */
+
 /*
- * $Id: Electrode_MP_RxnExtent.cpp 604 2013-05-24 16:27:35Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #include "Electrode_MP_RxnExtent.h"
@@ -22,22 +29,19 @@ namespace Cantera
 #ifdef DEBUG_MODE_PREDICTION
 double predictSave[30];
 #endif
-//====================================================================================================================
+//==================================================================================================================================
 ELECTRODE_MP_RxnExtent_KEY_INPUT::ELECTRODE_MP_RxnExtent_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
     numRegions_(1),
     solidDiffusionModel_(0),
-    locationOfReactingSurface_(0),
-    rxnPerturbRegions_(0)
+    locationOfReactingSurface_(0)
 {
-
 }
-//====================================================================================================================
+//==================================================================================================================================
 ELECTRODE_MP_RxnExtent_KEY_INPUT::~ELECTRODE_MP_RxnExtent_KEY_INPUT()
 {
-
 }
-//====================================================================================================================
+//==================================================================================================================================
 ELECTRODE_MP_RxnExtent_KEY_INPUT::ELECTRODE_MP_RxnExtent_KEY_INPUT(const ELECTRODE_MP_RxnExtent_KEY_INPUT& right) :
     ELECTRODE_KEY_INPUT(right),
     numRegions_(right.numRegions_),
@@ -48,9 +52,8 @@ ELECTRODE_MP_RxnExtent_KEY_INPUT::ELECTRODE_MP_RxnExtent_KEY_INPUT(const ELECTRO
     molarVolumeRegionBoundaries_    = right.molarVolumeRegionBoundaries_;
     rxnPerturbRegions_              = right.rxnPerturbRegions_;
 }
-//====================================================================================================================
-ELECTRODE_MP_RxnExtent_KEY_INPUT&
-ELECTRODE_MP_RxnExtent_KEY_INPUT::operator=(const ELECTRODE_MP_RxnExtent_KEY_INPUT& right)
+//==================================================================================================================================
+ELECTRODE_MP_RxnExtent_KEY_INPUT& ELECTRODE_MP_RxnExtent_KEY_INPUT::operator=(const ELECTRODE_MP_RxnExtent_KEY_INPUT& right)
 {
     if (this == &right) {
         return *this;
@@ -67,13 +70,13 @@ ELECTRODE_MP_RxnExtent_KEY_INPUT::operator=(const ELECTRODE_MP_RxnExtent_KEY_INP
 
     return *this;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void ELECTRODE_MP_RxnExtent_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* cf)
 {
     /*
      * Obtain the number of regions
      */
-    LE_OneInt* s1 = new LE_OneInt("Number of Regions", &(numRegions_), 0, "numRegions");
+    LE_OneSizet* s1 = new LE_OneSizet("Number of Regions", &(numRegions_), 0, "numRegions");
     s1->set_default(1);
     cf->addLineEntry(s1);
     BaseEntry::set_SkipUnknownEntries(3);
@@ -90,10 +93,8 @@ void ELECTRODE_MP_RxnExtent_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* c
 //==================================================================================================================================
 void ELECTRODE_MP_RxnExtent_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* cf)
 {
-    LE_StdVecDblVarLength* v1 = new LE_StdVecDblVarLength("Molar Volumes Region Boundaries",
-            &(molarVolumeRegionBoundaries_),
-            numRegions_ + 1, numRegions_ + 1,
-            "molarVolumesRegionBoundaries");
+    LE_StdVecDblVarLength* v1 = new LE_StdVecDblVarLength("Molar Volumes Region Boundaries", &(molarVolumeRegionBoundaries_),
+                                                          numRegions_ + 1, numRegions_ + 1, "molarVolumesRegionBoundaries");
     v1->set_default(50.0);
     v1->set_limits(1000., 0.001);
     cf->addLineEntry(v1);
@@ -119,25 +120,23 @@ void ELECTRODE_MP_RxnExtent_KEY_INPUT::setup_input_child2(BEInput::BlockEntry* c
         reqd = numRegions_  + 1;
     }
 
-    LE_StdVecDblVarLength* d1 = new LE_StdVecDblVarLength("Diffusion Coefficients for Regions",
-            &(diffusionCoeffRegions_),
-            numRegions_ + 1, reqd, "diffusionCoeffRegions_");
+    LE_StdVecDblVarLength* d1 = new LE_StdVecDblVarLength("Diffusion Coefficients for Regions", &(diffusionCoeffRegions_),
+                                                          numRegions_ + 1, reqd, "diffusionCoeffRegions_");
     d1->set_default(0.0);
     d1->set_limits(1000., 1.0E-30);
     cf->addLineEntry(d1);
 
     reqd = 0;
 
-    LE_StdVecDblVarLength* rr1 = new LE_StdVecDblVarLength("Reaction Rate Constant Perturbations for Regions",
-            &(rxnPerturbRegions_),
-            numRegions_, reqd, "rxnPerturbRegions_");
+    LE_StdVecDblVarLength* rr1 = new LE_StdVecDblVarLength("Reaction Rate Constant Perturbations for Regions", &(rxnPerturbRegions_),
+                                                           numRegions_, reqd, "rxnPerturbRegions_");
     rr1->set_default(1.0);
     rr1->set_limits(1.0E30, 1.0E-30);
     cf->addLineEntry(rr1);
 
     BaseEntry::set_SkipUnknownEntries(0);
 }
-//====================================================================================================================
+//==================================================================================================================================
 Electrode_MP_RxnExtent::Electrode_MP_RxnExtent() :
     Electrode_Integrator(),
     numRegions_(0),
@@ -150,7 +149,6 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent() :
     xRegion_init_init_(0),
     xRegion_final_(0),
     xRegion_final_final_(0),
-    // deltaTsubcycleCalc_(0.0),
     RegionBoundaries_ExtentRxn_(0),
     SrcDot_ExtentRxn_final_(0.0),
     deltaTdeath_(0.0),
@@ -175,10 +173,9 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent() :
     solidDiffusionModel_(0),
     diffusionCoeffRegions_(0),
     molarVolumeRegions_(0),
-    rxnPerturbRegions_(0),
     actEquilInterstitialsRegions_(0),
     kf_id_(0),
-    kf_dir_(0),
+    kf_dir_(-1),
     kfExt_(0.0),
     krExt_(0.0),
     kfInner_(0.0),
@@ -203,12 +200,7 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent() :
     setVoltageVsExtent_FeS2();
     soln_predict_.resize(3);
 }
-//====================================================================================================================
-//====================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
+//==================================================================================================================================
 Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& right) :
     Electrode_Integrator(),
     numRegions_(0),
@@ -221,7 +213,6 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& rig
     xRegion_init_init_(0),
     xRegion_final_(0),
     xRegion_final_final_(0),
-    // deltaTsubcycleCalc_(0.0),
     RegionBoundaries_ExtentRxn_(0),
     SrcDot_ExtentRxn_final_(0.0),
     deltaTdeath_(0.0),
@@ -250,10 +241,9 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& rig
     solidDiffusionModel_(0),
     diffusionCoeffRegions_(0),
     molarVolumeRegions_(0),
-    rxnPerturbRegions_(0),
     actEquilInterstitialsRegions_(0),
     kf_id_(0),
-    kf_dir_(0),
+    kf_dir_(-1),
     kfExt_(0.0),
     krExt_(0.0),
     kfInner_(0.0),
@@ -277,16 +267,9 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& rig
     }
     operator=(right);
 }
-//======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
+//==================================================================================================================================
 Electrode_MP_RxnExtent& Electrode_MP_RxnExtent::operator=(const Electrode_MP_RxnExtent& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
@@ -368,35 +351,22 @@ Electrode_MP_RxnExtent& Electrode_MP_RxnExtent::operator=(const Electrode_MP_Rxn
     limitingEquationBehavior_      = right.limitingEquationBehavior_;
     innerDaTreatmentType_          = right.innerDaTreatmentType_;
 
-
     return *this;
 }
-//=======================================================================================================
+//==================================================================================================================================
 Electrode_MP_RxnExtent::~Electrode_MP_RxnExtent()
 {
-
     delete Li_liq_;
     Li_liq_ = 0;
-
-
 }
-//=======================================================================================================
-// Return the type of electrode
-/*
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
+//==================================================================================================================================
 Electrode_Types_Enum  Electrode_MP_RxnExtent::electrodeType() const
 {
     return MP_RXNEXTENT_ET;
 }
-//====================================================================================================================
+//==================================================================================================================================
 int Electrode_MP_RxnExtent::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
 {
-    /*
-     *  malloc an expanded child input
-     */
     ELECTRODE_MP_RxnExtent_KEY_INPUT* ei_mp = new ELECTRODE_MP_RxnExtent_KEY_INPUT();
     /*
      *  Find the command file
@@ -420,17 +390,10 @@ int Electrode_MP_RxnExtent::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
     *ei_ptr = ei_mp;
     return 0;
 }
-//====================================================================================================================
-//  Setup the electrode
-/*
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- */
-int
-Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
+//==================================================================================================================================
+int Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
-
     int flag;
-
     /*
      *  Downcast the Key input to make sure we are being fed the correct child object
      */
@@ -463,8 +426,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     }
     molarVolume_final_ = molarVolumeRegions_[0];
     if ((int) molarVolumeRegions_.size() != numRegions_ + 1) {
-        throw Electrode_Error(" Electrode_MP_RxnExtent::electrode_model_create()",
-                           " Wrong size of molarVolumeRegions_");
+        throw Electrode_Error(" Electrode_MP_RxnExtent::electrode_model_create()", " Wrong size of molarVolumeRegions_");
     }
 
     diffusionCoeffRegions_ = ei->diffusionCoeffRegions_;
@@ -517,7 +479,6 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     resizeMoleNumbersToGeometry();
 
 
-
     electronKmolDischargedToDate_ = -  RelativeExtentRxn_final_ * spMoles_FeS2_Normalization_;
 
     xRegion_final_ = findRegion(RelativeExtentRxn_final_);
@@ -526,7 +487,7 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     xRegion_final_final_ = xRegion_final_;
     onRegionBoundary_init_ = -1;
     onRegionBoundary_final_ = -1;
-    for (int i = 0; i < (int) RegionBoundaries_ExtentRxn_.size(); i++) {
+    for (size_t i = 0; i < RegionBoundaries_ExtentRxn_.size(); i++) {
         if (fabs(RelativeExtentRxn_final_ - RegionBoundaries_ExtentRxn_[i]) < 1.0E-12) {
             onRegionBoundary_init_ = i;
             onRegionBoundary_final_ = i;
@@ -666,12 +627,9 @@ Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     locationOfReactingSurface_ = ei->locationOfReactingSurface_;
 
     diffusionCoeffRegions_ = ei->diffusionCoeffRegions_;
-
-   
-
     return 0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Number of equations is hard coded to equal 2
 size_t Electrode_MP_RxnExtent::nEquations_calc() const
 {
@@ -679,25 +637,7 @@ size_t Electrode_MP_RxnExtent::nEquations_calc() const
     // Second equation is extent or reaction
     return 2;
 }
-//====================================================================================================================
-//   Set the electrode initial conditions from the input file.
-/*
- *   (virtual from Electrode)
- *   (This is a serial virtual function or an overload function)
- *
- *    This is one of the most important routines. It sets up the initial conditions of the electrode
- *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
- *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
- *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
- *    object and the initial state of that object.
- *
- *    The routine works like an onion initialization. The parent object is initialized before the
- *    child. This means the child object first calls the parent, before it does its own initializations.
- *
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- *
- *  @return  Returns zero if successful, and -1 if not successful.
- */
+//==================================================================================================================================
 int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
 
@@ -763,7 +703,7 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     xRegion_final_final_ = xRegion_final_;
     onRegionBoundary_init_ = -1;
     onRegionBoundary_final_ = -1;
-    for (int i = 0; i < (int) RegionBoundaries_ExtentRxn_.size(); i++) {
+    for (size_t i = 0; i < RegionBoundaries_ExtentRxn_.size(); i++) {
         if (fabs(RelativeExtentRxn_final_ - RegionBoundaries_ExtentRxn_[i]) < 1.0E-12) {
             onRegionBoundary_init_ = i;
             onRegionBoundary_final_ = i;
@@ -860,27 +800,16 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     return 0;
 }
 //====================================================================================================================
-int
-Electrode_MP_RxnExtent::electrode_stateSave_create()
+int Electrode_MP_RxnExtent::electrode_stateSave_create()
 {
     eState_final_ = new EState();
     int rr = eState_final_->initialize(this);
     return rr;
 }
 //====================================================================================================================
-// Set the sizes of the electrode from the input parameters
-/*
- *  We resize all of the information within the electrode from the input parameters
- *
- * @param electrodeArea   Area of the electrode
- * @param electrodeThickness  Width of the electrode
- * @param porosity        Volume of the electrolyte phase
- */
-void Electrode_MP_RxnExtent::setElectrodeSizeParams(double electrodeArea, double electrodeThickness,
-        double porosity)
+void Electrode_MP_RxnExtent::setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity)
 {
-
-    Electrode_Integrator::setElectrodeSizeParams(electrodeArea, electrodeThickness,  porosity);
+    Electrode_Integrator::setElectrodeSizeParams(electrodeArea, electrodeThickness, porosity);
 }
 //====================================================================================================================
 // Resize the solid phase and electrolyte mole numbers within the object
@@ -908,8 +837,8 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     if (spMoles_FeS2_Normalization_ <= 0.0) {
 
     }
-    int is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
-    int is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
+    size_t is_FeS2_A = globalSpeciesIndex("FeS2_A(S)");
+    size_t is_FeS2_B = globalSpeciesIndex("FeS2_B(S)");
     spMoles_FeS2_Normalization_ = spMoles_final_[is_FeS2_A] + spMoles_final_[is_FeS2_B];
     double currentSolidVol = SolidVol();
     if (currentSolidVol <= 0.0) {
@@ -957,10 +886,10 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
     double currentSolnVol = totalVol - currentSolidVol;
     ratio =  targetSolnVol / currentSolnVol;
 
-    int istart = m_PhaseSpeciesStartIndex[solnPhase_];
-    int nspSoln = m_PhaseSpeciesStartIndex[solnPhase_ +1] - m_PhaseSpeciesStartIndex[solnPhase_];
-    for (int kk = 0; kk < nspSoln; kk++) {
-        int k = istart + kk;
+    size_t istart = m_PhaseSpeciesStartIndex[solnPhase_];
+    size_t nspSoln = m_PhaseSpeciesStartIndex[solnPhase_ +1] - m_PhaseSpeciesStartIndex[solnPhase_];
+    for (size_t kk = 0; kk < nspSoln; kk++) {
+        size_t k = istart + kk;
         spMoles_final_[k] *= ratio;
         spMoles_init_[k] = spMoles_final_[k];
         spMoles_init_init_[k] = spMoles_final_[k];
@@ -992,9 +921,6 @@ void Electrode_MP_RxnExtent::resizeMoleNumbersToGeometry()
 }
 //====================================================================================================================
 //  Set the initial value of DH_f for B to get a desired value
-/*
- *
- */
 void Electrode_MP_RxnExtent::developBaseE0()
 {
     /*
@@ -1002,8 +928,8 @@ void Electrode_MP_RxnExtent::developBaseE0()
      */
     double um[5];
 
-    int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
-    int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
+    size_t ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
+    size_t ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
     ThermoPhase* FeS2_A = &(thermo(ip_FeS2_A));
     ThermoPhase* FeS2_B = &(thermo(ip_FeS2_B));
 
@@ -1099,8 +1025,8 @@ void Electrode_MP_RxnExtent::changeToE0(double E0, int doPrint)
     if (iprint > 0) {
         printf("  changeToE0() -------------------------\n");
     }
-    int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
-    int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
+    size_t ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
+    size_t ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
     ThermoPhase* FeS2_A = &(thermo(ip_FeS2_A));
     ThermoPhase* FeS2_B = &(thermo(ip_FeS2_B));
     Li_liq_->setState_TP(temperature_, pressure_);
@@ -1124,7 +1050,7 @@ void Electrode_MP_RxnExtent::changeToE0(double E0, int doPrint)
     double mu_elec = um[0];
 
     tSalt->getPureGibbs(um);
-    int ilt_Lip = tSalt->speciesIndex("Li+");
+    size_t ilt_Lip = tSalt->speciesIndex("Li+");
     double mu_lip = um[ilt_Lip];
     double RT = GasConstant * temperature_;
     // This should be zero
@@ -1181,7 +1107,7 @@ void Electrode_MP_RxnExtent::changeToE0(double E0, int doPrint)
 
         printf("deltaG_kinetics         = %21.16E\n",  deltaG[0]);
 
-        int nStoichElectrons = -1;
+        double nStoichElectrons = -1;
         double PhiRxn = deltaG_[0]/Faraday/ nStoichElectrons;
         printf("PhiRxn = %22.16E \n", PhiRxn);
         printf("E0     = %22.16E \n", E0);
@@ -1193,7 +1119,7 @@ void Electrode_MP_RxnExtent::changeToE0(double E0, int doPrint)
         double mu_elec = um[0];
 
         tSalt->getPureGibbs(um);
-        int ilt_Lip = tSalt->speciesIndex("Li+");
+        size_t ilt_Lip = tSalt->speciesIndex("Li+");
         double mu_lip = um[ilt_Lip];
         double RT = GasConstant * temperature_;
         delGBase = um_Li_liq -  mu_lip - mu_elec + RT * log(2.0);
@@ -1306,18 +1232,18 @@ void Electrode_MP_RxnExtent::getPhaseVol(double* const phaseVols) const
 {
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         phaseVols[iph] = 0.0;
-        int kStart = m_PhaseSpeciesStartIndex[iph];
+        size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
-        int nspPhase = tp.nSpecies();
-        for (int k = 0; k < nspPhase; k++) {
+        size_t nspPhase = tp.nSpecies();
+        for (size_t k = 0; k < nspPhase; k++) {
             phaseVols[iph]  += spMoles_final_[kStart + k] * VolPM_[kStart + k];
         }
     }
-    int ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
-    int ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
+    size_t ip_FeS2_A = globalPhaseIndex("FeS2_A(S)");
+    size_t ip_FeS2_B = globalPhaseIndex("FeS2_B(S)");
 
-    int numRegions = RegionBoundaries_ExtentRxn_.size() - 1;
-    int ireg = findRegion(RelativeExtentRxn_final_);
+    size_t numRegions = RegionBoundaries_ExtentRxn_.size() - 1;
+    size_t ireg = findRegion(RelativeExtentRxn_final_);
     if (ireg < 0) {
         ireg = 0;
     } else if (ireg > numRegions - 1) {
@@ -1459,15 +1385,15 @@ void Electrode_MP_RxnExtent::updateSurfaceAreas()
 void Electrode_MP_RxnExtent::extractInfo()
 {
 
-    int maxNumRxns = 2;
+    size_t maxNumRxns = 2;
     std::vector<double> netROP(maxNumRxns, 0.0);
     ReactingSurDomain* rsd = RSD_List_[indexOfReactingSurface_];
 
-    int numRxn = rsd->nReactions();
+    size_t numRxn = rsd->nReactions();
     /*
      *  Set the reaction rate multiplier for the current region
      */
-    for (int i = 0; i < numRxn; i++) {
+    for (size_t i = 0; i < numRxn; i++) {
 
         rsd->setMultiplier(i, rxnPerturbRegions_[xRegion_final_]);
     }
@@ -1481,7 +1407,7 @@ void Electrode_MP_RxnExtent::extractInfo()
      *
      *  Get the species production rates for the reacting surface
      */
-    const vector<double>& rsSpeciesProductionRates = rsd->calcNetSurfaceProductionRateDensities();
+    const std::vector<double>& rsSpeciesProductionRates = rsd->calcNetSurfaceProductionRateDensities();
 
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(indexOfReactingSurface_);
 
@@ -1489,8 +1415,6 @@ void Electrode_MP_RxnExtent::extractInfo()
      *  Calculate an effective Damkoeler number for solid phase diffusion and then
      *  calculate a factor that reduces the overall rate of progress of the reaction
      */
-
-
     rsd->getNetRatesOfProgress(DATA_PTR(netROP));
     if (goNowhere_) {
         ROP_[0] = 0.0;
@@ -1507,14 +1431,14 @@ void Electrode_MP_RxnExtent::extractInfo()
      *  Get the net production vector
      */
     std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-    int nphRS = rsd->nPhases();
-    int jph, kph;
-    int kIndexKin = 0;
+    size_t nphRS = rsd->nPhases();
+    size_t jph, kph;
+    size_t kIndexKin = 0;
     for (kph = 0; kph < nphRS; kph++) {
         jph = rsd->kinOrder[kph];
-        int istart = m_PhaseSpeciesStartIndex[jph];
-        int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-        for (int k = 0; k < nsp; k++) {
+        size_t istart = m_PhaseSpeciesStartIndex[jph];
+        size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+        for (size_t k = 0; k < nsp; k++) {
             spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin] * fac;
             kIndexKin++;
         }
@@ -1523,7 +1447,6 @@ void Electrode_MP_RxnExtent::extractInfo()
 //====================================================================================================================
 double Electrode_MP_RxnExtent::modifyROPForDiffusion()
 {
-
     /*
      * Calculate common quantities
      */
@@ -1549,8 +1472,9 @@ void Electrode_MP_RxnExtent::calculatekABForDa()
     double kRates_[10];
     double kRRates_[10];
     double ca[10];
-    kf_id_ = 0;
-    kf_dir_ = -1;
+    
+    //kf_id_ = 0;    // Note this is hardcoded to 0. If it is not 0, this will produce an error
+    kf_dir_ = -1;    // Note this is hardcoded to -1. If this is not -1, this will produce an error.
     // -> could start with ropf and ropr. But, you end up at the same place.
     //   double ropf_[10], ropr_[10];
     // rsd->getFwdRatesOfProgress(ropf_);
@@ -1578,7 +1502,7 @@ void Electrode_MP_RxnExtent::calculatekABForDa()
     ThermoPhase& sthermo = thermo(solnPhase_);
 
     sthermo.getActivityConcentrations(ca);
-    int ilt_Lip = sthermo.speciesIndex("Li+");
+    size_t ilt_Lip = sthermo.speciesIndex("Li+");
     ca_Lip_ = ca[ilt_Lip];
 
     /*
@@ -4280,35 +4204,16 @@ void  Electrode_MP_RxnExtent::manageBirthDeathSuccessfulStep()
     phaseMoles_final_[ip_FeS2_A] = spMoles_FeS2_Normalization_ / 2.0;
     phaseMoles_final_[ip_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
 }
-
-//====================================================================================================================
-//   Error check on the routine step
-/*
- *    (virtual from Electrode_Integrator)
- *
- *   Error checks go here. All errors are fatal exits.
- */
+//==================================================================================================================================
 void Electrode_MP_RxnExtent::check_final_state()
 {
 }
-//====================================================================================================================
-//   Check the nonlinear residual equations for completeness and the ability to be solved
-/*
- *
- */
+//==================================================================================================================================
 int Electrode_MP_RxnExtent::check_nonlinResidConditions()
 {
     return 0;
 }
-//====================================================================================================================
-// Print conditions of the electrode for the current integration step to stdout
-/*
- *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
- *                       to the final_final time.
- *                       The default is to print out the source terms
- *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
- *                       time step. The default is to print out the global values
- */
+//==================================================================================================================================
 void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
 {
 
@@ -4430,9 +4335,8 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
     }
     printf("          ElectrodeVoltage                                       %- 12.7g\n", deltaVoltage_);
 
-
     ReactingSurDomain* rsd = RSD_List_[indexOfReactingSurface_];
-    int irxn = 0;
+    size_t irxn = 0;
     double dStoich;
     double OCV;
     double io;
@@ -4447,7 +4351,6 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
 	icurr = rsd->calcCurrentDensity(nu, dStoich, io, beta, temperature_, resist);
     }
 #endif
-
 
     printf("          OCV from (rsd)                                         %- 12.7g Volts\n", OCV);
     printf("          i_o                                                    %- 12.7E coul/sec/m2\n", io);
@@ -4471,7 +4374,6 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
     rsd->getNetRatesOfProgress(DATA_PTR(netROP));
 
     printf("                                         (compare net ROP from two formulations: %g  %g)\n", -iiM, netROP[0]);
-
 #endif
 
     if (solidDiffusionModel_) {
@@ -4533,12 +4435,12 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_MP_RxnExtent::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
     int printDetail = 10;
     int isurfA;
-    int isurf=-1;
+    int isurf = -1;
     double* netROP = new double[m_NumTotSpecies];
     ThermoPhase& tp = thermo(iph);
     string pname = tp.id();

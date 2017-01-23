@@ -55,7 +55,7 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     * @param[in]            right               Object to be copied
      */
     ELECTRODE_MP_RxnExtent_KEY_INPUT(const ELECTRODE_MP_RxnExtent_KEY_INPUT& right);
 
@@ -77,9 +77,9 @@ public:
 
     //!  Second pass through the child setup system
     /*!
-     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this
-     *    pass.
-     *  @param cf    Pointer to the BlockEntry record
+     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this  pass.
+     *
+     *  @param[in]           cf                  Pointer to the BlockEntry record
      */
     void setup_input_child2(BEInput::BlockEntry* cf);
 
@@ -89,7 +89,7 @@ public:
      *  Within each region the ss open circuit model is continuous. Either the voltage is
      *  constant or it is a linear function of the extent of reaction variable.
      */
-    int numRegions_;
+    size_t numRegions_;
 
     //! Solid state diffusion model identification
     /*!
@@ -109,7 +109,6 @@ public:
      */
     int locationOfReactingSurface_;
 
-
     //! Diffusion coefficient in the outer region of a two region spherical model
     /*!
      *  We identify the solids by Zones, which are related to regions. Generally, when the extent of reaction is
@@ -117,24 +116,26 @@ public:
      *  zone 1 in the model. Zone 0 would be diffusion in the inner core, whose value we never
      *  actually need. It's actually conceptually simpler this way.
      *
-     *  Length = numRegions_ + 1
-     *  Units = m**2 s-1
+     *  Length:  numRegions_ + 1
+     *  Units:   m**2 s-1
      */
-
     std::vector<double> diffusionCoeffRegions_;
-
 
     //! Molar volume of each of the region ends
     /*!
-     *     Length = numRegions_ + 1
-     *     units = m**3 kmol-1
+     *   Length:  numRegions_ + 1
+     *   Units:   m**3 kmol-1
      */
     std::vector<double> molarVolumeRegionBoundaries_;
 
+    //! Multipliers for each region -> changes the reaction rate in each region
+    /*!
+     *   Length:  numRegions_
+     *   Units:   none
+     *   Default: 1.0
+     */
     std::vector<double> rxnPerturbRegions_ ;
-
 };
-
 //==================================================================================================================================
 //!  Newman Model for the reaction extent
 /*!
@@ -1331,43 +1332,62 @@ protected:
 
     //! Molar volume of the electrode at the final state
     /*!
-     *  units m3 kmol-1
+     *  Units: m3 kmol-1
      */
     double molarVolume_final_;
 
     //! Molar volume of the electrode at the final global step state
     /*!
-     *  units m3 kmol-1
+     *  Units: m3 kmol-1
      */
     double molarVolume_final_final_;
 
     //! Molar volume of the electrode at the initial subgrid step state
     /*!
-     *  units m3 kmol-1
+     *  Units: m3 kmol-1
      */
     double molarVolume_init_;
 
     //! Molar volume of the electrode at the initial global step state
     /*!
-     *  units m3 kmol-1
+     *  Units: m3 kmol-1
      */
     double molarVolume_init_init_;
 
     //! Internal Radius at the final state (m)
     /*!
-     *   In order to do diffusion we need an inner radius
-     *   This is defined in terms of the Degree that we have progressed along the extone of reaction variable
-     *   between region boundaries.
+     *   In order to do diffusion we need an inner radius.  This is defined in terms of the degree that we have progressed
+     *   along the extone of reaction variable between region boundaries.
+     *
+     *  Units: (m) particle radial coordinates
      */
     double Radius_internal_final_;
 
     //! Internal radius at the final final state (m)
+    /*!
+     *   In order to do diffusion we need an inner radius.  This is defined in terms of the degree that we have progressed
+     *   along the extone of reaction variable between region boundaries.
+     *
+     *  Units: (m) particle radial coordinates
+     */
     double Radius_internal_final_final_;
 
     //! Internal radius at the initial state
+    /*!
+     *   In order to do diffusion we need an inner radius.  This is defined in terms of the degree that we have progressed
+     *   along the extone of reaction variable between region boundaries.
+     *
+     *  Units: (m) particle radial coordinates
+     */
     double Radius_internal_init_;
 
     //! Internal radius at the initial initial state
+    /*!
+     *   In order to do diffusion we need an inner radius.  This is defined in terms of the degree that we have progressed
+     *   along the extone of reaction variable between region boundaries.
+     *
+     *  Units: (m) particle radial coordinates
+     */
     double Radius_internal_init_init_;
 
     //! Location of the reacting surface
@@ -1403,27 +1423,31 @@ protected:
      */
     int solidDiffusionModel_;
 
+public:
     //! Diffusion coefficient in the outer region of a two region spherical model
     /*!
-     *  We identify the solids by Zones, which are related to regions. Generally, when the extent of reaction is
+     *  We identify the solids by zones, which are related to regions. Generally, when the extent of reaction is
      *  in the zeroeth region, we are using diffusionCoeffRegions_[1], i.e., the first zone, because that is
      *  zone 1 in the model. Zone 0 would be diffusion in the inner core, whose value we never
      *  actually need. It's actually conceptually simpler this way.
      *
-     *  Length = numRegions_ + 1
-     *  Units = m**2 s-1
+     *  Length:  numRegions_ + 1
+     *  Units:   m**2 s-1
      */
-public:
     std::vector<double> diffusionCoeffRegions_;
 
     //! This is the data field for the calculation of molar volumes
     /*!
-     *  Length = numRegions_ + 1
-     *  Units = m**3 / kmol
+     *  Length:  numRegions_ + 1
+     *  Units:   m**3 / kmol
      */
     std::vector<double> molarVolumeRegions_;
 
     //! Reaction multiplier for the regions
+    /*!
+     *  Length:  numRegions_ + 1
+     *  Units:   none
+     */
     std::vector<double> rxnPerturbRegions_;
 
 protected:
@@ -1434,12 +1458,21 @@ protected:
      *  zone 1 in the model. Zone 0 would be diffusion in the inner core, whose value we never
      *  actually need. It's actually conceptually simpler this way.
      *
-     *  Length = numRegions_ + 1
-     *  Units = unitless
+     *  Length:  numRegions_ + 1
+     *  Units:   unitless
      */
     std::vector<double> actEquilInterstitialsRegions_;
 
-    int kf_id_;
+    //! Identity of the reaction that is assumed to create the diffusing species within the damkoeler model
+    /*!
+     *  NOTE, THIS IS HARDCODED TO 0
+     */
+    size_t kf_id_;
+
+    //! Positive if the forward direction of the reaction produces the diffusing species, negative if it is the other way round.
+    /*!
+     * NOTE, THIS IS HARDCODED TO -1. 
+     */
     int kf_dir_;
 
     //
