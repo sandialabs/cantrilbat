@@ -24,7 +24,8 @@ DATA =  cathode.inp  FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.
 TEST_RESULTS = out.txt  FeS2_globalResults_0_0.csv  FeS2_intResults_0_0.csv soln_0_0.xml \
                outputTable_0_0_0.csv  outputTable_0_3_0.csv 
 
-TEST_INTERMEDIATE_FILES = diff_csv.txt  diff_out.txt err_out.txt runInProgress.txt runGood runBad 
+TEST_INTERMEDIATE_FILES = diff_csv.txt  diff_out.txt err_out.txt runInProgress.txt runGood runBad  \
+           diff_out0csv.txt diff_out3csv.txt
 
 OBJ = $(PROGRAM).o
 

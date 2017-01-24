@@ -3509,7 +3509,7 @@ void  Electrode_MP_RxnExtent::setFinalStateFromInit()
     Electrode_Integrator::setFinalStateFromInit_Oin();
     /*
      * Do stuff not done in base class
-     /*/
+     */
     RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
     xRegion_final_ = xRegion_init_;
     onRegionBoundary_final_ = onRegionBoundary_init_;

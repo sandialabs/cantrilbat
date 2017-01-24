@@ -896,7 +896,7 @@ public:
      *   Then, the difference between the OCV and the SS OCV is the activity of the Li+ with a stoichiometric
      *   coefficient of -1 applied.
      *
-     *   @TODO   Understand how this changes when an anode is modeled.
+     *   @todo   Understand how this changes when an anode is modeled.
      *
      *  (virtual function of Electrode_MP_RxnExtent.h)
      *

@@ -34,7 +34,6 @@ test:
 	cd FeS2_3_MPNewman_cV_restart; 				@MAKE@ -s test
 	cd FeS2_4_MPNewman_cc ; 				@MAKE@ -s test
 	cd FeS2_4_cMPNewman_cc ; 				@MAKE@ -s test
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@ -s test
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			@MAKE@ -s test
 	cd MCMBAnode_LiIon_DiffTALE_cV;				@MAKE@ -s test
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	@MAKE@ -s test
@@ -52,6 +51,7 @@ test:
 	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ -s test
 	cd UnitTests ;                                          @MAKE@ -s test
 	cd MCMB_Mao ; 						@MAKE@ -s test
+	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@ -s test
 
 
 clean:
