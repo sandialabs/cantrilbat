@@ -1,0 +1,187 @@
+#!/bin/sh
+#
+#  Makefile.in: 
+#
+# $Id: Makefile.in,v 1.1 2012/01/31 18:00:33 hkmoffa Exp $
+#
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = FeS2_MPNewman_DiffRate
+
+BLESSED_FILES = good_out.txt  FeS2_globalResults_blessed.csv soln_0_0_blessed.xml \
+                outputTable_0_0_0_blessed.csv  outputTable_0_3_0_blessed.csv 
+
+DATA =  cathode.inp  FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.xml  LiKCl_recipmoltenSalt.xml \
+        Li_Liquid.xml  metal_Li_LiCl_electrons.xml README.txt
+
+TEST_RESULTS = out.txt  FeS2_globalResults_0_0.csv  FeS2_intResults_0_0.csv soln_0_0.xml \
+               outputTable_0_0_0.csv  outputTable_0_3_0.csv 
+
+TEST_INTERMEDIATE_FILES = diff_csv.txt  diff_out.txt err_out.txt runInProgress.txt runGood runBad 
+
+OBJ = $(PROGRAM).o
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+PURIFY=@PURIFY@
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+
+UTILSRC_DIR = @ct_prefix@/lib/util_src/
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+UTILSRC_INC = @ct_prefix@/include/util_src
+
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = @cta_prefix@
+CTPADDS_DEP = $(CTPADDS_DIR)/lib/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR)/lib -lctpadds
+#
+# Set up the Cantera Application Base directory
+#
+ELECTRODE_TB_DIR = @cta_prefix@
+ELECTRODE_TB_INC = @cta_incdir@
+ELECTRODE_TB_DEP = $(ELECTRODE_TB_DIR)/lib/libElectrode_TB.a
+ELECTRODE_TB_LIB = -L$(ELECTRODE_TB_DIR)/lib -lElectrode_TB
+
+ELECTRODE_DIR = @cta_prefix@
+ELECTRODE_INC = @cta_incdir@ 
+ELECTRODE_LIB =  -L$(ELECTRODE_DIR)/lib -lElectrode
+ELECTRODE_DEP =  $(ELECTRODE_DIR)/lib/libElectrode.a
+
+#
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+LDEFINES = -DDEBUG 
+GDEFINES =
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_TB_DIR) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)   
+
+all: .dependsT $(PROGRAM)
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+OBJ_ANODE =  $(OBJ)
+
+OBJ_CANTERA_ADDONS =  
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_ANODE:.o=.d) 
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .dependsT
+
+
+.dependsT: $(DEPENDS)
+	cat *.d > .depends
+	@ touch .dependsT
+
+test: 
+	@gmake -s
+	@ggg=`pwd` ; echo -n 'Checking need to run test ' $$ggg ': '
+	@ggg=`pwd` ; gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@ggg=`pwd` ; echo 'RUNNING TEST ' `basename $$ggg`
+	../runtest_Electrode
+
+rebaseline:
+	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
+	cp FeS2_globalResults_0_0.csv FeS2_globalResults_blessed.csv
+	cp soln_0_0.xml soln_0_0_blessed.xml
+	cp out.txt good_out.txt
+	cp outputTable_0_0_0.csv  outputTable_0_0_0_blessed.csv
+	cp outputTable_0_3_0.csv  outputTable_0_3_0_blessed.csv
+
+##############################################################################
+
+$(OBJ_MPEQUIL): Makefile
+$(DEPENDS): Makefile
+
+$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTAPPLBASE_DEP) \
+               $(ELECTRODE_DEP) $(ELECTRODE_TB_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
+	          $(OBJ_CANTERA_ADDONS)  $(ELECTRODE_TB_LIB) \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB)  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+clean:
+	$(RM) $(TEST_INTERMEDIATE_FILES)
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT
+
+test_clean:
+	$(RM) $(TEST_FILES)
+	$(RM) $(TEST_INTERMEDIATE_FILES)
+	
+dist_clean:
+	@MAKE@ clean
+	$(RM) $(TEST_RESULTS)

@@ -1,0 +1,106 @@
+#!/bin/sh
+#
+#
+# runtest sample for Electrode testruns
+####################################################################################
+#
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+fff='0'
+while getopts "fh" opt; do
+  case $opt in
+    f  ) fff='1' ;;
+    h  ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+    \? ) echo 'usage runtest [-f] [-h]'
+        exit 1 ;;
+  esac
+done
+shift $(($OPTIND - 1))
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+#
+#############################################################################################
+
+#
+temp_success="1"
+/bin/rm  -f  out.txt err_out.txt  FeS2_intResults_0_0.csv \
+             diff_csv.txt  diff_out.txt vcs_equilibrate_res.csv runGood runBad
+#
+# Create a symbolic link to electrodeCell, if none exists already
+#
+
+PROG_EXE=FeS2_MPNewman_DiffRate 
+if test ! -x ${PROG_EXE}  ; then
+  echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
+  /bin/rm -f runInProgress.txt
+  echo "Test Failed: no executable " `date` > runBad
+  exit -1
+fi
+eCode=0
+
+#################################################################
+#
+#################################################################
+
+$PROG_EXE   > out.txt 2>err_out.txt
+retnStat=$?
+if test $retnStat != "0" 
+then
+  temp_success="0"
+  echo "$PROG_EXE returned with bad status, $retnStat, check output"
+fi
+
+diff good_out.txt out.txt > diff_out.txt
+retnStat_txt=$?
+
+csvdiff  FeS2_globalResults_blessed.csv FeS2_globalResults_0_0.csv > diff_csv.txt
+retnStat_csv=$?
+
+if test $retnStat_csv = "0"
+then
+  echo "Successful test comparison on "`pwd`
+  if test $retnStat_txt != "0"
+  then
+     echo "      But, text output files have differences. See diff_out.txt"
+     echo " Bad DataFile: " `date` > runBad
+  else
+     echo " Test Passed: " `date` > runGood
+  fi
+else
+  echo "Unsuccessful test comparison on "`pwd` " test"
+  echo " Bad DataFile: " `date` > runBad
+
+  if test $retnStat_txt != "0"
+  then
+     echo "      And, text output files have differences. See diff_out.txt"
+  fi
+fi
+
+#
+# return 0 for no errors, 1 for errors
+#
+/bin/rm -f runInProgress.txt
+exit 0
+

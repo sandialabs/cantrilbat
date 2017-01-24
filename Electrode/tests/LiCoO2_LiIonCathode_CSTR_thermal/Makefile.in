@@ -1,5 +1,8 @@
 #!/bin/sh
 #
+# MAKEFILE for Electrode/tests/LiCoO2_LiIonCathode_CSTR_thermal
+#          This is also the template directory for the most up-to-date treatment
+#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
@@ -14,7 +17,7 @@ BLESSED_FILES = good_out.txt soln_0_0_blessed.xml LiCoO2_intResults_blessed.csv
 
 DATA = cathode.inp problem_setup.sh \
        ECsoln_ion.xml LiCoO2Cathode_electrode.xml LiCoO2_Margules_1.xml Li_Metal.xml \
-       metal_Li_LiIon_electrons.xml
+       metal_Li_LiIon_electrons.xml README.txt
 
 TEST_RESULTS = out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv soln_0_0.xml
 
