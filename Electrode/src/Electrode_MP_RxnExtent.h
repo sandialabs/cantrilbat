@@ -668,14 +668,13 @@ public:
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *    In the base implementation we assume that the there are just one source term, the electron
-     *    source term.
+     *    In the base implementation we assume that the there are just one source term, the electron source term.
      *    However, this will be wrong in almost all cases.
      *    The number of source terms is unrelated to the number of unknowns in the nonlinear problem.
      *    Source terms will have units associated with them.
      *    For example the integrated source term for electrons will have units of kmol
      */
-    virtual void predictorCorrectorGlobalSrcTermErrorVector();
+    virtual void predictorCorrectorGlobalSrcTermErrorVector() override;
 
     //!  Calculate the norm of the errors in the global source terms
     /*!
@@ -685,13 +684,18 @@ public:
      *   individual source terms to calculated a normalized error measure. This is the single number
      *   that the integration routine will try to control as it calculates a time stepping strategy.
      *
-     *   @return  Returns a single nondimensional number representing the normalized error
-     *            for the calculation of the source term
+     *   @return                                 Returns a single nondimensional number representing the normalized error
+     *                                           for the calculation of the source term
      */
-    virtual double predictorCorrectorGlobalSrcTermErrorNorm();
+    virtual double predictorCorrectorGlobalSrcTermErrorNorm() override;
 
-    virtual void predictorCorrectorPrint(const std::vector<double>& yval,
-                                         double pnormSrc, double pnormSoln) const;
+    //! Print table representing prediction vs. corrector information
+    /*!
+     *  @param[in]           yval                Vector of corrector values
+     *  @param[in]           pnormSrc            Norm of the predictor-corrector comparison for the source vector.
+     *  @param[in]           pnormSoln           Norm of the predictor-corrector comparison for the solution vector.
+     */
+    virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const override;
 
     //! Check to see that the preceding step is a successful one
     /*!
@@ -699,45 +703,40 @@ public:
      *
      *   We check to see if the preceding step is a successful one.
      *
-     *  @return Returns a bool true if the step is acceptable, and false if it is unacceptable.
+     *  @return                                  Returns a bool true if the step is acceptable, and false if it is unacceptable.
      */
-    virtual bool  checkSubIntegrationStepAcceptable() const;
+    virtual bool  checkSubIntegrationStepAcceptable() const override;
 
     //! Possibly change the solution due to phase births and deaths.
     /*!
      *   (virtual from Electrode_Integrator)
      *
-     *  @return  Returns true if the solution step is bad. It returns false if there is not a problem.
+     *  @return                                  Returns true if the solution step is bad. It returns false if there is not a problem.
      */
-    virtual bool changeSolnForBirthDeaths();
-
+    virtual bool changeSolnForBirthDeaths() override;
 
     // -----------------------------------------------------------------------------------------------------------------
 
-
-
-
     //! Print conditions of the electrode for the current integration step to stdout
     /*!
-     *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
-     *                       to the final_final time.
-     *                       The default is to print out the source terms
-     *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
-     *                       time step. The default is to print out the global values
+     *  @param[in]           pSrc                Print Source terms that have occurred during the step from the initial_initial
+     *                                           to the final_final time.
+     *                                           The default is to print out the source terms
+     *  @param[in]           subTimeStep         Print out conditions from the most recent subTimeStep and not the global
+     *                                           time step. The default is to print out the global values
      */
     virtual void printElectrode(int pSrc = 1, bool subTimeStep = false) override;
 
-
     //! Print condition of a phase in the electrode
     /*!
-     *  @param iPhase        Print the phase
-     *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
-     *                       to the final_final time.
-     *                       The default is to print out the source terms
-     *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
-     *                       time step. The default is to print out the global values
+     *  @param[in]           iPhase              Print the phase
+     *  @param[in]           pSrc                Print Source terms that have occurred during the step from the initial_initial
+     *                                           to the final_final time.
+     *                                           The default is to print out the source terms
+     *  @param[in]           subTimeStep         Print out conditions from the most recent subTimeStep and not the global
+     *                                           time step. The default is to print out the global values
      */
-    virtual void printElectrodePhase(size_t iPhase, int pSrc = 1,  bool subTimeStep = false) override;
+    virtual void printElectrodePhase(size_t iPhase, int pSrc = 1, bool subTimeStep = false) override;
 
     //! Returns the molar volume of the Electrode given the extent of reaction
     /*!
@@ -753,6 +752,8 @@ public:
      *
      *  Note that spMoles_FeS2_Normalization_ stays constant throughout the calculation once
      *  the size of the electrode is established.
+     *
+     *  @return                                  Returns the molar volume
      */
     double molarVolume_relExtentRxn(double relativeExtentRxn) const;
 
@@ -774,14 +775,19 @@ public:
      *
      *  (virtual function from Electrode.h)
      *
-     *   @param isk         Reacting surface domain id
-     *   @param iReaction   Explicit index of the reaction. If -1, then it attempts
-     *                      to pick the reaction that best represents the open circuit potential.
+     *   @param[in]          isk                 Reacting surface domain id
+     *   @param[in]          iReaction           Explicit index of the reaction. If -1, then it attempts
+     *                                           to pick the reaction that best represents the open circuit potential.
+     *
+     *  @return                                  Returns the open circuit voltage
      */
     virtual double openCircuitVoltageSSRxn(size_t isk, size_t iReaction = npos) const override;
     
 
     //! Calculate the standard state open circuit voltage at the final state
+    /*!
+     *  @return                                  Returns the open circuit voltage
+     */
     double openCircuitVoltageSS_final() const;
 
     //! Calculate the inner radius at the final state
@@ -857,10 +863,10 @@ public:
      *   @todo   Understand how this changes when an anode is modeled.
      *
      *
-     *   @param relativeExtentRxn      Relative extent of reaction
-     *   @param xRegion                Integer indicating the region of the extent of reaction
+     *   @param[in]          relativeExtentRxn   Relative extent of reaction
+     *   @param[in]          xRegion             Integer indicating the region of the extent of reaction
      *
-     *   @return returns the standard state voltage.
+     *   @return                                 returns the standard state voltage.
      */
     double openCircuitVoltage_Region(double relativeExtentRxn, int xRegion, bool comparedToReferenceElectrode = false) const;
 
@@ -923,7 +929,7 @@ public:
      *
      *  @return returns the theoretical capacity of the electrode in Amp seconds = coulombs.
      */
-    virtual double capacity(int platNum = -1) const;
+    virtual double capacity(int platNum = -1) const override;
 
     //! Initial capacity of the electrode in Amp seconds
     /*!
@@ -931,33 +937,36 @@ public:
      *
      *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
      */
-    virtual double capacityInitial(int platNum = -1) const;
+    virtual double capacityInitial(int platNum = -1) const override;
 
     //! Amount of charge that the electrode that has available to be discharged
     /*!
      *   We report the number in terms of Amp seconds = coulombs
      *
-     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]           voltsMax            Maximum voltage to use. Defaults to 50.0
+     *  @param[in]           voltsMin            Minimum voltage to use. Defaults to -50.0
+     *
+     *  @return                                  Returns the number of coulomps of electrons left in the Electrode
      */
-    virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
+    virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const override;
 
     //! Set the relative current capacity discharged
     /*!
-     *  (virtual function from Electrode)  This routine is called from the electrode level to set the
-     *        state of the Electrode to a relative state of charge.
-     *
+     *  (virtual function from Electrode)  
+     *  This routine is called from the electrode level to set the state of the Electrode to a relative state of charge.
      *
      * This is roughly equal to the total number of electrons that has been discharged
      * from a fully charged state divided by the total moles of solid species in the electrode
      *
-     *  @param relDischargedperMole      Relative value of the discharge per mole. Always goes between 0 and number of electrons
-     *                                   per active mole, num
-     *                                  0 means that the electrode is fully charged, num means that it is fully discharged.
+     *  @param[in]           relDischargedPerMole  Relative value of the discharge per mole. Always goes between 0 and 
+     *                                             number of electrons per active mole, num
+     *                                             0 means that the electrode is fully charged, num means that it is fully discharged.
      *
      *
-     *  @param platNum           Plateau number. Default is -1 which treats all plateaus as a single entity and
-     *                            the relative discharged as a single combined fraction. If platNum is
-     *                            >= 0, then the discharge is relative to the current plateau.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity and
+     *                                           the relative discharged as a single combined fraction. If platNum is
+     *                                           >= 0, then the discharge is relative to the current plateau.
      */
     virtual void setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum = -1);
 
@@ -1080,21 +1089,28 @@ public:
     int findRegion(double relativeExtentRxn) const;
 
     //! Return the relative extent of reaction
+    /*!
+     *  @param[in]           time                Input the time desired for the calculation
+     *                                           Must be one of the 4 times: t_final, t_init, t_init_init, t_final_final
+     *
+     *  @return                                  Returns the relative extent of reaction.
+     */
     double relativeExtentRxn(double time) const;
 
 
     //! Return the number of extra print tables
+    /*!
+     *  @return                                  Returns the number of extra print tables
+     */
     virtual int getNumPrintTables() const;
 
     //! Get the values that are printed in tables for the 1D code.
     /*!
-     *   @param itable    table id
-     *   @param colNames   string names of the header (length is the length of the column)
-     *   @param colValues    Value of the columns (length is the length of the column)
+     *   @param[in]          itable              table id
+     *   @param[in]          colNames            string names of the header (length is the length of the column)
+     *   @param[in]          colValues           Value of the columns (length is the length of the column)
      */
-    virtual void getPrintTable(int itable, std::vector<std::string>& colNames,
-                               std::vector<double>& colValues) const;
-
+    virtual void getPrintTable(int itable, std::vector<std::string>& colNames, std::vector<double>& colValues) const override;
 
     //! Possibly change the solution due to phase births and deaths after phase has been accepted.
     /*!
@@ -1103,8 +1119,7 @@ public:
      *  This routine is carried out after the step is deemed a success. Massaging of the solution
      *  must be carried out within strict tolerances.
      */
-    virtual void manageBirthDeathSuccessfulStep();
-
+    virtual void manageBirthDeathSuccessfulStep() override;
 
     //! Error check on the routine step
     /*!
@@ -1112,14 +1127,14 @@ public:
      *
      *   Error checks go here. All errors are fatal exits.
      */
-    virtual void check_final_state();
+    virtual void check_final_state() override;
 
     //! Check the nonlinear residual equations for completeness and the ability to be solved
     /*!
      *   @return  0 Everything is good
      *           -1 residual isn't good. We need to cut the time step and retry again.
      */
-    virtual int check_nonlinResidConditions();
+    virtual int check_nonlinResidConditions() override;
 
     //! Evaluate the residual function
     /*!
@@ -1134,15 +1149,11 @@ public:
      *                      differenced or that the residual doesn't take this issue into account)
      * @param delta_x       Value of the delta used in the numerical differencing
      *
-     * @return
+     * @return              Returns 1 if successful, 0 for an unsuccessful operation
      */
-    virtual int evalResidNJ(const double t, const double delta_t,
-                            const double* const y,
-                            const double* const ydot,
-                            double* const resid,
-                            const ResidEval_Type_Enum evalType = Base_ResidEval,
-                            const int id_x = -1,
-                            const double delta_x = 0.0);
+    virtual int evalResidNJ(const double t, const double delta_t, const double* const y,
+                            const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const int id_x = -1, const double delta_x = 0.0) override;
 
     //! Fill in the initial conditions
     /*!
@@ -1156,7 +1167,7 @@ public:
      *                                           -  1  Means a successful operation
      *                                           -  0  Means an unsuccessful operation
      */
-    virtual int getInitialConditions(const double t0, double* const y, double* const ydot);
+    virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
@@ -1176,7 +1187,7 @@ public:
      *                                            0  Means an unsuccessful operation
      */
     virtual int calcDeltaSolnVariables(const double t, const double* const ySoln, const double* const ySolnDot,
-                                       double* const deltaYSoln, const double* const solnWeights);
+                                       double* const deltaYSoln, const double* const solnWeights) override;
 
     //! Apply a filtering process to the step
     /*!
@@ -1187,7 +1198,7 @@ public:
      *
      *  @return                                  Returns the L2 norm of the value of the amount filtered
      */
-    virtual double  filterNewStep(const double timeCurrent, const double* const ybase, double* const step0);
+    virtual double  filterNewStep(const double timeCurrent, const double* const ybase, double* const step0) override;
 
 protected:
     // --------------------------------------- D A T A ----------------------------------------------------------------

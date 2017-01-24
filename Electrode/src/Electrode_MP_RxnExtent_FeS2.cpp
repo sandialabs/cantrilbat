@@ -1,37 +1,28 @@
-/*
- * $Id: Electrode_MP_RxnExtent.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ * @file Electrode_MP_RxnExtent.cpp 
  */
 
 #include "Electrode_MP_RxnExtent_FeS2.h"
 
-//using namespace std;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
 {
-//====================================================================================================================
+//==================================================================================================================================
 Electrode_MP_RxnExtent_FeS2::Electrode_MP_RxnExtent_FeS2() :
     Electrode_MP_RxnExtent()
 {
 }
-//====================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
+//==================================================================================================================================
 Electrode_MP_RxnExtent_FeS2::Electrode_MP_RxnExtent_FeS2(const Electrode_MP_RxnExtent_FeS2& right) :
     Electrode_MP_RxnExtent()
 {
     operator=(right);
 }
-//======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
+//==================================================================================================================================
 Electrode_MP_RxnExtent_FeS2& Electrode_MP_RxnExtent_FeS2::operator=(const Electrode_MP_RxnExtent_FeS2& right)
 {
     if (this == &right) {
@@ -40,25 +31,17 @@ Electrode_MP_RxnExtent_FeS2& Electrode_MP_RxnExtent_FeS2::operator=(const Electr
     Electrode_MP_RxnExtent::operator=(right);
     return *this;
 }
-//=======================================================================================================
+//==================================================================================================================================
 Electrode_MP_RxnExtent_FeS2::~Electrode_MP_RxnExtent_FeS2()
 {
 }
-//=======================================================================================================
-// Return the type of electrode
-/*
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
+//==================================================================================================================================
 Electrode_Types_Enum  Electrode_MP_RxnExtent_FeS2::electrodeType() const
 {
     return MP_RXNEXTENT_FES2_ET;
 }
-//=======================================================================================================
-double 
-Electrode_MP_RxnExtent_FeS2::openCircuitVoltageSS_Region_NoCheck(double relativeExtentRxn,
-								 int xRegion) const
+//==================================================================================================================================
+double Electrode_MP_RxnExtent_FeS2::openCircuitVoltageSS_Region_NoCheck(double relativeExtentRxn, int xRegion) const
 {
     double voltage, voltage_b, voltage_3, lb;
     switch (xRegion) {
