@@ -84,7 +84,7 @@ std::string Electrode_Jacobian::dofsString(enum DOFS dd) const
 	size_t k = (size_t) (dd - SPECIES);
 	ss = "C_" +  tp_solnPhase->speciesName(k);
     } else {
-	throw CanteraError("Electrode_Jacobian::dofsString", "unknown DOF value" + int(dd)); 
+	throw Electrode_Error("Electrode_Jacobian::dofsString", "unknown DOF value" + int(dd)); 
     }
     return ss; 
 }

@@ -67,19 +67,19 @@ int Electrode_CSTR_MCMBAnode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     ig_SolidLi_ = globalSpeciesIndex("Li_C6-bulk");
     if (ig_SolidLi_ == npos) {
-        throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
+        throw Electrode_Error("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the species Li_C6-bulk but failed. May need to generalize the code now");
     }
 
     ig_SolidV_  = globalSpeciesIndex("V_C6-bulk");
     if (ig_SolidV_ == npos) {
-        throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
+        throw Electrode_Error("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the species V_C6-bulk but failed. May need to generalize the code now");
     }
 
     ip_MCMB_ = globalPhaseIndex("MCMB_Interstitials_anode");
     if (ip_MCMB_ == npos) {
-        throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
+        throw Electrode_Error("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the phase MCMB_Interstitials_anode  but failed. May need to generalize the code now");
     }
 
@@ -95,10 +95,10 @@ int Electrode_CSTR_MCMBAnode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     RelativeExtentRxn_init_init_ = RelativeExtentRxn_init_;
 
     if (RelativeExtentRxn_final_ <  RelativeExtentRxn_RegionBoundaries_[0]) {
-        throw CanteraError("Electrode_CSTR::electrode_model_create()", "Relative Extent Rxn outside of bounds");
+        throw Electrode_Error("Electrode_CSTR::electrode_model_create()", "Relative Extent Rxn outside of bounds");
     }
     if (RelativeExtentRxn_final_ >  RelativeExtentRxn_RegionBoundaries_[1]) {
-        throw CanteraError("Electrode_CSTR::electrode_model_create()", "Relative Extent Rxn outside of bounds");
+        throw Electrode_Error("Electrode_CSTR::electrode_model_create()", "Relative Extent Rxn outside of bounds");
     }
     xRegion_init_ = 0;
     xRegion_init_init_ = 0;
@@ -121,7 +121,7 @@ void Electrode_CSTR_MCMBAnode::setState_relativeExtentRxn(double relExtentRxn)
     spMoles_final_[ig_SolidV_]  = (1.0 - li_mf) * sum;
 
     if (ip_MCMB_ == npos) {
-        throw CanteraError("ddddd", "ERROR");
+        throw Electrode_Error("ddddd", "ERROR");
     }
     updateState_Phase(ip_MCMB_);
 }

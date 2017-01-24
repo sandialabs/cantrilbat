@@ -94,7 +94,7 @@ void  Electrode_CSTR_LiCoO2Cathode::setCapacityCoeff_LiCoO2()
                 found = true;
             }
             if (!found) {
-                throw CanteraError(":setCapacityCoeff_LiCoO2()", "unknown species: " + sss + " in phase " + pname);
+                throw Electrode_Error(":setCapacityCoeff_LiCoO2()", "unknown species: " + sss + " in phase " + pname);
             }
         }
     }
@@ -112,7 +112,7 @@ int Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei
     if (ig_SolidV_ == npos) {
         ig_SolidV_ = globalSpeciesIndex("CoO2","LiCoO2_Margules_1");
         if (ig_SolidV_ == npos) {
-            throw CanteraError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()",
+            throw Electrode_Error("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()",
                                "Expected to find species CoO2 in phase LiCoO2_Interstitials_cathode");
         } else {
             Global_LiCoO2_Model_ = 1;
@@ -138,7 +138,7 @@ int Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei
         ip_LiCoO2_ = globalPhaseIndex("LiCoO2_Interstitials_cathode");
     }
     if (ip_LiCoO2_ == npos) {
-        throw CanteraError("Electrode_CSTR_MCMBAnode::electrode_model_create()",
+        throw Electrode_Error("Electrode_CSTR_MCMBAnode::electrode_model_create()",
                            "I tried to find the phase LiCoO2_Interstitials_cathode  but failed. May need to generalize the code now");
     }
 
@@ -152,10 +152,10 @@ int Electrode_CSTR_LiCoO2Cathode::electrode_model_create(ELECTRODE_KEY_INPUT* ei
     RelativeExtentRxn_final_final_ = RelativeExtentRxn_init_;
     RelativeExtentRxn_init_init_ = RelativeExtentRxn_init_;
     if (RelativeExtentRxn_final_ <  RelativeExtentRxn_RegionBoundaries_[0]) {
-        throw CanteraError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()", "Relative Extent Rxn outside of bounds");
+        throw Electrode_Error("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()", "Relative Extent Rxn outside of bounds");
     }
     if (RelativeExtentRxn_final_ >  RelativeExtentRxn_RegionBoundaries_[1]) {
-        throw CanteraError("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()", "Relative Extent Rxn outside of bounds");
+        throw Electrode_Error("Electrode_CSTR_LiCoO2Cathode::electrode_model_create()", "Relative Extent Rxn outside of bounds");
     }
     xRegion_init_ = 0;
     xRegion_init_init_ = 0;

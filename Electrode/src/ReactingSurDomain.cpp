@@ -455,7 +455,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	}
     }
     if (iBeta == npos) {
-	throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation()", " beta value not found");
+	throw ZuzaxError("ReactingSurDomain::getExchangeCurrentDensityFormulation()", " beta value not found");
     }
     *beta = m_beta[iBeta];
     //
@@ -483,7 +483,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	//
 	int iECDFormulation =  m_ctrxn_ecdf[iBeta];
 	if (iECDFormulation == 0) {
-	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation()",
+	    throw ZuzaxError("ReactingSurDomain::getExchangeCurrentDensityFormulation()",
 			       "Straight kfwrd with BUTLERVOLMER_NOACTIVITYCOEFFS_RXN not handled yet");
 	}
 	//
@@ -498,7 +498,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	//
 	const RxnOrders* ro_fwd = m_ctrxn_ROPOrdersList_[iBeta];
 	if (ro_fwd == 0) {
-	    throw CanteraError("ReactingSurDomain::getExchangeCurrentDensityFormulation()",
+	    throw ZuzaxError("ReactingSurDomain::getExchangeCurrentDensityFormulation()",
 			       "Forward orders pointer is zero ?!?");
 	}
 	double tmp = 1.0;
@@ -807,7 +807,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
       
         bool ok = importKinetics(*kinXMLPhase, tpList, this);
         if (!ok) {
-            throw CanteraError("ReactingSurDomain::importFromPL()", "importKinetics() returned an error");
+            throw ZuzaxError("ReactingSurDomain::importFromPL()", "importKinetics() returned an error");
         }
 
         /*
@@ -832,7 +832,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
                 }
             }
             if (jph == npos) {
-                throw CanteraError("ReactingSurDomain::importFromPL()", "phase not found");
+                throw ZuzaxError("ReactingSurDomain::importFromPL()", "phase not found");
             }
             kinOrder[kph] = jph;
             PLtoKinPhaseIndex_[jph] = kph;
@@ -841,7 +841,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
             size_t nspPhase = tt.nSpecies();
             for (size_t k = 0; k < nspPhase; k++) {
                 if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
-                    throw CanteraError("ReactingSurDomain::importFromPL()",
+                    throw ZuzaxError("ReactingSurDomain::importFromPL()",
                                        "Indexing error found while initializing  PLtoKinSpeciesIndex_");
                 }
                 PLtoKinSpeciesIndex_[k + PLkstart] = m_start[kph] + k;
@@ -957,7 +957,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
         } else if (OCVmodel_->OCV_Format_ == 3) {
 	    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_GibbsOCV_rspec) + kinSpecOff, DATA_PTR(m_mu0) + kinSpecOff, nsp);
         } else {
-	    throw CanteraError("", "not implemnented"); 
+	    throw ZuzaxError("", "not implemnented"); 
         }
     }
     //
@@ -976,7 +976,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //  If we don't have an electrode reaction bail as being confused
     //
     if (metalPhaseIndex_ < 0) {
-	throw CanteraError("", "shouldn't be here");
+	throw ZuzaxError("", "shouldn't be here");
     }
     //
     //  If we don't have an open circuit potential override situation, bail out of the routine
@@ -1002,7 +1002,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //  be specifying an open circuit voltage in the first place!
     //
     if (nStoichElectrons == 0.0) {
-	throw CanteraError("", "shouldn't be here");
+	throw ZuzaxError("", "shouldn't be here");
     }
     //
     //  Calculate the open circuit voltage from this relation that would occur if it was not being overwritten
@@ -1081,7 +1081,7 @@ void ReactingSurDomain::deriveEffectiveThermo()
         } else if (OCVmodel_->OCV_Format_ == 3) {
 	    mdpUtil::mdp_copy_dbl_1(DATA_PTR(m_GibbsOCV_rspec) + kinSpecOff, DATA_PTR(m_mu0) + kinSpecOff, nsp);
         } else {
-	    throw CanteraError("deriveEffectiveThermo()", 
+	    throw ZuzaxError("deriveEffectiveThermo()", 
 			       "OCV_Format model " + int2str(OCVmodel_->OCV_Format_) + " not implemented"); 
         }
 
@@ -1113,7 +1113,7 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //  If we don't have an electrode reaction bail as being confused
     //
     if (metalPhaseIndex_ < 0) {
-	throw CanteraError("", "shouldn't be here");
+	throw ZuzaxError("", "shouldn't be here");
     }
     //
     //  If we don't have an open circuit potential override situation, bail
@@ -1139,7 +1139,7 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //  be specifying an open circuit voltage in the first place!
     //
     if (nStoichElectrons == 0.0) {
-	throw CanteraError("", "shouldn't be here");
+	throw ZuzaxError("", "shouldn't be here");
     }
     //
     //  Calculate the open circuit voltage from this relation that would occur if it was not being overwritten

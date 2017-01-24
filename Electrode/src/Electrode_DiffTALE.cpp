@@ -353,7 +353,7 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_DiffTALE::electrode_model_create()",
+        throw Electrode_Error(" Electrode_DiffTALE::electrode_model_create()",
                            " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
     }
 
@@ -457,7 +457,7 @@ Electrode_DiffTALE::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  surface of the particle
      */
     if (m_NumSurPhases != 1) {
-        throw CanteraError("Electrode_DiffTALE::electrode_model_create()",
+        throw Electrode_Error("Electrode_DiffTALE::electrode_model_create()",
                           "Unhandled situation about surface phases\n");
     }
 
@@ -510,7 +510,7 @@ int Electrode_DiffTALE::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_DiffTALE::electrode_model_create()",
+        throw Electrode_Error(" Electrode_DiffTALE::electrode_model_create()",
                            " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
     }
    
@@ -1219,7 +1219,7 @@ void Electrode_DiffTALE::updateState()
 		    size_t iKRSpecies = kstart + kSp;
 		    tmp = spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		    if (tmp < 0.0 || tmp > 1.0) {
-			throw CanteraError("Electrode::updatePhaseNumbers()",
+			throw Electrode_Error("Electrode::updatePhaseNumbers()",
 					   "Mole fractions out of bounds:" + int2str(kSp) + " " + fp2str(tmp));
 		    }
 		}
@@ -1228,7 +1228,7 @@ void Electrode_DiffTALE::updateState()
 		    size_t iKRSpecies = kstart + kSp;
 		    tmp = spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies];
 		    if (tmp < 0.0 || tmp > 1.0) {
-			throw CanteraError("Electrode::updatePhaseNumbers()",
+			throw Electrode_Error("Electrode::updatePhaseNumbers()",
 					   "Mole fractions out of bounds:" + int2str(kSp) + " " + fp2str(tmp));
 		    }
 		    spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] = 0.0;

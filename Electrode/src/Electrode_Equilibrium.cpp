@@ -130,8 +130,8 @@ int Electrode_Equilibrium::addLiIonPlusElectronBathPhase()
     //  We assume that the ion in the salt is called Li+
     size_t ilt_Lip = tSalt->speciesIndex("Li+");
     if (ilt_Lip == npos) {
-        throw CanteraError("Electrode_Equilibrium::addLiIonPlusElectron()",
-                           "No species named Li+. Assumptions are violated");
+        throw Electrode_Error("Electrode_Equilibrium::addLiIonPlusElectron()",
+                              "No species named Li+. Assumptions are violated");
     }
     double muLip = mu[ilt_Lip];
     /*
@@ -194,7 +194,7 @@ void Electrode_Equilibrium::update_MP()
                 double muLi = muLip + muElec;
                 LiFixed->setChemicalPotential(muLi);
             } else {
-                throw CanteraError("downloadMP()", "unknown event");
+                throw Electrode_Error("downloadMP()", "unknown event");
             }
         }
     }

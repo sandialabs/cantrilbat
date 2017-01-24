@@ -194,7 +194,7 @@ void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
 
         }
         if (!found) {
-            throw CanteraError(" Electrode_PhaseStability", "error");
+            throw Electrode_Error(" Electrode_PhaseStability", "error");
         }
     }
 
@@ -328,7 +328,7 @@ int Electrode_PhaseStability::unpackNonlinSolnVector(const double* const y)
     }
 
     if (index != neq_) {
-        throw CanteraError(" Electrode_PhaseStability::unpackNonlinSolnVector", "nsp error");
+        throw Electrode_Error(" Electrode_PhaseStability::unpackNonlinSolnVector", "nsp error");
     }
     return 0;
 }
@@ -362,7 +362,7 @@ int Electrode_PhaseStability::packNonlinSolnVector(double* const y)
     }
 
     if (index != neq_) {
-        throw CanteraError(" Electrode_PhaseStability::packNonlinSolnVector", "nsp error");
+        throw Electrode_Error(" Electrode_PhaseStability::packNonlinSolnVector", "nsp error");
     }
     return 0;
 }

@@ -307,8 +307,7 @@ void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(double* const phaseMo
 {
 
     if (!pendingIntegratedStep_) {
-        throw CanteraError(" Electrode_InfCapacity::getIntegratedPhaseMoleTransfer",
-                           "no pending integration step");
+        throw Electrode_Error(" Electrode_InfCapacity::getIntegratedPhaseMoleTransfer", "no pending integration step");
     }
     double sum = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {

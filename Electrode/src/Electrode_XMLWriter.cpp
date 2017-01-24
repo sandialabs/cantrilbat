@@ -225,16 +225,16 @@ void Electrode::loadGlobalTimeStepTFinalState(XML_Node* xGTS)
      */
     string ss = xGTS->name();
     if (ss != "globalTimeStep") {
-        throw CanteraError("Electrode::loadGlobalTimeStepTFinalState()",
+        throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()",
                            "expected node named globalTimeStep. got " + ss);
     }
     XML_Node* xGTSI = xGTS->findByName("timeIncrement");
     if (!xGTSI) {
-        throw CanteraError("Electrode::loadGlobalTimeStepTFinalState()",
+        throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()",
                            "could not find a node named timeIncrement");
     }
     if (pendingIntegratedStep_) {
-        throw CanteraError("Electrode::setTime()",
+        throw Electrode_Error("Electrode::setTime()",
                            "called when there is a pending step");
     }
     /*
@@ -294,7 +294,7 @@ XML_Node* Electrode::selectGlobalTimeStepIncrement(XML_Node* xSoln, int globalTi
      */
     XML_Node* eOutput = xSoln->findByName("electrodeOutput");
     if (!eOutput) {
-        throw CanteraError("Electrode::selectGlobalTimeStepIncrement()",
+        throw Electrode_Error("Electrode::selectGlobalTimeStepIncrement()",
                            "could not find a node named electrodeOutput");
     }
     /*
@@ -302,7 +302,7 @@ XML_Node* Electrode::selectGlobalTimeStepIncrement(XML_Node* xSoln, int globalTi
      */
     XML_Node* eRecord = eOutput->findNameIDIndex("globalTimeStep", "", globalTimeStepNum);
     if (!eRecord) {
-        throw CanteraError("Electrode::selectGlobalTimeStepIncrement()",
+        throw Electrode_Error("Electrode::selectGlobalTimeStepIncrement()",
                            "could not find a node named globalTimeStep");
     }
     /*
@@ -449,7 +449,7 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset)
      *  This includes the initial state, the final state, and the substep integration states.
      */
     if (!xmlTimeIncrementData_) {
-        throw CanteraError("Electrode::writeSolutionTimeIncrement()",
+        throw Electrode_Error("Electrode::writeSolutionTimeIncrement()",
                            "xmlTimeIncrementData_ is needed but wasn't created by the integrator");
     }
     gts.addChild(*xmlTimeIncrementData_);

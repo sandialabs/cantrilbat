@@ -365,7 +365,7 @@ Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_RadiaDiffRegions::electrode_model_create()",
+        throw Electrode_Error(" Electrode_RadiaDiffRegions::electrode_model_create()",
                            " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
 
@@ -415,7 +415,7 @@ Electrode_RadialDiffRegions::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_RadialDiffRegions::electrode_model_create()",
+        throw Electrode_Error(" Electrode_RadialDiffRegions::electrode_model_create()",
                            " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
 

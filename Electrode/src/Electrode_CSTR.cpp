@@ -326,7 +326,7 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     ELECTRODE_CSTR_KEY_INPUT* ei = dynamic_cast<ELECTRODE_CSTR_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_CSTR::electrode_model_create()",
+        throw Electrode_Error(" Electrode_CSTR::electrode_model_create()",
                            " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
 
@@ -763,7 +763,7 @@ void Electrode_CSTR::setRelativeCapacityDischargedPerMole(double relDischargedPe
      *  and has an upper and a lower limit.
      */
     if (RelativeExtentRxn_RegionBoundaries_.size() != 2) {
-        throw CanteraError("Electrode_CSTR::setRelativeCapacityDischargedPerMole",
+        throw Electrode_Error("Electrode_CSTR::setRelativeCapacityDischargedPerMole",
                            "confused");
     }
 
@@ -772,7 +772,7 @@ void Electrode_CSTR::setRelativeCapacityDischargedPerMole(double relDischargedPe
     if (platNum == 0 || platNum == -1) {
         setState_relativeExtentRxn(relExtentRxn);
     } else {
-        throw CanteraError("Electrode_CSTR::setRelativeCapacityDischargedPerMole",
+        throw Electrode_Error("Electrode_CSTR::setRelativeCapacityDischargedPerMole",
                            " wrong platNum");
     }
 }
@@ -960,7 +960,7 @@ void Electrode_CSTR::speciesProductionRates(double* const spMoleDot)
 //====================================================================================================================
 void Electrode_CSTR::setState_relativeExtentRxn(double relExtentRxn)
 {
-    throw CanteraError("Electrode_CSTR::setState_relativeExtentRxn()",
+    throw Electrode_Error("Electrode_CSTR::setState_relativeExtentRxn()",
                        "Base class called");
 }
 //====================================================================================================================
@@ -2447,7 +2447,7 @@ bool  Electrode_CSTR::checkSubIntegrationStepAcceptable() const
     //
     if (onRegionBoundary_final_ >= 0) {
         if (fabs(RelativeExtentRxn_final_  - RelativeExtentRxn_RegionBoundaries_[onRegionBoundary_final_]) > 1.0E-5) {
-            throw CanteraError("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
+            throw Electrode_Error("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
                                ", integrationCounter " + int2str(counterNumberIntegrations_),
                                " RelativeExtentRxn_final_ not on boundary and onRegionBoundary_final_ is. RelativeExtentRxn_final_ = "
                                + fp2str(RelativeExtentRxn_final_));
@@ -2455,12 +2455,12 @@ bool  Electrode_CSTR::checkSubIntegrationStepAcceptable() const
     }
 
     if (deltaTsubcycle_  <= 0.0) {
-        throw CanteraError("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
+        throw Electrode_Error("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
                            ", integrationCounter " + int2str(counterNumberIntegrations_),
                            "negative deltaTsubcycle_ = " + fp2str(deltaTsubcycle_));
     }
     if (deltaTsubcycleCalc_  <= 0.0) {
-        throw CanteraError("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
+        throw Electrode_Error("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
                            ", integrationCounter " + int2str(counterNumberIntegrations_),
                            "negative deltaTsubcycleCalc_ = " + fp2str(deltaTsubcycleCalc_));
     }
@@ -2477,7 +2477,7 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
 {
     if (onRegionBoundary_final_ >= 0) {
         if (fabs(RelativeExtentRxn_final_  - RelativeExtentRxn_RegionBoundaries_[onRegionBoundary_final_]) > 1.0E-5) {
-            throw CanteraError("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
+            throw Electrode_Error("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
                                ", integrationCounter " + int2str(counterNumberIntegrations_),
                                " RelativeExtentRxn_final_ not on boundary and onRegionBoundary_final_ is");
         } else {

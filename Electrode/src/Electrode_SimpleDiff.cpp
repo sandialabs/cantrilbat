@@ -297,7 +297,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_SimpleDiff::electrode_model_create()",
+        throw Electrode_Error(" Electrode_SimpleDiff::electrode_model_create()",
                            " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
     }
 
@@ -314,7 +314,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
      *  Get the volume phases which are distributed across the radial region
      */
     if (ei->rregions_.size() < 1) {
-       throw CanteraError("Electrode_SimpleDiff::electrode_model_create()",
+       throw Electrode_Error("Electrode_SimpleDiff::electrode_model_create()",
                           "The region size has been uninitialized or is zero");
     }
     ELECTRODE_RadialRegion_KEY_INPUT& r0 = ei->rregions_[0];
@@ -489,7 +489,7 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 {
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_SimpleDiff::electrode_model_create()",
+        throw Electrode_Error(" Electrode_SimpleDiff::electrode_model_create()",
                            " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
     }
    
@@ -559,7 +559,7 @@ void Electrode_SimpleDiff::resizeMoleNumbersToGeometry()
     double totalVol = TotalVol();
     double calcPor = (totalVol - currentSolidVol) / totalVol;
     if (fabs(calcPor - porosity_) > 1.0E-6) {
-        throw CanteraError("Electrode_SimpleDiff::resizeMoleNumbersToGeometry() Error",
+        throw Electrode_Error("Electrode_SimpleDiff::resizeMoleNumbersToGeometry() Error",
                            "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
     }
 }
@@ -1410,7 +1410,7 @@ void Electrode_SimpleDiff::updateState()
 		    size_t iKRSpecies = kstart + kSp;
 		    tmp = spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] ;
 		    if (tmp < -1.0E-200 ) {
-			throw CanteraError("Electrode_SimpleDiff::updateState()",
+			throw Electrode_Error("Electrode_SimpleDiff::updateState()",
 					   "Moles are out of bounds:" + int2str(kSp) + " " + fp2str(tmp));
 		    }
 		}

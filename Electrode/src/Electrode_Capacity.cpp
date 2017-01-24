@@ -154,7 +154,7 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
 	printf("Electrode::checkCapacityBalances_final ERROR: init cap % 19.12E  not same as curr cap % 19.12E (%d)\n",
 	       capOrig, cap, platNum);
 #ifdef DEBUG_MODE
-	throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity loss mechanism unaccounted for");
+	throw Electrode_Error(" Electrode::checkCapacityBalances_final ERROR", "Capacity loss mechanism unaccounted for");
 #endif
 	return true;
     }
@@ -188,7 +188,7 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
 	  printf("\t\t\t                          =  % 21.15E moles\n", rel/Faraday);
         }
 #ifdef DEBUG_MODE
-	//throw CanteraError(" Electrode::checkCapacityBalances_final ERROR", "Capacity unaccounted for");
+	//throw Electrode_Error(" Electrode::checkCapacityBalances_final ERROR", "Capacity unaccounted for");
 #endif
 	return true;
     }
@@ -303,7 +303,7 @@ double Electrode::calcRelativeExtentRxn_final() const
 void Electrode::resetCapacityDischargedToDate() 
 {
     if (pendingIntegratedStep_) {
-       throw CanteraError("Electrode::resetCapacityDischargedToDate() ERROR",
+       throw Electrode_Error("Electrode::resetCapacityDischargedToDate() ERROR",
                           "called during a pending integration step");
     }
     electronKmolDischargedToDate_ = 0.0;
@@ -348,7 +348,7 @@ void Electrode::setCapacityCalcParams(std::string sName, double coeffLeft, doubl
         }
     }
     if (!found) {
-        throw CanteraError("Electrode::setCapacityCalcParams", "species not found");
+        throw Electrode_Error("Electrode::setCapacityCalcParams", "species not found");
     }
 }
 //====================================================================================================================
@@ -375,10 +375,10 @@ void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
     bool foundNonZeroLeft = false;
     bool foundNonZeroDoD = false;
     if (!CapLeftPhase) {
-	throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Capacity Left coefficients not set in the input file");
+	throw Electrode_Error("Electrode::setCapacityCoeffFromInput()", "Capacity Left coefficients not set in the input file");
     }
     if (!CapZeroDoDPhase) {
-	throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Capacity Zero DoD coefficients not set in the input file");
+	throw Electrode_Error("Electrode::setCapacityCoeffFromInput()", "Capacity Zero DoD coefficients not set in the input file");
     }
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         if (iph == metalPhase_) {
@@ -407,10 +407,10 @@ void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
         }
     }
     if (!foundNonZeroLeft) {
-        throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Didn't find any nonzero capacity Left coefficients");
+        throw Electrode_Error("Electrode::setCapacityCoeffFromInput()", "Didn't find any nonzero capacity Left coefficients");
     }   
     if (!foundNonZeroDoD) {
-        throw CanteraError("Electrode::setCapacityCoeffFromInput()", "Didn't find any nonzero Dod capacity coefficients");
+        throw Electrode_Error("Electrode::setCapacityCoeffFromInput()", "Didn't find any nonzero Dod capacity coefficients");
     }  
 }
 //====================================================================================================================
@@ -526,7 +526,7 @@ void Electrode::setCapacityCoeff_LiSi() const
             }
 
             if (!found) {
-                throw CanteraError(":setCapacityCoeff_LiSi()", "unknown species: " + sss);
+                throw Electrode_Error(":setCapacityCoeff_LiSi()", "unknown species: " + sss);
             }
 
         }
@@ -586,7 +586,7 @@ void Electrode::setCapacityCoeff_LiSi_Li() const
             }
 
             if (!found) {
-                throw CanteraError(":setCapacityCoeff_LiSi_Li()", "unknown species: " + sss);
+                throw Electrode_Error(":setCapacityCoeff_LiSi_Li()", "unknown species: " + sss);
             }
 
         }
@@ -749,7 +749,7 @@ void Electrode::setCapacityCoeff_FeS2() const
             }
 
             if (!found) {
-                throw CanteraError(":setCapacityCoeff_FeS2()", "unknown species: " + sss);
+                throw Electrode_Error(":setCapacityCoeff_FeS2()", "unknown species: " + sss);
             }
 
         }
@@ -841,7 +841,7 @@ void Electrode::setCapacityCoeff_FeS2_Combo() const
             }
 
             if (!found) {
-                throw CanteraError(":setCapacityCoeff_FeS2_Combo()", "unknown species: " + sss);
+                throw Electrode_Error(":setCapacityCoeff_FeS2_Combo()", "unknown species: " + sss);
             }
 
         }

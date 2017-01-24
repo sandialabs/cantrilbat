@@ -136,7 +136,7 @@ public:
   {
       std::map< DOF_SOURCE_PAIR, double >::const_iterator it = jacobian.find(dof_source_pair);
       if (it == jacobian.end()) {
-	  throw CanteraError("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed");
+	  throw Electrode_Error("Electrode_Jacobian::get_jacobian_value", "Jacobian Entry not computed");
       }
       return it->second;
   }

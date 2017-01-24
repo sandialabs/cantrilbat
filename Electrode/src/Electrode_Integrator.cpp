@@ -101,16 +101,16 @@ SubIntegrationHistory::addTimeStep(double t_init, double t_final, double t_final
 	TimeStepHistory& tshPrevious =  TimeStepList_[iCounter-1];
 	double t_final_calc_Previous =  tshPrevious.t_final_calc_;
 	if (fabs(t_init - t_final_calc_Previous) > 1.0E-13) {
-	    throw ZZCantera::CanteraError("Shouldn't be here","");
+	    throw ZZCantera::Electrode_Error("Shouldn't be here","");
 	}
     }
     if (timeTypeSoln != 2) {
 	if (fabs(t_final - t_final_calc) > 1.0E-13) {
-	    throw CanteraError("Shouldn't be here", "");
+	    throw Electrode_Error("Shouldn't be here", "");
 	}
     } else {
 	if (fabs(t_final - t_final_calc) < 1.0E-16) {
-	    throw CanteraError("warning t_final == t_final_calc", "");
+	    throw Electrode_Error("warning t_final == t_final_calc", "");
 	}
     }
     // store time step (note inefficient op - may replace)
@@ -204,7 +204,7 @@ int SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal)
     TimeStepHistory* tshCurrent_ptr = & TimeStepList_[iC];
     double tinit =  tshCurrent_ptr->t_init_;
     if (fabs(gtinit - tinit) > 1.0E-13) {
-	throw CanteraError("SubIntegrationHistory::assureTimeInterval", "The global time, " + fp2str(gtinit) +
+	throw Electrode_Error("SubIntegrationHistory::assureTimeInterval", "The global time, " + fp2str(gtinit) +
                            ", doesn't agree with the storred initial time for the first step");
     }
     tshCurrent_ptr = &TimeStepList_[nTimeSteps_-1];
@@ -213,21 +213,21 @@ int SubIntegrationHistory::assureTimeInterval(double gtinit, double gtfinal)
 	tshCurrent_ptr->timeTypeSoln_ = 0;
     }
     if (fabs(gtfinal - tfinal) > 1.0E-13) {
-	throw CanteraError("SubIntegrationHistory::assureTimeInterval", "The global final time, " + fp2str(gtfinal) +
+	throw Electrode_Error("SubIntegrationHistory::assureTimeInterval", "The global final time, " + fp2str(gtfinal) +
                            ", doesn't agree with the storred final time for the last step");
     }
     int iCsave = iCounter;
     for (int i = 0; i < nTimeStepsRegular_; i++) {
 	tfinal = getNextRegularTime(tinit);
 	if (tfinal <= tinit) {
-	   throw CanteraError("SubIntegrationHistory::assureTimeInterval", 
+	   throw Electrode_Error("SubIntegrationHistory::assureTimeInterval", 
                               "final time is less than the initial time");
 	}
 	advanceTimeStepCounter();
 	tinit = tfinal;
     }
     if (fabs(tfinal - gtfinal) > 1.0E-13) {
-        throw CanteraError("SubIntegrationHistory::assureTimeInterval", "The global final time, " + fp2str(gtfinal) +
+        throw Electrode_Error("SubIntegrationHistory::assureTimeInterval", "The global final time, " + fp2str(gtfinal) +
                            ", doesn't agree with the storred final time for the last step");
     }
     iCounter = iCsave;
@@ -482,7 +482,7 @@ int  Electrode_Integrator::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 //===================================================================================================================
 size_t Electrode_Integrator::nEquations_calc() const
 {
-    throw CanteraError("Electrode_Integrator::nEquations_calc()", "Parent member function called");
+    throw Electrode_Error("Electrode_Integrator::nEquations_calc()", "Parent member function called");
     return 0;
 }
 //===================================================================================================================
@@ -927,7 +927,7 @@ topConvergence:
              */
             attemptSubCycle++;
             if (attemptSubCycle > 10) {
-                throw CanteraError("Electrode_Integrator::integrate()",
+                throw Electrode_Error("Electrode_Integrator::integrate()",
                                    "FAILURE too many nonlinear convergence failures");
             }
 	    tfinal_ = tinit_ + deltaTsubcycle_;
@@ -1534,7 +1534,7 @@ void  Electrode_Integrator::prepareProblemStatement()
  */
 void  Electrode_Integrator::setNLSGlobalSrcTermTolerances(double rtolResid)
 {
-    throw CanteraError("Electrode_Integrator::setNLSGlobalSrcTermTolerances","unimplemented");
+    throw Electrode_Error("Electrode_Integrator::setNLSGlobalSrcTermTolerances","unimplemented");
 }
 //======================================================================================================================
 void  Electrode_Integrator::zeroGlobalStepAccumulationTerms()
@@ -1576,7 +1576,7 @@ size_t Electrode_Integrator::numIntegratedSrcTerms() const
  */
 void  Electrode_Integrator::setResidAtolNLS()
 {
-    throw CanteraError("Electrode_Integrator::setResidAtolNLS()", "unimplemented");
+    throw Electrode_Error("Electrode_Integrator::setResidAtolNLS()", "unimplemented");
 }
 //==================================================================================================================
 //  Predict the solution
@@ -1598,7 +1598,7 @@ void  Electrode_Integrator::setResidAtolNLS()
  */
 int  Electrode_Integrator::predictSoln()
 {
-    throw CanteraError(" Electrode_Integrator::predictSoln()","unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::predictSoln()","unimplemented");
 }
 //==================================================================================================================
 // Do a traditional predictor
@@ -1630,7 +1630,7 @@ int Electrode_Integrator::predictSolnDot()
  */
 void  Electrode_Integrator::extractInfo()
 {
-    throw CanteraError("Electrode_Integrator::extractInfo()",  "unimplemented");
+    throw Electrode_Error("Electrode_Integrator::extractInfo()",  "unimplemented");
 }
 //==================================================================================================================
 // Collect mole change information
@@ -1639,7 +1639,7 @@ void  Electrode_Integrator::extractInfo()
  */
 void Electrode_Integrator::updateSpeciesMoleChangeFinal()
 {
-    throw CanteraError(" Electrode_Integrator::updateSpeciesMoleChangeFinal()",  "unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::updateSpeciesMoleChangeFinal()",  "unimplemented");
 }
 //==================================================================================================================
 // calculate the residual
@@ -1650,7 +1650,7 @@ void Electrode_Integrator::updateSpeciesMoleChangeFinal()
  */
 int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
-    throw CanteraError(" Electrode_Integrator::calcResid()",  "unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::calcResid()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================
@@ -1659,13 +1659,13 @@ int Electrode_Integrator::GFCEO_evalResidNJ(const double t, const double delta_t
                             double* const resid, const ResidEval_Type_Enum evalType,
                             const int id_x, const double delta_x)
 {
-    throw CanteraError(" Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================
 int Electrode_Integrator::GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType)
 {
-    throw CanteraError(" Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================
@@ -1678,7 +1678,7 @@ int Electrode_Integrator::GFCEO_calcResid(double* const resid, const ResidEval_T
  */
 void Electrode_Integrator::gatherIntegratedSrcPrediction()
 {
-    throw CanteraError(" Electrode_Integrator::gatherIntegratedSrcPrediction()",  "unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::gatherIntegratedSrcPrediction()",  "unimplemented");
 }
 //==================================================================================================================
 //   Calculate the integrated source terms and do other items now that we have a completed time step
@@ -1872,7 +1872,7 @@ int Electrode_Integrator::calcDeltaSolnVariables(const double t, const double* c
  */
 void Electrode_Integrator::unpackNonlinSolnVector(const double* const y)
 {
-    throw CanteraError(" Electrode_Integrator::unpackNonlinSolnVector()", "unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::unpackNonlinSolnVector()", "unimplemented");
 }
 //==================================================================================================================================
 bool Electrode_Integrator::checkSubIntegrationStepAcceptable() const
@@ -1902,7 +1902,7 @@ void Electrode_Integrator::calc_solnDot_final()
         }
         return;
     default:
-        throw CanteraError("calc_solnDot_final()", "Case not covered");
+        throw Electrode_Error("calc_solnDot_final()", "Case not covered");
     }
 
     solnDot_final_[0] = 0.0;
@@ -1940,7 +1940,7 @@ double Electrode_Integrator::calc_ydotNLS_final()
         }
         break;
     default:
-        throw CanteraError("calc_ydotNLS_final()", "Case not covered");
+        throw Electrode_Error("calc_ydotNLS_final()", "Case not covered");
     }
     return c1;
 }
@@ -2169,7 +2169,7 @@ void  Electrode_Integrator::printResid_ResidSatisfaction()
 //==================================================================================================================================
 void Electrode_Integrator::initialPackSolver_nonlinFunction()
 {
-    throw CanteraError(" Electrode_Integrator::initialPackSolver_nonlinFunction()",  "unimplemented");
+    throw Electrode_Error(" Electrode_Integrator::initialPackSolver_nonlinFunction()",  "unimplemented");
 }
 //==================================================================================================================================
 int Electrode_Integrator::check_nonlinResidConditions()

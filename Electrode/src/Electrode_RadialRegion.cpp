@@ -451,7 +451,7 @@ Electrode_RadialRegion::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 
     ELECTRODE_RadialRegion_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialRegion_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_RadialRegion::electrode_model_create()",
+        throw Electrode_Error(" Electrode_RadialRegion::electrode_model_create()",
                            " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
 
@@ -517,7 +517,7 @@ Electrode_RadialRegion::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
      */
     ELECTRODE_RadialRegion_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialRegion_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw CanteraError(" Electrode_RadialRegion::electrode_model_create()",
+        throw Electrode_Error(" Electrode_RadialRegion::electrode_model_create()",
                            " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
 
@@ -1843,23 +1843,23 @@ void Electrode_RadialRegion::radialGridGenerate(int numPoints, double radiusInne
         std::vector<double>& radialMesh) const
 {
     if (numPoints < 2) {
-        throw CanteraError("radialgridGenerate() ERROR",
+        throw Electrode_Error("radialgridGenerate() ERROR",
                            "number of points must be 2 or greater");
     }
     if (radiusInner < 0.0) {
-        throw CanteraError("radialgridGenerate() ERROR",
+        throw Electrode_Error("radialgridGenerate() ERROR",
                            "raidusInner must be greater than zero");
     }
     if (radiusOuter < 0.0) {
-        throw CanteraError("radialgridGenerate() ERROR",
+        throw Electrode_Error("radialgridGenerate() ERROR",
                            "raidusOuter must be greater than zero");
     }
     if (radiusOuter <= radiusInner) {
-        throw CanteraError("radialgridGenerate() ERROR",
+        throw Electrode_Error("radialgridGenerate() ERROR",
                            "raidusOuter must be greater than radiusInner");
     }
     if (geomFactor <= 0.0) {
-        throw CanteraError("radialgridGenerate() ERROR",
+        throw Electrode_Error("radialgridGenerate() ERROR",
                            "geomFactor  must be greater than zero");
     }
     /*

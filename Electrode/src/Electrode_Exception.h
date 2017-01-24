@@ -124,7 +124,7 @@ protected:
 //==================================================================================================================================
 //!  Assertion must be true or an error is thrown
 /*!
- * Assertion must be true or else a CanteraError is thrown. A diagnostic string indicating where the error
+ * Assertion must be true or else a ZuzaxError is thrown. A diagnostic string indicating where the error
  * occurred is added to the thrown object.
  *
  * @param[in]                expr                Boolean expression that must be true
@@ -138,7 +138,7 @@ protected:
 //==================================================================================================================================
 //!  Assertion must be true or an error is thrown
 /*!
- *  Assertion must be true or else a CanteraError is thrown. A
+ *  Assertion must be true or else a ZuzaxError is thrown. A
  *  diagnostic string indicating where the error occurred is added to the thrown object.
  *
  *  @param[in]               expr                Boolean expression that must be true

@@ -344,7 +344,7 @@ void Electrode_SimpleDiff::updateState()
 
     }
 
-    throw CanteraError("Electrode_SimpleDiff::updateState()", "unfinished");
+    throw Electrode_Error("Electrode_SimpleDiff::updateState()", "unfinished");
 }
 //====================================================================================================================
 //   Evaluate the residual function
@@ -373,7 +373,7 @@ int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t,
                                        const double delta_x)
 {
 
-    throw CanteraError("", "");
+    throw Electrode_Error("", "");
     return 0;
 }
 //====================================================================================================================

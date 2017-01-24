@@ -233,7 +233,7 @@ void EState_RadialDistrib::copyElectrode_intoState(const ZZCantera::Electrode* c
        if (edt) {
           copyElectrode_DiffTALE_intoState(edt);
        } else {
-          throw CanteraError("EState_RadialDistrib::copyElectrode_intoState()","bad cast");
+          throw Electrode_Error("EState_RadialDistrib::copyElectrode_intoState()","bad cast");
        }
     }
 }
@@ -286,7 +286,7 @@ void EState_RadialDistrib::setStateElectrode_fromEState(ZZCantera::Electrode* co
        if (edt) {
 	   setStateElectrode_DiffTALE_fromEState(edt);
        } else {
-	   throw CanteraError("EState_RadialDistrib::setStateElectrode_fromEState()","bad cast");
+	   throw Electrode_Error("EState_RadialDistrib::setStateElectrode_fromEState()","bad cast");
        }
     }
 }

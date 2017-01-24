@@ -256,7 +256,7 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
         ee = new    Electrode_RadialDiffRegions();
         break;
     default:
-        throw CanteraError("Electrode_Factory::newElectrodeObject()",
+        throw Electrode_Error("Electrode_Factory::newElectrodeObject()",
                            "Unknown Electrode model: " + model);
     }
     return ee;
@@ -307,7 +307,7 @@ ELECTRODE_KEY_INPUT* Electrode_Factory::newElectrodeKeyInputObject(std::string m
         break;
 
     default:
-        throw CanteraError("Electrode_Factory::newElectrodeKeyInputObject()",
+        throw Electrode_Error("Electrode_Factory::newElectrodeKeyInputObject()",
                            "Unknown Electrode model: " + model);
         break;
     }
@@ -318,7 +318,7 @@ RSD_OCVmodel* Electrode_Factory::newRSD_OCVmodel(std::string smodel)
 {
     int  ieos = stringName_RCD_OCVmodel_to_modelID(smodel);
     if (ieos == -1) {
-	throw CanteraError("Electrode_Factory::newRSD_OCVmodel()",
+	throw Electrode_Error("Electrode_Factory::newRSD_OCVmodel()",
                            "Unknown OCVoverride model: " + smodel);
     }
     RSD_OCVmodel* ei;
@@ -333,7 +333,7 @@ RSD_OCVmodel* Electrode_Factory::newRSD_OCVmodel(std::string smodel)
         ei = new  RSD_OCVmodel(OCVCathode_CoO2_dualfoil);
         break;
     default:
-	throw CanteraError("Electrode_Factory::newRSD_OCVmodel()",
+	throw Electrode_Error("Electrode_Factory::newRSD_OCVmodel()",
                            "Unknown OCVoverride model: " + smodel);
         break;
     }

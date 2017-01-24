@@ -1290,8 +1290,7 @@ int ELECTRODE_KEY_INPUT::electrode_input(std::string commandFile, BlockEntry* cf
     for (; CanteraFileNames[ifiles] != 0; ifiles++) {
     }
     if (ifiles != NumberCanteraFiles) {
-        throw CanteraError("ELECTRODE_KEY_INPUT::electrode_input()",
-                           "Number of requested files differ");
+        throw Electrode_Error("ELECTRODE_KEY_INPUT::electrode_input()", "Number of requested files differ");
     }
 
     /*

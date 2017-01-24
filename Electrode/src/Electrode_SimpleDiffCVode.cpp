@@ -189,7 +189,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         double  rgamma = reactantStoichCoeff(surfIndexInnerSurface_, k, 0);
         if (rgamma != 0.0) {
             if (SolidInnerKSpecies_!= -1) {
-                throw CanteraError(" Electrode_SimpleDiff::electrode_model_create", "Undefined situation");
+                throw Electrode_Error(" Electrode_SimpleDiff::electrode_model_create", "Undefined situation");
             }
             SolidInnerKSpecies_= k;
             SolidInnerKSpeciesReacStoichCoeff_ = rgamma;
@@ -197,7 +197,7 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     }
     int kk =  m_PhaseSpeciesStartIndex[phaseIndexInnerSolidPhase_];
     if (SolidInnerKSpecies_ != kk) {
-        throw CanteraError("Electrode_SimpleDiff::electrode_model_create", "confusion in SolidInnerKSpecies_");
+        throw Electrode_Error("Electrode_SimpleDiff::electrode_model_create", "confusion in SolidInnerKSpecies_");
     }
 
 
@@ -276,7 +276,7 @@ void  Electrode_SimpleDiff::check_initial_CAP()
 
     //printf("cap_init = %11.5e , spi_init = %11.5e \n", cap, spi);
     if (fabs(cap-spi) / denom > 1.0E-4) {
-        throw CanteraError("Electrode_SimpleDiff::check_initial_CAP() ",
+        throw Electrode_Error("Electrode_SimpleDiff::check_initial_CAP() ",
                            "failed caps = " + fp2str(cap) + ", spi = " + fp2str(spi));
     }
 }
@@ -303,7 +303,7 @@ void  Electrode_SimpleDiff::check_final_CAP()
     if (fabs(cap-spi) / denom > 1.0E-4) {
         if (spi == 0.0) {
         } else {
-            throw CanteraError("Electrode_SimpleDiff::check_final_CAP() ",
+            throw Electrode_Error("Electrode_SimpleDiff::check_final_CAP() ",
                                "failed caps = " + fp2str(cap) + ", spi = " + fp2str(spi));
         }
     }
@@ -329,7 +329,7 @@ void Electrode_SimpleDiff::check_final_OuterVol()
         if (spf < 1.0E-20) {
 
         } else {
-            throw CanteraError("Electrode_SimpleDiff::check_final_OuterVol() ",
+            throw Electrode_Error("Electrode_SimpleDiff::check_final_OuterVol() ",
                                "failed caps = " + fp2str(cap) + ", spi = " + fp2str(spf));
         }
     }
@@ -1127,7 +1127,7 @@ restartStep:
          */
 
         if (fabs(MN_internal_final_ -   spMoles_final_[SolidInnerKSpecies_]) > molarAtol_) {
-            throw CanteraError("Electrode_SimpleDiff::integrate()", " mb errr");
+            throw Electrode_Error("Electrode_SimpleDiff::integrate()", " mb errr");
         } else {
             /*
              *  If a phase should be zeroed, make sure that phase is zeroed.
@@ -1148,7 +1148,7 @@ restartStep:
         double balLi = deltaCap - (fluxR - fluxL);
         if (denomE > 1.0E-200) {
             if (balLi/denomE > 1.0E-3) {
-                throw CanteraError("", "balLi error");
+                throw Electrode_Error("", "balLi error");
             }
         }
         check_final_CAP();

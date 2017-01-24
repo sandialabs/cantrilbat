@@ -659,7 +659,7 @@ int Electrode::electrode_input_child(ELECTRODE_KEY_INPUT** ei)
  */
 static void ErrorModelType(int pos, std::string actual, std::string expected)
 {
-    throw CanteraError("Electrode::electrode_model_create() model id",
+    throw Electrode_Error("Electrode::electrode_model_create() model id",
                        "At pos " + int2str(pos) + ", expected phase " + expected + " but got phase " + actual);
 }
 //==================================================================================================================================
@@ -691,7 +691,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     Electrode_Types_Enum seos = string_to_Electrode_Types_Enum(ei->electrodeModelName);
 
     if (ieos != seos) {
-        throw CanteraError(
+        throw Electrode_Error(
                 " Electrode::electrode_model_create()",
                 "Electrode Object Type, " + Electrode_Types_Enum_to_string(ieos) + ", is different than requested type, "
                         + ei->electrodeModelName);
@@ -795,7 +795,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             ReactingSurDomain* rsd = new ReactingSurDomain();
             int ok = rsd->importFromPL(this, isph);
             if (!ok) {
-                throw CanteraError("cttables main:", "rSurDomain returned an error");
+                throw Electrode_Error("cttables main:", "rSurDomain returned an error");
             }
             //
             // Check to see if we have entered an OCVoverride for this species. If we have then
@@ -991,10 +991,10 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         }
     }
     if (solnPhase_ == npos) {
-        throw CanteraError("Electrode::electrode_model_create()", "Couldn't find soln phase");
+        throw Electrode_Error("Electrode::electrode_model_create()", "Couldn't find soln phase");
     }
     if (metalPhase_ == npos) {
-        throw CanteraError("Electrode::electrode_model_create()", "Couldn't find metal phase");
+        throw Electrode_Error("Electrode::electrode_model_create()", "Couldn't find metal phase");
     }
 
     kKinSpecElectron_sph_.resize(numSurfaces_, npos);
@@ -1136,7 +1136,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             ElectrodeSolidVolume_ = Electrode::SolidVol();
             porosity_ = (grossVolume - ElectrodeSolidVolume_) / grossVolume;
             if (porosity_ < 0.0) {
-                throw CanteraError(" Electrode::electrode_model_create() ",
+                throw Electrode_Error(" Electrode::electrode_model_create() ",
                                    " porosity_ is negative " + fp2str(porosity_));
             }
             particleNumberToFollow_ = ElectrodeSolidVolume_ / partVol;
@@ -1145,13 +1145,13 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             particleNumberToFollow_ = ElectrodeSolidVolume_ / partVol;
             grossVolume = ElectrodeSolidVolume_ / (1.0 - ei->porosity);
         } else {
-            throw CanteraError(
+            throw Electrode_Error(
                     " Electrode::electrode_model_create() ",
                     " no specification of cell volume through \'Electrode Porosity\' "
                             "or \'Electrode Thickness\', etc., keywords. grossVol gives " + fp2str(grossVolume));
         }
     } else {
-        throw CanteraError(
+        throw Electrode_Error(
                 " Electrode::electrode_model_create() ",
                 " no specification of solid volume through \'Particle Number to Follow\', "
                         " Porosity and Superficial Volume, "
@@ -1363,7 +1363,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
      */
     // particle diameter is a required parameter
     if (ei->particleDiameter <= 0.0) {
-        throw CanteraError("Electrode::electrode_model_create()", "Particle diameter is <= 0");
+        throw Electrode_Error("Electrode::electrode_model_create()", "Particle diameter is <= 0");
     }
     inputParticleDiameter_ = ei->particleDiameter;
     Radius_exterior_final_ = inputParticleDiameter_ / 2.0;
@@ -1399,7 +1399,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
             if (grossVolume > 0.0) {
                 porosity_ = (grossVolume - ElectrodeSolidVolume_) / grossVolume;
             } else {
-                throw CanteraError(" Electrode::electrode_model_create() ",
+                throw Electrode_Error(" Electrode::electrode_model_create() ",
                                    " Need to either specify the total superficial volume or the porosity");
             }
             porosity_ = 0.3;
@@ -1416,7 +1416,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
             ElectrodeSolidVolume_ = SolidVol();
             porosity_ = (grossVolume - ElectrodeSolidVolume_) / grossVolume;
             if (porosity_ < 0.0) {
-                throw CanteraError(" Electrode::electrode_model_create() ",
+                throw Electrode_Error(" Electrode::electrode_model_create() ",
                                    " porosity_ is negative " + fp2str(porosity_));
             }
             particleNumberToFollow_ = ElectrodeSolidVolume_ / partVol;
@@ -1425,13 +1425,13 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
             particleNumberToFollow_ = ElectrodeSolidVolume_ / partVol;
             grossVolume = ElectrodeSolidVolume_ / (1.0 - ei->porosity);
         } else {
-            throw CanteraError(
+            throw Electrode_Error(
                     " Electrode::setInitialConditions() ",
                     " no specification of cell volume through \'Electrode Porosity\' "
                             "or \'Electrode Thickness\', etc., keywords. grossVol gives " + fp2str(grossVolume));
         }
     } else {
-        throw CanteraError(
+        throw Electrode_Error(
                 " Electrode::setInitialConditions() ",
                 " no specification of solid volume through \'Particle Number to Follow\', "
                         " Porosity and Superficial Volume, "
@@ -1500,7 +1500,7 @@ void Electrode::setElectrodeSizeParams(double electrodeArea, double electrodeThi
         resizeMoleNumbersToGeometry();
         resizeSurfaceAreasToGeometry();
     } else {
-        throw CanteraError("Electrode::setElectrodeSizeParams()", "current volume is zero or less");
+        throw Electrode_Error("Electrode::setElectrodeSizeParams()", "current volume is zero or less");
     }
 }
 //====================================================================================================================
@@ -1526,7 +1526,7 @@ void Electrode::resizeMoleNumbersToGeometry()
     double targetSolidVol = partVol * particleNumberToFollow_;
     double currentSolidVol = Electrode::SolidVol();
     if (currentSolidVol <= 0.0) {
-        throw CanteraError("Electrode::resizeMoleNumbersToGeometry()", "current solid volume is zero or less");
+        throw Electrode_Error("Electrode::resizeMoleNumbersToGeometry()", "current solid volume is zero or less");
     }
     double ratio = targetSolidVol / currentSolidVol;
     double tMoles = 0.0;
@@ -1572,7 +1572,7 @@ void Electrode::resizeMoleNumbersToGeometry()
     totalVol = Electrode::TotalVol();
     double calcPor = (totalVol - currentSolidVol) / totalVol;
     if (fabs(calcPor - porosity_) > 1.0E-6) {
-        throw CanteraError("Electrode::resizeMoleNumbersToGeometry() Error",
+        throw Electrode_Error("Electrode::resizeMoleNumbersToGeometry() Error",
                            "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
     }
     capacityInitialZeroDod_ = Electrode::capacity();
@@ -1751,7 +1751,7 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
      */
     if (setInitial) {
 	if (pendingIntegratedStep_) {
-	    throw CanteraError("Electrode::setElectrolyteMoleNumbers ERROR",
+	    throw Electrode_Error("Electrode::setElectrolyteMoleNumbers ERROR",
 			       "Trying to set initial electroltye mole numbers");
 	}
         for (size_t k = 0; k < nsp; k++) {
@@ -1793,7 +1793,7 @@ void Electrode::setPhaseMoleNumbers(size_t iph, const double* const moleNum)
 {
     if (pendingIntegratedStep_) {
         if (iph != solnPhase_) {
-            throw CanteraError("Electrode::setPhaseMoleNumbers", "called when there is a pending step");
+            throw Electrode_Error("Electrode::setPhaseMoleNumbers", "called when there is a pending step");
         }
     }
     size_t istart = m_PhaseSpeciesStartIndex[iph];
@@ -1856,7 +1856,7 @@ void Electrode::setTime(double time)
 {
     // if we are in a pending step, this is an error.
     if (pendingIntegratedStep_) {
-        throw CanteraError("Electrode::setTime()", "called when there is a pending step");
+        throw Electrode_Error("Electrode::setTime()", "called when there is a pending step");
     }
     t_init_init_ = time;
     tfinal_ = t_init_init_;
@@ -2021,7 +2021,7 @@ void Electrode::updateState_Phase(size_t iph)
         for (size_t k = 0; k < nsp; k++) {
             tmp = spMf_final_[istart + k];
             if (tmp < 0.0 || tmp > 1.0) {
-                throw CanteraError("Electrode::updatePhaseNumbers()",
+                throw Electrode_Error("Electrode::updatePhaseNumbers()",
                                    "Mole fractions out of bounds:" + int2str(k) + " " + fp2str(tmp));
             }
             // TODO: this may be wrong. Experiment with leaving this alone
@@ -2036,7 +2036,7 @@ void Electrode::updateState_Phase(size_t iph)
         for (size_t k = 0; k < nsp; k++) {
             tmp = spMf_final_[istart + k];
             if (tmp < 0.0 || tmp > 1.0) {
-                throw CanteraError("Electrode::updatePhaseNumbers()",
+                throw Electrode_Error("Electrode::updatePhaseNumbers()",
                                    "Mole fractions out of bounds:" + int2str(k) + " " + fp2str(tmp));
             }
             spMoles_final_[istart + k] = 0.0;
@@ -2111,7 +2111,7 @@ double Electrode::updateElectrolytePseudoMoles()
      *   We also save the value of   electrolytePseudoMoles_  here.
      */
     if (pendingIntegratedStep_) {
-        throw CanteraError(" Electrode::updateElectrolytePseudoMoles()",
+        throw Electrode_Error(" Electrode::updateElectrolytePseudoMoles()",
                            " call is illegal when there is a pending step");
     }
     int origFEM = followElectrolyteMoles_;
@@ -2136,7 +2136,7 @@ void Electrode::turnOffFollowElectrolyteMoles()
 {
     followElectrolyteMoles_ = 0;
     if (phaseMoles_final_[solnPhase_] <= 0.0) {
-        throw CanteraError("Electrode::turnOffFollowElectrolyteMoles()", "electrolyte moles set negative or zero");
+        throw Electrode_Error("Electrode::turnOffFollowElectrolyteMoles()", "electrolyte moles set negative or zero");
     }
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
     updateState_Phase(solnPhase_);
@@ -2158,7 +2158,7 @@ void Electrode::turnOnFollowElectrolyteMoles()
             followElectrolyteMoles_ = 1;
         }
         if (phaseMoles_final_[solnPhase_] <= 0.0) {
-            throw CanteraError("Electrode::turnOnFollowElectrolyteMoles()", "electrolyte moles set negative or zero");
+            throw Electrode_Error("Electrode::turnOnFollowElectrolyteMoles()", "electrolyte moles set negative or zero");
         }
     }
 }
@@ -2299,7 +2299,7 @@ size_t Electrode::ReactingSurfacePhaseIndex(size_t isk, size_t PLph) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
-        throw CanteraError("ReactingSurfacePhaseIndex", "Reacting surface not found");
+        throw Electrode_Error("ReactingSurfacePhaseIndex", "Reacting surface not found");
     }
     return (int) rsd->PLtoKinPhaseIndex_[PLph];
 }
@@ -2375,17 +2375,17 @@ double Electrode::TotalVol(bool ignoreErrors) const
         double palt = mv * phaseMoles_final_[iph];
         if (!ignoreErrors) {
             if (palt < -1.0E-15) {
-                throw CanteraError(" Electrode::TotalVol() ", " phase volume is negative " + fp2str(palt));
+                throw Electrode_Error(" Electrode::TotalVol() ", " phase volume is negative " + fp2str(palt));
             }
             if (psum < -1.0E-15) {
-                throw CanteraError(" Electrode::TotalVol() ", " phase volume is negative " + fp2str(psum));
+                throw Electrode_Error(" Electrode::TotalVol() ", " phase volume is negative " + fp2str(psum));
             }
         }
         double denom = palt + psum + 1.0E-9;
         if (tp.eosType() != cLattice) {
             if (!ignoreErrors && 0) {
                 if (fabs((palt - psum) / denom) > 1.0E-4) {
-                    throw CanteraError(" Electrode::TotalVol() ",
+                    throw Electrode_Error(" Electrode::TotalVol() ",
                                        " internal inconsistency " + fp2str(palt) + " " + fp2str(psum));
                 }
             }
@@ -2965,7 +2965,7 @@ void Electrode::getPhaseProductionRates(const double* const speciesProductionRat
 void Electrode::getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered)
 {
     if (!pendingIntegratedStep_) {
-        throw CanteraError(" Electrode::getIntegratedPhaseMoleTransfer", "no pending integration step");
+        throw Electrode_Error(" Electrode::getIntegratedPhaseMoleTransfer", "no pending integration step");
     }
     double sum = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
@@ -2991,7 +2991,7 @@ void Electrode::getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfere
      for (int iph = 0; iph < m_NumTotPhases; iph++) {
      deltaPhaseMolesIntegrated = phaseMoles_final_[iph] - phaseMoles_init_init_[iph];
      if (fabs(deltaPhaseMolesIntegrated - phaseMolesTransfered[iph])/ sum > 1.0E-7) {
-     throw CanteraError(" Electrode::getIntegratedPhaseMoleTransfer",
+     throw Electrode_Error(" Electrode::getIntegratedPhaseMoleTransfer",
      " mismatched phase deltas");
      }
      }
@@ -3609,12 +3609,12 @@ void Electrode::getPrintTable(int itable, std::vector<std::string>& colNames, st
 void Electrode::setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum)
 {
     if (platNum != -1) {
-        throw CanteraError(" Electrode::setRelativeCapacityDischargedPerMole()", "platNum not -1");
+        throw Electrode_Error(" Electrode::setRelativeCapacityDischargedPerMole()", "platNum not -1");
     }
     if (pendingIntegratedStep_) {
-        throw CanteraError(" Electrode::setRelativeCapacityDischargedPerMole()", "pending step");
+        throw Electrode_Error(" Electrode::setRelativeCapacityDischargedPerMole()", "pending step");
     }
-    throw CanteraError(" Electrode::setRelativeCapacityDischargedPerMole()", "not implemented");
+    throw Electrode_Error(" Electrode::setRelativeCapacityDischargedPerMole()", "not implemented");
 }
 //====================================================================================================================
 RxnMolChange* Electrode::rxnMolChangesEGR(size_t iegr)
@@ -3627,7 +3627,7 @@ void Electrode::addExtraGlobalRxn(const EGRInput& egri)
     size_t rsdI = egri.m_RSD_index;
     InterfaceKinetics* iKA = RSD_List_[rsdI];
     if (!iKA) {
-       throw CanteraError("Electrode::addExtraGlobalRxn()",
+       throw Electrode_Error("Electrode::addExtraGlobalRxn()",
                           "No kinetics object for reacting surface domain " + int2str(rsdI));
     }
     size_t nReactionsA = iKA->nReactions();
@@ -3812,7 +3812,7 @@ int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, 
                             if (nsp > 1) {
                                 size_t bornMultiSpecies = jph;
                                 if (iphaseTarget != bornMultiSpecies) {
-                                    throw CanteraError("", "two multispecies phases");
+                                    throw Electrode_Error("", "two multispecies phases");
                                 }
                             }
                         }
@@ -3900,10 +3900,10 @@ int Electrode::phasePop(size_t iphaseTarget, double* const Xmf_stable, double de
     for (size_t kp = 0; kp < nspPhase; kp++) {
         k = kp + kstartTarget;
         if (spMoles_init_[k] != 0.0) {
-            throw CanteraError(" Electrode::phasePop", "spMoles_init_[k] != 0.0");
+            throw Electrode_Error(" Electrode::phasePop", "spMoles_init_[k] != 0.0");
         }
         if (spMoles_final_[k] != 0.0) {
-            throw CanteraError(" Electrode::phasePop", "spMoles_final_[k] != 0.0");
+            throw Electrode_Error(" Electrode::phasePop", "spMoles_final_[k] != 0.0");
         }
     }
 
@@ -3930,13 +3930,13 @@ int Electrode::phasePop(size_t iphaseTarget, double* const Xmf_stable, double de
 double Electrode::reportStateVariableIntegrationError(int& numSV, double* const errorVector) const
 {
     numSV = 0;
-    throw CanteraError("Electrode::reportStateVariableIntegrationError()", "Base Class Called");
+    throw Electrode_Error("Electrode::reportStateVariableIntegrationError()", "Base Class Called");
     return 0.0;
 }
 //====================================================================================================================
 double Electrode::reportTimeLimit(int allowedSubSteps, double allowedErrorStateVariables, double allowedSourceTermError)
 {
-    throw CanteraError("Electrode::reportTimeLimit()", "Base Class Called");
+    throw Electrode_Error("Electrode::reportTimeLimit()", "Base Class Called");
     return 0.0;
 }
 //==================================================================================================================================
@@ -4008,7 +4008,7 @@ int Electrode::integrateResid(const double tfinal, const double deltaTsubcycle, 
         const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType, const int id_x,
         const double delta_x)
 {
-    throw CanteraError(" Electrode::integrateResid()", "Base class called");
+    throw Electrode_Error(" Electrode::integrateResid()", "Base class called");
     return 0;
 }
 //====================================================================================================================
@@ -4040,7 +4040,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
     tbase = std::max(tbase, t_final_final_);
     if (!resetToInitInit) {
 	if (fabs(Tinitial - t_final_final_) > (1.0E-13 * tbase)) {
-	    throw CanteraError("Electrode::resetStartingCondition()",
+	    throw Electrode_Error("Electrode::resetStartingCondition()",
 			       "Tinitial " + fp2str(Tinitial) + " is not compatible with t_final_final_ " + fp2str(t_final_final_));
 	}
     }
@@ -4048,7 +4048,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
      *  Make sure that tfinal and tfinal_final_ are the same. This is a comfort condition
      */
     if (fabs(tfinal_ - t_final_final_) > (1.0E-13 * tbase)) {
-        throw CanteraError("Electrode::resetStartingCondition()",
+        throw Electrode_Error("Electrode::resetStartingCondition()",
                            "tfinal_ " + fp2str(tfinal_) + " is not equal to t_final_final_ " + fp2str(t_final_final_) + 
                            " This condition is needed for some transfers.");
     }
@@ -4191,7 +4191,7 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
 #endif
         if (fabs(tfinal_ - t_init_init_) > 1.0E-40) {
             if (pendingIntegratedStep_) {
-                throw CanteraError("Electrode::setInitStateFromFinal(true)",
+                throw Electrode_Error("Electrode::setInitStateFromFinal(true)",
                                    "Function called to overwrite init_init during a pending step");
             }
         }
@@ -4280,7 +4280,7 @@ void Electrode::setInitInitStateFromFinalFinal()
     }
 
     if (pendingIntegratedStep_) {
-        throw CanteraError("Electrode::setInitInitStateFromFinalFinal(true)",
+        throw Electrode_Error("Electrode::setInitInitStateFromFinalFinal(true)",
                            "Function called to overwrite init_init during a pending step");
     }
 
@@ -4532,11 +4532,11 @@ double Electrode::integrateConstantCurrent(double& current, double& deltaT, doub
         phimin = phiM - 2.0;
     }
     if (phiMax < phiM) {
-	throw CanteraError("Electrode::integrateConstantCurrent()",
+	throw Electrode_Error("Electrode::integrateConstantCurrent()",
 			   "phiMax , " + fp2str(phiMax) + ", is less than starting phi, " + fp2str(phiM));
     }
     if (phiMin > phiM) {
-	throw CanteraError("Electrode::integrateConstantCurrent()",
+	throw Electrode_Error("Electrode::integrateConstantCurrent()",
 			   "phiMin , " + fp2str(phiMin) + ", is greater than starting phi, " + fp2str(phiM));
     }
 
@@ -4736,7 +4736,7 @@ double Electrode::integrateConstantCurrent(double& current, double& deltaT, doub
 size_t Electrode::integratedSpeciesSourceTerm(double* const spMoleDelta)
 {
     if (tfinal_ == tinit_) {
-        throw CanteraError(" Electrode::integratedSpeciesSourceTerm()", "tfinal == tinit");
+        throw Electrode_Error(" Electrode::integratedSpeciesSourceTerm()", "tfinal == tinit");
     }
     /*
      *  We may do more here to ensure that the last integration is implicit
@@ -5756,7 +5756,7 @@ void Electrode::writeCSVData(int itype)
         double porosity = lyteVol / grossVol;
         //  This will fail until we figure out how we want to handle this
         // if (fabs(porosity - porosity_) > 1.0E-6) {
-        //	throw CanteraError("writeCSVData() ERROR", "porosity isn't consistent");
+        //	throw Electrode_Error("writeCSVData() ERROR", "porosity isn't consistent");
         //}
         fprintf(fpI, " %12.5E ,", solidVol);
         fprintf(fpI, " %12.5E ,", lyteVol);
