@@ -545,7 +545,7 @@ public:
     virtual void unpackNonlinSolnVector(const double* const ySoln) override;
 
     // Main internal routine to calculate the rate constant
-    /*
+    /*!
      *  (virtual from Electrode_Integrator)
      *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
      *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes  in topology.
@@ -609,7 +609,7 @@ public:
     virtual int integrateResid(const double tfinal, const double delta_t,
                                const double* const y, const double* const ydot,
                                double* const resid,
-                               const ResidEval_Type_Enum evalType, const int id_x, const double delta_x);
+                               const ResidEval_Type_Enum evalType, const int id_x, const double delta_x) override;
 
 
 
@@ -618,7 +618,7 @@ public:
      *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step, and we are calculating post-processed quantities like source terms.
      */
-    virtual void calcSrcTermsOnCompletedStep();
+    virtual void calcSrcTermsOnCompletedStep() override;
 
 
     //! Accumulate src terms and other results from the local step into the global holding bins.
@@ -626,14 +626,29 @@ public:
      *  Accumulate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step and we have satisfied all accuracy requirements.
      *  The step is good. We now accumulate the results before going on to a new local step.
+     *
+     *  @param[in]           remove              If true we remove the current increment to the source term
+     *                                           Defaults to false;
      */
-    virtual void accumulateSrcTermsOnCompletedStep(bool remove = false);
+    virtual void accumulateSrcTermsOnCompletedStep(bool remove = false) override;
 
-
+    //! Calculate the l0 norm difference of two vectors
+    /*!
+     *  @param[in]           v1                  First vector
+     *  @param[in]           v2                  second vector
+     *  @param[in]           num                 number to check
+     *  @param[in]           atolVec             Vector of abs tolerances
+     *  @param[in]           rtol                Relative tolerance
+     *
+     *  @return                                  Returns the relative difference between the two vectors
+     */
     double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
                    const std::vector<double>& atolVec, const double rtol) const;
 
-    //!
+    //!  Check the region
+    /*!
+     *  @param[in]           regionID            ID of the region
+     */
     void checkRegion(int regionID) const;
 
     //! Pack the nonlinear solver proplem
@@ -645,7 +660,7 @@ public:
      *             yhighNLS_
      *             deltaBoundsMagnitudesNLS_
      */
-    virtual void initialPackSolver_nonlinFunction();
+    virtual void initialPackSolver_nonlinFunction() override;
 
     //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
     /*!
