@@ -183,6 +183,7 @@ int main(int argc, char **argv)
 
     for (int rTimes = 0; rTimes < (int) rval.size(); rTimes++) {
 
+    bool startNewRecord = true;
     electrodeC->diffusionCoeffRegions_[0] = val[iTimes];
     electrodeC->diffusionCoeffRegions_[1] = val[iTimes];
     electrodeC->diffusionCoeffRegions_[2] = val[iTimes];
@@ -278,8 +279,10 @@ int main(int argc, char **argv)
       } else {
         printf("main: Skipping Tinitial %g to Tfinal %g printout\n", Tfinal, Tinitial); 
       }
-      electrodeC->writeSolutionTimeIncrement();
+      electrodeC->writeSolutionTimeIncrement(startNewRecord);
+      startNewRecord = false;
       electrodeC->resetStartingCondition(Tfinal);
+       
       itimes++; 
       if (itimes >= nT) {
         printf("extra its\n");
@@ -287,6 +290,7 @@ int main(int argc, char **argv)
     }
 
     fclose(fp);
+    
     }
     }
     }

@@ -342,14 +342,16 @@ XML_Node* Electrode::selectGlobalTimeStepIncrement(XML_Node* xSoln, int globalTi
  *  </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML
  *  element.
  */
-void Electrode::writeSolutionTimeIncrement()
+void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset)
 {
+    static bool haventBeenHere = true;
     bool doTrunc = false;
     /*
      *  solnNum is the global solution number. There can be more than one time dependent solution
      *          in an output file.
      */
     static int solnNum = 1;
+
 
     if (!eState_final_) {
         throw Electrode_Error("Electrode::writeSolutionTimeIncrement()", 
@@ -360,6 +362,21 @@ void Electrode::writeSolutionTimeIncrement()
      *  stepNum is the global time step number written to the file.
      */
     static int stepNum = 0;
+
+    if (haventBeenHere) {
+        solnNum = 1;
+        stepNum = 0;
+        doTrunc = true;
+    } else if (startNewRecord) {
+        solnNum++;
+        stepNum = 0;
+    }
+    if (reset) {
+        haventBeenHere = true; 
+        solnNum = 1;
+        stepNum = 0;
+        doTrunc = true;
+    }
 
     time_t aclock;
     ::time(&aclock); /* Get time in seconds */
@@ -394,7 +411,9 @@ void Electrode::writeSolutionTimeIncrement()
 
     stepNum++;
     if (stepNum == 1) {
-        doTrunc = true;
+        if (!startNewRecord || haventBeenHere) {
+            doTrunc = true;
+        }
 
 	//   Add a time stamp
         ZZctml::addString(soln, "timeStamp", asctime(newtime));
@@ -452,19 +471,34 @@ void Electrode::writeSolutionTimeIncrement()
     if (length > 0) {
         // Open the file and position it at the end of file
         fstream s(fname.c_str(), fstream::in | fstream::out | fstream::ate);
-        //int pos = s.tellp();
+
+        if (startNewRecord) {
+            /*
+             * Backspace 8 characters
+             */
+            s.seekp(-8, ios_base::end);
+            /*
+             * Write a new electrodeOutput XML Element with an indentation of 2.
+             */
+            soln.write(s, 2);
+        } else {
+            //int pos = s.tellp();
+            /*
+             * Backspace 29 characters
+             */
+            s.seekp(-29, ios_base::end);
+            /*
+             * Write the globalTimeStep XML Element with an indentation of 4.
+             */
+            gts.write(s, 4);
+            /*
+             *  Now, write the end electrodeOutput
+             */
+            s.write("  </electrodeOutput>\n", 21);
+        }
         /*
-         * Backspace 29 characters
+         *  Now, write the end ctml block to make the XML file whole again
          */
-        s.seekp(-29, ios_base::end);
-        /*
-         * Write the globalTimeStep XML Element with an indentation of 4.
-         */
-        gts.write(s, 4);
-        /*
-         *  Now, write the end electrodeOutput and ctml blocks to make the XML file whole again
-         */
-        s.write("  </electrodeOutput>\n", 21);
         s.write("</ctml>\n", 8);
         s.close();
     } else {
@@ -481,7 +515,7 @@ void Electrode::writeSolutionTimeIncrement()
             s.close();
         }
     }
-
+    haventBeenHere = false;
 }
 //====================================================================================================================
 

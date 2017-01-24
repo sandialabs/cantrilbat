@@ -2444,8 +2444,13 @@ public:
      *  takes care to first eliminate any existing to backspace over the last
      *  \verbatim </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML  \endverbatim
      *  element.
+     *
+     *  @param[in]           startNewRecord      If this is true, then a new electrodeOutput record is started, bumping up the 
+     *                                           index value. Defaults to false.
+     *  @param[in]           reset               If this is true, then the current file is truncated, and a new file is written
+     *                                           from scratch with an index of 1. Defaults to false. 
      */
-    void writeSolutionTimeIncrement();
+    void writeSolutionTimeIncrement( bool startNewRecord = false, bool reset = false);
 
     //!  Write the state of the Electrode object at the t_final time out to the output XML_Node
     /*!

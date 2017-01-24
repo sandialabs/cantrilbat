@@ -635,8 +635,8 @@ ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionO
 //==================================================================================================================================
 void ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML(const ZZCantera::XML_Node& xElectrodeOutput)
 {
-    string valueString, typeString;
-    string nn = xElectrodeOutput.name();
+    std::string valueString, typeString;
+    std::string nn = xElectrodeOutput.name();
     if (nn != "electrodeOutput") {
 	throw Electrode_Error("ElectrodeTimeEvolutionOutput::read_ElectrodeTimeEvolutionOutput_fromXML",
 			      "Was expecting the name electrodeOutput, but got instead: " + nn);
@@ -959,8 +959,8 @@ ZZCantera::XML_Node* selectLastGlobalTimeStepInterval(ZZCantera::XML_Node* xSoln
 ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCantera::XML_Node& xmlGlobalTimeStep, double& timeVal, 
                                                                   int printSteps)
 {
-    string typeString;
-    string timeValStr;
+    std::string typeString;
+    std::string timeValStr;
    if (xmlGlobalTimeStep.name() != "globalTimeStep") {
         ESModel_Warning(" EState::readGlobalTimeStepIntervalFromXML",
                         " Name of the xml node should have been globalTimeStep. Instead it was " + xmlGlobalTimeStep.name());
