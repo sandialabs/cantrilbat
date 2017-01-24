@@ -1137,6 +1137,19 @@ ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, cons
     return es;
 }
 //==================================================================================================================================
+size_t reportXMLElectrodeOutput_NumRecords(const ZZCantera::XML_Node& Xfile)
+{
+    //
+    //  Need to be at the ctml level for the next command to work
+    //
+    const XML_Node* xCTML = Xfile.findByName("ctml");
+    if (!xCTML) {
+        ESModel_Warning("esmodel::reportXMLElectrodeOutput_NumRecords()", "Could not find a node named \"ctml\"");
+        return 0;
+    }
+    return xCTML->nChildren("electrodeOutput");
+}
+//==================================================================================================================================
 esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const ZZCantera::XML_Node& Xfile, int index)
 {
     //
@@ -1144,9 +1157,8 @@ esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const ZZCantera::X
     //
     const XML_Node* xCTML = Xfile.findByName("ctml");
     if (!xCTML) {
-        ESModel_Warning("esmodel::readXMLElectrodeOutput()",
-			"Could not find a node named \"ctml\"");
-        return 0;
+        ESModel_Warning("esmodel::readXMLElectrodeOutput()", "Could not find a node named \"ctml\"");
+        return nullptr;
     }
     /*
      *  Find the correct electrodeOutput XML element.
@@ -1156,7 +1168,7 @@ esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const ZZCantera::X
     if (!xRecord) {
         ESModel_Warning("esmodel::getElectrodeOutputFile()",
 	                "Could not find a node named electrodeOutput with index " + mdpUtil::int2str(index));
-	return 0;
+	return nullptr;
     }
     ElectrodeTimeEvolutionOutput* e_teo = new ElectrodeTimeEvolutionOutput(*xRecord);
     return e_teo;

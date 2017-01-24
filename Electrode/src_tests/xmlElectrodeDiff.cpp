@@ -13,8 +13,7 @@
  *
  *  xmlSolnDiff File1.xml File2.xml
  *
- *  Compares the variable values in two Cantera solution xml 
- *  files. 
+ *  Compares the variable values in two Zuzax solution xml files. 
  *  The comparison is done using a weighted norm basis.
  *
  *  The two files should be basically equal. However, File1.xml is
@@ -49,11 +48,13 @@
 #include "EState_XML.h"
 
 using namespace std;
+
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
+
 using namespace esmodel;
 
 
@@ -80,7 +81,7 @@ double gatol = 1.0E-12;
 std::map<std::string, double> VarRtol;
 std::map<std::string, double> VarAtol;
 
-//======================================================================================================================
+//==================================================================================================================================
 #ifdef WINMSVC
 /*
  * Windows doesn't have getopt(). This is an incomplete version that
@@ -146,18 +147,16 @@ int getopt(int argc, char **argv, const char *) {
 
 #endif
 
-
-//======================================================================================================================
+//==================================================================================================================================
 XML_Node *readXML(std::string inputFile) {
 
   if (inputFile.size() == 0) {
-    throw CanteraError("constructXML",  "input file is null");
+    throw ZuzaxError("constructXML",  "input file is null");
   }
   string path = findInputFile(inputFile);
   std::ifstream fin(path.c_str());
   if (!fin) {
-    throw CanteraError("HMWSoln:constructPhaseFile","could not open "
-                       +path+" for reading.");
+    throw ZuzaxError("HMWSoln:constructPhaseFile","could not open " +path+" for reading.");
   } 
   /*
    * The phase object automatically constructs an XML object.
@@ -167,8 +166,7 @@ XML_Node *readXML(std::string inputFile) {
   fxml->build(fin);
   return fxml;
 }
-
-//======================================================================================================================
+//==================================================================================================================================
 static void print_usage() {
   printf("\t\n");
   printf("  xmlElectrodeDiff [-h] [-a atol] [-r rtol] File1.xml File2.xml\n");
@@ -191,7 +189,7 @@ static void print_usage() {
   printf("\t   1 = One or more time intervals failed the comparison\n");
   printf("\t\n");
 }
-//====================================================================================================================
+//==================================================================================================================================
 int main(int argc, char *argv[])
 {
   int opt_let;
@@ -244,7 +242,6 @@ int main(int argc, char *argv[])
       grtol = rtol_arg;
       break;
 
-
     case 'd':
       /* printlvl parameter */
  
@@ -256,8 +253,6 @@ int main(int argc, char *argv[])
       }
       printLvl = rtol_arg;
       break;
-
-    
       
     default:
       /* Default case. Error on unknown argument. */
@@ -284,10 +279,10 @@ int main(int argc, char *argv[])
   printf("----------------------------------------------------------------------\n");
   printf("xmlElectrodeDiff: XML Soln File comparison utility program\n");
   printf("             Version \n");
-  printf("             Harry K. Moffat Div. 1516 Sandia National Labs\n");
+  printf("             Harry K. Moffat Div. 1513 Sandia National Labs\n");
   printf("           \n");
-  printf("             First  Cantera XML Electrode File = %s\n", fileName1);
-  printf("             Second Cantera XML Electrode File = %s\n", fileName2); 
+  printf("             First  Zuzax XML Electrode File = %s\n", fileName1);
+  printf("             Second Zuzax XML Electrode File = %s\n", fileName2); 
   printf("\n");
   printf("             Absolute tol = %g\n", gatol);
   printf("             Relative tol = %g\n", grtol);
@@ -309,16 +304,26 @@ int main(int argc, char *argv[])
   esmodel::ElectrodeTimeEvolutionOutput* eto1 = 0;
   esmodel::ElectrodeTimeEvolutionOutput* eto2 = 0; 
 
+  int numRec1 = reportXMLElectrodeOutput_NumRecords(*Xfp1);
+  int numRec2 = reportXMLElectrodeOutput_NumRecords(*Xfp2);
+  if (numRec1 != numRec2) {
+       printf("xmlElectrodeDiff ERROR:: number of records in first file, %d, isn't the same as the second file, %d \n",
+              numRec1, numRec2);
+       exit(-1);
+  }
+  int iReturn = 0;
+
+  for (int iRec = 1; iRec <= numRec1; iRec++) {
   try {
-      eto1 = readXMLElectrodeOutput(*Xfp1);
-  } catch (CanteraError) {
+      eto1 = readXMLElectrodeOutput(*Xfp1, iRec);
+  } catch (ZuzaxError) {
     showErrors();
     printf("xmlElectrodeDiff ERROR:: Error while reading first file, %s. Exiting program\n", fileName1);
     return -1;
   }
   try {
-      eto2 = readXMLElectrodeOutput(*Xfp2);
-  } catch (CanteraError) {
+      eto2 = readXMLElectrodeOutput(*Xfp2, iRec);
+  } catch (ZuzaxError) {
     showErrors();
     printf("xmlElectrodeDiff ERROR:: Error while reading second file, %s. Exiting program\n", fileName2);
     return -1;
@@ -334,11 +339,11 @@ int main(int argc, char *argv[])
   int compareType = 1;
  
   int numZonesNeededToPass = std::min(eto1->numGlobalTimeIntervals_, eto2->numGlobalTimeIntervals_);
-  int numPassed =  numZonesNeededToPass;
+  int numPassed = numZonesNeededToPass;
   bool ok;
   try {
       ok = eto1->compareOtherTimeEvolutionSub(eto2, numPassed, molarAtol, gatol, nDigits,includeHist, compareType, printLvl);
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
     showErrors();
     printf("xmlElectrodeDiff ERROR:: Error while comparing first solution %s to second solution %s. Exiting program\n",
 	   fileName1, fileName2);
@@ -346,17 +351,19 @@ int main(int argc, char *argv[])
   }
 
   if (ok) {
-      printf("xmlElectrodeDiff: Passed, a total of %d zones were the same\n",  numZonesNeededToPass);
+      printf("xmlElectrodeDiff: Record %d Passed, a total of %d zones were the same\n", iRec, numZonesNeededToPass);
   } else {
       int numDiff = numZonesNeededToPass - numPassed;
-      printf("xmlElectrodeDiff: Failed, a total of %d zones were the same, a total of %d intervals were different\n",
-	     numZonesNeededToPass, numDiff);
+      printf("xmlElectrodeDiff: Record %d Failed, a total of %d zones were the same, a total of %d intervals were different\n",
+	     iRec, numZonesNeededToPass, numDiff);
   }
-  int iReturn = !ok;
   if (ok == true) {
-      iReturn = 0;
+      //iReturn = 0;
   } else {
-      iReturn = 1;
+      iReturn = iRec;
+  }
+  delete eto1;
+  delete eto2;
   }
  
   return iReturn;

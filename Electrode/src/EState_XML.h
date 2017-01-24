@@ -611,6 +611,15 @@ ZZCantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double
 ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, const ZZCantera::EState_ID_struct & e_id);
 
 //==================================================================================================================================
+//! Report the number of electrodeOutput records in the file
+/*!
+ *  @param[in]               xNode               Node containing multiple electrodeOutput nodes
+ *
+ *  @return                                      Returns the number of records
+ */
+size_t reportXMLElectrodeOutput_NumRecords(const ZZCantera::XML_Node& xNode);
+
+//==================================================================================================================================
 //! Create an ElectrodeTimeEvolutionOutput object by reading its contents from an XML tree.
 /*!
  *  @param[in]               xNode               Node containing multiple electrodeOutput nodes
@@ -619,6 +628,7 @@ ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, cons
  *  @return                                      Returns a pointer to the created ElectrodeTimeEvolutionOutput object
  */
 esmodel::ElectrodeTimeEvolutionOutput* readXMLElectrodeOutput(const ZZCantera::XML_Node& xNode, int index = 1);
+
 
 //==================================================================================================================================
 //! Create an ElectrodeTimeEvolutionOutput object by reading its contents from an XML file.
