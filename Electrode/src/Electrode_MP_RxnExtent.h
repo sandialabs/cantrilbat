@@ -211,7 +211,7 @@ public:
      *                                            1 Successful and ei has changed
      *                                           -1 unsuccessful fatal error of some kind.
      */
-    virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei) override;
+    virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr) override;
 
     //!  Setup the electrode
     /*!
@@ -324,8 +324,8 @@ public:
 
     //! Set the temperature and pressure of the electrode
     /*!
-     * @param temperature    Temperature (Kelvin)
-     * @param pressure       Pressure (Pa)
+     * @param[in]            temperature         Temperature (Kelvin)
+     * @param[in]            pressure            Pressure (Pa)
      */
     void setState_TP(double temperature, double pressure);
 
@@ -343,7 +343,8 @@ public:
      *       and the mole volumes of the two end points of the current plateau.
      *
      *       We leave out the solnPhase_ volume from the calculation
-     *       units = m**3
+     *
+     *  @return                                  Returns the value of the solid volume (m**3)
      */
     virtual double SolidVol() const override;
 
@@ -354,7 +355,9 @@ public:
      *   This returns the value in the _final_ state
      *   We have to redo these because the molar volume approximation is redone in these routines.
      *
-     *   @return                                 total volume (m**3)
+     *  @param[in]           ignoreErrors        Ignore errors. Defaults to false
+     *
+     *  @return                                  returns the total volume (m**3)
      */
     virtual double TotalVol(bool ignoreErrors = false) const override;
 
@@ -417,20 +420,33 @@ public:
      */
     virtual void extractInfo() override;
 
+    //! Modifies the Rate of progress for the surface reactions due to the Damkoeler number
+    /*!
+     *  Changes the value of ROP_[0], ROP_AB_
+     *
+     *  @return                                  Returns the value of the factor by which the ROP was reduced by
+     */
     double modifyROPForDiffusion();
 
     //! Extract various quantities from the lumped reaction for use in calculating the diffusion approximation
     void calculatekABForDa();
 
-    //!   Calcualte the Damkoeler number assuming the reaction occurs on the outer surface, and we have interstial diffusion
-    //!   of a neutral diffusing through a region to a new reaction front, whose reactions are fast so that they are
-    //!   in equilibrium
+    //! Calcualte the Damkoeler number assuming the reaction occurs on the outer surface, and we have interstitial diffusion
+    //! of a neutral diffusing through a region to a new reaction front, whose reactions are fast so that they are in equilibrium
     /*!
      *  We also can do checks here to make sure that the approximation makes sense. In particular we should
      *  make sure that the mole fraction is between 0 and 1 for the interstitial diffuser.
      */
     void calculateDaOuter();
 
+    //! Calculate the Damkoeler number assuming the reaction occurs on the inner surface, and we have interstitial diffusion
+    //! of a neutral diffusing through a region to a new reaction front, whose reactions are slow so that they are partially rate 
+    //! limiting
+    /*!
+     *  Note the outer reactions are assumed to be in equilibrium.
+     *  We also can do checks here to make sure that the approximation makes sense. In particular we should
+     *  make sure that the mole fraction is between 0 and 1 for the interstitial diffuser.
+     */
     void calculateDaInner();
 
     //! Update the molar production rates for all annular regions
@@ -449,9 +465,14 @@ public:
     void updateSpeciesMoleChangeFinal();
 
     //! returns the old region
-
+    /*!
+     *  Changes the internal value of xRegion_init_ and xRegion_final_, and then recalculate surface areas
+     *
+     *  @param[in]           newRegion           New region to change to
+     *
+     *  @return                                  Returns the old value of the region
+     */
     int changeRegion(int newRegion);
-
 
     // ---------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATIONS -----------------------------------------
@@ -472,7 +493,7 @@ public:
      *                                           final_final values produced in the last global step no matter what.
      *                                           Defaults to false.
      */
-    void resetStartingCondition(double Tinitial, bool doTestsAlways = false) override;
+    void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
@@ -484,13 +505,10 @@ public:
      *   this requirement will entail that we control the source terms of all species within the
      *   electrode to the tolerance requirements of the electron source term.
      *
-     *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
-     *                     This is a unitless quantity
-     *   @param atolResid  Absolute tolerance cutoff for the electron source term over the interval.
-     *                     Below this value we do not care about the results.
-     *                     atol has units of kmol.
+     *   @param[in]          rtolResid           Relative tolerance allowed for the electron source term over the interval.
+     *                                           This is a unitless quantity
      */
-    virtual void setNLSGlobalSrcTermTolerances(double rtolResid);
+    virtual void setNLSGlobalSrcTermTolerances(double rtolResid) override;
 
     //! Set the Residual absolute error tolerances
     /*!
@@ -502,7 +520,7 @@ public:
      *   Calculates atolNLS_[]
      *   Calculates atolResidNLS_[]
      */
-    virtual void setResidAtolNLS();
+    virtual void setResidAtolNLS() override;
 
     //! Predict the solution
     /*!
@@ -563,11 +581,12 @@ public:
      *     y =   deltaTsubcycleCalc_
      *          RxnExtent_final_
      *
-     *  @param resid    value of the residual
+     *  @param[in]           resid               value of the residual
+     *  @param[in]           evalType            Evaluation type of the calculation
      *
      *
-     *  @return  1 Means a good calculation that produces a valid result
-     *           0 Bad calculation that means that the current nonlinear iteration should be terminated
+     *  @return                                  1 Means a good calculation that produces a valid result
+     *                                           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
     virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType) override;
 
@@ -677,7 +696,7 @@ public:
      *                                           of the difference between predictor and the corrector.
      *                                           The lesser of the deviation in the two norms is now taken as the answer.
      */
-    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS_) override;
+    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS) override;
 
     //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
     /*!
@@ -768,6 +787,8 @@ public:
      *  Note that spMoles_FeS2_Normalization_ stays constant throughout the calculation once
      *  the size of the electrode is established.
      *
+     *  @param[in]           relativeExtentRxn   Current value of the relative extent of reaction
+     *
      *  @return                                  Returns the molar volume
      */
     double molarVolume_relExtentRxn(double relativeExtentRxn) const;
@@ -790,8 +811,8 @@ public:
      *
      *  (virtual function from Electrode.h)
      *
-     *   @param[in]          isk                 Reacting surface domain id
-     *   @param[in]          iReaction           Explicit index of the reaction. If -1, then it attempts
+     *  @param[in]           isk                 Reacting surface domain id
+     *  @param[in]           iReaction           Explicit index of the reaction. If -1, then it attempts
      *                                           to pick the reaction that best represents the open circuit potential.
      *
      *  @return                                  Returns the open circuit voltage
@@ -880,6 +901,8 @@ public:
      *
      *   @param[in]          relativeExtentRxn   Relative extent of reaction
      *   @param[in]          xRegion             Integer indicating the region of the extent of reaction
+     *   @param[in]          comparedToReferenceElectrode  If True, report OCV as if the other electrode was the reference
+     *                                                     Electrode. Defaults to false .
      *
      *   @return                                 returns the standard state voltage.
      */
@@ -891,10 +914,10 @@ public:
      *  extent of reaction. Several checks are carried out. Then, the virtual function  openCircuitVoltageSS_Region_NoCheck()
      *  is called. 
      *
-     *   @param relativeExtentRxn      Relative extent of reaction
-     *   @param xRegion                Integer indicating the region of the extent of reaction
+     *   @param[in]          relativeExtentRxn   Relative extent of reaction
+     *   @param[in]          xRegion             Integer indicating the region of the extent of reaction
      *
-     *   @return returns the standard state voltage.
+     *   @return                                 returns the standard state voltage.
      */
     double openCircuitVoltageSS_Region(double relativeExtentRxn, int xRegion) const;
 
@@ -940,9 +963,9 @@ public:
      *  ideal conditions is given by capacityInitial().
      *  It will also include all plateaus that are defined by the electrode object.
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
      *
-     *  @return returns the theoretical capacity of the electrode in Amp seconds = coulombs.
+     *  @return                                  Returns the theoretical capacity of the electrode in Amp seconds = coulombs.
      */
     virtual double capacity(int platNum = -1) const override;
 
@@ -950,7 +973,9 @@ public:
     /*!
      *  This is the initial capacity of the electrode before any degradation occurs.
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *
+     *  @return                                  Returns the initial capacity of the electrode in Amp seconds = coulombs
      */
     virtual double capacityInitial(int platNum = -1) const override;
 
@@ -1321,12 +1346,17 @@ protected:
      */
     std::vector<size_t> numSpecInSolidPhases_;
 
+    //! Pointer to the Liquid Lithium ThermoPhase object
     ThermoPhase* Li_liq_;
 
     //!  This is the heat of formation of B such that the OCV at 723.15 K for the first transition
     //!  of the FeS2 electrode is 2.05565 volts vs. liquid lithium.
     double Hf_B_base_;
 
+    //! Current value of the Species B heat of formation that is necessary to achieve the E0 chosen by the program
+    /*!
+     * This is calculated in changeToE0() and storred here as a reference to the calculation.
+     */
     double Hf_B_current_;
 
     //! Standard State open circuit voltage value
@@ -1551,6 +1581,11 @@ protected:
      *        DaOuter_Bar_ = DaOuter_ / Radius_inner_final_
      */
     double DaOuter_Bar_;
+
+    //! Bound for how small a radius can get 
+    /*!
+     *  Current value is 1.0E-12 m
+     */
     double radiusSmallBound_;
 
     //! Damkoeler number calculated assuming the reaction occurs on the inner surface, and we have interstitial diffusion
@@ -1570,14 +1605,31 @@ protected:
      */
     double Lout_;
 
-    //! Forward reaction rate constant for the Lumped reaction
+    //! Forward reaction rate of progress for the Lumped reaction
     double ROP_AB_;
+
+    //! Forward reaction rate constant for the lumped reaction at the surface
     double kfAB_;
+
+    //! Reverse reaction rate constant for the lumped reaction at the surface
     double krAB_;
+
+    //! Value for the activity concentration for the Li+ ions in solution at the edge of the electrode
+    /*!
+     *  Units: depends on electrolyte ThermoPhase
+     */
     double ca_Lip_;
+  
+    //! Current value of the open circuit voltage for the final state
+    /*!
+     *  Units: volts
+     */
     double Eocv_;
 
+    //! Electrochemical Beta value for forward direction of the A->B reaction
     double betaF_AB_;
+
+    //! Electrochemical Beta value for the reverse direction of the A->B reaction
     double betaR_AB_;
 
     //! This is 0 or 1

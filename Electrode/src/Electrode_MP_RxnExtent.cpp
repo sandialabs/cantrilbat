@@ -154,7 +154,7 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent() :
     deltaTdeath_(0.0),
     DspMoles_final_(0),
     numSpecInSolidPhases_(0),
-    Li_liq_(0),
+    Li_liq_(nullptr),
     Hf_B_base_(0.0),
     Hf_B_current_(0.0),
     volts_OCV_SS_final_(0.0),
@@ -217,7 +217,7 @@ Electrode_MP_RxnExtent::Electrode_MP_RxnExtent(const Electrode_MP_RxnExtent& rig
     SrcDot_ExtentRxn_final_(0.0),
     deltaTdeath_(0.0),
     numSpecInSolidPhases_(0),
-    Li_liq_(0),
+    Li_liq_(nullptr),
     Hf_B_base_(0.0),
     Hf_B_current_(0.0),
     volts_OCV_SS_final_(0.0),
@@ -949,10 +949,8 @@ void Electrode_MP_RxnExtent::developBaseE0()
     FeS2_B->getChemPotentials(um);
     double um_FeS2_B = um[0];
 
-
     Li_liq_->getChemPotentials(um);
     double um_Li_liq = um[0];
-
 
     double deltaG = 1.0/4.0 * um_FeS2_B - 1.0/4.0 * um_FeS2_A - um_Li_liq;
 
@@ -1076,11 +1074,8 @@ void Electrode_MP_RxnExtent::changeToE0(double E0, int doPrint)
     }
     double deltaG_plat = - E0 * Faraday;
 
-
-
     double deltaH = deltaG_plat - deltaG;
     Hf_B_current_ = hf + 4*deltaH;
-
 
     FeS2_B->modifyOneHf298SS(0, Hf_B_current_);
 
@@ -1488,7 +1483,6 @@ void Electrode_MP_RxnExtent::calculatekABForDa()
         rsd->getFwdRateConstants(kRRates_);
         ROP_AB_ = -ROP_[kf_id_];
     }
-
 
 
     kfAB_ = kRates_[kf_id_];
@@ -1974,11 +1968,10 @@ int Electrode_MP_RxnExtent::predictSoln_SpeciaType1()
         predictSave[14] = onRegionBoundary_final_;
     }
 
-
 #endif
     return 1;
 }
-//====================================================================================================================
+//==================================================================================================================================
 int  Electrode_MP_RxnExtent::changeRegion(int newRegion)
 {
     if (RelativeExtentRxn_init_ != RelativeExtentRxn_final_) {
@@ -1995,8 +1988,7 @@ int  Electrode_MP_RxnExtent::changeRegion(int newRegion)
     surfaceAreaRS_init_[1] = surfaceAreaRS_final_[1];
     return tmp;
 }
-
-//==================================================================================================================
+//==================================================================================================================================
 // Set the base tolerances for the nonlinear solver within the integrator
 /*
  *   The tolerances are based on controlling the integrated electron source term
@@ -2023,17 +2015,7 @@ void Electrode_MP_RxnExtent::setNLSGlobalSrcTermTolerances(double rtolResid)
     }
     rtol_IntegratedSrc_global_ = rtolResid;
 }
-//====================================================================================================================
-// Set the Residual absolute error tolerances
-/*
- *  (virtual from Electrode_Integrator)
- *
- *   Set the absolute error tolerances fror the nonlinear solvers. This is called at the top
- *   of the integrator() routine.
- *
- *   Calculates atolResidNLS_[]
- *   Calculates atolNLS_[]
- */
+//==================================================================================================================================
 void  Electrode_MP_RxnExtent::setResidAtolNLS()
 {
     double deltaT = t_final_final_ - t_init_init_;
@@ -2043,7 +2025,6 @@ void  Electrode_MP_RxnExtent::setResidAtolNLS()
      *  residual has the same units as soln.
      */
     atolNLS_[0] = deltaT * 1.0E-6;
-
 
 
     /*

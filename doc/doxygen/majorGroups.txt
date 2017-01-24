@@ -3,7 +3,7 @@
 
     List of major groups in the code:
 
-    -  \link ExtendedPhaseGroups  "Extended Groups of Phases" \endlink
+    -  \link ExtendedPhaseGroups  "Common System for Handling Groups of Phases" \endlink
 
 
 

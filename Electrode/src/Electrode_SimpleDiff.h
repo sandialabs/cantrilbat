@@ -86,28 +86,28 @@ public:
      *  If the command file has been read before, it will then reparse the command file
      *  storring the new information in the  ELECTRODE_RadialRegion_KEY_INPUT structure.
      *
-     *   @param[in]          ei_ptr              Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
+     *  @param[in]           ei_ptr              Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
      *                                           as the child class of ELECTRODE_KEY_INPUT gets malloced.
      *
-     *   @return                                  0 successful but no change in ei
+     *  @return                                   0 successful but no change in ei
      *                                            1 Successful and ei has changed
      *                                           -1 unsuccessful fatal error of some kind.
      */
     virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr) override;
 
-    //!  Setup the electrode for first time use
+    //! Setup the electrode for first time use
     /*!
      *  (virtual from Electrode  - onion Out)
+     * 
+     *  This is one of the most important routines. It sets up the electrode's internal structures
+     *  After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+     *  It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *  object and the initial state of that object.
+     *  The routine works like an onion Out initialization. The parent object is initialized before the
+     *  child. This means the child object first calls the parent, before it does its own initializations.
      *
-     *    This is one of the most important routines. It sets up the electrode's internal structures
-     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
-     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
-     *    object and the initial state of that object.
-     *    The routine works like an onion Out initialization. The parent object is initialized before the
-     *    child. This means the child object first calls the parent, before it does its own initializations.
-     *
-     *    There are some virtual member functions that won't work until this routine is called. That's because
-     *    the data structures won't be set up for base and child Electrode objects until this is called.
+     *  There are some virtual member functions that won't work until this routine is called. That's because
+     *  the data structures won't be set up for base and child Electrode objects until this is called.
      *
      *  @param[in]           ei                  BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
      *                                           for the child electrode object.
@@ -116,21 +116,21 @@ public:
      */
     virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
-    //!  Set the electrode initial conditions from the input file.
+    //! Set the electrode initial conditions from the input file.
     /*!
-     *   (virtual from Electrode)
-     *   (This is a serial virtual function or an overload function)
+     *  (virtual from Electrode)
+     *  (This is a serial virtual function or an overload function)
      *
-     *    This is one of the most important routines. It sets up the initial conditions of the electrode
-     *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
-     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
-     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
-     *    object and the initial state of that object.
+     *  This is one of the most important routines. It sets up the initial conditions of the electrode
+     *  from the input file. The electrode itself has been set up from a call to electrode_model_create().
+     *  After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+     *  It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *  object and the initial state of that object.
+     * 
+     *  The routine works like an onion initialization. The parent object is initialized before the
+     *  child. This means the child object first calls the parent, before it does its own initializations.
      *
-     *    The routine works like an onion initialization. The parent object is initialized before the
-     *    child. This means the child object first calls the parent, before it does its own initializations.
-     *
-     *  @param               ei                  ELECTRODE_KEY_INPUT pointer object
+     *  @param[in]           ei                  ELECTRODE_KEY_INPUT pointer object
      *
      *  @return                                  Returns zero if successful, and -1 if not successful.
      */
