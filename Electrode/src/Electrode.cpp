@@ -1844,7 +1844,35 @@ void Electrode::setState_relativeExtentRxn(double relativeExtentRxn)
     throw Electrode_Error("Electrode::setState_relativeExtentRxn",
 	                  "Base class called but not implemented");
 }
-//==================================================================================================================
+
+//==================================================================================================================================
+double Electrode::relativeExtentRxn(double time) const
+{
+    double cap, capLeft, rel = -1;;
+    bool ok = false;
+    if (fabs(time - tfinal_) < 1.0E-50) {
+        ok = true;
+        cap = capacityInitial();
+        capLeft = capacityLeft();
+        rel = (cap - capLeft) / cap;
+        return rel;
+    }
+    if (fabs(time - tinit_) < 1.0E-50) {
+        ok = true;
+    }
+    if (fabs(time - t_init_init_) < 1.0E-50) {
+        ok = true;
+    }
+    if (fabs(time - t_final_final_) < 1.0E-50) {
+        ok = true;
+    }
+    if (!ok) {
+        throw Electrode_Error("Electrode::relativeExtentRxn(double time)", "unknown time: " + fp2str(time));
+    }
+    throw Electrode_Error("Electrode::relativeExtentRxn(double time)", "Base class called but not implemented");
+    return 0.0;
+}
+//==================================================================================================================================
 
 
 // -----------------------------------------------------------------------------------------------------------------

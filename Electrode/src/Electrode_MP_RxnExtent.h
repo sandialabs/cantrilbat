@@ -1135,8 +1135,7 @@ public:
      *
      *  @return                                  Returns the relative extent of reaction.
      */
-    double relativeExtentRxn(double time) const;
-
+    virtual double relativeExtentRxn(double time) const override;
 
     //! Return the number of extra print tables
     /*!

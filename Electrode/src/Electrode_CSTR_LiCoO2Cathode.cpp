@@ -211,5 +211,27 @@ void Electrode_CSTR_LiCoO2Cathode::setState_relativeExtentRxn(double relExtentRx
     updateState_Phase(ip_LiCoO2_);
 }
 //==================================================================================================================================
+double Electrode_CSTR_LiCoO2Cathode::relativeExtentRxn(double time) const
+{
+    double sum, li_mf = -1.0;
+    sum =  spMoles_final_[ig_SolidV_] +  spMoles_final_[ig_SolidLi_];
+    if (fabs(time - tfinal_) < 1.0E-50) {
+        li_mf = spMoles_final_[ig_SolidLi_] / sum;
+    }
+    if (fabs(time - tinit_) < 1.0E-50) {
+        li_mf = spMoles_init_[ig_SolidLi_] / sum;
+    }
+    if (fabs(time - t_init_init_) < 1.0E-50) {
+        li_mf = spMoles_init_init_[ig_SolidLi_] / sum;
+    }
+    if (fabs(time - t_final_final_) < 1.0E-50) {
+        li_mf = spMoles_final_final_[ig_SolidLi_] / sum;
+    }
+    if (li_mf == -1.0) {
+        throw Electrode_Error("Electrode_MP_RxnExtent::relativeExtentRxn(double time)", "unknown time: " + fp2str(time));
+    }
+    return li_mf; 
+}
+//==================================================================================================================================
 } // End of ZZCantera namespace
 //----------------------------------------------------------------------------------------------------------------------------------

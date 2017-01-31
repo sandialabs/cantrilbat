@@ -1358,7 +1358,6 @@ public:
      */
     virtual double calcSurfaceAreaChange(double deltaT);
 
-
     //! Recalulate the electrolyte mole number that fills up the designated space in the electrode
     //! and rebaseline the electrolyte mole numbers
     /*!
@@ -1367,7 +1366,6 @@ public:
      *  @return                                      Returns the total moles of the electrolyte (kmol)
      */
     virtual double updateElectrolytePseudoMoles();
-
 
     //! Toggles the flag that specifies whether electrolyte moles are followed or not to OFF
     /*!
@@ -1403,6 +1401,16 @@ public:
      */
     const std::vector<bool>& getExternalSurfaceBooleans() const;
 
+    //! Return the relative extent of reaction
+    /*!
+     *  (virtual from Electrode.h
+     *  @param[in]           time                Input the time desired for the calculation
+     *                                           Must be one of the 4 times: t_final, t_init, t_init_init, t_final_final
+     *
+     *  @return                                  Returns the relative extent of reaction.
+     */
+    virtual double relativeExtentRxn(double time) const;
+
     //! Return the number of moles in a phase
     /*!
      * @param[in]            iph                Phase id
@@ -1434,7 +1442,6 @@ public:
      * @return                                  Returns the number of moles in kmol
      */
     double elementSolidMoles(size_t ie) const;
-    
 
     //! Returns the number of moles of an element not including the electrolyte
     /*!

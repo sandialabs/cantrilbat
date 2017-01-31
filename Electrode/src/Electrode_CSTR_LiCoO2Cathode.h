@@ -105,6 +105,16 @@ public:
      */
     virtual void setState_relativeExtentRxn(double relExtentRxn) override;
 
+    //! Return the relative extent of reaction
+    /*!
+     *  (virtual from Electrode)
+     *  @param[in]           time                Input the time desired for the calculation
+     *                                           Must be one of the 4 times: t_final, t_init, t_init_init, t_final_final
+     *
+     *  @return                                  Returns the relative extent of reaction.
+     */
+    virtual double relativeExtentRxn(double time) const override;
+
     //! model id
     int Global_LiCoO2_Model_;
 

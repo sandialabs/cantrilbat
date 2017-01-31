@@ -406,6 +406,16 @@ public:
      */
     virtual void setState_relativeExtentRxn(double relativeExtentRxn) override;
 
+    //! Return the relative extent of reaction during the time interval
+    /*!
+     *  (virtual from Electrode.h
+     *  @param[in]           time                Input the time desired for the calculation
+     *                                           Must be one of the 4 times: t_final, t_init, t_init_init, t_final_final
+     *
+     *  @return                                  Returns the relative extent of reaction.
+     */
+    //virtual double relativeExtentRxn(double time) const override;
+
     //! Predict the solution
     /*!
      * Ok at this point we have a time step deltalimiTsubcycle_

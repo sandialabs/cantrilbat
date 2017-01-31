@@ -31,33 +31,30 @@
 using namespace std;
 using namespace Zuzax;
 using namespace vcs_nonideal;
-//using namespace mdpUtil;
 
 // a lvl of one prints out the .csv file
 int debug_print_lvl = 16;
-int VCS_Debug_Print_Lvl = 3;
 
+//==================================================================================================================================
 void printUsage() {
-    cout << "usage: electrodeCell [-h] [-help_cmdfile] [-d #] [mpequil.inp]"
+    cout << "usage: LiCoO2_Cathode_3 [-h] [-help_cmdfile] [-d #] [cathode.inp]"
          <<  endl;
     cout << "    -h           help" << endl;
     cout << "    -d           #   : level of debug printing" << endl;
-    cout << "  electrodeCell.inp    : command file" << endl;
-    cout << "                     : (if missing, assume mpequil.inp)" 
+    cout << "  cathode.inp        : command file" << endl;
+    cout << "                     : (if missing, assume cathode.inp)" 
 	 << endl;
     cout << endl;
 }
-
-
-//=====================================================================================================
+//==================================================================================================================================
 
 
 int main(int argc, char **argv)
 {
   int retn = 0;
-  string commandFileNet = "cell.inp";
 
-  string commandFileA = "anode.inp";
+  std::string commandFileC = "cathode.inp";
+  std::string commandFileArg = "";
   // printed usage
 
   vcs_nonideal::vcs_timing_print_lvl = 0;
@@ -96,13 +93,17 @@ int main(int argc, char **argv)
 	    exit(1);
 	  }
 	}
-      } else if (commandFileNet == "") {
-	commandFileNet = tok;
+      } else if (commandFileArg == "") {
+	commandFileArg = tok;
       } else {
 	printUsage();
 	exit(1);
       }
     }
+  }
+
+  if (commandFileArg != "") {
+      commandFileC = commandFileArg;
   }
 
   try {
@@ -116,13 +117,12 @@ int main(int argc, char **argv)
   
     Electrode_CSTR_LiCoO2Cathode *electrodeC  = new Electrode_CSTR_LiCoO2Cathode();
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
-    std::string commandFileC = "cathode.inp";
 	
     // Initialize a block input structure for the command file
     BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
  
     // Go get the problem description from the input file
-     electrodeC_input->printLvl_ = 5; 
+    electrodeC_input->printLvl_ = 5; 
     retn = electrodeC_input->electrode_input(commandFileC, cfC);
     if (retn == -1) {
       printf("exiting with error\n");
@@ -172,38 +172,42 @@ int main(int argc, char **argv)
     deltaT = 2.0E-2;
 
     electrodeC->printElectrode();
+    // Set the print level for the out.txt results
     electrodeC->setPrintLevel(debug_print_lvl);
     //electrodeC->setPrintLevel(1);
     electrodeC->setDeltaTSubcycle(0.01);
     //electrodeC->detailedResidPrintFlag_ = 10;
     //electrodeC->enableExtraPrinting_ = 10;
+
     electrodeC->printCSVLvl_ = 3;
 
-
+    // Special section to see if we can catch an error and continue
     try {
-      throw Electrode_Error("sample error throw", " %s  %g %d Sample formatted string\n",
-                            "This is a sample string", 78. , 32);
+        throw Electrode_Error("sample error throw", " %s  %g %d Sample formatted string\n",
+                              "This is a sample string", 78. , 32);
     } catch (const Electrode_Error& ee) {
-       showErrors();
+        showErrors();
     }
   
+    FILE*fp = fopen("results.csv", "w");
+    fprintf(fp, " timeStep, numSubSteps, Tinitial, Tfinal, startRE, finalRE,  amps\n");
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
-
       electrodeC->resetStartingCondition(Tinitial);
       
       Tfinal = Tinitial + deltaT;
 
-      electrodeC->integrate(deltaT);
+      int numSubSteps = electrodeC->integrate(deltaT);
       electrodeC->getMoleNumSpecies(molNum);
       double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
  
-      cout << setw(15) << Tfinal << setw(15) << amps << endl;
-      electrodeC->printElectrode();
-      electrodeC->writeSolutionTimeIncrement();
+      fprintf(fp, " %5d, %5d, %10.3E, %10.3E, %10.3E, %10.3E, %10.3E\n", itimes, numSubSteps, Tinitial, Tfinal, startRE, finalRE,  amps);
+      electrodeC->printElectrode();              // Print out the state of the electrode 
+      electrodeC->writeSolutionTimeIncrement();  // write out the soln_0_0.xml file
   
     }
+    fclose(fp);
 
     delete cfC;
     delete electrodeC_input;
