@@ -1,25 +1,22 @@
-
+/**
+ *  @file  md_wrap_mpi.cpp
+ */
 #include <stdlib.h>
 #include <stdio.h>
 
 #include "md_wrap_mpi.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace M1D
 {
 
-  int gl_rbuf = 3;
-  int gl_sbuf = 3;
-  /******************************************************************************/
-  /******************************************************************************/
-  /******************************************************************************/
-  int the_proc_name = -1;
+int gl_rbuf = 3;
+int gl_sbuf = 3;
+int the_proc_name = -1;
 
-  int
-  md_read_specific(void * const buf,
-		   int bytes,
-		   const int sourceC,
-		   const int typeC)
-  {
+//==================================================================================================================================
+int md_read_specific(void* const buf, int bytes, const int sourceC, const int typeC)
+{
 #ifdef HAVE_MP 
     int err, buffer = 1;
     MPI_Status status;
@@ -38,14 +35,14 @@ namespace M1D
       err = MPI_Recv(buf, bytes, MPI_BYTE, source, type, MPI_COMM_WORLD, &status);
     }
     if (err != 0) {
-      md_throw("MPI_Recv ERROR from md_read", err);
+      md_throw("MPI_Recv() ERROR from md_read", err);
     }
     MPI_Get_count(&status, MPI_BYTE, &buffer);
     source = status.MPI_SOURCE;
     type = status.MPI_TAG;
     if (typeC != MPI_ANY_TAG && typeC != -1) {
       if (type != typeC) {
-	printf("md_read_specific type confusion: %d %d\n", type, typeC);
+	printf("md_read_specific() type confusion: %d %d\n", type, typeC);
 	exit(-1);
       }
     }
@@ -60,12 +57,10 @@ namespace M1D
     }
 #endif
     return bytes;
-  }
-  /******************************************************************************/
-
-  int
-  md_read(void * const buf, int bytes, int * const source, int * const type)
-  {
+}
+//==================================================================================================================================
+int md_read(void* const buf, int bytes, int* const source, int* const type)
+{
 #ifdef HAVE_MPI
     int err, buffer = 1;
     MPI_Status status;
@@ -75,11 +70,9 @@ namespace M1D
       *source = MPI_ANY_SOURCE;
 
     if (bytes == 0) {
-      err = MPI_Recv(&gl_rbuf, 1, MPI_BYTE, *source, *type, MPI_COMM_WORLD,
-		     &status);
+      err = MPI_Recv(&gl_rbuf, 1, MPI_BYTE, *source, *type, MPI_COMM_WORLD, &status);
     } else {
-      err = MPI_Recv(buf, bytes, MPI_BYTE, *source, *type, MPI_COMM_WORLD,
-		     &status);
+      err = MPI_Recv(buf, bytes, MPI_BYTE, *source, *type, MPI_COMM_WORLD, &status);
     }
     if (err != 0) {
       md_throw("MPI_Recv ERROR from md_read", err);
@@ -94,12 +87,10 @@ namespace M1D
    *type = 0;
 #endif
     return bytes;
-  }
-  /******************************************************************************/
-
-  int
-  md_write(void * const buf, const int bytes, const int dest, const int type)
-  {
+}
+//==================================================================================================================================
+int md_write(void* const buf, const int bytes, const int dest, const int type)
+{
 #ifdef HAVE_MPI
     int err;
     if (bytes == 0) {
@@ -112,12 +103,10 @@ namespace M1D
     }
 #endif
     return bytes;
-  }
-  /******************************************************************************/
-
-  void
-  md_throw(const char * const rout, const int err)
-  {
+}
+//==================================================================================================================================
+void md_throw(const char* const rout, const int err)
+{
 #ifdef HAVE_MPI
     if (err == MPI_ERR_BUFFER) {
       fprintf(stderr, "ERROR %s: MPI_ERR_BUFFER\n", rout);
@@ -128,11 +117,10 @@ namespace M1D
     exit(-1);
 #endif
 
-  }
-
-  /******************************************************************************/
-  /******************************************************************************/
-  /******************************************************************************/
+}
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 
   /*
    *
@@ -151,12 +139,7 @@ namespace M1D
    source:          Source processor number.
    type:            Message type
   */
-  int
-  md_wrap_iread(void *buf,
-		int bytes,
-		int *source,
-		int *type,
-		M1D_MPI_Request *request)
+int md_wrap_iread(void *buf, int bytes, int *source, int *type, M1D_MPI_Request *request)
   {
 #ifdef HAVE_MPI
     int err = 0;
@@ -174,14 +157,9 @@ namespace M1D
     return 0;
 #endif
   }
-  //====================================================================================================================
-  int
-  md_wrap_iread_specific(void *buf,
-			 int bytes,
-			 const int sourceC,
-			 const int typeC,
-			 M1D_MPI_Request *request)
-  {
+//==================================================================================================================================
+int md_wrap_iread_specific(void *buf, int bytes, const int sourceC, const int typeC, M1D_MPI_Request *request)
+{
 #ifdef HAVE_MPI
     int err = 0;
     if (bytes == 0) {
@@ -195,7 +173,7 @@ namespace M1D
 #else
     return 0;
 #endif
-  }
+}
 
   /******************************************************************************/
   /******************************************************************************/

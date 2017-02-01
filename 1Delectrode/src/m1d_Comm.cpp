@@ -3,10 +3,6 @@
  *
  */
 
-/*
- *  $Id: m1d_Comm.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
-#include <cstdarg>
 #ifdef HAVE_MPI
 #include <mpi.h>
 #include <Epetra_MpiComm.h>
@@ -14,30 +10,22 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-#include <sstream>
-#include <string>
-
-#include "md_wrap_mpi.h"
-
-#include <Epetra_Map.h>
-#include <Epetra_Vector.h>
 #include <Epetra_CrsMatrix.h>
-#include <Epetra_VbrMatrix.h>
 #include <Epetra_Import.h>
 
 #include "m1d_Comm.h"
 #include "m1d_defs.h"
 
-#include <iostream>
-#include <iomanip>
+#include <cstdarg>
 
-using namespace std;
+//using namespace std;
+using std::endl;
 
 int statprocID = 0;
 bool statInPrint0SyncBlock = false;
 
 //#define DEBUG_COMM
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
@@ -47,9 +35,9 @@ const int type0CommStart = M1D_MSG_TYPE_BASE - 4;
 const int typeP0 = M1D_MSG_TYPE_BASE - 1;
 const int type0CommAck = M1D_MSG_TYPE_BASE - 5;
 const int type0CommAck2 = M1D_MSG_TYPE_BASE - 6;
-//=====================================================================================
-int
-procChoice_Max(double pmax, const Epetra_Comm& cc, double &gmax)
+
+//==================================================================================================================================
+int procChoice_Max(double pmax, const Epetra_Comm& cc, double &gmax)
 {
   double gb_me = -1.0;
   double me_me = -1.0;
@@ -61,9 +49,8 @@ procChoice_Max(double pmax, const Epetra_Comm& cc, double &gmax)
   int gWinner = (int) gb_me;
   return gWinner;
 }
-//=====================================================================================
-int
-procChoice_Max_Brcst1Int(double pmax, const Epetra_Comm& cc, double &gmax, int &pint)
+//==================================================================================================================================
+int procChoice_Max_Brcst1Int(double pmax, const Epetra_Comm& cc, double &gmax, int &pint)
 {
   double gb_me = -1.0;
   double me_me = -1.0;
@@ -77,7 +64,7 @@ procChoice_Max_Brcst1Int(double pmax, const Epetra_Comm& cc, double &gmax, int &
   cc.Broadcast(&pint, 1, gWinner);
   return gWinner;
 }
-//=====================================================================================
+//==================================================================================================================================
 // Returns the processor which has the minimum value of the first parameter
 // and broadcasts an int from the winning processor.
 /*
@@ -90,8 +77,7 @@ procChoice_Max_Brcst1Int(double pmax, const Epetra_Comm& cc, double &gmax, int &
  *                   from the processor that won.
  * @return Global processor number
  */
-int
-procChoice_Min_Brcst1Int(const double pmin, const Epetra_Comm& cc, double &gmin, int &pint)
+int procChoice_Min_Brcst1Int(const double pmin, const Epetra_Comm& cc, double &gmin, int &pint)
 {
   double gb_me = -1.0;
   double me_me = -1;
@@ -104,9 +90,8 @@ procChoice_Min_Brcst1Int(const double pmin, const Epetra_Comm& cc, double &gmin,
   cc.Broadcast(&pint, 1, gWinner);
   return gWinner;
 }
-//=====================================================================================
-int
-procChoice_Min(const double pmin, const Epetra_Comm& cc, double &gmin)
+//==================================================================================================================================
+int procChoice_Min(const double pmin, const Epetra_Comm& cc, double &gmin)
 {
   double gb_me = -1.0;
   double me_me = -1;
@@ -118,10 +103,8 @@ procChoice_Min(const double pmin, const Epetra_Comm& cc, double &gmin)
   int gWinner = (int) gb_me;
   return gWinner;
 }
-//=====================================================================================
-
-void
-print_sync_start(int do_print_line, Epetra_Comm &comm)
+//==================================================================================================================================
+void print_sync_start(int do_print_line, Epetra_Comm &comm)
 {
 #ifdef HAVE_MPI
   //int bytes;
@@ -153,10 +136,8 @@ print_sync_start(int do_print_line, Epetra_Comm &comm)
   }
 #endif
 }
-
-//=====================================================================================
-void
-print_sync_end(int do_print_line, Epetra_Comm &comm)
+//==================================================================================================================================
+void print_sync_end(int do_print_line, Epetra_Comm &comm)
 {
 
 #ifdef HAVE_MPI
@@ -200,7 +181,7 @@ print_sync_end(int do_print_line, Epetra_Comm &comm)
   comm.Barrier();
 #else
   if (do_print_line) {
-    (void) printf("\n");
+    printf("\n");
     for (int flag = 0; flag < 37; flag++)
       (void) printf("#");
     (void) printf(" PRINT_SYNC_END__ ");
@@ -210,12 +191,10 @@ print_sync_end(int do_print_line, Epetra_Comm &comm)
   }
 #endif
 }
-//=====================================================================================
-
-void
-print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
+//==================================================================================================================================
+void print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
 {
-  FILE *of = ss.outFile();
+  FILE* of = ss.outFile();
   int flag = 1;
   M1D_MPI_Request request;
   int procID = comm.MyPID();
@@ -247,10 +226,8 @@ print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
     }
   }
 }
-
-//=====================================================================================
-void
-stream0::print0(const char *format, ...)
+//==================================================================================================================================
+void stream0::print0(const char *format, ...)
 {
   va_list ap;
   static char buf[1024];
@@ -267,14 +244,13 @@ stream0::print0(const char *format, ...)
   if (statprocID == 0) {
     fprintf(outFILE_, "%s", buf);
   } else {
-    M1D::md_write((void * const ) buf, 1024, 0, typeP0);
+    M1D::md_write((void * const) buf, 1024, 0, typeP0);
     nBufsSent++;
-    M1D::md_read_specific((void * const ) rbuf, 4, 0, type0CommAck2);
+    M1D::md_read_specific((void * const) rbuf, 4, 0, type0CommAck2);
   }
 }
-//=====================================================================================
-int
-stream0::fprintf0only(const char *format, ...)
+//==================================================================================================================================
+int stream0::fprintf0only(const char *format, ...)
 {
   int n = 0;
   if (statprocID == 0) {
@@ -298,7 +274,7 @@ stream0::fprintf0only(const char *format, ...)
   }
   return n;
 }
-//=====================================================================================
+//==================================================================================================================================
 void stream0::drawline0(int indentSpaces, int num, char lineChar)
 {
   std::string buf;
@@ -311,9 +287,8 @@ void stream0::drawline0(int indentSpaces, int num, char lineChar)
   buf += "\n";
   print0("%s", buf.c_str());
 }
-//=====================================================================================
-int
-sprint0(const char *ibuf, FILE *ff)
+//==================================================================================================================================
+int sprint0(const char *ibuf, FILE *ff)
 {
   int iSent = 0;
   const char *jbuf = ibuf;
@@ -351,17 +326,15 @@ sprint0(const char *ibuf, FILE *ff)
   }
   return iSent;
 }
-//====================================================================================
-void
-ssprint0(stream0 &ss)
+//==================================================================================================================================
+void ssprint0(stream0 &ss)
 {
   int nSent = sprint0((ss.str()).c_str(), ss.outFILE_);
   ss.nBufsSent += nSent;
   ss.str("");
 }
-//=====================================================================================
-void
-print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
+//==================================================================================================================================
+void print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
 {
   char buf[1025];
   char bufalt[1024];
@@ -489,22 +462,24 @@ print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
    */
   comm.Barrier();
 }
-//=====================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 stream0::stream0(FILE *ff) :
-  std::ostringstream(), nBufsSent(0),
-  outFILE_(ff)
+    std::ostringstream(), nBufsSent(0),
+    outFILE_(ff)
 {
 }
-//=====================================================================================
-stream0&
-stream0::flush()
+//==================================================================================================================================
+stream0& stream0::flush()
 {
   ssprint0(*this);
   return *this;
 }
-//=====================================================================================
-void
-print0_epMultiVector(const Epetra_MultiVector &v, const char *label, FILE *of)
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+void print0_epMultiVector(const Epetra_MultiVector &v, const char *label, FILE *of)
 {
   stream0 os(of);
   const Epetra_Comm &cc = v.Comm();
@@ -528,9 +503,8 @@ print0_epMultiVector(const Epetra_MultiVector &v, const char *label, FILE *of)
     fprintf(of, "######################################\n");
   }
 }
-//=====================================================================================
-void
-print0_epIntVector(const Epetra_IntVector &v, const char *label, FILE *of)
+//==================================================================================================================================
+void print0_epIntVector(const Epetra_IntVector &v, const char *label, FILE *of)
 {
   stream0 os(of);
   const Epetra_Comm &cc = v.Comm();
@@ -554,9 +528,8 @@ print0_epIntVector(const Epetra_IntVector &v, const char *label, FILE *of)
     fprintf(of, "######################################\n");
   }
 }
-//=====================================================================================
-void
-Print0_epMultiVector(stream0 &os, const Epetra_MultiVector &v)
+//==================================================================================================================================
+void Print0_epMultiVector(stream0 &os, const Epetra_MultiVector &v)
 {
   const Epetra_BlockMap &vmap = v.Map();
   int MyPID = vmap.Comm().MyPID();
@@ -609,8 +582,7 @@ Print0_epMultiVector(stream0 &os, const Epetra_MultiVector &v)
   ssprint0(os);
 }
 //=====================================================================================
-void
-Print0_epIntVector(stream0 &os, const Epetra_IntVector &v)
+void Print0_epIntVector(stream0 &os, const Epetra_IntVector &v)
 {
   const Epetra_BlockMap &vmap = v.Map();
   int MyPID = vmap.Comm().MyPID();
@@ -660,9 +632,8 @@ Print0_epIntVector(stream0 &os, const Epetra_IntVector &v)
   }
   ssprint0(os);
 }
-//=====================================================================================
-void
-print0_epBlockMap(const Epetra_BlockMap &map, const char *label, FILE *of)
+//==================================================================================================================================
+void print0_epBlockMap(const Epetra_BlockMap &map, const char *label, FILE *of)
 {
   stream0 os(of);
   const Epetra_Comm &cc = map.Comm();
@@ -686,9 +657,8 @@ print0_epBlockMap(const Epetra_BlockMap &map, const char *label, FILE *of)
     fprintf(of, "######################################\n");
   }
 }
-//=====================================================================================
-void
-Print0_epBlockMap(stream0 &os, const Epetra_BlockMap &vmap)
+//==================================================================================================================================
+void Print0_epBlockMap(stream0 &os, const Epetra_BlockMap &vmap)
 {
   int MyPID = vmap.Comm().MyPID();
 
@@ -706,10 +676,10 @@ Print0_epBlockMap(stream0 &os, const Epetra_BlockMap &vmap)
   if (MyPID == 0) {
     os << "\nNumber of Global Elements  = ";
     os << vmap.NumGlobalElements();
-    os << endl;
+    os << std::endl;
     os << "Number of Global Points    = ";
     os << vmap.NumGlobalPoints();
-    os << endl;
+    os << std::endl;
     os << "Maximum of all GIDs        = ";
     os << vmap.MaxAllGID();
     os << endl;
@@ -782,9 +752,8 @@ Print0_epBlockMap(stream0 &os, const Epetra_BlockMap &vmap)
 
   ssprint0(os);
 }
-//=====================================================================================
-void
-print0_epVbrMatrix(const Epetra_VbrMatrix &mat, const char *label, FILE *of)
+//==================================================================================================================================
+void print0_epVbrMatrix(const Epetra_VbrMatrix &mat, const char *label, FILE *of)
 {
   stream0 os(of);
   const Epetra_Comm &cc = mat.Comm();
@@ -808,62 +777,54 @@ print0_epVbrMatrix(const Epetra_VbrMatrix &mat, const char *label, FILE *of)
     fprintf(of, "######################################\n");
   }
 }
-//=====================================================================================
-void
-Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat)
+//==================================================================================================================================
+void Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat)
 {
   const Epetra_BlockMap &rMap = mat.RowMap();
   int MyPID = rMap.Comm().MyPID();
-  //int NumProc = rMap.Comm().NumProc();
   if (MyPID == 0) {
     os << "\nNumber of Global Block Rows  = ";
     os << mat.NumGlobalBlockRows();
-    os << endl;
+    os << std::endl;
     os << "Number of Global Block Cols  = ";
     os << mat.NumGlobalBlockCols();
-    os << endl;
+    os << std::endl;
     os << "Number of Global Block Diags = ";
     os << mat.NumGlobalBlockDiagonals();
-    os << endl;
+    os << std::endl;
     os << "Number of Global Blk Entries = ";
     os << mat.NumGlobalBlockEntries();
-    os << endl;
+    os << std::endl;
     os << "Global Max Num Block Entries = ";
     os << mat.GlobalMaxNumBlockEntries();
-    os << endl;
+    os << std::endl;
     os << "\nNumber of Global Rows        = ";
-    os << mat.NumGlobalRows();
-    os << endl;
+    os << mat.NumGlobalRows() << std::endl;
     os << "Number of Global Cols        = ";
-    os << mat.NumGlobalCols();
-    os << endl;
+    os << mat.NumGlobalCols() << std::endl;
     os << "Number of Global Diagonals   = ";
     os << mat.NumGlobalDiagonals();
-    os << endl;
+    os << std::endl;
     os << "Number of Global Nonzeros    = ";
     os << mat.NumGlobalNonzeros();
-    os << endl;
+    os << std::endl;
     os << "Global Maximum Num Entries   = ";
     os << mat.GlobalMaxNumNonzeros();
-    os << endl;
+    os << std::endl;
     if (mat.LowerTriangular())
       os << " ** Matrix is Lower Triangular **";
-    os << endl;
+    os << std::endl;
     if (mat.UpperTriangular())
       os << " ** Matrix is Upper Triangular **";
-    os << endl;
+    os << std::endl;
     if (mat.NoDiagonal())
       os << " ** Matrix has no diagonal     **";
-    os << endl;
-    os << endl;
+    os << std::endl;
+    os << std::endl;
   }
 
-  os << "\nNumber of My Block Rows  = ";
-  os << mat.NumMyBlockRows();
-  os << endl;
-  os << "Number of My Block Cols  = ";
-  os << mat.NumMyBlockCols();
-  os << endl;
+  os << "\nNumber of My Block Rows  = " << mat.NumMyBlockRows();
+  os << "\nNumber of My Block Cols  = " << mat.NumMyBlockCols() << std::endl;
   os << "Number of My Block Diags = ";
   os << mat.NumMyBlockDiagonals();
   os << endl;
@@ -890,7 +851,7 @@ Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat)
   os << endl;
   os << endl;
 
-  os << flush;
+  os << std::flush;
   int NumBlockRows1 = mat.NumMyBlockRows();
   int MaxNumBlockEntries1 = mat.MaxNumBlockEntries();
   int * BlockIndices1 = new int[MaxNumBlockEntries1];
@@ -906,7 +867,7 @@ Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat)
   os << "   Block Col Index";
   os.width(10);
   os << "   Values     ";
-  os << endl;
+  os << std::endl;
 
   for (i = 0; i < NumBlockRows1; i++) {
     int BlockRow1 = mat.GRID(i); // Get global row number
@@ -926,7 +887,7 @@ Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat)
       os.width(20);
 
       if (Entries1[j] == 0) {
-        os << "Block Entry == NULL" << endl;
+        os << "Block Entry == NULL\n";
         continue;
       }
 
@@ -939,15 +900,15 @@ Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat)
         }
         for (int j = 0; j < ncol; j++) {
           os.width(11);
-          os << setprecision(4);
-          os << scientific;
+          os << std::setprecision(4);
+          os << std::scientific;
           os << entry[j][i] << " ";
         }
-        os << endl;
+        os << std::endl;
       }
 
     }
-    os << endl;
+    os << std::endl;
   }
   /*
    * Cleanup section
@@ -958,13 +919,12 @@ Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix &mat)
    */
   ssprint0(os);
 }
-//=====================================================================================
-stream0 &
-operator<<(stream0 &oss, const Epetra_MultiVector &v)
+//==================================================================================================================================
+stream0& operator<<(stream0 &oss, const Epetra_MultiVector &v)
 {
   Print0_epMultiVector(oss, v);
   return oss;
 }
-//=====================================================================================
+//==================================================================================================================================
 }
-//=====================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
