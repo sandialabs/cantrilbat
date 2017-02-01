@@ -4,7 +4,10 @@
  */
 
 /*
- *  $Id: m1d_Comm.h 5 2012-02-23 21:34:18Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #ifndef _M1D_COMM_H
@@ -37,10 +40,10 @@ namespace m1d
 /*!
  *  This routine will figure out a consistent way to handle ties.
  *
- * @param pmax       local processor contribution
- * @param cc         Epetra Communicator
- * @param gmax       value of the maximum across all processors.
- * @return Global processor number
+ *  @param[in]               pmax                local processor contribution
+ *  @param[in]               cc                  Epetra Communicator
+ *  @param[out]              gmax                value of the maximum across all processors.
+ *  @return                                      Global processor number
  */
 int procChoice_Max(double pmax, const Epetra_Comm& cc_ptr, double &gmax);
 
@@ -49,10 +52,10 @@ int procChoice_Max(double pmax, const Epetra_Comm& cc_ptr, double &gmax);
 /*!
  *  This routine will figure out a consistent way to handle ties.
  *
- * @param pmin       local processor contribution
- * @param cc         Epetra Communicator
- * @param gmin       value of the maximum across all processors.
- * @return Global processor number
+ *  @param pmin       local processor contribution
+ *  @param cc         Epetra Communicator
+ *  @param gmin       value of the maximum across all processors.
+ *  @return Global processor number
  */
 int procChoice_Min(const double pmin, const Epetra_Comm& cc_ptr, double &gmin);
 

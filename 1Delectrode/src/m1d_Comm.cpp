@@ -3,6 +3,13 @@
  *
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
+
 #ifdef HAVE_MPI
 #include <mpi.h>
 #include <Epetra_MpiComm.h>
@@ -18,13 +25,11 @@
 
 #include <cstdarg>
 
-//using namespace std;
 using std::endl;
 
 int statprocID = 0;
 bool statInPrint0SyncBlock = false;
 
-//#define DEBUG_COMM
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -107,7 +112,7 @@ int procChoice_Min(const double pmin, const Epetra_Comm& cc, double &gmin)
 void print_sync_start(int do_print_line, Epetra_Comm &comm)
 {
 #ifdef HAVE_MPI
-  //int bytes;
+  int err;
   int flag = 1, type;
   M1D_MPI_Request request;
 
@@ -116,8 +121,12 @@ void print_sync_start(int do_print_line, Epetra_Comm &comm)
   int procID = comm.MyPID();
   statprocID = procID;
   if (procID) {
-    int from = procID - 1;
-    M1D::md_wrap_iread((void *) &flag, sizeof(int), &from, &type, &request);
+      int from = procID - 1;
+      err = M1D::md_wrap_iread((void *) &flag, sizeof(int), &from, &type, &request);
+      if (err) {
+          throw m1d_Error("print_sync_start ERROR proc " + ZZCantera::int2str(procID), "Error returned from iread: "
+                          + ZZCantera::int2str(err));
+      }
     //bytes = M1D::md_wrap_wait(&from, &type, &request);
     M1D::md_wrap_wait(&from, &type, &request);
     /*
@@ -141,6 +150,7 @@ void print_sync_end(int do_print_line, Epetra_Comm &comm)
 {
 
 #ifdef HAVE_MPI
+  int err;
   int flag = 1, from, type, to;
   M1D_MPI_Request request, request2;
 
@@ -148,26 +158,30 @@ void print_sync_end(int do_print_line, Epetra_Comm &comm)
   int procID = comm.MyPID();
   int nprocs = comm.NumProc();
 
-  if (procID < nprocs - 1)
-    to = procID + 1;
-  else {
-    to = 0;
-    if (do_print_line) {
-      (void) printf("\n");
-      for (flag = 0; flag < 37; flag++)
-        (void) printf("#");
-      (void) printf(" PRINT_SYNC_END__ ");
-      for (flag = 0; flag < 25; flag++)
-        (void) printf("#");
-      (void) printf("\n\n");
-    }
+  if (procID < nprocs - 1) {
+     to = procID + 1;
+  } else {
+      to = 0;
+      if (do_print_line) {
+        (void) printf("\n");
+        for (flag = 0; flag < 37; flag++)
+          (void) printf("#");
+        (void) printf(" PRINT_SYNC_END__ ");
+        for (flag = 0; flag < 25; flag++)
+          (void) printf("#");
+        (void) printf("\n\n");
+      }
   }
   // Write to the next processor on the list to say that you are done
   M1D::md_wrap_iwrite((void *) &flag, sizeof(int), to, type, &request);
 
   if (procID == 0) {
     from = nprocs - 1;
-    M1D::md_wrap_iread((void *) &flag, sizeof(int), &from, &type, &request2);
+    err = M1D::md_wrap_iread((void *) &flag, sizeof(int), &from, &type, &request2);
+    if (err) {
+          throw m1d_Error("print_sync_start ERROR proc " + ZZCantera::int2str(procID), "Error returned from iread: " +
+                          ZZCantera::int2str(err));
+    }
     M1D::md_wrap_wait(&from, &type, &request2);
   }
 
