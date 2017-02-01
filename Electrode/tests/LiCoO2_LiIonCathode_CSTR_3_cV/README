@@ -1,9 +1,31 @@
 
+ Information about this test problem HKM  1/22/2017
 
-Test for Electrode_Exception
+Additional Twists:
 
-We throw an exception using the printf format, and then catch it. Then, we do a calculation.
-Proved that everything looks good, and no leaks or memory trashing occurs.
+     Test for Electrode_Exception:
+      We throw an exception using the printf format, and then catch it. Then, we do a calculation.
+      Proved that everything looks good, and no leaks or memory trashing occurs.
+
+
+Aspects exercised:
+      Simple CSTR model at constant voltage
+      Electrode_CSTR_LiCoO2Cathode object used
+      soln_0_0.xml written and then compared against a blessed solution
+
+      The voltage is set at 3.2 This is below the OCV which is available at the end of the RelativeExtentRxn_Bd[1],
+      value. This OCV is 3.73289. Therefore, the electrode discharges completely, and then produces zero current
+      after that for the end of the simulation.
+
+      Therefore this tests how well the Electrode_CSTR does at the end of Life. It crashes into RelativeExtentRxn_Bd[1]
+      and should produce a special calculation for the time period where it drains the CSTR completely.
+
+      The calculation starts out at an OCV of 3.77019, corresponding to a relative extent of reaction of 0.9.
+
+      Initial conditions setting
+        The mole fractions within the electrode are set via cathode.inp's setting their mole fractions.
+        Mole fractions within the electrolyte are set via cathode.inp setting their mole fractions.
+
 
 
 

@@ -126,7 +126,7 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@gmake -s
+	@gmake -s $(PROGRAM)
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
 	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
 

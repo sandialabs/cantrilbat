@@ -133,7 +133,7 @@ depends:
 	@ touch .dependsT
 
 test: 
-	@gmake -s
+	@gmake -s all
 	@ggg=`pwd` ; echo -n 'Checking need to run test ' $$ggg ': '
 	@ggg=`pwd` ; gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
 
