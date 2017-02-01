@@ -1,6 +1,7 @@
 /**
  *  @file  md_wrap_mpi.cpp
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -17,9 +18,14 @@
 namespace M1D
 {
 
-int gl_rbuf = 3;
-int gl_sbuf = 3;
-int the_proc_name = -1;
+//! Global buffer for reading a single byte
+static int gl_rbuf = 3;
+
+//! Global buffer for sending a single byte
+static int gl_sbuf = 3;
+
+//! the processor name
+static int the_proc_name = -1;
 
 //==================================================================================================================================
 int md_read_specific(void* const buf, int bytes, const int sourceC, const int typeC)
@@ -206,7 +212,7 @@ int md_wrap_wait_specific(const int sourceC, const int typeC, M1D_MPI_Request* c
     int count;
     MPI_Status status;
     if ((err = MPI_Wait(request, &status))) {
-       md_throw("MPI_Wait ERROR from md_wrap_wait_specific()", err);
+         md_throw("MPI_Wait ERROR from md_wrap_wait_specific()", err);
     }
     MPI_Get_count(&status, MPI_BYTE, &count);
     source = status.MPI_SOURCE;
@@ -223,87 +229,41 @@ int md_wrap_wait_specific(const int sourceC, const int typeC, M1D_MPI_Request* c
     return 0;
 #endif
 }
-  /******************************************************************************/
-
-  int
-  md_wrap_iwrite(void * const buf,
-		 const int bytes,
-		 const int dest,
-		 const int type,
-		 M1D_MPI_Request * const request)
-  {
+//==================================================================================================================================
+int md_wrap_iwrite(void* const buf, const int bytes, const int dest, const int type, M1D_MPI_Request* const request)
+{
 #ifdef HAVE_MPI
     int err = 0;
     if (bytes == 0) {
-      err = MPI_Isend(&gl_sbuf, 1, MPI_BYTE, dest, type, MPI_COMM_WORLD, request);
+        err = MPI_Isend(&gl_sbuf, 1, MPI_BYTE, dest, type, MPI_COMM_WORLD, request);
     } else {
-      err = MPI_Isend(buf, bytes, MPI_BYTE, dest, type, MPI_COMM_WORLD, request);
+        err = MPI_Isend(buf, bytes, MPI_BYTE, dest, type, MPI_COMM_WORLD, request);
     }
     return err;
 #else
     return 0;
 #endif
-  }
-  /********************************************************************/
-  /*     NEW WRAPPERS to handle MPI Communicators                     */
-  /********************************************************************/
-
-  void
-  parallel_info(int *proc, int *nprocs, int *dim,  M1D_MPI_Comm comm)
-  {
+}
+//==================================================================================================================================
+void md_parallel_info(int* const proc, int* const nprocs, int* const dim, M1D_MPI_Comm& comm)
+{
 #ifdef HAVE_MPI
     MPI_Comm_size(comm, nprocs);
     MPI_Comm_rank(comm, proc);
-    *dim = 0;
+    *dim = 1;
     the_proc_name = *proc;
 #else
     *nprocs = 1;
     *dim = 1;
     *proc = 0;
 #endif
-  } /* get_parallel_info */
-  /******************************************************************************/
-  /******************************************************************************/
-  /******************************************************************************/
-
-  int
-  md_mpi_iread(void *buf,
-	       int bytes,
-	       int *source,
-	       int *type,
-	       M1D_MPI_Request *request,
-	       int *icomm)
-
-  /*******************************************************************************
-
- Machine dependent wrapped message-reading communication routine for MPI.
-
- Author:          Scott A. Hutchinson, SNL, 9221
- =======
-
- Return code:     int
- ============
-
- Parameter list:
- ===============
-
- buf:             Beginning address of data to be sent.
-
- bytes:           Length of message in bytes.
-
- source:          Source processor number.
-
- type:            Message type
-
- icomm:           MPI Communicator
-  *******************************************************************************/
-
-  {
+} 
+//==================================================================================================================================
+int md_mpi_iread(void* const buf, int bytes, int* const source, int* const type, M1D_MPI_Request* const request, int* const icomm) 
+{
 #ifdef HAVE_MPI
     int err = 0;
-    MPI_Comm *comm;
-
-    comm = (MPI_Comm *) icomm;
+    MPI_Comm* comm = (MPI_Comm *) icomm;
 
     if (*type == -1)
       *type = MPI_ANY_TAG;
@@ -320,14 +280,9 @@ int md_wrap_wait_specific(const int sourceC, const int typeC, M1D_MPI_Request* c
 #else 
     return 0;
 #endif
-  } /* md_mpi_iread */
-
-  /******************************************************************************/
-  /******************************************************************************/
-  /******************************************************************************/
-
-  int
-  md_mpi_write(void *buf, int bytes, int dest, int type, int *flag, int *icomm)
+}
+//==================================================================================================================================
+int md_mpi_write(void *buf, int bytes, int dest, int type, int *flag, int *icomm) 
 
   /*******************************************************************************
 

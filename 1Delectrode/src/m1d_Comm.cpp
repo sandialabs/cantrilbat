@@ -208,37 +208,36 @@ void print_sync_end(int do_print_line, Epetra_Comm &comm)
 //==================================================================================================================================
 void print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm)
 {
-  FILE* of = ss.outFile();
-  int flag = 1;
-  M1D_MPI_Request request;
-  int procID = comm.MyPID();
-  if (statInPrint0SyncBlock) {
-    throw m1d_Error("print0_sync_start ERROR proc " + ZZCantera::int2str(procID), "Already in a print0_sync block");
-  }
-  statInPrint0SyncBlock = true;
-
-  statprocID = procID;
-  //int num_proc = comm.NumProc();
-  if (procID) {
-    int from = procID - 1;
-    // We wait here for the processor before us to send us a message
-    // saying we are ready
-    M1D::md_wrap_iread_specific((void *) &flag, sizeof(int), from, typeHandOff, &request);
-    M1D::md_wrap_wait_specific(from, typeHandOff, &request);
-    // Ok we need to write to processor zero that we are in charge
-    int to = 0;
-    M1D::md_write((void *) &flag, sizeof(int), to, type0CommStart);
-  } else {
-    if (do_print_line) {
-      fprintf(of,"\n");
-      for (flag = 0; flag < 37; flag++)
-        fprintf(of,"#");
-      fprintf(of," PRINT0_SYNC_START ");
-      for (flag = 0; flag < 25; flag++)
-        fprintf(of,"#");
-      (void) fprintf(of,"\n");
+    FILE* of = ss.outFile();
+    int flag = 1;
+    M1D_MPI_Request request;
+    int procID = comm.MyPID();
+    if (statInPrint0SyncBlock) {
+        throw m1d_Error("print0_sync_start ERROR proc " + ZZCantera::int2str(procID), "Already in a print0_sync block");
     }
-  }
+    statInPrint0SyncBlock = true;
+
+    statprocID = procID;
+    if (procID) {
+      int from = procID - 1;
+      // We wait here for the processor before us to send us a message
+      // saying that we are ready
+      M1D::md_wrap_iread_specific((void *) &flag, sizeof(int), from, typeHandOff, &request);
+      M1D::md_wrap_wait_specific(from, typeHandOff, &request);
+      // Ok we need to write to processor zero that we are in charge
+      int to = 0;
+      M1D::md_write((void *) &flag, sizeof(int), to, type0CommStart);
+    } else {
+      if (do_print_line) {
+        fprintf(of,"\n");
+        for (flag = 0; flag < 37; flag++)
+          fprintf(of,"#");
+        fprintf(of," PRINT0_SYNC_START ");
+        for (flag = 0; flag < 25; flag++)
+          fprintf(of,"#");
+        fprintf(of,"\n");
+      }
+    }
 }
 //==================================================================================================================================
 void stream0::print0(const char *format, ...)
