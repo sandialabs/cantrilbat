@@ -30,6 +30,9 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace M1D
 {
+/*!
+ *  @todo  Eliminate duplicate routines
+ */
 //==================================================================================================================================
 //! Blocking read to the current processor from a source processor specifying specifically the source processor 
 //! and typeid of the message that is to be expected
@@ -208,23 +211,85 @@ void md_parallel_info(int* const proc, int* const nprocs, int* const dim, M1D_MP
 int md_mpi_iread(void *const buf, int bytes, int* const source, int* const type, M1D_MPI_Request* const request, int* const icomm);
 
 //==================================================================================================================================
-int md_mpi_write(void *buf, int bytes, int dest, int type, int *flag, int *icomm);
+//! Blocking send from the current processor to a destination processor
+/*!
+ *  Sends bytes of data from the address buf to the destination processor, dest. 
+ *  The processor will hang on this send until it is finished.
+ *
+ *  @param[in]               buf                 Location of the data to be sent
+ *  @param[in]               bytes               Number of bytes of data to be sent. Can be zero.
+ *  @param[in]               dest                Destination processor
+ *  @param[in]               type                type ID of the sending process.
+ *  @param[in]               flag                Unused pointer to int
+ *  @param[in]               icomm               Pointer to the MPI_Comm Communicator disguised as a pointer to an int
+ *
+ *  @return                                      returns an error code from MPI_Send. Should be 0 for a successful write.
+ */
+int md_mpi_write(void* const buf, int bytes, int dest, int type, int* const flag, int* const icomm);
 
 //==================================================================================================================================
-int md_mpi_wait(int * const source, int * const type, M1D_MPI_Request * const request);
+//! Blocking wait for the current processor based on a request object. This is a wrapper around MPI_Wait().
+/*!
+ *  @param[out]               source             Returns the processor ID of the received message
+ *  @param[out]               type               Returns the type ID of the received message.
+ *  @param[in]                request            Pointer to the request object to use in the MPI_Wait() call
+ *
+ *  @return                                      returns the number of bytes that was received in the message
+ */
+int md_mpi_wait(int* const source, int* const type, M1D_MPI_Request* const request);
 
 //==================================================================================================================================
-int md_mpi_iwrite(void *buf, int bytes, int dest, int type, M1D_MPI_Request *request, int *icomm);
+//! Non-blocking send from the current processor to a destination processor
+/*!
+ *  Sends bytes of data from the address buf to the destination processor, dest. 
+ *  The processor will hang on this send until it is finished.
+ *
+ *  @param[in]               buf                 Location of the data to be sent
+ *  @param[in]               bytes               Number of bytes of data to be sent. Can be zero.
+ *  @param[in]               dest                Destination processor
+ *  @param[in]               type                type ID of the sending process.
+ *  @param[in,out]           request             Pointer to the request object to use in the MPI_Wait() call
+ *  @param[in]               icomm               Pointer to the MPI_Comm Communicator disguised as a pointer to an int
+ *
+ *  @return                                      returns an error code from MPI_Isend. Should be 0 for a successful write.
+ */
+int md_mpi_iwrite(void* const buf, int bytes, int dest, int type, M1D_MPI_Request* const request, int* const icomm);
 
 //==================================================================================================================================
-int md_wrap_request_cancel(M1D_MPI_Request *request);
+//! Machine dependent wrapped request object deletion routine.
+/*!
+ *
+ *  @param[in]                 request           Pointer to an existing request object that will be freed.
+ *
+ *  @return                                      Returns 0 if successful
+ */
+int md_wrap_request_cancel(M1D_MPI_Request* const request);
 
 //==================================================================================================================================
-void md_throw(const char * const rout, const int err);
+//!  Throw an MPI error when an MPI error is encountered during the routines
+/*!
+ *   The error object, MPI::Exception, is thrown from this routine. when any of the routines encounters an error
+ *
+ *  @param[in]               rout                Character message describing the location of the error
+ *  @param[in]               err                 Integer error code from the MPI layer.
+ */
+void md_throw(const char* const rout, const int err);
 
 //==================================================================================================================================
-int md_waitany(int * const indexCompleted, int * const source, int * const type, int requestVlen,
-                M1D_MPI_Request * const requestVector);
+//! Blocking wait for the current processor based on multiple request objects. This is a wrapper around MPI_Wait().
+/*!
+ *  This routine waits on a vector of request objects. It will return after any of the objects are completed.
+ *
+ *  @param[out]               indexCompleted     Index ID of the request object that is completed.
+ *  @param[out]               source             Returns the processor ID of the received message
+ *  @param[out]               type               Returns the type ID of the received message.
+ *  @param[in]                requestVlen        Length of the request vector to 
+ *  @param[in]                requestVector      Pointer to a vector of request objects to use in the MPI_Wait() call
+ *
+ *  @return                                      Returns the number of bytes that was received in the message
+ */
+int md_waitany(int* const indexCompleted, int* const source, int* const type, int requestVlen,
+               M1D_MPI_Request* const requestVector);
 //==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------

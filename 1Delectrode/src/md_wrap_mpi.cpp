@@ -9,11 +9,11 @@
  * See file License.txt for licensing information.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
 
 #include "md_wrap_mpi.h"
 
+#include <cstdlib>
+#include <cstdio>
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace M1D
 {
@@ -43,30 +43,28 @@ int md_read_specific(void* const buf, int bytes, const int sourceC, const int ty
     }
 
     if (bytes == 0) {
-      err = MPI_Recv(&gl_rbuf, 1, MPI_BYTE, source, type, MPI_COMM_WORLD, &status);
+        err = MPI_Recv(&gl_rbuf, 1, MPI_BYTE, source, type, MPI_COMM_WORLD, &status);
     } else {
-      err = MPI_Recv(buf, bytes, MPI_BYTE, source, type, MPI_COMM_WORLD, &status);
+        err = MPI_Recv(buf, bytes, MPI_BYTE, source, type, MPI_COMM_WORLD, &status);
     }
     if (err != 0) {
-      md_throw("MPI_Recv() ERROR from md_read", err);
+        md_throw("MPI_Recv() ERROR from md_read", err);
     }
     MPI_Get_count(&status, MPI_BYTE, &buffer);
     source = status.MPI_SOURCE;
     type = status.MPI_TAG;
     if (typeC != MPI_ANY_TAG && typeC != -1) {
-      if (type != typeC) {
-	printf("md_read_specific() type confusion: %d %d\n", type, typeC);
-	exit(-1);
-      }
+        if (type != typeC) {
+            md_throw("md_read_specific() type confusion: ", int2str(type) + " " + int2str(typeC), -1);
+        }
     }
     if (sourceC != MPI_ANY_SOURCE && sourceC != -1) {
-      if (source != sourceC) {
-	printf("md_read_specific() source confusion: %d %d\n", source, sourceC);
-	exit(-1);
-      }
+        if (source != sourceC) {
+            md_throw("md_read_specific() source confusion: " + int2str(source) + " " + int2str(sourceC), -1);
+        }
     }
     if (bytes != 0) {
-      bytes = buffer;
+        bytes = buffer;
     }
 #endif
     return bytes;
@@ -78,23 +76,23 @@ int md_read(void* const buf, int bytes, int* const source, int* const type)
     int err, buffer = 1;
     MPI_Status status;
     if (*type == -1)
-      *type = MPI_ANY_TAG;
+        *type = MPI_ANY_TAG;
     if (*source == -1)
-      *source = MPI_ANY_SOURCE;
+        *source = MPI_ANY_SOURCE;
 
     if (bytes == 0) {
-      err = MPI_Recv(&gl_rbuf, 1, MPI_BYTE, *source, *type, MPI_COMM_WORLD, &status);
+        err = MPI_Recv(&gl_rbuf, 1, MPI_BYTE, *source, *type, MPI_COMM_WORLD, &status);
     } else {
-      err = MPI_Recv(buf, bytes, MPI_BYTE, *source, *type, MPI_COMM_WORLD, &status);
+        err = MPI_Recv(buf, bytes, MPI_BYTE, *source, *type, MPI_COMM_WORLD, &status);
     }
-    if (err != 0) {
-      md_throw("MPI_Recv ERROR from md_read", err);
+    if (err) {
+        md_throw("MPI_Recv ERROR from md_read", err);
     }
     MPI_Get_count(&status, MPI_BYTE, &buffer);
     *source = status.MPI_SOURCE;
     *type = status.MPI_TAG;
     if (bytes != 0)
-      bytes = buffer;
+        bytes = buffer;
 #else
    *source = 0;
    *type = 0;
@@ -107,12 +105,12 @@ int md_write(void* const buf, const int bytes, const int dest, const int type)
 #ifdef HAVE_MPI
     int err;
     if (bytes == 0) {
-      err = MPI_Send(&gl_sbuf, 1, MPI_BYTE, dest, type, MPI_COMM_WORLD);
+        err = MPI_Send(&gl_sbuf, 1, MPI_BYTE, dest, type, MPI_COMM_WORLD);
     } else {
-      err = MPI_Send(buf, bytes, MPI_BYTE, dest, type, MPI_COMM_WORLD);
+        err = MPI_Send(buf, bytes, MPI_BYTE, dest, type, MPI_COMM_WORLD);
     }
-    if (err != 0) {
-      md_throw("MPI_Send ERROR from md_write", err);
+    if (err) {
+        md_throw("MPI_Send ERROR from md_write", err);
     }
 #endif
     return bytes;
@@ -122,16 +120,14 @@ void md_throw(const char* const rout, const int err)
 {
 #ifdef HAVE_MPI
     if (err == MPI_ERR_BUFFER) {
-      fprintf(stderr, "ERROR %s: MPI_ERR_BUFFER\n", rout);
-      throw MPI::Exception(err);
+        fprintf(stderr, "ERROR %s: MPI_ERR_BUFFER\n", rout);
+        throw MPI::Exception(err);
     }
 #else
     fprintf(stderr, " MPI error occurred when mpi not compiled in");
     exit(-1);
 #endif
 }
-//==================================================================================================================================
-//==================================================================================================================================
 //==================================================================================================================================
 int md_wrap_iread(void* const buf, int bytes, int* const source, int* const type, M1D_MPI_Request* const request)
 {
@@ -174,9 +170,9 @@ int md_wrap_write(void* const buf, int bytes, int dest, int type)
 #ifdef HAVE_MPI
     int err = 0;
     if (bytes == 0) {
-      err = MPI_Send(&gl_sbuf, 1, MPI_BYTE, dest, type, MPI_COMM_WORLD);
+        err = MPI_Send(&gl_sbuf, 1, MPI_BYTE, dest, type, MPI_COMM_WORLD);
     } else {
-      err = MPI_Send(buf, bytes, MPI_BYTE, dest, type, MPI_COMM_WORLD);
+        err = MPI_Send(buf, bytes, MPI_BYTE, dest, type, MPI_COMM_WORLD);
     }
     return err;
 #else
@@ -188,10 +184,10 @@ int md_wrap_wait(int* const source, int* const type, M1D_MPI_Request* const requ
 {
 #ifdef HAVE_MPI
     int count;
+    int err;
     MPI_Status status;
-    if (MPI_Wait(request, &status)) {
-        fprintf(stderr, "MPI_Wait error\n");
-        exit(-1);
+    if ((err = MPI_Wait(request, &status))) {
+        md_throw("MPI_Wait ERROR from md_wrap_wait", err);
     }
     MPI_Get_count(&status, MPI_BYTE, &count);
     *source = status.MPI_SOURCE;
@@ -264,90 +260,44 @@ int md_mpi_iread(void* const buf, int bytes, int* const source, int* const type,
 #ifdef HAVE_MPI
     int err = 0;
     MPI_Comm* comm = (MPI_Comm *) icomm;
-
-    if (*type == -1)
-      *type = MPI_ANY_TAG;
-    if (*source == -1)
-      *source = MPI_ANY_SOURCE;
-
-    if (bytes == 0) {
-      err = MPI_Irecv(&gl_rbuf, 1, MPI_BYTE, *source, *type, *comm, request);
-    } else {
-      err = MPI_Irecv(buf, bytes, MPI_BYTE, *source, *type, *comm, request);
+    if (*type == -1) {
+        *type = MPI_ANY_TAG;
     }
-
+    if (*source == -1) {
+        *source = MPI_ANY_SOURCE;
+    }
+    if (bytes == 0) {
+        err = MPI_Irecv(&gl_rbuf, 1, MPI_BYTE, *source, *type, *comm, request);
+    } else {
+        err = MPI_Irecv(buf, bytes, MPI_BYTE, *source, *type, *comm, request);
+    }
     return err;
 #else 
     return 0;
 #endif
 }
 //==================================================================================================================================
-int md_mpi_write(void *buf, int bytes, int dest, int type, int *flag, int *icomm) 
-
-  /*******************************************************************************
-
- Machine dependent wrapped message-sending communication routine for MPI.
-
- Author:          Scott A. Hutchinson, SNL, 9221
- =======
-
- Return code:     int
- ============
-
- Parameter list:
- ===============
-
- buf:             Beginning address of data to be sent.
-
- bytes:           Length of message in bytes.
-
- dest:            Destination processor number.
-
- type:            Message type
-
- flag:
-
- icomm:           MPI Communicator
-
-  *******************************************************************************/
-
+int md_mpi_write(void* const buf, int bytes, int dest, int type, int* const flag, int* const icomm) 
 {
-
     int err = 0;
 #ifdef HAVE_MPI
-    MPI_Comm *comm;
-
-    comm = (MPI_Comm *) icomm;
-
+    MPI_Comm *comm = (MPI_Comm *) icomm;
     if (bytes == 0) {
-      err = MPI_Send(&gl_sbuf, 1, MPI_BYTE, dest, type, *comm);
+        err = MPI_Send(&gl_sbuf, 1, MPI_BYTE, dest, type, *comm);
     } else {
-      err = MPI_Send(buf, bytes, MPI_BYTE, dest, type, *comm);
+        err = MPI_Send(buf, bytes, MPI_BYTE, dest, type, *comm);
     }
 #endif
     return err;
-
 } 
-  /*******************************************************************************/
-
-  //!  Machine dependent wrapped message-wait communication routine for MPI.
-  /*!
-   *
-   *   @param source   Source processor of the message
-   *   @param type     Type of the message received
-   *   @param request  In  Input parameter for the request object.
-   *
-   *   @param return   Return the number of bytes received.
-   */
-  int
-  md_mpi_wait(int * const source, int * const type, M1D_MPI_Request * const request)
-  {
+//================================================================================================================================== 
+int md_mpi_wait(int* const source, int* const type, M1D_MPI_Request* const request)
+{
 #ifdef HAVE_MPI
-    int count;
+    int count, err;
     MPI_Status status;
-    if (MPI_Wait(request, &status)) {
-      fprintf(stderr, "MPI_Wait error\n");
-      exit(-1);
+    if ((err = MPI_Wait(request, &status))) {
+         md_throw("MPI_Wait ERROR from md_mpi_wait", err);
     }
     MPI_Get_count(&status, MPI_BYTE, &count);
     *source = status.MPI_SOURCE;
@@ -356,112 +306,45 @@ int md_mpi_write(void *buf, int bytes, int dest, int type, int *flag, int *icomm
 #else 
     return 0;
 #endif
-  }
-  /******************************************************************************/
-
-  int
-  md_mpi_iwrite(void *buf,
-		int bytes,
-		int dest,
-		int type,
-		int *flag,
-		M1D_MPI_Request *request,
-		int *icomm)
-
-  /*******************************************************************************
-
- Machine dependent wrapped message-sending (nonblocking) communication
- routine for MPI.
-
- Author:          Scott A. Hutchinson, SNL, 9221
- =======
-
- Return code:     int
- ============
-
- Parameter list:
- ===============
-
- buf:             Beginning address of data to be sent.
-
- bytes:           Length of message in bytes.
-
- dest:            Destination processor number.
-
- type:            Message type
-
- flag:
-
- icomm:           MPI Communicator
-
-  *******************************************************************************/
-  {
+}
+//==================================================================================================================================
+int md_mpi_iwrite(void* const buf, int bytes, int dest, int type, M1D_MPI_Request* const request, int* const icomm)
+{
 #ifdef HAVE_MPI
     int err = 0;
-    MPI_Comm *comm;
-
-    comm = (MPI_Comm *) icomm;
-    if (bytes == 0)
+    MPI_Comm *comm = (MPI_Comm *) icomm;
+    if (bytes == 0) {
       err = MPI_Isend(&gl_sbuf, 1, MPI_BYTE, dest, type, *comm, request);
-    else
+    } else {
       err = MPI_Isend(buf, bytes, MPI_BYTE, dest, type, *comm, request);
-
+    }
     return err;
 #else
     return 0;
 #endif
-  } /* md_mpi_write */
-  /******************************************************************************/
-  /******************************************************************************/
-  /******************************************************************************/
-
-  int
-  md_wrap_request_cancel(M1D_MPI_Request *request)
-
-  /*******************************************************************************
-
- Machine dependent wrapped request object deletion routine.
-
- Author:          Michael A. Heroux, SNL, 9214
- =======
-
- Return code:     int
- ============
-
- Parameter list:
- ===============
-
- request:           Pointer to an existing request object that will be freed.
-
-  *******************************************************************************/
-  {
+}
+//==================================================================================================================================
+int md_wrap_request_cancel(M1D_MPI_Request* const request)
+{
 #ifdef HAVE_MPI
     int err = 0;
-    if (request != NULL) {
-      err = MPI_Cancel(request);
+    if (request != nullptr) {
+        err = MPI_Cancel(request);
     }
     err = MPI_Request_free(request);
-
     return err;
 #else
     return 0;
 #endif
-  } /* md_wrap_request_free */
-
-  //====================================================================================================================
-  int
-  md_waitany(int * const indexCompleted,
-	     int * const source,
-	     int * const type,
-	     int requestVlen,
-	     M1D_MPI_Request * const requestVector)
-  {
+}
+//==================================================================================================================================
+int md_waitany(int* const indexCompleted, int* const source, int* const type, int requestVlen, M1D_MPI_Request* const requestVector)
+{
 #ifdef HAVE_MPI
     MPI_Status status;
-    int count;
-    if (MPI_Waitany(requestVlen, requestVector, indexCompleted, &status)) {
-      fprintf(stderr, "MPI_Wait error\n");
-      exit(-1);
+    int count, err;
+    if ((err = MPI_Waitany(requestVlen, requestVector, indexCompleted, &status))) {
+         md_throw("MPI_Wait ERROR from md_waitany", err);
     }
     MPI_Get_count(&status, MPI_BYTE, &count);
     *source = status.MPI_SOURCE;
@@ -470,7 +353,7 @@ int md_mpi_write(void *buf, int bytes, int dest, int type, int *flag, int *icomm
 #else
     return 0;
 #endif
-  }
-  //====================================================================================================================
 }
-//======================================================================================================================
+//==================================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------
