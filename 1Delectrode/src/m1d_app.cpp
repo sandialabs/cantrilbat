@@ -1,110 +1,103 @@
 /**
- * @file m1d_app.cpp
+ * @file m1d_app.cpp Singleton containing the application error messages and MPI information
  *
  */
 
 /*
- *  $Id: m1d_app.cpp 5 2012-02-23 21:34:18Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
 
 #include "m1d_app.h"
-#include "m1d_GlobalIndices.h"
 #include "m1d_globals.h"
 
-
-using namespace std;
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
-//==============================================================================
-// Pointer to the single Application instance
+//==================================================================================================================================
+//! Pointer to the single Application instance
 Appl* Appl::s_app = 0;
-
-//==============================================================================
-// Protected Constructor
+//==================================================================================================================================
 Appl::Appl(int nprocs, int myprocID) :
- NumProcs_(nprocs),
- MyProcID_(myprocID)
+    NumProcs_(nprocs),
+    MyProcID_(myprocID)
 {
 }
-
-//==============================================================================
-Appl*
-Appl::Instance(int nprocs, int myprocID)
+//==================================================================================================================================
+Appl* Appl::Instance(int nprocs, int myprocID)
 {
-  if (Appl::s_app == 0) {
-    Appl::s_app = new Appl(nprocs, myprocID);
-  }
-  return s_app;
+    if (Appl::s_app == nullptr) {
+        Appl::s_app = new Appl(nprocs, myprocID);
+    }
+    return s_app;
 }
-
-//==============================================================================
-// Static function that destroys the application class's data
-void
-Appl::ApplDestroy()
+//==================================================================================================================================
+void Appl::ApplDestroy()
 {
-  if (Appl::s_app != 0) {
-    delete Appl::s_app;
-    Appl::s_app = 0;
-  }
+    if (Appl::s_app != nullptr) {
+        delete Appl::s_app;
+        Appl::s_app = nullptr;
+    }
 }
-
-//==============================================================================
+//==================================================================================================================================
 Appl::~Appl()
 {
 }
-
-//==============================================================================
-void
-Appl::addError(const std::string &r, const std::string &msg)
+//==================================================================================================================================
+void Appl::addError(const std::string& r, const std::string& msg)
 {
-  if (NumProcs_ > 1) {
-
-    std::string msge = msg + " (Proc " + intToString(MyProcID_) + ")";
-    errorMessage.push_back(msg);
-  } else {
-    errorMessage.push_back(msg);
-  }
-  errorRoutine.push_back(r);
+    if (NumProcs_ > 1) {
+        std::string msge = msg + " (Proc " + intToString(MyProcID_) + ")";
+        errorMessage.push_back(msg);
+    } else {
+        errorMessage.push_back(msg);
+    }
+    errorRoutine.push_back(r);
 }
-
-//==============================================================================
-void
-Appl::popError()
+//==================================================================================================================================
+void Appl::popError()
 {
-  if (static_cast<int> (errorMessage.size()) > 0) {
-    errorRoutine.pop_back();
-    errorMessage.pop_back();
-  }
+    if (static_cast<int>(errorMessage.size()) > 0) {
+        errorRoutine.pop_back();
+        errorMessage.pop_back();
+    }
 }
-
-//==============================================================================
-int
-Appl::nErrors() const
+//==================================================================================================================================
+int Appl::nErrors() const
 {
-  return static_cast<int> (errorMessage.size());
+    return static_cast<int>(errorMessage.size());
 }
-
-//==============================================================================
-void
-Appl::showErrors(std::ostream& f)
+//==================================================================================================================================
+void Appl::showErrors(std::ostream& f)
 {
-  int i = static_cast<int> (errorMessage.size());
-  if (i == 0)
-    return;
-  f << std::endl << std::endl;
-  f << "************************************************" << std::endl;
-  f << "    MultiDomain One Dimension Error!            " << std::endl;
-  f << "************************************************" << std::endl << endl;
-  for (int j = 0; j < i; j++) {
-    f << std::endl;
-    f << "Procedure: " << errorRoutine[j] << std::endl;
-    f << "Error:     " << errorMessage[j] << std::endl;
-  }
-  f << std::endl << std::endl;
-  errorMessage.clear();
-  errorRoutine.clear();
+    int i = static_cast<int>(errorMessage.size());
+    if (i == 0) {
+        return;
+    }
+    f << "\n\n************************************************\n";
+    f << "    MultiDomain One Dimension Error!            \n";
+    f << "************************************************\n";
+    for (int j = 0; j < i; j++) {
+        f << "\nProcedure: " << errorRoutine[j] << "\n";
+        f <<   "Error:     " << errorMessage[j] << "\n";
+    }
+    f << "\n" << std::endl;
+    errorMessage.clear();
+    errorRoutine.clear();
 }
-//==============================================================================
+//==================================================================================================================================
+int Appl::numProcs() const
+{
+    return NumProcs_;
+}
+//==================================================================================================================================
+int Appl::procID() const
+{
+    return MyProcID_;
+}
+//==================================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------
 
-}

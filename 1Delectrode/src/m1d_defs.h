@@ -1,6 +1,6 @@
 /**
  * @file m1d_defs.h
- *  Declarations that are included in all files within the namespace
+ *  Declarations that are included in all files within the m1d namespace
  */
 
 /*
@@ -18,12 +18,12 @@
  *   contents of our config.h file
  */
 #include "Epetra_ConfigDefs.h"
+
 /*
  * The macros PACKAGE, PACKAGE_NAME, etc, get defined for each package and need to
  * be undef'd here to avoid warnings when this file is included from another package.
  * KL 11/25/02
  */
-
 #ifdef PACKAGE_NAME
 #undef PACKAGE_NAME
 #endif
@@ -53,38 +53,42 @@
  * Use ZZCantera for namespace identification
  */
 #ifdef useZuzaxNamespace
+//! Generic name for the Zuzax namespace definition
 #ifndef ZZCantera
 #define ZZCantera Zuzax
 #endif
 #else
 #ifndef ZZCantera
+//! Generic name for the Zuzax namespace definition
 #define ZZCantera Cantera
 #endif
 #endif
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
-//! Macro to describe how to access the data pointer underlying stl vectors
-//! directly
+//! Macro to describe how to access the data pointer underlying stl vectors directly
+/*!
+ *  Note we can now use the data() member function, so this is now decremented
+ */
 #ifndef DATA_PTR
 #define DATA_PTR(x)  &((x)[0])
 #endif
+
 //! Macro to check pointers before deleting their contents.
 /*!
- *   This macro will set the pointer to zero, indicating that the contents are
- *   now inaccessible
+ *   This macro will set the pointer to zero, indicating that the contents are now inaccessible
  */
-#define safeDelete(ptr)  if (ptr) { delete ptr; ptr = 0; }
+#define safeDelete(ptr)  if (ptr) { delete ptr; ptr = nullptr; }
 
-//! Utility for setting doubles.
-const double M1D_DOUBLE_NOTSET(-1.234567E300);
+//! Utility for setting doubles
+const double M1D_DOUBLE_NOTSET = -1.234567E300;
 
-
-//! index returned by functions to indicate "no position"
+//! Index returned by functions to indicate "no position"
 const size_t npos = static_cast<size_t>(-1);
 
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 
 #endif

@@ -9,7 +9,6 @@
  * See file License.txt for licensing information.
  */
 
-
 #include "md_wrap_mpi.h"
 
 #include <cstdlib>

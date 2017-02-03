@@ -30,9 +30,6 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace M1D
 {
-/*!
- *  @todo  Eliminate duplicate routines
- */
 //==================================================================================================================================
 //! Blocking read to the current processor from a source processor specifying specifically the source processor 
 //! and typeid of the message that is to be expected

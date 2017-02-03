@@ -19,7 +19,6 @@
 
 #include "cantera/base/stringUtils.h" 
 
-#define safeDelete(ptr)  if (ptr) { delete ptr; ptr = 0; }
 
 namespace m1d
 {
