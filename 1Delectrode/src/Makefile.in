@@ -25,7 +25,7 @@ M1D_OBJS =  m1d_Comm.o md_wrap_mpi.o m1d_EpetraExtras.o\
         m1d_SolGlobalNonlinear.o m1d_SolNonlinear.o m1d_SimpleTDDiff_dom1D.o m1d_ProblemStatement.o \
         m1d_RecordTree_base.o m1d_BoundaryCondition.o
 
-M1D_HDRS =  m1d_Comm.h md_wrap_mpi.h m1d_EpetraExtras.h\
+M1D_HDRS =  m1d_Comm.h md_wrap_mpi.h m1d_EpetraExtras.h \
         m1d_exception.h  m1d_app.h m1d_globals.h m1d_LocalNodeIndices.h \
         m1d_GlobalIndices.h m1d_NodalVars.h m1d_DomainDescription.h \
         m1d_BulkDomainDescription.h  m1d_SurfDomainDescription.h \

@@ -22,7 +22,9 @@
 #include "Epetra_SerialComm.h"
 #endif
 
+//! Message type id base for print routines
 #define M1D_MSG_TYPE_BASE 1056
+//! Range of the message types
 #define M1D_MSG_TYPE_RANGE 20
 
 #include "Epetra_Vector.h"
@@ -45,32 +47,30 @@ namespace m1d
  *  @param[out]              gmax                value of the maximum across all processors.
  *  @return                                      Global processor number
  */
-int procChoice_Max(double pmax, const Epetra_Comm& cc_ptr, double &gmax);
+int procChoice_Max(double pmax, const Epetra_Comm& cc, double &gmax);
 
 //==================================================================================================================================
 //! Returns the processor which has the minimum value of the first parameter
 /*!
  *  This routine will figure out a consistent way to handle ties.
  *
- *  @param pmin       local processor contribution
- *  @param cc         Epetra Communicator
- *  @param gmin       value of the maximum across all processors.
- *  @return Global processor number
+ *  @param[in]               pmin                local processor contribution
+ *  @param[in]               cc                  Epetra Communicator
+ *  @param[out]              gmin                value of the maximum across all processors.
+ *  @return                                      Global processor number
  */
-int procChoice_Min(const double pmin, const Epetra_Comm& cc_ptr, double &gmin);
+int procChoice_Min(const double pmin, const Epetra_Comm& cc, double &gmin);
 
 //==================================================================================================================================
-//! Returns the processor which has the maximum value of the first parameter
-//! and broadcasts an int from the winning processor.
+//! Returns the processor which has the maximum value of the first parameter and broadcasts an int from the winning processor.
 /*!
  *  This routine will figure out a consistent way to handle ties.
  *
- * @param pmax       local processor contribution
- * @param cc         Epetra Communicator
- * @param gmax       value of the maximum across all processors.
- * @param pint       On entry it contains an int. On exit it returns the int
- *                   from the processor that won.
- * @return Global processor number
+ * @param[in]                pmax       local processor contribution
+ * @param[in]                cc         Epetra Communicator
+ * @param[out]               gmax       value of the maximum across all processors.
+ * @param[in,out]            pint       On entry it contains an int. On exit it returns the int from the processor that won.
+ * @return                              Global processor number
  */
 int procChoice_Max_Brcst1Int(double pmax, const Epetra_Comm& cc, double &gmax, int &pint);
 
@@ -90,48 +90,28 @@ int procChoice_Max_Brcst1Int(double pmax, const Epetra_Comm& cc, double &gmax, i
 int procChoice_Min_Brcst1Int(const double pmin, const Epetra_Comm& cc, double &gmin, int &pint);
 
 //==================================================================================================================================
-//! Print blocks
+//! start of a print block that prints out contributions from all processors in order
 /*!
- *  Routine to allow IO between print_sync_start and print_sync_end to be printed
- * by each processor entirely before the next processor begins its IO.  The
- *printing sequence is from proc = 0 to the last processor,
- *number_of_procs = nprocs - 1.
+ *  Routine to allow IO between print_sync_start and print_sync_end to be printed* by each processor entirely before the next
+ *  processor begins its IO.  The*printing sequence is from proc = 0 to the last processor, number_of_procs = nprocs - 1.
  *
- *NOTE: THERE CAN BE NO COMMUNICATON BETWEEN THESE CALLS.
+ *  NOTE: THERE CAN BE NO OTHER COMMUNICATON BETWEEN THESE CALLS.
  *
  *
- *=======
- *
- *Return code:     void
- *============
- *
- *Parameter list:
- *===============
- *
- *proc:            Current processor number.
- *
- *do_print_line:   Boolean variable.  If true, a line of # is printed to
- *indicate the start of a print_sync I/O block.
+ *  @param[in]              do_print_line:       Boolean variable.  If true, a line of # is printed to
+ *                                               indicate the start of a print_sync I/O block.
+ *  @param[in]              comm                 Reference to the Epetra_Comm block
  *
  */
-void print_sync_start(int do_print_line, int proc_config[]);
+void print_sync_start(int do_print_line, Epetra_Comm &comm);
 
 //==================================================================================================================================
 //! Signal the end of a print sync region
 /*!
- *  Routine to allow IO between print_sync_start and print_sync_end to be printed
- *  by each processor entirely before the next processor begins its IO. The
- *  printing sequence is from proc = 0 to the last processor,
- *  number_of_procs = nprocs - 1.
+ *  Routine to allow IO between print_sync_start and print_sync_end to be printed by each processor entirely before the next
+ *  processor begins its IO. The printing sequence is from proc = 0 to the last processor, number_of_procs = nprocs - 1.
  * 
  *  NOTE: THERE CAN BE NO COMMUNICATON BETWEEN THESE CALLS.
- * 
- *  Author:          John N. Shadid, SNL, 1421
- *  =======
- * 
- *  Return code:     void
- *  ============
- * 
  * 
  *  @param[in]               do_print_line      Boolean variable.  If true, a line of # is printed to
  *                                              indicate the start of a print_sync I/O block.
@@ -223,19 +203,14 @@ public:
 };
 
 //==================================================================================================================================
-//! Start a print0_sync block for neat printing of mpi jobs that are
-//! being run on a network of workstations
+//! Start a print0_sync block for neat printing of mpi jobs that are being run on a network of workstations
 /*!
- * The print0_sync block seems to get around a very sticky situation
- * that occurs when you are printing on a network of workstations.
- * By direct trial, we have found that the only way to get ordered
- * output from stderr or stdout is to print everything from processor 0.
- * We think this is due to networking issues outside of the control of mpi.
- * There is additional buffering of stderr and stdout that occurs on
- * networks of workstations and not a dedicated mp machine.
+ * The print0_sync block seems to get around a very sticky situation that occurs when you are printing on a network of workstations.
+ * By direct trial, we have found that the only way to get ordered output from stderr or stdout is to print everything from processor 0.
+ * We think this is due to networking issues outside of the control of mpi. There is additional buffering of stderr and 
+ * stdout that occurs on networks of workstations and not a dedicated mp machine.
  *
- * Note between print0_sync blocks no other mpi operations should be
- * attempted.
+ * Note between print0_sync blocks no other mpi operations should be attempted.
  *
  * Between the print0_sync blocks, only certain printing-to-proc0 operations
  * should be done. Only these should be done, and operations that
@@ -245,119 +220,123 @@ public:
  *      ssprint0(stream0 &ss);
  *      stream0 ss;       ss.print0();
  *
- *
- * @param do_print_line    Print a line
- * @param ss               stream0 being used for printing.
- *                         Note, I don't think this is really needed.
- * @param comm             reference to the Epetra_Comm object
+ * @param[in]                do_print_line       Print a line
+ * @param[in]                ss                  stream0 being used for printing.
+ *                                               Note, I don't think this is really needed.
+ * @param[in]                comm                reference to the Epetra_Comm object
  */
-void
-print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm);
+void print0_sync_start(int do_print_line, stream0 &ss, const Epetra_Comm &comm);
 
 //==================================================================================================================================
-//! End of a print0_sync block for neat printing of mpi jobs that are
-//! being run on a network of workstations
+//! End of a print0_sync block for neat printing of mpi jobs that are being run on a network of workstations
 /*!
- *
- * @param do_print_line    Print a line
- * @param ss               stream0 being used for printing.
- *                         Note, I don't think this is really needed.
- * @param comm             reference to the Epetra_Comm object
+ * @param[in]                do_print_line       Print a line
+ * @param[in]                ss                  stream0 being used for printing.
+ *                                               Note, I don't think this is really needed.
+ * @param[in]                comm                reference to the Epetra_Comm object
  */
-void
-print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm);
+void print0_sync_end(int do_print_line, stream0 &ss, const Epetra_Comm &comm);
 
 //==================================================================================================================================
 //! Print from processor 0, while in between the print0_sync blocks
 /*!
- *   This will cause a hang condition if this doesn't occur between
- *   print0_sync blocks
+ *   This will cause a hang condition if this doesn't occur between print0_sync blocks
  *
- * @param ibuf     Buffer that needs to be printed. Must be null terminated
- *                 like any c string.
- * @param ff       FILE stream to print to. This defaults to stdout
- * @return         Returns the number of messages sent
+ * @param[in]                ibuf                Buffer that needs to be printed. Must be null terminated like any c string.
+ * @param[in]                ff                  FILE stream to print to. This defaults to stdout
+ * @return                                       Returns the number of messages sent
  */
-int sprint0(const char *ibuf, FILE * ff = stdout);
+int sprint0(const char* const ibuf, FILE* ff = stdout);
 
 //==================================================================================================================================
 //! Print stream0 information from processor 0, while in between the print0_sync blocks
 /*!
- *   This will cause a hang condition if this doesn't occur between
- *   print0_sync blocks. The stream0 object is zeroed at the end
+ *   This will cause a hang condition if this doesn't occur between print0_sync blocks. The stream0 object is zeroed at the end
  *   of the operation.
  *
- * @param ss    stream0 object that will be printed. The stream0 object
- *              is zeroed at the end of the operation.
+ * @param[in]                ss                  stream0 object that will be printed. The stream0 object
+ *                                               is zeroed at the end of the operation.
  */
 void ssprint0(stream0 &ss);
 
 //==================================================================================================================================
-//! Print an Epetra_MultiVector using the stream0 process
+//! Print a formatted version of the contents of a Epetra_MultiVector using the stream0 process
 /*!
- * @param oss   stream0 stream
- * @param v     Epetra_MultiVector reference
+ * @param[in]                oss                 stream0 stream
+ * @param[in]                v                   Epetra_MultiVector reference
  */
 void Print0_epMultiVector(stream0 &oss, const Epetra_MultiVector &v);
 
 //==================================================================================================================================
-void print0_epIntVector(const Epetra_IntVector& v, const char *label, FILE *of = stdout);
-
+//! Print a formatted version of the contents of a Epetra_IntVector using the stream0 process
+/*!
+ * @param[in]                v                   Epetra_IntVector reference
+ * @param[in]                label               Heading to be used in the printout. Defaults to nullptr
+ * @param[in]                of                  File pointer to use for the printing. Defaults to stdout.
+ */
+void print0_epIntVector(const Epetra_IntVector& v, const char* const label = nullptr, FILE* const of = stdout);
 
 //==================================================================================================================================
-void Print0_epIntVector(stream0 &os, const Epetra_IntVector& v);
+//! Print a formatted version of the contents of a Epetra_IntVector using the stream0 process
+/*!
+ * @param[in]                oss                 stream0 stream
+ * @param[in]                v                   Epetra_IntVector reference
+ */
+void Print0_epIntVector(stream0 &oss, const Epetra_IntVector& v);
 
 //==================================================================================================================================
 //! Prints a Multivector between print0_sync blocks
 /*!
- * The output is dumped onto stdout on processor 0
+ *  The output is dumped onto a FILE stream which defaults to stdout on processor 0
  *
- * @param v  Epetra MultiVector to be printed
- * @param label optional argument will create an extra line with text
+ *  @param[in]               v                   Epetra MultiVector to be printed
+ *  @param[in]               label               optional argument will create an extra line with text.
+ *  @param[in]               of                  File pointer to use for the printing. Defaults to stdout.
  */
-void print0_epMultiVector(const Epetra_MultiVector& v, const char *label = 0, FILE *of = stdout);
+void print0_epMultiVector(const Epetra_MultiVector& v, const char* const label = nullptr, FILE* const of = stdout);
 
 //==================================================================================================================================
 //! Print an Epetra_VbrMatrix using the stream0 process
 /*!
  *  @param[in]               oss                 stream0 stream
- *  @param[in]               v                   Epetra_VbrMatrix reference
+ *  @param[in]               mat                 Epetra_VbrMatrix reference
  */
-void Print0_epVbrMatrix(stream0 &os, const Epetra_VbrMatrix& mat);
+void Print0_epVbrMatrix(stream0 &oss, const Epetra_VbrMatrix& mat);
 
 //==================================================================================================================================
 //! Prints a VbrMatrix between print0_sync blocks
 /*!
- * The output is dumped onto stdout on processor 0
- * @param mat  VbrMatrix to be printed
- * @param label optional argument will create an extra line with text
+ *  The output is dumped onto stdout on processor 0
+ *  @param[in]               mat                 VbrMatrix to be printed
+ *  @param[in]               label               optional argument will create an extra line with text
+ *  @param[in]               of                  File pointer to use for the printing. Defaults to stdout.
  */
-void print0_epVbrMatrix(const Epetra_VbrMatrix &mat, const char *label = 0, std::FILE *of = stdout);
+void print0_epVbrMatrix(const Epetra_VbrMatrix &mat, const char* const label = 0, FILE* const of = stdout);
 
 //==================================================================================================================================
 //! Prints an Epetra_BlockMap using the stream0 process
 /*!
- * @param oss   stream0 stream
- * @param v     Epetra_BlockMap reference
+ *  @param[in]               oss                 stream0 stream
+ *  @param[in]               map                 Epetra_BlockMap reference
  */
-void Print0_epBlockMap(stream0 &os, const Epetra_BlockMap &map);
+void Print0_epBlockMap(stream0 &oss, const Epetra_BlockMap &map);
 
 //==================================================================================================================================
-//! Prints a map between print0_sync blocks
+//! Prints an Epetra_BlockMap  between print0_sync blocks
 /*!
- * The output is dumped onto stdout on processor 0
- * @param map  BlockMap to be printed
- * @param label optional argument will create an extra line with text
+ *  The output is dumped onto stdout on processor 0
+ *  @param[in]               map                 Reference to an Epetra_BlockMap to be printed
+ *  @param[in]               label               optional argument will create an extra line with text
+ *  @param[in]               of                  File pointer to use for the printing. Defaults to stdout.
  */
-void print0_epBlockMap(const Epetra_BlockMap &map, const char *label = 0, FILE *of = stdout);
+void print0_epBlockMap(const Epetra_BlockMap &map, const char *label = 0, FILE* const of = stdout);
 
 //==================================================================================================================================
 //! Prints an Epetra_MultiVector using the stream0 process
 /*!
- * @param oss          stream0 stream
- * @param v            Epetra_MultiVector reference
- * @return             Returns a changeable reference to the input stream0
- *                     object
+ * @param[in]                oss                 stream0 stream
+ * @param[in]                v                   Epetra_MultiVector reference
+ * @return                                       Returns a changeable reference to the input stream0  object
  */
 stream0& operator<<(stream0 &oss, const Epetra_MultiVector &v);
 

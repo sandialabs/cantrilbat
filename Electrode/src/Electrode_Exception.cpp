@@ -26,7 +26,6 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-
 //==================================================================================================================================
 Electrode_Error::Electrode_Error(const std::string &proc, const std::string &msg) :
     ZZCantera::ZuzaxError("Electrode_Error: " + proc, msg)
