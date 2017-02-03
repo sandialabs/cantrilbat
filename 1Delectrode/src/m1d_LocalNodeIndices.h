@@ -3,10 +3,6 @@
  *
  */
 
-/*
- *  $Id: m1d_LocalNodeIndices.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
-
 #ifndef M1D_LOCALNODEINDICES_H
 #define M1D_LOCALNODEINDICES_H
 
@@ -23,15 +19,14 @@ class Epetra_IntVector;
 class Epetra_Vector;
 class Epetra_Import;
 
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
 class NodalVars;
 class DomainLayout;
 class GlobalIndices;
-
+//==================================================================================================================================
 //! These indices have to do with accessing the local nodes on the processor
 /*!
  *   All numbers are in local row node format. Local row node format is defined as the following. All owned nodes
@@ -93,8 +88,7 @@ public:
    * @param r  Object to be copied
    * @return   Return the current object
    */
-  LocalNodeIndices &
-  operator=(const LocalNodeIndices &r);
+  LocalNodeIndices & operator=(const LocalNodeIndices &r);
 
   //! Initialize the sizes and the contents of the member arrays
   //! and determine the nodes needed by the current processor to
@@ -106,15 +100,13 @@ public:
    *
    *   This also determines the matrix stencil.
    */
-  void
-  determineLcNodeMaps(DomainLayout *dl_ptr);
+  void determineLcNodeMaps(DomainLayout *dl_ptr);
 
   //! Initialize the LcEqn arrays, including the color array
   /*!
    *  In this routine, we figure out the color array for equations.
    */
-  void
-  determineLcEqnMaps();
+  void determineLcEqnMaps();
 
   //! Initialize the Epetra_Map objects associated with specifying
   //! the local nodes on the processor, including whether they are owned or not
@@ -127,8 +119,7 @@ public:
    *                           This map will not include ghosted nodes.
    *                           This map is a 1 to 1 map. 
    */
-  void
-  initLcNodeMaps();
+  void initLcNodeMaps();
 
   //! Initialize the Epetra_Map objects associated with specifying
   //! the local block equations on the processor, including whether they are owned or not
@@ -142,8 +133,7 @@ public:
    *                           Create a map of the local equations only. The global ids are the global node numbers.
    *                           This map will not include ghosted nodes, and therefore will be 1 to 1.
    */
-  void
-  initLcBlockNodeMaps();
+  void initLcBlockNodeMaps();
 
   //! Construct a coloring map for the LcNodes on this processor.
   /*!
@@ -159,8 +149,7 @@ public:
    *
    *   This routine may be called after the LcNodes map is created.
    */
-  void
-  makeNodeColors();
+  void makeNodeColors();
 
   //! Construct a coloring map for the locally defined equations on this processor.
   /*!
@@ -175,8 +164,7 @@ public:
    *
    *   This routine may be called after the LcNodes map is created.
    */
-  void
-  makeEqnColors();
+  void makeEqnColors();
 
   //! Global node to local node mapping
   /*!
@@ -187,8 +175,7 @@ public:
    * @param gbNode  global node
    * @return returns the local node value
    */
-  int
-  GbNodeToLcNode(const int gbNode) const;
+  int GbNodeToLcNode(const int gbNode) const;
 
   //! Global eqn to local eqn mapping
   /*!
@@ -199,18 +186,15 @@ public:
    * @param gbEqn  global node
    * @return returns the local eqn value
    */
-  int
-  GbEqnToLcEqn(const int gbEqn) const;
+  int GbEqnToLcEqn(const int gbEqn) const;
 
-  void
-  InitializeLocalNodePositions();
+  void InitializeLocalNodePositions();
 
   //! Update the nodal variables structure
   /*!
    *   This routine will update the position and local node number
    */
-  void
-  UpdateNodalVarsPositions();
+  void UpdateNodalVarsPositions();
 
   //!  Extract the positions from the solution vector and propagate them into all other structures
   /*!
@@ -220,9 +204,7 @@ public:
    *
    * @param soln  Solution vector which contains displacements as one of the solution components
    */
-  void
-  ExtractPositionsFromSolution(const Epetra_Vector * const soln_p);
-
+  void ExtractPositionsFromSolution(const Epetra_Vector * const soln_p);
 
   //!  We set initial conditions here that make sense from a global perspective.
   //!  This should be done as a starting point. If there are better answers, it should be overridden.
@@ -232,20 +214,15 @@ public:
    *     Set Displacement_Axial unknowns to 0.0
    *     Assert that nodal value of x0NodePos is equal to the local vector of *Xpos_LcNode_p
    */
-  void
-  setInitialConditions(const bool doTimeDependentResid,
-                       Epetra_Vector *soln,
-                       Epetra_Vector *solnDot,
-                       const double t,
-                       const double delta_t);
+  void setInitialConditions(const bool doTimeDependentResid, Epetra_Vector *soln, Epetra_Vector *solnDot, 
+                            const double t, const double delta_t);
 
   //! Generate the nodal variables structure
   /*!
    *   This routine will update the pointer to the NodalVars structure
    *   and it will update the positions
    */
-  void
-  GenerateNodalVars();
+  void GenerateNodalVars();
 
   //! Generate the importers
   /*!
@@ -254,8 +231,7 @@ public:
    *        Importer_GhostEqns 
    *        Importer_NodalValues
    */
-  void
-  makeImporters();
+  void makeImporters();
 
   //! Calculate the number of equations at each node
   /*!
@@ -268,8 +244,7 @@ public:
    *        NumLcOwnedEqns
    *        NumLcEqns
    */
-  int
-  UpdateEqnCount();
+  int UpdateEqnCount();
 
   //! Generate Equation mapping vectors
   /*!
@@ -279,11 +254,9 @@ public:
    *  Data members calculated:
    *        IndexGbEqns_LcEqns[]
    */
-  void
-  generateEqnMapping();
+  void generateEqnMapping();
 
-  void
-  updateGhostEqns(Epetra_Vector * const solnV, const Epetra_Vector * const srcV);
+  void updateGhostEqns(Epetra_Vector * const solnV, const Epetra_Vector * const srcV);
   /* ---------------------------------------------------------- */
 
   //! local copy of the Epetra_Comm ptr object
@@ -540,11 +513,8 @@ public:
 
   //! Pointer to the global index object
   GlobalIndices *GI_ptr_;
-
 };
-
-//extern LocalNodeIndices *LI_ptr;
-
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
