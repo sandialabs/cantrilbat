@@ -120,44 +120,43 @@ public:
 
   //! Copy Constructor
   /*!
-   * @param r Object to be copied
+   *  @param[in]             r                   Object to be copied
    */
   EqnType(const EqnType &r);
 
   //! Assignment Operator
   /*!
-   * @param r Object to be copied.
-   * @return Returns a variable reference to the current object
+   *  @param[in]             r                   Object to be copied.
+   *
+   *  @return                                    Returns a variable reference to the current object
    */
-  EqnType &
-  operator=(const EqnType &r);
+  EqnType & operator=(const EqnType &r);
 
   //! Returns the equation main name given the equation type
   /*!
-   * @param equationType   Equation type as input
-   * @return   Returns a string
+   *  @param[in]             equationType        Equation type as input
+   *  @return                                    Returns a string
    */
-  static std::string
-  EqnMainName(const EQ_TYPE equationType);
+  static std::string EqnMainName(const EQ_TYPE equationType);
 
   //! Set the equation type of the object
   /*!
    *
-   * @param equationType
-   * @param equationSubType
-   * @param subName
+   *  @param[in]             equationType        EQ_TYPE enum for the equation type
+   *  @param[in]             equationSubType     Integer like variable for the sub type of the equation 
+   *  @param[in]             subName             Character Name of the equation. Will use a default value if this nullptr.
+   *                                             Defaults to nullptr
    */
-  void
-  setID(const EQ_TYPE equationType, const EQ_TYPE_SUBNUM equationSubType = 0, const char *subName = 0);
+  void setID(const EQ_TYPE equationType, const EQ_TYPE_SUBNUM equationSubType = 0, const char *subName = nullptr);
 
-  //! return the name of the equation
+  //! Return the name of the equation within a certain character length string
   /*!
-   *
-   * @param len  Maximum length of the string
-   * @return  returns a malloced C++ string
+   *  @param[in]             len                 Maximum length of the string
+   *  @return                                    returns a C++ string
    */
-  std::string
-  EquationName(const int len = 128) const;
+  std::string EquationName(const int len = 128) const;
+
+  // --------------------------------------------- D A T A ------------------------------------------------------------
 
   //! Equation type
   m1d::EQ_TYPE EquationType;
@@ -170,45 +169,74 @@ public:
 
   //! Equation sub type
   char EquationSubTypeName[24];
-
 };
 
 //==================================================================================================================================
 //! Equality boolean operator for VarType Objects
 /*!
- *
- * @param a Object 1
- * @param b Object 2
- * @return Returns whether the two are the same
+ *  @param[in]               a                   Object 1
+ *  @param[in]               b                   Object 2
+ *  @return                                      Returns whether the two are the same
  */
 bool operator==(const VarType &a, const VarType &b);
 
 //==================================================================================================================================
+//! Inequality boolean operator for VarType Objects
+/*!
+ *  @param[in]               a                   Object 1
+ *  @param[in]               b                   Object 2
+ *  @return                                      Returns whether the two are different
+ */
 bool operator!=(const VarType &a, const VarType &b);
 
 //==================================================================================================================================
-//! Greater than  operator for VarType Objects
+//! Greater than operator for VarType Objects
 /*!
- * VarTypes are first compared numerically via their
- * enum values. Then, they are compared via their
- * subindex numbers. This provides an ordering.
+ *  VarTypes are first compared numerically via their enum values. Then, they are compared via their
+ *  subindex numbers. This provides an ordering.
  *
- * @param a Object 1
- * @param b Object 2
- * @return Returns whether object a is greater
- *         than object b.
+ *  @param[in]               a                   Object 1
+ *  @param[in]               b                   Object 2
+ *  @return                                      Returns whether object a is greater than object b.
  */
 bool operator>(const VarType &a, const VarType &b);
 
 //==================================================================================================================================
-
+//! Equality boolean operator for EqnType Objects
+/*!
+ *  @param[in]               a                   Object 1
+ *  @param[in]               b                   Object 2
+ *  @return                                      Returns whether the two are the same
+ */
 bool operator==(const EqnType &a, const EqnType &b);
+
 //==================================================================================================================================
+//! Inequality boolean operator for VarType Objects
+/*!
+ *  @param[in]               a                   Object 1
+ *  @param[in]               b                   Object 2
+ *  @return                                      Returns whether the two are different
+ */
 bool operator!=(const EqnType &a, const EqnType &b);
+
 //==================================================================================================================================
+//! Returns a mapping between the equation type and the variable type
+/*!
+ *  @param[in]               eqType              EQ_TYPE enum input describing the equation type
+ *
+ *  @return                                      Returns the corresponding variable type
+ */
 VAR_TYPE EqnToVarEnum(EQ_TYPE eqType);
+
 //==================================================================================================================================
+//! Returns a mapping between the equation type and the variable type
+/*!
+ *  @param[in]               et                  EqnType input describing everything about the equation
+ *
+ *  @return                                      Returns the corresponding VarType value
+ */
 VarType EqnTypeToVarType(EqnType et);
+
 //==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
