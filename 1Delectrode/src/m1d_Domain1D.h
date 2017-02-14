@@ -26,15 +26,25 @@
 #include "cantera/base/xml.h"
 
 #include <string>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
 class LocalNodeIndices;
 
+//==================================================================================================================================
+//! Class to accept global heat balance numbers from internal calculations
+/*!
+ *  We use this class to calculate a macroscopic heat balance. This is a virtual class so that it may be inherited 
+ *  and specialized for situations
+ *
+ *  All elements of this class are on a per unit area basis for cartesian coordinate systems
+ */
 class globalHeatBalVals
 {
   public:
+
+    //! Default constructor
      globalHeatBalVals() :
        totalHeatCapacity(0.0),
        HeatFluxRight(0.0),
@@ -46,11 +56,12 @@ class globalHeatBalVals
      {
      }
 
+     //! empty destructor
      virtual ~globalHeatBalVals()
      {
-
      }
 
+     //! Member function to zero all 
      virtual void zero() 
      {
           totalHeatCapacity = 0.0;
@@ -60,16 +71,55 @@ class globalHeatBalVals
           newNEnthalpy = 0.0;
      }
 
+     //! Total Extrinsic heat capacity per unit area of the
+     /*!
+      *   Units: Joules/m2/K
+      */
      double totalHeatCapacity;
+
+     //! Heat flox out of the domain to the right
+     /*!
+      *   Units: Joules/m2/s
+      */
      double HeatFluxRight;
+
+     //! Heat flox out of the domain to the left
+     /*!
+      *   Units: Joules/m2/s
+      */
      double HeatFluxLeft;
+
+     //! Old extrinsic enthalpy
+     /*!
+      *  Units: Joules/m2
+      */
      double oldNEnthalpy;
+
+     //! New extrinsic enthalpy
+     /*!
+      *  Units: Joules/m2
+      */
      double newNEnthalpy;
+
+     //! Mole flux out of the domain  
+     /*!
+      *  Units: kmol/m2/s
+      */
      double moleFluxOut;
-     std::vector<double>speciesMoleFluxOut;
+
+     //! Vector of species flux out of the domain
+     /*!
+      *  Units: kmol/m2/s
+      */
+     std::vector<double> speciesMoleFluxOut;
+
+     //! Enthalpy flux out of the domain
+     /*!
+      *  Units: Joules/m2/s
+      */
      double enthFluxOut;
 };
-
+//==================================================================================================================================
 
 //! Base class for solving residuals for bulk and surface domains
 /*!

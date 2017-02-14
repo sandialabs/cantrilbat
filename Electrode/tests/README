@@ -1,7 +1,7 @@
 
 
 The templated test for copying is located in
-   LiCo2_LiIonCathode_CSTR_thermal
+   LiCoO2_LiIonCathode_CSTR_thermal
 
 This runs off of the runtest_Electrode script.
 It also includes the most recent version of the Makefile.in file.
