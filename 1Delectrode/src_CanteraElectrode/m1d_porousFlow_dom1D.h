@@ -396,8 +396,7 @@ protected:
 
     //! Current value of the Electrolyte mole fraction vector - cropped to always be positive
     /*!
-     *  We also ensure that the charge neutrality constraint is satisfied.
-     *  We ensure that the mole fractions sum to one.
+     *  We also ensure that the charge neutrality constraint is satisfied.  We ensure that the mole fractions sum to one.
      *  Thermo is not defined if any of the three are violated.
      */
     std::vector<double> mfElectrolyte_Thermo_Curr_;
@@ -573,7 +572,7 @@ protected:
     int Porosity_prob_type_;
 
 };
-//======================================================================================================================
+//==================================================================================================================================
 }
-//======================================================================================================================
+//==================================================================================================================================
 #endif

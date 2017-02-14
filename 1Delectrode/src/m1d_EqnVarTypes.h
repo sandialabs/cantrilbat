@@ -43,42 +43,43 @@ public:
 
   //! Constructor with specification
   /*!
-   * @param variableType
-   * @param variableSubType
-   * @param subName
+   *  @param[in]             variableType        VAR_TYPE enum specifying what type of variable this is
+   *  @param[in]             variableSubType     Integer value of the subvariable type. Defaults to 0.
+   *  @param[in]             subName             Name of the subtype. Defaults to nullptr
    */
-  VarType(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType = 0, const char *subName = 0);
+  VarType(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType = 0, const char *subName = nullptr);
 
   //! Destructor
   ~VarType();
 
-  //! Returns the variable main name given the variable type
-  static std::string
-  VarMainName(const VAR_TYPE variableType);
+  //! Returns the variable main name given the variable type (Static function)
+  /*!
+   *  @return                                    Returns a string representation of the main VAR_TYPE enum
+   */
+  static std::string VarMainName(const VAR_TYPE variableType);
 
   //! Copy Constructor
   /*!
-   * @param r Object to be copied
+   *  @param[in]             r                   Object to be copied
    */
   VarType(const VarType &r);
 
   //! Assignment Operator
   /*!
-   * @param r Object to be copied.
-   * @return Returns a variable reference to the current object
+   *  @param[in]             r                   Object to be copied.
+   *
+   *  @return                                    Returns a variable reference to the current object
    */
-  VarType &
-  operator=(const VarType &r);
+  VarType& operator=(const VarType& r);
 
   //! Set the variable type of the object
   /*!
    *
-   * @param variableType
-   * @param variableSubType
-   * @param subName
+   *  @param[in]             variableType        VAR_TYPE enum specifying what type of variable this is
+   *  @param[in]             variableSubType     Integer value of the subvariable type. Defaults to 0.
+   *  @param[in]             subName             Name of the subtype. Defaults to nullptr
    */
-  void
-  setID(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType = 0, const char *subName = 0);
+  void setID(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType = 0, const char *subName = nullptr);
 
   std::string
   VariableName(const int len = 128) const;
@@ -180,12 +181,10 @@ public:
  * @param b Object 2
  * @return Returns whether the two are the same
  */
-bool
-operator==(const VarType &a, const VarType &b);
+bool operator==(const VarType &a, const VarType &b);
 
 //==================================================================================================================================
-bool
-operator!=(const VarType &a, const VarType &b);
+bool operator!=(const VarType &a, const VarType &b);
 
 //==================================================================================================================================
 //! Greater than  operator for VarType Objects
@@ -199,8 +198,7 @@ operator!=(const VarType &a, const VarType &b);
  * @return Returns whether object a is greater
  *         than object b.
  */
-bool
-operator>(const VarType &a, const VarType &b);
+bool operator>(const VarType &a, const VarType &b);
 
 //==================================================================================================================================
 

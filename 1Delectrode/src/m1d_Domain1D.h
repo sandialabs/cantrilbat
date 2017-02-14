@@ -123,15 +123,11 @@ class globalHeatBalVals
 
 //! Base class for solving residuals for bulk and surface domains
 /*!
- *
- *
  * There is a 1 to 1 mapping between the local control volume indexing and
  * the Local Consecutive Ordering indexing
  *
  * There is a 1 to 1 mapping between the global control volume indexing
  * and the Global node number indexing that is given by a single offset.
- *
- *
  *
  */
 class Domain1D
@@ -139,52 +135,48 @@ class Domain1D
 
 public:
 
-  //! Constructor
+  //! Default Constructor
   /*!
-   *
-   * @param bdd   Contains the bulk domain description.
    */
   Domain1D();
 
   //! Copy Constructor
   /*!
-   * @param r Object to be copied
+   *  @param[in]             r                   Object to be copied
    */
   Domain1D(const Domain1D &r);
 
   //!  Destructor
-  virtual
-  ~Domain1D();
+  virtual ~Domain1D();
 
   //! Assignment operator
   /*!
-   *  @param r  object to be copied
+   *  @param[in]             r                   object to be copied
+   *
+   *  @return                                    Returns a reference to an object
    */
-  Domain1D &
-  operator=(const Domain1D &r);
+  Domain1D& operator=(const Domain1D &r);
 
   //! Specify an identifying tag for this domain.
   /*!
-   *  The identifying tag for the domain is the name of the domain. It will appear on all
-   *  output files.
+   *  The identifying tag for the domain is the name of the domain. It will appear on all output files.
    *
-   * @param s Name of the domain
+   *  @param[in]             s                   Name of the domain
    */
-  virtual void
-  setID(const std::string& s);
+  virtual void setID(const std::string& s);
 
   //! Returns the identifying tag for the domain
-  virtual std::string
-  id() const;
+  /*!
+   *  @return                                    Returns the string name for teh domain
+   */ 
+  virtual std::string id() const;
 
   //! Prepare all of the indices for fast calculation of the residual
   /*!
-   *  @param li_ptr   Pointer to the LocalNodeIndices Structure that contains information
-   *                  about how the mesh is layed out within this domain and other domains
-   *                  in the problem.
+   *  @param[in]             li_ptr              Pointer to the LocalNodeIndices Structure that contains information
+   *                                             about how the mesh is layed out within this domain and other domains in the problem
    */
-  virtual void
-  domain_prep(m1d::LocalNodeIndices *li_ptr);
+  virtual void domain_prep(LocalNodeIndices* const li_ptr);
 
   //! Basic function to calculate the residual for the current domain.
   /*!
@@ -195,45 +187,54 @@ public:
    *
    *       res = dcdt - dc2 /dx2 - src = 0
    *
-   * @param res  Output vector containing the residual
-   * @param doTimeDependentResid  boolean indicating whether the time
-   *                         dependent residual is requested
-   * @param soln_ptr     solution vector at which the residual should be
-   *                     evaluated
-   * @param solnDot_ptr  solution dot vector at which the residual should
-   *                     be evaluated.
-   * @param solnOld_ptr  Pointer to the solution vector at the old time step
-   *  @param t           time
-   *  @param rdelta_t    inverse of delta_t
+   *  @param[out]            res                 Output vector containing the residual
+   *  @param[in]             doTimeDependentResid  boolean indicating whether the time dependent residual is requested
+   *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+   *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+   *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+   *  @param[in]             t                   time
+   *  @param[in]             rdelta_t            inverse of delta_t
+   *  @param[in]             residType           Type of evaluation of the residual. Uses the ResidEval_Type_Enum type.
+   *                                             Defaults to Base_ResidEval
+   *  @param[in]             solveType           Type of solution Type. Uses the Solve_Type_Enum  type.
+   *                                             Defualts to  TimeDependentAccurate_Solve
    */
   virtual void
-  residEval(Epetra_Vector &res,
-            const bool doTimeDependentResid,
-            const Epetra_Vector *soln_ptr,
-            const Epetra_Vector *solnDot_ptr,
-            const Epetra_Vector *solnOld_ptr,
-            const double t,
-            const double rdelta_t,
+  residEval(Epetra_Vector &res, const bool doTimeDependentResid,
+            const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
+            const Epetra_Vector* const solnOld_ptr, const double t, const double rdelta_t,
             const ResidEval_Type_Enum residType = Base_ResidEval, 
 	    const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
 
+  //! Evaluate Post-solution quantities of interest after each converged time step
+  /*!
+   *  @param[in]             doTimeDependentResid  Boolean indicating whether the time dependent residual is requested
+   *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+   *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+   *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+   *  @param[in]             t                   time
+   *  @param[in]             rdelta_t            inverse of delta_t
+   */
   virtual void
-  eval_PostSoln(
-            const bool doTimeDependentResid,
-            const Epetra_Vector *soln_ptr,
-            const Epetra_Vector *solnDot_ptr,
-            const Epetra_Vector *solnOld_ptr,
-            const double t,
-            const double rdelta_t);
+  eval_PostSoln(const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
+            const Epetra_Vector* const solnOld_ptr, const double t, const double rdelta_t); 
 
-   virtual void eval_HeatBalance(const int ifunc,
-				  const double t,
-				  const double deltaT,
-				  const Epetra_Vector *soln_ptr,
-				  const Epetra_Vector *solnDot_ptr,
-				  const Epetra_Vector *solnOld_ptr,
-				  struct globalHeatBalVals& dVals);
+   //! Evaluate the macroscopic heat balance on the domain given a converged solution of the problem
+   /*!
+    *  @param[in]             ifunc               situation function parameter, input from doHeatAnalysis()
+    *  @param[in]             t                   time
+    *  @param[in]             deltaT              deltaT for the just-finished time step
+    *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+    *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+    *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+    *  @param[in,out]         dVals               Reference to the globalHeatBalVals structure that will contain the results
+    *                                             of the macroscopic heat balance calculation
+    */
+   virtual void 
+   eval_HeatBalance(const int ifunc, const double t, const double deltaT, const Epetra_Vector* const soln_ptr,
+                    const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, 
+                    struct globalHeatBalVals& dVals);
 
    virtual void
    eval_SpeciesElemBalance(const int ifunc, const double t, const double deltaT,
@@ -259,14 +260,9 @@ public:
    *  @param rdelta_t    inverse of delta_t
    */
   virtual void 
-  residEval_PreCalc(const bool doTimeDependentResid,
-		    const Epetra_Vector *soln_ptr,
-		    const Epetra_Vector *solnDot_ptr,
-		    const Epetra_Vector *solnOld_ptr,
-		    const double t,
-		    const double rdelta_t,
-		    const ResidEval_Type_Enum residType,
-		    const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+  residEval_PreCalc(const bool doTimeDependentResid, const Epetra_Vector *soln_ptr, const Epetra_Vector *solnDot_ptr,
+		    const Epetra_Vector *solnOld_ptr, const double t, const double rdelta_t,
+		    const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
   //! Auxiliary function to calculate the residual for the current domain.
   /*!
@@ -330,47 +326,38 @@ public:
    *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init_init.
    *  We get rid of the pendingIntegratedFlags_ flag here as well.
    */
-  virtual void 
-  revertToInitialGlobalTime();
+  virtual void revertToInitialGlobalTime();
 
   //! Base class for saving the solution on the domain in an xml node.
   /*!
-   *
-   * @param oNode                Reference to the XML_Node
-   * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
-   * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
-   * @param t                    time
-   *
-   * @param duplicateOnAllProcs  If this is true, all processors will include
-   *                             the same XML_Node information as proc 0. If
-   *                             false, the xml_node info will only exist on proc 0.
+   *  @param[in,out]         oNode               Reference to the XML_Node
+   *  @param[in]             soln_GlAll_ptr      Pointer to the Global-All solution vector
+   *  @param[in]             solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector
+   *  @param[in]             t                   time
+   *  @param[in]             duplicateOnAllProcs If this is true, all processors will include the same XML_Node information 
+   *                                             as proc 0. If false, the xml_node info will only exist on proc 0.
+   *                                             Defaults to false.
    */
-  virtual void
-  saveDomain(ZZCantera::XML_Node& oNode,
-             const Epetra_Vector *soln_GlAll_ptr,
-             const Epetra_Vector *solnDot_GlAll_ptr,
-             const double t,
-             bool duplicateOnAllProcs = false);
+  virtual void saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr, 
+                          const Epetra_Vector* const solnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false);
 
   //! Base Class for reading the solution from the saved file
   /*!
    *
-   * @param simulationNode       Reference to the XML_Node named simulation
-   * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
-   * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
+   *  @param[in]             simulationNode      Reference to the XML_Node named simulation
+   *  @param[out]            soln_GlAll_ptr      Pointer to the Global-All solution vector that will accept the solution
+   *  @param[out]            solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector that will accept
+   *                                             the solution
    */
-  virtual void
-  readSimulation(const ZZCantera::XML_Node& simulationNode,
-		 Epetra_Vector * const soln_GlAll_ptr,
-		 Epetra_Vector * const solnDot_GlAll_ptr);
-
+  virtual void readSimulation(const ZZCantera::XML_Node& simulationNode, Epetra_Vector* const soln_GlAll_ptr, 
+                              Epetra_Vector* const solnDot_GlAll_ptr);
 
   //! Base Class for reading the solution from the saved file
   /*!
    *
-   * @param domainNode          Reference to the XML_Node to read the solution from
-   * @param soln_GLALL_ptr      Pointer to the Global-All solution vector
-   * @param solnDot_ptr         Pointer to the time derivative of the Global-All solution vector
+   * @param[in] domainNode          Reference to the XML_Node to read the solution from
+   * @param[in] soln_GLALL_ptr      Pointer to the Global-All solution vector
+   * @param[in] solnDot_ptr         Pointer to the time derivative of the Global-All solution vector
    * @param[in] globalTimeRead      Value of the global time that is read in. This is used for 
    *                               comparison and quality control purposes
    *
