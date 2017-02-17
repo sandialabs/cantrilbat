@@ -627,10 +627,9 @@ public:
 
 
   virtual bool
-  evalStoppingCritera(double &time_current,
-                      double &delta_t_n,
-                      const Epetra_Vector_Ghosted &y_n,
+  evalStoppingCritera(double &time_current, double &delta_t_n, const Epetra_Vector_Ghosted &y_n, 
                       const Epetra_Vector_Ghosted &ydot_n);
+
 
   /**
    * Return a vector of delta y's for calculation of the
@@ -638,9 +637,9 @@ public:
    */
   virtual void
   calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
-			 const Epetra_Vector* solnDot_ptr, Epetra_Vector& deltaSoln,
+			 const Epetra_Vector* const solnDot_ptr, Epetra_Vector& deltaSoln,
                          const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
-                         const  Epetra_Vector* solnWeights=0);
+                         const  Epetra_Vector* const solnWeights = nullptr);
 
   //! Save the solution to the end of an XML file using XML solution format
   /*!
@@ -662,13 +661,9 @@ public:
    *                               good guess for the next delta_t).
    */
   virtual void
-  saveSolutionEnd(const int itype,
-                  std::string baseFileName,
-                  const Epetra_Vector_Ghosted &m_y_n,
-                  const Epetra_Vector_Ghosted *m_ydot_n,
-                  const double t,
-                  const double delta_t,
-                  const double delta_t_np1 = 0.0);
+  saveSolutionEnd(const int itype, std::string baseFileName, const Epetra_Vector_Ghosted &m_y_n,
+                  const Epetra_Vector_Ghosted* const m_ydot_n, const double t,
+                  const double delta_t, const double delta_t_np1 = 0.0); 
 
   //! Read the solution from a saved file using the record number to identify the solution 
   /*!
@@ -689,13 +684,8 @@ public:
    * @param delta_t_next_read  delta time step for the next time step if available
    */
   void
-  readSolutionRecordNumber (const int itype,
-	       std::string baseFileName,
-	       Epetra_Vector_Ghosted &y_n_ghosted,
-	       Epetra_Vector_Ghosted * const ydot_n_ghosted,
-	       double &t_read,
-	       double &delta_t_read,
-	       double &delta_t_next_read);
+  readSolutionRecordNumber (const int itype, std::string baseFileName, Epetra_Vector_Ghosted &y_n_ghosted,
+	       Epetra_Vector_Ghosted * const ydot_n_ghosted, double &t_read, double &delta_t_read, double &delta_t_next_read);
 
   //! Read the solution from a saved file. (deprecated)
   /*!

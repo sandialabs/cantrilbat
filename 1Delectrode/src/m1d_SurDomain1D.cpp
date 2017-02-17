@@ -3,99 +3,84 @@
  *  Basic object to calculate the surface residuals for surface domains.
  */
 
-/*
- *  $Id: m1d_SurDomain1D.cpp 540 2013-02-27 22:18:26Z hkmoffa $
- */
-
 #include "m1d_SurDomain1D.h"
 
-#include "m1d_DomainDescription.h"
-#include "m1d_LocalNodeIndices.h"
 #include "m1d_NodalVars.h"
 #include "m1d_SurfDomainTypes.h"
 #include "m1d_BulkDomain1D.h"
 
-#include "m1d_exception.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_SurfDomainDescription.h"
 #include "m1d_DomainLayout.h"
 
 #include "m1d_Comm.h"
 
-#include "cantera/base/ctml.h"
-#include "cantera/base/stringUtils.h"
-
-#include "Epetra_Comm.h"
-
-#include "stdio.h"
-#include "stdlib.h"
-
-using namespace std;
-
-namespace m1d {
-//=====================================================================================================================
-SurDomain1D::SurDomain1D(SurfDomainDescription &bdd) :
-        Domain1D(),
-        SDD_(bdd),
-        NumOwnedNodes(0),
-        FirstGbNode(-1),
-        LastOwnedGbNode(-1),
-        NumBCs(-1),
-        IOwnLeft(false),
-        IOwnRight(false),
-        Index_LcNode(-1),
-        NodalVarPtr(0),
-        Index_NodalSD_(-1),
-        LI_ptr_(0),
-        NumNodeEqns(0),
-        IsAlgebraic_Node(0),
-        IsArithmeticScaled_Node(0),
-	NumDomainEqnsLeft_(0),
-	NumDomainEqnsRight_(0),
-        DiffFluxLeftBulkDomain_LastResid_NE(0),
-        DiffFluxRightBulkDomain_LastResid_NE(0),
-        TotalFluxLeftBulkDomain_LastResid_NE(0),
-        TotalFluxRightBulkDomain_LastResid_NE(0),
-        VarVectorLeftBulkDomain_LastResid_NE(0),
-        VarVectorRightBulkDomain_LastResid_NE(0)
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace m1d
+{
+//==================================================================================================================================
+SurDomain1D::SurDomain1D(SurfDomainDescription& bdd) :
+    Domain1D(),
+    SDD_(bdd),
+    NumOwnedNodes(0),
+    FirstGbNode(-1),
+    LastOwnedGbNode(-1),
+    NumBCs(-1),
+    IOwnLeft(false),
+    IOwnRight(false),
+    Index_LcNode(-1),
+    NodalVarPtr(0),
+    Index_NodalSD_(-1),
+    LI_ptr_(nullptr),
+    NumNodeEqns(0),
+    IsAlgebraic_Node(0),
+    IsArithmeticScaled_Node(0),
+    NumDomainEqnsLeft_(0),
+    NumDomainEqnsRight_(0),
+    DiffFluxLeftBulkDomain_LastResid_NE(0),
+    DiffFluxRightBulkDomain_LastResid_NE(0),
+    TotalFluxLeftBulkDomain_LastResid_NE(0),
+    TotalFluxRightBulkDomain_LastResid_NE(0),
+    VarVectorLeftBulkDomain_LastResid_NE(0),
+    VarVectorRightBulkDomain_LastResid_NE(0)
 {
     NumDomainEqns = SDD_.NumEquationsPerNode;
 }
-//=====================================================================================================================
-SurDomain1D::SurDomain1D(const SurDomain1D &r) :
-        Domain1D(),
-        SDD_(r.SDD_),
-        NumOwnedNodes(0),
-        FirstGbNode(-1),
-        LastOwnedGbNode(-1),
-        NumBCs(-1),
-        IOwnLeft(false),
-        IOwnRight(false),
-        Index_LcNode(-1),
-        NodalVarPtr(0),
-        Index_NodalSD_(-1),
-        LI_ptr_(0),
-        NumNodeEqns(0),
-        IsAlgebraic_Node(0),
-        IsArithmeticScaled_Node(0),
-	NumDomainEqnsLeft_(0),
-	NumDomainEqnsRight_(0),
-        DiffFluxLeftBulkDomain_LastResid_NE(0),
-        DiffFluxRightBulkDomain_LastResid_NE(0),
-        TotalFluxLeftBulkDomain_LastResid_NE(0),
-        TotalFluxRightBulkDomain_LastResid_NE(0),
-        VarVectorLeftBulkDomain_LastResid_NE(0),
-        VarVectorRightBulkDomain_LastResid_NE(0)
+//==================================================================================================================================
+SurDomain1D::SurDomain1D(const SurDomain1D& r) :
+    Domain1D(),
+    SDD_(r.SDD_),
+    NumOwnedNodes(0),
+    FirstGbNode(-1),
+    LastOwnedGbNode(-1),
+    NumBCs(-1),
+    IOwnLeft(false),
+    IOwnRight(false),
+    Index_LcNode(-1),
+    NodalVarPtr(0),
+    Index_NodalSD_(-1),
+    LI_ptr_(nullptr),
+    NumNodeEqns(0),
+    IsAlgebraic_Node(0),
+    IsArithmeticScaled_Node(0),
+    NumDomainEqnsLeft_(0),
+    NumDomainEqnsRight_(0),
+    DiffFluxLeftBulkDomain_LastResid_NE(0),
+    DiffFluxRightBulkDomain_LastResid_NE(0),
+    TotalFluxLeftBulkDomain_LastResid_NE(0),
+    TotalFluxRightBulkDomain_LastResid_NE(0),
+    VarVectorLeftBulkDomain_LastResid_NE(0),
+    VarVectorRightBulkDomain_LastResid_NE(0)
 {
     SurDomain1D::operator=(r);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 SurDomain1D::~SurDomain1D()
 {
 }
-//=====================================================================================================================
-SurDomain1D &
-SurDomain1D::operator=(const SurDomain1D &r)
+//==================================================================================================================================
+SurDomain1D&
+SurDomain1D::operator=(const SurDomain1D& r)
 {
     if (this == &r) {
         return *this;
@@ -132,10 +117,7 @@ SurDomain1D::operator=(const SurDomain1D &r)
 
     return *this;
 }
-//=====================================================================================================================
-/*
- * Return the identifying tag for this domain.
- */
+//==================================================================================================================================
 std::string SurDomain1D::id() const
 {
     int id = SDD_.ID();
@@ -145,19 +127,9 @@ std::string SurDomain1D::id() const
         return std::string("SurDomain1D_") + ZZCantera::int2str(id);
     }
 }
-
-//=====================================================================================================================
-/*
- *  Ok, at this point, we will have figured out the number of equations
- *  to be calculated at each node point. The object NodalVars will have
- *  been fully formed.
- *
- *  We use this to figure out where the local node number is and what
- *  equations correspond to what unknown.
- */
-void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
+//==================================================================================================================================
+void SurDomain1D::domain_prep(LocalNodeIndices* const li_ptr)
 {
-
     LI_ptr_ = li_ptr;
     /*
      *  Find the surface domain on which to apply the bc.
@@ -172,7 +144,7 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
      */
     Index_LcNode = LI_ptr_->GbNodeToLcNode(gbnode);
 
-    GlobalIndices *gi_ptr = LI_ptr_->GI_ptr_;
+    GlobalIndices* gi_ptr = LI_ptr_->GI_ptr_;
 
     /*
      * If the node doesn't exist on this processor we fill in some
@@ -206,7 +178,6 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
 
         /*
          * Download the number of equations that are defined on the domain
-         *
          */
         NumDomainEqns = SDD_.NumEquationsPerNode;
 
@@ -223,7 +194,6 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
         if (Index_NodalSD_ == -1) {
             throw m1d_Error("SurDomain1D::initialConditions", "logic error");
         }
-
         /*
          * Set the IsAlgebraic flag for the node list to "I don't know"
          */
@@ -233,19 +203,18 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
          * Set the IsArithmeticScaled flag for the node list to "I don't know"
          */
         IsArithmeticScaled_Node.resize(NumNodeEqns, -1);
-	//
-	//  Resize based on number of equations
-	//
-	Resid_BeforeSurDomain_NE.resize(NumNodeEqns, 0.0);
+        //
+        //  Resize based on number of equations
+        //
+        Resid_BeforeSurDomain_NE.resize(NumNodeEqns, 0.0);
         DomainResidVector_LastResid_NE.resize(NumNodeEqns, 0.0);
-
     }
 
     // Get Pointer to the left domain's domain description
-    DomainDescription *ldd = SDD_.LeftDomain;
+    DomainDescription* ldd = SDD_.LeftDomain;
     NumDomainEqnsLeft_ = 0;
     if (ldd) {
-        BulkDomainDescription * lbdd = dynamic_cast<BulkDomainDescription *>(ldd);
+        BulkDomainDescription* lbdd = dynamic_cast<BulkDomainDescription*>(ldd);
         // Download the number of equations in this domain
         NumDomainEqnsLeft_ = lbdd->NumEquationsPerNode;
 
@@ -255,9 +224,9 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
     }
 
     // Get Pointer to the right domain's domain description
-    DomainDescription *rdd = SDD_.RightDomain;
+    DomainDescription* rdd = SDD_.RightDomain;
     if (rdd) {
-        BulkDomainDescription * rbdd = dynamic_cast<BulkDomainDescription *>(rdd);
+        BulkDomainDescription* rbdd = dynamic_cast<BulkDomainDescription*>(rdd);
         // Download the number of equations in this domain
         NumDomainEqnsRight_ = rbdd->NumEquationsPerNode;
 
@@ -278,11 +247,9 @@ void SurDomain1D::domain_prep(LocalNodeIndices *li_ptr)
         }
     }
 }
-
-//=====================================================================================================================
-// Basic function to calculate the residual for the domain.
-void SurDomain1D::residEval(Epetra_Vector &res, const bool doTimeDependentResid, const Epetra_Vector *soln_ptr,
-                            const Epetra_Vector *solnDot_ptr, const Epetra_Vector *solnOld_ptr, const double t,
+//==================================================================================================================================
+void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
+                            const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
                             const double rdelta_t, ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
 {
     /*
@@ -291,11 +258,11 @@ void SurDomain1D::residEval(Epetra_Vector &res, const bool doTimeDependentResid,
      */
     residType_Curr_ = residType;
 
-    DomainDescription *ldd = SDD_.LeftBulk;
-    BulkDomain1D * lbd1d = 0;
-    BulkDomainDescription * lbdd = 0;
+    DomainDescription* ldd = SDD_.LeftBulk;
+    BulkDomain1D* lbd1d = 0;
+    BulkDomainDescription* lbdd = 0;
     if (ldd) {
-        lbdd = dynamic_cast<BulkDomainDescription *>(ldd);
+        lbdd = dynamic_cast<BulkDomainDescription*>(ldd);
         lbd1d = lbdd->BulkDomainPtr_;
         if (lbd1d) {
             for (int i = 0; i < NumDomainEqnsLeft_; i++) {
@@ -306,10 +273,10 @@ void SurDomain1D::residEval(Epetra_Vector &res, const bool doTimeDependentResid,
         }
     }
 
-    DomainDescription *rdd = SDD_.RightBulk;
-    BulkDomain1D * rbd1d = 0;
+    DomainDescription* rdd = SDD_.RightBulk;
+    BulkDomain1D* rbd1d = 0;
     if (rdd) {
-        BulkDomainDescription * rbdd = dynamic_cast<BulkDomainDescription *>(rdd);
+        BulkDomainDescription* rbdd = dynamic_cast<BulkDomainDescription*>(rdd);
         rbd1d = rbdd->BulkDomainPtr_;
         if (rbd1d) {
             for (int i = 0; i < NumDomainEqnsRight_; i++) {
@@ -336,15 +303,14 @@ void SurDomain1D::residEval(Epetra_Vector &res, const bool doTimeDependentResid,
             }
         }
     }
-
     err("residEval()");
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Transfer the bulk flux vectors to the surface flux vectors
 /*
  *  This routine update the following right flux vectors from the neighboring right bulk domain
- *      DiffFluxRightBulkDomain_LastResid_NE[i] 
- *	  TotalFluxRightBulkDomain_LastResid_NE[i] 
+ *      DiffFluxRightBulkDomain_LastResid_NE[i]
+ *	  TotalFluxRightBulkDomain_LastResid_NE[i]
  *	  VarVectorRightBulkDomain_LastResid_NE[i]
  *
  *  It then updates the corresponding left flux vectors from the left bulk domain
@@ -354,12 +320,11 @@ void SurDomain1D::residEval(Epetra_Vector &res, const bool doTimeDependentResid,
  */
 void SurDomain1D::updateBulkFluxVectors()
 {
-
-    DomainDescription *ldd = SDD_.LeftBulk;
-    BulkDomain1D * lbd1d = 0;
-    BulkDomainDescription * lbdd = 0;
+    DomainDescription* ldd = SDD_.LeftBulk;
+    BulkDomain1D* lbd1d = 0;
+    BulkDomainDescription* lbdd = 0;
     if (ldd) {
-        lbdd = dynamic_cast<BulkDomainDescription *>(ldd);
+        lbdd = dynamic_cast<BulkDomainDescription*>(ldd);
         lbd1d = lbdd->BulkDomainPtr_;
         if (lbd1d) {
             for (int i = 0; i < NumDomainEqnsLeft_; i++) {
@@ -370,10 +335,10 @@ void SurDomain1D::updateBulkFluxVectors()
         }
     }
 
-    DomainDescription *rdd = SDD_.RightBulk;
-    BulkDomain1D * rbd1d = 0;
+    DomainDescription* rdd = SDD_.RightBulk;
+    BulkDomain1D* rbd1d = 0;
     if (rdd) {
-        BulkDomainDescription * rbdd = dynamic_cast<BulkDomainDescription *>(rdd);
+        BulkDomainDescription* rbdd = dynamic_cast<BulkDomainDescription*>(rdd);
         rbd1d = rbdd->BulkDomainPtr_;
         if (rbd1d) {
             for (int i = 0; i < NumDomainEqnsRight_; i++) {
@@ -400,79 +365,53 @@ void SurDomain1D::updateBulkFluxVectors()
             }
         }
     }
-
 }
-//=====================================================================================================================
-// Generate the initial conditions
-/*
- *   For surface dirichlet conditions, we impose the t = 0- condition.
- *
- * @param doTimeDependentResid    Boolean indicating whether we should
- *                                formulate the time dependent residual
- * @param soln                    Solution vector. This is the input to
- *                                the residual calculation.
- * @param solnDot                 Solution vector. This is the input to
- *                                the residual calculation.
- * @param t                       Time
- * @param delta_t                 delta_t for the initial time step
- */
-void SurDomain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vector *soln_ptr, Epetra_Vector *solnDot_ptr,
-                                    const double t, const double delta_t)
+//==================================================================================================================================
+void SurDomain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vector* const soln_ptr,
+                                    Epetra_Vector* const solnDot_ptr, const double t, const double delta_t)
 {
-    Epetra_Vector &soln = *soln_ptr;
+    Epetra_Vector& soln = *soln_ptr;
     /*
      *  Quick return if we don't own the node that the boundary condition
      *  is to be applied on.
      */
     if (NumOwnedNodes == 0) {
         return;
-    } 
+    }
     /*
      *  Figure out the equation start for this node
      *   We start at the start of the equations for this node
      *   because we will be applying dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
     /*
      *   Find the offset of this domain on the node
      */
-    int offsetSD = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[Index_NodalSD_];
+    size_t offsetSD = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[Index_NodalSD_];
     /*
      *   Find the number of equations actually owned by this surface domain
      */
-    int numEqSD = SDD_.NumEquationsPerNode;
+    size_t numEqSD = SDD_.NumEquationsPerNode;
     /*
      *  Zero the solution components corresponding to this solution domain
      */
-    int istart = index_EqnStart + offsetSD;
+    size_t istart = index_EqnStart + offsetSD;
     if (solnDot_ptr) {
-        Epetra_Vector &solnDot = *solnDot_ptr;
-        for (int ieqn = 0; ieqn < numEqSD; ieqn++) {
+        Epetra_Vector& solnDot = *solnDot_ptr;
+        for (size_t ieqn = 0; ieqn < numEqSD; ieqn++) {
             soln[istart + ieqn] = 0.0;
             solnDot[istart + ieqn] = 0.0;
         }
     } else {
-        for (int ieqn = 0; ieqn < numEqSD; ieqn++) {
+        for (size_t ieqn = 0; ieqn < numEqSD; ieqn++) {
             soln[istart + ieqn] = 0.0;
         }
     }
 }
-//=====================================================================================================================
-// Base class for saving the solution on the domain in an xml node.
-/*
- *
- * @param oNode                Reference to the XML_Node
- * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
- * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
- * @param t                    time
- *
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same XML_Node information as proc 0. If
- *                             false, the xml_node info will only exist on proc 0.
- */
-void SurDomain1D::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector *soln_GLALL_ptr, const Epetra_Vector *solnDot_GLALL_ptr,
-                             const double t, bool duplicateOnAllProcs)
+//==================================================================================================================================
+void SurDomain1D::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GLALL_ptr,
+                             const Epetra_Vector* const solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
     // const double* s = soln_GLALL_ptr + loc();
     // Find the number of global equations on this domain, whether it's local or not
@@ -480,47 +419,46 @@ void SurDomain1D::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector *so
     // Find the global node number of the node where this domain resides
     //int locGbNode = SDD_.LocGbNode;
 
-    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    size_t eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
     ZZCantera::XML_Node& inlt = oNode.addChild("domain");
-    int numVar = NodalVarPtr->NumEquations;
+    size_t numVar = NodalVarPtr->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
     inlt.addAttribute("type", "surface");
     inlt.addAttribute("numVariables", numVar);
     double x0pos = NodalVarPtr->x0NodePos();
     double xpos =  NodalVarPtr->xNodePos();
-    double xfrac = NodalVarPtr->xFracNodePos(); 
+    double xfrac = NodalVarPtr->xFracNodePos();
     ZZctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
     ZZctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
     ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
-    for (int k = 0; k < numVar; k++) {
+    for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
-        string nm = NodalVarPtr->VariableName(k);
+        std::string nm = NodalVarPtr->VariableName(k);
         VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
-        string type = VarType::VarMainName(vv.VariableType);
+        std::string type = VarType::VarMainName(vv.VariableType);
         ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //
 //  This treatment assumes that the problem size stays constant. If this is not the case, the routine will
 //  error exit. If we need to change the problem size, then we will need to reinitialize a lot more that just
 //  the solution vector. This is best done after we have put in grid refinement.
 //
 //  Also, we assume that the number of variables stays the same. This may be fiddled with sooner than the number
-//  of grid points. There are probably some interesting possibilities here with just initializing a subset of 
+//  of grid points. There are probably some interesting possibilities here with just initializing a subset of
 //  variables. However, right now, if the number of variables aren't equal and in the same order, the
 //  routine will error exit.
 //
 //  Also we don't consider any interpolation in between time steps. We enter with an XML_Node specific
 //  to a particular time step. And then populate the solution vector with the saved solution.
-// 
+//
 void
-SurDomain1D::readDomain(const ZZCantera::XML_Node& simulationNode,
-                        Epetra_Vector * const soln_GLALL_ptr,
-                        Epetra_Vector * const solnDot_GLALL_ptr, double globalTimeRead)
+SurDomain1D::readDomain(const ZZCantera::XML_Node& simulationNode, Epetra_Vector* const soln_GLALL_ptr,
+                        Epetra_Vector* const solnDot_GLALL_ptr, double globalTimeRead)
 {
     /*
      *   Find the global node number of the node where this surface domain resides
@@ -529,62 +467,58 @@ SurDomain1D::readDomain(const ZZCantera::XML_Node& simulationNode,
 
     // Number of equations per node
     //int numEquationsPerNode = SDD_.NumEquationsPerNode;
-    string ids = id();
-    ZZCantera::XML_Node *domainNode_ptr = simulationNode.findNameID("domain", ids);
+    std::string ids = id();
+    ZZCantera::XML_Node* domainNode_ptr = simulationNode.findNameID("domain", ids);
     /*
      * get the NodeVars object pertaining to this global node
      */
-    int numVar = NodalVarPtr->NumEquations;
+    size_t numVar = NodalVarPtr->NumEquations;
 
     /*
      *  Get the global equation number index of the unknowns at this surface domain
      */
-    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    size_t eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
 
-    string iidd = (*domainNode_ptr)["id"]; 
+    std::string iidd = (*domainNode_ptr)["id"];
 
-    string s_points  = (*domainNode_ptr)["points"]; 
-    int points = atoi(s_points.c_str());
+    std::string s_points  = (*domainNode_ptr)["points"];
+    size_t points = atoi(s_points.c_str());
     if (points != 1) {
         printf("we have an unequal number of points\n");
         exit(-1);
     }
-    string ttype  = (*domainNode_ptr)["type"]; 
-    string snumVar  = (*domainNode_ptr)["numVariables"]; 
-    int numVarRstart = atoi(snumVar.c_str());
+    std::string ttype  = (*domainNode_ptr)["type"];
+    std::string snumVar  = (*domainNode_ptr)["numVariables"];
+    size_t numVarRstart = atoi(snumVar.c_str());
     if (numVarRstart != numVar) {
-       printf("we have an unequal number of variables at the node\n");
-       exit(-1);
+        printf("we have an unequal number of variables at the node\n");
+        exit(-1);
     }
 
-    double x0pos = ZZctml::getFloat(*domainNode_ptr, "X0", "toSI");     
-    double xpos = ZZctml::getFloat(*domainNode_ptr, "X", "toSI");     
-    double xfrac = ZZctml::getFloat(*domainNode_ptr, "Xfraction", "toSI");     
+    double x0pos = ZZctml::getFloat(*domainNode_ptr, "X0", "toSI");
+    double xpos = ZZctml::getFloat(*domainNode_ptr, "X", "toSI");
+    double xfrac = ZZctml::getFloat(*domainNode_ptr, "Xfraction", "toSI");
     NodalVarPtr->setupInitialNodePosition(x0pos, xfrac);
     NodalVarPtr->changeNodePosition(xpos);
 
-    for (int k = 0; k < numVar; k++) {
+    for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
-        string nm = NodalVarPtr->VariableName(k);
+        std::string nm = NodalVarPtr->VariableName(k);
         VarType vv = NodalVarPtr->VariableNameList_EqnNum[k];
-        string type = VarType::VarMainName(vv.VariableType);
+        std::string type = VarType::VarMainName(vv.VariableType);
         sval = ZZctml::getFloat(*domainNode_ptr, nm, "toSI");
         (*soln_GLALL_ptr)[eqnStart + k] = sval;
     }
 }
-//====================================================================================================================
-//  Fill the vector isAlgebraic with the values from the DomainDescription
-/*
- *
- */
-void SurDomain1D::fillIsAlgebraic(Epetra_IntVector & isAlgebraic)
+//==================================================================================================================================
+void SurDomain1D::fillIsAlgebraic(Epetra_IntVector& isAlgebraic)
 {
     // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
+    size_t locGbNode = SDD_.LocGbNode;
 
     // Get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    GlobalIndices* gi = LI_ptr_->GI_ptr_;
+    NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
     AssertTrace(NodalVarPtr == nv);
 
     int mySDD_ID = SDD_.ID();
@@ -594,42 +528,39 @@ void SurDomain1D::fillIsAlgebraic(Epetra_IntVector & isAlgebraic)
         return;
     }
 
-    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    size_t bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    size_t indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
      *   because we will be applying dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
 
-    int numVar = SDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
+    size_t numVar = SDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
         int isA = SDD_.IsAlgebraic_NE[k];
         isAlgebraic[index_EqnStart + indexSurfDomainOffset + k] = isA;
     }
     // Override the bulk domains too if we have information that overrides the equations for the bulk domains
-    for (int k = 0; k < NumNodeEqns; k++) {
+    for (size_t k = 0; k < static_cast<size_t>(NumNodeEqns); k++) {
         int isA = IsAlgebraic_Node[k];
         if (isA >= 0) {
             isAlgebraic[index_EqnStart + k] = isA;
         }
     }
 }
-//====================================================================================================================
-//  Fill the vector isAlgebraic with the values from the DomainDescription
-/*
- *
- */
-void SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
+//==================================================================================================================================
+void 
+SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScaled)
 {
     // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
+    size_t locGbNode = SDD_.LocGbNode;
 
     // Get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    GlobalIndices* gi = LI_ptr_->GI_ptr_;
+    NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
     AssertTrace(NodalVarPtr == nv);
 
     int mySDD_ID = SDD_.ID();
@@ -639,23 +570,23 @@ void SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
         return;
     }
 
-    int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    size_t bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
+    size_t indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
      *   because we will be applying dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
 
-    int numVar = SDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
+    size_t numVar = SDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
         int isA = SDD_.IsArithmeticScaled_NE[k];
         isArithmeticScaled[index_EqnStart + indexSurfDomainOffset + k] = isA;
     }
     // Override the bulk domains too if we have information that overrides the equations for the bulk domains
-    for (int k = 0; k < NumNodeEqns; k++) {
+    for (size_t k = 0; k < static_cast<size_t>(NumNodeEqns); k++) {
         int isA = IsArithmeticScaled_Node[k];
         if (isA >= 0) {
             isArithmeticScaled[index_EqnStart + k] = isA;
@@ -664,9 +595,9 @@ void SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
 }
 //===================================================================================================================================
 void
-SurDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
-				     Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
-                                     const Solve_Type_Enum solveType, const Epetra_Vector* solnWeights)
+SurDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* const solnDot_ptr,
+                                    Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
+                                    const Solve_Type_Enum solveType, const Epetra_Vector* const solnWeights)
 {
 
     int mySDD_ID = SDD_.ID();
@@ -677,32 +608,32 @@ SurDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, c
     int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
     if (bmatch != -1) {
 
-	/*
-	 *   Figure out the equation start for this node
-	 *   We start at the start of the equations for this node
-	 *   because we will be applying dirichlet conditions on the bulk
-	 *   equations.
-	 */
-	size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-	int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
-	//std::vector<VarType>& vnl = SDD_.VariableNameList;
-	size_t numVar = SDD_.NumEquationsPerNode;
-	size_t index;
-	double base;
-	for (size_t k = 0; k < numVar; k++) {
-	    //const VarType& vt = vnl[k];
-	    index = index_EqnStart + indexSurfDomainOffset + k;
-	    base = soln[index];
-	    deltaSoln[index] = 1.0E-5 * fabs(base) + 1.0E-9;
-	}
+        /*
+         *   Figure out the equation start for this node
+         *   We start at the start of the equations for this node
+         *   because we will be applying dirichlet conditions on the bulk
+         *   equations.
+         */
+        size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+        size_t indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+        //std::vector<VarType>& vnl = SDD_.VariableNameList;
+        size_t numVar = SDD_.NumEquationsPerNode;
+        size_t index;
+        double base;
+        for (size_t k = 0; k < numVar; k++) {
+            //const VarType& vt = vnl[k];
+            index = index_EqnStart + indexSurfDomainOffset + k;
+            base = soln[index];
+            deltaSoln[index] = 1.0E-5 * fabs(base) + 1.0E-9;
+        }
     } else {
-	printf("we shouldn't be here\n");
-	exit(-1);
+        printf("we shouldn't be here\n");
+        exit(-1);
     }
 }
 //===================================================================================================================================
-void SurDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, Epetra_Vector_Ghosted & atolVector,
-                                const Epetra_Vector_Ghosted * const atolV)
+void SurDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted& soln,
+                                Epetra_Vector_Ghosted& atolVector, const Epetra_Vector_Ghosted* const atolV)
 {
     int mySDD_ID = SDD_.ID();
 
@@ -712,27 +643,28 @@ void SurDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted 
     }
     int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
     if (bmatch != -1) {
-	int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
-	/*
-	 *   Figure out the equation start for this node
-	 *   We start at the start of the equations for this node
-	 *   because we will be applying dirichlet conditions on the bulk
-	 *   equations.
-	 */
-	int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-	int numVar = SDD_.NumEquationsPerNode;
-	for (int k = 0; k < numVar; k++) {
-	    // int isA = SDD_.IsArithmeticScaled_NE[k];
-	    atolVector[index_EqnStart + indexSurfDomainOffset + k] = atolDefault;
-	}
+        int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+        /*
+         *   Figure out the equation start for this node
+         *   We start at the start of the equations for this node
+         *   because we will be applying dirichlet conditions on the bulk
+         *   equations.
+         */
+        size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+        size_t numVar = SDD_.NumEquationsPerNode;
+        for (size_t k = 0; k < numVar; k++) {
+            // int isA = SDD_.IsArithmeticScaled_NE[k];
+            atolVector[index_EqnStart + indexSurfDomainOffset + k] = atolDefault;
+        }
     } else {
-	printf("we shouldn't be here\n");
-	exit(-1);
+        printf("we shouldn't be here\n");
+        exit(-1);
     }
 }
 //===================================================================================================================================
-void SurDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted & soln,
-                                      Epetra_Vector_Ghosted & atolDeltaDamping, const Epetra_Vector_Ghosted * const atolV)
+void 
+SurDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted& soln,
+                                 Epetra_Vector_Ghosted& atolDeltaDamping, const Epetra_Vector_Ghosted* const atolV)
 {
     int mySDD_ID = SDD_.ID();
 
@@ -741,23 +673,24 @@ void SurDomain1D::setAtolDeltaDamping(double atolDefault, double relcoeff, const
         return;
     }
     int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    size_t indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
      *   because we will be applying dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-    int numVar = SDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t numVar = SDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
         atolDeltaDamping[index_EqnStart + indexSurfDomainOffset + k] = relcoeff * atolDefault;
     }
 }
 //===================================================================================================================================
-void SurDomain1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted & soln,
-                                        const Epetra_Vector_Ghosted & solnDot, Epetra_Vector_Ghosted & atolVector_DAEInit,
-                                        const Epetra_Vector_Ghosted * const atolV)
+void 
+SurDomain1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted& soln,
+                                   const Epetra_Vector_Ghosted& solnDot, Epetra_Vector_Ghosted& atolVector_DAEInit,
+                                   const Epetra_Vector_Ghosted* const atolV)
 {
     int mySDD_ID = SDD_.ID();
 
@@ -766,24 +699,25 @@ void SurDomain1D::setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_
         return;
     }
     int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    size_t indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
      *   because we will be applying dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-    int numVar = SDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t numVar = SDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
         // int isA = SDD_.IsArithmeticScaled_NE[k];
         atolVector_DAEInit[index_EqnStart + indexSurfDomainOffset + k] = atolDefault;
     }
 }
-//================================================================================================================
-void SurDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted & soln,
-                                              const Epetra_Vector_Ghosted & solnDot, Epetra_Vector_Ghosted & atolDeltaDamping,
-                                              const Epetra_Vector_Ghosted * const atolV)
+//==================================================================================================================================
+void 
+SurDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted& soln,
+                                         const Epetra_Vector_Ghosted& solnDot, Epetra_Vector_Ghosted& atolDeltaDamping,
+                                         const Epetra_Vector_Ghosted* const atolV)
 {
     int mySDD_ID = SDD_.ID();
 
@@ -792,33 +726,32 @@ void SurDomain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoef
         return;
     }
     int bmatch = NodalVarPtr->SurfDomainIndex_fromID[mySDD_ID];
-    int indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
+    size_t indexSurfDomainOffset = NodalVarPtr->OffsetIndex_SurfDomainEqnStart_SDN[bmatch];
     /*
      *   Figure out the equation start for this node
      *   We start at the start of the equations for this node
      *   because we will be applying dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-    int numVar = SDD_.NumEquationsPerNode;
-    for (int k = 0; k < numVar; k++) {
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t numVar = SDD_.NumEquationsPerNode;
+    for (size_t k = 0; k < numVar; k++) {
         atolDeltaDamping[index_EqnStart + indexSurfDomainOffset + k] = relcoeff * atolDefault;
     }
 }
 //===================================================================================================================================
-// Method for writing the header for the surface domain to a tecplot file.
 void SurDomain1D::writeSolutionTecplotHeader()
 {
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid; //only proc 0 should write
 
     if (doWrite) {
-        std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
-        int numVar = NodalVarPtr->NumEquations;
+        std::vector<VarType>& variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+        size_t numVar = NodalVarPtr->NumEquations;
 
         //open tecplot file
         FILE* ofp;
-        const string sss = id();
+        const std::string sss = id();
         char filename[20];
         sprintf(filename, "%s%s", sss.c_str(), ".dat");
         ofp = fopen(filename, "w");
@@ -830,41 +763,29 @@ void SurDomain1D::writeSolutionTecplotHeader()
         fprintf(ofp, "\"t [s]\"  \n");
         fprintf(ofp, "\"x [m]\"  \n");
 
-        for (int k = 0; k < numVar; k++) {
-            VarType &vt = variableNameListNode[k];
-            string name = vt.VariableName(15);
+        for (size_t k = 0; k < numVar; k++) {
+            VarType& vt = variableNameListNode[k];
+            std::string name = vt.VariableName(15);
             fprintf(ofp, "\"%s\" \t", name.c_str());
         }
         fprintf(ofp, "\n");
         fclose(ofp);
     }
-
 }
 //===================================================================================================================================
-// Method for writing the solution on the surface domain to a tecplot file.
-/*
- *
- * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
- * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
- * @param t                    time
- *
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same log information as proc 0. If
- *                             false, the loginfo will only exist on proc 0.
- */
-void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll *soln_GlAll_ptr, const Epetra_Vector_GlAll *solnDot_GlAll_ptr,
-                                       const double t)
+void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll* const soln_GlAll_ptr,
+                                       const Epetra_Vector_GlAll* const solnDot_GlAll_ptr, const double t)
 {
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid; //only proc 0 should write
 
-    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
-    int numVar = NodalVarPtr->NumEquations;
+    size_t eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    size_t numVar = NodalVarPtr->NumEquations;
 
     if (doWrite) {
         //open tecplot file
         FILE* ofp;
-        string sss = id();
+        std::string sss = id();
         char filename[20];
         sprintf(filename, "%s%s", sss.c_str(), ".dat");
         ofp = fopen(filename, "a");
@@ -875,7 +796,7 @@ void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll *soln_GlAll_ptr
         fprintf(ofp, "%g \t", x0);
 
         // Write general variables
-        for (int k = 0; k < numVar; k++) {
+        for (size_t k = 0; k < numVar; k++) {
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
             fprintf(ofp, "%g \t", sval);
         }
@@ -894,7 +815,7 @@ void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll *soln_GlAll_ptr
  *                    on the processor this routine returns the value of
  *                    -1.0E300.
  */
-double SurDomain1D::extractSolnValue(Epetra_Vector_Ghosted *soln_ptr, VarType v1)
+double SurDomain1D::extractSolnValue(Epetra_Vector_Ghosted* const soln_ptr, VarType v1)
 {
     double val = -1.0E300;
     /*
@@ -909,8 +830,8 @@ double SurDomain1D::extractSolnValue(Epetra_Vector_Ghosted *soln_ptr, VarType v1
         return val;
     }
     int ioffset = -1;
-    int numNodeEqns = NodalVarPtr->NumEquations;
-    for (int j = 0; j < numNodeEqns; j++) {
+    size_t numNodeEqns = NodalVarPtr->NumEquations;
+    for (size_t j = 0; j < numNodeEqns; j++) {
         VarType vtNode = NodalVarPtr->VariableNameList_EqnNum[j];
         if (v1 == vtNode) {
             ioffset = j;
@@ -934,8 +855,8 @@ static void drawline(int sp, int ll)
     }
     ZZCantera::writelog("\n");
 }
-//=====================================================================================================================
-static void drawline0(stream0 &ss, int sp, int ll)
+//==================================================================================================================================
+static void drawline0(stream0& ss, int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
         ss.print0(" ");
@@ -946,84 +867,68 @@ static void drawline0(stream0 &ss, int sp, int ll)
     ss.print0("\n");
 }
 //=====================================================================================================================
-// Base class for writing the solution on the domain to a logfile.
-/*
- *
- * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
- * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
- * @param soln_ptr             Pointer to the solution vector
- * @param solnDot_ptr          Pointer to the time-derivative of the solution vector
- * @param solnOld_ptr          Pointer to the solution vector at the old time step
- * @param residInternal _ptr   Pointer to the current value of the residual just calculated
- *                             by a special call to the residEval()
- * @param t                    time
- * @param rdelta_t             The inverse of the value of delta_t
- * @param indentSpaces         Indentation that all output should have as a starter
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same log information as proc 0. If
- *                             false, the loginfo will only exist on proc 0.
- */
-void SurDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra_Vector *solnDot_GlAll_ptr,
-                               const Epetra_Vector *soln_ptr, const Epetra_Vector *solnDot_ptr, const Epetra_Vector *solnOld_ptr,
-                               const Epetra_Vector_Owned *residInternal_ptr, const double t, const double rdelta_t,
-                               int indentSpaces, bool duplicateOnAllProcs)
+void 
+SurDomain1D::showSolution(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+                          const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr, 
+                          const Epetra_Vector* const solnOld_ptr, const Epetra_Vector_Owned* const residInternal_ptr,
+                          const double t, const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs)
 {
 #ifdef DO_OLD_WAY
     showSolution0All(soln_GlAll_ptr, solnDot_GlAll_ptr, soln_ptr, solnDot_ptr, solnOld_ptr,
-            residInternal_ptr,t, rdelta_t, indentSpaces, duplicateOnAllProcs);
+                     residInternal_ptr,t, rdelta_t, indentSpaces, duplicateOnAllProcs);
     return;
 #else
     int locGbNode = SDD_.LocGbNode;
     //int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    string indent = "";
+    std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
         indent += " ";
     }
-    const char *ind = indent.c_str();
- 
-    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
-    int numVar = NodalVarPtr->NumEquations;
-    string sss = id();
+    const char* ind = indent.c_str();
+
+    size_t eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType>& variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    size_t numVar = NodalVarPtr->NumEquations;
+    std::string sss = id();
     stream0 ss;
 
     BulkDomain1D* bd = 0;
     BulkDomainDescription* bedd = SDD_.LeftBulk;
-    double *diffFlux = 0;
+    double* diffFlux = 0;
     if (!bedd) {
-	bedd = SDD_.RightBulk;
-	if (bedd) {
-	    bd = bedd->BulkDomainPtr_;
-	    diffFlux = &(bd->DiffFluxLeftBound_LastResid_NE[0]);
-	}
+        bedd = SDD_.RightBulk;
+        if (bedd) {
+            bd = bedd->BulkDomainPtr_;
+            diffFlux = &(bd->DiffFluxLeftBound_LastResid_NE[0]);
+        }
     } else {
-	bd = bedd->BulkDomainPtr_;
-	diffFlux = &(bd->DiffFluxRightBound_LastResid_NE[0]);
+        bd = bedd->BulkDomainPtr_;
+        diffFlux = &(bd->DiffFluxRightBound_LastResid_NE[0]);
     }
-    
+
 
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
     if (doWrite) {
         drawline0(ss, indentSpaces, 80);
-        ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
+        ss.print0("%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), static_cast<int>(numVar));
         ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
         double x0 = NodalVarPtr->x0NodePos();
         ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         drawline0(ss, indentSpaces, 80);
         ss.print0("%s     VariableName         Value        DirichletCondition\n", ind);
         drawline0(ss, indentSpaces + 2, 60);
-        for (int k = 0; k < numVar; k++) {
-            VarType &vt = variableNameListNode[k];
-            string name = vt.VariableName(15);
+        for (size_t k = 0; k < numVar; k++) {
+            VarType& vt = variableNameListNode[k];
+            std::string name = vt.VariableName(15);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
-	    if (vt.VariableType == Velocity_Axial) {
-		size_t offset = NodalVarPtr->Offset_VarTypeVector[(size_t) Velocity_Axial];
-		sval = diffFlux[offset];
-		ss.print0("%s   %-15s * % -10.4E ", ind, name.c_str(), sval);
-	    } else {
-		ss.print0("%s   %-15s   % -10.4E ", ind, name.c_str(), sval);
-	    }
+            if (vt.VariableType == Velocity_Axial) {
+                size_t offset = NodalVarPtr->Offset_VarTypeVector[(size_t) Velocity_Axial];
+                sval = diffFlux[offset];
+                ss.print0("%s   %-15s * % -10.4E ", ind, name.c_str(), sval);
+            } else {
+                ss.print0("%s   %-15s   % -10.4E ", ind, name.c_str(), sval);
+            }
             ss.print0("\n");
         }
         drawline0(ss, indentSpaces + 2, 60);
@@ -1032,53 +937,42 @@ void SurDomain1D::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra
     print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
 #endif
 }
-//=====================================================================================================================
-// Base class for writing a solution vector, not the solution, on the domain to a logfile.
-/*
- *  @param solnVecName          Name of the Solution Vector
- * @param solnVector_GlALL_ptr       Pointer to the Global-All solution vector
- * @param solnVector_ptr             Pointer to the solution vector
- * @param t                    time
- * @param rdelta_t             The inverse of the value of delta_t
- * @param indentSpaces         Indentation that all output should have as a starter
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same log information as proc 0. If
- *                             false, the loginfo will only exist on proc 0.
- */
-void SurDomain1D::showSolutionVector(std::string& solnVecName, const Epetra_Vector *solnVector_GlAll_ptr,
-                                     const Epetra_Vector *solnVector_ptr, const double t, const double rdelta_t, int indentSpaces,
-                                     bool duplicateOnAllProcs, FILE *of)
+//==================================================================================================================================
+void 
+SurDomain1D::showSolutionVector(std::string& solnVecName, const Epetra_Vector* const solnVector_GlAll_ptr,
+                                const Epetra_Vector* const solnVector_ptr, const double t, const double rdelta_t, int indentSpaces,
+                                bool duplicateOnAllProcs, FILE* const of)
 {
 
     int locGbNode = SDD_.LocGbNode;
     //int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    string indent = "";
+    std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
         indent += " ";
     }
-    const char *ind = indent.c_str();
+    const char* ind = indent.c_str();
 
-    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
-    int numVar = NodalVarPtr->NumEquations;
-    string sss = id();
+    size_t eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType>& variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    size_t numVar = NodalVarPtr->NumEquations;
+    std::string sss = id();
     stream0 ss(of);
 
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
     if (doWrite) {
         drawline0(ss, indentSpaces, 100);
         ss.print0("%s  %s Vector on Surface Domain %10s : Number of variables = %d\n", ind, solnVecName.c_str(), sss.c_str(),
-                numVar);
+                  numVar);
         ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
         double x0 = NodalVarPtr->x0NodePos();
         ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         drawline0(ss, indentSpaces, 100);
         ss.print0("%s     VariableName   GblEqnInd      Value  \n", ind);
         drawline0(ss, indentSpaces + 2, 60);
-        for (int k = 0; k < numVar; k++) {
-            VarType &vt = variableNameListNode[k];
-            string name = vt.VariableName(15);
+        for (size_t k = 0; k < numVar; k++) {
+            VarType& vt = variableNameListNode[k];
+            std::string name = vt.VariableName(15);
             double sval = (*solnVector_GlAll_ptr)[eqnStart + k];
             ss.print0("%s   %-15.15s  %7d  % -11.4E ", ind, name.c_str(), eqnStart + k, sval);
             ss.print0("\n");
@@ -1088,54 +982,43 @@ void SurDomain1D::showSolutionVector(std::string& solnVecName, const Epetra_Vect
     }
     print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
 }
-//=====================================================================================================================
-// Base class for writing an int solution vector, not the solution, on the domain to a logfile.
-/*
- *  @param solnVecName          Name of the Solution Vector
- * @param solnVector_GlALL_ptr       Pointer to the Global-All solution vector
- * @param solnVector_ptr             Pointer to the solution vector
- * @param t                    time
- * @param rdelta_t             The inverse of the value of delta_t
- * @param indentSpaces         Indentation that all output should have as a starter
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same log information as proc 0. If
- *                             false, the loginfo will only exist on proc 0.
- */
-void SurDomain1D::showSolutionIntVector(std::string& solnVecName, const Epetra_IntVector *solnIntVector_GlAll_ptr,
-                                        const Epetra_IntVector *solnIntVector_ptr, const double t, const double rdelta_t,
-                                        int indentSpaces, bool duplicateOnAllProcs, FILE *of)
+//==================================================================================================================================
+void 
+SurDomain1D::showSolutionIntVector(std::string& solnVecName, const Epetra_IntVector* const solnIntVector_GlAll_ptr,
+                                   const Epetra_IntVector* const solnIntVector_ptr, const double t, const double rdelta_t,
+                                   int indentSpaces, bool duplicateOnAllProcs, FILE* of)
 {
 
     int locGbNode = SDD_.LocGbNode;
     //int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    string indent = "";
+    std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
         indent += " ";
     }
-    const char *ind = indent.c_str();
+    const char* ind = indent.c_str();
     // get the NodeVars object pertaining to this global node
-   
-    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
-    int numVar = NodalVarPtr->NumEquations;
-    string sss = id();
+
+    size_t eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType>& variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    size_t numVar = NodalVarPtr->NumEquations;
+    std::string sss = id();
     stream0 ss(of);
 
     print0_sync_start(0, ss, * (LI_ptr_->Comm_ptr_));
     if (doWrite) {
         drawline0(ss, indentSpaces, 100);
         ss.print0("%s  %s Vector on Surface Domain %10s : Number of variables = %d\n", ind, solnVecName.c_str(), sss.c_str(),
-                numVar);
+                  numVar);
         ss.print0("%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
         double x0 = NodalVarPtr->x0NodePos();
         ss.print0("%s                                           : Node %d at pos %g\n", ind, locGbNode, x0);
         drawline0(ss, indentSpaces, 100);
         ss.print0("%s     VariableName   GblEqnInd      Value  \n", ind);
         drawline0(ss, indentSpaces + 2, 60);
-        for (int k = 0; k < numVar; k++) {
-            VarType &vt = variableNameListNode[k];
-            string name = vt.VariableName(15);
+        for (size_t k = 0; k < numVar; k++) {
+            VarType& vt = variableNameListNode[k];
+            std::string name = vt.VariableName(15);
             int sval = (*solnIntVector_GlAll_ptr)[eqnStart + k];
             ss.print0("%s   %-15.15s  %7d  % -11d ", ind, name.c_str(), eqnStart + k, sval);
             ss.print0("\n");
@@ -1146,45 +1029,29 @@ void SurDomain1D::showSolutionIntVector(std::string& solnVecName, const Epetra_I
     print0_sync_end(0, ss, * (LI_ptr_->Comm_ptr_));
 }
 
-//=====================================================================================================================
-// Base class for writing the solution on the domain to a logfile.
-/*
- *
- * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
- * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
- * @param soln_ptr             Pointer to the solution vector
- * @param solnDot_ptr          Pointer to the time-derivative of the solution vector
- * @param solnOld_ptr          Pointer to the solution vector at the old time step
- * @param residInternal _ptr   Pointer to the current value of the residual just calculated
- *                             by a special call to the residEval()
- * @param t                    time
- * @param rdelta_t             The inverse of the value of delta_t
- * @param indentSpaces         Indentation that all output should have as a starter
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same log information as proc 0. If
- *                             false, the loginfo will only exist on proc 0.
- */
-void SurDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr, const Epetra_Vector *solnDot_GlAll_ptr,
-                                   const Epetra_Vector *soln_ptr, const Epetra_Vector *solnDot_ptr,
-                                   const Epetra_Vector *solnOld_ptr, const Epetra_Vector_Owned *residInternal_ptr, const double t,
-                                   const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs)
+//==================================================================================================================================
+void 
+SurDomain1D::showSolution0All(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+                              const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
+                              const Epetra_Vector* const solnOld_ptr, const Epetra_Vector_Owned* residInternal_ptr, const double t,
+                              const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs)
 {
     char buf[132];
     int locGbNode = SDD_.LocGbNode;
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid || duplicateOnAllProcs;
-    string indent = "";
+    std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
         indent += " ";
     }
-    const char *ind = indent.c_str();
-    int eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
-    std::vector<VarType> &variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
-    int numVar = NodalVarPtr->NumEquations;
-    string sss = id();
+    const char* ind = indent.c_str();
+    size_t eqnStart = NodalVarPtr->EqnStart_GbEqnIndex;
+    std::vector<VarType>& variableNameListNode = NodalVarPtr->VariableNameList_EqnNum;
+    size_t numVar = NodalVarPtr->NumEquations;
+    std::string sss = id();
     if (doWrite) {
         drawline(indentSpaces, 80);
-        sprintf(buf, "%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), numVar);
+        sprintf(buf, "%s  Solution on Surface Domain %10s : Number of variables = %d\n", ind, sss.c_str(), static_cast<int>(numVar));
         ZZCantera::writelog(buf);
         sprintf(buf, "%s                                           : Number of boundary conditions = %d\n", ind, NumBCs);
         ZZCantera::writelog(buf);
@@ -1195,9 +1062,9 @@ void SurDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr, const Ep
         sprintf(buf, "%s     VariableName         Value        DirichletCondition\n", ind);
         ZZCantera::writelog(buf);
         drawline(indentSpaces + 2, 60);
-        for (int k = 0; k < numVar; k++) {
-            VarType &vt = variableNameListNode[k];
-            string name = vt.VariableName(15);
+        for (size_t k = 0; k < numVar; k++) {
+            VarType& vt = variableNameListNode[k];
+            std::string name = vt.VariableName(15);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
             sprintf(buf, "%s   %-15s   %-10.4E ", ind, name.c_str(), sval);
             ZZCantera::writelog(buf);
@@ -1208,34 +1075,34 @@ void SurDomain1D::showSolution0All(const Epetra_Vector *soln_GlAll_ptr, const Ep
         drawline(indentSpaces, 80);
     }
 }
-//=====================================================================================================================
-void SurDomain1D::err(const char *msg)
+//==================================================================================================================================
+void SurDomain1D::err(const char* msg)
 {
     printf("Domain1D: function not implemented: %s\n", msg);
     exit(-1);
 }
-//=====================================================================================================================
-//=====================================================================================================================
-//=====================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 
-SurBC_Dirichlet::SurBC_Dirichlet(SurfDomainDescription &sdd) :
-        SurDomain1D(sdd),
-        SpecFlag_NE(0),
-        Value_NE(0),
-        TimeDep_NE(0),
-        BC_TimeDep_NE(0),
-        BC_Type_NE(0)
+SurBC_Dirichlet::SurBC_Dirichlet(SurfDomainDescription& sdd) :
+    SurDomain1D(sdd),
+    SpecFlag_NE(0),
+    Value_NE(0),
+    TimeDep_NE(0),
+    BC_TimeDep_NE(0),
+    BC_Type_NE(0)
 {
 
 }
 //=====================================================================================================================
-SurBC_Dirichlet::SurBC_Dirichlet(const SurBC_Dirichlet &r) :
-        SurDomain1D(r.SDD_),
-        SpecFlag_NE(0),
-        Value_NE(0),
-        TimeDep_NE(0),
-        BC_TimeDep_NE(0),
-        BC_Type_NE(0)
+SurBC_Dirichlet::SurBC_Dirichlet(const SurBC_Dirichlet& r) :
+    SurDomain1D(r.SDD_),
+    SpecFlag_NE(0),
+    Value_NE(0),
+    TimeDep_NE(0),
+    BC_TimeDep_NE(0),
+    BC_Type_NE(0)
 {
     operator=(r);
 }
@@ -1250,8 +1117,8 @@ SurBC_Dirichlet::~SurBC_Dirichlet()
  * @param r      Object to be copied into the current object
  * @return       Returns a changeable reference to the current object
  */
-SurBC_Dirichlet &
-SurBC_Dirichlet::operator=(const SurBC_Dirichlet &r)
+SurBC_Dirichlet&
+SurBC_Dirichlet::operator=(const SurBC_Dirichlet& r)
 {
     if (this == &r) {
         return *this;
@@ -1274,7 +1141,7 @@ SurBC_Dirichlet::operator=(const SurBC_Dirichlet &r)
  *  We transfer the information from SDT_Dirichlet structure to
  * this structure for quick processing.
  */
-void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
+void SurBC_Dirichlet::domain_prep(LocalNodeIndices* li_ptr)
 {
     /*
      * First call the parent domain prep to get the node information
@@ -1293,7 +1160,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
      *  Make sure that the SurfDomainType associated with this domain
      *  is a straight surface Dirichlet condition
      */
-    SDT_Dirichlet *sdt = dynamic_cast<SDT_Dirichlet *>(&SDD_);
+    SDT_Dirichlet* sdt = dynamic_cast<SDT_Dirichlet*>(&SDD_);
     AssertThrow(sdt, "bad cast");
     /*
      * Zero out the current domain's setup section.
@@ -1333,10 +1200,10 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
         if (stDir == -1) {
             for (int j = 0; j < NumNodeEqns; j++) {
                 VarType eqt = NodalVarPtr->VariableNameList_EqnNum[j];
-                if ( (vtmDir == Variable_Type_Any) || (eqt.VariableType == vtmDir)) {
+                if ((vtmDir == Variable_Type_Any) || (eqt.VariableType == vtmDir)) {
                     if (SpecFlag_NE[j] == 1) {
                         throw m1d_Error("SurBC_Dirichlet::domain_prep",
-                                "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
+                                        "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
                     }
                     SpecFlag_NE[j] = 1;
                     Value_NE[j] = sdt->Value[i];
@@ -1354,7 +1221,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
                 if (vtDir == vtNode) {
                     if (SpecFlag_NE[j] == 1) {
                         throw m1d_Error("SurBC_Dirichlet::domain_prep",
-                                "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
+                                        "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
                     }
                     SpecFlag_NE[j] = 1;
                     Value_NE[j] = sdt->Value[i];
@@ -1367,10 +1234,10 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices *li_ptr)
                 }
             }
         }
-        if (!ifound ) {
-            string ss = vtDir.VariableName(24);
-            printf("SurBC_Dirichlet::domain_prep: didn't find equation for variable %s\n", ss.c_str()  );
-             
+        if (!ifound) {
+            std::string ss = vtDir.VariableName(24);
+            printf("SurBC_Dirichlet::domain_prep: didn't find equation for variable %s\n", ss.c_str());
+
         }
     }
 
@@ -1384,7 +1251,7 @@ int SurBC_Dirichlet::changeDirichletConditionValue(VarType vtDir, double newVal)
         if (vtDir == vtNode) {
             if (SpecFlag_NE[j] != 1) {
                 throw m1d_Error("SurBC_Dirichlet::domain_prep",
-                        "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
+                                "Error: multiple boundary conditions applied to the same variable " + ZZCantera::int2str(j));
             }
             Value_NE[j] = newVal;
             num++;
@@ -1407,7 +1274,7 @@ int SurBC_Dirichlet::changeDirichletConditionValue(VarType vtDir, double newVal)
  *   @return  Returns the number of boundary conditions matched.
  *            A negative number means that an error has been encountered
  */
-int SurBC_Dirichlet::changeBoundaryCondition(VarType vtDir, int BC_Type, double value, BoundaryCondition * BC_TimeDep,
+int SurBC_Dirichlet::changeBoundaryCondition(VarType vtDir, int BC_Type, double value, BoundaryCondition* BC_TimeDep,
                                              TimeDepFunctionPtr TimeDep)
 {
     int num = 0;
@@ -1453,15 +1320,15 @@ int SurBC_Dirichlet::changeBoundaryCondition(VarType vtDir, int BC_Type, double 
  *   @return  Returns the number of boundary conditions matched.
  *            A negative number means that an error has been encountered
  */
-int SurBC_Dirichlet::reportBoundaryCondition(double time, const VarType vtDir, int &BC_Type, double &value,
-                                             BoundaryCondition * &BC_TimeDep, TimeDepFunctionPtr &TimeDep) const
+int SurBC_Dirichlet::reportBoundaryCondition(double time, const VarType vtDir, int& BC_Type, double& value,
+                                             BoundaryCondition*& BC_TimeDep, TimeDepFunctionPtr& TimeDep) const
 {
     int num = 0;
     /*
      * Find the current time region
      */
-    DomainLayout *dl = SDD_.DL_ptr_;
-    ProblemResidEval *pb = dl->problemResid_;
+    DomainLayout* dl = SDD_.DL_ptr_;
+    ProblemResidEval* pb = dl->problemResid_;
     int timeRegion = pb->m_currentTimeRegion;
 
     for (int j = 0; j < NumNodeEqns; j++) {
@@ -1496,12 +1363,12 @@ int SurBC_Dirichlet::reportBoundaryCondition(double time, const VarType vtDir, i
  * @param soln         Solution vector at which the residual should be
  *                     evaluated
  */
-void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentResid, const Epetra_Vector *soln_ptr,
-                                const Epetra_Vector *solnDot_ptr, const Epetra_Vector *solnOld_ptr, const double t,
+void SurBC_Dirichlet::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                                const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr, const double t,
                                 const double rdelta_t, const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
 {
     int ieqn;
-    const Epetra_Vector &soln = *soln_ptr;
+    const Epetra_Vector& soln = *soln_ptr;
     /*
      *  Quick return if we don't own the node that the boundary condition
      *  is to be applied on.
@@ -1530,8 +1397,8 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
     /*
      * Find the current time region
      */
-    DomainLayout *dl = SDD_.DL_ptr_;
-    ProblemResidEval *pb = dl->problemResid_;
+    DomainLayout* dl = SDD_.DL_ptr_;
+    ProblemResidEval* pb = dl->problemResid_;
     int timeRegion = pb->m_currentTimeRegion;
 
     /*
@@ -1602,7 +1469,7 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
                 break;
             default:
                 throw m1d_Error("SDT_CathodeCollector::SetEquationDescription",
-                        "voltageVarBCType not 0-9 for Dirichlet, Neumann, and Time Dependence");
+                                "voltageVarBCType not 0-9 for Dirichlet, Neumann, and Time Dependence");
             }
 
         }
@@ -1621,8 +1488,8 @@ void SurBC_Dirichlet::residEval(Epetra_Vector &res, const bool doTimeDependentRe
  *                             the same XML_Node information as proc 0. If
  *                             false, the xml_node info will only exist on proc 0.
  */
-void SurBC_Dirichlet::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector *soln_GLALL_ptr,
-                                 const Epetra_Vector *solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
+void SurBC_Dirichlet::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* soln_GLALL_ptr,
+                                 const Epetra_Vector* solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
     // const double* s = soln_GLALL_ptr + loc();
     // Find the number of global equations on this domain, whether it's local or not
@@ -1631,8 +1498,8 @@ void SurBC_Dirichlet::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector
     int locGbNode = SDD_.LocGbNode;
 
     // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    GlobalIndices* gi = LI_ptr_->GI_ptr_;
+    NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
     int eqnStart = nv->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
     ZZCantera::XML_Node& inlt = oNode.addChild("domain");
@@ -1643,16 +1510,16 @@ void SurBC_Dirichlet::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector
     inlt.addAttribute("numVariables", numVar);
     double x0pos = nv->x0NodePos();
     double xpos = nv->xNodePos();
-    double xfrac = nv->xFracNodePos(); 
+    double xfrac = nv->xFracNodePos();
     ZZctml::addFloat(inlt, "X0", x0pos, "", "", ZZCantera::Undef, ZZCantera::Undef);
     ZZctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
     ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
     for (int k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
-        string nm = nv->VariableName(k);
+        std::string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
-        string type = VarType::VarMainName(vv.VariableType);
+        std::string type = VarType::VarMainName(vv.VariableType);
         ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
 }
@@ -1674,40 +1541,40 @@ void SurBC_Dirichlet::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector
  *                             the same log information as proc 0. If
  *                             false, the loginfo will only exist on proc 0.
  */
-void SurBC_Dirichlet::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Epetra_Vector *solnDot_GlAll_ptr,
-                                   const Epetra_Vector *soln_ptr, const Epetra_Vector *solnDot_ptr,
-                                   const Epetra_Vector *solnOld_ptr, const Epetra_Vector_Owned *residInternal_ptr, const double t,
+void SurBC_Dirichlet::showSolution(const Epetra_Vector* soln_GlAll_ptr, const Epetra_Vector* solnDot_GlAll_ptr,
+                                   const Epetra_Vector* soln_ptr, const Epetra_Vector* solnDot_ptr,
+                                   const Epetra_Vector* solnOld_ptr, const Epetra_Vector_Owned* residInternal_ptr, const double t,
                                    const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs)
 {
     int locGbNode = SDD_.LocGbNode;
     // int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    string indent = "";
+    std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
         indent += " ";
     }
-    const char *ind = indent.c_str();
+    const char* ind = indent.c_str();
     // get the NodeVars object pertaining to this global node
-    GlobalIndices *gi = LI_ptr_->GI_ptr_;
-    NodalVars *nv = gi->NodalVars_GbNode[locGbNode];
+    GlobalIndices* gi = LI_ptr_->GI_ptr_;
+    NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
     int eqnStart = nv->EqnStart_GbEqnIndex;
     //std::vector<VarType> &variableNameList = SDD_.VariableNameList;
-    std::vector<VarType> &variableNameListNode = nv->VariableNameList_EqnNum;
+    std::vector<VarType>& variableNameListNode = nv->VariableNameList_EqnNum;
     int numVar = nv->NumEquations;
-    string sss = id();
+    std::string sss = id();
 
     BulkDomain1D* bd = 0;
     BulkDomainDescription* bedd = SDD_.LeftBulk;
-    double *diffFlux = 0;
+    double* diffFlux = 0;
     if (!bedd) {
-	bedd = SDD_.RightBulk;
-	if (bedd) {
-	    bd = bedd->BulkDomainPtr_;
-	    diffFlux = &(bd->DiffFluxLeftBound_LastResid_NE[0]);
-	}
+        bedd = SDD_.RightBulk;
+        if (bedd) {
+            bd = bedd->BulkDomainPtr_;
+            diffFlux = &(bd->DiffFluxLeftBound_LastResid_NE[0]);
+        }
     } else {
-	bd = bedd->BulkDomainPtr_;
-	diffFlux = &(bd->DiffFluxRightBound_LastResid_NE[0]);
+        bd = bedd->BulkDomainPtr_;
+        diffFlux = &(bd->DiffFluxRightBound_LastResid_NE[0]);
     }
 
     stream0 ss;
@@ -1723,16 +1590,16 @@ void SurBC_Dirichlet::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Ep
         drawline0(ss, indentSpaces + 2, 60);
         int jDir = 0;
         for (int k = 0; k < numVar; k++) {
-            VarType &vt = variableNameListNode[k];
-            string name = vt.VariableName(20);
+            VarType& vt = variableNameListNode[k];
+            std::string name = vt.VariableName(20);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
-	    if (vt.VariableType == Velocity_Axial) {
-		size_t offset = NodalVarPtr->Offset_VarTypeVector[(size_t) Velocity_Axial];
-		sval = diffFlux[offset];
-		ss.print0("%s   %-20s * % -10.4E ", ind, name.c_str(), sval);
-	    } else {
-		ss.print0("%s   %-20s   % -10.4E ", ind, name.c_str(), sval);
-	    }
+            if (vt.VariableType == Velocity_Axial) {
+                size_t offset = NodalVarPtr->Offset_VarTypeVector[(size_t) Velocity_Axial];
+                sval = diffFlux[offset];
+                ss.print0("%s   %-20s * % -10.4E ", ind, name.c_str(), sval);
+            } else {
+                ss.print0("%s   %-20s   % -10.4E ", ind, name.c_str(), sval);
+            }
             if (SpecFlag_NE[k] != 0) {
                 ss.print0(" (Dir %d val = %-10.4E)", jDir, Value_NE[jDir]);
                 jDir++;
@@ -1758,11 +1625,12 @@ void SurBC_Dirichlet::showSolution(const Epetra_Vector *soln_GlAll_ptr, const Ep
  * @param t                       Time
  * @param delta_t                 delta_t for the initial time step
  */
-void SurBC_Dirichlet::initialConditions(const bool doTimeDependentResid, Epetra_Vector *soln_ptr, Epetra_Vector *solnDot,
+void SurBC_Dirichlet::initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln_ptr,
+                                        Epetra_Vector* solnDot,
                                         const double t, const double delta_t)
 {
     int ieqn;
-    Epetra_Vector &soln = *soln_ptr;
+    Epetra_Vector& soln = *soln_ptr;
     /*
      *  Quick return if we don't own the node that the boundary condition
      *  is to be applied on.
@@ -1774,8 +1642,8 @@ void SurBC_Dirichlet::initialConditions(const bool doTimeDependentResid, Epetra_
     /*
      * Find the current time region
      */
-    DomainLayout *dl = SDD_.DL_ptr_;
-    ProblemResidEval *pb = dl->problemResid_;
+    DomainLayout* dl = SDD_.DL_ptr_;
+    ProblemResidEval* pb = dl->problemResid_;
     int timeRegion = pb->m_currentTimeRegion;
 
     /*

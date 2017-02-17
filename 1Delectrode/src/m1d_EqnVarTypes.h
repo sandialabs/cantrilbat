@@ -54,6 +54,8 @@ public:
 
   //! Returns the variable main name given the variable type (Static function)
   /*!
+   *  @param[in]             variableType        Enum VAR_TYPE specifying what type of variable this is
+   *
    *  @return                                    Returns a string representation of the main VAR_TYPE enum
    */
   static std::string VarMainName(const VAR_TYPE variableType);
@@ -81,8 +83,13 @@ public:
    */
   void setID(const VAR_TYPE variableType, const VAR_TYPE_SUBNUM variableSubType = 0, const char *subName = nullptr);
 
-  std::string
-  VariableName(const int len = 128) const;
+  //! Returns a string representation of the variable name in a given space
+  /*!
+   *  @param[in]             len                 Number of characters to limit space. Defaults to 128
+   *
+   *  @return                                    Returns the string representation
+   */
+  std::string VariableName(const int len = 128) const;
 
   //! Variable type
   m1d::VAR_TYPE VariableType;

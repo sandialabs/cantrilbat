@@ -636,8 +636,7 @@ BulkDomain1D::fillIsArithmeticScaled(Epetra_IntVector  & isArithmeticScaled)
  * @param atolVector Reference for the atol vector to fill up
  */
 void BulkDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
-				 Epetra_Vector_Ghosted & atolVector,
-				 const Epetra_Vector_Ghosted * const atolV)
+				 Epetra_Vector_Ghosted & atolVector, const Epetra_Vector_Ghosted* const atolV)
 {
   int myBDD_ID = BDD_ptr_->ID();
   for (size_t iCell = 0; iCell < (size_t) NumLcCells; iCell++) {
