@@ -13,13 +13,12 @@
 #ifndef M1D_SOLVERS_H
 #define M1D_SOLVERS_H
 
-
 #include "m1d_defs.h"
 
 #include <Epetra_Vector.h>
 #include <Epetra_VbrMatrix.h>
 #include <Epetra_VbrRowMatrix.h>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 class LocalRowNodeVBRIndices;
@@ -64,5 +63,5 @@ int
 solve_amesos(Epetra_VbrRowMatrix* A, Epetra_Vector* v, Epetra_Vector* b,  EpetraJac *jac);
 
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

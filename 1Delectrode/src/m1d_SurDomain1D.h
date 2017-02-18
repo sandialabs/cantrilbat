@@ -3,20 +3,22 @@
  *  Basic object to calculate the surface residuals for surface domains.
  */
 /*
- *    $Id: m1d_SurDomain1D.h 363 2012-08-22 03:37:42Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
+
 
 #ifndef M1D_SURDOMAIN1D_H_
 #define M1D_SURDOMAIN1D_H_
 //! This is a heavyweight base class that provides the function
 //! evaluation for a single bulk domain.
 
-#include "m1d_DomainDescription.h"
 #include "m1d_Domain1D.h"
-#include "m1d_ProblemResidEval.h"
+#include "m1d_SurfDomainDescription.h"
 #include "m1d_BoundaryCondition.h"
 
-#include "Epetra_Vector.h"
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -153,8 +155,9 @@ public:
 
     //! Base Class for reading the solution from the saved file
     /*!
+     *  (virtual from Domain1D)
      *  This class assumes that the XML_Node is <domain> in the example below.
-     *
+     * @verbatim
      *  <simulation id="0">
      *    <time type="time" units="s" vtype="float"> 0.000000000000000E+00 </time>
      *    <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
@@ -170,60 +173,75 @@ public:
      *      <Volt(AnodeVoltage) vtype="float"> 0.000000000000000E+00 </Volt(AnodeVoltage)>
      *    </domain>
      *  </simulation>
+     * @endverbatim
      *
-     *
-     * @param domainNode                Reference to the XML_Node to read the solution from
-     * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
-     * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
-     *
+     * @param[in]            domainNode          Reference to the XML_Node to read the solution from
+     * @param[in]            soln_GlAll_ptr      Pointer to the Global-All solution vector
+     * @param[in]            solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector
+     * @param[in]            globalTimeRead      Value of the global time that is read in. This is used for
+     *                                           comparison and quality control purposes
      */
     virtual void
-    readDomain(const ZZCantera::XML_Node& domainNode,
-               Epetra_Vector* const soln_GlAll_ptr,
-               Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
+    readDomain(const ZZCantera::XML_Node& domainNode, Epetra_Vector* const soln_GlAll_ptr,
+               Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead) override;
 
 
-    //!  Fill the vector isAlgebraic with the values from the DomainDescription
+    //! Fill the vector isAlgebraic with the values from the DomainDescription
     /*!
-     * @param isAlgebraic  Epetra_IntVector to be filled with the IsAlgebraic values
+     *  (virtual from SurDomain1D)
+     *  @param[in]           isAlgebraic         Epetra_IntVector to be filled with the IsAlgebraic values
      */
-    virtual void fillIsAlgebraic(Epetra_IntVector&   isAlgebraic);
+    virtual void fillIsAlgebraic(Epetra_IntVector& isAlgebraic);
 
     //!  Fill the vector isArithmeticScaled with the values from the DomainDescription
     /*!
-     * @param isArithmeticScaled  Epetra_IntVector to be filled with the IsArithmeticScaled values
+     *  (virtual from SurDomain1D)
+     *  @param[in]           isArithmeticScaled  Epetra_IntVector to be filled with the IsArithmeticScaled values
      */
     virtual void fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScaled);
 
+    //! Evaluate a vector of delta quantities to use when evaluating the Jacobian by numerical differencing
+    /*!
+     *  (virtual from Domain1D)
+     *  @param[in]           t                   Time
+     *  @param[in]           soln                Solution vector. This is the input to the algorithm for picking a delta value
+     *  @param[in]           solnDot_ptr         Pointer to the time-derivative of the solution vector
+     *  @param[out]          deltaSoln           Reference to the Epetra_Vector that will contain the solution deltas.
+     *  @param[in]           atolVector_ptr      Pointer to  the atol vector for the solution unknowns
+     *  @param[in]           solveType           Type of solution Type. Uses the Solve_Type_Enum  type.
+     *                                           Defaults to  TimeDependentAccurate_Solve
+     *  @param[in]           solnWeights         Pointer to the solution weights vector. Defaults to nullptr.
+     */
     virtual void
-    calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
-                           const Epetra_Vector* solnDot_ptr, Epetra_Vector& deltaSoln,
-                           const Epetra_Vector* const atolVector_ptr,
+    calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* const solnDot_ptr, 
+                           Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
                            const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
-                           const  Epetra_Vector* solnWeights=0);
+                           const  Epetra_Vector* const solnWeights=nullptr) override;
 
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
     /*!
-     * @param atolDefault             Default atol value
-     * @param soln                    Solution vector. This is a constant
-     *                                the residual calculation.
-     * @param atolVector              (OUTPUT) Reference for the atol vector to fill up
+     *  (virtual from Domain1D)
+     *  @param[in]           atolDefault         Default atol value
+     *  @param[in]           soln                Solution vector. This is a constant the residual calculation.
+     *  @param[out]          atolVector          Reference for the atol vector to fill up
+     *  @param[in]           atolV               A previously defined atol vector from a previous context. Defaults to nullptr.
      */
     virtual void setAtolVector(double atolDefault, const Epetra_Vector_Ghosted& soln,
-                               Epetra_Vector_Ghosted& atolVector,
-                               const Epetra_Vector_Ghosted* const atolV = 0);
+                               Epetra_Vector_Ghosted& atolVector, const Epetra_Vector_Ghosted* const atolV = nullptr) override;
 
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
     /*!
-     * @param atolDefault             Default atol value
-     * @param soln                    Solution vector. This is a constant
-     *                                the residual calculation.
-     * @param atolVector              (OUTPUT) Reference for the atol vector to fill up
+     *  (virtual from Domain1D)
+     *  @param[in]           atolDefault         Default atol value
+     *  @param[in]           soln                Solution vector. This is a constant the residual calculation.
+     *  @param[in]           solnDot             Current solutionDot vector.
+     *  @param[out]          atolVector_DAEInit  Reference for the atol vector to fill up
+     *  @param[in]           atolV               A previously defined atol vector from a previous context. Defaults to nullptr.
      */
-    virtual void setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted& soln,
-                                       const Epetra_Vector_Ghosted& solnDot,
-                                       Epetra_Vector_Ghosted& atolVector_DAEInit,
-                                       const Epetra_Vector_Ghosted* const atolV = 0);
+    virtual void 
+    setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot,
+                          Epetra_Vector_Ghosted& atolVector_DAEInit, 
+                          const Epetra_Vector_Ghosted* const atolV = nullptr) override;
 
     //! Evaluates the atol vector used in the delta damping process.
     /*!
@@ -233,31 +251,30 @@ public:
      *                      The default is zero.
      */
     virtual void
-    setAtolDeltaDamping(double atolDefault, double relcoeff,
-                        const Epetra_Vector_Ghosted& soln,
-                        Epetra_Vector_Ghosted& atolDeltaDamping,
-                        const Epetra_Vector_Ghosted* const atolV = 0);
+    setAtolDeltaDamping(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted& soln,
+                        Epetra_Vector_Ghosted& atolDeltaDamping, const Epetra_Vector_Ghosted* const atolV = nullptr) override;
 
     //! Evaluates the atol vector used in the delta damping process for the DAE problem
     /*!
-     *   @param relcoeff     Relative constant to multiply all terms by
-     *   @param soln         current solution vector.
-     *   @param solnDot      Current solutionDot vector.
-     *   @param atolDeltaDamping       If non-zero, this copies the vector into the object as input
-     *                       The default is zero.
+     *  (virtual from Domain1D)
+     *  @param[in]           atolDefault         Default atol value
+     *  @param[in]           relcoeff            Relative constant to multiply all terms by
+     *  @param[in]           soln                Current solution vector.
+     *  @param[in]           atolDeltaDamping    If non-zero, this copies the vector into the object as input
+     *                                           The default is zero.
+     *  @param[in]           atolV               A previously defined atol vector from a previous context. Defaults to nullptr.
      */
     virtual void
-    setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff,
-                                const Epetra_Vector_Ghosted& soln,
-                                const Epetra_Vector_Ghosted& solnDot,
-                                Epetra_Vector_Ghosted& atolDeltaDamping,
-                                const Epetra_Vector_Ghosted* const atolV = 0);
+    setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted& soln,
+                                const Epetra_Vector_Ghosted& solnDot, Epetra_Vector_Ghosted& atolDeltaDamping,
+                                const Epetra_Vector_Ghosted* const atolV = nullptr) override;
 
-    // Method for writing the header for the surface domain to a tecplot file.
-    /*
+    //! Method for writing the header for the surface domain to a tecplot file.
+    /*!
+     *  (virtual from Domain1D)
      * Only proc0 will write tecplot files.
      */
-    virtual void writeSolutionTecplotHeader();
+    virtual void writeSolutionTecplotHeader() override;
 
     //! Method for writing the solution on the surface domain to a tecplot file.
     /*!
@@ -328,68 +345,58 @@ public:
     virtual void
     showSolutionIntVector(std::string& solnVecName, const Epetra_IntVector* const solnIntVector_GlAll_ptr,
                           const Epetra_IntVector* const solnIntVector_ptr, const double t, const double rdelta_t,
-                          int indentSpaces, bool duplicateOnAllProcs = false, FILE* of = stdout);
+                          int indentSpaces, bool duplicateOnAllProcs = false, FILE* of = stdout) override;
 
-    //! Base class for writing the solution on the domain to a logfile.
+    //! Class for writing the solution on the domain to a logfile.
     /*!
-     *
-     * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
-     * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
-     * @param soln_ptr             Pointer to the solution vector
-     * @param solnDot_ptr          Pointer to the time-derivative of the solution vector
-     * @param solnOld_ptr          Pointer to the solution vector at the old time step
-     * @param residInternal _ptr   Pointer to the current value of the residual just calculated
-     *                             by a special call to the residEval()
-     * @param t                    time
-     * @param rdelta_t             The inverse of the value of delta_t
-     * @param indentSpaces         Indentation that all output should have as a starter
-     * @param duplicateOnAllProcs  If this is true, all processors will include
-     *                             the same log information as proc 0. If
-     *                             false, the loginfo will only exist on proc 0.
+     *  @param[in]           soln_GlAll_ptr      Pointer to the Global-All solution vector
+     *  @param[in]           solnDot_GlAll_ptr   Pointer to the Global-All solution dot vector
+     *  @param[in]           soln_ptr            Pointer to the solution vector
+     *  @param[in]           solnDot_ptr         Pointer to the time-derivative of the solution vector
+     *  @param[in]           solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in]           residInternal_ptr   Pointer to the current value of the residual just calculated
+     *                                             by a special call to the residEval()
+     *  @param[in]           t                   time
+     *  @param[in]           rdelta_t            The inverse of the value of delta_t
+     *  @param[in]           indentSpaces        Indentation that all output should have as a starter
+     *  @param[in]           duplicateOnAllProcs If this is true, all processors will include the same log information as proc 0. If
+     *                                           false, the loginfo will only exist on proc 0.
      */
     void
-    showSolution0All(const Epetra_Vector* soln_GlAll_ptr,
-                     const Epetra_Vector* solnDot_GlAll_ptr,
-                     const Epetra_Vector* soln_ptr,
-                     const Epetra_Vector* solnDot_ptr,
-                     const Epetra_Vector* solnOld_ptr,
-                     const Epetra_Vector_Owned* residInternal_ptr,
-                     const double t,
-                     const double rdelta_t,
-                     int indentSpaces,
-                     bool duplicateOnAllProcs = false);
+    showSolution0All(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+                     const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
+                     const Epetra_Vector* const solnOld_ptr, const Epetra_Vector_Owned* const residInternal_ptr,
+                     const double t, const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs = false);
 
     //! Extract the double value out of a solution vector for a particular
     //! variable defined at a node corresponding to the surface domain
     /*!
-     *  @param  soln_ptr   Pointer to the ghosted solution vector
-     *  @param  v1         VarType of the variable to be returned
+     *  @param[in]           soln_ptr            Pointer to the ghosted solution vector
+     *  @param[in]           v1                  VarType of the variable to be returned
      *
-     *  @return           Returns the value of the variable. If the variable doesn't exist
-     *                    on the processor this routine returns the value of
-     *                    -1.0E300.
+     *  @return                                  Returns the value of the variable. If the variable doesn't exist
+     *                                           on the processor this routine returns the value of -1.0E300.
      */
     double
-    extractSolnValue(Epetra_Vector_Ghosted* soln_ptr, VarType v1);
+    extractSolnValue(Epetra_Vector_Ghosted* const soln_ptr, VarType v1);
 
     //! Transfer the bulk flux vectors to the surface flux vectors
     /*!
-     *  This routine update the following right flux vectors from the neighboring right bulk domain
-     *      DiffFluxRightBulkDomain_LastResid_NE[i]
+     *  (virtual from SurDomain1D)
+     *  This routine update the following right flux vectors from the neighboring right bulk domain.
+     *
+     *    DiffFluxRightBulkDomain_LastResid_NE[i]
      *	  TotalFluxRightBulkDomain_LastResid_NE[i]
      *	  VarVectorRightBulkDomain_LastResid_NE[i]
      *
-     *  It then updates the corresponding left flux vectors from the left bulk domain
+     *  It then updates the corresponding left flux vectors from the left bulk domain.
      *
      *  This routine is typically called from the residEval routine. However, it's modular
-     *  enough to be carved out as its own routine. We make it virtual because it may be
-     *  overridden in other routines.
+     *  enough to be carved out as its own routine. We make it virtual because it may be overridden in other routines.
      */
     virtual void updateBulkFluxVectors();
 
-    // *******************************************************************************
-    //   End of functions - start of member data
-    // *******************************************************************************
+    // --------------------------------------- D A T A ----------------------------------------------------------------
 
     //! Light description of what this domain is about
     /*!
@@ -400,7 +407,7 @@ public:
 
     //! Number of owned nodes in this domain
     /*!
-     * For surfaces, this is either 1 or 0
+     *  For surfaces, this is either 1 or 0
      */
     int NumOwnedNodes;
 

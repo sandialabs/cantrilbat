@@ -3,15 +3,14 @@
  *
  *  Created on: May 19, 2009
  *      Author: hkmoffa
- * $Id: m1d_Domain1D.h 592 2013-05-13 16:57:58Z hkmoffa $
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
  * work by or on behalf of the U.S. Government. Export of this program
  * may require a license from the United States Government.
  */
-
 
 #ifndef M1D_DOMAIN1D_H_
 #define M1D_DOMAIN1D_H_
@@ -21,11 +20,9 @@
 #include "m1d_ProblemResidEval.h"
 
 #include "Epetra_Vector.h"
-#include "Epetra_IntVector.h"
 
 #include "cantera/base/xml.h"
 
-#include <string>
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -170,13 +167,20 @@ public:
     //! Returns the identifying tag for the domain
     /*!
      *  (virtual from Domain1D)
-     *  @return                                    Returns the string name for teh domain
+     *  @return                                    Returns the string name for the domain
      */
     virtual std::string id() const;
 
     //! Prepare all of the indices for fast calculation of the residual
     /*!
      *  (virtual from Domain1D)
+     *  Ok, at this point, we will have figured out the number of equations
+     *  to be calculated at each node point. The object NodalVars will have been fully formed.
+     *
+     *  We use domain_prep() to figure out what the local node number is and what equations correspond to what unknown.
+     *
+     *  Child objects of domain_prep() will normally call parent classes in a recursive fashion.
+     *
      *  @param[in]             li_ptr              Pointer to the LocalNodeIndices Structure that contains information
      *                                             about how the mesh is layed out within this domain and other domains in the problem
      */
@@ -543,6 +547,7 @@ public:
 
     //! Evaluate a vector of delta quantities to use when evaluating the Jacobian by numerical differencing
     /*!
+     *  (virtual from Domain1D)
      *  @param[in]           t                   Time
      *  @param[in]           soln                Solution vector. This is the input to the algorithm for picking a delta value
      *  @param[in]           solnDot_ptr         Pointer to the time-derivative of the solution vector

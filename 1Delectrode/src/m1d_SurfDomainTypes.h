@@ -1,8 +1,12 @@
 /**
  * @file m1d_SurfDomainTypes.h
  */
+
 /*
- * $Id: m1d_SurfDomainTypes.h 5 2012-02-23 21:34:18Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #ifndef M1D_SURFDOMAINTYPES_H_
@@ -10,10 +14,10 @@
 
 #include "m1d_SurfDomainDescription.h"
 #include "m1d_BoundaryCondition.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
+//==================================================================================================================================
 //! This class specifies that all equations are handled
 //! by a simple Dirichlet condition
 /*!
@@ -175,7 +179,7 @@ public:
     */
    std::vector<int> BC_Type_;
 };
-
+//==================================================================================================================================
 //! This class specifies that some of the equations are handled by Dirichlet conditions
 /*!
  *  However other equations are handled by flux and reaction conditions
@@ -260,6 +264,7 @@ public:
      */
     int SBC_Type_;
 };
-
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif /* M1D_SURFDOMAINTYPES_H_ */
