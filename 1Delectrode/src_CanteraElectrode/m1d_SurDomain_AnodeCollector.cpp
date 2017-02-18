@@ -118,15 +118,13 @@ SurDomain_AnodeCollector::domain_prep(LocalNodeIndices* li_ptr)
      */
     SurBC_Dirichlet::domain_prep(li_ptr);
 
-    for (int j = 0; j < NumNodeEqns; j++) {
+    for (size_t j = 0; j < NumNodeEqns; j++) {
         if (BC_Type_NE[j] == 10) {
             //SpecFlag_NE[j] = 0;
         }
-
     }
-
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
  *  We calculate the additions and/or replacement of the
@@ -192,7 +190,7 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
      *    -> This takes care of the current surface domain equation
      */
     double res_contrib = 0.0;
-    for (int i = 0; i < NumNodeEqns; i++) {
+    for (size_t i = 0; i < NumNodeEqns; i++) {
         if (SpecFlag_NE[i]) {
 	    res_contrib = 0.0;
             ieqn = index_EqnStart + i;
@@ -548,13 +546,10 @@ SurDomain_AnodeCollector::eval_HeatBalance(const int ifunc,
  * @param delta_t                 delta_t for the initial time step
  */
 void
-SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid,
-                                            Epetra_Vector* soln_ptr,
-                                            Epetra_Vector* solnDot,
-                                            const double t,
-                                            const double delta_t)
+SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid, Epetra_Vector* const soln_ptr,
+                                            Epetra_Vector* const solnDot, const double t, const double delta_t)
 {
-    int ieqn;
+    size_t ieqn;
     Epetra_Vector& soln = *soln_ptr;
     /*
      *  Quick return if we don't own the node that the boundary condition
@@ -563,19 +558,17 @@ SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid,
     if (NumOwnedNodes == 0) {
         return;
     }
-
     /*
      *  Figure out the equation start for this node
      *   We start at the start of the equations for this node
      *   because we will be applying Dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
-
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
     /*
      *  Loop over the equations that the boundary conditions are going to be applied to
      */
-    for (int i = 0; i < NumNodeEqns; i++) {
+    for (size_t i = 0; i < NumNodeEqns; i++) {
         if (SpecFlag_NE[i]) {
             /*
              *  For Dirichlet equations, replace the solution
@@ -592,23 +585,21 @@ SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid,
         }
     }
 }
-//=================================================================================================================
-void SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* soln_GLALL_ptr,
-                                          const Epetra_Vector* solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
+//==================================================================================================================================
+void
+SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GLALL_ptr,
+                                     const Epetra_Vector* const solnDot_GLALL_ptr, const double t, bool duplicateOnAllProcs)
 {
-    // const double* s = soln_GLALL_ptr + loc();
-    // Find the number of global equations on this domain, whether it's local or not
-    //int numEquationsGb = SDD_.NumEquationsPerNode;
     // Find the global node number of the node where this domain resides
-    int locGbNode = SDD_.LocGbNode;
+    size_t locGbNode = SDD_.LocGbNode;
 
     // get the NodeVars object pertaining to this global node
     GlobalIndices* gi = LI_ptr_->GI_ptr_;
     NodalVars* nv = gi->NodalVars_GbNode[locGbNode];
-    int eqnStart = nv->EqnStart_GbEqnIndex;
+    size_t eqnStart = nv->EqnStart_GbEqnIndex;
     //XML_Node& inlt = o.addChild("inlet");
     ZZCantera::XML_Node& inlt = oNode.addChild("domain");
-    int numVar = nv->NumEquations;
+    size_t numVar = nv->NumEquations;
     inlt.addAttribute("id", id());
     inlt.addAttribute("points", 1);
     inlt.addAttribute("type", "surface");
@@ -620,18 +611,16 @@ void SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epet
     ZZctml::addFloat(inlt, "X", xpos, "", "", ZZCantera::Undef, ZZCantera::Undef);
     ZZctml::addFloat(inlt, "Xfraction", xfrac, "", "", ZZCantera::Undef, ZZCantera::Undef);
 
-    for (int k = 0; k < numVar; k++) {
+    for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
         string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
         string type = VarType::VarMainName(vv.VariableType);
         ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
-    string nm = "Volts(AnodeCCVoltage)";
+    std::string nm = "Volts(AnodeCCVoltage)";
     ZZctml::addFloat(inlt, nm, phiAnodeCC_, "", "", ZZCantera::Undef, ZZCantera::Undef);
-
 }
-
 //=====================================================================================================================
 } /* End of Namespace */
-//=====================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------

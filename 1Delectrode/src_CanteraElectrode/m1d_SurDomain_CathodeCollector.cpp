@@ -158,14 +158,13 @@ void SurDomain_CathodeCollector::domain_prep(LocalNodeIndices* li_ptr)
  * @param soln         Solution vector at which the residual should be
  *                     evaluated
  */
-void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTimeDependentResid,
-                                           const Epetra_Vector* soln_ptr,
-                                           const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr, const double t,
+void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
+                                           const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
                                            const double rdelta_t, const ResidEval_Type_Enum residType,
                                            const Solve_Type_Enum solveType)
 {
     residType_Curr_ = residType;
-    int ieqn;
+    size_t ieqn;
     const Epetra_Vector& soln = *soln_ptr;
     incrementCounters(residType);
     /*
@@ -214,7 +213,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
      *    -> This takes care of the current surface domain equation
      */
     double res_contrib = 0.0;
-    for (int i = 0; i < NumNodeEqns; i++) {
+    for (size_t i = 0; i < NumNodeEqns; i++) {
         if (SpecFlag_NE[i]) {
 	    res_contrib = 0.0;
             ieqn = index_EqnStart + i;
@@ -662,11 +661,10 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
  * @param t                       Time
  * @param delta_t                 delta_t for the initial time step
  */
-void SurDomain_CathodeCollector::initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln_ptr,
-                                                   Epetra_Vector* solnDot,
-                                                   const double t, const double delta_t)
+void SurDomain_CathodeCollector::initialConditions(const bool doTimeDependentResid, Epetra_Vector* const soln_ptr,
+                                                   Epetra_Vector* const solnDot, const double t, const double delta_t)
 {
-    int ieqn;
+    size_t ieqn;
     Epetra_Vector& soln = *soln_ptr;
     /*
      *  Quick return if we don't own the node that the boundary condition
@@ -688,12 +686,12 @@ void SurDomain_CathodeCollector::initialConditions(const bool doTimeDependentRes
      *   because we will be applying Dirichlet conditions on the bulk
      *   equations.
      */
-    int index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
+    size_t index_EqnStart = LI_ptr_->IndexLcEqns_LcNode[Index_LcNode];
 
     /*
      *  Loop over the equations that the boundary conditions are going to be applied to
      */
-    for (int i = 0; i < NumNodeEqns; i++) {
+    for (size_t i = 0; i < NumNodeEqns; i++) {
         if (SpecFlag_NE[i]) {
             /*
              *  For Dirichlet equations, replace the solution
@@ -713,7 +711,7 @@ void SurDomain_CathodeCollector::initialConditions(const bool doTimeDependentRes
     // Store either the cathode voltage or current as specified by the BC
     //
     //  The cathode voltage variable index is 1 greater than the electrolyte voltage index
-    int indexCathVoltage = bedd_->VariableIndexStart_VarName[Voltage] + 1;
+    size_t indexCathVoltage = bedd_->VariableIndexStart_VarName[Voltage] + 1;
     ieqn = index_EqnStart + indexCathVoltage;
 
     //  if we are setting the voltage, then use the value computed above for phiCathode_
