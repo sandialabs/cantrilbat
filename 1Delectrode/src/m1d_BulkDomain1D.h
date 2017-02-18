@@ -581,7 +581,7 @@ public:
      *
      *  Length = number of equations defined on this domain
      */
-    std::vector<double> VarVectorLeftBound_LastResid_NE;
+    //std::vector<double> VarVectorLeftBound_LastResid_NE;
 
     //! Value of the variable as seen from the right side of domain from the last residual calculation
     /*!
@@ -590,7 +590,7 @@ public:
      *
      *  Length = number of equations defined on this domain
      */
-    std::vector<double> VarVectorRightBound_LastResid_NE;
+    //std::vector<double> VarVectorRightBound_LastResid_NE;
 
     //! Value of Residual contributions at the left side of the domain from this domain only
     /*!

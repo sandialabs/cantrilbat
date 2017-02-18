@@ -547,14 +547,14 @@ public:
      *  This is the value of the solution vector from the left bulk domain. We store a temporary copy here
      *  Length: NumDomainEqnsLeft_
      */
-    std::vector<double> VarVectorLeftBulkDomain_LastResid_NE;
+    //std::vector<double> VarVectorLeftBulkDomain_LastResid_NE;
 
     //! Variable Vector from the right bulk domain
     /*!
      *  This is the value of the solution vector from the right bulk domain. We store a temporary copy here
      *   Length: NumDomainEqnsRight_
      */
-    std::vector<double> VarVectorRightBulkDomain_LastResid_NE;
+    //std::vector<double> VarVectorRightBulkDomain_LastResid_NE;
 
     //!  Residual fed into the surface domain before application of BCs
     /*!

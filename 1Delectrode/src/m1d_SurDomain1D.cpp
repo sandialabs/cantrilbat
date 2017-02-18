@@ -106,8 +106,6 @@ SurDomain1D& SurDomain1D::operator=(const SurDomain1D& r)
     DiffFluxRightBulkDomain_LastResid_NE = r.DiffFluxRightBulkDomain_LastResid_NE;
     TotalFluxLeftBulkDomain_LastResid_NE = r.TotalFluxLeftBulkDomain_LastResid_NE;
     TotalFluxRightBulkDomain_LastResid_NE = r.TotalFluxRightBulkDomain_LastResid_NE;
-    VarVectorLeftBulkDomain_LastResid_NE = r.VarVectorLeftBulkDomain_LastResid_NE;
-    VarVectorRightBulkDomain_LastResid_NE = r.VarVectorRightBulkDomain_LastResid_NE;
     Resid_BeforeSurDomain_NE = r.Resid_BeforeSurDomain_NE;
 
     DomainResidVector_LastResid_NE = r.DomainResidVector_LastResid_NE;
@@ -216,7 +214,6 @@ void SurDomain1D::domain_prep(LocalNodeIndices* const li_ptr)
 
         DiffFluxLeftBulkDomain_LastResid_NE.resize(NumDomainEqnsLeft_, 0.0);
         TotalFluxLeftBulkDomain_LastResid_NE.resize(NumDomainEqnsLeft_, 0.0);
-        VarVectorLeftBulkDomain_LastResid_NE.resize(NumDomainEqnsLeft_, 0.0);
     }
 
     // Get Pointer to the right domain's domain description
@@ -228,18 +225,15 @@ void SurDomain1D::domain_prep(LocalNodeIndices* const li_ptr)
 
         DiffFluxRightBulkDomain_LastResid_NE.resize(NumDomainEqnsRight_, 0.0);
         TotalFluxRightBulkDomain_LastResid_NE.resize(NumDomainEqnsRight_, 0.0);
-        VarVectorRightBulkDomain_LastResid_NE.resize(NumDomainEqnsRight_, 0.0);
 
         if (!ldd) {
             DiffFluxLeftBulkDomain_LastResid_NE.resize(NumDomainEqnsRight_, 0.0);
             TotalFluxLeftBulkDomain_LastResid_NE.resize(NumDomainEqnsRight_, 0.0);
-            VarVectorLeftBulkDomain_LastResid_NE.resize(NumDomainEqnsRight_, 0.0);
         }
     } else {
         if (ldd) {
             DiffFluxRightBulkDomain_LastResid_NE.resize(NumDomainEqnsLeft_, 0.0);
             TotalFluxRightBulkDomain_LastResid_NE.resize(NumDomainEqnsLeft_, 0.0);
-            VarVectorRightBulkDomain_LastResid_NE.resize(NumDomainEqnsLeft_, 0.0);
         }
     }
 }
@@ -264,7 +258,6 @@ void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid,
             for (size_t i = 0; i < static_cast<size_t>(NumDomainEqnsLeft_); i++) {
                 DiffFluxLeftBulkDomain_LastResid_NE[i] = lbd1d->DiffFluxRightBound_LastResid_NE[i];
                 TotalFluxLeftBulkDomain_LastResid_NE[i] = lbd1d->TotalFluxRightBound_LastResid_NE[i];
-                VarVectorLeftBulkDomain_LastResid_NE[i] = lbd1d->VarVectorRightBound_LastResid_NE[i];
             }
         }
     }
@@ -278,7 +271,6 @@ void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid,
             for (size_t i = 0; i < static_cast<size_t>(NumDomainEqnsRight_); i++) {
                 DiffFluxRightBulkDomain_LastResid_NE[i] = rbd1d->DiffFluxLeftBound_LastResid_NE[i];
                 TotalFluxRightBulkDomain_LastResid_NE[i] = rbd1d->TotalFluxLeftBound_LastResid_NE[i];
-                VarVectorRightBulkDomain_LastResid_NE[i] = rbd1d->VarVectorLeftBound_LastResid_NE[i];
             }
         }
     } else {
@@ -286,7 +278,6 @@ void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid,
             for (int i = 0; i < NumDomainEqnsRight_; i++) {
                 DiffFluxRightBulkDomain_LastResid_NE[i] = lbd1d->DiffFluxRightBound_LastResid_NE[i];
                 TotalFluxRightBulkDomain_LastResid_NE[i] = lbd1d->TotalFluxRightBound_LastResid_NE[i];
-                VarVectorRightBulkDomain_LastResid_NE[i] = lbd1d->VarVectorRightBound_LastResid_NE[i];
             }
         }
     }
@@ -295,7 +286,6 @@ void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid,
             for (int i = 0; i < NumDomainEqnsLeft_; i++) {
                 DiffFluxLeftBulkDomain_LastResid_NE[i] = rbd1d->DiffFluxLeftBound_LastResid_NE[i];
                 TotalFluxLeftBulkDomain_LastResid_NE[i] = rbd1d->TotalFluxLeftBound_LastResid_NE[i];
-                VarVectorLeftBulkDomain_LastResid_NE[i] = rbd1d->VarVectorLeftBound_LastResid_NE[i];
             }
         }
     }
@@ -307,7 +297,6 @@ void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid,
  *  This routine update the following right flux vectors from the neighboring right bulk domain
  *      DiffFluxRightBulkDomain_LastResid_NE[i]
  *	  TotalFluxRightBulkDomain_LastResid_NE[i]
- *	  VarVectorRightBulkDomain_LastResid_NE[i]
  *
  *  It then updates the corresponding left flux vectors from the left bulk domain
  *
@@ -326,7 +315,6 @@ void SurDomain1D::updateBulkFluxVectors()
             for (int i = 0; i < NumDomainEqnsLeft_; i++) {
                 DiffFluxLeftBulkDomain_LastResid_NE[i] = lbd1d->DiffFluxRightBound_LastResid_NE[i];
                 TotalFluxLeftBulkDomain_LastResid_NE[i] = lbd1d->TotalFluxRightBound_LastResid_NE[i];
-                VarVectorLeftBulkDomain_LastResid_NE[i] = lbd1d->VarVectorRightBound_LastResid_NE[i];
             }
         }
     }
@@ -340,7 +328,6 @@ void SurDomain1D::updateBulkFluxVectors()
             for (int i = 0; i < NumDomainEqnsRight_; i++) {
                 DiffFluxRightBulkDomain_LastResid_NE[i] = rbd1d->DiffFluxLeftBound_LastResid_NE[i];
                 TotalFluxRightBulkDomain_LastResid_NE[i] = rbd1d->TotalFluxLeftBound_LastResid_NE[i];
-                VarVectorRightBulkDomain_LastResid_NE[i] = rbd1d->VarVectorLeftBound_LastResid_NE[i];
             }
         }
     } else {
@@ -348,7 +335,6 @@ void SurDomain1D::updateBulkFluxVectors()
             for (int i = 0; i < NumDomainEqnsRight_; i++) {
                 DiffFluxRightBulkDomain_LastResid_NE[i] = lbd1d->DiffFluxRightBound_LastResid_NE[i];
                 TotalFluxRightBulkDomain_LastResid_NE[i] = lbd1d->TotalFluxRightBound_LastResid_NE[i];
-                VarVectorRightBulkDomain_LastResid_NE[i] = lbd1d->VarVectorRightBound_LastResid_NE[i];
             }
         }
     }
@@ -357,7 +343,6 @@ void SurDomain1D::updateBulkFluxVectors()
             for (int i = 0; i < NumDomainEqnsLeft_; i++) {
                 DiffFluxLeftBulkDomain_LastResid_NE[i] = rbd1d->DiffFluxLeftBound_LastResid_NE[i];
                 TotalFluxLeftBulkDomain_LastResid_NE[i] = rbd1d->TotalFluxLeftBound_LastResid_NE[i];
-                VarVectorLeftBulkDomain_LastResid_NE[i] = rbd1d->VarVectorLeftBound_LastResid_NE[i];
             }
         }
     }

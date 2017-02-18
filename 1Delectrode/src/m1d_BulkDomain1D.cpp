@@ -92,8 +92,6 @@ BulkDomain1D& BulkDomain1D::operator=(const BulkDomain1D &r)
   DiffFluxRightBound_LastResid_NE = r.DiffFluxRightBound_LastResid_NE;
   TotalFluxLeftBound_LastResid_NE = r.TotalFluxLeftBound_LastResid_NE;
   TotalFluxRightBound_LastResid_NE = r.TotalFluxRightBound_LastResid_NE;
-  VarVectorLeftBound_LastResid_NE = r.VarVectorLeftBound_LastResid_NE;
-  VarVectorRightBound_LastResid_NE = r.VarVectorRightBound_LastResid_NE;
 
   LI_ptr_ = r.LI_ptr_;
 
@@ -313,10 +311,8 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
   //  Size the flux vectors at the ends of the domains
   DiffFluxLeftBound_LastResid_NE.resize( numEqFirst, 0.0);
   TotalFluxLeftBound_LastResid_NE.resize(numEqFirst, 0.0);
-  VarVectorLeftBound_LastResid_NE.resize(numEqFirst, 0.0);
   DiffFluxRightBound_LastResid_NE.resize(numEqLast, 0.0);
   TotalFluxRightBound_LastResid_NE.resize(numEqLast, 0.0);
-  VarVectorRightBound_LastResid_NE.resize(numEqLast, 0.0);
 }
 //=====================================================================================================================
 // Generate the initial conditions
