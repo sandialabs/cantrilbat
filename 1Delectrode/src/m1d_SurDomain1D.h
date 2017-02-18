@@ -23,7 +23,7 @@
 namespace m1d
 {
 // Forward declarations
-class LocalNodeIndices;
+class NodalVars;
 
 //! Definition of a function pointer that takes the time and returns a double
 /*!
@@ -245,10 +245,13 @@ public:
 
     //! Evaluates the atol vector used in the delta damping process.
     /*!
-     *   @param relcoeff     Relative constant to multiply all terms by
-     *   @param soln         current solution vector.
-     *   @param atolDeltaDamping      If non-zero, this copies the vector into the object as input
-     *                      The default is zero.
+     *  (virtual from Domain1D)
+     *  @param[in]           atolDefault         Default atol value
+     *  @param[in]           relcoeff            Relative constant to multiply all terms by
+     *  @param[in]           soln                Current solution vector.
+     *  @param[out]          atolDeltaDamping    If non-zero, this copies the vector into the object as input
+     *                                           The default is zero.
+     *  @param[in]           atolV               A previously defined atol vector from a previous context. Defaults to nullptr.
      */
     virtual void
     setAtolDeltaDamping(double atolDefault, double relcoeff, const Epetra_Vector_Ghosted& soln,
@@ -260,7 +263,7 @@ public:
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                Current solution vector.
-     *  @param[in]           atolDeltaDamping    If non-zero, this copies the vector into the object as input
+     *  @param[out]          atolDeltaDamping    If non-zero, this copies the vector into the object as input
      *                                           The default is zero.
      *  @param[in]           atolV               A previously defined atol vector from a previous context. Defaults to nullptr.
      */
@@ -450,15 +453,16 @@ public:
     //! that are located at the current node.
     int Index_NodalSD_;
 
+    //! Pointer to the Class that contains the Local Node Indices for this processor
     LocalNodeIndices* LI_ptr_;
 
-    //! Number of equations defined at the current node.
+    //! Number of equations defined at the current node on which the SurDomain1D is located
     /*!
-     *  This will be equal to or greater than the number of unknowns assigned to the
-     *  surface domain.
-     *   This is set even if this processor doesn't own the node.
+     *  This will be equal to or greater than the number of unknowns assigned to the surface domain.
+     *  This is set even if this processor doesn't own the node.
+     *  Frequently, this will be used a loop variable.
      */
-    int NumNodeEqns;
+    size_t NumNodeEqns;
 
     //! Vector of flags to indicate whether the variable has a time derivative
     /*!
@@ -480,7 +484,10 @@ public:
      */
     std::vector<int> IsArithmeticScaled_Node;
 
+    //! Number of Equations per node in the BulkDomain1d to the left
     int NumDomainEqnsLeft_;
+
+    //! Number of Equations per node in the BulkDomain1d to the Right
     int NumDomainEqnsRight_;
 
     //! Diffusive fluxes into the left bulk domain from the last residual calculation
@@ -535,39 +542,41 @@ public:
      */
     std::vector<double> TotalFluxRightBulkDomain_LastResid_NE;
 
-    //! Variable Vector from left bulk domain
+    //! Variable Vector from the left bulk domain
     /*!
-     *
+     *  This is the value of the solution vector from the left bulk domain. We store a temporary copy here
+     *  Length: NumDomainEqnsLeft_
      */
     std::vector<double> VarVectorLeftBulkDomain_LastResid_NE;
 
-    //! Variable Vector from left bulk domain
+    //! Variable Vector from the right bulk domain
     /*!
-     *
+     *  This is the value of the solution vector from the right bulk domain. We store a temporary copy here
+     *   Length: NumDomainEqnsRight_
      */
     std::vector<double> VarVectorRightBulkDomain_LastResid_NE;
 
-    //! Residual fed into the surface domain before application of BCs
+    //!  Residual fed into the surface domain before application of BCs
     /*!
-     *   This may be used to close balances for cases where Dirichlet conditions
-     *   are applied at this surface.
-     *
-     *   Length = Number of equations defined at this surface node
+     *   This may be used to close balances for cases where Dirichlet conditions are applied at this surface.
+     *   Length: Number of equations defined at this surface node = NumNodeEqns
      */
     std::vector<double> Resid_BeforeSurDomain_NE;
 
-
+    //!  Vector that stores the SurDomain1D's contributions to the residual equations for all node equations defined on the node
+    /*!
+     *   This is only used for printout purposes when residType == Base_ShowSolution
+     *   Length:  NumNodeEqns
+     */
     std::vector<double> DomainResidVector_LastResid_NE;
 
 private:
-
     //! Call an error exit condition
     /*!
      *  @param[in]           msg                 Message to be printed out
      */
     void err(const char* const msg);
 };
-
 //==================================================================================================================================
 //! Specification of a set of simple Dirichlet conditions on a surface domain
 /*!

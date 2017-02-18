@@ -19,7 +19,7 @@
 
 namespace m1d
 {
-class LocalNodeIndices;
+class NodalVars;
 
 //! Base class for solving residuals for bulk domains
 /*!

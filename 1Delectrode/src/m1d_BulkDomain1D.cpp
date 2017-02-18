@@ -9,7 +9,6 @@
 //! evaluation for a single bulk domain.
 #include "m1d_BulkDomain1D.h"
 
-#include "m1d_LocalNodeIndices.h"
 #include "m1d_DomainDescription.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_NodalVars.h"
@@ -64,9 +63,8 @@ BulkDomain1D::BulkDomain1D(const BulkDomain1D &r) :
 BulkDomain1D::~BulkDomain1D()
 {
 }
-//=====================================================================================
-BulkDomain1D &
-BulkDomain1D::operator=(const BulkDomain1D &r)
+//==================================================================================================================================
+BulkDomain1D& BulkDomain1D::operator=(const BulkDomain1D &r)
 {
   if (this == &r) {
     return *this;
@@ -101,12 +99,8 @@ BulkDomain1D::operator=(const BulkDomain1D &r)
 
   return *this;
 }
-//=====================================================================================================================
-/*
- * Return the identifying tag for this domain.
- */
-std::string
-BulkDomain1D::id() const
+//==================================================================================================================================
+std::string BulkDomain1D::id() const
 {
   int id = BDD_ptr_->ID();
   if (m_id != "") {
@@ -115,7 +109,7 @@ BulkDomain1D::id() const
     return std::string("BulkDomain1D_") + ZZCantera::int2str(id);
   }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Basic function to calculate the residual for the domain.
 void
 BulkDomain1D::residEval(Epetra_Vector &res,
@@ -323,9 +317,6 @@ BulkDomain1D::domain_prep(LocalNodeIndices *li_ptr)
   DiffFluxRightBound_LastResid_NE.resize(numEqLast, 0.0);
   TotalFluxRightBound_LastResid_NE.resize(numEqLast, 0.0);
   VarVectorRightBound_LastResid_NE.resize(numEqLast, 0.0);
-
-
-
 }
 //=====================================================================================================================
 // Generate the initial conditions

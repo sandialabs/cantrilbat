@@ -10,6 +10,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_ProblemResidEval.h"
 #include "m1d_Comm.h"
+#include "m1d_LocalNodeIndices.h"
 
 using namespace std;
 

@@ -385,7 +385,6 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
     }
 #endif
 #undef DAKOTAOUT
-
 }
 //==================================================================================================================================
 void SurDomain_CathodeCollector::getVoltages(const double* const solnElectrolyte)

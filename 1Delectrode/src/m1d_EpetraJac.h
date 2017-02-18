@@ -13,6 +13,7 @@
 #define M1D_EPETRAJAC_H
 
 #include "m1d_ProblemResidEval.h"
+#include "m1d_VBRIndices.h"
 
 #include "Epetra_Vector.h"
 #include "Epetra_IntVector.h"
@@ -20,23 +21,24 @@
 #include "BlockEntryGlobal.h"
 
 #include "m1d_RecordTree_base.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput
 {
   class BlockEntry;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
+//==================================================================================================================================
 enum SolverType {
   Direct = 0,
   Iterative
 };
-
-
-
-/**
+//==================================================================================================================================
+//! Class EpetraJac evaluates the Jacobian of a system of equations
+/*!
  * Class EpetraJac evaluates the Jacobian of a system of equations
  * defined by a residual function supplied by an instance of class
  * 'ProblemResidEval.' The residual function may consist of several linked
@@ -475,7 +477,7 @@ public:
    */
   m1d::Solve_Type_Enum solveType_;
 };
-
+//==================================================================================================================================
 //! Write the contents of a matrix to an ostream
 /*!
  *
@@ -485,10 +487,9 @@ public:
  */
 std::ostream&
 operator<<(std::ostream& os, const EpetraJac& m);
-
-//======================================================================================
-} // end of m1d namespace
-//======================================================================================
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------
 
 #endif
 

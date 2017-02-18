@@ -18,16 +18,15 @@
 //! evaluation for a single domain whether a surface or a bulk.
 
 #include "m1d_ProblemResidEval.h"
+#include "m1d_LocalNodeIndices.h"
 
-#include "Epetra_Vector.h"
+//#include "Epetra_Vector.h"
 
 #include "cantera/base/xml.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
-class LocalNodeIndices;
 
 //==================================================================================================================================
 //! Class to accept global heat balance numbers from internal calculations
@@ -593,7 +592,7 @@ public:
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                Current solution vector.
-     *  @param[in]           atolDeltaDamping    If non-zero, this copies the vector into the object as input
+     *  @param[out]          atolDeltaDamping    If non-zero, this copies the vector into the object as input
      *                                           The default is zero.
      *  @param[in]           atolV               A previously defined atol vector from a previous context. Defaults to nullptr.
      */

@@ -15,6 +15,8 @@
 #define _M1D_VBRINDICES_H
 
 #include "m1d_defs.h"
+#include "m1d_LocalNodeIndices.h"
+
 #include "Epetra_VbrRowMatrix.h"
 
 #include <vector>
@@ -22,7 +24,6 @@
 namespace m1d
 {
 class GlobalIndices;
-class LocalNodeIndices;
 class ProblemResidEval;
 
 /**

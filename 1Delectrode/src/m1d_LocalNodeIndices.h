@@ -26,6 +26,7 @@ namespace m1d
 class NodalVars;
 class DomainLayout;
 class GlobalIndices;
+
 //==================================================================================================================================
 //! These indices have to do with accessing the local nodes on the processor
 /*!
@@ -457,7 +458,7 @@ public:
    */
   Epetra_Import *Importer_NodalValues;
 
-  //!
+  //! Number of Colors 
   int NumNodeColors;
 
   //! Color map for nodes, both external and internal on the processor

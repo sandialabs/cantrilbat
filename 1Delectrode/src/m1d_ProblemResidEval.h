@@ -5,12 +5,6 @@
  */
 
 /*
- *  $Author: hkmoffa $
- *  $Date: 2013-05-13 10:57:58 -0600 (Mon, 13 May 2013) $
- *  $Revision: 592 $
- *
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
@@ -21,26 +15,27 @@
 #define M1D_PROBLEMRESIDEVAL_H
 
 #include "m1d_defs.h"
+#include "m1d_EqnVarTypes.h"
 
 #include "Epetra_Vector.h"
+#include "Epetra_IntVector.h"
 #include "Epetra_VbrMatrix.h"
-#include "m1d_VBRIndices.h"
-#include "m1d_LocalNodeIndices.h"
-#include "m1d_EqnVarTypes.h"
+
 #include "cantera/base/xml.h"
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
+
 // Forward declarations of m1d Classes
-class DomainLayout;
 class GlobalIndices;
 class LocalNodeIndices;
-class LocalRowNodeVBRIndices;
 class EpetraJac;
 class ProblemStatement;
+class DomainLayout;
 class RecordTree_base;
 
+//==================================================================================================================================
 /*!
  *  Below are the three distributed maps that are used throughout the program. In order
  *  to document the program we typedef the different types of Epetra_Vectors according
@@ -56,6 +51,7 @@ typedef Epetra_Vector Epetra_Vector_Ghosted;
 //! This is an Epetra_Vector consisting of a global vector of all nodes/equations on all processors.
 typedef Epetra_Vector Epetra_Vector_GlAll;
 
+//==================================================================================================================================
 //! The types of solution problems that are solved.
 enum Solve_Type_Enum {
     SteadyState_Solve = 0,
@@ -67,8 +63,7 @@ enum Solve_Type_Enum {
     //! Initial conditions for a DAE system
     DAESystemInitial_Solve
 };
-  
-
+//==================================================================================================================================
 //! Differentiates the type of residual evaluations according to functionality
 enum ResidEval_Type_Enum
 {
@@ -84,7 +79,7 @@ enum ResidEval_Type_Enum
      */
     Base_ShowSolution
 };
-
+//==================================================================================================================================
 //! Differentiates the type of coordinate system
 enum CoordinateSystem_Type_Enum
 {
@@ -97,7 +92,7 @@ enum CoordinateSystem_Type_Enum
     //! Spherical coordinate system
     Spherical_Coordinates
 };
-
+//==================================================================================================================================
 //! Class to hold Porosity equation status
 struct Porosity_EqnType_Status
 {
@@ -123,16 +118,14 @@ struct Porosity_EqnType_Status
 	AddedPhasesInEqnSystem =     0x16
     }; 
 };
-
+//==================================================================================================================================
 /**
  *  A class for the description of 1D problems that
  *  encompass multiple regions in 1D and multiple time regions
  */
 class ProblemResidEval
 {
-
 public:
-
     //! Default constructor
     /*!
      *
@@ -144,8 +137,7 @@ public:
   /*!
    *
    */
-  virtual
-  ~ProblemResidEval();
+  virtual ~ProblemResidEval();
 
   //! Default copy constructor
   /*!
@@ -160,8 +152,7 @@ public:
    * @param r  Object to be copied
    * @return   Returns a copy of the current problem
    */
-  ProblemResidEval &
-  operator=(const ProblemResidEval &r);
+  ProblemResidEval & operator=(const ProblemResidEval &r);
 
   //! Specify the problem
   /*!
@@ -169,14 +160,14 @@ public:
    *
    *  @param problemType Problem type
    */
-  void
-  specifyProblem(int problemType, ProblemStatement *ps_ptr);
+  void specifyProblem(int problemType, ProblemStatement *ps_ptr);
 
   //! Specify the problem
   /*!
    *  Initialize the domain structure for the problem.
    *
-   *  @param dl DomainLayout object that specifies most of the problem
+   *  @param[in]             dl                  DomainLayout object that specifies most of the problem
+   *  @param[in]             ps_ptr              Pointer to the problem statement object
    */
   void
   specifyProblem(DomainLayout *dl,  ProblemStatement *ps_ptr);
@@ -185,8 +176,7 @@ public:
   /*!
    *
    */
-  void
-  generateGlobalIndices();
+  void generateGlobalIndices();
 
   //!  Prepare all of the pointers for a fast, efficient residual calculation
   /*!
