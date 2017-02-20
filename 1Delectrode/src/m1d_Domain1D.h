@@ -1,8 +1,7 @@
 /*
- * m1d_BulkDomain1D.h
+ * @file m1d_Domain1D.h
+ *        Base class for calculation of residuals from a single domain
  *
- *  Created on: May 19, 2009
- *      Author: hkmoffa
  */
 
 /*

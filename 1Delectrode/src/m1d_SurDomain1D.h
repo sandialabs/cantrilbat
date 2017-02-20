@@ -87,6 +87,8 @@ public:
      *  We use domain_prep() to figure out what the local node number is and what equations correspond to what unknown.
      *
      *  Child objects of domain_prep() will normally call parent classes in a recursive fashion.
+     *
+     *  @param[in]           li_ptr              Pointer to the LocalNodeIndices structure
      */
     virtual void
     domain_prep(LocalNodeIndices* const li_ptr);
@@ -156,7 +158,8 @@ public:
     //! Base Class for reading the solution from the saved file
     /*!
      *  (virtual from Domain1D)
-     *  This class assumes that the XML_Node is <domain> in the example below.
+     *  This class assumes that the XML_Node is the domain node in the example below.
+     *
      * @verbatim
      *  <simulation id="0">
      *    <time type="time" units="s" vtype="float"> 0.000000000000000E+00 </time>
@@ -263,6 +266,7 @@ public:
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                Current solution vector.
+     *  @param[in]           solnDot             Current time-derivative of the solution vector
      *  @param[out]          atolDeltaDamping    If non-zero, this copies the vector into the object as input
      *                                           The default is zero.
      *  @param[in]           atolV               A previously defined atol vector from a previous context. Defaults to nullptr.
