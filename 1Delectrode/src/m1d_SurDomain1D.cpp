@@ -1,5 +1,5 @@
 /**
- * @file m1d_SurDomain1d.cpp
+ * @file m1d_SurDomain1D.cpp
  *  Basic object to calculate the surface residuals for surface domains.
  */
 /*
@@ -734,8 +734,8 @@ void SurDomain1D::writeSolutionTecplotHeader()
     }
 }
 //===================================================================================================================================
-void SurDomain1D::writeSolutionTecplot(const Epetra_Vector_GlAll* const soln_GlAll_ptr,
-                                       const Epetra_Vector_GlAll* const solnDot_GlAll_ptr, const double t)
+void SurDomain1D::writeSolutionTecplot(const Epetra_Vector* const soln_GlAll_ptr,
+                                       const Epetra_Vector* const solnDot_GlAll_ptr, double t)
 {
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = !mypid; //only proc 0 should write
@@ -796,6 +796,11 @@ double SurDomain1D::extractSolnValue(Epetra_Vector_Ghosted* const soln_ptr, VarT
     return val;
 }
 //===================================================================================================================================
+//! Draw a line with '-' characters
+/*!
+ *  @param[in]               sp                  Amount of indentation
+ *  @param[in]               ll                  Number of '-' characters
+ */
 static void drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
@@ -807,6 +812,12 @@ static void drawline(int sp, int ll)
     ZZCantera::writelog("\n");
 }
 //==================================================================================================================================
+//! Draw a line using proc 0 with '-' characters
+/*!
+ *  @param[in]               ss                  stream0 reference
+ *  @param[in]               sp                  Amount of indentation
+ *  @param[in]               ll                  Number of '-' characters
+ */
 static void drawline0(stream0& ss, int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {

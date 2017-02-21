@@ -54,7 +54,7 @@ public:
     /*!
      *  @param[in]           sdd                 Contains the surface domain description, which is a required parameter
      */
-    SurDomain1D(m1d::SurfDomainDescription& sdd);
+    SurDomain1D(SurfDomainDescription& sdd);
 
     //! Copy constructor
     /*!

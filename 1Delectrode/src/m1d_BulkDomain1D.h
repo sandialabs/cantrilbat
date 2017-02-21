@@ -42,7 +42,7 @@ public:
 
     //! Constructor
     /*!
-     *  @param[in]           bdd                 Contains the bulk domain description.
+     *  @param[in]           bdd_ptr             Contains the bulk domain description.
      */
     BulkDomain1D(m1d::BulkDomainDescription* bdd_ptr);
 
@@ -187,7 +187,7 @@ public:
      */
     virtual void
     saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
-               const Epetra_Vector* constsolnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false) override;
+               const Epetra_Vector* const solnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false) override;
 
     //! Base Class for reading the solution from the saved file
     /*!
@@ -249,8 +249,7 @@ public:
      *  @param[in]           solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector
      *  @param[in]           t                   time
      */
-    virtual void writeSolutionTecplot(const Epetra_Vector* const soln_GlAll_ptr,
-                                      const Epetra_Vector* constsolnDot_GlAll_ptr,
+    virtual void writeSolutionTecplot(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
                                       const double t) override;
 
     //! Base class for writing the solution on the domain to a logfile.
@@ -336,29 +335,29 @@ public:
     //! Get parameters specified by text strings
     /*!
      *  (virtual from Domain1D)
-     *   @param[in]  paramID   String name for the item to be requested
-     *   @param[out] paramVal    Vector of information returned.
+     *   @param[in]          paramID             String name for the item to be requested
+     *   @param[out]         paramVal            Vector of information returned.
      *
-     *   @return  Returns the number of items returned. A value of -1 signifies a failure.
-     *
+     *   @return                                 Returns the number of items returned. A value of -1 signifies a failure.
      */
     virtual int
-    reportSolutionParam(const std::string& paramID, double* const paramVal) const;
+    reportSolutionParam(const std::string& paramID, double* const paramVal) const override;
 
     //! Get vectors of solution quantities requested by text strings
     /*!
+     *  (virtual from Domain1D)
+     *  @param[in]           requestID           String name for the item to be requested
+     *  @param[in]           requestType         Type of the request
+     *                                             0    solution variable
+     *                                             1    other variable
+     *  @param[in]           soln_ptr            Pointer to the solution vector
+     *  @param[out]          vecInfo             Vector of information returned.
      *
-     *   @param[in]  requestID   String name for the item to be requested
-     *   @param[in]  requestType Type of the request
-     *                      0    solution variable
-     *                      1    other variable
-     *   @param[out] vecInfo     Vector of information returned.
-     *
-     *   @return  Returns the number of items returned. A value of -1 signifies a failure.
+     *  @return                                  Returns the number of items returned. A value of -1 signifies a failure.
      */
     virtual int
-    reportSolutionVector(const std::string& requestID, const int requestType, const Epetra_Vector* soln_ptr,
-                         std::vector<double>& vecInfo) const;
+    reportSolutionVector(const std::string& requestID, const int requestType, const Epetra_Vector* const soln_ptr,
+                         std::vector<double>& vecInfo) const override;
 
     //! Get the local value of the stress, from the solution vector,  or a reference value if not part of the solution.
     /*!
@@ -371,15 +370,16 @@ public:
      */
     //double getPointStress(const NodalVars * const nv, const double* const solutionPoint) const;
 
-    //! Get the local value of the temperature at a node or control volume interface
-    //! given the local solution vector at that point
+    //! Get the local value of the temperature at a node or control volume interface given the local solution vector at that point
     /*!
-     *   This function checks to see if the temperature is part of the solution
-     *   vector. If it is not, it returns the TemperatureReference_ value. If
-     *   it is, it looks up the index into the solution vector and then returns
-     *   the value.
+     *   This function checks to see if the temperature is part of the solution vector. 
+     *   If it is not, it returns the TemperatureReference_ value. If it is, it looks up the index into 
+     *   the solution vector and then returns  the value.
      *
-     *   @return Returns the temperature in Kelvin
+     *  @param[in]           nv                  Pointer to the NodalVars class for the current node
+     *  @param[in]           solutionPoint       Pointer to the start of the solution for the current node
+     *
+     *  @return                                  Returns the temperature in Kelvin
      */
     double getPointTemperature(const NodalVars* const nv, const double* const solutionPoint) const;
 
@@ -391,7 +391,10 @@ public:
      *   it is, it looks up the index into the solution vector and then returns
      *   the value of the total pressure based on the local condition
      *
-     *     @return Returns the total pressure in Pascals
+     *  @param[in]           nv                  Pointer to the NodalVars class for the current node
+     *  @param[in]           solutionPoint       Pointer to the start of the solution for the current node
+     *
+     *  @return                                  Returns the total pressure in Pascals
      */
     double getPointPressure(const NodalVars* const nv, const double* const solutionPoint) const;
 

@@ -305,6 +305,11 @@ BulkDomain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vector* 
     Domain1D::initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
 }
 //==================================================================================================================================
+//! Draw a line with '-' characters
+/*!
+ *  @param[in]               sp                  Amount of indentation
+ *  @param[in]               ll                  Number of '-' characters
+ */
 static void
 drawline(int sp, int ll)
 {
@@ -317,6 +322,12 @@ drawline(int sp, int ll)
     ZZCantera::writelog("\n");
 }
 //==================================================================================================================================
+//! Draw a line using proc 0 with '-' characters
+/*!
+ *  @param[in]               ss                  stream0 reference
+ *  @param[in]               sp                  Amount of indentation
+ *  @param[in]               ll                  Number of '-' characters
+ */
 static void
 drawline0(stream0& ss, int sp, int ll)
 {
@@ -1418,7 +1429,7 @@ BulkDomain1D::reportSolutionVector(const std::string& requestID, const int reque
     } else if (requestType == 0) {
         for (size_t i = 0; i < (size_t) NumDomainEqns; ++i) {
             const VarType& vt = BDD_ptr_->VariableNameList[i];
-            const string& varName = vt.VariableName();
+            const std::string& varName = vt.VariableName();
             if (mdpUtil::LowerCaseStringEquals(varName, requestID)) {
                 findV = i;
                 vtF = vt;
@@ -1431,12 +1442,9 @@ BulkDomain1D::reportSolutionVector(const std::string& requestID, const int reque
     }
     const Epetra_Vector& soln = *soln_ptr;
     for (int iCell = 0; iCell < NumLcCells; iCell++) {
-        int index_CentLcNode = Index_DiagLcNode_LCO[iCell];
-        int indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
-
-
+        size_t index_CentLcNode = Index_DiagLcNode_LCO[iCell];
+        size_t indexCent_EqnStart = LI_ptr_->IndexLcEqns_LcNode[index_CentLcNode];
         NodalVars* nodeCent = LI_ptr_->NodalVars_LcNode[index_CentLcNode];
-
         const double* solnCentStart = &(soln[indexCent_EqnStart]);
         //
         // Find the start of the solution at the current node
