@@ -4,7 +4,10 @@
  */
 
 /*
- *  $Id: m1d_DomainDescription.h 567 2013-03-21 23:03:11Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #ifndef M1D_DOMAINDESCRIPTION_H
@@ -15,7 +18,7 @@
 
 #include <vector>
 #include <string>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 //forward declarations
@@ -24,14 +27,12 @@ class SurDomain1D;
 class BulkDomain1D;
 class GlobalIndices;
 class DomainLayout;
-
-//! This is a light weight base class that describes a surface
-//! or bulk domain using global indexing, which will be the same for
+//==================================================================================================================================
+//! This is a light weight base class that describes a surface or bulk domain using global indexing, which will be the same for
 //! all processors.
 /*!
  *  The base class for the heavyweight objects that calculate the actual residuals
  *  is called Domain1D. 
- *
  */
 class DomainDescription {
 
@@ -183,7 +184,6 @@ public:
   //! Shallow pointer to the domain layout for this Domain Description
   DomainLayout *DL_ptr_;
 
-
   //! Print level that is set through the input file.
   /*!
    *   0 -> Don't print anything
@@ -227,10 +227,7 @@ public:
   int porosityEquationProbType_;
 
 };
-
-// ==================================================================================
-
-
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

@@ -2,24 +2,27 @@
  * @file m1d_DomainDescription.cpp
  *
  */
-
 /*
- *  $Id: m1d_DomainDescription.cpp 567 2013-03-21 23:03:11Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
+
 #include "m1d_DomainDescription.h"
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_exception.h"
 #include "m1d_DomainLayout.h"
 #include "m1d_ProblemStatement.h"
+
 #ifndef MIN
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
-//===========================================================================
+//==================================================================================================================================
   DomainDescription::DomainDescription(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
   NumEquationsPerNode(0), 
   IsArithmeticScaled_NE(0), 
@@ -45,11 +48,11 @@ namespace m1d
     SolutionBehavior_printLvl_ = psInput_ptr->SolutionBehavior_printLvl_;
     Residual_printLvl_ = psInput_ptr->Residual_printLvl_;
 }
-//===========================================================================
+//==================================================================================================================================
 DomainDescription::~DomainDescription()
 {
 }
-//===========================================================================
+//==================================================================================================================================
 DomainDescription::DomainDescription(const DomainDescription &r) :
   NumEquationsPerNode(0), 
   DomainName(""), 
@@ -58,7 +61,7 @@ DomainDescription::DomainDescription(const DomainDescription &r) :
 {
   *this = r;
 }
-//===========================================================================
+//==================================================================================================================================
 DomainDescription &
 DomainDescription::operator=(const DomainDescription &r)
 {
@@ -82,39 +85,23 @@ DomainDescription::operator=(const DomainDescription &r)
 
   return *this;
 }
-//===================================================================================================================================
+//==================================================================================================================================
 void
 DomainDescription::ReadModelDescriptions()
 {
 }
-//===================================================================================================================================
-// Determine the list of Equations and Variables
-/*
- *  This routine is responsible for setting the variables:
- *    - VariableNameList
- *    - EquationNameList
- */
+//==================================================================================================================================
 void
 DomainDescription::SetEquationsVariablesList() {
     throw m1d_Error("DomainDescription::SetEquationVariablesList()", "Base class implementation called");
 }
-//===================================================================================================================================
-// Set the equation description
-/*
- *  This routine is responsible for setting the variables:
- *    - NumEquationsPerNode
- *    - EquationIndexStart_EqName
- */
+//==================================================================================================================================
 void
 DomainDescription::SetEquationDescription()
 {
   throw m1d_Error("DomainDescription::SetEquationDescription()", "Base class implementation called");
 }
-//===================================================================================================================================
-//! Reorder the variables and equations on this domain
-/*!
- *  this is a necessary step
- */
+//==================================================================================================================================
 void DomainDescription::ReorderVariablesEquations()
 {
     VarType varJ, varBest;
@@ -161,6 +148,6 @@ void
 DomainDescription::DetermineConstitutiveModels()
 {
 }
-//===========================================================================
-} /* End of Namespace */
-//===========================================================================
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------
