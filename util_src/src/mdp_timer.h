@@ -72,21 +72,21 @@ public:
 
     //! Copy constructor
     /*!
-     *   Creates a clock from another clock
+     *  Creates a clock from another clock
      *
-     * @param right  Item to be copied.
+     *  @param[in]           right               Item to be copied.
      */
     timer(const timer& right) :
-    running_(right.running_),
-    storredSeconds_(right.storredSeconds_)
+        running_(right.running_),
+        storredSeconds_(right.storredSeconds_)
     {
     }
 
     //! Assign the timer info from one timer to another
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
      *
-     *  @return returns a reference to the current object
+     *  @return                                  returns a reference to the current object
      */
     timer& operator=(const timer& right)
     {
@@ -96,6 +96,7 @@ public:
         return *this;
     }
 
+    //! Virtual destructor
     virtual ~timer()
     {
     }
@@ -107,13 +108,13 @@ public:
     /*!
      *      The timer is stopped. The incremental time is added into the total time for the clock
      *
-     *  @return Returns the incremental time from the last increment
+     *  @return                                  Returns the incremental time from the last increment
      */
     virtual double stopTime() = 0;
 
     //! Reports the time 
     /*!
-     *  @return Returns the time (secs) spent in all intervals timed by this clock
+     *  @return                                  Returns the time (secs) spent in all intervals timed by this clock
      */
     virtual double reportTime() const
     {
@@ -123,7 +124,7 @@ public:
     //! Clears all of the timing information 
     virtual void clear()
     {
-        storredSeconds_ = 0;
+        storredSeconds_ = 0.0;
     }
 
 protected:

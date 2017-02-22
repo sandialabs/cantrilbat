@@ -17,6 +17,34 @@
 
 #include <ctime>
 
+// If clockid_t isn't specified in the environment, we will create it.
+#ifdef __APPLE__ 
+
+#ifndef clockid_t
+typedef int clockid_t;
+#endif
+#ifndef MDP_MAKE_CLOCK_GETTIME
+#define MDP_MAKE_CLOCK_GETTIME
+
+/* Identifier for system-wide realtime clock.  */
+#   define CLOCK_REALTIME               0
+/* Monotonic system-wide clock.  */
+#   define CLOCK_MONOTONIC              1
+/* High-resolution timer from the CPU.  */
+#   define CLOCK_PROCESS_CPUTIME_ID     2
+/* Thread-specific CPU-time clock.  */
+#   define CLOCK_THREAD_CPUTIME_ID      3
+/* Monotonic system-wide clock, not adjusted for frequency scaling.  */
+#   define CLOCK_MONOTONIC_RAW          4
+/* Identifier for system-wide realtime clock, updated only on ticks.  */
+#   define CLOCK_REALTIME_COARSE        5
+/* Monotonic system-wide clock, updated only on ticks.  */
+#   define CLOCK_MONOTONIC_COARSE       6
+#endif
+
+#endif
+
+
 #ifdef  DOXYGEN_SHOULD_IGNORE_THIS
 #ifndef _POSIX_VERSION
 //! fake version number to get doxygen to compile this
@@ -25,10 +53,10 @@
 #endif
 
 #ifdef _POSIX_VERSION
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace mdpUtil
 {
-
+//==================================================================================================================================
 //! The class provides the wall clock timer in seconds for POSIX compliant systems
 /*!
  *  This routine relies on the POSIX clock_gettime() routine, which
@@ -106,6 +134,11 @@ public:
 
     //! Clears all of the timing information 
     virtual void clear();
+
+#ifdef MDP_MAKE_CLOCK_GETTIME
+    //! make the system routine
+    int clock_gettime(clockid_t clk_id, struct timespec* tp);
+#endif
   
 private:
 
@@ -118,6 +151,8 @@ private:
     //! Counter containing the value of the number of ticks from the last start call
     struct timespec startLastTicks_;
 };
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
 #endif

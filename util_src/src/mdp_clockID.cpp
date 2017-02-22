@@ -27,11 +27,20 @@
 #ifndef DEBUG_MODE
 #define DEBUG_MODE
 #endif
-
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace mdpUtil
 {
+
+#ifdef MDP_MAKE_CLOCK_GETTIME
+#include <mach/mach_time.h>
+#define ORWL_NANO (1.0E-9)
+#define ORWL_GIGA (1000000000)
+static double orwl_timebase = 0.0;
+static uint64_t orwl_timestart = 0;
+#endif
+
+
+
 //  This is only true if we are on a posix system
 #ifdef _POSIX_VERSION
 //==================================================================================================================================
@@ -117,6 +126,26 @@ void clockID::clear()
 {
     storredSeconds_ = 0.0;
 }
+//==================================================================================================================================
+#ifdef ZZ_MAKE_CLOCK_GETTIME
+int  clockID::clock_gettime(clockid_t clk_id, struct timespec* const sp)
+{
+    // currently this is for the Darwin system only
+
+    if (!orwl_timestart) {
+        mach_timebase_info_data_t tb = { 0};
+        mach_timebase_info(&tb);
+        orwl_timebase = tb.numer;
+        orwl_timebase /= tb.denom;
+        orwl_timestart = mach_absolute_time();
+    }
+    double diff = (mach_absolute_time() - orwl_timestart ) * orwl_timebase;
+    sp->tv_sec  = diff * ORWL_NANO;
+    sp->tv_nsec = diff - (sp->tv_sec * ORWL_GIGA);
+
+    return 0;
+}
+#endif
 //==================================================================================================================================
 #endif
 }

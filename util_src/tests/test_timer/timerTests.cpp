@@ -2,7 +2,7 @@
  * FDJacobianTests.cpp
  *
  */
-#include "../../../config.h"
+#include "../../../configCantrilbat.h"
 #include "gtest/gtest.h"
 #include "mdp_wallClock.h"
 #include "mdp_clockID.h"

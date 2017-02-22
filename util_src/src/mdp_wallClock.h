@@ -54,24 +54,23 @@ class wallClock : public timer
 {
 public:
 
-
     //! Constructor
     /*!
-     * This also serves to initialize the ticks within the object
+     *  This also serves to initialize the ticks within the object
      */
     wallClock();
 
     //! Copy constructor
     /*!
-     *    @param[in]   right        Object to be copied
+     *  @param[in]           right               Object to be copied
      */
     wallClock(const wallClock& right);
 
     //! Assignment operator
     /*!
-     *    @param[in]   right        Object to be copied
+     *  @param[in]           right               Object to be copied
      *
-     *    @return  Returns a reference to itself
+     *  @return                                  Returns a reference to itself
      */
     wallClock& operator=(const wallClock& right);
    
@@ -81,20 +80,19 @@ public:
     //!  Starts the time ticking
     void startTime();
 
-
     //!  Stop the clock and returns the time in the last interval
     /*!
-     *   @return  Returns the time for the last interval in seconds
+     *   @return                                 Returns the time for the last interval in seconds
      */
     double stopTime();
 
     //! Returns the time spent in all of the intervals
     /*!
-     *   @return  Returns the time spent in all of the intervals (seconds)
+     *   @return                                 Returns the time spent in all of the intervals (seconds)
      */
     double reportTime() const;
 
-    //! checks to see if timer has recycled the interval
+    //! Checks to see if timer has recycled the interval
     void checkWC();
 
     //! Returns the wall clock time in seconds since the last reset.
@@ -104,7 +102,7 @@ public:
      *  which have rolled over is made also. However, it only works if this
      *  function is called fairly regularily during the solution procedure.
      *
-     *  @return    Returns the wall clock time in seconds
+     *  @return                                  Returns the wall clock time in seconds
      */
     double secondsWC();
 
@@ -119,29 +117,17 @@ private:
     //! Internal constant containing clock ticks per second
     static const double s_inv_clocks_per_sec;
 
-    //! Internal constant containing the total number of ticks per rollover.
-    //static const double s_clockTickWidth_;
-
     //! Counters the value of the number of ticks from the current call.
     clock_t currNumTicks_;
 
     //! Counters the value of the number of ticks from the last call.
     clock_t lastNumTicks_;
 
-    //! This is a flag stating whether interval timing is turned on
-    bool running_;
-
     //! Counter containing the value of the number of ticks from the last start call
     clock_t startLastTicks_;
 
     //! Counter containing the value of the number of ticks from the first call to start();
     clock_t startTicksWC_;
-
-    //! Storred seconds for calculating the timing of the operations
-    /*!
-     *  This handles clock rollovers
-     */
-    double storredSeconds_;
 
     //! Storred seconds for calculating the timing of the wall clock
     /*!
