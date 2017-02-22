@@ -292,8 +292,9 @@ public:
      *  @param[in]           solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector
      *  @param[in]           t                   time
      */
-    virtual void writeSolutionTecplot(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
-                                      const double t) override;
+    virtual void 
+    writeSolutionTecplot(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+                         const double t) override;
 
     //! Base class for writing the solution on the domain to a logfile.
     /*!

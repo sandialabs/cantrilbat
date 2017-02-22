@@ -855,6 +855,13 @@ INPUT                  = ../../util_src/src \
                          ../../1Delectrode/src/m1d_Domain1D.h   ../../1Delectrode/src/m1d_Domain1D.cpp \
                          ../../1Delectrode/src/m1d_BulkDomain1D.h   ../../1Delectrode/src/m1d_BulkDomain1D.cpp \
                          ../../1Delectrode/src/m1d_SurDomain1D.h   ../../1Delectrode/src/m1d_SurDomain1D.cpp \
+                         ../../1Delectrode/src/m1d_DomainDescription.h   ../../1Delectrode/src/m1d_DomainDescription.cpp \
+                         ../../1Delectrode/src/m1d_SurfDomainDescription.h   ../../1Delectrode/src/m1d_SurfDomainDescription.cpp \
+                         ../../1Delectrode/src/m1d_BulkDomainDescription.h   ../../1Delectrode/src/m1d_BulkDomainDescription.cpp \
+                         ../../1Delectrode/src/m1d_BulkDomainTypes.h   ../../1Delectrode/src/m1d_BulkDomainTypes.cpp \
+                         ../../1Delectrode/src/m1d_SurfDomainTypes.h   ../../1Delectrode/src/m1d_SurfDomainTypes.cpp \
+                         ../../1Delectrode/src/m1d_app.h ../../1Delectrode/src/m1d_app.cpp \
+                          ../../1Delectrode/src/m1d_BoundaryCondition.h   ../../1Delectrode/src/m1d_BoundaryCondition.cpp \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
