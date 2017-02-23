@@ -48,10 +48,9 @@ public:
      * In the constructor, we have typically been laying out what the unknowns are
      * and what the equations are, that are solved within the domain.
      *
-     *  @param[in]           dl_ptr              Domain layout pointer
-     *  @param[in]           domainFunctionName  Functional name of domain
-     *  @param[in]           domainName          name of domain
-     *
+     *  @param[in]           dl_ptr              Domain layout pointeri that owns this description.
+     *  @param[in]           domainFunctionName  Functional name of domain. Defaults to "".
+     *  @param[in]           domainName          name of domain. Defaults to "".
      */
     SurfDomainDescription(DomainLayout* dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
 

@@ -25,54 +25,54 @@ class BDT_SimpleDiff : public BulkDomainDescription
 {
 public:
 
-  //! Constructor
-  BDT_SimpleDiff(DomainLayout *dl_ptr);
+    //! Constructor
+    BDT_SimpleDiff(DomainLayout* dl_ptr);
 
-  //! Constructor
-  /*!
-   * In the constructor, we have typically been laying out what the unknowns are
-   * and what the equations are, that are solved within the domain.
-   *
-   */
-  BDT_SimpleDiff(DomainLayout *dl_ptr, int id);
+    //! Constructor
+    /*!
+     * In the constructor, we have typically been laying out what the unknowns are
+     * and what the equations are, that are solved within the domain.
+     *
+     */
+    BDT_SimpleDiff(DomainLayout* dl_ptr, int id);
 
-  //! Destructor
-  virtual
-  ~BDT_SimpleDiff();
+    //! Destructor
+    virtual
+    ~BDT_SimpleDiff();
 
-  //! Copy Constructor
-  /*!
-   * @param r Object to be copied
-   */
-  BDT_SimpleDiff(const BDT_SimpleDiff &r);
+    //! Copy Constructor
+    /*!
+     * @param r Object to be copied
+     */
+    BDT_SimpleDiff(const BDT_SimpleDiff& r);
 
-  //! Assignment operator
-  /*!
-   * @param r    Object to be copied
-   * @return     Returns a changeable reference to the current object
-   */
-  BDT_SimpleDiff &
-  operator=(const BDT_SimpleDiff &r);
+    //! Assignment operator
+    /*!
+     * @param r    Object to be copied
+     * @return     Returns a changeable reference to the current object
+     */
+    BDT_SimpleDiff&
+    operator=(const BDT_SimpleDiff& r);
 
-  //! Determine the list of Equations and Variables
-  /*!
-   *  This routine is responsible for setting the variables:
-   *    - VariableNameList
-   *    - EquationNameList
-   */
-  virtual void
-  SetEquationsVariablesList();
+    //! Determine the list of Equations and Variables
+    /*!
+     *  This routine is responsible for setting the variables:
+     *    - VariableNameList
+     *    - EquationNameList
+     */
+    virtual void
+    SetEquationsVariablesList();
 
-  //! Malloc and Return the object that will calculate the residual efficiently
-  /*!
-   * @return  Returns a pointer to the object that will calculate the residual
-   *          efficiently
-   */
-  virtual BulkDomain1D *mallocDomain1D();
+    //! Malloc and Return the object that will calculate the residual efficiently
+    /*!
+     * @return  Returns a pointer to the object that will calculate the residual
+     *          efficiently
+     */
+    virtual BulkDomain1D* mallocDomain1D();
 
 
-  //! Equation type and var type to apply them
-  std::vector<VarType> EquationID;
+    //! Equation type and var type to apply them
+    std::vector<VarType> EquationID;
 
 
 };
@@ -88,54 +88,54 @@ class BDT_SimpleTDDiff : public BulkDomainDescription
 {
 public:
 
-  //! Constructor
-  BDT_SimpleTDDiff(DomainLayout *dl_ptr);
+    //! Constructor
+    BDT_SimpleTDDiff(DomainLayout* dl_ptr);
 
-  //! Constructor
-  /*!
-   * In the constructor, we have typically been laying out what the unknowns are
-   * and what the equations are, that are solved within the domain.
-   *
-   */
-   BDT_SimpleTDDiff(DomainLayout *dl_ptr, int id);
+    //! Constructor
+    /*!
+     * In the constructor, we have typically been laying out what the unknowns are
+     * and what the equations are, that are solved within the domain.
+     *
+     */
+    BDT_SimpleTDDiff(DomainLayout* dl_ptr, int id);
 
-  //! Destructor
-  virtual
-  ~BDT_SimpleTDDiff();
+    //! Destructor
+    virtual
+    ~BDT_SimpleTDDiff();
 
-  //! Copy Constructor
-  /*!
-   * @param r Object to be copied
-   */
-  BDT_SimpleTDDiff(const BDT_SimpleTDDiff &r);
+    //! Copy Constructor
+    /*!
+     * @param r Object to be copied
+     */
+    BDT_SimpleTDDiff(const BDT_SimpleTDDiff& r);
 
-  //! Assignment operator
-  /*!
-   * @param r    Object to be copied
-   * @return     Returns a changeable reference to the current object
-   */
-  BDT_SimpleTDDiff &
-  operator=(const BDT_SimpleTDDiff &r);
+    //! Assignment operator
+    /*!
+     * @param r    Object to be copied
+     * @return     Returns a changeable reference to the current object
+     */
+    BDT_SimpleTDDiff&
+    operator=(const BDT_SimpleTDDiff& r);
 
-  //! Determine the list of Equations and Variables
-  /*!
-   *  This routine is responsible for setting the variables:
-   *    - VariableNameList
-   *    - EquationNameList
-   */
-  virtual void
-  SetEquationsVariablesList();
+    //! Determine the list of Equations and Variables
+    /*!
+     *  This routine is responsible for setting the variables:
+     *    - VariableNameList
+     *    - EquationNameList
+     */
+    virtual void
+    SetEquationsVariablesList();
 
-  //! Malloc and Return the object that will calculate the residual efficiently
-  /*!
-   * @return  Returns a pointer to the object that will calculate the residual
-   *          efficiently
-   */
-  virtual BulkDomain1D *mallocDomain1D();
+    //! Malloc and Return the object that will calculate the residual efficiently
+    /*!
+     * @return  Returns a pointer to the object that will calculate the residual
+     *          efficiently
+     */
+    virtual BulkDomain1D* mallocDomain1D();
 
 
-  //! Equation type and var type to apply them
-  std::vector<VarType> EquationID;
+    //! Equation type and var type to apply them
+    std::vector<VarType> EquationID;
 
 
 };
