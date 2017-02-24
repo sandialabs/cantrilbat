@@ -3,7 +3,7 @@
  */
 
 
-#include "m1d_SDT_CathodeCollector.h"
+#include "m1d_SDD_CathodeCollector.h"
 #include "m1d_SurDomain_CathodeCollector.h"
 #include "m1d_exception.h"
 
@@ -18,7 +18,7 @@
 namespace m1d
 {
 //=====================================================================================================================
-SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
+SDD_CathodeCollector::SDD_CathodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
     SDD_Mixed(dl_ptr,domainName), 
     m_position(pos), 
     voltageVarBCType_(0), 
@@ -48,7 +48,7 @@ SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const 
 
 }
 //=====================================================================================================================
-SDT_CathodeCollector::SDT_CathodeCollector(const SDT_CathodeCollector &r) :
+SDD_CathodeCollector::SDD_CathodeCollector(const SDD_CathodeCollector &r) :
   SDD_Mixed(r.DL_ptr_), m_position(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0), voltageCathodeSpecified_(1.9),
     cathodeCCThickness_(0.0),
     extraResistanceCathode_(0.0) ,
@@ -58,12 +58,12 @@ SDT_CathodeCollector::SDT_CathodeCollector(const SDT_CathodeCollector &r) :
   *this = r;
 }
 //=====================================================================================================================
-SDT_CathodeCollector::~SDT_CathodeCollector()
+SDD_CathodeCollector::~SDD_CathodeCollector()
 {
 }
 //=====================================================================================================================
-SDT_CathodeCollector &
-SDT_CathodeCollector::operator=(const SDT_CathodeCollector &r)
+SDD_CathodeCollector &
+SDD_CathodeCollector::operator=(const SDD_CathodeCollector &r)
 {
   if (this == &r) {
     return *this;
@@ -93,7 +93,7 @@ SDT_CathodeCollector::operator=(const SDT_CathodeCollector &r)
  *    - EquationIndexStart_EqName
  */
 void
-SDT_CathodeCollector::SetEquationDescription()
+SDD_CathodeCollector::SetEquationDescription()
 {
     /*
      * Set the policy for connecting bulk domains
@@ -165,7 +165,7 @@ SDT_CathodeCollector::SetEquationDescription()
         break;
 
     default:
-	throw m1d_Error("SDT_CathodeCollector::SetEquationDescription", 
+	throw m1d_Error("SDD_CathodeCollector::SetEquationDescription", 
 			"voltageVarBCType not 0, 1, 2 for Dirichlet, Neumann, or Diriclet with sin oscillation" );
     }
     
@@ -215,7 +215,7 @@ SDT_CathodeCollector::SetEquationDescription()
  *          efficiently
  */
 SurDomain1D *
-SDT_CathodeCollector::mallocDomain1D()
+SDD_CathodeCollector::mallocDomain1D()
 {
   SurDomain_CathodeCollector * s1d = new SurDomain_CathodeCollector(*this, 1);
   SurDomain1DPtr_ = s1d;

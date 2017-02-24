@@ -13,7 +13,7 @@
 #include "m1d_BulkDomainDescription.h"
 #include "m1d_BulkDomain1D.h"
 
-#include "m1d_SDT_CathodeCollector.h"
+#include "m1d_SDD_CathodeCollector.h"
 
 #include "m1d_DomainLayout.h" 
 #include "m1d_Comm.h"
@@ -116,7 +116,7 @@ SurDomain_CathodeCollector::operator=(const SurDomain_CathodeCollector& r)
  *  Here we collect all of the information necessary to
  *  speedily implement SpecFlag_NE and Value_NE within the
  *  residual calculation.
- *  We transfer the information from SDT_Dirichlet structure to
+ *  We transfer the information from SDD_Dirichlet structure to
  * this structure for quick processing.
  */
 void SurDomain_CathodeCollector::domain_prep(LocalNodeIndices* li_ptr)
@@ -328,7 +328,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
     /*
      * Get the consistent currents
      */
-    SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
+    SDD_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDD_CathodeCollector*>(&SDD_);
     BulkDomain1D* bd = bedd_->BulkDomainPtr_;
     //
     //  Retrieve the value of icurrElectrode_CBR_[iCell] from the cathode domain calculation
@@ -466,7 +466,7 @@ void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_pt
                 jDir++;
             }
             ss.print0("\n");
-	    SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
+	    SDD_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDD_CathodeCollector*>(&SDD_);
             if (vt.VariableType == Voltage && vt.VariableSubType == 2) {
                 if (BC_Type_NE[k] == 10 || BC_Type_NE[k] == 11 || 
 		    (CCThickness_ != 0.0 ) || (SDD_cathode_ptr->extraResistanceCathode_ != 0.0) || 
@@ -618,7 +618,7 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
      /*
       * Get the consistent currents
       */
-     //SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
+     //SDD_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDD_CathodeCollector*>(&SDD_);
  
      //
      //  Retrieve the value of icurrElectrode_CBR_[iCell] from the cathode domain calculation
@@ -631,7 +631,7 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
      dValsBat_ptr->JHelecRight =   jfluxR;
      dValsBat_ptr->phiSolid = phiCathode_;
 
-     SDT_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDT_CathodeCollector*>(&SDD_);
+     SDD_CathodeCollector* SDD_cathode_ptr = dynamic_cast<SDD_CathodeCollector*>(&SDD_);
      double resistivity = resistivity_aluminum(298.);
      double denom = resistivity * SDD_cathode_ptr->cathodeCCThickness_ + SDD_cathode_ptr->extraResistanceCathode_ * crossSectionalArea_;
 

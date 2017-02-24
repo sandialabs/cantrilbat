@@ -12,7 +12,7 @@
 #include "m1d_BDT_porAnode_LiKCl.h"
 #include "m1d_BDT_porCathode_LiKCl.h"
 #include "m1d_SDD_AnodeCollector.h"
-#include "m1d_SDT_CathodeCollector.h"
+#include "m1d_SDD_CathodeCollector.h"
 
 #include "m1d_exception.h"
 
@@ -140,7 +140,7 @@ DomainLayout_LiKCl_infPorousBat::operator=(const DomainLayout_LiKCl_infPorousBat
     int numNodesC = pscInput_ptr_->initDefaultNumCVsCathode_;
     addBulkDomainToRightEnd(bdd, numNodesC, startZ, endZ);
 
-    SDT_CathodeCollector * cc = new SDT_CathodeCollector(this, 1);
+    SDD_CathodeCollector * cc = new SDD_CathodeCollector(this, 1);
     SurfDomainDescription *sddR3 = cc;
     addSurfDomainToRightEnd(sddR3, bdd);
   }

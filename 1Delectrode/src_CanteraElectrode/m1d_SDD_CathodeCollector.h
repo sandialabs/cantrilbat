@@ -2,8 +2,8 @@
  * @file m1d_CathodeCollector.h
  */
 
-#ifndef M1D_SDT_CATHODECOLLECTOR_H_
-#define M1D_SDT_CATHODECOLLECTOR_H_
+#ifndef M1D_SDD_CATHODECOLLECTOR_H_
+#define M1D_SDD_CATHODECOLLECTOR_H_
 
 #include "m1d_SDD_Mixed.h"
 
@@ -24,7 +24,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_CathodeCollector : public SDD_Mixed
+class SDD_CathodeCollector : public SDD_Mixed
 {
 public:
 
@@ -39,25 +39,25 @@ public:
    *
    * @param dl_ptr  Domain Layout object that owns this description.
    */
-  SDT_CathodeCollector(DomainLayout *dl_ptr, int position, const char *domainName = "");
+  SDD_CathodeCollector(DomainLayout *dl_ptr, int position, const char *domainName = "");
 
   //! Destructor
   virtual
-  ~SDT_CathodeCollector();
+  ~SDD_CathodeCollector();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  SDT_CathodeCollector(const SDT_CathodeCollector &r);
+  SDD_CathodeCollector(const SDD_CathodeCollector &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  SDT_CathodeCollector &
-  operator=(const SDT_CathodeCollector &r);
+  SDD_CathodeCollector &
+  operator=(const SDD_CathodeCollector &r);
 
   //! Set the equation description
   /*!
