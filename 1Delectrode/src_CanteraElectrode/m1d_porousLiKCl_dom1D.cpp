@@ -10,7 +10,7 @@
 //  This is a heavyweight base class that provides the function
 //  evaluation for a single bulk domain.
 #include "m1d_porousLiKCl_dom1D.h"
-#include "m1d_BDT_porousLiKCl.h"
+#include "m1d_BDD_porousLiKCl.h"
 
 #include "m1d_NodalVars.h"
 #include "m1d_LocalNodeIndices.h"
@@ -41,7 +41,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl* bdt_pms_ptr) :
+porousLiKCl_dom1D::porousLiKCl_dom1D(BDD_porousLiKCl* bdt_pms_ptr) :
       porousFlow_dom1D(bdt_pms_ptr),
       BDT_pms_ptr_(bdt_pms_ptr),
       nph_(0), nsp_(0), concTot_cent_(0.0), concTot_cent_old_(0.0),
@@ -56,7 +56,7 @@ porousLiKCl_dom1D::porousLiKCl_dom1D(BDT_porousLiKCl* bdt_pms_ptr) :
       icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), solnTemp(0), ivb_(VB_MOLEAVG)
 {
 
-  //BDT_ptr_ = static_cast<BDT_porousLiKCl *> (&bdd);
+  //BDT_ptr_ = static_cast<BDD_porousLiKCl *> (&bdd);
   nsp_ = 3;
   nph_ = 1;
 

@@ -9,7 +9,7 @@
 #include "m1d_SDD_Mixed.h"
 
 #include "m1d_DomainLayout_LiKCl_infPorousBat.h"
-#include "m1d_BDT_porousLiKCl.h"
+#include "m1d_BDD_porousLiKCl.h"
 #include "m1d_BDT_infPorAnode_LiKCl.h"
 #include "m1d_BDT_infPorCathode_LiKCl.h"
 #include "m1d_SDD_AnodeCollector.h"
@@ -135,7 +135,7 @@ DomainLayout_LiKCl_infPorousBat::malloc_domains()
 
     startZ = endZ;
     endZ = startZ + sepSize;
-    bdd = new BDT_porousLiKCl(this);
+    bdd = new BDD_porousLiKCl(this);
     int numNodesS = pscInput_ptr_->initDefaultNumCVsSeparator_;
     addBulkDomainToRightEnd(bdd, numNodesS, startZ, endZ);
 

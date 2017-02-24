@@ -16,7 +16,7 @@
 # and from C/C++ separately
 M1D_C_OBJS = \
 	m1d_ProblemStatementCell.o m1d_BatteryResidEval.o \
-	m1d_BDT_porousLiKCl.o m1d_porousLiKCl_dom1D.o  m1d_BDD_porousElectrode.o m1d_BDD_porousFlow.o \
+	m1d_BDD_porousLiKCl.o m1d_porousLiKCl_dom1D.o  m1d_BDD_porousElectrode.o m1d_BDD_porousFlow.o \
 	m1d_SDD_AnodeCollector.o m1d_SDD_CathodeCollector.o \
 	m1d_SurDomain_AnodeCollector.o m1d_SurDomain_CathodeCollector.o  \
         m1d_SolNonlinear_CurrentSolve.o FuncElectrodeCurrent.o BEulerInt_Battery.o \
@@ -25,7 +25,7 @@ M1D_C_OBJS = \
 
 M1D_C_HDRS = m1d_CanteraElectrodeGlobals.h \
 	m1d_ProblemStatementCell.h m1d_BatteryResidEval.h \
-	m1d_BDT_porousLiKCl.h m1d_porousLiKCl_dom1D.h  m1d_BDD_porousElectrode.h m1d_BDD_porousFlow.h \
+	m1d_BDD_porousLiKCl.h m1d_porousLiKCl_dom1D.h  m1d_BDD_porousElectrode.h m1d_BDD_porousFlow.h \
 	m1d_SDD_AnodeCollector.h m1d_SDD_CathodeCollector.h \
 	m1d_SurDomain_AnodeCollector.h m1d_SurDomain_CathodeCollector.h  \
         m1d_SolNonlinear_CurrentSolve.h FuncElectrodeCurrent.h  BEulerInt_Battery.h \

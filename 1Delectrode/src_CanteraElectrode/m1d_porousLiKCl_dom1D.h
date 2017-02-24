@@ -18,7 +18,7 @@
  */
 
 #include "m1d_porousFlow_dom1D.h"
-#include "m1d_BDT_porousLiKCl.h"
+#include "m1d_BDD_porousLiKCl.h"
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -50,7 +50,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-    porousLiKCl_dom1D(m1d::BDT_porousLiKCl* bdd_pms_ptr);
+    porousLiKCl_dom1D(BDD_porousLiKCl* bdd_pms_ptr);
 
   //! Copy constructor
   /*!
@@ -313,7 +313,7 @@ public:
 protected:
  
     //! Pointer to the BDD object that is most derived
-    BDT_porousLiKCl* BDT_pms_ptr_;
+    BDD_porousLiKCl* BDT_pms_ptr_;
 
   //! Number of phases solved
   int nph_;

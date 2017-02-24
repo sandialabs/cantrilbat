@@ -1,12 +1,12 @@
 /**
- * @file m1d_BDT_porousLiKCl.cpp
+ * @file m1d_BDD_porousLiKCl.cpp
  */
 
 /*
- *  $Id: m1d_BDT_porousLiKCl.cpp 359 2012-08-16 23:34:13Z hkmoffa $
+ *  $Id: m1d_BDD_porousLiKCl.cpp 359 2012-08-16 23:34:13Z hkmoffa $
  */
 
-#include "m1d_BDT_porousLiKCl.h"
+#include "m1d_BDD_porousLiKCl.h"
 
 #include "m1d_porousLiKCl_dom1D.h"
 
@@ -27,7 +27,7 @@ namespace m1d
 //======================================================================================================================
 //======================================================================================================================
 //======================================================================================================================
-BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr, std::string domainName) :
+BDD_porousLiKCl::BDD_porousLiKCl(DomainLayout *dl_ptr, std::string domainName) :
     BDD_porousFlow(dl_ptr, domainName),
     ionicLiquidIFN_(0)
 {
@@ -36,14 +36,14 @@ BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr, std::string domainName) :
   IsArithmeticScaled_NE.resize(6, 0);
 }
 //======================================================================================================================
-BDT_porousLiKCl::BDT_porousLiKCl(const BDT_porousLiKCl &r) :
+BDD_porousLiKCl::BDD_porousLiKCl(const BDD_porousLiKCl &r) :
     BDD_porousFlow(r.DL_ptr_), 
     ionicLiquidIFN_(0)
 {
   *this = r;
 }
 //======================================================================================================================
-BDT_porousLiKCl::~BDT_porousLiKCl()
+BDD_porousLiKCl::~BDD_porousLiKCl()
 {
   /*
    * Delete the objects that we own
@@ -51,8 +51,8 @@ BDT_porousLiKCl::~BDT_porousLiKCl()
   //delete ionicLiquidIFN_;
 }
 //======================================================================================================================
-BDT_porousLiKCl &
-BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
+BDD_porousLiKCl &
+BDD_porousLiKCl::operator=(const BDD_porousLiKCl &r)
 {
   if (this == &r) {
     return *this;
@@ -73,7 +73,7 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
 }
 //=====================================================================================================================
 void
-BDT_porousLiKCl::ReadModelDescriptions()
+BDD_porousLiKCl::ReadModelDescriptions()
 {
 
     BDD_porousFlow::ReadModelDescriptions();
@@ -81,13 +81,13 @@ BDT_porousLiKCl::ReadModelDescriptions()
  
      ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_ );
      if (!ionicLiquidIFN_) {
-	 throw m1d_Error("BDT_porousLiKCl::ReadModelDescriptions()", 
+	 throw m1d_Error("BDD_porousLiKCl::ReadModelDescriptions()", 
 			 "ionicLiquidIFN_  failed on dynamic cast");
      }
 }
 //======================================================================================================================
 void
-BDT_porousLiKCl::SetEquationsVariablesList()
+BDD_porousLiKCl::SetEquationsVariablesList()
 {
   /*
    *  Create a vector of Equation Names
@@ -150,14 +150,14 @@ BDT_porousLiKCl::SetEquationsVariablesList()
  *          efficiently
  */
 BulkDomain1D *
-BDT_porousLiKCl::mallocDomain1D()
+BDD_porousLiKCl::mallocDomain1D()
 {
   BulkDomainPtr_ = new porousLiKCl_dom1D(this);
   return BulkDomainPtr_;
 }
 //=====================================================================================================================
 void
-BDT_porousLiKCl::DetermineConstitutiveModels()
+BDD_porousLiKCl::DetermineConstitutiveModels()
 {
     if (!trans_) {
 	delete trans_;
