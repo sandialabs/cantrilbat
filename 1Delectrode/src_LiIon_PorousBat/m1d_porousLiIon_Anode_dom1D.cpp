@@ -11,7 +11,7 @@
 #include "m1d_porousLiIon_Anode_dom1D.h"
 
 #include "LiIon_PorousBat.h"
-#include "m1d_BDT_porAnode_LiIon.h"
+#include "m1d_BDD_porAnode_LiIon.h"
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
@@ -65,7 +65,7 @@ drawline0(int sp, int ll)
 }
 
 //===================================================================================================================================
-porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDT_porAnode_LiIon* bdd_anode_ptr) :
+porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDD_porAnode_LiIon* bdd_anode_ptr) :
     porousElectrode_dom1D(bdd_anode_ptr),
     BDT_anode_ptr_(bdd_anode_ptr),
     nph_(0), nsp_(0),
@@ -98,8 +98,8 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDT_porAnode_LiIon* bdd_anode_p
     solnTemp(0)
 {
 
-    //BDT_ptr_ = static_cast<BDT_porAnode_LiIon*>(&bdd);
-    //BDT_porAnode_LiIon* fa = dynamic_cast<BDT_porAnode_LiIon*>(&bdd);
+    //BDT_ptr_ = static_cast<BDD_porAnode_LiIon*>(&bdd);
+    //BDT_porAnode_LiIon* fa = dynamic_cast<BDD_porAnode_LiIon*>(&bdd);
     if (!BDT_ptr_) {
         throw m1d_Error("confused", "confused");
     }
@@ -4950,7 +4950,7 @@ double porousLiIon_Anode_dom1D::effResistanceLayer(double &potAnodic, double &po
     return resistance;
 }
 //=====================================================================================================================
-} //namespace m1d
+}
 //=====================================================================================================================
 
 

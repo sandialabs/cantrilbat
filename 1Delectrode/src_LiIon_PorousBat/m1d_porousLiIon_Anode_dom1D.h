@@ -14,7 +14,7 @@
 
 #include "m1d_porousElectrode_dom1D.h"
 #include "m1d_cellTmps_PorousFlow.h"
-#include "m1d_BDT_porAnode_LiIon.h"
+#include "m1d_BDD_porAnode_LiIon.h"
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -53,7 +53,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiIon_Anode_dom1D(m1d::BDT_porAnode_LiIon* bdd_anode_ptr);
+    porousLiIon_Anode_dom1D(BDD_porAnode_LiIon* bdd_anode_ptr);
 
     //! Copy constructor
     /*!
@@ -639,7 +639,7 @@ public:
 protected:
 
     //! Pointer to the BDD object that is most derived
-    BDT_porAnode_LiIon* BDT_anode_ptr_;
+    BDD_porAnode_LiIon* BDT_anode_ptr_;
 
     //! Number of phases solved
     int nph_;

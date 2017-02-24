@@ -1,5 +1,5 @@
 /**
- * @file m1d_BDT_porAnode_LiKCl.cpp
+ * @file m1d_BDD_porAnode_LiKCl.cpp
  */
 /*
  * Copywrite 2013 Sandia Corporation. Under the terms of Contract
@@ -7,7 +7,7 @@
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
-#include "m1d_BDT_porAnode_LiIon.h"
+#include "m1d_BDD_porAnode_LiIon.h"
 
 #include "m1d_porousLiIon_Anode_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
@@ -23,7 +23,7 @@ namespace m1d
 {
 
 //====================================================================================================================
-BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout* dl_ptr, std::string domainName) :
+BDD_porAnode_LiIon::BDD_porAnode_LiIon(DomainLayout* dl_ptr, std::string domainName) :
     BDD_porousElectrode(dl_ptr, 0, "anode", domainName),
     m_position(0),
     Capacity_initial_(0.0),
@@ -34,19 +34,19 @@ BDT_porAnode_LiIon::BDT_porAnode_LiIon(DomainLayout* dl_ptr, std::string domainN
     IsArithmeticScaled_NE.resize(7,0); 
 }
 //=====================================================================================================================
-BDT_porAnode_LiIon::BDT_porAnode_LiIon(const BDT_porAnode_LiIon& r) :
+BDD_porAnode_LiIon::BDD_porAnode_LiIon(const BDD_porAnode_LiIon& r) :
     BDD_porousElectrode(r.DL_ptr_, 0), 
     m_position(0)
 {
     *this = r;
 }
 //=====================================================================================================================
-BDT_porAnode_LiIon::~BDT_porAnode_LiIon()
+BDD_porAnode_LiIon::~BDD_porAnode_LiIon()
 {
 }
 //=====================================================================================================================
-BDT_porAnode_LiIon&
-BDT_porAnode_LiIon::operator=(const BDT_porAnode_LiIon& r)
+BDD_porAnode_LiIon&
+BDD_porAnode_LiIon::operator=(const BDD_porAnode_LiIon& r)
 {
     if (this == &r) {
         return *this;
@@ -61,7 +61,7 @@ BDT_porAnode_LiIon::operator=(const BDT_porAnode_LiIon& r)
 }
 //=====================================================================================================================
 void
-BDT_porAnode_LiIon::ReadModelDescriptions()
+BDD_porAnode_LiIon::ReadModelDescriptions()
 {
     BDD_porousElectrode::ReadModelDescriptions();
 
@@ -76,7 +76,7 @@ BDT_porAnode_LiIon::ReadModelDescriptions()
  * @return  Returns a pointer to the object that will calculate the residual efficiently
  */
 BulkDomain1D*
-BDT_porAnode_LiIon::mallocDomain1D()
+BDD_porAnode_LiIon::mallocDomain1D()
 {
     BulkDomainPtr_ = new porousLiIon_Anode_dom1D(this);
     return BulkDomainPtr_;
@@ -84,7 +84,7 @@ BDT_porAnode_LiIon::mallocDomain1D()
 
 //=====================================================================================================================
 void
-BDT_porAnode_LiIon::DetermineConstitutiveModels()
+BDD_porAnode_LiIon::DetermineConstitutiveModels()
 {
     BDD_porousElectrode::DetermineConstitutiveModels();
 }
