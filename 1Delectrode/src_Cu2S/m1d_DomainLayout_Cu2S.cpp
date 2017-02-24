@@ -9,7 +9,7 @@
 #include "m1d_defs.h"
 #include "m1d_DomainLayout.h"
 #include "m1d_BulkDomainTypes.h"
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 #include "m1d_DomainLayout_Cu2S.h"
 #include "m1d_BDT_Cu2S.h"

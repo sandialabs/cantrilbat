@@ -2,9 +2,6 @@
  * @file m1d_SurfDomainTypes.cpp
  */
 
-/*
- *  $Id: m1d_SDT_CathodeCollector.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #include "m1d_SDT_CathodeCollector.h"
 #include "m1d_SurDomain_CathodeCollector.h"
@@ -22,7 +19,7 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
-    SDT_Mixed(dl_ptr,domainName), 
+    SDD_Mixed(dl_ptr,domainName), 
     m_position(pos), 
     voltageVarBCType_(0), 
     icurrCathodeSpecified_(0.0), 
@@ -52,7 +49,7 @@ SDT_CathodeCollector::SDT_CathodeCollector(DomainLayout *dl_ptr, int pos, const 
 }
 //=====================================================================================================================
 SDT_CathodeCollector::SDT_CathodeCollector(const SDT_CathodeCollector &r) :
-  SDT_Mixed(r.DL_ptr_), m_position(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0), voltageCathodeSpecified_(1.9),
+  SDD_Mixed(r.DL_ptr_), m_position(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0), voltageCathodeSpecified_(1.9),
     cathodeCCThickness_(0.0),
     extraResistanceCathode_(0.0) ,
     ResistanceLoad_(0.0) ,
@@ -72,7 +69,7 @@ SDT_CathodeCollector::operator=(const SDT_CathodeCollector &r)
     return *this;
   }
 
-  SDT_Mixed::operator=(r);
+  SDD_Mixed::operator=(r);
 
   m_position = r.m_position;
 

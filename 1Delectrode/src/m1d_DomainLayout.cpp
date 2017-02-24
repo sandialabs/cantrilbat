@@ -13,7 +13,7 @@
 #include "m1d_defs.h"
 #include "m1d_DomainLayout.h"
 #include "m1d_BulkDomainTypes.h"
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 #include "m1d_ProblemStatement.h"
 #include "m1d_BulkDomain1D.h"
 #include "m1d_SurDomain1D.h"
@@ -586,10 +586,10 @@ SimpleDiffusionLayout::malloc_domains()
   BulkDomainDescription *bdd = new BDT_SimpleDiff(this, 0);
   addBulkDomainToRightEnd(bdd, numNodes, startZ, endZ);
 
-  SurfDomainDescription *sddL = new SDT_Dirichlet(this, 1.0);
+  SurfDomainDescription *sddL = new SDD_Mixed(this, 1.0);
   addSurfDomainToLeftEnd(sddL, bdd);
 
-  SurfDomainDescription *sddR = new SDT_Dirichlet(this, 0.0);
+  SurfDomainDescription *sddR = new SDD_Mixed(this, 0.0);
   addSurfDomainToRightEnd(sddR, bdd);
 }
 //=====================================================================================================================
@@ -655,10 +655,10 @@ SimpleTimeDependentDiffusionLayout::malloc_domains()
 
   addBulkDomainToRightEnd(bdd, numNodes, startZ, endZ);
 
-  SurfDomainDescription *sddL = new SDT_Dirichlet(this, 1.0);
+  SurfDomainDescription *sddL = new SDD_Mixed(this, 1.0);
   addSurfDomainToLeftEnd(sddL, bdd);
 
-  SurfDomainDescription *sddR = new SDT_Dirichlet(this, 0.0);
+  SurfDomainDescription *sddR = new SDD_Mixed(this, 0.0);
   addSurfDomainToRightEnd(sddR, bdd);
 
 }

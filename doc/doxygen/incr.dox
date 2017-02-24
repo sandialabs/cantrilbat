@@ -859,7 +859,7 @@ INPUT                  = ../../util_src/src \
                          ../../1Delectrode/src/m1d_SurfDomainDescription.h   ../../1Delectrode/src/m1d_SurfDomainDescription.cpp \
                          ../../1Delectrode/src/m1d_BulkDomainDescription.h   ../../1Delectrode/src/m1d_BulkDomainDescription.cpp \
                          ../../1Delectrode/src/m1d_BulkDomainTypes.h   ../../1Delectrode/src/m1d_BulkDomainTypes.cpp \
-                         ../../1Delectrode/src/m1d_SurfDomainTypes.h   ../../1Delectrode/src/m1d_SurfDomainTypes.cpp \
+                         ../../1Delectrode/src/m1d_SDD_Mixed.h   ../../1Delectrode/src/m1d_SDD_Mixed.cpp \
                          ../../1Delectrode/src/m1d_app.h ../../1Delectrode/src/m1d_app.cpp \
                           ../../1Delectrode/src/m1d_BoundaryCondition.h   ../../1Delectrode/src/m1d_BoundaryCondition.cpp \
 

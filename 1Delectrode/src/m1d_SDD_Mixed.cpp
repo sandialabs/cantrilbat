@@ -1,5 +1,5 @@
 /**
- * @file m1d_SurfDomainTypes.cpp
+ * @file m1d_SDD_Mixed.cpp
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -7,28 +7,23 @@
  * work by or on behalf of the U.S. Government. Export of this program
  * may require a license from the United States Government.
  */
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 #include "m1d_SurDomain1D.h"
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
 //==================================================================================================================================
-SDT_Dirichlet::SDT_Dirichlet(DomainLayout* dl_ptr, std::string domainFunctionName, std::string domainName) :
+SDD_Mixed::SDD_Mixed(DomainLayout* dl_ptr, std::string domainFunctionName, std::string domainName) :
     SurfDomainDescription(dl_ptr, domainFunctionName, domainName),
     NumConditions(0),
-    EquationID(0),
-    Value(0),
-    BC_TimeDep_(0),
-    BC_Type_(0)
+    SBC_Type_(0)
 {
 }
 //==================================================================================================================================
-SDT_Dirichlet::SDT_Dirichlet(DomainLayout* dl_ptr, double value, std::string domainFunctionName, std::string domainName) :
+SDD_Mixed::SDD_Mixed(DomainLayout* dl_ptr, double value, std::string domainFunctionName, std::string domainName) :
     SurfDomainDescription(dl_ptr, domainFunctionName, domainName),
     NumConditions(1),
-    BC_TimeDep_(0),
-    BC_Type_(0)
+    SBC_Type_(0)
 {
     EquationID.resize(1);
     VariableID.resize(1);
@@ -36,23 +31,24 @@ SDT_Dirichlet::SDT_Dirichlet(DomainLayout* dl_ptr, double value, std::string dom
     EquationID[0].setID(Equation_Type_Any, -1, "");
     VariableID[0].setID(Variable_Type_Any, -1, "");
     Value[0] = value;
-    TimeDep.push_back(0);
-    BC_TimeDep_.push_back(0);
+    TimeDep.push_back(nullptr);
+    BC_TimeDep_.push_back(nullptr);
     BC_Type_.push_back(0);
 }
 //==================================================================================================================================
-SDT_Dirichlet::SDT_Dirichlet(const SDT_Dirichlet& r) :
+SDD_Mixed::SDD_Mixed(const SDD_Mixed& r) :
     SurfDomainDescription(r.DL_ptr_),
-    NumConditions(0), EquationID(0), Value(0), TimeDep(0), BC_TimeDep_(0), BC_Type_(0)
+    NumConditions(0), 
+    SBC_Type_(0)
 {
     *this = r;
 }
 //==================================================================================================================================
-SDT_Dirichlet::~SDT_Dirichlet()
+SDD_Mixed::~SDD_Mixed()
 {
 }
 //==================================================================================================================================
-SDT_Dirichlet& SDT_Dirichlet::operator=(const SDT_Dirichlet& r)
+SDD_Mixed& SDD_Mixed::operator=(const SDD_Mixed& r)
 {
     if (this == &r) {
         return *this;
@@ -64,12 +60,13 @@ SDT_Dirichlet& SDT_Dirichlet::operator=(const SDT_Dirichlet& r)
     TimeDep = r.TimeDep;  // Caution -> shallow pointer copy
     BC_TimeDep_ = r.BC_TimeDep_;   // Caution -> shallow pointer copy
     BC_Type_ = r.BC_Type_;
+    SBC_Type_ = r.SBC_Type_;
 
     return *this;
 }
 //==================================================================================================================================
 void
-SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, double value)
+SDD_Mixed::addDirichletCondition(EqnType equationID, VarType variableID, double value)
 {
     NumConditions++;
     EquationID.push_back(equationID);
@@ -81,7 +78,7 @@ SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, dou
 }
 //==================================================================================================================================
 void
-SDT_Dirichlet::addDirichletCondition(VarType variableID, double value)
+SDD_Mixed::addDirichletCondition(VarType variableID, double value)
 {
     NumConditions++;
     VariableID.push_back(variableID);
@@ -96,7 +93,7 @@ SDT_Dirichlet::addDirichletCondition(VarType variableID, double value)
 }
 //==================================================================================================================================
 void
-SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, double value, double (*timeDep)(double))
+SDD_Mixed::addDirichletCondition(EqnType equationID, VarType variableID, double value, double (*timeDep)(double))
 {
     NumConditions++;
     EquationID.push_back(equationID);
@@ -108,7 +105,7 @@ SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, dou
 }
 //==================================================================================================================================
 void
-SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, int BC_Type, BoundaryCondition* BC_timeDep)
+SDD_Mixed::addDirichletCondition(EqnType equationID, VarType variableID, int BC_Type, BoundaryCondition* BC_timeDep)
 {
     NumConditions++;
     EquationID.push_back(equationID);
@@ -120,7 +117,55 @@ SDT_Dirichlet::addDirichletCondition(EqnType equationID, VarType variableID, int
 }
 //==================================================================================================================================
 void
-SDT_Dirichlet::SetEquationDescription()
+SDD_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, double value)
+{
+    NumConditions++;
+    EquationID.push_back(equationID);
+    VariableID.push_back(variableID);
+    Value.push_back(value);
+    TimeDep.push_back(nullptr);
+    BC_TimeDep_.push_back(nullptr);
+    BC_Type_.push_back(1);
+}
+//==================================================================================================================================
+void
+SDD_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, double value, double (*timeDep)(double))
+{
+    NumConditions++;
+    EquationID.push_back(equationID);
+    VariableID.push_back(variableID);
+    Value.push_back(value);
+    TimeDep.push_back(timeDep);
+    BC_TimeDep_.push_back(nullptr);
+    BC_Type_.push_back(3);
+}
+//==================================================================================================================================
+void
+SDD_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, int BC_Type, BoundaryCondition* BC_timeDep)
+{
+    NumConditions++;
+    EquationID.push_back(equationID);
+    VariableID.push_back(variableID);
+    Value.push_back(0.0);
+    TimeDep.push_back(nullptr);
+    BC_TimeDep_.push_back(BC_timeDep);
+    BC_Type_.push_back(BC_Type);
+}
+//==================================================================================================================================
+void
+SDD_Mixed::addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition* BC_timeDep, int bc_type)
+{
+    NumConditions++;
+    EquationID.push_back(equationID);
+    VariableID.push_back(variableID);
+    Value.push_back(0.0);
+    TimeDep.push_back(nullptr);
+    BC_TimeDep_.push_back(BC_timeDep);
+    BC_Type_.push_back(bc_type);
+}
+//==================================================================================================================================
+void
+SDD_Mixed::SetEquationDescription()
 {
     /*
      * Dirichlet equations don't have any extra equations
@@ -140,92 +185,7 @@ SDT_Dirichlet::SetEquationDescription()
 }
 //==================================================================================================================================
 SurDomain1D*
-SDT_Dirichlet::mallocDomain1D()
-{
-    SurDomain1DPtr_ = new SurBC_Dirichlet(*this);
-    return SurDomain1DPtr_;
-}
-//==================================================================================================================================
-//==================================================================================================================================
-//==================================================================================================================================
-SDT_Mixed::SDT_Mixed(DomainLayout* dl_ptr, std::string domainFunctionName, std::string domainName) :
-    SDT_Dirichlet(dl_ptr, domainFunctionName, domainName),
-    SBC_Type_(0)
-{
-}
-//==================================================================================================================================
-SDT_Mixed::SDT_Mixed(const SDT_Mixed& r) :
-    SDT_Dirichlet(r.DL_ptr_), SBC_Type_(0)
-{
-    *this = r;
-}
-//==================================================================================================================================
-SDT_Mixed::~SDT_Mixed()
-{
-}
-//==================================================================================================================================
-SDT_Mixed&
-SDT_Mixed::operator=(const SDT_Mixed& r)
-{
-    if (this == &r) {
-        return *this;
-    }
-
-    SDT_Dirichlet::operator=(r);
-    SBC_Type_ = r.SBC_Type_;
-    return *this;
-}
-//==================================================================================================================================
-void
-SDT_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, double value)
-{
-    NumConditions++;
-    EquationID.push_back(equationID);
-    VariableID.push_back(variableID);
-    Value.push_back(value);
-    TimeDep.push_back(nullptr);
-    BC_TimeDep_.push_back(nullptr);
-    BC_Type_.push_back(1);
-}
-//==================================================================================================================================
-void
-SDT_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, double value, double (*timeDep)(double))
-{
-    NumConditions++;
-    EquationID.push_back(equationID);
-    VariableID.push_back(variableID);
-    Value.push_back(value);
-    TimeDep.push_back(timeDep);
-    BC_TimeDep_.push_back(nullptr);
-    BC_Type_.push_back(3);
-}
-//==================================================================================================================================
-void
-SDT_Mixed::addFluxCondition(const EqnType& equationID, const VarType& variableID, int BC_Type, BoundaryCondition* BC_timeDep)
-{
-    NumConditions++;
-    EquationID.push_back(equationID);
-    VariableID.push_back(variableID);
-    Value.push_back(0.0);
-    TimeDep.push_back(nullptr);
-    BC_TimeDep_.push_back(BC_timeDep);
-    BC_Type_.push_back(BC_Type);
-}
-//==================================================================================================================================
-void
-SDT_Mixed::addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition* BC_timeDep, int bc_type)
-{
-    NumConditions++;
-    EquationID.push_back(equationID);
-    VariableID.push_back(variableID);
-    Value.push_back(0.0);
-    TimeDep.push_back(nullptr);
-    BC_TimeDep_.push_back(BC_timeDep);
-    BC_Type_.push_back(bc_type);
-}
-//==================================================================================================================================
-SurDomain1D*
-SDT_Mixed::mallocDomain1D()
+SDD_Mixed::mallocDomain1D()
 {
     SurDomain1DPtr_ = new SurBC_Dirichlet(*this);
     return SurDomain1DPtr_;

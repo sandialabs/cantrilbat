@@ -60,19 +60,17 @@ public:
      */
     SurfDomainDescription(const SurfDomainDescription& r);
 
-    //! Destructor
-    virtual
-    ~SurfDomainDescription();
+    //! Virtual Destructor
+    virtual ~SurfDomainDescription();
 
     //! Assignment operator
     /*!
-     * @param r       Object to be copied
-     * @return        Return a changeable reference to the current object
+     *  @param[in]           r                   Object to be copied
+     *  @return                                  Return a changeable reference to the current object
      */
-    SurfDomainDescription&
-    operator=(const SurfDomainDescription& r);
+    SurfDomainDescription& operator=(const SurfDomainDescription& r);
 
-    //! sets the id indexof the surface domain
+    //! Sets the id indexof the surface domain
     /*!
      *  This is a bit duplicative. It's just the index defined in the DomainLayout of the position of this Surface Domain 
      *  within the global list of surface domains.

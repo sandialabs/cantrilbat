@@ -26,12 +26,12 @@ namespace m1d
 {
 //==================================================================================================================================
 SDT_ElectrodeSepInterface::SDT_ElectrodeSepInterface(DomainLayout *dl_ptr, const char *domainName) :
-    SDT_Mixed(dl_ptr, domainName)
+    SDD_Mixed(dl_ptr, domainName)
 {
 }
 //==================================================================================================================================
 SDT_ElectrodeSepInterface::SDT_ElectrodeSepInterface(const SDT_ElectrodeSepInterface &r) :
-    SDT_Mixed(r.DL_ptr_, r.DomainName)
+    SDD_Mixed(r.DL_ptr_, r.DomainName)
 {
   *this = r;
 }
@@ -47,7 +47,7 @@ SDT_ElectrodeSepInterface::operator=(const SDT_ElectrodeSepInterface &r)
     return *this;
   }
 
-  SDT_Mixed::operator=(r);
+  SDD_Mixed::operator=(r);
 
   return *this;
 }

@@ -3,14 +3,11 @@
  *  object to calculate the  surface domains in the Cu2S problem
  */
 
-/*
- *  $Id: m1d_SurDomain_CathodeCollector.cpp 540 2013-02-27 22:18:26Z hkmoffa $
- */
 
 #include "m1d_SurDomain_CathodeCollector.h"
 
 #include "m1d_NodalVars.h"
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 #include "m1d_GlobalIndices.h"
 #include "m1d_BulkDomainDescription.h"

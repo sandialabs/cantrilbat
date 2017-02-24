@@ -1,19 +1,17 @@
 /**
- * @file m1d_SurfDomainTypes.h
- */
-/*
- * $Id: m1d_SDT_AnodeCollector.h 5 2012-02-23 21:34:18Z hkmoffa $
+ * @file m1d_SDT_AnodeCollector.h
  */
 
 #ifndef M1D_SDT_ANODECOLLECTOR_H_
 #define M1D_SDT_ANODECOLLECTOR_H_
 
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
-namespace Cantera
+namespace Zuzax
 {
 class ELECTRODE_MODEL;
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
@@ -22,7 +20,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_AnodeCollector : public SDT_Mixed
+class SDT_AnodeCollector : public SDD_Mixed
 {
 public:
 

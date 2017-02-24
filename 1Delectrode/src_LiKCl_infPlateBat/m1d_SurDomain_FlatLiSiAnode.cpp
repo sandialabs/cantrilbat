@@ -3,14 +3,11 @@
  *  object to calculate the  surface domains in the Cu2S problem
  */
 
-/*
- *  $Id: m1d_SurDomain_FlatLiSiAnode.cpp 593 2013-05-13 21:25:47Z hkmoffa $
- */
 
 #include "m1d_SurDomain_FlatLiSiAnode.h"
 
 #include "m1d_NodalVars.h"
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 #include "m1d_exception.h"
 #include "m1d_GlobalIndices.h"
@@ -43,7 +40,7 @@ drawline(int sp, int ll)
 //=====================================================================================================================
 
 SurDomain_FlatLiSiAnode::SurDomain_FlatLiSiAnode(SurfDomainDescription &sdd, int problemType) :
-  ReactingSurDomain(sdd), ElectrodeA_(0), electrolyteThermo_(0), bedd_(0), mfElectrolyte_Soln(0),
+    ReactingSurDomain(sdd), ElectrodeA_(0), electrolyteThermo_(0), bedd_(0), mfElectrolyte_Soln(0),
       mfElectrolyte_Thermo(0), phiElectrolyte_(0), phiAnode_(0), NumNodeEqns(0), SpecFlag_NE(0), Value_NE(0),
       electrodeSpeciesProdRates_(0), phaseMoleFlux_(0), surfaceArea_(1.0)
 {
@@ -146,7 +143,7 @@ SurDomain_FlatLiSiAnode::domain_prep(LocalNodeIndices *li_ptr)
    *  Make sure that the SurfDomainType associated with this domain
    *  is a straight surface Dirichlet condition
    */
-  SDT_Dirichlet *sdt = dynamic_cast<SDT_Dirichlet *> (&SDD_);
+  SDD_Mixed *sdt = dynamic_cast<SDD_Mixed *> (&SDD_);
   AssertThrow(sdt, "bad cast");
   /*
    * Zero out the current domain's setup section.

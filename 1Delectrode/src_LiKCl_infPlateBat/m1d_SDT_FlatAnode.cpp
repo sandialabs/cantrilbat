@@ -28,7 +28,8 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_FlatAnode::SDT_FlatAnode(DomainLayout *dl_ptr, int pos) :
-  SDT_Mixed(dl_ptr), m_position(pos), ElectrodeA_(0)
+  SDD_Mixed(dl_ptr), 
+  m_position(pos), ElectrodeA_(0)
 {
   ElectrodeA_ = new ZZCantera::Electrode_SuccessiveSubstitution();
 
@@ -77,7 +78,8 @@ SDT_FlatAnode::SDT_FlatAnode(DomainLayout *dl_ptr, int pos) :
 }
 //=====================================================================================================================
 SDT_FlatAnode::SDT_FlatAnode(const SDT_FlatAnode &r) :
-  SDT_Mixed(r.DL_ptr_), m_position(0)
+    SDD_Mixed(r.DL_ptr_), 
+    m_position(0)
 {
   *this = r;
 }
@@ -94,7 +96,7 @@ SDT_FlatAnode::operator=(const SDT_FlatAnode &r)
     return *this;
   }
 
-  SDT_Mixed::operator=(r);
+  SDD_Mixed::operator=(r);
   m_position = r.m_position;
 
 

@@ -1,14 +1,11 @@
 /**
  * @file m1d_CathodeCollector.h
  */
-/*
- * $Id: m1d_SDT_CathodeCollector.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #ifndef M1D_SDT_CATHODECOLLECTOR_H_
 #define M1D_SDT_CATHODECOLLECTOR_H_
 
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -18,16 +15,16 @@ namespace Cantera
 {
 class ELECTRODE_MODEL;
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
+//==================================================================================================================================
 //! This class specifies that all equations are handled
 //! by a simple Dirichlet condition or simple flux conditions of the third type
 /*!
  *
  */
-class SDT_CathodeCollector : public SDT_Mixed
+class SDT_CathodeCollector : public SDD_Mixed
 {
 public:
 

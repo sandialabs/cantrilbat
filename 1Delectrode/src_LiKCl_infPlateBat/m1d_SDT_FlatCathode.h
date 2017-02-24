@@ -1,14 +1,11 @@
 /**
  * @file m1d_SurfDomainTypes.h
  */
-/*
- * $Id: m1d_SDT_FlatCathode.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #ifndef M1D_SDT_FLATCATHODE_H_
 #define M1D_SDT_FLATCATHODE_H_
 
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -27,7 +24,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_FlatCathode : public SDT_Mixed
+class SDT_FlatCathode : public SDD_Mixed
 {
 public:
 

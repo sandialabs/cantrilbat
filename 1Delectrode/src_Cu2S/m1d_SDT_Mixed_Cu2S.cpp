@@ -14,13 +14,14 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_Mixed_Cu2S::SDT_Mixed_Cu2S(DomainLayout *dl_ptr, int pos) :
-    SDT_Mixed(dl_ptr),
+    SDD_Mixed(dl_ptr),
     m_position(pos)
 {
 }
 //=====================================================================================================================
 SDT_Mixed_Cu2S::SDT_Mixed_Cu2S(const SDT_Mixed_Cu2S &r) :
-  SDT_Mixed(r.DL_ptr_), m_position(0)
+  SDD_Mixed(r.DL_ptr_),
+   m_position(0)
 {
   *this = r;
 }
@@ -36,7 +37,7 @@ SDT_Mixed_Cu2S::operator=(const SDT_Mixed_Cu2S &r)
     return *this;
   }
 
-  SDT_Mixed::operator=(r);
+  SDD_Mixed::operator=(r);
   m_position = r.m_position;
 
   return *this;

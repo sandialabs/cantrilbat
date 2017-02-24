@@ -20,7 +20,7 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_AnodeCollector::SDT_AnodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
-    SDT_Mixed(dl_ptr,domainName),
+    SDD_Mixed(dl_ptr,domainName),
     m_position(pos)
 {
     /*
@@ -39,7 +39,7 @@ SDT_AnodeCollector::SDT_AnodeCollector(DomainLayout *dl_ptr, int pos, const char
 }
 //=====================================================================================================================
 SDT_AnodeCollector::SDT_AnodeCollector(const SDT_AnodeCollector &r) :
-    SDT_Mixed(r.DL_ptr_),
+    SDD_Mixed(r.DL_ptr_),
     m_position(0)
 {
     SDT_AnodeCollector::operator=(r);
@@ -55,7 +55,7 @@ SDT_AnodeCollector::operator=(const SDT_AnodeCollector &r)
     if (this == &r) {
 	return *this;
     }
-    SDT_Mixed::operator=(r);
+    SDD_Mixed::operator=(r);
     m_position = r.m_position;
     voltageVarBCType_   = r.voltageVarBCType_;
     anodeTempBCType_    = r.anodeTempBCType_;

@@ -34,7 +34,7 @@ namespace m1d
 {
 //=====================================================================================================================
 SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
-    SDT_Mixed(dl_ptr), 
+    SDD_Mixed(dl_ptr), 
     m_position(pos),
     ElectrodeC_(0), 
     voltageVarBCType_(0), 
@@ -84,7 +84,8 @@ SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
 }
 //=====================================================================================================================
 SDT_FlatCathode::SDT_FlatCathode(const SDT_FlatCathode &r) :
-  SDT_Mixed(r.DL_ptr_), m_position(0), ElectrodeC_(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0)
+    SDD_Mixed(r.DL_ptr_), 
+    m_position(0), ElectrodeC_(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0)
 {
   *this = r;
 }
@@ -101,7 +102,7 @@ SDT_FlatCathode::operator=(const SDT_FlatCathode &r)
     return *this;
   }
 
-  SDT_Mixed::operator=(r);
+  SDD_Mixed::operator=(r);
 
   m_position = r.m_position;
 

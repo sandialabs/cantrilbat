@@ -14,7 +14,7 @@
 #ifndef M1D_SDT_ELECTRODESEPINTERFACE_H_
 #define M1D_SDT_ELECTRODESEPINTERFACE_H_
 
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 namespace m1d
 {
@@ -24,7 +24,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_ElectrodeSepInterface : public SDT_Mixed
+class SDT_ElectrodeSepInterface : public SDD_Mixed
 {
 public:
 

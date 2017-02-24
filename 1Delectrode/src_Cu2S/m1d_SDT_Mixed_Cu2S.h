@@ -1,14 +1,11 @@
 /**
  * @file m1d_SurfDomainTypes.h
  */
-/*
- * $Id: m1d_SDT_Mixed_Cu2S.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #ifndef M1D_SDT_MIXED_CU2S_TOP_H_
 #define M1D_SDT_MIXED_CU2S_TOP_H_
 
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 namespace m1d
 {
@@ -18,7 +15,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_Mixed_Cu2S : public SDT_Mixed {
+class SDT_Mixed_Cu2S : public SDD_Mixed {
 public:
 
   //! Constructor

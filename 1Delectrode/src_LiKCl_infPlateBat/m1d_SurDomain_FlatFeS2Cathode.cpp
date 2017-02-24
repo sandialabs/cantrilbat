@@ -3,14 +3,11 @@
  *  object to calculate the  surface domains in the Cu2S problem
  */
 
-/*
- *  $Id: m1d_SurDomain_FlatFeS2Cathode.cpp 593 2013-05-13 21:25:47Z hkmoffa $
- */
 
 #include "m1d_SurDomain_FlatFeS2Cathode.h"
 
 #include "m1d_NodalVars.h"
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 #include "m1d_exception.h"
 #include "m1d_GlobalIndices.h"
@@ -152,7 +149,7 @@ SurDomain_FlatFeS2Cathode::domain_prep(LocalNodeIndices *li_ptr)
    *  Make sure that the SurfDomainType associated with this domain
    *  is a straight surface Dirichlet condition
    */
-  SDT_Dirichlet *sdt = dynamic_cast<SDT_Dirichlet *> (&SDD_);
+  SDD_Mixed *sdt = dynamic_cast<SDD_Mixed *> (&SDD_);
   AssertThrow(sdt, "bad cast");
   /*
    * Zero out the current domain's setup section.

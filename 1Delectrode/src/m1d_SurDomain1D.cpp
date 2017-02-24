@@ -12,7 +12,7 @@
 #include "m1d_SurDomain1D.h"
 
 #include "m1d_NodalVars.h"
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 #include "m1d_BulkDomain1D.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_DomainLayout.h"
@@ -1104,7 +1104,7 @@ void SurBC_Dirichlet::domain_prep(LocalNodeIndices* const li_ptr)
      *  Make sure that the SurfDomainType associated with this domain
      *  is a straight surface Dirichlet condition
      */
-    SDT_Dirichlet* sdt = dynamic_cast<SDT_Dirichlet*>(&SDD_);
+    SDD_Mixed* sdt = dynamic_cast<SDD_Mixed*>(&SDD_);
     AssertThrow(sdt, "bad cast");
     /*
      * Zero out the current domain's setup section.

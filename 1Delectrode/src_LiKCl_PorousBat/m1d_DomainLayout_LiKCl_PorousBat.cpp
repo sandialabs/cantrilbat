@@ -3,13 +3,9 @@
  *
  */
 
-/*
- *  $Id: m1d_DomainLayout_LiKCl_PorousBat.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
 #include "m1d_defs.h"
-//#include "m1d_DomainLayout.h"
 #include "m1d_BulkDomainTypes.h"
-#include "m1d_SurfDomainTypes.h"
+#include "m1d_SDD_Mixed.h"
 
 #include "m1d_DomainLayout_LiKCl_PorousBat.h"
 #include "m1d_BDT_porousLiKCl.h"
@@ -34,9 +30,6 @@ using namespace Cantera;
 
 namespace m1d
 {
-
-//=====================================================================================================================
-//=====================================================================================================================
 //=====================================================================================================================
 DomainLayout_LiKCl_infPorousBat::DomainLayout_LiKCl_infPorousBat(ProblemStatement *psInput_ptr) :
   DomainLayout(psInput_ptr), ProbNum_(0)
@@ -127,7 +120,7 @@ DomainLayout_LiKCl_infPorousBat::operator=(const DomainLayout_LiKCl_infPorousBat
     addSurfDomainToLeftEnd(sddL, bdd);
 
 
-    SDT_Mixed * anodeSepInterface = new SDT_Mixed(this);
+    SDD_Mixed * anodeSepInterface = new SDD_Mixed(this);
     SurfDomainDescription *sddR = anodeSepInterface;
     addSurfDomainToRightEnd(sddR, bdd);
 
@@ -137,7 +130,7 @@ DomainLayout_LiKCl_infPorousBat::operator=(const DomainLayout_LiKCl_infPorousBat
     int numNodesS = pscInput_ptr_->initDefaultNumCVsSeparator_;
     addBulkDomainToRightEnd(bdd, numNodesS, startZ, endZ);
 
-    SDT_Mixed * cathodeSepInterface = new SDT_Mixed(this);
+    SDD_Mixed * cathodeSepInterface = new SDD_Mixed(this);
     SurfDomainDescription *sddR2 = cathodeSepInterface;
     addSurfDomainToRightEnd(sddR2, bdd);
 
