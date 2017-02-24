@@ -1,7 +1,7 @@
 /**
- * @file SDT_ElectrodeSepInterface.h
+ * @file SDD_ElectrodeSepInterface.h
  * Definition of an interface between anode-separator or cathode-separator
- * (see class \link m1d::SDT_ElectrodeSepInterface SDT_ElectrodeSepInterface\endlink).
+ * (see class \link m1d::SDD_ElectrodeSepInterface SDD_ElectrodeSepInterface\endlink).
  */
 
 /*
@@ -11,8 +11,8 @@
  * may require a license from the United States Government.
  */
 
-#ifndef M1D_SDT_ELECTRODESEPINTERFACE_H_
-#define M1D_SDT_ELECTRODESEPINTERFACE_H_
+#ifndef M1D_SDD_ELECTRODESEPINTERFACE_H_
+#define M1D_SDD_ELECTRODESEPINTERFACE_H_
 
 #include "m1d_SDD_Mixed.h"
 
@@ -24,7 +24,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_ElectrodeSepInterface : public SDD_Mixed
+class SDD_ElectrodeSepInterface : public SDD_Mixed
 {
 public:
 
@@ -37,29 +37,28 @@ public:
    * and what the equations are, that are solved within the domain.
    *
    *
-   * @param dl_ptr  Domain Layout object that owns this description.
+   *  @param[in]             dl_ptr              Domain Layout object that owns this description.
+   *  @param[in]             domainName          C-String containing the name of the domain 
    */
-  SDT_ElectrodeSepInterface(DomainLayout *dl_ptr, const char *domainName = "");
+  SDD_ElectrodeSepInterface(DomainLayout *dl_ptr, const char *domainName = "");
 
   //! Destructor
   virtual
-  ~SDT_ElectrodeSepInterface();
+  ~SDD_ElectrodeSepInterface();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  SDT_ElectrodeSepInterface(const SDT_ElectrodeSepInterface &r);
+  SDD_ElectrodeSepInterface(const SDD_ElectrodeSepInterface &r);
 
   //! Assignment operator
   /*!
-   * @param r    Object to be copied
-   * @return     Returns a changeable reference to the current object
+   *  @param[in]             r                   Object to be copied
+   *  @return                                    Returns a changeable reference to the current object
    */
-  SDT_ElectrodeSepInterface &
-  operator=(const SDT_ElectrodeSepInterface &r);
-
- 
+  SDD_ElectrodeSepInterface &
+  operator=(const SDD_ElectrodeSepInterface &r);
 
   // --------------------------------------------------------------------------------------------------------------
   //                                   DATA

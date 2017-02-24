@@ -20,7 +20,7 @@
 #include "m1d_SDT_CathodeCollector.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BDD_porousElectrode.h"
-#include "m1d_SDT_ElectrodeSepInterface.h"
+#include "m1d_SDD_ElectrodeSepInterface.h"
 
 #include <iostream>
 
@@ -132,8 +132,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     SurfDomainDescription* sddL = dirLeft;
     addSurfDomainToLeftEnd(sddL, bdd);
 
-
-    SDT_ElectrodeSepInterface* anodeSepInterface = new SDT_ElectrodeSepInterface(this);
+    SDD_ElectrodeSepInterface* anodeSepInterface = new SDD_ElectrodeSepInterface(this);
     SurfDomainDescription* sddR = anodeSepInterface;
     addSurfDomainToRightEnd(sddR, bdd);
 
@@ -143,7 +142,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     int numNodesS = pscInput_ptr_->initDefaultNumCVsSeparator_;
     addBulkDomainToRightEnd(bdd, numNodesS, startZ, endZ);
 
-    SDT_ElectrodeSepInterface* cathodeSepInterface = new SDT_ElectrodeSepInterface(this);
+    SDD_ElectrodeSepInterface* cathodeSepInterface = new SDD_ElectrodeSepInterface(this);
     SurfDomainDescription* sddR2 = cathodeSepInterface;
     addSurfDomainToRightEnd(sddR2, bdd);
 
