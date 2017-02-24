@@ -1,5 +1,5 @@
 /**
- * @file m1d_SDT_AnodeCollector.cpp
+ * @file m1d_SDD_AnodeCollector.cpp
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -8,7 +8,7 @@
  * may require a license from the United States Government.
  */
 
-#include "m1d_SDT_AnodeCollector.h"
+#include "m1d_SDD_AnodeCollector.h"
 #include "m1d_SurDomain_AnodeCollector.h"
 
 #include "m1d_ProblemStatementCell.h"
@@ -19,7 +19,7 @@
 namespace m1d
 {
 //=====================================================================================================================
-SDT_AnodeCollector::SDT_AnodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
+SDD_AnodeCollector::SDD_AnodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
     SDD_Mixed(dl_ptr,domainName),
     m_position(pos)
 {
@@ -38,19 +38,19 @@ SDT_AnodeCollector::SDT_AnodeCollector(DomainLayout *dl_ptr, int pos, const char
 
 }
 //=====================================================================================================================
-SDT_AnodeCollector::SDT_AnodeCollector(const SDT_AnodeCollector &r) :
+SDD_AnodeCollector::SDD_AnodeCollector(const SDD_AnodeCollector &r) :
     SDD_Mixed(r.DL_ptr_),
     m_position(0)
 {
-    SDT_AnodeCollector::operator=(r);
+    SDD_AnodeCollector::operator=(r);
 }
 //=====================================================================================================================
-SDT_AnodeCollector::~SDT_AnodeCollector()
+SDD_AnodeCollector::~SDD_AnodeCollector()
 {
 }
 //=====================================================================================================================
-SDT_AnodeCollector &
-SDT_AnodeCollector::operator=(const SDT_AnodeCollector &r)
+SDD_AnodeCollector &
+SDD_AnodeCollector::operator=(const SDD_AnodeCollector &r)
 {
     if (this == &r) {
 	return *this;
@@ -75,7 +75,7 @@ SDT_AnodeCollector::operator=(const SDT_AnodeCollector &r)
  *    - EquationIndexStart_EqName
  */
 void
-SDT_AnodeCollector::SetEquationDescription()
+SDD_AnodeCollector::SetEquationDescription()
 {
    /*
     * Set the policy for connecting bulk domains
@@ -158,19 +158,13 @@ SDT_AnodeCollector::SetEquationDescription()
 
 }
 //=====================================================================================================================
-// Malloc and Return the object that will calculate the residual efficiently
-/*
- * @return  Returns a pointer to the object that will calculate the residual
- *          efficiently
- */
 SurDomain1D *
-SDT_AnodeCollector::mallocDomain1D()
+SDD_AnodeCollector::mallocDomain1D()
 {
   SurDomain_AnodeCollector * s1d = new SurDomain_AnodeCollector(*this, 1);
   SurDomain1DPtr_ = s1d;
   return s1d;
 }
-
 //=====================================================================================================================
 } /* End of Namespace */
 //=====================================================================================================================

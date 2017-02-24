@@ -16,7 +16,7 @@
 #include "m1d_BDT_porSeparator_LiIon.h"
 #include "m1d_BDT_porAnode_LiIon.h"
 #include "m1d_BDT_porCathode_LiIon.h"
-#include "m1d_SDT_AnodeCollector.h"
+#include "m1d_SDD_AnodeCollector.h"
 #include "m1d_SDT_CathodeCollector.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BDD_porousElectrode.h"
@@ -128,7 +128,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
     int numNodesA = pscInput_ptr_->initDefaultNumCVsAnode_;
     addBulkDomainToRightEnd(bdd, numNodesA, startZ, endZ);
 
-    SDT_AnodeCollector* dirLeft = new SDT_AnodeCollector(this, 1);
+    SDD_AnodeCollector* dirLeft = new SDD_AnodeCollector(this, 1);
     SurfDomainDescription* sddL = dirLeft;
     addSurfDomainToLeftEnd(sddL, bdd);
 

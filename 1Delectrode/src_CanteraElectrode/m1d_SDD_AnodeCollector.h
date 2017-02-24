@@ -1,9 +1,9 @@
 /**
- * @file m1d_SDT_AnodeCollector.h
+ * @file m1d_SDD_AnodeCollector.h
  */
 
-#ifndef M1D_SDT_ANODECOLLECTOR_H_
-#define M1D_SDT_ANODECOLLECTOR_H_
+#ifndef M1D_SDD_ANODECOLLECTOR_H_
+#define M1D_SDD_ANODECOLLECTOR_H_
 
 #include "m1d_SDD_Mixed.h"
 
@@ -20,7 +20,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_AnodeCollector : public SDD_Mixed
+class SDD_AnodeCollector : public SDD_Mixed
 {
 public:
 
@@ -34,24 +34,24 @@ public:
    *
    * @param dl_ptr  Domain Layout object that owns this description.
    */
-  SDT_AnodeCollector(DomainLayout *dl_ptr, int position, const char *domainName = "");
+  SDD_AnodeCollector(DomainLayout *dl_ptr, int position, const char *domainName = "");
 
   //! Destructor
-  virtual ~SDT_AnodeCollector();
+  virtual ~SDD_AnodeCollector();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  SDT_AnodeCollector(const SDT_AnodeCollector &r);
+  SDD_AnodeCollector(const SDD_AnodeCollector &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  SDT_AnodeCollector &
-  operator=(const SDT_AnodeCollector &r);
+  SDD_AnodeCollector &
+  operator=(const SDD_AnodeCollector &r);
 
   //! Set the equation description
   /*!

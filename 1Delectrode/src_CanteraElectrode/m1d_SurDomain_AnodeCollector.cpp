@@ -14,7 +14,7 @@
 #include "m1d_BulkDomain1D.h"
 #include "m1d_DomainLayout.h" 
 #include "m1d_Comm.h"
-#include "m1d_SDT_AnodeCollector.h"
+#include "m1d_SDD_AnodeCollector.h"
 #include "m1d_BatteryResidEval.h"
 
 using namespace std;
@@ -54,13 +54,14 @@ SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription& sdd, i
     if (!bedd_) {
         throw m1d_Error("SurDomain_FlatLiSiAnode::SurDomain_FlatLiSiAnode", "Can't find adjoining bulk electrolyte domain");
     }
-    const SDT_AnodeCollector* sdta_ptr = dynamic_cast<const SDT_AnodeCollector*>(&SDD_);
+    const SDD_AnodeCollector* sdta_ptr = dynamic_cast<const SDD_AnodeCollector*>(&SDD_);
     CCThickness_ = sdta_ptr->anodeCCThickness_;
-
 }
 //=====================================================================================================================
 SurDomain_AnodeCollector::SurDomain_AnodeCollector(const SurDomain_AnodeCollector& r) :
-    SurBC_Dirichlet(r.SDD_), bedd_(0), phiElectrolyte_(0.0),
+    SurBC_Dirichlet(r.SDD_), 
+    bedd_(0),
+    phiElectrolyte_(0.0),
     phiAnode_(0.0),
     phiAnodeCC_(0.0),
     icurrCollector_(0.0),
@@ -69,7 +70,6 @@ SurDomain_AnodeCollector::SurDomain_AnodeCollector(const SurDomain_AnodeCollecto
     operator=(r);
 }
 //=====================================================================================================================
-// Destructor
 SurDomain_AnodeCollector::~SurDomain_AnodeCollector()
 {
 }
@@ -104,7 +104,7 @@ SurDomain_AnodeCollector::operator=(const SurDomain_AnodeCollector& r)
  *  Here we collect all of the information necessary to
  *  speedily implement SpecFlag_NE and Value_NE within the
  *  residual calculation.
- *  We transfer the information from SDT_Dirichlet structure to
+ *  We transfer the information from SDD_Dirichlet structure to
  * this structure for quick processing.
  */
 void
