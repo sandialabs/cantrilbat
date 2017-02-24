@@ -1,8 +1,6 @@
 /*
  * m1d_porousLiKCl_dom1D.h
  *
- *  Created on: May 19, 2009
- *      Author: hkmoffa
  */
 /*
  * Copywrite 2013 Sandia Corporation. Under the terms of Contract
@@ -16,7 +14,7 @@
 
 #include "m1d_porousFlow_dom1D.h"
 #include "m1d_cellTmps_PorousFlow.h"
-#include "m1d_BDT_porSeparator_LiIon.h"
+#include "m1d_BDD_porSeparator_LiIon.h"
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -57,7 +55,7 @@ public:
     /*!
      * @param bdd   Contains the bulk domain description.
      */
-    porousLiIon_Separator_dom1D(m1d::BDT_porSeparator_LiIon* bdd_sep_ptr);
+    porousLiIon_Separator_dom1D(BDD_porSeparator_LiIon* bdd_sep_ptr);
 
     //! Copy constructor
     /*!
@@ -431,7 +429,7 @@ protected:
      *  Note, we use the hidden variable strategy here. BDT_ptr_ name is used for all derived classes of
      *  DomainDescription
      */
-    BDT_porSeparator_LiIon* BDT_sep_ptr_;
+    BDD_porSeparator_LiIon* BDT_sep_ptr_;
 
     //! Number of phases solved
     int nph_;

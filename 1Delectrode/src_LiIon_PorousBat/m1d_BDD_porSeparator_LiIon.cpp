@@ -1,5 +1,5 @@
 /**
- * @file m1d_BDT_porousSeparator_LiIon.cpp
+ * @file m1d_BDD_porousSeparator_LiIon.cpp
  */
 
 /*
@@ -9,7 +9,7 @@
  * See file License.txt for licensing information.
  */
 
-#include "m1d_BDT_porSeparator_LiIon.h"
+#include "m1d_BDD_porSeparator_LiIon.h"
 #include "m1d_porousLiIon_Separator_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
 #include "LiIon_PorousBat.h"
@@ -20,7 +20,7 @@ namespace m1d
 {
 
 //==================================================================================================================================
-BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(DomainLayout* dl_ptr, std::string domainName) :
+BDD_porSeparator_LiIon::BDD_porSeparator_LiIon(DomainLayout* dl_ptr, std::string domainName) :
      BDD_porousFlow(dl_ptr, "separator", domainName)
 {
     //int eqnIndex = 0;
@@ -28,18 +28,18 @@ BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(DomainLayout* dl_ptr, std::string
     IsArithmeticScaled_NE.resize(6,0);
 }
 //===================================================================================================================================
-BDT_porSeparator_LiIon::BDT_porSeparator_LiIon(const BDT_porSeparator_LiIon& r) :
+BDD_porSeparator_LiIon::BDD_porSeparator_LiIon(const BDD_porSeparator_LiIon& r) :
     BDD_porousFlow(r.DL_ptr_)
 {
     *this = r;
 }
 //======================================================================================================================================
-BDT_porSeparator_LiIon::~BDT_porSeparator_LiIon()
+BDD_porSeparator_LiIon::~BDD_porSeparator_LiIon()
 {
 }
 //======================================================================================================================================
-BDT_porSeparator_LiIon&
-BDT_porSeparator_LiIon::operator=(const BDT_porSeparator_LiIon& r)
+BDD_porSeparator_LiIon&
+BDD_porSeparator_LiIon::operator=(const BDD_porSeparator_LiIon& r)
 {
     if (this == &r) {
         return *this;
@@ -57,7 +57,7 @@ BDT_porSeparator_LiIon::operator=(const BDT_porSeparator_LiIon& r)
  *          efficiently
  */
 BulkDomain1D*
-BDT_porSeparator_LiIon::mallocDomain1D()
+BDD_porSeparator_LiIon::mallocDomain1D()
 {
     BulkDomainPtr_ = new porousLiIon_Separator_dom1D(this);
     return BulkDomainPtr_;

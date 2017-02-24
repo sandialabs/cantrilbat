@@ -12,7 +12,7 @@
 #include "LiIon_PorousBat.h"
 
 #include "m1d_porousLiIon_Separator_dom1D.h"
-#include "m1d_BDT_porSeparator_LiIon.h"
+#include "m1d_BDD_porSeparator_LiIon.h"
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_ProblemStatementCell.h"
@@ -55,7 +55,7 @@ drawline0(int sp, int ll)
     sprint0("\n");
 }
 //==================================================================================================================================
-porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDT_porSeparator_LiIon* bdd_sep_ptr) :
+porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDD_porSeparator_LiIon* bdd_sep_ptr) :
     porousFlow_dom1D(bdd_sep_ptr),
     BDT_sep_ptr_(bdd_sep_ptr),
     nph_(0), nsp_(0),
