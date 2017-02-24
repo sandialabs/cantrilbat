@@ -9,8 +9,8 @@
  * may require a license from the United States Government.
  */
 
-#ifndef M1D_SURFDOMAINTYPES_H_
-#define M1D_SURFDOMAINTYPES_H_
+#ifndef M1D_SDD_MIXED_H_
+#define M1D_SDD_MIXED_H_
 
 #include "m1d_SurfDomainDescription.h"
 #include "m1d_BoundaryCondition.h"
@@ -18,11 +18,13 @@
 namespace m1d
 {
 //==================================================================================================================================
-//! This class specifies that all equations are handled by a simple Dirichlet condition
+//! This class specifies that all equations are handled by a simple Dirichlet condition or by a Flux Condition on the
+//! derivative of the conserved quantity.
 /*!
  *  We provide hooks for adding Dirichlet conditions of all types onto arbitrary equation - variable combinations.
  *  This class also adds on to the Dirichlet condition surface domain description, by adding flux specification conditions.
  *  This is different than Dirichlet conditions, because the main continuity equation is not thrown out in these cases.
+ *
  */
 class SDD_Mixed : public SurfDomainDescription
 {
@@ -77,7 +79,7 @@ public:
      *  @param[in]           value               Value to apply
      */
     void
-    addDirichletCondition(EqnType equationID, VarType VariableID, double value);
+    addDirichletCondition(EqnType equationID, VarType variableID, double value);
 
     //! Add a Dirichlet Condition, assuming the default mapping between variable and equation ID.
     /*!
@@ -88,7 +90,7 @@ public:
      *  @param[in]           value               Value to apply
      */
     void
-    addDirichletCondition(VarType VariableID, double value);
+    addDirichletCondition(VarType variableID, double value);
 
     //! Add a Dirichlet Condition with time dependent function pointer
     /*!
@@ -102,7 +104,7 @@ public:
      * @param[in]            timeDep             function pointer
      */
     void
-    addDirichletCondition(EqnType equationID, VarType VariableID, double value, double (*timeDep)(double));
+    addDirichletCondition(EqnType equationID, VarType variableID, double value, double (*timeDep)(double));
 
     //! Add a Dirichlet Condition with BoundaryCondition class
     /*!
@@ -116,7 +118,7 @@ public:
      *  @param[in]           BC_timeDep          time dependent boundary condition pointer
      */
     void
-    addDirichletCondition(EqnType equationID, VarType VariableID, int BC_Type, BoundaryCondition* BC_timeDep);
+    addDirichletCondition(EqnType equationID, VarType variableID, int BC_Type, BoundaryCondition* BC_timeDep);
 
     //! Add a flux Condition to an equation
     /*!
@@ -133,7 +135,7 @@ public:
      *  @param[in]           variableID          VariableID to apply the flux condition to
      *  @param[in]           value               Value to apply
      */
-    void addFluxCondition(const EqnType& equationID, const VarType& VariableID, double value);
+    void addFluxCondition(const EqnType& equationID, const VarType& variableID, double value);
 
     //! Add a flux Condition using time dependent continuous function
     /*!
