@@ -3,17 +3,14 @@
  *
  */
 
-/*
- *  $Id: m1d_DomainLayout_Cu2S.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
 #include "m1d_defs.h"
 #include "m1d_DomainLayout.h"
 #include "m1d_BulkDomainTypes.h"
 #include "m1d_SDD_Mixed.h"
 
 #include "m1d_DomainLayout_Cu2S.h"
-#include "m1d_BDT_Cu2S.h"
-#include "m1d_SDT_Mixed_Cu2S.h"
+#include "m1d_BDD_Cu2S.h"
+#include "m1d_SDD_Mixed_Cu2S.h"
 
 #include "m1d_exception.h"
 
@@ -83,20 +80,20 @@ DomainLayout_Cu2S::malloc_domains()
   int numNodes = 10;
   double startZ = 0.0;
   double endZ = 1.0E-6;
-  BulkDomainDescription *bdd = new BDT_Cu2S(this, 0);
+  BulkDomainDescription *bdd = new BDD_Cu2S(this, 0);
 
   addBulkDomainToRightEnd(bdd, numNodes, startZ, endZ);
 
   VarType sp0(Concentration_Species, 0);
   EqnType sp0_cons(Species_Conservation, 0);
 
-  // SDT_Dirichlet*dirLeft = new SDT_Dirichlet(this);
+  // SDD_Dirichlet*dirLeft = new SDD_Dirichlet(this);
   // dirLeft->addDirichletCondition(sp0_cons, sp0, 1.0);
-  SDT_Mixed_Cu2S * dirLeft = new SDT_Mixed_Cu2S(this, 1);
+  SDD_Mixed_Cu2S * dirLeft = new SDD_Mixed_Cu2S(this, 1);
   SurfDomainDescription *sddL = dirLeft;
   addSurfDomainToLeftEnd(sddL, bdd);
 
-  SDT_Mixed_Cu2S * dirRight = new SDT_Mixed_Cu2S(this, 0);
+  SDD_Mixed_Cu2S * dirRight = new SDD_Mixed_Cu2S(this, 0);
   //dirRight->addDirichletCondition(sp0, 0.0);
   SurfDomainDescription *sddR = dirRight;
   addSurfDomainToRightEnd(sddR, bdd);

@@ -17,8 +17,8 @@ PROG_NAME = Cu2S_growth
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
 OBJS = $(PROG_NAME).o  Cu2S_models.o m1d_DomainLayout_Cu2S.o \
-       m1d_TDGrowingFilm_dom1D.o m1d_BDT_Cu2S.o ReactionRate.o m1d_ReactingSurDomain.o m1d_SurDomain_Cu2S.o \
-       m1d_SDT_Mixed_Cu2S.o
+       m1d_TDGrowingFilm_dom1D.o m1d_BDD_Cu2S.o ReactionRate.o m1d_ReactingSurDomain.o m1d_SurDomain_Cu2S.o \
+       m1d_SDD_Mixed_Cu2S.o
 
 
 TOBJS =  $(OBJS) 

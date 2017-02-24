@@ -3,35 +3,35 @@
  */
 
 /*
- *  $Id: m1d_SDT_Mixed_Cu2S.cpp 5 2012-02-23 21:34:18Z hkmoffa $
+ *  $Id: m1d_SDD_Mixed_Cu2S.cpp 5 2012-02-23 21:34:18Z hkmoffa $
  */
 
-#include "m1d_SDT_Mixed_Cu2S.h"
+#include "m1d_SDD_Mixed_Cu2S.h"
 #include "m1d_SurDomain_Cu2S.h"
 
 //=====================================================================================================================
 namespace m1d
 {
 //=====================================================================================================================
-SDT_Mixed_Cu2S::SDT_Mixed_Cu2S(DomainLayout *dl_ptr, int pos) :
+SDD_Mixed_Cu2S::SDD_Mixed_Cu2S(DomainLayout *dl_ptr, int pos) :
     SDD_Mixed(dl_ptr),
     m_position(pos)
 {
 }
 //=====================================================================================================================
-SDT_Mixed_Cu2S::SDT_Mixed_Cu2S(const SDT_Mixed_Cu2S &r) :
+SDD_Mixed_Cu2S::SDD_Mixed_Cu2S(const SDD_Mixed_Cu2S &r) :
   SDD_Mixed(r.DL_ptr_),
    m_position(0)
 {
   *this = r;
 }
 //=====================================================================================================================
-SDT_Mixed_Cu2S::~SDT_Mixed_Cu2S()
+SDD_Mixed_Cu2S::~SDD_Mixed_Cu2S()
 {
 }
 //=====================================================================================================================
-SDT_Mixed_Cu2S &
-SDT_Mixed_Cu2S::operator=(const SDT_Mixed_Cu2S &r)
+SDD_Mixed_Cu2S &
+SDD_Mixed_Cu2S::operator=(const SDD_Mixed_Cu2S &r)
 {
   if (this == &r) {
     return *this;
@@ -52,7 +52,7 @@ SDT_Mixed_Cu2S::operator=(const SDT_Mixed_Cu2S &r)
  *    - EquationIndexStart_EqName
  */
 void
-SDT_Mixed_Cu2S::SetEquationDescription()
+SDD_Mixed_Cu2S::SetEquationDescription()
 {
   /*
    * Dirichlet equations don't have any extra equations
@@ -77,7 +77,7 @@ SDT_Mixed_Cu2S::SetEquationDescription()
  *          efficiently
  */
 SurDomain1D *
-SDT_Mixed_Cu2S::mallocDomain1D()
+SDD_Mixed_Cu2S::mallocDomain1D()
 {
   if (m_position == 0) {
     return new Cu2S_TopSurface(*this, 1);

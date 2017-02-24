@@ -2,7 +2,7 @@
  * @file m1d_BulkDomainTypes.h
  */
 /*
- *   $Id: m1d_BDT_Cu2S.h 5 2012-02-23 21:34:18Z hkmoffa $
+ *   $Id: m1d_BDD_Cu2S.h 5 2012-02-23 21:34:18Z hkmoffa $
  */
 
 #ifndef M1D_BULKDOMAINTYPES_CU2S_H_
@@ -21,29 +21,29 @@ namespace m1d
 /*!
  *  This class is used to test the implementation
  */
-class BDT_Cu2S : public BulkDomainDescription
+class BDD_Cu2S : public BulkDomainDescription
 {
 public:
 
   //! Constructor
-  BDT_Cu2S(DomainLayout *dl_ptr, int id);
+  BDD_Cu2S(DomainLayout *dl_ptr, int id);
 
   //! Destructor
-  virtual ~BDT_Cu2S();
+  virtual ~BDD_Cu2S();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  BDT_Cu2S(const BDT_Cu2S &r);
+  BDD_Cu2S(const BDD_Cu2S &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  BDT_Cu2S &
-  operator=(const BDT_Cu2S &r);
+  BDD_Cu2S &
+  operator=(const BDD_Cu2S &r);
 
   virtual void SetEquationsVariablesList();
 

@@ -2,8 +2,8 @@
  * @file m1d_SurfDomainTypes.h
  */
 
-#ifndef M1D_SDT_MIXED_CU2S_TOP_H_
-#define M1D_SDT_MIXED_CU2S_TOP_H_
+#ifndef M1D_SDD_MIXED_CU2S_TOP_H_
+#define M1D_SDD_MIXED_CU2S_TOP_H_
 
 #include "m1d_SDD_Mixed.h"
 
@@ -15,7 +15,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_Mixed_Cu2S : public SDD_Mixed {
+class SDD_Mixed_Cu2S : public SDD_Mixed {
 public:
 
   //! Constructor
@@ -25,25 +25,25 @@ public:
    *
    * @param dl_ptr  Domain Layout object that owns this description.
    */
-  SDT_Mixed_Cu2S(DomainLayout *dl_ptr, int position);
+  SDD_Mixed_Cu2S(DomainLayout *dl_ptr, int position);
 
   //! Destructor
   virtual
-  ~SDT_Mixed_Cu2S();
+  ~SDD_Mixed_Cu2S();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  SDT_Mixed_Cu2S(const SDT_Mixed_Cu2S &r);
+  SDD_Mixed_Cu2S(const SDD_Mixed_Cu2S &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  SDT_Mixed_Cu2S &
-  operator=(const SDT_Mixed_Cu2S &r);
+  SDD_Mixed_Cu2S &
+  operator=(const SDD_Mixed_Cu2S &r);
 
 
   //! Set the equation description

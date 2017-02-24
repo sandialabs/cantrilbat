@@ -1,12 +1,12 @@
 /**
- * @file m1d_BDT_Cu2S.cpp
+ * @file m1d_BDD_Cu2S.cpp
  */
 
 /*
- *  $Id: m1d_BDT_Cu2S.cpp 361 2012-08-21 00:39:02Z hkmoffa $
+ *  $Id: m1d_BDD_Cu2S.cpp 361 2012-08-21 00:39:02Z hkmoffa $
  */
 
-#include "m1d_BDT_Cu2S.h"
+#include "m1d_BDD_Cu2S.h"
 
 
 #include "m1d_TDGrowingFilm_dom1D.h"
@@ -22,7 +22,7 @@ namespace m1d
  * and what the equations are, that are solved within the domain.
  *
  */
-BDT_Cu2S::BDT_Cu2S(DomainLayout *dl_ptr, int id) :
+BDD_Cu2S::BDD_Cu2S(DomainLayout *dl_ptr, int id) :
   BulkDomainDescription(dl_ptr)
 {
   IsAlgebraic_NE.resize(7,0);
@@ -37,19 +37,19 @@ BDT_Cu2S::BDT_Cu2S(DomainLayout *dl_ptr, int id) :
   VariableNameList.push_back(VarType(Concentration_Species, 0, "Species0"));
 }
 //===========================================================================
-BDT_Cu2S::BDT_Cu2S(const BDT_Cu2S &r) :
+BDD_Cu2S::BDD_Cu2S(const BDD_Cu2S &r) :
   BulkDomainDescription(r.DL_ptr_)
 {
   *this = r;
 }
 //===========================================================================
-BDT_Cu2S::~BDT_Cu2S()
+BDD_Cu2S::~BDD_Cu2S()
 {
 }
 
 //===========================================================================
-BDT_Cu2S &
-BDT_Cu2S::operator=(const BDT_Cu2S &r)
+BDD_Cu2S &
+BDD_Cu2S::operator=(const BDD_Cu2S &r)
 {
   if (this == &r) {
     return *this;
@@ -63,7 +63,7 @@ BDT_Cu2S::operator=(const BDT_Cu2S &r)
 }
 //=====================================================================================================================
 void
-BDT_Cu2S::SetEquationsVariablesList()
+BDD_Cu2S::SetEquationsVariablesList()
 {
     int eqnIndex = 0;
     EquationNameList.clear();
@@ -87,7 +87,7 @@ BDT_Cu2S::SetEquationsVariablesList()
  *          efficiently
  */
 BulkDomain1D *
-BDT_Cu2S::mallocDomain1D()
+BDD_Cu2S::mallocDomain1D()
 {
    BulkDomainPtr_ = new TDGrowingFilm_dom1D(this);
    return  BulkDomainPtr_;
