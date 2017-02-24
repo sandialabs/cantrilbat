@@ -17,7 +17,7 @@ PROG_NAME = LiIon_PorousBat
 # and from C/C++ separately
 OBJS = LiIon_PorousBat.o  m1d_DomainLayout_LiIon_PorousBat.o \
         m1d_porousLiIon_Cathode_dom1D.o  m1d_porousLiIon_Separator_dom1D.o \
-        m1d_porousLiIon_Anode_dom1D.o m1d_BDT_porAnode_LiIon.o  m1d_BDT_porCathode_LiIon.o \
+        m1d_porousLiIon_Anode_dom1D.o m1d_BDT_porAnode_LiIon.o  m1d_BDD_porCathode_LiIon.o \
         m1d_BDT_porSeparator_LiIon.o
 
 TOBJS =  $(OBJS) 

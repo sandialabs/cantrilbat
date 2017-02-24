@@ -1,5 +1,5 @@
 /**
- * @file m1d_BDT_porCathode_LiIon.cpp
+ * @file m1d_BDD_porCathode_LiIon.cpp
  */
 
 /*
@@ -9,7 +9,7 @@
  * See file License.txt for licensing information.x
  */
 
-#include "m1d_BDT_porCathode_LiIon.h"
+#include "m1d_BDD_porCathode_LiIon.h"
 #include "m1d_porousLiIon_Cathode_dom1D.h"
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_exception.h"
@@ -29,7 +29,7 @@ namespace m1d
 {
 
 //=====================================================================================================================
-BDT_porCathode_LiIon::BDT_porCathode_LiIon(DomainLayout *dl_ptr, std::string domainName) :
+BDD_porCathode_LiIon::BDD_porCathode_LiIon(DomainLayout *dl_ptr, std::string domainName) :
     BDD_porousElectrode(dl_ptr, 1, "cathode", domainName),
     m_position(1),
     Capacity_initial_(0.0),
@@ -41,7 +41,7 @@ BDT_porCathode_LiIon::BDT_porCathode_LiIon(DomainLayout *dl_ptr, std::string dom
     IsArithmeticScaled_NE.resize(7,0);   
 }
 //=====================================================================================================================
-BDT_porCathode_LiIon::BDT_porCathode_LiIon(const BDT_porCathode_LiIon& r) :
+BDD_porCathode_LiIon::BDD_porCathode_LiIon(const BDD_porCathode_LiIon& r) :
     BDD_porousElectrode(r),
     m_position(1),
     Capacity_initial_(0.0),
@@ -51,12 +51,12 @@ BDT_porCathode_LiIon::BDT_porCathode_LiIon(const BDT_porCathode_LiIon& r) :
     *this = r;
 }
 //=====================================================================================================================
-BDT_porCathode_LiIon::~BDT_porCathode_LiIon()
+BDD_porCathode_LiIon::~BDD_porCathode_LiIon()
 { 
 }
 //=====================================================================================================================
-BDT_porCathode_LiIon&
-BDT_porCathode_LiIon::operator=(const BDT_porCathode_LiIon& r)
+BDD_porCathode_LiIon&
+BDD_porCathode_LiIon::operator=(const BDD_porCathode_LiIon& r)
 {
     if (this == &r) {
         return *this;
@@ -73,7 +73,7 @@ BDT_porCathode_LiIon::operator=(const BDT_porCathode_LiIon& r)
 }
 //=====================================================================================================================
 void
-BDT_porCathode_LiIon::ReadModelDescriptions()
+BDD_porCathode_LiIon::ReadModelDescriptions()
 {
     BDD_porousElectrode::ReadModelDescriptions();
 
@@ -89,14 +89,14 @@ BDT_porCathode_LiIon::ReadModelDescriptions()
  *          efficiently
  */
 BulkDomain1D*
-BDT_porCathode_LiIon::mallocDomain1D()
+BDD_porCathode_LiIon::mallocDomain1D()
 {
     BulkDomainPtr_ = new porousLiIon_Cathode_dom1D(this);
     return BulkDomainPtr_;
 }
 //=====================================================================================================================
 void
-BDT_porCathode_LiIon::DetermineConstitutiveModels()
+BDD_porCathode_LiIon::DetermineConstitutiveModels()
 {
     BDD_porousElectrode::DetermineConstitutiveModels();
 }

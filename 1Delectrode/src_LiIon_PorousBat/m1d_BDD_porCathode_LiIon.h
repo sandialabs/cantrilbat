@@ -1,5 +1,5 @@
 /**
- * @file m1d_BDT_porCathode_LiIon.h
+ * @file m1d_BDD_porCathode_LiIon.h
  */
 
 /*
@@ -9,8 +9,8 @@
  * See file License.txt for licensing information.
  */
 
-#ifndef M1D_BDT_PORCATHODE_LIION_H_
-#define M1D_BDT_PORCATHODE_LIION_H_
+#ifndef M1D_BDD_PORCATHODE_LIION_H_
+#define M1D_BDD_PORCATHODE_LIION_H_
 
 #include "m1d_BulkDomainDescription.h"
 #include "m1d_BDD_porousElectrode.h"
@@ -30,7 +30,7 @@ namespace m1d
 /*!
  *
  */
-class BDT_porCathode_LiIon : public BDD_porousElectrode
+class BDD_porCathode_LiIon : public BDD_porousElectrode
 {
 public:
 
@@ -43,25 +43,25 @@ public:
      *
      * @param dl_ptr   Pointer to the domain layout object
      */
-    BDT_porCathode_LiIon(DomainLayout* dl_ptr, std::string domainName = "");
+    BDD_porCathode_LiIon(DomainLayout* dl_ptr, std::string domainName = "");
 
     //! Destructor
     virtual
-    ~BDT_porCathode_LiIon();
+    ~BDD_porCathode_LiIon();
 
     //! Copy Constructor
     /*!
      * @param r Object to be copied
      */
-    BDT_porCathode_LiIon(const BDT_porCathode_LiIon& r);
+    BDD_porCathode_LiIon(const BDD_porCathode_LiIon& r);
 
     //! Assignment operator
     /*!
      * @param r    Object to be copied
      * @return     Returns a changeable reference to the current object
      */
-    BDT_porCathode_LiIon&
-    operator=(const BDT_porCathode_LiIon& r);
+    BDD_porCathode_LiIon&
+    operator=(const BDD_porCathode_LiIon& r);
 
     //! Read in the possible models for each domain
     /*!

@@ -15,7 +15,7 @@
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
 #include "m1d_BDT_porSeparator_LiIon.h"
 #include "m1d_BDT_porAnode_LiIon.h"
-#include "m1d_BDT_porCathode_LiIon.h"
+#include "m1d_BDD_porCathode_LiIon.h"
 #include "m1d_SDD_AnodeCollector.h"
 #include "m1d_SDD_CathodeCollector.h"
 #include "m1d_ProblemStatementCell.h"
@@ -148,7 +148,7 @@ DomainLayout_LiIon_PorousBat::malloc_domains()
 
     startZ = endZ;
     endZ = startZ + cathodeSize;
-    bdd = new BDT_porCathode_LiIon(this);
+    bdd = new BDD_porCathode_LiIon(this);
     int numNodesC = pscInput_ptr_->initDefaultNumCVsCathode_;
     addBulkDomainToRightEnd(bdd, numNodesC, startZ, endZ);
 

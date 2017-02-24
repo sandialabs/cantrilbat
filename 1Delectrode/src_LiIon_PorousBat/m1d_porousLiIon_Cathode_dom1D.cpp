@@ -12,7 +12,7 @@
 #include "m1d_porousLiIon_Cathode_dom1D.h"
 
 #include "LiIon_PorousBat.h"
-#include "m1d_BDT_porCathode_LiIon.h"
+#include "m1d_BDD_porCathode_LiIon.h"
 #include "m1d_NodalVars.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_DomainLayout_LiIon_PorousBat.h"
@@ -62,7 +62,7 @@ drawline0(int sp, int ll)
     sprint0("\n");
 }
 //==================================================================================================================================
-porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDT_porCathode_LiIon* bdt_cathode_ptr) :
+porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDD_porCathode_LiIon* bdt_cathode_ptr) :
     porousElectrode_dom1D(bdt_cathode_ptr),
     BDT_cathode_ptr_(bdt_cathode_ptr), 
     nph_(0),
@@ -250,7 +250,7 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousElectrode_dom1D::domain_prep(li_ptr);
 
-    //BDT_porCathode_LiIon* BDD_FeS2_Cathode = dynamic_cast<BDT_porCathode_LiIon*>(&(BDD_));
+    //BDD_porCathode_LiIon* BDD_FeS2_Cathode = dynamic_cast<BDD_porCathode_LiIon*>(&(BDD_));
     if (!BDT_cathode_ptr_) {
         throw CanteraError(" porousLiIon_Cathode_dom1D::domain_prep()", "bad dynamic cast ");
     }
