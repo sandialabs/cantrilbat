@@ -2,8 +2,8 @@
  * @file m1d_SurfDomainTypes.h
  */
 
-#ifndef M1D_SDT_FLATCATHODE_H_
-#define M1D_SDT_FLATCATHODE_H_
+#ifndef M1D_SDD_FLATCATHODE_H_
+#define M1D_SDD_FLATCATHODE_H_
 
 #include "m1d_SDD_Mixed.h"
 
@@ -24,7 +24,7 @@ namespace m1d
 /*!
  *
  */
-class SDT_FlatCathode : public SDD_Mixed
+class SDD_FlatCathode : public SDD_Mixed
 {
 public:
 
@@ -39,25 +39,25 @@ public:
    *
    * @param dl_ptr  Domain Layout object that owns this description.
    */
-  SDT_FlatCathode(DomainLayout *dl_ptr, int position);
+  SDD_FlatCathode(DomainLayout *dl_ptr, int position);
 
   //! Destructor
   virtual
-  ~SDT_FlatCathode();
+  ~SDD_FlatCathode();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  SDT_FlatCathode(const SDT_FlatCathode &r);
+  SDD_FlatCathode(const SDD_FlatCathode &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  SDT_FlatCathode &
-  operator=(const SDT_FlatCathode &r);
+  SDD_FlatCathode &
+  operator=(const SDD_FlatCathode &r);
 
 
   //! Set the equation and variables list

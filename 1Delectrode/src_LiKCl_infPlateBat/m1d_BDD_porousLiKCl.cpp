@@ -1,12 +1,12 @@
 /**
- * @file m1d_BDT_porousLiKCl.cpp
+ * @file m1d_BDD_porousLiKCl.cpp
  */
 
 /*
- *  $Id: m1d_BDT_porousLiKCl.cpp 361 2012-08-21 00:39:02Z hkmoffa $
+ *  $Id: m1d_BDD_porousLiKCl.cpp 361 2012-08-21 00:39:02Z hkmoffa $
  */
 
-#include "m1d_BDT_porousLiKCl.h"
+#include "m1d_BDD_porousLiKCl.h"
 
 #include "m1d_porousLiKCl_infPlate_dom1D.h"
 
@@ -25,7 +25,7 @@ namespace m1d
 //====================================================================
 //====================================================================
 //====================================================================
-BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
+BDD_porousLiKCl::BDD_porousLiKCl(DomainLayout *dl_ptr) :
     BDD_porousFlow(dl_ptr), 
     ionicLiquidIFN_(0)
 {
@@ -92,14 +92,14 @@ BDT_porousLiKCl::BDT_porousLiKCl(DomainLayout *dl_ptr) :
 
 }
 //==================================================================
-BDT_porousLiKCl::BDT_porousLiKCl(const BDT_porousLiKCl &r) :
+BDD_porousLiKCl::BDD_porousLiKCl(const BDD_porousLiKCl &r) :
     BDD_porousFlow(r),
     ionicLiquidIFN_(0)
 {
   *this = r;
 }
 //==================================================================
-BDT_porousLiKCl::~BDT_porousLiKCl()
+BDD_porousLiKCl::~BDD_porousLiKCl()
 {
   /*
    * Delete objects that we own
@@ -112,7 +112,7 @@ BDT_porousLiKCl::~BDT_porousLiKCl()
  *  We also set the ordering here.
  */
 void
-BDT_porousLiKCl::SetEquationsVariablesList()
+BDD_porousLiKCl::SetEquationsVariablesList()
 {
     int eqnIndex = 0;
     EquationNameList.clear();
@@ -164,8 +164,8 @@ BDT_porousLiKCl::SetEquationsVariablesList()
     // EquationNameList.push_back(EqnType(Enthalpy_conservation, 0, "Enthalpy Conservation"));
 }
 //==================================================================
-BDT_porousLiKCl &
-BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
+BDD_porousLiKCl &
+BDD_porousLiKCl::operator=(const BDD_porousLiKCl &r)
 {
   if (this == &r) {
     return *this;
@@ -188,7 +188,7 @@ BDT_porousLiKCl::operator=(const BDT_porousLiKCl &r)
  *  We also set the ordering here.
  */
 void
-BDT_porousLiKCl::setupTransport()
+BDD_porousLiKCl::setupTransport()
 {
     delete trans_;
     trans_ = ZZCantera::newTransportMgr("Liquid", ionicLiquidIFN_, 1);
@@ -201,14 +201,14 @@ BDT_porousLiKCl::setupTransport()
  *          efficiently
  */
 BulkDomain1D *
-BDT_porousLiKCl::mallocDomain1D()
+BDD_porousLiKCl::mallocDomain1D()
 {
   BulkDomainPtr_ = new porousLiKCl_infPlate_dom1D(this);
   return BulkDomainPtr_;
 }
 //=====================================================================================================================
 void
-BDT_porousLiKCl::DetermineConstitutiveModels()
+BDD_porousLiKCl::DetermineConstitutiveModels()
 {
     setupTransport();
 }

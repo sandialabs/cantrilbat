@@ -7,7 +7,7 @@
 //  This is a heavyweight base class that provides the function
 //evaluation for a single bulk domain.
 #include "m1d_porousLiKCl_infPlate_dom1D.h"
-#include "m1d_BDT_porousLiKCl.h"
+#include "m1d_BDD_porousLiKCl.h"
 
 #include "m1d_NodalVars.h"
 #include "m1d_LocalNodeIndices.h"
@@ -37,7 +37,7 @@ namespace m1d
 {
 
 //==============================================================================
-porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BDT_porousLiKCl* bdd_pms_ptr) :
+porousLiKCl_infPlate_dom1D::porousLiKCl_infPlate_dom1D(BDD_porousLiKCl* bdd_pms_ptr) :
   porousFlow_dom1D(bdd_pms_ptr), 
   BDT_pms_ptr_(bdd_pms_ptr),
   temp_Curr_(TemperatureReference_), 

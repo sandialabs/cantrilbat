@@ -3,10 +3,10 @@
  */
 
 /*
- *  $Id: m1d_SDT_FlatCathode.cpp 550 2013-03-01 20:53:19Z hkmoffa $
+ *  $Id: m1d_SDD_FlatCathode.cpp 550 2013-03-01 20:53:19Z hkmoffa $
  */
 
-#include "m1d_SDT_FlatCathode.h"
+#include "m1d_SDD_FlatCathode.h"
 #include "m1d_SurDomain_FlatFeS2Cathode.h"
 #include "m1d_defs.h"
 
@@ -33,7 +33,7 @@ extern m1d::ProblemStatementCell  PSinput;
 namespace m1d
 {
 //=====================================================================================================================
-SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
+SDD_FlatCathode::SDD_FlatCathode(DomainLayout *dl_ptr, int pos) :
     SDD_Mixed(dl_ptr), 
     m_position(pos),
     ElectrodeC_(0), 
@@ -83,20 +83,20 @@ SDT_FlatCathode::SDT_FlatCathode(DomainLayout *dl_ptr, int pos) :
   safeDelete(electrodeC_input);
 }
 //=====================================================================================================================
-SDT_FlatCathode::SDT_FlatCathode(const SDT_FlatCathode &r) :
+SDD_FlatCathode::SDD_FlatCathode(const SDD_FlatCathode &r) :
     SDD_Mixed(r.DL_ptr_), 
     m_position(0), ElectrodeC_(0), voltageVarBCType_(0), icurrCathodeSpecified_(0.0)
 {
   *this = r;
 }
 //=====================================================================================================================
-SDT_FlatCathode::~SDT_FlatCathode()
+SDD_FlatCathode::~SDD_FlatCathode()
 {
   safeDelete(ElectrodeC_);
 }
 //=====================================================================================================================
-SDT_FlatCathode &
-SDT_FlatCathode::operator=(const SDT_FlatCathode &r)
+SDD_FlatCathode &
+SDD_FlatCathode::operator=(const SDD_FlatCathode &r)
 {
   if (this == &r) {
     return *this;
@@ -123,7 +123,7 @@ SDT_FlatCathode::operator=(const SDT_FlatCathode &r)
  *    - EquationNameList
  */
 void
-SDT_FlatCathode::SetEquationsVariablesList() {
+SDD_FlatCathode::SetEquationsVariablesList() {
 
     EquationNameList.clear();
     VariableNameList.clear();  
@@ -149,7 +149,7 @@ SDT_FlatCathode::SetEquationsVariablesList() {
  *    - EquationIndexStart_EqName
  */
 void
-SDT_FlatCathode::SetEquationDescription()
+SDD_FlatCathode::SetEquationDescription()
 {
 
   /*
@@ -179,7 +179,7 @@ SDT_FlatCathode::SetEquationDescription()
  *          efficiently
  */
 SurDomain1D *
-SDT_FlatCathode::mallocDomain1D()
+SDD_FlatCathode::mallocDomain1D()
 {
   SurDomain_FlatFeS2Cathode * s1d = new SurDomain_FlatFeS2Cathode(*this, 1);
   return s1d;

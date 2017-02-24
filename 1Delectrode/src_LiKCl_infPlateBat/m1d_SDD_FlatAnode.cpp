@@ -1,12 +1,12 @@
 /**
- * @file m1d_SDT_FlatAnode.cpp
+ * @file m1d_SDD_FlatAnode.cpp
  */
 
 /*
- *  $Id: m1d_SDT_FlatAnode.cpp 550 2013-03-01 20:53:19Z hkmoffa $
+ *  $Id: m1d_SDD_FlatAnode.cpp 550 2013-03-01 20:53:19Z hkmoffa $
  */
 
-#include "m1d_SDT_FlatAnode.h"
+#include "m1d_SDD_FlatAnode.h"
 #include "m1d_SurDomain_FlatLiSiAnode.h"
 #include "m1d_defs.h"
 
@@ -27,7 +27,7 @@ using namespace Cantera;
 namespace m1d
 {
 //=====================================================================================================================
-SDT_FlatAnode::SDT_FlatAnode(DomainLayout *dl_ptr, int pos) :
+SDD_FlatAnode::SDD_FlatAnode(DomainLayout *dl_ptr, int pos) :
   SDD_Mixed(dl_ptr), 
   m_position(pos), ElectrodeA_(0)
 {
@@ -77,20 +77,20 @@ SDT_FlatAnode::SDT_FlatAnode(DomainLayout *dl_ptr, int pos) :
   safeDelete(electrodeA_input);
 }
 //=====================================================================================================================
-SDT_FlatAnode::SDT_FlatAnode(const SDT_FlatAnode &r) :
+SDD_FlatAnode::SDD_FlatAnode(const SDD_FlatAnode &r) :
     SDD_Mixed(r.DL_ptr_), 
     m_position(0)
 {
   *this = r;
 }
 //=====================================================================================================================
-SDT_FlatAnode::~SDT_FlatAnode()
+SDD_FlatAnode::~SDD_FlatAnode()
 {
   safeDelete(ElectrodeA_);
 }
 //=====================================================================================================================
-SDT_FlatAnode &
-SDT_FlatAnode::operator=(const SDT_FlatAnode &r)
+SDD_FlatAnode &
+SDD_FlatAnode::operator=(const SDD_FlatAnode &r)
 {
   if (this == &r) {
     return *this;
@@ -108,7 +108,7 @@ SDT_FlatAnode::operator=(const SDT_FlatAnode &r)
 }
 //=====================================================================================================================
 void
-SDT_FlatAnode::SetEquationsVariablesList()
+SDD_FlatAnode::SetEquationsVariablesList()
 {
     EquationNameList.clear();
     VariableNameList.clear();
@@ -130,7 +130,7 @@ SDT_FlatAnode::SetEquationsVariablesList()
  *    - EquationIndexStart_EqName
  */
 void
-SDT_FlatAnode::SetEquationDescription()
+SDD_FlatAnode::SetEquationDescription()
 {
   /*
    * Set the policy for connecting bulk domains
@@ -156,7 +156,7 @@ SDT_FlatAnode::SetEquationDescription()
  *          efficiently
  */
 SurDomain1D *
-SDT_FlatAnode::mallocDomain1D()
+SDD_FlatAnode::mallocDomain1D()
 {
   SurDomain_FlatLiSiAnode * s1d = new SurDomain_FlatLiSiAnode(*this, 1);
   return s1d;

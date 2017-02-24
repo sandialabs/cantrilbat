@@ -1,12 +1,12 @@
 /**
- * @file m1d_BDT_porousLiKCl.h
+ * @file m1d_BDD_porousLiKCl.h
  */
 /*
- *   $Id: m1d_BDT_porousLiKCl.h 506 2013-01-07 22:43:59Z hkmoffa $
+ *   $Id: m1d_BDD_porousLiKCl.h 506 2013-01-07 22:43:59Z hkmoffa $
  */
 
-#ifndef M1D_BDT_POROUSLIKCL_H_
-#define M1D_BDT_POROUSLIKCL_H_
+#ifndef M1D_BDD_POROUSLIKCL_H_
+#define M1D_BDD_POROUSLIKCL_H_
 
 #include "m1d_BDD_porousFlow.h"
 
@@ -26,7 +26,7 @@ namespace m1d
 /*!
  *  This class is used to test the implementation
  */
-class BDT_porousLiKCl : public BDD_porousFlow
+class BDD_porousLiKCl : public BDD_porousFlow
 {
 public:
 
@@ -38,25 +38,25 @@ public:
    * and what the equations are, that are solved within the domain.
    *
    */
-  BDT_porousLiKCl(DomainLayout *dl_ptr);
+  BDD_porousLiKCl(DomainLayout *dl_ptr);
 
   //! Destructor
   virtual
-  ~BDT_porousLiKCl();
+  ~BDD_porousLiKCl();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  BDT_porousLiKCl(const BDT_porousLiKCl &r);
+  BDD_porousLiKCl(const BDD_porousLiKCl &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  BDT_porousLiKCl &
-  operator=(const BDT_porousLiKCl &r);
+  BDD_porousLiKCl &
+  operator=(const BDD_porousLiKCl &r);
 
   virtual void SetEquationsVariablesList();
 

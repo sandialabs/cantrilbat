@@ -13,7 +13,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_BulkDomainDescription.h"
 
-#include "m1d_SDT_FlatCathode.h"
+#include "m1d_SDD_FlatCathode.h"
 
 #include "Epetra_Comm.h"
 #include "Epetra_Vector.h"
@@ -49,7 +49,7 @@ SurDomain_FlatFeS2Cathode::SurDomain_FlatFeS2Cathode(SurfDomainDescription &sdd,
   icurrCollector_(0.0)
 {
 
-  SDT_FlatCathode *fc = dynamic_cast<SDT_FlatCathode *> (&sdd);
+  SDD_FlatCathode *fc = dynamic_cast<SDD_FlatCathode *> (&sdd);
   if (!fc) {
     throw m1d_Error("confused", "confused");
   }

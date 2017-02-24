@@ -23,7 +23,7 @@
 #include "m1d_DomainDescription.h"
 #include "m1d_BulkDomain1D.h"
 #include "m1d_porousFlow_dom1D.h"
-#include "m1d_BDT_porousLiKCl.h"
+#include "m1d_BDD_porousLiKCl.h"
 
 namespace m1d
 {
@@ -46,7 +46,7 @@ public:
   /*!
    * @param bdd   Contains the bulk domain description.
    */
-  porousLiKCl_infPlate_dom1D(m1d::BDT_porousLiKCl* bdd_pms_ptr);
+  porousLiKCl_infPlate_dom1D(BDD_porousLiKCl* bdd_pms_ptr);
 
   //! Copy constructor
   /*!
@@ -240,7 +240,7 @@ public:
 
 protected:
 
-  m1d::BDT_porousLiKCl* BDT_pms_ptr_;
+  m1d::BDD_porousLiKCl* BDT_pms_ptr_;
 
   //  ZZCantera::MultiPhase * mphase_;
   ZZCantera::IonsFromNeutralVPSSTP *ionicLiquid_;

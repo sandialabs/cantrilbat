@@ -13,7 +13,7 @@
 #include "m1d_GlobalIndices.h"
 #include "m1d_BulkDomainDescription.h"
 
-#include "m1d_SDT_FlatAnode.h"
+#include "m1d_SDD_FlatAnode.h"
 
 #include "Epetra_Comm.h"
 #include "Epetra_Vector.h"
@@ -45,7 +45,7 @@ SurDomain_FlatLiSiAnode::SurDomain_FlatLiSiAnode(SurfDomainDescription &sdd, int
       electrodeSpeciesProdRates_(0), phaseMoleFlux_(0), surfaceArea_(1.0)
 {
 
-  SDT_FlatAnode *fa = dynamic_cast<SDT_FlatAnode *> (&sdd);
+  SDD_FlatAnode *fa = dynamic_cast<SDD_FlatAnode *> (&sdd);
   if (!fa) {
     throw m1d_Error("confused", "confused");
   }

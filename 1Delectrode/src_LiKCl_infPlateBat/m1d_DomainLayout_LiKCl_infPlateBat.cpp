@@ -9,9 +9,9 @@
 #include "m1d_SDD_Mixed.h"
 
 #include "m1d_DomainLayout_LiKCl_infPlateBat.h"
-#include "m1d_BDT_porousLiKCl.h"
-#include "m1d_SDT_FlatAnode.h"
-#include "m1d_SDT_FlatCathode.h"
+#include "m1d_BDD_porousLiKCl.h"
+#include "m1d_SDD_FlatAnode.h"
+#include "m1d_SDD_FlatCathode.h"
 
 #include "m1d_exception.h"
 
@@ -93,7 +93,7 @@ namespace m1d
     //    double endZ = 0.4826E-3; //actual separator thickness
     double endZ = PSinput.separatorThickness_; 
   
-    BulkDomainDescription *bdd = new BDT_porousLiKCl(this);
+    BulkDomainDescription *bdd = new BDD_porousLiKCl(this);
 
     int numNodesS = pscInput_ptr_->initDefaultNumCVsSeparator_;
     addBulkDomainToRightEnd(bdd, numNodesS, startZ, endZ);
@@ -102,14 +102,14 @@ namespace m1d
     // EqnType sp0_cons(Species_conservation, 0);
 
 
-    SDT_FlatAnode * dirLeft = new SDT_FlatAnode(this, 1);
+    SDD_FlatAnode * dirLeft = new SDD_FlatAnode(this, 1);
     SurfDomainDescription *sddL = dirLeft;
     addSurfDomainToLeftEnd(sddL, bdd);
 
     //Here if we want to specify a current profile we can do so
     //with an alternate ProbNum_ and an alternate SDT_FlatCathode()
 
-    SDT_FlatCathode * dirRight = new SDT_FlatCathode(this, 1);
+    SDD_FlatCathode * dirRight = new SDD_FlatCathode(this, 1);
 
     SurfDomainDescription *sddR = dirRight;
     addSurfDomainToRightEnd(sddR, bdd);

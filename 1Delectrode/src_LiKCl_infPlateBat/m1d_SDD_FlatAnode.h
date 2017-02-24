@@ -2,8 +2,8 @@
  * @file m1d_SurfDomainTypes.h
  */
 
-#ifndef M1D_SDT_FLATANODE_H_
-#define M1D_SDT_FLATANODE_H_
+#ifndef M1D_SDD_FLATANODE_H_
+#define M1D_SDD_FLATANODE_H_
 
 #include "m1d_SDD_Mixed.h"
 
@@ -23,7 +23,7 @@ namespace m1d
 /*!
  *  This is a substitute class for a full electrode as well
  */
-class SDT_FlatAnode : public SDD_Mixed
+class SDD_FlatAnode : public SDD_Mixed
 {
 public:
 
@@ -37,25 +37,25 @@ public:
    *
    * @param dl_ptr  Domain Layout object that owns this description.
    */
-  SDT_FlatAnode(DomainLayout *dl_ptr, int position);
+  SDD_FlatAnode(DomainLayout *dl_ptr, int position);
 
   //! Destructor
   virtual
-  ~SDT_FlatAnode();
+  ~SDD_FlatAnode();
 
   //! Copy Constructor
   /*!
    * @param r Object to be copied
    */
-  SDT_FlatAnode(const SDT_FlatAnode &r);
+  SDD_FlatAnode(const SDD_FlatAnode &r);
 
   //! Assignment operator
   /*!
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  SDT_FlatAnode &
-  operator=(const SDT_FlatAnode &r);
+  SDD_FlatAnode &
+  operator=(const SDD_FlatAnode &r);
 
   //! Set the equation and variables list
   /*!
