@@ -4,12 +4,13 @@
  * Header for class BoundaryCondition and subclasses.
  */
 
-/*  $Author: hkmoffa $
- *  $Revision: 540 $
- *  $Date: 2013-02-27 15:18:26 -0700 (Wed, 27 Feb 2013) $
- *
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
-// Copyright 2010 Sandia National Laboratories
+
 #ifndef M1D_BOUNDARYCONDITION
 #define M1D_BOUNDARYCONDITION
 
@@ -24,115 +25,210 @@
 
 #include "cantera/base/xml.h"
 #include "cantera/base/ctml.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d {
 
-/** 
- * The BoundaryCondition class provides a single scalar dependent 
- * variable as a function a single independent variable.  This 
- * is suitable for either spatial or temporal boundary conditions.
+//==================================================================================================================================
+//! The BoundaryCondition class provides a single scalar dependent  variable as a function a single independent variable,
+//! which is suitable for either spatial or temporal boundary conditions.
+/*!
+ *  This is an abstract base class.  Subclasses provide specific relationships between the dependent variable 
+ *  and the independent variable.
  *
- * This is an abstract base class.  Subclasses provide specific
- * relationships between the dependent variable and independent variable.
+ *  This class can handle two situations. 
+ *            One is where the independent variable is time, and we can have step jumps in values
+ *            of the dependent variable at specified intervals in time.
+ *            For this situation, use the member function value().
  *
- * Boundary conditions representing fluxes are always added into the residual equations.
- * The residual equations always have their time derivative terms representing the accretion of 
- * the conserved quantity as positive. What this works out to is that the boundary conditions
- * representing the flux out of the domain is added to this residual.
- * This is true no matter if we are on the X = 0 side of the domain or the X = +TOP side of the domain.
+ *
+ *            Second is where the independent variable is another variable (mostly position, but could be something else)
+ *            other than time. Or, the independent variable is the full solution vector at one node.
+*             The relationship can have a time component as well, where the relationships
+ *            change as a function of time, using intervals as well so that jumps can occur here as well.
+ *            For this situation use the membmer function valueAtTime() and valueAtTime_full()
+ *
+ *
+ *  Boundary conditions representing fluxes are always added into the residual equations.
+ *  The residual equations always have their time derivative terms representing the accretion of 
+ *  the conserved quantity as positive. What this works out to is that the boundary conditions
+ *  representing the flux out of the domain is added to this residual.
+ *  This is true no matter if we are on the X = 0 side of the domain or the X = +TOP side of the domain.
+ *
+ *  \todo Write the interval step logic into the base class. Make all classes conform to one set of logic.
  * 
  */
 class BoundaryCondition
 {
-
 public:
-
-    //!  Constructor.
+    //! Default Constructor.
     BoundaryCondition();
 
     //! Destructor.
     virtual ~BoundaryCondition();
 
     //!  Copy Constructor.
+    /*!
+     *  @param[in]           right               Object to be copied
+     */
     BoundaryCondition(const BoundaryCondition &right);
 
     //! Assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *
+     *  @return                                  Reference to the current object
+     */
     BoundaryCondition& operator=(const BoundaryCondition& right);
 
-    //! Return the dependent variable value given
-    //! the independent variable argument
+    //! Return the dependent variable value given the value of the independent variable argument
     /*!
-     *   @param indVar  Independentvariable
-     *   @param interval If greater than zero, then checking is done on the interval specified
-     *                   Also ties, i.e. numbers on the boundary go to the interval value.
+     *  The independent variable is usually identified as the time. Note, this class can handle step jumps in the value of the 
+     *  dependent variable, because there is a concept of a specified interval. This allows one to specify t = ti+ and t = ti- 
+     *  values, where ti is a time where there is a step jump in the dependent variable value.
+     *  (virtual from BoundaryCondition)
+     *
+     *  @param[in]           indVar              Independentvariable
+     *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
+     *                                           Also ties wrt to the independent variable are satisfied by goint to the interval
+     *                                           specified by this value.
+     *                                           Defaults to a value of -1.
      */
-    virtual double value(double indVar, int interval = -1);
+    virtual double value(double indVar, int interval = -1) const;
 
     //! Returns the dependent variable given the time and the independent variable
     /*!
-     *   @param time   Value of the time
-     *   @param indVar independent variable
-     *   @param interval  If greater than zero, then checking is done on the interval specified
-     *                    Also ties, i.e. numbers on the boundary go to the interval value.
+     *  The independent variable, here, is defined as something other than the time. The boundary condition is now a function
+     *  of this independent variable and the time.
+     *  Note, this class can handle step jumps in the value of the 
+     *  dependent variable, because there is a concept of a specified interval. This allows one to specify t = ti+ and t = ti- 
+     *  values, where ti is a time where there is a step jump in the dependent variable value.
+     *  (virtual from BoundaryCondition)
+
+     *  @param[in]           time                Value of the time
+     *  @param[in]           indVar              Independent variable
+     *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
+     *                                           Also ties wrt to the independent variable are satisfied by goint to the interval
+     *                                           specified by this value.
+     *                                           Defaults to a value of -1.
      *
-     *   @result   returns the value as a double.  
+     *  @result                                  Returns the value as a double.  
      */
-    virtual double valueAtTime(double time, double indVar, int interval = -1);
+    virtual double valueAtTime(double time, double indVar, int interval = -1) const;
 
     //! Returns the dependent variable given the time and the vector of solution values present at the local node
     /*!
-     *   @param time   Value of the time
-     *   @param solnVecNode  Vector of solution values at the current node
-     *   @param interval  If greater than zero, then checking is done on the interval specified
-     *                    Also ties, i.e. numbers on the boundary go to the interval value.
+     *  The independent variable, here, is defined as the full solution vector at a node. The boundary condition is now a function
+     *  of these independent variables and the time.
+     *  Note, this class can handle step jumps in the value of the 
+     *  calculated dependent variable, because there is a concept of a specified interval. This allows one to specify t = ti+ and t = ti- 
+     *  values, where ti is a time where there is a step jump in the dependent variable value.
+     *  (virtual from BoundaryCondition)
      *
-     *   @result   returns the value as a double.  
+     *  @param[in]           time                Value of the time
+     *  @param[in]           solnVecNode         Vector of solution values at the current node
+     *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
+     *                                           Also ties wrt to the independent variable are satisfied by goint to the interval
+     *                                           specified by this value.
+     *                                           Defaults to a value of -1.
+     *
+     *  @result                                  Returns the value as a double.  
      */
-    virtual double valueAtTime_full(double time, double *solnVecNode, int interval = -1);
+    virtual double valueAtTime_full(double time, const double* const solnVecNode, int interval = -1) const;
 
-    //! Return the next value for the independent variable, i.e., time, at
-    //! which the nature of the boundary condition changes.
+    //! Calculate which interval of the independent variable we are in.
     /*!
-     *     This is designed to guide grid generation and time stepping
+     * If the independent variable argument exceeds the current range, then increment the step counter and
+     * check that this has not gone out of bounds.
+     *
+     *  @param[in]           indVar              Independent variable, usually the time.
+     *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
+     *                                           Also ties wrt to the independent variable are satisfied by goint to the interval
+     *                                           specified by this value.
+     *                                           Defaults to a value of -1.
+     *
+     *  @return                                  Returns the interval within which the indVar lies.
      */
-    virtual double nextStep();
+    virtual int findStep(double indVar, int interval = -1) const;
+
+    //! Return the next value for the independent variable, i.e., time, at which the nature of the boundary condition changes.
+    /*!
+     *  This is designed to guide grid generation and time stepping.
+     *  (virtual from BoundaryCondition)
+     *
+     *  @return                                  Returns the time for the next interval, where the bc changes its nature.
+     */
+    virtual double nextStep() const;
 
     //! Reset the step counter to zero
     void resetSteps();
 
     //! Write out the profile in tabular format.
-    virtual void writeProfile();
+    /*!
+     *  This writes out the nature of the boundary condition to stdout.
+     */
+    virtual void writeProfile() const;
 
     //! Lower limit of dependent variable for which BC applies
-    double lowerLimit();
+    /*!
+     *  @return                                  Returns the  Lower limit of dependent variable 
+     */
+    double lowerLimit() const;
 
     //! Upper limit of dependent variable for which BC applies
-    double upperLimit();
+    /*!
+     *  @return                                  Returns the  Upper limit of dependent variable 
+     */
+    double upperLimit() const;
 
     //! The string defining the independent variable units
-    std::string indepUnits();
+    /*!
+     *  @return                                  Returns a string representing the independent variable units
+     */
+    std::string indepUnits() const;
 
     //! The string defining the dependent variable units
-    std::string depenUnits();
+    /*!
+     *  @return                                  Returns a string representing the dependent variable units
+     */
+    std::string depenUnits() const;
 
     //! Return the title or name of boundary condition
-    std::string title();
+    /*!
+     *  @return                                  Returns the title of the boundary condition
+     */
+    std::string title() const;
 
     //! Set title or name of boundary condition
-    void setTitle(std::string name);
+    /*!
+     *  @return                                  Set the title string
+     */
+    void setTitle(const std::string &name);
 
     //! Set lower limit of independent variable for which BC applies
+    /*!
+     *  @param[in]           indVal              Set the lower limit for the independent variable
+     */
     void setLowerLimit(double indVal);
 
     //! Set upper limit of independent variable for which BC applies
+    /*!
+     *  @param[in]           indVal              Set the lower limit for the independent variable
+     */
     void setUpperLimit(double indVal);
 
     //! set the string defining the independent variable units
-    void setIndepUnits(std::string unitString);
+    /*!
+     *  @param[in[           unitString          Set the units string for the independent variable
+     */
+    void setIndepUnits(const std::string& unitString);
 
     //! set the string defining the dependent variable units
-    void setDepenUnits(std::string unitString);
+    /*!
+     *  @param[in[           unitString          Set the units string for the dependent variable
+     */
+    void setDepenUnits(const std::string& unitString);
 
+    // --------------------------------------------------------- D A T A ----------------------------------------------
 protected:
     //! title or name of boundary condition
     std::string title_;
@@ -149,25 +245,20 @@ protected:
     //! units string for the dependent variable
     std::string depenUnits_;
 
-    //! current step in a sequence of values
-    int step_;
+    //! Current step interval in a sequence of values
+    /*!
+     *  Starts at a value of zero
+     */
+    mutable int step_;
 
-    //! if step_ exceeds the number of steps that were input,
-    //! then an out of bounds error should be generated
+    //! Maximum value of the interval steps.
+    /*!
+     *  If step_ exceeds the number of steps that were input, then an out of bounds error should be generated
+     *  Starts at a value of zero.
+     */
     int stepMax_;
 
-    //! Calculate which interval of the independent variable we are in.
-    /*!
-     * If the independent variable argument exceeds the
-     * current range, then increment the step counter and
-     * check that this has not gone out of bounds.
-     *
-     *  @param interval   If positive, then ties goes to the value of the interval.
-     *                    So, if indVar is at a boundary, then the interval chose is
-     *                    equal to the value of the interval variable.
-     */
-    virtual int findStep(double indVar, int interval = -1);
-
+private:
     //! Error routine
     /*!
      * Throw an exception if an unimplemented method of this class is
@@ -179,10 +270,7 @@ protected:
      */
     double err(std::string msg) const;
 };
-
-////////////////////////////////////////////////////////////
-// class BCconstant
-////////////////////////////////////////////////////////////
+//==================================================================================================================================
 
 class BCconstant: public BoundaryCondition
 {
@@ -192,6 +280,7 @@ public:
     BCconstant(double value = 0.0, std::string titleName = "BCtitle", std::string indepUnits = "unknownUnits",
                std::string depenUnits = "unknownUnits");
 
+    //! Virtual destructor
     virtual ~BCconstant();
 
     //! Return the dependent variable value given the independent variable argument
@@ -200,7 +289,7 @@ public:
      *   @param interval If greater than zero, then checking is done on the interval specified
      *                   Also ties, i.e. numbers on the boundary go to the interval value.
      */
-    virtual double value(double indVar, int interval = -1);
+    virtual double value(double indVar, int interval = -1) const override;
 
     //! return the next value for the independent variable at
     //! which the nature of the boundary condition changes.
@@ -208,14 +297,14 @@ public:
      * This is designed to guide grid generation and time stepping.
      * For this constant BC subclass, this provides no real information.
      */
-    virtual double nextStep();
+    virtual double nextStep() const override;
 
 protected:
 
     //!      The fixed dependent variable
     double dependentVal_;
 };
-
+//==================================================================================================================================
 /**
  * This subclass is designed to handle a table of 
  * dependent variable boundary conditions that are 
@@ -231,8 +320,9 @@ class BCsteptable: public BoundaryCondition
 {
 public:
 
-  BCsteptable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, ZZCantera::vector_fp compareVals_, std::string titleName = "BCsteptable",
-                std::string indepUnits = "unknownUnits", std::string depenUnits = "unknownUnits");
+    BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, const ZZCantera::vector_fp& compareVals_, 
+                const std::string& titleName = "BCsteptable", const std::string& indepUnits = "unknownUnits", 
+                const std::string& depenUnits = "unknownUnits");
 
     //! construct from filename
     BCsteptable(std::string filename);
@@ -253,16 +343,16 @@ public:
      *   @param interval If greater than zero, then checking is done on the interval specified
      *                   Also ties, i.e. numbers on the boundary go to the interval value.
      */
-    virtual double value(double indVar, int interval = -1);
+    virtual double value(double indVar, int interval = -1) const override;
 
     //! return the next value for the independent variable at
     //! which the nature of the boundary condition changes.
     /**
      * This is designed to guide grid generation and time stepping
      */
-    virtual double nextStep();
+    virtual double nextStep() const override;
 
-    virtual void writeProfile();
+    virtual void writeProfile() const override;
 
 protected:
 
@@ -287,10 +377,10 @@ protected:
      * current range, then increment the step counter and
      * check that this has not gone out of bounds.
      */
-    virtual int findStep(double indVar, int interval = -1);
+    virtual int findStep(double indVar, int interval = -1) const override;
 
 };
-
+//==================================================================================================================================
 //! This subclass is designed to handle a table of  dependent variable boundary conditions that are
 //! to be linearly interpolated between the values given.
 /*!
@@ -327,26 +417,36 @@ public:
      *   @param interval If greater than zero, then checking is done on the interval specified.
      *                   Also ties, i.e. numbers on the boundary go to the interval value.
      */
-    virtual double value(double indVar, int interval = -1);
+    virtual double value(double indVar, int interval = -1) const override;
 
     //! return the next value for the independent variable at
     //! which the nature of the boundary condition changes.
     /**
      * This is designed to guide grid generation and time stepping
      */
-    virtual double nextStep();
+    virtual double nextStep() const override;
 
 protected:
 
-    //! vector of indepedent variable values at which
-    //! the dependent variable may change value
+    //! Vector of indepedent variable values at which the dependent variable may change value,
+    //! have a discontinuity, or may change functional form.
+    /*!
+     *  Each interval, i, is defined as existing between indepVals_[i] and indepVals_[i+1].
+     *  Length: numIntervals + 1
+     */
     ZZCantera::vector_fp indepVals_;
 
-    //! vector of depedent variable values appropriate
+    //! Vector of dependent variable values appropriate
     //! for time/space after the corresponding indepVals_
+    /*!
+     *  dependVals_[i] refers to the value that is appropriate for the ith interval
+     *  dependVals_[numIntervals] refers to the value that is appropriate for the independent
+     *    values beyond the last intervale.
+     *  Length:  numIntervals + 1
+     */
     ZZCantera::vector_fp depenVals_;
 
-    //! vector of variable values for comparison purposes
+    //! Vector of variable values for comparison purposes
     //! For example, if current is input, these might be measured voltages
     ZZCantera::vector_fp compareVals_;
 
@@ -363,10 +463,10 @@ protected:
      *                    So, if indVar is at a boundary, then the interval chose is
      *                    equal to the value of the interval variable.
      */
-    virtual int findStep(double indVar, int interval = -1);
+    virtual int findStep(double indVar, int interval = -1) const override;
 
 };
-
+//==================================================================================================================================
 /**
  * This subclass is designed to handle a table of 
  * dependent variable boundary conditions that are 
@@ -405,16 +505,16 @@ public:
      *   @param interval If greater than zero, then checking is done on the interval specified
      *                   Also ties, i.e. numbers on the boundary go to the interval value.
      */
-    virtual double value(double indVar, int interval = -1);
+    virtual double value(double indVar, int interval = -1) const override;
 
     //! return the next value for the independent variable at
     //! which the nature of the boundary condition changes.
     /**
      * This is designed to guide grid generation and time stepping
      */
-    virtual double nextStep();
+    virtual double nextStep() const override;
 
-    virtual void writeProfile();
+    virtual void writeProfile() const override;
 
     //! specify the number of steps per period
     void setStepsPerPeriod(double stepsPerPeriod);
@@ -455,10 +555,10 @@ protected:
      *                    So, if indVar is at a boundary, then the interval chose is
      *                    equal to the value of the interval variable.
      */
-    virtual int findStep(double indVar, int interval = -1);
+    virtual int findStep(double indVar, int interval = -1) const override;
 
 };
-
-} //namespace m1d
-
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif // M1D_BOUNDARYCONDITION

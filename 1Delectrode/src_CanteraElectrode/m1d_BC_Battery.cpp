@@ -51,7 +51,7 @@ BC_anodeCC& BC_anodeCC::operator=(const BC_anodeCC& right)
    return *this;
 }
 //=====================================================================================================================
-double BC_anodeCC::valueAtTime(double time, double voltsAnode, int interval)
+double BC_anodeCC::valueAtTime(double time, double voltsAnode, int interval) const
 {
     double resistance = resistivity_copper(298.);
     double denom = resistance * thickness_;
@@ -59,6 +59,7 @@ double BC_anodeCC::valueAtTime(double time, double voltsAnode, int interval)
     double val = (voltsAnode - anodeCC_volts_) / denom;
     return val; 
 }
+//=====================================================================================================================
 //=====================================================================================================================
 //=====================================================================================================================
 
@@ -99,7 +100,7 @@ BC_cathodeCC& BC_cathodeCC::operator=(const BC_cathodeCC& right)
    return *this;
 }
 //=====================================================================================================================
-double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval)
+double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval) const
 {
     double resistivity = resistivity_aluminum(298.);
     double denom = resistivity * thickness_ + extraResistance_ * electrodeCrossSectionalArea_;
@@ -155,7 +156,7 @@ BC_cathodeCCLoad& BC_cathodeCCLoad::operator=(const BC_cathodeCCLoad& right)
    return *this;
 }
 //=====================================================================================================================
-double BC_cathodeCCLoad::valueAtTime(double time, double voltsCathode, int interval)
+double BC_cathodeCCLoad::valueAtTime(double time, double voltsCathode, int interval) const
 {
     double resistivity = resistivity_aluminum(298.);
     double denom = resistivity * thickness_ + (extraResistance_ + resistanceLoad_) * electrodeCrossSectionalArea_;
@@ -200,7 +201,7 @@ BC_heatTransfer& BC_heatTransfer::operator=(const BC_heatTransfer& right)
    return *this;
 }
 //=====================================================================================================================
-double BC_heatTransfer::valueAtTime(double time, double tempCollector, int interval)
+double BC_heatTransfer::valueAtTime(double time, double tempCollector, int interval) const
 { 
     // This represents the net flux of heat out of the domain.
     //  Units are Watts / m2 / K

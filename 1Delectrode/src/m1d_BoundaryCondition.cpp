@@ -12,12 +12,13 @@
  * exp_BoundaryCondition.h
  */
 
-/*  $Author: hkmoffa $
- *  $Revision: 540 $
- *  $Date: 2013-02-27 15:18:26 -0700 (Wed, 27 Feb 2013) $
- *
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
-// Copyright 2010 Sandia National Laboratories
+
 #ifndef CANTERA_APP
 #define CANTERA_APP
 #endif
@@ -33,10 +34,10 @@ using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d {
 
-//============================================================================================================
+//==================================================================================================================================
 BoundaryCondition::BoundaryCondition() :
     title_(""),
     lowerLim_(-1.0 * BigNumber),
@@ -47,11 +48,11 @@ BoundaryCondition::BoundaryCondition() :
     stepMax_(0)
 {
 }
-//============================================================================================================
+//==================================================================================================================================
 BoundaryCondition::~BoundaryCondition()
 {
 }
-//============================================================================================================
+//==================================================================================================================================
 BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
     title_(""),
     lowerLim_(-1.0 * BigNumber),
@@ -63,7 +64,7 @@ BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
 {
     *this = right;
 }
-//============================================================================================================
+//==================================================================================================================================
 BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
 {
     if (&right != this) {
@@ -78,92 +79,87 @@ BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
     stepMax_ = right.stepMax_;
     return *this;
 }
-//============================================================================================================
-// Return the dependent variable value given the independent variable argument
-/*
- *   @param indVar  Independent variable
- *   @param interval If greater than zero, then checking is done on the interval specified
- */
-double BoundaryCondition::value(double indVar, int interval)
+//==================================================================================================================================
+double BoundaryCondition::value(double indVar, int interval) const
 {
     return err("BoundaryCondition::value");
 }
-//============================================================================================================
-double BoundaryCondition::valueAtTime(double time, double indVar, int interval)
+//==================================================================================================================================
+double BoundaryCondition::valueAtTime(double time, double indVar, int interval) const
 {
     return value(indVar, interval);
 }
-//============================================================================================================
-double BoundaryCondition::valueAtTime_full(double time, double* solnVecNode, int interval)
+//==================================================================================================================================
+double BoundaryCondition::valueAtTime_full(double time, const double* const solnVecNode, int interval) const
 {
     return valueAtTime(time, solnVecNode[0], interval);
 }
-//===========================================================================================================
-double BoundaryCondition::nextStep()
+//==================================================================================================================================
+double BoundaryCondition::nextStep() const
 {
     return err("BoundaryCondition::nextStep");
 }
-//===========================================================================================================
+//==================================================================================================================================
 void BoundaryCondition::resetSteps()
 {
     step_ = 0;
 }
 //===========================================================================================================
-void BoundaryCondition::writeProfile()
+void BoundaryCondition::writeProfile() const
 {
 }
 //===========================================================================================================
-double BoundaryCondition::lowerLimit()
+double BoundaryCondition::lowerLimit() const
 {
     return lowerLim_;
 }
 //===========================================================================================================
-double BoundaryCondition::upperLimit()
+double BoundaryCondition::upperLimit() const
 {
     return upperLim_;
 }
 //=========================================================================================================== 
-std::string BoundaryCondition::indepUnits()
+std::string BoundaryCondition::indepUnits() const 
 {
     return indepUnits_;
 }
 //===========================================================================================================
-std::string BoundaryCondition::depenUnits()
+std::string BoundaryCondition::depenUnits() const 
 {
     return depenUnits_;
 }
 //===========================================================================================================
-std::string BoundaryCondition::title()
+std::string BoundaryCondition::title() const
 {
     return title_;
 }
-//===========================================================================================================
-void BoundaryCondition::setTitle(std::string name)
+//==================================================================================================================================
+void BoundaryCondition::setTitle(const std::string& name)
 {
     title_ = name;
 }
-//===========================================================================================================
+//==================================================================================================================================
 void BoundaryCondition::setLowerLimit(double indVal)
 {
     lowerLim_ = indVal;
 }
-//===========================================================================================================
+//==================================================================================================================================
 void BoundaryCondition::setUpperLimit(double indVal)
 {
     upperLim_ = indVal;
 }
-//===========================================================================================================
-void BoundaryCondition::setIndepUnits(std::string unitString)
+//==================================================================================================================================
+void BoundaryCondition::setIndepUnits(const std::string& unitString)
 {
     indepUnits_ = unitString;
 }
-//===========================================================================================================
-void BoundaryCondition::setDepenUnits(std::string unitString)
+//==================================================================================================================================
+void BoundaryCondition::setDepenUnits(const std::string& unitString)
 {
     depenUnits_ = unitString;
 }
 //===========================================================================================================
-int BoundaryCondition::findStep(double indVar, int interval)
+int BoundaryCondition::findStep(double indVar, int interval) const
 {
     err("BoundaryCondition::findStep");
     return -1;
@@ -171,31 +167,32 @@ int BoundaryCondition::findStep(double indVar, int interval)
 //===========================================================================================================
 double BoundaryCondition::err(std::string msg) const
 {
-    throw CanteraError("BoundaryCondition Base Class\n", "**** Method " + msg + " not implemented\n");
+    throw m1d_Error("BoundaryCondition Base Class\n", "**** Method " + msg + " not implemented\n");
     return 0.0;
 }
-//============================================================================================================
-BCconstant::BCconstant(double value, std::string titleName, std::string indepUnits,
-		       std::string depenUnits) :
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+BCconstant::BCconstant(double value, std::string titleName, std::string indepUnits, std::string depenUnits) :
     BoundaryCondition(),
     dependentVal_(value)
 {
     setTitle(titleName);
     setIndepUnits(indepUnits);
     setDepenUnits(depenUnits);
-        stepMax_ = 1;
+    stepMax_ = 1;
 }
-//============================================================================================================
+//==================================================================================================================================
 BCconstant::~BCconstant()
 {
 }
-//============================================================================================================
-double BCconstant::value(double indVar, int interval)
+//==================================================================================================================================
+double BCconstant::value(double indVar, int interval) const
 {
     return dependentVal_;
 }
-//============================================================================================================
-double BCconstant::nextStep()
+//==================================================================================================================================
+double BCconstant::nextStep() const
 {
     if (step_ < stepMax_) {
 	++step_;
@@ -204,7 +201,7 @@ double BCconstant::nextStep()
 	return -1;
     }
 }
-//============================================================================================================
+//==================================================================================================================================
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////         class BCsteptable        ///////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -223,29 +220,31 @@ double BCconstant::nextStep()
 //=====================================================================================================================
 // Constructor taking two vectors of floats representing the independent variable and the dependent 
 // variable
-BCsteptable::BCsteptable(vector_fp indValue, vector_fp depValue, vector_fp compareValue, std::string titleName,
-                         std::string indepUnits, std::string depenUnits) :
-        BoundaryCondition(),
-        indepVals_(indValue),
-        depenVals_(depValue),
-        compareVals_(compareValue)
+BCsteptable::BCsteptable(const vector_fp& indValue, const vector_fp& depValue, const vector_fp& compareValue, 
+                         const std::string& titleName, const std::string& indepUnits, 
+                         const std::string& depenUnits) :
+    BoundaryCondition(),
+    indepVals_(indValue),
+    depenVals_(depValue),
+    compareVals_(compareValue)
 {
     setTitle(titleName);
     setIndepUnits(indepUnits);
     setDepenUnits(depenUnits);
 
     if (indepVals_.size() != depenVals_.size()) {
-        throw CanteraError("BCsteptable constructor\n", "**** indepVals_ and depenVals_ unequal size\n");
-
+        if (indepVals_.size() != depenVals_.size() + 1) {
+            throw m1d_Error("BCsteptable constructor\n", "**** indepVals_ and depenVals_ unequal size\n");
+        }
     }
-    stepMax_ = indepVals_.size();
+    stepMax_ = depenVals_.size();
     lowerLim_ = indepVals_[0];
     upperLim_ = indepVals_.back();
 }
 //=====================================================================================================================
 // construct from filename
 BCsteptable::BCsteptable(std::string filename) :
-        BoundaryCondition()
+    BoundaryCondition()
 {
     //convert input file name into XML node
     XML_Node* baseNode = get_XML_File(filename);
@@ -255,7 +254,6 @@ BCsteptable::BCsteptable(std::string filename) :
     //parse this node into class data structures
     useXML(*bcNode);
     close_XML_File(filename);
-
 }
 //=====================================================================================================================
 //! construct from XMLnode
@@ -274,10 +272,10 @@ void BCsteptable::useXML(XML_Node& bcNode)
 {
 
     if (!bcNode.hasChild("independentVar"))
-        throw CanteraError("BCsteptable::useXML()", "no independentVar XML node.");
+        throw m1d_Error("BCsteptable::useXML()", "no independentVar XML node.");
 
     if (!bcNode.hasChild("dependentVar"))
-        throw CanteraError("BCsteptable::useXML()", "no dependentVar XML node.");
+        throw m1d_Error("BCsteptable::useXML()", "no dependentVar XML node.");
 
 
     //get independentVar
@@ -317,31 +315,19 @@ void BCsteptable::useXML(XML_Node& bcNode)
         lowerLim_ = indepVals_[0];
         upperLim_ = indepVals_.back();
     } else {
-        throw CanteraError("BCsteptable::useXML()",
+        throw m1d_Error("BCsteptable::useXML()",
                 "independent and dependent variable dimension mismatch");
     }
 
 }
-//===========================================================================================================
-// Return the dependent variable value given
-// the independent variable argument
-/*
- *   @param indVar   Independent variable
- *   @param interval If greater than zero, then checking is done on the interval specified
- *                   Also ties, i.e. numbers on the boundary go to the interval value.
- */
-double BCsteptable::value(double indVar, int interval)
+//==================================================================================================================================
+double BCsteptable::value(double indVar, int interval) const
 {
     step_ = findStep(indVar, interval);
     return depenVals_[step_];
 }
-//=====================================================================================================================
-// return the next value for the independent variable at
-// which the nature of the boundary condition changes.
-/*
- * This is designed to guide grid generation and time stepping
- */
-double BCsteptable::nextStep()
+//==================================================================================================================================
+double BCsteptable::nextStep() const
 {
     if (step_ < (int) indepVals_.size()) {
         return indepVals_[step_++];
@@ -349,19 +335,19 @@ double BCsteptable::nextStep()
         return -1;
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // check to see which step we are at.
 /*
  * Loop through the boundary condition independent variables.
  * The current step is the smallest value in indepVals_[ i ]
  * that indVar is less than.
  */
-int BCsteptable::findStep(double indVar, int interval)
+int BCsteptable::findStep(double indVar, int interval) const
 {
     int step = -1;
     if (indVar < indepVals_[0]) {
-        throw CanteraError("BCsteptable::findStep()",
-                "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
+        throw m1d_Error("BCsteptable::findStep()",
+                        "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
     }
     for (int i = 0; i < stepMax_; i++) {
         if (interval == i) {
@@ -380,32 +366,25 @@ int BCsteptable::findStep(double indVar, int interval)
         step = stepMax_;
     }
     if (step < 0) {
-        throw CanteraError("BCsteptable::findStep()",
+        throw m1d_Error("BCsteptable::findStep()",
                 "Out of bounds error with step < 0\n\tProbably because indVar > indepVals_[ stepMax_ ] ");
     }
-#ifdef DEBUG_HKM
-    if (step != 0) {
-        printf("WE ARE HERE STEP = %d\n", step);
-    }
-#endif
     return step;
 }
-//=====================================================================================================================
-// Write out the profile in tabular format.
-void BCsteptable::writeProfile()
+//==================================================================================================================================
+void BCsteptable::writeProfile() const
 {
-
 }
-//=====================================================================================================================
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////               class BClineartable            /////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//==================================================================================================================================
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////               class BClineartable            ///////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * This subclass is designed to handle a table of dependent variable boundary conditions that are 
  * to be linearly interpolated between the values given.  For example, if the value pairs (0,0) 
  * and (1,1) are given, the value( 0.5 ) will  return 0.5.
  */
-//=====================================================================================================================
+//==================================================================================================================================
 // constructor taking vectors of floats
 BClineartable::BClineartable(vector_fp indValue, vector_fp depValue, vector_fp compareValue, std::string titleName,
                              std::string indepUnits, std::string depenUnits) :
@@ -419,7 +398,7 @@ BClineartable::BClineartable(vector_fp indValue, vector_fp depValue, vector_fp c
     setDepenUnits(depenUnits);
     
     if (indepVals_.size() != depenVals_.size()) {
-        throw CanteraError("BClineartable constructor\n", "**** indepVals_ and depenVals_ unequal size\n");
+        throw m1d_Error("BClineartable constructor\n", "**** indepVals_ and depenVals_ unequal size\n");
 	
     }
     stepMax_ = indepVals_.size();
@@ -458,10 +437,10 @@ void BClineartable::useXML(XML_Node& bcNode)
 {
 
     if (!bcNode.hasChild("independentVar")) {
-        throw CanteraError("BClineartable::useXML()", "no independentVar XML node.");
+        throw m1d_Error("BClineartable::useXML()", "no independentVar XML node.");
     }
     if (!bcNode.hasChild("dependentVar")) {
-        throw CanteraError("BClineartable::useXML()", "no dependentVar XML node.");
+        throw m1d_Error("BClineartable::useXML()", "no dependentVar XML node.");
     }
     //bool convert = true;
 
@@ -489,18 +468,11 @@ void BClineartable::useXML(XML_Node& bcNode)
         lowerLim_ = indepVals_[0];
         upperLim_ = indepVals_.back();
     } else {
-        throw CanteraError("BClineartable::useXML()", "independent and dependent variable dimension mismatch");
+        throw m1d_Error("BClineartable::useXML()", "independent and dependent variable dimension mismatch");
     }
 }
 //=====================================================================================================================
-// Return the dependent variable value given
-// the independent variable argument
-/*
- *   @param indVar   Independent variable
- *   @param interval If greater than zero, then checking is done on the interval specified
- *                   Also ties, i.e. numbers on the boundary go to the interval value.
- */
-double BClineartable::value(double indVar, int interval)
+double BClineartable::value(double indVar, int interval) const
 {
     step_ = findStep(indVar, interval);
     if (step_ >= stepMax_ - 1) {
@@ -521,7 +493,7 @@ double BClineartable::value(double indVar, int interval)
 /*
  * This is designed to guide grid generation and time stepping
  */
-double BClineartable::nextStep()
+double BClineartable::nextStep() const
 {
     if (step_ < (int) indepVals_.size()) {
         return indepVals_[step_++];
@@ -535,11 +507,11 @@ double BClineartable::nextStep()
  * We need to find the interval that we are in between
  * for interpolation purposes.
  */
-int BClineartable::findStep(double indVar, int interval)
+int BClineartable::findStep(double indVar, int interval) const
 {
     int step = -1;
     if (indVar < indepVals_[0]) {
-        throw CanteraError("BClineartable::findStep()",
+        throw m1d_Error("BClineartable::findStep()",
                 "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
     }
     for (int i = 0; i < stepMax_ - 1; i++) {
@@ -559,36 +531,25 @@ int BClineartable::findStep(double indVar, int interval)
         step = stepMax_ - 1;
     }
     if (step < 0) {
-        throw CanteraError("BClineartable::findStep()",
+        throw m1d_Error("BClineartable::findStep()",
                 "Out of bounds error with step < 0\n\tProbably because indVar > indepVals_[ stepMax_ ] ");
     }
-#ifdef DEBUG_HKM
-    if (step != 0) {
-	printf("WE ARE HERE STEP = %d\n", step);
-    }
-#endif
     return step;
 }
+//=====================================================================================================================
+//=====================================================================================================================
 //=====================================================================================================================
 ////////////////////////////////////////////////////////////
 // class BCsinusoidal
 ////////////////////////////////////////////////////////////
 
-/**
- * This subclass is designed to provide a sinusoidally 
- * varying boundary condition.  A base value (voltage or current) 
- * is defined as well as an amplitude and frequency for the
- * oscillitory component.
- */
-
-// constructor taking vectors of floats
+//=====================================================================================================================
 BCsinusoidal::BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, std::string titleName,
                            std::string indepUnits, std::string depenUnits) :
         BoundaryCondition(),
         baseDepValue_(baseDepValue),
         oscAmplitude_(oscAmplitude),
         frequency_(frequency)
-
 {
     setTitle(titleName);
     setIndepUnits(indepUnits);
@@ -627,15 +588,14 @@ BCsinusoidal::BCsinusoidal(XML_Node& baseNode) :
 // Fill independent and dependent values from XML_Node
 void BCsinusoidal::useXML(XML_Node& bcNode)
 {
-
     if (!bcNode.hasChild("baseDependentValue"))
-        throw CanteraError("BCsinusoidal::useXML()", "no baseDependentValue XML node.");
+        throw m1d_Error("BCsinusoidal::useXML()", "no baseDependentValue XML node.");
 
     if (!bcNode.hasChild("oscillationAmplitude"))
-        throw CanteraError("BCsinusoidal::useXML()", "no oscillationAmplitude XML node.");
+        throw m1d_Error("BCsinusoidal::useXML()", "no oscillationAmplitude XML node.");
 
     if (!bcNode.hasChild("frequency"))
-        throw CanteraError("BCsinusoidal::useXML()", "no frequency XML node.");
+        throw m1d_Error("BCsinusoidal::useXML()", "no frequency XML node.");
 
     //get base amplitude
     baseDepValue_ = ZZctml::getFloat(bcNode, "baseDependentValue");
@@ -658,9 +618,7 @@ void BCsinusoidal::useXML(XML_Node& bcNode)
 
 }
 //=====================================================================================================================
-// Return the dependent variable value given
-// the independent variable argument
-double BCsinusoidal::value(double indVar, int interval)
+double BCsinusoidal::value(double indVar, int interval) const
 {
     return baseDepValue_ + oscAmplitude_ * sin(indVar / (2 * Pi * frequency_));
 }
@@ -669,7 +627,7 @@ double BCsinusoidal::value(double indVar, int interval)
 /*
  * This is designed to guide grid generation and time stepping
  */
-double BCsinusoidal::nextStep()
+double BCsinusoidal::nextStep() const
 {
     return deltaT_ * step_++;
 }
@@ -680,19 +638,16 @@ double BCsinusoidal::nextStep()
  * The current step is the smallest value in indepVals_[ i ]
  * that indVar is less than.
  */
-int BCsinusoidal::findStep(double indVar, int interval)
+int BCsinusoidal::findStep(double indVar, int interval) const
 {
     step_ = ceil(indVar / deltaT_);
     return step_;
 }
 //=====================================================================================================================
-// Write out the profile in tabular format.
-void BCsinusoidal::writeProfile()
+void BCsinusoidal::writeProfile() const
 {
-
 }
 //=====================================================================================================================
-// specify the frequency
 void BCsinusoidal::setFrequency(double frequency)
 {
     frequency_ = frequency;
@@ -719,6 +674,5 @@ void BCsinusoidal::setPeriodsPerRun(double periodsPerRun)
     upperLim_ = periodsPerRun_ / frequency_;
 }
 //=====================================================================================================================
-}//namespace Cantera
-
-//=====================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------
