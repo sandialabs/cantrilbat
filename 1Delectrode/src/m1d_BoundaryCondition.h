@@ -271,12 +271,21 @@ private:
     double err(std::string msg) const;
 };
 //==================================================================================================================================
-
+//! BCconstant is a simple class that specifies a constant value Dirichlet boundary condition
+/*!
+ *  No intervals are specified. Instead, the dependent variable is set to a constant
+ */
 class BCconstant: public BoundaryCondition
 {
-
 public:
 
+    //! Default constructor for BCconstant
+    /*!
+     *  @param[in]           value               Value of the constant to set the dependent value to. Defaults to 0.0
+     *  @param[in]           titleName           Name of the Boundary Condition. Defaults to "BCtitle".
+     *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
+     *  @param[in]           depenUnits          String containing units of dependent variable. Defaults to "unknownUnits".
+     */
     BCconstant(double value = 0.0, std::string titleName = "BCtitle", std::string indepUnits = "unknownUnits",
                std::string depenUnits = "unknownUnits");
 
@@ -285,55 +294,67 @@ public:
 
     //! Return the dependent variable value given the independent variable argument
     /*!
-     *   @param indVar  Independentvariable
-     *   @param interval If greater than zero, then checking is done on the interval specified
-     *                   Also ties, i.e. numbers on the boundary go to the interval value.
+     *   @param[in]          indVar              Independentvariable
+     *   @param[in]          interval            If greater than zero, then checking is done on the interval specified
+     *                                           Also ties, i.e. numbers on the boundary go to the interval value.
      */
     virtual double value(double indVar, int interval = -1) const override;
 
-    //! return the next value for the independent variable at
-    //! which the nature of the boundary condition changes.
-    /**
-     * This is designed to guide grid generation and time stepping.
-     * For this constant BC subclass, this provides no real information.
+    //! Return the next value for the independent variable at which the nature of the boundary condition changes.
+    /*!
+     *  This is designed to guide grid generation and time stepping. For this constant BC subclass, 
+     *  this provides no real information.
+     *
+     *  @return                                  Returns a max value, because there are no steps
      */
     virtual double nextStep() const override;
 
 protected:
 
-    //!      The fixed dependent variable
+    //! The fixed dependent variable
     double dependentVal_;
 };
+
 //==================================================================================================================================
-/**
- * This subclass is designed to handle a table of 
- * dependent variable boundary conditions that are 
- * constant until the indicated value of the 
- * independent variable, at which point there is a
- * step change to a new value.  For example, if 
- * the (ind,dep) value pairs (0.5,0.0), (1.0,0.5)
- * and (2., 1.) are given, then value( 0.25 ) will 
- * return 0.0, value( 0.75 ) will return 0.5 and
- * value( 1.25 ) will return 1.0.
+//! This subclass is designed to handle a table of dependent variable boundary conditions that are constant until the indicated 
+//! value of the independent variable, at which point there is a step change to a new value. 
+/*!
+ *  For example, if the (ind,dep) value pairs (0.5,0.0), (1.0,0.5) and (2., 1.) are given, then value( 0.25 ) will 
+ *  return 0.0, value( 0.75 ) will return 0.5 and
+ *  value( 1.25 ) will return 1.0.
  */
 class BCsteptable: public BoundaryCondition
 {
 public:
 
+    //! Default constructor for BCsteptable
+    /*!
+     *  @param[in]           indValue            Reference to a vector of independent values representing the intervals
+     *  @param[in]           depValue            Reference to a vector of dependent values representing the value of the dependent
+     *                                           variable within the interval.
+     *  @param[in]           compareVals_        Reference to a vector of data to compare to. (currently unused).
+     *  @param[in]           titleName           Name of the Boundary Condition. Defaults to "BCsteptable".
+     *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
+     *  @param[in]           depenUnits          String containing units of dependent variable. Defaults to "unknownUnits".
+     */
     BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, const ZZCantera::vector_fp& compareVals_, 
                 const std::string& titleName = "BCsteptable", const std::string& indepUnits = "unknownUnits", 
                 const std::string& depenUnits = "unknownUnits");
 
-    //! construct from filename
+    //! Construct the boundary condition from a filename
+    /*!
+     *  @param[in]           filename            The filename contains a complete description of the BCsteptable boundary condition
+     *                                           input. The file is in XML format.
+     */
     BCsteptable(std::string filename);
 
-    //! construct from XMLnode
+    //! Construct from XMLnode
     BCsteptable(ZZCantera::XML_Node& node);
 
-    //! destructor
+    //! Destructor
     virtual ~BCsteptable();
 
-    //! fill independent and dependent values from ZZCantera::XML_Node
+    //! Fill independent and dependent values from ZZCantera::XML_Node
     void useXML(ZZCantera::XML_Node& node);
 
     //! Return the dependent variable value given
@@ -345,7 +366,7 @@ public:
      */
     virtual double value(double indVar, int interval = -1) const override;
 
-    //! return the next value for the independent variable at
+    //! Return the next value for the independent variable at
     //! which the nature of the boundary condition changes.
     /**
      * This is designed to guide grid generation and time stepping
