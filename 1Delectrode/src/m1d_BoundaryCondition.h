@@ -92,6 +92,8 @@ public:
      *                                           Also ties wrt to the independent variable are satisfied by goint to the interval
      *                                           specified by this value.
      *                                           Defaults to a value of -1.
+     *
+     *  @return                                  Returns the value at the value of the independent variable
      */
     virtual double value(double indVar, int interval = -1) const;
 
@@ -142,7 +144,7 @@ public:
      *
      *  @param[in]           indVar              Independent variable, usually the time.
      *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
-     *                                           Also ties wrt to the independent variable are satisfied by goint to the interval
+     *                                           Also ties wrt to the independent variable are satisfied by going to the interval
      *                                           specified by this value.
      *                                           Defaults to a value of -1.
      *
@@ -168,15 +170,15 @@ public:
      */
     virtual void writeProfile() const;
 
-    //! Lower limit of dependent variable for which BC applies
+    //! Lower limit of the independent variable for which BC applies
     /*!
-     *  @return                                  Returns the  Lower limit of dependent variable 
+     *  @return                                  Returns the  Lower limit of the independent variable 
      */
     double lowerLimit() const;
 
-    //! Upper limit of dependent variable for which BC applies
+    //! Upper limit of the inddependent variable for which BC applies
     /*!
-     *  @return                                  Returns the  Upper limit of dependent variable 
+     *  @return                                  Returns the upper limit of independent variable 
      */
     double upperLimit() const;
 
@@ -233,10 +235,10 @@ protected:
     //! title or name of boundary condition
     std::string title_;
 
-    //! lower limit of dependent variable for which BC applies
+    //! lower limit of the independent variable for which BC applies
     double lowerLim_;
 
-    //! upper limit of dependent variable for which BC applies
+    //! upper limit of the independent variable for which BC applies
     double upperLim_;
 
     //! units string for the independent variable
@@ -247,16 +249,24 @@ protected:
 
     //! Current step interval in a sequence of values
     /*!
-     *  Starts at a value of zero
+     *  Starts at a value of zero. This represents the value of the current interval.
      */
     mutable int step_;
 
     //! Maximum value of the interval steps.
     /*!
-     *  If step_ exceeds the number of steps that were input, then an out of bounds error should be generated
+     *  If step_ exceeds the number of steps that were input, then an out of bounds error should be generated.
      *  Starts at a value of zero.
+     *  Value of the last interval. Defaults to 0, if no interval data is presented.
      */
     int stepMax_;
+
+    //! If true then the depenVals_ vector has a last dependant value that is valid for independent values greater than the 
+    //! last interval ending value.
+    /*!
+     *  Defaults to true, as this is the normal case if no intervals are supplied.
+     */
+    bool hasExtendedDependentValue_;
 
 private:
     //! Error routine
@@ -322,6 +332,9 @@ protected:
  *  For example, if the (ind,dep) value pairs (0.5,0.0), (1.0,0.5) and (2., 1.) are given, then value( 0.25 ) will 
  *  return 0.0, value( 0.75 ) will return 0.5 and
  *  value( 1.25 ) will return 1.0.
+ *
+ *  Usually, the size of the dep
+ *  If the depValue vector size is 
  */
 class BCsteptable: public BoundaryCondition
 {
@@ -329,9 +342,13 @@ public:
 
     //! Default constructor for BCsteptable
     /*!
-     *  @param[in]           indValue            Reference to a vector of independent values representing the intervals
+     *  @param[in]           indValue            Reference to a vector of independent values representing the boundaries of the
+     *                                           intervals.
+     *                                             Length: numIntervals+1
      *  @param[in]           depValue            Reference to a vector of dependent values representing the value of the dependent
-     *                                           variable within the interval.
+     *                                           variable within the intervals. For a size of  (numIntervals+1), the last number
+     *                                           represents the value of the dependent variable past the last interval value.
+     *                                            Length: numIntervals or (numIntervals+1)
      *  @param[in]           compareVals_        Reference to a vector of data to compare to. (currently unused).
      *  @param[in]           titleName           Name of the Boundary Condition. Defaults to "BCsteptable".
      *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
@@ -349,6 +366,9 @@ public:
     BCsteptable(std::string filename);
 
     //! Construct from XMLnode
+    /*!
+     *  @param[in]           node                Reference to an XML node where the information for the boundary condition is storred.
+     */
     BCsteptable(ZZCantera::XML_Node& node);
 
     //! Destructor
@@ -357,12 +377,11 @@ public:
     //! Fill independent and dependent values from ZZCantera::XML_Node
     void useXML(ZZCantera::XML_Node& node);
 
-    //! Return the dependent variable value given
-    //! the independent variable argument
+    //! Return the dependent variable value given the independent variable argument
     /*!
-     *   @param indVar   Independent variable
-     *   @param interval If greater than zero, then checking is done on the interval specified
-     *                   Also ties, i.e. numbers on the boundary go to the interval value.
+     *   @param[in]           indVar                 Independent variable
+     *   @param[in]           interval               If greater than zero, then checking is done on the interval specified
+     *                                               Also ties, i.e. numbers on the boundary go to the interval value.
      */
     virtual double value(double indVar, int interval = -1) const override;
 
@@ -373,59 +392,99 @@ public:
      */
     virtual double nextStep() const override;
 
+    //! Empty routine
     virtual void writeProfile() const override;
 
 protected:
 
-    //! vector of independent variable values at which
-    //! the dependent variable may change value
+    //! Vector of independent variable values at which the dependent variable may change value
+    /*!
+     *  Length: numIntervals+1
+     */
     ZZCantera::vector_fp indepVals_;
 
-    //! vector of dependent variable values appropriate
-    //! for time/space after the corresponding indepVals_
+    //! Vector of dependent variable values appropriate for time/space after the corresponding indepVals_
+    /*!
+     *  These are the values within the intervals. An optional last value is the dependent value
+     *  for beyond the last interval.
+     *
+     *  Length: numIntervals or numIntervals+1
+     */
     ZZCantera::vector_fp depenVals_;
 
-    //! vector of variable values for comparison purposes.
-    //! For example, if current is input, these might be measured voltages
+    //! Vector of variable dependent values for comparison purposes.
+    //! For example, if current is input, these might be measured voltages.
+    /*!
+     *  Length: numIntervals
+     */ 
     ZZCantera::vector_fp compareVals_;
 
-    //! units string for a variable used for comparison purposes
+    //! Units string for a variable used for comparison purposes
     std::string compareUnits_;
 
     //! Calculate which interval of the independent variable we are in.
     /*!
-     * If the independent variable argument exceeds the
-     * current range, then increment the step counter and
-     * check that this has not gone out of bounds.
+     *  If the independent variable argument exceeds the current range, then increment the step counter and
+     *  check that this has not gone out of bounds.
+     *  
+     *  @param[in]           indVar              Value of the independent variable
+     *  @param[in]           interval            Default value of the interval.
+     *                                             Defaults to -1, which indicates no default value.
+     *
+     *  @return                                  Returns the interval number.
      */
     virtual int findStep(double indVar, int interval = -1) const override;
 
 };
 //==================================================================================================================================
-//! This subclass is designed to handle a table of  dependent variable boundary conditions that are
+//! This subclass is designed to handle a table of dependent variable boundary conditions that are
 //! to be linearly interpolated between the values given.
 /*!
- *   This implicitly implies that the function is continuous, and the derivative is piecewise continuous.
+ *  This implicitly implies that the function is continuous, and the derivative is piecewise continuous.
  *
- * For example, if the value pairs (0,0)
- * and (1,1) are given, the value( 0.5 ) will 
- * return 0.5.
+ *  For example, if the value pairs (0,0)
+ *  and (1,1) are given, the value( 0.5 ) will  return 0.5.
  */
 class BClineartable: public BoundaryCondition
 {
 
 public:
-
+    //! Default constructor for BClineartable
+    /*!
+     *  Function is assumed to be continuous, and its derivative is piecewise continuous.
+     *
+     *  @param[in]           indValue            Reference to a vector of independent values representing the boundaries of the
+     *                                           intervals.
+     *                                              Length: numIntervals+1
+     *  @param[in]           depValue            Reference to a vector of dependent values representing the value of the dependent
+     *                                           variables at the indValue[] points given in the previous parameter.
+     *                                           represents the value of the dependent variable past the last interval value.
+     *                                              Length: numIntervals+1
+     *  @param[in]           compareVals_        Reference to a vector of data to compare to. (currently unused).
+     *  @param[in]           titleName           Name of the Boundary Condition. Defaults to "BCsteptable".
+     *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
+     *  @param[in]           depenUnits          String containing units of dependent variable. Defaults to "unknownUnits".
+     */
     BClineartable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, ZZCantera::vector_fp compareVals_, std::string titleName = "BClineartable",
                   std::string indepUnits = "unknownUnits", std::string depenUnits = "unknownUnits");
 
-    //! construct from filename
+    //! Construct the BClineartable from information contained in an xml file
+    /*!
+     *  All of the parameters are read from an XML formatted file.
+     *
+     *  @param[in]           filename           Name of the file
+     */
     BClineartable(std::string filename);
 
-    //! construct from XMLnode
+    //! Construct the boundary condition from an XMLnode object
+    /*!
+     *  All of the parameters are read from an XML formatted file.
+     *
+     *  @param[in]           node           Reference to an XML_Node object containing the boundary condition description
+     */
     BClineartable(ZZCantera::XML_Node& node);
 
-    //! destructor
+    //! Virtual destructor
     virtual ~BClineartable();
 
     //! fill independent and dependent values from ZZCantera::XML_Node
@@ -516,7 +575,10 @@ public:
     //! Destructor
     virtual ~BCsinusoidal();
 
-    //! fill independent and dependent values from ZZCantera::XML_Node
+    //! fill independent and dependent values from a XML_Node object
+    /*!
+     *  @param[in]         node               Reference to an XML_Node object containing the boundary condition information.
+     */
     void useXML(ZZCantera::XML_Node& node);
 
     //! Return the dependent variable value given

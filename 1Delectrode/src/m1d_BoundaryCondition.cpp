@@ -45,7 +45,8 @@ BoundaryCondition::BoundaryCondition() :
     indepUnits_(""),
     depenUnits_(""),
     step_(0),
-    stepMax_(0)
+    stepMax_(0),
+    hasExtendedDependentValue_(true)
 {
 }
 //==================================================================================================================================
@@ -60,7 +61,8 @@ BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
     indepUnits_(""),
     depenUnits_(""),
     step_(0),
-    stepMax_(0)
+    stepMax_(0),
+    hasExtendedDependentValue_(true)
 {
     *this = right;
 }
@@ -77,6 +79,7 @@ BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
     depenUnits_ = right.depenUnits_;
     step_ = right.step_;
     stepMax_ = right.stepMax_;
+    hasExtendedDependentValue_ = right.hasExtendedDependentValue_;
     return *this;
 }
 //==================================================================================================================================
@@ -220,7 +223,8 @@ double BCconstant::nextStep() const
 //=====================================================================================================================
 // Constructor taking two vectors of floats representing the independent variable and the dependent 
 // variable
-BCsteptable::BCsteptable(const vector_fp& indValue, const vector_fp& depValue, const vector_fp& compareValue, 
+BCsteptable::BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, 
+                         const ZZCantera::vector_fp& compareValue, 
                          const std::string& titleName, const std::string& indepUnits, 
                          const std::string& depenUnits) :
     BoundaryCondition(),
@@ -235,9 +239,14 @@ BCsteptable::BCsteptable(const vector_fp& indValue, const vector_fp& depValue, c
     if (indepVals_.size() != depenVals_.size()) {
         if (indepVals_.size() != depenVals_.size() + 1) {
             throw m1d_Error("BCsteptable constructor\n", "**** indepVals_ and depenVals_ unequal size\n");
+        } else {
+            hasExtendedDependentValue_ = false;
+            stepMax_ = depenVals_.size();
         }
+    } else {
+        hasExtendedDependentValue_ = true;
+        stepMax_ = depenVals_.size() - 1;
     }
-    stepMax_ = depenVals_.size();
     lowerLim_ = indepVals_[0];
     upperLim_ = indepVals_.back();
 }
@@ -257,7 +266,7 @@ BCsteptable::BCsteptable(std::string filename) :
 }
 //=====================================================================================================================
 //! construct from XMLnode
-BCsteptable::BCsteptable(XML_Node& baseNode) :
+BCsteptable::BCsteptable(ZZCantera::XML_Node& baseNode) :
         BoundaryCondition()
 {
     useXML(baseNode);
@@ -267,8 +276,7 @@ BCsteptable::~BCsteptable()
 {
 }
 //=====================================================================================================================
-// fill independent and dependent values from XML_Node
-void BCsteptable::useXML(XML_Node& bcNode)
+void BCsteptable::useXML(ZZCantera::XML_Node& bcNode)
 {
 
     if (!bcNode.hasChild("independentVar"))
@@ -315,10 +323,8 @@ void BCsteptable::useXML(XML_Node& bcNode)
         lowerLim_ = indepVals_[0];
         upperLim_ = indepVals_.back();
     } else {
-        throw m1d_Error("BCsteptable::useXML()",
-                "independent and dependent variable dimension mismatch");
+        throw m1d_Error("BCsteptable::useXML()", "independent and dependent variable dimension mismatch");
     }
-
 }
 //==================================================================================================================================
 double BCsteptable::value(double indVar, int interval) const
@@ -345,29 +351,34 @@ double BCsteptable::nextStep() const
 int BCsteptable::findStep(double indVar, int interval) const
 {
     int step = -1;
+    if (indepVals_.size() == 0) {
+        return 0;
+    }
     if (indVar < indepVals_[0]) {
+        //return -1;
         throw m1d_Error("BCsteptable::findStep()",
                         "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
     }
     for (int i = 0; i < stepMax_; i++) {
         if (interval == i) {
             if (indVar <= indepVals_[i + 1]) {
-                step = i;
-                break;
+                return i;
             }
         } else {
             if (indVar < indepVals_[i + 1]) {
-                step = i;
-                break;
+                return i;
             }
         }
     }
     if (indVar == indepVals_[stepMax_]) {
-        step = stepMax_;
+        return stepMax_;
+    }
+    if (hasExtendedDependentValue_) {
+       return stepMax_;
     }
     if (step < 0) {
         throw m1d_Error("BCsteptable::findStep()",
-                "Out of bounds error with step < 0\n\tProbably because indVar > indepVals_[ stepMax_ ] ");
+                        "Out of bounds error with step < 0\n\tProbably because indVar > indepVals_[ stepMax_ ] ");
     }
     return step;
 }
@@ -386,7 +397,8 @@ void BCsteptable::writeProfile() const
  */
 //==================================================================================================================================
 // constructor taking vectors of floats
-BClineartable::BClineartable(vector_fp indValue, vector_fp depValue, vector_fp compareValue, std::string titleName,
+BClineartable::BClineartable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, 
+                             ZZCantera::vector_fp compareValue, std::string titleName,
                              std::string indepUnits, std::string depenUnits) :
     BoundaryCondition(),
     indepVals_(indValue),
@@ -406,7 +418,6 @@ BClineartable::BClineartable(vector_fp indValue, vector_fp depValue, vector_fp c
     upperLim_ = indepVals_.back();
 }
 //=====================================================================================================================
-//! construct from filename
 BClineartable::BClineartable(std::string filename) :
         BoundaryCondition()
 {
@@ -418,11 +429,9 @@ BClineartable::BClineartable(std::string filename) :
     //parse this node into class data structures
     useXML(*bcNode);
     close_XML_File(filename);
-
 }
 //=====================================================================================================================
-// construct from XMLnode
-BClineartable::BClineartable(XML_Node& baseNode) :
+BClineartable::BClineartable(ZZCantera::XML_Node& baseNode) :
         BoundaryCondition()
 {
     useXML(baseNode);
@@ -433,7 +442,7 @@ BClineartable::~BClineartable()
 }
 //=====================================================================================================================
 // fill independent and dependent values from XML_Node
-void BClineartable::useXML(XML_Node& bcNode)
+void BClineartable::useXML(ZZCantera::XML_Node& bcNode)
 {
 
     if (!bcNode.hasChild("independentVar")) {
@@ -579,14 +588,14 @@ BCsinusoidal::~BCsinusoidal()
 }
 //=====================================================================================================================
 // construct from XMLnode
-BCsinusoidal::BCsinusoidal(XML_Node& baseNode) :
+BCsinusoidal::BCsinusoidal(ZZCantera::XML_Node& baseNode) :
         BoundaryCondition()
 {
     useXML(baseNode);
 }
 //=====================================================================================================================
 // Fill independent and dependent values from XML_Node
-void BCsinusoidal::useXML(XML_Node& bcNode)
+void BCsinusoidal::useXML(ZZCantera::XML_Node& bcNode)
 {
     if (!bcNode.hasChild("baseDependentValue"))
         throw m1d_Error("BCsinusoidal::useXML()", "no baseDependentValue XML node.");
