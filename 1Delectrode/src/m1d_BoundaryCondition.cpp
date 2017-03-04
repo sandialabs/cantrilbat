@@ -46,7 +46,10 @@ BoundaryCondition::BoundaryCondition() :
     depenUnits_(""),
     step_(0),
     stepMax_(0),
-    hasExtendedDependentValue_(true)
+    hasExtendedDependentValue_(true),
+    ifuncLowerLim_(0),
+    depValLowerLim_(0.0)
+
 {
 }
 //==================================================================================================================================
@@ -62,7 +65,9 @@ BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
     depenUnits_(""),
     step_(0),
     stepMax_(0),
-    hasExtendedDependentValue_(true)
+    hasExtendedDependentValue_(true),
+    ifuncLowerLim_(0),
+    depValLowerLim_(0.0)
 {
     *this = right;
 }
@@ -80,7 +85,17 @@ BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
     step_ = right.step_;
     stepMax_ = right.stepMax_;
     hasExtendedDependentValue_ = right.hasExtendedDependentValue_;
+    ifuncLowerLim_ = right.ifuncLowerLim_;
+    depValLowerLim_ = right.depValLowerLim_;
     return *this;
+}
+//==================================================================================================================================
+void BoundaryCondition::useXML(ZZCantera::XML_Node& bcNode)
+{
+    if (bcNode.name() != "BoundaryCondition") {
+        m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
+    }
+    err("BoundaryCondition::useXML");
 }
 //==================================================================================================================================
 double BoundaryCondition::value(double indVar, int interval) const
@@ -140,6 +155,12 @@ std::string BoundaryCondition::title() const
 void BoundaryCondition::setTitle(const std::string& name)
 {
     title_ = name;
+}
+//==================================================================================================================================
+void BoundaryCondition::setLowerLimitBoundsTreament(int ifunc, double depVal)
+{
+    ifuncLowerLim_ = ifunc;
+    depValLowerLim_ = depVal;
 }
 //==================================================================================================================================
 void BoundaryCondition::setLowerLimit(double indVal)
@@ -224,8 +245,7 @@ double BCconstant::nextStep() const
 // Constructor taking two vectors of floats representing the independent variable and the dependent 
 // variable
 BCsteptable::BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, 
-                         const ZZCantera::vector_fp& compareValue, 
-                         const std::string& titleName, const std::string& indepUnits, 
+                         const ZZCantera::vector_fp& compareValue, const std::string& titleName, const std::string& indepUnits, 
                          const std::string& depenUnits) :
     BoundaryCondition(),
     indepVals_(indValue),
@@ -278,7 +298,9 @@ BCsteptable::~BCsteptable()
 //=====================================================================================================================
 void BCsteptable::useXML(ZZCantera::XML_Node& bcNode)
 {
-
+    if (bcNode.name() != "BoundaryCondition") {
+        m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
+    }
     if (!bcNode.hasChild("independentVar"))
         throw m1d_Error("BCsteptable::useXML()", "no independentVar XML node.");
 
@@ -330,6 +352,9 @@ void BCsteptable::useXML(ZZCantera::XML_Node& bcNode)
 double BCsteptable::value(double indVar, int interval) const
 {
     step_ = findStep(indVar, interval);
+    if (step_ < 0) {
+        return depValLowerLim_;
+    }
     return depenVals_[step_];
 }
 //==================================================================================================================================
@@ -342,12 +367,6 @@ double BCsteptable::nextStep() const
     }
 }
 //==================================================================================================================================
-// check to see which step we are at.
-/*
- * Loop through the boundary condition independent variables.
- * The current step is the smallest value in indepVals_[ i ]
- * that indVar is less than.
- */
 int BCsteptable::findStep(double indVar, int interval) const
 {
     int step = -1;
@@ -356,8 +375,18 @@ int BCsteptable::findStep(double indVar, int interval) const
     }
     if (indVar < indepVals_[0]) {
         //return -1;
-        throw m1d_Error("BCsteptable::findStep()",
-                        "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
+        if (ifuncLowerLim_ == 0) {
+            throw m1d_Error("BCsteptable::findStep()",
+                            "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
+        }
+        return -1; 
+    } else if (indVar == indepVals_[0]) {
+        if (ifuncLowerLim_ != 0) {
+            if (interval < 0) {
+                return -1;
+            }
+        }
+        return 0;
     }
     for (int i = 0; i < stepMax_; i++) {
         if (interval == i) {
@@ -444,7 +473,9 @@ BClineartable::~BClineartable()
 // fill independent and dependent values from XML_Node
 void BClineartable::useXML(ZZCantera::XML_Node& bcNode)
 {
-
+    if (bcNode.name() != "BoundaryCondition") {
+        m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
+    }
     if (!bcNode.hasChild("independentVar")) {
         throw m1d_Error("BClineartable::useXML()", "no independentVar XML node.");
     }
@@ -589,7 +620,7 @@ BCsinusoidal::~BCsinusoidal()
 //=====================================================================================================================
 // construct from XMLnode
 BCsinusoidal::BCsinusoidal(ZZCantera::XML_Node& baseNode) :
-        BoundaryCondition()
+    BoundaryCondition()
 {
     useXML(baseNode);
 }
@@ -597,6 +628,9 @@ BCsinusoidal::BCsinusoidal(ZZCantera::XML_Node& baseNode) :
 // Fill independent and dependent values from XML_Node
 void BCsinusoidal::useXML(ZZCantera::XML_Node& bcNode)
 {
+    if (bcNode.name() != "BoundaryCondition") {
+        m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
+    }
     if (!bcNode.hasChild("baseDependentValue"))
         throw m1d_Error("BCsinusoidal::useXML()", "no baseDependentValue XML node.");
 
@@ -612,10 +646,8 @@ void BCsinusoidal::useXML(ZZCantera::XML_Node& bcNode)
     //get oscillation amplitude
     oscAmplitude_ = ZZctml::getFloat(bcNode, "oscillationAmplitude");
 
-    //get frequency
+    //get frequency of the oscillation
     frequency_ = ZZctml::getFloat(bcNode, "frequency");
-
-    //err("BCsinusoidal::useXML");
 
     //set 100 steps per period
     deltaT_ = 1. / stepsPerPeriod_ / frequency_;
@@ -629,7 +661,7 @@ void BCsinusoidal::useXML(ZZCantera::XML_Node& bcNode)
 //=====================================================================================================================
 double BCsinusoidal::value(double indVar, int interval) const
 {
-    return baseDepValue_ + oscAmplitude_ * sin(indVar / (2 * Pi * frequency_));
+    return baseDepValue_ + oscAmplitude_ * sin(2.0 * Pi * indVar * frequency_);
 }
 //=====================================================================================================================
 // Return the next value for the independent variable at which the nature of the boundary condition changes.

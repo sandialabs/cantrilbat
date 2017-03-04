@@ -80,6 +80,16 @@ public:
      */
     BoundaryCondition& operator=(const BoundaryCondition& right);
 
+    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
+    /*!
+     *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
+     *
+     *  (virtual from BoundaryCondition)
+     *
+     *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
+     */
+    virtual void useXML(ZZCantera::XML_Node& bcNode);
+
     //! Return the dependent variable value given the value of the independent variable argument
     /*!
      *  The independent variable is usually identified as the time. Note, this class can handle step jumps in the value of the 
@@ -212,6 +222,21 @@ public:
      */
     void setLowerLimit(double indVal);
 
+    //! Determine what happens when the independent variable is below the lower limit
+    /*!
+     *  @param[in]           ifunc               Integer describing the treatment. The default treatment without calling this
+     *                                           routine is 0.
+     *                                             0:  Treat this as a fatal error and throw an error condition
+     *                                             1:  Assume the same treatment as the zeroeth interval in the boundary condition.
+     *                                                 No extra information is needed. functions of the independent variable are
+     *                                                 continuous as the boundary condtion goes below the lower limit.
+     *                                             2:  Another interval is assumed below the zeroeth interval with a double
+     *                                                 value for the dependent value input in the parameter list.
+     *
+     *  @param[in]           depVal              Value of the dependent variable to use below the lower limit
+     */
+    void setLowerLimitBoundsTreament(int ifunc, double depVal = 0.0);
+
     //! Set upper limit of independent variable for which BC applies
     /*!
      *  @param[in]           indVal              Set the lower limit for the independent variable
@@ -268,15 +293,28 @@ protected:
      */
     bool hasExtendedDependentValue_;
 
+    //! Treatment of what to do when independent value is below the lower limit
+    /*!
+     *                                             0:  Treat this as a fatal error and throw an error condition
+     *                                             1:  Assume the same treatment as the zeroeth interval in the boundary condition.
+     *                                                 No extra information is needed. functions of the independent variable are
+     *                                                 continuous as the boundary condtion goes below the lower limit.
+     *                                             2:  Another interval is assumed below the zeroeth interval with a double
+     *                                                 value for the dependent value input in the parameter list.
+     */ 
+    int ifuncLowerLim_;
+
+    //! Value of the dependent value to use when below the lower limit
+    double depValLowerLim_;
+
 private:
     //! Error routine
     /*!
-     * Throw an exception if an unimplemented method of this class is
-     * invoked.
+     *  Throw an exception if an unimplemented method of this class is invoked.
      *
-     *  @param msg  Descriptive message string to add to the error report
+     *  @param[in]           msg                 Descriptive message string to add to the error report
      *
-     *  @return  returns a double, though we will never get there
+     *  @return                                  returns a double, though we will never get there
      */
     double err(std::string msg) const;
 };
@@ -374,21 +412,31 @@ public:
     //! Destructor
     virtual ~BCsteptable();
 
-    //! Fill independent and dependent values from ZZCantera::XML_Node
-    void useXML(ZZCantera::XML_Node& node);
+    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
+    /*!
+     *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
+     *
+     *  (virtual from BoundaryCondition)
+     *
+     *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
+     */
+    virtual void useXML(ZZCantera::XML_Node& bcNode) override;
 
     //! Return the dependent variable value given the independent variable argument
     /*!
-     *   @param[in]           indVar                 Independent variable
-     *   @param[in]           interval               If greater than zero, then checking is done on the interval specified
-     *                                               Also ties, i.e. numbers on the boundary go to the interval value.
+     *  @param[in]           indVar              Independent variable
+     *  @param[in]           interval            If greater than zero, then checking is done on the interval specified
+     *                                           Also ties, i.e. numbers on the boundary go to the interval value.
+     * 
+     *  @return                                  Returns the value of the boundary condition
      */
     virtual double value(double indVar, int interval = -1) const override;
 
-    //! Return the next value for the independent variable at
-    //! which the nature of the boundary condition changes.
-    /**
-     * This is designed to guide grid generation and time stepping
+    //! Return the next value for the independent variable at which the nature of the boundary condition changes.
+    /*!
+     *  This is designed to guide grid generation and time stepping
+     *
+     *  @return                                  returns the value of the independent variable for the next big change
      */
     virtual double nextStep() const override;
 
@@ -440,10 +488,9 @@ protected:
 //! This subclass is designed to handle a table of dependent variable boundary conditions that are
 //! to be linearly interpolated between the values given.
 /*!
- *  This implicitly implies that the function is continuous, and the derivative is piecewise continuous.
+ *  This implies that the function is continuous, and that the derivatives are piecewise continuous.
  *
- *  For example, if the value pairs (0,0)
- *  and (1,1) are given, the value( 0.5 ) will  return 0.5.
+ *  For example, if the value pairs (0,0) and (1,1) are given, the value( 0.5 ) will  return 0.5.
  */
 class BClineartable: public BoundaryCondition
 {
@@ -487,8 +534,15 @@ public:
     //! Virtual destructor
     virtual ~BClineartable();
 
-    //! fill independent and dependent values from ZZCantera::XML_Node
-    void useXML(ZZCantera::XML_Node& node);
+    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
+    /*!
+     *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
+     *
+     *  (virtual from BoundaryCondition)
+     *
+     *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
+     */
+    virtual void useXML(ZZCantera::XML_Node& node) override;
 
     //! Return the dependent variable value given
     //! the independent variable argument
@@ -575,18 +629,23 @@ public:
     //! Destructor
     virtual ~BCsinusoidal();
 
-    //! fill independent and dependent values from a XML_Node object
+    //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
     /*!
-     *  @param[in]         node               Reference to an XML_Node object containing the boundary condition information.
+     *  XML_Node object contains all of the information for the boundary condition. The name of the node is "BoundaryCondition". 
+     *
+     *  (virtual from BoundaryCondition)
+     *
+     *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
      */
-    void useXML(ZZCantera::XML_Node& node);
+    void useXML(ZZCantera::XML_Node& bcNode) override;
 
-    //! Return the dependent variable value given
-    //! the independent variable argument
+    //! Return the dependent variable value given the independent variable argument
     /*!
-     *   @param indVar  Independent variable
-     *   @param interval If greater than zero, then checking is done on the interval specified
-     *                   Also ties, i.e. numbers on the boundary go to the interval value.
+     *  @param[in]           indVar              Independent variable
+     *  @param[in]           interval            If greater than zero, then checking is done on the interval specified
+     *                                           Also ties, i.e. numbers on the boundary go to the interval value.
+     *
+     *  @return                                  returns the value of the boundary condition
      */
     virtual double value(double indVar, int interval = -1) const override;
 
@@ -594,18 +653,34 @@ public:
     //! which the nature of the boundary condition changes.
     /**
      * This is designed to guide grid generation and time stepping
+     *
+     *  @return                                  Returns the next detaT;
      */
     virtual double nextStep() const override;
 
+    //! Empty routine
     virtual void writeProfile() const override;
 
-    //! specify the number of steps per period
+    //! Specify the number of steps per period
+    /*!
+     *  @param[in]           stepsPerPeriod      Input the number of steps per period of the oscillation.
+     *                                           This sets the maximum time step.
+     */
     void setStepsPerPeriod(double stepsPerPeriod);
 
     //! specify the number of periods to be run
+    /*!
+     *  @param[in]           periodsPerRun       Number of periods to run the simulation. This sets the time of the run.
+     */
     void setPeriodsPerRun(double periodsPerRun);
 
-    //! specify the number of periods to be run
+    //! specify the frequency of the oscillation
+    /*
+     *  The frequency is the inverse of the period of the oscillation
+     *
+     *  @param[in]           frequency           Frequency of the oscillation
+     *                                             Units: 1 / indValUnit
+     */
     void setFrequency(double frequency);
 
 protected:
@@ -622,21 +697,20 @@ protected:
     //! Define a deltaT independent variable step size based on the frequency
     double deltaT_;
 
-    //! specify the number of steps per period
+    //! Specify the number of steps per period
     double stepsPerPeriod_;
 
-    //! specify the number of periods to be run
+    //! Specify the number of periods to be run in the simulation
     double periodsPerRun_;
 
     //! Calculate which interval of the independent variable we are in.
     /*!
-     * If the independent variable argument exceeds the
-     * current range, then increment the step counter and
+     * If the independent variable argument exceeds the current range, then increment the step counter and
      * check that this has not gone out of bounds.
      *
-     *  @param interval   If positive, then ties goes to the value of the interval.
-     *                    So, if indVar is at a boundary, then the interval chose is
-     *                    equal to the value of the interval variable.
+     * @param[in]            interval            If positive, then ties goes to the value of the interval.
+     *                                           So, if indVar is at a boundary, then the interval chose is
+     *                                           equal to the value of the interval variable.
      */
     virtual int findStep(double indVar, int interval = -1) const override;
 
