@@ -601,32 +601,50 @@ protected:
 
 };
 //==================================================================================================================================
-/**
- * This subclass is designed to handle a table of 
- * dependent variable boundary conditions that are 
- * constant until the indicated value of the 
- * independent variable, at which point there is a
- * step change to a new value.  For example, if 
- * the (ind,dep) value pairs (0.5,0.0), (1.0,0.5)
- * and (2., 1.) are given, then value( 0.25 ) will 
- * return 0.0, value( 0.75 ) will return 0.5 and
- * value( 1.25 ) will return 1.0.
+//! This boundary condition imposes a sin() function on the value of the dependent variable that is function of the independent
+//! variable
+/*!
+ *    The value of this boundary condition is given by the following functional form.
+ *
+ *      f(t) = baseDepValue + oscAmplitude * sin (2 Pi t frequency) 
  */
 class BCsinusoidal: public BoundaryCondition
 {
 
 public:
 
+    //! Default constructor for BCsinusoidal
+    /*!
+     *  Function is assumed to be continuous, and its derivative is continuous as well.
+     *
+     *  @param[in]           baseDepValue        Base value of the dependent variable that is added onto the sine function.
+     *                                           This is also the value of the function at T = 0;
+     *
+     *  @param[in]           oscAmplitude        Value of the amplitude of the dependent variable. This multiplies the sine() function.
+     *
+     *  @param[in]           frequency           Value of the frequency of the sine function. The period of the sine function is 
+     *                                           equal to 1/frequency. 
+     *
+     *  @param[in]           titleName           Name of the Boundary Condition. Defaults to "BCsteptable".
+     *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
+     *  @param[in]           depenUnits          String containing units of dependent variable. Defaults to "unknownUnits".
+     */
     BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, std::string titleName = "BCsinusoidal",
                  std::string indepUnits = "unknownUnits", std::string depenUnits = "unknownUnits");
 
-    //! construct from filename
+    //! Constructor from an XML file, named filename
+    /*!
+     *  @param[in]           filename            Filename to look up the boundary condition from
+     */
     BCsinusoidal(std::string filename);
 
     //! Construct from XMLnode
+    /*!
+     *  @param[in]           node                Reference to an XML_Node containing all of the boundary condition information
+     */
     BCsinusoidal(ZZCantera::XML_Node& node);
 
-    //! Destructor
+    //! Virtual Destructor
     virtual ~BCsinusoidal();
 
     //! Fill independent and dependent values from ZZCantera::XML_Node object named BoundaryCondition
