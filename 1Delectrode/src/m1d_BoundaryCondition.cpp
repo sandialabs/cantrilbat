@@ -218,7 +218,6 @@ double BCconstant::value(double indVar, int interval) const
 double BCconstant::nextStep() const
 {
     if (step_ < stepMax_) {
-	++step_;
 	return upperLim_;
     } else {
 	return -1;
@@ -347,7 +346,7 @@ double BCsteptable::value(double indVar, int interval) const
 double BCsteptable::nextStep() const
 {
     if (step_ < (int) indepVals_.size()) {
-        return indepVals_[step_++];
+        return indepVals_[step_+1];
     } else {
         return -1;
     }
@@ -517,25 +516,15 @@ double BClineartable::value(double indVar, int interval) const
     }
 }
 //=====================================================================================================================
-// return the next value for the independent variable at
-// which the nature of the boundary condition changes.
-/*
- * This is designed to guide grid generation and time stepping
- */
 double BClineartable::nextStep() const
 {
     if (step_ < (int) indepVals_.size()) {
-        return indepVals_[step_++];
+        return indepVals_[step_+1];
     } else {
         return -1;
     }
 }
 //=====================================================================================================================
-// check to see which step we are at.
-/*
- * We need to find the interval that we are in between
- * for interpolation purposes.
- */
 int BClineartable::findStep(double indVar, int interval) const
 {
     int step = -1;
@@ -571,14 +560,13 @@ int BClineartable::findStep(double indVar, int interval) const
 ////////////////////////////////////////////////////////////
 // class BCsinusoidal
 ////////////////////////////////////////////////////////////
-
 //=====================================================================================================================
 BCsinusoidal::BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, std::string titleName,
                            std::string indepUnits, std::string depenUnits) :
-        BoundaryCondition(),
-        baseDepValue_(baseDepValue),
-        oscAmplitude_(oscAmplitude),
-        frequency_(frequency)
+    BoundaryCondition(),
+    baseDepValue_(baseDepValue),
+    oscAmplitude_(oscAmplitude),
+    frequency_(frequency)
 {
     setTitle(titleName);
     setIndepUnits(indepUnits);
@@ -659,15 +647,10 @@ double BCsinusoidal::value(double indVar, int interval) const
  */
 double BCsinusoidal::nextStep() const
 {
-    return deltaT_ * step_++;
+    return deltaT_ * (step_+1);
 }
 //=====================================================================================================================
 // Check to see which step we are at.
-/*
- * Loop through the boundary condition independent variables.
- * The current step is the smallest value in indepVals_[ i ]
- * that indVar is less than.
- */
 int BCsinusoidal::findStep(double indVar, int interval) const
 {
     step_ = ceil(indVar / deltaT_);
