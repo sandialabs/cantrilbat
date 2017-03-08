@@ -46,10 +46,9 @@ BoundaryCondition::BoundaryCondition() :
     depenUnits_(""),
     step_(0),
     stepMax_(0),
-    hasExtendedDependentValue_(true),
+    hasExtendedDependentValue_(2),
     ifuncLowerLim_(0),
     depValLowerLim_(0.0)
-
 {
 }
 //==================================================================================================================================
@@ -65,7 +64,7 @@ BoundaryCondition::BoundaryCondition(const BoundaryCondition &right) :
     depenUnits_(""),
     step_(0),
     stepMax_(0),
-    hasExtendedDependentValue_(true),
+    hasExtendedDependentValue_(2),
     ifuncLowerLim_(0),
     depValLowerLim_(0.0)
 {
@@ -229,21 +228,8 @@ double BCconstant::nextStep() const
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////         class BCsteptable        ///////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * This subclass is designed to handle a table of 
- * dependent variable boundary conditions that are 
- * constant until the indicated value of the 
- * independent variable, at which point there is a
- * step change to a new value.  For example, if 
- * the (ind,dep) value pairs (0.5,0.0), (1.0,0.5)
- * and (2., 1.) are given, then value( 0.25 ) will 
- * return 0.0, value( 0.75 ) will return 0.5 and
- * value( 1.25 ) will return 1.0.
- */
-//=====================================================================================================================
-// Constructor taking two vectors of floats representing the independent variable and the dependent 
-// variable
+//==================================================================================================================================
+// Constructor taking two vectors of floats representing the independent variable and the dependent  variable
 BCsteptable::BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, 
                          const ZZCantera::vector_fp& compareValue, const std::string& titleName, const std::string& indepUnits, 
                          const std::string& depenUnits) :
@@ -260,11 +246,11 @@ BCsteptable::BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::
         if (indepVals_.size() != depenVals_.size() + 1) {
             throw m1d_Error("BCsteptable constructor\n", "**** indepVals_ and depenVals_ unequal size\n");
         } else {
-            hasExtendedDependentValue_ = false;
+            hasExtendedDependentValue_ = 0;
             stepMax_ = depenVals_.size();
         }
     } else {
-        hasExtendedDependentValue_ = true;
+        hasExtendedDependentValue_ = 2;
         stepMax_ = depenVals_.size() - 1;
     }
     lowerLim_ = indepVals_[0];
@@ -374,10 +360,11 @@ int BCsteptable::findStep(double indVar, int interval) const
         return 0;
     }
     if (indVar < indepVals_[0]) {
-        //return -1;
         if (ifuncLowerLim_ == 0) {
             throw m1d_Error("BCsteptable::findStep()",
                             "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
+        } else if (ifuncLowerLim_ == 1) {
+            return 0;
         }
         return -1; 
     } else if (indVar == indepVals_[0]) {
@@ -402,8 +389,10 @@ int BCsteptable::findStep(double indVar, int interval) const
     if (indVar == indepVals_[stepMax_]) {
         return stepMax_;
     }
-    if (hasExtendedDependentValue_) {
+    if (hasExtendedDependentValue_ == 2) {
        return stepMax_;
+    } else if (hasExtendedDependentValue_ == 1) {
+       return std::max(0, stepMax_- 1);
     }
     if (step < 0) {
         throw m1d_Error("BCsteptable::findStep()",

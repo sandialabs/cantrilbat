@@ -149,8 +149,19 @@ public:
 
     //! Calculate which interval of the independent variable we are in.
     /*!
-     * If the independent variable argument exceeds the current range, then increment the step counter and
-     * check that this has not gone out of bounds.
+     *  If the independent variable argument exceeds the current interval range, then the interval is incremented to the next value.
+     *
+     *  If the independent value is below the lowest interval range, then the behavior is set by the setLowerLimitBoundsTreament()
+     *  function. The default behavior is to throw an exception.
+     *
+     *  If the independent value is above the highest interval range, then the behavior is set by the bool hasExtendedDependentValue_.
+     *  if  hasExtendedDependentValue_ is true, then The interval is set to stepMax_,
+     *  and last value in the vector dependVals_[] is used to set the boundary condition.
+     *  If hasExtenededDependentValue_ is false, then an error condition is thrown.
+     *  stepMax_ is set to the number of intervals input, which defaults to zero initially. And, the value
+     *  of hasExtendedDependentValue_ defaults to true.
+     *  If the number of dependsVals_[] values is one less than the input indendVals_[], then  hasExtendedDependentValue_ 
+     *  is set to false. 
      *
      *  @param[in]           indVar              Independent variable, usually the time.
      *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
@@ -212,7 +223,7 @@ public:
 
     //! Set title or name of boundary condition
     /*!
-     *  @return                                  Set the title string
+     *  @param[in]           name                Title of the boundary condition
      */
     void setTitle(const std::string &name);
 
@@ -245,13 +256,13 @@ public:
 
     //! set the string defining the independent variable units
     /*!
-     *  @param[in[           unitString          Set the units string for the independent variable
+     *  @param[in]           unitString          Set the units string for the independent variable
      */
     void setIndepUnits(const std::string& unitString);
 
     //! set the string defining the dependent variable units
     /*!
-     *  @param[in[           unitString          Set the units string for the dependent variable
+     *  @param[in]           unitString          Set the units string for the dependent variable
      */
     void setDepenUnits(const std::string& unitString);
 
@@ -289,9 +300,16 @@ protected:
     //! If true then the depenVals_ vector has a last dependant value that is valid for independent values greater than the 
     //! last interval ending value.
     /*!
-     *  Defaults to true, as this is the normal case if no intervals are supplied.
+     *  Defaults to 2, as this is the normal case if no intervals are supplied.
+     *                                             0:  Treat this as a fatal error and throw an error condition
+     *                                             1:  Assume the same treatment as the last interval in the boundary condition.
+     *                                                 No extra information is needed. functions of the independent variable are
+     *                                                 continuous as the boundary condtion goes above the upper limit.
+     *                                             2:  Another interval is assumed above the last interval with a double
+     *                                                 value for the dependent value input in the parameter list.
+ 
      */
-    bool hasExtendedDependentValue_;
+    int hasExtendedDependentValue_;
 
     //! Treatment of what to do when independent value is below the lower limit
     /*!
@@ -345,6 +363,8 @@ public:
      *   @param[in]          indVar              Independentvariable
      *   @param[in]          interval            If greater than zero, then checking is done on the interval specified
      *                                           Also ties, i.e. numbers on the boundary go to the interval value.
+     *
+     *  @return                                  Returns the value of the dependent variable
      */
     virtual double value(double indVar, int interval = -1) const override;
 
@@ -365,11 +385,10 @@ protected:
 
 //==================================================================================================================================
 //! This subclass is designed to handle a table of dependent variable boundary conditions that are constant until the indicated 
-//! value of the independent variable, at which point there is a step change to a new value. 
+//! value of the independent variable, at which point there is a step change to a new value of the dependent variable
 /*!
  *  For example, if the (ind,dep) value pairs (0.5,0.0), (1.0,0.5) and (2., 1.) are given, then value( 0.25 ) will 
- *  return 0.0, value( 0.75 ) will return 0.5 and
- *  value( 1.25 ) will return 1.0.
+ *  return 0.0, value( 0.75 ) will return 0.5 and  value( 1.25 ) will return 1.0.
  *
  *  Usually, the size of the dep
  *  If the depValue vector size is 
@@ -377,7 +396,6 @@ protected:
 class BCsteptable: public BoundaryCondition
 {
 public:
-
     //! Default constructor for BCsteptable
     /*!
      *  @param[in]           indValue            Reference to a vector of independent values representing the boundaries of the
@@ -494,7 +512,6 @@ protected:
  */
 class BClineartable: public BoundaryCondition
 {
-
 public:
     //! Default constructor for BClineartable
     /*!
@@ -542,21 +559,24 @@ public:
      *
      *  @param[in]           bcNode                Reference to an XML node where the information for the boundary condition is storred
      */
-    virtual void useXML(ZZCantera::XML_Node& node) override;
+    virtual void useXML(ZZCantera::XML_Node& bcNode) override;
 
     //! Return the dependent variable value given
     //! the independent variable argument
     /*!
-     *   @param indVar   Independent variable
-     *   @param interval If greater than zero, then checking is done on the interval specified.
-     *                   Also ties, i.e. numbers on the boundary go to the interval value.
+     *  @param[in]           indVar              Independent variable
+     *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
+     *                                           Also ties, i.e. numbers on the boundary go to the interval value.
+     *
+     *  @return                                  Returns the value of the dependent variable for the boundary condition
      */
     virtual double value(double indVar, int interval = -1) const override;
 
-    //! return the next value for the independent variable at
-    //! which the nature of the boundary condition changes.
-    /**
-     * This is designed to guide grid generation and time stepping
+    //! return the next value for the independent variable at which the nature of the boundary condition changes.
+    /*!
+     *  This is designed to guide grid generation and time stepping
+     *
+     *  @return                                  Returns the next value of the independent variable for which the bc changes
      */
     virtual double nextStep() const override;
 
@@ -589,13 +609,15 @@ protected:
 
     //! Calculate which interval of the independent variable we are in.
     /*!
-     * If the independent variable argument exceeds the
-     * current range, then increment the step counter and
-     * check that this has not gone out of bounds.
+     *  If the independent variable argument exceeds the current range, then increment the step counter and
+     *  check that this has not gone out of bounds.
      *
-     *  @param interval   If positive, then ties goes to the value of the interval.
-     *                    So, if indVar is at a boundary, then the interval chose is
-     *                    equal to the value of the interval variable.
+     *  @param[in]           indVar              Value of the independent variable
+     *  @param[in]           interval            If positive, then ties goes to the value of the interval.
+     *                                           So, if indVar is at a boundary, then the interval chose is
+     *                                           equal to the value of the interval variable.
+     *
+     *  @return                                  returns the interval to interpolate within the interval region
      */
     virtual int findStep(double indVar, int interval = -1) const override;
 
@@ -667,12 +689,11 @@ public:
      */
     virtual double value(double indVar, int interval = -1) const override;
 
-    //! return the next value for the independent variable at
-    //! which the nature of the boundary condition changes.
-    /**
-     * This is designed to guide grid generation and time stepping
+    //! return the next value for the independent variable at which the nature of the boundary condition changes.
+    /*!
+     *  This is designed to guide grid generation and time stepping
      *
-     *  @return                                  Returns the next detaT;
+     *  @return                                  Returns the next deltaT;
      */
     virtual double nextStep() const override;
 
@@ -693,7 +714,7 @@ public:
     void setPeriodsPerRun(double periodsPerRun);
 
     //! specify the frequency of the oscillation
-    /*
+    /*!
      *  The frequency is the inverse of the period of the oscillation
      *
      *  @param[in]           frequency           Frequency of the oscillation
@@ -726,9 +747,12 @@ protected:
      * If the independent variable argument exceeds the current range, then increment the step counter and
      * check that this has not gone out of bounds.
      *
+     *  @param[in]           indVar              Value of the independent variable.
      * @param[in]            interval            If positive, then ties goes to the value of the interval.
      *                                           So, if indVar is at a boundary, then the interval chose is
      *                                           equal to the value of the interval variable.
+     *
+     *  @return                                  Returns the interval
      */
     virtual int findStep(double indVar, int interval = -1) const override;
 
