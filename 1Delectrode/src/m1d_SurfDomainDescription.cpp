@@ -235,8 +235,7 @@ SurfDomainDescription::mallocDomain1D()
     return SurDomain1DPtr_;
 }
 //==================================================================================================================================
-void
-SurfDomainDescription::setRLMapping(int mapType)
+void SurfDomainDescription::setRLMapping(int mapType)
 {
     int i;
     if (RightBulk == 0) {
@@ -294,7 +293,7 @@ SurfDomainDescription::setRLMapping(int mapType)
 }
 //==================================================================================================================================
 void
-SurfDomainDescription::setRLMapping(const int* const rightConnectivity)
+SurfDomainDescription::setRLMappingVector(const int* const rightConnectivity)
 {
     int ne = RightBulk->NumEquationsPerNode;
     int neLeft = LeftBulk->NumEquationsPerNode;
@@ -302,7 +301,7 @@ SurfDomainDescription::setRLMapping(const int* const rightConnectivity)
     for (int i = 0; i < ne; i++) {
         int j = rightConnectivity[i];
         if (j < -1 || j >= neLeft) {
-            throw m1d_Error("SurfDomainDescription::setRLMapping", "unknown map type");
+            throw m1d_Error("SurfDomainDescription::setRLMappingVector", "unknown map type");
         }
         RightToLeftBulkEqnMapping[i] = rightConnectivity[i];
     }

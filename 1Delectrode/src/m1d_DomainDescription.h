@@ -75,8 +75,7 @@ public:
      *
      *   We loop over volume and then surface domains.
      */
-    virtual void
-    ReadModelDescriptions();
+    virtual void ReadModelDescriptions();
 
     //! Determine the list of Equations and Variables
     /*!
@@ -85,8 +84,7 @@ public:
      *    - VariableNameList
      *    - EquationNameList
      */
-    virtual void
-    SetEquationsVariablesList();
+    virtual void SetEquationsVariablesList();
 
     //! Set the equation descriptions. Determine connectivity with surroundings.
     /*!
@@ -96,16 +94,14 @@ public:
      *    - EquationIndexStart_EqName
      *    - VariableIndexStart_VarName
      */
-    virtual void
-    SetEquationDescription();
+    virtual void SetEquationDescription();
 
     //! This is done after the equations are set up
     /*!
      *  (virtual from DomainDescription)
      *  We loop over volume and then surface domains here.
      */
-    virtual void
-    DetermineConstitutiveModels();
+    virtual void DetermineConstitutiveModels();
 
     //! Reorder the variables and equations on this domain
     /*!

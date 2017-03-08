@@ -140,18 +140,19 @@ public:
     //! Add a flux Condition using time dependent continuous function
     /*!
      *
-     * @param  equationID  Equation ID to apply the flux condition to
-     * @param  variableID  VariableID to apply the flux condition to
-     * @param  value  Value to apply
+     *  @param[in]           equationID          Equation ID to apply the flux condition to
+     *  @param[in]           variableID          VariableID to apply the flux condition to
+     *  @param[in]           value               Value to apply
+     *  @param[in]           timeDep             Function pointer to the function that describes the flux
      */
     void addFluxCondition(const EqnType& equationID, const VarType& variableID, double value, double (*timeDep)(double));
 
     //! Add a flux Condition using Boundary Condition class
     /*!
-     *
-     * @param  equationID  Equation ID to apply the flux condition to
-     * @param  variableID  VariableID to apply the flux condition to
-     * @param  value  Value to apply
+     * @param[in]            equationID          Equation ID to apply the flux condition to
+     * @param[in]            variableID          VariableID to apply the flux condition to
+     * @param[in]            BC_Type             Boundary condition type
+     * @param[in]            BC_timeDep          Pointer to the Boundary Condition class that describes the flux
      */
     void
     addFluxCondition(const EqnType& equationID, const VarType& variableID, int BC_Type, BoundaryCondition* BC_timeDep);
@@ -159,9 +160,10 @@ public:
     //! Add a Robin Mixed boundary Condition
     /*!
      *
-     * @param  equationID  Equation ID to apply the flux condition to
-     * @param  variableID  VariableID to apply the flux condition to
-     * @param  value  Value to apply
+     *  @param[in]           equationID          Equation ID to apply the flux condition to
+     *  @param[in]           variableID          VariableID to apply the flux condition to
+     *  @param[in]           BC_timeDep          Pointer to the boundary condition class that describes the boundary condition
+     *  @param[in]           bc_type             Type of the boundary condition. Defaults to 10.
      */
     void addRobinCondition(EqnType equationID, VarType variableID, BoundaryCondition* BC_timeDep, int bc_type=10);
 
@@ -174,8 +176,7 @@ public:
      *    - EquationNameList
      *    - EquationIndexStart_EqName
      */
-    virtual void
-    SetEquationDescription() override;
+    virtual void SetEquationDescription() override;
 
     //! Malloc and Return the object that will calculate the residual efficiently
     /*!
@@ -183,8 +184,7 @@ public:
      *
      *  @return                                  Returns a pointer to the object that will calculate the residual  efficiently
      */
-    virtual SurDomain1D*
-    mallocDomain1D() override;
+    virtual SurDomain1D* mallocDomain1D() override;
 
     // ----------------------------------------- D A T A --------------------------------------------------------------
 
@@ -197,8 +197,8 @@ public:
 
     //! Equation type to apply them
     /*!
-     *  Length is equal to NumConditions
-     *  All vectors in this class have length of NumConditions, and the ith entry refers to the ith Dirichlet Condition
+     *  Length: NumConditions
+     *  All vectors in this class have length of NumConditions, and the ith entry refers to the ith boundary Condition
      */
     std::vector<EqnType> EquationID;
 
@@ -222,13 +222,15 @@ public:
 
     //! Vector of pointers to Time dependent functions   
     /*!
-     *   Vector has length equal to the number of Dirichlet conditions, NumConditions, defined at the node
+     *  Default entries have a value of nullptr
+     *  Length: NumConditions
      */
     std::vector<TimeDepFunction> TimeDep;
 
     //! BoundaryCondition Pointers for time dependent BC for BC_Type_NE = 4 - 9
     /*!
-     *   Vector has length equal to the number of Dirichlet conditions, NumConditions, defined at the node
+     *  Default entries have a value of nullptr
+     *  Length: NumConditions
      */
     std::vector<BoundaryCondition*> BC_TimeDep_;
 
@@ -246,7 +248,7 @@ public:
      *  9 Time Dependent pure flux using BClineartable
      * 10 Robin boundary condition (time dependent boundary condition [ flux = h (T - T0) ]
      *
-     *  Vector has length equal to the number of Dirichlet conditions, NumConditions, defined at the node
+     *  Length: NumConditions
      */
     std::vector<int> BC_Type_;
 

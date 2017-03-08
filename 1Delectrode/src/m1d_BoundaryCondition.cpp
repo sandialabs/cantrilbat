@@ -81,6 +81,9 @@ BoundaryCondition& BoundaryCondition::operator=(const BoundaryCondition& right)
     upperLim_ = right.upperLim_;
     indepUnits_ = right.indepUnits_;
     depenUnits_ = right.depenUnits_;
+    indepVals_ = right.indepVals_;
+    depenVals_ = right.depenVals_;
+    compareVals_ = right.compareVals_;
     step_ = right.step_;
     stepMax_ = right.stepMax_;
     hasExtendedDependentValue_ = right.hasExtendedDependentValue_;
@@ -184,8 +187,50 @@ void BoundaryCondition::setDepenUnits(const std::string& unitString)
 //===========================================================================================================
 int BoundaryCondition::findStep(double indVar, int interval) const
 {
-    err("BoundaryCondition::findStep");
-    return -1;
+    int step = -1;
+    if (indepVals_.size() == 0) {
+        return 0;
+    }
+    if (indVar < indepVals_[0]) {
+        if (ifuncLowerLim_ == 0) {
+            throw m1d_Error("BoundaryCondition::findStep()",
+                            "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
+        } else if (ifuncLowerLim_ == 1) {
+            return 0;
+        }
+        return -1; 
+    } else if (indVar == indepVals_[0]) {
+        if (ifuncLowerLim_ != 0) {
+            if (interval < 0) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+    for (int i = 0; i < stepMax_; i++) {
+        if (interval == i) {
+            if (indVar <= indepVals_[i + 1]) {
+                return i;
+            }
+        } else {
+            if (indVar < indepVals_[i + 1]) {
+                return i;
+            }
+        }
+    }
+    if (indVar == indepVals_[stepMax_]) {
+        return stepMax_;
+    }
+    if (hasExtendedDependentValue_ == 2) {
+       return stepMax_;
+    } else if (hasExtendedDependentValue_ == 1) {
+       return std::max(0, stepMax_- 1);
+    }
+    if (step < 0) {
+        throw m1d_Error("BoundaryCondition::findStep()",
+                        "Out of bounds error with step < 0\n\tProbably because indVar > indepVals_[ stepMax_ ] ");
+    }
+    return step;
 }
 //===========================================================================================================
 double BoundaryCondition::err(std::string msg) const
@@ -232,11 +277,11 @@ double BCconstant::nextStep() const
 BCsteptable::BCsteptable(const ZZCantera::vector_fp& indValue, const ZZCantera::vector_fp& depValue, 
                          const ZZCantera::vector_fp& compareValue, const std::string& titleName, const std::string& indepUnits, 
                          const std::string& depenUnits) :
-    BoundaryCondition(),
-    indepVals_(indValue),
-    depenVals_(depValue),
-    compareVals_(compareValue)
+    BoundaryCondition()
 {
+    indepVals_ = indValue;
+    depenVals_ = depValue;
+    compareVals_ = compareValue;
     setTitle(titleName);
     setIndepUnits(indepUnits);
     setDepenUnits(depenUnits);
@@ -352,58 +397,6 @@ double BCsteptable::nextStep() const
     }
 }
 //==================================================================================================================================
-int BCsteptable::findStep(double indVar, int interval) const
-{
-    int step = -1;
-    if (indepVals_.size() == 0) {
-        return 0;
-    }
-    if (indVar < indepVals_[0]) {
-        if (ifuncLowerLim_ == 0) {
-            throw m1d_Error("BCsteptable::findStep()",
-                            "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
-        } else if (ifuncLowerLim_ == 1) {
-            return 0;
-        }
-        return -1; 
-    } else if (indVar == indepVals_[0]) {
-        if (ifuncLowerLim_ != 0) {
-            if (interval < 0) {
-                return -1;
-            }
-        }
-        return 0;
-    }
-    for (int i = 0; i < stepMax_; i++) {
-        if (interval == i) {
-            if (indVar <= indepVals_[i + 1]) {
-                return i;
-            }
-        } else {
-            if (indVar < indepVals_[i + 1]) {
-                return i;
-            }
-        }
-    }
-    if (indVar == indepVals_[stepMax_]) {
-        return stepMax_;
-    }
-    if (hasExtendedDependentValue_ == 2) {
-       return stepMax_;
-    } else if (hasExtendedDependentValue_ == 1) {
-       return std::max(0, stepMax_- 1);
-    }
-    if (step < 0) {
-        throw m1d_Error("BCsteptable::findStep()",
-                        "Out of bounds error with step < 0\n\tProbably because indVar > indepVals_[ stepMax_ ] ");
-    }
-    return step;
-}
-//==================================================================================================================================
-void BCsteptable::writeProfile() const
-{
-}
-//==================================================================================================================================
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////               class BClineartable            ///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -417,11 +410,11 @@ void BCsteptable::writeProfile() const
 BClineartable::BClineartable(ZZCantera::vector_fp indValue, ZZCantera::vector_fp depValue, 
                              ZZCantera::vector_fp compareValue, std::string titleName,
                              std::string indepUnits, std::string depenUnits) :
-    BoundaryCondition(),
-    indepVals_(indValue),
-    depenVals_(depValue),
-    compareVals_(compareValue)
+    BoundaryCondition()
 {
+    indepVals_ = indValue;
+    depenVals_ = depValue;
+    compareVals_ = compareValue;
     setTitle(titleName);
     setIndepUnits(indepUnits);
     setDepenUnits(depenUnits);
@@ -525,36 +518,6 @@ double BClineartable::nextStep() const
     }
 }
 //=====================================================================================================================
-int BClineartable::findStep(double indVar, int interval) const
-{
-    int step = -1;
-    if (indVar < indepVals_[0]) {
-        throw m1d_Error("BClineartable::findStep()",
-                "Out of bounds error with step < 0\n\tProbably because indVar < indepVals_[0]");
-    }
-    for (int i = 0; i < stepMax_ - 1; i++) {
-        if (interval == i) {
-            if (indVar <= indepVals_[i + 1]) {
-                step = i;
-                break;
-            }
-        } else {
-            if (indVar < indepVals_[i + 1]) {
-                step = i;
-                break;
-            }
-        }
-    }
-    if (indVar >= indepVals_[stepMax_ - 1]) {
-        step = stepMax_ - 1;
-    }
-    if (step < 0) {
-        throw m1d_Error("BClineartable::findStep()",
-                "Out of bounds error with step < 0\n\tProbably because indVar > indepVals_[ stepMax_ ] ");
-    }
-    return step;
-}
-//=====================================================================================================================
 //=====================================================================================================================
 //=====================================================================================================================
 ////////////////////////////////////////////////////////////
@@ -655,10 +618,6 @@ int BCsinusoidal::findStep(double indVar, int interval) const
 {
     step_ = ceil(indVar / deltaT_);
     return step_;
-}
-//=====================================================================================================================
-void BCsinusoidal::writeProfile() const
-{
 }
 //=====================================================================================================================
 void BCsinusoidal::setFrequency(double frequency)

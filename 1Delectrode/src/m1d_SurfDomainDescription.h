@@ -32,9 +32,8 @@ class DomainLayout;
 //! domains. The boundary may have its own internal variables, such as surface species coverages.
 /*!
  *
- * The SurfDomainDescription boundary types are an inlet, an outlet, a symmetry plane,
- * a fluxMatching plane, and a surface.
- * *
+ * The SurfDomainDescription boundary types are an inlet, an outlet, a symmetry plane, a fluxMatching plane, and a surface.
+ *
  *  The variable NumEquationsPerNode represents the number of extra equations that
  *  are defined by this surface domain description. It is not necessarily equal
  *  to the number of surface boundary conditions that are defined on this node.
@@ -87,18 +86,20 @@ public:
 
     //! set the adjacent domains
     /*!
+     *  (virtual from SurfDomainDescription)
      *  @param[in]           leftBulk            Pointer to the description of the left bulk domain
      *  @param[in]           rightBulk           Pointer to the description of the right bulk domain
      */
-    void
+    virtual void
     setAdjBulkDomains(BulkDomainDescription* leftBulk, BulkDomainDescription* rightBulk);
 
     //! Set the Global node ID of the surface
     /*!
+     *  (virtual from SurfDomainDescription)
      *
      * @param[in]            locGbNode           Value of the global node
      */
-    void setGbNode(const int locGbNode);
+    virtual void setGbNode(const int locGbNode);
 
     //! Determine the list of Equations and Variables
     /*!
@@ -109,8 +110,7 @@ public:
      *  Here we clear these variables and assume that there are no equations and/or variables
      *  assigned on the surface.
      */
-    virtual void
-    SetEquationsVariablesList() override;
+    virtual void SetEquationsVariablesList() override;
 
     //! Set the equation description
     /*!
@@ -121,30 +121,29 @@ public:
      *    - EquationNameList
      *    - EquationIndexStart_EqName
      */
-    virtual void
-    SetEquationDescription() override;
+    virtual void SetEquationDescription() override;
 
     //! Malloc and return the object that will calculate the residual for the surface domain efficiently
     /*!
-     *  (virtual from DomainDescription)
-     * @return                                   Returns a pointer to the object that will calculate the residual
+     *  (virtual from SurfDomainDescription)
+     *  @return                                  Returns a pointer to the object that will calculate the residual
      *                                           efficiently
      */
-    virtual SurDomain1D*
-    mallocDomain1D();
+    virtual SurDomain1D* mallocDomain1D();
 
     //! Sets the mapping between right and left domains to either of two extremes
     /*!
-     * This sets two common mapping extremes. A different function sets the inbetween cases.
+     *  (virtual from SurfDomainDescription)
+     *  This sets two common mapping extremes. A different function sets the inbetween cases.
      *
-     * @param[in]            mapType             0 If the map type is 0, this means that
+     *  @param[in]           mapType             0 If the map type is 0, this means that
      *                                             the right equations are mapped into the
      *                                             left equations to the fullest extent possible
      *                                           1 If the map type is 1, this means that
      *                                             the right equations are never mapped into the
      *                                             left equations at all. They are separate equations
      */
-    void setRLMapping(int mapType = 0);
+    virtual void setRLMapping(int mapType = 0);
 
     //! Sets the mapping between right and left domains to the arbritrary case
     /*!
@@ -154,7 +153,7 @@ public:
      *                                           If an entry is 1, this means that the right is a separate degree of
      *                                           freedom.
      */
-    void setRLMapping(const int* const rightConnectivity);
+    virtual void setRLMappingVector(const int* const rightConnectivity);
 
     // ---------------------------------------- D A T A ---------------------------------------------------------------
 protected:

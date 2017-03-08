@@ -283,6 +283,28 @@ protected:
     //! units string for the dependent variable
     std::string depenUnits_;
 
+    //! Vector of independent variable values at which the dependent variable may change value
+    /*!
+     *  Length: numIntervals+1
+     */
+    ZZCantera::vector_fp indepVals_;
+
+    //! Vector of dependent variable values appropriate for time/space after the corresponding indepVals_
+    /*!
+     *  These are the values within the intervals. An optional last value is the dependent value
+     *  for beyond the last interval.
+     *
+     *  Length: numIntervals or numIntervals+1
+     */
+    ZZCantera::vector_fp depenVals_;
+
+    //! Vector of variable dependent values for comparison purposes.
+    //! For example, if current is input, these might be measured voltages.
+    /*!
+     *  Length: numIntervals
+     */ 
+    ZZCantera::vector_fp compareVals_;
+
     //! Current step interval in a sequence of values
     /*!
      *  Starts at a value of zero. This represents the value of the current interval.
@@ -307,7 +329,6 @@ protected:
      *                                                 continuous as the boundary condtion goes above the upper limit.
      *                                             2:  Another interval is assumed above the last interval with a double
      *                                                 value for the dependent value input in the parameter list.
- 
      */
     int hasExtendedDependentValue_;
 
@@ -458,48 +479,10 @@ public:
      */
     virtual double nextStep() const override;
 
-    //! Empty routine
-    virtual void writeProfile() const override;
-
 protected:
-
-    //! Vector of independent variable values at which the dependent variable may change value
-    /*!
-     *  Length: numIntervals+1
-     */
-    ZZCantera::vector_fp indepVals_;
-
-    //! Vector of dependent variable values appropriate for time/space after the corresponding indepVals_
-    /*!
-     *  These are the values within the intervals. An optional last value is the dependent value
-     *  for beyond the last interval.
-     *
-     *  Length: numIntervals or numIntervals+1
-     */
-    ZZCantera::vector_fp depenVals_;
-
-    //! Vector of variable dependent values for comparison purposes.
-    //! For example, if current is input, these might be measured voltages.
-    /*!
-     *  Length: numIntervals
-     */ 
-    ZZCantera::vector_fp compareVals_;
 
     //! Units string for a variable used for comparison purposes
     std::string compareUnits_;
-
-    //! Calculate which interval of the independent variable we are in.
-    /*!
-     *  If the independent variable argument exceeds the current range, then increment the step counter and
-     *  check that this has not gone out of bounds.
-     *  
-     *  @param[in]           indVar              Value of the independent variable
-     *  @param[in]           interval            Default value of the interval.
-     *                                             Defaults to -1, which indicates no default value.
-     *
-     *  @return                                  Returns the interval number.
-     */
-    virtual int findStep(double indVar, int interval = -1) const override;
 
 };
 //==================================================================================================================================
@@ -582,46 +565,10 @@ public:
 
 protected:
 
-    //! Vector of indepedent variable values at which the dependent variable may change value,
-    //! have a discontinuity, or may change functional form.
-    /*!
-     *  Each interval, i, is defined as existing between indepVals_[i] and indepVals_[i+1].
-     *  Length: numIntervals + 1
-     */
-    ZZCantera::vector_fp indepVals_;
-
-    //! Vector of dependent variable values appropriate
-    //! for time/space after the corresponding indepVals_
-    /*!
-     *  dependVals_[i] refers to the value that is appropriate for the ith interval
-     *  dependVals_[numIntervals] refers to the value that is appropriate for the independent
-     *    values beyond the last intervale.
-     *  Length:  numIntervals + 1
-     */
-    ZZCantera::vector_fp depenVals_;
-
-    //! Vector of variable values for comparison purposes
-    //! For example, if current is input, these might be measured voltages
-    ZZCantera::vector_fp compareVals_;
-
     //! units string for a variable used for comparison purposes
     std::string compareUnits_;
-
-    //! Calculate which interval of the independent variable we are in.
-    /*!
-     *  If the independent variable argument exceeds the current range, then increment the step counter and
-     *  check that this has not gone out of bounds.
-     *
-     *  @param[in]           indVar              Value of the independent variable
-     *  @param[in]           interval            If positive, then ties goes to the value of the interval.
-     *                                           So, if indVar is at a boundary, then the interval chose is
-     *                                           equal to the value of the interval variable.
-     *
-     *  @return                                  returns the interval to interpolate within the interval region
-     */
-    virtual int findStep(double indVar, int interval = -1) const override;
-
 };
+
 //==================================================================================================================================
 //! This boundary condition imposes a sin() function on the value of the dependent variable that is function of the independent
 //! variable
@@ -632,7 +579,6 @@ protected:
  */
 class BCsinusoidal: public BoundaryCondition
 {
-
 public:
 
     //! Default constructor for BCsinusoidal
@@ -696,9 +642,6 @@ public:
      *  @return                                  Returns the next deltaT;
      */
     virtual double nextStep() const override;
-
-    //! Empty routine
-    virtual void writeProfile() const override;
 
     //! Specify the number of steps per period
     /*!
