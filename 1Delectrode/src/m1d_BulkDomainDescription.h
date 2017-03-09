@@ -70,36 +70,37 @@ public:
 
     //! Specify the left and right surface domains for this bulk domain
     /*!
+     *  (virtual from BulkDomainDescription)
      *  Note, there must be viable surface domains on all sides  of a bulk domain
      *
      *  @param[in]           leftSurf            Pointer to the surface domain on the left
      *  @param[in]           rightSurf           Pointer to the surface domain on the right
      */
-    void
+    virtual void 
     setAdjSurfDomains(SurfDomainDescription* const leftSurf, SurfDomainDescription* const rightSurf);
 
     //! Specify the left and right global nodes for this bulk domain
     /*!
+     *  (virtual from BulkDomainDescription)
      *  @param[in]           leftGbNode          Left value of the node
      *  @param[in]           rightGbNode         Right value of the node
      */
-    void
-    setGbNodeBounds(const int leftGbNode, const int rightGbNode);
+    virtual void setGbNodeBounds(const int leftGbNode, const int rightGbNode);
 
     //! Specify the left and right X positions of the domain
     /*!
+     *  (virtual from BulkDomainDescription)
      *  @param[in]           xleft               Left value of the domain boundary
      *  @param[in]           xright              right value of the domain boundary
      */
-    void
-    setXposBounds(const double xleft, const double xright);
+    virtual void setXposBounds(const double xleft, const double xright);
 
     //! Initialize the positions of the nodes in the domain
     /*!
+     *  (virtual from BulkDomainDescription)
      *  @param[in]           gi_ptr              Pointer to the GlobalIndices structure
      */
-    void
-    InitializeXposNodes(GlobalIndices* const gi_ptr);
+    virtual void InitializeXposNodes(GlobalIndices* const gi_ptr);
 
     //! Set the equation description
     /*!
@@ -110,8 +111,7 @@ public:
      *    - EquationNameList
      *    - EquationIndexStart_EqName
      */
-    virtual void
-    SetEquationDescription() override;
+    virtual void SetEquationDescription() override;
 
     //! Malloc and Return the object that will calculate the residual efficiently
     /*!
@@ -119,8 +119,7 @@ public:
      *  @return                                  Returns a pointer to the object that will calculate the residual
      *                                           efficiently
      */
-    virtual BulkDomain1D*
-    mallocDomain1D();
+    virtual BulkDomain1D* mallocDomain1D();
 
     // --------------------------------------------------------------------------------------------
     //                       DATA
