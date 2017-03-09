@@ -33,6 +33,9 @@ namespace m1d
  *  This class is virtual as child classes will contain more user input .
  *  All data here is public to facilitate processing.
  *
+ *  All member functions are virtual. They will be overridden by child classes. However, the child classes
+ *  are expected to call the base classes, so that cards and capabilities are added onto in an onion-like fashion.
+ *
  *  This is the current command file specification of the problem statement.
  */
 class ProblemStatement
@@ -51,6 +54,10 @@ public:
     virtual ~ProblemStatement();
 
     //! Assignment operator
+    /*!
+     *  @param[in]       right               Object to be copied
+     *  @return                              Returns a reference to the current object
+     */
     ProblemStatement& operator=(const ProblemStatement& right);
 
     virtual void setup_input_pass1(BEInput::BlockEntry* cf);
@@ -102,7 +109,6 @@ public:
     //!        DATA FROM INPUT FILES
     //============================================================================================================
 
-
     //! BlockEntry structure for the command file.
     BEInput::BlockEntry* cf_;
 
@@ -114,13 +120,13 @@ public:
 
     //! Default temperature in (Kelvin)
     /*!
-     * defaults to 298.15 K
+     *  defaults to 298.15 K
      */
     double TemperatureReference_;
 
     //! Default Pressure in (Pascal)
     /*!
-     * defaults to OneAtm
+     *  defaults to OneAtm
      */
     double PressureReference_;
 
@@ -131,7 +137,7 @@ public:
      */
     int prob_type_;
 
-    //! Write a start and end file
+    //! Write a start and end file record
     int writeStartEndFile_;
 
     //! Integer representing the energy equation problem type
@@ -263,8 +269,7 @@ public:
     //! to matter less to the time step truncation error.
     double TimeStep_AUD_;
 
-    //!  Number of initial time steps to take where the
-    //!  time truncation error tolerances are not checked. Instead
+    //! Number of initial time steps to take where the time truncation error tolerances are not checked. Instead
     //! the delta T is uniform
     int  m_numInitialConstantDeltaTSteps;
 
@@ -288,9 +293,8 @@ public:
 
     //! Cross sectional area, if in cartesian coordinates
     /*!
-     *  The overwhelming output from the program is on a per-crosssectional area basis
-     *  However, there are some times when the cross-section is needed. This is the place
-     *  where it is supplied.
+     *  The overwhelming output from the program is on a per-crosssectional area basis.
+     *  However, there are some times when the cross-section is needed. This is the place where it is supplied.
      *
      *    units m2
      */

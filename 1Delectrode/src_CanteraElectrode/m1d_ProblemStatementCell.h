@@ -40,7 +40,7 @@ namespace BEInput
 {
 class BlockEntry;
 }
-//===================================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 //===================================================================================================================================
@@ -50,15 +50,15 @@ struct ExtraPhase {
     ExtraPhase();
     //! Copy Constructor
     ExtraPhase(const ExtraPhase& right);
-    //!  Name of the phase in the cantera file and in this 
-    std::string phaseName; 
+    //!  Name of the phase in the cantera file and in this
+    std::string phaseName;
     //! Name of the Cantera file
     std::string canteraFileName;
     //! Regions (all, anode, separator, cathode)
     std::string regions;
     //! Initial volume fraction
     double volFraction;
-    //! region id, 
+    //! region id,
     size_t bregionID[10];
     size_t sregionID[10];
     //! ThermoPhase pointer for the phase
@@ -72,332 +72,331 @@ struct ExtraPhase {
  * This is the current command file specification
  *                       of the problem statement.
  */
-class ProblemStatementCell : public ProblemStatement {
+class ProblemStatementCell : public ProblemStatement
+{
 public:
-  //! Constructor
-  ProblemStatementCell();
+    //! Constructor
+    ProblemStatementCell();
 
-  //! Destructor
-  virtual ~ProblemStatementCell();
+    //! Destructor
+    virtual ~ProblemStatementCell();
 
-  /** 
-   * The first pass through the input file determines
-   *  the number of Cantera files.
-   */
-  virtual void setup_input_pass1(BEInput::BlockEntry *cf);
+    /**
+     * The first pass through the input file determines
+     *  the number of Cantera files.
+     */
+    virtual void setup_input_pass1(BEInput::BlockEntry* cf);
 
-  /** 
-   * The second pass through the input file parses the Cantera files.
-   */
-  virtual void setup_input_pass2(BEInput::BlockEntry *cf);
+    /**
+     * The second pass through the input file parses the Cantera files.
+     */
+    virtual void setup_input_pass2(BEInput::BlockEntry* cf);
 
-  /** 
-   * Provide subclass specific parsing information.
-   * This primarily fills the data structures defined in 
-   * this subclass.
-   */
-  virtual void setup_input_pass3(BEInput::BlockEntry *cf);
+    /**
+     * Provide subclass specific parsing information.
+     * This primarily fills the data structures defined in
+     * this subclass.
+     */
+    virtual void setup_input_pass3(BEInput::BlockEntry* cf);
 
-   //! other preparation steps
-  /**
-   * This processes the phases in the Cantera input files,
-   * fills the PhaseList_ object and other auxiliary data like
-   * the numbers and names of species, elements and phases.
-   */
-  virtual void InitForInput();
+    //! other preparation steps
+    /**
+     * This processes the phases in the Cantera input files,
+     * fills the PhaseList_ object and other auxiliary data like
+     * the numbers and names of species, elements and phases.
+     */
+    virtual void InitForInput();
 
-  /**
-   * Do any post processing required.
-   * This might include unit conversions, opening files, etc.
-   */
-  virtual void post_process_input(BEInput::BlockEntry *cf);
+    /**
+     * Do any post processing required.
+     * This might include unit conversions, opening files, etc.
+     */
+    virtual void post_process_input(BEInput::BlockEntry* cf);
 
-  //! Read the input file
-  virtual void readAnodeInputFile(ZZCantera::Electrode_Factory* f = 0);
-  virtual void readCathodeInputFile(ZZCantera::Electrode_Factory* f = 0);
+    //! Read the input file
+    virtual void readAnodeInputFile(ZZCantera::Electrode_Factory* f = 0);
+    virtual void readCathodeInputFile(ZZCantera::Electrode_Factory* f = 0);
 
-  //!  Test whether the anode and the cathode are compatible
-  /*!
-   *    The only test so far is to determine if the electrode areas input from
-   *    the anode and the cathode are the same.
-   *
-   *    @return true if they are. False if they are not compatible.
-   */
-  bool AnodeCathodeCompatibility();
+    //!  Test whether the anode and the cathode are compatible
+    /*!
+     *    The only test so far is to determine if the electrode areas input from
+     *    the anode and the cathode are the same.
+     *
+     *    @return true if they are. False if they are not compatible.
+     */
+    bool AnodeCathodeCompatibility();
 
-  //!        DATA
+    //!        DATA
 
-  //! Number of cantera files that will be used
-  int NumberCanteraFiles;
+    //! Number of cantera files that will be used
+    int NumberCanteraFiles;
 
-  //! Vector containing the names of the cantera files
-  char ** CanteraFileNames;
+    //! Vector containing the names of the cantera files
+    char** CanteraFileNames;
 
-  //! type of the boundary condition specified on the current of the anode
-  /*!
-   *
-   *   0 - Specify a fixed voltage of zero at the anode
-   *  10 - anode Collector - robin boundary condition on the current
-   */
-  int anodeBCType_;
+    //! type of the boundary condition specified on the current of the anode
+    /*!
+     *
+     *   0 - Specify a fixed voltage of zero at the anode
+     *  10 - anode Collector - robin boundary condition on the current
+     */
+    int anodeBCType_;
 
-  //! Type of the boundary condition specified on the cathode
-  /*!
-   *     0 - Specify a fixed voltage at the cathode
-   *     1 - Specify a fixed discharge current through the battery
-   *     2 - Time dependent voltage at the cathode
-   *     3 - Time dependent current at the cathode
-   *     4 - specify time dependent voltage BoundaryCondition BCconstant
-   *     5 - specify time dependent current BoundaryCondition BCconstant
-   *     6 - specify time dependent voltage BoundaryCondition BCsteptable
-   *     7 - specify time dependent current BoundaryCondition BCsteptable
-   *     8 - specify time dependent voltage BoundaryCondition BClineartable
-   *     9 - specify time dependent current BoundaryCondition BClineartable
-   *    10 - Cathode Collector - robin boundary condition
-   */
-  int cathodeBCType_;
+    //! Type of the boundary condition specified on the cathode
+    /*!
+     *     0 - Specify a fixed voltage at the cathode
+     *     1 - Specify a fixed discharge current through the battery
+     *     2 - Time dependent voltage at the cathode
+     *     3 - Time dependent current at the cathode
+     *     4 - specify time dependent voltage BoundaryCondition BCconstant
+     *     5 - specify time dependent current BoundaryCondition BCconstant
+     *     6 - specify time dependent voltage BoundaryCondition BCsteptable
+     *     7 - specify time dependent current BoundaryCondition BCsteptable
+     *     8 - specify time dependent voltage BoundaryCondition BClineartable
+     *     9 - specify time dependent current BoundaryCondition BClineartable
+     *    10 - Cathode Collector - robin boundary condition
+     */
+    int cathodeBCType_;
 
-  //! Provides XML formatted input for the boundary condition specified on the cathode.  Only relevant for cathodeBCType_ = 6, 7, 8 or 9. 
-  /*!
-   * For cathodeBCType_ = 6 or 7 the voltage or current 
-   * is specified as a step function with value given 
-   * held until the next time value.  See class BCsteptable.
-   *
-   * For cathodeBCType_ = 8 or 9 the voltage or current 
-   * is linearly interpolated between time-value pairs.  
-   * See class BClineartable.
-   */
-  std::string cathodeBCFile_;
+    //! Provides XML formatted input for the boundary condition specified on the cathode.  Only relevant for cathodeBCType_ = 6, 7, 8 or 9.
+    /*!
+     * For cathodeBCType_ = 6 or 7 the voltage or current
+     * is specified as a step function with value given
+     * held until the next time value.  See class BCsteptable.
+     *
+     * For cathodeBCType_ = 8 or 9 the voltage or current
+     * is linearly interpolated between time-value pairs.
+     * See class BClineartable.
+     */
+    std::string cathodeBCFile_;
 
-  //! Specified current in the cathode
-  /*!
-   *  This is actually the current from the cathode into the electrolyte.
-   *  Therefore, during a normal discharge operation of the battery, this will be a
-   *
-   *   Note, this is only relevant when voltageVarBCType_ = 1
-   */
-  double icurrDischargeSpecified_;
+    //! Specified current in the cathode
+    /*!
+     *  This is actually the current from the cathode into the electrolyte.
+     *  Therefore, during a normal discharge operation of the battery, this will be a
+     *
+     *   Note, this is only relevant when voltageVarBCType_ = 1
+     */
+    double icurrDischargeSpecified_;
 
-  //! Specify the voltage at the cathode
-  double CathodeVoltageSpecified_;
+    //! Specify the voltage at the cathode
+    double CathodeVoltageSpecified_;
 
-  //!  Treatment of the constant current condition
-  /*!
-   *   0  Default treatment is to assign a flux boundary condition to the current collector
-   *   1  Constant current is calculated as a root finder algorithm using a constant voltage inner
-   *      loop
-   *   2  Hybrid between the two.  we sense when we need to switch ?!?
-   */
-  int rootFinderForConstantCurrent_;
+    //!  Treatment of the constant current condition
+    /*!
+     *   0  Default treatment is to assign a flux boundary condition to the current collector
+     *   1  Constant current is calculated as a root finder algorithm using a constant voltage inner
+     *      loop
+     *   2  Hybrid between the two.  we sense when we need to switch ?!?
+     */
+    int rootFinderForConstantCurrent_;
 
-  //! Function Pointers for time dependent BC for BC_Type = 2, 3
-  //! NOTE THAT THIS MAY CHANGE WHEN WE IMPLEMENT MORE GENERAL BC
-  /*!
-   *   Vector has length equal to the number of equations defined at the node
-   */
-  double (*TimeDepFunction_)(double time);
+    //! Function Pointers for time dependent BC for BC_Type = 2, 3
+    //! NOTE THAT THIS MAY CHANGE WHEN WE IMPLEMENT MORE GENERAL BC
+    /*!
+     *   Vector has length equal to the number of equations defined at the node
+     */
+    double (*TimeDepFunction_)(double time);
 
-  //! BoundaryCondition Function Pointers for time dependent BC for BC_Type = 4-9
-  //! NOTE THAT THIS MAY CHANGE WHEN WE IMPLEMENT MORE GENERAL BC
-  /*!
-   *   Vector has length equal to the number of equations defined at the node
-   */
-  m1d::BoundaryCondition *BC_TimeDep_;
+    //! BoundaryCondition Function Pointers for time dependent BC for BC_Type = 4-9
+    //! NOTE THAT THIS MAY CHANGE WHEN WE IMPLEMENT MORE GENERAL BC
+    /*!
+     *   Vector has length equal to the number of equations defined at the node
+     */
+    m1d::BoundaryCondition* BC_TimeDep_;
 
-  //! Name of Anode input file
-  std::string anodeFile_;
+    //! Name of Anode input file
+    std::string anodeFile_;
 
-  //! Name of Cathode input file
-  std::string cathodeFile_;
+    //! Name of Cathode input file
+    std::string cathodeFile_;
 
-  //! Name of Electrolyte Cantera phase
-  std::string electrolytePhase_;
+    //! Name of Electrolyte Cantera phase
+    std::string electrolytePhase_;
 
-  //! Mole fractions of electrolyte
-  double* electrolyteMoleFracs_;
+    //! Mole fractions of electrolyte
+    double* electrolyteMoleFracs_;
 
-  //! Name of Separator species
-  std::string separatorPhase_;
+    //! Name of Separator species
+    std::string separatorPhase_;
 
-  //! Separator species mass 
-  double separatorMass_;
+    //! Separator species mass
+    double separatorMass_;
 
-  //! Separator area (m2)
-  double separatorArea_;
+    //! Separator area (m2)
+    double separatorArea_;
 
-  //! Separator thickness (m)
-  double separatorThickness_;
+    //! Separator thickness (m)
+    double separatorThickness_;
 
-  //! Separator diameter (m)
-  double separatorDiameter_;
+    //! Separator diameter (m)
+    double separatorDiameter_;
 
-  //! Separator Solid Skeleton Volume Fraction
-  double separatorSolid_vf_;
+    //! Separator Solid Skeleton Volume Fraction
+    double separatorSolid_vf_;
 
-  //! Electrical conductivity of the anode
-  /*!
-   *    units are S/m
-   */
-  double conductivityAnode_;
+    //! Electrical conductivity of the anode
+    /*!
+     *    units are S/m
+     */
+    double conductivityAnode_;
 
-  //! Electrical conductivity of the cathode
-  /*!
-   *    units are S/m
-   */
-  double conductivityCathode_;
+    //! Electrical conductivity of the cathode
+    /*!
+     *    units are S/m
+     */
+    double conductivityCathode_;
 
-  //! Thickness of anode current collector (m)
-  double anodeCCThickness_;
+    //! Thickness of anode current collector (m)
+    double anodeCCThickness_;
 
-  //! Thickness of cathode current collector (m)
-  double cathodeCCThickness_;
+    //! Thickness of cathode current collector (m)
+    double cathodeCCThickness_;
 
-  //! Extra resistance put in series with the cathode (ohms)
-  /*!
-   *  Note the effective resistance for the battery stack on a per cross sectional basis is:
-   *
-   *     extraCathodeResistance_ / crossSectionalArea_
-   */
-  double extraCathodeResistance_;
+    //! Extra resistance put in series with the cathode (ohms)
+    /*!
+     *  Note the effective resistance for the battery stack on a per cross sectional basis is:
+     *
+     *     extraCathodeResistance_ / crossSectionalArea_
+     */
+    double extraCathodeResistance_;
 
-  //! Resistance that is attached as a load for the battery (ohms)
-  /*!
-   *  Note Note the effective resistance/m2 for the battery stack on a per cross sectional basis is:
-   *
-   *    resistanceLoad_ / crossSectionalArea_
-   */
-  double ResistanceLoad_;
+    //! Resistance that is attached as a load for the battery (ohms)
+    /*!
+     *  Note Note the effective resistance/m2 for the battery stack on a per cross sectional basis is:
+     *
+     *    resistanceLoad_ / crossSectionalArea_
+     */
+    double ResistanceLoad_;
 
-  //! Voltage that is attached to the load. Acts as a battery element in the circuit.
-  double VoltageLoad_;
+    //! Voltage that is attached to the load. Acts as a battery element in the circuit.
+    double VoltageLoad_;
 
-  //! Flag to use Dakota I/O
-  bool useDakota_;
+    //! Flag to use Dakota I/O
+    bool useDakota_;
 
-  //! Maximum number of subgrid time steps per global time step
-  int  maxSubgridTimeStepsPerGlobalTimeStep_;
-  
-  //! file name to receive parameters from Dakota
-  //! (default =  'params.in')
-  std::string fromDakotaFileName_;
+    //! Maximum number of subgrid time steps per global time step
+    int  maxSubgridTimeStepsPerGlobalTimeStep_;
 
-  //! file name to send results to Dakota
-  //! (default =  'results.out')
-  std::string toDakotaFileName_;
+    //! file name to receive parameters from Dakota
+    //! (default =  'params.in')
+    std::string fromDakotaFileName_;
 
-  ////////////////////////////////////////////////////
-  //    Member data derived from other members
-  //    (not directly specified in input file)
+    //! file name to send results to Dakota
+    //! (default =  'results.out')
+    std::string toDakotaFileName_;
 
-  //! Master PhaseList object 
-  ZZCantera::PhaseList *PhaseList_;
+    ////////////////////////////////////////////////////
+    //    Member data derived from other members
+    //    (not directly specified in input file)
 
-  //! total number of phases in PhaseList_
-  int nTotPhases_;
+    //! Master PhaseList object
+    ZZCantera::PhaseList* PhaseList_;
 
-  //! total number of species in PhaseList_
-  int nTotSpecies_;
-  
-  //! Total number of elements
-  int nTotElements_;
+    //! total number of phases in PhaseList_
+    int nTotPhases_;
 
-  //!
+    //! total number of species in PhaseList_
+    int nTotSpecies_;
 
-  char **SpeciesNames_;
-  char **PhaseNames_;
-  char **ElementNames_;
+    //! Total number of elements
+    int nTotElements_;
 
+    //!
 
-  //! Pointer to input parameters for anode and cathode model
-  /**
-   * This object will carry some data that is needed for the
-   * electrolyte transport algorithms including information
-   * required to compute the porosity
-   */
-  ZZCantera::ELECTRODE_KEY_INPUT *anode_input_;
-  ZZCantera::ELECTRODE_KEY_INPUT *cathode_input_;
-
-  //! Initial number of nodes
-  int initDefaultNumCVsAnode_;
-
-  //! Initial number of nodes
-  int initDefaultNumCVsCathode_;
-
-  //! Initial number of cells in the cathode
-  int initDefaultNumCVsSeparator_;
-
-  //! Turn on or off Heat Source Tracking
-  int doHeatSourceTracking_;
-
-  //! Turn on or off Resistance Tracking
-  int doResistanceTracking_;
-
-  //! Anode Temperature boundary condition type
-  int anodeTempBCType_;
-
-  //! Anode Collector temperature
-  double anodeTempRef_;
-
-  //! Anode heat transfer coeff
-  /*!
-   *        Units = Watts m-2 K-1
-   */
-  double anodeHeatTranCoeff_;
-
-  //! Cathode Temperature boundary condition type
-  int cathodeTempBCType_;
-
-  //! Cathode Collector Temperature
-  /*!
-   *  Units = Kelvin
-   */
-  double cathodeTempRef_;
-
-  //! Cathode heat transfer coeff
-  /*!
-   *        Units = Watts m-2 K-1
-   */
-  double cathodeHeatTranCoeff_;
-
-  //!
-  //! Integer representing the pressure formulation problem type
-  /*!
-   *  0 -> none                     Don't have a pressure equation (default)
-   *  1 -> Darcy Flow       
-   *  2 -> Darcy Flow with Gas Reservoir
-   *  3 -> Partial Saturation
-   */
-  int Pressure_formulation_prob_type_;
+    char** SpeciesNames_;
+    char** PhaseNames_;
+    char** ElementNames_;
 
 
-  //! Artificial compressibility number in inverse atmospheres
-  /*!
-   *   compressibility = beta = - 1 / V dVdP
-   * 
-   *    OneAtm = 1.01E5 Pascal 
-   * 
-   *    Typical values for compressibility for water are 5E-10 Pa-1.
-   *    This would make that value 5.0E-5 in inverse atm units.
-   *       artificialCompressibilityInvAtm_ = 5.0E-5 atm-1
-   *    However, to make the problem easier to solve, we may use values like:
-   *     artificialCompressibilityInvAtm_ = 0.69 atm-1
-   *    This will make the liquid squishy, and the time constants non-stiff. 
-   */
-  double artificialCompressibilityInvAtm_;
+    //! Pointer to input parameters for anode and cathode model
+    /**
+     * This object will carry some data that is needed for the
+     * electrolyte transport algorithms including information
+     * required to compute the porosity
+     */
+    ZZCantera::ELECTRODE_KEY_INPUT* anode_input_;
+    ZZCantera::ELECTRODE_KEY_INPUT* cathode_input_;
 
-  //! Number of extra phases
-  int numExtraPhases_;
+    //! Initial number of nodes
+    int initDefaultNumCVsAnode_;
 
-  //! Vector of extra phases
-  std::vector<ExtraPhase*> ExtraPhaseList_;
-  
+    //! Initial number of nodes
+    int initDefaultNumCVsCathode_;
+
+    //! Initial number of cells in the cathode
+    int initDefaultNumCVsSeparator_;
+
+    //! Turn on or off Heat Source Tracking
+    int doHeatSourceTracking_;
+
+    //! Turn on or off Resistance Tracking
+    int doResistanceTracking_;
+
+    //! Anode Temperature boundary condition type
+    int anodeTempBCType_;
+
+    //! Anode Collector temperature
+    double anodeTempRef_;
+
+    //! Anode heat transfer coeff
+    /*!
+     *        Units = Watts m-2 K-1
+     */
+    double anodeHeatTranCoeff_;
+
+    //! Cathode Temperature boundary condition type
+    int cathodeTempBCType_;
+
+    //! Cathode Collector Temperature
+    /*!
+     *  Units = Kelvin
+     */
+    double cathodeTempRef_;
+
+    //! Cathode heat transfer coeff
+    /*!
+     *        Units = Watts m-2 K-1
+     */
+    double cathodeHeatTranCoeff_;
+
+    //!
+    //! Integer representing the pressure formulation problem type
+    /*!
+     *  0 -> none                     Don't have a pressure equation (default)
+     *  1 -> Darcy Flow
+     *  2 -> Darcy Flow with Gas Reservoir
+     *  3 -> Partial Saturation
+     */
+    int Pressure_formulation_prob_type_;
+
+    //! Artificial compressibility number in inverse atmospheres
+    /*!
+     *   compressibility = beta = - 1 / V dVdP
+     *
+     *    OneAtm = 1.01E5 Pascal
+     *
+     *    Typical values for compressibility for water are 5E-10 Pa-1.
+     *    This would make that value 5.0E-5 in inverse atm units.
+     *       artificialCompressibilityInvAtm_ = 5.0E-5 atm-1
+     *    However, to make the problem easier to solve, we may use values like:
+     *     artificialCompressibilityInvAtm_ = 0.69 atm-1
+     *    This will make the liquid squishy, and the time constants non-stiff.
+     */
+    double artificialCompressibilityInvAtm_;
+
+    //! Number of extra phases
+    int numExtraPhases_;
+
+    //! Vector of extra phases
+    std::vector<ExtraPhase*> ExtraPhaseList_;
+
 
 };
-//=====================================================================================================================
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 #endif //_M1D_PROBLEMSTATEMENTCELL_H
-//=====================================================================================================================
 
-  
+
 
