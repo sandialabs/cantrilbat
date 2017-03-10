@@ -266,6 +266,12 @@ public:
      */
     void setDepenUnits(const std::string& unitString);
 
+    //! Increment the time interval
+    /*!
+     *  @return                                  Returns true if there is a valid next time interval. Returns false if not.
+     */
+    bool incrStep();
+
     // --------------------------------------------------------- D A T A ----------------------------------------------
 protected:
     //! title or name of boundary condition
@@ -575,7 +581,7 @@ protected:
 /*!
  *    The value of this boundary condition is given by the following functional form.
  *
- *      f(t) = baseDepValue + oscAmplitude * sin (2 Pi t frequency) 
+ *      f(t) = baseDepValue + oscAmplitude * cos(2 Pi t frequency + phaseAngle) 
  */
 class BCsinusoidal: public BoundaryCondition
 {
@@ -593,11 +599,13 @@ public:
      *  @param[in]           frequency           Value of the frequency of the sine function. The period of the sine function is 
      *                                           equal to 1/frequency. 
      *
+     *  @param[in]           phaseAngle          Value of the phase angle. Units: radians
+     *
      *  @param[in]           titleName           Name of the Boundary Condition. Defaults to "BCsteptable".
      *  @param[in]           indepUnits          String containing units of independent variable. Defaults to "unknownUnits".
      *  @param[in]           depenUnits          String containing units of dependent variable. Defaults to "unknownUnits".
      */
-    BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, std::string titleName = "BCsinusoidal",
+    BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, double phaseAngle, std::string titleName = "BCsinusoidal",
                  std::string indepUnits = "unknownUnits", std::string depenUnits = "unknownUnits");
 
     //! Constructor from an XML file, named filename
@@ -665,6 +673,13 @@ public:
      */
     void setFrequency(double frequency);
 
+    //! Specify the phase angle of the sinusoidal function
+    /*!
+     *  @param[in]           phaseAngle          Phase angle
+     *                                             Units: radians
+     */
+    void setPhaseAngle(double phaseAngle);
+
 protected:
 
     //! Base value about which oscillations occur
@@ -675,6 +690,9 @@ protected:
 
     //! Frequency of oscillation
     double frequency_;
+
+    //! Phase Anglele
+    double phaseAngle_;
 
     //! Define a deltaT independent variable step size based on the frequency
     double deltaT_;

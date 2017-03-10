@@ -440,13 +440,15 @@ main(int argc, char** argv)
         //cycle through step times and add to the set of stepTimes
         if (PSinput.BC_TimeDep_) {
             BoundaryCondition* BC = PSinput.BC_TimeDep_ ;
-            double nextTime = BC->nextStep();
+            bool okN = true;
             //cycle through step times and add to the set of stepTimes
             do {
+                double nextTime = BC->nextStep();
                 if (nextTime < PSinput.endTime_) {
                     stepTimes.insert(nextTime);
                 }
-            } while ((nextTime = BC->nextStep()) > 0);
+                okN = BC->incrStep();
+            } while (okN);
             BC->resetSteps();
         }
 

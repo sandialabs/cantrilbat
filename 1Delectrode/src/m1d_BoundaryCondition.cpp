@@ -232,7 +232,16 @@ int BoundaryCondition::findStep(double indVar, int interval) const
     }
     return step;
 }
-//===========================================================================================================
+//==================================================================================================================================
+bool BoundaryCondition::incrStep()
+{
+     if (step_ >= stepMax_) {
+        return false;
+     } 
+     step_++;
+     return true;
+}
+//==================================================================================================================================
 double BoundaryCondition::err(std::string msg) const
 {
     throw m1d_Error("BoundaryCondition Base Class\n", "**** Method " + msg + " not implemented\n");
@@ -524,12 +533,13 @@ double BClineartable::nextStep() const
 // class BCsinusoidal
 ////////////////////////////////////////////////////////////
 //=====================================================================================================================
-BCsinusoidal::BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, std::string titleName,
-                           std::string indepUnits, std::string depenUnits) :
+BCsinusoidal::BCsinusoidal(double baseDepValue, double oscAmplitude, double frequency, double phaseAngle,
+                           std::string titleName, std::string indepUnits, std::string depenUnits) :
     BoundaryCondition(),
     baseDepValue_(baseDepValue),
     oscAmplitude_(oscAmplitude),
-    frequency_(frequency)
+    frequency_(frequency),
+    phaseAngle_(phaseAngle)
 {
     setTitle(titleName);
     setIndepUnits(indepUnits);
@@ -571,37 +581,38 @@ void BCsinusoidal::useXML(ZZCantera::XML_Node& bcNode)
     if (bcNode.name() != "BoundaryCondition") {
         m1d_Error("BoundaryCondition::useXML)" , "All BoundaryCondition XML nodes have the name, BoundaryCondition");
     }
-    if (!bcNode.hasChild("baseDependentValue"))
+    if (!bcNode.hasChild("baseDependentValue")) {
         throw m1d_Error("BCsinusoidal::useXML()", "no baseDependentValue XML node.");
-
-    if (!bcNode.hasChild("oscillationAmplitude"))
+    }
+    if (!bcNode.hasChild("oscillationAmplitude")) {
         throw m1d_Error("BCsinusoidal::useXML()", "no oscillationAmplitude XML node.");
-
-    if (!bcNode.hasChild("frequency"))
+    }
+    if (!bcNode.hasChild("frequency")) {
         throw m1d_Error("BCsinusoidal::useXML()", "no frequency XML node.");
-
+    }
     //get base amplitude
     baseDepValue_ = ZZctml::getFloat(bcNode, "baseDependentValue");
-
     //get oscillation amplitude
     oscAmplitude_ = ZZctml::getFloat(bcNode, "oscillationAmplitude");
-
     //get frequency of the oscillation
     frequency_ = ZZctml::getFloat(bcNode, "frequency");
+    // get the phase angle
+    phaseAngle_ = 0.0;
+    if (bcNode.hasChild("phaseAngle")) {
+        phaseAngle_ = ZZctml::getFloat(bcNode, "phaseAngle");
+    } 
 
     //set 100 steps per period
     deltaT_ = 1. / stepsPerPeriod_ / frequency_;
     lowerLim_ = 0.0;
     //set ten periods
     upperLim_ = periodsPerRun_ / frequency_;
-
     stepMax_ = periodsPerRun_ * stepsPerPeriod_ + 1;
-
 }
 //=====================================================================================================================
 double BCsinusoidal::value(double indVar, int interval) const
 {
-    return baseDepValue_ + oscAmplitude_ * sin(2.0 * Pi * indVar * frequency_);
+    return baseDepValue_ + oscAmplitude_ * cos(2.0 * Pi * indVar * frequency_ + phaseAngle_);
 }
 //=====================================================================================================================
 // Return the next value for the independent variable at which the nature of the boundary condition changes.
@@ -610,7 +621,7 @@ double BCsinusoidal::value(double indVar, int interval) const
  */
 double BCsinusoidal::nextStep() const
 {
-    return deltaT_ * (step_+1);
+    return deltaT_ * (step_ + 1);
 }
 //=====================================================================================================================
 // Check to see which step we are at.
@@ -626,6 +637,11 @@ void BCsinusoidal::setFrequency(double frequency)
     //update other values
     deltaT_ = 1. / stepsPerPeriod_ / frequency_;
     upperLim_ = periodsPerRun_ / frequency_;
+}
+//=====================================================================================================================
+void BCsinusoidal::setPhaseAngle(double phaseAngle)
+{
+    phaseAngle_ = phaseAngle;
 }
 //=====================================================================================================================
 // specify the number of steps per period
