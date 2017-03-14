@@ -399,7 +399,7 @@ double BCsteptable::value(double indVar, int interval) const
 //==================================================================================================================================
 double BCsteptable::nextStep() const
 {
-    if (step_ < (int) indepVals_.size()) {
+    if (step_ + 1 < (int) indepVals_.size()) {
         return indepVals_[step_+1];
     } else {
         return -1;
@@ -520,7 +520,7 @@ double BClineartable::value(double indVar, int interval) const
 //=====================================================================================================================
 double BClineartable::nextStep() const
 {
-    if (step_ < (int) indepVals_.size()) {
+    if (step_ + 1 < (int) indepVals_.size()) {
         return indepVals_[step_+1];
     } else {
         return -1;

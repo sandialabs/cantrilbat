@@ -436,6 +436,7 @@ main(int argc, char** argv)
         set<double> stepTimes;
         stepTimes.insert(PSinput.endTime_);
         set<double>::iterator step;
+        double nextTime;
 
         //cycle through step times and add to the set of stepTimes
         if (PSinput.BC_TimeDep_) {
@@ -443,10 +444,13 @@ main(int argc, char** argv)
             bool okN = true;
             //cycle through step times and add to the set of stepTimes
             do {
-                double nextTime = BC->nextStep();
+                nextTime = BC->nextStep();
+                if (nextTime < -0.0) {
+                   break;
+                }
                 if (nextTime < PSinput.endTime_) {
                     stepTimes.insert(nextTime);
-                }
+                } 
                 okN = BC->incrStep();
             } while (okN);
             BC->resetSteps();
