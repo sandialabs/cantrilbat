@@ -4432,8 +4432,11 @@ void Electrode_MP_RxnExtent::printElectrodePhase(size_t iph, int pSrc, bool subT
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
     if (iph >= m_NumVolPhases) {
-        printf("                Molar Volume = %11.5E cm3 gmol-1\n", 0.0);
-        printf("                Molar Area   = %11.5E cm2 gmol-1\n", mv * 10.);
+        double ma = tp.molarArea();
+        // temporary compatibility
+        printf("                Molar Volume = %11.5E cm3 gmol-1\n", 0.0 * 1.0E3);
+        //printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
+        printf("                Molar Area   = %11.5E cm2 gmol-1\n", ma * 10.);
     } else {
         printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
     }

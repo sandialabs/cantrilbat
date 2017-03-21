@@ -2080,9 +2080,11 @@ void Electrode::updateState_Phase(size_t iph)
     if (iph < m_NumVolPhases) {
         phaseMolarVolumes_[iph] = tp.molarVolume();
     } else {
+        // compatibilty
+        //phaseMolarVolumes_[iph] = tp.molarVolume();
         phaseMolarVolumes_[iph] = 0.0;
         size_t isurf = iph - m_NumVolPhases;
-        sphaseMolarAreas_[isurf] = tp.molarVolume();
+        sphaseMolarAreas_[isurf] = tp.molarArea();
     }
     // Right now we use the Cp calculation from Cantera until we expand Cantera to calculate Cv
     if (doThermalPropertyCalculations_) {
@@ -2400,6 +2402,10 @@ double Electrode::TotalVol(bool ignoreErrors) const
             psum += spMoles_final_[kStart + k] * VolPM_[kStart + k];
         }
         double mv = tp.molarVolume();
+        // compatibility statement until it is changed
+        if (iph >= m_NumVolPhases) {
+            mv = 0.0; 
+        }
         double palt = mv * phaseMoles_final_[iph];
         if (!ignoreErrors) {
             if (palt < -1.0E-15) {
@@ -2703,7 +2709,7 @@ void Electrode::updateSurfaceAreas()
     int i = 0;
     for (size_t iph = m_NumVolPhases; iph < m_NumTotPhases; iph++, i++) {
         ThermoPhase* tphase = &(thermo(iph));
-        sphaseMolarAreas_[i] = tphase->molarVolume();
+        sphaseMolarAreas_[i] = tphase->molarArea();
         int kstart = m_PhaseSpeciesStartIndex[iph];
         int nsp = m_PhaseSpeciesStartIndex[iph + 1] - kstart;
         phaseMoles_final_[iph] = surfaceAreaRS_final_[i] / sphaseMolarAreas_[i];
@@ -5461,9 +5467,12 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
     printf("          PHASE %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total Moles  = %11.5E kmol\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
+    double ma = 0.0;
     if (iph >= m_NumVolPhases) {
-        printf("                Molar Volume = %11.5E cm3 gmol-1\n", 0.0);
-        printf("                Molar Area   = %11.5E cm2 gmol-1\n", mv * 10.);
+        mv = 0.0;
+        ma = tp.molarArea();
+        printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
+        printf("                Molar Area   = %11.5E cm2 gmol-1\n", ma * 10.);
     } else {
         printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
     }

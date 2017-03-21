@@ -1304,7 +1304,7 @@ oc[0] = 3.98922
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -1609,7 +1609,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -1802,7 +1802,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -1984,7 +1984,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -2166,7 +2166,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -2348,7 +2348,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -2530,7 +2530,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -2712,7 +2712,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -2894,7 +2894,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -3076,7 +3076,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -3258,7 +3258,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -3440,7 +3440,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -3622,7 +3622,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -3804,7 +3804,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -3986,7 +3986,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -4168,7 +4168,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -4350,7 +4350,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -4532,7 +4532,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -4714,7 +4714,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -4896,7 +4896,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -5078,7 +5078,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -5260,7 +5260,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -5442,7 +5442,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -5624,7 +5624,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -5806,7 +5806,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -5988,7 +5988,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -6170,7 +6170,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -6352,7 +6352,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -6534,7 +6534,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -6716,7 +6716,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -6898,7 +6898,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -7080,7 +7080,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -7262,7 +7262,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -7444,7 +7444,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -7626,7 +7626,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -7808,7 +7808,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -7990,7 +7990,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -8172,7 +8172,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -8354,7 +8354,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -8536,7 +8536,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -8718,7 +8718,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -8900,7 +8900,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -9082,7 +9082,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -9264,7 +9264,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -9446,7 +9446,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -9628,7 +9628,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -9810,7 +9810,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -9992,7 +9992,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -10174,7 +10174,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -10356,7 +10356,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
@@ -10538,7 +10538,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 3 cathode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1

@@ -2262,7 +2262,13 @@ void Electrode_CSTR::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
     printf("          PHASE %d %s \n", static_cast<int>(iph), pname.c_str());
     printf("                Total moles = %g\n", phaseMoles_final_[iph]);
     double mv = tp.molarVolume();
-    printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
+    if (iph < m_NumVolPhases) {
+        printf("                Molar Volume = %11.5E cm3 gmol-1\n", mv * 1.0E3);
+    } else {
+        double ma = tp.molarArea();
+        printf("                Molar Volume = %11.5E cm3 gmol-1    Molar Area = %11.5E cm2 gmol-1\n", 
+               mv * 1.0E3, ma * 10.);
+    }
     if (iph == metalPhase_) {
         double deltaT = t_final_final_ - t_init_init_;
         if (subTimeStep) {

@@ -14,6 +14,7 @@
     </state>
     <thermo model="Surface">
       <site_density units="mol/cm2"> 3e-09 </site_density>
+      <Thickness units= "m"> 0.0 </Thickness>
     </thermo>
     <kinetics model="Interface"/>
     <reactionArray datasrc="#data_LiElectrode"/>
