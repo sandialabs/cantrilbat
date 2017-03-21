@@ -38,9 +38,9 @@ void printVolSpecies(ThermoPhase* g_ptr, size_t k)
     double currTemp = g_ptr->temperature();
     double currPres = g_ptr->pressure();
     dnt(1);
-    printf("Partial    Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, pmVol[k], dim);
+    printf("Partial    Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, pmVol[k], 3);
     dnt(1);
-    printf("StandState Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, ssVol[k], dim);
+    printf("StandState Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, ssVol[k], 3);
 
     /*
      * Loop over the known types of eos's. Print out what's available.

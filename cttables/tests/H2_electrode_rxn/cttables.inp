@@ -68,6 +68,14 @@ start block Bath Specification for Phase NaCl_Electrolyte
    End block Bath Species Molalities
 end block Bath Specification for Phase NaCl_Electrolyte
 
+start block Bath Specification for Phase platinum_surface
+   Bath Species ID = pt_site
+   start block Bath Species Mole Fraction
+       pt_site = 0.9
+       H*_site = 0.1
+   end block Bath Species Mole Fraction
+end block Bath Specification for Phase platinum_surface
+
 Start block Extra Global Reaction
    Special Species = Pt_electron
    Start block Elementary Reaction Specification

@@ -13,26 +13,7 @@
 #include "cttables.h"
 #include "cttInput.h"
 
-
-#include "LE_PickList.h"
-#include "BE_MoleComp.h"
-#include "BE_UnitConversionPressure.h"
-#include "LE_OneDblUnits.h"
-#include "LE_OneStr.h"
-#include "LE_OneBool.h"
-#include "LE_OneBoolInt.h"
-#include "LE_OneDbl.h"
-#include "LE_OneInt.h"
-#include "LE_VecDbl.h"
-#include "LE_VecDblVarLength.h"
-#include "md_timer.h"
-#include "mdp_allo.h"
-#include "BE_MolalityComp.h"
-#include "cantera/thermo/ThermoPhase.h"
-#include "LE_MultiCStr.h"
-#include "BE_MultiBlock.h"
-
-#include "cantera/thermo/MolalityVPSSTP.h"
+#include "BlockEntryGlobal.h"
 
 using namespace std;
 #ifdef useZuzaxNamespace
@@ -280,9 +261,8 @@ void setup_input_pass3(BlockEntry *cf,
      * Create a PickList Line Element made out of the list of 
      * species
      */
-    LE_PickList *plp1 =
-      new LE_PickList("Bath Species ID", &(BG.BathSpeciesIDVec[iph]),
-		      (const char **)IOO.SpeciesNames+kstart, nSpecies, 1, "BG_ID");
+    LE_PickList *plp1 = new LE_PickList("Bath Species ID", &(BG.BathSpeciesIDVec[iph]),
+                                        (const char **)IOO.SpeciesNames+kstart, nSpecies, 1, "BG_ID");
     plp1->set_default(0);
     bbathphase->addLineEntry(plp1);
 
@@ -290,9 +270,7 @@ void setup_input_pass3(BlockEntry *cf,
      * BG.PotentialPLPhases
      *  Input the bath voltage for the phase
      */
-    LE_OneDbl *iVolt = 
-      new LE_OneDbl("Voltage", &(BG.PotentialPLPhases[iph]), 0, 
-		    "Voltage");
+    LE_OneDbl *iVolt = new LE_OneDbl("Voltage", &(BG.PotentialPLPhases[iph]), 0, "Voltage");
     iVolt->set_default(0.0);
     iVolt->set_limits(10., -10.);
     bbathphase->addLineEntry(iVolt);
@@ -302,9 +280,7 @@ void setup_input_pass3(BlockEntry *cf,
      * BG.PhaseMoles
      *  Input the number of moles for the phase
      */
-    LE_OneDbl *iTMoles = 
-      new LE_OneDbl("Phase Moles", &(BG.PhaseMoles[iph]), 0, 
-		    "PhaseMoles");
+    LE_OneDbl *iTMoles = new LE_OneDbl("Phase Moles", &(BG.PhaseMoles[iph]), 0, "PhaseMoles");
     iTMoles->set_default(0.0);
     iTMoles->set_limits(1.0E9, 0.0);
     bbathphase->addLineEntry(iTMoles);

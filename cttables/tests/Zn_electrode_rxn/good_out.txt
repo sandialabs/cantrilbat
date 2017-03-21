@@ -420,9 +420,9 @@ INFORMATION TABLE FOR SPECIES "Zn(S)" IN PHASE "Zn(S)"
         Temperature (where needed) = 300 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = zn_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
           -----------------------------------------------------------------------------
-              1         zn_site          1.0000       3.000E-11       1.000E+00
+              1         zn_site          1.0000       3.000E-09       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -432,14 +432,14 @@ INFORMATION TABLE FOR SPECIES "zn_site" IN PHASE "zinc_surface"
         Elemental Composition:               ElementEntropy298
                                                      0.000 J/gmol/K 
         Electronic Charge = 0.000000
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 0.000000 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -607,9 +607,9 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
         Temperature (where needed) = 300 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = zn_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
           -----------------------------------------------------------------------------
-              1         zn_site          1.0000       3.000E-11       1.000E+00
+              1         zn_site          1.0000       3.000E-09       1.000E+00
           ------------------------------------------------------------------------------
 
 ==========================================================================================================================================

@@ -348,10 +348,10 @@ INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
         Temperature (where needed) = 1400 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = Csoot-H
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
           -----------------------------------------------------------------------------
-              1         Csoot-*          0.5000       1.961E-11       5.161E-01
-              2         Csoot-H          0.5000       1.961E-11       5.161E-01
+              1         Csoot-*          0.5000       1.900E-09       5.000E-01
+              2         Csoot-H          0.5000       1.900E-09       5.000E-01
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -368,8 +368,8 @@ INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1400,101325) = 0.00789474 m3/kmol
+        StandState Molar Volume at (T,P) of (1400,101325) = 0.00789474 m3/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 2.28841E+15 # per cm2 
         CONSTANT_CP format:
@@ -415,8 +415,8 @@ INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (1400,101325) = 2.63158e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (1400,101325) = 0.00789474 m3/kmol
+        StandState Molar Volume at (T,P) of (1400,101325) = 0.00789474 m3/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 2.28841E+15 # per cm2 
         CONSTANT_CP format:

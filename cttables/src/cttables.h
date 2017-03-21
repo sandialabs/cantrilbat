@@ -5,7 +5,7 @@
  */
 
 /*
- * Copywrite (2005) Sandia Corporation. Under the terms of 
+ * Copywrite (2005) Sandia Corporation. Under the terms of
  * Contract DE-AC04-94AL85000 with Sandia Corporation, the
  * U.S. Government retains certain rights in this software.
  */
@@ -16,7 +16,6 @@
 #include "cantera/base/config.h"
 #include "cantera/transport.h"
 #include "cttInput.h"
-#include "mdp_allo.h"
 
 #include "TemperatureTable.h"
 #include "VoltageTable.h"
@@ -37,11 +36,7 @@ const double R_kJgmol = 8.314472 * 1.0E-3;
 #endif
 #endif
 
-
-extern ZZCantera::Transport *GTran;
-
-
-#include <vector>
+extern ZZCantera::Transport* GTran;
 
 /*
  * Turn on debug printing from the command line.
@@ -49,54 +44,55 @@ extern ZZCantera::Transport *GTran;
 extern int DebugPrinting;
 
 struct Bath {
-  double Temperature;
-  double Pressure;
-  double * Xmol;
-  double * XmolPLSpecVec;
-  double **XmolPLPhases;
-  double * Molalities;
-  double * MolalitiesPLSpecVec;
-  double **MolalitiesPLPhases;
-  double *PotentialPLPhases;
-  std::vector<double> PhaseMoles;
-  int BathSpeciesID;
-  int * BathSpeciesIDVec;
-  std::string BathSpeciesName;
-  std::vector<std::string> BathSpeciesNameVec;
-  int MajorGasID;
-  std::string MajorGasName;
-  double Density;
-  Bath() :
-    Temperature(298.15), 
-    Pressure(1.01325E5),
-    Xmol(0),
-    XmolPLSpecVec(0),
-    XmolPLPhases(0),
-    Molalities(0),
-    MolalitiesPLSpecVec(0),
-    MolalitiesPLPhases(0),
-    PotentialPLPhases(0),
-    BathSpeciesID(0),
-    BathSpeciesIDVec(0),
-    MajorGasID(1),
-    Density(0.0)
-  {
-   
-  }
-  ~Bath() {
-    mdpUtil::mdp_safe_free((void **) &Xmol);
-    mdpUtil::mdp_safe_free((void **) &XmolPLSpecVec);
-    mdpUtil::mdp_safe_free((void **) &XmolPLPhases);
-    mdpUtil::mdp_safe_free((void **) &Molalities);
-    mdpUtil::mdp_safe_free((void **) &MolalitiesPLSpecVec);
-    mdpUtil::mdp_safe_free((void **) &MolalitiesPLPhases);
-    mdpUtil::mdp_safe_free((void **) &PotentialPLPhases);
-    mdpUtil::mdp_safe_free((void **) &BathSpeciesIDVec);
-  }
+    double Temperature;
+    double Pressure;
+    double* Xmol;
+    double* XmolPLSpecVec;
+    double** XmolPLPhases;
+    double* Molalities;
+    double* MolalitiesPLSpecVec;
+    double** MolalitiesPLPhases;
+    double* PotentialPLPhases;
+    std::vector<double> PhaseMoles;
+    int BathSpeciesID;
+    int* BathSpeciesIDVec;
+    std::string BathSpeciesName;
+    std::vector<std::string> BathSpeciesNameVec;
+    int MajorGasID;
+    std::string MajorGasName;
+    double Density;
+    Bath() :
+        Temperature(298.15),
+        Pressure(1.01325E5),
+        Xmol(0),
+        XmolPLSpecVec(0),
+        XmolPLPhases(0),
+        Molalities(0),
+        MolalitiesPLSpecVec(0),
+        MolalitiesPLPhases(0),
+        PotentialPLPhases(0),
+        BathSpeciesID(0),
+        BathSpeciesIDVec(0),
+        MajorGasID(1),
+        Density(0.0)
+    {
+
+    }
+    ~Bath()
+    {
+        mdpUtil::mdp_safe_free((void**) &Xmol);
+        mdpUtil::mdp_safe_free((void**) &XmolPLSpecVec);
+        mdpUtil::mdp_safe_free((void**) &XmolPLPhases);
+        mdpUtil::mdp_safe_free((void**) &Molalities);
+        mdpUtil::mdp_safe_free((void**) &MolalitiesPLSpecVec);
+        mdpUtil::mdp_safe_free((void**) &MolalitiesPLPhases);
+        mdpUtil::mdp_safe_free((void**) &PotentialPLPhases);
+        mdpUtil::mdp_safe_free((void**) &BathSpeciesIDVec);
+    }
 } ;
 extern Bath BG;
-extern TemperatureTable *TT_ptr;
-extern VoltageTable *VV_ptr;
+extern TemperatureTable* TT_ptr;
+extern VoltageTable* VV_ptr;
 
 extern bool TopIsKineticsObject;
 
@@ -107,27 +103,28 @@ struct UnitsIO {
     double mEntropy;
     int unitDef;
 
-    void setup(int unit) {
+    void setup(int unit)
+    {
         unitDef = unit;
-	if (unit == UNITS_KCAL_CGS) {
-	  sGibbs = "kcal/gmol";
-	  mGibbs = R_kcalmol;
+        if (unit == UNITS_KCAL_CGS) {
+            sGibbs = "kcal/gmol";
+            mGibbs = R_kcalmol;
 
-	  sEntropy = "cal/mol*K";
-	  mEntropy = R_kcalmol * 1.0E3;
+            sEntropy = "cal/mol*K";
+            mEntropy = R_kcalmol * 1.0E3;
 
-	} else if (unit == UNITS_KJOULE) {
+        } else if (unit == UNITS_KJOULE) {
 
-	  sGibbs   = " kJ/gmol ";
-	  mGibbs   = R_kJgmol;
+            sGibbs   = " kJ/gmol ";
+            mGibbs   = R_kJgmol;
 
-	  sEntropy = "J/gmolK";
-	  mEntropy = R_kJgmol * 1.0E3;
+            sEntropy = "J/gmolK";
+            mEntropy = R_kJgmol * 1.0E3;
 
-	} else {
-	  printf("ERROR unknown units");
-	  exit(-1);
-	}
+        } else {
+            printf("ERROR unknown units");
+            exit(-1);
+        }
     }
 };
 extern UnitsIO UIO;
@@ -150,20 +147,20 @@ extern void pr_de(const double d, const int w, const int p);
 extern void pr_dg(const double d, const int w, const int p);
 extern void dnt(const int i);
 
-extern void print_map(const std::map<std::string,double>& m, 
-		      const std::string& prefix);
+extern void print_map(const std::map<std::string,double>& m,
+                      const std::string& prefix);
 
-extern void setAllBathSpeciesConditions(ZZCantera::PhaseList *pl);
-extern void printAllBathSpeciesConditions(ZZCantera::PhaseList *pl);
-extern void setBathSpeciesConditions(ZZCantera::ThermoPhase& g, 
-				     ZZCantera::PhaseList *pl,
-				     int printLvl);
-extern void printBathSpeciesConditions(ZZCantera::ThermoPhase& g, 
-		  		       ZZCantera::PhaseList *pl,
-				       int printLvl);
+extern void setAllBathSpeciesConditions(ZZCantera::PhaseList* pl);
+extern void printAllBathSpeciesConditions(ZZCantera::PhaseList* pl);
+extern void setBathSpeciesConditions(ZZCantera::ThermoPhase& g,
+                                     ZZCantera::PhaseList* pl,
+                                     int printLvl);
+extern void printBathSpeciesConditions(ZZCantera::ThermoPhase& g,
+                                       ZZCantera::PhaseList* pl,
+                                       int printLvl);
 
 
-double entropyElem298(ZZCantera::ThermoPhase *g_ptr, size_t k);
+double entropyElem298(ZZCantera::ThermoPhase* g_ptr, size_t k);
 
 //==================================================================================================================================
 //! Print out volume information about the Standard State
@@ -171,10 +168,10 @@ double entropyElem298(ZZCantera::ThermoPhase *g_ptr, size_t k);
  *  @param[in]               tp                  Pointer to the ThermoPhase
  *  @param[in]               k                   species Index
  */
-void printVolSpecies(ZZCantera::ThermoPhase *tp, size_t k);
+void printVolSpecies(ZZCantera::ThermoPhase* tp, size_t k);
 //==================================================================================================================================
 
-extern void printThermoCoeffSpecies(ZZCantera::ThermoPhase *, int);
+extern void printThermoCoeffSpecies(ZZCantera::ThermoPhase*, int);
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/

@@ -369,10 +369,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "h2gas"
         Temperature (where needed) = 300 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = pt_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
           -----------------------------------------------------------------------------
-              1         pt_site          0.9000       2.700E-11       9.000E-01
-              2         H*_site          0.1000       3.000E-12       1.000E-01
+              1         pt_site          0.9000       2.700E-09       9.000E-01
+              2         H*_site          0.1000       3.000E-10       1.000E-01
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -382,14 +382,14 @@ INFORMATION TABLE FOR SPECIES "pt_site" IN PHASE "platinum_surface"
         Elemental Composition:               ElementEntropy298
                                                      0.000 J/gmol/K 
         Electronic Charge = 0.000000
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
+        Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 0.000000 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -431,8 +431,8 @@ INFORMATION TABLE FOR SPECIES "H*_site" IN PHASE "platinum_surface"
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 3.33333e+07 m2/kmol
+        Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
+        StandState Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -657,25 +657,25 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
                   T = 300 K
                   P = 101325 Pascal
                        SurfSpecName         Theta_k_Bath
-                           pt_site    0.0013285
-                           H*_site   0.00014761
+                           pt_site          0.9
+                           H*_site          0.1
 
                ---------------------------------------------------------------------------------------------
                |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
                |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
                ---------------------------------------------------------------------------------------------
-               !        -1 |   2.31e-30     2.57e-14    -2.57e-14 |    2.23e-26    -2.48e-10     -2.48e-10 |
-               !      -0.8 |   1.11e-28     5.36e-16    -5.36e-16 |    1.07e-24    -5.18e-12     -5.18e-12 |
-               !      -0.6 |    5.3e-27     1.12e-17    -1.12e-17 |    5.11e-23    -1.08e-13     -1.08e-13 |
-               !      -0.4 |   2.54e-25     2.34e-19    -2.34e-19 |    2.45e-21    -2.26e-15     -2.26e-15 |
-               !      -0.2 |   1.21e-23     4.89e-21    -4.88e-21 |    1.17e-19    -4.72e-17     -4.71e-17 |
-               !  -0.04489 |   2.44e-22     2.44e-22    -2.35e-37 |    2.35e-18    -2.35e-18     -2.27e-33 |
-               !         0 |   5.81e-22     1.02e-22     4.79e-22 |     5.6e-18    -9.87e-19      4.62e-18 |
-               !       0.2 |   2.78e-20     2.14e-24     2.78e-20 |    2.68e-16    -2.06e-20      2.68e-16 |
-               !       0.4 |   1.33e-18     4.47e-26     1.33e-18 |    1.28e-14    -4.31e-22      1.28e-14 |
-               !       0.6 |   6.36e-17     9.33e-28     6.36e-17 |    6.14e-13    -9.01e-24      6.14e-13 |
-               !       0.8 |   3.05e-15     1.95e-29     3.05e-15 |    2.94e-11    -1.88e-25      2.94e-11 |
-               !         1 |   1.46e-13     4.08e-31     1.46e-13 |    1.41e-09    -3.93e-27      1.41e-09 |
+               !        -1 |   1.57e-27     1.74e-11    -1.74e-11 |    1.51e-23    -1.68e-07     -1.68e-07 |
+               !      -0.8 |    7.5e-26     3.63e-13    -3.63e-13 |    7.24e-22    -3.51e-09     -3.51e-09 |
+               !      -0.6 |   3.59e-24     7.59e-15    -7.59e-15 |    3.46e-20    -7.33e-11     -7.33e-11 |
+               !      -0.4 |   1.72e-22     1.59e-16    -1.59e-16 |    1.66e-18    -1.53e-12     -1.53e-12 |
+               !      -0.2 |   8.22e-21     3.32e-18    -3.31e-18 |    7.93e-17     -3.2e-14     -3.19e-14 |
+               !  -0.04489 |   1.65e-19     1.65e-19     -1.2e-34 |    1.59e-15    -1.59e-15     -1.16e-30 |
+               !         0 |   3.93e-19     6.93e-20     3.24e-19 |     3.8e-15    -6.69e-16      3.13e-15 |
+               !       0.2 |   1.88e-17     1.45e-21     1.88e-17 |    1.82e-13     -1.4e-17      1.82e-13 |
+               !       0.4 |   9.01e-16     3.03e-23     9.01e-16 |    8.69e-12    -2.92e-19      8.69e-12 |
+               !       0.6 |   4.31e-14     6.32e-25     4.31e-14 |    4.16e-10     -6.1e-21      4.16e-10 |
+               !       0.8 |   2.06e-12     1.32e-26     2.06e-12 |    1.99e-08    -1.27e-22      1.99e-08 |
+               !         1 |   9.88e-11     2.76e-28     9.88e-11 |    9.53e-07    -2.66e-24      9.53e-07 |
                ---------------------------------------------------------------------------------------------
                 TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
                ----------------------------------------------------------------------------
@@ -740,10 +740,10 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
         Temperature (where needed) = 300 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = pt_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
           -----------------------------------------------------------------------------
-              1         pt_site          0.9000       1.880E-11       6.267E-01
-              2         H*_site          0.1000       2.089E-12       6.963E-02
+              1         pt_site          0.9000       2.700E-09       9.000E-01
+              2         H*_site          0.1000       3.000E-10       1.000E-01
           ------------------------------------------------------------------------------
 
 ==========================================================================================================================================
@@ -774,7 +774,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "Pt_H2electro
 |   (K)  |    (units_ROP)     (kcal/gmol)|(kcal/gmol)(kcal/gmol)(cal/gmolK)|  (units_ROP)      (kcal/gmol) |   (units_ROP)     (kcal/gmol) |
 |--------|-------------------------------|---------------------------------|-------------------------------|-------------------------------|
 |  273.1 |  6.61E-11  5.13E-02     11.11 |  -1.43E-02      0.00  5.23E-02  |  7.62E-11  8.42E-02     11.30 | -1.01E-11 -1.13E-01     12.56 |
-|  298.1 |  3.51E-10  1.73E-02     10.50 |  -1.56E-02      0.00  5.23E-02  |  4.19E-10  3.35E-02     10.78 | -6.86E-11 -6.38E-02     12.24 |
+|  298.1 |  3.51E-10  1.73E-02     10.50 |  -1.56E-02      0.00  5.23E-02  |  4.19E-10  3.35E-02     10.78 | -6.86E-11 -6.40E-02     12.24 |
 |  300.0 |  3.91E-10  1.62E-02     10.46 |  -1.57E-02      0.00  5.23E-02  |  4.69E-10  3.17E-02     10.75 | -7.79E-11 -6.18E-02     12.22 |
 |  320.0 |  1.15E-09  8.27E-03     10.04 |  -1.67E-02      0.00  5.23E-02  |  1.42E-09  1.88E-02     10.43 | -2.78E-10 -4.50E-02     12.02 |
 |  333.1 |  2.12E-09  5.68E-03      9.80 |  -1.74E-02      0.00  5.23E-02  |  2.70E-09  1.44E-02     10.26 | -5.83E-10 -3.83E-02     11.92 |
@@ -802,8 +802,8 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "Pt_H2electro
                   T = 300 K
                   P = 101325 Pascal
                        SurfSpecName         Theta_k_Bath
-                           pt_site      0.62669
-                           H*_site     0.069632
+                           pt_site          0.9
+                           H*_site          0.1
 
                 TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
                ------------------------------------------------------------------------------------------------------------------------------
