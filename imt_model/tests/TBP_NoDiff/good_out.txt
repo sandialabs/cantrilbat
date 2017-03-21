@@ -414,15 +414,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -494,15 +494,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -590,15 +590,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -670,15 +670,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -766,15 +766,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -846,15 +846,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -942,15 +942,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1022,15 +1022,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1118,15 +1118,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1198,15 +1198,15 @@ Phase B boundary layer thickness = 0.001
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.002E-02
+          Total Volume =  2.000E-05
           Temperature = 298.15
           Pressure = 101325
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    9.980E-04
-     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    9.980E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.980E-01
+     HNO3_electrolyte            5.539E-04    1.806E-02    1.000E-05    5.000E-01
+     TBP_liquid                  3.652E-05    2.738E-01    1.000E-05    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    1.500E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 

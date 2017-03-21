@@ -532,7 +532,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -543,9 +543,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -662,7 +662,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities               FINAL_FINAL       INIT_INIT
@@ -673,9 +673,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -789,7 +789,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -800,9 +800,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -969,7 +969,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -980,9 +980,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1099,7 +1099,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities               FINAL_FINAL       INIT_INIT
@@ -1110,9 +1110,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1226,7 +1226,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -1237,9 +1237,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1406,7 +1406,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -1417,9 +1417,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1536,7 +1536,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities               FINAL_FINAL       INIT_INIT
@@ -1547,9 +1547,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1663,7 +1663,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -1674,9 +1674,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1843,7 +1843,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -1854,9 +1854,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -1973,7 +1973,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities               FINAL_FINAL       INIT_INIT
@@ -1984,9 +1984,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -2100,7 +2100,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -2111,9 +2111,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -2280,7 +2280,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities                     FINAL            INIT
@@ -2291,9 +2291,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 
@@ -2410,7 +2410,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
                     DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
    ==============================================================================================
           Number of surfaces = 1
-          Total Volume =  1.001E-02
+          Total Volume =  1.000E-05
           Temperature = 298.15
           Pressure = 101325
           Velocities               FINAL_FINAL       INIT_INIT
@@ -2421,9 +2421,9 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    4.995E-04
-     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    4.995E-04
-     WaterTBP_surface            3.000E-10    3.333E+07    1.000E-02    9.990E-01
+     HNO3_electrolyte            2.810E-04    1.779E-02    5.000E-06    5.000E-01
+     TBP_liquid                  1.922E-05    2.601E-01    5.000E-06    5.000E-01
+     WaterTBP_surface            3.000E-10    1.000E-02    3.000E-12    3.000E-07
      ============================================================================================
      ============================================================================================
           Phase 0 HNO3_electrolyte 

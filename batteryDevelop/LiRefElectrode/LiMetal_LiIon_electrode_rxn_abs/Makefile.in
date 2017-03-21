@@ -17,6 +17,8 @@ BLESSED_FILES = good_cout.txt
 DATA =  problem_setup.sh cttables.inp \
         ECsoln_ion_abs.xml  Li_electrode.xml  Li_Metal.xml  cu_Li_LiIon_electrons.xml
 
+
+
 ##########################################################################
 #           Setup The Cantera Directory locations
 #########################################################################
@@ -54,7 +56,7 @@ runGood: $(DATA) Makefile $(BLESSED_FILES)
 	export PROGRAM_SETUP=problem_setup.sh; $(ABSTOP_DIR)/bin/runtest_Exec
 
 rebaseline:
-	cp out.txt good_out.txt
+	cp out.txt good_cout.txt
 
 ##############################################################################
 
@@ -69,6 +71,10 @@ include .depends
 endif
 
 test_clean:
+	$(RM) err_out.txt out.txt diff_aout.txt diff_cout.txt cttables_out.txt diff_tout.txt diff_summary.txt \
+	      thermo.csv runGood runBad runBad_1 runBad_2 runInProgress.txt polarizationData.csv
+
+clean_test:
 	$(RM) err_out.txt out.txt diff_aout.txt diff_cout.txt cttables_out.txt diff_tout.txt diff_summary.txt \
 	      thermo.csv runGood runBad runBad_1 runBad_2 runInProgress.txt polarizationData.csv
 

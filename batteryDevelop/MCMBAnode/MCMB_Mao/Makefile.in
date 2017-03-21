@@ -143,6 +143,7 @@ rebaseline:
 ##############################################################################
 
 $(OBJ_MPEQUIL): Makefile
+
 $(DEPENDS): Makefile $(CPP_TOTAL)
 
 $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
