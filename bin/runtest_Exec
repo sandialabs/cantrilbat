@@ -94,7 +94,7 @@ diff_compare_file() {
    fi
    diffCode='0'
 
-   diff $bb $gg >> $difname
+   diff $bb $gg > $difname
    retnStat=$?
    if test $retnStat = "0"
    then
