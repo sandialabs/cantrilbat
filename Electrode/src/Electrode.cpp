@@ -3125,8 +3125,8 @@ double Electrode::openCircuitVoltageSSRxn(size_t isk, size_t iReaction) const
  *  closest to equilibrium given the cell voltage since this one
  *  is the one for which open circuit is most relevant.
  */
-	double Electrode::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool comparedToReferenceElectrode) const
-	{
+double Electrode::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool comparedToReferenceElectrode) const
+{
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         return 0.0;
@@ -3239,11 +3239,11 @@ double Electrode::openCircuitVoltage_MixtureAveraged(size_t isk,  bool comparedT
     return Electrode::openCircuitVoltage(isk, comparedToReferenceElectrode);
 }
 //==================================================================================================================================
-// A calculation of the open circuit voltage of a surface
+// A calculation of the open circuit voltage of an Electrode object
 /*
- *  This routine uses a root finder to find the voltage at which there
- *  is zero net electron production.  It leaves the object unchanged. However, it
- *  does change the voltage of the phases during the calculation, so this is a nonconst function.
+ *  This routine uses a root finder to find the voltage at which there is zero net electron production.  
+ *  It leaves the object unchanged. However, it does change the voltage of the phases during the calculation,
+ *  so this is a nonconst function.
  */
 double Electrode::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)
 {
@@ -3572,66 +3572,38 @@ double Electrode::overpotentialRxn(size_t isk, size_t irxn)
     double Erxn = openCircuitVoltageRxn(isk, irxn);
     return (deltaVoltage_ - Erxn);
 }
-//====================================================================================================================
-double Electrode::getExchangeCurrentDensity(size_t isk, size_t irxn) const
-{
-    double iCurr = 0.0;
-    ReactingSurDomain* rsd = RSD_List_[isk];
-    if (!rsd) {
-        return 0.0;
-    } else {
-        double nstoich;
-        double ocv;
-        double io;
-        double nu;
-        double beta;
-        double resist;
-#ifdef DONOTREMOVE
-	iCurr = rsd->getExchangeCurrentDensityFormulation(irxn, &nstoich, &ocv, &io, &nu, &beta, &resist);
-#else
-	bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, nstoich, ocv, io, nu, beta, resist);
-	if (okk) {
-	    iCurr = rsd->calcCurrentDensity(nu, nstoich, io, beta, temperature_, resist);
-	} else {
-	    iCurr = 0.0;
-	}
-#endif
-        return io;
-    }
-    return iCurr;
-}
-//====================================================================================================================
+//==================================================================================================================================
 size_t Electrode::kKinSpecElectron(size_t isurf) const
 {
     return kKinSpecElectron_sph_[isurf];
 }
-//====================================================================================================================
+//==================================================================================================================================
 size_t Electrode::metalPhaseIndex() const
 {
     return metalPhase_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 size_t Electrode::solnPhaseIndex() const
 {
     return solnPhase_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 size_t Electrode::numSolnPhaseSpecies() const
 {
     return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Return the number of extra print tables
 int Electrode::getNumPrintTables() const
 {
     return 0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //! Get the values that are printed in tables for the 1D code.
 void Electrode::getPrintTable(int itable, std::vector<std::string>& colNames, std::vector<double>& colValues) const
 {
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Set the current depth of discharge
 /*
  * This is roughly equal to the total number of electrons that has been discharged from a fully charged state
@@ -3650,7 +3622,7 @@ void Electrode::setRelativeCapacityDischargedPerMole(double relDischargedPerMole
     }
     throw Electrode_Error(" Electrode::setRelativeCapacityDischargedPerMole()", "not implemented");
 }
-//====================================================================================================================
+//==================================================================================================================================
 RxnMolChange* Electrode::rxnMolChangesEGR(size_t iegr)
 {
     return m_rmcEGR[iegr];

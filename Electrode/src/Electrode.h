@@ -1781,17 +1781,13 @@ public:
 
     //! Returns the standard state E0 for the electrode based on a single reaction (virtual)
     /*!
-     *  When there is more than a single reaction,
-     *  pick open circuit potential for reaction that is
-     *  closest to equilibrium given the cell voltage since this one
-     *  is the one for which open circuit is most relevant.
-     *  Note that it will be possible for the standard state OCV
-     *  to be computed for a different reaction relative to the
-     *  method openCircuitVoltage(isk) that computes OCV from
-     *  the current concentrations because it looks for the reaction
+     *  When there is more than a single reaction,  pick open circuit potential for reaction that is
+     *  closest to equilibrium given the cell voltage since this one is the one for which open circuit is most relevant.
+     *  Note that it will be possible for the standard state OCV to be computed for a different reaction relative to the
+     *  method openCircuitVoltage(isk) that computes OCV from  the current concentrations because it looks for the reaction
      *  closest to equilibrium given the current cell voltage.
      *
-     *  (virtual function from Electrode.h)
+     *  (virtual function from Electrode)
      *
      *  @param[in]   isk                  Reacting surface domain id
      *  @param[in]   iReaction            Explicit index of the reaction. If -1, then it attempts
@@ -1835,11 +1831,14 @@ public:
     //! Get the open circuit potential at the mixture averaged conditions of the electrode
     /*!
      *  (virtual from Electrode)
-     *   This routine creates a mixture averaged condition of the electrode (eliminating any diffusion process)
-     *   before calculating the OCV. The result is the same as  openCircuitVoltage() in the base class.
+     *  This routine creates a mixture averaged condition of the electrode (eliminating any diffusional processes within the
+     *  electrode) before calculating the OCV. The result is the same as openCircuitVoltage() in the base class, where 
+     *  the assumption of a well mixed electrode is used.
      *
-     *   @param[in]     isk                           Reacting surface domain id
-     *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
+     *  @param[in]           isk                           Reacting surface domain id
+     *  @param[in]           comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false
+     *                                                     which means that the OCV refers to the phiMetal - phiElectrolyte at the
+     *                                                     electrode surface.
      *
      *   @return                                      Returns the OCV (volts)
      */
@@ -1857,48 +1856,6 @@ public:
      *  @param[in]      comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
      */
     void getOpenCircuitVoltages(size_t isk, double* const ocv, bool comparedToReferenceElectrode = false) const;
-
-    //! Returns the exchange current density for a given surface reaction in A/m^2
-    /*!
-     *  The parameterization for a single reaction defines the exchange
-     *  current density formulation for that reaction. Note the exchange current density depends
-     *  on the activity concentrations of the reactants and the products.
-     *
-     *         i  = io [ exp( (Betaf  Nu  nSt  F)/ RT) - exp(- ((1 - Betaf) Nu nSt F)/ RT) ]
-     *
-     *              where Nu = E - OCV is the overpotential
-     *
-     *              and E = Phi(Metal) - Phi(Soln)
-     *
-     *   where the current is defined as
-     *
-     *         i = - z_e- * F * d[e-]/dt
-     *
-     *    and
-     *
-     *         d[e-]/dt = (n) ROP_net
-     *
-     *   A note about signs
-     *
-     *    i is defined here as being positive if there is a net current going from the metal into solution.
-     *    This in turn means that if there is a positive generation of electrons, then the current
-     *    is positive.
-     *
-     *    In this formulation the stoichiometric number of electrons can be positive or negative
-     *    It will be negative if the electrons appears on the reactant side of the equation.
-     *
-     *    In this formulation, io can be positive or negative. It's sign will be determined by the
-     *    sign of the nSt, the stoichiometric electrons.
-     *
-     *    This routine returns io in the above discusion.
-     *
-     *  @param[in]        isk                   Reacting surface index.
-     *  @param[in]        irxn                  Reaction number on the reacting surface
-     *
-     *  @return                                 Returns the exchange current in units of amps / m2
-     */
-// Deprecate
-    double getExchangeCurrentDensity(size_t isk, size_t irxn) const;
 
     //! Returns the overpotential for the current conditions
     /*!

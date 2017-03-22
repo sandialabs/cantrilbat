@@ -241,7 +241,7 @@ public:
      *  @return                                     Returns the net current in amps m-2 from all reactions
      *                                              at the current conditions.
      */
-    double getCurrentDensityRxn(double * const currentDensityRxn = 0);
+    double getCurrentDensityRxn(double* const currentDensityRxn = 0);
 
     //! Get the net current density for the set of reactions on this surface in amps m-2.
     /*!
@@ -461,8 +461,7 @@ public:
     virtual void getDeltaSSEnthalpy(double* const deltaH);
 
     
-    //!  Return the vector of values for the change in the standard
-    //!  state entropies for each reaction.  These values don't
+    //! Return the vector of values for the change in the standard state entropies for each reaction.  These values don't
     //! depend upon the concentration of the solution.
     /*! 
      *  (virtual from Kinetics.h)

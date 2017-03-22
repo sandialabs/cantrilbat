@@ -874,13 +874,13 @@ public:
     //! Get the open circuit potential at the mixture averaged conditions of the electrode
     /*!
      *  (virtual from Electrode)
-     *   This routine creates a mixture averaged condition of the electrode (eliminating any diffusion process)
-     *   before calculating the OCV. The result is the same as  openCircuitVoltage() in the base class.
+     *  This routine creates a mixture averaged condition of the electrode (eliminating any diffusion process)
+     *  before calculating the OCV. The result is the same as  openCircuitVoltage() in the base class.
      *
-     *   @param[in]     isk                           Reacting surface domain id
-     *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
+     *  @param[in]     isk                           Reacting surface domain id
+     *  @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
      *
-     *   @return                                      Returns the OCV (volts)
+     *  @return                                      Returns the OCV (volts)
      */
     virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false) override;
 
