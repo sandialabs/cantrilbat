@@ -106,7 +106,6 @@ Electrode::Electrode() :
                 spElectroChemPot_(0),
                 phaseVoltages_(0),
                 RSD_List_(0),
-                ActiveKineticsSurf_(0),
                 phaseMoles_init_(0),
                 phaseMoles_init_init_(0),
                 phaseMoles_final_(0),
@@ -227,7 +226,6 @@ Electrode::Electrode(const Electrode& right) :
                 spElectroChemPot_(0),
                 phaseVoltages_(0),
                 RSD_List_(0),
-                ActiveKineticsSurf_(0),
                 phaseMoles_init_(0),
                 phaseMoles_init_init_(0),
                 phaseMoles_final_(0),
@@ -1642,11 +1640,11 @@ void Electrode::resizeSurfaceAreasToGeometry()
             surfaceAreaRS_final_final_[i] = totalSurfArea;
 
             if (RSD_List_.size() > 0) {
-            if (RSD_List_[i]) {
-                ActiveKineticsSurf_[i] = 1;
-            } else {
-                ActiveKineticsSurf_[i] = 0;
-            }
+                if (RSD_List_[i]) {
+                    ActiveKineticsSurf_[i] = 1;
+                } else {
+                    ActiveKineticsSurf_[i] = 0;
+                }
             }
         }
     } else {
@@ -1659,9 +1657,9 @@ void Electrode::resizeSurfaceAreasToGeometry()
             ActiveKineticsSurf_[i] = 0;
             if (surfaceAreaRS_final_[i] > 0.0) {
                 if (RSD_List_.size() > 0) {
-                if (RSD_List_[i]) {
-                    ActiveKineticsSurf_[i] = 1;
-                }
+                    if (RSD_List_[i]) {
+                        ActiveKineticsSurf_[i] = 1;
+                    }
                 }
             }
         }
@@ -3571,6 +3569,40 @@ double Electrode::overpotentialRxn(size_t isk, size_t irxn)
 {
     double Erxn = openCircuitVoltageRxn(isk, irxn);
     return (deltaVoltage_ - Erxn);
+}
+//==================================================================================================================================
+double Electrode::openCircuitVoltageTotal(bool comparedToReferenceElectrode)
+{
+    if (numSurfaces_ == 1) {
+        return openCircuitVoltage(0, comparedToReferenceElectrode);
+    }
+    int numA = 0;
+    double OCV = 0.0;
+    for (size_t iSurf = 0; iSurf < numSurfaces_; iSurf++) {
+        if (ActiveKineticsSurf_[iSurf]) {
+            numA++;
+            OCV = openCircuitVoltage(0, comparedToReferenceElectrode);
+        }
+    } 
+    // prelim implementation -> Doesn't work in complicated situations
+    return OCV;
+}
+//==================================================================================================================================
+double Electrode::openCircuitVoltageTotal_MixtureAveraged(bool comparedToReferenceElectrode)
+{
+    if (numSurfaces_ == 1) {
+        return openCircuitVoltage_MixtureAveraged(0, comparedToReferenceElectrode);
+    }
+    int numA = 0;
+    double OCV = 0.0;
+    for (size_t iSurf = 0; iSurf < numSurfaces_; iSurf++) {
+        if (ActiveKineticsSurf_[iSurf]) {
+            numA++;
+            OCV = openCircuitVoltage(0, comparedToReferenceElectrode);
+        }
+    } 
+    // prelim implementation -> Doesn't work in complicated situations
+    return OCV;
 }
 //==================================================================================================================================
 size_t Electrode::kKinSpecElectron(size_t isurf) const

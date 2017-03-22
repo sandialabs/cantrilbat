@@ -1874,12 +1874,40 @@ public:
      *  This routine calculates the open circuit voltage for the surface by calling a
      *  openCircuitVoltageRxn() routine. The OCV is a half-cell calculation.
      *
-     *   @param isk   reacting surface number
-     *   @param irxn  Reaction number
+     *  @param[in]           isk                reacting surface number
+     *  @param[in]           irxn               Reaction number
      *
-     *   @return                                Returns the overpotential of a given reaciton on a reacting surface (volts)
+     *  @return                                 Returns the overpotential of a given reaciton on a reacting surface (volts)
      */
     double overpotentialRxn(size_t isk, size_t irxn = npos);
+
+    //! Calculate the OCV of the Electrode object using all permissible reacting surfaces
+    /*!
+     *  (virtual from Electrode)
+     *
+     *  Note, I'ved added the "Total" keyword into the name to differentiate this routine from the other routines, which only
+     *  calculate the OCV for a single reacting surface.
+     *  This is a preliminary implementation. It doesn't work in complicated situations
+     *
+     *  @param[in]     comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
+     *
+     *  @return                                  Returns the OCV for the electrode
+     */
+    virtual double openCircuitVoltageTotal(bool comparedToReferenceElectrode = false);
+
+    //! Calculate the OCV of the Electrode object using all permissible reacting surfaces assuming mixture averaged properties
+    /*!
+     *  Note, I'ved added the "Total" keyword into the name to differentiate this routine from the other routines, which only
+     *  calculate the OCV for a single reacting surface.
+     *  (virtual from Electrode)
+     *
+     *  This is a preliminary implementation. It doesn't work in complicated situations
+     *
+     *  @param[in]     comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
+     *
+     *  @return                                 Returns the OCV for the electrode
+     */
+    virtual double openCircuitVoltageTotal_MixtureAveraged(bool comparedToReferenceElectrode = false);
 
     //! Return the kinetics species index of the electron for the surface phase, isph
     /*!
