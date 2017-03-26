@@ -1887,6 +1887,7 @@ public:
      *
      *  Note, I'ved added the "Total" keyword into the name to differentiate this routine from the other routines, which only
      *  calculate the OCV for a single reacting surface.
+     *
      *  This is a preliminary implementation. It doesn't work in complicated situations
      *
      *  @param[in]     comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
