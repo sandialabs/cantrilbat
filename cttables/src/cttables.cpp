@@ -797,6 +797,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
     /*
      * Print out the reference pressure
      */
+    g_ptr->setTemperature(298.15);  // temp fix for variable reference pressures
     SpeciesThermo& sThermo = g_ptr->speciesThermo();
     double presRef = sThermo.refPressure(k);
     double presRefPhase = g_ptr->refPressure();
