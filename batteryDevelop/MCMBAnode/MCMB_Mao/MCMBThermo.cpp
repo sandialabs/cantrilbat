@@ -108,7 +108,7 @@ int main(int argc, char **argv)
      pl->addVolPhase("Li_Metal.xml");
      pl->addSurPhase("MCMBAnode_electrode_extra.xml");
 
-     pl->setState_TP(Temp, OneAtm);
+     pl->setState_TP(Temp, OneBar);
 
      ReactingSurDomain* rsd = new ReactingSurDomain();
      rsd->importFromPL(pl, 0);
@@ -148,7 +148,7 @@ int main(int argc, char **argv)
      xmol[1] = xMoleFractionLip;
      xmol[2] = xmol[1];
      xmol[0] = 1.0 - 2.0 * xmol[1]; 
-     ecsoln.setState_TPX(Temp, OneAtm, xmol);
+     ecsoln.setState_TPX(Temp, OneBar, xmol);
      double aa[10];
      ecsoln.getActivities(aa);
      printf("activity Li+ = %g\n", aa[1]);
@@ -166,7 +166,7 @@ int main(int argc, char **argv)
 	 double xKC = 0.0 + (double) i / (numP - 1.0);
          xmol[kC] = xKC;
          xmol[kLiC] = 1.0 - xmol[kC];
-         mcmb.setState_TPX(Temp, OneAtm, xmol);
+         mcmb.setState_TPX(Temp, OneBar, xmol);
 
 	 rsd->getDeltaGibbs(dg);
 	 double ocv = dg[1] / Faraday / nstoic;
@@ -189,7 +189,7 @@ int main(int argc, char **argv)
      xmol[1] = xMoleFractionLip;
      xmol[2] = xmol[1];
      xmol[0] = 1.0 - 2.0 * xmol[1]; 
-     ecsoln.setState_TPX(Temp, OneAtm, xmol);
+     ecsoln.setState_TPX(Temp, OneBar, xmol);
      printf("  Mole fraction of Li+ = %g\n", xmol[1]);
      ecsoln.getActivities(aa);
      printf("activity Li+ = %g\n", aa[1]);
@@ -206,7 +206,7 @@ int main(int argc, char **argv)
 	 double xKC = 0.0 + (double) i / (numP - 1.0);
          xmol[kC] = xKC;
          xmol[kLiC] = 1.0 - xmol[kC];
-         mcmb.setState_TPX(Temp, OneAtm, xmol);
+         mcmb.setState_TPX(Temp, OneBar, xmol);
 
 	 rsd->getDeltaGibbs(dg);
 	 double ocv = dg[1] / Faraday / nstoic;
@@ -227,7 +227,7 @@ int main(int argc, char **argv)
      double RT = GasConstant * Temp; 
      xmol[kLiC] = 0.80;
      xmol[kC] = 1.0 -  xmol[kLiC];
-     mcmb.setState_TPX(Temp, OneAtm, xmol);
+     mcmb.setState_TPX(Temp, OneBar, xmol);
 
      mcmb.getPartialMolarEnthalpies(hh);
      mcmb.getEnthalpy_RT(hh0);
