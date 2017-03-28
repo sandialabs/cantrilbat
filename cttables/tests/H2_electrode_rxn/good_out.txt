@@ -385,7 +385,7 @@ INFORMATION TABLE FOR SPECIES "pt_site" IN PHASE "platinum_surface"
         Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 0.000000 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
@@ -398,7 +398,7 @@ INFORMATION TABLE FOR SPECIES "pt_site" IN PHASE "platinum_surface"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -428,7 +428,7 @@ INFORMATION TABLE FOR SPECIES "H*_site" IN PHASE "platinum_surface"
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = -3.585090 kcal/gmol
         DeltaGf (298.15K) = 12.914531 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
@@ -441,7 +441,7 @@ INFORMATION TABLE FOR SPECIES "H*_site" IN PHASE "platinum_surface"
                                 S  =             10000 J kmol-1 K-1
                                 Cp =             10000 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -531,7 +531,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Pt_H2electrons"
                !      -0.4 |   6.15e-07     2.97e-14     6.15e-07 |    -0.00594     2.87e-10      -0.00594 |
                !      -0.2 |   1.29e-08     1.42e-12     1.29e-08 |   -0.000124     1.37e-08     -0.000124 |
                !         0 |   2.69e-10      6.8e-11     2.01e-10 |   -2.59e-06     6.57e-07     -1.94e-06 |
-               !    0.0355 |   1.35e-10     1.35e-10     -3.1e-25 |    -1.3e-06      1.3e-06      2.99e-21 |
+               !    0.0355 |   1.35e-10     1.35e-10    -3.62e-25 |    -1.3e-06      1.3e-06      3.49e-21 |
                !       0.2 |   5.61e-12     3.26e-09    -3.25e-09 |   -5.42e-08     3.14e-05      3.14e-05 |
                !       0.4 |   1.17e-13     1.56e-07    -1.56e-07 |   -1.13e-09       0.0015        0.0015 |
                !       0.6 |   2.45e-15     7.46e-06    -7.46e-06 |   -2.37e-11        0.072         0.072 |
@@ -669,7 +669,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "Pt_H2electrons"
                !      -0.6 |   3.59e-24     7.59e-15    -7.59e-15 |    3.46e-20    -7.33e-11     -7.33e-11 |
                !      -0.4 |   1.72e-22     1.59e-16    -1.59e-16 |    1.66e-18    -1.53e-12     -1.53e-12 |
                !      -0.2 |   8.22e-21     3.32e-18    -3.31e-18 |    7.93e-17     -3.2e-14     -3.19e-14 |
-               !  -0.04489 |   1.65e-19     1.65e-19    -1.93e-34 |    1.59e-15    -1.59e-15     -1.86e-30 |
+               !  -0.04489 |   1.65e-19     1.65e-19     -1.2e-34 |    1.59e-15    -1.59e-15     -1.16e-30 |
                !         0 |   3.93e-19     6.93e-20     3.24e-19 |     3.8e-15    -6.69e-16      3.13e-15 |
                !       0.2 |   1.88e-17     1.45e-21     1.88e-17 |    1.82e-13     -1.4e-17      1.82e-13 |
                !       0.4 |   9.01e-16     3.03e-23     9.01e-16 |    8.69e-12    -2.92e-19      8.69e-12 |

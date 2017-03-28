@@ -387,7 +387,7 @@ INFORMATION TABLE FOR SPECIES "al_site" IN PHASE "aluminum_surface"
         Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
         DeltaGf (298.15K) = 0.000000  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
@@ -400,7 +400,7 @@ INFORMATION TABLE FOR SPECIES "al_site" IN PHASE "aluminum_surface"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -483,7 +483,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
                |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
                ---------------------------------------------------------------------------------------------
-               !    -1.734 |   2.48e-48     2.48e-48    -3.04e-62 |    7.18e-44    -7.18e-44      -8.8e-58 |
+               !    -1.734 |   2.48e-48     2.48e-48    -3.28e-62 |    7.18e-44    -7.18e-44      -9.5e-58 |
                !        -1 |   7.67e-30     8.02e-67     7.67e-30 |    2.22e-25    -2.32e-62      2.22e-25 |
                !      -0.8 |   8.41e-25     7.32e-72     8.41e-25 |    2.43e-20    -2.12e-67      2.43e-20 |
                !      -0.6 |   9.22e-20     6.68e-77     9.22e-20 |    2.67e-15    -1.93e-72      2.67e-15 |
@@ -501,7 +501,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "Al(S)"
                |  Voltage  |       Ifwd         Irev        Inet  |    al_site |
                |   Volts   |               (amps/cm2)             |            |
                -----------------------------------------------------------------
-               !    -1.734 |   7.18e-44    -7.18e-44     -8.8e-58 |         1  |
+               !    -1.734 |   7.18e-44    -7.18e-44     -9.5e-58 |         1  |
                !        -1 |   2.22e-25    -2.32e-62     2.22e-25 |         1  |
                !      -0.8 |   2.43e-20    -2.12e-67     2.43e-20 |         1  |
                !      -0.6 |   2.67e-15    -1.93e-72     2.67e-15 |         1  |

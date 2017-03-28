@@ -341,7 +341,7 @@ INFORMATION TABLE FOR SPECIES "lisi_3_site" IN PHASE "LiSi_3_surface"
         Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
         DeltaGf (298.15K) = 0.000000  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.01 m3/kmol
@@ -354,7 +354,7 @@ INFORMATION TABLE FOR SPECIES "lisi_3_site" IN PHASE "LiSi_3_surface"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |

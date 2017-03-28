@@ -304,7 +304,7 @@ INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
         Molecular Weight = 12.011 gm/mol
         Heat of formation (298.15K) = 5.043999 kcal/gmol
         DeltaGf (298.15K) = 19.504970 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1400,101325) = 0.00341222 m3/kmol
@@ -320,7 +320,7 @@ INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
                                 S  =         -12635.68 J kmol-1 K-1
                                 Cp =           24894.8 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -365,7 +365,7 @@ INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
         Molecular Weight = 12.011 gm/mol
         Heat of formation (298.15K) = 45.797496 kcal/gmol
         DeltaGf (298.15K) = 35.879352 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1400,101325) = 0.00789474 m3/kmol
@@ -378,7 +378,7 @@ INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
                                 S  =             81588 J kmol-1 K-1
                                 Cp =          35187.44 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -412,7 +412,7 @@ INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
         Molecular Weight = 13.0189 gm/mol
         Heat of formation (298.15K) = 5.497448 kcal/gmol
         DeltaGf (298.15K) = 13.189236 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1400,101325) = 0.00789474 m3/kmol
@@ -425,7 +425,7 @@ INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
                                 S  =             87864 J kmol-1 K-1
                                 Cp =          35187.44 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |

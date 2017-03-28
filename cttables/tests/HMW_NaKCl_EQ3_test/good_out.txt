@@ -244,8 +244,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 35.4532 gm/mol
         Heat of formation (298.15K) = -167.109669  kJ/gmol 
         DeltaGf (298.15K) = -131.289930  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0190756 m3/kmol
@@ -256,7 +255,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
                PDSS Species index    = 1
                PDSS min Temperature  = 298.15
                PDSS max Temperature  = 625.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = -31379
                   deltaH_formation_tr_pr = -39933
@@ -270,7 +269,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "NaCl_electrolyte"
                   c2                     = -57140
                   omega_pr_tr            = 145600
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -306,19 +305,18 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 1.0074 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
         DeltaGf (298.15K) = 0.000000  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.00136726 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = -4.17086e-25 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0 m3/kmol
         species partial Molar Volume = 0.00136726 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 2
                PDSS min Temperature  = 298.15
                PDSS max Temperature  = 625.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = 0
                   deltaH_formation_tr_pr = 0
@@ -332,7 +330,7 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
                   c2                     = 0
                   omega_pr_tr            = 0
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -342,15 +340,15 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
 |**  280.00*|    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |**  285.00*|    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |**  290.00*|    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
-|    298.15 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |    300.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
-|    320.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
-|    333.15 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    320.00 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    333.15 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |    340.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
-|    360.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    360.00 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |    373.15 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
-|    380.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
-|    400.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    380.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    400.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 |    420.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 |    440.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
@@ -368,8 +366,7 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 22.9892 gm/mol
         Heat of formation (298.15K) = -240.326682  kJ/gmol 
         DeltaGf (298.15K) = -261.881029  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.000242777 m3/kmol
@@ -380,7 +377,7 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
                PDSS Species index    = 3
                PDSS min Temperature  = 298.15
                PDSS max Temperature  = 625.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = -62591
                   deltaH_formation_tr_pr = -57433
@@ -394,7 +391,7 @@ INFORMATION TABLE FOR SPECIES "Na+" IN PHASE "NaCl_electrolyte"
                   c2                     = -29810
                   omega_pr_tr            = 33060
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -431,8 +428,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 17.0079 gm/mol
         Heat of formation (298.15K) = -230.035784  kJ/gmol 
         DeltaGf (298.15K) = -157.297751  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = -0.000889422 m3/kmol
@@ -443,7 +439,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
                PDSS Species index    = 4
                PDSS min Temperature  = 298.15
                PDSS max Temperature  = 625.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = -37595
                   deltaH_formation_tr_pr = -54977
@@ -457,7 +453,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "NaCl_electrolyte"
                   c2                     = -103460
                   omega_pr_tr            = 92570
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -493,8 +489,7 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "NaCl_electrolyte"
         Molecular Weight = 39.0978 gm/mol
         Heat of formation (298.15K) = -252.136231  kJ/gmol 
         DeltaGf (298.15K) = -282.462140  kJ/gmol 
-                Phase Reference Pressure = 100000 Pa
-        Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0104252 m3/kmol
@@ -505,7 +500,7 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "NaCl_electrolyte"
                PDSS Species index    = 5
                PDSS min Temperature  = 298.15
                PDSS max Temperature  = 625.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = -67510
                   deltaH_formation_tr_pr = -60270
@@ -519,7 +514,7 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "NaCl_electrolyte"
                   c2                     = -17910
                   omega_pr_tr            = 19270
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |

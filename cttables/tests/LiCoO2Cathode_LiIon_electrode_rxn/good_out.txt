@@ -30,7 +30,7 @@ INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Interstitials_cathode"
         Molecular Weight = 97.873 gm/mol
         Heat of formation (298.15K) = 680.767614 kcal/gmol
         DeltaGf (298.15K) = 759.568360 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
@@ -42,7 +42,7 @@ INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Interstitials_cathode"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -70,7 +70,7 @@ INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
         Molecular Weight = 90.932 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 70.129054 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
@@ -82,7 +82,7 @@ INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -181,7 +181,7 @@ INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
         Molecular Weight = 88.063 gm/mol
         Heat of formation (298.15K) = -119.503010 kcal/gmol
         DeltaGf (298.15K) = 25.487484 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 1.5 m3/kmol
@@ -193,7 +193,7 @@ INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
                                 S  =            100000 J kmol-1 K-1
                                 Cp =                10 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -222,7 +222,7 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
         Molecular Weight = 6.94046 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 8.671693 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0 m3/kmol
@@ -234,7 +234,7 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -264,7 +264,7 @@ INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
         Molecular Weight = 144.965 gm/mol
         Heat of formation (298.15K) = -119.503010 kcal/gmol
         DeltaGf (298.15K) = 59.221218 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 1 m3/kmol
@@ -276,7 +276,7 @@ INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
                                 S  =             50000 J kmol-1 K-1
                                 Cp =                10 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -313,7 +313,7 @@ INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
         Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 0.000000 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.01 m3/kmol
@@ -326,7 +326,7 @@ INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |

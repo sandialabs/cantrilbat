@@ -134,8 +134,7 @@ INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
         Molecular Weight = 65.3789 gm/mol
         Heat of formation (298.15K) = -36.672109 kcal/gmol
         DeltaGf (298.15K) = -30.512986 kcal/gmol
-                Phase Reference Pressure = 1E+06 erg cm-2
-        Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
         Partial    Molar Volume at (T,P) of (300,101325) = -0.0131439 m3/kmol
@@ -146,7 +145,7 @@ INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
                PDSS Species index    = 1
                PDSS min Temperature  = 298.15
                PDSS max Temperature  = 625.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = -35200
                   deltaH_formation_tr_pr = -36660
@@ -160,7 +159,7 @@ INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
                   c2                     = -53700
                   omega_pr_tr            = -100
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -193,8 +192,7 @@ INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
         Molecular Weight = 96.0647 gm/mol
         Heat of formation (298.15K) = -217.422452 kcal/gmol
         DeltaGf (298.15K) = -52.187105 kcal/gmol
-                Phase Reference Pressure = 1E+06 erg cm-2
-        Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.0213751 m3/kmol
@@ -205,7 +203,7 @@ INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
                PDSS Species index    = 2
                PDSS min Temperature  = 298
                PDSS max Temperature  = 623.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = -177930
                   deltaH_formation_tr_pr = -217400
@@ -219,7 +217,7 @@ INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
                   c2                     = -179980
                   omega_pr_tr            = 314630
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -251,8 +249,7 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
         Molecular Weight = 1.0074 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = -0.000000 kcal/gmol
-                Phase Reference Pressure = 1E+06 erg cm-2
-        Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.00187658 m3/kmol
@@ -263,7 +260,7 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
                PDSS Species index    = 3
                PDSS min Temperature  = 298
                PDSS max Temperature  = 623.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = 0
                   deltaH_formation_tr_pr = 0
@@ -277,21 +274,21 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
                   c2                     = 0
                   omega_pr_tr            = 0
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
 |**  273.15*|    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
-|    298.15 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    298.15 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |    300.00 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
-|    320.00 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    320.00 |     0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |    333.15 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 |    340.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 |    360.00 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
 |    373.15 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
-|    380.00 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
-|    400.00 |    -0.0000         -0.0000         0.0000       0.0000   |       0.0000 | 
+|    380.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
+|    400.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 |    420.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 |    440.00 |    -0.0000         -0.0000         0.0000      -0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
@@ -310,8 +307,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
         Molecular Weight = 17.0079 gm/mol
         Heat of formation (298.15K) = -54.979873 kcal/gmol
         DeltaGf (298.15K) = 17.758166 kcal/gmol
-                Phase Reference Pressure = 1E+06 erg cm-2
-        Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
         Partial    Molar Volume at (T,P) of (300,101325) = -0.00231348 m3/kmol
@@ -322,7 +318,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
                PDSS Species index    = 4
                PDSS min Temperature  = 298
                PDSS max Temperature  = 623.15
-               PDSS reference pres   = 101325
+               PDSS reference pres   = 100000
                PDSS_MOLAL_HKFT PDSS thermo type
                   deltaG_formation_tr_pr = -37595
                   deltaH_formation_tr_pr = -54977
@@ -336,7 +332,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
                   c2                     = -103460
                   omega_pr_tr            = 172460
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -435,7 +431,7 @@ INFORMATION TABLE FOR SPECIES "zn_site" IN PHASE "zinc_surface"
         Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 0.000000 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
@@ -448,7 +444,7 @@ INFORMATION TABLE FOR SPECIES "zn_site" IN PHASE "zinc_surface"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |

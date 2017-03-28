@@ -215,7 +215,7 @@ INFORMATION TABLE FOR SPECIES "C(d)" IN PHASE "diamond"
         Molecular Weight = 12.011 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 1.711381 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.00341222 m3/kmol
@@ -231,7 +231,7 @@ INFORMATION TABLE FOR SPECIES "C(d)" IN PHASE "diamond"
                                 S  =                 0 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -282,7 +282,7 @@ INFORMATION TABLE FOR SPECIES "c6HH" IN PHASE "diamond_100"
         Molecular Weight = 2.01588 gm/mol
         Heat of formation (298.15K) = 11.400014 kcal/gmol
         DeltaGf (298.15K) = 24.165604 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -295,7 +295,7 @@ INFORMATION TABLE FOR SPECIES "c6HH" IN PHASE "diamond_100"
                                 S  =             87864 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -328,7 +328,7 @@ INFORMATION TABLE FOR SPECIES "c6H*" IN PHASE "diamond_100"
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = 51.700062 kcal/gmol
         DeltaGf (298.15K) = 46.855720 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -341,7 +341,7 @@ INFORMATION TABLE FOR SPECIES "c6H*" IN PHASE "diamond_100"
                                 S  =             81588 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -374,7 +374,7 @@ INFORMATION TABLE FOR SPECIES "c6*H" IN PHASE "diamond_100"
         Molecular Weight = 1.00794 gm/mol
         Heat of formation (298.15K) = 46.100055 kcal/gmol
         DeltaGf (298.15K) = 40.756730 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -387,7 +387,7 @@ INFORMATION TABLE FOR SPECIES "c6*H" IN PHASE "diamond_100"
                                 S  =           83261.6 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -419,7 +419,7 @@ INFORMATION TABLE FOR SPECIES "c6**" IN PHASE "diamond_100"
         Molecular Weight = 0 gm/mol
         Heat of formation (298.15K) = 90.000107 kcal/gmol
         DeltaGf (298.15K) = 67.046851 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -432,7 +432,7 @@ INFORMATION TABLE FOR SPECIES "c6**" IN PHASE "diamond_100"
                                 S  =           76985.6 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -466,7 +466,7 @@ INFORMATION TABLE FOR SPECIES "c6HM" IN PHASE "diamond_100"
         Molecular Weight = 16.0428 gm/mol
         Heat of formation (298.15K) = 26.900032 kcal/gmol
         DeltaGf (298.15K) = 56.263275 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -479,7 +479,7 @@ INFORMATION TABLE FOR SPECIES "c6HM" IN PHASE "diamond_100"
                                 S  =          168615.2 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -513,7 +513,7 @@ INFORMATION TABLE FOR SPECIES "c6HM*" IN PHASE "diamond_100"
         Molecular Weight = 15.0348 gm/mol
         Heat of formation (298.15K) = 65.800078 kcal/gmol
         DeltaGf (298.15K) = 75.931692 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -526,7 +526,7 @@ INFORMATION TABLE FOR SPECIES "c6HM*" IN PHASE "diamond_100"
                                 S  =          167778.4 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -560,7 +560,7 @@ INFORMATION TABLE FOR SPECIES "c6*M" IN PHASE "diamond_100"
         Molecular Weight = 15.0348 gm/mol
         Heat of formation (298.15K) = 53.300063 kcal/gmol
         DeltaGf (298.15K) = 64.928629 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -573,7 +573,7 @@ INFORMATION TABLE FOR SPECIES "c6*M" IN PHASE "diamond_100"
                                 S  =          162757.6 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -607,7 +607,7 @@ INFORMATION TABLE FOR SPECIES "c6B" IN PHASE "diamond_100"
         Molecular Weight = 14.0269 gm/mol
         Heat of formation (298.15K) = 40.900049 kcal/gmol
         DeltaGf (298.15K) = 48.017008 kcal/gmol
-                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (1200,2666.45) = 0.01 m3/kmol
@@ -620,7 +620,7 @@ INFORMATION TABLE FOR SPECIES "c6B" IN PHASE "diamond_100"
                                 S  =          112549.6 J kmol-1 K-1
                                 Cp =                 0 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
