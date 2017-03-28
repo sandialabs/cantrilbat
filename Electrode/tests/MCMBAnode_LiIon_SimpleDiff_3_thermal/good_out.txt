@@ -178,7 +178,7 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = -0.023098
+oc[0] = -0.0230979
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  0.00000E+00
                               time init_init   =  0.00000E+00                     deltaTglobal = 0
@@ -267,7 +267,7 @@ oc[0] = -0.023098
                 surface area (final) = 2.51327E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.023098
+                Open Circuit Voltage = -0.0230979
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
@@ -286,8 +286,8 @@ oc[0] = -0.023098
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
 	*   1   3.128E+03   Y  |  1.00E+00  8.417E-01 | 1   1.00E+00  3.351E+00   9.017E-04  8.417E-01|  3.351E+00  3.351E+00  8.417E-01
-	    2   8.417E-01   Y  |  1.00E+00  1.954E-07 | 1   1.00E+00  9.013E-04   2.093E-10  1.954E-07|  9.013E-04  9.013E-04  1.954E-07
-	                       |                      |                                converged = 3  |            (  2.093E-10) 
+	    2   8.417E-01   Y  |  1.00E+00  1.998E-07 | 1   1.00E+00  9.012E-04   2.139E-10  1.998E-07|  9.012E-04  9.012E-04  1.998E-07
+	                       |                      |                                converged = 3  |            (  2.139E-10) 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
@@ -308,7 +308,7 @@ oc[0] = -0.023098
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      11.0354 coulombs =    0.0030654 Ah
+          Capacity Discharged Since Start =      11.0354 coulombs =   0.00306539 Ah
           Depth of Discharge (Current)    =       2451.6 coulombs    Relative Depth of Discharge = 0.200904    
           Capacity Left                   =      9751.21 coulombs    Capacity at Zero DOD = 12202.8      coulombs
      ===============================================================
@@ -377,7 +377,7 @@ oc[0] = -0.023098
                 surface area (final) = 2.51282E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.016845
+                Open Circuit Voltage = -0.0168449
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.538E-09  7.540E-09   0.000E+00
@@ -411,7 +411,7 @@ oc[0] = -0.023098
           Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          Capacity Discharged Since Start =      11.0354 coulombs =    0.0030654 Ah
+          Capacity Discharged Since Start =      11.0354 coulombs =   0.00306539 Ah
           Depth of Discharge (Current)    =       2451.6 coulombs    Relative Depth of Discharge = 0.200904    
           Capacity Left                   =      9751.21 coulombs    Capacity at Zero DOD = 12202.8      coulombs
      ===============================================================
@@ -480,7 +480,7 @@ oc[0] = -0.023098
                 surface area (final) = 2.51282E-01 m2
                 surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                Open Circuit Voltage = -0.016845
+                Open Circuit Voltage = -0.0168449
 
                 Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 li_site                 1.000E+00  1.000E+00  7.538E-09  7.540E-09   0.000E+00
@@ -494,20 +494,20 @@ oc[0] = -0.023098
                            V_C6-bulk               4.551E-01
                            li_site                 0.000E+00
    ==============================================================================================
-currentDensity0 = 4.39126e+07
+currentDensity0 = 4.39125e+07
 current0 = 1.10344e+07 amps
-cd1 = 4.39126e+07
+cd1 = 4.39125e+07
 current1 = 1.10344e+07 amps
-cd2 = 4.39126e+07
+cd2 = 4.39125e+07
 current2 = 1.10344e+07 amps
     Check of Thermal Source terms: These should add up to each other:
- q_over    = 2.39298e+06
- q_over2   = 2.39298e+06
- q_over3   = 2.46198e+06
- q_entrop  = -2.09534e+06
- q_entrop2 = -2.09534e+06
- q_enth    = 297638
- q_enth2   = 297638
+ q_over    = 2.39297e+06
+ q_over2   = 2.39297e+06
+ q_over3   = 2.46197e+06
+ q_entrop  = -2.09533e+06
+ q_entrop2 = -2.09533e+06
+ q_enth    = 297636
+ q_enth2   = 297636
  diff  =  q_enth -  q_over  - q_entrop = -1.39698e-09
- diff2 =  q_enth2 - q_over  - q_entrop = -4.81959e-08
- diff3 =  q_enth2 - q_over2  - q_entrop2 = -1.86265e-09
+ diff2 =  q_enth2 - q_over  - q_entrop = -5.79748e-08
+ diff3 =  q_enth2 - q_over2  - q_entrop2 = -1.16415e-09
