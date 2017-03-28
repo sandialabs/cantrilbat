@@ -3,61 +3,61 @@
  
        temperature            6100  K
           pressure            0.01  Pa
-           density     2.47619e-09  kg/m^3
-  mean mol. weight         12.5588  amu
+           density     2.47889e-09  kg/m^3
+  mean mol. weight         12.5725  amu
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy       5.086e+07        6.387e+08     J
-   internal energy      4.6822e+07         5.88e+08     J
-           entropy           27361        3.436e+05     J/K
-    Gibbs function     -1.1604e+08       -1.457e+09     J
- heat capacity c_p          1828.1        2.296e+04     J/K
- heat capacity c_v          1166.1        1.464e+04     J/K
+          enthalpy      5.0733e+07        6.378e+08     J
+   internal energy      4.6699e+07        5.871e+08     J
+           entropy           27332        3.436e+05     J/K
+    Gibbs function     -1.1599e+08       -1.458e+09     J
+ heat capacity c_p          1826.4        2.296e+04     J/K
+ heat capacity c_v          1165.1        1.465e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
-                N2    8.96465e-08      1.99964e-07         -63.5384
-                O2    3.20503e-11      8.16616e-11         -73.5851
-                NO    1.22409e-09      2.92465e-09         -68.5617
-                 N       0.266235          0.29693         -31.7692
-                 O       0.385983         0.491727         -36.7925
-               N2+    3.94241e-09       8.7937e-09         -37.9663
-               O2+    3.21788e-10      8.19875e-10          -48.013
-               NO+    5.47007e-07      1.30691e-06         -42.9896
-                N+      0.0642082        0.0716082          -6.1971
-                O+       0.109682         0.139726         -11.2205
-                e-       0.173891      7.54615e-06         -25.5721
+                N2     9.1314e-08      2.03462e-07         -63.5068
+                O2    3.26605e-11      8.31256e-11          -73.553
+                NO    1.24712e-09      2.97644e-09         -68.5299
+                 N       0.266937         0.297388         -31.7534
+                 O       0.387084         0.492592         -36.7765
+               N2+    3.98388e-09      8.87652e-09         -37.9427
+               O2+    3.25312e-10      8.27951e-10         -47.9889
+               NO+     5.5288e-07      1.31951e-06         -42.9658
+                N+      0.0638667        0.0711497         -6.18927
+                O+       0.109122         0.138861         -11.2124
+                e-        0.17299      7.49885e-06         -25.5641
  
   airNASA9:
  
        temperature            6100  K
           pressure            0.01  Pa
-           density     2.30021e-09  kg/m^3
-  mean mol. weight         11.6662  amu
+           density     2.30263e-09  kg/m^3
+  mean mol. weight         11.6785  amu
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy      6.4687e+07        7.547e+08     J
-   internal energy       6.034e+07        7.039e+08     J
-           entropy           28919        3.374e+05     J/K
-    Gibbs function     -1.1172e+08       -1.303e+09     J
- heat capacity c_p          2085.8        2.433e+04     J/K
- heat capacity c_v          1373.1        1.602e+04     J/K
+          enthalpy       6.455e+07        7.538e+08     J
+   internal energy      6.0207e+07        7.031e+08     J
+           entropy           28887        3.374e+05     J/K
+    Gibbs function     -1.1166e+08       -1.304e+09     J
+ heat capacity c_p          2084.2        2.434e+04     J/K
+ heat capacity c_v          1372.3        1.603e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
-                N2    5.60651e-07      1.34626e-06         -61.7051
+                N2    5.71079e-07      1.36986e-06         -61.6735
                 O2              0                0     
                 NO              0                0     
-                 N       0.665802         0.799376         -30.8526
+                 N       0.667557          0.80064         -30.8368
                  O              0                0     
-               N2+    2.56581e-08      6.16101e-08         -36.0932
+               N2+    2.59297e-08      6.21968e-08         -36.0695
                O2+              0                0     
                NO+              0                0     
-                N+       0.167099         0.200615         -5.24065
+                N+       0.166221         0.199351         -5.23275
                 O+              0                0     
-                e-       0.167099      7.80619e-06         -25.6119
+                e-       0.166221      7.75703e-06          -25.604
 PASS: ChemEquil equilibration passed at  T    = 300 Pres = 1e-06 x_O2 = 0
 PASS: ChemEquil equilibration passed at  T    = 500 Pres = 1e-06 x_O2 = 0
 PASS: ChemEquil equilibration passed at  T    = 700 Pres = 1e-06 x_O2 = 0
