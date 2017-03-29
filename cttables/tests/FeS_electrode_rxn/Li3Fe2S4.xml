@@ -20,7 +20,7 @@
    <speciesData id="species_LiFeS(S)">
         
       <!-- species Li3Fe2S4(S)   -->
-      <! --    -->
+      <!--    -->
       <species name="Li3Fe2S4(S)">
        <atomArray> Li:3 Fe:2 S:4  </atomArray>
        <thermo>
@@ -51,7 +51,7 @@
       </species>
                 
       <!-- species Li1.5FeS2(S)   -->
-      <! --      -->
+      <!--      -->
       <species name="Li1.5Fe3S2(S)">
        <atomArray> Li:1.5 Fe:1 S:2 </atomArray>
        <thermo>
