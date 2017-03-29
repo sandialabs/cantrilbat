@@ -21,8 +21,8 @@
    <speciesData id="species_electrode">
         
       <!-- species electron_Li_LiCl -->
-      <! --   temperature 400 to 2700 K -->
-      <! --   stoichiometric quantity in electrode rxn =    5.763152824644609 -->
+      <!--   temperature 400 to 2700 K -->
+      <!--   stoichiometric quantity in electrode rxn =    5.763152824644609 -->
       <species name="electron_Li_LiCl">
        <atomArray> E:1.0  </atomArray>
        <charge> -1 </charge>
