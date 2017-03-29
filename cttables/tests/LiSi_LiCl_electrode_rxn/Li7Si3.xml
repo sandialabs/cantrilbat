@@ -20,7 +20,7 @@
    <speciesData id="species_LiSi(S)">
         
       <!-- species Li7Si3(S)   -->
-      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <!--      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
       <species name="Li7Si3(S)">
        <atomArray> Li:7 Si:3  </atomArray>
        <thermo>
@@ -51,7 +51,7 @@
       </species>
                 
       <!-- species Li7d3Si(S)   -->
-      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <!--      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
       <species name="Li7d3Si(S)">
        <atomArray> Li:2.3333333333333  Si:1.0  </atomArray>
        <thermo>
