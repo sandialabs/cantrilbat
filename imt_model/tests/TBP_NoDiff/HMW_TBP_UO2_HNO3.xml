@@ -22248,7 +22248,7 @@ Initial data for these two species and TBP*H2O(org) is based on the equilibrium 
 	     			       <DG0_f_Pr_Tr units="cal/gmol"> -2.2261110000e+05 </DG0_f_Pr_Tr>  
 	     <!--			       <DG0_f_Pr_Tr units="cal/gmol"> -221813.12 </DG0_f_Pr_Tr>   --> 
        				       <DH0_f_Pr_Tr units="cal/gmol"> -345615.  </DH0_f_Pr_Tr> <!-- DUMMY enthalpy consistent with DUMMY entropy below --> 
-       <!--       <DH0_f_Pr_Tr units="cal/gmol"> -344768  </DH0_f_Pr_Tr> <!-- DUMMY enthalpy consistent with DUMMY entropy below -->   -->
+       <!--       <DH0_f_Pr_Tr units="cal/gmol"> -344768  </DH0_f_Pr_Tr> --> <!-- DUMMY enthalpy consistent with DUMMY entropy below -->   -->
 				       <S0_Pr_Tr units="cal/gmol/K"> 133.6  </S0_Pr_Tr>  <!-- DUMMY entropy - taken as that for TBP(org) -->
 				     </HKFT>
 				   </thermo>
