@@ -1910,6 +1910,7 @@ int main(int argc, char** argv)
                 getGenericTransportTables(*TT_ptr, *gThermoMainPhase, Visc_Table, Cond_Table, Diff_Table);
             }
 
+            //setBathSpeciesConditions(*gThermoMainPhase, pl, 0);
             /*
              * Look up which routine to print out the species.
              *       cIdealGas
