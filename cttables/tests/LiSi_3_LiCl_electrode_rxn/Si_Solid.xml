@@ -20,7 +20,7 @@
   <speciesData id="species_Si(S)">
 
     <!-- species Si(S)   -->
-    <! --      melting temperature = 1685 K -->
+    <!--      melting temperature = 1685 K -->
     <species name="Si(S)">
       <atomArray> Si:1  </atomArray>
       <thermo>

@@ -20,7 +20,7 @@
    <speciesData id="species_LiSi(S)">
         
       <!-- species Li22Si5(S)   -->
-      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <!--      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
       <species name="Li22Si5(S)">
        <atomArray> Li:22 Si:5  </atomArray>
        <thermo>
@@ -51,7 +51,7 @@
       </species>
                 
       <!-- species Li22d5Si(S)   -->
-      <! --      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
+      <!--      melting temperature = 861 K (phase diagram in Guidotti, Masset)) -->
       <species name="Li22d5Si(S)">
        <atomArray> Li:4.4  Si:1.0  </atomArray>
        <thermo>
