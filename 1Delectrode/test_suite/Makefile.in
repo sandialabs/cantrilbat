@@ -16,23 +16,25 @@ MPMACH := $(shell if test -z ${MP_MACHINEFILE}; then echo $(MP_MACHINEFILE_DEFAU
 
 all:
 #	cd LiKCl_PorousBat_SPCD_MPNewman;               @MAKE@ 
+	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ 
+	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ 
 	cd LiIon_MCMB_LiCoO2;	                        @MAKE@ 
 	cd LiIon_MCMB_LiCoO2_2;	                        @MAKE@
 	cd LiIon_MCMB_LiCoO2_Diff2;	                @MAKE@ 
 	cd LiIon_MCMB_LiCoO2_Diff3;	                @MAKE@ 
 	cd LiIon_MCMB_LiCoO2_Diff2_restart	       	@MAKE@ 
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ 
-	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ 
+	cd LiIon_MCMB_LiCoO2_DiffTALE2;	                @MAKE@ 
 	cd CAEBAT_restart_cycle;		  	@MAKE@ 
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ 
-	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ 
 	cd DualfoilComparison ;				@MAKE@ 
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ 
 	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ 
-	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ 
 
 test:
 #	cd LiKCl_PorousBat_SPCD_MPNewman;               @MAKE@ test
+	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
+	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ test
 	cd LiIon_MCMB_LiCoO2;	                        @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_2;	                        @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_Diff2;	                @MAKE@ test
@@ -42,11 +44,9 @@ test:
 	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ test
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ test
-	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
-	cd DualfoilComparison ;				@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ test
-	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ test
+	cd DualfoilComparison ;				@MAKE@ test
 
 clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ clean
@@ -65,7 +65,7 @@ clean:
 	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ clean
 	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ clean
 
-test_clean:
+clean_test:
 	cd LiKCl_PorousBat_SPCD_MPNewman;	  	@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2;                    	@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_2;                   	@MAKE@ test_clean
@@ -78,9 +78,29 @@ test_clean:
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test_clean
 	cd DualfoilComparison ;				@MAKE@ test_clean
-	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ test_clean
+	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ clean_test
 	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ test_clean
 	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ test_clean
+
+test_clean:
+	@MAKE@ clean_test
+
+clean_testflags:
+	cd LiKCl_PorousBat_SPCD_MPNewman;         	@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2;                     	@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_2;                   	@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_Diff2;               	@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_Diff3;               	@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_Diff2_restart;		@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          @MAKE@ clean_testflags
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		@MAKE@ clean_testflags	
+	cd CAEBAT_restart_cycle;		  	@MAKE@ clean_testflags
+	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ clean_testflags
+	cd DualfoilComparison ;				@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ clean_testflags
+	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ clean_testflags
 
 dist_clean:
 	cd LiKCl_PorousBat_SPCD_MPNewman;         	@MAKE@ dist_clean
@@ -95,7 +115,7 @@ dist_clean:
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ dist_clean
 	cd DualfoilComparison ;				@MAKE@ dist_clean
-	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ dist_clean
+	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ clean_dist
 	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ dist_clean
 	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ dist_clean
 
@@ -111,7 +131,6 @@ test_bat:
 	cd CAEBAT_restart_cycle;		  	@MAKE@ test
 	cd CAEBAT_restart_cycle_altTemp;	  	@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_collectors;		@MAKE@ test
-	cd DualfoilComparison ;				@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_Enthalpy;			@MAKE@ test
 	cd LiIon_MCMB_LiCoO2_inerts;			@MAKE@ test

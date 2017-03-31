@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 # Makefile for 1DElectrode test run directories
+# This is the Template Makefile for these tests
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -8,21 +9,23 @@
 # may require a license from the United States Government.
 #
 
-PROGRAM = LiIon_PorousBat
 TEST_NAME = LiIon_MCMB_LiCoO2_EIS_timeStepStrat
 
-DATA =  \
-ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml\
-MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  MgO.xml  BC.xml
+PROGRAM = LiIon_PorousBat
+BPROGRAM = @top_builddir@/1Delectrode/src_LiIon_PorousBat/$(PROGRAM)
+RUNTEST = runtest
+BRUNTEST = @top_builddir@/1Delectrode/test_suite/$(RUNTEST)
+
+DATA =  ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml MCMBAnode_electrode.xml \
+        MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  MgO.xml  BC.xml
 
 BLESSED_FILES = \
 BulkDomain1D_0_blessed.dat  BulkDomain1D_2_blessed.dat  SurDomain1D_0_blessed.dat  SurDomain1D_2_blessed.dat  timeDep_IV_blessed.dat \
 BulkDomain1D_1_blessed.dat  solution_blessed.xml        SurDomain1D_1_blessed.dat  SurDomain1D_3_blessed.dat
 
-
 INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp
 
-TEST_FLAGS =  runGood runBad runInProgress.txt
+TEST_FLAGS = runGood runBad runInProgress.txt
 
 TEST_INTERMEDIATES = diff* err*  transport_log.xml 
 
@@ -33,31 +36,28 @@ TEST_RESULTS = SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV
 #           Setup The Zuzax Directory locations
 #########################################################################
 
-PROGRAM_ORIGIN = ../../src_LiIon_PorousBat/$(PROGRAM)
-
-PURIFY=@PURIFY@
-
-# These links are to zuzax's install space
-CT_INCROOT =  @ct_incroot@
-
-#
-# Bring in the Zuzax includes through the .mak file
-#
-include $(CT_INCROOT)/cantera/Zuzax.mak
-
-all: 
+all:  $(PROGRAM) $(RUNTEST)
 
 depends:
 
+$(PROGRAM): Makefile
+	/bin/rm -f $(PROGRAM)
+	ln -s $(BPROGRAM) .
+	touch $(PROGRAM)
+
+$(RUNTEST): Makefile
+	/bin/rm -f $(RUNTEST)
+	ln -s $(BRUNTEST) .
+	touch $(RUNTEST)
 
 test:
-	@@MAKE@ -s
+	@@MAKE@ -s all
 	@echo -n 'Checking need to run test $(TEST_NAME): '
 	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
 
-runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
+runGood: $(BPROGRAM) $(DATA) Makefile $(BLESSED_FILES) $(BRUNTEST) $(PROGRAM) $(INPUT_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
-	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../runtest)
+	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; $(RUNTEST))
 
 rebaseline:
 	./rebaseline
@@ -68,22 +68,16 @@ rebaseline:
 
 # Clean up files, but don't touch test suite results
 clean:
-	$(RM)  runInProgress.txt transport_log.xml $(TEST_FLAGS)
+	$(RM)  $(PROGRAM) $(RUNTEST) $(TEST_FLAGS)  $(TEST_INTERMEDIATES) 
 
 # clean up all output from the test
-test_clean:
-	$(RM) SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
-              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat  \
-	      $(PROGRAM) runGood runBad runInProgress.txt transport_log.xml \
-	      diff* err* out.txt 
+
+clean_testflags:
+	$(RM) $(TEST_FLAGS)
 
 clean_test:
-	$(RM)  $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) 
 
-
-# switch directory back to pristine condition
-dist_clean:
-	@MAKE@ test_clean
-
-
+clean_dist:
+	$(RM) $(PROGRAM) $(RUNTEST) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
 

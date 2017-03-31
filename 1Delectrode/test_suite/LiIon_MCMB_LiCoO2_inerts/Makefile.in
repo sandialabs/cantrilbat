@@ -2,8 +2,6 @@
 #
 #  Makefile.in: 
 #
-# $Id: Makefile.in,v 1.1 2012/01/31 18:00:33 hkmoffa Exp $
-#
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -11,7 +9,7 @@
 # may require a license from the United States Government.
 #
 
-.SUFFIXES: .d
+TEST_NAME = LiIon_MCMB_LiCoO2_inerts
 
 PROGRAM =   LiIon_PorousBat
 BPROGRAM =  @top_builddir@/1Delectrode/src_LiIon_PorousBat/$(PROGRAM)
@@ -26,22 +24,22 @@ DATA = ECsoln_ion.xml               LiCoO2_Margules_1.xml  MCMBAnode_electrode.x
        LiCoO2Cathode_electrode.xml  Li_Metal.xml           MCMB_RedlichKister.xml   MgO.xml \
        anode.inp cathode.inp   LiIon_PorousBat.inp
 
-CREATED_FILES = SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
-                solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat  \
-                 $(PROGRAM) out_raw.txt out.txt accumulatedElectricalOutput.txt accumulatedHeatSource.txt \
-                 stepwiseElectricalOutput.txt   stepwiseHeatSource.txt
+TEST_RESULTS = SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
+               solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat  \
+               out_raw.txt out.txt accumulatedElectricalOutput.txt accumulatedHeatSource.txt \
+               stepwiseElectricalOutput.txt   stepwiseHeatSource.txt
 
+TEST_INTERMEDIATES = diff_* err_out.txt
 
-TEST_FILES = diff_* err_out.txt runGood runBad runInProgress.txt $(PROGRAM) 
-
+TEST_FLAGS = runGood runBad runInProgress.txt 
 
 all: $(PROGRAM) $(RUNTEST)
 
-$(PROGRAM) : $(BPROGRAM)
+$(PROGRAM): $(BPROGRAM) Makefile
 	/bin/rm -f $(PROGRAM)
 	ln -s $(BPROGRAM) .
 
-$(RUNTEST) : $(BRUNTEST)
+$(RUNTEST): $(BRUNTEST) Makefile
 	/bin/rm -f $(RUNTEST)
 	ln -s $(BRUNTEST) .
 
@@ -52,19 +50,28 @@ test:
 #
 # Executable will be found by runtest so took PROGRAM out
 #
-runGood: $(DATA) Makefile $(BLESSED_FILES)  $(BPROGRAM)
+runGood: $(DATA) Makefile $(BLESSED_FILES)  $(BPROGRAM) $(BRUNTEST) $(PROGRAM)
 	@ggg=`pwd` ; echo 'RUNNING TEST ' `basename $$ggg`
 	$(RUNTEST)	
 
 rebaseline:
 	./rebaseline
 
-test_cleanup:
-	$(RM) $(TEST_FILES) $(CREATED_FILES)
+test_clean:
+	$(RM) $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)
 
-cleanup:
-	$(RM) $(TEST_FILES) $(CREATED_FILES)
+clean_test:
+	$(RM)  $(TEST_FLAGS)  $(TEST_RESULTS) $(TEST_INTERMEDIATES)
 
 clean:
-	$(RM) $(TEST_FILES) $(CREATED_FILES)
+	$(RM) $(TEST_FLAGS)  $(TEST_INTERMEDIATES)  $(PROGRAM) $(RUNTEST)
+
+clean_flags:
+	$(RM) $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)
+
+clean_dist:
+	$(RM)  $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)  $(PROGRAM) $(RUNTEST)
+
+dist_clean:
+	$(RM)  $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)  $(PROGRAM) $(RUNTEST)
 
