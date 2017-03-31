@@ -150,9 +150,8 @@ public:
    *   GlobalAll solution vectors are allocated on each processor
    *       SolnAll, SolnDotAll,  SolnIntAll 
    *
-   *  @param[in]             numEqns_LcNode
    */ 
-  void initBlockNodeMaps(int *numEqns_LcNode);
+  void initBlockNodeMaps();
 
   //! Initialize the position of the nodes of the mesh
   /*!

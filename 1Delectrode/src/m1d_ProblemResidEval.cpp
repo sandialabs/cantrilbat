@@ -167,8 +167,7 @@ ProblemResidEval::ProblemResidEval(const ProblemResidEval &r) :
  * @param r  Object to be copied
  * @return   Returns a copy of the current problem
  */
-ProblemResidEval &
-ProblemResidEval::operator=(const ProblemResidEval &r)
+ProblemResidEval& ProblemResidEval::operator=(const ProblemResidEval &r)
 {
   if (this == &r) {
     return *this;
@@ -355,7 +354,7 @@ ProblemResidEval::generateLocalIndices()
    */
   LI_ptr_->determineLcNodeMaps(DL_ptr_);
   /*
-   * Generate the nodal vars data at the local node level by coping the pointers
+   * Generate the nodal vars data at the local node level by copying the pointers
    */
   LI_ptr_->GenerateNodalVars();
   /*
@@ -365,10 +364,9 @@ ProblemResidEval::generateLocalIndices()
   LI_ptr_->UpdateEqnCount();
   LI_ptr_->generateEqnMapping();
   /*
-   * Once we have found the external nodes, then we can generate the block
-   * maps that are part of establishing the matrix
+   * Initialize a couple of block row maps that don't use ghost elements
    */
-  GI.initBlockNodeMaps(DATA_PTR(LI_ptr_->NumEqns_LcNode));
+  GI.initBlockNodeMaps();
 
   LI_ptr_->determineLcEqnMaps();
 

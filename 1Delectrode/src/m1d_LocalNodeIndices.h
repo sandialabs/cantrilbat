@@ -52,7 +52,7 @@ class GlobalIndices;
  *
  *    For last processor on the mesh the globally-all-connected node is slightly different.
  *    Here is the layout. The last processor owns the globally-all-connected node
- *    so its index occurs before
+ *    so its index occurs before the ghost nodes
  *
  *      Local Row Node Index      GbNodeIndex         LcNodeIsExt
  *       0                            40                false
@@ -321,8 +321,7 @@ public:
   //! Starting local equation index for each local node
   /*!
    *  Provides a map between the local node index and the starting position
-   *  for the equations corresponding to that node in the local solutions
-   *  vector.
+   *  for the equations corresponding to that node in the local solutions vector.
    *  
    *         Length = NumLcNodes
    */
@@ -334,8 +333,7 @@ public:
    */
   std::vector<int> IndexGbEqns_LcEqns;
 
-  //! Vector indicating whether the current local Node is owned by
-  //! the current processor
+  //! Vector indicating whether the current local Node is owned by the current processor
   /*!
    *  Boolean indicating whether the current local node is not
    *  owned by this processor.
