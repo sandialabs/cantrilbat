@@ -246,21 +246,27 @@ void GlobalIndices::procDivide()
 
     NumOwnedLcNodes = NumOwnedLcNodes_Proc[MyProcID];
     NumOwnedLcEqns = NumOwnedLcEqns_Proc[MyProcID];
-
 }
 //==================================================================================================================================
-//   Form a Map to describe the distribution of our owned equations
-//  and our owned nodes on the processors
+//   Form a Map to describe the distribution of our owned nodes on the processors
 void
 GlobalIndices::initNodeMaps()
 {
     AssertTrace(Comm_ptr_);
-    GbNodetoOwnedLcNodeMap = new Epetra_Map((int) NumGbNodes, NumOwnedLcNodes, 0, *Comm_ptr_);
+    GbNodetoOwnedLcNodeMap = new Epetra_Map(NumGbNodes, NumOwnedLcNodes, 0, *Comm_ptr_);
 }
 //==================================================================================================================================
-void
-GlobalIndices::initBlockNodeMaps(int* numEqns_LcNode)
-{
+void GlobalIndices::initBlockNodeMaps(int* numEqns_LcNode)
+{ 
+    int igNodeStart = IndexStartGbNode_Proc[MyProcID];
+
+   // Want to get rid of argument for this call -> 
+    int *NumEqns_LcNode_a = &NumEqns_GbNode[igNodeStart];
+
+    for (int i = 0; i < NumOwnedLcNodes; i++) {
+        AssertTrace(NumEqns_LcNode_a[i] == numEqns_LcNode[i]);
+    }
+
     int* myGlobalNodes = GbNodetoOwnedLcNodeMap->MyGlobalElements();
 
     GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap = new Epetra_BlockMap(NumGbNodes, NumOwnedLcNodes, myGlobalNodes,

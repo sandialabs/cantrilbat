@@ -116,20 +116,51 @@ public:
    */
   size_t discoverNumEqnsPerNode();
 
-  void
-  procDivide();
+  //! Divide up the problem amongst the processors
+  /*!
+   *  Here we divide the nodes and equations amongst the processors.
+   *  We use a simple linear division
+   *  The following variables are formed here:
+   *
+   *   IndexStartGbNode_Proc[NumProc]       Index of the first global node on the ith processor
+   *   IndexStartGbEqns_Proc[NumProc]       Index of the first global equation on the ith processor
+   *   NumOwnedLcNodes_Proc[NumProc]        Number of nodes owned by the ith processor
+   *   NumOwnedLcEqn[NumProc]               Number of owned equation by the ith processor
+   * 
+   */
+  void procDivide();
 
-  void
-  initNodeMaps();
+  //! Formulate an Epetra map that describes the layout of owned nodes indecises on the processor
+  /*!
+   *  The following epetra map is formed:
+   *
+   *   GbNodetoOwnedLcNodeMap              Global length = NumGbNodes
+   *                                       Local length = NumOwnedLcNodes_Proc[i]
+   */
+  void initNodeMaps();
 
-  void
-  initBlockNodeMaps(int *numEqns_LcNode);
+  //! Initialize BlockMaps that will describe the equation layouts on the local processors
+  /*!
+   *   The following BlockMaps are initialized
+   *      GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap  BlockMap of distributed node indecises with the number of equations per node
+   *                                                   assigned to each block
+   *
+   *      GbEqnstoAllMap                               BlockMap with the full global block equation structure replicated on each processor
+   *
+   *   GlobalAll solution vectors are allocated on each processor
+   *       SolnAll, SolnDotAll,  SolnIntAll 
+   *
+   *  @param[in]             numEqns_LcNode
+   */ 
+  void initBlockNodeMaps(int *numEqns_LcNode);
 
-  void
-  InitMesh();
+  //! Initialize the position of the nodes of the mesh
+  /*!
+   *  This is done by calling the domain layout object
+   */
+  void InitMesh();
 
-  //! This utility function will return the global node number
-  //! given the global equation number
+  //! This utility function will return the global node number given the global equation number
   /*!
    * @param   rowEqnNum returns the node equation number
    * @return  Returns the global node number. Will return -1 if there
@@ -181,11 +212,11 @@ public:
 
   //! Number of local nodes owned by each processor
   /*!
-   * Length = number of processors.
+   *  Length: number of processors.
    */
   std::vector<int> NumOwnedLcNodes_Proc;
 
-  //! Number of Local Equations owned by each processor
+  //! Total Number of Local Equations owned by each processor
   /*!
    * Length = number of processors.
    */
