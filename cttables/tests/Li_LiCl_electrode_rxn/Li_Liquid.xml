@@ -27,7 +27,7 @@
     <species name="Li(L)">
       <atomArray> Li:1  </atomArray>
       <thermo>
-        <Shomate Pref="1 bar" Tmax="700.0" Tmin="400.">
+        <Shomate Pref="1 atm" Tmax="700.0" Tmin="400.">
           <floatArray size="7">
              32.46972,
             -2.635975,
@@ -38,7 +38,7 @@
              74.29361
           </floatArray>
         </Shomate>
-        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.">
+        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.">
           <floatArray size="7">
              26.00896,
              5.632375,

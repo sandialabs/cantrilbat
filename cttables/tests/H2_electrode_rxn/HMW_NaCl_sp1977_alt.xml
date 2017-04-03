@@ -108,7 +108,7 @@
         -->
       <atomArray>H:2 O:1 </atomArray>
       <thermo>
-        <NASA Tmax="600.0" Tmin="273.14999999999998" P0="100000.0">
+        <NASA Tmax="600.0" Tmin="273.14999999999998" P0="101325">
            <floatArray name="coeffs" size="7">
              7.255750050E+01,  -6.624454020E-01,   2.561987460E-03,  -4.365919230E-06,
              2.781789810E-09,  -4.188654990E+04,  -2.882801370E+02
@@ -132,7 +132,7 @@
       <atomArray> Na:1 E:-1 </atomArray>
       <charge> +1 </charge>
       <thermo>
-        <Shomate Pref="1 bar" Tmax="   593.15" Tmin="   293.15">
+        <Shomate Pref="1 atm" Tmax="   593.15" Tmin="   293.15">
          <floatArray size="7">
            -57993.47558    ,   305112.6040    ,  -592222.1591    ,
             401977.9827    ,   804.4195980    ,   10625.24901    ,

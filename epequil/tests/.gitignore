@@ -1,2 +1,11 @@
 Makefile
 multiPhase
+err_out.txt
+out.txt
+output.txt
+runGood
+runBad
+runInProgress.txt
+diff_out.txt
+diff_summary.txt
+

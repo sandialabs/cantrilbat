@@ -1,21 +1,23 @@
+
 <?xml version="1.0"?>
 <ctml>
   <validate reactions="yes" species="yes"/>
                    
- <!-- phase EC_DMC_PC    -->
+ <!-- phase KLiCl(L)    -->
   <!--
-         Excess energies of mixing can be obtianed from Ding or Liu
+         Ok, the eutectic is measured to be X_b = X_LiCl = 0.595
+         and 355 C = 628.15
     -->
-  <phase dim="3" id="EC_DMC">
+  <phase dim="3" id="LiKCl_Margules">
     <elementArray datasrc="elements.xml">
-       C H O
+       Li K Cl
     </elementArray>
     <speciesArray datasrc="#species_MoltenSalt"> 
-        EC_C3H4O3(L) DMC_C3H6O3(L)
+        LiCl(L) KCl(L)
     </speciesArray>
     <thermo model="Margules">
       <activityCoefficients model="Margules" TempModel="constant">
-         <binaryNeutralSpeciesParameters speciesA="EC_C3H4O3(L)" speciesB="DMC_C3H6O3(L)">
+         <binaryNeutralSpeciesParameters speciesA="KCl(L)" speciesB="LiCl(L)">
             <excessEnthalpy model="poly_Xb" terms="2" units="J/kmol">
                   -17570.E3, -377.E3
             </excessEnthalpy>
@@ -28,7 +30,7 @@
     <transport model="Liquid">
        <viscosity>
           <compositionDependence model="logMoleFractions">
-             <interaction speciesA="DMC_C3H6O3(L)" speciesB="EC_C3H4O3(L)">
+             <interaction speciesA="LiCl(L)" speciesB="KCl(L)">
                 <Eij units="J/kmol"> -1.0e3 </Eij>
                 <Sij units="J/kmol/K"> 80.0e-5 </Sij>
              </interaction>
@@ -42,7 +44,7 @@
        </hydrodynamicRadius>
        <speciesDiffusivity>
           <compositionDependence model="pairwiseInteraction">
-             <interaction speciesA="DMC_C3H6O3(L)" speciesB="EC_C3H4O3(L)">
+             <interaction speciesA="LiCl(L)" speciesB="KCl(L)">
                 <Dij units="m/s"> 1.0e-8 </Dij>
              </interaction>
           </compositionDependence>          
@@ -50,17 +52,14 @@
     </transport>     
     <kinetics model="none"/>
     <state>
-       <temperature> 298.15 </temperature>
+       <temperature> 725.0 </temperature>
        <pressure units="atm"> 1.0 </pressure>
-       <moleFractions> 
-       		EC_C3H4O3(L):0.5 
-       		DMC_C3H6O3(L):0.5  
-       	</moleFractions>
+       <moleFractions> LiCl(L):1.0  </moleFractions>
     </state>
   </phase>
 
  <!-- species definitions     -->
-  <speciesData id="species_AlkyleneCarbonates">
+  <speciesData id="species_MoltenSalt">
 
 
     <!-- species O2    -->
@@ -92,31 +91,41 @@
 
 
 
-    <species name="EC_C3H4O3(L)">
-      <atomArray> C:3 H:4 O:3 </atomArray>
+    <species name="KCl(L)">
+      <atomArray> K:1 Cl:1 </atomArray>
       <standardState  model="constant_incompressible"> 
-         <molarVolume> 1 </molarVolume>
+         <molarVolume> 0.0375761 </molarVolume>
       </standardState>
       <thermo>
-        <!-- thermo data from the following sources:
-             Liu, Z. K. (2003). "Thermodynamic modeling of organic carbonates for 
-             lithium batteries." Journal of the Electrochemical Society 150(3): A359-A365.
-          -->
-         <Shomate Pref="1 atm" Tmax="521.0" Tmin="311.0">
+         <Shomate Pref="1 atm" Tmax="2000.0" Tmin="700.0">
           <floatArray size="7">
-           0.76166,  0.22121,      0.0,
-           0.0,       0.0,      -605.99,
-           47.931
+           73.59698,  0.0,      0.0,
+           0.0,       0.0,      -443.7341,
+           175.7209
           </floatArray>
         </Shomate>
       </thermo>
-      <density units="g/cm3"> 1.3218 </density>
+      <transport>
+        <hydrodynamicRadius model="Constant" units="A">
+            2.000
+        </hydrodynamicRadius>
+        <viscosity model="Arrhenius">
+           <!-- Janz, JPCRD, 17, supplement 2, 1988 -->
+           <A>5.727E-5</A>
+           <b>0.0</b>
+           <E units="J/kmol">26273e3.</E>
+        </viscosity>
+        <thermalConductivity model="coeffs">
+           <floatArray size="2">  0.5, -5.0e-5 </floatArray>
+        </thermalConductivity>
+      </transport> 
+      <density units="g/cm3"> 1.984 </density>
     </species>
 
-    <species name="DMC_C3H6O3(L)">
-      <atomArray> C:3 H:6 O:3 </atomArray>
+    <species name="LiCl(L)">
+      <atomArray> Li:1 Cl:1 </atomArray>
       <standardState  model="constant_incompressible"> 
-         <molarVolume> 1 </molarVolume>
+         <molarVolume> 0.02048004 </molarVolume>
       </standardState>
       <thermo>
         <Shomate Pref="1 atm" Tmax="2000.0" Tmin="700.0">
@@ -127,7 +136,21 @@
           </floatArray>
         </Shomate>
       </thermo>
-      <density units="g/cm3"> 1.2057 </density>
+      <transport>
+        <hydrodynamicRadius model="Constant" units="A">
+            1.000
+        </hydrodynamicRadius>
+        <viscosity model="Arrhenius">
+           <!-- Janz, JPCRD, 17, supplement 2, 1988 -->
+           <A>6.578e-5</A>
+           <b>0.0</b>
+           <E units="J/kmol">23788.e3</E>
+        </viscosity>
+        <thermalConductivity model="coeffs">
+           <floatArray size="2">  0.6, -15.0e-5 </floatArray>
+        </thermalConductivity>
+      </transport> 
+      <density units="g/cm3"> 2.07 </density>
     </species>
 
   </speciesData>

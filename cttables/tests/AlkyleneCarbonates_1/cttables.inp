@@ -2,7 +2,8 @@
 #
 #
 Number of Cantera Files = 1
-Cantera File Name = /home/jchewso/CanteraApps/cantera_apps/mechanisms/LithiumIon/AlkyleneCarbonates.xml
+#Cantera File Name = /home/jchewso/CanteraApps/cantera_apps/mechanisms/LithiumIon/AlkyleneCarbonates.xml
+Cantera File Name = AlkyleneCarbonates.xml
 #
 #
 Output Units = KJoule
@@ -61,14 +62,14 @@ start block Bath Specification for Phase EC_DMC
    End block Bath Species Mole Fraction
 end block Bath Specification for Phase EC_DMC
 
-start block Bath Specification for Phase EC_DMC_Vapors
-   Bath Species ID = EC_C3H4O3(g)
-   start block Bath Species Mole Fraction
-       O2 = 0.2
-       EC_C3H4O3(g) = 0.4
-       DMC_C3H6O3(g) = 0.4
-   End block Bath Species Mole Fraction
-end block Bath Specification for Phase EC_DMC_Vapors
+# start block Bath Specification for Phase EC_DMC_Vapors
+#    Bath Species ID = EC_C3H4O3(g)
+#    start block Bath Species Mole Fraction
+#        O2 = 0.2
+#        EC_C3H4O3(g) = 0.4
+#        DMC_C3H6O3(g) = 0.4
+#    End block Bath Species Mole Fraction
+# end block Bath Specification for Phase EC_DMC_Vapors
 
 #Start block Extra Global Reaction
 #   Special Species = electron_Li_LiCl

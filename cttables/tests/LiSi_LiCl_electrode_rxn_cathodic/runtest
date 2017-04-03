@@ -7,7 +7,7 @@ fi
 cttables  cttables.inp > out.txt
 diff good_out.txt out.txt > diff.out
 retnStat=$?
-if [ retnStat = "0" ]; then
+if [ $retnStat = "0" ]; then
 echo "Successful diff comparison on `pwd`"
 else
 echo "Unsuccessful diff comparison on `pwd`"

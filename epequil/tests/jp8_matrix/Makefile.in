@@ -1,8 +1,7 @@
 #!/bin/sh
 ############################################################################
 #
-#  Makefile to compile and link a C++ application to 
-#  Cantera.
+#  Makefile to compile, link, and test  a C++ application to Zuzax
 #
 #############################################################################
 
@@ -12,10 +11,20 @@
 # the name of the executable program to be created
 PROG_NAME = jp8_matrix
 
-# the object files to be linked together. List those generated from Fortran
-# and from C/C++ separately
-OBJS = jp8_matrix.o
+TEST_NAME = $(PROG_NAME)
 
+BLESSED_FILES = output_blessed.txt
+
+DATA = jp8_mech_hongzhi.xml problem_setup.sh
+
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = err_out.txt diff_out.txt
+
+TEST_RESULTS = output.txt
+
+# List of objects to be linked
+OBJS = $(PROG_NAME).o
 
 # This link is to Cantera's install space
 CT_INCROOT=@ct_incroot@
@@ -23,8 +32,11 @@ CT_INCROOT=@ct_incroot@
 # Bring in the Cantera includes through the .mak file
 include $(CT_INCROOT)/cantera/Cantera.mak
 
+# Top of the directory structure for git module
+TOPDIR = @abs_top_srcdir@
+
 # Define the include directories
-INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)
 
 # the C++ compiler
 CXX = @CXX@
@@ -51,10 +63,10 @@ DEPENDS=$(OBJS:.o=.d)
 # Program Name
 PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
-all: $(PROGRAM) .depends
+all: $(PROGRAM) .dependsT
 
 $(PROGRAM): $(OBJS) $(CANTERA_CORE_LIBS_DEP)
-	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
+	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS)  \
                   $(CANTERA_TOTAL_LIBS)  \
                   $(LCXX_END_LIBS)
 
@@ -64,28 +76,37 @@ $(DEPENDS): Makefile
 
 # depends target -> forces recalculation of dependencies
 depends:
-	$(RM) *.d .depends
-	@MAKE@ .depends
+	$(RM) *.d .dependsT
+	@MAKE@ .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
-# Do the test -> For the windows vc++ environment, we have to skip checking on
-#                whether the program is uptodate, because we don't utilize make
-#                in that environment to build programs.
-test:
-ifeq ($(os_is_win), 1)
-else
-	@MAKE@ $(PROGRAM)
-endif
-	./runtest
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	$(TOPDIR)/bin/runtest_Exec
+
+rebaseline:
+	cp out.txt good_out.txt
 
 clean:
-	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends
-	(if test -d SunWS_cache ; then \
-           $(RM) -rf SunWS_cache ; \
-         fi )
+	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
 
+clean_test:
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+
+clean_dist: 
+	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+
+clean_test_flags: 
+	$(RM) $(TEST_FLAGS)
 
 #############################################################################
 #          DEPENDS RULES

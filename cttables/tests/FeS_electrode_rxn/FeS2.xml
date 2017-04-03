@@ -23,7 +23,7 @@
     <species name="FeS2(S)">
       <atomArray> Fe:1 S:2 </atomArray>
       <thermo>
-        <Shomate Pref="1 bar" Tmax="1400.0" Tmin="250.0">
+        <Shomate Pref="1 atm" Tmax="1400.0" Tmin="250.0">
           <floatArray size="7">
              82.30388,
             -23.72240,
