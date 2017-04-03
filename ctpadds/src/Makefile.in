@@ -23,7 +23,12 @@ CANTERA_LIBDIR=@ct_libdir@
 CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
 
 # The directory where Cantera include files may be found.
-CANTERA_INCROOT=@ct_incroot@
+CT_INCROOT=@ct_incroot@
+
+
+# Bring in the Cantera includes through the .mak file
+include $(CT_INCROOT)/cantera/Cantera.mak
+
 
 PURIFY=@PURIFY@
 
@@ -34,7 +39,7 @@ CANTERA_BUILD_ROOT=@ctb_root@
 UTILSRC_DIR=../../util_src/src
 
 
-F2C_INC=$(CANTERA_INCROOT)/cantera
+F2C_INC=$(CT_INCROOT)/cantera
 #
 # Set up the various local and global defines
 #
@@ -43,14 +48,14 @@ LDEFINES =   -DDEBUG -DDEBUG_HKM  -DCOMPILE_IN_CANTERA_BUILDTREE
 # Set up the global include directory macro
 
 #
-INCLUDE_DIRS = -I$(CANTERA_INCROOT) \
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
                -I$(UTILSRC_DIR) 
 
-ALT_INCLUDE_DIRS = -I$(CANTERA_BUILD_ROOT)/src/base \
+ALT_INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) \
+                   -I$(CANTERA_BUILD_ROOT)/src/base \
                    -I$(CANTERA_BUILD_ROOT)/src/numerics \
                    -I$(CANTERA_BUILD_ROOT)/src/thermo \
-                   -I$(CANTERA_BUILD_ROOT)/src/kinetics \
-                   -I$(CANTERA_INCROOT) 
+                   -I$(CANTERA_BUILD_ROOT)/src/kinetics 
 #
 # the C++ compiler
 #
@@ -93,8 +98,6 @@ all: .depends libctpadds.a $(OBJS_UNUSED)
 
 .SUFFIXES: .src .prj .d
 
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -I$(F2C_INC) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
@@ -176,7 +179,7 @@ ReactionDataElectrode.d: ReactionDataElectrode.cpp ReactionDataElectrode.h
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS)  \
-               -I$(CANTERA_INCROOT) -c $*.cpp > $*.d
+                -c $*.cpp > $*.d
 
 
 ############################################################################

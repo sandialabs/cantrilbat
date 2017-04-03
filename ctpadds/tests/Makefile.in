@@ -33,7 +33,6 @@ include $(CT_INCROOT)/cantera/Cantera.mak
 # Define the include directories
 INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
 
-
 #
 # Find the Build root for Cantera
 #
@@ -50,16 +49,15 @@ UTILSRC_LIB=-L${UTILSRC_DIR} -lutil_src
 LDEFINES = -DDEBUG -DDEBUG_HKM
 #
 # Set up the global include directory macro
-
 #
-INCLUDE_DIRS = -I$(CANTERA_INCROOT) \
+INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES) \
                -I$(CANTERA_BUILD_ROOT)/Cantera/src/base \
                -I$(UTILSRC_DIR) 
-ALT_INCLUDE_DIRS = -I$(CANTERA_BUILD_ROOT)/Cantera/src/base \
+
+ALT_INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES) \
+                   -I$(CANTERA_BUILD_ROOT)/Cantera/src/base \
                    -I$(CANTERA_BUILD_ROOT)/Cantera/src/thermo \
-                   -I$(CANTERA_INCROOT) \
-                   -I$(UTILSRC_DIR) \
-                   -I$(CADS_SRC_DIR)
+                   -I$(UTILSRC_DIR)
 #
 # the C++ compiler
 #
@@ -96,7 +94,7 @@ FLIB_BSD     =
 GPROF    = -G
 
 
-all:  DH_test DH_NM_test .depends
+all:  DH_test DH_NM_test .dependsT
 
 .SUFFIXES: .src .prj .d
 
@@ -123,11 +121,9 @@ LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 INSTALL = $(CHEMKIN_HOME)/bin/bsdinstall.sh 
 
-CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 MDPLIB_DEP = $(UTILSRC_DIR)/libutil_src.a
 MDPLIB     = -L$(UTILSRC_DIR) -lutil_src
-
 
 CTBLAS_DEP = $(CANTERA_LIBDIR)/libctblas.a
 CTBLAS    = -L$(CANTERA_LIBDIR) -lctblas
@@ -148,15 +144,8 @@ BLAS = -L/usr/local/ACCESS/libraries/blas -lblas
 ###########################################################################
 DEPENDS = DH_test.d DH_NM_test.d
 
-.f.d:
-	echo "$*.o: $*.f" > $*.d
-
 .cpp.d:
-	g++ -MM $(CXXFLAGS) $(CCFLAGS)  \
-               -I$(CANTERA_INCROOT)/cantera/kernel -c $*.cpp > $*.d
-
-.c.d:
-	g++ -MM $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+	g++ -MM $(CXXFLAGS) $(CCFLAGS)  -c $*.cpp > $*.d
 
 $(DEPENDS): Makefile
 
@@ -168,7 +157,6 @@ DH_test: DH_test.o  \
                   $(UTILSRC_LIB) \
                   $(CANTERA_TOTAL_LIBS)  \
                   $(LCXX_END_LIBS)
-
 
 DH_NM_test: DH_NM_test.o  \
     $(OBJ_CANTERA_ADDONS) $(CTLIB_DEP) Makefile $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
@@ -192,12 +180,13 @@ testCalcDens: testCalcDens.o  \
 test:
 
 depends:
-	$(RM) *.d .depends
-	@MAKE@ .depends
+	$(RM) *.d .dependsT
+	@MAKE@ .dependsT
+	touch .dependsT
 
-.depends: $(DEPENDS)
-	touch .depends
-#	cat *.d > .depends
+.dependsT: $(DEPENDS) 
+	cat *.d > .depends
+	touch .dependsT
 
 ###########################################################################
 #          INSTALL RULES
@@ -207,13 +196,14 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-tidy:
-	$(RM) *.d .depends
-	$(RM) Static.sadb .soft* debugdb.buttons .Stat*
-
 clean:
-	$(MAKE) tidy
 	$(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
-                   fort.* *%  core *.trace tmp*
+                   fort.* *%  core *.trace tmp* .depends .dependsT
 	$(RM) ${PROG} 
+
+clean_dist:
+	(RM) *.o *.prj lib*.a ftn[012345]* save save.dat dum \
+                   fort.* *%  core *.trace tmp* .depends .dependsT
+	$(RM) ${PROG} 
+
 
