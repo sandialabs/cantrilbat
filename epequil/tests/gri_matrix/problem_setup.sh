@@ -17,7 +17,7 @@ PROGRAM_OPTS=' '
 #   Text files to compare against
 #
 BLESSED_DATA_FILES=" output_blessed.txt  "
-DATA_FILES="         output.txt       "
+DATA_FILES="         out.txt       "
 DIFF_NAMES="         diff_out.txt  "
 DIFF_REQ="           True          "
 #

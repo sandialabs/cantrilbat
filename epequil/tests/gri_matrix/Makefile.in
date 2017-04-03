@@ -12,7 +12,7 @@
 # the name of the executable program to be created
 PROG_NAME = gri_matrix
 
-TEST_NAME = $(PROG_NAME)
+TESTNAME = $(PROG_NAME)
 
 BLESSED_FILES = output_blessed.txt
 
@@ -20,7 +20,7 @@ DATA = gri30.xml problem_setup.sh
 
 TEST_FLAGS = runGood runBad runInProgress.txt
 
-TEST_INTERMEDIATES = err_out.txt diff_out.txt
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt
 
 TEST_RESULTS = output.txt
 
@@ -86,7 +86,7 @@ depends:
 	@MAKE@ .dependsT
 
 .dependsT: $(DEPENDS)
-	cat *.d > .dependsT
+	cat *.d > .depends
 	touch .dependsT
 
 test: 

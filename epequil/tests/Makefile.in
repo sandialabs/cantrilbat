@@ -1,17 +1,12 @@
 #/bin/sh
-###############################################################
-#  $Author: hkmoffa $
-#  $Date: 2007/10/12 20:57:41 $
-#  $Revision: 1.6 $
-#
-###############################################################
+##############################################################################################
 all:
 	cd silane_equil; @MAKE@ 
 	cd ex_jp8; @MAKE@
 	cd ex_gri; @MAKE@
 	cd gri_pairs; @MAKE@
 	cd airNASA9_pairs; @MAKE@
-	cd gri_matrix; @MAKE@
+	cd gri_matrix;                                @MAKE@
 	cd gri_matrix_savedEP; @MAKE@
 	cd airNASA9_matrix; @MAKE@
 	cd airNASA9_UVmatrix; @MAKE@
@@ -19,38 +14,85 @@ all:
 	cd basopt_modgri; @MAKE@
 	cd basopt_red1; @MAKE@
 	cd ionizedGasEquil; @MAKE@
-	cd jp8_matrix; @MAKE@
+	cd jp8_matrix;                                @MAKE@
+
+depends:
+	cd gri_matrix;                                @MAKE@ depends
+	cd jp8_matrix;                                @MAKE@ depends
 
 test:
-	@ cd silane_equil; ./runtest
-	@ cd ex_jp8; ./runtest
-	@ cd ex_gri; ./runtest
-	@ cd gri_pairs; ./runtest
-	@ cd airNASA9_pairs; ./runtest
-	@ cd gri_matrix; ./runtest
-	@ cd gri_matrix_savedEP; ./runtest
-	@ cd airNASA9_matrix; ./runtest
-	@ cd airNASA9_UVmatrix; ./runtest
-	@ cd basopt_test; ./runtest
-	@ cd basopt_modgri; ./runtest
-	@ cd basopt_red1; ./runtest
-	@ cd ionizedGasEquil; ./runtest
-	@ cd jp8_matrix; ./runtest
+	@ cd silane_equil;                            @MAKE@ test
+	@ cd ex_jp8;                                  @MAKE@ test
+	@ cd ex_gri;                                  @MAKE@ test
+	@ cd gri_pairs;                               @MAKE@ test
+	@ cd airNASA9_pairs;                          @MAKE@ test
+	@ cd gri_matrix;                              @MAKE@ test
+	@ cd gri_matrix_savedEP;                      @MAKE@ test
+	@ cd airNASA9_matrix;                         @MAKE@ test
+	@ cd airNASA9_UVmatrix;                       @MAKE@ test
+	@ cd basopt_test;                             @MAKE@ test
+	@ cd basopt_modgri;                           @MAKE@ test
+	@ cd basopt_red1;                             @MAKE@ test
+	@ cd ionizedGasEquil;                         @MAKE@ test
+	@ cd jp8_matrix;                              @MAKE@ test
+
+rebaseline:
+	cd  gri_matrix;                               @MAKE@ rebaseline
+	cd jp8_matrix;                                @MAKE@ rebaseline
+
 clean:
-	cd silane_equil; @MAKE@ clean
-	cd ex_jp8; @MAKE@ clean
-	cd ex_gri; @MAKE@ clean
-	cd gri_pairs; @MAKE@ clean
-	cd airNASA9_pairs; @MAKE@ clean
-	cd gri_matrix; @MAKE@ clean
-	cd gri_matrix_savedEP; @MAKE@ clean
-	cd airNASA9_matrix; @MAKE@ clean
-	cd airNASA9_UVmatrix; @MAKE@ clean
-	cd jp8_matrix; @MAKE@ clean
-	cd basopt_test; @MAKE@ clean
-	cd basopt_modgri; @MAKE@ clean
-	cd basopt_red1; @MAKE@ clean
-	cd ionizedGasEquil; @MAKE@ clean
+	cd silane_equil;                              @MAKE@ clean
+	cd ex_jp8;                                    @MAKE@ clean
+	cd ex_gri;                                    @MAKE@ clean
+	cd gri_pairs;                                 @MAKE@ clean
+	cd airNASA9_pairs;                            @MAKE@ clean
+	cd gri_matrix;                                @MAKE@ clean
+	cd gri_matrix_savedEP;                        @MAKE@ clean
+	cd airNASA9_matrix;                           @MAKE@ clean
+	cd airNASA9_UVmatrix;                         @MAKE@ clean
+	cd jp8_matrix;                                @MAKE@ clean
+	cd basopt_test;                               @MAKE@ clean
+	cd basopt_modgri;                             @MAKE@ clean
+	cd basopt_red1;                               @MAKE@ clean
+	cd ionizedGasEquil;                           @MAKE@ clean
+
+clean_dist:
+	cd silane_equil;                              @MAKE@ clean
+	cd ex_jp8;                                    @MAKE@ clean
+	cd ex_gri;                                    @MAKE@ clean
+	cd gri_pairs;                                 @MAKE@ clean
+	cd airNASA9_pairs;                            @MAKE@ clean
+	cd gri_matrix;                                @MAKE@ clean_dist
+	cd gri_matrix_savedEP;                        @MAKE@ clean
+	cd airNASA9_matrix;                           @MAKE@ clean
+	cd airNASA9_UVmatrix;                         @MAKE@ clean
+	cd jp8_matrix;                                @MAKE@ clean
+	cd basopt_test;                               @MAKE@ clean
+	cd basopt_modgri;                             @MAKE@ clean
+	cd basopt_red1;                               @MAKE@ clean
+	cd ionizedGasEquil;                           @MAKE@ clean
+	cd jp8_matrix;                                @MAKE@ clean_dist
+
+clean_test_flags:
+	cd  gri_matrix;                               @MAKE@ clean_test_flags
+	cd jp8_matrix;                                @MAKE@ clean_test_flags
+
+clean_test:
+	cd silane_equil;                              @MAKE@ clean
+	cd ex_jp8;                                    @MAKE@ clean
+	cd ex_gri;                                    @MAKE@ clean
+	cd gri_pairs;                                 @MAKE@ clean
+	cd airNASA9_pairs;                            @MAKE@ clean
+	cd  gri_matrix;                               @MAKE@ clean_test
+	cd gri_matrix_savedEP;                        @MAKE@ clean
+	cd airNASA9_matrix;                           @MAKE@ clean
+	cd airNASA9_UVmatrix;                         @MAKE@ clean
+	cd jp8_matrix;                                @MAKE@ clean
+	cd basopt_test;                               @MAKE@ clean
+	cd basopt_modgri;                             @MAKE@ clean
+	cd basopt_red1;                               @MAKE@ clean
+	cd ionizedGasEquil;                           @MAKE@ clean
+	cd jp8_matrix;                                @MAKE@ clean_test
 
 install:
 

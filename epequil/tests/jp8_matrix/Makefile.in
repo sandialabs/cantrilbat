@@ -11,7 +11,7 @@
 # the name of the executable program to be created
 PROG_NAME = jp8_matrix
 
-TEST_NAME = $(PROG_NAME)
+TESTNAME = $(PROG_NAME)
 
 BLESSED_FILES = output_blessed.txt
 
@@ -19,9 +19,9 @@ DATA = jp8_mech_hongzhi.xml problem_setup.sh
 
 TEST_FLAGS = runGood runBad runInProgress.txt
 
-TEST_INTERMEDIATES = err_out.txt diff_out.txt
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt err_out.txt
 
-TEST_RESULTS = output.txt
+TEST_RESULTS = out.txt
 
 # List of objects to be linked
 OBJS = $(PROG_NAME).o
@@ -96,7 +96,7 @@ rebaseline:
 	cp out.txt good_out.txt
 
 clean:
-	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
+	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(TEST_INTERMEDIATES) $(DEPENDS) .depends .dependsT
 
 clean_test:
 	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
