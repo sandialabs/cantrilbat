@@ -41,9 +41,9 @@ GDEFINES = -DDEBUG_ROOT1D
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR)
 
-all: .depends epequil
+all: .dependsT epequil
 
-allsrc: .depends epequil
+allsrc: .dependsT epequil
 
 
 LDR = $(F77LDR)
@@ -96,10 +96,11 @@ DEPENDS = epequil_main.d epequil_input.d epequil_prep.d \
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat $(DEPENDS) > .depends
+	touch .dependsT
 
 ##############################################################################
 BUILD_WITH_CTF2C=@build_with_f2c@
@@ -114,7 +115,7 @@ epequil: $(OBJ_EPEQUIL) $(OBJ_CANTERA_ADDONS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC
 
 
 clean:
-	$(RM) *.o *.d .depends epequil *.~
+	$(RM) *.o *.d .depends .dependsT epequil *.~
 
 
 install:

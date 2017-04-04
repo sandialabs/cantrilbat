@@ -15,17 +15,19 @@ allsrc:
 	cd src; @MAKE@
 
 clean:
-	cd src; $(RM) .depends ; @MAKE@ clean
-	cd tests;                @MAKE@ clean
+	cd src;                          @MAKE@ clean
+	cd tests;                        @MAKE@ clean
 
 depends:
-	cd src; @MAKE@ depends
-	cd tests; @MAKE@ depends
+	cd src;                          @MAKE@ depends
+	cd tests;                        @MAKE@ depends
 
 test:
 	cd src; @MAKE@ -s
-	cd tests; @MAKE@ -s
 	cd tests; @MAKE@ -s test
+
+rebaseline:
+	cd tests;                        @MAKE@ rebaseline
 
 install:
 	cd src; @MAKE@ install
