@@ -26,7 +26,7 @@
     <species name="NaCl(S)_nist">
       <atomArray> Na:1 Cl:1 </atomArray>
       <thermo>
-        <Shomate Pref="1 bar" Tmax="1075.0" Tmin="250.0">
+        <Shomate Pref="1 atm" Tmax="1075.0" Tmin="250.0">
           <floatArray size="7">
            50.72389, 6.672267, -2.517167,
            10.15934, -0.200675, -427.2115,

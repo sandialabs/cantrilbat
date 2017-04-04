@@ -35,12 +35,12 @@
       <atomArray>H:1 </atomArray>
       <note>8/12/99 therm</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.501044220E+00,   0.000000000E+00,   0.000000000E+00,   0.000000000E+00, 
              0.000000000E+00,   2.547474660E+04,  -4.653413170E-01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.501044220E+00,   0.000000000E+00,   0.000000000E+00,   0.000000000E+00, 
              0.000000000E+00,   2.547474660E+04,  -4.653413170E-01</floatArray>
@@ -61,12 +61,12 @@
       <atomArray>H:2 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.298124000E+00,   8.249442000E-04,  -8.143015000E-07,  -9.475434000E-11, 
              4.134872000E-13,  -1.012521000E+03,  -3.294094000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.991423000E+00,   7.000644000E-04,  -5.633829000E-08,  -9.231578000E-12, 
              1.582752000E-15,  -8.350340000E+02,  -1.355110000E+00</floatArray>
@@ -87,12 +87,12 @@
       <atomArray>O:1 </atomArray>
       <note>120186</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.946429000E+00,  -1.638166000E-03,   2.421032000E-06,  -1.602843000E-09, 
              3.890696000E-13,   2.914764000E+04,   2.963995000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.542060000E+00,  -2.755062000E-05,  -3.102803000E-09,   4.551067000E-12, 
              -4.368052000E-16,   2.923080000E+04,   4.920308000E+00</floatArray>
@@ -113,12 +113,12 @@
       <atomArray>O:2 </atomArray>
       <note>121386</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.212936000E+00,   1.127486000E-03,  -5.756150000E-07,   1.313877000E-09, 
              -8.768554000E-13,  -1.005249000E+03,   6.034738000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.697578000E+00,   6.135197000E-04,  -1.258842000E-07,   1.775281000E-11, 
              -1.136435000E-15,  -1.233930000E+03,   3.189166000E+00</floatArray>
@@ -139,12 +139,12 @@
       <atomArray>H:1 O:1 </atomArray>
       <note>8/12/99 therm</note>
       <thermo>
-        <NASA Tmax="1357.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1357.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.435862190E+00,   2.022358040E-04,  -1.135464120E-07,   2.424451490E-10, 
              -7.436510310E-14,   3.743212520E+03,   2.450141270E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1357.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1357.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.625997540E+00,   1.319924060E-03,  -3.597246700E-07,   4.256308000E-11, 
              -1.820480160E-15,   4.120853740E+03,   7.106673070E+00</floatArray>
@@ -165,12 +165,12 @@
       <atomArray>H:2 O:1 </atomArray>
       <note>20387</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.386842000E+00,   3.474982000E-03,  -6.354696000E-06,   6.968581000E-09, 
              -2.506588000E-12,  -3.020811000E+04,   2.590233000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.672146000E+00,   3.056293000E-03,  -8.730260000E-07,   1.200996000E-10, 
              -6.391618000E-15,  -2.989921000E+04,   6.862817000E+00</floatArray>
@@ -191,12 +191,12 @@
       <atomArray>N:2 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.298677000E+00,   1.408240000E-03,  -3.963222000E-06,   5.641515000E-09, 
              -2.444855000E-12,  -1.020900000E+03,   3.950372000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.926640000E+00,   1.487977000E-03,  -5.684761000E-07,   1.009704000E-10, 
              -6.753351000E-15,  -9.227977000E+02,   5.980528000E+00</floatArray>
@@ -217,12 +217,12 @@
       <atomArray>C:1 O:1 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.262452000E+00,   1.511941000E-03,  -3.881755000E-06,   5.581944000E-09, 
              -2.474951000E-12,  -1.431054000E+04,   4.848897000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.025078000E+00,   1.442689000E-03,  -5.630828000E-07,   1.018581000E-10, 
              -6.910952000E-15,  -1.426835000E+04,   6.108218000E+00</floatArray>
@@ -243,12 +243,12 @@
       <atomArray>H:1 C:1 O:1 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.898330000E+00,   6.199147000E-03,  -9.623084000E-06,   1.089825000E-08, 
              -4.574885000E-12,   4.159922000E+03,   8.983614000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.557271000E+00,   3.345573000E-03,  -1.335006000E-06,   2.470573000E-10, 
              -1.713851000E-14,   3.916324000E+03,   5.552299000E+00</floatArray>
@@ -269,12 +269,12 @@
       <atomArray>C:1 O:2 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.275725000E+00,   9.922072000E-03,  -1.040911000E-05,   6.866687000E-09, 
              -2.117280000E-12,  -4.837314000E+04,   1.018849000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.453623000E+00,   3.140169000E-03,  -1.278411000E-06,   2.393997000E-10, 
              -1.669033000E-14,  -4.896696000E+04,  -9.553959000E-01</floatArray>
@@ -295,12 +295,12 @@
       <atomArray>H:3 C:1 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.430443000E+00,   1.112410000E-02,  -1.680220000E-05,   1.621829000E-08, 
              -5.864953000E-12,   1.642378000E+04,   6.789794000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.844052000E+00,   6.137974000E-03,  -2.230345000E-06,   3.785161000E-10, 
              -2.452159000E-14,   1.643781000E+04,   5.452697000E+00</floatArray>
@@ -321,12 +321,12 @@
       <atomArray>H:4 C:1 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.787415000E-01,   1.747668000E-02,  -2.783409000E-05,   3.049708000E-08, 
              -1.223931000E-11,  -9.825229000E+03,   1.372219000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.683479000E+00,   1.023724000E-02,  -3.875129000E-06,   6.785585000E-10, 
              -4.503423000E-14,  -1.008079000E+04,   9.623395000E+00</floatArray>
@@ -347,12 +347,12 @@
       <atomArray>H:1 O:2 </atomArray>
       <note>8/12/99 therm</note>
       <thermo>
-        <NASA Tmax="1390.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1390.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.183106560E+00,   3.667679500E-03,  -9.323851220E-07,  -3.258529190E-10, 
              1.511399120E-13,   8.091810130E+02,   8.393710990E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1390.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1390.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.105474230E+00,   2.384528350E-03,  -8.063479890E-07,   1.241917230E-10, 
              -7.164001080E-15,   3.981276890E+02,   3.125158360E+00</floatArray>
@@ -373,12 +373,12 @@
       <atomArray>H:2 O:2 </atomArray>
       <note>120186</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.388754000E+00,   6.569226000E-03,  -1.485013000E-07,  -4.625806000E-09, 
              2.471515000E-12,  -1.766315000E+04,   6.785363000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.573167000E+00,   4.336136000E-03,  -1.474689000E-06,   2.348904000E-10, 
              -1.431654000E-14,  -1.800696000E+04,   5.011370000E-01</floatArray>
@@ -399,12 +399,12 @@
       <atomArray>H:2 C:1 O:1 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.652731000E+00,   1.263144000E-02,  -1.888168000E-05,   2.050031000E-08, 
              -8.413237000E-12,  -1.486540000E+04,   1.378482000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.995606000E+00,   6.681321000E-03,  -2.628955000E-06,   4.737153000E-10, 
              -3.212517000E-14,  -1.532037000E+04,   6.912572000E+00</floatArray>
@@ -425,12 +425,12 @@
       <atomArray>H:3 C:1 O:1 </atomArray>
       <note>121686</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.106204000E+00,   7.216595000E-03,   5.338472000E-06,  -7.377636000E-09, 
              2.075611000E-12,   9.786011000E+02,   1.315218000E+01</floatArray>
         </NASA>
-        <NASA Tmax="3000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="3000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.770800000E+00,   7.871497000E-03,  -2.656384000E-06,   3.944431000E-10, 
              -2.112616000E-14,   1.278325000E+02,   2.929575000E+00</floatArray>
@@ -451,12 +451,12 @@
       <atomArray>H:6 C:2 </atomArray>
       <note>121686</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.462539000E+00,   1.549467000E-02,   5.780507000E-06,  -1.257832000E-08, 
              4.586267000E-12,  -1.123918000E+04,   1.443229000E+01</floatArray>
         </NASA>
-        <NASA Tmax="4000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="4000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.825938000E+00,   1.384043000E-02,  -4.557259000E-06,   6.724967000E-10, 
              -3.598161000E-14,  -1.271779000E+04,  -5.239507000E+00</floatArray>
@@ -477,12 +477,12 @@
       <atomArray>H:4 C:2 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              -8.614880000E-01,   2.796163000E-02,  -3.388677000E-05,   2.785152000E-08, 
              -9.737879000E-12,   5.573046000E+03,   2.421149000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.528419000E+00,   1.148518000E-02,  -4.418385000E-06,   7.844601000E-10, 
              -5.266848000E-14,   4.428289000E+03,   2.230389000E+00</floatArray>
@@ -503,12 +503,12 @@
       <atomArray>H:5 C:2 </atomArray>
       <note>12387</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.690702000E+00,   8.719133000E-03,   4.419839000E-06,   9.338703000E-10, 
              -3.927773000E-12,   1.287040000E+04,   1.213820000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.190480000E+00,   6.484077000E-03,  -6.428065000E-07,  -2.347879000E-10, 
              3.880877000E-14,   1.067455000E+04,  -1.478089000E+01</floatArray>
@@ -529,12 +529,12 @@
       <atomArray>H:2 C:1 </atomArray>
       <note>120186</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="250.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="250.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.762237000E+00,   1.159819000E-03,   2.489585000E-07,   8.800836000E-10, 
              -7.332435000E-13,   4.536791000E+04,   1.712578000E+00</floatArray>
         </NASA>
-        <NASA Tmax="4000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="4000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.636408000E+00,   1.933057000E-03,  -1.687016000E-07,  -1.009899000E-10, 
              1.808256000E-14,   4.534134000E+04,   2.156561000E+00</floatArray>
@@ -555,12 +555,12 @@
       <atomArray>H:1 C:1 </atomArray>
       <note>121286</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.200202000E+00,   2.072876000E-03,  -5.134431000E-06,   5.733890000E-09, 
              -1.955533000E-12,   7.045259000E+04,   3.331588000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.196223000E+00,   2.340381000E-03,  -7.058201000E-07,   9.007582000E-11, 
              -3.855040000E-15,   7.086723000E+04,   9.178373000E+00</floatArray>
@@ -581,12 +581,12 @@
       <atomArray>H:1 C:2 </atomArray>
       <note>81193</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.737704000E+00,   8.048446000E-03,  -9.244310000E-06,   6.525259000E-09, 
              -1.939580000E-12,   6.683813000E+04,   7.300220000E+00</floatArray>
         </NASA>
-        <NASA Tmax="4000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="4000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.986367000E+00,   3.143123000E-03,  -1.267243000E-06,   2.924363000E-10, 
              -2.716320000E-14,   6.655884000E+04,   1.191063000E+00</floatArray>
@@ -607,12 +607,12 @@
       <atomArray>H:2 C:2 </atomArray>
       <note>121386</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.013562000E+00,   1.519045000E-02,  -1.616319000E-05,   9.078992000E-09, 
              -1.912746000E-12,   2.612444000E+04,   8.805378000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.436770000E+00,   5.376039000E-03,  -1.912817000E-06,   3.286379000E-10, 
              -2.156710000E-14,   2.566766000E+04,  -2.800338000E+00</floatArray>
@@ -633,12 +633,12 @@
       <atomArray>H:3 C:2 </atomArray>
       <note>12787</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.459276000E+00,   7.371476000E-03,   2.109873000E-06,  -1.321642000E-09, 
              -1.184784000E-12,   3.335225000E+04,   1.155620000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.933468000E+00,   4.017746000E-03,  -3.966740000E-07,  -1.441267000E-10, 
              2.378644000E-14,   3.185435000E+04,  -8.530313000E+00</floatArray>
@@ -659,12 +659,12 @@
       <atomArray>H:4 C:1 O:1 </atomArray>
       <note>121686</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.660115000E+00,   7.341508000E-03,   7.170051000E-06,  -8.793194000E-09, 
              2.390570000E-12,  -2.535348000E+04,   1.123263000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.029061000E+00,   9.376593000E-03,  -3.050254000E-06,   4.358793000E-10, 
              -2.224723000E-14,  -2.615791000E+04,   2.378196000E+00</floatArray>
@@ -685,12 +685,12 @@
       <atomArray>H:3 C:1 O:1 </atomArray>
       <note>120186</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="250.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="250.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.862628000E+00,   1.001527000E-02,  -5.285436000E-07,  -5.138540000E-09, 
              2.246041000E-12,  -3.349679000E+03,   1.039794000E+01</floatArray>
         </NASA>
-        <NASA Tmax="4000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="4000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.327520000E+00,   3.608271000E-03,  -3.201547000E-07,  -1.938750000E-10, 
              3.509705000E-14,  -4.474509000E+03,  -8.329366000E+00</floatArray>
@@ -711,12 +711,12 @@
       <atomArray>H:2 C:2 O:1 </atomArray>
       <note>121686</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.974971000E+00,   1.211871000E-02,  -2.345046000E-06,  -6.466685000E-09, 
              3.905649000E-12,  -7.632637000E+03,   8.673553000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.038817000E+00,   5.804840000E-03,  -1.920954000E-06,   2.794485000E-10, 
              -1.458868000E-14,  -8.583402000E+03,  -7.657581000E+00</floatArray>
@@ -737,12 +737,12 @@
       <atomArray>H:1 C:2 O:1 </atomArray>
       <note>32387</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.047965000E+00,   4.453478000E-03,   2.268283000E-07,  -1.482095000E-09, 
              2.250742000E-13,   1.965892000E+04,   4.818439000E-01</floatArray>
         </NASA>
-        <NASA Tmax="4000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="4000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.758073000E+00,   2.000400000E-03,  -2.027607000E-07,  -1.041132000E-10, 
              1.965165000E-14,   1.901513000E+04,  -9.071262000E+00</floatArray>
@@ -763,12 +763,12 @@
       <atomArray>H:6 C:2 O:1 </atomArray>
       <note>3/12/95 therm</note>
       <thermo>
-        <NASA Tmax="1391.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1391.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.231490450E-01,   2.928581670E-02,  -1.738450990E-05,   5.336398920E-09, 
              -6.749172520E-13,  -2.956830540E+04,   2.335387630E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1391.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1391.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.952648410E+00,   1.315741440E-02,  -4.436933590E-06,   6.822011600E-10, 
              -3.930963350E-14,  -3.236029580E+04,  -1.765379720E+01</floatArray>
@@ -789,12 +789,12 @@
       <atomArray>H:5 C:2 O:1 </atomArray>
       <note>3/12/95 therm</note>
       <thermo>
-        <NASA Tmax="1391.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1391.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.177147110E+00,   2.481156850E-02,  -1.502995030E-05,   4.790067850E-09, 
              -6.409942110E-13,  -4.953690430E+03,   2.200815860E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1391.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1391.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.522419390E+00,   1.104927150E-02,  -3.725764650E-06,   5.728273970E-10, 
              -3.300617590E-14,  -7.293335900E+03,  -1.249587320E+01</floatArray>
@@ -815,12 +815,12 @@
       <atomArray>H:5 C:2 O:1 </atomArray>
       <note>4/ 3/ 0 therm</note>
       <thermo>
-        <NASA Tmax="1392.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1392.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.914964770E+00,   2.456931450E-02,  -1.630753990E-05,   6.122823610E-09, 
              -1.007843630E-12,  -8.621615510E+03,   1.659873090E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1392.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1392.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.835245170E+00,   1.088081980E-02,  -3.686941270E-06,   5.686013610E-10, 
              -3.282889510E-14,  -1.075343110E+04,  -1.534957020E+01</floatArray>
@@ -841,12 +841,12 @@
       <atomArray>H:3 C:2 O:1 </atomArray>
       <note>120186</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.125278000E+00,   9.778220000E-03,   4.521448000E-06,  -9.009462000E-09, 
              3.193718000E-12,  -4.108508000E+03,   1.122885000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.612279000E+00,   8.449886000E-03,  -2.854147000E-06,   4.238376000E-10, 
              -2.268404000E-14,  -5.187863000E+03,  -3.274949000E+00</floatArray>
@@ -867,12 +867,12 @@
       <atomArray>H:3 C:2 O:1 </atomArray>
       <note>110393</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.409062000E+00,   1.073857000E-02,   1.891492000E-06,  -7.158583000E-09, 
              2.867385000E-12,   1.521477000E+03,   9.558290000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.975670000E+00,   8.130591000E-03,  -2.743624000E-06,   4.070304000E-10, 
              -2.176017000E-14,   4.903218000E+02,  -5.045251000E+00</floatArray>
@@ -893,12 +893,12 @@
       <atomArray>H:4 C:2 O:1 </atomArray>
       <note>120186</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.505695000E+00,   1.336991000E-02,   4.671953000E-06,  -1.128140000E-08, 
              4.263566000E-12,  -2.124589000E+04,   1.335089000E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.868650000E+00,   1.079424000E-02,  -3.645530000E-06,   5.412912000E-10, 
              -2.896844000E-14,  -2.264569000E+04,  -6.012946000E+00</floatArray>
@@ -919,12 +919,12 @@
       <atomArray>H:6 C:3 O:1 </atomArray>
       <note>5/ 4/92 therm</note>
       <thermo>
-        <NASA Tmax="1374.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1374.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.307671630E+00,   2.920217420E-02,  -1.190456170E-05,   6.521500870E-10, 
              4.677512030E-13,  -2.753282690E+04,   1.963950250E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1374.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1374.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.914219840E+00,   1.460307090E-02,  -5.060857650E-06,   7.926828550E-10, 
              -4.627396450E-14,  -3.111674230E+04,  -2.861132150E+01</floatArray>
@@ -945,12 +945,12 @@
       <atomArray>H:5 C:3 O:1 </atomArray>
       <note>5/ 4/92 therm</note>
       <thermo>
-        <NASA Tmax="1391.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1391.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.803391870E+00,   3.014070850E-02,  -1.935055520E-05,   6.381990340E-09, 
              -8.661031800E-13,  -5.372332610E+03,   1.780464080E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1391.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1391.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.023039750E+01,   1.164941610E-02,  -4.010055370E-06,   6.252052460E-10, 
              -3.637843620E-14,  -8.443804620E+03,  -2.791972200E+01</floatArray>
@@ -971,12 +971,12 @@
       <atomArray>H:6 C:3 O:1 </atomArray>
       <note>6/26/95 therm</note>
       <thermo>
-        <NASA Tmax="1378.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1378.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.163084440E+00,   2.955012640E-02,  -1.524462520E-05,   3.495039470E-09, 
              -2.388966270E-13,  -2.422601370E+04,   1.611533480E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1378.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1378.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.024276950E+01,   1.396419890E-02,  -4.762480010E-06,   7.381057060E-10, 
              -4.277595030E-14,  -2.741431350E+04,  -2.853468430E+01</floatArray>
@@ -997,12 +997,12 @@
       <atomArray>H:5 C:3 O:1 </atomArray>
       <note>6/26/95 therm</note>
       <thermo>
-        <NASA Tmax="1373.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1373.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.933139460E+00,   2.474279110E-02,  -1.212220030E-05,   2.347010480E-09, 
              -5.268433380E-14,  -5.696630630E+03,   1.359583550E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1373.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1373.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.878819970E+00,   1.175156760E-02,  -4.006149230E-06,   6.208506170E-10, 
              -3.598352250E-14,  -8.472922830E+03,  -2.492351960E+01</floatArray>
@@ -1023,12 +1023,12 @@
       <atomArray>H:5 C:2 O:1 </atomArray>
       <note>3/12/95 therm</note>
       <thermo>
-        <NASA Tmax="1389.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1389.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.944207080E-01,   2.717744340E-02,  -1.659090100E-05,   5.152042000E-09, 
              -6.484969150E-13,  -3.352529250E+03,   2.280793780E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1389.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1389.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.873397720E+00,   1.130729070E-02,  -3.844214210E-06,   5.944141050E-10, 
              -3.438945380E-14,  -6.072749530E+03,  -1.734167900E+01</floatArray>
@@ -1049,12 +1049,12 @@
       <atomArray>H:3 C:1 O:2 </atomArray>
       <note>7/13/98 therm</note>
       <thermo>
-        <NASA Tmax="1385.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1385.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.261469060E+00,   1.008735990E-02,  -3.215061840E-06,   2.094092670E-10, 
              4.183391030E-14,  -6.843942590E+02,   5.163303200E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1385.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1385.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.957878910E+00,   7.907286260E-03,  -2.682462340E-06,   4.138913370E-10, 
              -2.390073300E-14,  -1.535748380E+03,  -4.719638860E+00</floatArray>
@@ -1075,12 +1075,12 @@
       <atomArray>H:5 C:2 O:2 </atomArray>
       <note>7/27/98 therm</note>
       <thermo>
-        <NASA Tmax="1386.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1386.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.251211670E+00,   2.367658690E-02,  -1.184776060E-05,   2.794015640E-09, 
              -2.410436010E-13,  -5.445330680E+03,   1.279531470E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1386.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1386.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.152559140E+00,   1.247092840E-02,  -4.271006500E-06,   6.634700120E-10, 
              -3.850243630E-14,  -7.827593190E+03,  -1.993848910E+01</floatArray>
@@ -1101,12 +1101,12 @@
       <atomArray>H:4 C:1 O:2 </atomArray>
       <note>7/13/98 therm</note>
       <thermo>
-        <NASA Tmax="1390.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1390.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.234428170E+00,   1.901297670E-02,  -1.133862870E-05,   3.403066530E-09, 
              -4.118302220E-13,  -1.771979260E+04,   9.256239490E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1390.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1390.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.431170910E+00,   8.068179090E-03,  -2.770949210E-06,   4.313322430E-10, 
              -2.506921460E-14,  -1.966787710E+04,  -1.911706290E+01</floatArray>
@@ -1127,12 +1127,12 @@
       <atomArray>H:6 C:2 O:2 </atomArray>
       <note>7/27/98 therm</note>
       <thermo>
-        <NASA Tmax="1389.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1389.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.554481380E+00,   3.134472820E-02,  -1.843128660E-05,   5.159177910E-09, 
              -5.285729920E-13,  -2.253536760E+04,   1.531973220E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1389.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1389.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.153617940E+01,   1.266809040E-02,  -4.363029270E-06,   6.805161960E-10, 
              -3.960925410E-14,  -2.589906760E+04,  -3.375846060E+01</floatArray>
@@ -1153,12 +1153,12 @@
       <atomArray>H:3 C:2 O:1 </atomArray>
       <note>4/ 3/ 0 therm</note>
       <thermo>
-        <NASA Tmax="1492.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1492.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              -1.629651220E+00,   2.934554860E-02,  -2.437375500E-05,   1.005223250E-08, 
              -1.612590360E-12,   1.524594250E+04,   3.227827410E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1492.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1492.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.884864710E+00,   6.947205010E-03,  -2.232146980E-06,   3.321907670E-10, 
              -1.871245550E-14,   1.264422000E+04,  -1.238425700E+01</floatArray>
@@ -1179,12 +1179,12 @@
       <atomArray>H:3 C:2 O:2 </atomArray>
       <note>8/ 9/99 therm</note>
       <thermo>
-        <NASA Tmax="1395.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1395.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.374407680E+00,   2.491156040E-02,  -1.743088940E-05,   6.247995080E-09, 
              -9.095168350E-13,  -2.723301500E+04,   1.745106380E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1395.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1395.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.540597360E+00,   8.329512140E-03,  -2.847220100E-06,   4.419271960E-10, 
              -2.563733940E-14,  -2.972906780E+04,  -2.107783610E+01</floatArray>
@@ -1205,12 +1205,12 @@
       <atomArray>H:4 C:2 O:1 </atomArray>
       <note>9/ 1/ 0 therm</note>
       <thermo>
-        <NASA Tmax="1399.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1399.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              -1.443617900E+00,   2.918371070E-02,  -1.968050540E-05,   6.674725750E-09, 
              -9.021393420E-13,  -7.434335070E+03,   2.952124530E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1399.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1399.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.994857630E+00,   1.007724590E-02,  -3.452209320E-06,   5.365712160E-10, 
              -3.115635430E-14,  -1.040913440E+04,  -1.598579760E+01</floatArray>
@@ -1231,12 +1231,12 @@
       <atomArray>H:5 C:2 O:2 </atomArray>
       <note>7/27/98 therm</note>
       <thermo>
-        <NASA Tmax="1388.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1388.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.409770310E+00,   2.659397110E-02,  -1.574081610E-05,   4.411325640E-09, 
              -4.492090010E-13,   2.058746550E+03,   1.352649410E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1388.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1388.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.114769650E+01,   1.049499680E-02,  -3.623268190E-06,   5.660612290E-10, 
              -3.298573280E-14,  -8.356067340E+02,  -2.874805380E+01</floatArray>
@@ -1257,12 +1257,12 @@
       <atomArray>H:5 C:2 O:3 </atomArray>
       <note>2/14/95 therm</note>
       <thermo>
-        <NASA Tmax="1392.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1392.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.118394450E+00,   2.722406320E-02,  -1.608244300E-05,   5.170334080E-09, 
              -7.316101680E-13,  -2.308577850E+04,   1.284821120E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1392.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1392.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.074326590E+01,   1.309577870E-02,  -4.453700880E-06,   6.885487380E-10, 
              -3.982301130E-14,  -2.559112740E+04,  -2.332549530E+01</floatArray>
@@ -1283,12 +1283,12 @@
       <atomArray>H:3 C:2 O:3 </atomArray>
       <note>4/ 3/ 0 therm</note>
       <thermo>
-        <NASA Tmax="1391.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1391.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.603734320E+00,   2.700803410E-02,  -2.082934380E-05,   8.505411040E-09, 
              -1.438461100E-12,  -2.342051710E+04,   1.120149140E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1391.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1391.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.125224980E+01,   8.336526720E-03,  -2.890145300E-06,   4.527817340E-10, 
              -2.643544560E-14,  -2.602385840E+04,  -2.963704570E+01</floatArray>
@@ -1309,12 +1309,12 @@
       <atomArray>H:4 C:2 O:3 </atomArray>
       <note>6/26/95 therm</note>
       <thermo>
-        <NASA Tmax="1391.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1391.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.241358760E+00,   3.379635140E-02,  -2.538874820E-05,   9.675835870E-09, 
              -1.492661570E-12,  -4.246778310E+04,   1.706681330E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1391.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1391.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.250604850E+01,   9.477896950E-03,  -3.304022460E-06,   5.196307930E-10, 
              -3.042335680E-14,  -4.598567030E+04,  -3.791959470E+01</floatArray>
@@ -1335,12 +1335,12 @@
       <atomArray>H:3 C:3 O:1 </atomArray>
       <note>4/ 3/ 0 therm</note>
       <thermo>
-        <NASA Tmax="1402.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1402.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.362420130E+00,   3.152739720E-02,  -3.002189350E-05,   1.481671120E-08, 
              -2.879715300E-12,   4.257702150E+03,   1.726265460E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1402.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1402.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.374676760E+00,   7.912969000E-03,  -2.671982800E-06,   4.111154300E-10, 
              -2.369789810E-14,   1.929695140E+03,  -2.408926960E+01</floatArray>
@@ -1361,12 +1361,12 @@
       <atomArray>H:4 C:3 O:1 </atomArray>
       <note>6/26/95 therm</note>
       <thermo>
-        <NASA Tmax="1393.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1393.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.923551620E-01,   3.543214170E-02,  -2.949363240E-05,   1.281001240E-08, 
              -2.261441080E-12,  -1.165215840E+04,   2.288782800E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1393.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1393.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.041849590E+01,   9.489633210E-03,  -3.293105290E-06,   5.162792030E-10, 
              -3.015872910E-14,  -1.496302810E+04,  -3.072350610E+01</floatArray>
@@ -1387,12 +1387,12 @@
       <atomArray>H:5 C:3 O:3 </atomArray>
       <note>2/14/95</note>
       <thermo>
-        <NASA Tmax="1379.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1379.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.955354680E+00,   2.702552050E-02,  -1.373850310E-05,   3.537358510E-09, 
              -4.039225570E-13,  -2.066794640E+04,   5.214360490E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1379.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1379.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.276903420E+01,   1.425548280E-02,  -4.928214610E-06,   7.704489210E-10, 
              -4.491105340E-14,  -2.347986690E+04,  -3.271557990E+01</floatArray>
@@ -1413,12 +1413,12 @@
       <atomArray>H:6 C:3 O:3 </atomArray>
       <note>2/14/95</note>
       <thermo>
-        <NASA Tmax="1381.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1381.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.947897610E+00,   3.604744320E-02,  -2.217199330E-05,   6.982968740E-09, 
              -9.212692600E-13,  -3.886871780E+04,   8.499261300E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1381.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1381.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.523728100E+01,   1.441146510E-02,  -5.012900090E-06,   7.870712290E-10, 
              -4.602257840E-14,  -4.275644440E+04,  -4.773837840E+01</floatArray>
@@ -1439,12 +1439,12 @@
       <atomArray>H:5 C:3 O:2 </atomArray>
       <note>4/ 3/ 0 therm</note>
       <thermo>
-        <NASA Tmax="1370.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1370.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.729276890E+00,   2.639436970E-02,  -1.097964860E-05,   8.581853030E-10, 
              3.394745900E-13,  -1.915515650E+04,   1.185053350E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1370.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1370.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.146375860E+01,   1.321243420E-02,  -4.565804950E-06,   7.138975380E-10, 
              -4.162810470E-14,  -2.238330170E+04,  -3.151278680E+01</floatArray>
@@ -1465,12 +1465,12 @@
       <atomArray>H:2 C:1 O:3 </atomArray>
       <note>6/26/95 therm</note>
       <thermo>
-        <NASA Tmax="1378.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1378.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.424647260E+00,   2.197063800E-02,  -1.687055460E-05,   6.256121940E-09, 
              -9.116458430E-13,  -3.548280060E+04,   1.750277960E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1378.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1378.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.875038780E+00,   4.646637080E-03,  -1.672305220E-06,   2.686244130E-10, 
              -1.595952320E-14,  -3.805024960E+04,  -2.249391550E+01</floatArray>
@@ -1491,12 +1491,12 @@
       <atomArray>H:1 C:1 O:3 </atomArray>
       <note>6/26/95 therm</note>
       <thermo>
-        <NASA Tmax="1368.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1368.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.960593090E+00,   1.060022790E-02,  -5.257133510E-06,   1.017167260E-09, 
              -2.874876020E-14,  -1.735993830E+04,   1.178074830E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1368.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1368.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.240751390E+00,   4.633129510E-03,  -1.636939950E-06,   2.597066930E-10, 
              -1.529646990E-14,  -1.870276180E+04,  -6.495472120E+00</floatArray>
@@ -1517,12 +1517,12 @@
       <atomArray>H:1 C:1 O:2 </atomArray>
       <note>2/14/95 therm</note>
       <thermo>
-        <NASA Tmax="1690.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1690.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.352134520E+00,   1.500820040E-02,  -1.098961410E-05,   3.736798400E-09, 
              -4.810144980E-13,  -2.022536470E+04,   1.743731470E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1690.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1690.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.126287820E+00,   3.756029320E-03,  -1.420103520E-06,   2.364292000E-10, 
              -1.441676510E-14,  -2.176984660E+04,  -8.015746940E+00</floatArray>
@@ -1543,12 +1543,12 @@
       <atomArray>H:5 C:2 O:4 </atomArray>
       <note>6/28/95 therm</note>
       <thermo>
-        <NASA Tmax="1387.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1387.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.900318720E+00,   3.056585280E-02,  -1.859059500E-05,   5.678716050E-09, 
              -7.027995770E-13,  -1.639165710E+04,   6.330510380E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1387.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1387.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.454710320E+01,   1.233938230E-02,  -4.272594690E-06,   6.687633370E-10, 
              -3.901967210E-14,  -1.963387610E+04,  -4.087842360E+01</floatArray>
@@ -1569,12 +1569,12 @@
       <atomArray>H:2 C:1 </atomArray>
       <note>31287</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.971265000E+00,  -1.699089000E-04,   1.025369000E-06,   2.492551000E-09, 
              -1.981266000E-12,   4.989368000E+04,   5.753207000E-02</floatArray>
         </NASA>
-        <NASA Tmax="4000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="4000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.552889000E+00,   2.066788000E-03,  -1.914116000E-07,  -1.104673000E-10, 
              2.021350000E-14,   4.984975000E+04,   1.686570000E+00</floatArray>
@@ -1595,12 +1595,12 @@
       <atomArray>H:6 C:2 O:1 </atomArray>
       <note>7/20/98 therm</note>
       <thermo>
-        <NASA Tmax="1368.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1368.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.507634500E+00,   2.399142280E-02,  -8.689105000E-06,  -9.668357620E-11, 
              4.893193610E-13,  -2.328108940E+04,   1.673172970E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1368.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1368.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.277458360E+00,   1.321355390E-02,  -4.532643620E-06,   7.053165070E-10, 
              -4.099332830E-14,  -2.619827000E+04,  -2.151908940E+01</floatArray>
@@ -1621,12 +1621,12 @@
       <atomArray>H:5 C:2 O:1 </atomArray>
       <note>7/20/98 therm</note>
       <thermo>
-        <NASA Tmax="1376.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1376.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.913274150E+00,   2.033646590E-02,  -9.597123420E-06,   2.074785250E-09, 
              -1.713433620E-13,  -1.188442400E+03,   1.160668170E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1376.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1376.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.171378420E+00,   1.100861810E-02,  -3.823522770E-06,   5.996372020E-10, 
              -3.503175130E-14,  -3.419416050E+03,  -1.786508560E+01</floatArray>
@@ -1647,12 +1647,12 @@
       <atomArray>H:5 C:2 O:3 </atomArray>
       <note>7/20/98 therm</note>
       <thermo>
-        <NASA Tmax="1389.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1389.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.210296120E+00,   3.688774540E-02,  -2.825615550E-05,   1.157305330E-08, 
              -1.971304700E-12,  -1.949409400E+04,   1.914636010E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1389.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1389.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.242497290E+01,   1.187059860E-02,  -4.079065320E-06,   6.353108090E-10, 
              -3.694278670E-14,  -2.296792380E+04,  -3.537401450E+01</floatArray>
@@ -1673,12 +1673,12 @@
       <atomArray>H:5 C:2 O:3 </atomArray>
       <note>7/20/98 therm</note>
       <thermo>
-        <NASA Tmax="1393.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1393.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.528955070E+00,   4.241282900E-02,  -3.734063860E-05,   1.666393330E-08, 
              -2.964433120E-12,  -1.442933060E+04,   1.768992510E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1393.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1393.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.511917830E+01,   9.237188830E-03,  -3.191275050E-06,   4.991146780E-10, 
              -2.911624880E-14,  -1.841148670E+04,  -4.857066180E+01</floatArray>
@@ -1699,12 +1699,12 @@
       <atomArray>H:6 C:2 O:3 </atomArray>
       <note>7/20/98 therm</note>
       <thermo>
-        <NASA Tmax="1392.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1392.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.198557610E+00,   4.590607640E-02,  -3.662524200E-05,   1.493189700E-08, 
              -2.460574450E-12,  -3.653631610E+04,   2.313399040E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1392.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1392.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.493709640E+01,   1.194658290E-02,  -4.127463590E-06,   6.454225900E-10, 
              -3.764279390E-14,  -4.110010680E+04,  -4.995527370E+01</floatArray>
@@ -1725,12 +1725,12 @@
       <atomArray>H:5 C:2 O:2 </atomArray>
       <note>2/ 9/96 therm</note>
       <thermo>
-        <NASA Tmax="2012.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="2012.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.258893390E+00,   2.221463590E-02,  -7.785563400E-06,  -2.414841580E-10, 
              4.519144960E-13,  -1.923772120E+04,   1.236800690E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="2012.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="2012.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.602618450E+00,   1.357721950E-02,  -4.846616020E-06,   7.777661930E-10, 
              -4.626336240E-14,  -2.137624440E+04,  -1.757750230E+01</floatArray>
@@ -1751,12 +1751,12 @@
       <atomArray>H:5 C:2 O:5 </atomArray>
       <note>7/20/98 trm</note>
       <thermo>
-        <NASA Tmax="1402.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1402.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.996405510E+00,   5.832262320E-02,  -5.532597780E-05,   2.598105400E-08, 
              -4.771410050E-12,  -3.276287420E+04,   2.442150050E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1402.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1402.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.920380460E+01,   1.043948410E-02,  -3.605829390E-06,   5.637928430E-10, 
              -3.288072140E-14,  -3.792070550E+04,  -6.518472730E+01</floatArray>
@@ -1777,12 +1777,12 @@
       <atomArray>H:4 C:2 O:4 </atomArray>
       <note>8/31/99 therm</note>
       <thermo>
-        <NASA Tmax="1387.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1387.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.479357030E+00,   4.029523920E-02,  -3.301092960E-05,   1.343601170E-08, 
              -2.186015800E-12,  -5.806299340E+04,   1.525213920E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1387.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1387.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.645842980E+01,   8.526835110E-03,  -3.041135000E-06,   4.855969080E-10, 
              -2.873163340E-14,  -6.239596080E+04,  -5.389241390E+01</floatArray>
@@ -1803,12 +1803,12 @@
       <atomArray>H:3 C:2 O:3 </atomArray>
       <note>4/ 9/98 therm</note>
       <thermo>
-        <NASA Tmax="1475.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1475.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.196908370E+00,   1.588397230E-02,   3.535405470E-07,  -6.104569230E-09, 
              1.946618010E-12,  -4.022427920E+04,   6.116458280E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1475.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1475.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.202339160E+01,   8.112626590E-03,  -2.913564620E-06,   4.673403840E-10, 
              -2.773755250E-14,  -4.336472310E+04,  -3.336918090E+01</floatArray>
@@ -1829,12 +1829,12 @@
       <atomArray>H:3 C:2 O:3 </atomArray>
       <note>8/31/99 therm</note>
       <thermo>
-        <NASA Tmax="1603.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1603.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.081808010E+00,   1.287683590E-02,   2.044194180E-06,  -6.101549210E-09, 
              1.798205590E-12,  -4.395261830E+04,   2.540544490E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1603.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1603.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.137373910E+01,   8.176638980E-03,  -2.920340210E-06,   4.666956160E-10, 
              -2.762768230E-14,  -4.655757430E+04,  -2.860352650E+01</floatArray>
@@ -1855,12 +1855,12 @@
       <atomArray>H:3 C:1 O:2 </atomArray>
       <note>8/ 4/99 therm</note>
       <thermo>
-        <NASA Tmax="1452.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1452.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.111831450E+00,   7.538506970E-03,   3.773373700E-06,  -5.387460050E-09, 
              1.456158870E-12,  -2.344145460E+04,   6.813819890E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1452.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1452.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.395215150E+00,   7.436730430E-03,  -2.504223540E-06,   3.848797120E-10, 
              -2.217786890E-14,  -2.475003850E+04,  -7.292908470E+00</floatArray>
@@ -1881,12 +1881,12 @@
       <atomArray>H:2 C:1 O:2 </atomArray>
       <note>7/ 1/99 therm</note>
       <thermo>
-        <NASA Tmax="1376.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1376.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.435481850E+00,   1.633630160E-02,  -1.062574210E-05,   3.321329770E-09, 
              -4.021761030E-13,  -4.646165040E+04,   1.728857980E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1376.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1376.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.687330130E+00,   5.142893680E-03,  -1.822385130E-06,   2.897191630E-10, 
              -1.708921990E-14,  -4.839954000E+04,  -1.131047980E+01</floatArray>
@@ -1907,12 +1907,12 @@
       <atomArray>H:8 C:3 O:2 </atomArray>
       <note>4/20/99 thrm</note>
       <thermo>
-        <NASA Tmax="1365.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1365.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.825270820E+00,   3.615597550E-02,  -1.470013930E-05,   9.517540660E-10, 
              5.029505590E-13,  -4.404280500E+04,   1.410903800E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1365.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1365.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.359911390E+01,   1.808919490E-02,  -6.233645890E-06,   9.733983350E-10, 
              -5.672431630E-14,  -4.858383300E+04,  -4.642530410E+01</floatArray>
@@ -1933,12 +1933,12 @@
       <atomArray>H:7 C:3 O:2 </atomArray>
       <note>4/20/99 therm</note>
       <thermo>
-        <NASA Tmax="1371.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1371.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.759582530E+00,   3.300408750E-02,  -1.576190920E-05,   3.135734370E-09, 
              -1.591162580E-13,  -2.208229270E+04,   1.033340970E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1371.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1371.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.308788060E+01,   1.634294050E-02,  -5.703966390E-06,   8.976323700E-10, 
              -5.257239880E-14,  -2.597901790E+04,  -4.182945960E+01</floatArray>
@@ -1959,12 +1959,12 @@
       <atomArray>H:7 C:3 O:2 </atomArray>
       <note>4/20/99 thrm</note>
       <thermo>
-        <NASA Tmax="1376.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1376.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.506329610E+00,   3.704772130E-02,  -2.090002000E-05,   5.567392150E-09, 
              -5.330718010E-13,  -2.184759640E+04,   1.786498710E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1376.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1376.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.302131140E+01,   1.570276930E-02,  -5.334350870E-06,   8.248501960E-10, 
              -4.773648160E-14,  -2.585533010E+04,  -3.980769960E+01</floatArray>
@@ -1985,12 +1985,12 @@
       <atomArray>H:4 C:2 O:2 </atomArray>
       <note>8/31/99 therm</note>
       <thermo>
-        <NASA Tmax="1686.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1686.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.088397830E+00,   2.037600480E-02,  -6.847770400E-06,  -7.281862030E-10, 
              5.621302160E-13,  -4.418551670E+04,   1.253647190E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1686.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1686.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.691235180E+00,   1.155031220E-02,  -4.277824860E-06,   7.025330590E-10, 
              -4.243335520E-14,  -4.643647690E+04,  -1.893014780E+01</floatArray>
@@ -2011,12 +2011,12 @@
       <atomArray>H:3 C:2 O:2 </atomArray>
       <note>5/ 8/ 3 therm</note>
       <thermo>
-        <NASA Tmax="1601.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1601.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.162154060E+00,   1.380375110E-02,  -3.084861090E-07,  -4.564308140E-09, 
              1.469096320E-12,  -2.101303010E+04,   8.643010440E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1601.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1601.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.736598030E+00,   7.424327130E-03,  -2.656417790E-06,   4.250311430E-10, 
              -2.518249240E-14,  -2.360157210E+04,  -2.363534710E+01</floatArray>
@@ -2037,12 +2037,12 @@
       <atomArray>H:3 C:2 O:2 </atomArray>
       <note>5/ 8/ 3 therm</note>
       <thermo>
-        <NASA Tmax="2010.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="2010.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.499311800E+00,   1.643027290E-02,  -6.616045900E-06,   1.736516940E-10, 
              2.973593490E-13,  -2.022716200E+04,   6.833984280E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="2010.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="2010.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.225733840E+00,   8.301865440E-03,  -3.090747800E-06,   5.093321170E-10, 
              -3.083737590E-14,  -2.206627390E+04,  -1.946724340E+01</floatArray>
@@ -2063,12 +2063,12 @@
       <atomArray>H:6 C:2 O:2 </atomArray>
       <note>2/ 9/96 therm</note>
       <thermo>
-        <NASA Tmax="2014.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="2014.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.158518760E+00,   2.443257510E-02,  -8.669847840E-06,  -5.933193280E-11, 
              4.364000030E-13,  -4.544888990E+04,   1.305112350E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="2014.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="2014.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.709815700E+00,   1.536023720E-02,  -5.410037880E-06,   8.605734460E-10, 
              -5.088197520E-14,  -4.766071150E+04,  -1.802267020E+01</floatArray>
@@ -2089,12 +2089,12 @@
       <atomArray>H:4 C:1 O:3 </atomArray>
       <note>4/ 9/98 therm</note>
       <thermo>
-        <NASA Tmax="1422.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1422.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.857166930E+00,   3.231531320E-02,  -2.699289020E-05,   1.116944840E-08, 
              -1.812841030E-12,  -4.003144710E+04,   1.909177290E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1422.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1422.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.163038270E+01,   7.151336880E-03,  -2.390350300E-06,   3.657727910E-10, 
              -2.101995240E-14,  -4.310792420E+04,  -3.242767250E+01</floatArray>
@@ -2115,12 +2115,12 @@
       <atomArray>H:3 C:1 O:3 </atomArray>
       <note>4/ 9/98 therm</note>
       <thermo>
-        <NASA Tmax="1420.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1420.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.938230750E+00,   3.014657300E-02,  -2.610531520E-05,   1.094635620E-08, 
              -1.783126920E-12,  -1.381666250E+04,   1.850420020E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1420.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1420.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.153982460E+01,   5.342914320E-03,  -1.818789170E-06,   2.819686250E-10, 
              -1.635843480E-14,  -1.682374890E+04,  -3.207006330E+01</floatArray>
@@ -2141,12 +2141,12 @@
       <atomArray>H:3 C:1 O:3 </atomArray>
       <note>4/ 9/98 therm</note>
       <thermo>
-        <NASA Tmax="1412.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1412.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.854416210E+00,   2.336635350E-02,  -1.881159900E-05,   7.967095150E-09, 
              -1.363466180E-12,  -2.298661960E+04,   1.517305650E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1412.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1412.0" P0="101325">
            <floatArray name="coeffs" size="7">
              9.045459380E+00,   7.152233730E-03,  -2.370056760E-06,   3.600834810E-10, 
              -2.057502280E-14,  -2.494148860E+04,  -1.742105300E+01</floatArray>
@@ -2167,12 +2167,12 @@
       <atomArray>H:3 C:2 O:4 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="2016.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="2016.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.224467700E+00,   1.920194930E-02,  -7.251273930E-06,  -9.002485470E-11, 
              3.992558410E-13,  -4.331580820E+04,  -2.090780740E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="2016.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="2016.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.258547580E+01,   1.029302110E-02,  -3.824031030E-06,   6.292919540E-10, 
              -3.806316930E-14,  -4.543778490E+04,  -3.204485020E+01</floatArray>
@@ -2193,12 +2193,12 @@
       <atomArray>H:3 C:2 O:3 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1369.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1369.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.839126330E+00,   2.828450160E-02,  -1.868599280E-05,   5.658879460E-09, 
              -6.183536370E-13,  -4.713313870E+04,   1.152734460E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1369.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1369.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.254245370E+01,   7.621169540E-03,  -2.732119830E-06,   4.377195510E-10, 
              -2.595847120E-14,  -5.068312500E+04,  -4.126529260E+01</floatArray>
@@ -2219,12 +2219,12 @@
       <atomArray>H:3 C:2 O:3 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1475.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1475.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.196908370E+00,   1.588397230E-02,   3.535405470E-07,  -6.104569230E-09, 
              1.946618010E-12,  -4.252422890E+04,   5.462205630E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1475.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1475.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.202339160E+01,   8.112626590E-03,  -2.913564620E-06,   4.673403840E-10, 
              -2.773755250E-14,  -4.566467280E+04,  -3.402343350E+01</floatArray>
@@ -2245,12 +2245,12 @@
       <atomArray>H:3 C:2 O:4 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1382.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1382.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.195721670E+00,   3.134917040E-02,  -2.354613480E-05,   8.941465680E-09, 
              -1.383419370E-12,  -4.094350150E+04,   1.288659890E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1382.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1382.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.409047500E+01,   8.334498730E-03,  -2.955533140E-06,   4.701078540E-10, 
              -2.773981480E-14,  -4.439770910E+04,  -4.030505870E+01</floatArray>
@@ -2271,12 +2271,12 @@
       <atomArray>H:4 C:2 O:4 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1387.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1387.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.479357030E+00,   4.029523920E-02,  -3.301092960E-05,   1.343601170E-08, 
              -2.186015800E-12,  -5.806299340E+04,   1.525213920E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1387.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1387.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.645842980E+01,   8.526835110E-03,  -3.041135000E-06,   4.855969080E-10, 
              -2.873163340E-14,  -6.239596080E+04,  -5.389241390E+01</floatArray>
@@ -2297,12 +2297,12 @@
       <atomArray>H:4 C:2 O:4 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1670.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1670.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              6.518986460E+00,   2.651516020E-02,  -1.323473910E-05,   1.979397730E-09, 
              1.491450930E-13,  -6.039219510E+04,   5.651866670E-01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1670.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1670.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.472814730E+01,   1.079427480E-02,  -4.049301230E-06,   6.706611590E-10, 
              -4.074724130E-14,  -6.340164800E+04,  -4.450525310E+01</floatArray>
@@ -2323,12 +2323,12 @@
       <atomArray>H:3 C:2 O:4 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1410.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1410.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.035671550E+00,   3.240534710E-02,  -2.529338670E-05,   9.592127220E-09, 
              -1.415748210E-12,  -3.583667490E+04,   9.005437720E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1410.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1410.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.539467640E+01,   7.378110950E-03,  -2.564917840E-06,   4.027957640E-10, 
              -2.356342100E-14,  -3.927363670E+04,  -4.620520310E+01</floatArray>
@@ -2349,12 +2349,12 @@
       <atomArray>H:2 C:2 O:5 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1414.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1414.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.516288450E+00,   4.377149350E-02,  -4.163736120E-05,   1.857210860E-08, 
              -3.181737040E-12,  -7.308397240E+04,   1.413894090E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1414.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1414.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.823779880E+01,   4.436152930E-03,  -1.623780400E-06,   2.637590460E-10, 
              -1.579225650E-14,  -7.756666530E+04,  -6.294541260E+01</floatArray>
@@ -2375,12 +2375,12 @@
       <atomArray>H:3 C:2 O:4 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1385.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1385.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.848852320E+00,   3.613752180E-02,  -2.974607990E-05,   1.174725010E-08, 
              -1.813165230E-12,  -3.471258480E+04,   1.467834630E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1385.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1385.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.618455460E+01,   6.233311820E-03,  -2.255648480E-06,   3.636436580E-10, 
              -2.165929540E-14,  -3.881526350E+04,  -5.106739180E+01</floatArray>
@@ -2401,12 +2401,12 @@
       <atomArray>H:2 C:2 O:3 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1686.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1686.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.088397830E+00,   2.037600480E-02,  -6.847770400E-06,  -7.281862030E-10, 
              5.621302160E-13,  -4.418551670E+04,   1.253647190E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1686.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1686.0" P0="101325">
            <floatArray name="coeffs" size="7">
              8.691235180E+00,   1.155031220E-02,  -4.277824860E-06,   7.025330590E-10, 
              -4.243335520E-14,  -4.643647690E+04,  -1.893014780E+01</floatArray>
@@ -2427,12 +2427,12 @@
       <atomArray>H:3 C:2 O:6 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1388.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1388.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.842300470E+00,   4.537045300E-02,  -4.000579850E-05,   1.703106870E-08, 
              -2.842777650E-12,  -5.688976370E+04,   9.132043550E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1388.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1388.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.101675160E+01,   6.862336980E-03,  -2.487414800E-06,   4.014492420E-10, 
              -2.392930590E-14,  -6.177388060E+04,  -7.114846560E+01</floatArray>
@@ -2453,12 +2453,12 @@
       <atomArray>H:3 C:2 O:6 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1388.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1388.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.842300470E+00,   4.537045300E-02,  -4.000579850E-05,   1.703106870E-08, 
              -2.842777650E-12,  -5.688976370E+04,   9.132043550E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1388.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1388.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.101675160E+01,   6.862336980E-03,  -2.487414800E-06,   4.014492420E-10, 
              -2.392930590E-14,  -6.177388060E+04,  -7.114846560E+01</floatArray>
@@ -2479,12 +2479,12 @@
       <atomArray>H:1 C:2 O:3 </atomArray>
       <note>11/28/99</note>
       <thermo>
-        <NASA Tmax="1400.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1400.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.788756050E+00,   2.448007080E-02,  -2.083922630E-05,   8.326878650E-09, 
              -1.277546380E-12,  -3.391030330E+04,   1.447651500E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1400.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1400.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.131116960E+01,   3.411673360E-03,  -1.243222950E-06,   2.013501340E-10, 
              -1.203107840E-14,  -3.667595530E+04,  -3.075336560E+01</floatArray>
@@ -2505,12 +2505,12 @@
       <atomArray>Ar:1 </atomArray>
       <note>120186</note>
       <thermo>
-        <NASA Tmax="1000.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1000.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.500000000E+00,   0.000000000E+00,   0.000000000E+00,   0.000000000E+00, 
              0.000000000E+00,  -7.453750000E+02,   4.366001000E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1000.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1000.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.500000000E+00,   0.000000000E+00,   0.000000000E+00,   0.000000000E+00, 
              0.000000000E+00,  -7.453750000E+02,   4.366001000E+00</floatArray>
@@ -2531,12 +2531,12 @@
       <atomArray>H:6 C:3 O:3 </atomArray>
       <note>6/24/ 2 therm</note>
       <thermo>
-        <NASA Tmax="1357.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1357.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              4.023881170E+00,   3.459502350E-02,  -1.433986630E-05,   2.960580070E-10, 
              7.610752280E-13,  -7.107160300E+04,   9.682167220E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1357.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1357.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.604087210E+01,   1.424088760E-02,  -5.073295650E-06,   8.093908480E-10, 
              -4.785875080E-14,  -7.604739460E+04,  -5.764998480E+01</floatArray>
@@ -2557,12 +2557,12 @@
       <atomArray>H:5 C:3 O:3 </atomArray>
       <note>5/ 2/ 3</note>
       <thermo>
-        <NASA Tmax="1359.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1359.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              5.253207620E+00,   3.156385860E-02,  -1.568268060E-05,   2.316516730E-09, 
              2.180003500E-13,  -4.703759880E+04,   4.706642650E+00</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1359.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1359.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.622154660E+01,   1.145894540E-02,  -4.095041910E-06,   6.546872280E-10, 
              -3.876764910E-14,  -5.141736640E+04,  -5.619310040E+01</floatArray>
@@ -2583,12 +2583,12 @@
       <atomArray>H:3 C:2 O:3 </atomArray>
       <note>5/ 2/ 3</note>
       <thermo>
-        <NASA Tmax="1365.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1365.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.026784000E+00,   2.794320020E-02,  -1.677318160E-05,   4.225349160E-09, 
              -2.878711570E-13,  -4.309532640E+04,   1.648645890E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1365.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1365.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.171905630E+01,   8.349541080E-03,  -2.990111410E-06,   4.787174540E-10, 
              -2.837587080E-14,  -4.675064530E+04,  -3.662525990E+01</floatArray>
@@ -2609,12 +2609,12 @@
       <atomArray>H:4 C:2 O:3 </atomArray>
       <note>6/24/ 2 therm</note>
       <thermo>
-        <NASA Tmax="1371.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1371.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.053964500E+00,   3.208391690E-02,  -2.086082920E-05,   6.453506670E-09, 
              -7.677702610E-13,  -7.325050210E+04,   1.579345410E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1371.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1371.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.263914770E+01,   9.704905940E-03,  -3.460531360E-06,   5.524394980E-10, 
              -3.268006480E-14,  -7.717725610E+04,  -4.191827160E+01</floatArray>
@@ -2635,12 +2635,12 @@
       <atomArray>H:3 C:2 O:3 </atomArray>
       <note>5/ 8/ 3</note>
       <thermo>
-        <NASA Tmax="1378.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1378.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              3.208843480E+00,   2.969010050E-02,  -2.345501860E-05,   9.348246240E-09, 
              -1.515046870E-12,  -4.921320500E+04,   1.109534200E+01</floatArray>
         </NASA>
-        <NASA Tmax="5000.0" Tmin="1378.0" P0="100000.0">
+        <NASA Tmax="5000.0" Tmin="1378.0" P0="101325">
            <floatArray name="coeffs" size="7">
              1.278366300E+01,   6.935074210E-03,  -2.482012640E-06,   3.972056960E-10, 
              -2.353748660E-14,  -5.250917580E+04,  -4.020862280E+01</floatArray>
@@ -2661,12 +2661,12 @@
       <atomArray>H:1 C:1 O:2 </atomArray>
       <note>103190</note>
       <thermo>
-        <NASA Tmax="1500.0" Tmin="300.0" P0="100000.0">
+        <NASA Tmax="1500.0" Tmin="300.0" P0="101325">
            <floatArray name="coeffs" size="7">
              2.285122000E+00,   1.351435000E-02,  -1.160407000E-05,   5.047011000E-09, 
              -9.032231000E-13,  -2.448416000E+04,   1.367874000E+01</floatArray>
         </NASA>
-        <NASA Tmax="4000.0" Tmin="1500.0" P0="100000.0">
+        <NASA Tmax="4000.0" Tmin="1500.0" P0="101325">
            <floatArray name="coeffs" size="7">
              7.517634000E+00,   1.259029000E-03,  -1.910901000E-07,  -3.136391000E-11, 
              7.547673000E-15,  -2.634121000E+04,  -1.448392000E+01</floatArray>

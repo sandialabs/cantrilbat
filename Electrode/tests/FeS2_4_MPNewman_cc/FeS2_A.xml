@@ -26,7 +26,7 @@
       </standardState>
       <!-- NIST -->
       <thermo>
-        <Shomate Pref="1 bar" Tmax="1400.0" Tmin="298">
+        <Shomate Pref="1 atm" Tmax="1400.0" Tmin="298">
           <floatArray size="7">
              83.582315146088, -29.2630502118092, 41.1873013271502, -11.6739943754519, -1.4300344559024, -201.522288119137, 153.017593377169
              <!-- modified to fit DeltaG and Fe + 2*Li2S -->

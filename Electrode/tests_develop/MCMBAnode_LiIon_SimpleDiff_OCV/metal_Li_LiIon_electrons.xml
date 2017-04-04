@@ -30,7 +30,7 @@
        <atomArray> E:1.0  </atomArray>
        <charge> -1 </charge>
        <thermo>
-       <Shomate Pref="1 bar" Tmax="500.0" Tmin="250.0">
+       <Shomate Pref="1 atm" Tmax="500.0" Tmin="250.0">
           <floatArray size="7">
              169.552,
              -882.711,
