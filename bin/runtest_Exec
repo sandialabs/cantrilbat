@@ -2,24 +2,40 @@
 #
 ################################################################################################################################
 #
-# testExecutable test Harness Runner
+# runtest_Exec:   executable test harness runner
 #
-#   Runs a single generic program putting the standard output in the file "out.txt"
+#   Runs a single generic program putting the standard output in the file "out.txt" or a renamed file (see below) and
+#   then compares the output against blessed txt files or blessed csv files to see if the test "passes".
+#
+#  usage: runtest_Exec [-f] [-h] [-i program_setup.sh] [ $PROGRAM_EXTRA_OPTS ] '
+#
+#     Files Used:
+#          program_setup.sh    shell variable file that sets up the test problem. It can be renamed on the command line
+#                              using the -i flag
+#     -f                       Force the program to run even if there are the normal flags present that would prevent it from 
+#                              starting.
+#     -h                       Prints out a help message
+#     $PROGRAM_EXTRA_OPTS      Extra arguments are added onto the argument list of the program.
 #
 #   If the test passes, the signal file "runGood" is put into the current directory.
 #   If the test failes, the signal file "runBad" is put into the current directory.
-#
 #   When the test is running, the signal file "runInProgress.txt" is placed into the current directory.
 #   If this file is present, any furthur instantiations of this test in that directory is prevented from starting.
 #   
-#     Files Used:
-#          program_setup.sh    shell variable file that sets up the test problem
-#
-#     Environmental Variables Used (set up within program_setup.sh:
+#   Environmental Variables Used (set up within program_setup.sh or existing in the user's environment):
 #           TEST_NAME = name of the test that is used downstream
 #
 #           PROGRAM = Name of the executable to be run (there is one executable that is run
-#              
+#
+#           CANTERA_APPS_INSTALL_BINDIR = bin directory which is search for the executable, $PROGRAM, if
+#                                         it is not found in the current directory.
+#
+#           Options that can be supplied to the program:
+#             PROGRAM_OPTS = Name of any arguments to the program
+#             PROGRAM_STD_INPUT = Name of the standard input if any
+#             PROGRAM_STD_OUTPUT = Name of the standard output. If not supplied, then the filename out.txt is used.
+#             EXTRA_WHACKED_FILES = Names of additional files to be removed before the program is run.
+#                                   (Note there is a default set of files that is removed as well)
 #
 #           Text list of file to be checked using the diff command:
 #             BLESSED_DATA_FILES='good_out.txt good_out2.txt'  
@@ -34,6 +50,11 @@
 #             CSV_FILES='out.txt  out2.txt
 #             DIFF_CSV_NAMES='diff.txt diff_2.txt'
 #             DIFF_CSV_REQ='True True'
+#
+#   Required Executables:
+#
+#       It's required that the program, csvdiff, is in the user's path. Normally, its installed in the Zuzax installation
+#       bin directory
 #
 # todo: add a VERBOSE option to turn off output when not needed
 #
@@ -174,7 +195,6 @@ csvdiff_compare_file() {
 
 }
 #
-#
 ################################################################################################################################
 ############################################# MAIN PROGRAM #####################################################################
 ################################################################################################################################
@@ -245,7 +265,6 @@ fi
 
 PROGRAM_OPTS="$PROGRAM_OPTS "$PROGRAM_EXTRA_OPTS
 # echo 'PROGRAM_OPTS = ' $PROGRAM_OPTS
-
 #
 #############################################################################################################################
 #
@@ -275,6 +294,15 @@ if test ! -x $PROGRAM   ; then
 fi
 #
 ##############################################################################################################################
+
+OutputFile="out.txt"
+if test ! -z $PROGRAM_STD_OUTPUT
+then
+    OutputFile=${PROGRAM_STD_OUTPUT}
+    /bin/rm -f $OutputFile
+fi
+
+##############################################################################################################################
 #
 #   Run the program and check exit status
 #
@@ -282,10 +310,10 @@ export ELECTRODE_TURN_OFF_PC_PRINTING=true
 #
 if test ! -z $PROGRAM_STD_INPUT
 then
-  $PROGRAM $PROGRAM_OPTS < $PROGRAM_STD_INPUT > out.txt 2>err_out.txt
+  $PROGRAM $PROGRAM_OPTS < $PROGRAM_STD_INPUT > ${OutputFile} 2>err_out.txt
   retnStat_run=$?
 else
-  $PROGRAM $PROGRAM_OPTS  > out.txt 2>err_out.txt
+  $PROGRAM $PROGRAM_OPTS  > ${OutputFile} 2>err_out.txt
   retnStat_run=$?
 fi
 #

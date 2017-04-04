@@ -61,7 +61,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM) 
+all: .dependsT $(PROGRAM) 
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -94,7 +94,7 @@ CFLAGS = @CXXFLAGS@
 # Both the C and C++ compiler predefines
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
-#
+
 .c.o:
 	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 
@@ -106,8 +106,6 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 ###########################################################################
 DEPENDS = $(OBJ_ANODE:.o=.d) 
 
-.f.d:
-	echo "$*.o: $*.f" > $*.d
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
@@ -117,10 +115,11 @@ DEPENDS = $(OBJ_ANODE:.o=.d)
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 test: 
 	@gmake -s
@@ -148,7 +147,6 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-
 #############################################################################
 #          INSTALL RULES
 ##############################################################################
@@ -157,11 +155,17 @@ ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-test_clean:
+clean_test: 
+	$(RM) $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)
 
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
 
+clean_dist:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT
+	$(RM) $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT
 	$(RM) ${PROG} anode_intSurf
 

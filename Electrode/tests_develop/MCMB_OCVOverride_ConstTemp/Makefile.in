@@ -16,6 +16,13 @@ DATA = ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode_extra.xml  MCMB_Redlich
        metal_Li_LiIon_electrons.xml MCMB.cpp MCMBThermo.cpp 
 
 BLESSED_FILES = MCMB_blessed.out  MCMBThermo_blessed.out   thermo_blessed.csv
+
+TEST_FLAGS  = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = diff_out.txt diff_tout.txt diff_csv.txt err_out.txt diff_summary.txt
+
+TEST_RESULTS = MCMB.out  MCMBThermo.out   thermo.csv
+
 #
 ##########################################################################
 #           Setup The Cantera Directory locations
@@ -25,6 +32,8 @@ PURIFY=@PURIFY@
 
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
+
+TOPDIR = @abs_top_srcdir@
 
 #
 # Bring in the Cantera includes through the .mak file
@@ -111,6 +120,7 @@ test:
 runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	./runtest
+	$(TOPDIR)/bin/runtest_Exec
 
 rebaseline:
 	cp MCMB.out MCMB_blessed.out
@@ -140,9 +150,19 @@ test_clean:
 	$(RM) err_out.txt out.txt  MCMBThermo_RSD_Override.out MCMB.out diff_csv.txt diff_out.txt \
               MCMBThermo.out runGood runBad  diff_out.txt diff_csv.txt
 
+clean_test:
+	$(RM) $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
+
 clean:
-	@MAKE@ test_clean
-	$(RM) *.o  .depends *.d *~  $(PROGRAMS) 
+	$(RM) *.o  .depends *.d *~  $(PROGRAMS)  .dependsT $(TEST_FLAGS) $(TEST_INTERMEDIATES)
+
+clean_dist:
+	$(RM) *.o  .depends *.d *~  $(PROGRAMS)  .dependsT 
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+	
 #
 #############################################################################
 #       DEPENDS INCLUDE 

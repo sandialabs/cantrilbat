@@ -62,62 +62,11 @@ then
 fi
 
 diff MCMB_blessed.out MCMB.out > diff_tout.txt
-retnStat_ttxt=$?
-if test $retnStat_ttxt = "0"
+retnStat_txt=$?
+
+if test $retnStat_txt != "0"
 then
-    echo "Successful test comparison on MCMB "`pwd`
-else
-    echo "Unsuccessful test comparison on MCMB "`pwd`
-fi
-
-MCMBThermo > MCMBThermo.out 2>err_out.txt
-retnStat=$?
-if test $retnStat != "0" 
-then
-  temp_success="0"
-  echo "$PROG_EXE returned with bad status, $retnStat, check output"
-fi
-
-diff MCMBThermo_blessed.out MCMBThermo.out > diff_out.txt
-retnStat_t2txt=$?
-if test $retnStat_t2txt = "0"
-then
-    echo "Successful test comparison on MCMBThermo "`pwd`
-else
-    echo "Unsuccessful test comparison on MCMBThermo "`pwd`
-fi
-
-retnStat_txt=$retnStat_t2txt
-if test $retnStat_ttxt != "0"
-then
-    retnState_txt=$retnStat_ttxt
-fi
-
-csvdiff thermo_blessed.csv thermo.csv > diff_csv.txt
-retnStat_csv=$?
-
-if test $retnStat_csv = "0"
-then
-  if test $retnStat_txt = "0"
-  then
-    echo "Successful test comparison on "`pwd`
-    echo "  Test Passed: " `date` > runGood
-    /bin/rm -f runBad
-  else
-    echo "Partial Successful test comparison on "`pwd` " but text files differ. See diff_out.txt"
-     /bin/rm -f runGood
-     echo "  Test Failed: " `date` > runBad
-  fi
-else 
-  /bin/rm -f runGood
-  echo "  Test Failed: " `date` > runBad
-
-  echo "Unsuccessful test comparison on "`pwd` " test. See diff_csv.txt "
-  if  test $retnStat_txt != "0"
-  then
-     echo "            Text files differ also. See diff_out.txt"
-     
-  fi
+  echo "Unsuccessful test comparison on "`pwd` " text files differ. See diff_out.txt"
 fi
 #
 #  Release the semiphore
