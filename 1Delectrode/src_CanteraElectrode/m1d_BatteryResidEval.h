@@ -414,25 +414,30 @@ public:
      * @param ydot    Current value of time derivative of the solution vectors.
      */
     virtual void
-    evalTimeTrackingEqns(const int ifunc,
-			 const double t,
-			 const double deltaT,
-			 const Epetra_Vector_Ghosted & y,
-			 const Epetra_Vector_Ghosted * const ydot);
+    evalTimeTrackingEqns(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+			 const Epetra_Vector_Ghosted* const ydot);
 
-    void
-      doHeatAnalysis(const int ifunc,
-		     const double t,
-		     const double deltaT,
-		     const Epetra_Vector_Ghosted & y,
-		     const Epetra_Vector_Ghosted * const solnDot_ptr);
+    void doHeatAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+	                const Epetra_Vector_Ghosted* const solnDot_ptr);
 
-    void
-    doSpeciesAnalysis(const int ifunc,
-		      const double t,
-		      const double deltaT,
-		      const Epetra_Vector_Ghosted & y,
-		      const Epetra_Vector_Ghosted * const solnDot_ptr);
+    //! Do an analysis of the polarization losses at the current global time step
+    /*!
+     *  Part of the analysis is that we have to find the global extent of reaction of the anode and cathode in order to
+     *  find a global open circuit potential.
+     *
+     *  @param[in]           ifunc               0 Initial call to the function, done whenever the time stepper is entered
+     *                                           1 Called after every successful time step.
+     *  @param[in]           t                   Current time
+     *  @param[in]           deltaT              Current value of deltaT
+     *  @param[in]           y                   Current value of the solution vectors
+     *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
+     */
+    void doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+                                const Epetra_Vector_Ghosted* const solnDot_ptr);
+
+
+    void doSpeciesAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+                           const Epetra_Vector_Ghosted* const solnDot_ptr);
     
     //! Set a solution parameter 
     /*!
@@ -524,6 +529,9 @@ public:
 
     //! Boolean indicating whether to calculate Heat Source Time tracking terms and output file
     int doHeatSourceTracking_;
+
+    //! Tracking of the polarization resistance in the domain
+    int doPolarizationAnalysis_;
 
     //! Boolean indicating whether to calculate the Electrical resistance tracking terms and output file
     int doResistanceTracking_;

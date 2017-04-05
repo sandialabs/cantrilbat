@@ -171,6 +171,7 @@ enum Subgrid_Integration_RunType_Enum {
     FVDELTA_TIMEINTEGRATION_SIR
 };
 
+//==================================================================================================================================
 
 //! Interpolation of exterior fields
 enum Electrode_Exterior_Field_Interpolation_Scheme_Enum {
@@ -183,6 +184,7 @@ enum Electrode_Exterior_Field_Interpolation_Scheme_Enum {
     LINEAR_INTERP_FIS
 };
 
+//==================================================================================================================================
 //! Base structure for storing the external state of the electrode at a particular time
 /*!
  *  There will be external states for the t_init_init and t_final_final times.
@@ -205,7 +207,62 @@ public:
     //! Pressure of the electrode (Pascals)
     double Pressure_;
 };
+//==================================================================================================================================
 
+enum Polarization_Loss_Enum {
+    UNKNOWN_PL = -1,
+
+    //! Voltage loss through a surface overpotential term
+    SURFACE_OVERPOTENTIAL_PL = 0,
+
+    //! Voltage loss through a concentration gradient in the electrolyte
+    CONC_LOSS_LYTE_PL,
+
+    //! Voltage loss through voltage drop - electrolyte
+    VOLT_LOSS_LYTE_PL,
+
+    //! Concentration loss through a boundary layer near the surface of the electrolyte interface
+    CONC_LOSS_BL_LYTE_PL,
+
+    //! Resistance layer voltage loss at the surface of the electrolyte
+    RESISTANCE_FILM_PL,
+
+    //! Loss through conduction of electrons through the solid phase of the electrode
+    ELECTRICAL_CONDUCTION_LOSS_PL,
+    
+    //! Loss through conduction of electrons through the Collectors
+    ELECT_COND_COLLECTORS_LOSS_PL,
+
+    //! Loss through solid phase diffusion within the electrode material
+    SOLID_DIFF_CONC_LOSS_PL,
+
+    //! concentration polarization  from mixed ionic conduction through solid film, i.e., SEI.
+    CONC_LOSS_SOLID_FILM_PL,
+
+    //! voltage drop from mixed ionic conduction through solid film, i.e., SEI.
+    VOLT_LOSS_SOLID_FILM_PL,
+
+    //! Other loss mechanisms not yet identified
+    OTHER_PL 
+
+};
+
+struct VoltPolPhenom
+{
+    VoltPolPhenom() :
+        ipolType(UNKNOWN_PL),
+        voltageDrop(0.0)
+    {
+    }
+
+    // Enum identifying the effect
+    enum Polarization_Loss_Enum  ipolType;
+
+    //! Drop in voltage due to effect
+    double                       voltageDrop;
+};
+
+//==================================================================================================================================
 /*!    @}                       */
 
 }

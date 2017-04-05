@@ -99,6 +99,7 @@ ProblemStatementCell::ProblemStatementCell() :
     initDefaultNumCVsCathode_(10),
     initDefaultNumCVsSeparator_(10),
     doHeatSourceTracking_(0),
+    doPolarizationAnalysis_(0),
     doResistanceTracking_(0),
     anodeTempBCType_(-1),
     anodeTempRef_(298.15),
@@ -186,6 +187,19 @@ ProblemStatementCell::setup_input_pass1(BlockEntry* cf)
     i2->set_default(0);
     i2->set_limits(9, 0);
     cf->addLineEntry(i2);
+
+   /* -------------------------------------------------------------------------
+     *
+     *    Polarization Analysis
+     *
+     *   0 = Do not do any polarization Analysis
+     *   1 = calculate polarization drops as a function of physical processes.  Print them out, 
+     *       and have them available for external communication
+     */
+    LE_OneInt* ipa = new LE_OneInt("Polarization Analysis", &(doPolarizationAnalysis_), reqd, "doPolarizationAnalysis");
+    ipa->set_default(0);
+    ipa->set_limits(9, 0);
+    cf->addLineEntry(ipa);
 
     /* -------------------------------------------------------------------------
      *

@@ -100,6 +100,33 @@ enum DOFS
     //! End of the dof list
     MAX_DOF 
 };
+
+
+//===================================================================================================================================
+//!  Structure for commumicating polarization results
+/*!
+ *  Structure is for one surface only. On many electrodes there will only be one surface active at a time.
+ */
+struct PolarizationSurfResults {
+    //!  Index of the reacting surface within the Electrode that the summary is for
+    size_t isurf = npos;
+
+    //!  Total current through the surface
+    /*!
+     *   Units: amps
+     */
+    double icurrSurf = 0.0;
+
+    //! Vector of physical-based voltage losses
+    std::vector<VoltPolPhenom> polarVoltsPhys;
+
+    //! Value of the open circuit voltage for the surface
+    double ocvSurf = 0.0;
+
+    //! Value of the voltage for the electrode
+    double Voltage = 0.0;
+};
+
 //==================================================================================================================================
 
 class ELECTRODE_KEY_INPUT;
@@ -1943,6 +1970,17 @@ public:
      *  @return                              Returns the number os species in the electrolyte phase
      */ 
     virtual size_t numSolnPhaseSpecies() const;
+
+    //! Calculate the polarization analysis
+    /*!
+     *   Returns a structure containing the polarization analysis
+     * 
+     *  @param[out]          psa                 Results of the analysis for the electrode object during the current
+     *                                           global time step.
+     *
+     *  @return                                  Returns the total current
+     */
+    double polarizationAnalysisSurf(std::vector<PolarizationSurfResults>& psa);
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  --------------------------------------------------------

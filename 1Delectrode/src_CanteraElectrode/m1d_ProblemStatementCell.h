@@ -330,6 +330,9 @@ public:
     //! Turn on or off Heat Source Tracking
     int doHeatSourceTracking_;
 
+    //! Turn on or off Heat Source Tracking
+    int doPolarizationAnalysis_;
+
     //! Turn on or off Resistance Tracking
     int doResistanceTracking_;
 

@@ -57,6 +57,7 @@ drawline(int sp, int ll)
 BatteryResidEval::BatteryResidEval(double atol) :
     ProblemResidEval(atol),
     doHeatSourceTracking_(0),
+    doPolarizationAnalysis_(0),
     doResistanceTracking_(0),
     anodeType_(0),
     cathodeType_(0),
@@ -84,6 +85,7 @@ BatteryResidEval::BatteryResidEval(double atol) :
     hasGasResevoir_(false)
 {
      doHeatSourceTracking_ = PSCinput_ptr->doHeatSourceTracking_;
+     doPolarizationAnalysis_ = PSCinput_ptr->doPolarizationAnalysis_;
      doResistanceTracking_ = PSCinput_ptr->doResistanceTracking_;
      crossSectionalArea_ = PSCinput_ptr->cathode_input_->electrodeGrossArea;
 
@@ -133,6 +135,7 @@ BatteryResidEval::operator=(const BatteryResidEval &r)
     ProblemResidEval::operator=(r);
 
     doHeatSourceTracking_              = r.doHeatSourceTracking_;
+    doPolarizationAnalysis_            = r.doPolarizationAnalysis_;
     doResistanceTracking_              = r.doResistanceTracking_;
     anodeType_                         = r.anodeType_;
     cathodeType_                       = r.cathodeType_;
@@ -557,6 +560,11 @@ BatteryResidEval::user_out(const int ievent,
 {
     ProblemResidEval::user_out(ievent, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
     
+    if (doPolarizationAnalysis_) {
+
+        doPolarizationAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
+
+    }
     
     if (energyEquationProbType_ == 3 && doHeatSourceTracking_) {
 
@@ -1207,12 +1215,8 @@ BatteryResidEval::evalTimeTrackingEqns(const int ifunc,
     }
 }
 //==================================================================================================================================
-void
-BatteryResidEval::doHeatAnalysis(const int ifunc,
-				 const double t,
-				 const double deltaT,
-				 const Epetra_Vector_Ghosted &y,
-				 const Epetra_Vector_Ghosted * const solnDot_ptr)
+void BatteryResidEval::doHeatAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted &y,
+	                              const Epetra_Vector_Ghosted * const solnDot_ptr)
 {
     class globalHeatBalValsBat dVals;
     DomainLayout &DL = *DL_ptr_;
@@ -1356,6 +1360,41 @@ BatteryResidEval::doHeatAnalysis(const int ifunc,
 
     printf("\n\n");
     
+}
+//==================================================================================================================================
+void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted &y,
+	                                      const Epetra_Vector_Ghosted * const solnDot_ptr)
+{
+    /*
+     *  In this analysis we will assume the following about the domains:
+     *          domain 0 is  anode
+     *          domain 1 is separator
+     *          domain 2 is cathode
+     *  We may also have to analyse the current collectors to get more polarization resistance
+     */
+    class globalHeatBalValsBat pVals;
+    DomainLayout &DL = *DL_ptr_;
+
+    const size_t domAnode = 0;
+    const size_t domSeparator = 1;
+    const size_t domCathode = 2;
+
+    /*
+     *  at any time step we know the current.`At any time step we know the current through each electrode object
+     *  Use that ratio to create an averaging operation to yield the polarization data.
+     *
+     *  At any single electrode object we know all of the polarization voltage losses from the separate start
+     *  to the current collector. We know the open circuit voltage of the surface where the current came across.
+     *  If there are two surfaces over which the current came across we can effectively create two electrode
+     *  objects and average further. 
+     *
+     *  At any time step we can obtain the average extent of reaction, and find the open circuit voltage based
+     *  on that number. 
+     */
+     
+    
+
+
 }
 //==================================================================================================================================
 void

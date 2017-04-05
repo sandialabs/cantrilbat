@@ -49,6 +49,16 @@ Root Finder for Constant Current = 1
 Heat Source Tracking = 0
 !---------------------------------------------------------------------------------------------------------
 !
+!     Polarization Analysis - int (optional) (default = 0)
+!
+!   0 = Do not do any heat source tracking
+!   1 = Calculate the polarization losses at each time step,
+!        print them out, and have them available for external communication
+!
+!---------------------------------------------------------------------------------------------------------
+Polarization Analysis = 0
+!---------------------------------------------------------------------------------------------------------
+!
 !     Resistance Tracking - int (optional) (default = 0)
 !
 !   0 = Do not do any resistance tracking

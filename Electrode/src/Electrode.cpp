@@ -3625,6 +3625,11 @@ size_t Electrode::numSolnPhaseSpecies() const
     return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
 //==================================================================================================================================
+double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>& psa)
+{
+    return 0.0;
+}
+//==================================================================================================================================
 // Return the number of extra print tables
 int Electrode::getNumPrintTables() const
 {
