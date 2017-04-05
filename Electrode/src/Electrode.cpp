@@ -2542,25 +2542,14 @@ double Electrode::voltage() const
   return deltaVoltage_;
 }
 //====================================================================================================================
-// Return the voltage of a phase
-/*
- * @param iph  Phase id
- *
- * @return Returns the voltage in volts
- */
-double Electrode::phaseVoltage(size_t iph) const
+double Electrode::phaseElectricPotential(size_t iph) const
 {
     return phaseVoltages_[iph];
 }
 //====================================================================================================================
-// Set the voltage of a phase
-/*
- * @param iph  Phase id
- * @param volts volts
- */
-void Electrode::setPhaseVoltage(size_t iph, double volts)
+void Electrode::setPhaseElectricPotential(size_t iph, double phi)
 {
-    phaseVoltages_[iph] = volts;
+    phaseVoltages_[iph] = phi;
     updateState();
 }
 //====================================================================================================================
@@ -2865,7 +2854,7 @@ double Electrode::getIntegratedProductionRatesCurrent(double* const net) const
     // coulomb / kmol
     return Eprod * Faraday;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode::integratedCurrent() const
 {
     if (pendingIntegratedStep_ != 1) {
@@ -3625,8 +3614,29 @@ size_t Electrode::numSolnPhaseSpecies() const
     return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
 //==================================================================================================================================
-double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>& psa)
+double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>& psr_list)
 {
+  // Don't compare to reference electrode
+  bool comparedToReferenceElectrode = false;
+
+  psr_list.clear();
+ 
+  // Whatever path we take, the volts taken must be the same.
+  double volts = voltage();
+
+  // Create a PolarizationSurfResults record for each active surface in the problem
+  for (size_t iSurf = 0; iSurf < numSurfaces_; iSurf++) {
+        if (ActiveKineticsSurf_[iSurf]) {
+            psr_list.emplace_back(iSurf);
+            PolarizationSurfResults& psr = psr_list.back();
+             
+
+        }
+    }
+
+
+
+
     return 0.0;
 }
 //==================================================================================================================================

@@ -100,9 +100,9 @@ void Electrode_FD_Jacobian::default_setup(std::vector<double>& centerpoint)
     //
     size_t sz = 4 + nsp;
     centerpoint.resize(4 + nsp);
-    double phiMetal = electrode->phaseVoltage(ip_metal);
+    double phiMetal = electrode->phaseElectricPotential(ip_metal);
     centerpoint[SOLID_VOLTAGE] = phiMetal;
-    double phiElectrolyte = electrode->phaseVoltage(ip_solvent);
+    double phiElectrolyte = electrode->phaseElectricPotential(ip_solvent);
     centerpoint[LIQUID_VOLTAGE] = phiElectrolyte;
     centerpoint[TEMPERATURE] = tpe.temperature();
     centerpoint[PRESSURE] = tpe.pressure();
@@ -139,9 +139,9 @@ void Electrode_FD_Jacobian::default_dofs_fill(std::vector<double>& centerpoint)
     ThermoPhase& tpe = electrode->thermo(ip_solvent);
     size_t nsp = tpe.nSpecies();
     centerpoint.resize(4 + nsp);
-    double phiMetal = electrode->phaseVoltage(ip_metal);
+    double phiMetal = electrode->phaseElectricPotential(ip_metal);
     centerpoint[SOLID_VOLTAGE] = phiMetal;
-    double phiElectrolyte = electrode->phaseVoltage(ip_solvent);
+    double phiElectrolyte = electrode->phaseElectricPotential(ip_solvent);
     centerpoint[LIQUID_VOLTAGE] = phiElectrolyte;
     centerpoint[TEMPERATURE] = tpe.temperature();
     centerpoint[PRESSURE] = tpe.pressure();

@@ -125,6 +125,16 @@ struct PolarizationSurfResults {
 
     //! Value of the voltage for the electrode
     double Voltage = 0.0;
+
+    //! Default constructor
+    /*!
+     *   @param[in]          surfIndex           Surface index. Defaults to npos
+     */
+    PolarizationSurfResults(size_t surfIndex = npos) :
+        isurf(surfIndex)
+    {
+    }
+
 };
 
 //==================================================================================================================================
@@ -166,12 +176,12 @@ class Electrode_Equilibrium;
  *  The electrical conductivity is a linear combination of volumes of the bulk phase
  *  electrical conductivity.
  *
- *
+ *  Sign of the Current:
  *  There is a convention for the sign of the current.  The current is positive for
- *  current going into the electrode  and then into the electrolyte. Thus, under
+ *  current going into the electrode and then into the electrolyte. Thus, under
  *  normal battery operation where the anode is negative and the cathode is positive,
- *  the current is positive going into the anode and negative going into the cathode.
- *
+ *  the current is positive going into the anode and negative going into the cathode,
+ *  with the anode's electron production being positive and the cathode electron production being negative.
  *
  *  More detailed models will be created in child objects.
  *
@@ -234,6 +244,18 @@ class Electrode_Equilibrium;
  *    Origin of virtual
  *            -> State the base class that first assigns the member function os virtual
  *
+ *    todo: Conventions on what to call routines:
+ *
+ *          getIntegrated_____()            These are quantities that are integrated over the global time step
+ *                                          and then perhaps divided by the global time step to get rates.
+ *          integrated______SingleStep()    These are quantities that are integrated over the last local time step
+ *                                          and then are perhaps divided by the local time step to get rates.
+ *                                          (conservation principles apply to integrated quantities as best as we can)
+ *
+ *          instantaneous_______()          These are instantaneous source terms applied at the current t_final_ or t_final_final
+ *          or   source_term()              conditions.
+ *
+ *
  */
 class Electrode : public ZZCantera::PhaseList
 {
@@ -258,7 +280,7 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     *  @param right Object to be copied
      */
     Electrode(const Electrode& right);
 
@@ -580,34 +602,34 @@ public:
      *  This assumes that there are only two voltages in the system.
      *   The voltage of the interface is defined as VOLTS = phiMetal - phiElectrolyte
      *
-     *  @param[in]    phiMetal                     Potential of the metal
-     *  @param[in]    phiElectrolyte               Potential of the electrolyte
+     *  @param[in]    phiMetal                   Potential of the metal
+     *  @param[in]    phiElectrolyte             Potential of the electrolyte
      */
     void setVoltages(const double phiMetal, const double phiElectrolyte);
 
     //! This returns the voltage of the electrode at the final state conditions
     /*!
-     *  The voltage of the electrode is defined as the potential of the metal minus
-     *  the potential of the electrolyte.
+     *  The voltage of the electrode is defined as the potential of the metal minus the potential of the electrolyte.
      *
-     *  @return                                    returns voltage in volts.
+     *  @return                                  Returns voltage in volts.
      */
     double voltage() const;
 
-    //! Return the voltage of a phase
+    //! Return the electric potential of a phase
     /*!
-     * @param iph  Phase id
+     *  @param[in]           iph                 Phase id
      *
-     * @return                                     Returns the voltage in volts
+     *  @return                                  Returns the voltage in volts
      */
-    double phaseVoltage(size_t iph) const;
+    double phaseElectricPotential(size_t iph) const;
 
-    //! Set the voltage of a phase
+    //! Set the electric potential of a phase within the PhaseList
     /*!
-     * @param[in]         iph                       Phase id
-     * @param[in]         volts                     volts
+     * @param[in]            iph                 Phase id
+     * @param[in]            phi                 Electric potential of the phase
+     *                                             Units: volts
      */
-    void setPhaseVoltage(size_t iph, double volts);
+    void setPhaseElectricPotential(size_t iph, double phi);
 
     //-------------------------------------------------------------------------------------------------------------------
     // -------------------------------- QUERY AND SET MOLE NUMBERS-------------------------------------------------------
@@ -1068,27 +1090,24 @@ public:
 
     //! Get the integrated source term values for one of a set of sources
     /*!
-     *     @param         sourceType         The enum source term value. Species indecises are 
-     *                                       designated by indexing on top of the base SPECIES_SOURCE
+     *    @param[in]         sourceType          The enum source term value. Species indecises are 
+     *                                           designated by indexing on top of the base SPECIES_SOURCE
      *
-     *     @return                           Returns the source term
+     *    @return                                Returns the source term
      */
     virtual double getIntegratedSourceTerm(SOURCES sourceType);
 
-    //!  Returns the net production rates of all species in the electrode object
-    //!  over the last integration step
+    //!  Returns the net production rates of all species in the electrode object over the last integration step
     /*!
-     *  We calculate a rate here by taking the total production amounts and then
-     *  divide by the time step.
+     *   We calculate a rate here by taking the total production amounts and then divide by the time step.
      *
-     *   @param[out]      net                Species net production rates [kmol/s]
+     *   @param[out]      net                    Species net production rates [kmol/s]
      *
-     *   @return                             Returns the current, amps = columb sec-1
+     *   @return                                 Returns the current, amps = columb sec-1
      */
     double getIntegratedProductionRatesCurrent(double* const net) const;
 
-    //!  Returns the net current in the electrode object
-    //!  at the current conditions over the current last local time step
+    //!  Returns the net current in the electrode object at the current conditions over the current last local time step
     /*!
      *   Note we must have integrated a local time step previously.
      *       (can protect)
@@ -1099,15 +1118,14 @@ public:
 
     //!  Returns the net production rates of all species in the electrode object over the last integration step
     /*!
-     *  We calculate a rate here by taking the total production amounts and then
-     *  dividing by the time step to get a rate.
+     *   We calculate a rate here by taking the total production amounts and then
+     *   dividing by the time step to get a rate.
      *
-     *   @param[out]       net                    Species net production rates [kmol/s].
+     *   @param[out]         net                 Species net production rates [kmol/s].
      */
     void getIntegratedSpeciesProductionRates(double* const net) const;
 
-    //!  Returns the net current in the electrode object
-    //!  at the current conditions over the current global time step
+    //!  Returns the net current in the electrode object at the current conditions over the current global time step
     /*!
      *   Note we must have integrated a global time step previously.
      *       (can protect)
@@ -1147,7 +1165,6 @@ public:
      *   @return                                   returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
-
 
     // -----------------------------------------------------------------------------------------------------------------
     // ---------------------------- SOLUTION OF NONLINEAR TIME DEPENDENT SYSTEM  ---------------------------------------
@@ -1297,6 +1314,7 @@ public:
      * @param setInitInit   Boolean indicating whether you should set the init_init state as 
      */
     void setInitStateFromFinal_Oin(bool setInitInit = false);
+
   public:
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
@@ -1480,6 +1498,8 @@ public:
 
     //! Returns the electrochemical potential of a single species
     /*!
+     *   \deprecated -> Trying to limit the interface. No direct thermo
+     *
      *   @param[in]      globalSpeciesIndex   Value of the global species index of the species
      *
      *   @return                              Returns the electrochemical potential (J / kmol)
@@ -1488,6 +1508,8 @@ public:
 
     //! Returns the chemical potential of a single species
     /*!
+     *   \deprecated -> Trying to limit the interface. No direct thermo
+     *
      *   @param[in]      globalSpeciesIndex   Value of the global species index of the species
      *
      *   @return                              Returns the chemical potential (J / kmol)
@@ -1764,7 +1786,7 @@ public:
 
     //! Return the number of extra print tables
     /*!
-     *   @return                          Returns the number of print tables
+     *   @return                                 Returns the number of print tables
      */
     virtual int getNumPrintTables() const;
 
@@ -1867,7 +1889,7 @@ public:
      *                                                     which means that the OCV refers to the phiMetal - phiElectrolyte at the
      *                                                     electrode surface.
      *
-     *   @return                                      Returns the OCV (volts)
+     *   @return                                 Returns the OCV (volts)
      */
     virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false);
 
@@ -2912,14 +2934,15 @@ protected:
      */
     std::vector<size_t> numRxns_;
 
-    //!  Vector of booleans indicating that a surface is currently kinetically active
+    //!  Vector of booleans indicating whether a surface is currently kinetically active
     /*!
-     *   To be true, the surface must have a kinetics object and the surface area must have a
-     *   nonzero positive value. Mole numbers for one side of the interfacial reaction should also be present.
+     *   To be true, the surface must have an interfacial kinetics object, and the surface area must have a
+     *   nonzero positive value. Phase Mole numbers for one side of the interfacial reaction should also be present, so that it
+     *   should be theoretically possible for the surface reactions on the interface to be non-zero. 
      *
      *   This is used to trigger the calculation of the rates of progress of reactions that are on the surface.
      *
-     *   Length = number of surfaces that may be present: numSurfaces_
+     *   Length: Number of surfaces that may be present: numSurfaces_
      */
     std::vector<int> ActiveKineticsSurf_;
 
@@ -3557,7 +3580,6 @@ private:
 	 *     @return                            A return of zero indicates success. Anthing else is a failure
 	 */
         int getInitialConditions(const double t0, double* const y, double* const ydot);
-
 
         //! Return the number of equations in the equation system
 	/*!
