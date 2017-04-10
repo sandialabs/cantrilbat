@@ -172,7 +172,7 @@ int main(int argc, char **argv)
      }
     
      rsd->addOCVoverride(ocv_input_ptr);
-     rsd->setState_TP(298.15, OneAtm);
+     rsd->setStateKin_TP(298.15, OneAtm);
 
      double nstoic = 1.0;
      double ocv = dg[1] / Faraday / nstoic;
@@ -272,8 +272,7 @@ int main(int argc, char **argv)
 
 
      Temp = 298.15 + 100;
-     rsd->setState_TP(Temp, OneAtm);
-
+     rsd->setStateKin_TP(Temp, OneAtm);
 
      printf("\nTemperature = %g\n", Temp);
      printf("         xV              xLi     OCV[1]        dOCVdT[1]        deltaH[1]         deltaS[1]       deltaG[1]\n");

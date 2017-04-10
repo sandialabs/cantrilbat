@@ -456,8 +456,7 @@ end block Open Circuit Potential Override for interface anode_surface
      printf("            i = %g\n", icalc);
 
      Temp = 298.15 + 100;
-     rsd->setState_TP(Temp, OneBar);
-
+     rsd->setStateKin_TP(Temp, OneBar);
 
      printf("\n\n");
      printf("         xV              xLi OCV[1] dOCVdT[1] \n");
