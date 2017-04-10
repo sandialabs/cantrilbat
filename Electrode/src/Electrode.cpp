@@ -2520,15 +2520,6 @@ void Electrode::getSurfaceAreas(double* const surfArea) const
 //====================================================================================================================
 // ----------------------------------- QUERY AND SET VOLTAGES --------------------------------------------------------
 //====================================================================================================================
-// This sets the metal and solution voltage
-/*
- *  This sets the metal and the electrolyte voltages
- *  This assumes that there are only two voltages in the system.
- *   The voltage of the interface is defined as VOLTS = phiMetal - phiElectrolyte
- *
- *  @param[in]  phiMetal     Potential of the metal
- *  @param[in]  phElectrolyte Potential of the electrolyte
- */
 void Electrode::setVoltages(const double phiMetal, const double phiElectrolyte)
 {
     phaseVoltages_[metalPhase_] = phiMetal;
@@ -3066,7 +3057,7 @@ double Electrode::openCircuitVoltageSSRxn(size_t isk, size_t iReaction) const
     }
     rsd->getDeltaSSGibbs(DATA_PTR(deltaG_));
     size_t length = rsd->rmcVector.size();
-    double PhiRxn = 0.0;
+    double ERxn = 0.0;
 
     size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
     if (metalPhaseRS != npos) {
@@ -3076,10 +3067,10 @@ double Electrode::openCircuitVoltageSSRxn(size_t isk, size_t iReaction) const
          */
         double nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
         if (nStoichElectrons != 0.0) {
-            PhiRxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
+            ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
         }
         if (iReaction != npos) {
-            return PhiRxn;
+            return ERxn;
         }
 
         /*
@@ -3093,14 +3084,14 @@ double Electrode::openCircuitVoltageSSRxn(size_t isk, size_t iReaction) const
                 rmc = rsd->rmcVector[i];
                 nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseRS];
                 if (nStoichElectrons != 0.0) {
-                    if (fabs(deltaVoltage_ - PhiRxn) > fabs(deltaVoltage_ - deltaG_[i] / Faraday / nStoichElectrons)) {
+                    if (fabs(deltaVoltage_ - ERxn) > fabs(deltaVoltage_ - deltaG_[i] / Faraday / nStoichElectrons)) {
                         rxnIndex = i;
-                        PhiRxn = deltaG_[i] / Faraday / nStoichElectrons;
+                        ERxn = deltaG_[i] / Faraday / nStoichElectrons;
                     }
                 }
             }
         }
-        return PhiRxn;
+        return ERxn;
     }
     return 0.0;
 }
@@ -3143,11 +3134,6 @@ double Electrode::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool compa
         if (nStoichElectrons != 0.0) {
             ERxn = deltaG_[rxnIndex] / Faraday / nStoichElectrons;
         }
-#ifdef DEBUG_NEW
-        double deltaGC =  deltaG_[rxnIndex] - GasConstant *  temperature_ * std::log(0.08);
-        double ERxn_SS = deltaGC / Faraday / nStoichElectrons;
-        printf(" ERxn_SS = %g\n",  ERxn_SS);
-#endif
   
         if (iReaction != npos) {
             return ERxn;
@@ -3617,7 +3603,7 @@ size_t Electrode::numSolnPhaseSpecies() const
 double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>& psr_list)
 {
   // Don't compare to reference electrode
-  bool comparedToReferenceElectrode = false;
+  const bool comparedToReferenceElectrode = false;
 
   psr_list.clear();
  
@@ -3625,12 +3611,59 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>&
   double volts = voltage();
 
   // Create a PolarizationSurfResults record for each active surface in the problem
+  /*
+   *  The base class doesn't have many polarization modes accessible
+   */
   for (size_t iSurf = 0; iSurf < numSurfaces_; iSurf++) {
         if (ActiveKineticsSurf_[iSurf]) {
+            ReactingSurDomain* rsd = RSD_List_[iSurf];
+
             psr_list.emplace_back(iSurf);
             PolarizationSurfResults& psr = psr_list.back();
              
+             
+            psr.icurrSurf = 0.0;
+            // Calculate the non mixture averaged ocv of the surface. This is the OCV at which no electrons 
+            //   are produced given the current state of the bulk phases next to it and given the current
+            //   surface adsorbate state.
+            double ocvSurf_local = openCircuitVoltage(iSurf, comparedToReferenceElectrode);
+            double ocvSurf;
 
+            size_t nr = rsd->nReactions();
+
+            bool eok;
+            doublevalue nStoich, OCV, io, overPotential, beta, resistance;
+            size_t numErxn = 0;
+            for (size_t iRxn = 0; iRxn < nr; iRxn++) {
+                eok = rsd->getExchangeCurrentDensityFormulation(iRxn, nStoich, OCV, io, overPotential, beta, resistance);
+                ocvSurf = OCV; 
+                if (eok) {
+                    if (nStoich != 0.0) {
+                        numErxn++;
+                        if (resistance != 0.0) {
+                           VoltPolPhenom vpp;
+               
+                           double voltsRes = psr.icurrSurf * resistance;  
+                           vpp.ipolType = RESISTANCE_FILM_PL;
+                           vpp.voltageDrop = voltsRes; 
+                           psr.voltsPol_list.push_back(vpp);
+                           ocvSurf -= voltsRes;
+                           overPotential -= voltsRes;
+                        }
+
+                        VoltPolPhenom vpp;
+                        vpp.ipolType = SURFACE_OVERPOTENTIAL_PL;
+                        vpp.voltageDrop = overPotential; 
+                        psr.voltsPol_list.push_back(vpp);
+                        
+                    }
+                }
+             }
+             if (numErxn > 1) {
+                 throw Electrode_Error("", "complicated situation not handled yet.");
+             }
+             
+             psr.Voltage = volts;
         }
     }
 
@@ -3680,8 +3713,7 @@ void Electrode::addExtraGlobalRxn(const EGRInput& egri)
     size_t rsdI = egri.m_RSD_index;
     InterfaceKinetics* iKA = RSD_List_[rsdI];
     if (!iKA) {
-       throw Electrode_Error("Electrode::addExtraGlobalRxn()",
-                          "No kinetics object for reacting surface domain " + int2str(rsdI));
+       throw Electrode_Error("Electrode::addExtraGlobalRxn()", "No kinetics object for reacting surface domain " + int2str(rsdI));
     }
     size_t nReactionsA = iKA->nReactions();
 

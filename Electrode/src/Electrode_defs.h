@@ -247,11 +247,22 @@ enum Polarization_Loss_Enum {
 
 };
 
+//==================================================================================================================================
+//! structure to store the type and amount of voltage loss computed for a polarization loss
+/*!
+ *  The types are identified by the enum Pliarization_Loss_Enum variable
+ *  I haven't worked out the signs on anything yet!
+ */
 struct VoltPolPhenom
 {
-    VoltPolPhenom() :
-        ipolType(UNKNOWN_PL),
-        voltageDrop(0.0)
+    //! Default constructor
+    /*!
+     *  @param[in]           pltype              Polarization type enum
+     *  @param[in]           volts               volt drop
+     */
+    VoltPolPhenom(enum Polarization_Loss_Enum pltype = UNKNOWN_PL, double volts = 0.0) :
+        ipolType(pltype),
+        voltageDrop(volts)
     {
     }
 

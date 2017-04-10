@@ -118,7 +118,7 @@ struct PolarizationSurfResults {
     double icurrSurf = 0.0;
 
     //! Vector of physical-based voltage losses
-    std::vector<VoltPolPhenom> polarVoltsPhys;
+    std::vector<VoltPolPhenom> voltsPol_list;
 
     //! Value of the open circuit voltage for the surface
     double ocvSurf = 0.0;
@@ -587,9 +587,9 @@ public:
     /*!
      *  Returns a vector of surface areas for surfaces defined in the electrode object.
      *
-     * @param surfArea  vector of surface areas.
-     *                  units = m2
-     *                  length = number of surfaces defined in the Electrode
+     *  @param[in]           surfArea            vector of surface areas.
+     *                                             units = m2
+     *                                             length = number of surfaces defined in the Electrode
      */
     void getSurfaceAreas(double* const surfArea) const;
 
