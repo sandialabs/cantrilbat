@@ -9,8 +9,8 @@
  * U.S. Government retains certain rights in this software.
  */
 
-
 #include "cttables_kin.h"
+#include "cantera/kinetics/solveSP.h"
 
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
@@ -858,11 +858,8 @@ void doKineticsTablesHetero(PhaseList* pl,  InterfaceKinetics* gKinetics, Temper
     }
 }
 //==================================================================================================================================
-
-void doKineticsTablesHomog(PhaseList* pl, ZZCantera::Kinetics* gKinetics,
-                           TemperatureTable& TT)
+void doKineticsTablesHomog(PhaseList* pl, ZZCantera::Kinetics* gKinetics, TemperatureTable& TT)
 {
-
     int nReactions = gKinetics->nReactions();
     DenseMatrix kfwd_Table(TT.size(), nReactions);
     DenseMatrix krev_Table(TT.size(), nReactions);
@@ -1322,6 +1319,7 @@ void processCurrentVsPotTable(RxnMolChange* rmc,
         //phiMetal = Voltage + rmc->m_phasePotentials[iSoln];
         tpMetal->setElectricPotential(phiMetal);
         iK->advanceCoverages(100.0);
+        iK->solvePseudoSteadyStateProblem(SFLUX_RESIDUAL);
         iK->getFwdRatesOfProgress(DATA_PTR(Rfwd));
         iK->getRevRatesOfProgress(DATA_PTR(Rrev));
         iK->getNetRatesOfProgress(DATA_PTR(Rnet));

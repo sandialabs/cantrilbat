@@ -420,7 +420,7 @@ int main(int argc, char **argv)
       string phname = tp->id();
       printf("%-12s", phname.c_str());
       printf("  %15.6e %15.6e\n", electrodeA->phaseMoles(iph),
-	     electrodeA->phaseVoltage(iph));
+	     electrodeA->phaseElectricPotential(iph));
     }
 
     double IcurrNet;

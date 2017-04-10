@@ -18,6 +18,9 @@ Bath Pressure =  1 atm
 !  the raw value of thermodynamics variables.
 !----------------------------------------------------------------
 Add Chemical Potential Column = true
+Output Units = KJoule
+
+
 
 START BLOCK Temperature Table Format
   !-----------------------------------------------------------

@@ -329,7 +329,7 @@ int main(int argc, char **argv)
       ThermoPhase *tp = &(electrodeA->thermo(iph));
       string phname = tp->id();
       printf("%-12s", phname.c_str());
-      printf("  %15.6e %15.6e\n", electrodeA->phaseMoles(iph), electrodeA->phaseVoltage(iph));
+      printf("  %15.6e %15.6e\n", electrodeA->phaseMoles(iph), electrodeA->phaseElectricPotential(iph));
     }
 
 

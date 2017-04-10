@@ -986,9 +986,9 @@ void processCurrentVsPotTable(ZZCantera::RxnMolChange *rmc,
   int iElectrodeMetal = electrode->metalPhaseIndex();
   int iElectrodeLyte  = electrode->solnPhaseIndex();
 
-  double phi0Metal = electrode->phaseVoltage(iElectrodeMetal);
+  double phi0Metal = electrode->phaseElectricPotential(iElectrodeMetal);
   //double phi0Metal = rmc->m_phasePotentials[iMetal];
-  double phi0Soln = electrode->phaseVoltage(iElectrodeLyte);
+  double phi0Soln = electrode->phaseElectricPotential(iElectrodeLyte);
   double nStoichElectrons = - rmc->m_phaseChargeChange[iMetal];
   double V0 = phi0Metal  -phi0Soln;
   tpMetal = &(iK->thermo(iMetal));
@@ -1637,7 +1637,7 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
   size_t iphMetal = electrode->metalPhaseIndex();
   size_t RSphMetal = iK->PLtoKinPhaseIndex_[iphMetal];
   //int RSphMetal = electrode->CurrReactingSurfacePhaseIndex(iphMetal);
-  double phi0Metal = electrode->phaseVoltage(iphMetal);
+  double phi0Metal = electrode->phaseElectricPotential(iphMetal);
   double nStoichElectrons = - rmc->m_phaseChargeChange[RSphMetal];
 
   size_t iphSoln = electrode->solnPhaseIndex();
@@ -1773,8 +1773,7 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
 
 
   Voltage = electrode->voltage();
-  phiMetal = electrode->phaseVoltage(iphMetal);
-
+  phiMetal = electrode->phaseElectricPotential(iphMetal);
 
 
   iK->advanceCoverages(1000.0);
