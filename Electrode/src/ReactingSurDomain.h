@@ -100,7 +100,7 @@ public:
      *
      *   @return                              Returns a pointer to the duplicate object.
      */
-    virtual Kinetics* duplMyselfAsKinetics(const std::vector<thermo_t*>& tpVector) const;
+    virtual Kinetics* duplMyselfAsKinetics(const std::vector<thermo_t*>& tpVector) const override;
 
     //!  Import all the phases from a PhaseList and initialize the surface kinetics for this object
     /*!
@@ -136,13 +136,13 @@ public:
     /*!
      *  This initializes based on number of species
      */
-    virtual void init();
+    virtual void init() override;
 
     //! Routine to be called after all reactions have been defined for the object.
     /*!
      *    This routine initializes vectors based on the number of reactions.
      */
-    virtual void finalize();
+    virtual void finalize() override;
 
     //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
     /*!
@@ -224,7 +224,7 @@ public:
     /*!
      *  Virtual because it is overwritten when dealing with experimental open circuit voltage overrides
      */
-    virtual void updateMu0();
+    virtual void updateMu0() override;
 
     //! Get the net current for the set of reactions on this surface in amps m-2.
     /*!
@@ -322,7 +322,7 @@ public:
      *
      *  @return                              Returns the current density (amps m-2)
      */
-    double calcCurrentDensity(double nu, double nStoich, double io, double beta, double temp) const;
+    doublevalue calcCurrentDensity(doublevalue nu, doublevalue nStoich, doublevalue io, doublevalue beta, doublevalue temp) const;
 #endif
 
     //!  Identify the metal phase and the electrons species
@@ -342,28 +342,50 @@ public:
     void addOCVoverride(OCV_Override_input *ocv_ptr);
 
     //! Calculate the effective chemical potential of the replaced species
-    void deriveEffectiveChemPot();
-
-    //! Calculate the effectit thermodynamic variables of all of the species due to the OCV override
     /*!
      *  We calculate the effects of the OCV override on the storred thermodynamics of the species
+     *  We modify the following storage variables
      *
-     *   We modify the following storage variables
+     *       After Transformation            Before Transformation
+     *          m_mu
+     *          m_mu0 
+     *          m_GibbsOCV_rspec             
      *
+     *                                       deltaGRxnOCV_Before_
+     */
+    void deriveEffectiveChemPot();
+
+    //! Calculate the effective thermodynamic variables of all of the species due to the OCV override
+    /*!
+     *  We calculate the effects of the OCV override on the storred thermodynamics of the species
+     *  We modify the following storage variables
+     *
+     *       After Transformation            Before Transformation
+     *          m_mu
+     *          m_mu0 
+     *          m_GibbsOCV_rspec           
+     *          m_Entropies_rspec            m_Entropies_Before_rspec
+     *          m_Enthalpies_rspec           m_Enthalpies_Before_rspec
+     *
+     *                                       deltaGRxn_Before_
+     *                                       deltaHRxn_Before_
+     *                                       deltaSRxn_Before_
+     *
+     *                                       deltaGRxnOCV_Before_
      *     
      */
     void deriveEffectiveThermo();
 
     //!  Get the vector of deltaG values for all reactions defined in the kinetics object
     /*!
-     *   (Virtual from Kinetics.h)
+     *   (Virtual from Kinetics)
      *
      *   This routine provides an override to the normal calculation of deltaG, when the thermodynamics
      *   is modified by a specification of the open circuit potential.
      *
      *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal to the number of reactions.
      */
-    virtual void getDeltaGibbs(double* deltaG);
+    virtual void getDeltaGibbs(doublevalue* const deltaG) override;
 
     //!  Get the vector of deltaG values for all reactions defined in the kinetics object
     /*!
@@ -373,18 +395,20 @@ public:
      *
      *   @param[out]        deltaG      Vector of deltaG values. Must be at least of length equal to the number of reactions.
      */
-    void getDeltaGibbs_Before(double* const deltaG = 0);
+    void getDeltaGibbs_Before(doublevalue* const deltaG = 0);
 
     //! Return the vector of values for the electrochemical free energy change of reaction.
     /*!
-     * These values depend upon the concentration of the solution and the  voltage of the phases
-     * involved with each reaction that has a charged species as a participant.
+     *  (virtual from Kinetics)
+     *  These values depend upon the concentration of the solution and the  voltage of the phases
+     *  involved with each reaction that has a charged species as a participant.
      *
      *  units = J kmol-1
      *
-     *  @param[out]        deltaM       Output vector of  deltaM's for all of the reactions. The length is m_ii.
+     *  @param[out]          deltaM              Vector of Reaction delta electrochemical potentials
+     *                                           If 0, this updates the internally stored values only, in m_deltaM
      */
-    virtual void getDeltaElectrochemPotentials(double* const deltaM);
+    virtual void getDeltaElectrochemPotentials(doublevalue* const deltaM) override;
 
     //!  Get the vector of deltaH values for all reactions defined in the kinetics object
     /*!
@@ -397,7 +421,7 @@ public:
      *   @param[out]        deltaH      Vector of deltaH values. Must be at least of length equal
      *                                  to the number of reactions
      */
-    virtual void getDeltaEnthalpy(double* const deltaH);
+    virtual void getDeltaEnthalpy(doublevalue* const deltaH) override;
 
     //!  Get the vector of deltaH values for all reactions defined in the kinetics object
     /*!
@@ -406,7 +430,7 @@ public:
      *   @param[out]        deltaH      Vector of deltaH values. Must be at least of length equal
      *                                  to the number of reactions, m_ii
      */
-    void getDeltaEnthalpy_Before(double* const deltaH);
+    void getDeltaEnthalpy_Before(doublevalue* const deltaH);
 
     //! This gets the deltaG for each reaction in the mechanism, but using the standard state
     //! chemical potential for the electrolyte.
@@ -415,7 +439,7 @@ public:
      *                                  potentials for the electrolyte. 
      *                     length = nReactions(), J/kmol
      */
-    void getDeltaGibbs_electrolyteSS(double* const deltaG_special);
+    void getDeltaGibbs_electrolyteSS(doublevalue* const deltaG_special);
 
     //!  Get the vector of deltaS values for all reactions defined in the kinetics object
     /*!
@@ -428,7 +452,7 @@ public:
      *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
      *                                  to the number of reactions. Units are J kmol-1 K-1.
      */
-    virtual void getDeltaEntropy(double* const deltaS);
+    virtual void getDeltaEntropy(doublevalue* const deltaS) override;
 
     //!  Get the vector of deltaS values for all reactions defined in the kinetics object before OCV override
     /*!
@@ -437,7 +461,7 @@ public:
      *   @param[out]        deltaS      Vector of deltaS values. Must be at least of length equal
      *                                  to the number of reactions. Units are J kmol-1 K-1.
      */
-    void getDeltaEntropy_Before(double* const deltaS);
+    void getDeltaEntropy_Before(doublevalue* const deltaS);
 
     //!  Return the vector of values for the reaction standard state gibbs free energy change.  These values don't depend upon
     //!  the concentration of the solution.
@@ -447,7 +471,7 @@ public:
      *
      * @param[out]      deltaG            Output vector of ss deltaG's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSGibbs(double* const deltaG);
+    virtual void getDeltaSSGibbs(doublevalue* const deltaG) override;
 
     //!  Return the vector of values for the change in the standard
     //! state enthalpies of reaction.  These values don't depend
@@ -458,7 +482,7 @@ public:
      *
      * @param[out]     deltaH              Output vector of ss deltaH's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSEnthalpy(double* const deltaH);
+    virtual void getDeltaSSEnthalpy(doublevalue* const deltaH) override;
 
     
     //! Return the vector of values for the change in the standard state entropies for each reaction.  These values don't
@@ -469,16 +493,7 @@ public:
      *
      *     @param[out]    deltaS           Output vector of ss deltaS's for reactions Length: m_ii.
      */
-    virtual void getDeltaSSEntropy(double* const deltaS);
-
-    //!   Sets the temperature and pressure for all phases that are part of the reacting surface
-    /*!
-     *     This calls the underlying %ThermoPhase routines for all phases that are part of the surface
-     *
-     *      @param[in]     temp            Temperature (Kelvin)
-     *      @param[in]     pres            Pressure    (Pascal)
-     */
-    void setState_TP(double temp, double pres);
+    virtual void getDeltaSSEntropy(doublevalue* const deltaS) override;
 
     //!  Get the OCV thermodynamic functions offsets for the species that is replaced when carrying out
     //!  an OCV override step

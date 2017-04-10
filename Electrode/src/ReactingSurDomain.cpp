@@ -44,7 +44,6 @@ ReactingSurDomain::ReactingSurDomain() :
     deltaGRxn_Before_(0),
     deltaGRxnOCV_Before_(0),
     deltaHRxn_Before_(0),
-    deltaSRxn_Before_(0),
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
@@ -77,7 +76,6 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     deltaGRxn_Before_(0),
     deltaGRxnOCV_Before_(0),
     deltaHRxn_Before_(0),
-    deltaSRxn_Before_(0),
     m_pl(0),
     ocv_ptr_(0),
     OCVmodel_(0),
@@ -110,7 +108,6 @@ ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     deltaGRxn_Before_(0),
     deltaGRxnOCV_Before_(0),
     deltaHRxn_Before_(0),
-    deltaSRxn_Before_(0),
     m_pl(pl),
     ocv_ptr_(0),
     OCVmodel_(0),
@@ -580,8 +577,8 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	//  Eqn. (65) of writeup
 	//
 	for (size_t k = 0; k < m_NumKinSpecies; k++) {
-	    double reactCoeff = reactantStoichCoeff(k, irxn);
-	    double prodCoeff =  productStoichCoeff(k, irxn);
+	    doublevalue reactCoeff = reactantStoichCoeff(k, irxn);
+	    doublevalue prodCoeff =  productStoichCoeff(k, irxn);
 
 	    if (reactCoeff != 0.0) {
 		iO *= pow(m_actConc[k],      reactCoeff*omb);
@@ -593,7 +590,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	    }
 	}
 	for (size_t k = 0; k < m_NumKinSpecies; k++) {
-	    double reactCoeff = reactantStoichCoeff(k, irxn);
+	    doublevalue reactCoeff = reactantStoichCoeff(k, irxn);
 	    if (reactCoeff != 0.0) {
 		iO *= pow(m_actConc[k],      -reactCoeff);
 		iO /= pow(m_StandardConc[k], -reactCoeff);
@@ -603,7 +600,7 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	//const std::vector<double>&  affinOrder_FRC = aJ.affinOrder_FRC;
 	for (size_t kk = 0; kk < aJ.affinSpec_FRC.size(); ++kk) {
 	    size_t kspec = aJ.affinSpec_FRC[kk];
-	    double order = aJ.affinOrder_FRC[kk];
+	    doublevalue order = aJ.affinOrder_FRC[kk];
 	    iO *= pow(m_actConc[kspec], order);
 	}
 	*io = iO;
@@ -624,18 +621,18 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	const vector_fp& rkc= m_rkcn;
 
 	// start with the forward reaction rate
-	double iO = rf[irxn] * Faraday * nStoichElectrons;
+	doublevalue iO = rf[irxn] * Faraday * nStoichElectrons;
 
 	if (m_beta[irxn] > 0.0) {
 	    iO *= pow(rkc[irxn], m_beta[irxn]);
 	}
-	double b = *beta;
-	double omb = 1.0 - b;
+	doublevalue b = *beta;
+	doublevalue omb = 1.0 - b;
 
 
 	for (size_t k = 0; k < m_NumKinSpecies; k++) {
-	    double reactCoeff = reactantStoichCoeff(k, irxn);
-	    double prodCoeff =  productStoichCoeff(k, irxn);
+	    doublevalue reactCoeff = reactantStoichCoeff(k, irxn);
+	    doublevalue prodCoeff =  productStoichCoeff(k, irxn);
 
 	    if (reactCoeff != 0.0) {
 		iO *= pow(m_actConc[k], reactCoeff*omb);
@@ -648,9 +645,9 @@ double ReactingSurDomain::getExchangeCurrentDensityFormulation(size_t irxn,  dou
 	}
 	*io = iO;
 
-	double phiMetal = thermo(metalPhaseIndex_).electricPotential();
-	double phiSoln = thermo(solnPhaseIndex_).electricPotential();
-	double E = phiMetal - phiSoln;
+	doublevalue phiMetal = thermo(metalPhaseIndex_).electricPotential();
+	doublevalue phiSoln = thermo(solnPhaseIndex_).electricPotential();
+	doublevalue E = phiMetal - phiSoln;
 	*overPotential = E - *OCV;
 
 	icurr = calcCurrentDensity(*overPotential, *nStoich, *io, *beta, m_temp);
@@ -702,7 +699,7 @@ void ReactingSurDomain::identifyMetalPhase()
     size_t nr = nReactions();
     size_t np = nPhases();
     for (size_t iph = 0; iph < np; iph++) {
-        ThermoPhase* tp = & (thermo(iph));
+        thermo_t_double* tp = & (thermo(iph));
         size_t nSpecies = tp->nSpecies();
         size_t nElements = tp->nElements();
         size_t eElectron = tp->elementIndex("E");
@@ -961,34 +958,22 @@ void ReactingSurDomain::deriveEffectiveChemPot()
         }
     }
     //
-    //  Calculate the delta G and the open circuit voltage normally
-    //
-    //
-    //
-    //
     //  Get the reaction delta based on the mixed G and G_SS values accummulated above
     //
     getReactionDelta(DATA_PTR(m_GibbsOCV_rspec), DATA_PTR(deltaGRxnOCV_Before_));
 
     double phiRxnOrig = 0.0;
-
-    //
-    //  If we don't have an electrode reaction bail as being confused
-    //
-    if (metalPhaseIndex_ < 0) {
-	throw ZuzaxError("", "shouldn't be here");
-    }
     //
     //  If we don't have an open circuit potential override situation, bail out of the routine
+    //
     if (!ocv_ptr_) {
 	return;
     }
-
     //
     //  Figure out the reaction id for the override
     //
-    int rxnID = ocv_ptr_->rxnID;
-    int rxnID_deltaS = ocv_ptr_->rxnID_deltaS;
+    size_t rxnID = ocv_ptr_->rxnID;
+    size_t rxnID_deltaS = ocv_ptr_->rxnID_deltaS;
     //
     //  Get a pointer to the RxnMolChange struct, which contains more info about the reaction
     //
@@ -996,7 +981,7 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //
     //   Find the number of stoichiometric electrons in the reaction
     //
-    double nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseIndex_];
+    doublevalue nStoichElectrons = -rmc->m_phaseChargeChange[metalPhaseIndex_];
     //
     //  If the number of stoichiometric electrons is zero, we are in kind of a bind, as we shouldn't
     //  be specifying an open circuit voltage in the first place!
@@ -1160,16 +1145,16 @@ void ReactingSurDomain::deriveEffectiveThermo()
     //
     double phiRxnExp = OCVmodel_->OCV_value(TT);
     //
-    //   Now calculate the dOCV/dT value to be used presumably from a fit
+    //    Now calculate the dOCV/dT value to be used presumably from a fit
     //
     double d_phiRxnExp_dT = OCVmodel_->OCV_dvaldT(TT);
     //
-    //    Calculate the deltaGibbs needed to turn phiRxnOrig into phiRxnExp
+    //   Calculate the deltaGibbs needed to turn phiRxnOrig into phiRxnExp
     //
     //double deltaG_Exp = (phiRxnExp) * Faraday * nStoichElectrons;
     double deltaG_Exp_delta = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
     //
-    //    Calculate the deltaEntropy needed to turn dphiRxnOrigdT into dphiRxnExpdT
+    //   Calculate the deltaEntropy needed to turn dphiRxnOrigdT into dphiRxnExpdT
     //
     //double deltaS_Exp = (- d_phiRxnExp_dT) * Faraday * nStoichElectrons;
     double deltaS_Exp_delta = (- d_phiRxnExp_dT + d_phiRxnOrig_dT) * Faraday * nStoichElectrons;
@@ -1182,14 +1167,12 @@ void ReactingSurDomain::deriveEffectiveThermo()
     deltaG_species_ = deltaG_Exp_delta / nstoich;
     deltaS_species_ = deltaS_Exp_delta / nstoich;
     deltaH_species_ = deltaG_species_ + TT * deltaS_species_;
-    
     //
-    // calculate new G value for replaced species that will yield the experimental open circuit voltage
+    // Calculate new G value for replaced species that will yield the experimental open circuit voltage
     //
     m_GibbsOCV_rspec[kReplacedSpeciesRS_] += deltaG_species_;
     m_mu[kReplacedSpeciesRS_] += deltaG_species_;
     m_mu0[kReplacedSpeciesRS_] += deltaG_species_;
-
     //
     // Calculate the replaced entropies and enthalpies
     //
@@ -1243,7 +1226,7 @@ void ReactingSurDomain::updateMu0()
 //==================================================================================================================================
 // Modification for OCV override when called for.
 //         ( works for MCMB )
-void ReactingSurDomain::getDeltaGibbs(double* deltaG)
+void ReactingSurDomain::getDeltaGibbs(doublevalue* const deltaG)
 {
      /*
       * Get the chemical potentials of the species in the all of the phases used in the 
@@ -1272,7 +1255,7 @@ void ReactingSurDomain::getDeltaGibbs(double* deltaG)
     }
 }
 //==================================================================================================================================
-void ReactingSurDomain::getDeltaGibbs_Before(double* const deltaG)
+void ReactingSurDomain::getDeltaGibbs_Before(doublevalue* const deltaG)
 {
     for (size_t n = 0; n < nPhases(); n++) {
          m_thermo[n]->getChemPotentials(DATA_PTR(m_Gibbs_Before_rspec) + m_start[n]);
@@ -1284,7 +1267,7 @@ void ReactingSurDomain::getDeltaGibbs_Before(double* const deltaG)
 //==================================================================================================================================
 // Modification for OCV override when called for.
 //         ( works for MCMB )
-void ReactingSurDomain::getDeltaElectrochemPotentials(double* deltaG)
+void ReactingSurDomain::getDeltaElectrochemPotentials(doublevalue* const deltaM)
 {
      /*
       * Get the chemical potentials of the species in the all of the phases used in the 
@@ -1294,9 +1277,13 @@ void ReactingSurDomain::getDeltaElectrochemPotentials(double* deltaG)
      size_t np = nPhases();
      for (size_t n = 0; n < np; n++) {
          m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
+         m_phi[n] = thermo(n).electricPotential();
      }
 
      //  If have an open circuit potential override situation, do extra work
+     /*
+      *  We fill up m_mu[] with the consistent values from experiment
+      */
      if (ocv_ptr_) {
 	 deriveEffectiveChemPot();
      }
@@ -1306,18 +1293,25 @@ void ReactingSurDomain::getDeltaElectrochemPotentials(double* deltaG)
 	 double ve = Faraday * tp.electricPotential();
 	 size_t nsp =  tp.nSpecies();
 	 for (size_t k = 0; k < nsp; k++) {
-	     m_grt[m_start[n] + k] = m_mu[m_start[n] + k] + ve * tp.charge(k);
+	     m_ElectroChemMu[m_start[n] + k] = m_mu[m_start[n] + k] + ve * tp.charge(k);
         }
      }
-    //
-    // Use the stoichiometric manager to find deltaG for each
-    // reaction.
-    //
-    getReactionDelta(DATA_PTR(m_grt), DATA_PTR(deltaG));
+     /*
+      * Use the stoichiometric manager to find deltaM for each reaction.
+      */
+     getReactionDelta(DATA_PTR(m_ElectroChemMu), m_deltaM.data());
+     //
+     // If we've input nullptr for deltaM, we're finished because we are using internal storage for deltaM
+     //
+     if (deltaM != nullptr && (DATA_PTR(m_deltaM) != deltaM)) {
+        for (size_t irxn = 0; irxn < m_ii; ++irxn) {
+            deltaM[irxn] = m_deltaM[irxn];
+        }
+     }
 }
 //==================================================================================================================================
 // Modification for OCV override when called for.
-void ReactingSurDomain::getDeltaEnthalpy(double* deltaH)
+void ReactingSurDomain::getDeltaEnthalpy(doublevalue* const deltaH)
 {
     /*
      *  Get the partial molar enthalpy of all species
@@ -1342,7 +1336,7 @@ void ReactingSurDomain::getDeltaEnthalpy(double* deltaH)
 }
 //=======================================================================================================================
 // Modification for OCV override when called for.
-void ReactingSurDomain::getDeltaEnthalpy_Before(double* const deltaH)
+void ReactingSurDomain::getDeltaEnthalpy_Before(doublevalue* const deltaH)
 {
     for (size_t n = 0; n < nPhases(); n++) {
         thermo(n).getPartialMolarEnthalpies(DATA_PTR(m_Enthalpies_Before_rspec) + m_start[n]);
@@ -1353,7 +1347,7 @@ void ReactingSurDomain::getDeltaEnthalpy_Before(double* const deltaH)
 }
 //=======================================================================================================================
 // Modification for OCV override when called for
-void ReactingSurDomain::getDeltaEntropy(double* deltaS)
+void ReactingSurDomain::getDeltaEntropy(doublevalue* const deltaS)
 {
     /*
      *   Get the partial molar entropy of all species in all phases of the kinetics object
@@ -1374,9 +1368,9 @@ void ReactingSurDomain::getDeltaEntropy(double* deltaS)
      */
     getReactionDelta(DATA_PTR(m_Entropies_rspec), DATA_PTR(deltaS));
 }
-//=======================================================================================================================
+//==================================================================================================================================
 // Modification for OCV override when called for
-void ReactingSurDomain::getDeltaEntropy_Before(double* const deltaS)
+void ReactingSurDomain::getDeltaEntropy_Before(doublevalue* const deltaS)
 {
     for (size_t n = 0; n < nPhases(); n++) {
         thermo(n).getPartialMolarEntropies(DATA_PTR(m_Entropies_Before_rspec) + m_start[n]);
@@ -1385,7 +1379,7 @@ void ReactingSurDomain::getDeltaEntropy_Before(double* const deltaS)
 	getReactionDelta(DATA_PTR(m_Entropies_Before_rspec), DATA_PTR(deltaS));
     }
 }
-//=======================================================================================================================
+//==================================================================================================================================
 // This gets the deltaG for each reaction in the mechanism, but using the standard state
 // chemical potential for the electrolyte.
 /*
@@ -1393,7 +1387,7 @@ void ReactingSurDomain::getDeltaEntropy_Before(double* const deltaS)
  *                                  potentials for the electrolyte. 
  *                     length = nReactions(), J/kmol
  */
-void ReactingSurDomain::getDeltaGibbs_electrolyteSS(double* deltaG_special)
+void ReactingSurDomain::getDeltaGibbs_electrolyteSS(doublevalue* const deltaG_special)
 {
      /*
       * Use m_grt, because this vector we are creating is a mixed beast
@@ -1418,7 +1412,7 @@ void ReactingSurDomain::getDeltaGibbs_electrolyteSS(double* deltaG_special)
 }
 //==================================================================================================================================
 // Modification for OCV override when called for
-void ReactingSurDomain::getDeltaSSEnthalpy(double* deltaH)
+void ReactingSurDomain::getDeltaSSEnthalpy(doublevalue* const deltaH)
 {
    /*
      *  Get the standard state entropy of the species.
@@ -1447,9 +1441,9 @@ void ReactingSurDomain::getDeltaSSEnthalpy(double* deltaH)
      */
     getReactionDelta(DATA_PTR(m_grt), deltaH);  
 }
-//=======================================================================================================================
+//==================================================================================================================================
 // Modification for OCV override when called for
-void ReactingSurDomain::getDeltaSSGibbs(double* const deltaGSS)
+void ReactingSurDomain::getDeltaSSGibbs(doublevalue* const deltaGSS)
 {
     /*
      *  Get the standard state gibbs free energy of the species.
@@ -1477,7 +1471,7 @@ void ReactingSurDomain::getDeltaSSGibbs(double* const deltaGSS)
     }
 }
 //==================================================================================================================================
-void ReactingSurDomain::getDeltaSSEntropy(double* const deltaS)
+void ReactingSurDomain::getDeltaSSEntropy(doublevalue* const deltaS)
 {
     /*
      *  Get the standard state entropy of the species.
@@ -1512,13 +1506,6 @@ void ReactingSurDomain::getOCVThermoOffsets_ReplacedSpecies(double& deltaG_speci
 	deltaG_species = deltaG_species_;
 	deltaH_species = deltaH_species_;
 	deltaS_species = deltaS_species_;
-    }
-}
-//==================================================================================================================================
-void ReactingSurDomain::setState_TP(double temp, double pres) 
-{
-    for (size_t n = 0; n < nPhases(); n++) {
-	m_thermo[n]->setState_TP(temp, pres);
     }
 }
 //==================================================================================================================================
