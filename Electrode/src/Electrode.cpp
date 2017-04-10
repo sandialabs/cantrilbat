@@ -3600,7 +3600,7 @@ size_t Electrode::numSolnPhaseSpecies() const
     return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
 //==================================================================================================================================
-double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>& psr_list)
+double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list)
 {
   // Don't compare to reference electrode
   const bool comparedToReferenceElectrode = false;
@@ -3612,22 +3612,16 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>&
 
   // Create a PolarizationSurfResults record for each active surface in the problem
   /*
+   *  We will only look at the exit conditions. Then, we'll normalize by the total current over the interval
    *  The base class doesn't have many polarization modes accessible
    */
   for (size_t iSurf = 0; iSurf < numSurfaces_; iSurf++) {
         if (ActiveKineticsSurf_[iSurf]) {
             ReactingSurDomain* rsd = RSD_List_[iSurf];
-
-            psr_list.emplace_back(iSurf);
-            PolarizationSurfResults& psr = psr_list.back();
              
-             
-            psr.icurrSurf = 0.0;
-            // Calculate the non mixture averaged ocv of the surface. This is the OCV at which no electrons 
-            //   are produced given the current state of the bulk phases next to it and given the current
-            //   surface adsorbate state.
-            double ocvSurf_local = openCircuitVoltage(iSurf, comparedToReferenceElectrode);
-            double ocvSurf;
+            // Calculate the non mixture averaged OCV of the surface. This is the OCV at which no electrons are produced 
+            // given the current state of the bulk phases next to it and given the current surface adsorbate state.
+            double ocvSurf = openCircuitVoltage(iSurf, comparedToReferenceElectrode);
 
             size_t nr = rsd->nReactions();
 
@@ -3636,18 +3630,25 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>&
             size_t numErxn = 0;
             for (size_t iRxn = 0; iRxn < nr; iRxn++) {
                 eok = rsd->getExchangeCurrentDensityFormulation(iRxn, nStoich, OCV, io, overPotential, beta, resistance);
-                ocvSurf = OCV; 
+                double ocvSurfRxn = OCV; 
+                double ocvSurfRxn_local = ocvSurfRxn;
                 if (eok) {
                     if (nStoich != 0.0) {
+                        double icurrPerArea = rsd->calcCurrentDensity(overPotential, nStoich, OCV, beta, temperature_, resistance);
+
+                        // Create a record
+                        psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, iSurf, iRxn);
+                        PolarizationSurfRxnResults& psr = psr_list.back();
+                        psr.icurrSurf = 0.0;
                         numErxn++;
                         if (resistance != 0.0) {
                            VoltPolPhenom vpp;
                
-                           double voltsRes = psr.icurrSurf * resistance;  
+                           double voltsRes = psr.icurrSurf * resistance;
                            vpp.ipolType = RESISTANCE_FILM_PL;
-                           vpp.voltageDrop = voltsRes; 
+                           vpp.voltageDrop = voltsRes;
                            psr.voltsPol_list.push_back(vpp);
-                           ocvSurf -= voltsRes;
+                           ocvSurfRxn_local -= voltsRes;
                            overPotential -= voltsRes;
                         }
 
@@ -3656,6 +3657,11 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>&
                         vpp.voltageDrop = overPotential; 
                         psr.voltsPol_list.push_back(vpp);
                         
+                        psr.VoltageElectrode = volts;
+                        psr.VoltageTotal = volts;
+                        psr.ocvSurf = ocvSurf;
+                        psr.ocvSurfRxn = ocvSurfRxn_local;
+                        psr.icurrSurf = 0.5 * (surfaceAreaRS_final_final_[iSurf] + surfaceAreaRS_init_init_[iSurf]) * icurrPerArea;
                     }
                 }
              }
@@ -3663,14 +3669,51 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfResults>&
                  throw Electrode_Error("", "complicated situation not handled yet.");
              }
              
-             psr.Voltage = volts;
         }
     }
 
+    // Now normalize it by the actual value of the total integrated current.
+    /*
+     *  Below we do a lot of cheating. We want the total integrated current through all channels allowed by the Electrode
+     *  object. Currently, we are not storring this information in all its details. Therefore, we assume that the 
+     *  conditions at the end of the global time step can be used throughout the global time step, but using a 
+     *  constant factor to get the integrated current correct throughout the time-step.
+     */
+    double intCurrentTotal = integratedCurrent();
+    if (fabs(intCurrentTotal) < 1.0e-200) {
+        for (size_t iRec = 0; iRec < psr_list.size(); iRec++) {
+            PolarizationSurfRxnResults& psr = psr_list[iRec];
+            psr.icurrSurf = 0.0;
+        }
+    } else {
+        if (psr_list.size() > 0) {
+            double icurrSum = 0.0;
+            size_t iRecMax = 0;
+            double iRmax = 0.0;
+            for (size_t iRec = 0; iRec < psr_list.size(); iRec++) {
+                PolarizationSurfRxnResults& psr = psr_list[iRec];
+                icurrSum += psr.icurrSurf;
+                if (fabs(psr.icurrSurf) > iRmax) {
+                    iRecMax = iRec;
+                    iRmax = fabs(psr.icurrSurf);
+                }
+            }
+            if (fabs(icurrSum) < 1.0E-100) {
+               PolarizationSurfRxnResults& psr = psr_list[iRecMax];
+               psr.icurrSurf += (intCurrentTotal - icurrSum);
+            } else {
+                double factor = intCurrentTotal / icurrSum;
+                for (size_t iRec = 0; iRec < psr_list.size(); iRec++) {
+                    PolarizationSurfRxnResults& psr = psr_list[iRec];
+                    psr.icurrSurf *= factor;
+                }
+            }
+        } else {
+            throw Electrode_Error("Electrode::polarizationAnalysSurf()", "Current is zero but we didn't pick up any modes");
+        }
+    }
 
-
-
-    return 0.0;
+    return intCurrentTotal;
 }
 //==================================================================================================================================
 // Return the number of extra print tables

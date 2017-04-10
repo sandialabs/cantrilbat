@@ -103,15 +103,31 @@ enum DOFS
 
 
 //===================================================================================================================================
-//!  Structure for commumicating polarization results
+//! Structure for commumicating polarization results
 /*!
- *  Structure is for one surface only. On many electrodes there will only be one surface active at a time.
+ *  Structure is for one reaction on one surface only. On many electrodes there will only be one surface active at a time.
+ *  and there may be multiple reactions on each surface producing electrons. However, the only way to distinguish 
+ *  the results is to differentiate by reaction. This is the only way to get the actual value of the overpotential for a reaction.
+ *
+ *  Production Development:
+ *  I can imagine there will be loops on a particular surface where electrons are created and then destroyed by separate reactions.
+ *  The net result will be a surface reactions which change speciation in the bulk or adsorbate phases.
+ *  Pre-production of these loops to eliminate these net-zero electron production cases should occur. I can delay development
+ *  of this code until the situation occurs in practice.
  */
-struct PolarizationSurfResults {
+struct PolarizationSurfRxnResults {
+
+    //!  
     //!  Index of the reacting surface within the Electrode that the summary is for
     size_t isurf = npos;
 
-    //!  Total current through the surface
+    //! Index of the surface reaction on that surface
+    /*!
+     *  Reaction index that is producing electrons
+     */
+    size_t iRxnIndex = npos;
+
+    //!  Total current through the surface that is using this particular reaction on this surface
     /*!
      *   Units: amps
      */
@@ -120,18 +136,42 @@ struct PolarizationSurfResults {
     //! Vector of physical-based voltage losses
     std::vector<VoltPolPhenom> voltsPol_list;
 
-    //! Value of the open circuit voltage for the surface
+    //! Value of the open circuit voltage for the surface reaction index
+    double ocvSurfRxn = 0.0;
+
+    //! Value of the open circuit voltage for the surface (assuming adsorbate coverage is at pseudo-equilibrium)
     double ocvSurf = 0.0;
 
-    //! Value of the voltage for the electrode
-    double Voltage = 0.0;
+    //! Value of the voltage for the electrode through which the electrons go through
+    double VoltageElectrode = 0.0;
+
+    //! Value for the total voltage drops accounted for by the voltsPol_List
+    /*!
+     *  We'll be post-processing this structure to add in voltage drops
+     */
+    double VoltageTotal = 0.0;
+
+    //! Domain number of the electrode object
+    /*!
+     *  This number refers to the domain number within 1DElectrode.
+     */
+    int electrodeDomainNumber_ = 0;
+
+    //! Cell number within the domain
+    int electrodeCellNumber_ = 0;
 
     //! Default constructor
     /*!
+     *   @param[in]          electrodeDomainNumber  Domain number
+     *   @param[in]          electrodeCellNumber  cell number
      *   @param[in]          surfIndex           Surface index. Defaults to npos
+     *   @param[in]          rxnIndex            Reaction index on the surface. Defaults to npos
      */
-    PolarizationSurfResults(size_t surfIndex = npos) :
-        isurf(surfIndex)
+    PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, size_t surfIndex = npos, size_t rxnIndex = npos) :
+        isurf(surfIndex),
+        iRxnIndex(rxnIndex),
+        electrodeDomainNumber_(electrodeDomainNumber),
+        electrodeCellNumber_(electrodeCellNumber)
     {
     }
 
@@ -960,7 +1000,6 @@ public:
      */
     void setDeltaTSubcycleMax(double deltaTSubcycleMax);
 
-
     //------------------------------------------------------------------------------------------------------------------
     // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION -------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -1084,7 +1123,7 @@ public:
      *
      *     Energy released within the electrode during a local time step due to the overpotential
      *
-     *   @return                             Returns the irreversible energy released (joules)
+     *  @return                                  Returns the irreversible energy released (joules)
      */
     virtual double thermalEnergySourceTerm_Overpotential_SingleStep();
 
@@ -1130,7 +1169,7 @@ public:
      *   Note we must have integrated a global time step previously.
      *       (can protect)
      *
-     *   @return                                  Returns the current columb sec-1 = amps
+     *   @return                                 Returns the current columb sec-1 = amps
      */
     double integratedCurrent() const;
 
@@ -1138,7 +1177,7 @@ public:
     /*!
      *  (virtual from Electrode.h)
      *
-     *    @param  phaseMolesTransfered vector of moles transfered (length = number of total
+     *  @param  phaseMolesTransfered vector of moles transfered (length = number of total
      *            phases in the electrode object)
      *            units = kmol
      */
@@ -1146,23 +1185,23 @@ public:
 
     //! Returns the integrated thermal energy source term (Joules)
     /*!
-     *    Returns the heat release that has occurred during the global time step. 
+     *  Returns the heat release that has occurred during the global time step. 
      *
-     *  @return                                   Returns the heat release (joules)
+     *  @return                                  Returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm();
 
     //! The thermal energy source term can be broken into two parts. This part is the irreversible
     //! heat generation term due to the non-zero overpotential 
     /*!
-     *   @return                                  returns the heat release (joules)
+     *   @return                                 returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_overpotential();
 
     //! The thermal energy source term can be broken into two parts. This part is the reversible
     //! heat generation term due to the entropy change of reaction
     /*!
-     *   @return                                   returns the heat release (joules)
+     *   @return                                 returns the heat release (joules)
      */
     double getIntegratedThermalEnergySourceTerm_reversibleEntropy();
 
@@ -1997,12 +2036,12 @@ public:
     /*!
      *   Returns a structure containing the polarization analysis
      * 
-     *  @param[out]          psa                 Results of the analysis for the electrode object during the current
+     *  @param[out]          psrr                Results of the analysis for the electrode object during the current
      *                                           global time step.
      *
      *  @return                                  Returns the total current
      */
-    double polarizationAnalysisSurf(std::vector<PolarizationSurfResults>& psa);
+    double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psrr);
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  --------------------------------------------------------
