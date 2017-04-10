@@ -949,8 +949,7 @@ public:
     //!  Calculate the change in the state of the system when integrating from Tinitial to Tfinal
     //!  at constant current, finding the required voltage to produce that current in an average sense.
     /*!
-     *  This function finds the voltage that is necessary to produce an average current over
-     *  an interval of time, deltaT.
+     *  This function finds the voltage that is necessary to produce an average current over an interval of time, deltaT.
      *
      *  There are instances where the returned deltaT may be different than the final deltaT.
      *  The algorithm reduces deltaT if there is a problem with the original deltaT,
@@ -1131,7 +1130,7 @@ public:
     /*!
      *    @param[in]         sourceType          The enum source term value. Species indecises are 
      *                                           designated by indexing on top of the base SPECIES_SOURCE
-     *
+     
      *    @return                                Returns the source term
      */
     virtual double getIntegratedSourceTerm(SOURCES sourceType);
