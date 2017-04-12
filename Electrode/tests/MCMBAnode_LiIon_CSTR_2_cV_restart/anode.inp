@@ -67,7 +67,7 @@ Particle Diameter = 20 microns
 !
 ! Particle Number to Follow - double [unitless] (default 1) (optional)
 !
-Particle Number to Follow = 2.0E8 
+Particle Number to Follow = 2.0E8
 !-------------------------------------------------------------------------
 !
 Electrode Porosity = 0.35
@@ -83,7 +83,7 @@ Level of XML State Information Created = intermediateSteps
 
 
 start block Bath Specification for Phase ECDMC_LiPF6
-   Phase Moles = 1.0E-10
+   Phase Moles = 1.0E-7
    start block Bath Species Mole Fraction
        Li+   = 0.08
        PF6-  = 0.08
@@ -92,7 +92,7 @@ start block Bath Specification for Phase ECDMC_LiPF6
 end block Bath Specification for Phase ECDMC_LiPF6
 
 start block Bath Specification for Phase MCMB_Interstitials_anode
-   Phase Moles = 1.0E-10
+   Phase Moles = 1.0E-7
    start block Bath Species Mole Fraction
        Li_C6-bulk = 0.8
        V_C6-bulk =  0.2
