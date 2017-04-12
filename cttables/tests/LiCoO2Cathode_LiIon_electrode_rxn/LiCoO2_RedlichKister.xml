@@ -54,6 +54,10 @@
 
     <species name="LiCoO2">
       <atomArray> Li:1 Co:1 O:2 </atomArray>
+      <standardState  model="constant_incompressible">
+          <!--  Based on a density of 6 gm cm-3 for CoO2 -->
+          <molarVolume units="m3/kmol"> 0.01466 </molarVolume>
+      </standardState>
       <thermo>     
         <const_cp Tmax="5000.0" Tmin="100.0">
            <t0 units="K">298.14999999999998</t0>
@@ -69,6 +73,10 @@
 
     <species name="CoO2">
       <atomArray>  Co:1 O:2 </atomArray>
+      <standardState  model="constant_incompressible">
+          <!--  Based on a density of 6 gm cm-3 for CoO2 -->
+          <molarVolume units="m3/kmol"> 0.01466 </molarVolume>
+      </standardState>
       <thermo>
         <const_cp Tmax="5000.0" Tmin="100.0">
            <t0 units="K">298.14999999999998</t0>

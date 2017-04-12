@@ -13,8 +13,8 @@ States Government.
         Carrier Species (used in diff. calcs) = V_C6-bulk
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1      Li_C6-bulk          0.1000       1.741E-06       3.426E-15
-              2       V_C6-bulk          0.9000       1.567E-05       7.486E-01
+              1      Li_C6-bulk          0.1000       1.667E-02       3.426E-15
+              2       V_C6-bulk          0.9000       1.500E-01       7.486E-01
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -32,8 +32,8 @@ INFORMATION TABLE FOR SPECIES "Li_C6-bulk" IN PHASE "MCMB_Interstitials_anode"
                 Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (700,101325) = 57.4402 m3/kmol
-        StandState Molar Volume at (T,P) of (700,101325) = 57.4402 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.006 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.006 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
@@ -71,8 +71,8 @@ INFORMATION TABLE FOR SPECIES "V_C6-bulk" IN PHASE "MCMB_Interstitials_anode"
                 Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (700,101325) = 57.4402 m3/kmol
-        StandState Molar Volume at (T,P) of (700,101325) = 57.4402 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.006 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.006 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
@@ -406,7 +406,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "MCMB_Interstitials_anode"
                !      -0.6 |   7.63e-19      6.2e-15     -6.2e-15 |    7.36e-15    -5.98e-11     -5.98e-11 |
                !      -0.4 |      4e-18     1.18e-15    -1.18e-15 |    3.86e-14    -1.14e-11     -1.14e-11 |
                !      -0.2 |    2.1e-17     2.25e-16    -2.04e-16 |    2.03e-13    -2.17e-12     -1.97e-12 |
-               !  -0.05694 |   6.88e-17     6.88e-17    -3.08e-31 |    6.64e-13    -6.64e-13     -2.97e-27 |
+               !  -0.05694 |   6.88e-17     6.88e-17     -3.2e-31 |    6.64e-13    -6.64e-13     -3.09e-27 |
                !         0 |    1.1e-16     4.29e-17     6.74e-17 |    1.06e-12    -4.14e-13       6.5e-13 |
                !       0.2 |   5.79e-16     8.18e-18      5.7e-16 |    5.58e-12    -7.89e-14       5.5e-12 |
                !       0.4 |   3.04e-15     1.56e-18     3.03e-15 |    2.93e-11     -1.5e-14      2.93e-11 |
@@ -424,7 +424,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "MCMB_Interstitials_anode"
                !      -0.6 |   7.36e-15    -5.98e-11    -5.98e-11 |         1  |
                !      -0.4 |   3.86e-14    -1.14e-11    -1.14e-11 |         1  |
                !      -0.2 |   2.03e-13    -2.17e-12    -1.97e-12 |         1  |
-               !  -0.05694 |   6.64e-13    -6.64e-13    -2.97e-27 |         1  |
+               !  -0.05694 |   6.64e-13    -6.64e-13    -3.09e-27 |         1  |
                !         0 |   1.06e-12    -4.14e-13      6.5e-13 |         1  |
                !       0.2 |   5.58e-12    -7.89e-14      5.5e-12 |         1  |
                !       0.4 |   2.93e-11     -1.5e-14     2.93e-11 |         1  |
@@ -442,8 +442,8 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "MCMB_Interstitials_anode"
         Carrier Species (used in diff. calcs) = V_C6-bulk
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1      Li_C6-bulk          0.1000       1.741E-06       3.426E-15
-              2       V_C6-bulk          0.9000       1.567E-05       7.486E-01
+              1      Li_C6-bulk          0.1000       1.667E-02       3.426E-15
+              2       V_C6-bulk          0.9000       1.500E-01       7.486E-01
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "metal_Li_LiIon_electrons", with name, "metal_Li_LiIon_electrons", with eosType, "StoichSubstance"
@@ -546,7 +546,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "MCMB_Interst
                !      -0.6 | -5.9823e-11 -6.6363e-13         0.5 |  7.3617e-15 -6.6363e-13         0.5 | -5.9816e-11 |         1  |
                !      -0.4 |   -1.14e-11 -6.6363e-13         0.5 |  3.8632e-14 -6.6363e-13         0.5 | -1.1361e-11 |         1  |
                !      -0.2 | -2.1724e-12 -6.6363e-13         0.5 |  2.0273e-13 -6.6363e-13         0.5 | -1.9696e-12 |         1  |
-               !  -0.05694 | -6.6363e-13 -6.6363e-13         0.5 |  6.6363e-13 -6.6363e-13         0.5 | -2.9732e-27 |         1  |
+               !  -0.05694 | -6.6363e-13 -6.6363e-13         0.5 |  6.6363e-13 -6.6363e-13         0.5 | -3.0921e-27 |         1  |
                !         0 | -4.1397e-13 -6.6363e-13         0.5 |  1.0639e-12 -6.6363e-13         0.5 |  6.4989e-13 |         1  |
                !       0.2 | -7.8886e-14 -6.6363e-13         0.5 |  5.5828e-12 -6.6363e-13         0.5 |  5.5039e-12 |         1  |
                !       0.4 | -1.5032e-14 -6.6363e-13         0.5 |  2.9297e-11 -6.6363e-13         0.5 |  2.9282e-11 |         1  |
