@@ -151,19 +151,25 @@ public:
      *  @return                               Vector of length m_kk containing the species net
      *                                        production rates (kmol s-1 m-2)
      */
-    const std::vector<double>& calcNetSurfaceProductionRateDensities();
+    const std::vector<doublevalue>& calcNetSurfaceProductionRateDensities();
 
     //! Returns a reference to the calculated limited production rates of species from this interfacial Kinetics class
     /*!
      *   This routine first calls the limitROP() function to limit the rates near a phase boundary
      *   This routine calls thet getNetProductionRate function and then returns a reference to the result.
      *
-     *  @param[in]          n                 n is a vector of species mole numbers for all species in the PhaseList
+     *  nMoles represents a scaled total moles system, where the sum of the total moles of all species in all phases has been scaled to 
+     *  a value roughly equal to one before the calculation has started. 
+     *  Therefore, absolute cutoffs of phase mole numbers can be compared to the value of 1 kmol.
+     *
+     *  @param[in]          nMoles            nMoles is a vector of species mole numbers for all species in the PhaseList
+     *                                                 Length: global number of species in PhaseList
+     *                                                 Units: kmol (scaled)
      *
      *  @return                               Vector of length m_kk containing the species net
      *                                        production rates (kmol s-1 m-2)
      */
-    const std::vector<double>& calcNetLimitedSurfaceProductionRateDensities(const double* n);
+    const std::vector<doublevalue>& calcNetLimitedSurfaceProductionRateDensities(const doublevalue* const nMoles);
 
     //!  Apply smooth limiter to ROP
     /*!
@@ -191,7 +197,7 @@ public:
      *         Fourth, algorithm should maybe not be based on phase_moles, but individual moles. One really wants
      *         all moles to stay positive, not just the phase moles.
      */
-    void limitROP(const double* const n);
+    void limitROP(const doublevalue* const n);
 
     //! Returns a constant reference to the vector of reaction rates of progress
     /*!
@@ -200,7 +206,7 @@ public:
      *  @return                                 Returns a const reference to  the vector of reaction rates of progress.
      *                                          The units are kmol m-2 s-1.
      */
-    const std::vector<double>& calcNetSurfaceROP();
+    const std::vector<doublevalue>& calcNetSurfaceROP();
 
     //! Returns a reference to the calculated creation rates of species
     /*!
@@ -209,7 +215,7 @@ public:
      *
      * @return Vector of length m_kk containing the species creation rates
      */
-    const std::vector<double>& calcSurfaceCreationRateDensities();
+    const std::vector<doublevalue>& calcSurfaceCreationRateDensities();
 
     //! Returns a reference to the calculated destruction rates of species
     /*!
@@ -218,7 +224,7 @@ public:
      *
      * @return Vector of length m_kk containing the species destruction rates
      */
-    const std::vector<double>& calcSurfaceDestructionRateDensities();
+    const std::vector<doublevalue>& calcSurfaceDestructionRateDensities();
 
     //!  Update the standard state chemical potentials and species equilibrium constant entries
     /*!
@@ -241,7 +247,7 @@ public:
      *  @return                                     Returns the net current in amps m-2 from all reactions
      *                                              at the current conditions.
      */
-    double getCurrentDensityRxn(double* const currentDensityRxn = 0);
+    double getCurrentDensityRxn(doublevalue* const currentDensityRxn = 0);
 
     //! Get the net current density for the set of reactions on this surface in amps m-2.
     /*!
@@ -252,13 +258,19 @@ public:
      *  has a negative current.
      * 
      *  This function calls limitROP() to limit the ROP near end of phases.
+     *
+     *  nMoles represents a scaled total moles system, where the sum of the total moles of all species in all phases has been scaled to 
+     *  a value roughly equal to one. Therefore, absolute cutoffs of phase mole numbers can be compared to the value of 1 kmol
+     *  for understanding what cutoffs values mean. 
      * 
-     *   @param[in]          n                       n is a vector of species mole numbers for all species in the PhaseList
+     *   @param[in]          nMoles                  nMoles is a vector of species mole numbers for all species in the PhaseList
+     *                                                 Length: global number of species in PhaseList
+     *                                                 Units: kmol (scaled)
      *
      *   @return                                     Returns the net limited current in amps m-2 from all reactions
      *                                               at the current conditions.
      */
-    double getLimitedCurrentDensityRxn(const double* n);
+    double getLimitedCurrentDensityRxn(const doublevalue* const nMoles);
 
 #ifdef DONOTREMOVE
     //! Get the exchange current density formulation for the current reaction rate

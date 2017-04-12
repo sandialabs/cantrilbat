@@ -241,19 +241,21 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
  * @return Vector of length m_NumKinSpecies containing the species net (kmol s-1 m-2)
  *         production rates
  */
-const std::vector<double>& ReactingSurDomain::calcNetSurfaceProductionRateDensities()
+const std::vector<doublevalue>& ReactingSurDomain::calcNetSurfaceProductionRateDensities()
 {
     getNetProductionRates(&speciesProductionRates_[0]);
     return speciesProductionRates_;
 }
 //==================================================================================================================================
-void ReactingSurDomain::limitROP(const double* const nMoles)
+void ReactingSurDomain::limitROP(const doublevalue* const nMoles)
 {
     // Apply smooth limiter to ROP
     /*
      *         Seems to basically satisfy the needs of turning interfacial kinetics into homogeneous kinetics.
      *         There is a basic exponential decay algorithm created out of the interfacial kinetics, which is
-     *         not exponential decay.
+     *         not exponential decay. For small phase moles, the rate of progress in extinguishing the phase
+     *         becomes proportional to the phase_moles of the phase.
+     *         
      *
      *  HKM -> several problems. One is that the surface area doesn't enter into this limiter. Therefore, the
      *         limiter doesn't have the correct units, and will fail as surface area scales to different values
@@ -361,7 +363,7 @@ double ReactingSurDomain::getCurrentDensityRxn(double* const currentDensityRxn)
 {
     double netCurrentDensity = 0.0;
     double ps, rs;
-    if (kElectronIndex_< 0) {
+    if (kElectronIndex_ == npos) {
 	return netCurrentDensity;
     }
     size_t nr = nReactions();
@@ -386,22 +388,22 @@ double ReactingSurDomain::getCurrentDensityRxn(double* const currentDensityRxn)
     return netCurrentDensity;
 }
 //==================================================================================================================================
-double ReactingSurDomain::getLimitedCurrentDensityRxn(const double* n)
+double ReactingSurDomain::getLimitedCurrentDensityRxn(const doublevalue* const nMoles)
 {
-    double netCurrentDensity = 0.0;
-    double ps, rs;
-    if (kElectronIndex_ < 0) {
+    doublevalue netCurrentDensity = 0.0;
+    doublevalue ps, rs;
+    if (kElectronIndex_ == npos) {
         return netCurrentDensity;
     }
     size_t nr = nReactions();
     // update rates of progress -> puts this into m_ropnet[]
     updateROP();
-    limitROP(n);
+    limitROP(nMoles);
     
     for (size_t irxn = 0; irxn < nr; irxn++) {
         rs = m_rrxn[kElectronIndex_][irxn];
         ps = m_prxn[kElectronIndex_][irxn];
-        double electronProd = (ps - rs) * m_ropnet[irxn];
+        doublevalue electronProd = (ps - rs) * m_ropnet[irxn];
         netCurrentDensity += Faraday * electronProd;
     }   
     return netCurrentDensity;
@@ -694,8 +696,8 @@ std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd)
 //    -> Right now, change it into a double-check routine.
 void ReactingSurDomain::identifyMetalPhase()
 {
-    metalPhaseIndex_ = -1;
-    kElectronIndex_ = -1;
+    metalPhaseIndex_ = npos;
+    kElectronIndex_ = npos;
     size_t nr = nReactions();
     size_t np = nPhases();
     for (size_t iph = 0; iph < np; iph++) {
@@ -721,8 +723,7 @@ void ReactingSurDomain::identifyMetalPhase()
                 }
             }
         }
-        if ((size_t) iph != metalPhaseIndex_) {
-
+        if (iph != metalPhaseIndex_) {
 	    for (size_t i = 0; i < nr; i++) {
 		RxnMolChange* rmc = rmcVector[i];
 		if (rmc->m_phaseChargeChange[iph] != 0) {

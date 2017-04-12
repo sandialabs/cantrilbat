@@ -2782,7 +2782,7 @@ public:
 
 protected:
 
-    //! Temperature of the electrode (Kelvin)
+    //! Temperature of the electrode (Kelvin) - External variable
     double temperature_;
 
     //! Pressure of the electrode (MKS - Pascal)
@@ -2813,17 +2813,17 @@ protected:
      */
     std::vector<double> sphaseMolarAreas_;
 
-    //! Partial molar volumes of all of the species species
+    //! Partial molar volumes of all of the species 
     /*!
-     *  Length = global number of species in PhaseList species vector
-     *  units = m**3 kmol-1
+     *  Length: global number of species in PhaseList species vector
+     *  Units: m**3 kmol-1
      */
     std::vector<double> VolPM_;
 
     //! Partial molar Heat Capacity at constant volume of all of the species
     /*!
-     *  Length = global number of species in PhaseList species vector
-     *  Units = Joules / Kelvin
+     *  Length: global number of species in PhaseList species vector
+     *  Units: Joules / Kelvin
      */
     mutable std::vector<double> CvPM_;
 
@@ -2868,8 +2868,9 @@ protected:
      *  This will only be updated when we are moving onto the next outside time step.
      *  this is true of all entities entitled "_init_init_"
      *
-     *    length = Number of species in PhaseList
-     *    indexing of PhaseList
+     *    Length: global number of species in PhaseList species vector
+     *    Units: kmol
+     *    Indexing: global species index of PhaseList
      */
     std::vector<double> spMoles_init_init_;
 
