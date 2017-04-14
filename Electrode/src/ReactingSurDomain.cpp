@@ -690,52 +690,6 @@ std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd)
     }
     return s;
 }
-//====================================================================================================================
-//  Identify the metal phase and the electrons species
-//  This can be taken out, because it's been moved to Cantera
-//    -> Right now, change it into a double-check routine.
-void ReactingSurDomain::identifyMetalPhase()
-{
-    metalPhaseIndex_ = npos;
-    kElectronIndex_ = npos;
-    size_t nr = nReactions();
-    size_t np = nPhases();
-    for (size_t iph = 0; iph < np; iph++) {
-        thermo_t_double* tp = & (thermo(iph));
-        size_t nSpecies = tp->nSpecies();
-        size_t nElements = tp->nElements();
-        size_t eElectron = tp->elementIndex("E");
-        if (eElectron != npos) {
-            for (size_t k = 0; k < nSpecies; k++) {
-                if (tp->nAtoms(k,eElectron) == 1) {
-                    int ifound = 1;
-                    for (size_t e = 0; e < nElements; e++) {
-                        if (tp->nAtoms(k,e) != 0.0) {
-                            if (e != eElectron) {
-                                ifound = 0;
-                            }
-                        }
-                    }
-                    if (ifound == 1) {
-                        metalPhaseIndex_ = iph;
-                        kElectronIndex_ = m_start[iph] + k;
-                    }
-                }
-            }
-        }
-        if (iph != metalPhaseIndex_) {
-	    for (size_t i = 0; i < nr; i++) {
-		RxnMolChange* rmc = rmcVector[i];
-		if (rmc->m_phaseChargeChange[iph] != 0) {
-		    if (rmc->m_phaseDims[iph] == 3) {
-			solnPhaseIndex_ = iph;
-			break;
-		    }
-		}
-	    }
-	}
-    }
-}
 //==================================================================================================================================
 void ReactingSurDomain::init()
 {

@@ -4,6 +4,12 @@
  *  (see \ref electrodeobj).
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
 
 #ifndef CT_ELECTRODE_DEFS_H
 #define CT_ELECTRODE_DEFS_H
@@ -208,7 +214,11 @@ public:
     double Pressure_;
 };
 //==================================================================================================================================
-
+//! The enum catalogs all of the types of polarization loss mechanisms that can occur within batteries that cantrilbat/aria 
+//! can catalog
+/*!
+ *  
+ */
 enum Polarization_Loss_Enum {
     UNKNOWN_PL = -1,
 
@@ -244,7 +254,6 @@ enum Polarization_Loss_Enum {
 
     //! Other loss mechanisms not yet identified
     OTHER_PL 
-
 };
 
 //==================================================================================================================================
@@ -266,7 +275,7 @@ struct VoltPolPhenom
     {
     }
 
-    // Enum identifying the effect
+    //! Enum identifying the effect that we are cataloging
     enum Polarization_Loss_Enum  ipolType;
 
     //! Drop in voltage due to effect

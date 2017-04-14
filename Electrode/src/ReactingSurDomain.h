@@ -176,7 +176,11 @@ public:
      *   Given the distance towards getting rid of a phase, this routine will limit the rate of progress
      *   vectors within the Electrode object.
      * 
-     *   @param[in]          n                 n is a vector of species mole numbers for all species in the PhaseList
+     *   @param[in]          nMoles              Scaled vector of species mole numbers for all species in the PhaseList.
+     *                                           The scale requires that the total moles of solid species be roughly
+     *                                           equal to 1 kmol.
+     *                                             Length: number of species in PhaseList
+     *                                             Units: kmol
      *
      *         Seems to basically satisfy the needs of turning interfacial kinetics into homogeneous kinetics.
      *         There is a basic exponential decay algorithm created out of the interfacial kinetics, which is
@@ -197,7 +201,7 @@ public:
      *         Fourth, algorithm should maybe not be based on phase_moles, but individual moles. One really wants
      *         all moles to stay positive, not just the phase moles.
      */
-    void limitROP(const doublevalue* const n);
+    void limitROP(const doublevalue* const nMoles);
 
     //! Returns a constant reference to the vector of reaction rates of progress
     /*!
@@ -222,7 +226,7 @@ public:
      *   This routine calls thet getDestructionRate function
      *   and then returns a reference to the result.
      *
-     * @return Vector of length m_kk containing the species destruction rates
+     *  @return                                  Vector of length m_kk containing the species destruction rates
      */
     const std::vector<doublevalue>& calcSurfaceDestructionRateDensities();
 
@@ -336,12 +340,6 @@ public:
      */
     doublevalue calcCurrentDensity(doublevalue nu, doublevalue nStoich, doublevalue io, doublevalue beta, doublevalue temp) const;
 #endif
-
-    //!  Identify the metal phase and the electrons species
-    /*!
-     *   We fill in the internal variables, metalPhaseRS_ and kElectronRS_ here
-     */
-    void identifyMetalPhase();
 
     //! Add an open circuit voltage override feature to the current reacting surface
     /*!
