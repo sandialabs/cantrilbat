@@ -161,9 +161,9 @@ public:
 
   //! This utility function will return the global node number given the global equation number
   /*!
-   * @param   rowEqnNum returns the node equation number
-   * @return  Returns the global node number. Will return -1 if there
-   *          is a problem.
+   *  @param[in]             GbEqnNum            Global equation number
+   *  @param[out]            rowEqnNum           returns the node equation number
+   *  @return                                    Returns the global node number. Will return -1 if there is a problem.
    */
   int GbEqnToGbNode(const int GbEqnNum, int & rowEqnNum) const;
 
@@ -311,6 +311,7 @@ public:
   //! Vector containing the entire solution on all processors.
   Epetra_Vector *SolnAll;
 
+  //! integer vector  containing the entire solution on all processors.
   Epetra_IntVector *SolnIntAll;
 
   //! Vector containing the entire solution on all processors.

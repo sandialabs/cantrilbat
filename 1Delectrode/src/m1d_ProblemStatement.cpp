@@ -577,6 +577,11 @@ ProblemStatement::process_input(BEInput::BlockEntry* cf, std::string fileName, i
     return true;
 }
 //==================================================================================================================================
+//! Print a recurring letter
+/*!
+ *  @param[in]               letter              char to print
+ *  @param[in]               num                 number of times to print
+ */
 static void
 print_char(const char letter, const int num)
 {

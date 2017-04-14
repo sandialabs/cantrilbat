@@ -30,11 +30,10 @@ namespace m1d
 //! Storage for Command file input
 /*!
  *  Complete problem statement is storred here.
- *  This class is virtual as child classes will contain more user input .
- *  All data here is public to facilitate processing.
+ *  This class is virtual as child classes will contain more user input. All data here is public to facilitate processing.
  *
  *  All member functions are virtual. They will be overridden by child classes. However, the child classes
- *  are expected to call the base classes, so that cards and capabilities are added onto in an onion-like fashion.
+ *  are expected to call the base classes, so that cards and capabilities are added on in an onion-like fashion.
  *
  *  This is the current command file specification of the problem statement.
  */
@@ -60,21 +59,51 @@ public:
      */
     ProblemStatement& operator=(const ProblemStatement& right);
 
+    //! Set-up the input deck cards using a first pass
+    /*!
+     *  
+     *  @param[in,out]       cf                  Pointer to the the block of the input file description
+     *                                           BlockEntry is a card and block nested-list of permissible values
+     */
     virtual void setup_input_pass1(BEInput::BlockEntry* cf);
 
+    //! Set-up the input deck cards using a second pass
+    /*!
+     *  
+     *  @param[in,out]       cf                  Pointer to the the block of the input file description
+     *                                           BlockEntry is a card and block nested-list of permissible values
+     */
     virtual void setup_input_pass2(BEInput::BlockEntry* cf);
 
+    //! Set-up the input deck cards using a third pass
+    /*!
+     *  
+     *  @param[in,out]       cf                  Pointer to the the block of the input file description
+     *                                           BlockEntry is a card and block nested-list of permissible values
+     */
     virtual void setup_input_pass3(BEInput::BlockEntry* cf);
 
-    virtual bool process_input(BEInput::BlockEntry* cf, std::string fileName,
-                               int printFlag);
+    //! Process each of the passes
+    /*!
+     *  @param[in]           cf                  Pointer to the the block of the input file description
+     *                                           BlockEntry is a card and block nested-list of permissible values
+     *
+     *  @param[in]           fileName            Name of the input file
+     *  @param[in]           printFlag           Amount of printing. 
+     *                                                - 0 = no output
+     *                                                - 1 = error message output
+     *                                                - 2 = output
+     *
+     *  @return                                  Return true if everything is ok
+     */
+    virtual bool process_input(BEInput::BlockEntry* cf, std::string fileName, int printFlag);
 
     //! Set up the input
     /*!
      *  Initial parsing to be done here. Domain layout is specified by the end of this level.
      *
-     * @param commandFile String name for the input file to be parsed
-     * @return  Return 0 if everything is ok
+     *  @param[in]           commandFile         String name for the input file to be parsed
+     *  @return                                  Return 0 if everything is ok
      */
     virtual int parse_input_1(std::string commandFile);
 
@@ -82,8 +111,7 @@ public:
     /*!
      *  This is where we specify the number of nodes in each bulk region.
      *
-     * @param commandFile String name for the input file to be parsed
-     * @return  Return 0 if everything is ok
+     *  @return                                  Return 0 if everything is ok
      */
     virtual int parse_input_2();
 
@@ -91,17 +119,22 @@ public:
     /*!
      *  Further processing may be necessary.
      *
-     * @param commandFile String name for the input file to be parsed
-     * @return  Return 0 if everything is ok
+     *  @return                                  Return 0 if everything is ok
      */
     virtual int parse_input_3();
 
-    //! other preparation steps
+    //! Carry out other preparation steps
+    /*!
+     *
+     */
     virtual void InitForInput();
 
-    /**
-     * Do any post processing required.
-     * This might include unit conversions, opening files, etc.
+    //! Do any post processing required.
+    /*!
+     *  This might include unit conversions, opening files, etc.
+     *
+     *  @param[in]           cf                  Pointer to the the block of the input file description
+     *                                           BlockEntry is a card and block nested-list of permissible values
      */
     virtual void post_process_input(BEInput::BlockEntry* cf);
 

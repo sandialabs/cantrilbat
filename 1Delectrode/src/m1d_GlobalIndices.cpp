@@ -284,13 +284,7 @@ GlobalIndices::InitMesh()
     DL_ptr_->InitializeXposNodes(this);
 }
 //==================================================================================================================================
-// This utility function will return the global node number
-// given the global equation number
-/*
- * @param   rowEqnNum returns the node equation number
- * @return  Returns the global node number. Will return -1 if there
- *          is a problem.
- */
+// This utility function will return the global node number given the global equation number
 int
 GlobalIndices::GbEqnToGbNode(const int GbEqnNum, int& rowEqnNum) const
 {
@@ -306,7 +300,6 @@ GlobalIndices::GbEqnToGbNode(const int GbEqnNum, int& rowEqnNum) const
             break;
         }
     }
-    nfound = NumGbNodes - 1;
     if (nfound >= 0) {
         rowEqnNum = GbEqnNum - IndexStartGbEqns_GbNode[nfound];
     } else {

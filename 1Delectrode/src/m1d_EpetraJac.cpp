@@ -662,7 +662,7 @@ EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn)
   int lcRowIndex, lcColIndex;
   int igbRow = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcRowIndex);
   int igbCol = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcColIndex);
-  double * pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
+  double* pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
   if (pos == 0) {
     throw m1d_Error("EpetraJac::operator()", "bad indecises");
   }
