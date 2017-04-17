@@ -71,6 +71,25 @@ xml_electrode_compare() {
    fi
    diffCode='0'
 
+   if  test ! -f $bb 
+   then
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $bb "
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $bb " >> $diff_comparison_file
+        echo "  Bad dataFile: " `date` > runBad
+        /bin/rm -f runGood
+        retnStat_cum=5
+        return 5
+   fi
+   if  test ! -f $gg 
+   then
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $gg "
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $gg " >> $diff_comparison_file
+        echo "  Bad dataFile: " `date` > runBad
+        /bin/rm -f runGood
+        retnStat_cum=5
+        return 5
+   fi
+
    $XMLELECTRODEDIFF -a $XED_ATOL -r $XED_RTOL -d $XED_PL $bb $gg > $difname
    retnStat=$?
    if test $retnStat = "0"
@@ -83,9 +102,9 @@ xml_electrode_compare() {
         diffCode='FAILED'
         if test $DIFF_REQUIRED = "True"
         then
-          echo "  Bad dataFile: " `date` > runBad
-          /bin/rm -f runGood
-          retnStat_cum=$retnStat
+           echo "  Bad dataFile: " `date` > runBad
+           /bin/rm -f runGood
+           retnStat_cum=$retnStat
         else
             echo "     *       : However not required for test success"
             echo "     *       : However not required for test success" >> $diff_comparison_file

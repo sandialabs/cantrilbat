@@ -20,6 +20,19 @@ PROGRAM =   LiCoO2_Cathode_Radial_cV
 
 OBJ = $(PROGRAM).o
 
+DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode_extra.xml problem_setup.sh   LiCoO2Cathode_electrode.xml   \
+       LiCoO2_RedlichKister.xml  Li_Metal.xml  metal_Li_LiIon_electrons.xml cathode.inp
+
+BLESSED_FILES = LiCoO2_globalResults_blessed_0_0.csv  LiCoO2_intResults_blessed_0_0.csv \
+         LiCoO2_blessed.out   LiCoO2Thermo_blessed.out soln_0_0_blessed.xml good_out.txt
+
+OUTPUT_FILES = out.txt   LiCoO2_intResults_0_0.csv    LiCoO2_globalResults_0_0.csv LiCoO2.out \
+               soln_0_0.xml  LiCoO2Thermo.out
+
+TEST_INTERMEDIATE_FILES = diff_csv.txt diff_summary.txt diff_out.txt diff_gcsv.txt  diff_xml.txt err_out.txt
+
+TEST_FLAGS =  runGood runBad runInProgress.txt
+
 ##########################################################################
 #           Setup The Cantera Directory locations
 #########################################################################
@@ -67,7 +80,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
-all: .depends $(PROGRAM) LiCoO2 LiCoO2Thermo  LiCoO2_Cathode_Radial_cV   
+all: .dependsT $(PROGRAM) LiCoO2 LiCoO2Thermo  LiCoO2_Cathode_Radial_cV   
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -117,22 +130,24 @@ DEPENDS = $(OBJ_ALL:.o=.d)
 
 $(DEPENDS): $(PROGRAM).cpp  LiCoO2Thermo.cpp LiCoO2.cpp 
 
-depends:
-	$(RM) $(DEPENDS)
-	$(MAKE) .depends
-
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 test: 
-	@MAKE@
-	./runtest
+	@@MAKE@ -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../../tests/runtest_Electrode
 
 rebaseline:
 	cp out.txt good_out.txt
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed_0_0.csv
-	cp  LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_blessed_0_0.csv 
-	cp  LiCoO2Thermo.out   LiCoO2Thermo_blessed.out 
+	cp LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_blessed_0_0.csv 
+	cp LiCoO2Thermo.out   LiCoO2Thermo_blessed.out 
 
 ##############################################################################
 
@@ -168,12 +183,13 @@ endif
 
 
 dist_clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2
+	@MAKE@ clean
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2 .dependsT
 	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt
 
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2 LiCoO2Thermo LiCoO2 .dependsT
 	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt
 
 test_clean:
