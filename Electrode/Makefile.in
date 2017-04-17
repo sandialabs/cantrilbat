@@ -22,8 +22,9 @@ debug:
 	cd tests; make debug
 
 test:
+	cd src;			      @MAKE@ 
+	cd src_tests;	 	      @MAKE@ -s test
 	cd tests;                     @MAKE@ -s test
-	cd src_tests;			@MAKE@ -s test
 	cd tests_develop;             @MAKE@ -s test
 
 clean:
