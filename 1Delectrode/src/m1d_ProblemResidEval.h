@@ -167,8 +167,7 @@ public:
      *  @param[in]             dl                  DomainLayout object that specifies most of the problem
      *  @param[in]             ps_ptr              Pointer to the problem statement object
      */
-    void
-    specifyProblem(DomainLayout* dl,  ProblemStatement* ps_ptr);
+    void specifyProblem(DomainLayout* dl,  ProblemStatement* ps_ptr);
 
     //! Create the global indices for the problem
     /*!
@@ -205,8 +204,7 @@ public:
      *  Then the left ghost node is listed
      *  Then, the "globally-all-connected node is listed, if available.
      */
-    void
-    generateLocalIndices();
+    void generateLocalIndices();
 
     //! Fill the vector isAlgebraic with flags indicating whether the degree of freedom
     //! is a DAE or not
@@ -222,7 +220,6 @@ public:
      */
     void fillIsAlgebraic(Epetra_IntVector& isAlgebraic);
 
-
     //! Fill the vector isAlgegraicScaled with flags indicating whether the degree of freedom
     //! is on an arithmetic scale and should be handled differently
     /*!
@@ -233,8 +230,6 @@ public:
      *
      */
     void fillIsArithmeticScaled(Epetra_IntVector& isAlgebraicScaled);
-
-
 
     //! Calculate a residual vector
     /*!
@@ -255,15 +250,11 @@ public:
      * @param residType               Residual type
      * @param solveType               Solve type
      */
-    virtual void
-    residEval(Epetra_Vector* const&   res,
-              const bool doTimeDependentResid,
-              const Epetra_Vector_Ghosted* soln,
-              const Epetra_Vector_Ghosted* solnDot,
-              const double t,
-              const double rdelta_t,
-              const ResidEval_Type_Enum residType = Base_ResidEval,
-              const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+    virtual void residEval(Epetra_Vector* const&   res, const bool doTimeDependentResid,
+                           const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot,
+                           const double t, const double rdelta_t,
+                           const ResidEval_Type_Enum residType = Base_ResidEval,
+                           const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
 
     //! Function that gets called at end the start of every time step
     /*!
@@ -294,10 +285,9 @@ public:
      *                                 require that we have values of "old" cell information.
      *                                 The call to this routine calculates the "old" information.
      */
-    virtual void
-    advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
-                        const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
-                        const double t, const double t_old);
+    virtual void advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                                     const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                                     const double t, const double t_old);
 
     //! Revert the Residual object's conditions to the conditions at the start of the global time step
     /*!
@@ -306,8 +296,7 @@ public:
      *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init_init.
      *  We get rid of the pendingIntegratedFlags_ flag here as well.
      */
-    virtual void
-    revertToInitialGlobalTime();
+    virtual void revertToInitialGlobalTime();
 
     //! Set the underlying state of the system from the solution vector
     /*!
@@ -328,13 +317,9 @@ public:
      * @param delta_t   Global time step number
      * param  t_old     Old time step value
      */
-    virtual void
-    setStateFromSolution(const bool doTimeDependentResid,
-                         const Epetra_Vector_Ghosted* soln,
-                         const Epetra_Vector_Ghosted* solnDot,
-                         const double t,
-                         const double delta_t,
-                         const double t_old);
+    virtual void setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted* const soln,
+                                     const Epetra_Vector_Ghosted* const solnDot, const double t,
+                                     const double delta_t, const double t_old);
 
     //! Calculate the initial conditions
     /*!
@@ -355,36 +340,27 @@ public:
      * @param delta_t_np1             delta_t_np1 for the next step. This
      *                                may come from a saved solution.
      */
-    virtual void
-    initialConditions(const bool doTimeDependentResid,
-                      Epetra_Vector_Ghosted* soln,
-                      Epetra_Vector_Ghosted* solnDot,
-                      double& t,
-                      double& delta_t,
-                      double& delta_t_np1);
+    virtual void initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted* const soln,
+                                   Epetra_Vector_Ghosted* solnDot, double& t, double& delta_t,
+                                   double& delta_t_np1);
 
     //! Allocate and create storage for the Jacobian matrix for this problem
-    void
-    createMatrix(RecordTree_base* linearSolver_db);
+    void createMatrix(RecordTree_base* linearSolver_db);
 
     //! Return a reference to the Jacobian
-    EpetraJac&
-    jacobian();
+    EpetraJac& jacobian();
 
     //! Returns the ghosted map of the problem
-    Epetra_BlockMap*
-    ghostedMap() const;
+    Epetra_BlockMap* ghostedMap() const;
 
     //! Returns the unique unknown map of the problem
     Epetra_BlockMap* ownedMap() const;
 
     //! Returns the total number of global equations in the equation set
-    int
-    NumGbEqns() const;
+    int NumGbEqns() const;
 
     //! Returns the total number of global nodes in the problem
-    int
-    NumGbNodes() const;
+    int NumGbNodes() const;
 
     //! Returns information about the local equation number
     /*!
@@ -414,15 +390,13 @@ public:
     std::string variableID(int ilocalVar, int& iLcNode, int& iGbNode, int& iNodeEqnNum, VarType& var,
                            VAR_TYPE_SUBNUM& vtsub);
 
-
     //! Update the ghost unknowns on the processor.
     /*!
      *
      * @param soln             Ghosted vector
      * @param v      Vector that may be ghosted or not ghosted
      */
-    void
-    updateGhostEqns(Epetra_Vector_Ghosted* const soln, const Epetra_Vector* const v);
+    void updateGhostEqns(Epetra_Vector_Ghosted* const soln, const Epetra_Vector* const v);
 
     /****************************************************************************/
     /*                   Sets of indexing functions                             */
@@ -435,8 +409,7 @@ public:
      * @param localRowNumInBlock
      * @return  the global equation number
      */
-    int
-    GbEqnNum_From_GbBlock(const int gbBlockNum, const int localRowNumInBlock);
+    int GbEqnNum_From_GbBlock(const int gbBlockNum, const int localRowNumInBlock);
 
     //! Global node to Local node mapping
     /*!
@@ -449,8 +422,7 @@ public:
      * @return returns the local node value. Returns -1 if the local node is not on this
      *         processor.
      */
-    int
-    GbNodeToLcNode(const int gbNode) const;
+    int GbNodeToLcNode(const int gbNode) const;
 
     //! Global equation to local equation mapping
     /*!
@@ -463,8 +435,7 @@ public:
      *             Note, if the local equation number isn't on the processor, this routine
      *             will return -1.
      */
-    int
-    GbEqnToLcEqn(const int gbEqn) const;
+    int GbEqnToLcEqn(const int gbEqn) const;
 
 
     //!  Find a delta of a solution component for use in the numerical jacobian
@@ -474,8 +445,7 @@ public:
      *
      *  @return returns the delta for the component
      */
-    double
-    deltaSolnCompJac(const Epetra_Vector_Ghosted& soln, const int ieqn);
+    double deltaSolnCompJac(const Epetra_Vector_Ghosted& soln, const int ieqn);
 
     //! Evaluates the atol vector used in the time stepper routine and in the nonlinear solver.
     /*!
@@ -489,10 +459,8 @@ public:
      *                              override the default calculation of atol.
      *                              Defaults to zero.
      */
-    virtual void
-    setAtolVector(double atolDefault,
-                  const Epetra_Vector_Ghosted& soln,
-                  const Epetra_Vector_Ghosted* const atolVector = 0);
+    virtual void setAtolVector(double atolDefault, const Epetra_Vector_Ghosted& soln,
+                               const Epetra_Vector_Ghosted* const atolVector = 0);
 
 
     //! Evaluates the atol DAESystemInitial vector used in the time stepper routine and in the nonlinear solver.
@@ -511,10 +479,9 @@ public:
      *                              override the default calculation of atol.
      *                              Defaults to zero.
      */
-    virtual void
-    setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted& soln,
-                          const Epetra_Vector_Ghosted& solnDot,
-                          const Epetra_Vector_Ghosted* const atolVector_DAEInit = 0) const;
+    virtual void setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted& soln,
+                                       const Epetra_Vector_Ghosted& solnDot,
+                                       const Epetra_Vector_Ghosted* const atolVector_DAEInit = 0) const;
 
     //! Evaluates the atol vector used in the delta damping process.
     /*!
@@ -526,10 +493,8 @@ public:
      *   @param atolDeltaDamping      If non-zero, this copies the vector into the object as input
      *                      The default is zero.
      */
-    virtual void
-    setAtolDeltaDamping(double relcoeff,
-                        const Epetra_Vector_Ghosted& soln,
-                        const Epetra_Vector_Ghosted* const atolDeltaDamping = 0);
+    virtual void setAtolDeltaDamping(double relcoeff, const Epetra_Vector_Ghosted& soln,
+                                     const Epetra_Vector_Ghosted* const atolDeltaDamping = 0);
 
     //! Evaluates the atol vector used in the delta damping process for the DAE problem
     /*!
@@ -542,11 +507,9 @@ public:
      *   @param atolDeltaDamping       If non-zero, this copies the vector into the object as input
      *                       The default is zero.
      */
-    virtual void
-    setAtolDeltaDamping_DAEInit(double relcoeff,
-                                const Epetra_Vector_Ghosted& soln,
-                                const Epetra_Vector_Ghosted& solnDot,
-                                const Epetra_Vector_Ghosted* const atolDeltaDamping = 0);
+    virtual void setAtolDeltaDamping_DAEInit(double relcoeff, const Epetra_Vector_Ghosted& soln,
+                                            const Epetra_Vector_Ghosted& solnDot,
+                                            const Epetra_Vector_Ghosted* const atolDeltaDamping = 0);
 
     //! Evaluate the delta damping vector from the abs tol vector
     /*!
@@ -581,18 +544,13 @@ public:
      *
      *
      */
-    virtual void
-    filterSolnPrediction(double t, Epetra_Vector_Ghosted& y);
+    virtual void filterSolnPrediction(double t, Epetra_Vector_Ghosted& y);
 
-    void
-    applyFilter(const double timeCurrent,
-                const double delta_t_n,
-                const Epetra_Vector_Ghosted& y_current,
-                const Epetra_Vector_Ghosted& ydot_current,
-                Epetra_Vector_Ghosted& delta_y);
+    void applyFilter(const double timeCurrent, const double delta_t_n, const Epetra_Vector_Ghosted& y_current,
+                    const Epetra_Vector_Ghosted& ydot_current, Epetra_Vector_Ghosted& delta_y);
 
-    double
-    delta_t_constraint(const double time_n, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted& ydot_n);
+    double delta_t_constraint(const double time_n, const Epetra_Vector_Ghosted& y_n, 
+                              const Epetra_Vector_Ghosted& ydot_n);
 
     //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
     //! to be time dependent
@@ -615,12 +573,8 @@ public:
      * @param y       Current value of the solution vectors
      * @param ydot    Current value of time derivative of the solution vectors.
      */
-    virtual void
-    evalTimeTrackingEqns(const int ifunc,
-                         const double t,
-                         const double deltaT,
-                         const Epetra_Vector_Ghosted& y,
-                         const Epetra_Vector_Ghosted* const ydot);
+    virtual void evalTimeTrackingEqns(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+                                      const Epetra_Vector_Ghosted* const ydot);
 
     //! Set a solution parameter
     /*!
@@ -632,8 +586,7 @@ public:
      *  @return returns a 0 if the number makes sense
      *          Returns a negative number if the parameter is unknown
      */
-    virtual int
-    setSolutionParam(std::string paramName, double paramVal);
+    virtual int setSolutionParam(std::string paramName, double paramVal);
 
 
     //! Get a solution parameter
@@ -645,8 +598,7 @@ public:
      *
      *  @return returns the number of parameters returned.
      */
-    virtual int
-    getSolutionParam(std::string paramName, double* const paramVal);
+    virtual int getSolutionParam(std::string paramName, double* const paramVal);
 
     //! Evaluate the stopping criteria
     /*!
@@ -654,19 +606,16 @@ public:
      *
      *
      */
-    virtual bool
-    evalStoppingCritera(double& time_current, double& delta_t_n, const Epetra_Vector_Ghosted& y_n,
-                        const Epetra_Vector_Ghosted& ydot_n);
+    virtual bool evalStoppingCritera(double& time_current, double& delta_t_n, const Epetra_Vector_Ghosted& y_n,
+                                    const Epetra_Vector_Ghosted& ydot_n);
 
 
-    /**
+    //! Return a vector of delta y's for calculation of the numerical Jacobian
+    /*!
      *  (virtual from ProblemResidEval)
      *
-     * Return a vector of delta y's for calculation of the
-     *  numerical Jacobian
      */
-    virtual void
-    calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
+    virtual void calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
                            const Epetra_Vector* const solnDot_ptr, Epetra_Vector& deltaSoln,
                            const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
                            const  Epetra_Vector* const solnWeights = nullptr);
@@ -715,9 +664,9 @@ public:
      * @param delta_t_read       delta time step for the last time step.
      * @param delta_t_next_read  delta time step for the next time step if available
      */
-    void
-    readSolutionRecordNumber(const int itype, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted,
-                             Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read, double& delta_t_read, double& delta_t_next_read);
+    void readSolutionRecordNumber(const int itype, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted,
+                                  Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read, double& delta_t_read, 
+                                  double& delta_t_next_read);
 
     //! Read the solution from a saved file. (deprecated)
     /*!
@@ -736,14 +685,9 @@ public:
      * @param delta_t_read       delta time step for the last time step.
      * @param delta_t_next_read  delta time step for the next time step if available
      */
-    void
-    readSolution(const int itype,
-                 std::string baseFileName,
-                 Epetra_Vector_Ghosted& y_n_ghosted,
-                 Epetra_Vector_Ghosted* const ydot_n_ghosted,
-                 double& t_read,
-                 double& delta_t_read,
-                 double& delta_t_next_read);
+    void readSolution(const int itype, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted, 
+                      Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read, double& delta_t_read,
+                      double& delta_t_next_read);
 
     //! Read the solution from a saved solution XML record.
     /*!
@@ -771,8 +715,7 @@ public:
     ZZCantera::XML_Node* selectSolutionRecordNumber(ZZCantera::XML_Node* xSoln, int globalTimeStepNum);
 
     //!  Select the global time step increment record by the consequuatively numbered record index number
-    /*
-     *    @param   xSoln               Solution file for the simulation object
+    /* *    @param   xSoln               Solution file for the simulation object
      *    @param   solnTimeStepID      string value of the time step ID to select
      *
      *    @return Returns a pointer to the selected record.
@@ -799,15 +742,11 @@ public:
      * @param y_n    Current value of the solution vector
      * @param ydot_n  Current value of the derivative of the solution vector
      */
-    virtual void
-    showProblemSolution(const int ievent,
-                        bool doTimeDependentResid,
-                        const double t,
-                        const double delta_t,
-                        const Epetra_Vector_Owned& y_n,
-                        const Epetra_Vector_Owned* const ydot_n,
-                        const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
-                        const double delta_t_np1 = 0.0);
+    virtual void showProblemSolution(const int ievent, bool doTimeDependentResid, const double t,
+                                     const double delta_t, const Epetra_Vector_Owned& y_n,
+                                     const Epetra_Vector_Owned* const ydot_n,
+                                     const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                                     const double delta_t_np1 = 0.0);
 
     //! Write out Tecplot solution files
     /*!
@@ -815,17 +754,10 @@ public:
      *
      *
      */
-    virtual void
-    writeTecplot(const int ievent,
-                 std::string m_baseFileName,
-                 bool doTimeDependentResid,
-                 const double t,
-                 const double delta_t,
-                 const Epetra_Vector_Ghosted& y_n,
-                 const Epetra_Vector_Ghosted* const ydot_n,
-                 const Solve_Type_Enum solveType,
-                 const double delta_t_np1);
-
+    virtual void writeTecplot(const int ievent, std::string m_baseFileName, bool doTimeDependentResid,
+                              const double t, const double delta_t, const Epetra_Vector_Ghosted& y_n,
+                              const Epetra_Vector_Ghosted* const ydot_n, const Solve_Type_Enum solveType,
+                              const double delta_t_np1);
 
     //! Write a solution vector type to either the screen or a log file
     /*!
@@ -836,14 +768,10 @@ public:
      *   @param delta_t        delta t
      *   @param solnVector     Vector of information to be printed
      */
-    virtual void
-    showSolutionVector(std::string& solnVecName,
-                       const double t,
-                       const double delta_t,
-                       const Epetra_Vector_Owned& solnVector,
-                       FILE* outFile = stdout);
+    virtual void showSolutionVector(std::string& solnVecName, const double t, const double delta_t,
+                                    const Epetra_Vector_Owned& solnVector, FILE* outFile = stdout);
 
-//! Write an int solution vector type to either the screen or a log file
+    //! Write an int solution vector type to either the screen or a log file
     /*!
      *  (virtual from ProblemResidEval)
      *
@@ -852,12 +780,8 @@ public:
      *   @param delta_t        delta t
      *   @param solnVector     Integer Vector of information to be printed
      */
-    virtual void
-    showSolutionIntVector(std::string& solnVecName,
-                          const double t,
-                          const double delta_t,
-                          const Epetra_IntVector& solnVector,
-                          FILE* outFile = stdout);
+    virtual void showSolutionIntVector(std::string& solnVecName, const double t, const double delta_t,
+                                       const Epetra_IntVector& solnVector, FILE* outFile = stdout);
 
     //! Write out to a file or to standard output the current solution
     /*!
@@ -885,19 +809,13 @@ public:
      *      @param delta_t_np1       Suggested next delta t value (defaults to 0.0 if there isn't a
      *                               good guess for the next delta_t).
      */
-    virtual void
-    writeSolution(const int ievent,
-                  const bool doTimeDependentResid,
-                  const double time_current,
-                  const double delta_t_n,
-                  const int istep,
-                  const Epetra_Vector_Ghosted& soln_n,
-                  const Epetra_Vector_Ghosted* const solnDot_n_ptr,
-                  const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
-                  const double delta_t_np1 = 0.0);
+    virtual void writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current,
+                               const double delta_t_n, const int istep, const Epetra_Vector_Ghosted& soln_n,
+                               const Epetra_Vector_Ghosted* const solnDot_n_ptr,
+                               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                               const double delta_t_np1 = 0.0);
 
-    //! This function may be used to create output at various points in the
-    //! execution of an application.
+    //! This function may be used to create output at various points in the execution of an application.
     /*!
      *  (virtual from ProblemResidEval)
      *
@@ -921,13 +839,9 @@ public:
      *      @param y_n               Current value of the solution vector
      *      @param ydot_n_ptr        Current value of the time deriv of the solution vector
      */
-    virtual void
-    user_out(const int ievent,
-             const double time_current,
-             const double delta_t_n,
-             const int istep,
-             const Epetra_Vector_Ghosted& y_n,
-             const Epetra_Vector_Ghosted* const ydot_n_ptr);
+    virtual void user_out(const int ievent, const double time_current, const double delta_t_n,
+                          const int istep, const Epetra_Vector_Ghosted& y_n,
+                          const Epetra_Vector_Ghosted* const ydot_n_ptr);
 
     //! Handle matrix conditioning
     /*!
@@ -935,17 +849,13 @@ public:
      *
      *
      */
-    virtual void
-    matrixConditioning(double* const matrix, int nrows, double* const rhs);
+    virtual void matrixConditioning(double* const matrix, int nrows, double* const rhs);
 
-    std::string
-    getBaseFileName() const;
+    std::string getBaseFileName() const;
 
-    void
-    setBaseFileName(std::string m_baseFileName);
+    void setBaseFileName(std::string m_baseFileName);
 
-    void
-    calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t);
+    void calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t);
 
 public:
 
