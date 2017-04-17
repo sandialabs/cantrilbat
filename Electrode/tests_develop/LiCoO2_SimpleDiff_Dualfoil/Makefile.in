@@ -67,7 +67,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
-all: .depends $(PROGRAM) LiCoO2 LiCoO2Thermo LiCoO2_Cathode_Radial_cc
+all: .depends $(PROGRAM) LiCoO2 LiCoO2Thermo  LiCoO2_Cathode_Radial_cV   
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -76,7 +76,7 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 OBJ_ANODE =  $(OBJ) 
-OBJ_ALL = LiCoO2.o  LiCoO2Thermo.o  LiCoO2_Cathode_Radial_cc.o $(OBJ_ANODE)
+OBJ_ALL = LiCoO2.o  LiCoO2Thermo.o  $(OBJ_ANODE) LiCoO2_Cathode_Radial_cV.o
 
 ############################################################################
 # section to set up compiler rules
@@ -115,7 +115,7 @@ DEPENDS = $(OBJ_ALL:.o=.d)
 .c.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
-$(DEPENDS): $(PROGRAM).cpp LiCoO2_Cathode_Radial_cc.cpp LiCoO2Thermo.cpp LiCoO2.cpp 
+$(DEPENDS): $(PROGRAM).cpp  LiCoO2Thermo.cpp LiCoO2.cpp 
 
 depends:
 	$(RM) $(DEPENDS)
@@ -127,16 +127,12 @@ depends:
 test: 
 	@MAKE@
 	./runtest
-	./runtest_cc
 
 rebaseline:
 	cp out.txt good_out.txt
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed_0_0.csv
 	cp  LiCoO2_globalResults_0_0.csv   LiCoO2_globalResults_blessed_0_0.csv 
 	cp  LiCoO2Thermo.out   LiCoO2Thermo_blessed.out 
-	cp ccout.txt good_ccout.txt
-	cp  LiCoO2_CC_globalResults_0_0.csv  LiCoO2_CC_globalResults_blessed_0_0.csv 
-	cp LiCoO2_CC_intResults_0_0.csv LiCoO2_CC_intResults_blessed_0_0.csv
 
 ##############################################################################
 
@@ -146,13 +142,6 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
 	          $(OBJ_CANTERA_ADDONS)  \
-                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
-                  $(LCXX_END_LIBS) 
-
-LiCoO2_Cathode_Radial_cc: LiCoO2_Cathode_Radial_cc.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2_Cathode_Radial_cc LiCoO2_Cathode_Radial_cc.o \
-                  $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
@@ -178,10 +167,14 @@ include .depends
 endif
 
 
+dist_clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2
+	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt
+
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) LiCoO2_Cathode_Radial_cc LiCoO2Thermo LiCoO2
-	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt ccout.txt
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2
+	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt
 
 test_clean:
 	$(RM) LiCoO2_intResults_0_0.csv 
