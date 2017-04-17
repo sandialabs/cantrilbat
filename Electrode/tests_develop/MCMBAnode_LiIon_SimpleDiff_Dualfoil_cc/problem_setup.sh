@@ -2,7 +2,7 @@
 #
 #     Problem setup for runtest_Electrode
 #
-TEST_NAME= MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc
+TEST_NAME=MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc
 #
 #  Name of the program to run
 #
