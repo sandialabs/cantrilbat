@@ -54,11 +54,14 @@ typedef Epetra_Vector Epetra_Vector_GlAll;
 //==================================================================================================================================
 //! The types of solution problems that are solved.
 enum Solve_Type_Enum {
+    //! Steady state solve
     SteadyState_Solve = 0,
+    //! Time dependent solve that is time accurate
     TimeDependentAccurate_Solve,
     //! Specify this when we don't have a previous initially solved solution
     //!   -> in other words the electrode objects don't have a history for a previous time step
     TimeDependentInitial,
+    //! We solve a time dependent problem only to relax the system to steady state
     TimeDependentRelax_Solve,
     //! Initial conditions for a DAE system
     DAESystemInitial_Solve
@@ -119,9 +122,9 @@ struct Porosity_EqnType_Status
     }; 
 };
 //==================================================================================================================================
-/**
- *  A class for the description of 1D problems that
- *  encompass multiple regions in 1D and multiple time regions
+//!  A class for the description of 1D problems that  encompass multiple regions in 1D and multiple time regions
+/*!
+ * 
  */
 class ProblemResidEval
 {
@@ -141,8 +144,7 @@ public:
 
   //! Default copy constructor
   /*!
-   *
-   * @param r  Object to be copied
+   * @param[in]              r                   Object to be copied
    */
   ProblemResidEval(const ProblemResidEval &r);
 
@@ -182,17 +184,17 @@ public:
   /*!
    *
    */
-  void
-  domain_prep();
+  void domain_prep();
 
   
   //! Link the ProblemStatement class with the ProblemResidEval class and other classes
   //! that need input from the user
   /*!
-   *  @param psInput_ptr   Pointer to the ProblemStatement class
+   *  (virtual from ProblemResidEval)
+   *
+   *  @param[in]             psInput_ptr         Pointer to the ProblemStatement class
    */
-  virtual void link_input(ProblemStatement *psInput_ptr);
-  
+  virtual void link_input(ProblemStatement* psInput_ptr);
 
   //! Generate and fill up the local node vectors on this processor
   /*!
@@ -240,6 +242,8 @@ public:
 
   //! Calculate a residual vector
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *   The basic algorithm is to loop over the volume domains.
    *   Then, we loop over the surface domains
    *
@@ -267,6 +271,8 @@ public:
 
   //! Function that gets called at end the start of every time step
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *  This function provides a hook for a residual that gets called whenever a
    *  time step has been accepted and we are about to move on to the next time step.
    *  The call is made with the current time as the time
@@ -299,6 +305,8 @@ public:
 
    //! Revert the Residual object's conditions to the conditions at the start of the global time step
    /*!
+   *  (virtual from ProblemResidEval)
+   *
     *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init_init.
     *  We get rid of the pendingIntegratedFlags_ flag here as well.
     */
@@ -307,6 +315,8 @@ public:
 
   //! Set the underlying state of the system from the solution vector
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *   Note this is an important routine for the speed of the solution.
    *   It would be great if we could supply just exactly what is changing here.
    *   This routine is always called at the beginning of the residual evaluation process.
@@ -332,6 +342,9 @@ public:
 
   //! Calculate the initial conditions
   /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *   Note this is an important routine for the speed of the solution.
    *   The basic algorithm is to loop over the volume domains.
    *   Then, we loop over the surface domains
    *
@@ -346,7 +359,7 @@ public:
    * @param delta_t_np1             delta_t_np1 for the next step. This 
    *                                may come from a saved solution.
    */
-  void
+  virtual void
   initialConditions(const bool doTimeDependentResid,
                     Epetra_Vector_Ghosted *soln,
                     Epetra_Vector_Ghosted *solnDot,
@@ -470,6 +483,9 @@ public:
 
   //! Evaluates the atol vector used in the time stepper routine and in the nonlinear solver.
   /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *   Note this is an important routine for the speed of the solution.
    *  @param atolDefault  Double containing the default value of atol
    *  @param soln         Current solution vector.
    *  @param atolVector   Optional vector containing the individual entries for the
@@ -485,6 +501,9 @@ public:
 
   //! Evaluates the atol DAESystemInitial vector used in the time stepper routine and in the nonlinear solver.
   /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *   Note this is an important routine for the speed of the solution.
    *    The default behavior is to set all of the atol values to the constant atolDAEInitDefault.
    *
    *   @param atolDefault         Double containing the default value of atol used in the
@@ -503,6 +522,9 @@ public:
 
   //! Evaluates the atol vector used in the delta damping process.
   /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *   Note this is an important routine for the speed of the solution.
    *   @param relcoeff     Relative constant to multiply all terms by
    *   @param soln         current solution vector.
    *   @param atolDeltaDamping      If non-zero, this copies the vector into the object as input
@@ -515,6 +537,9 @@ public:
 
   //! Evaluates the atol vector used in the delta damping process for the DAE problem
   /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *   Note this is an important routine for the speed of the solution.
    *   @param relcoeff     Relative constant to multiply all terms by
    *   @param soln         current solution vector.
    *   @param solnDot      Current solutionDot vector.
@@ -554,6 +579,12 @@ public:
    */
   const Epetra_Vector_Owned & atolDeltaDamping() const;
 
+  //! Filter the solution predictions
+  /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *
+   */
   virtual void
   filterSolnPrediction(double t, Epetra_Vector_Ghosted &y);
 
@@ -570,6 +601,8 @@ public:
   //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
   //! to be time dependent
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *   Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
    *   It can be used to track supplemental quantities in the calculation, especially if they need to be
    *   integrated in time.
@@ -595,6 +628,8 @@ public:
 
   //! Set a solution parameter 
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *  @param paramName   String identifying the parameter to be set
    *  @param paramVal    Single double value of the parameter to be set
    *
@@ -607,6 +642,8 @@ public:
 
   //! Get a solution parameter 
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *  @param paramName   String identifying the parameter to be set
    *  @param paramVal    Vector of parameters returned
    *
@@ -615,13 +652,20 @@ public:
   virtual int
   getSolutionParam(std::string paramName, double * const paramVal);
 
-
+  //! Evaluate the stopping criteria
+  /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *
+   */
   virtual bool
   evalStoppingCritera(double &time_current, double &delta_t_n, const Epetra_Vector_Ghosted &y_n, 
                       const Epetra_Vector_Ghosted &ydot_n);
 
 
   /**
+   *  (virtual from ProblemResidEval)
+   *
    * Return a vector of delta y's for calculation of the
    *  numerical Jacobian
    */
@@ -633,6 +677,8 @@ public:
 
   //! Save the solution to the end of an XML file using XML solution format
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *  We write out the solution to a file.
    *
    * @param ievent  Type of the event. The following form is used:
@@ -739,6 +785,8 @@ public:
 
   //! Write the solution to either the screen or to a log file
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *  This is a general output utility to Cantera's logfile.
    *  It's not hooked into the IO algorithm at all. It should be
    *  conditionally called depending on the whims of the user.
@@ -765,6 +813,12 @@ public:
 		      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
                       const double delta_t_np1 = 0.0);
 
+  //! Write out Tecplot solution files
+  /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *
+   */
   virtual void
   writeTecplot(const int ievent,
                std::string m_baseFileName,
@@ -779,6 +833,8 @@ public:
 
   //! Write a solution vector type to either the screen or a log file
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *   @param solnVecName    Name of the solution vector -> will appear in the output
    *   @param t              Current time
    *   @param delta_t        delta t
@@ -793,6 +849,8 @@ public:
 
  //! Write an int solution vector type to either the screen or a log file
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *   @param solnVecName    Name of the solution vector -> will appear in the output
    *   @param t              Current time
    *   @param delta_t        delta t
@@ -807,6 +865,8 @@ public:
 
   //! Write out to a file or to standard output the current solution
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *   These functions are affected by the print controls of the nonlinear solver
    *   and the time stepper.
    *
@@ -843,6 +903,8 @@ public:
   //! This function may be used to create output at various points in the
   //! execution of an application.
   /*!
+   *  (virtual from ProblemResidEval)
+   *
    *   These functions are not affected by the print controls of the nonlinear solver
    *   and the time stepper.
    *
@@ -871,6 +933,12 @@ public:
            const Epetra_Vector_Ghosted &y_n,
            const Epetra_Vector_Ghosted * const ydot_n_ptr);
 
+  //! Handle matrix conditioning
+  /*!
+   *  (virtual from ProblemResidEval)
+   *
+   *
+   */
   virtual void
   matrixConditioning(double * const matrix, int nrows, double * const rhs);
 
@@ -1072,13 +1140,10 @@ public:
     *   1 -> Linear Elastic          Solve a simple treatment for treating the stress-strain effects
     */
    int solidMechanicsProbType_;
-
 };
-
-// *****************************************************************
-//  end of m1d namespace
+//==================================================================================================================================
 }
-// ******************************************************************
+//----------------------------------------------------------------------------------------------------------------------------------
 
 #endif
 
