@@ -1525,7 +1525,7 @@ void print_Mixture_members(ThermoPhase& g)
         y[i] = 0.0;
     }
     y[0] = 1.0;
-    g.setState_TPY(T, P, y);
+    g.setState_TPX(T, P, y);
     if (GTran) {
         double visc = GTran->viscosity();
         cout << "\t viscosity = " << visc << endl;
