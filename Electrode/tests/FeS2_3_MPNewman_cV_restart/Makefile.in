@@ -18,15 +18,19 @@
 
 PROGRAM = FeS2_3_MPNewman_cV_restart
 
-PROGRAM = FeS2_3_MPNewman_cV_restart
 TESTNAME = FeS2_3_MPNewman_cV_restart
 
-BLESSED_FILES = good_out.txt  FeS2_intResults_blessed.csv
+BLESSED_FILES = good_out.txt  FeS2_intResults_blessed.csv soln_0_0_blessed.xml
 
 DATA =  cathode.inp problem_setup.sh \
         FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.xml  LiKCl_recipmoltenSalt.xml \
-        Li_Liquid.xml  metal_Li_LiCl_electrons.xml 
+        Li_Liquid.xml  metal_Li_LiCl_electrons.xml  soln_0_0_orig.xml
 
+TEST_INTERMEDIATES = diff_out.txt diff_csv.txt diff_summary.txt diff_xml.txt err_out.txt
+
+TEST_RESULTS = FeS2_intResults_0_0.csv out.txt soln_0_0.xml
+
+TEST_FLAGS = runGood runBad runInProgress.txt
 
 OBJ = $(PROGRAM).o
 
@@ -71,14 +75,13 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM)
+all: .dependsT $(PROGRAM)
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
-
 
 OBJ_ANODE =  $(OBJ)
 
@@ -105,37 +108,26 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
 ############################################################################
 # section to set up depends
 ###########################################################################
-DEPENDS = $(OBJ_ANODE:.o=.d) 
 
-.f.d:
-	echo "$*.o: $*.f" > $*.d
+DEPENDS = $(OBJ_ANODE:.o=.d) 
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
-
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 depends:
 	$(RM) $(DEPENDS)
 	$(MAKE) .depends
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 test: 
 	@gmake -s
@@ -149,6 +141,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 rebaseline:
 	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
 	cp out.txt good_out.txt
+	cp soln_0_0.xml soln_0_0_blessed.xml
 
 ##############################################################################
 
@@ -169,11 +162,10 @@ include .depends
 endif
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
-	$(RM) ${PROG} runInProgress.txt runBad runGood
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  .dependsT
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES)
 
 dist_clean:
 	@MAKE@ clean
-	$(RM) Makefile out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv 
-
+	$(RM) $(TEST_RESULTS)
 
