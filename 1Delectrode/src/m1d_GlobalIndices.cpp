@@ -137,7 +137,6 @@ GlobalIndices& GlobalIndices::operator=(const GlobalIndices& r)
     safeDelete(SolnIntAll);
     SolnIntAll = new Epetra_IntVector(*r.SolnIntAll);
 
-
     safeDelete(SolnDotAll);
     SolnDotAll = new Epetra_Vector(*r.SolnDotAll);
 
@@ -146,10 +145,6 @@ GlobalIndices& GlobalIndices::operator=(const GlobalIndices& r)
     return *this;
 }
 //==================================================================================================================================
-// Initialize the number of global nodes
-/*
- * Size all arrays based on the total number of global nodes
- */
 void
 GlobalIndices::init(DomainLayout* dl_ptr)
 {
@@ -270,8 +265,7 @@ void GlobalIndices::initBlockNodeMaps()
         listI[i] = i;
     }
 
-    GbEqnstoAllMap = new Epetra_BlockMap(NumProc * NumGbNodes, NumGbNodes, &(listI[0]), &(NumEqns_GbNode[0]), 0,
-                                         *Comm_ptr_);
+    GbEqnstoAllMap = new Epetra_BlockMap(NumProc * NumGbNodes, NumGbNodes, &(listI[0]), &(NumEqns_GbNode[0]), 0, *Comm_ptr_);
 
     SolnAll = new Epetra_Vector(*GbEqnstoAllMap, true);
     SolnDotAll = new Epetra_Vector(*GbEqnstoAllMap, true);
@@ -306,6 +300,22 @@ GlobalIndices::GbEqnToGbNode(const int GbEqnNum, int& rowEqnNum) const
         rowEqnNum = -1;
     }
     return nfound;
+#ifdef BINSEARCH
+    int jBot, jTop, jTrial;
+    int nfound = -1;
+    jBot = 0;
+    jTop = NumGbNodes - 1;
+    while ((jTop - jBot) > 1) {
+        jTrial = (jTop + jBot) / 2;
+        if (GbEqnNum < IndexStartGbEqns_GbNode[jTrial]) {
+            jTop = jTrial;
+        } else {
+            jBot = jTrial;
+        }
+    }
+    nfound = jBot;
+    rowEqnNum = GbEqnNum - IndexStartGbEqns_GbNode[nfound];
+#endif
 }
 //==================================================================================================================================
 void
