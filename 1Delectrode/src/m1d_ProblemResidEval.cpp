@@ -48,10 +48,10 @@ namespace m1d
 {
 
 //=====================================================================================================================
-  /*
-   *  Print flag that is used to turn on extra printing 
-   */ 
-  int ProblemResidEval::s_printFlagEnv = 0; 
+/*
+ *  Print flag that is used to turn on extra printing
+ */
+int ProblemResidEval::s_printFlagEnv = 0;
 //=====================================================================================================================
 
 // Default constructor
@@ -60,60 +60,60 @@ namespace m1d
  * @param atol   Absolute tolerance for calculation
  */
 ProblemResidEval::ProblemResidEval(double atol) :
-    m_atol(atol), 
+    m_atol(atol),
     m_neq(0), DL_ptr_(0), GI_ptr_(0), LI_ptr_(0), m_jac(0), m_baseFileName("solution"), m_StepNumber(0),
     solnOld_ptr_(0), resInternal_ptr_(0),
-  m_atolVector(0), 
-  m_atolVector_DAEInit(0),
-  m_atolDeltaDamping(0),
-  m_atolDeltaDamping_DAEInit(0),
-  psInput_ptr_(0),
-  m_numTimeRegions(1),
-  m_currentTimeRegion(0),
-  m_writeStartEndFile(0),
-  counterResBaseCalcs_(0), counterJacBaseCalcs_(0), 
-  counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
-  SolutionBehavior_printLvl_(0),
-  Residual_printLvl_(0),
-  coordinateSystemType_(Rectilinear_Coordinates),
-  energyEquationProbType_(0),
-  solidMechanicsProbType_(0)
+    m_atolVector(0),
+    m_atolVector_DAEInit(0),
+    m_atolDeltaDamping(0),
+    m_atolDeltaDamping_DAEInit(0),
+    psInput_ptr_(0),
+    m_numTimeRegions(1),
+    m_currentTimeRegion(0),
+    m_writeStartEndFile(0),
+    counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
+    counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
+    SolutionBehavior_printLvl_(0),
+    Residual_printLvl_(0),
+    coordinateSystemType_(Rectilinear_Coordinates),
+    energyEquationProbType_(0),
+    solidMechanicsProbType_(0)
 {
-  /*
-   *  Read an environmental variable to set the static variable s_printFlagEnv
-   */
-  char *resp_str = getenv("PRE_printFlagEnv");
-  if (resp_str) {
-    if (resp_str[0] == 'y') {
-      s_printFlagEnv = 1; 
-    } else {
-     try {
-       string rr(resp_str) ;
-       double ff = fpValueCheck(rr);
-       s_printFlagEnv  = ff;
-     } catch (CanteraError &cE) {
-       ZZCantera::showErrors();
-       ZZCantera::popError();
-     } catch (ZuzaxError &cE) {
-       ZZCantera::showErrors();
-       ZZCantera::popError();
-     }
+    /*
+     *  Read an environmental variable to set the static variable s_printFlagEnv
+     */
+    char* resp_str = getenv("PRE_printFlagEnv");
+    if (resp_str) {
+        if (resp_str[0] == 'y') {
+            s_printFlagEnv = 1;
+        } else {
+            try {
+                string rr(resp_str) ;
+                double ff = fpValueCheck(rr);
+                s_printFlagEnv  = ff;
+            } catch (CanteraError& cE) {
+                ZZCantera::showErrors();
+                ZZCantera::popError();
+            } catch (ZuzaxError& cE) {
+                ZZCantera::showErrors();
+                ZZCantera::popError();
+            }
+        }
     }
-  }
-  if (PSinput_ptr == 0) {
-     printf("ProblemResidEval constructor: Error expect the input file to have been read and processed\n");
-     exit(-1);
-  }
-  m_writeStartEndFile = PSinput_ptr->writeStartEndFile_;
+    if (PSinput_ptr == 0) {
+        printf("ProblemResidEval constructor: Error expect the input file to have been read and processed\n");
+        exit(-1);
+    }
+    m_writeStartEndFile = PSinput_ptr->writeStartEndFile_;
 
-  if (PSinput_ptr->Energy_equation_prob_type_ == 3) {
-       energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
-  } else if (PSinput_ptr->Energy_equation_prob_type_ != 0) {
-       throw m1d_Error("ProblemResidEval::ProblemResidEval()",
-                       "Energy equation types other than 3 and 0 are unimplemented: " + int2str(PSinput_ptr->Energy_equation_prob_type_));
-  }
+    if (PSinput_ptr->Energy_equation_prob_type_ == 3) {
+        energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
+    } else if (PSinput_ptr->Energy_equation_prob_type_ != 0) {
+        throw m1d_Error("ProblemResidEval::ProblemResidEval()",
+                        "Energy equation types other than 3 and 0 are unimplemented: " + int2str(PSinput_ptr->Energy_equation_prob_type_));
+    }
 
-  solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;
+    solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;
 
 }
 //=====================================================================================================================
@@ -123,19 +123,19 @@ ProblemResidEval::ProblemResidEval(double atol) :
  */
 ProblemResidEval::~ProblemResidEval()
 {
-  // We are responsible now for deleting the global data about the problem
-  safeDelete(DL_ptr_);
-  safeDelete(LI_ptr_);
-  safeDelete(GI_ptr_);
+    // We are responsible now for deleting the global data about the problem
+    safeDelete(DL_ptr_);
+    safeDelete(LI_ptr_);
+    safeDelete(GI_ptr_);
 
-  //safeDelete(m_jac);
+    //safeDelete(m_jac);
 
-  safeDelete(solnOld_ptr_);
-  safeDelete(resInternal_ptr_);
-  safeDelete(m_atolVector);
-  safeDelete(m_atolVector_DAEInit);
-  safeDelete(m_atolDeltaDamping);
-  safeDelete(m_atolDeltaDamping_DAEInit);
+    safeDelete(solnOld_ptr_);
+    safeDelete(resInternal_ptr_);
+    safeDelete(m_atolVector);
+    safeDelete(m_atolVector_DAEInit);
+    safeDelete(m_atolDeltaDamping);
+    safeDelete(m_atolDeltaDamping_DAEInit);
 }
 //=====================================================================================================================
 //! Default copy constructor
@@ -143,22 +143,22 @@ ProblemResidEval::~ProblemResidEval()
  *
  * @param r  Object to be copied
  */
-ProblemResidEval::ProblemResidEval(const ProblemResidEval &r) :
-  m_atol(r.m_atol), m_neq(0), DL_ptr_(0), GI_ptr_(0), LI_ptr_(0), m_jac(0), m_baseFileName("solution"),
-  m_StepNumber(0), solnOld_ptr_(0), resInternal_ptr_(0),
-  m_atolVector(0),
-  m_atolVector_DAEInit(0),
-  m_atolDeltaDamping(0),
-  psInput_ptr_(0),
-  m_numTimeRegions(1),
-  m_currentTimeRegion(0),
-  counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
-  counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
-  coordinateSystemType_(r.coordinateSystemType_),
-  energyEquationProbType_(r.energyEquationProbType_),
-  solidMechanicsProbType_(r.solidMechanicsProbType_)
+ProblemResidEval::ProblemResidEval(const ProblemResidEval& r) :
+    m_atol(r.m_atol), m_neq(0), DL_ptr_(0), GI_ptr_(0), LI_ptr_(0), m_jac(0), m_baseFileName("solution"),
+    m_StepNumber(0), solnOld_ptr_(0), resInternal_ptr_(0),
+    m_atolVector(0),
+    m_atolVector_DAEInit(0),
+    m_atolDeltaDamping(0),
+    psInput_ptr_(0),
+    m_numTimeRegions(1),
+    m_currentTimeRegion(0),
+    counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
+    counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
+    coordinateSystemType_(r.coordinateSystemType_),
+    energyEquationProbType_(r.energyEquationProbType_),
+    solidMechanicsProbType_(r.solidMechanicsProbType_)
 {
-  *this = r;
+    *this = r;
 }
 //=====================================================================================================================
 // Assignment operator
@@ -167,58 +167,58 @@ ProblemResidEval::ProblemResidEval(const ProblemResidEval &r) :
  * @param r  Object to be copied
  * @return   Returns a copy of the current problem
  */
-ProblemResidEval& ProblemResidEval::operator=(const ProblemResidEval &r)
+ProblemResidEval& ProblemResidEval::operator=(const ProblemResidEval& r)
 {
-  if (this == &r) {
+    if (this == &r) {
+        return *this;
+    }
+
+    m_atol = r.m_atol;
+
+    safeDelete(DL_ptr_);
+    DL_ptr_ = new DomainLayout(*(r.DL_ptr_));
+
+    safeDelete(GI_ptr_);
+    GI_ptr_ = new GlobalIndices(*(r.GI_ptr_));
+
+    safeDelete(LI_ptr_);
+    LI_ptr_ = new LocalNodeIndices(*(r.LI_ptr_));
+
+    safeDelete(solnOld_ptr_);
+    solnOld_ptr_ = new Epetra_Vector(*(r.solnOld_ptr_));
+
+    safeDelete(resInternal_ptr_);
+    resInternal_ptr_ = new Epetra_Vector(*(r.resInternal_ptr_));
+
+    safeDelete(m_atolVector);
+    m_atolVector = new Epetra_Vector(*(r.m_atolVector));
+
+    safeDelete(m_atolVector_DAEInit);
+    m_atolVector_DAEInit = new Epetra_Vector(*(r.m_atolVector_DAEInit));
+
+    safeDelete(m_atolDeltaDamping);
+    m_atolDeltaDamping = new Epetra_Vector(*(r.m_atolDeltaDamping));
+
+    safeDelete(m_atolDeltaDamping_DAEInit);
+    m_atolDeltaDamping_DAEInit = new Epetra_Vector(*(r.m_atolDeltaDamping_DAEInit));
+
+    safeDelete(psInput_ptr_);
+    psInput_ptr_  = new ProblemStatement(*(r.psInput_ptr_));
+
+    counterResBaseCalcs_                      = r.counterResBaseCalcs_;
+    counterJacBaseCalcs_                      = r.counterJacBaseCalcs_;
+    counterJacDeltaCalcs_                     = r.counterJacDeltaCalcs_;
+    counterResShowSolutionCalcs_              = r.counterResShowSolutionCalcs_;
+
+    SolutionBehavior_printLvl_                = r.SolutionBehavior_printLvl_;
+    Residual_printLvl_                        = r.Residual_printLvl_;
+    coordinateSystemType_                     = r.coordinateSystemType_;
+    crossSectionalArea_                       = r.crossSectionalArea_;
+    cylinderLength_                           = r.cylinderLength_;
+    energyEquationProbType_                   = r.energyEquationProbType_;
+    solidMechanicsProbType_                   = r.solidMechanicsProbType_;
+
     return *this;
-  }
-
-  m_atol = r.m_atol;
-
-  safeDelete(DL_ptr_);
-  DL_ptr_ = new DomainLayout(*(r.DL_ptr_));
-
-  safeDelete(GI_ptr_);
-  GI_ptr_ = new GlobalIndices(*(r.GI_ptr_));
-
-  safeDelete(LI_ptr_);
-  LI_ptr_ = new LocalNodeIndices(*(r.LI_ptr_));
-
-  safeDelete(solnOld_ptr_);
-  solnOld_ptr_ = new Epetra_Vector(*(r.solnOld_ptr_));
-
-  safeDelete(resInternal_ptr_);
-  resInternal_ptr_ = new Epetra_Vector(*(r.resInternal_ptr_));
-
-  safeDelete(m_atolVector);
-  m_atolVector = new Epetra_Vector(*(r.m_atolVector));
-
-  safeDelete(m_atolVector_DAEInit);
-  m_atolVector_DAEInit = new Epetra_Vector(*(r.m_atolVector_DAEInit));
-
-  safeDelete(m_atolDeltaDamping);
-  m_atolDeltaDamping = new Epetra_Vector(*(r.m_atolDeltaDamping));
-
-  safeDelete(m_atolDeltaDamping_DAEInit);
-  m_atolDeltaDamping_DAEInit = new Epetra_Vector(*(r.m_atolDeltaDamping_DAEInit));
-
-  safeDelete(psInput_ptr_);
-  psInput_ptr_  = new ProblemStatement(*(r.psInput_ptr_));
-
-  counterResBaseCalcs_                      = r.counterResBaseCalcs_;
-  counterJacBaseCalcs_                      = r.counterJacBaseCalcs_;
-  counterJacDeltaCalcs_                     = r.counterJacDeltaCalcs_;
-  counterResShowSolutionCalcs_              = r.counterResShowSolutionCalcs_;
-
-  SolutionBehavior_printLvl_                = r.SolutionBehavior_printLvl_;
-  Residual_printLvl_                        = r.Residual_printLvl_;
-  coordinateSystemType_                     = r.coordinateSystemType_;
-  crossSectionalArea_                       = r.crossSectionalArea_;
-  cylinderLength_                           = r.cylinderLength_;
-  energyEquationProbType_                   = r.energyEquationProbType_;
-  solidMechanicsProbType_                   = r.solidMechanicsProbType_;
-
-  return *this;
 }
 //=====================================================================================================================
 /*
@@ -228,23 +228,23 @@ ProblemResidEval& ProblemResidEval::operator=(const ProblemResidEval &r)
  *   This routine will grow as we add more types.
  */
 void
-ProblemResidEval::specifyProblem(int problemType, ProblemStatement *ps_ptr)
+ProblemResidEval::specifyProblem(int problemType, ProblemStatement* ps_ptr)
 {
-  psInput_ptr_ = ps_ptr;
-  if (problemType == 1) {
-    DL_ptr_ = new SimpleDiffusionLayout(1, ps_ptr);
-  } else if (problemType == 2) {
-    DL_ptr_ = new SimpleTimeDependentDiffusionLayout(1, ps_ptr);
-  } else {
-    throw m1d_Error("specifyProblem", "Unknown problem type");
-  }
-  DL_ptr_->setProblemResid(this);
-  //
-  // Specify the type of the coordinate system
-  //
-  coordinateSystemType_ = psInput_ptr_->coordinateSystemType_;
+    psInput_ptr_ = ps_ptr;
+    if (problemType == 1) {
+        DL_ptr_ = new SimpleDiffusionLayout(1, ps_ptr);
+    } else if (problemType == 2) {
+        DL_ptr_ = new SimpleTimeDependentDiffusionLayout(1, ps_ptr);
+    } else {
+        throw m1d_Error("specifyProblem", "Unknown problem type");
+    }
+    DL_ptr_->setProblemResid(this);
+    //
+    // Specify the type of the coordinate system
+    //
+    coordinateSystemType_ = psInput_ptr_->coordinateSystemType_;
 
-  SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
+    SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
 }
 //=====================================================================================================================
 /*
@@ -254,7 +254,7 @@ ProblemResidEval::specifyProblem(int problemType, ProblemStatement *ps_ptr)
  *   This routine will grow as we add more types.
  */
 void
-ProblemResidEval::specifyProblem(DomainLayout *dl, ProblemStatement *ps_ptr)
+ProblemResidEval::specifyProblem(DomainLayout* dl, ProblemStatement* ps_ptr)
 {
     psInput_ptr_ = ps_ptr;
     DL_ptr_ = dl;
@@ -277,45 +277,45 @@ void
 ProblemResidEval::generateGlobalIndices()
 {
 
-  GI_ptr_ = new m1d::GlobalIndices(Comm_ptr);
+    GI_ptr_ = new m1d::GlobalIndices(Comm_ptr);
 
-  m1d::GlobalIndices &GI = *GI_ptr_;
+    m1d::GlobalIndices& GI = *GI_ptr_;
 
-  // (Now that MPI is initialized, we can access/use MPI_COMM_WORLD.)
+    // (Now that MPI is initialized, we can access/use MPI_COMM_WORLD.)
 #ifdef HAVE_MPI
-  MPI_Comm_size(MPI_COMM_WORLD, &(GI.NumProc));
-  MPI_Comm_rank(MPI_COMM_WORLD, &(GI.MyProcID));
+    MPI_Comm_size(MPI_COMM_WORLD, &(GI.NumProc));
+    MPI_Comm_rank(MPI_COMM_WORLD, &(GI.MyProcID));
 #else
-  GI.NumProc = 1;
-  GI.MyProcID = 0;
+    GI.NumProc = 1;
+    GI.MyProcID = 0;
 #endif
 
-  /*
-   *   Initialize the number of global nodes
-   * Size all arrays based on the total number of global nodes
-   */
-  GI.init(DL_ptr_);
+    /*
+     *   Initialize the number of global nodes
+     * Size all arrays based on the total number of global nodes
+     */
+    GI.init(DL_ptr_);
 
-  /*
-   *  Initialize the mesh positions
-   */
-  GI.InitMesh();
+    /*
+     *  Initialize the mesh positions
+     */
+    GI.InitMesh();
 
-  /*
-   *  Initialize the global NodalVars object
-   *     We figure out what domains are located at what nodes.
-   *    We determine the number of equations that are located at each
-   *    node. This is done on a global basis.
-   *     we figure out what equations are located at what nodes. Then, we
-   *     fill up the nodal data structure with this information
-   */
-  GI.discoverNumEqnsPerNode();
+    /*
+     *  Initialize the global NodalVars object
+     *     We figure out what domains are located at what nodes.
+     *    We determine the number of equations that are located at each
+     *    node. This is done on a global basis.
+     *     we figure out what equations are located at what nodes. Then, we
+     *     fill up the nodal data structure with this information
+     */
+    GI.discoverNumEqnsPerNode();
 
-  /*
-   * Figure out the division of the nodes on the processor
-   *   we determine what nodes and equations are on each processor
-   */
-  GI.procDivide();
+    /*
+     * Figure out the division of the nodes on the processor
+     *   we determine what nodes and equations are on each processor
+     */
+    GI.procDivide();
 }
 //=====================================================================================================================
 // Generate and fill up the local node vectors on this processor
@@ -334,255 +334,257 @@ ProblemResidEval::generateGlobalIndices()
 void
 ProblemResidEval::generateLocalIndices()
 {
-  m1d::GlobalIndices &GI = *GI_ptr_;
-  /*
-   *  Once we have the basic vectors, we can generate the node maps
-   *  necessary to formulate the problem using Epetra.
-   *  Form a Map to describe the distribution of our owned equations
-   *  and our owned nodes on the processors.
-   */
-  GI.initNodeMaps();
-  /*
-   *  Create the object to hold the local node data
-   */
-  LI_ptr_ = new m1d::LocalNodeIndices(Comm_ptr, GI_ptr_);
-  /*
-   *  Determine the external nodes on each of the processors. With this step,
-   *  we have a determination of all of the nodes that each processor needs.
-   *  This is also an essential part of determining the matrix stencil for
-   *  eventual solution of the problem.
-   */
-  LI_ptr_->determineLcNodeMaps(DL_ptr_);
-  /*
-   * Generate the nodal vars data at the local node level by copying the pointers
-   */
-  LI_ptr_->GenerateNodalVars();
-  /*
-   *  Update the equation count and the vector of number of equations per node
-   *  and the value of the  local equation start index at each local local node.
-   */
-  LI_ptr_->UpdateEqnCount();
-  LI_ptr_->generateEqnMapping();
-  /*
-   * Initialize a couple of block row maps that don't use ghost elements
-   */
-  GI.initBlockNodeMaps();
+    m1d::GlobalIndices& GI = *GI_ptr_;
+    /*
+     *  Once we have the basic vectors, we can generate the node maps
+     *  necessary to formulate the problem using Epetra.
+     *  Form a Map to describe the distribution of our owned equations
+     *  and our owned nodes on the processors.
+     */
+    GI.initNodeMaps();
+    /*
+     *  Create the object to hold the local node data
+     */
+    LI_ptr_ = new m1d::LocalNodeIndices(Comm_ptr, GI_ptr_);
+    /*
+     *  Determine the external nodes on each of the processors. With this step,
+     *  we have a determination of all of the nodes that each processor needs.
+     *  This is also an essential part of determining the matrix stencil for
+     *  eventual solution of the problem.
+     */
+    LI_ptr_->determineLcNodeMaps(DL_ptr_);
+    /*
+     * Generate the nodal vars data at the local node level by copying the pointers
+     */
+    LI_ptr_->GenerateNodalVars();
+    /*
+     *  Update the equation count and the vector of number of equations per node
+     *  and the value of the  local equation start index at each local local node.
+     */
+    LI_ptr_->UpdateEqnCount();
+    LI_ptr_->generateEqnMapping();
+    /*
+     * Initialize a couple of block row maps that don't use ghost elements
+     */
+    GI.initBlockNodeMaps();
 
-  LI_ptr_->determineLcEqnMaps();
+    LI_ptr_->determineLcEqnMaps();
 
-  /*
-   * Determine total number of unknowns in the global equation system
-   */
-  m_neq = GI.NumGbEqns;
+    /*
+     * Determine total number of unknowns in the global equation system
+     */
+    m_neq = GI.NumGbEqns;
 
-  /*
-   * determine number of unknowns on each processor
-   */
+    /*
+     * determine number of unknowns on each processor
+     */
 
-  //Number of equations on the processor including ghost equations
-  m_NumLcEqns = LI_ptr_->NumLcEqns;
+    //Number of equations on the processor including ghost equations
+    m_NumLcEqns = LI_ptr_->NumLcEqns;
 
-  // Number of equations on the processor not including ghost equations
-  m_NumLcOwnedEqns = LI_ptr_->NumLcOwnedEqns;
+    // Number of equations on the processor not including ghost equations
+    m_NumLcOwnedEqns = LI_ptr_->NumLcOwnedEqns;
 
 }
 //=====================================================================================================================
-  void ProblemResidEval::fillIsAlgebraic(Epetra_IntVector & isAlgebraic)
-  { 
-    DomainLayout &DL = *DL_ptr_;
+void ProblemResidEval::fillIsAlgebraic(Epetra_IntVector& isAlgebraic)
+{
+    DomainLayout& DL = *DL_ptr_;
     /*
      *   Loop over the Volume Domains
      */
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      d_ptr->fillIsAlgebraic(isAlgebraic);
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->fillIsAlgebraic(isAlgebraic);
     }
 
     /*
      *    Loop over the Surface Domains
      */
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-      d_ptr->fillIsAlgebraic(isAlgebraic);
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->fillIsAlgebraic(isAlgebraic);
     }
-  }
-  //=====================================================================================================================
-  void ProblemResidEval::fillIsArithmeticScaled(Epetra_IntVector & isArithmeticScaled)
-  { 
-    DomainLayout &DL = *DL_ptr_;
+}
+//=====================================================================================================================
+void ProblemResidEval::fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScaled)
+{
+    DomainLayout& DL = *DL_ptr_;
     /*
      *   Loop over the Volume Domains
      */
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      d_ptr->fillIsArithmeticScaled(isArithmeticScaled);
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->fillIsArithmeticScaled(isArithmeticScaled);
     }
 
     /*
      *    Loop over the Surface Domains
      */
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-      d_ptr->fillIsArithmeticScaled(isArithmeticScaled);
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->fillIsArithmeticScaled(isArithmeticScaled);
     }
 
-  }
-  //=====================================================================================================================
-  // Calculate a residual vector
-  /*
-   *   The basic algorithm is to loop over the volume domains.
-   *   Then, we loop over the surface domains
-   *
-   * @param res                     residual output
-   * @param doTimeDependentResid    Boolean indicating whether the time dependent residual is requested
-   * @param soln                    Pointer to the solution vector. This is the input to the residual calculation.
-   * @param solnDot                 Pointer to the solution Dot vector. This is the input to the residual calculation.
-   * @param t                       current time
-   * @param rdelta_t                delta t inverse
-   * @param residType               Residual type
-   * @param solveType               Solve type
-   */
+}
+//=====================================================================================================================
+// Calculate a residual vector
+/*
+ *   The basic algorithm is to loop over the volume domains.
+ *   Then, we loop over the surface domains
+ *
+ * @param res                     residual output
+ * @param doTimeDependentResid    Boolean indicating whether the time dependent residual is requested
+ * @param soln                    Pointer to the solution vector. This is the input to the residual calculation.
+ * @param solnDot                 Pointer to the solution Dot vector. This is the input to the residual calculation.
+ * @param t                       current time
+ * @param rdelta_t                delta t inverse
+ * @param residType               Residual type
+ * @param solveType               Solve type
+ */
 void
-ProblemResidEval::residEval(Epetra_Vector_Owned* const & res,	   
-			    const bool doTimeDependentResid,
-                            const Epetra_Vector *soln_ptr,
-                            const Epetra_Vector *solnDot_ptr,
+ProblemResidEval::residEval(Epetra_Vector_Owned* const& res,
+                            const bool doTimeDependentResid,
+                            const Epetra_Vector* soln_ptr,
+                            const Epetra_Vector* solnDot_ptr,
                             const double t,
                             const double rdelta_t,
                             const ResidEval_Type_Enum residType,
-			    const Solve_Type_Enum solveType)
+                            const Solve_Type_Enum solveType)
 {
-  if (!resInternal_ptr_) {
-    resInternal_ptr_ = new Epetra_Vector(*res);
-  }
-  double delta_t = 0.0;
-  double t_old = t;
-  if (rdelta_t > 0.0) {
-    delta_t = 1.0/rdelta_t;
-    t_old = t - delta_t;
-  }
+    if (!resInternal_ptr_) {
+        resInternal_ptr_ = new Epetra_Vector(*res);
+    }
+    double delta_t = 0.0;
+    double t_old = t;
+    if (rdelta_t > 0.0) {
+        delta_t = 1.0/rdelta_t;
+        t_old = t - delta_t;
+    }
 
-  if (residType == Base_ResidEval) {
-    counterResBaseCalcs_++;
-  } else if (residType == JacBase_ResidEval) {
-    counterJacBaseCalcs_++;
-  } else if (residType == JacDelta_ResidEval) {
-    counterJacDeltaCalcs_++;
-  } else if (residType == Base_ShowSolution) {
-    counterResShowSolutionCalcs_++;
-  }
+    if (residType == Base_ResidEval) {
+        counterResBaseCalcs_++;
+    } else if (residType == JacBase_ResidEval) {
+        counterJacBaseCalcs_++;
+    } else if (residType == JacDelta_ResidEval) {
+        counterJacDeltaCalcs_++;
+    } else if (residType == Base_ShowSolution) {
+        counterResShowSolutionCalcs_++;
+    }
 
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
-  /*
-   *   Zero the residual vector
-   */
-  res->PutScalar(0.0);
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
+    /*
+     *   Zero the residual vector
+     */
+    res->PutScalar(0.0);
 
-  /*
-   * We calculate solnOld_ptr_ here
-   */
-  if (doTimeDependentResid) {
-    calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
-  }
-  /*
-   *   Propagate the solution of the system down to the underlying objects where necessary.
-   *   It is necessary to do this for mesh unknowns.
-   *   Also do a loop over the nodes to carry out any precalculations that are necessary
-   */
-  setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
+    /*
+     * We calculate solnOld_ptr_ here
+     */
+    if (doTimeDependentResid) {
+        calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
+    }
+    /*
+     *   Propagate the solution of the system down to the underlying objects where necessary.
+     *   It is necessary to do this for mesh unknowns.
+     *   Also do a loop over the nodes to carry out any precalculations that are necessary
+     */
+    setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
 
-  /*
-   *   Loop over the Volume Domains
-   */
-  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-    d_ptr->incrementCounters(residType);
-    d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType);
-  }
-  /*
-   *    Loop over the Surface Domains
-   */
-  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-    d_ptr->incrementCounters(residType);
-    d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType);
-  }
+    /*
+     *   Loop over the Volume Domains
+     */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->incrementCounters(residType);
+        d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType);
+    }
+    /*
+     *    Loop over the Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->incrementCounters(residType);
+        d_ptr->residEval_PreCalc(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType);
+    }
 
-  /*
-   *   Loop over the Volume Domains
-   */
-  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-    d_ptr->residEval(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
-  }
-  /*
-   *    Loop over the Surface Domains
-   */
-  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-    d_ptr->residEval(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
-  }
+    /*
+     *   Loop over the Volume Domains
+     */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->residEval(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
+    }
+    /*
+     *    Loop over the Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->residEval(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
+    }
 
-  /*
-   *   Loop over the Volume Domains
-   */
-  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-    d_ptr->residEval_PostCalc(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
-  }
-  /*
-   *    Loop over the Surface Domains
-   */
-  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-    d_ptr->residEval_PostCalc(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType, solveType);
-  }
+    /*
+     *   Loop over the Volume Domains
+     */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->residEval_PostCalc(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType,
+                                  solveType);
+    }
+    /*
+     *    Loop over the Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->residEval_PostCalc(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType,
+                                  solveType);
+    }
 
 }
 //=====================================================================================================================
 void
-ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector *soln_ptr,
-				      const Epetra_Vector *solnDot_ptr, const Epetra_Vector *solnOld_ptr,
-				      const double t, const double t_old)
+ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                                      const double t, const double t_old)
 {
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
 
-  double rdelta_t = 1.0E200;
-  double delta_t = 0.0;
-  if (t > t_old) {
-    delta_t = t - t_old;
-    rdelta_t = 1.0 / delta_t;
-  }
+    double rdelta_t = 1.0E200;
+    double delta_t = 0.0;
+    if (t > t_old) {
+        delta_t = t - t_old;
+        rdelta_t = 1.0 / delta_t;
+    }
 
-  /*
-   * We calculate solnOld_ptr_ here
-   */
-  if (doTimeDependentResid) {
-    calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
-  }
-  /*
-   *   Propagate the solution of the system down to the underlying objects where necessary.
-   *   It is necessary to do this for mesh unknowns.
-   *   Also do a loop over nodes, calculating quantities.
-   */
-  setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
-  /*
-   *   Loop over the Volume Domains
-   */
-  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-    //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-    d_ptr->advanceTimeBaseline(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr, t, t_old);
-  }
-  /*
-   *    Loop over the Surface Domains
-   */
-  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-    d_ptr->advanceTimeBaseline(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr, t, t_old);
-  }
+    /*
+     * We calculate solnOld_ptr_ here
+     */
+    if (doTimeDependentResid) {
+        calcSolnOld(*soln_ptr, *solnDot_ptr, rdelta_t);
+    }
+    /*
+     *   Propagate the solution of the system down to the underlying objects where necessary.
+     *   It is necessary to do this for mesh unknowns.
+     *   Also do a loop over nodes, calculating quantities.
+     */
+    setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
+    /*
+     *   Loop over the Volume Domains
+     */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->advanceTimeBaseline(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr, t, t_old);
+    }
+    /*
+     *    Loop over the Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->advanceTimeBaseline(doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr, t, t_old);
+    }
 }
 //=====================================================================================================================
 // Revert the Residual object's conditions to the conditions at the start of the global time step
@@ -590,23 +592,23 @@ ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
  *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init_init.
  *  We get rid of the pendingIntegratedFlags_ flag here as well.
  */
-  void ProblemResidEval::revertToInitialGlobalTime()
-{ 
+void ProblemResidEval::revertToInitialGlobalTime()
+{
     // Get a local copy of the domain layout
-    DomainLayout &DL = *DL_ptr_;
+    DomainLayout& DL = *DL_ptr_;
     /*
      *   Loop over the Volume Domains
      */
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	d_ptr->revertToInitialGlobalTime();
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->revertToInitialGlobalTime();
     }
     /*
      *    Loop over the Surface Domains
      */
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-	d_ptr->revertToInitialGlobalTime();
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->revertToInitialGlobalTime();
     }
 }
 //=====================================================================================================================
@@ -617,7 +619,7 @@ ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
  *   This routine is always called at the beginning of the residual evaluation process.
  *   It is also called during the advanceTimeBaseline() process. This is appropriate as we make sure that
  *   the calculation of nodal quantities is done using the end solution values, and therefore the _old values
- *   will be correct,  before advancing to the next time step. 
+ *   will be correct,  before advancing to the next time step.
  *
  *   This is a natural place to put any precalculations of nodal quantities that
  *   may be needed by the residual before its calculation.
@@ -631,42 +633,42 @@ ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epe
  */
 void
 ProblemResidEval::setStateFromSolution(const bool doTimeDependentResid,
-                                       const Epetra_Vector *soln_ptr,
-                                       const Epetra_Vector *solnDot_ptr,
+                                       const Epetra_Vector* soln_ptr,
+                                       const Epetra_Vector* solnDot_ptr,
                                        const double t,
                                        const double rdelta_t, const double t_old)
 {
-  double delta_t = t - t_old;
+    double delta_t = t - t_old;
 
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
 
-  LI_ptr_->ExtractPositionsFromSolution(soln_ptr);
+    LI_ptr_->ExtractPositionsFromSolution(soln_ptr);
 
-  GI_ptr_->updateGlobalPositions(LI_ptr_->Xpos_LcOwnedNode_p);
+    GI_ptr_->updateGlobalPositions(LI_ptr_->Xpos_LcOwnedNode_p);
 
-   /*
-   *   Loop over the Volume Domains
-   */
-  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-    d_ptr->setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
+    /*
+    *   Loop over the Volume Domains
+    */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
 
-  }
-  /*
-   *    Loop over the Surface Domains
-   */
-  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-    d_ptr->setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
-  }
+    }
+    /*
+     *    Loop over the Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->setStateFromSolution(doTimeDependentResid, soln_ptr, solnDot_ptr, t, delta_t, t_old);
+    }
 
 
-  /*
-   *  Update the nodal values in the LocalNodeIndices structure
-   */
-  //  void
-  // LocalNodeIndices::UpdateNodalVarsPositions()
+    /*
+     *  Update the nodal values in the LocalNodeIndices structure
+     */
+    //  void
+    // LocalNodeIndices::UpdateNodalVarsPositions()
 }
 //=====================================================================================================================
 // Calculate the initial conditions
@@ -683,125 +685,125 @@ ProblemResidEval::setStateFromSolution(const bool doTimeDependentResid,
  * @param delta_t                 OUTPUT       delta_t_np1 for the initial time step
  */
 void
-ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln,
-                                    Epetra_Vector_Ghosted *solnDot, double& t,
+ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted* soln,
+                                    Epetra_Vector_Ghosted* solnDot, double& t,
                                     double& delta_t, double& delta_t_np1)
 {
-  if (!solnOld_ptr_) {
-    solnOld_ptr_ = new Epetra_Vector(*soln);
-  }
+    if (!solnOld_ptr_) {
+        solnOld_ptr_ = new Epetra_Vector(*soln);
+    }
 
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
-  /*
-   *   Zero the solution vector as a start
-   */
-  soln->PutScalar(0.0);
-  if (doTimeDependentResid) {
-    solnDot->PutScalar(0.0);
-  }
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
+    /*
+     *   Zero the solution vector as a start
+     */
+    soln->PutScalar(0.0);
+    if (doTimeDependentResid) {
+        solnDot->PutScalar(0.0);
+    }
 
-  /*
-   * We set initial conditions here that make sense to do by looping over nodes
-   * instead of cells.
-   */
-  LI_ptr_->setInitialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
-  /*
-   *   Loop over the Volume Domains
-   */
-  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-    //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-    d_ptr->initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
-  }
-  /*
-   *    Loop over ths Surface Domains
-   */
-  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-    d_ptr->initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
-  }
+    /*
+     * We set initial conditions here that make sense to do by looping over nodes
+     * instead of cells.
+     */
+    LI_ptr_->setInitialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
+    /*
+     *   Loop over the Volume Domains
+     */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
+    }
+    /*
+     *    Loop over ths Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->initialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
+    }
 
-  // Find the restart record number. If this is greater than zero, then the user has
-  // signaled that a restart file should be used
-  //
-  int rrn = psInput_ptr_->restartRecordNumber_; 
-  double t_read;
-  double delta_t_read = delta_t;
-  double delta_t_next_read = delta_t;
-  delta_t_np1 = delta_t;
-  if (rrn >= 0) {
-      string& rfn = psInput_ptr_->restartFileName_;
-      size_t locdot = rfn.find('.');
-      string baseFileName = rfn.substr(0, locdot);
+    // Find the restart record number. If this is greater than zero, then the user has
+    // signaled that a restart file should be used
+    //
+    int rrn = psInput_ptr_->restartRecordNumber_;
+    double t_read;
+    double delta_t_read = delta_t;
+    double delta_t_next_read = delta_t;
+    delta_t_np1 = delta_t;
+    if (rrn >= 0) {
+        string& rfn = psInput_ptr_->restartFileName_;
+        size_t locdot = rfn.find('.');
+        string baseFileName = rfn.substr(0, locdot);
 
-      readSolution(rrn, baseFileName, *soln, solnDot, t_read, delta_t_read, delta_t_next_read);
-      t = t_read;
-      delta_t = delta_t_read;
-      delta_t_np1 = delta_t_next_read;
-      double t_nm1 = t - delta_t;
+        readSolution(rrn, baseFileName, *soln, solnDot, t_read, delta_t_read, delta_t_next_read);
+        t = t_read;
+        delta_t = delta_t_read;
+        delta_t_np1 = delta_t_next_read;
+        double t_nm1 = t - delta_t;
 
-      setStateFromSolution(doTimeDependentResid, soln, solnDot, t, delta_t, t_nm1);
+        setStateFromSolution(doTimeDependentResid, soln, solnDot, t, delta_t, t_nm1);
 
-  } 
+    }
 
-  /*
-   *  Create an initial value of the atol vector used in the convergence of the time stepping
-   *  algorithm and in the nonlinear solver.
-   */
-  setAtolVector(psInput_ptr_->absTol_, *soln);
-  /*
-   *  Create an initial vector of delta damping for the nonlinear solver
-   */
-  setAtolDeltaDamping(1.0, *soln);
+    /*
+     *  Create an initial value of the atol vector used in the convergence of the time stepping
+     *  algorithm and in the nonlinear solver.
+     */
+    setAtolVector(psInput_ptr_->absTol_, *soln);
+    /*
+     *  Create an initial vector of delta damping for the nonlinear solver
+     */
+    setAtolDeltaDamping(1.0, *soln);
 }
 //=====================================================================================================================
 void
-ProblemResidEval::createMatrix(RecordTree_base *linearSolver_db)
+ProblemResidEval::createMatrix(RecordTree_base* linearSolver_db)
 {
-  m_jac = new EpetraJac(*this);
-  //m_jac->solverType_=Iterative;
-  m_jac->process_BEinput(linearSolver_db);
-  
-  m_jac->allocateMatrix();
+    m_jac = new EpetraJac(*this);
+    //m_jac->solverType_=Iterative;
+    m_jac->process_BEinput(linearSolver_db);
+
+    m_jac->allocateMatrix();
 #ifdef DEBUG_MATRIX_STRUCTURE
-  m1d::stream0 w0;
-  const Epetra_Comm *cc = m_jac->Comm_ptr_;
-  print0_sync_start(true, w0, *cc);
-  ostringstream ssSave;
-  m_jac->queryMatrixStructure(ssSave);
-  w0 << ssSave.str();
-  w0 << endl;
-  ssprint0(w0);
-  print0_sync_end(true, w0, *cc);
+    m1d::stream0 w0;
+    const Epetra_Comm* cc = m_jac->Comm_ptr_;
+    print0_sync_start(true, w0, *cc);
+    ostringstream ssSave;
+    m_jac->queryMatrixStructure(ssSave);
+    w0 << ssSave.str();
+    w0 << endl;
+    ssprint0(w0);
+    print0_sync_end(true, w0, *cc);
 #endif
-  if (!resInternal_ptr_) {
-    resInternal_ptr_ = new Epetra_Vector((m_jac->A_)->RangeMap());
-  }
+    if (!resInternal_ptr_) {
+        resInternal_ptr_ = new Epetra_Vector((m_jac->A_)->RangeMap());
+    }
 }
 //=====================================================================================================================
 void
-ProblemResidEval::filterSolnPrediction(double t, Epetra_Vector_Ghosted & y)
+ProblemResidEval::filterSolnPrediction(double t, Epetra_Vector_Ghosted& y)
 {
 
 }
 //=====================================================================================================================
 double
 ProblemResidEval::delta_t_constraint(const double time_n,
-                                     const Epetra_Vector_Ghosted &y_n,
-                                     const Epetra_Vector_Ghosted &ydot_n)
+                                     const Epetra_Vector_Ghosted& y_n,
+                                     const Epetra_Vector_Ghosted& ydot_n)
 {
-  return 0.0;
+    return 0.0;
 }
 //=====================================================================================================================
 void
 ProblemResidEval::applyFilter(const double timeCurrent,
                               const double delta_t_n,
-                              const Epetra_Vector_Ghosted &y_current,
-                              const Epetra_Vector_Ghosted &ydot_current,
-                              Epetra_Vector_Ghosted &delta_y)
+                              const Epetra_Vector_Ghosted& y_current,
+                              const Epetra_Vector_Ghosted& ydot_current,
+                              Epetra_Vector_Ghosted& delta_y)
 {
-  delta_y.PutScalar(0.0);
+    delta_y.PutScalar(0.0);
 }
 //=====================================================================================================================
 // This function may be used to create output at various points in the
@@ -832,25 +834,24 @@ ProblemResidEval::user_out(const int ievent,
                            const double time_current,
                            const double delta_t_n,
                            const int istep,
-                           const Epetra_Vector_Ghosted &y_n,
-                           const Epetra_Vector_Ghosted * const ydot_n_ptr)
+                           const Epetra_Vector_Ghosted& y_n,
+                           const Epetra_Vector_Ghosted* const ydot_n_ptr)
 {
-  switch (ievent)
-    {
+    switch (ievent) {
     case -1:
-      break;
+        break;
     case -2:
-      break;
+        break;
     case 0:
-      break;
+        break;
     case 1:
-      break;
+        break;
     case 2:
-      break;
+        break;
     case 3:
-      break;
+        break;
     default:
-      throw m1d_Error("ProblemResidEval::user_out","print command not defined for ievent of this type");
+        throw m1d_Error("ProblemResidEval::user_out","print command not defined for ievent of this type");
     }
 }
 //=====================================================================================================================
@@ -877,45 +878,45 @@ void
 ProblemResidEval::evalTimeTrackingEqns(const int ifunc,
                                        const double t,
                                        const double deltaT,
-                                       const Epetra_Vector_Ghosted & y,
-                                       const Epetra_Vector_Ghosted * const ydot)
+                                       const Epetra_Vector_Ghosted& y,
+                                       const Epetra_Vector_Ghosted* const ydot)
 {
 }
-  //====================================================================================================================
-  // Set a solution parameter 
-  /*
-   *  @param paramName   String identifying the parameter to be set
-   *  @param paramVal    Single double value of the parameter to be set
-   *
-   *  @return returns a 0 if the parameter makes sense
-   *          Returns a negative number if the parameter is unknown
-   */
-  int
-  ProblemResidEval::setSolutionParam(std::string paramName, double paramVal) 
-  {
+//====================================================================================================================
+// Set a solution parameter
+/*
+ *  @param paramName   String identifying the parameter to be set
+ *  @param paramVal    Single double value of the parameter to be set
+ *
+ *  @return returns a 0 if the parameter makes sense
+ *          Returns a negative number if the parameter is unknown
+ */
+int
+ProblemResidEval::setSolutionParam(std::string paramName, double paramVal)
+{
     return -1;
-  }
-  //====================================================================================================================
-  // Get a solution parameter 
-  /*
-   *  @param paramName   String identifying the parameter to be set
-   *  @param paramVal    Vector of parameters returned
-   *
-   *  @return returns the number of parameters returned.
-   */
-  int
-  ProblemResidEval::getSolutionParam(std::string paramName, double * const paramVal) 
-  {
+}
+//====================================================================================================================
+// Get a solution parameter
+/*
+ *  @param paramName   String identifying the parameter to be set
+ *  @param paramVal    Vector of parameters returned
+ *
+ *  @return returns the number of parameters returned.
+ */
+int
+ProblemResidEval::getSolutionParam(std::string paramName, double* const paramVal)
+{
     return -1;
-  }
+}
 
 //=====================================================================================================================
 // Save the solution to the end of an XML file using
 // XML solution format
 /*
- *  We write out the solution to a file. 
+ *  We write out the solution to a file.
  *
- *  
+ *
  *
   <ctml>
    <simulation id="0">
@@ -985,14 +986,14 @@ ProblemResidEval::evalTimeTrackingEqns(const int ifunc,
 void
 ProblemResidEval::saveSolutionEnd(const int itype,
                                   std::string baseFileName,
-                                  const Epetra_Vector_Ghosted &y_n_ghosted,
-                                  const Epetra_Vector_Ghosted *ydot_n_ghosted,
+                                  const Epetra_Vector_Ghosted& y_n_ghosted,
+                                  const Epetra_Vector_Ghosted* ydot_n_ghosted,
                                   const double t,
                                   const double delta_t,
                                   const double delta_t_np1)
 {
     //bool doAllProcs = false;
-    struct tm *newtime;
+    struct tm* newtime;
     time_t aclock;
     static int solNum = 0;
     static int solNumAlt = 0;
@@ -1003,29 +1004,29 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     newtime = localtime(&aclock); /* Convert time to struct tm form */
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     if (mypid != 0) {
-	baseFileName += ("_" + int2str(mypid));
+        baseFileName += ("_" + int2str(mypid));
     }
     std::string fname = baseFileName + ".xml";
     if (solNum == 0) {
-	savedBase = fname;
-	appendAtEnd = 0;
+        savedBase = fname;
+        appendAtEnd = 0;
     }
     if (savedBase != fname) {
-	if ((fname != savedAltBase) && (savedAltBase == "")) {
-	    solNumAlt = 0;
-	    savedAltBase = fname;
-	    appendAtEnd = 0;
-	}
+        if ((fname != savedAltBase) && (savedAltBase == "")) {
+            solNumAlt = 0;
+            savedAltBase = fname;
+            appendAtEnd = 0;
+        }
     }
     if ((fname != savedBase) && (fname != savedAltBase)) {
-	appendAtEnd = 0;
+        appendAtEnd = 0;
     }
 
-    Epetra_BlockMap *nmap = ownedMap();
-    Epetra_Vector *y_n_owned_ptr =  new_EpetraVectorView(y_n_ghosted, *nmap);
-    Epetra_Vector *ydot_n_owned_ptr = 0; 
+    Epetra_BlockMap* nmap = ownedMap();
+    Epetra_Vector* y_n_owned_ptr =  new_EpetraVectorView(y_n_ghosted, *nmap);
+    Epetra_Vector* ydot_n_owned_ptr = 0;
     if (ydot_n_ghosted) {
-	ydot_n_owned_ptr =  new_EpetraVectorView(*ydot_n_ghosted, *nmap);
+        ydot_n_owned_ptr =  new_EpetraVectorView(*ydot_n_ghosted, *nmap);
     }
 
     XML_Node root("--");
@@ -1034,12 +1035,12 @@ ProblemResidEval::saveSolutionEnd(const int itype,
 
     XML_Node& sim = ct.addChild("simulation");
     //
-    // Initially define the 
+    // Initially define the
     std::string simulationID = "0";
     if (fname == savedBase) {
-	simulationID = int2str(solNum);
+        simulationID = int2str(solNum);
     } else if (fname == savedAltBase) {
-	simulationID = int2str(solNumAlt);
+        simulationID = int2str(solNumAlt);
     }
     sim.addAttribute("id", simulationID);
     ZZctml::addString(sim, "timestamp", asctime(newtime));
@@ -1048,94 +1049,94 @@ ProblemResidEval::saveSolutionEnd(const int itype,
 
     ZZctml::addFloat(sim, "time", t, "s", "time");
     if (delta_t > 0.0) {
-	ZZctml::addFloat(sim, "delta_t", delta_t, "s", "time");
+        ZZctml::addFloat(sim, "delta_t", delta_t, "s", "time");
     } else {
-	ZZctml::addFloat(sim, "delta_t", 0.0, "s", "time");
+        ZZctml::addFloat(sim, "delta_t", 0.0, "s", "time");
     }
     ZZctml::addFloat(sim, "delta_t_np1", delta_t_np1, "s", "time");
     ZZctml::addInteger(sim, "StepNumber", m_StepNumber, "", "time");
 
     // Get a local copy of the domain layout
-    DomainLayout &DL = *DL_ptr_;
+    DomainLayout& DL = *DL_ptr_;
 
-    Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+    Epetra_Vector* solnAll = GI_ptr_->SolnAll;
     m1d::gather_nodeV_OnAll(*solnAll, *y_n_owned_ptr);
     //solnAll = m1d::gatherOnAll(y_n);
-    Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+    Epetra_Vector* soln_dot_All = GI_ptr_->SolnDotAll;
     if (ydot_n_ghosted) {
-	m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n_owned_ptr);
+        m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n_owned_ptr);
     }
 
-    Domain1D *d_ptr = DL.SurDomain1D_List[0];
+    Domain1D* d_ptr = DL.SurDomain1D_List[0];
     do {
-	d_ptr->saveDomain(sim, solnAll, soln_dot_All, t, false);
+        d_ptr->saveDomain(sim, solnAll, soln_dot_All, t, false);
 
-	//JCH adding tecplot output call here.
-	//probably want to change this later
-	//d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
+        //JCH adding tecplot output call here.
+        //probably want to change this later
+        //d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
 
-	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
-	if (bd_ptr) {
-	    //BulkDomainDescription &BDD_;
-	    SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
-	    if (sdd) {
-		int idS = sdd->ID();
-		d_ptr = DL.SurDomain1D_List[idS];
-	    } else {
-		d_ptr = 0;
-	    }
-	} else {
-	    SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
-	    DomainDescription *dd = sd_ptr->SDD_.RightDomain;
-	    if (dd) {
-		BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
-		int idS = bdd->ID();
-		d_ptr = DL.BulkDomain1D_List[idS];
-	    } else {
-		d_ptr = 0;
-	    }
-	}
+        BulkDomain1D* bd_ptr = dynamic_cast<BulkDomain1D*>(d_ptr);
+        if (bd_ptr) {
+            //BulkDomainDescription &BDD_;
+            SurfDomainDescription* sdd = bd_ptr->BDD_ptr_->RightSurf;
+            if (sdd) {
+                int idS = sdd->ID();
+                d_ptr = DL.SurDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        } else {
+            SurDomain1D* sd_ptr = dynamic_cast<SurDomain1D*>(d_ptr);
+            DomainDescription* dd = sd_ptr->SDD_.RightDomain;
+            if (dd) {
+                BulkDomainDescription* bdd = dynamic_cast<BulkDomainDescription*>(dd);
+                int idS = bdd->ID();
+                d_ptr = DL.BulkDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        }
     } while (d_ptr);
 
     if (mypid == 0) {
-	if (!appendAtEnd) {
-	    fstream s(fname.c_str(), fstream::in | fstream::out | ios::trunc);
-	    root.write(s);
-	    s.close();
-	} else {
+        if (!appendAtEnd) {
+            fstream s(fname.c_str(), fstream::in | fstream::out | ios::trunc);
+            root.write(s);
+            s.close();
+        } else {
 
-	    int length = 0;
-	    ifstream sr(fname.c_str());
-	    if (sr) {
-		sr.seekg(0, ios::end);
-		length = sr.tellg();
-		sr.close();
-	    }
+            int length = 0;
+            ifstream sr(fname.c_str());
+            if (sr) {
+                sr.seekg(0, ios::end);
+                length = sr.tellg();
+                sr.close();
+            }
 
-	    if (length > 0) {
-		fstream s(fname.c_str(), fstream::in | fstream::out | fstream::ate);
-		//int pos = s.tellp();
-		s.seekp(-8, ios_base::end);
-		sim.write(s, 2);
-		s.write("</ctml>\n", 8);
-		s.close();
-	    } else {
-		fstream s(fname.c_str(), fstream::in | fstream::out | fstream::app);
-		root.write(s);
-		s.close();
-	    }
-	}
+            if (length > 0) {
+                fstream s(fname.c_str(), fstream::in | fstream::out | fstream::ate);
+                //int pos = s.tellp();
+                s.seekp(-8, ios_base::end);
+                sim.write(s, 2);
+                s.write("</ctml>\n", 8);
+                s.close();
+            } else {
+                fstream s(fname.c_str(), fstream::in | fstream::out | fstream::app);
+                root.write(s);
+                s.close();
+            }
+        }
     }
 
     if (mypid == 0) {
-	writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
+        writelog("Solution saved to file " + fname + " as solution " + simulationID + ".\n");
     }
-    Epetra_Comm *c = LI_ptr_->Comm_ptr_;
+    Epetra_Comm* c = LI_ptr_->Comm_ptr_;
     c->Barrier();
     if (fname == savedBase) {
-	solNum++;
+        solNum++;
     } else if (fname == savedAltBase) {
-	solNumAlt++;
+        solNumAlt++;
     }
     delete y_n_owned_ptr;
     delete ydot_n_owned_ptr;
@@ -1143,35 +1144,35 @@ ProblemResidEval::saveSolutionEnd(const int itype,
 //=====================================================================================================================
 void
 ProblemResidEval::readSolutionRecordNumber(const int iNumber,
-					   std::string baseFileName,
-					   Epetra_Vector_Ghosted &y_n_ghosted,
-					   Epetra_Vector_Ghosted * const ydot_n_ghosted,
-					   double &t_read,
-					   double &delta_t_read,
-					   double &delta_t_next_read)
+                                           std::string baseFileName,
+                                           Epetra_Vector_Ghosted& y_n_ghosted,
+                                           Epetra_Vector_Ghosted* const ydot_n_ghosted,
+                                           double& t_read,
+                                           double& delta_t_read,
+                                           double& delta_t_next_read)
 {
     //
     // Flesh out the name of the file
     //
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
     if (mypid != 0) {
-	baseFileName += ("_" + int2str(mypid));
+        baseFileName += ("_" + int2str(mypid));
     }
     std::string fname = baseFileName + ".xml";
 
     //
-    //    Read in the XML file 
+    //    Read in the XML file
     //
     XML_Node* xSavedSoln = get_XML_File(fname);
     if (!xSavedSoln) {
-	throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
-			"Error could not read the file " + fname);
+        throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
+                        "Error could not read the file " + fname);
     }
- 
+
     XML_Node* simulRecord = selectSolutionRecordNumber(xSavedSoln, iNumber);
     if (!simulRecord) {
-	throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
-			"Error could not find the requested record " +  int2str(iNumber));	
+        throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
+                        "Error could not find the requested record " +  int2str(iNumber));
     }
     //
     //  Now call the underlying routine that reads the record
@@ -1179,31 +1180,31 @@ ProblemResidEval::readSolutionRecordNumber(const int iNumber,
     readSolutionXML(simulRecord, y_n_ghosted,ydot_n_ghosted, t_read, delta_t_read, delta_t_next_read);
 
     if (mypid == 0) {
-	writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
+        writelog("Read saved solution from  file " + fname + " as solution " + int2str(iNumber) + ".\n");
     }
-    Epetra_Comm *c = LI_ptr_->Comm_ptr_;
+    Epetra_Comm* c = LI_ptr_->Comm_ptr_;
     c->Barrier();
 
 }
 //=====================================================================================================================
 void
 ProblemResidEval::readSolution(const int iNumber,
-			       std::string baseFileName,
-			       Epetra_Vector_Ghosted &y_n_ghosted,
-			       Epetra_Vector_Ghosted * const ydot_n_ghosted,
-			       double &t_read,
-			       double &delta_t_read,
-                               double &delta_t_next_read)
+                               std::string baseFileName,
+                               Epetra_Vector_Ghosted& y_n_ghosted,
+                               Epetra_Vector_Ghosted* const ydot_n_ghosted,
+                               double& t_read,
+                               double& delta_t_read,
+                               double& delta_t_next_read)
 {
     readSolutionRecordNumber(iNumber, baseFileName, y_n_ghosted, ydot_n_ghosted,
-			     t_read, delta_t_read, delta_t_next_read);
+                             t_read, delta_t_read, delta_t_next_read);
 }
 //=====================================================================================================================
 // Read the solution from a saved file.
 /*
  *  We read only successful final steps
  *
- * @param iNumber      Solution number to read from. Solutions are numbered consequetively from 
+ * @param iNumber      Solution number to read from. Solutions are numbered consequetively from
  *                     zero to the number of global time steps
  *
  * @param baseFileName to be used. .xml is appended onto the filename
@@ -1215,19 +1216,19 @@ ProblemResidEval::readSolution(const int iNumber,
  * @param delta_t_next_read delta time step for the next time step if available
  */
 void
-ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &y_n_ghosted,
-				  Epetra_Vector_Ghosted * const ydot_n_ghosted, double &t_read,
-				  double &delta_t_read, double &delta_t_next_read)
-{    
+ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
+                                  Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
+                                  double& delta_t_read, double& delta_t_next_read)
+{
     // Get a local copy of the domain layout
-    DomainLayout &DL = *DL_ptr_;
+    DomainLayout& DL = *DL_ptr_;
 
     //
     //  Go get a vector for the global solution vector -> this has already been malloced  (i hope)
     //
     // Epetra_Vector *solnAll = GI_ptr_->SolnAll;
-  
-    // 
+
+    //
     //  Go get a vector for the global solution vector dot -> this has already been malloced  (i hope)
     //
     // Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
@@ -1240,32 +1241,32 @@ ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &
     //
     //   Loop over the domains reading in the current solution vector
     //
-    Domain1D *d_ptr = DL.SurDomain1D_List[0];
+    Domain1D* d_ptr = DL.SurDomain1D_List[0];
     do {
-	d_ptr->readDomain(*simulRecord, &y_n_ghosted, ydot_n_ghosted, t_read);
+        d_ptr->readDomain(*simulRecord, &y_n_ghosted, ydot_n_ghosted, t_read);
 
 
-	BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
-	if (bd_ptr) {
-	    //BulkDomainDescription &BDD_;
-	    SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
-	    if (sdd) {
-		int idS = sdd->ID();
-		d_ptr = DL.SurDomain1D_List[idS];
-	    } else {
-		d_ptr = 0;
-	    }
-	} else {
-	    SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
-	    DomainDescription *dd = sd_ptr->SDD_.RightDomain;
-	    if (dd) {
-		BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
-		int idS = bdd->ID();
-		d_ptr = DL.BulkDomain1D_List[idS];
-	    } else {
-		d_ptr = 0;
-	    }
-	}
+        BulkDomain1D* bd_ptr = dynamic_cast<BulkDomain1D*>(d_ptr);
+        if (bd_ptr) {
+            //BulkDomainDescription &BDD_;
+            SurfDomainDescription* sdd = bd_ptr->BDD_ptr_->RightSurf;
+            if (sdd) {
+                int idS = sdd->ID();
+                d_ptr = DL.SurDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        } else {
+            SurDomain1D* sd_ptr = dynamic_cast<SurDomain1D*>(d_ptr);
+            DomainDescription* dd = sd_ptr->SDD_.RightDomain;
+            if (dd) {
+                BulkDomainDescription* bdd = dynamic_cast<BulkDomainDescription*>(dd);
+                int idS = bdd->ID();
+                d_ptr = DL.BulkDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        }
     } while (d_ptr);
 }
 //====================================================================================================================
@@ -1275,31 +1276,31 @@ ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &
  *    @param   globalRecordNumbe   Time step record number to select
  *
  */
- XML_Node* ProblemResidEval::selectSolutionRecordNumber(XML_Node* xmlTop, int globalRecordNumber)
- {   
-     /*
-      *  Search for a particular global step number
-      */
-     XML_Node* xctml = xmlTop;
-     if (xctml->name() != "ctml") {
-	 xctml = xmlTop->findByName("ctml");
-	 if (!xctml) {
-	     throw CanteraError("selectSolutionRecordNumber()","Can't find the top ctml node");
-	 }
-     }
-     //
-     //  Get a vector of simulation children, and then pick the record number from that
-     //
-     std::vector<XML_Node*> ccc;
-     xctml->getChildren("simulation", ccc);
-     int sz = ccc.size();
-     if (globalRecordNumber < 0 || globalRecordNumber >= sz) {
-        throw CanteraError("selectSolutionRecordNumber()", 
+XML_Node* ProblemResidEval::selectSolutionRecordNumber(XML_Node* xmlTop, int globalRecordNumber)
+{
+    /*
+     *  Search for a particular global step number
+     */
+    XML_Node* xctml = xmlTop;
+    if (xctml->name() != "ctml") {
+        xctml = xmlTop->findByName("ctml");
+        if (!xctml) {
+            throw CanteraError("selectSolutionRecordNumber()","Can't find the top ctml node");
+        }
+    }
+    //
+    //  Get a vector of simulation children, and then pick the record number from that
+    //
+    std::vector<XML_Node*> ccc;
+    xctml->getChildren("simulation", ccc);
+    int sz = ccc.size();
+    if (globalRecordNumber < 0 || globalRecordNumber >= sz) {
+        throw CanteraError("selectSolutionRecordNumber()",
                            "Can't find the global record number " + int2str(globalRecordNumber));
-     }
-     XML_Node *xs = ccc[globalRecordNumber];
+    }
+    XML_Node* xs = ccc[globalRecordNumber];
 
-     return xs;
+    return xs;
 }
 //====================================================================================================================
 //  Select the global time step record by its string id.
@@ -1308,30 +1309,30 @@ ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted &
  *    @param   timeStepID          Time step number to select
  *
  */
- XML_Node* ProblemResidEval::selectSolutionTimeStepID(XML_Node* xSoln, std::string timeStepID)
- {   
-     /*
-      *  Search for a particular global step number
-      */
-     XML_Node* eRecord = xSoln->findNameID("simulation", timeStepID);
-     if (!eRecord) {
-	 throw m1d_Error("selectSolutionTimeStepID()", "Solution record for following id not found : " + timeStepID);
-     }
-     /*
-      * Return a pointer to the record
-      */
-     return eRecord;
- }
+XML_Node* ProblemResidEval::selectSolutionTimeStepID(XML_Node* xSoln, std::string timeStepID)
+{
+    /*
+     *  Search for a particular global step number
+     */
+    XML_Node* eRecord = xSoln->findNameID("simulation", timeStepID);
+    if (!eRecord) {
+        throw m1d_Error("selectSolutionTimeStepID()", "Solution record for following id not found : " + timeStepID);
+    }
+    /*
+     * Return a pointer to the record
+     */
+    return eRecord;
+}
 //=====================================================================================================================
 static void
-sprint_line(char * buf, const char * const st, const int num)
+sprint_line(char* buf, const char* const st, const int num)
 {
-  int n = strlen(buf);
-  buf += n;
-  for (int k = 0; k < num; k++, buf++) {
-    sprintf(buf, "%s", st);
-  }
-  sprintf(buf, "\n");
+    int n = strlen(buf);
+    buf += n;
+    for (int k = 0; k < num; k++, buf++) {
+        sprintf(buf, "%s", st);
+    }
+    sprintf(buf, "\n");
 }
 //=====================================================================================================================
 // Write the solution to either the screen or to a log file
@@ -1348,161 +1349,162 @@ sprint_line(char * buf, const char * const st, const int num)
  * @param m_ydot_n  Current value of the derivative of the solution vector
  */
 void
-ProblemResidEval::showProblemSolution(const int ievent, 
-				      bool doTimeDependentResid, 
+ProblemResidEval::showProblemSolution(const int ievent,
+                                      bool doTimeDependentResid,
                                       const double t,
                                       const double delta_t,
-                                      const Epetra_Vector_Ghosted &y_n,
-                                      const Epetra_Vector_Ghosted * const ydot_n,
-				      const Solve_Type_Enum solveType,
+                                      const Epetra_Vector_Ghosted& y_n,
+                                      const Epetra_Vector_Ghosted* const ydot_n,
+                                      const Solve_Type_Enum solveType,
                                       const double delta_t_np1)
 {
 
-  //bool doAllProcs = false;
-  time_t aclock;
-  ::time(&aclock); /* Get time in seconds */
-  int mypid = LI_ptr_->Comm_ptr_->MyPID();
-  char buf[256];
-  bool duplicateOnAllProcs = false;
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
+    //bool doAllProcs = false;
+    time_t aclock;
+    ::time(&aclock); /* Get time in seconds */
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    char buf[256];
+    bool duplicateOnAllProcs = false;
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
 
-  Epetra_Vector *solnAll = GI_ptr_->SolnAll;
-  m1d::gather_nodeV_OnAll(*solnAll, y_n);
+    Epetra_Vector* solnAll = GI_ptr_->SolnAll;
+    m1d::gather_nodeV_OnAll(*solnAll, y_n);
 
-  Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
-  if (ydot_n) {
-    m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
-  }
-  double rdelta_t = 0.0;
-  if (delta_t > 0.0) {
-    rdelta_t = 1.0 / delta_t;
-  }
-
-  // residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
-
-  int indentSpaces = 4;
-  string indent = "    ";
-  const char *ind = indent.c_str();
-  if (!mypid || duplicateOnAllProcs) {
-    sprintf(buf, "%s", ind);
-    sprint_line(buf, "-", 100);
-    writelog(buf);
-    sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
-    writelog(buf);
-    if (solveType == TimeDependentInitial) {
-       sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
-    } else {
-       sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+    Epetra_Vector* soln_dot_All = GI_ptr_->SolnDotAll;
+    if (ydot_n) {
+        m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
     }
-    writelog(buf);
-    sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-    writelog(buf);
-    sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
-    writelog(buf);
-    sprintf(buf, "%s", ind);
-    sprint_line(buf, "-", 100);
-    writelog(buf);
-  }
-
-  Domain1D *d_ptr = DL.SurDomain1D_List[0];
-  do {
-    d_ptr->showSolution(solnAll, soln_dot_All, &y_n, ydot_n, solnOld_ptr_,
-                        resInternal_ptr_, t, rdelta_t, indentSpaces + 2,
-                        duplicateOnAllProcs);
-    BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
-    if (bd_ptr) {
-      //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
-      if (sdd) {
-        int idS = sdd->ID();
-        d_ptr = DL.SurDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
-    } else {
-      SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
-      DomainDescription *dd = sd_ptr->SDD_.RightDomain;
-      if (dd) {
-        BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
-        int idS = bdd->ID();
-        d_ptr = DL.BulkDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
+    double rdelta_t = 0.0;
+    if (delta_t > 0.0) {
+        rdelta_t = 1.0 / delta_t;
     }
-  } while (d_ptr);
 
-  if (!mypid || duplicateOnAllProcs) {
-    sprintf(buf, "%s", ind);
-    sprint_line(buf, "-", 100);
-    writelog(buf);
-  }
+    // residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
 
-  Epetra_Comm *c = LI_ptr_->Comm_ptr_;
-  c->Barrier();
+    int indentSpaces = 4;
+    string indent = "    ";
+    const char* ind = indent.c_str();
+    if (!mypid || duplicateOnAllProcs) {
+        sprintf(buf, "%s", ind);
+        sprint_line(buf, "-", 100);
+        writelog(buf);
+        sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
+        writelog(buf);
+        if (solveType == TimeDependentInitial) {
+            sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind,
+                    delta_t);
+        } else {
+            sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+        }
+        writelog(buf);
+        sprintf(buf, "%s                       StepNumber %6d\n", ind, m_StepNumber);
+        writelog(buf);
+        sprintf(buf, "%s                       Delta_t_p1 %-12.3E\n", ind, delta_t_np1);
+        writelog(buf);
+        sprintf(buf, "%s", ind);
+        sprint_line(buf, "-", 100);
+        writelog(buf);
+    }
+
+    Domain1D* d_ptr = DL.SurDomain1D_List[0];
+    do {
+        d_ptr->showSolution(solnAll, soln_dot_All, &y_n, ydot_n, solnOld_ptr_,
+                            resInternal_ptr_, t, rdelta_t, indentSpaces + 2,
+                            duplicateOnAllProcs);
+        BulkDomain1D* bd_ptr = dynamic_cast<BulkDomain1D*>(d_ptr);
+        if (bd_ptr) {
+            //BulkDomainDescription &BDD_;
+            SurfDomainDescription* sdd = bd_ptr->BDD_ptr_->RightSurf;
+            if (sdd) {
+                int idS = sdd->ID();
+                d_ptr = DL.SurDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        } else {
+            SurDomain1D* sd_ptr = dynamic_cast<SurDomain1D*>(d_ptr);
+            DomainDescription* dd = sd_ptr->SDD_.RightDomain;
+            if (dd) {
+                BulkDomainDescription* bdd = dynamic_cast<BulkDomainDescription*>(dd);
+                int idS = bdd->ID();
+                d_ptr = DL.BulkDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        }
+    } while (d_ptr);
+
+    if (!mypid || duplicateOnAllProcs) {
+        sprintf(buf, "%s", ind);
+        sprint_line(buf, "-", 100);
+        writelog(buf);
+    }
+
+    Epetra_Comm* c = LI_ptr_->Comm_ptr_;
+    c->Barrier();
 
 }
 //=====================================================================================================================
 void
 ProblemResidEval::writeTecplot(const int ievent,
-			       std::string baseFileName,
-			       bool doTimeDependentResid, 
-			       const double t,
-			       const double delta_t,
-			       const Epetra_Vector_Ghosted &y_n,
-			       const Epetra_Vector_Ghosted * const ydot_n,
-			       const Solve_Type_Enum solveType,
-			       const double delta_t_np1)
-{ 
+                               std::string baseFileName,
+                               bool doTimeDependentResid,
+                               const double t,
+                               const double delta_t,
+                               const Epetra_Vector_Ghosted& y_n,
+                               const Epetra_Vector_Ghosted* const ydot_n,
+                               const Solve_Type_Enum solveType,
+                               const double delta_t_np1)
+{
     // Get a local copy of the domain layout
-    DomainLayout &DL = *DL_ptr_;
+    DomainLayout& DL = *DL_ptr_;
 
     static int firstTime = 1;
     static double lastTime = -10000.0;
 
-    Epetra_Vector *solnAll = GI_ptr_->SolnAll;
+    Epetra_Vector* solnAll = GI_ptr_->SolnAll;
     m1d::gather_nodeV_OnAll(*solnAll, y_n);
-    
-    Epetra_Vector *soln_dot_All = GI_ptr_->SolnDotAll;
+
+    Epetra_Vector* soln_dot_All = GI_ptr_->SolnDotAll;
     if (ydot_n) {
-	m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
+        m1d::gather_nodeV_OnAll(*soln_dot_All, *ydot_n);
     }
-    
+
     //
     // Write individual Tecplot files for each domain
     //
     if (firstTime) {
-	firstTime = 0;
-	for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-	    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	    d_ptr->writeSolutionTecplotHeader();
-	}
-	for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-	    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-	    d_ptr->writeSolutionTecplotHeader();
-	}
-	
+        firstTime = 0;
+        for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+            BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+            d_ptr->writeSolutionTecplotHeader();
+        }
+        for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+            SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+            d_ptr->writeSolutionTecplotHeader();
+        }
 
-	//writeGlobalTecplotHeader();
+
+        //writeGlobalTecplotHeader();
     }
 
     bool doWrite = true;
     if (ievent == 2) {
         if (fabs(t - lastTime) <= (1.0E-3 * delta_t)) {
-           doWrite = false;
-        } 
+            doWrite = false;
+        }
     }
-        
+
     if (doWrite) {
-    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-	BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-	d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
-    }
-    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-	SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-	d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
-    }
+        for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+            BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+            d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
+        }
+        for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+            SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+            d_ptr->writeSolutionTecplot(solnAll, soln_dot_All, t);
+        }
     }
 
     lastTime = t;
@@ -1523,82 +1525,88 @@ ProblemResidEval::writeTecplot(const int ievent,
  */
 void
 ProblemResidEval::showSolutionVector(std::string& solnVecName,
-				     const double t,
-				     const double delta_t,
-				     const Epetra_Vector_Owned &solnVector,
-				     FILE *outFile)
+                                     const double t,
+                                     const double delta_t,
+                                     const Epetra_Vector_Owned& solnVector,
+                                     FILE* outFile)
 {
 
-  //bool doAllProcs = false;
-  time_t aclock;
-  ::time(&aclock); /* Get time in seconds */
-  int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    //bool doAllProcs = false;
+    time_t aclock;
+    ::time(&aclock); /* Get time in seconds */
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
 
-  bool duplicateOnAllProcs = false;
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
+    bool duplicateOnAllProcs = false;
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
 
-  Epetra_Vector *solnVectorAll = GI_ptr_->SolnAll;
-  m1d::gather_nodeV_OnAll(*solnVectorAll, solnVector);
-
-
-  double rdelta_t = 0.0;
-  if (delta_t > 0.0) {
-    rdelta_t = 1.0 / delta_t;
-  }
+    Epetra_Vector* solnVectorAll = GI_ptr_->SolnAll;
+    m1d::gather_nodeV_OnAll(*solnVectorAll, solnVector);
 
 
-  int indentSpaces = 4;
-  string indent = "    ";
-  const char *ind = indent.c_str();
-  if (!mypid || duplicateOnAllProcs) {
-    fprintf(outFile, "%s", ind);
-    for (int i = 0; i < 100; i++) fprintf(outFile, "-");
-    fprintf(outFile, "\n");
-    fprintf(outFile, "%s showSolutionVector : %s\n", ind, solnVecName.c_str());
-    fprintf(outFile, "%s                       Time       %-12.3E\n", ind, t);
-    fprintf(outFile, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
-    fprintf(outFile, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-    fprintf(outFile, "%s", ind);
-    for (int i = 0; i < 100; i++) fprintf(outFile, "-");
-    fprintf(outFile, "\n");
-  }
-
-  Domain1D *d_ptr = DL.SurDomain1D_List[0];
-  do {
-    d_ptr->showSolutionVector(solnVecName, solnVectorAll,  &solnVector, t, rdelta_t, indentSpaces + 2, 
-			      duplicateOnAllProcs, outFile);
-    BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
-    if (bd_ptr) {
-      //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
-      if (sdd) {
-        int idS = sdd->ID();
-        d_ptr = DL.SurDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
-    } else {
-      SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
-      DomainDescription *dd = sd_ptr->SDD_.RightDomain;
-      if (dd) {
-        BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
-        int idS = bdd->ID();
-        d_ptr = DL.BulkDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
+    double rdelta_t = 0.0;
+    if (delta_t > 0.0) {
+        rdelta_t = 1.0 / delta_t;
     }
-  } while (d_ptr);
 
-  if (!mypid || duplicateOnAllProcs) {
-    fprintf(outFile, "%s", ind);
-    for (int i = 0; i < 100; i++) fprintf(outFile, "-");
-    fprintf(outFile, "\n");
-  }
 
-  Epetra_Comm *c = LI_ptr_->Comm_ptr_;
-  c->Barrier();
+    int indentSpaces = 4;
+    string indent = "    ";
+    const char* ind = indent.c_str();
+    if (!mypid || duplicateOnAllProcs) {
+        fprintf(outFile, "%s", ind);
+        for (int i = 0; i < 100; i++) {
+            fprintf(outFile, "-");
+        }
+        fprintf(outFile, "\n");
+        fprintf(outFile, "%s showSolutionVector : %s\n", ind, solnVecName.c_str());
+        fprintf(outFile, "%s                       Time       %-12.3E\n", ind, t);
+        fprintf(outFile, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+        fprintf(outFile, "%s                       StepNumber %6d\n", ind, m_StepNumber);
+        fprintf(outFile, "%s", ind);
+        for (int i = 0; i < 100; i++) {
+            fprintf(outFile, "-");
+        }
+        fprintf(outFile, "\n");
+    }
+
+    Domain1D* d_ptr = DL.SurDomain1D_List[0];
+    do {
+        d_ptr->showSolutionVector(solnVecName, solnVectorAll,  &solnVector, t, rdelta_t, indentSpaces + 2,
+                                  duplicateOnAllProcs, outFile);
+        BulkDomain1D* bd_ptr = dynamic_cast<BulkDomain1D*>(d_ptr);
+        if (bd_ptr) {
+            //BulkDomainDescription &BDD_;
+            SurfDomainDescription* sdd = bd_ptr->BDD_ptr_->RightSurf;
+            if (sdd) {
+                int idS = sdd->ID();
+                d_ptr = DL.SurDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        } else {
+            SurDomain1D* sd_ptr = dynamic_cast<SurDomain1D*>(d_ptr);
+            DomainDescription* dd = sd_ptr->SDD_.RightDomain;
+            if (dd) {
+                BulkDomainDescription* bdd = dynamic_cast<BulkDomainDescription*>(dd);
+                int idS = bdd->ID();
+                d_ptr = DL.BulkDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        }
+    } while (d_ptr);
+
+    if (!mypid || duplicateOnAllProcs) {
+        fprintf(outFile, "%s", ind);
+        for (int i = 0; i < 100; i++) {
+            fprintf(outFile, "-");
+        }
+        fprintf(outFile, "\n");
+    }
+
+    Epetra_Comm* c = LI_ptr_->Comm_ptr_;
+    c->Barrier();
 
 }
 
@@ -1618,82 +1626,88 @@ ProblemResidEval::showSolutionVector(std::string& solnVecName,
  */
 void
 ProblemResidEval::showSolutionIntVector(std::string& solnVecName,
-				     const double t,
-				     const double delta_t,
-				     const Epetra_IntVector &solnIntVector,
-				     FILE *outFile)
+                                        const double t,
+                                        const double delta_t,
+                                        const Epetra_IntVector& solnIntVector,
+                                        FILE* outFile)
 {
 
-  //bool doAllProcs = false;
-  time_t aclock;
-  ::time(&aclock); /* Get time in seconds */
-  int mypid = LI_ptr_->Comm_ptr_->MyPID();
+    //bool doAllProcs = false;
+    time_t aclock;
+    ::time(&aclock); /* Get time in seconds */
+    int mypid = LI_ptr_->Comm_ptr_->MyPID();
 
-  bool duplicateOnAllProcs = false;
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
+    bool duplicateOnAllProcs = false;
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
 
-  Epetra_IntVector *solnIntVectorAll = GI_ptr_->SolnIntAll;
-  m1d::gather_nodeIntV_OnAll(*solnIntVectorAll, solnIntVector);
-
-
-  double rdelta_t = 0.0;
-  if (delta_t > 0.0) {
-    rdelta_t = 1.0 / delta_t;
-  }
+    Epetra_IntVector* solnIntVectorAll = GI_ptr_->SolnIntAll;
+    m1d::gather_nodeIntV_OnAll(*solnIntVectorAll, solnIntVector);
 
 
-  int indentSpaces = 4;
-  string indent = "    ";
-  const char *ind = indent.c_str();
-  if (!mypid || duplicateOnAllProcs) {
-    fprintf(outFile, "%s", ind);
-    for (int i = 0; i < 100; i++) fprintf(outFile, "-");
-    fprintf(outFile, "\n");
-    fprintf(outFile, "%s showSolutionVector : %s\n", ind, solnVecName.c_str());
-    fprintf(outFile, "%s                       Time       %-12.3E\n", ind, t);
-    fprintf(outFile, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
-    fprintf(outFile, "%s                       StepNumber %6d\n", ind, m_StepNumber);
-    fprintf(outFile, "%s", ind);
-    for (int i = 0; i < 100; i++) fprintf(outFile, "-");
-    fprintf(outFile, "\n");
-  }
-
-  Domain1D *d_ptr = DL.SurDomain1D_List[0];
-  do {
-    d_ptr->showSolutionIntVector(solnVecName, solnIntVectorAll,  &solnIntVector, t, rdelta_t, indentSpaces + 2, 
-				 duplicateOnAllProcs, outFile);
-    BulkDomain1D *bd_ptr = dynamic_cast<BulkDomain1D *> (d_ptr);
-    if (bd_ptr) {
-      //BulkDomainDescription &BDD_;
-      SurfDomainDescription *sdd = bd_ptr->BDD_ptr_->RightSurf;
-      if (sdd) {
-        int idS = sdd->ID();
-        d_ptr = DL.SurDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
-    } else {
-      SurDomain1D *sd_ptr = dynamic_cast<SurDomain1D *> (d_ptr);
-      DomainDescription *dd = sd_ptr->SDD_.RightDomain;
-      if (dd) {
-        BulkDomainDescription *bdd = dynamic_cast<BulkDomainDescription *> (dd);
-        int idS = bdd->ID();
-        d_ptr = DL.BulkDomain1D_List[idS];
-      } else {
-        d_ptr = 0;
-      }
+    double rdelta_t = 0.0;
+    if (delta_t > 0.0) {
+        rdelta_t = 1.0 / delta_t;
     }
-  } while (d_ptr);
 
-  if (!mypid || duplicateOnAllProcs) {
-    fprintf(outFile, "%s", ind);
-    for (int i = 0; i < 100; i++) fprintf(outFile, "-");
-    fprintf(outFile, "\n");
-  }
 
-  Epetra_Comm *c = LI_ptr_->Comm_ptr_;
-  c->Barrier();
+    int indentSpaces = 4;
+    string indent = "    ";
+    const char* ind = indent.c_str();
+    if (!mypid || duplicateOnAllProcs) {
+        fprintf(outFile, "%s", ind);
+        for (int i = 0; i < 100; i++) {
+            fprintf(outFile, "-");
+        }
+        fprintf(outFile, "\n");
+        fprintf(outFile, "%s showSolutionVector : %s\n", ind, solnVecName.c_str());
+        fprintf(outFile, "%s                       Time       %-12.3E\n", ind, t);
+        fprintf(outFile, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
+        fprintf(outFile, "%s                       StepNumber %6d\n", ind, m_StepNumber);
+        fprintf(outFile, "%s", ind);
+        for (int i = 0; i < 100; i++) {
+            fprintf(outFile, "-");
+        }
+        fprintf(outFile, "\n");
+    }
+
+    Domain1D* d_ptr = DL.SurDomain1D_List[0];
+    do {
+        d_ptr->showSolutionIntVector(solnVecName, solnIntVectorAll,  &solnIntVector, t, rdelta_t, indentSpaces + 2,
+                                     duplicateOnAllProcs, outFile);
+        BulkDomain1D* bd_ptr = dynamic_cast<BulkDomain1D*>(d_ptr);
+        if (bd_ptr) {
+            //BulkDomainDescription &BDD_;
+            SurfDomainDescription* sdd = bd_ptr->BDD_ptr_->RightSurf;
+            if (sdd) {
+                int idS = sdd->ID();
+                d_ptr = DL.SurDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        } else {
+            SurDomain1D* sd_ptr = dynamic_cast<SurDomain1D*>(d_ptr);
+            DomainDescription* dd = sd_ptr->SDD_.RightDomain;
+            if (dd) {
+                BulkDomainDescription* bdd = dynamic_cast<BulkDomainDescription*>(dd);
+                int idS = bdd->ID();
+                d_ptr = DL.BulkDomain1D_List[idS];
+            } else {
+                d_ptr = 0;
+            }
+        }
+    } while (d_ptr);
+
+    if (!mypid || duplicateOnAllProcs) {
+        fprintf(outFile, "%s", ind);
+        for (int i = 0; i < 100; i++) {
+            fprintf(outFile, "-");
+        }
+        fprintf(outFile, "\n");
+    }
+
+    Epetra_Comm* c = LI_ptr_->Comm_ptr_;
+    c->Barrier();
 
 }
 
@@ -1717,9 +1731,9 @@ ProblemResidEval::writeSolution(const int ievent,
                                 const double time_current,
                                 const double delta_t_n,
                                 int istep,
-                                const Epetra_Vector_Ghosted &y_n,
-                                const Epetra_Vector_Ghosted * const ydot_n_ptr,
-				const Solve_Type_Enum solveType,
+                                const Epetra_Vector_Ghosted& y_n,
+                                const Epetra_Vector_Ghosted* const ydot_n_ptr,
+                                const Solve_Type_Enum solveType,
                                 const double delta_t_np1)
 {
     //
@@ -1731,40 +1745,41 @@ ProblemResidEval::writeSolution(const int ievent,
     //
     double rdelta_t = 0.0;
     if (delta_t_n > 0.0) {
-       rdelta_t = 1.0 / delta_t_n;
+        rdelta_t = 1.0 / delta_t_n;
     }
-    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n_ptr, time_current, rdelta_t, Base_ShowSolution, solveType);
+    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n_ptr, time_current, rdelta_t, Base_ShowSolution,
+              solveType);
 
 
     static double lastTime = -10000000.;
     if (ievent == 0 || ievent == 1 || ievent == 2) {
         if (ievent == 2) {
-           if (fabs(lastTime - time_current) > 1.0E-3 * delta_t_n) {
-	       saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+            if (fabs(lastTime - time_current) > 1.0E-3 * delta_t_n) {
+                saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
             }
         } else {
-	    saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+            saveSolutionEnd(ievent, m_baseFileName, y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
         }
     }
     if (m_writeStartEndFile) {
         if (ievent == 0 || ievent == 2) {
-  	    saveSolutionEnd(ievent, "solutionStartEnd", y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
+            saveSolutionEnd(ievent, "solutionStartEnd", y_n, ydot_n_ptr, time_current, delta_t_n, delta_t_np1);
         }
     }
-   
+
     if (ievent == 0 || ievent == 1 || ievent == 2) {
- 	if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {
-	    showProblemSolution(ievent,  doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType, 
+        if (PSinput_ptr->SolutionBehavior_printLvl_ > 3) {
+            showProblemSolution(ievent,  doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType,
                                 delta_t_np1);
-	}
+        }
     }
 
-    
-    writeTecplot(ievent,  m_baseFileName, doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType, 
-		 delta_t_np1);
 
-   
-    
+    writeTecplot(ievent,  m_baseFileName, doTimeDependentResid, time_current, delta_t_n, y_n, ydot_n_ptr, solveType,
+                 delta_t_np1);
+
+
+
     lastTime = time_current;
 }
 //=====================================================================================================================
@@ -1775,12 +1790,12 @@ ProblemResidEval::writeSolution(const int ievent,
  *
  */
 bool
-ProblemResidEval::evalStoppingCritera(double &time_current,
-                                      double &delta_t_n,
-                                      const Epetra_Vector_Ghosted &y_n,
-                                      const Epetra_Vector_Ghosted &ydot_n)
+ProblemResidEval::evalStoppingCritera(double& time_current,
+                                      double& delta_t_n,
+                                      const Epetra_Vector_Ghosted& y_n,
+                                      const Epetra_Vector_Ghosted& ydot_n)
 {
-  return false;
+    return false;
 }
 
 
@@ -1794,7 +1809,7 @@ ProblemResidEval::evalStoppingCritera(double &time_current,
  * do nothing.
  */
 void
-ProblemResidEval::matrixConditioning(double * const matrix, int nrows, double * const rhs)
+ProblemResidEval::matrixConditioning(double* const matrix, int nrows, double* const rhs)
 {
 }
 //=====================================================================================================================
@@ -1806,133 +1821,134 @@ void
 ProblemResidEval::domain_prep()
 {
 
-  // Get a local copy of the domain layout
-  DomainLayout &DL = *DL_ptr_;
+    // Get a local copy of the domain layout
+    DomainLayout& DL = *DL_ptr_;
 
-  /*
-   *   Loop over the Volume Domains
-   *
-   */
-  for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-    //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
-    BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+    /*
+     *   Loop over the Volume Domains
+     *
+     */
+    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
 
-    d_ptr->domain_prep(LI_ptr_);
-  }
+        d_ptr->domain_prep(LI_ptr_);
+    }
 
-  /*
-   *    Loop over the Surface Domains
-   */
-  for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-    SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
+    /*
+     *    Loop over the Surface Domains
+     */
+    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
 
-    d_ptr->domain_prep(LI_ptr_);
-  }
+        d_ptr->domain_prep(LI_ptr_);
+    }
 }
 //=====================================================================================================================
-  // Link the ProblemStatement class with the ProblemResidEval class and other classes
-  // that need input from the user
-  /*
-   *  @param psInput_ptr   Pointer to the ProblemStatement class
-   */
-  void ProblemResidEval::link_input(ProblemStatement *psInput_ptr) {
+// Link the ProblemStatement class with the ProblemResidEval class and other classes
+// that need input from the user
+/*
+ *  @param psInput_ptr   Pointer to the ProblemStatement class
+ */
+void ProblemResidEval::link_input(ProblemStatement* psInput_ptr)
+{
     psInput_ptr_ = psInput_ptr;
-  }
+}
 //=====================================================================================================================
 EpetraJac&
 ProblemResidEval::jacobian()
 {
-  return (*m_jac);
+    return (*m_jac);
 }
 //=====================================================================================================================
 // Returns the ghosted map of the problem
-Epetra_BlockMap *
+Epetra_BlockMap*
 ProblemResidEval::ghostedMap() const
 {
-  return LI_ptr_->GbBlockNodeEqnstoLcBlockNodeEqnsColMap;
+    return LI_ptr_->GbBlockNodeEqnstoLcBlockNodeEqnsColMap;
 }
 //=====================================================================================================================
 // Returns the unique unknown map of the problem
-Epetra_BlockMap *
+Epetra_BlockMap*
 ProblemResidEval::ownedMap() const
 {
-  return LI_ptr_->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap;
+    return LI_ptr_->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap;
 }
 //=====================================================================================================================
 int
 ProblemResidEval::NumGbEqns() const
 {
-  if (!GI_ptr_) {
-    throw m1d_Error("ProblemResidEval::NumGbEqns()", "pointer is null");
-  }
-  return GI_ptr_->NumGbEqns;
+    if (!GI_ptr_) {
+        throw m1d_Error("ProblemResidEval::NumGbEqns()", "pointer is null");
+    }
+    return GI_ptr_->NumGbEqns;
 }
 //=====================================================================================================================
 int
 ProblemResidEval::NumGbNodes() const
 {
-  if (!GI_ptr_) {
-    throw m1d_Error("ProblemResidEval::NumGbNodes()", "pointer is null");
-  }
-  return GI_ptr_->NumGbNodes;
+    if (!GI_ptr_) {
+        throw m1d_Error("ProblemResidEval::NumGbNodes()", "pointer is null");
+    }
+    return GI_ptr_->NumGbNodes;
 }
 //=====================================================================================================================
-  std::string ProblemResidEval::equationID(int ilocalEqn, int& iLcNode, int & iGbNode,  int& iNodeEqnNum, EqnType &eqn,
-					   EQ_TYPE_SUBNUM &etsub)
+std::string ProblemResidEval::equationID(int ilocalEqn, int& iLcNode, int& iGbNode,  int& iNodeEqnNum, EqnType& eqn,
+                                         EQ_TYPE_SUBNUM& etsub)
 {
-  std::string vstring;
-  int ilfound = LI_ptr_->NumLcNodes - 1;
-  int istart;
-  // Find the local node number
-  for (int i = 0; i < LI_ptr_->NumLcNodes; i++) {
-    istart = LI_ptr_->IndexLcEqns_LcNode[i];
-    if (ilocalEqn < istart) {
-      ilfound = i - 1;
-      break;
+    std::string vstring;
+    int ilfound = LI_ptr_->NumLcNodes - 1;
+    int istart;
+    // Find the local node number
+    for (int i = 0; i < LI_ptr_->NumLcNodes; i++) {
+        istart = LI_ptr_->IndexLcEqns_LcNode[i];
+        if (ilocalEqn < istart) {
+            ilfound = i - 1;
+            break;
+        }
     }
-  }
-  iLcNode = ilfound;
-  // Find the global node number
-  iGbNode = LI_ptr_->IndexGbNode_LcNode[ilfound];
-  // Get the nodal vars structure for the global node
-  NodalVars *nv =  GI_ptr_->NodalVars_GbNode[iGbNode];
-  // Find the local equation number on that node
-  iNodeEqnNum = ilocalEqn - LI_ptr_->IndexLcEqns_LcNode[ilfound];
-  // Now query the NodalVars structure for the variable name and subtype
-  eqn   = nv->EquationNameList_EqnNum[iNodeEqnNum];
-  etsub = nv->EquationSubType_EqnNum[iNodeEqnNum];
-  // Get the string which identifies the variable and return
-  vstring = eqn.EquationName(200);
-  return vstring;
+    iLcNode = ilfound;
+    // Find the global node number
+    iGbNode = LI_ptr_->IndexGbNode_LcNode[ilfound];
+    // Get the nodal vars structure for the global node
+    NodalVars* nv =  GI_ptr_->NodalVars_GbNode[iGbNode];
+    // Find the local equation number on that node
+    iNodeEqnNum = ilocalEqn - LI_ptr_->IndexLcEqns_LcNode[ilfound];
+    // Now query the NodalVars structure for the variable name and subtype
+    eqn   = nv->EquationNameList_EqnNum[iNodeEqnNum];
+    etsub = nv->EquationSubType_EqnNum[iNodeEqnNum];
+    // Get the string which identifies the variable and return
+    vstring = eqn.EquationName(200);
+    return vstring;
 }
 //=====================================================================================================================
-std::string ProblemResidEval::variableID(int ilocalVar, int& iLcNode, int & iGbNode, int& iNodeEqnNum, VarType &var,
-					 VAR_TYPE_SUBNUM &vtsub)
+std::string ProblemResidEval::variableID(int ilocalVar, int& iLcNode, int& iGbNode, int& iNodeEqnNum, VarType& var,
+                                         VAR_TYPE_SUBNUM& vtsub)
 {
-  std::string vstring;
-  int ilfound = LI_ptr_->NumLcNodes - 1;
-  int istart;
-  // Find the local node number
-  for (int i = 0; i < LI_ptr_->NumLcNodes; i++) {
-    istart = LI_ptr_->IndexLcEqns_LcNode[i];
-    if (ilocalVar < istart) {
-      ilfound = i - 1;
-      break;
+    std::string vstring;
+    int ilfound = LI_ptr_->NumLcNodes - 1;
+    int istart;
+    // Find the local node number
+    for (int i = 0; i < LI_ptr_->NumLcNodes; i++) {
+        istart = LI_ptr_->IndexLcEqns_LcNode[i];
+        if (ilocalVar < istart) {
+            ilfound = i - 1;
+            break;
+        }
     }
-  }
-  iLcNode = ilfound;
-  // Find the global node number
-  iGbNode = LI_ptr_->IndexGbNode_LcNode[ilfound];
-  // Get the nodal vars structure for the global node
-  NodalVars *nv =  GI_ptr_->NodalVars_GbNode[iGbNode];
-  // Find the local equation number on that node
-  iNodeEqnNum = ilocalVar - LI_ptr_->IndexLcEqns_LcNode[ilfound];
-  // Now query the NodalVars structure for the variable name and subtype
-  var = nv->VariableNameList_EqnNum[iNodeEqnNum];
-  vtsub = nv->VariableSubType_EqnNum[iNodeEqnNum];
-  // Get the string which identifies the variable and return
-  vstring = var.VariableName(200);
-  return vstring;
+    iLcNode = ilfound;
+    // Find the global node number
+    iGbNode = LI_ptr_->IndexGbNode_LcNode[ilfound];
+    // Get the nodal vars structure for the global node
+    NodalVars* nv =  GI_ptr_->NodalVars_GbNode[iGbNode];
+    // Find the local equation number on that node
+    iNodeEqnNum = ilocalVar - LI_ptr_->IndexLcEqns_LcNode[ilfound];
+    // Now query the NodalVars structure for the variable name and subtype
+    var = nv->VariableNameList_EqnNum[iNodeEqnNum];
+    vtsub = nv->VariableSubType_EqnNum[iNodeEqnNum];
+    // Get the string which identifies the variable and return
+    vstring = var.VariableName(200);
+    return vstring;
 }
 //=====================================================================================================================
 // Return the global equation number given the global block number
@@ -1946,18 +1962,18 @@ int
 ProblemResidEval::GbEqnNum_From_GbBlock(const int gbBlockNum, const int localRowNumInBlock)
 {
 #ifdef DEBUG_MODE
-  if (gbBlockNum < 0 || gbBlockNum >= GI_ptr_->NumGbNodes) {
-    throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "gbBlockNum out of range: "
-        + int2str(gbBlockNum) + "\n");
-  }
-  int indexStart = GI_ptr_->IndexStartGbEqns_Proc[gbBlockNum];
-  if ((localRowNumInBlock < 0) || (localRowNumInBlock >= GI_ptr_->NumEqns_GbNode[gbBlockNum])) {
-    throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "localRowNumInBlock out of range: "
-        + int2str(localRowNumInBlock) + "\n");
-  }
-  return indexStart + localRowNumInBlock;
+    if (gbBlockNum < 0 || gbBlockNum >= GI_ptr_->NumGbNodes) {
+        throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "gbBlockNum out of range: "
+                        + int2str(gbBlockNum) + "\n");
+    }
+    int indexStart = GI_ptr_->IndexStartGbEqns_Proc[gbBlockNum];
+    if ((localRowNumInBlock < 0) || (localRowNumInBlock >= GI_ptr_->NumEqns_GbNode[gbBlockNum])) {
+        throw m1d_Error("ProblemResidEval::GbEqnNum_From_GbBlock", "localRowNumInBlock out of range: "
+                        + int2str(localRowNumInBlock) + "\n");
+    }
+    return indexStart + localRowNumInBlock;
 #else
-  return GI_ptr_->IndexStartGbEqns_Proc[gbBlockNum] + localRowNumInBlock;
+    return GI_ptr_->IndexStartGbEqns_Proc[gbBlockNum] + localRowNumInBlock;
 #endif
 }
 //=====================================================================================================================
@@ -1974,22 +1990,22 @@ ProblemResidEval::GbEqnNum_From_GbBlock(const int gbBlockNum, const int localRow
 int
 ProblemResidEval::GbNodeToLcNode(const int gbNode) const
 {
-  return (LI_ptr_->GbNodeToLcNode(gbNode));
+    return (LI_ptr_->GbNodeToLcNode(gbNode));
 }
 //=====================================================================================================================
 int
 ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
 {
-  int rowEqnNum;
-  int gbNode = GI_ptr_->GbEqnToGbNode(gbEqn, rowEqnNum);
+    int rowEqnNum;
+    int gbNode = GI_ptr_->GbEqnToGbNode(gbEqn, rowEqnNum);
 
-  int lcnode = LI_ptr_->GbNodeToLcNode(gbNode);
+    int lcnode = LI_ptr_->GbNodeToLcNode(gbNode);
 
-  if (lcnode >= 0) {
-    int lceqn = LI_ptr_->IndexLcEqns_LcNode[lcnode];
-    return (rowEqnNum + lceqn);
-  }
-  return -1;
+    if (lcnode >= 0) {
+        int lceqn = LI_ptr_->IndexLcEqns_LcNode[lcnode];
+        return (rowEqnNum + lceqn);
+    }
+    return -1;
 }
 //=====================================================================================================================
 /*
@@ -1998,19 +2014,19 @@ ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
  */
 void
 ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
-					 Epetra_Vector& deltaSoln, const Solve_Type_Enum solveType,
-					 const Epetra_Vector* solnWeights)
-{ 
-    DomainLayout &DL = *DL_ptr_;
+                                         Epetra_Vector& deltaSoln, const Solve_Type_Enum solveType,
+                                         const Epetra_Vector* solnWeights)
+{
+    DomainLayout& DL = *DL_ptr_;
     for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      d_ptr->calcDeltaSolnVariables(t, soln, solnDot_ptr, deltaSoln, m_atolVector, solveType, solnWeights);
-  }
+        BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+        d_ptr->calcDeltaSolnVariables(t, soln, solnDot_ptr, deltaSoln, m_atolVector, solveType, solnWeights);
+    }
 
-  for (size_t iDom = 0; iDom < (size_t) DL.NumSurfDomains; iDom++) {
-      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-      d_ptr->calcDeltaSolnVariables(t, soln, solnDot_ptr, deltaSoln, m_atolVector, solveType, solnWeights);
-  }
+    for (size_t iDom = 0; iDom < (size_t) DL.NumSurfDomains; iDom++) {
+        SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+        d_ptr->calcDeltaSolnVariables(t, soln, solnDot_ptr, deltaSoln, m_atolVector, solveType, solnWeights);
+    }
 }
 //======================================================================================================================
 //  Find a delta of a solution component for use in the numerical jacobian
@@ -2021,17 +2037,17 @@ ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& so
 double
 ProblemResidEval::deltaSolnCompJac(const Epetra_Vector& soln, const int ieqn)
 {
-  /*
-   *  We are screwing around here with the algorithm. Later we will put in
-   *  a serious algorithm.
-   */
-  double base = soln[ieqn];
-  // Base treatment.
-  double delta = 1.0E-5 * fabs(base) + 1.0E-9;
-  //double delta = 1.0E-3 * fabs(base) + 1.0E-3;
-  //double delta = 1.0E-4 * fabs(base) + 1.0E-9 + (*m_atolVector)[ieqn];
+    /*
+     *  We are screwing around here with the algorithm. Later we will put in
+     *  a serious algorithm.
+     */
+    double base = soln[ieqn];
+    // Base treatment.
+    double delta = 1.0E-5 * fabs(base) + 1.0E-9;
+    //double delta = 1.0E-3 * fabs(base) + 1.0E-3;
+    //double delta = 1.0E-4 * fabs(base) + 1.0E-9 + (*m_atolVector)[ieqn];
 
-  return (base + delta);
+    return (base + delta);
 }
 
 //======================================================================================================================
@@ -2041,39 +2057,39 @@ ProblemResidEval::deltaSolnCompJac(const Epetra_Vector& soln, const int ieqn)
  * @param soln         current solution vector.
  */
 void
-ProblemResidEval::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted & soln, 
-                                const Epetra_Vector_Ghosted * const atolV)
-{  
-  DomainLayout &DL = *DL_ptr_;
-  m_atol =  atolDefault;
-  if (!m_atolVector) {
-    m_atolVector = new Epetra_Vector(soln);
-  }
-  if (atolV == 0) {
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolVector)[i] = atolDefault;
+ProblemResidEval::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted& soln,
+                                const Epetra_Vector_Ghosted* const atolV)
+{
+    DomainLayout& DL = *DL_ptr_;
+    m_atol =  atolDefault;
+    if (!m_atolVector) {
+        m_atolVector = new Epetra_Vector(soln);
     }
-    /*
-     *   Loop over the Volume Domains
-     */
-    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      d_ptr->setAtolVector(atolDefault, soln, *m_atolVector);
-    }
+    if (atolV == 0) {
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolVector)[i] = atolDefault;
+        }
+        /*
+         *   Loop over the Volume Domains
+         */
+        for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+            BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+            d_ptr->setAtolVector(atolDefault, soln, *m_atolVector);
+        }
 
-    /*
-     *    Loop over the Surface Domains
-     */
-    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-      d_ptr->setAtolVector(atolDefault, soln, *m_atolVector);
-    }
+        /*
+         *    Loop over the Surface Domains
+         */
+        for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+            SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+            d_ptr->setAtolVector(atolDefault, soln, *m_atolVector);
+        }
 
-  } else {
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolVector)[i] = (*atolV)[i];
+    } else {
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolVector)[i] = (*atolV)[i];
+        }
     }
-  }
 
 
 }
@@ -2084,150 +2100,150 @@ ProblemResidEval::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted 
  * @param soln         current solution vector.
  */
 void
-ProblemResidEval::setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted & soln,
-					const Epetra_Vector_Ghosted & solnDot,
-				        const Epetra_Vector_Ghosted * const atolVector_DAEInit) const
+ProblemResidEval::setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted& soln,
+                                        const Epetra_Vector_Ghosted& solnDot,
+                                        const Epetra_Vector_Ghosted* const atolVector_DAEInit) const
 {
-  DomainLayout &DL = *DL_ptr_;
-  // m_atol =  atolDefault;
-  if (!m_atolVector_DAEInit) {
-    m_atolVector_DAEInit = new Epetra_Vector(soln);
-  }
-  if (atolVector_DAEInit == 0) {
+    DomainLayout& DL = *DL_ptr_;
+    // m_atol =  atolDefault;
+    if (!m_atolVector_DAEInit) {
+        m_atolVector_DAEInit = new Epetra_Vector(soln);
+    }
+    if (atolVector_DAEInit == 0) {
 
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolVector_DAEInit)[i] = atolDAEInitDefault;
-    }
-    /*
-     *   Loop over the Volume Domains
-     */
-    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      d_ptr->setAtolVector_DAEInit(atolDAEInitDefault, soln, solnDot, *m_atolVector_DAEInit);
-    }
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolVector_DAEInit)[i] = atolDAEInitDefault;
+        }
+        /*
+         *   Loop over the Volume Domains
+         */
+        for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+            BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+            d_ptr->setAtolVector_DAEInit(atolDAEInitDefault, soln, solnDot, *m_atolVector_DAEInit);
+        }
 
-    /*
-     *    Loop over the Surface Domains
-     */
-    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-      d_ptr->setAtolVector_DAEInit(atolDAEInitDefault, soln, solnDot, *m_atolVector_DAEInit);
-    }
+        /*
+         *    Loop over the Surface Domains
+         */
+        for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+            SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+            d_ptr->setAtolVector_DAEInit(atolDAEInitDefault, soln, solnDot, *m_atolVector_DAEInit);
+        }
 
-  } else {
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolVector_DAEInit)[i] = (*atolVector_DAEInit)[i];
+    } else {
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolVector_DAEInit)[i] = (*atolVector_DAEInit)[i];
+        }
     }
-  }
 }
 //======================================================================================================================
 void
-ProblemResidEval::setAtolDeltaDamping(double relCoeff, const Epetra_Vector_Ghosted & soln, 
-				      const Epetra_Vector_Ghosted * const atolDeltaDamping) 
+ProblemResidEval::setAtolDeltaDamping(double relCoeff, const Epetra_Vector_Ghosted& soln,
+                                      const Epetra_Vector_Ghosted* const atolDeltaDamping)
 {
-  DomainLayout &DL = *DL_ptr_;
-  double atolDAEInitDefault = m_atol * 1.0E4;
-  if (!m_atolDeltaDamping) {
-    m_atolDeltaDamping = new Epetra_Vector(soln);
-  }
-  if (atolDeltaDamping == 0) {
+    DomainLayout& DL = *DL_ptr_;
+    double atolDAEInitDefault = m_atol * 1.0E4;
+    if (!m_atolDeltaDamping) {
+        m_atolDeltaDamping = new Epetra_Vector(soln);
+    }
+    if (atolDeltaDamping == 0) {
 
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolDeltaDamping)[i] = m_atol * relCoeff;
-    }
-    /*
-     *   Loop over the Volume Domains
-     */
-    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      d_ptr->setAtolDeltaDamping(atolDAEInitDefault, relCoeff, soln, *m_atolDeltaDamping);
-    }
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolDeltaDamping)[i] = m_atol * relCoeff;
+        }
+        /*
+         *   Loop over the Volume Domains
+         */
+        for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+            BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+            d_ptr->setAtolDeltaDamping(atolDAEInitDefault, relCoeff, soln, *m_atolDeltaDamping);
+        }
 
-    /*
-     *    Loop over the Surface Domains
-     */
-    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-      d_ptr->setAtolDeltaDamping(atolDAEInitDefault, relCoeff, soln, *m_atolDeltaDamping);
-    }
+        /*
+         *    Loop over the Surface Domains
+         */
+        for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+            SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+            d_ptr->setAtolDeltaDamping(atolDAEInitDefault, relCoeff, soln, *m_atolDeltaDamping);
+        }
 
-  } else {
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolDeltaDamping)[i] = (*atolDeltaDamping)[i];
+    } else {
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolDeltaDamping)[i] = (*atolDeltaDamping)[i];
+        }
     }
-  }
 }
 //======================================================================================================================
 void
-ProblemResidEval::setAtolDeltaDamping_DAEInit(double relCoeff, const Epetra_Vector_Ghosted & soln,
-					      const Epetra_Vector_Ghosted & solnDot,
-					      const Epetra_Vector_Ghosted * const atolDeltaDamping) 
+ProblemResidEval::setAtolDeltaDamping_DAEInit(double relCoeff, const Epetra_Vector_Ghosted& soln,
+                                              const Epetra_Vector_Ghosted& solnDot,
+                                              const Epetra_Vector_Ghosted* const atolDeltaDamping)
 {
-  DomainLayout &DL = *DL_ptr_;
-  double atolDeltaDampingDefault = m_atol * 1.0E4;
-  if (!m_atolDeltaDamping_DAEInit) {
-    m_atolDeltaDamping_DAEInit = new Epetra_Vector(soln);
-  }
-  if (atolDeltaDamping == 0) {
+    DomainLayout& DL = *DL_ptr_;
+    double atolDeltaDampingDefault = m_atol * 1.0E4;
+    if (!m_atolDeltaDamping_DAEInit) {
+        m_atolDeltaDamping_DAEInit = new Epetra_Vector(soln);
+    }
+    if (atolDeltaDamping == 0) {
 
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolDeltaDamping_DAEInit)[i] = m_atol * relCoeff;
-    }
-    /*
-     *   Loop over the Volume Domains
-     */
-    for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
-      BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
-      d_ptr->setAtolDeltaDamping_DAEInit(atolDeltaDampingDefault , relCoeff, soln, solnDot, *m_atolDeltaDamping_DAEInit);
-    }
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolDeltaDamping_DAEInit)[i] = m_atol * relCoeff;
+        }
+        /*
+         *   Loop over the Volume Domains
+         */
+        for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+            BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
+            d_ptr->setAtolDeltaDamping_DAEInit(atolDeltaDampingDefault , relCoeff, soln, solnDot, *m_atolDeltaDamping_DAEInit);
+        }
 
-    /*
-     *    Loop over the Surface Domains
-     */
-    for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
-      SurDomain1D *d_ptr = DL.SurDomain1D_List[iDom];
-      d_ptr->setAtolDeltaDamping_DAEInit(atolDeltaDampingDefault, relCoeff, soln, solnDot, *m_atolDeltaDamping_DAEInit);
-    }
+        /*
+         *    Loop over the Surface Domains
+         */
+        for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
+            SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
+            d_ptr->setAtolDeltaDamping_DAEInit(atolDeltaDampingDefault, relCoeff, soln, solnDot, *m_atolDeltaDamping_DAEInit);
+        }
 
-  } else {
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*m_atolDeltaDamping_DAEInit)[i] = (*atolDeltaDamping)[i];
+    } else {
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*m_atolDeltaDamping_DAEInit)[i] = (*atolDeltaDamping)[i];
+        }
     }
-  }
 }
 //======================================================================================================================
 // Return a const reference to the atol vector
-const Epetra_Vector_Ghosted &ProblemResidEval::atolVector() const
+const Epetra_Vector_Ghosted& ProblemResidEval::atolVector() const
 {
-  if (!m_atolVector) {
-    throw CanteraError("ProblemResidEval:: atolVector()",
-                       "m_atolVector vector hasn't been malloced yet. This is done when an initial guess "
-                       "to the solution is supplied");
-  }
-  return *m_atolVector;
+    if (!m_atolVector) {
+        throw CanteraError("ProblemResidEval:: atolVector()",
+                           "m_atolVector vector hasn't been malloced yet. This is done when an initial guess "
+                           "to the solution is supplied");
+    }
+    return *m_atolVector;
 }
 //======================================================================================================================
 // Return a const reference to the atol DAE init vector
-const Epetra_Vector_Owned & ProblemResidEval::atolVector_DAEInit() const
+const Epetra_Vector_Owned& ProblemResidEval::atolVector_DAEInit() const
 {
-  if (!m_atolVector_DAEInit) {
-     throw CanteraError("ProblemResidEval:: atolVector_DAEInit()",
-                       "m_atolVector_DAEInit vector hasn't been malloced yet. This is done when an initial guess "
-                       "to the solution is supplied");
-  }
- 
-  
-  return *m_atolVector_DAEInit;
+    if (!m_atolVector_DAEInit) {
+        throw CanteraError("ProblemResidEval:: atolVector_DAEInit()",
+                           "m_atolVector_DAEInit vector hasn't been malloced yet. This is done when an initial guess "
+                           "to the solution is supplied");
+    }
+
+
+    return *m_atolVector_DAEInit;
 }
 //=====================================================================================================================
 // Return a const reference to the atol vector
-const Epetra_Vector_Ghosted &ProblemResidEval::atolDeltaDamping() const
+const Epetra_Vector_Ghosted& ProblemResidEval::atolDeltaDamping() const
 {
-  if (!m_atolDeltaDamping) { 
-    throw CanteraError("ProblemResidEval:: atol_deltaDamping()",
-                       "m_atolDeltaDamping vector hasn't been malloced yet");
-  }
-  return *m_atolDeltaDamping;
+    if (!m_atolDeltaDamping) {
+        throw CanteraError("ProblemResidEval:: atol_deltaDamping()",
+                           "m_atolDeltaDamping vector hasn't been malloced yet");
+    }
+    return *m_atolDeltaDamping;
 }
 //=====================================================================================================================
 // Update the ghost unknowns on the processor.
@@ -2237,40 +2253,40 @@ const Epetra_Vector_Ghosted &ProblemResidEval::atolDeltaDamping() const
  * @param v      Vector that may be ghosted or not ghosted
  */
 void
-ProblemResidEval::updateGhostEqns(Epetra_Vector_Ghosted * const soln, const Epetra_Vector * const v)
+ProblemResidEval::updateGhostEqns(Epetra_Vector_Ghosted* const soln, const Epetra_Vector* const v)
 {
-  int myelems = soln->MyLength();
-  if (myelems != m_NumLcEqns) {
-    throw m1d_Error("ProblemResidEval::updateGhostEqns", "Problem with myelems");
-  }
-  LI_ptr_->updateGhostEqns(soln, v);
+    int myelems = soln->MyLength();
+    if (myelems != m_NumLcEqns) {
+        throw m1d_Error("ProblemResidEval::updateGhostEqns", "Problem with myelems");
+    }
+    LI_ptr_->updateGhostEqns(soln, v);
 }
 
 //=====================================================================================================================
 std::string
 ProblemResidEval::getBaseFileName() const
 {
-  return m_baseFileName;
+    return m_baseFileName;
 }
 //=====================================================================================================================
 void
 ProblemResidEval::setBaseFileName(std::string baseFileName)
 {
-  m_baseFileName = baseFileName;
+    m_baseFileName = baseFileName;
 }
 //=====================================================================================================================
 void
-ProblemResidEval::calcSolnOld(const Epetra_Vector_Ghosted &soln, const Epetra_Vector_Ghosted &solnDot, double rdelta_t)
+ProblemResidEval::calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t)
 {
-  if (rdelta_t < 1.0E-200) {
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*solnOld_ptr_)[i] = soln[i];
+    if (rdelta_t < 1.0E-200) {
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*solnOld_ptr_)[i] = soln[i];
+        }
+    } else {
+        for (int i = 0; i < m_NumLcEqns; i++) {
+            (*solnOld_ptr_)[i] = soln[i] - solnDot[i] / rdelta_t;
+        }
     }
-  } else {
-    for (int i = 0; i < m_NumLcEqns; i++) {
-      (*solnOld_ptr_)[i] = soln[i] - solnDot[i] / rdelta_t;
-    }
-  }
 }
 //=====================================================================================================================
 } // end of m1d namespace
