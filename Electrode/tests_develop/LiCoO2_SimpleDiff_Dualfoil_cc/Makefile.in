@@ -1,0 +1,184 @@
+#!/bin/sh
+#
+#  Makefile.in: 
+#     Makefile for mpequil
+#
+# $Id: Makefile.in,v 1.1 2012/02/22 20:41:16 hkmoffa Exp $
+#
+#
+#  Build mpequil through the CANTERA_INSTALL directories.
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = LiCoO2_Cathode_Radial_cc
+
+OBJ = $(PROGRAM).o
+
+DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode_extra.xml   \
+       LiCoO2_RedlichKister.xml  Li_Metal.xml  metal_Li_LiIon_electrons.xml  
+
+BLESSED_FILES = LiCoO2_CC_globalResults_blessed_0_0.csv  LiCoO2_CC_intResults_blessed_0_0.csv \
+                outputTable_blessed.csv good_ccout.txt
+
+OUTPUT_FILES =ccout.txt    LiCoO2_CC_intResults_0_0.csv    LiCoO2_CC_globalResults_0_0.csv
+
+TEST_INTERMEDIATE_FILES = diff_csv.txt diff_summary.txt diff_ccout.txt 
+
+TEST_FLAGS =  runGood runBad runInProgress.txt
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+PURIFY=@PURIFY@
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+TOPDIR = @abs_top_srcdir@
+
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+#
+# Source tree base for cantera_apps
+#
+CT_ROOT = @ct_prefix@
+UTILSRC_DIR = ../../../util_src/src
+UTILSRC_INC = $(UTILSRC_DIR)
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR =  ../../../ctpadds/src
+CTPADDS_INC = $(CTPADDS_DIR)
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+#
+# Set up the Cantera Application Base directory
+#
+ELECTRODE_DIR = ../../src
+ELECTRODE_INC = ../../src
+ELECTRODE_DEP =  $(ELECTRODE_DIR)/libElectrode.a
+ELECTRODE_LIB = -L$(ELECTRODE_DIR) -lElectrode
+
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+
+LDEFINES = -DDEBUG
+GDEFINES =
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
+
+all: .dependsT LiCoO2_Cathode_Radial_cc
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+OBJ_ANODE =  $(OBJ) 
+OBJ_ALL = LiCoO2.o  LiCoO2Thermo.o  LiCoO2_Cathode_Radial_cc.o $(OBJ_ANODE)
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+#
+.c.o:
+	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_ALL:.o=.d) 
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+.c.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
+
+$(DEPENDS): $(PROGRAM).cpp Makefile
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .dependsT
+
+.dependsT: $(DEPENDS)
+	cat *.d > .depends
+	touch .dependsT
+
+test: 
+	@MAKE@ -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	$(TOPDIR)/bin/runtest_Exec
+
+rebaseline:
+	cp out.txt good_out.txt
+	cp LiCoO2_CC_globalResults_0_0.csv  LiCoO2_CC_globalResults_blessed_0_0.csv 
+	cp LiCoO2_CC_intResults_0_0.csv LiCoO2_CC_intResults_blessed_0_0.csv
+
+##############################################################################
+
+$(DEPENDS): Makefile
+
+$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
+	          $(OBJ_CANTERA_ADDONS)  \
+                  $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+
+
+clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) LiCoO2_Cathode_Radial_cc LiCoO2Thermo LiCoO2
+	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt ccout.txt
+
+test_clean:
+	$(RM) LiCoO2_intResults_0_0.csv 
+

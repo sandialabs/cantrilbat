@@ -1,0 +1,44 @@
+
+<?xml version="1.0"?>
+<ctml>
+  <validate reactions="yes" species="yes"/>
+                   
+ <!-- phase Li(S)    -->
+  <phase dim="3" id="Li(S)">
+    <elementArray datasrc="elements.xml">
+      Li
+    </elementArray>
+    <speciesArray datasrc="#species_Li(S)"> Li(S) </speciesArray>
+    <thermo model="StoichSubstance">
+      <density units="g/cm3"> 0.534 </density>
+    </thermo>
+    <transport model="None"/>
+    <kinetics model="none"/>
+  </phase>
+
+ <!-- species definitions     -->
+  <speciesData id="species_Li(S)">
+
+    <!-- species Li(S)   -->
+    <!--      melting temperature = 453.69 K -->
+    <species name="Li(S)">
+      <atomArray> Li:1  </atomArray>
+      <thermo>
+        <Shomate Pref="1 atm" Tmax="500.0" Tmin="250.0">
+          <floatArray size="7">
+             169.552,
+             -882.711,
+              1977.438,
+             -1487.312,
+             -1.609635,
+              -31.24825,
+              413.6466
+          </floatArray>
+        </Shomate>
+      </thermo>
+      <density units="g/cm3"> 0.534 </density>
+    </species>
+
+  </speciesData>
+
+</ctml>
