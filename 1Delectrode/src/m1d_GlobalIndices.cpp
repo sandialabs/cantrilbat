@@ -53,7 +53,7 @@ GlobalIndices::~GlobalIndices()
     safeDelete(GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap);
     for (size_t iLcNodes = 0; iLcNodes < NumGbNodes_s; iLcNodes++) {
         delete NodalVars_GbNode[iLcNodes];
-        NodalVars_GbNode[iLcNodes] = 0;
+        NodalVars_GbNode[iLcNodes] = nullptr;
     }
     safeDelete(XNodePos_GbNode);
     safeDelete(GbEqnstoAllMap);
@@ -64,23 +64,7 @@ GlobalIndices::~GlobalIndices()
 }
 //==================================================================================================================================
 GlobalIndices::GlobalIndices(const GlobalIndices& r) :
-    Comm_ptr_(0),
-    NumProc(1), 
-    MyProcID(0),
-    NumGbNodes(0),
-    NumGbNodes_s(0),
-    NumGbEqns(0),
-    NumGbEqns_s(0),
-    NumOwnedLcNodes(0),
-    NumOwnedLcEqns(0),
-    GbNodetoOwnedLcNodeMap(0),
-    GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0),
-    XNodePos_GbNode(0),
-    GbEqnstoAllMap(0),
-    SolnAll(0),
-    SolnIntAll(0),
-    SolnDotAll(0),
-    DL_ptr_(nullptr)
+    GlobalIndices(r.Comm_ptr_)
 {
     *this = r;
 }
@@ -90,12 +74,14 @@ GlobalIndices& GlobalIndices::operator=(const GlobalIndices& r)
     if (this == &r) {
         return *this;
     }
-
+   
     for (size_t iLcNodes = 0; iLcNodes < NumGbNodes_s; iLcNodes++) {
         safeDelete(NodalVars_GbNode[iLcNodes]);
     }
 
     Comm_ptr_ = r.Comm_ptr_;
+    NumProc = r.NumProc;
+    MyProcID = r.MyProcID;
     NumGbNodes = r.NumGbNodes;
     NumGbNodes_s = r.NumGbNodes_s;
     NumGbEqns = r.NumGbEqns;
@@ -318,8 +304,7 @@ GlobalIndices::GbEqnToGbNode(const int GbEqnNum, int& rowEqnNum) const
 #endif
 }
 //==================================================================================================================================
-void
-GlobalIndices::updateGlobalPositions(Epetra_Vector* Xpos_LcOwnedNode_p)
+void GlobalIndices::updateGlobalPositions(Epetra_Vector* Xpos_LcOwnedNode_p)
 {
     gather_nodeV_OnAll(*XNodePos_GbNode, *Xpos_LcOwnedNode_p, Comm_ptr_);
     for (int iGbNode = 0; iGbNode < NumGbNodes; iGbNode++) {

@@ -48,8 +48,7 @@ class DomainLayout;
  *
  *   GbEqn = IndexStartGbEqns_GbNode(GbNode) + local eqn #
  *
- *  When there is only one processor in the problem, the local node numbering
- *  will be exactly the same as the global node numbering.
+ *  When there is only one processor in the problem, the local node numbering will be exactly the same as the global node numbering.
  *
  *  Note on Ordinals
  *  ----------------------------------
@@ -57,7 +56,6 @@ class DomainLayout;
  *   Epetra either uses "int" or "long long" as its ordinals. It does not used "unsigned long = size_t"
  *   The choice is between int and long log. I chose int.
  *   Therefore all calls to Epetra should use int ordinal types.
- *
  */
 class GlobalIndices {
 public:
@@ -173,8 +171,9 @@ public:
    *
    * @param Xpos_LcNode_p
    */
-  void
-  updateGlobalPositions(Epetra_Vector *Xpos_LcNode_p);
+  void updateGlobalPositions(Epetra_Vector *Xpos_LcNode_p);
+
+  //------------------------------------------------------------ D A T A ------------------------------------------------------
 
   //! Communications object
   Epetra_Comm *Comm_ptr_;
@@ -199,13 +198,13 @@ public:
 
   //! Index of the starting global node number owned by each processor.
   /*!
-   * Length = number of processors.
+   *  Length:  Number of processors.
    */
   std::vector<int> IndexStartGbNode_Proc;
 
   //! Index of the starting owned global equation number owned by each processor
   /*!
-   * Length = number of processors.
+   *  Length:  Number of processors.
    */
   std::vector<int> IndexStartGbEqns_Proc;
 
@@ -217,13 +216,13 @@ public:
 
   //! Total Number of Local Equations owned by each processor
   /*!
-   * Length = number of processors.
+   *  Length: number of processors.
    */
   std::vector<int> NumOwnedLcEqns_Proc;
 
   //! Number of equations at each global node
   /*!
-   *  Length  = number of global nodes
+   *  Length: number of processors.
    */
   std::vector<int> NumEqns_GbNode;
 
@@ -294,42 +293,40 @@ public:
    *
    * length = number of global nodes. Note this is repeated for all processors.
    */
-  std::vector<NodalVars *> NodalVars_GbNode;
+  std::vector<NodalVars*> NodalVars_GbNode;
 
   //! Positions at the global nodes
   /*!
    *   We keep a global vector of these on each node
    */
-  Epetra_Vector *XNodePos_GbNode;
+  Epetra_Vector* XNodePos_GbNode;
 
   //! Epetra_Map object containing the mapping of all equations as if they were on all processors.
   /*!
    *  This describes the result of a gather_to_all operation involving equations
    */
-  Epetra_BlockMap *GbEqnstoAllMap;
+  Epetra_BlockMap* GbEqnstoAllMap;
 
   //! Vector containing the entire solution on all processors.
-  Epetra_Vector *SolnAll;
+  Epetra_Vector* SolnAll;
 
   //! integer vector  containing the entire solution on all processors.
-  Epetra_IntVector *SolnIntAll;
+  Epetra_IntVector* SolnIntAll;
 
   //! Vector containing the entire solution on all processors.
-  Epetra_Vector *SolnDotAll;
+  Epetra_Vector* SolnDotAll;
 
   //! Domain Layout object
   /*!
-   *
+   *  This is a shallow pointer
    */
-  DomainLayout *DL_ptr_;
+  DomainLayout* DL_ptr_;
 };
 //==================================================================================================================================
 //=====================================================================================
 //! Each processor contains a pointer to one global instance of this class.
 //extern GlobalIndices *GI_ptr;
 //=====================================================================================
-
 }
-
 //----------------------------------------------------------------------------------------------------------------------------------
 #endif

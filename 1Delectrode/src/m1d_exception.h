@@ -52,8 +52,7 @@ public:
     m1d_Error(const std::string& procedure, const char* fmt, ...);
 
     //! Destructor for base class does nothing
-    virtual
-    ~m1d_Error() throw ()
+    virtual ~m1d_Error() throw ()
     {
     }
 

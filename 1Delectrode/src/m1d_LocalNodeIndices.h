@@ -9,6 +9,7 @@
 #include "m1d_defs.h"
 
 #include <vector>
+#include "Epetra_Vector.h"
 
 class Epetra_Comm;
 class Epetra_Map;
@@ -16,7 +17,6 @@ class Epetra_BlockMap;
 class Epetra_VbrMatrix;
 class Epetra_MapColoring;
 class Epetra_IntVector;
-class Epetra_Vector;
 class Epetra_Import;
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -26,6 +26,22 @@ namespace m1d
 class NodalVars;
 class DomainLayout;
 class GlobalIndices;
+
+//==================================================================================================================================
+/*!
+ *  Below are the three distributed maps that are used throughout the program. In order
+ *  to document the program we typedef the different types of Epetra_Vectors according
+ *  to their underlying maps.
+ */
+
+//!  This is an epetra vector consisting of just owned nodes/equations
+typedef Epetra_Vector Epetra_Vector_Owned;
+
+//! This is an Epetra_Vector consisting of owned and ghost nodes/equations
+typedef Epetra_Vector Epetra_Vector_Ghosted;
+
+//! This is an Epetra_Vector consisting of a global vector of all nodes/equations on all processors.
+typedef Epetra_Vector Epetra_Vector_GlAll;
 
 //==================================================================================================================================
 //! These indices have to do with accessing the local nodes on the processor
@@ -258,7 +274,15 @@ public:
      */
     void generateEqnMapping();
 
-    void updateGhostEqns(Epetra_Vector* const solnV, const Epetra_Vector* const srcV);
+    //! Update the values of the ghost unknowns in an Epetra_Vector representing a solution vector
+    /*!
+     *  @param[in,out]       solnV               Solution vector to be updated. This should have locations for the ghosted unknowns
+     *
+     *  @param[in]           srcV                Source vector for the solution unknowns. This may or may not have positions
+     *                                           for the ghosted unknowns. It may also be the same vector as solnV.
+     */
+    void updateGhostEqns(Epetra_Vector_Ghosted* const solnV, const Epetra_Vector* const srcV);
+
     /* ---------------------------------------------------------- */
 
     //! local copy of the Epetra_Comm ptr object
@@ -443,17 +467,15 @@ public:
      */
     Epetra_BlockMap* GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap;
 
-    //! Specifies the communications pattern for  Imports/updates of
-    //! ghost unknowns on processors.
+    //! Specifies the communications pattern for Imports/updates of ghost solution unknowns on processors.
     /*!
-     *
+     * 
      */
     Epetra_Import* Importer_GhostEqns;
 
-    //! Specifies the communications pattern for  Imports/updates of
-    //! ghost unknowns on processors.
+    //! Specifies the communications pattern for  Imports/updates of ghost nodal unknowns on processors
     /*!
-     *
+     * 
      */
     Epetra_Import* Importer_NodalValues;
 

@@ -23,6 +23,8 @@
 
 #include "cantera/base/xml.h"
 
+#include "m1d_LocalNodeIndices.h"
+
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -43,13 +45,13 @@ class RecordTree_base;
  */
 
 //!  This is an epetra vector consisting of just owned nodes/equations
-typedef Epetra_Vector Epetra_Vector_Owned;
+//typedef Epetra_Vector Epetra_Vector_Owned;
 
 //! This is an Epetra_Vector consisting of owned and ghost nodes/equations
-typedef Epetra_Vector Epetra_Vector_Ghosted;
+//typedef Epetra_Vector Epetra_Vector_Ghosted;
 
 //! This is an Epetra_Vector consisting of a global vector of all nodes/equations on all processors.
-typedef Epetra_Vector Epetra_Vector_GlAll;
+//typedef Epetra_Vector Epetra_Vector_GlAll;
 
 //==================================================================================================================================
 //! The types of solution problems that are solved.
@@ -335,44 +337,60 @@ public:
     void createMatrix(RecordTree_base* linearSolver_db);
 
     //! Return a reference to the Jacobian
+    /*!
+     *  @return                                  Returns a reference to the jacobian
+     */
     EpetraJac& jacobian();
 
     //! Returns the ghosted map of the problem
+    /*!
+     *  @return                                  Returns a pointer to a BlockMap of the ghosted Solution vector
+     */
     Epetra_BlockMap* ghostedMap() const;
 
     //! Returns the unique unknown map of the problem
+    /*!
+     *  @return                                  Returns a pointer to a BlockMap of the unique unknown Solution vector
+     */
     Epetra_BlockMap* ownedMap() const;
 
     //! Returns the total number of global equations in the equation set
+    /*!
+     *  @return                                  Returns the number of global equations
+     */
     int NumGbEqns() const;
 
     //! Returns the total number of global nodes in the problem
+    /*!
+     *  @return                                  Returns the number of global unknowns
+     */
     int NumGbNodes() const;
 
     //! Returns information about the local equation number
     /*!
-     *  @param ilocalEqn     INPUT      Equation number
-     *  @param iLcNode       OUTPUT     Local node number
-     *  @param iGbNode       OUTPUT     Global node number
-     *  @param iNodeEqnNum   OUTPUT     Local node equation offset
-     *  @param eqn           OUTPUT     Equation type
-     *  @param vtsub         OUTPUT     Equation subtype
+     *  @param[in]           ilocalEqn           Local equation number
      *
-     *  @return returns the string id of the Equation variable
+     *  @param[out]          iLcNode             Local node number
+     *  @param[out]          iGbNode             Global node number
+     *  @param[out]          iNodeEqnNum         Local node equation offset
+     *  @param[out]          eqn                 Equation type
+     *  @param[out]          vtsub               Equation subtype
+     *
+     *  @return                                  returns the string id of the Equation variable
      */
     std::string equationID(int ilocalEqn, int& iLcNode, int& iGbNode, int& iNodeEqnNum, EqnType& var,
                            EQ_TYPE_SUBNUM& vtsub);
 
     //! Returns information about the local variable number
     /*!
-     *  @param ilocalVar    INPUT        Variable number
-     *  @param iLcNode      OUTPUT       Local node number
-     *  @param iGbNode       OUTPUT     Global node number
-     *  @param iNodeEqnNum   OUTPUT    Local node equation offset
-     *  @param var type  OUTPUT
-     *  @param vtsub   OUTPUT     Variable subtype
+     *  @param[in]           ilocalVar           Variable number
+     *  @param[out]          iLcNode             Local node number
+     *  @param[out]          iGbNode             Global node number
+     *  @param[out]          iNodeEqnNum         Local node equation offset
+     *  @param[out]          var type            Variable type
+     *  @param[out]          vtsub               Variable subtype
      *
-     *  @return returns the string id of the variable.
+     *  @return                                  returns the string id of the variable.
      */
     std::string variableID(int ilocalVar, int& iLcNode, int& iGbNode, int& iNodeEqnNum, VarType& var,
                            VAR_TYPE_SUBNUM& vtsub);
@@ -830,17 +848,34 @@ public:
                           const int istep, const Epetra_Vector_Ghosted& y_n,
                           const Epetra_Vector_Ghosted* const ydot_n_ptr);
 
-    //! Handle matrix conditioning
+    //! Handle matrix conditioning if necessary here
     /*!
      *  (virtual from ProblemResidEval)
      *
+     *  In general, multiply the matrix by the inverse of a matrix which lead to a better conditioned system. 
+     *  The default, specified here, is to do nothing.
      *
+     *  @param[in,out]       matrix              Pointer to the matrix 
+     *  @param[in]           nrows               Number of rows in the matrix
+     *  @param[in,out]       rhs                 Right-hand side of the linear system, for which we are trying to find
+     *                                           the solution for
      */
     virtual void matrixConditioning(double* const matrix, int nrows, double* const rhs);
 
+    //! Returns the base file name of the solution file
+    /*!
+     *  The default name is "solution".
+     *  @return                                  Returns the base file name
+     */
     std::string getBaseFileName() const;
 
-    void setBaseFileName(std::string m_baseFileName);
+    //! Sets the base file name of the solution file
+    /*!
+     *  The default name is "solution". This is used unless it is overwritten here.
+     *
+     *  @param[in]           baseFileName        Sets the value of the base file name.
+     */
+    void setBaseFileName(const std::string& baseFileName);
 
     void calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t);
 

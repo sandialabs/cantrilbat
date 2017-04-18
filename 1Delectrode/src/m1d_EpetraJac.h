@@ -156,8 +156,7 @@ private:
 
 public:
 
-  void
-  fillVbr();
+  void fillVbr();
 
   //! Get the row scales for the matrix
   /*!
@@ -165,8 +164,7 @@ public:
    *
    * @param rowScales  Epetra_Vector of length num local  equations on the processor.
    */
-  void
-  getRowScales(Epetra_Vector * const rowScales) const;
+  void getRowScales(Epetra_Vector* const rowScales) const;
 
   //! Scale the columns of the matrix with a vector
   /*!
@@ -174,7 +172,7 @@ public:
    *                   that scales the columns of the matrix
    */
   void
-  columnScale(const Epetra_Vector * const colScales);
+  columnScale(const Epetra_Vector* const colScales);
 
   //! Scale the columns of the matrix with a vector
   /*!
@@ -182,7 +180,7 @@ public:
    *                   that scales the rows of the matrix
    */
   void
-  rowScale(const Epetra_Vector * const rowScales);
+  rowScale(const Epetra_Vector* const rowScales);
 
   //! Print out the matrix structure of the VBR Matrix
   /*!
@@ -192,39 +190,32 @@ public:
   queryMatrixStructure(std::ostream &oo);
 
   //! Elapsed CPU time spent computing the Jacobian.
-  double
-  elapsedTime() const;
+  double elapsedTime() const;
 
   //! Number of Jacobian evaluations.
-  int
-  nEvals() const;
+  int nEvals() const;
 
   //! Return the number of times 'incrementAge' has been called since the
-  int
-  age() const;
+  int age() const;
 
   //! Increment the Jacobian age.
-  void
-  incrementAge();
+  void incrementAge();
 
-  void
-  updateTransient(double rdt, int* mask);
+  void updateTransient(double rdt, int* mask);
 
   //! Set the age.
   /*!
    *
    * @param age  Value to set the age
    */
-  void
-  setAge(int age);
+  void setAge(int age);
 
   //! Accessor routine for the mask variable
   /*!
    *
    * @return Returns a changeable reference to the mask variable
    */
-  Epetra_IntVector&
-  transientMask();
+  Epetra_IntVector& transientMask();
 
   //! Increment the diagonal of the matrix
   /*!
@@ -237,8 +228,7 @@ public:
 
 
   //! Zero the matrix
-  void
-  zeroMatrix();
+  void zeroMatrix();
 
   //! Return a changeable pointer into the matrix given Global Block Row indices
   /*!
@@ -252,8 +242,7 @@ public:
    *            to that row and column. Will return 0 if this number is not on the current
    *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
    */
-  double *
-  GbBlkValue(int gbRow, int lcRowIndex, int gbCol, int lcColIndex) const;
+  double* GbBlkValue(int gbRow, int lcRowIndex, int gbCol, int lcColIndex) const;
 
   //! Return a changeable reference into the matrix given Global equation numbers
   /*!
@@ -268,8 +257,7 @@ public:
    *            to that row and column. Will return 0 if this number is not on the current
    *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
    */
-  double&
-  operator()(const int iGlobalEqn, const int jGlobalEqn);
+  double& operator()(const int iGlobalEqn, const int jGlobalEqn);
 
   //! Return a changeable reference into the matrix given Global equation numbers
   /*!
@@ -284,8 +272,7 @@ public:
    *            to that row and column. Will return 0 if this number is not on the current
    *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
    */
-  double&
-  value(const int iGlobalEqn, const int jGlobalEqn);
+  double& value(const int iGlobalEqn, const int jGlobalEqn);
 
   //! Return the value of the matrix given by Global equation numbers
   /*!
@@ -296,8 +283,7 @@ public:
    * @param jGlobalEqn          Global col equation number
    * @return    Returns the value of the matrix entry
    */
-  double
-  value(const int iGlobalEqn, const int jGlobalEqn) const;
+  double value(const int iGlobalEqn, const int jGlobalEqn) const;
 
   //! Return the value of the matrix given by Global equation numbers
   /*!
@@ -308,37 +294,29 @@ public:
    * @param jGlobalEqn          Global col equation number
    * @return   Returns the value of the matrix entry
    */
-  double
-  _value(const int iGlobalEqn, const int jGlobalEqn) const;
+  double _value(const int iGlobalEqn, const int jGlobalEqn) const;
 
   //! Returns the number of global equations in the matrix
   int nRows() const;
 
   //! Number of columns
-  int
-  nColumns() const;
+  int nColumns() const;
 
   //! Number of subdiagonals
-  int
-  nSubDiagonals() const;
+  int nSubDiagonals() const;
 
   //! Number of superdiagonals
-  int
-  nSuperDiagonals() const;
+  int nSuperDiagonals() const;
 
-  int
-  ldim() const;
+  int ldim() const;
 
   //! Multiply A*b and write result to prod.
-  void
-  mult(const Epetra_Vector &b, Epetra_Vector &prod) const;
+  void mult(const Epetra_Vector &b, Epetra_Vector &prod) const;
 
   /// Multiply b*A and write result to prod.
-  void
-  leftMult(const Epetra_Vector &b, Epetra_Vector &prod) const;
+  void leftMult(const Epetra_Vector &b, Epetra_Vector &prod) const;
 
-  int
-  factor();
+  int factor();
 
   //! Main routine to solve the linear system
   /*!

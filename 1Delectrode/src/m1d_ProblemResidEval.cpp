@@ -61,7 +61,13 @@ int ProblemResidEval::s_printFlagEnv = 0;
  */
 ProblemResidEval::ProblemResidEval(double atol) :
     m_atol(atol),
-    m_neq(0), DL_ptr_(0), GI_ptr_(0), LI_ptr_(0), m_jac(0), m_baseFileName("solution"), m_StepNumber(0),
+    m_neq(0),
+    DL_ptr_(nullptr),
+    GI_ptr_(nullptr), 
+    LI_ptr_(nullptr),
+    m_jac(nullptr),
+    m_baseFileName("solution"), 
+    m_StepNumber(0),
     solnOld_ptr_(0), resInternal_ptr_(0),
     m_atolVector(0),
     m_atolVector_DAEInit(0),
@@ -1786,27 +1792,13 @@ ProblemResidEval::writeSolution(const int ievent,
  * If there is a stopping critera other than time set it here.
  *
  */
-bool
-ProblemResidEval::evalStoppingCritera(double& time_current,
-                                      double& delta_t_n,
-                                      const Epetra_Vector_Ghosted& y_n,
-                                      const Epetra_Vector_Ghosted& ydot_n)
+bool ProblemResidEval::evalStoppingCritera(double& time_current, double& delta_t_n, const Epetra_Vector_Ghosted& y_n,
+                                           const Epetra_Vector_Ghosted& ydot_n)
 {
     return false;
 }
-
-
-
 //=====================================================================================================================
-/*
- * matrixConditioning()
- *
- * Multiply the matrix by the inverse of a matrix which lead to a
- * better conditioned system. The default, specified here, is to
- * do nothing.
- */
-void
-ProblemResidEval::matrixConditioning(double* const matrix, int nrows, double* const rhs)
+void ProblemResidEval::matrixConditioning(double* const matrix, int nrows, double* const rhs)
 {
 }
 //=====================================================================================================================
@@ -1866,34 +1858,30 @@ ProblemResidEval::ghostedMap() const
 }
 //=====================================================================================================================
 // Returns the unique unknown map of the problem
-Epetra_BlockMap*
-ProblemResidEval::ownedMap() const
+Epetra_BlockMap* ProblemResidEval::ownedMap() const
 {
     return LI_ptr_->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap;
 }
 //=====================================================================================================================
-int
-ProblemResidEval::NumGbEqns() const
+int ProblemResidEval::NumGbEqns() const
 {
     if (!GI_ptr_) {
         throw m1d_Error("ProblemResidEval::NumGbEqns()", "pointer is null");
     }
     return GI_ptr_->NumGbEqns;
 }
-//=====================================================================================================================
-int
-ProblemResidEval::NumGbNodes() const
+//==================================================================================================================================
+int ProblemResidEval::NumGbNodes() const
 {
     if (!GI_ptr_) {
         throw m1d_Error("ProblemResidEval::NumGbNodes()", "pointer is null");
     }
     return GI_ptr_->NumGbNodes;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 std::string ProblemResidEval::equationID(int ilocalEqn, int& iLcNode, int& iGbNode,  int& iNodeEqnNum, EqnType& eqn,
                                          EQ_TYPE_SUBNUM& etsub)
 {
-    std::string vstring;
     int ilfound = LI_ptr_->NumLcNodes - 1;
     int istart;
     // Find the local node number
@@ -1914,9 +1902,8 @@ std::string ProblemResidEval::equationID(int ilocalEqn, int& iLcNode, int& iGbNo
     // Now query the NodalVars structure for the variable name and subtype
     eqn   = nv->EquationNameList_EqnNum[iNodeEqnNum];
     etsub = nv->EquationSubType_EqnNum[iNodeEqnNum];
-    // Get the string which identifies the variable and return
-    vstring = eqn.EquationName(200);
-    return vstring;
+    // Get the string which identifies the equation and return
+    return eqn.EquationName(200);
 }
 //=====================================================================================================================
 std::string ProblemResidEval::variableID(int ilocalVar, int& iLcNode, int& iGbNode, int& iNodeEqnNum, VarType& var,
@@ -2260,14 +2247,12 @@ ProblemResidEval::updateGhostEqns(Epetra_Vector_Ghosted* const soln, const Epetr
 }
 
 //=====================================================================================================================
-std::string
-ProblemResidEval::getBaseFileName() const
+std::string ProblemResidEval::getBaseFileName() const
 {
     return m_baseFileName;
 }
 //=====================================================================================================================
-void
-ProblemResidEval::setBaseFileName(std::string baseFileName)
+void ProblemResidEval::setBaseFileName(const std::string& baseFileName)
 {
     m_baseFileName = baseFileName;
 }
@@ -2286,5 +2271,5 @@ ProblemResidEval::calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Ve
     }
 }
 //=====================================================================================================================
-} // end of m1d namespace
-//=====================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------

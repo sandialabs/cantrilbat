@@ -70,12 +70,10 @@ LocalNodeIndices::LocalNodeIndices(const LocalNodeIndices& r) :
     *this = r;
 }
 //===========================================================================================================================================
-// assignment operator
 /*
  *  Do a deep copy of all Maps within the operator
  */
-LocalNodeIndices&
-LocalNodeIndices::operator=(const LocalNodeIndices& r)
+LocalNodeIndices& LocalNodeIndices::operator=(const LocalNodeIndices& r)
 {
     if (this == &r) {
         return *this;
@@ -319,15 +317,14 @@ LocalNodeIndices::determineLcNodeMaps(DomainLayout* dl_ptr)
     safeDelete(Xpos_LcOwnedNode_p);
     Xpos_LcOwnedNode_p = new Epetra_Vector(eee, *(GI_ptr_->GbNodetoOwnedLcNodeMap), V);
 }
-//============================================================================================================================
-void
-LocalNodeIndices::determineLcEqnMaps()
+//==================================================================================================================================
+void LocalNodeIndices::determineLcEqnMaps()
 {
     makeEqnColors();
 
     makeImporters();
 }
-//============================================================================================================================
+//==================================================================================================================================
 void
 LocalNodeIndices::initLcNodeMaps()
 {
@@ -347,7 +344,7 @@ LocalNodeIndices::initLcNodeMaps()
     GbNodetoOwnedLcNodeMap = new Epetra_Map(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode), 0, *Comm_ptr_);
 
 }
-//=============================================================================================================================
+//==================================================================================================================================
 void
 LocalNodeIndices::initLcBlockNodeMaps()
 {
@@ -368,7 +365,7 @@ LocalNodeIndices::initLcBlockNodeMaps()
     GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap = new Epetra_BlockMap(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode),
                                                                       DATA_PTR(NumEqns_LcNode), 0, *Comm_ptr_);
 }
-//===========================================================================
+//==================================================================================================================================
 // Construct a coloring map for the LcNodes on this processor.
 /*
  *   This map includes the external nodes that are defined on the processor
@@ -383,8 +380,7 @@ LocalNodeIndices::initLcBlockNodeMaps()
  *
  *   This routine may be called after the LcNodes map is created.
  */
-void
-LocalNodeIndices::makeNodeColors()
+void LocalNodeIndices::makeNodeColors()
 {
     /*
      *   Making node colors is pretty easy for one d problems. We will assign
@@ -414,7 +410,7 @@ LocalNodeIndices::makeNodeColors()
      */
     NodeColorMap = new Epetra_MapColoring(*(GbNodetoLcNodeColMap), DATA_PTR(nodeColor));
 }
-//===========================================================================
+//==================================================================================================================================
 // Construct a coloring map for the LcEqns on this processor.
 /*
  *   This map includes the external nodes that are defined on the processor
@@ -429,8 +425,7 @@ LocalNodeIndices::makeNodeColors()
  *
  *   This routine may be called after the LcNodes map is created.
  */
-void
-LocalNodeIndices::makeEqnColors()
+void LocalNodeIndices::makeEqnColors()
 {
 
     /*
@@ -484,7 +479,7 @@ LocalNodeIndices::makeEqnColors()
         (*EqnColors)[iEqn] = eqnColor[iEqn];
     }
 }
-//===========================================================================
+//==================================================================================================================================
 // global node to local node mapping
 /*
  * Given a global node, this function will return the local node value.
@@ -493,8 +488,7 @@ LocalNodeIndices::makeEqnColors()
  * @param gbNode  global node
  * @return returns the local node value
  */
-int
-LocalNodeIndices::GbNodeToLcNode(const int gbNode) const
+int LocalNodeIndices::GbNodeToLcNode(const int gbNode) const
 {
     // we can do better, but let's get on with it.
     for (int iNode = 0; iNode < NumLcNodes; iNode++) {
@@ -508,7 +502,7 @@ LocalNodeIndices::GbNodeToLcNode(const int gbNode) const
     }
     return -1;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Global eqn to local eqn mapping
 /*
  * Given a global eqn, this function will return the local eqn value.
@@ -518,8 +512,7 @@ LocalNodeIndices::GbNodeToLcNode(const int gbNode) const
  * @param gbEqn  global node
  * @return returns the local eqn value
  */
-int
-LocalNodeIndices::GbEqnToLcEqn(const int gbEqn) const
+int LocalNodeIndices::GbEqnToLcEqn(const int gbEqn) const
 {
     int rowEqnNum;
     int gbNode = GI_ptr_->GbEqnToGbNode(gbEqn, rowEqnNum);
@@ -530,10 +523,8 @@ LocalNodeIndices::GbEqnToLcEqn(const int gbEqn) const
     }
     return -1;
 }
-
-//=====================================================================================================================
-void
-LocalNodeIndices::InitializeLocalNodePositions()
+//==================================================================================================================================
+void LocalNodeIndices::InitializeLocalNodePositions()
 {
     /*
      * Here we assume that the positions are correct in the nodal vars position.
@@ -547,9 +538,8 @@ LocalNodeIndices::InitializeLocalNodePositions()
 
     GI_ptr_->updateGlobalPositions(Xpos_LcOwnedNode_p);
 }
-//=====================================================================================================================
-void
-LocalNodeIndices::UpdateNodalVarsPositions()
+//==================================================================================================================================
+void LocalNodeIndices::UpdateNodalVarsPositions()
 {
     for (int iNode = 0; iNode < NumLcNodes; iNode++) {
         NodalVars* nv = NodalVars_LcNode[iNode];
@@ -558,7 +548,7 @@ LocalNodeIndices::UpdateNodalVarsPositions()
         (*Xpos_LcNode_p)[iNode] = nv->xNodePos();
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  Extract the positions from the solution vector and propagate them into all other structures
 /*
  *  The following member data are updated:
@@ -566,8 +556,7 @@ LocalNodeIndices::UpdateNodalVarsPositions()
  *      nv->XNodePos
  * @param soln
  */
-void
-LocalNodeIndices::ExtractPositionsFromSolution(const Epetra_Vector* const soln_p)
+void LocalNodeIndices::ExtractPositionsFromSolution(const Epetra_Vector* const soln_p)
 {
     for (int iNode = 0; iNode < NumLcNodes; iNode++) {
         NodalVars* nv = NodalVars_LcNode[iNode];
@@ -579,17 +568,13 @@ LocalNodeIndices::ExtractPositionsFromSolution(const Epetra_Vector* const soln_p
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  We set initial conditions here that make sense from a global perspective.
 //  This should be done as a starting point. If there are better answers, it should be overridden.
 //
 //    Set Displacement_Axial unknowns to 0.
-void
-LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
-                                       Epetra_Vector* soln,
-                                       Epetra_Vector* solnDot,
-                                       const double t,
-                                       const double delta_t)
+void LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid, Epetra_Vector* soln,
+                                            Epetra_Vector* solnDot, const double t, const double delta_t)
 {
 
     for (int iNode = 0; iNode < NumLcNodes; iNode++) {
@@ -614,13 +599,12 @@ LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid,
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Generate the nodal variables structure
 /*
  *   This routine will update the pointers to the NodalVars structure
  */
-void
-LocalNodeIndices::GenerateNodalVars()
+void LocalNodeIndices::GenerateNodalVars()
 {
     for (int iNode = 0; iNode < NumLcNodes; iNode++) {
         int gbnode = IndexGbNode_LcNode[iNode];
@@ -632,9 +616,8 @@ LocalNodeIndices::GenerateNodalVars()
      */
     UpdateNodalVarsPositions();
 }
-//=====================================================================================================================
-int
-LocalNodeIndices::UpdateEqnCount()
+//==================================================================================================================================
+int LocalNodeIndices::UpdateEqnCount()
 {
     int numOwnedEqns = 0;
     int numLcEqns = 0;
@@ -653,13 +636,12 @@ LocalNodeIndices::UpdateEqnCount()
     NumLcEqns = numLcEqns;
     return numOwnedEqns;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Generate Equation mapping vectors
 /*
  *  This must be called after the total number of local equations on a processor, NumLcEqns, is found out
  */
-void
-LocalNodeIndices::generateEqnMapping()
+void LocalNodeIndices::generateEqnMapping()
 {
     IndexGbEqns_LcEqns.resize(NumLcEqns);
     for (int iLcNode = 0; iLcNode < NumLcNodes; iLcNode++) {
@@ -672,9 +654,8 @@ LocalNodeIndices::generateEqnMapping()
         }
     }
 }
-//=====================================================================================================================
-void
-LocalNodeIndices::updateGhostEqns(Epetra_Vector* const targSolnV, const Epetra_Vector* const srcSolnV)
+//==================================================================================================================================
+void LocalNodeIndices::updateGhostEqns(Epetra_Vector_Ghosted* const targSolnV, const Epetra_Vector* const srcSolnV)
 {
     // Do compatibility checks to make sure that the Epetra_Vectors are overlap
     // and owned vectors specifically
@@ -726,9 +707,8 @@ LocalNodeIndices::updateGhostEqns(Epetra_Vector* const targSolnV, const Epetra_V
 
     return;
 }
-//=====================================================================================================================
-void
-LocalNodeIndices::makeImporters()
+//==================================================================================================================================
+void LocalNodeIndices::makeImporters()
 {
     /*
      * Create a map to do the ghost node exchanges
@@ -781,8 +761,6 @@ LocalNodeIndices::makeImporters()
 
     return;
 }
-//=====================================================================================================================
-//=====================================================================================================================
+//==================================================================================================================================
 }
-/* End namespace m1d() */
-//=====================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
