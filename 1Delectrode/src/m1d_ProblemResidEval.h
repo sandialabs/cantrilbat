@@ -193,41 +193,37 @@ public:
 
     //! Generate and fill up the local node vectors on this processor
     /*!
-     *  These indices have to do with accessing the local nodes on the processor
-     *  At the end of this routine, the object LocalNodeIncides is fully formed
-     *   on this processor.
-     *  Within this object, all numbers are in local Row Node Format.
-     *  Local Row node format is
-     *  defined as the following. All owned nodes come first. They are
-     *  ordered in terms of increasing global node number.
-     *  Then the right ghost node is listed.
-     *  Then the left ghost node is listed
-     *  Then, the "globally-all-connected node is listed, if available.
+     *  These indices have to do with accessing the local nodes on the processor. At the end of this routine,
+     *  the object LocalNodeIncides is fully formed on this processor. Within this object, all numbers are in local Row Node Format.
+     *  Local Row node format is defined as the following. All owned nodes come first. They are ordered 
+     *  in terms of increasing global node number. Then the right ghost node is listed.
+     *  Then the left ghost node is listed. Then, the "globally-all-connected node is listed, if available.
      */
     void generateLocalIndices();
 
-    //! Fill the vector isAlgebraic with flags indicating whether the degree of freedom
-    //! is a DAE or not
+    //! Fill the vector isAlgebraic with flags indicating whether the degree of freedom is a DAE or not
     /*!
+     *  The following entries are used:
+     *
      *     0    Regular dof with time derivative
      *     1    DAE variable
      *     2    DAE variable in the regular time dependent residual.
      *          However, the variable is a time derivative in the special DAE initial solve system
      *          (e.g., mole fraction sum to 1 variable).
      *
-     *  @param isAlgebraic This is the vector to be filled up
-     *
+     *  @param[out]          isAlgebraic         This is the vector to be filled up
      */
     void fillIsAlgebraic(Epetra_IntVector& isAlgebraic);
 
     //! Fill the vector isAlgegraicScaled with flags indicating whether the degree of freedom
     //! is on an arithmetic scale and should be handled differently
     /*!
+     *  The following entries are used
+     *
      *     0    Regular dof that can't go below the origin.
      *     1    arithmetic scaled variable
      *
-     *  @param isAlgebraicScaled. This is the vector to be filled up
-     *
+     *  @param[out]          isAlgebraicScaled  This is the vector to be filled up
      */
     void fillIsArithmeticScaled(Epetra_IntVector& isAlgebraicScaled);
 
@@ -235,22 +231,18 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   The basic algorithm is to loop over the volume domains.
-     *   Then, we loop over the surface domains
+     *   The basic algorithm is to loop over the volume domains. Then, we loop over the surface domains.
      *
-     * @param res                     residual output
-     * @param doTimeDependentResid    Boolean indicating whether the time
-     *                                dependent residual is requested
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Pointer to the solution vector. This is the input to the residual calculation.
-     * @param solnDot                 Pointer to the solution Dot vector. This is the input to the residual calculation.
-     * @param t                       current time
-     * @param rdelta_t                delta t inverse
-     * @param residType               Residual type
-     * @param solveType               Solve type
+     *  @param[out]          res                  Residual output
+     *  @param[in]           doTimeDependentResid Boolean indicating whether the time dependent residual is requested
+     *  @param[in]           soln                 Pointer to the solution vector. This is the input to the residual calculation.
+     *  @param[in]           solnDot              Pointer to the solution Dot vector. This is the input to the residual calculation.
+     *  @param[in]           t                    Current time
+     *  @param[in]           rdelta_t             Delta t inverse
+     *  @param[in]           residType            Residual type. The default is Base_ResidEval.
+     *  @param[in]           solveType            Solve type. The default is TimeDependentAccurate_Solve
      */
-    virtual void residEval(Epetra_Vector* const&   res, const bool doTimeDependentResid,
+    virtual void residEval(Epetra_Vector* const&  res, const bool doTimeDependentResid,
                            const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot,
                            const double t, const double rdelta_t,
                            const ResidEval_Type_Enum residType = Base_ResidEval,
@@ -265,34 +257,31 @@ public:
      *  The call is made with the current time as the time
      *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
      *
-     *  After this call interrogation of the previous time step's results will not be
-     *  valid.
+     *  After this call interrogation of the previous time step's results will not be valid.
      *
      *  This call also calculates all of the "old" cell information for the residual calculation.
      *  The "old" values are storred from calculation of the "current" values.
      *
-     *  Note, when t is equal to t_old, soln_ptr should equal solnOld_ptr values. However,
-     *  solnDot_ptr values may not be zero.
+     *  Note, when t is equal to t_old, soln_ptr should equal solnOld_ptr values. However, solnDot_ptr values may not be zero.
      *
-     *   @param  doTimeDependentResid  This is true if we are solving a time dependent
-     *                                 problem.
-     *   @param  soln_ptr              Solution value at the current time
-     *   @param  solnDot_ptr           derivative of the solution at the current time.
-     *   @param  solnOld_ptr           Solution value at the old time step, n-1
-     *   @param  t                     current time to be accepted, n
-     *   @param  t_old                 previous time step value, t_old may be equal to t,
-     *                                 When we are calculating the initial conditions we
-     *                                 require that we have values of "old" cell information.
-     *                                 The call to this routine calculates the "old" information.
+     *   @param[in]          doTimeDependentResid  This is true if we are solving a time dependent problem.
+     *   @param[in]          soln_ptr              Solution value at the current time
+     *   @param[in]          solnDot_ptr           derivative of the solution at the current time.
+     *   @param[in]          solnOld_ptr           Solution value at the old time step, n-1
+     *   @param[in]          t                     current time to be accepted, n
+     *   @param[in]          t_old                 Previous time step value, t_old may be equal to t,
+     *                                             When we are calculating the initial conditions we
+     *                                             require that we have values of "old" cell information.
+     *                                             The call to this routine calculates the "old" information.
      */
-    virtual void advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
-                                     const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+    virtual void advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
+                                     const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr,
                                      const double t, const double t_old);
 
     //! Revert the Residual object's conditions to the conditions at the start of the global time step
     /*!
-    *  (virtual from ProblemResidEval)
-    *
+     *  (virtual from ProblemResidEval)
+     *
      *  If there was a solution in t_final, this is wiped out and replaced with the solution at t_init_init.
      *  We get rid of the pendingIntegratedFlags_ flag here as well.
      */
@@ -302,20 +291,19 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   Note this is an important routine for the speed of the solution.
-     *   It would be great if we could supply just exactly what is changing here.
-     *   This routine is always called at the beginning of the residual evaluation process.
+     *  Note this is an important routine for the speed of the solution.
+     *  It would be great if we could supply just exactly what is changing here.
+     *  This routine is always called at the beginning of the residual evaluation process.
      *
-     *   This is a natural place to put any precalculations of nodal quantities that
-     *   may be needed by the residual before its calculation.
+     *  This is a natural place to put any precalculations of nodal quantities that
+     *  may be needed by the residual before its calculation.
      *
-     * @param doTimeDependentResid   If true then we are doing a time step. If false then we are not
-     *                               doing a time step.
-     * @param soln                   Solution values
-     * @param solnDot                Solution derivative values
-     * @param t         Time to apply the changes. Time can be between delta_t+t_old and t_old
-     * @param delta_t   Global time step number
-     * param  t_old     Old time step value
+     *  @param[in]           doTimeDependentResid  If true then we are doing a time step. If false then we are not doing a time step
+     *  @param[in]           soln                  Solution values
+     *  @param[in]           solnDot               Solution derivative values
+     *  @param[in]           t                     Time to apply the changes. Time can be between delta_t+t_old and t_old
+     *  @param[in]           delta_t               Global time step number
+     *  @param[in]           t_old                 Old time step value
      */
     virtual void setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted* const soln,
                                      const Epetra_Vector_Ghosted* const solnDot, const double t,
@@ -329,22 +317,21 @@ public:
      *   The basic algorithm is to loop over the volume domains.
      *   Then, we loop over the surface domains
      *
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Solution vector. This is the input to
-     *                                the residual calculation.
-     * @param solnDot                 Solution vector. This is the input to
-     *                                the residual calculation.
-     * @param t                       Time
-     * @param delta_t                 delta_t for the current time step
-     * @param delta_t_np1             delta_t_np1 for the next step. This
-     *                                may come from a saved solution.
+     *  @param[in]           doTimeDependentResid  Boolean indicating whether we should formulate the time dependent residual
+     *  @param[out]          soln                  Solution vector. This is the input to the residual calculation.
+     *  @param[out]          solnDot               Solution vector time derivative. This is the input to the residual calculation.
+     *  @param[in]           t                     Current time
+     *  @param[in]           delta_t               Delta_t for the current time step
+     *  @param[in]           delta_t_np1           Delta_t_np1 for the next step. This may come from a saved solution.
      */
     virtual void initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted* const soln,
-                                   Epetra_Vector_Ghosted* solnDot, double& t, double& delta_t,
+                                   Epetra_Vector_Ghosted* const solnDot, double& t, double& delta_t,
                                    double& delta_t_np1);
 
     //! Allocate and create storage for the Jacobian matrix for this problem
+    /*!
+     *  @param[in]           linearSolver_db     Linear solver database
+     */
     void createMatrix(RecordTree_base* linearSolver_db);
 
     //! Return a reference to the Jacobian

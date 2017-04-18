@@ -757,9 +757,8 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
      */
     setAtolDeltaDamping(1.0, *soln);
 }
-//=====================================================================================================================
-void
-ProblemResidEval::createMatrix(RecordTree_base* linearSolver_db)
+//==================================================================================================================================
+void ProblemResidEval::createMatrix(RecordTree_base* linearSolver_db)
 {
     m_jac = new EpetraJac(*this);
     //m_jac->solverType_=Iterative;
@@ -781,13 +780,11 @@ ProblemResidEval::createMatrix(RecordTree_base* linearSolver_db)
         resInternal_ptr_ = new Epetra_Vector((m_jac->A_)->RangeMap());
     }
 }
-//=====================================================================================================================
-void
-ProblemResidEval::filterSolnPrediction(double t, Epetra_Vector_Ghosted& y)
+//==================================================================================================================================
+void ProblemResidEval::filterSolnPrediction(double t, Epetra_Vector_Ghosted& y)
 {
-
 }
-//=====================================================================================================================
+//==================================================================================================================================
 double
 ProblemResidEval::delta_t_constraint(const double time_n,
                                      const Epetra_Vector_Ghosted& y_n,

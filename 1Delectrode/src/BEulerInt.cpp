@@ -138,19 +138,13 @@ BEulerInt::BEulerInt() :
         m_timeRegionBoundaries(0)
 {
 }
-//=====================================================================================================================
-// Copy constructor
-/*
- *
- * @param r  Object to be copied
- */
+//==================================================================================================================================
 BEulerInt::BEulerInt(const BEulerInt &r)
 {
     *this = r;
 }
-//=====================================================================================================================
-BEulerInt &
-BEulerInt::operator=(const BEulerInt &r)
+//==================================================================================================================================
+BEulerInt& BEulerInt::operator=(const BEulerInt &r)
 {
     if (this == &r) {
         return *this;
@@ -162,8 +156,7 @@ BEulerInt::operator=(const BEulerInt &r)
 
     return *this;
 }
-//=====================================================================================================================
-// Destructor
+//==================================================================================================================================
 BEulerInt::~BEulerInt()
 {
     safeDelete(m_nonlin);
@@ -186,7 +179,7 @@ BEulerInt::~BEulerInt()
     safeDelete(m_colScales);
     safeDelete(m_isArithmeticScaled);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //  Function called by BEuler to evaluate the Jacobian matrix and the
 //  current residual at the current time step.
 /*
@@ -213,7 +206,6 @@ void BEulerInt::beuler_jac(m1d::EpetraJac &tjac, m1d::Epetra_Vector_Owned * cons
 
     tjac.matrixResEval(true, y_curr, y_curr_dot, res, time_curr, CJ, solnType);
 }
-
 //=====================================================================================================================
 void BEulerInt::setTolerancesEpetra(double reltol, const m1d::Epetra_Vector_Owned &abstol)
 {

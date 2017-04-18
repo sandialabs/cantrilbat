@@ -21,16 +21,15 @@
 #include "BlockEntryGlobal.h"
 
 #include "m1d_RecordTree_base.h"
+
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace BEInput
 {
   class BlockEntry;
 }
-
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
 //==================================================================================================================================
 enum SolverType {
   Direct = 0,
@@ -39,44 +38,61 @@ enum SolverType {
 //==================================================================================================================================
 //! Class EpetraJac evaluates the Jacobian of a system of equations
 /*!
- * Class EpetraJac evaluates the Jacobian of a system of equations
- * defined by a residual function supplied by an instance of class
- * 'ProblemResidEval.' The residual function may consist of several linked
- * 1D domains, with different variables in each domain.
+ *  Class EpetraJac evaluates the Jacobian of a system of equations defined by a residual function supplied 
+ *  by an instance of class 'ProblemResidEval.' The residual function may consist of several linked
+ *  1D domains, with different variables in each domain.
  */
-class EpetraJac {
+class EpetraJac 
+{
 
 public:
 
-  class BEinput_EpetraJac : public m1d::RecordTree_base  {
-  public:
-    BEinput_EpetraJac(); 
-    ~BEinput_EpetraJac();
-    m1d::SolverType I_solverType;
-    std::string S_directSolverName;
+  //! Record tree format for input to the solvers
+  /*!
+   *  Additions to the record tree for the solver.
+   */
+  class BEinput_EpetraJac : public m1d::RecordTree_base 
+  {
+      public:
+        //! Default Constructor
+        BEinput_EpetraJac(); 
+ 
+        //! virtual destructor
+        ~BEinput_EpetraJac();
+ 
+        //! Solver type
+        m1d::SolverType I_solverType;
+
+        //! Direct solver name
+        std::string S_directSolverName;
   };
   
   //! Static function to create a parsing block for the jacobian object to read
-  static RecordTree_base *
-  setupMDinput_pass1(BEInput::BlockEntry * Parent, RecordTree_base *dbb = 0);
+  static RecordTree_base* setupMDinput_pass1(BEInput::BlockEntry * Parent, RecordTree_base *dbb = 0);
 
-  void process_BEinput(RecordTree_base *dbb);
+  //! Process the input file
+  /*!
+   *  @param[in]             dbb                 Database of entries from input file processing
+   */
+  void process_BEinput(const RecordTree_base* const dbb);
 
-  void process_input(BEInput::BlockEntry *cf);
+  //! Process the input file BlockEntry structure directly, extracting needed input for setting up the linear solver
+  /*!
+   *  @param[in]             cf                  Pointer to the BlockEntry database
+   */
+  void process_input(BEInput::BlockEntry* const cf);
 
   //!Constructor.
   /*!
-   * @param r  function which calculates the residual
+   *  @param r  function which calculates the residual
    */
   EpetraJac(ProblemResidEval& r);
 
   /// Destructor. Does nothing.
-  virtual
-  ~EpetraJac();
+  virtual ~EpetraJac();
 
   //! Allocate the matrix and  other vectors
-  void
-  allocateMatrix();
+  void allocateMatrix();
 
   //! Calculate a Jacobian -> internal
   /*!
@@ -86,13 +102,9 @@ public:
    *                                formulate the time dependent residual
    * @param soln                    Solution vector
    */
-  void
-  matrixEval(const bool doTimeDependentResid,
-             const Epetra_Vector * const solnBase,
-             const Epetra_Vector * const solnDotBase,
-             const double t,
-             const double rdelta_t,
-	     const m1d::Solve_Type_Enum solveType);
+  void matrixEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase,
+                  const Epetra_Vector* const solnDotBase, const double t, const double rdelta_t,
+	          const m1d::Solve_Type_Enum solveType);
 
   //! Calculate a Jacobian and a residual
   /*!
@@ -102,8 +114,7 @@ public:
    *                                formulate the time dependent residual
    * @param soln                    Solution vector
    */
-  void
-  matrixResEval(const bool doTimeDependentResid,
+  void matrixResEval(const bool doTimeDependentResid,
                 const Epetra_Vector * const solnBase,
                 const Epetra_Vector * const solnDotBase,
                 Epetra_Vector * const resBase,
@@ -332,18 +343,19 @@ public:
   //! Main routine to solve the linear system
   /*!
    *
-   * @param b  This is the input rhs
-   * @param x  Returns the solved system in x
-   * @param its Returns the number of its to solve the linear system
-   * @param norm of the value Ax-b on return if doRes is postivite
-   * @param doRes We check the Ax-b calc if true
-   * @return  0 for a successful routine.
+   *  @param[in]             b                   This is the input rhs
+   *  @param[in]             x                   Returns the solved system in x
+   *  @param[out]            its                 Returns the number of iterations to solve the linear system
+   *  @param[out]            norm                The norm of the value of (Ax-b) on return if doRes is true
+   *  @param[in]             doRes               We check the Ax-b calc if true
+   *
+   *  @return                                    0 for a successful routine.
+   *                                             Any other number indicates a failure
    */
-  int
-  solve(Epetra_Vector *b, Epetra_Vector *x, int &its,  double &norm, bool doRes=false);
+  int solve(Epetra_Vector* const b, Epetra_Vector* const x, int& its, double& norm, bool doRes=false);
 
 public:
-  //! This is true if we have factored the matrix.
+  //! This is true if we have factored the matrix
   /*!
    *  Factoring occurs after column and row scaling operations.
    */
@@ -355,45 +367,54 @@ public:
    */
   bool m_columnScaled;
 
-  //! This is true if we have row Scaled the matrix
+  //! This is true if we have row-scaled the matrix
   /*!
-   * row Scaling always occurs after column scaling and before factoring
+   *  Row Scaling always occurs after column scaling and before factoring
    */
   bool m_rowScaled;
 
 protected:
 
-  int m_n, m_kl, m_ku;
+  int m_n; 
+
+  int m_kl; 
+
+  int m_ku;
+
 public:
   //! pointer to the Epetra Vbr matrix
-  Epetra_VbrMatrix * A_;
+  Epetra_VbrMatrix* A_;
 
   //! Pointer to the Epetra Vbr row matrix representation
   Epetra_VbrRowMatrix* Arow_;
 
   //! local copy of the Epetra_Comm ptr object
-  Epetra_Comm *Comm_ptr_;
+  Epetra_Comm* Comm_ptr_;
 
-  Epetra_Vector *m_BmAX;
-  Epetra_Vector *m_AX;
+  Epetra_Vector* m_BmAX;
+  Epetra_Vector* m_AX;
 
   //! Pointer to the delta solution vector
   /*!
    *  This is used to store the deltas for the numerical jacobian
    */ 
-  Epetra_Vector *deltaSoln_;
+  Epetra_Vector* deltaSoln_;
 
   //! pointer to the residual evaluator.
   /*!
    * This is not owned by this object
    */
   ProblemResidEval* m_resid;
+ 
   double m_rtol; 
+ 
   double m_atol;
+ 
   double m_elapsed;
-  Epetra_Vector *m_ssdiag;
+ 
+  Epetra_Vector* m_ssdiag;
 
-  Epetra_CrsMatrix * Acrs_;
+  Epetra_CrsMatrix* Acrs_;
 
 
   //! Mask indicating which variable is an algebraic constraint and which
@@ -402,7 +423,7 @@ public:
    *  1 is algebraic
    *  0 has a time derivative
    */
-  Epetra_IntVector *m_isAlgebraic;
+  Epetra_IntVector* m_isAlgebraic;
 
 
   //! Number of Jacobian formation evaluations
@@ -441,7 +462,7 @@ public:
    *  and numLnEqns, is the same on all processors.
    *
    */
-  GlobalIndices *GI_ptr_;
+  GlobalIndices* GI_ptr_;
 
   //! Class setting up the local node indices on the current processor
   /*!
@@ -454,14 +475,13 @@ public:
    *   Then the left ghost node is listed
    *   Then, the "globally-all-connected node is listed, if available.
    */
-  LocalNodeIndices *LI_ptr_;
+  LocalNodeIndices* LI_ptr_;
 
   //! This class stores and has facilities for accessing the VBR matrix
   /*!
    *  This object is owned and created by this EpetraJac object.
    */
-  LocalRowNodeVBRIndices *LRN_VBR_ptr_;
-
+  LocalRowNodeVBRIndices* LRN_VBR_ptr_;
 
   //! This vector stores a string describing the current variable changes used
   //! to calculate the jacobian by numerical differencing
@@ -485,8 +505,7 @@ public:
  * @param m    reference to an EpetraJac object
  * @return     Returns a reference to the ostream
  */
-std::ostream&
-operator<<(std::ostream& os, const EpetraJac& m);
+std::ostream& operator<<(std::ostream& os, const EpetraJac& m);
 //==================================================================================================================================
 } 
 //----------------------------------------------------------------------------------------------------------------------------------

@@ -5,12 +5,6 @@
  *  Implementation file for class EpetraJac
  */
 
-/*
- *  $Author: hkmoffa $
- *  $Date: 2012-02-23 14:34:18 -0700 (Thu, 23 Feb 2012) $
- *  $Revision: 5 $
- *
- */
 
 #include "m1d_EpetraJac.h"
 
@@ -32,12 +26,10 @@
 
 using namespace std;
 using namespace BEInput;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
-
-//=================================================================================
+//==================================================================================================================================
 EpetraJac::EpetraJac(ProblemResidEval& r) :
   m_factored(false), 
   m_columnScaled(false), 
@@ -83,10 +75,9 @@ EpetraJac::EpetraJac(ProblemResidEval& r) :
   LRN_VBR_ptr_->informProblem(&r);
 
 }
-
-//=================================================================================
-EpetraJac::~EpetraJac() {
-  // Delete the jacobian
+//==================================================================================================================================
+EpetraJac::~EpetraJac() 
+{
   safeDelete(A_);
   safeDelete(Arow_);
   safeDelete(LRN_VBR_ptr_);
@@ -95,7 +86,7 @@ EpetraJac::~EpetraJac() {
   safeDelete(deltaSoln_);
   safeDelete(m_isAlgebraic);
 }
-//=================================================================================
+//==================================================================================================================================
 void
 EpetraJac::allocateMatrix()
 {
@@ -161,23 +152,21 @@ EpetraJac::allocateMatrix()
   m_isAlgebraic = new Epetra_IntVector(A_->RangeMap());
   m_resid->fillIsAlgebraic(*m_isAlgebraic);
 }
-//=================================================================================
-void
-EpetraJac::updateTransient(double rdt, int* mask)
+//==================================================================================================================================
+void EpetraJac::updateTransient(double rdt, int* mask)
 {
   int n;
   for (n = 0; n < m_NumGbEqns; n++) {
     //  value(n, n) = m_ssdiag[n] - mask[n] * rdt;
   }
 }
-//=================================================================================
-void
-EpetraJac::incrementDiagonal(int j, double d)
+//==================================================================================================================================
+void EpetraJac::incrementDiagonal(int j, double d)
 {
   // m_ssdiag[j] += d;
   // value(j, j) = m_ssdiag[j];
 }
-//=================================================================================
+//==================================================================================================================================
 RecordTree_base *
 EpetraJac::setupMDinput_pass1(BEInput::BlockEntry * Parent, RecordTree_base *dbb)
 {
@@ -198,40 +187,27 @@ EpetraJac::setupMDinput_pass1(BEInput::BlockEntry * Parent, RecordTree_base *dbb
   }
   if (lsb) {
     const char *cppkkm[2] = {"Direct", "Iterative"};
-    LE_PickList *lepkm = new LE_PickList("Solver Type",
-					 (int *) &(db->I_solverType),
-					 cppkkm, 2, 1, "SolverType");
+    LE_PickList *lepkm = new LE_PickList("Solver Type", (int *) &(db->I_solverType), cppkkm, 2, 1, "SolverType");
     lepkm->set_default("Direct");
     lsb->addLineEntry(lepkm);
 
-    LE_OneStr *ledsn = new LE_OneStr("Direct Solver Name",
-				     &(db->S_directSolverName),
-				    2, 1, 0, "DirectSolverName");
+    LE_OneStr *ledsn = new LE_OneStr("Direct Solver Name", &(db->S_directSolverName), 2, 1, 0, "DirectSolverName");
     ledsn->set_default("Umfpack");
     lsb->addLineEntry(ledsn);
-
-
   }
   return static_cast<m1d::RecordTree_base *>(db);
   //return db;
 }
-//================================================================================
-/*
- * Accessor routine for the mask variable
- */
-Epetra_IntVector&
-EpetraJac::transientMask()
+//==================================================================================================================================
+Epetra_IntVector& EpetraJac::transientMask()
 {
   return *m_isAlgebraic;
 }
-//=====================================================================================
+//==================================================================================================================================
 void
-EpetraJac::matrixEval(const bool doTimeDependentResid,
-                      const Epetra_Vector *solnBase_ptr,
-                      const Epetra_Vector *solnDotBase_ptr,
-                      const double t,
-                      const double rdelta_t,
-		      const Solve_Type_Enum solveType)
+EpetraJac::matrixEval(const bool doTimeDependentResid, const Epetra_Vector *solnBase_ptr,
+                      const Epetra_Vector *solnDotBase_ptr, const double t,
+                      const double rdelta_t, const Solve_Type_Enum solveType)
 {
   // Epetra_Vector *resBase = new Epetra_Vector(*(GI_ptr_->GbEqnstoOwnedLcEqnsMap));
   Epetra_Vector *resBase = new Epetra_Vector(*(LI_ptr_->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap));
@@ -252,18 +228,14 @@ EpetraJac::matrixResEval(const bool doTimeDependentResid,
   matrixEval1(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, resBase, t, rdelta_t, solveType);
   fillVbr();
 }
-//===================================================================================
+//==================================================================================================================================
 /*
  *   solnBase contains ghost nodes
  */
 void
-EpetraJac::matrixEval1(const bool doTimeDependentResid,
-                       const Epetra_Vector * const solnBase_ptr,
-                       const Epetra_Vector * const solnDotBase_ptr,
-                       Epetra_Vector * const resBase,
-                       const double t,
-                       const double rdelta_t,
-		       Solve_Type_Enum solveType)
+EpetraJac::matrixEval1(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
+                       const Epetra_Vector* const solnDotBase_ptr, Epetra_Vector* const resBase,
+                       const double t, const double rdelta_t, Solve_Type_Enum solveType)
 {
   solveType_ = solveType;
   m_resid->residEval(resBase, doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, t, rdelta_t, Base_ResidEval, solveType);
@@ -271,16 +243,9 @@ EpetraJac::matrixEval1(const bool doTimeDependentResid,
   eval(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, *resBase, t, rdelta_t);
 }
 //===================================================================================================================================
-/*
- *
- */
-void
-EpetraJac::eval(const bool doTimeDependentResid,
-                const Epetra_Vector * const solnBase_ptr,
-                const Epetra_Vector * const solnDotBase_ptr,
-                const Epetra_Vector & resBase,
-                double t,
-                double rdelta_t)
+void EpetraJac::eval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
+                const Epetra_Vector* const solnDotBase_ptr, const Epetra_Vector & resBase,
+                double t, double rdelta_t)
 {
   m_nevals++;
   double timeDim = 0.0;
@@ -437,7 +402,7 @@ EpetraJac::eval(const bool doTimeDependentResid,
   safeDelete(res);
   safeDelete(solnDot_ptr);
 }
-//=======================================================================================
+//==================================================================================================================================
 void
 EpetraJac::fillVbr()
 {
@@ -474,22 +439,13 @@ EpetraJac::fillVbr()
 
   }
 }
-//=====================================================================================================================
-// Get the row scales for the matrix
-/*
- * In this calculation we sum up the absolute value of all elements on a row. Then take the inverse.
- *
- * @param rowScales  Epetra_Vector of length num local equations on the processor.
- */
-void
-EpetraJac::getRowScales(Epetra_Vector * const rowScales) const
+//==================================================================================================================================
+void EpetraJac::getRowScales(Epetra_Vector* const rowScales) const
 {
   LRN_VBR_ptr_->calcInvRowSumScales(*rowScales);
 }
-//=====================================================================================================================
-// Column Scale of the matrix
-void
-EpetraJac::columnScale(const Epetra_Vector * const colScales)
+//==================================================================================================================================
+void EpetraJac::columnScale(const Epetra_Vector * const colScales)
 {
   if (m_factored) {
     throw m1d_Error("EpetraJac::columnScale", "matrix is factored");
@@ -500,10 +456,9 @@ EpetraJac::columnScale(const Epetra_Vector * const colScales)
   A_->RightScale(*colScales);
   m_columnScaled = true;
 }
-//=====================================================================================================================
-// Row Scale of the matrix
+//==================================================================================================================================
 void
-EpetraJac::rowScale(const Epetra_Vector * const rowScales)
+EpetraJac::rowScale(const Epetra_Vector* const rowScales)
 {
   if (m_factored) {
     throw m1d_Error("EpetraJac::rowScale", "matrix is factored");
@@ -512,13 +467,8 @@ EpetraJac::rowScale(const Epetra_Vector * const rowScales)
   A_->LeftScale(*rowScales);
   m_rowScaled = true;
 }
-//=====================================================================================================================
-// Print out the matrix structure of the VBR Matrix
-/*
- * @param oo  ostream
- */
-void
-EpetraJac::queryMatrixStructure(std::ostream &oo)
+//==================================================================================================================================
+void EpetraJac::queryMatrixStructure(std::ostream &oo)
 {
   LRN_VBR_ptr_->queryMatrixStructure(A_, oo);
 }
@@ -528,8 +478,7 @@ const Epetra_Vector& EpetraJac::deltaSolnJac() const
     return *deltaSoln_;
 }
 //===================================================================================================================================
-void
-EpetraJac::zeroMatrix()
+void EpetraJac::zeroMatrix()
 {
   // loop over the block rows
   int numLcRowNodes = LRN_VBR_ptr_->NumLcRowNodes;
@@ -576,50 +525,52 @@ EpetraJac::zeroMatrix()
   m_columnScaled = false;
   m_rowScaled = false;
 }
-//=======================================================================================
-// Return a changeable pointer into the matrix given Global Block Row indices
+//==================================================================================================================================
 /*
- *   I don't think this will ever be used in practice, because of the speed. But,
- *   here it is.
- * @param gbRow          Global row number
- * @param lcRowIndex     local row index of the equation on that row
- * @param gbCol          Global col number
- * @param lcColIndex     local col index of the variable on that col
- * @return    Returns a pointer to the position in the block matrix corresponding
+ *   Return a changeable pointer into the matrix given Global Block Row indices
+ *   I don't think this will ever be used in practice, because of the speed. But, here it is.
+ *   We will only return a valid pointer if the block row and local equation number is owned by this processor. If it is 
+ *   not owned or is an external row on this processor will will return the null pointer.
+ *
+ *  @param gbRow          Global row number
+ *  @param lcRowIndex     local row index of the equation on that row
+ *  @param gbCol          Global col number
+ *  @param lcColIndex     local col index of the variable on that col
+ *  @return    Returns a pointer to the position in the block matrix corresponding
  *            to that row and column. Will return 0 if this number is not on the current
  *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
  */
-double *
+double*
 EpetraJac::GbBlkValue(int gbRow, int lcRowIndex, int gbCol, int lcColIndex) const
 {
-  double *vptr = 0;
+  double* vptr = nullptr;
 
+  // Find the local block row
   int iBlockRow = LI_ptr_->GbNodeToLcNode(gbRow);
-  // First check to see that the row is defined on this machine
-
+  // First check to see that the row is defined on this machine. If it is not, we will return nullptr.
   if (iBlockRow >= 0) {
-    // Next check to see that the
-    if (!LI_ptr_->IsExternal_LcNode[iBlockRow]) {
+    // Next check to see that the block row is an external row for this processor. If it is, we will return a nullptr
+    if (! LI_ptr_->IsExternal_LcNode[iBlockRow]) {
+
+      // find the local column node index on the processor given the global column node, which corresponds to the global node number
       int lccol = LI_ptr_->GbNodeToLcNode(gbCol);
-      // find the local column index
+      // Note this should always work. So should add an error
       if (lccol >= 0) {
-        /*
-         * Get the number of blocks columns in the block row
-         */
+
+        // Get the number of blocks columns in the block row
         int numBlocks = LRN_VBR_ptr_->NumColBlocks_LcRNodes[iBlockRow];
-        // Find out the block column indices for this block row
+
+        // Get a pointer for the block column indices for this block row
         /*
-         *  bIndexes[j] is the local node number of the block column
+         *  bIndexes[j] is the starting local node number of the block column
          */
-        int *bIndexes = LRN_VBR_ptr_->IndexLcNodeColBlock_LcRNodes[iBlockRow];
+        int* bIndexes = LRN_VBR_ptr_->IndexLcNodeColBlock_LcRNodes[iBlockRow];
         //int *colSize_row = m1d::LRN_VBR_ptr->ColSizeColBlock_LcRNodes[iBlockRow];
 
-        // Pull down the vector of dense matrices corresponding to the block row
-        // Jacobian entries
+        // Pull down the vector of dense matrices corresponding to the block row Jacobian entries
         Epetra_SerialDenseMatrix **rowBlock = LRN_VBR_ptr_->BlockMatrices[iBlockRow];
 
-        // Loop over the block columns. At this point at most one of the block
-        // column variables has changed.
+        // Loop over the block columns. At this point at most one of the block column variables has changed.
         int ifound = -1;
         for (int jColIndex = 0; jColIndex < numBlocks; jColIndex++) {
           // Find the block row number
@@ -650,95 +601,91 @@ EpetraJac::GbBlkValue(int gbRow, int lcRowIndex, int gbCol, int lcColIndex) cons
         Epetra_SerialDenseMatrix *rowColBlock = rowBlock[ifound];
         vptr = &(*rowColBlock)(lcRowIndex, lcColIndex);
       }
+#ifdef DEBUG_MODE
+      else {
+         throw m1d_Error("EpetraJac::GbBlkValue", "lcol indexing error");
+      }
+#endif
     }
 
   }
   return vptr;
 }
-//====================================================================================
-double&
-EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn)
+//==================================================================================================================================
+double& EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn)
 {
   int lcRowIndex, lcColIndex;
   int igbRow = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcRowIndex);
   int igbCol = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcColIndex);
+#ifdef DEBUG_MODE
   double* pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
   if (pos == 0) {
     throw m1d_Error("EpetraJac::operator()", "bad indecises");
   }
   return *pos;
+#else
+    return GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
+#endif
 }
-//====================================================================================
-double&
-EpetraJac::operator()(const int iGlobalEqn, const int jGlobalEqn)
+//==================================================================================================================================
+double& EpetraJac::operator()(const int iGlobalEqn, const int jGlobalEqn)
 {
   return value(iGlobalEqn, jGlobalEqn);
 }
-//====================================================================================
-double
-EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn) const
+//==================================================================================================================================
+double EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn) const
 {
   int lcRowIndex, lcColIndex;
   int igbRow = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcRowIndex);
   int igbCol = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcColIndex);
-  const double * pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
+  const double* pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
   if (pos == 0) {
     return 0.0;
   }
   return *pos;
 }
-
-
-
-//====================================================================================
-double
-EpetraJac::_value(const int iGlobalEqn, const int jGlobalEqn) const
+//==================================================================================================================================
+double EpetraJac::_value(const int iGlobalEqn, const int jGlobalEqn) const
 {
   int lcRowIndex, lcColIndex;
   int igbRow = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcRowIndex);
   int igbCol = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcColIndex);
-  const double * pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
-  if (pos == 0) {
+  const double* pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
+  if (pos == nullptr) {
     return 0.0;
   }
   return *pos;
 }
-//====================================================================================
-// Number of global rows
-int
-EpetraJac::nRows() const
+//==================================================================================================================================
+int EpetraJac::nRows() const
 {
   return GI_ptr_->NumGbEqns;
 }
-
-//===================================================================================
+//==================================================================================================================================
 /*
  * Multiply A*b and write result to \c prod.
  */
 void
-EpetraJac::mult(const Epetra_Vector &b, Epetra_Vector &prod) const
+EpetraJac::mult(const Epetra_Vector& b, Epetra_Vector& prod) const
 {
   int err = A_->Multiply1(false, b, prod);
   if (err) {
     throw m1d_Error("EpetraJac::mult", "error code returned");
   }
 }
-//===================================================================================
+//==================================================================================================================================
 /*
  * Multiply b*A and write result to \c prod.
  */
 void
-EpetraJac::leftMult(const Epetra_Vector &b, Epetra_Vector &prod) const
+EpetraJac::leftMult(const Epetra_Vector& b, Epetra_Vector& prod) const
 {
   int err = A_->Multiply1(true, b, prod);
   if (err) {
     throw m1d_Error("EpetraJac::mult", "error code returned");
   }
 }
-//===================================================================================
-/*
- * Perform an LU decomposition.
- */
+//==================================================================================================================================
 int
 EpetraJac::factor()
 {
@@ -751,9 +698,8 @@ EpetraJac::factor()
   m_factored = true;
   return 0;
 }
-//===================================================================================
-int
-EpetraJac::solve(Epetra_Vector *b, Epetra_Vector *x, int &its, double &norm, bool doRes)
+//==================================================================================================================================
+int EpetraJac::solve(Epetra_Vector* const b, Epetra_Vector* const x, int& its, double& norm, bool doRes)
 {
   int retn = 0;
   double residualL2;
@@ -788,94 +734,78 @@ EpetraJac::solve(Epetra_Vector *b, Epetra_Vector *x, int &its, double &norm, boo
   m_factored = true;
   return retn;
 }
-//=================================================================================
-double
-EpetraJac::elapsedTime() const
+//==================================================================================================================================
+double EpetraJac::elapsedTime() const
 {
   return m_elapsed;
 }
-//=================================================================================
-int
-EpetraJac::nEvals() const
+//==================================================================================================================================
+int EpetraJac::nEvals() const
 {
   return m_nevals;
 }
-//=================================================================================
-/*
- * Number of times 'incrementAge' has been called since the
- * last evaluation
- */
-int
-EpetraJac::age() const
+//==================================================================================================================================
+int EpetraJac::age() const
 {
   return m_age;
 }
-//=================================================================================
-void
-EpetraJac::setAge(int age)
+//==================================================================================================================================
+void EpetraJac::setAge(int age)
 {
   m_age = age;
 }
-//=================================================================================
-void
-EpetraJac::incrementAge()
+//==================================================================================================================================
+void EpetraJac::incrementAge()
 {
   m_age++;
 }
-//=================================================================================
-//! Number of columns
-int
-EpetraJac::nColumns() const
+//==================================================================================================================================
+int EpetraJac::nColumns() const
 {
   return m_n;
 }
-//=================================================================================
-// Number of subdiagonals
-int
-EpetraJac::nSubDiagonals() const
+//==================================================================================================================================
+int EpetraJac::nSubDiagonals() const
 {
   return m_kl;
 }
-//=================================================================================
-// Number of superdiagonals
-int
-EpetraJac::nSuperDiagonals() const
+//==================================================================================================================================
+int EpetraJac::nSuperDiagonals() const
 {
   return m_ku;
 }
-//=================================================================================
-int
-EpetraJac::ldim() const
+//==================================================================================================================================
+int EpetraJac::ldim() const
 {
   return 2 * m_kl + m_ku + 1;
 }
-//======================================================================================================================
-void EpetraJac::process_BEinput(RecordTree_base *dbb)
+//==================================================================================================================================
+void EpetraJac::process_BEinput(const RecordTree_base* const dbb)
 {
-  BEinput_EpetraJac *db = dynamic_cast<BEinput_EpetraJac *>(dbb);
+  const BEinput_EpetraJac *const db = dynamic_cast<const BEinput_EpetraJac *>(dbb);
   if (db) {
     solverType_ = db->I_solverType;
     directSolverName_ = db->S_directSolverName;
   }
 }
-//======================================================================================================================
-void EpetraJac::process_input(BlockEntry *cf)
+//==================================================================================================================================
+void EpetraJac::process_input(BlockEntry* const cf)
 {
-  BlockEntry *sb = cf->match_block("Linear Solver");
+  // Find the block
+  BlockEntry* sb = cf->match_block("Linear Solver");
   if (sb) {
-      LineEntry *le = sb->searchLineEntry("Solver Type");
-      LE_PickList *lep = dynamic_cast<LE_PickList *>(le);
+      // Process the line entries and fill in the record
+      LineEntry* le = sb->searchLineEntry("Solver Type");
+      LE_PickList* lep = dynamic_cast<LE_PickList*>(le);
       solverType_ = (m1d::SolverType) lep->currentTypedValue();
 
       le = sb->searchLineEntry("Direct Solver Name");
-      LE_OneStr *ledsn   = dynamic_cast<LE_OneStr *>(le);
+      LE_OneStr* ledsn = dynamic_cast<LE_OneStr*>(le);
       directSolverName_ = ledsn->currentTypedValue();
-
   }
 }
-//=================================================================================
-ostream&
-operator<<(ostream& os, const EpetraJac& m)
+//==================================================================================================================================
+ostream& operator<<(ostream& os, const EpetraJac& m)
 {
   Epetra_VbrMatrix &mat = *m.A_;
   const Epetra_BlockMap &rMap = mat.RowMap();
@@ -976,8 +906,7 @@ operator<<(ostream& os, const EpetraJac& m)
 
   for (i = 0; i < NumBlockRows1; i++) {
     int BlockRow1 = mat.GRID(i); // Get global row number
-    mat.ExtractGlobalBlockRowPointers(BlockRow1, MaxNumBlockEntries1, RowDim1, NumBlockEntries1, BlockIndices1,
-        Entries1);
+    mat.ExtractGlobalBlockRowPointers(BlockRow1, MaxNumBlockEntries1, RowDim1, NumBlockEntries1, BlockIndices1, Entries1);
 
     for (j = 0; j < NumBlockEntries1; j++) {
       os.width(8);
@@ -1020,19 +949,17 @@ operator<<(ostream& os, const EpetraJac& m)
 
   return os;
 }
-//=================================================================================
+//==================================================================================================================================
 EpetraJac::BEinput_EpetraJac::BEinput_EpetraJac() :
   RecordTree_base(),
   I_solverType(Direct),
   S_directSolverName("Umfpack")
 {
 }
-//=================================================================================
+//==================================================================================================================================
 EpetraJac::BEinput_EpetraJac::~BEinput_EpetraJac()
 {
 }
-//=================================================================================
+//==================================================================================================================================
 }
-// namespace
-//=================================================================================
-
+//----------------------------------------------------------------------------------------------------------------------------------
