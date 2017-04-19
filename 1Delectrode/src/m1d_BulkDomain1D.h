@@ -115,8 +115,8 @@ public:
      *  @param[in]           solnWeights         Pointer to the solution weights vector. Defaults to nullptr.
      */
     virtual void
-    calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
-                           Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
+    calcDeltaSolnVariables(const double t, const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted* solnDot_ptr,
+                           Epetra_Vector_Ghosted& deltaSoln, const Epetra_Vector_Ghosted* const atolVector_ptr,
                            const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
                            const Epetra_Vector* solnWeights = 0) override;
 

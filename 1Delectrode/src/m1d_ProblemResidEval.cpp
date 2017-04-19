@@ -1976,7 +1976,7 @@ ProblemResidEval::GbNodeToLcNode(const int gbNode) const
 {
     return (LI_ptr_->GbNodeToLcNode(gbNode));
 }
-//=====================================================================================================================
+//==================================================================================================================================ZZ
 int
 ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
 {
@@ -1991,10 +1991,9 @@ ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
     }
     return -1;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 /*
- * Return a vector of delta y's for calculation of the
- * numerical Jacobian
+ * Return a vector of delta y's for calculation of the numerical Jacobian
  */
 void
 ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
@@ -2012,7 +2011,7 @@ ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& so
         d_ptr->calcDeltaSolnVariables(t, soln, solnDot_ptr, deltaSoln, m_atolVector, solveType, solnWeights);
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 //  Find a delta of a solution component for use in the numerical jacobian
 /*
  *    @param soln      Reference to the complete solution vector

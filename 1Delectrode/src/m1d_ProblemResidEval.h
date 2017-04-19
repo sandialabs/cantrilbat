@@ -235,14 +235,15 @@ public:
      *
      *   The basic algorithm is to loop over the volume domains. Then, we loop over the surface domains.
      *
-     *  @param[out]          res                  Residual output
-     *  @param[in]           doTimeDependentResid Boolean indicating whether the time dependent residual is requested
-     *  @param[in]           soln                 Pointer to the solution vector. This is the input to the residual calculation.
-     *  @param[in]           solnDot              Pointer to the solution Dot vector. This is the input to the residual calculation.
-     *  @param[in]           t                    Current time
-     *  @param[in]           rdelta_t             Delta t inverse
-     *  @param[in]           residType            Residual type. The default is Base_ResidEval.
-     *  @param[in]           solveType            Solve type. The default is TimeDependentAccurate_Solve
+     *  @param[out]          res                 Residual output
+     *  @param[in]          doTimeDependentResid Boolean indicating whether the time dependent residual is requested
+     *  @param[in]           soln                Pointer to the solution vector. This is the input to the residual calculation.
+     *  @param[in]           solnDot             Pointer to the solution Dot vector. This is the input to the residual calculation.
+     *  @param[in]           t                   Current time
+     *  @param[in]           rdelta_t            Delta t inverse
+     *  @param[in]           residType           Residual type. The default is Base_ResidEval.
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
      */
     virtual void residEval(Epetra_Vector* const&  res, const bool doTimeDependentResid,
                            const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot,
@@ -612,18 +613,32 @@ public:
      *
      */
     virtual bool evalStoppingCritera(double& time_current, double& delta_t_n, const Epetra_Vector_Ghosted& y_n,
-                                    const Epetra_Vector_Ghosted& ydot_n);
+                                     const Epetra_Vector_Ghosted& ydot_n);
 
 
     //! Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
      *  (virtual from ProblemResidEval)
      *
+     *  Routine to find the delta's for all the unknowns at the same time. 
+     *  Note that all input vectors to this routine are ghosted. THIS MUST BE CHECKED.
+     *  The idea is to calculate all deltas on the ghosted unknowns directly, and have them be exactly the same as on their
+     *  owned processor.
+     *
+     *  @param[in]           t                   time
+     *  @param[in]           soln                Reference to the current solution vector.
+     *  @param[in]           solnDot_ptr         Pointer to the Current solutionDot vector. Can be 0 for steady state problems
+     *  @param[out]          deltaSoln           Refererence to the changeable delta for the solution vector
+     *                                           that will be used.
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           solnWeights         Vector of solution weights used in creating normalized error values.
+     *                                           Defaults to 0, indicating none is available.
      */
-    virtual void calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
-                           const Epetra_Vector* const solnDot_ptr, Epetra_Vector& deltaSoln,
-                           const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
-                           const  Epetra_Vector* const solnWeights = nullptr);
+    virtual void calcDeltaSolnVariables(const double t, const Epetra_Vector_Ghosted& soln,
+                                        const Epetra_Vector_Ghosted* const solnDot_ptr, Epetra_Vector_Ghosted& deltaSoln,
+                                        const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                                        const Epetra_Vector_Ghosted* const solnWeights = nullptr);
 
     //! Save the solution to the end of an XML file using XML solution format
     /*!
@@ -631,45 +646,45 @@ public:
      *
      *  We write out the solution to a file.
      *
-     * @param ievent  Type of the event. The following form is used:
-     *             0 Initial conditions
-     *             1 Completion of a successful intermediate step.
-     *             2 Final successful conditions.
-     *             3 Intermediate nonlinear step
-     *            -1 unsuccessful step
+     *  @param[in]           ievent              Type of the event. The following form is used:
+     *                                              0 Initial conditions
+     *                                              1 Completion of a successful intermediate step.
+     *                                              2 Final successful conditions.
+     *                                              3 Intermediate nonlinear step
+     *                                             -1 unsuccessful step
      *
-     * @param baseFileName to be used. .xml is appended onto the filename
-     *          processors other than 0 have the pid appended to the name
-     * @param m_y_n    Current value of the solution vector
-     * @param m_ydot_n  Current value of the derivative of the solution vector
-     *
-     *      @param delta_t_np1       Suggested next delta t value (defaults to 0.0 if there isn't a
-     *                               good guess for the next delta_t).
+     *  @param[in]           baseFileName        Filename to be used. .xml is appended onto the filename
+     *                                           processors other than 0 have the pid appended to the name
+     *  @param[in]           m_y_n               Current value of the solution vector
+     *  @param[in]           m_ydot_n            Current value of the derivative of the solution vector
+     *  @param[in]           t                   Current time
+     *  @param[in]           delta_t             delta t
+     *  @param[in]           delta_t_np1         Suggested next delta t value (defaults to 0.0 if there isn't a
+     *                                           good guess for the next delta_t).
      */
     virtual void
-    saveSolutionEnd(const int itype, std::string baseFileName, const Epetra_Vector_Ghosted& m_y_n,
+    saveSolutionEnd(const int ievent, std::string baseFileName, const Epetra_Vector_Ghosted& m_y_n,
                     const Epetra_Vector_Ghosted* const m_ydot_n, const double t,
                     const double delta_t, const double delta_t_np1 = 0.0);
 
-    //! Read the solution from a saved file using the record number to identify the solution
+    //! Read a solution from a saved file, using the record number to identify the solution
     /*!
-     *  We read only successful final steps.
+     *  Note, we read only successful final steps.
      *
-     * @param iNumber            Solution Record number to read from. Solutions are numbered consequetively from
-     *                           zero to the number of global time steps. We will use the last
-     *                           time step if there aren't as many time steps in the solution file
-     *                           as requested.
+     *  @param[in]           iNumber             Solution Record number to read from. Solutions are numbered consequetively from
+     *                                           zero to the number of global time steps. We will use the last
+     *                                           time step if there aren't as many time steps in the solution file as requested.
      *
-     * @param baseFileName       File name to be used. .xml is appended onto the filename.
-     *                           Processors other than 0 have the pid appended to the name as well.
+     *  @param[in]           baseFileName        File name to be used. .xml is appended onto the filename.
+     *                                           Processors other than 0 have the pid appended to the name as well.
      *
-     * @param y_n_ghosted        Current value of the solution vector
-     * @param ydot_n_ghosted     Current value of the derivative of the solution vector
-     * @param t_read             time that is read in
-     * @param delta_t_read       delta time step for the last time step.
-     * @param delta_t_next_read  delta time step for the next time step if available
+     *  @param[out]          y_n_ghosted         Current value of the solution vector
+     *  @param[out]          ydot_n_ghosted      Current value of the derivative of the solution vector
+     *  @param[out]          t_read              time that is read in
+     *  @param[out]          delta_t_read        delta time step for the last time step.
+     *  @param[out]          delta_t_next_read   delta time step for the next time step if available
      */
-    void readSolutionRecordNumber(const int itype, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted,
+    void readSolutionRecordNumber(const int iNumber, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted,
                                   Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read, double& delta_t_read, 
                                   double& delta_t_next_read);
 
@@ -677,20 +692,20 @@ public:
     /*!
      *  We read only successful final steps
      *
-     * @param iNumber            Solution number to read from. Solutions are numbered consequetively from
-     *                           zero to the number of global time steps. We will use the last
-     *                           time step if there aren't as many time steps in the solution file
-     *                           as requested.
+     *  @param[in]           iNumber             Solution Record number to read from. Solutions are numbered consequetively from
+     *                                           zero to the number of global time steps. We will use the last
+     *                                           time step if there aren't as many time steps in the solution file as requested.
      *
-     * @param baseFileName       File Name to be used. .xml is appended onto the filename
-     *                           processors other than 0 have the pid appended to the name
-     * @param y_n_ghosted        Current value of the solution vector
-     * @param ydot_n_ghosted     Current value of the derivative of the solution vector
-     * @param t_read             time that is read in
-     * @param delta_t_read       delta time step for the last time step.
-     * @param delta_t_next_read  delta time step for the next time step if available
+     *  @param[in]           baseFileName        File name to be used. .xml is appended onto the filename.
+     *                                           Processors other than 0 have the pid appended to the name as well.
+     *
+     *  @param[out]          y_n_ghosted         Current value of the solution vector
+     *  @param[out]          ydot_n_ghosted      Current value of the derivative of the solution vector
+     *  @param[out]          t_read              time that is read in
+     *  @param[out]          delta_t_read        delta time step for the last time step.
+     *  @param[out]          delta_t_next_read   delta time step for the next time step if available
      */
-    void readSolution(const int itype, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted, 
+    void readSolution(const int iNumber, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted, 
                       Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read, double& delta_t_read,
                       double& delta_t_next_read);
 
@@ -705,10 +720,9 @@ public:
      * @param delta_t_read       delta time step for the last time step.
      * @param delta_t_next_read  delta time step for the next time step if available
      */
-    void
-    readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
-                    Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
-                    double& delta_t_read, double& delta_t_next_read);
+    void readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
+                         Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
+                         double& delta_t_read, double& delta_t_next_read);
 
     //!  Select the global time step increment record by the consequuatively numbered record index number
     /*
@@ -731,21 +745,24 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *  This is a general output utility to Cantera's logfile.
-     *  It's not hooked into the IO algorithm at all. It should be
+     *  This is a general output utility to Zuzax's logfile.  It's not hooked into the IO algorithm at all. It should be
      *  conditionally called depending on the whims of the user.
      *
-     * @param ievent  Type of the event. The following form is used:
-     *             0 Initial conditions
-     *             1 Completion of a successful intermediate step.
-     *             2 Final successful conditions.
-     *             3 Intermediate nonlinear step
-     *            -1 unsuccessful step
-     * @param doTimeDependentResid   Do the time dependent residual calculation
-     * @param t                      Current time
-     * @param delta_t                delta t
-     * @param y_n    Current value of the solution vector
-     * @param ydot_n  Current value of the derivative of the solution vector
+     *  @param[in]           ievent              Type of the event. The following form is used:
+     *                                              0  Initial conditions
+     *                                              1  Completion of a successful intermediate step.
+     *                                              2  Final successful conditions.
+     *                                              3  Intermediate nonlinear step
+     *                                             -1  unsuccessful step
+     *  @param[in]         doTimeDependentResid  Do the time dependent residual calculation
+     *  @param[in]           t                   Current time
+     *  @param[in]           delta_t             delta t
+     *  @param[in]           y_n                 Current value of the solution vector
+     *  @param[in]           ydot_n              Current value of the derivative of the solution vector
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           delta_t_np1         Value of the next time step. Defaults to 0.0, if not available.
+     *
      */
     virtual void showProblemSolution(const int ievent, bool doTimeDependentResid, const double t,
                                      const double delta_t, const Epetra_Vector_Owned& y_n,
@@ -757,9 +774,25 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
+     *  @param[in]           ievent              Type of the event. The following form is used:
+     *                                              0  Initial conditions
+     *                                              1  Completion of a successful intermediate step.
+     *                                              2  Final successful conditions.
+     *                                              3  Intermediate nonlinear step
+     *                                             -1  unsuccessful step
+     *  @param[in]           baseFileName        Base file name for writing out the file.
+     *  @param[in]         doTimeDependentResid  Do the time dependent residual calculation
+     *  @param[in]           t                   Current time
+     *  @param[in]           delta_t             delta t
+     *  @param[in]           y_n                 Current value of the solution vector
+     *  @param[in]           ydot_n              Current value of the derivative of the solution vector
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           delta_t_np1         Value of the next time step. Defaults to 0.0, if not available.
+     *
      *
      */
-    virtual void writeTecplot(const int ievent, std::string m_baseFileName, bool doTimeDependentResid,
+    virtual void writeTecplot(const int ievent, std::string baseFileName, bool doTimeDependentResid,
                               const double t, const double delta_t, const Epetra_Vector_Ghosted& y_n,
                               const Epetra_Vector_Ghosted* const ydot_n, const Solve_Type_Enum solveType,
                               const double delta_t_np1);
@@ -768,10 +801,11 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   @param solnVecName    Name of the solution vector -> will appear in the output
-     *   @param t              Current time
-     *   @param delta_t        delta t
-     *   @param solnVector     Vector of information to be printed
+     *  @param[in]           solnVecName         Name of the solution vector -> will appear in the output
+     *  @param[in]           t                   Current time
+     *  @param[in]           delta_t             delta t
+     *  @param[in]           solnVector          Vector of information to be printed
+     *  @param[in]           outFile             FILE pointer. Defaults to stdout if not specified.
      */
     virtual void showSolutionVector(std::string& solnVecName, const double t, const double delta_t,
                                     const Epetra_Vector_Owned& solnVector, FILE* outFile = stdout);
@@ -780,10 +814,11 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   @param solnVecName    Name of the solution vector -> will appear in the output
-     *   @param t              Current time
-     *   @param delta_t        delta t
-     *   @param solnVector     Integer Vector of information to be printed
+     *  @param[in]           solnVecName         Name of the solution vector -> will appear in the output
+     *  @param[in]           t                   Current time
+     *  @param[in]           delta_t             delta t
+     *  @param[in]           solnVector          Integer Vector of information to be printed
+     *  @param[in]           outFile             FILE pointer. Defaults to stdout if not specified.
      */
     virtual void showSolutionIntVector(std::string& solnVecName, const double t, const double delta_t,
                                        const Epetra_IntVector& solnVector, FILE* outFile = stdout);
@@ -795,24 +830,25 @@ public:
      *   These functions are affected by the print controls of the nonlinear solver
      *   and the time stepper.
      *
-     *      ievent is a description of the event that caused this
-     *      function to be called.
+     *   ievent is a description of the event that caused this function to be called.
      *
-     *      @param ievent  Event that's causing this routine to be called.
-     *                     =  0 Initial conditions for a calculation
-     *                     =  1 Completion of a successful intermediate time step.
-     *                     =  2 Completion of a successful Final time or final calculation.
-     *                     =  3 Completion of a successful Intermediate nonlinear step
-     *                     = -1 unsuccessful time step that converged, but failed otherwise
-     *                     = -2 unsuccessful nonlinear step.
-     *      @param doTimeDependentResid  true if solving a time dependent problem
-     *      @param time_current      Current time
-     *      @param delta_t_n         Current value of delta_t
-     *      @param istep             Current step number
-     *      @param soln_n               Current value of the solution vector
-     *      @param solnDot_n_ptr            Current value of the time deriv of the solution vector
-     *      @param delta_t_np1       Suggested next delta t value (defaults to 0.0 if there isn't a
-     *                               good guess for the next delta_t).
+     *  @param[in]           ievent              Event that's causing this routine to be called.
+     *                                            =  0 Initial conditions for a calculation
+     *                                            =  1 Completion of a successful intermediate time step.
+     *                                            =  2 Completion of a successful Final time or final calculation.
+     *                                            =  3 Completion of a successful Intermediate nonlinear step
+     *                                            = -1 unsuccessful time step that converged, but failed otherwise
+     *                                            = -2 unsuccessful nonlinear step.
+     *  @param[in]    doTimeDependentResid       true if solving a time dependent problem
+     *  @param[in]           time_current        Current time
+     *  @param[in]           delta_t_n           Current value of delta_t
+     *  @param[in]           istep               Current step number
+     *  @param[in]           soln_n              Current value of the solution vector
+     *  @param[in]           solnDot_n_ptr       Current value of the time deriv of the solution vector
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           delta_t_np1         Suggested next delta t value (defaults to 0.0 if there isn't a
+     *                                           good guess for the next delta_t).
      */
     virtual void writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current,
                                const double delta_t_n, const int istep, const Epetra_Vector_Ghosted& soln_n,
@@ -827,22 +863,21 @@ public:
      *   These functions are not affected by the print controls of the nonlinear solver
      *   and the time stepper.
      *
-     *      ievent is a description of the event that caused this
-     *      function to be called.
+     *  ievent is a description of the event that caused this   function to be called.
      *
-     *      @param ievent  Event that's causing this routine to be called.
-     *                     =  0 Initial conditions for a calculation
-     *                     =  1 Completion of a successful intermediate time step.
-     *                     =  2 Completion of a successful Final time or final calculation.
-     *                     =  3 Completion of a successful Intermediate nonlinear step
-     *                     = -1 unsuccessful time step that converged, but failed otherwise
-     *                     = -2 unsuccessful nonlinear step.
+     *  @param[in]           ievent              Event that's causing this routine to be called.
+     *                                            =  0 Initial conditions for a calculation
+     *                                            =  1 Completion of a successful intermediate time step.
+     *                                            =  2 Completion of a successful Final time or final calculation.
+     *                                            =  3 Completion of a successful Intermediate nonlinear step
+     *                                            = -1 unsuccessful time step that converged, but failed otherwise
+     *                                            = -2 unsuccessful nonlinear step.
      *
-     *      @param time_current      Current time
-     *      @param delta_t_n         Current value of delta_t
-     *      @param istep             Current step number
-     *      @param y_n               Current value of the solution vector
-     *      @param ydot_n_ptr        Current value of the time deriv of the solution vector
+     *  @param[in]           time_current        Current time
+     *  @param[in]           delta_t_n           Current value of delta_t
+     *  @param[in]           istep               Current step number
+     *  @param[in]           y_n                 Current value of the solution vector
+     *  @param[in]           ydot_n_ptr          Current value of the time deriv of the solution vector
      */
     virtual void user_out(const int ievent, const double time_current, const double delta_t_n,
                           const int istep, const Epetra_Vector_Ghosted& y_n,
@@ -880,6 +915,8 @@ public:
     void calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t);
 
 public:
+
+    // --------------------------------------------- D A T A ----------------------------------------------------------------
 
     double m_atol;
 
@@ -924,6 +961,10 @@ public:
      */
     EpetraJac* m_jac;
 
+    //! Base file name for the output file
+    /*!
+     *  The default is to use the name, "solution"
+     */
     std::string m_baseFileName;
 
     //! Step Number
@@ -951,7 +992,6 @@ public:
 
     //! Tolerances used for delta damping in the nonlinear solver
     Epetra_Vector_Ghosted* m_atolDeltaDamping_DAEInit;
-
 
     //! Pointer to the ProblemStatement class
     ProblemStatement* psInput_ptr_;
