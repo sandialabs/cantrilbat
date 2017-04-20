@@ -710,8 +710,7 @@ ProblemResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     }
 
     /*
-     * We set initial conditions here that make sense to do by looping over nodes
-     * instead of cells.
+     * We set initial conditions here that make sense to do by looping over nodes instead of cells.
      */
     LI_ptr_->setInitialConditions(doTimeDependentResid, soln, solnDot, t, delta_t);
     /*

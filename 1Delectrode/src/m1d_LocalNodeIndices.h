@@ -44,11 +44,14 @@ typedef Epetra_Vector Epetra_Vector_Ghosted;
 typedef Epetra_Vector Epetra_Vector_GlAll;
 
 //==================================================================================================================================
-//! These indices have to do with accessing the local nodes on the processor
+//! Mapping of local node indecises and local equations to global nodes and equations.
 /*!
+ *   This class holds mapping information from local row and equation number to global row and equation numbers.
+ *   The class also contains color information that is used for calculating numerical jacobians.
+ *
  *   All numbers are in local row node format. Local row node format is defined as the following. All owned nodes
  *   come first. They are ordered in terms of increasing global node number.
- *   Then the right ghost node is listed.  Then the left ghost node is listed
+ *   Then, the right ghost node is listed.  Then, the left ghost node is listed
  *   Then, the "globally-all-connected node is listed, if available. All of this structure spans domains
  *   starting from left to right. Owned nodes are defined irrespective of the domain structure.
  *
@@ -268,7 +271,7 @@ public:
     /*!
      *  The values are calculated from the NodalVars Data structure.
      *
-     *  This must be called after the total number of local equations on a processor, NumLcEqns, is found out.
+     *  This must be called after the total number of local equations on a processor, NumLcEqns, is calculated.
      *  Data members calculated:
      *        IndexGbEqns_LcEqns[]
      */
@@ -283,9 +286,9 @@ public:
      */
     void updateGhostEqns(Epetra_Vector_Ghosted* const solnV, const Epetra_Vector* const srcV);
 
-    /* ---------------------------------------------------------- */
+    // ---------------------------------------------------------- D A T A ----------------------------------------------------------
 
-    //! local copy of the Epetra_Comm ptr object
+    //! Local copy of the Epetra_Comm ptr object
     Epetra_Comm* Comm_ptr_;
 
     //! My processor ID
@@ -297,7 +300,7 @@ public:
     //! Number of locally owned nodes
     int NumOwnedLcNodes;
 
-    //! Number of external nodes
+    //! Number of external nodes on this processor
     int NumExtNodes;
 
     //! Number of local row nodes in the matrix
@@ -306,8 +309,7 @@ public:
      */
     int NumLcRowNodes;
 
-    //! Number of equations on this processor whether they are
-    //! owned by this processor or not.
+    //! Number of equations on this processor whether they are owned by this processor or not.
     int NumLcEqns;
 
     //! Number of owned equations on this processor
@@ -333,22 +335,23 @@ public:
 
     //! Global index of each of the local nodes
     /*!
-     *  Length = NumLcNodes
+     *  indexGlobalNode = IndexGbNode_LcNode[indexLocalNode]
+     *  Length: NumLcNodes
      */
     std::vector<int> IndexGbNode_LcNode;
 
-    //! Number of equations at each of the local nodes
+    //! Number of equations at each of the local nodes, owned and ghost
     /*!
-     *  Length = NumLcNodes
+     *  Length:  NumLcNodes
      */
     std::vector<int> NumEqns_LcNode;
 
     //! Starting local equation index for each local node
     /*!
      *  Provides a map between the local node index and the starting position
-     *  for the equations corresponding to that node in the local solutions vector.
+     *  for the equations corresponding to that node in the Epetra_Vector solution vector.
      *
-     *         Length = NumLcNodes
+     *    Length: NumLcNodes
      */
     std::vector<int> IndexLcEqns_LcNode;
 
@@ -417,11 +420,9 @@ public:
      */
     Epetra_Map* GbNodetoLcNodeColMap;
 
-//! Epetra_Map object containing the mapping of the nodes corresponding
-//! to row nodes needed by each processor
+    //! Epetra_Map object containing the mapping of the nodes corresponding to row nodes needed by each processor
     /*!
-     *  This describes the distribution of the owned nodes
-     *  needed by this processor. This is a 1 to 1 map.
+     *  This describes the distribution of the owned nodes  needed by this processor. This is a 1 to 1 map.
      *
      *  This is a distributed object. It's used to set up the rows of the
      *  node-only matrix owned by this processor. It's also used to describe the
@@ -429,16 +430,13 @@ public:
      */
     Epetra_Map* GbNodetoOwnedLcNodeMap;
 
-    //! Epetra_Map object containing the mapping of the block node
-    //! equations corresponding  to all column rows equations needed by this processor
-    //! whether they are owned or are external
+    //! Epetra_Map object containing the mapping of the block node equations corresponding to all 
+    //! column rows equations needed by this processor whether they are owned or are external
     /*!
      *  This describes the distribution of the block node equations corresponding to
-     *  column nodes needed by this processor for each processor. This is not a
-     *  1 to 1 map.
+     *  column nodes needed by this processor for each processor. This is not a 1 to 1 map.
      *
-     *  This is a distributed object. It's used to set up the columns of the
-     *  matrix owned by this processor.
+     *  This is a distributed object. It's used to set up the columns of the matrix owned by this processor.
      *
      *  This is called the overlap map for the solution vector. Might switch
      *  to this nomenclature in the future.
@@ -516,8 +514,8 @@ public:
 
     //! Actual Position of the nodes
     /*!
-     *   Initial position of the nodes. There may be displacements that alter the
-     *   position. Length is the number of nodes defined on the processor
+     *  Initial position of the nodes. There may be displacements that alter the
+     *  position. Length is the number of nodes defined on the processor
      */
     Epetra_Vector* Xpos_LcNode_p;
 

@@ -115,8 +115,7 @@ printOn0(Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
  * In order to fix this we need to first do a gatherOnAll for the element sizes across all processors!
  * This is not impossible, but delayed implementation.
  */
-Epetra_Vector *
-gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
+Epetra_Vector* gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
 {
   Epetra_Comm *comm_ptr = acomm_ptr;
   if (acomm_ptr == 0) {
@@ -135,8 +134,7 @@ gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
   /*
    * Create a map with all of the unknowns on all processors
    */
-  Epetra_Map *eAll_map = new Epetra_Map(numGlobalElements, numMyElements, 0,
-                                      *comm_ptr);
+  Epetra_Map* eAll_map = new Epetra_Map(numGlobalElements, numMyElements, 0, *comm_ptr);
   // HKM needs fixing.
   //new Epetra_BlockMap(-1, NumOwnedLcNodes, DATA_PTR(IndexGbNode_LcNode),
   //      DATA_PTR(NumEqns_LcNode), 0, *Comm_ptr_);
@@ -149,14 +147,14 @@ gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *acomm_ptr)
    *  Create an import object that describes the communication to bring
    *  all of the unknowns from the distributed object onto all of the processors
    */
-  Epetra_Import *importAll = new Epetra_Import(*eAll_map, distribMap);
+  Epetra_Import* importAll = new Epetra_Import(*eAll_map, distribMap);
   /*
    *  Malloc and create the Epetra object to hold all of the data on all procs
    */
-  Epetra_Vector *eAll = new Epetra_Vector(*eAll_map, true);
+  Epetra_Vector* eAll = new Epetra_Vector(*eAll_map, true);
 
   /*
-   *  Bring all of the data onto all processors and store it in e0.
+   *  Bring all of the data onto all processors and store it in eAll.
    */
   eAll->Import(distribV, *importAll, Insert, 0);
 

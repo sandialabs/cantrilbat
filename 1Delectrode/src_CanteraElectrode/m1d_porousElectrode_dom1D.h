@@ -65,8 +65,7 @@ public:
    * @param r      Object to be copied into the current object
    * @return       Returns a changeable reference to the current object
    */
-  porousElectrode_dom1D&
-  operator=(const porousElectrode_dom1D&r);
+  porousElectrode_dom1D& operator=(const porousElectrode_dom1D&r);
 
   //! Prepare all of the indices for fast calculation of the residual
   /*!
@@ -80,8 +79,7 @@ public:
    *  Child objects of this one will normally call this routine in a
    *  recursive fashion.
    */
-  virtual void
-  domain_prep(LocalNodeIndices *li_ptr);
+  virtual void domain_prep(LocalNodeIndices *li_ptr);
 
 
   //!  An electrode object must be created and initialized for every cell in the domain
@@ -276,7 +274,7 @@ protected:
      *   This only depends on the current conditions of temperatue, pressure, mole numbers of species, and volume
      *   fractions. It is an extensive quantity.
      *
-     *   Length = total number of cells.
+     *   Length = total number of cells on proc
      */
     std::vector<double> nEnthalpy_Electrode_New_Cell_;
 
@@ -285,7 +283,7 @@ protected:
      *   This only depends on the previous time step conditions of temperatue, pressure, mole numbers of species, and volume
      *   fractions. It is an extensive quantity.
      *
-     *   Length = total number of cells.
+     *   Length: total number of cells on proc
      */
     std::vector<double> nEnthalpy_Electrode_Old_Cell_;
 
@@ -294,7 +292,7 @@ protected:
      *   This only depends on the current conditions of temperatue, pressure, mole numbers of species.
      *   It is an extensive quantity. It is calculated from electrode->SolidVol()
      *
-     *   Length = total number of cells.
+     *   Length: total number of cells on proc
      */
     std::vector<double> nVol_zeroStress_Electrode_Cell_;
 

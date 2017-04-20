@@ -83,8 +83,7 @@ public:
      *  Child objects of this one will normally call this routine in a
      *  recursive fashion.
      */
-    virtual void
-    domain_prep(LocalNodeIndices* li_ptr);
+    virtual void domain_prep(LocalNodeIndices* li_ptr);
 
     //! Function that gets called at end the start of every time step
     /*!
@@ -109,8 +108,10 @@ public:
                         const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
                         const double t, const double t_old);
 
-    virtual void
-    residEval_PreCalc(const bool doTimeDependentResid,
+
+
+
+    virtual void residEval_PreCalc(const bool doTimeDependentResid,
                       const Epetra_Vector* soln_ptr,
                       const Epetra_Vector* solnDot_ptr,
                       const Epetra_Vector* solnOld_ptr,
@@ -129,7 +130,6 @@ public:
      */
     virtual void SetupThermoShop1(const NodalVars* const nv, const double* const soln_Curr);
 
-
     //! Function updates the ThermoPhase object for the electrolyte given the solution vector
     /*!
      *  This function calculates the values at the cell center
@@ -137,14 +137,11 @@ public:
      * @param nv Nodal Values for the current node
      * @param solnElectrolyte
      */
-    virtual void
-    updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
+    virtual void updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
 
-    virtual void
-    getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
+    virtual void getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
 
-    virtual void
-    getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
+    virtual void getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
     //! Calculate a thermodynamically acceptable mole fraction vector from the current raw mole
     //! fraction vector
@@ -200,8 +197,7 @@ public:
      * @param t                       Time
      * @param delta_t                 delta_t for the initial time step
      */
-    virtual void
-    initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln, Epetra_Vector* solnDot,
+    virtual void initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln, Epetra_Vector* solnDot,
                       const double t, const double delta_t);
 
     //! Calculate the thermal conductivity of the porous matrix at the current cell.

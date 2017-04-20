@@ -33,7 +33,8 @@ namespace m1d
 //==========================================================================================================================================
 LocalNodeIndices::LocalNodeIndices(Epetra_Comm* comm_ptr, GlobalIndices* gi_ptr) :
     Comm_ptr_(comm_ptr), MyProcID(0), NumLcNodes(0), NumOwnedLcNodes(0), NumExtNodes(0), NumLcRowNodes(0), NumLcEqns(0),
-    NumLcOwnedEqns(0), GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1),
+    NumLcOwnedEqns(0), 
+    GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1),
     GbNodetoLcNodeColMap(0),
     GbNodetoOwnedLcNodeMap(0),
     GbBlockNodeEqnstoLcBlockNodeEqnsColMap(0), GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0),
@@ -64,7 +65,8 @@ LocalNodeIndices::LocalNodeIndices(const LocalNodeIndices& r) :
     GbNodetoLcNodeColMap(0),
     GbNodetoOwnedLcNodeMap(0),
     GbBlockNodeEqnstoLcBlockNodeEqnsColMap(0), GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0), Importer_GhostEqns(0),
-    Importer_NodalValues(0), NumNodeColors(0), NodeColorMap(0), EqnColorMap(0), EqnColors(0), Xpos_LcNode_p(0),
+    Importer_NodalValues(0), NumNodeColors(0), NodeColorMap(0), EqnColorMap(0), EqnColors(0), 
+    Xpos_LcNode_p(nullptr),
     Xpos_LcOwnedNode_p(0), GI_ptr_(r.GI_ptr_)
 {
     *this = r;
@@ -554,7 +556,6 @@ void LocalNodeIndices::UpdateNodalVarsPositions()
  *  The following member data are updated:
  *      this->Xpos_LcNode_p[];
  *      nv->XNodePos
- * @param soln
  */
 void LocalNodeIndices::ExtractPositionsFromSolution(const Epetra_Vector* const soln_p)
 {
@@ -573,8 +574,8 @@ void LocalNodeIndices::ExtractPositionsFromSolution(const Epetra_Vector* const s
 //  This should be done as a starting point. If there are better answers, it should be overridden.
 //
 //    Set Displacement_Axial unknowns to 0.
-void LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid, Epetra_Vector* soln,
-                                            Epetra_Vector* solnDot, const double t, const double delta_t)
+void LocalNodeIndices::setInitialConditions(const bool doTimeDependentResid, Epetra_Vector* const soln,
+                                            Epetra_Vector* const solnDot, const double t, const double delta_t)
 {
 
     for (int iNode = 0; iNode < NumLcNodes; iNode++) {
