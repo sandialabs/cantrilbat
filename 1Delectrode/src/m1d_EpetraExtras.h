@@ -39,11 +39,9 @@ namespace m1d
  *
  *  @return Returns a pointer to the malloced vector
  */
-Epetra_Vector *
-gatherOn0(Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
+Epetra_Vector * gatherOn0(Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
 
-void
-printOn0(Epetra_Vector &distribV, Epetra_Comm *acomm_ptr = 0);
+void printOn0(Epetra_Vector &distribV, Epetra_Comm *acomm_ptr = 0);
 
 //! Take a distributed vector and gather it all on all processors
 /*!
@@ -51,21 +49,18 @@ printOn0(Epetra_Vector &distribV, Epetra_Comm *acomm_ptr = 0);
  * @param comm         Comm object
  * @param distribV     Epetra vector that is distributed on all processors
  */
-Epetra_Vector *
-gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
+Epetra_Vector* gatherOnAll(const Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
 
 //! 
-void
-gather_nodeV_OnAll(Epetra_Vector & global_node_V, const Epetra_Vector &distrib_node_V, Epetra_Comm *acomm_ptr=0);
+void gather_nodeV_OnAll(Epetra_Vector & global_node_V, const Epetra_Vector &distrib_node_V, Epetra_Comm *acomm_ptr=0);
 
-void
-gather_nodeIntV_OnAll(Epetra_IntVector & global_node_IV, const Epetra_IntVector &distrib_node_IV, Epetra_Comm *acomm_ptr=0);
+void gather_nodeIntV_OnAll(Epetra_IntVector & global_node_IV, const Epetra_IntVector &distrib_node_IV, Epetra_Comm *acomm_ptr=0);
 
 //! Create a new view of the original vector using potentially a different map
-Epetra_Vector * new_EpetraVectorView(const Epetra_Vector& orig, const Epetra_BlockMap& nmap);
+Epetra_Vector* new_EpetraVectorView(const Epetra_Vector& orig, const Epetra_BlockMap& nmap);
 
-void 
-scatterToAllFrom0(Epetra_Vector& globalSoln, Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
+void scatterToAllFrom0(Epetra_Vector& globalSoln, Epetra_Vector &distribV, Epetra_Comm *comm_ptr = 0);
+
 
 
 

@@ -122,19 +122,18 @@ struct Porosity_EqnType_Status {
 //==================================================================================================================================
 //!  A class for the description of 1D problems that  encompass multiple regions in 1D and multiple time regions
 /*!
- *
+ *   This is the base class for 
  */
 class ProblemResidEval
 {
 public:
     //! Default constructor
     /*!
-     *
-     * @param atol   Absolute tolerance for calculation
+     *  @param[in]           atol                Absolute tolerance for calculation
      */
     ProblemResidEval(double atol = 1.0e-13);
 
-    //! Destructor
+    //! Virtual Destructor
     /*!
      *
      */
@@ -142,23 +141,24 @@ public:
 
     //! Default copy constructor
     /*!
-     * @param[in]              r                   Object to be copied
+     *  @param[in]           r                   Object to be copied
      */
     ProblemResidEval(const ProblemResidEval& r);
 
     //! Assignment operator
     /*!
-     *
-     * @param r  Object to be copied
-     * @return   Returns a copy of the current problem
+     *  @param[in]           r                   Object to be copied
+     *  @return                                  Returns a copy of the current problem
      */
     ProblemResidEval& operator=(const ProblemResidEval& r);
 
     //! Specify the problem
     /*!
-     *  Initialize the domain structure for the problem.
+     *  Initialize the domain structure for the problem and initialize the parameters for the problem by sending
+     *  in the ProblemStatement structure
      *
-     *  @param problemType Problem type
+     *  @param[in]           problemType         Problem type
+     *  @param[in]           ps_ptr              Pointer to the ProblemStatement object that contains the parameters for the problem
      */
     void specifyProblem(int problemType, ProblemStatement* ps_ptr);
 
@@ -167,13 +167,13 @@ public:
      *  Initialize the domain structure for the problem.
      *
      *  @param[in]             dl                  DomainLayout object that specifies most of the problem
-     *  @param[in]             ps_ptr              Pointer to the problem statement object
+     *  @param[in]           ps_ptr              Pointer to the ProblemStatement object that contains the parameters for the problem
      */
-    void specifyProblem(DomainLayout* dl,  ProblemStatement* ps_ptr);
+    void specifyProblem(DomainLayout* dl, ProblemStatement* ps_ptr);
 
     //! Create the global indices for the problem
     /*!
-     *
+     *  Initialize the global indices for the problem
      */
     void generateGlobalIndices();
 
@@ -548,36 +548,35 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *
+     *  @param[in]           time_current        Current time
+     *  @param[in]           y_n                 Current value of the solution vector
      */
-    virtual void filterSolnPrediction(double t, Epetra_Vector_Ghosted& y);
+    virtual void filterSolnPrediction(double time_current, Epetra_Vector_Ghosted& y_n);
 
     void applyFilter(const double timeCurrent, const double delta_t_n, const Epetra_Vector_Ghosted& y_current,
                     const Epetra_Vector_Ghosted& ydot_current, Epetra_Vector_Ghosted& delta_y);
 
-    double delta_t_constraint(const double time_n, const Epetra_Vector_Ghosted& y_n, 
-                              const Epetra_Vector_Ghosted& ydot_n);
+    double delta_t_constraint(const double time_n, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted& ydot_n);
 
-    //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
-    //! to be time dependent
+    //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered to be time dependent
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
-     *   It can be used to track supplemental quantities in the calculation, especially if they need to be
-     *   integrated in time.
+     *  Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
+     *  It can be used to track supplemental quantities in the calculation, especially if they need to be integrated in time.
      *
-     *   An example of this may be total flux quantites that are dumped into a phase.
+     *  An example of this may be total flux quantites that are dumped into a phase.
      *
-     *   This routine is called at the beginning of the time stepping, in order to set up any initializations,
-     *   and it is called after every successful time step, once.
+     *  This routine is called at the beginning of the time stepping, in order to set up any initializations,
+     *  and it is called after every successful time step, once.
      *
-     * @param ifunc   0 Initial call to the function, done whenever the time stepper is entered
-     *                1 Called after every successful time step.
-     * @param t       Current time
-     * @param deltaT  Current value of deltaT
-     * @param y       Current value of the solution vectors
-     * @param ydot    Current value of time derivative of the solution vectors.
+     *  @param[in]           ifunc               Function call value. Why the routine was called.
+     *                                             0 Initial call to the function, done whenever the time stepper is entered
+     *                                             1 Called after every successful time step.
+     *  @param[in]           t                   Current time
+     *  @param[in]           deltaT              Current value of deltaT
+     *  @param[in]           y                   Current value of the solution vectors
+     *  @param[in]           ydot                Current value of time derivative of the solution vectors.
      */
     virtual void evalTimeTrackingEqns(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
                                       const Epetra_Vector_Ghosted* const ydot);
@@ -586,35 +585,39 @@ public:
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *  @param paramName   String identifying the parameter to be set
-     *  @param paramVal    Single double value of the parameter to be set
+     *  @param[in]           paramName           String identifying the parameter to be set
+     *  @param[in]           paramVal            Single double value of the parameter to be set
      *
-     *  @return returns a 0 if the number makes sense
-     *          Returns a negative number if the parameter is unknown
+     *  @return                                  Returns a 0 if the number makes sense.
+     *                                           Returns a negative number if the parameter is unknown.
      */
     virtual int setSolutionParam(std::string paramName, double paramVal);
-
 
     //! Get a solution parameter
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *  @param paramName   String identifying the parameter to be set
-     *  @param paramVal    Vector of parameters returned
+     *  @param[in]           paramName           String identifying the parameter to be set
+     *  @param[out]          paramVal            Vector of parameters returned
      *
-     *  @return returns the number of parameters returned.
+     *  @return                                  Returns the number of parameters returned.
      */
     virtual int getSolutionParam(std::string paramName, double* const paramVal);
 
     //! Evaluate the stopping criteria
     /*!
      *  (virtual from ProblemResidEval)
+     *  If there is a stopping criteria for the simulation other than time, set it here
      *
+     *  @param[out]          time_current        Current time
+     *  @param[out]          delta_t_n           Current delta t
+     *  @param[in]           y_n                 Const reference to the current solution vector
+     *  @param[in]           ydot_n              Const reference to the current solution dot vector
      *
+     *  @return                                  Returns true if the simulation should be stopped after the current global step
      */
     virtual bool evalStoppingCritera(double& time_current, double& delta_t_n, const Epetra_Vector_Ghosted& y_n,
                                      const Epetra_Vector_Ghosted& ydot_n);
-
 
     //! Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
@@ -711,33 +714,34 @@ public:
 
     //! Read the solution from a saved solution XML record.
     /*!
-     * This is the underlying program that reads the record
+     *  This is the underlying program that reads the record
      *
-     * @param simulRecord        XML element to read from. Name must be a simulation XML_Node.
-     * @param y_n_ghosted        Current value of the solution vector
-     * @param ydot_n_ghosted     Current value of the derivative of the solution vector
-     * @param t_read             time that is read in
-     * @param delta_t_read       delta time step for the last time step.
-     * @param delta_t_next_read  delta time step for the next time step if available
+     *  @param[in]           simulRecord         XML element to read from. Name must be a simulation XML_Node.
+     *  @param[out]          y_n_ghosted         Current value of the solution vector
+     *  @param[out]          ydot_n_ghosted      Current value of the derivative of the solution vector
+     *  @param[out]          t_read              time that is read in
+     *  @param[out]          delta_t_read        delta time step for the last time step.
+     *  @param[out]          delta_t_next_read   delta time step for the next time step if available
      */
     void readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
                          Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
                          double& delta_t_read, double& delta_t_next_read);
 
-    //!  Select the global time step increment record by the consequuatively numbered record index number
-    /*
-     *    @param   xSoln               Solution file for the simulation object
-     *    @param   globalTimeStepNum   Time step number to select
+    //!  Select the global time step increment record by the consequatively numbered record index number
+    /*!
+     *   @param[in]          xSoln               Solution file for the simulation object
+     *   @param[in]          globalTimeStepNum   Time step number to select
      *
-     *    @return Returns a pointer to the selected record.
+     *   @return                                 Returns a pointer to the selected record.
      */
     ZZCantera::XML_Node* selectSolutionRecordNumber(ZZCantera::XML_Node* xSoln, int globalTimeStepNum);
 
-    //!  Select the global time step increment record by the consequuatively numbered record index number
-    /* *    @param   xSoln               Solution file for the simulation object
-     *    @param   solnTimeStepID      string value of the time step ID to select
+    //! Select the global time step increment record by the consequatively numbered record index number
+    /*!
+     *  @param[in]           xSoln               Solution file for the simulation object
+     *  @param[in]           solnTimeStepID      String value of the time step ID to select
      *
-     *    @return Returns a pointer to the selected record.
+     *  @return                                  Returns a pointer to the selected record.
      */
     ZZCantera::XML_Node* selectSolutionTimeStepID(ZZCantera::XML_Node* xSoln, std::string solnTimeStepID);
 

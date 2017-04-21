@@ -226,15 +226,8 @@ ProblemResidEval& ProblemResidEval::operator=(const ProblemResidEval& r)
 
     return *this;
 }
-//=====================================================================================================================
-/*
- *
- *  Initialize the domain structure for the problem
- *
- *   This routine will grow as we add more types.
- */
-void
-ProblemResidEval::specifyProblem(int problemType, ProblemStatement* ps_ptr)
+//==================================================================================================================================
+void ProblemResidEval::specifyProblem(int problemType, ProblemStatement* ps_ptr)
 {
     psInput_ptr_ = ps_ptr;
     if (problemType == 1) {
@@ -252,15 +245,8 @@ ProblemResidEval::specifyProblem(int problemType, ProblemStatement* ps_ptr)
 
     SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
 }
-//=====================================================================================================================
-/*
- *
- *  Initialize the domain structure for the problem
- *
- *   This routine will grow as we add more types.
- */
-void
-ProblemResidEval::specifyProblem(DomainLayout* dl, ProblemStatement* ps_ptr)
+//==================================================================================================================================
+void ProblemResidEval::specifyProblem(DomainLayout* dl, ProblemStatement* ps_ptr)
 {
     psInput_ptr_ = ps_ptr;
     DL_ptr_ = dl;
@@ -272,12 +258,10 @@ ProblemResidEval::specifyProblem(DomainLayout* dl, ProblemStatement* ps_ptr)
     coordinateSystemType_ = psInput_ptr_->coordinateSystemType_;
     SolutionBehavior_printLvl_ = psInput_ptr_->SolutionBehavior_printLvl_;
 }
-//=====================================================================================================================
+//===================================================================================================================================
 /*
- *
- *  Initialize the domain structure for the problem
- *   Initialize the global indices
- *   This routine will grow as we add more types.
+ *   Initialize the domain structure for the problem
+ *   Initialize the global indices.
  */
 void
 ProblemResidEval::generateGlobalIndices()
@@ -323,7 +307,7 @@ ProblemResidEval::generateGlobalIndices()
      */
     GI.procDivide();
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Generate and fill up the local node vectors on this processor
 /*
  *  These indices have to do with accessing the local nodes on the processor
@@ -797,47 +781,16 @@ ProblemResidEval::delta_t_constraint(const double time_n,
 {
     return 0.0;
 }
-//=====================================================================================================================
-void
-ProblemResidEval::applyFilter(const double timeCurrent,
-                              const double delta_t_n,
-                              const Epetra_Vector_Ghosted& y_current,
-                              const Epetra_Vector_Ghosted& ydot_current,
-                              Epetra_Vector_Ghosted& delta_y)
+//==================================================================================================================================
+void ProblemResidEval::applyFilter(const double timeCurrent, const double delta_t_n, const Epetra_Vector_Ghosted& y_current,
+                              const Epetra_Vector_Ghosted& ydot_current, Epetra_Vector_Ghosted& delta_y)
 {
     delta_y.PutScalar(0.0);
 }
-//=====================================================================================================================
-// This function may be used to create output at various points in the
-// execution of an application.
-/*
- *   These functions are not affected by the print controls of the nonlinear solver
- *   and the time stepper.
- *
- *      ievent is a description of the event that caused this
- *      function to be called.
- *
- *      @param ievent  Event that's causing this routine to be called.
- *                     =  0 Initial conditions for a calculation
- *                     =  1 Completion of a successful intermediate time step.
- *                     =  2 Completion of a successful Final time or final calculation.
- *                     =  3 Completion of a successful Intermediate nonlinear step
- *                     = -1 unsuccessful time step that converged, but failed otherwise
- *                     = -2 unsuccessful nonlinear step.
- *
- *      @param time_current      Current time
- *      @param delta_t_n         Current value of delta_t
- *      @param istep             Current step number
- *      @param y_n               Current value of the solution vector
- *      @param ydot_n_ptr        Current value of the time deriv of the solution vector
- */
-void
-ProblemResidEval::user_out(const int ievent,
-                           const double time_current,
-                           const double delta_t_n,
-                           const int istep,
-                           const Epetra_Vector_Ghosted& y_n,
-                           const Epetra_Vector_Ghosted* const ydot_n_ptr)
+//==================================================================================================================================
+// This function may be used to create output at various points in the execution of an application.
+void ProblemResidEval::user_out(const int ievent, const double time_current, const double delta_t_n,
+                                const int istep, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted* const ydot_n_ptr)
 {
     switch (ievent) {
     case -1:
@@ -856,7 +809,7 @@ ProblemResidEval::user_out(const int ievent,
         throw m1d_Error("ProblemResidEval::user_out","print command not defined for ievent of this type");
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
 // to be time dependent
 /*
@@ -1784,84 +1737,57 @@ ProblemResidEval::writeSolution(const int ievent,
 
     lastTime = time_current;
 }
-//=====================================================================================================================
-/*
- *  evalStoppingCriteria()
- *
- * If there is a stopping critera other than time set it here.
- *
- */
+//==================================================================================================================================
 bool ProblemResidEval::evalStoppingCritera(double& time_current, double& delta_t_n, const Epetra_Vector_Ghosted& y_n,
                                            const Epetra_Vector_Ghosted& ydot_n)
 {
     return false;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void ProblemResidEval::matrixConditioning(double* const matrix, int nrows, double* const rhs)
 {
 }
-//=====================================================================================================================
-//  Prepare all of the pointers for a fast, efficient residual calculation
-/*
- *
- */
-void
-ProblemResidEval::domain_prep()
+//==================================================================================================================================
+void ProblemResidEval::domain_prep()
 {
-
-    // Get a local copy of the domain layout
     DomainLayout& DL = *DL_ptr_;
-
     /*
      *   Loop over the Volume Domains
-     *
      */
     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
         //BulkDomainDescription *bdd_ptr = DomainDesc_global[iDom];
         BulkDomain1D* d_ptr = DL.BulkDomain1D_List[iDom];
-
         d_ptr->domain_prep(LI_ptr_);
     }
-
     /*
      *    Loop over the Surface Domains
      */
     for (int iDom = 0; iDom < DL.NumSurfDomains; iDom++) {
         SurDomain1D* d_ptr = DL.SurDomain1D_List[iDom];
-
         d_ptr->domain_prep(LI_ptr_);
     }
 }
-//=====================================================================================================================
-// Link the ProblemStatement class with the ProblemResidEval class and other classes
-// that need input from the user
-/*
- *  @param psInput_ptr   Pointer to the ProblemStatement class
- */
+//==================================================================================================================================
 void ProblemResidEval::link_input(ProblemStatement* psInput_ptr)
 {
     psInput_ptr_ = psInput_ptr;
 }
-//=====================================================================================================================
-EpetraJac&
-ProblemResidEval::jacobian()
+//==================================================================================================================================
+EpetraJac& ProblemResidEval::jacobian()
 {
     return (*m_jac);
 }
-//=====================================================================================================================
-// Returns the ghosted map of the problem
-Epetra_BlockMap*
-ProblemResidEval::ghostedMap() const
+//==================================================================================================================================
+Epetra_BlockMap* ProblemResidEval::ghostedMap() const
 {
     return LI_ptr_->GbBlockNodeEqnstoLcBlockNodeEqnsColMap;
 }
-//=====================================================================================================================
-// Returns the unique unknown map of the problem
+//==================================================================================================================================
 Epetra_BlockMap* ProblemResidEval::ownedMap() const
 {
     return LI_ptr_->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 int ProblemResidEval::NumGbEqns() const
 {
     if (!GI_ptr_) {
