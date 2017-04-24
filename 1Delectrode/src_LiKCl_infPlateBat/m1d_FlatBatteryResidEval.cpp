@@ -64,7 +64,7 @@ namespace m1d
    * @param r  Object to be copied
    */
   FlatBatteryResidEval::FlatBatteryResidEval(const FlatBatteryResidEval &r) :
-      BatteryResidEval(r.m_atol)
+      BatteryResidEval(r.m_atolDefault)
   {
     *this = r;
   }

@@ -2042,10 +2042,10 @@ double BEulerInt::step(double t_max)
             double delta_t_c = m_func->delta_t_constraint(time_n, *m_y_n, *m_ydot_n);
             if (delta_t_c > 0.0) {
                 if (!mypid_ && delta_t_np1 > delta_t_c) {
-                    printf("\tNext time step will be decreased from %g to %g"
-                            " because of the problem constraint\n", delta_t_np1, delta_t_c);
-                    delta_t_np1 = delta_t_c;
+                    printf("\tNext time step will be decreased from %g to %g because of the problem constraint\n", 
+                           delta_t_np1, delta_t_c);
                 }
+                delta_t_np1 = delta_t_c;
             }
         }
 

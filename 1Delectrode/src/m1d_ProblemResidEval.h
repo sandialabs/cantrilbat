@@ -379,7 +379,7 @@ public:
      *
      *  @return                                  returns the string id of the Equation variable
      */
-    std::string equationID(int ilocalEqn, int& iLcNode, int& iGbNode, int& iNodeEqnNum, EqnType& var,
+    std::string equationID(int ilocalEqn, int& iLcNode, int& iGbNode, int& iNodeEqnNum, EqnType& eqn,
                            EQ_TYPE_SUBNUM& vtsub);
 
     //! Returns information about the local variable number
@@ -388,7 +388,7 @@ public:
      *  @param[out]          iLcNode             Local node number
      *  @param[out]          iGbNode             Global node number
      *  @param[out]          iNodeEqnNum         Local node equation offset
-     *  @param[out]          var type            Variable type
+     *  @param[out]          var                 Variable type
      *  @param[out]          vtsub               Variable subtype
      *
      *  @return                                  returns the string id of the variable.
@@ -399,8 +399,8 @@ public:
     //! Update the ghost unknowns on the processor.
     /*!
      *
-     * @param soln             Ghosted vector
-     * @param v      Vector that may be ghosted or not ghosted
+     * @param[out]           soln                Ghosted vector
+     * @param[in]            v                   Vector that may be ghosted or not ghosted
      */
     void updateGhostEqns(Epetra_Vector_Ghosted* const soln, const Epetra_Vector* const v);
 
@@ -476,59 +476,59 @@ public:
      *   Note this is an important routine for the speed of the solution.
      *    The default behavior is to set all of the atol values to the constant atolDAEInitDefault.
      *
-     *   @param atolDefault         Double containing the default value of atol used in the
-     *                              DAESystemInitial solve
-     *   @param soln                Current solution vector.
-     *   @param solnDot             Current solution vector.
-     *   @param atolDAEInitVector   Optional vector containing the individual entries for the time
-     *                              derivative absolute tolerance. Use this if you want to
-     *                              override the default calculation of atol.
-     *                              Defaults to zero.
+     *  @param[in]           atolDAEInitDefault  Double containing the default value of atol used in the DAESystemInitial solve
+     *  @param[in]           soln                Current solution vector.
+     *  @param[in]           solnDot             Current solution vector.
+     *  @param[in]           atolVector_DAEInit  Optional vector containing the individual entries for the time derivative
+     *                                           absolute tolerance. Use this if you want to override the default calculation of atol.
+     *                                           Defaults to nullptr.
      */
     virtual void setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted& soln,
                                        const Epetra_Vector_Ghosted& solnDot,
-                                       const Epetra_Vector_Ghosted* const atolVector_DAEInit = 0) const;
+                                       const Epetra_Vector_Ghosted* const atolVector_DAEInit = nullptr) const;
 
     //! Evaluates the atol vector used in the delta damping process.
     /*!
      *  (virtual from ProblemResidEval)
      *
      *   Note this is an important routine for the speed of the solution.
-     *   @param relcoeff     Relative constant to multiply all terms by
-     *   @param soln         current solution vector.
-     *   @param atolDeltaDamping      If non-zero, this copies the vector into the object as input
-     *                      The default is zero.
+     *  @param[in]           relcoeff            Relative constant to multiply all terms by
+     *  @param[in]           soln                current solution vector.
+     *  @param[in]           atolDeltaDamping    If non-zero, this copies the vector into the object as input.
+     *                                           The default is nullptr.
      */
     virtual void setAtolDeltaDamping(double relcoeff, const Epetra_Vector_Ghosted& soln,
-                                     const Epetra_Vector_Ghosted* const atolDeltaDamping = 0);
+                                     const Epetra_Vector_Ghosted* const atolDeltaDamping = nullptr);
 
     //! Evaluates the atol vector used in the delta damping process for the DAE problem
     /*!
      *  (virtual from ProblemResidEval)
      *
-     *   Note this is an important routine for the speed of the solution.
-     *   @param relcoeff     Relative constant to multiply all terms by
-     *   @param soln         current solution vector.
-     *   @param solnDot      Current solutionDot vector.
-     *   @param atolDeltaDamping       If non-zero, this copies the vector into the object as input
-     *                       The default is zero.
+     *  Note this is an important routine for the speed of the solution.
+     *  @param[in]           relcoeff            Relative constant to multiply all terms by
+     *  @param[in]           soln                current solution vector.
+     *  @param[in]           solnDot             Current solutionDot vector.
+     *  @param[in]           atolDeltaDamping    If non-zero, this copies the vector into the object as input
+     *                                           The default is nullptr.
      */
     virtual void setAtolDeltaDamping_DAEInit(double relcoeff, const Epetra_Vector_Ghosted& soln,
                                             const Epetra_Vector_Ghosted& solnDot,
-                                            const Epetra_Vector_Ghosted* const atolDeltaDamping = 0);
+                                            const Epetra_Vector_Ghosted* const atolDeltaDamping = nullptr);
 
     //! Evaluate the delta damping vector from the abs tol vector
     /*!
      *  The default behavior is to use the atolVector values to fill this vector.
      *
-     *  @param relCoeff sets a multiplicative constant to the atol vector
+     *  param relCoeff sets a multiplicative constant to the atol vector
      */
     //virtual void
     //setDeltaDamping(double relCoeff = 1.0);
 
-    //! Return a const reference to the atol vector
+    //! Return a const reference to the atol Epetra_Vector
     /*!
-     *  @return const reference to the atol vector
+     *  This is an owned only vector.
+     *
+     *  @return                                  const reference to the atol vector
      */
     const Epetra_Vector_Owned& atolVector() const;
 
@@ -553,10 +553,39 @@ public:
      */
     virtual void filterSolnPrediction(double time_current, Epetra_Vector_Ghosted& y_n);
 
-    void applyFilter(const double timeCurrent, const double delta_t_n, const Epetra_Vector_Ghosted& y_current,
-                    const Epetra_Vector_Ghosted& ydot_current, Epetra_Vector_Ghosted& delta_y);
+    //! Filter the new solution estimate, getting rid of forbidden values that may have been inserted into the solution during
+    //! the nonlinear iteration process
+    /*!
+     *  (virtual from ProblemResidEval)
+     *
+     *  This is where we impose the requirements of a positive or zero value for species concentrations and other bounds conditions
+     *  required by the solution process
+     *
+     *  This base class implementation just sets delta_y_filter to zero.
+     *
+     *  @param[in]           t_n                 Current time
+     *  @param[in]           delta_t_n           Current value of delta_t used on this global time step
+     *  @param[in]           yCurrent_n          Current proposed value of the solution vector at t_n
+     *  @param[in]           ydotCurrent_n       Current proposed value of the solution dot vector at t_n
+     *  @param[out]          delta_y_filter      Change in yCurrent_n dictated by the filter to get the solution back into
+     *                                           compliance with the bounds.
+     */
+    virtual void applyFilter(const double t_n, const double delta_t_n, const Epetra_Vector_Ghosted& yCurrent_n,
+                             const Epetra_Vector_Ghosted& ydotCurrent_n, Epetra_Vector_Ghosted& delta_y_filter);
 
-    double delta_t_constraint(const double time_n, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted& ydot_n);
+    //! Apply any constraints on time region bounds to provide a constraint on the next delta_t 
+    /*!
+     *  (virtual from ProblemResidEval)
+     *
+     *  If there are any bounds on going beyound a time period, we apply it here.
+     *  @param[in]           t_n                 Current time
+     *  @param[in]           y_n                 Value of the solution vector at t_n
+     *  @param[in]           ydot_n              Value of the solution dot vector at t_n
+     *
+     *  @return                                  Returns the constraint on the value of delta_t for the next time step.
+     *                                           Returns 0.0, if there is no time constraint.
+     */
+    virtual double delta_t_constraint(const double t_n, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted& ydot_n);
 
     //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered to be time dependent
     /*!
@@ -916,13 +945,23 @@ public:
      */
     void setBaseFileName(const std::string& baseFileName);
 
+    //! Calculate the solution at the last time step, t_nm1
+    /*!
+     *  Calculates the old solution using the current solution, and stores it internally in the vector *solnOld_ptr_
+     *  Assumes backwards euler time stepping.
+     *
+     *  @param[in]          soln                 Solution at the current time step
+     *  @param[in]          solnDot              SolutionDot at the current time step
+     *  @param[in]          rdelta_t             Inverse of the time step
+     */
     void calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t);
 
 public:
 
     // --------------------------------------------- D A T A ----------------------------------------------------------------
 
-    double m_atol;
+    //! Default value of the atol parameter
+    double m_atolDefault;
 
     //! Global total of the equations
     int m_neq;
@@ -1030,7 +1069,10 @@ public:
     //! This is frequently equal to the number of jacobian calculations
     int counterJacBaseCalcs_;
 
+    //! Number of of residual calculations used for delta calculations to create the jacobian.
     int counterJacDeltaCalcs_;
+
+    //! Counter containing the number of residual calculation used for ShowSolution calcs
     int counterResShowSolutionCalcs_;
 
     //! Print flag that is used in conjunction with the printlvl.

@@ -114,7 +114,7 @@ BatteryResidEval::~BatteryResidEval()
  * @param r  Object to be copied
  */
 BatteryResidEval::BatteryResidEval(const BatteryResidEval &r) :
-    ProblemResidEval(r.m_atol)
+    ProblemResidEval(r.m_atolDefault)
 {
     *this = r;
 }

@@ -43,24 +43,17 @@ using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
-//=====================================================================================================================
+//==================================================================================================================================
 /*
  *  Print flag that is used to turn on extra printing
  */
 int ProblemResidEval::s_printFlagEnv = 0;
-//=====================================================================================================================
-
-// Default constructor
-/*
- *
- * @param atol   Absolute tolerance for calculation
- */
+//==================================================================================================================================
 ProblemResidEval::ProblemResidEval(double atol) :
-    m_atol(atol),
+    m_atolDefault(atol),
     m_neq(0),
     DL_ptr_(nullptr),
     GI_ptr_(nullptr), 
@@ -77,8 +70,10 @@ ProblemResidEval::ProblemResidEval(double atol) :
     m_numTimeRegions(1),
     m_currentTimeRegion(0),
     m_writeStartEndFile(0),
-    counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
-    counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
+    counterResBaseCalcs_(0),
+    counterJacBaseCalcs_(0),
+    counterJacDeltaCalcs_(0), 
+    counterResShowSolutionCalcs_(0),
     SolutionBehavior_printLvl_(0),
     Residual_printLvl_(0),
     coordinateSystemType_(Rectilinear_Coordinates),
@@ -116,25 +111,19 @@ ProblemResidEval::ProblemResidEval(double atol) :
         energyEquationProbType_ = PSinput_ptr->Energy_equation_prob_type_;
     } else if (PSinput_ptr->Energy_equation_prob_type_ != 0) {
         throw m1d_Error("ProblemResidEval::ProblemResidEval()",
-                        "Energy equation types other than 3 and 0 are unimplemented: " + int2str(PSinput_ptr->Energy_equation_prob_type_));
+                        "Energy equation types other than 3 and 0 are unimplemented: "
+                         + int2str(PSinput_ptr->Energy_equation_prob_type_));
     }
 
     solidMechanicsProbType_ = PSinput_ptr->Solid_Mechanics_prob_type_;
-
 }
-//=====================================================================================================================
-// Destructor
-/*
- *
- */
+//==================================================================================================================================
 ProblemResidEval::~ProblemResidEval()
 {
     // We are responsible now for deleting the global data about the problem
     safeDelete(DL_ptr_);
     safeDelete(LI_ptr_);
     safeDelete(GI_ptr_);
-
-    //safeDelete(m_jac);
 
     safeDelete(solnOld_ptr_);
     safeDelete(resInternal_ptr_);
@@ -143,43 +132,42 @@ ProblemResidEval::~ProblemResidEval()
     safeDelete(m_atolDeltaDamping);
     safeDelete(m_atolDeltaDamping_DAEInit);
 }
-//=====================================================================================================================
-//! Default copy constructor
-/*!
- *
- * @param r  Object to be copied
- */
+//==================================================================================================================================
 ProblemResidEval::ProblemResidEval(const ProblemResidEval& r) :
-    m_atol(r.m_atol), m_neq(0), DL_ptr_(0), GI_ptr_(0), LI_ptr_(0), m_jac(0), m_baseFileName("solution"),
-    m_StepNumber(0), solnOld_ptr_(0), resInternal_ptr_(0),
+    m_atolDefault(r.m_atolDefault), 
+    m_neq(0), 
+    DL_ptr_(0), 
+    GI_ptr_(0), 
+    LI_ptr_(0), 
+    m_jac(0), 
+    m_baseFileName("solution"),
+    m_StepNumber(0), 
+    solnOld_ptr_(0),
+    resInternal_ptr_(0),
     m_atolVector(0),
     m_atolVector_DAEInit(0),
     m_atolDeltaDamping(0),
     psInput_ptr_(0),
     m_numTimeRegions(1),
     m_currentTimeRegion(0),
-    counterResBaseCalcs_(0), counterJacBaseCalcs_(0),
-    counterJacDeltaCalcs_(0), counterResShowSolutionCalcs_(0),
+    counterResBaseCalcs_(0),
+    counterJacBaseCalcs_(0),
+    counterJacDeltaCalcs_(0), 
+    counterResShowSolutionCalcs_(0),
     coordinateSystemType_(r.coordinateSystemType_),
     energyEquationProbType_(r.energyEquationProbType_),
     solidMechanicsProbType_(r.solidMechanicsProbType_)
 {
     *this = r;
 }
-//=====================================================================================================================
-// Assignment operator
-/*
- *
- * @param r  Object to be copied
- * @return   Returns a copy of the current problem
- */
+//==================================================================================================================================
 ProblemResidEval& ProblemResidEval::operator=(const ProblemResidEval& r)
 {
     if (this == &r) {
         return *this;
     }
 
-    m_atol = r.m_atol;
+    m_atolDefault = r.m_atolDefault;
 
     safeDelete(DL_ptr_);
     DL_ptr_ = new DomainLayout(*(r.DL_ptr_));
@@ -376,7 +364,7 @@ ProblemResidEval::generateLocalIndices()
     m_NumLcOwnedEqns = LI_ptr_->NumLcOwnedEqns;
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void ProblemResidEval::fillIsAlgebraic(Epetra_IntVector& isAlgebraic)
 {
     DomainLayout& DL = *DL_ptr_;
@@ -396,7 +384,7 @@ void ProblemResidEval::fillIsAlgebraic(Epetra_IntVector& isAlgebraic)
         d_ptr->fillIsAlgebraic(isAlgebraic);
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void ProblemResidEval::fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScaled)
 {
     DomainLayout& DL = *DL_ptr_;
@@ -417,7 +405,7 @@ void ProblemResidEval::fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScal
     }
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Calculate a residual vector
 /*
  *   The basic algorithm is to loop over the volume domains.
@@ -530,13 +518,11 @@ ProblemResidEval::residEval(Epetra_Vector_Owned* const& res,
         d_ptr->residEval_PostCalc(*res, doTimeDependentResid, soln_ptr, solnDot_ptr, solnOld_ptr_, t, rdelta_t, residType,
                                   solveType);
     }
-
 }
-//=====================================================================================================================
-void
-ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
-                                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
-                                      const double t, const double t_old)
+//==================================================================================================================================
+void ProblemResidEval::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                                           const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                                           const double t, const double t_old)
 {
     // Get a local copy of the domain layout
     DomainLayout& DL = *DL_ptr_;
@@ -774,18 +760,19 @@ void ProblemResidEval::filterSolnPrediction(double t, Epetra_Vector_Ghosted& y)
 {
 }
 //==================================================================================================================================
-double
-ProblemResidEval::delta_t_constraint(const double time_n,
-                                     const Epetra_Vector_Ghosted& y_n,
-                                     const Epetra_Vector_Ghosted& ydot_n)
+double ProblemResidEval::delta_t_constraint(const double t_n, const Epetra_Vector_Ghosted& y_n,
+                                            const Epetra_Vector_Ghosted& ydot_n)
 {
+    // return the constraint on the next value of delta_t given the current solution vector and the current time t_n.
+    // If there are any bounds on going beyound a time period, we apply it here.
     return 0.0;
 }
 //==================================================================================================================================
-void ProblemResidEval::applyFilter(const double timeCurrent, const double delta_t_n, const Epetra_Vector_Ghosted& y_current,
-                              const Epetra_Vector_Ghosted& ydot_current, Epetra_Vector_Ghosted& delta_y)
+void ProblemResidEval::applyFilter(const double time_current, const double delta_t_n, const Epetra_Vector_Ghosted& yCurrent_n,
+                                   const Epetra_Vector_Ghosted& ydotCurrent_n, Epetra_Vector_Ghosted& delta_y_filter)
 {
-    delta_y.PutScalar(0.0);
+    // Set the change due to the filter to zero in this base class implementation
+    delta_y_filter.PutScalar(0.0);
 }
 //==================================================================================================================================
 // This function may be used to create output at various points in the execution of an application.
@@ -810,34 +797,11 @@ void ProblemResidEval::user_out(const int ievent, const double time_current, con
     }
 }
 //==================================================================================================================================
-// Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
-// to be time dependent
-/*
- *   Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
- *   It can be used to track supplemental quantities in the calculation, especially if they need to be
- *   integrated in time.
- *
- *   An example of this may be total flux quantites that are dumped into a phase.
- *
- *   This routine is called at the beginning of the time stepping, in order to set up any initializations,
- *   and it is called after every successful time step, once.
- *
- * @param ifunc   0 Initial call to the function, done whenever the time stepper is entered
- *                1 Called after every successful time step.
- * @param t       Current time
- * @param deltaT  Current value of deltaT
- * @param y       Current value of the solution vectors
- * @param ydot    Current value of time derivative of the solution vectors.
- */
-void
-ProblemResidEval::evalTimeTrackingEqns(const int ifunc,
-                                       const double t,
-                                       const double deltaT,
-                                       const Epetra_Vector_Ghosted& y,
-                                       const Epetra_Vector_Ghosted* const ydot)
+void ProblemResidEval::evalTimeTrackingEqns(const int ifunc, const double t, const double deltaT,
+                                            const Epetra_Vector_Ghosted& y, const Epetra_Vector_Ghosted* const ydot)
 {
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Set a solution parameter
 /*
  *  @param paramName   String identifying the parameter to be set
@@ -851,7 +815,7 @@ ProblemResidEval::setSolutionParam(std::string paramName, double paramVal)
 {
     return -1;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Get a solution parameter
 /*
  *  @param paramName   String identifying the parameter to be set
@@ -865,7 +829,7 @@ ProblemResidEval::getSolutionParam(std::string paramName, double* const paramVal
     return -1;
 }
 
-//=====================================================================================================================
+//==================================================================================================================================
 // Save the solution to the end of an XML file using
 // XML solution format
 /*
@@ -1096,15 +1060,10 @@ ProblemResidEval::saveSolutionEnd(const int itype,
     delete y_n_owned_ptr;
     delete ydot_n_owned_ptr;
 }
-//=====================================================================================================================
-void
-ProblemResidEval::readSolutionRecordNumber(const int iNumber,
-                                           std::string baseFileName,
-                                           Epetra_Vector_Ghosted& y_n_ghosted,
-                                           Epetra_Vector_Ghosted* const ydot_n_ghosted,
-                                           double& t_read,
-                                           double& delta_t_read,
-                                           double& delta_t_next_read)
+//==================================================================================================================================
+void ProblemResidEval::readSolutionRecordNumber(const int iNumber, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted,
+                                           Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
+                                           double& delta_t_read, double& delta_t_next_read) 
 {
     //
     // Flesh out the name of the file
@@ -1120,8 +1079,7 @@ ProblemResidEval::readSolutionRecordNumber(const int iNumber,
     //
     XML_Node* xSavedSoln = get_XML_File(fname);
     if (!xSavedSoln) {
-        throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()",
-                        "Error could not read the file " + fname);
+        throw m1d_Error("ProblemResidEval::readSolutionRecordNumber()", "Error could not read the file " + fname);
     }
 
     XML_Node* simulRecord = selectSolutionRecordNumber(xSavedSoln, iNumber);
@@ -1141,20 +1099,14 @@ ProblemResidEval::readSolutionRecordNumber(const int iNumber,
     c->Barrier();
 
 }
-//=====================================================================================================================
-void
-ProblemResidEval::readSolution(const int iNumber,
-                               std::string baseFileName,
-                               Epetra_Vector_Ghosted& y_n_ghosted,
-                               Epetra_Vector_Ghosted* const ydot_n_ghosted,
-                               double& t_read,
-                               double& delta_t_read,
-                               double& delta_t_next_read)
+//==================================================================================================================================
+void ProblemResidEval::readSolution(const int iNumber, std::string baseFileName, Epetra_Vector_Ghosted& y_n_ghosted,
+                               Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
+                               double& delta_t_read, double& delta_t_next_read)
 {
-    readSolutionRecordNumber(iNumber, baseFileName, y_n_ghosted, ydot_n_ghosted,
-                             t_read, delta_t_read, delta_t_next_read);
+    readSolutionRecordNumber(iNumber, baseFileName, y_n_ghosted, ydot_n_ghosted, t_read, delta_t_read, delta_t_next_read);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Read the solution from a saved file.
 /*
  *  We read only successful final steps
@@ -1171,7 +1123,7 @@ ProblemResidEval::readSolution(const int iNumber,
  * @param delta_t_next_read delta time step for the next time step if available
  */
 void
-ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
+ProblemResidEval::readSolutionXML(ZZCantera::XML_Node* simulRecord, Epetra_Vector_Ghosted& y_n_ghosted,
                                   Epetra_Vector_Ghosted* const ydot_n_ghosted, double& t_read,
                                   double& delta_t_read, double& delta_t_next_read)
 {
@@ -1224,14 +1176,14 @@ ProblemResidEval::readSolutionXML(XML_Node* simulRecord, Epetra_Vector_Ghosted& 
         }
     } while (d_ptr);
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Select the global time step increment record by the consequuatively numbered record index number
 /*
  *    @param   xSoln               Solution file for the simulation object
  *    @param   globalRecordNumbe   Time step record number to select
  *
  */
-XML_Node* ProblemResidEval::selectSolutionRecordNumber(XML_Node* xmlTop, int globalRecordNumber)
+ZZCantera::XML_Node* ProblemResidEval::selectSolutionRecordNumber(ZZCantera::XML_Node* xmlTop, int globalRecordNumber)
 {
     /*
      *  Search for a particular global step number
@@ -1257,14 +1209,14 @@ XML_Node* ProblemResidEval::selectSolutionRecordNumber(XML_Node* xmlTop, int glo
 
     return xs;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Select the global time step record by its string id.
 /*
  *    @param   xSoln               Solution file for the simulation object
  *    @param   timeStepID          Time step number to select
  *
  */
-XML_Node* ProblemResidEval::selectSolutionTimeStepID(XML_Node* xSoln, std::string timeStepID)
+ZZCantera::XML_Node* ProblemResidEval::selectSolutionTimeStepID(ZZCantera::XML_Node* xSoln, std::string timeStepID)
 {
     /*
      *  Search for a particular global step number
@@ -1278,18 +1230,24 @@ XML_Node* ProblemResidEval::selectSolutionTimeStepID(XML_Node* xSoln, std::strin
      */
     return eRecord;
 }
-//=====================================================================================================================
-static void
-sprint_line(char* buf, const char* const st, const int num)
+//==================================================================================================================================
+//! Print a line at the end of a character buffer
+/*!
+ *  @param[out]              buf                 Character buffer
+ *  @param[in]               st                  character string to repetitively print
+ *  @param[in]               num                 Number of times to print
+ */
+static void sprint_line(char* buf, const char* const st, const int num)
 {
     int n = strlen(buf);
     buf += n;
-    for (int k = 0; k < num; k++, buf++) {
+    int stl = strlen(st);
+    for (int k = 0; k < num; k++, buf += stl) {
         sprintf(buf, "%s", st);
     }
     sprintf(buf, "\n");
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
  *
@@ -1303,14 +1261,9 @@ sprint_line(char* buf, const char* const st, const int num)
  * @param m_y_n    Current value of the solution vector
  * @param m_ydot_n  Current value of the derivative of the solution vector
  */
-void
-ProblemResidEval::showProblemSolution(const int ievent,
-                                      bool doTimeDependentResid,
-                                      const double t,
-                                      const double delta_t,
-                                      const Epetra_Vector_Ghosted& y_n,
-                                      const Epetra_Vector_Ghosted* const ydot_n,
-                                      const Solve_Type_Enum solveType,
+void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependentResid, const double t,
+                                      const double delta_t, const Epetra_Vector_Ghosted& y_n,
+                                      const Epetra_Vector_Ghosted* const ydot_n, const Solve_Type_Enum solveType,
                                       const double delta_t_np1)
 {
 
@@ -1400,17 +1353,10 @@ ProblemResidEval::showProblemSolution(const int ievent,
     c->Barrier();
 
 }
-//=====================================================================================================================
-void
-ProblemResidEval::writeTecplot(const int ievent,
-                               std::string baseFileName,
-                               bool doTimeDependentResid,
-                               const double t,
-                               const double delta_t,
-                               const Epetra_Vector_Ghosted& y_n,
-                               const Epetra_Vector_Ghosted* const ydot_n,
-                               const Solve_Type_Enum solveType,
-                               const double delta_t_np1)
+//==================================================================================================================================
+void ProblemResidEval::writeTecplot(const int ievent, std::string baseFileName, bool doTimeDependentResid, const double t,
+                               const double delta_t, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted* const ydot_n,
+                               const Solve_Type_Enum solveType, const double delta_t_np1)
 {
     // Get a local copy of the domain layout
     DomainLayout& DL = *DL_ptr_;
@@ -1464,7 +1410,7 @@ ProblemResidEval::writeTecplot(const int ievent,
 
     lastTime = t;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
  *
@@ -1478,12 +1424,8 @@ ProblemResidEval::writeTecplot(const int ievent,
  * @param m_y_n    Current value of the solution vector
  * @param m_ydot_n  Current value of the derivative of the solution vector
  */
-void
-ProblemResidEval::showSolutionVector(std::string& solnVecName,
-                                     const double t,
-                                     const double delta_t,
-                                     const Epetra_Vector_Owned& solnVector,
-                                     FILE* outFile)
+void ProblemResidEval::showSolutionVector(std::string& solnVecName, const double t, const double delta_t,
+                                     const Epetra_Vector_Owned& solnVector, FILE* outFile)
 {
 
     //bool doAllProcs = false;
@@ -1564,7 +1506,6 @@ ProblemResidEval::showSolutionVector(std::string& solnVecName,
     c->Barrier();
 
 }
-
 //=====================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
@@ -1579,12 +1520,8 @@ ProblemResidEval::showSolutionVector(std::string& solnVecName,
  * @param m_y_n    Current value of the solution vector
  * @param m_ydot_n  Current value of the derivative of the solution vector
  */
-void
-ProblemResidEval::showSolutionIntVector(std::string& solnVecName,
-                                        const double t,
-                                        const double delta_t,
-                                        const Epetra_IntVector& solnIntVector,
-                                        FILE* outFile)
+void ProblemResidEval::showSolutionIntVector(std::string& solnVecName, const double t, const double delta_t,
+                                        const Epetra_IntVector& solnIntVector, FILE* outFile)
 {
 
     //bool doAllProcs = false;
@@ -1666,7 +1603,7 @@ ProblemResidEval::showSolutionIntVector(std::string& solnVecName,
 
 }
 
-//=====================================================================================================================
+//==================================================================================================================================
 // Write the solution to either the screen or to a log file
 /*
  *
@@ -1680,16 +1617,10 @@ ProblemResidEval::showSolutionIntVector(std::string& solnVecName,
  * @param m_y_n    Current value of the solution vector
  * @param m_ydot_n  Current value of the derivative of the solution vector
  */
-void
-ProblemResidEval::writeSolution(const int ievent,
-                                const bool doTimeDependentResid,
-                                const double time_current,
-                                const double delta_t_n,
-                                int istep,
-                                const Epetra_Vector_Ghosted& y_n,
+void ProblemResidEval::writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current,
+                                const double delta_t_n, int istep, const Epetra_Vector_Ghosted& y_n,
                                 const Epetra_Vector_Ghosted* const ydot_n_ptr,
-                                const Solve_Type_Enum solveType,
-                                const double delta_t_np1)
+                                const Solve_Type_Enum solveType, const double delta_t_np1)
 {
     //
     // HKM -> Could gather solnAll, i.e., the entire solution on proc 0,  here
@@ -1830,7 +1761,7 @@ std::string ProblemResidEval::equationID(int ilocalEqn, int& iLcNode, int& iGbNo
     // Get the string which identifies the equation and return
     return eqn.EquationName(200);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 std::string ProblemResidEval::variableID(int ilocalVar, int& iLcNode, int& iGbNode, int& iNodeEqnNum, VarType& var,
                                          VAR_TYPE_SUBNUM& vtsub)
 {
@@ -1859,7 +1790,7 @@ std::string ProblemResidEval::variableID(int ilocalVar, int& iLcNode, int& iGbNo
     vstring = var.VariableName(200);
     return vstring;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Return the global equation number given the global block number
 /*
  *
@@ -1885,7 +1816,7 @@ ProblemResidEval::GbEqnNum_From_GbBlock(const int gbBlockNum, const int localRow
     return GI_ptr_->IndexStartGbEqns_Proc[gbBlockNum] + localRowNumInBlock;
 #endif
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // global node to local node mapping
 /*
  * Given a global node, this function will return the local node value.
@@ -1901,9 +1832,8 @@ ProblemResidEval::GbNodeToLcNode(const int gbNode) const
 {
     return (LI_ptr_->GbNodeToLcNode(gbNode));
 }
-//==================================================================================================================================ZZ
-int
-ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
+//==================================================================================================================================
+int ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
 {
     int rowEqnNum;
     int gbNode = GI_ptr_->GbEqnToGbNode(gbEqn, rowEqnNum);
@@ -1917,13 +1847,9 @@ ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
     return -1;
 }
 //==================================================================================================================================
-/*
- * Return a vector of delta y's for calculation of the numerical Jacobian
- */
-void
-ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
-                                         Epetra_Vector& deltaSoln, const Solve_Type_Enum solveType,
-                                         const Epetra_Vector* solnWeights)
+void ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
+                                              Epetra_Vector& deltaSoln, const Solve_Type_Enum solveType,
+                                              const Epetra_Vector* solnWeights)
 {
     DomainLayout& DL = *DL_ptr_;
     for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
@@ -1942,8 +1868,7 @@ ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& so
  *    @param soln      Reference to the complete solution vector
  *    @param ieqn      local equation number of the solution vector
  */
-double
-ProblemResidEval::deltaSolnCompJac(const Epetra_Vector& soln, const int ieqn)
+double ProblemResidEval::deltaSolnCompJac(const Epetra_Vector& soln, const int ieqn)
 {
     /*
      *  We are screwing around here with the algorithm. Later we will put in
@@ -1957,19 +1882,17 @@ ProblemResidEval::deltaSolnCompJac(const Epetra_Vector& soln, const int ieqn)
 
     return (base + delta);
 }
-
-//======================================================================================================================
+//==================================================================================================================================
 // Evaluates the atol vector used in the time stepper routine and in the nonlinear solver.
 /*
  * @param atolDefault  Double containing the default value of atol
  * @param soln         current solution vector.
  */
-void
-ProblemResidEval::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted& soln,
-                                const Epetra_Vector_Ghosted* const atolV)
+void ProblemResidEval::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted& soln,
+                                     const Epetra_Vector_Ghosted* const atolV)
 {
     DomainLayout& DL = *DL_ptr_;
-    m_atol =  atolDefault;
+    m_atolDefault = atolDefault;
     if (!m_atolVector) {
         m_atolVector = new Epetra_Vector(soln);
     }
@@ -1998,19 +1921,16 @@ ProblemResidEval::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted&
             (*m_atolVector)[i] = (*atolV)[i];
         }
     }
-
-
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Evaluates the atol vector used in the time stepper routine and in the nonlinear solver.
 /*
  * @param atolDefault  Double containing the default value of atol
  * @param soln         current solution vector.
  */
-void
-ProblemResidEval::setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted& soln,
-                                        const Epetra_Vector_Ghosted& solnDot,
-                                        const Epetra_Vector_Ghosted* const atolVector_DAEInit) const
+void ProblemResidEval::setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_Vector_Ghosted& soln,
+                                             const Epetra_Vector_Ghosted& solnDot,
+                                             const Epetra_Vector_Ghosted* const atolVector_DAEInit) const
 {
     DomainLayout& DL = *DL_ptr_;
     // m_atol =  atolDefault;
@@ -2044,20 +1964,19 @@ ProblemResidEval::setAtolVector_DAEInit(double atolDAEInitDefault, const Epetra_
         }
     }
 }
-//======================================================================================================================
-void
-ProblemResidEval::setAtolDeltaDamping(double relCoeff, const Epetra_Vector_Ghosted& soln,
-                                      const Epetra_Vector_Ghosted* const atolDeltaDamping)
+//==================================================================================================================================
+void ProblemResidEval::setAtolDeltaDamping(double relCoeff, const Epetra_Vector_Ghosted& soln,
+                                           const Epetra_Vector_Ghosted* const atolDeltaDamping)
 {
     DomainLayout& DL = *DL_ptr_;
-    double atolDAEInitDefault = m_atol * 1.0E4;
+    double atolDAEInitDefault = m_atolDefault * 1.0E4;
     if (!m_atolDeltaDamping) {
         m_atolDeltaDamping = new Epetra_Vector(soln);
     }
     if (atolDeltaDamping == 0) {
 
         for (int i = 0; i < m_NumLcEqns; i++) {
-            (*m_atolDeltaDamping)[i] = m_atol * relCoeff;
+            (*m_atolDeltaDamping)[i] = m_atolDefault * relCoeff;
         }
         /*
          *   Loop over the Volume Domains
@@ -2081,21 +2000,20 @@ ProblemResidEval::setAtolDeltaDamping(double relCoeff, const Epetra_Vector_Ghost
         }
     }
 }
-//======================================================================================================================
-void
-ProblemResidEval::setAtolDeltaDamping_DAEInit(double relCoeff, const Epetra_Vector_Ghosted& soln,
-                                              const Epetra_Vector_Ghosted& solnDot,
-                                              const Epetra_Vector_Ghosted* const atolDeltaDamping)
+//==================================================================================================================================
+void ProblemResidEval::setAtolDeltaDamping_DAEInit(double relCoeff, const Epetra_Vector_Ghosted& soln,
+                                                   const Epetra_Vector_Ghosted& solnDot,
+                                                   const Epetra_Vector_Ghosted* const atolDeltaDamping)
 {
     DomainLayout& DL = *DL_ptr_;
-    double atolDeltaDampingDefault = m_atol * 1.0E4;
+    double atolDeltaDampingDefault = m_atolDefault * 1.0E4;
     if (!m_atolDeltaDamping_DAEInit) {
         m_atolDeltaDamping_DAEInit = new Epetra_Vector(soln);
     }
     if (atolDeltaDamping == 0) {
 
         for (int i = 0; i < m_NumLcEqns; i++) {
-            (*m_atolDeltaDamping_DAEInit)[i] = m_atol * relCoeff;
+            (*m_atolDeltaDamping_DAEInit)[i] = m_atolDefault * relCoeff;
         }
         /*
          *   Loop over the Volume Domains
@@ -2119,7 +2037,7 @@ ProblemResidEval::setAtolDeltaDamping_DAEInit(double relCoeff, const Epetra_Vect
         }
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Return a const reference to the atol vector
 const Epetra_Vector_Ghosted& ProblemResidEval::atolVector() const
 {
@@ -2130,7 +2048,7 @@ const Epetra_Vector_Ghosted& ProblemResidEval::atolVector() const
     }
     return *m_atolVector;
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Return a const reference to the atol DAE init vector
 const Epetra_Vector_Owned& ProblemResidEval::atolVector_DAEInit() const
 {
@@ -2143,7 +2061,7 @@ const Epetra_Vector_Owned& ProblemResidEval::atolVector_DAEInit() const
 
     return *m_atolVector_DAEInit;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Return a const reference to the atol vector
 const Epetra_Vector_Ghosted& ProblemResidEval::atolDeltaDamping() const
 {
@@ -2153,7 +2071,7 @@ const Epetra_Vector_Ghosted& ProblemResidEval::atolDeltaDamping() const
     }
     return *m_atolDeltaDamping;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Update the ghost unknowns on the processor.
 /*
  *
@@ -2169,20 +2087,18 @@ ProblemResidEval::updateGhostEqns(Epetra_Vector_Ghosted* const soln, const Epetr
     }
     LI_ptr_->updateGhostEqns(soln, v);
 }
-
-//=====================================================================================================================
+//==================================================================================================================================
 std::string ProblemResidEval::getBaseFileName() const
 {
     return m_baseFileName;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void ProblemResidEval::setBaseFileName(const std::string& baseFileName)
 {
     m_baseFileName = baseFileName;
 }
-//=====================================================================================================================
-void
-ProblemResidEval::calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t)
+//==================================================================================================================================
+void ProblemResidEval::calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted& solnDot, double rdelta_t)
 {
     if (rdelta_t < 1.0E-200) {
         for (int i = 0; i < m_NumLcEqns; i++) {
@@ -2194,6 +2110,6 @@ ProblemResidEval::calcSolnOld(const Epetra_Vector_Ghosted& soln, const Epetra_Ve
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
