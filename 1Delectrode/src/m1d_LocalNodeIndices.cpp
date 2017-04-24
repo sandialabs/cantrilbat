@@ -32,11 +32,11 @@ namespace m1d
 
 //==========================================================================================================================================
 LocalNodeIndices::LocalNodeIndices(Epetra_Comm* comm_ptr, GlobalIndices* gi_ptr) :
-    Comm_ptr_(comm_ptr), 
-    MyProcID(0), 
-    NumLcNodes(0), 
+    Comm_ptr_(comm_ptr),
+    MyProcID(0),
+    NumLcNodes(0),
     NumOwnedLcNodes(0), NumExtNodes(0), NumLcRowNodes(0), NumLcEqns(0),
-    NumLcOwnedEqns(0), 
+    NumLcOwnedEqns(0),
     GCNIndexGbNode(-1), GCNIndexLcNode(-1), RightLcNode(-1), LeftLcNode(-1),
     GbNodetoLcNodeColMap(0),
     GbNodetoOwnedLcNodeMap(0),
@@ -68,7 +68,7 @@ LocalNodeIndices::LocalNodeIndices(const LocalNodeIndices& r) :
     GbNodetoLcNodeColMap(0),
     GbNodetoOwnedLcNodeMap(0),
     GbBlockNodeEqnstoLcBlockNodeEqnsColMap(0), GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap(0), Importer_GhostEqns(0),
-    Importer_NodalValues(0), NumNodeColors(0), NodeColorMap(0), EqnColorMap(0), EqnColors(0), 
+    Importer_NodalValues(0), NumNodeColors(0), NodeColorMap(0), EqnColorMap(0), EqnColors(0),
     Xpos_LcNode_p(nullptr),
     Xpos_LcOwnedNode_p(0), GI_ptr_(r.GI_ptr_)
 {

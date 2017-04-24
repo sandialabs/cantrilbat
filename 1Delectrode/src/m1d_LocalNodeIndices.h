@@ -430,7 +430,7 @@ public:
      */
     Epetra_Map* GbNodetoOwnedLcNodeMap;
 
-    //! Epetra_Map object containing the mapping of the block node equations corresponding to all 
+    //! Epetra_Map object containing the mapping of the block node equations corresponding to all
     //! column rows equations needed by this processor whether they are owned or are external
     /*!
      *  This describes the distribution of the block node equations corresponding to
@@ -467,13 +467,13 @@ public:
 
     //! Specifies the communications pattern for Imports/updates of ghost solution unknowns on processors.
     /*!
-     * 
+     *
      */
     Epetra_Import* Importer_GhostEqns;
 
     //! Specifies the communications pattern for  Imports/updates of ghost nodal unknowns on processors
     /*!
-     * 
+     *
      */
     Epetra_Import* Importer_NodalValues;
 
