@@ -16,10 +16,10 @@ namespace m1d
 {
 class DomainLayout;
 class LocalNodeIndices;
+
 //==================================================================================================================================
 //! Class that describes the environment at one node in the domain
 /*!
- *
  *   The ordering of the equation at a single node is as follows.
  *
  *      domain_Left equations
@@ -33,12 +33,10 @@ class LocalNodeIndices;
  *       . . .
  *      surfaceDomain_N-1 equations
  *
- *   The surfaceDomain_0 object determines what equations from the domain_Right
- *   bulk domain gets mapped into the domain_Left equations.
+ *   The surfaceDomain_0 object determines what equations from the domain_Right bulk domain gets mapped into the domain_Left equations.
  *
- *   When a bulk equation gets mapped from one bulk domain to another, it means
- *   that there will be created a single conservation equation for the unknown
- *   striding both domains, and the variable is continuous across the interface as well.
+ *   When a bulk equation gets mapped from one bulk domain to another, it means that there will be created a single conservation 
+ *   equation for the unknown striding both domains, and the variable is continuous across the interface as well.
  */
 class NodalVars
 {
@@ -108,7 +106,7 @@ public:
 
     //! Returns the bulk domain index given the bulk domain ID
     /*!
-     *  @param[in]           myBBD_ID              Bulk domain ID
+     *  @param[in]           myBDD_ID              Bulk domain ID
      *
      *  @return                                    Returns the index of the bulk domain
      *                                             If the bulk domain isn't on this node, an npos is returned.
@@ -154,9 +152,9 @@ public:
 
     //! Find the index of a particular bulk domain variable, given by its index, at this particular node
     /*!
-     *  This function isn't important for speed.
+     *  This function isn't important for speed. And, it's slow.
      *
-     *  @param[in]           indexBD             Index of the variable within the list of unknowns on the bulk domain
+     *  @param[in]           indexBDom           Index of the variable within the list of unknowns on the bulk domain
      *
      *  @param[in]           BDnum               Number of the bulk domain at the current node. Defaults to zero,
      *                                           which is defined as the first bulk domain (MAY CHANGE)
@@ -165,7 +163,7 @@ public:
      */
     size_t indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BDnum = 0) const;
 
-    //! Index of the start of the equations for an equationType
+    //! Index of the start of the equations for a particular equationType
     /*!
      *  @param[in]           equationTypeS       Input of the equation type
      *
@@ -173,10 +171,20 @@ public:
      */
     inline size_t indexBulkDomainEqn0(size_t equationTypeS) const;
 
-
-
+    //! Returns the number of variables of a particular variableType
+    /*!
+     *  @param[in]           variableTypeS       Input of the variable type
+     *
+     *  @return                                  Returns a size_t with the number of variables of that variable type
+     */
     inline size_t numberBulkDomainVar0(size_t variableTypeS) const;
 
+    //! Returns the number of equations of a particular equationType
+    /*!
+     *  @param[in]           equationTypeS       Input of the equationtype
+     *
+     *  @return                                  Returns a size_t with the number of equations of that equation type
+     */
     inline size_t numberBulkDomainEqn0(size_t equationTypeS) const;
 
     //! Returns the current node position
@@ -197,7 +205,7 @@ public:
      */
     double xFracNodePos() const;
 
-    //  ------------------------------------------------------------------------------------------------------------
+    //  -------------------------------------------------------------- D A T A ------------------------------------------------------
 
     //! Global node value
     int GbNode;
@@ -219,14 +227,13 @@ public:
 
     //! Starting global index for equations located at this node
     /*!
-     * This is in terms of the global equation index, GbEqnIndex,
-     * and is independent of processor number
+     *  This is in terms of the global equation index, GbEqnIndex, and is independent of processor number
      */
     int EqnStart_GbEqnIndex;
 
     //! Global index of the bulk domain at this node given its bulk domain number at this node
     /*!
-     *  Length = number of bulk domains, NumBulkDomains, at the current node
+     *  Length: Number of bulk domains, NumBulkDomains, at the current node
      *
      *  Value = index of the Bulk Domain in the global vector of bulk domains
      */
@@ -237,21 +244,17 @@ public:
     /*!
      *  Length = number of domains
      *
-     *
-     *    @deprecated  This doesn't make any sense to have. The bulk equations
-     *                 are intermixed between domains, and are not contiguous
-     *                 within each bulk domain.
+     *  @deprecated  This doesn't make any sense to have. The bulk equations are intermixed between domains, and are not contiguous
+     *               within each bulk domain.
      */
     std::vector<int> OffsetIndex_BulkDomainEqnStart_BDN;
 
     //! Map from the bulk domain id to the order index at the current node
     /*!
-     *   Given the bulk domain ID, this returns the local index of the bulk domain
-     *   at the current node. If the bulk domain is not at the current node,
-     *   this returns -1.
+     *  Given the bulk domain ID, this returns the local index of the bulk domain
+     *  at the current node. If the bulk domain is not at the current node, this returns -1.
      */
     std::map<int, int> BulkDomainIndex_fromID;
-
 
     //! Listing of the surface domains at this node
     /*!
@@ -259,23 +262,19 @@ public:
      */
     std::vector<int> SurfDomainIndex_SDN;
 
-    //! Offset index for the equations corresponding
-    //! to each domain located at this node
+    //! Offset index for the equations corresponding to each domain located at this node
     /*!
      *  Length = number of domains
      *
-     *    This makes sense still to have because the surface unknowns
-     *    if there are any, are contiguous.
+     *    This makes sense still to have, because the surface unknowns if there are any, are contiguous.
      */
     std::vector<int> OffsetIndex_SurfDomainEqnStart_SDN;
-
 
     //! Map from the surface domain id to the order index at the current node
     /*!
      *  If the domain doesn't exist on this node, a -1 is returned.
      */
     std::map<int, int> SurfDomainIndex_fromID;
-
 
     //! Listing of the Variable Type for each dof at a node
     /*!
@@ -368,9 +367,6 @@ protected:
     double XNodePos;
 
     //! Initial Spatial position of the node
-    /*!
-     *
-     */
     double X0NodePos;
 
     //! Fraction of the nodal position from the left to the right

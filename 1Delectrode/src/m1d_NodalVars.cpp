@@ -129,7 +129,8 @@ void NodalVars::DiscoverDomainsAtThisNode()
 
 }
 //==================================================================================================================================
-void insert_into_list(std::list<VarType>& varList, VarType& v1)
+/*
+static void insert_into_list(std::list<VarType>& varList, VarType& v1)
 {
     //   int ss = varList.size();
     std::list<VarType>::iterator it;
@@ -146,6 +147,7 @@ void insert_into_list(std::list<VarType>& varList, VarType& v1)
     }
     varList.push_back(v1);
 }
+*/
 //==================================================================================================================================
 /*
 static int lookupPosition(int val, std::vector<int>& yy) {
@@ -733,6 +735,7 @@ size_t NodalVars::indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM vari
 //==================================================================================================================================
 size_t NodalVars::indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BD_id) const
 {
+    // first find the order index of the bulk domain at the current node. If not at the node, return npos
     std::map<int, int>::const_iterator it;
     if ((it = BulkDomainIndex_fromID.find(BD_id)) == BulkDomainIndex_fromID.end()) {
         return npos;
@@ -741,18 +744,20 @@ size_t NodalVars::indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BD_id) con
     if (bulkDomainIndex == -1) {
         return npos;
     }
+
+    // Find the pointer to the BulkDomainDescription struct for that bulk domain
     int ibdd = BulkDomainIndex_BDN[bulkDomainIndex];
     if (ibdd == -1) {
         return npos;
     }
-    const BulkDomainDescription* bdd = DL_ptr_->BulkDomainDesc_global[ibdd];
+    const BulkDomainDescription* const bdd = DL_ptr_->BulkDomainDesc_global[ibdd];
 
+    //
+    //  Look up the variable type given the input offset, indexBdom
+    //
     if (indexBDom >= bdd->VariableNameList.size()) {
         return npos;
     }
-    //
-    //  Look up the variable type
-    //
     const VarType& vt = bdd->VariableNameList[indexBDom];
     //
     // Look up and return the offset for that variable
@@ -761,21 +766,16 @@ size_t NodalVars::indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BD_id) con
     return offset;
 }
 //==================================================================================================================================
-// Returns the current node position
-double
-NodalVars::xNodePos() const
+double NodalVars::xNodePos() const
 {
     return XNodePos;
 }
 //==================================================================================================================================
-// Returns the initial node position
-double
-NodalVars::x0NodePos() const
+double NodalVars::x0NodePos() const
 {
     return X0NodePos;
 }
 //==================================================================================================================================
-// Return the fraction node position from left boundary
 double NodalVars::xFracNodePos() const
 {
     return XFracNodePos;
