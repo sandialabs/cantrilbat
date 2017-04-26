@@ -7,9 +7,6 @@
  *
  */
 
-/*
- *  $Id: m1d_VBRIndices.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #ifndef _M1D_VBRINDICES_H
 #define _M1D_VBRINDICES_H
@@ -20,7 +17,7 @@
 #include "Epetra_VbrRowMatrix.h"
 
 #include <vector>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 class GlobalIndices;
@@ -39,7 +36,7 @@ class ProblemResidEval;
  *
  *
  */
-
+//==================================================================================================================================
 //! This class stores and has facilities for accessing the VBR matrix on this processor
 /*!
  *   All numbers are in local Row Node Format. Local row node format is a
@@ -84,16 +81,14 @@ public:
      * @param r  Object to be copied
      * @return   returns the copied object
      */
-    LocalRowNodeVBRIndices&
-    operator=(const LocalRowNodeVBRIndices& r);
+    LocalRowNodeVBRIndices& operator=(const LocalRowNodeVBRIndices& r);
 
     //! Resize the arrays when we know the value of
     //! the number of block rows on this processor.
     /*!
      * @param numLcRNodes Number of block rows on each processor
      */
-    void
-    initSize(int numLcRNodes);
+    void initSize(int numLcRNodes);
 
     //! Determine the matrix stencil needed to fully solve the
     //! system of equations
@@ -296,19 +291,19 @@ private:
     /*!
      * This utility routine frees the block matrices
      */
-    void
-    freeBlockMatrices();
+    void freeBlockMatrices();
 
     //! Copy the block matrices into this structure
     /*!
      *  The supporting structures must already be prepped within the current object
      * @param rBlockMatrices
      */
-    void
-    copyBlockMatrices(const std::vector<Epetra_SerialDenseMatrix**>& rBlockMatrices);
+    void copyBlockMatrices(const std::vector<Epetra_SerialDenseMatrix**>& rBlockMatrices);
 
 };
+//==================================================================================================================================
 
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 
 #endif

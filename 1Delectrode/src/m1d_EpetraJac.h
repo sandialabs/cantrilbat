@@ -70,6 +70,15 @@ public:
   //! Static function to create a parsing block for the jacobian object to read
   static RecordTree_base* setupMDinput_pass1(BEInput::BlockEntry * Parent, RecordTree_base *dbb = 0);
 
+  //! Constructor.
+  /*!
+   *  @param[in]             r                    function which calculates the residual
+   */
+  EpetraJac(ProblemResidEval& r);
+
+  /// Destructor. Does nothing.
+  virtual ~EpetraJac();
+
   //! Process the input file
   /*!
    *  @param[in]             dbb                 Database of entries from input file processing
@@ -82,14 +91,6 @@ public:
    */
   void process_input(BEInput::BlockEntry* const cf);
 
-  //!Constructor.
-  /*!
-   *  @param r  function which calculates the residual
-   */
-  EpetraJac(ProblemResidEval& r);
-
-  /// Destructor. Does nothing.
-  virtual ~EpetraJac();
 
   //! Allocate the matrix and  other vectors
   void allocateMatrix();
