@@ -80,7 +80,7 @@ namespace m1d
 /*!
  *   This macro will set the pointer to zero, indicating that the contents are now inaccessible
  */
-#define safeDelete(ptr)  if (ptr) { delete ptr; ptr = nullptr; }
+#define safeDelete(ptr)  if (ptr) { delete (ptr) ; ptr = nullptr; }
 
 //! Utility for setting doubles
 const double M1D_DOUBLE_NOTSET = -1.234567E300;
