@@ -111,12 +111,12 @@ public:
     //! Assignment operator
     /*!
      *  @param[in]           r                   Object to be copied
+     *
      *  @return                                  Return the current object
      */
     LocalNodeIndices& operator=(const LocalNodeIndices& r);
 
-    //! Initialize the sizes and the contents of the member arrays
-    //! and determine the nodes needed by the current processor to
+    //! Initialize the sizes and the contents of the member arrays and determine the nodes needed by the current processor to
     //! do its calculations
     /*!
      *  In this routine, we figure out the external nodes that are needed to handle the calculations on the node. We then create
@@ -194,6 +194,7 @@ public:
      *  then this function returns -1. The local node may or may not be owned by this processor.
      *
      *  @param[in]           gbNode              global node index
+     *
      *  @return                                  returns the local node index
      */
     int GbNodeToLcNode(const int gbNode) const;

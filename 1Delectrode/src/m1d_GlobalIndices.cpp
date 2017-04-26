@@ -304,7 +304,7 @@ GlobalIndices::GbEqnToGbNode(const int GbEqnNum, int& rowEqnNum) const
 #endif
 }
 //==================================================================================================================================
-void GlobalIndices::updateGlobalPositions(Epetra_Vector* Xpos_LcOwnedNode_p)
+void GlobalIndices::updateGlobalPositions(const Epetra_Vector* const Xpos_LcOwnedNode_p)
 {
     gather_nodeV_OnAll(*XNodePos_GbNode, *Xpos_LcOwnedNode_p, Comm_ptr_);
     for (int iGbNode = 0; iGbNode < NumGbNodes; iGbNode++) {

@@ -532,8 +532,8 @@ int LocalNodeIndices::GbEqnToLcEqn(const int gbEqn) const
 void LocalNodeIndices::InitializeLocalNodePositions()
 {
     /*
-     * Here we assume that the positions are correct in the nodal vars position.
-     * We call the next routine to make sure that they are propagated to Xpos_LcNode[];
+     * Here we assume that the positions are correct in the NodalVars objects.
+     * We call the next routine to make sure that they are propagated to (Xpos_LcNode_p)[];
      */
     UpdateNodalVarsPositions();
 
@@ -541,6 +541,7 @@ void LocalNodeIndices::InitializeLocalNodePositions()
     AssertTrace((*Xpos_LcNode_p)[0] == (*Xpos_LcOwnedNode_p)[0]);
     AssertTrace((*Xpos_LcNode_p)[1] == (*Xpos_LcOwnedNode_p)[1]);
 
+    // We propagate the nodal positions to the global vector
     GI_ptr_->updateGlobalPositions(Xpos_LcOwnedNode_p);
 }
 //==================================================================================================================================

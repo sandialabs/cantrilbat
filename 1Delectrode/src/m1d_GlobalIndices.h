@@ -168,10 +168,12 @@ public:
   //! Take a distributed Epetra_Vector vector and make it into a globally-all distributed
   //! vector of the node positions, and then feed it to the nodal Values object
   /*!
+   *  Updates the internal EpetraVector,  XNodePos_GbNode, which is a global_all vector
    *
-   * @param Xpos_LcNode_p
+   *  @param[in]             Xpos_LcNode_p       Value of the node positions (can be owned noded or +ghosted nodes. only
+   *                                             owned nodes are queried).
    */
-  void updateGlobalPositions(Epetra_Vector *Xpos_LcNode_p);
+  void updateGlobalPositions(const Epetra_Vector* const Xpos_LcNode_p);
 
   //------------------------------------------------------------ D A T A ------------------------------------------------------
 
