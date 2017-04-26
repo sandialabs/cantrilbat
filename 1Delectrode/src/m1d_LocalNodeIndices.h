@@ -93,6 +93,10 @@ class LocalNodeIndices
 public:
 
     //! Constructor
+    /*!
+     *  @param[in]           comm_ptr            Pointer to the Epetra_Comm object that describes the MPI layout.
+     *  @param[in]           gi_ptr              Pointer to the GlobalIndices object for this problem
+     */
     LocalNodeIndices(Epetra_Comm* comm_ptr, GlobalIndices* gi_ptr);
 
     //! Destructor
@@ -100,14 +104,14 @@ public:
 
     //! Copy constructor
     /*!
-     * @param r  Object to be copied
+     * @param[in]            r                   Object to be copied
      */
     LocalNodeIndices(const LocalNodeIndices& r);
 
     //! Assignment operator
     /*!
-     * @param r  Object to be copied
-     * @return   Return the current object
+     *  @param[in]           r                   Object to be copied
+     *  @return                                  Return the current object
      */
     LocalNodeIndices& operator=(const LocalNodeIndices& r);
 
@@ -115,11 +119,11 @@ public:
     //! and determine the nodes needed by the current processor to
     //! do its calculations
     /*!
-     *  In this routine, we figure out the external nodes that are
-     *  needed to handle the calculations on the node. We then create
+     *  In this routine, we figure out the external nodes that are needed to handle the calculations on the node. We then create
      *  the Epetra maps that store that information.
+     *  This also determines the matrix stencil.
      *
-     *   This also determines the matrix stencil.
+     *  @param[in]           dl_ptr              Pointer to the DomainLayout object for the routine
      */
     void determineLcNodeMaps(DomainLayout* dl_ptr);
 
@@ -158,15 +162,13 @@ public:
 
     //! Construct a coloring map for the LcNodes on this processor.
     /*!
-     *   This map includes the external nodes that are defined on the processor
-     *   as well.
+     *   This map includes the external nodes that are defined on the processor as well.
      *
      *   This coloring map will be used to calculate the jacobian. It's based on
      *   an assumption about the matrix stencil. Every node that is adjacent to
      *   another node or is involved with its residual evaluation receives
      *   a different color. Right now we assume the matrix stencil is strictly
-     *   an adjacent node operation.   If this assumption is not
-     *   correct, this is the location to change the algorithm.
+     *   an adjacent node operation.   If this assumption is not correct, this is the location to change the algorithm.
      *
      *   This routine may be called after the LcNodes map is created.
      */
@@ -174,14 +176,13 @@ public:
 
     //! Construct a coloring map for the locally defined equations on this processor.
     /*!
-     *   Equations which are owned or not owned
+     *   Equations which are owned or not owned.
      *
      *   This coloring map will be used to calculate the jacobian. It's based on
      *   an assumption about the matrix stencil. Every node that is adjacent to
      *   another node or is involved with its residual evaluation receives
      *   a different color. Right now we assume the matrix stencil is strictly
-     *   an adjacent node operation.   If this assumption is not
-     *   correct, this is the location to change the algorithm.
+     *   an adjacent node operation.   If this assumption is not correct, this is the location to change the algorithm.
      *
      *   This routine may be called after the LcNodes map is created.
      */
@@ -189,23 +190,22 @@ public:
 
     //! Global node to local node mapping
     /*!
-     * Given a global node, this function will return the local node value.
-     * If the global node is not on this processor, then this function returns -1.
-     * The local node may or may not be owned by this processor.
+     *  Given a global node, this function will return the local node value.  If the global node is not on this processor,
+     *  then this function returns -1. The local node may or may not be owned by this processor.
      *
-     * @param gbNode  global node
-     * @return returns the local node value
+     *  @param[in]           gbNode              global node index
+     *  @return                                  returns the local node index
      */
     int GbNodeToLcNode(const int gbNode) const;
 
     //! Global eqn to local eqn mapping
     /*!
-     * Given a global eqn, this function will return the local eqn value.
-     * If the global eqn is not on this processor, then this function returns -1.
-     * The local eqn may or may not be owned by this processor.
+     *  Given a global eqn, this function will return the local eqn value.
+     *  If the global eqn is not on this processor, then this function returns -1.
+     *  The local eqn may or may not be owned by this processor.
      *
-     * @param gbEqn  global node
-     * @return returns the local eqn value
+     *  @param[in]           gbEqn               global node
+     *  @return                                  returns the local eqn value
      */
     int GbEqnToLcEqn(const int gbEqn) const;
 
