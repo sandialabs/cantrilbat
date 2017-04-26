@@ -867,6 +867,7 @@ INPUT                  = ../../util_src/src \
                          ../../1Delectrode/src/m1d_LocalNodeIndices.h  ../../1Delectrode/src/m1d_LocalNodeIndices.cpp \
                          ../../1Delectrode/src/m1d_NodalVars.h  ../../1Delectrode/src/m1d_NodalVars.cpp \
                          ../../1Delectrode/src/m1d_ProblemResidEval.h ../../1Delectrode/src/m1d_ProblemResidEval.cpp \
+                         ../../1Delectrode/src/m1d_VBRIndices.h  ../../1Delectrode/src/m1d_VBRIndices.cpp \
 
 
 # This tag can be used to specify the character encoding of the source files
