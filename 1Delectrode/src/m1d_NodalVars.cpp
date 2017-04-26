@@ -3,10 +3,6 @@
  *
  */
 
-/*
- *  $Id: m1d_NodalVars.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
-
 #include "m1d_defs.h"
 #include "m1d_NodalVars.h"
 #include "m1d_LocalNodeIndices.h"
@@ -20,10 +16,9 @@
 #include <list>
 
 using namespace std;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
 //==================================================================================================================================
 NodalVars::NodalVars(DomainLayout* dl_ptr) :
     GbNode(-1),
@@ -38,7 +33,7 @@ NodalVars::NodalVars(DomainLayout* dl_ptr) :
     DL_ptr_(dl_ptr)
 {
 }
-//===========================================================================
+//==================================================================================================================================
 NodalVars::NodalVars(const int gbnode, DomainLayout* dl_ptr) :
     DL_ptr_(dl_ptr)
 {
@@ -55,8 +50,7 @@ NodalVars::NodalVars(const NodalVars& r) :
     operator=(r);
 }
 //===================================================================================================================================
-NodalVars&
-NodalVars::operator=(const NodalVars& r)
+NodalVars& NodalVars::operator=(const NodalVars& r)
 {
     if (this == &r) {
         return *this;
@@ -93,9 +87,7 @@ NodalVars::operator=(const NodalVars& r)
     return *this;
 }
 //===================================================================================================================================
-
-void
-NodalVars::DiscoverDomainsAtThisNode()
+void NodalVars::DiscoverDomainsAtThisNode()
 {
     DomainLayout& DL = *DL_ptr_;
     /*
@@ -136,8 +128,8 @@ NodalVars::DiscoverDomainsAtThisNode()
     }
 
 }
-//============================================================================================================
-void  insert_into_list(std::list<VarType>& varList, VarType& v1)
+//==================================================================================================================================
+void insert_into_list(std::list<VarType>& varList, VarType& v1)
 {
     //   int ss = varList.size();
     std::list<VarType>::iterator it;
@@ -177,7 +169,12 @@ static size_t lookupPosition(size_t val, std::vector<size_t>& yy) {
 }
 */
 //==================================================================================================================================
-static void print_line(const char* str, int n)
+//! print a line
+/*!
+ *  @param[in]               str                 Character string to repeat
+ *  @param[in]               n                   Number of repetitions
+ */
+static void print_line(const char* const str, int n)
 {
     for (int i = 0; i < n; i++) {
         printf("%s", str);
@@ -189,8 +186,7 @@ static void print_line(const char* str, int n)
  * This routine discovers and order the equation unknowns at a node
  * This is the ONE PLACE IN THE CODE that discovers and orders the equations at a node.
  */
-void
-NodalVars::GenerateEqnOrder()
+void NodalVars::GenerateEqnOrder()
 {
     //LocalNodeIndices &LI = *LI_ptr;
     DomainLayout& DL = *DL_ptr_;
@@ -648,44 +644,24 @@ NodalVars::GenerateEqnOrder()
 
 }
 //==================================================================================================================================
-// Generate a name for the kth variable at the node
-/*
- *
- * @param k  input the index of the variable on the local node
- * @return  Returns a string representing the variable.
- */
-std::string
-NodalVars::VariableName(int k)
+std::string NodalVars::VariableName(int k)
 {
     VarType kv = VariableNameList_EqnNum[k];
     return kv.VariableName(200);
 }
 //==================================================================================================================================
-//! Change the node position
-/*!
- * @param xNodePos  new value of the node position
- */
-void
-NodalVars::changeNodePosition(double xNodePos)
+void NodalVars::changeNodePosition(double xNodePos)
 {
     XNodePos = xNodePos;
 }
 //==================================================================================================================================
-//! Set up the initial node positions
-/*!
- * @param xNodePos
- * @param x0NodePos
- * @param xFracNodePos
- */
-void
-NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
+void NodalVars::setupInitialNodePosition(double x0NodePos, double xFracNodePos)
 {
     XNodePos = x0NodePos;
     X0NodePos = x0NodePos;
     XFracNodePos = xFracNodePos;
 }
-
-//===================================================================================================================================
+//==================================================================================================================================
 size_t
 NodalVars::bindexBulkDomain_fromID(int myBDD_ID)
 {
@@ -697,12 +673,12 @@ NodalVars::bindexBulkDomain_fromID(int myBDD_ID)
     }
     return npos;
 }
-//===================================================================================================================================
+//==================================================================================================================================
 size_t NodalVars::indexBulkDomainVar(const VarType& vt) const
 {
     return indexBulkDomainVar(vt.VariableType, vt.VariableSubType);
 }
-//===================================================================================================================================
+//==================================================================================================================================
 //
 //  variableType and variableSubType completely determine a variable within the code.
 //  This means that mole fractions in different domains that are different should have different

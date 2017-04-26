@@ -3,9 +3,6 @@
  *
  */
 
-/*
- *  $Id: m1d_NodalVars.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
 #ifndef M1D_NODALVARS_H
 #define M1D_NODALVARS_H
 
@@ -13,15 +10,13 @@
 #include "m1d_EqnVarTypes.h"
 
 #include <vector>
-
 #include <map>
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
 class DomainLayout;
 class LocalNodeIndices;
-
+//==================================================================================================================================
 //! Class that describes the environment at one node in the domain
 /*!
  *
@@ -43,22 +38,28 @@ class LocalNodeIndices;
  *
  *   When a bulk equation gets mapped from one bulk domain to another, it means
  *   that there will be created a single conservation equation for the unknown
- *   striding both domains, and the variable is continuous across the interface
- *   as well.
+ *   striding both domains, and the variable is continuous across the interface as well.
  */
 class NodalVars
 {
 public:
 
     //! Default constructor
+    /*!
+     *  @param[in]           dl_ptr              Pointer to the domain layout
+     */
     NodalVars(DomainLayout* dl_ptr);
 
     //! Constructor
+    /*!
+     *  @param[in]           gbnode              Value of the global node
+     *  @param[in]           dl_ptr              Pointer to the domain layout
+     */
     NodalVars(const int gbnode, DomainLayout* dl_ptr);
 
     //! Copy Constructor
     /*!
-     *   @param r  object to be copied.
+     *  @param[in]           r                   object to be copied.
      */
     NodalVars(const NodalVars& r);
 
@@ -67,12 +68,13 @@ public:
 
     //! Assignment Operator
     /*!
-     *   @param r  object to be copied.
+     *  @param[in]           r                   object to be copied.
+     *
+     *  @return                                  returns a reference to the current object
      */
     NodalVars& operator=(const NodalVars& r);
 
-    //! This routine will search the global information to discover what
-    //! domains are located at this node.
+    //! This routine will search the global information to discover what domains are located at this node.
     /*!
      *
      */
@@ -80,30 +82,27 @@ public:
 
     //! This routine discovers and orders the equation unknowns at a node
     /*!
-     * This is the ONE PLACE IN THE CODE that discovers and orders the
-     * equations at a node.
+     *  This is the ONE PLACE IN THE CODE that discovers and orders the equations at a node.
      */
     void GenerateEqnOrder();
 
-    //! Generate a name for the kth variable at the node
+    //! Generate a name for the jth variable at the node
     /*!
-     *
-     * @param k  input the index of the variable on the local node
-     * @return  Returns a string representing the variable.
+     *  @param[in]           j                   input the index of the variable on the local node
+     *  @return                                  Returns a string representing the variable.
      */
-    std::string VariableName(int k);
+    std::string VariableName(int j);
 
     //! Change the node position
     /*!
-     * @param xNodePos  new value of the node position
+     *  @param[in]           xNodePos            New value of the node position
      */
     void changeNodePosition(double xNodePos);
 
     //! Set up the initial node positions
     /*!
-     * @param xNodePos
-     * @param x0NodePos
-     * @param xFracNodePos
+     *  @param[in]           x0NodePos           Initial position of the node
+     *  @param[in]           xFracNodePos        Fractional value of the node within the domain
      */
     void setupInitialNodePosition(double x0NodePos, double xFracNodePos);
 
@@ -116,63 +115,65 @@ public:
      */
     size_t bindexBulkDomain_fromID(int myBDD_ID);
 
-    //!  Return the starting index of a particular variable from the start of the nodal solution vector
+    //! Return the starting index of a particular variable from the start of the nodal solution vector
     /*!
      *  These functions are important as they are used frequently to index into the
      *  solution vector.
      *
-     *    @param variableType   VAR_TYPE to look up the index for
-     *    @param subVarIndex    VAR_TYPE_SUBNUM subindex to look up the variable
+     *  @param[in]           variableType        VAR_TYPE to look up the index for
+     *  @param[in]           subVarIndex         VAR_TYPE_SUBNUM subindex to look up the variable
      *
-     *    @return  Returns npos if there isn't a variable of that type and subtype.
-     *             Returns the index into the solution vector from the start of
-     *             variables at that node.
+     *  @return                                  Returns npos if there isn't a variable of that type and subtype.
+     *                                           Returns the index into the solution vector from the start of
+     *                                           variables at that node.
      */
     size_t indexBulkDomainVar(VAR_TYPE variableType, VAR_TYPE_SUBNUM subVarIndex) const;
 
+    //! Return the starting index of a particular variable from the start of the nodal solution vector
+    /*!
+     *  These functions are important as they are used frequently to index into the solution vector.
+     *
+     *  @param[in]           vt                  Const reference to the VarType 
+     *
+     *  @return                                  Returns npos if there isn't a variable of that type and subtype.
+     *                                           Returns the index into the solution vector from the start of variables at that node
+     */
     size_t indexBulkDomainVar(const VarType& vt) const;
 
-    //!  Find the offset index of a particular variable into the nodal solution vector
+    //! Find the offset index of a particular variable into the nodal solution vector
     /*!
-     *   These functions are important as they are used frequently to index into the
-     *   solution vector.
+     *  These functions are important as they are used frequently to index into the solution vector.
      *
-     *    @param variableTypeS   VAR_TYPE size_t value to look up the index
+     *  @param[in]           variableTypeS       VAR_TYPE size_t value to look up the index
      *
-     *    @return  Returns npos=size_t(-1) if there isn't a variable of that type.
-     *             Returns the index into the solution vector from the start of
-     *             variables of that VAR_TYPE at that node.
+     *  @return                                  Returns npos=size_t(-1) if there isn't a variable of that type.
+     *                                           Returns the index into the solution vector from the start of
+     *                                           variables of that VAR_TYPE at that node.
      */
     inline size_t indexBulkDomainVar0(size_t variableTypeS) const;
 
-    //!   Find the index of a particular bulk domain variable, given by its index, at this particular node
+    //! Find the index of a particular bulk domain variable, given by its index, at this particular node
     /*!
-     *   This function isn't important for speed
+     *  This function isn't important for speed.
      *
-     *    @param  indexBD   Index of the variable within the list of unknowns on the bulk domain
+     *  @param[in]           indexBD             Index of the variable within the list of unknowns on the bulk domain
      *
-     *    @return BDnum     Number of the bulk domain at the current node. Defaults to zero,
-     *                      which is defined as the first bulk domain (MAY CHANGE)
+     *  @param[in]           BDnum               Number of the bulk domain at the current node. Defaults to zero,
+     *                                           which is defined as the first bulk domain (MAY CHANGE)
      *
-     *    @return           Returns the offset of the variable index at the current node.
+     *  @return                                  Returns the offset of the variable index at the current node.
      */
     size_t indexBulkDomainVar_BDIndex(size_t indexBDom, size_t BDnum = 0) const;
 
-
-    size_t indexBulkDomainEqn(EQ_TYPE equationType, EQ_TYPE_SUBNUM subEqnIndex) const;
-
-    //!  Find the offset index of a particular equation into the nodal solution vector
+    //! Index of the start of the equations for an equationType
     /*!
-     *   These functions are important as they are used frequently to index into the
-     *   solution vector.
+     *  @param[in]           equationTypeS       Input of the equation type
      *
-     *    @param equationTypeS   EQN_TYPE size_t value to look up the index
-     *
-     *    @return  Returns npos=size_t(-1) if there isn't an equation of that type.
-     *             Returns the index into the solution vector from the start of
-     *             equations of that EQN_TYPE at that node.
+     *  @return                                  Returns a size_t with the offset of the equations with that equation type
      */
     inline size_t indexBulkDomainEqn0(size_t equationTypeS) const;
+
+
 
     inline size_t numberBulkDomainVar0(size_t variableTypeS) const;
 
@@ -302,43 +303,68 @@ public:
 
     //! Map between the variable type and offset of the variable in the unknowns for the node
     /*!
-     *       Offset_VarType[MoleFraction_Species] is the offset for the mole fraction variables.
+     *  Example:
+     *    Offset_VarType[MoleFraction_Species] is the offset for the mole fraction variables.
      */
     std::map<VAR_TYPE, size_t> Offset_VarType;
 
+    //! Map between the equation type enum and the  offset of the variable in the unknowns for the node
+    /*! 
+     *  Example:
+     *    Offset_EqnType[MoleFraction_Species] is the offset for the mole fraction variables.
+     */
     std::map<EQ_TYPE, size_t> Offset_EqnType;
-
 
     //! Vector between the variable type redefined as a size_t and the offset of the variable in the unknowns for the node
     /*!
-     *       Offset_VarType[MoleFraction_Species] is the offset for the mole fraction variables.
+     *  Valid variable names are listed in m1d_Eqn_Names.h in the Var_Name_Enum structure
+     *  Example:
+     *    Offset_VarTypeVector[MoleFraction_Species] is the offset for the mole fraction variables.
      */
     std::vector<size_t> Offset_VarTypeVector;
-    std::vector<size_t> Offset_EqnTypeVector;
 
+    //! Vector between the equation type redefined as a size_t and the offset of the variable in the unknowns for the node
+    /*!
+     *  Valid equation names are listed in m1d_Eqn_Names.h in the EQ_Name_Enum structure
+     *  Example:
+     *    Offset_EqnTypeVector[Species_Conservation] is the offset for the species conservation equations
+     */
+    std::vector<size_t> Offset_EqnTypeVector;
 
     //! Map between the variable type and the number of variables of that VAR_TYPE in the unknowns for the node
     /*!
      *   Example:
-     *      Number_VarType[MoleFraction_Species] is the number of mole fraction variables. Each will of course
-     *      have different subtypes.
+     *      Number_VarType[MoleFraction_Species] is the number of mole fraction variables.
+     *          Each will of course have different subtypes.
      */
     std::map<VAR_TYPE, size_t> Number_VarType;
+
+    //! Map between the equation type enum and the number of variables of that EQ_TYPE in the equations for the node
+    /*!
+     *   Example:
+     *      Number_EqnType[Species_Conservation ] is the number of species conservation equations
+     *          Each will of course have different subtypes.
+     */
     std::map<EQ_TYPE, size_t> Number_EqnType;
 
-    //! Vector between the variable type redefined as a size_t and the number of variables of that
-    //! VAR_TYPE in the unknowns for the node
+    //! Vector between the variable type redefined as a size_t and the number of variables of that VAR_TYPE 
+    //! in the unknowns for the node
     /*!
-     *       Number_VarType[MoleFraction_Species] is the number of mole fraction variables.
+     *  Example:
+     *    Number_VarTypeVector[MoleFraction_Species] is the number of mole fraction variables.
      */
     std::vector<size_t> Number_VarTypeVector;
+
+    //! Vector between the equation type redefined as a size_t and the number of variables of that EQ_TYPE 
+    //! in the equations for the node
+    /*!
+     *  Example:
+     *    Number_EqnTypeVector[Species_Conservation] is the number of species conservation equations.
+     */
     std::vector<size_t> Number_EqnTypeVector;
 
 protected:
     //! Current Spatial position of the node
-    /*!
-     *
-     */
     double XNodePos;
 
     //! Initial Spatial position of the node
@@ -353,30 +379,30 @@ protected:
 public:
     //! Owning Domain Layout for the node
     DomainLayout* DL_ptr_;
-
 };
-
-//====================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 inline size_t NodalVars::indexBulkDomainVar0(size_t variableTypeS) const
 {
     return Offset_VarTypeVector[variableTypeS];
 }
-//====================================================================================================
+//==================================================================================================================================
 inline size_t NodalVars::indexBulkDomainEqn0(size_t equationTypeS) const
 {
     return Offset_EqnTypeVector[equationTypeS];
 }
-//====================================================================================================
+//==================================================================================================================================
 inline size_t NodalVars::numberBulkDomainVar0(size_t variableTypeS) const
 {
     return Number_VarTypeVector[variableTypeS];
 }
-//====================================================================================================
+//==================================================================================================================================
 inline size_t NodalVars::numberBulkDomainEqn0(size_t equationTypeS) const
 {
     return Number_EqnTypeVector[equationTypeS];
 }
-//====================================================================================================
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

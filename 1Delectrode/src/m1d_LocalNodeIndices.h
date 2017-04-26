@@ -217,13 +217,14 @@ public:
      */
     void UpdateNodalVarsPositions();
 
-    //!  Extract the positions from the solution vector and propagate them into all other structures
+    //! Extract the positions from the solution vector and propagate them into all other structures
     /*!
      *  The following member data are updated:
+     *
      *      this->Xpos_LcNode_p[];
      *      nv->XNodePos
      *
-     * @param soln  Solution vector which contains displacements as one of the solution components
+     *  @param[in]           soln_p              Solution vector which contains displacements as one of the solution components
      */
     void ExtractPositionsFromSolution(const Epetra_Vector* const soln_p);
 
@@ -234,14 +235,19 @@ public:
      *
      *     Set Displacement_Axial unknowns to 0.0
      *     Assert that nodal value of x0NodePos is equal to the local vector of *Xpos_LcNode_p
+     *
+     *  @param[in]           doTimeDependentResid Boolean indicating whether we are doing a time dpeendent problem
+     *  @param[out]          soln                 Solution vector to be updated with the initial conditions
+     *  @param[out]          solnDot              Solution time-deriv vector to be updated with the initial conditions
+     *  @param[in]           t                    Current time
+     *  @param[in]           delta_t              delta time
      */
-    void setInitialConditions(const bool doTimeDependentResid, Epetra_Vector* soln, Epetra_Vector* solnDot,
+    void setInitialConditions(const bool doTimeDependentResid, Epetra_Vector* const soln, Epetra_Vector* const solnDot,
                               const double t, const double delta_t);
 
     //! Generate the nodal variables structure
     /*!
-     *   This routine will update the pointer to the NodalVars structure
-     *   and it will update the positions
+     *  This routine will update the pointer to the NodalVars structure and it will update the positions
      */
     void GenerateNodalVars();
 
@@ -264,6 +270,8 @@ public:
      *        IndexLcEqns_LcNode[]
      *        NumLcOwnedEqns
      *        NumLcEqns
+     *
+     *  @return                                  Total number of equations
      */
     int UpdateEqnCount();
 
@@ -377,7 +385,7 @@ public:
     //! Vector containing the ID of the node to the right of the
     //! current local node
     /*!
-     * *
+     *
      *  Length = NumLcNodes
      */
     std::vector<int> IDRightLcNode_LcNode;
@@ -392,7 +400,7 @@ public:
 
     //! Vector containing the Global ID of the node to the right of the
     //! current local node
-    /*
+    /*!
      *  Length = NumLcNodes
      */
     std::vector<int> IDRightGbNode_LcNode;

@@ -18,8 +18,7 @@ namespace m1d
 //==================================================================================================================================
 //! Enum representing the types of variables
 /*!
- *    Right now, there is a 1-1 correspondence between the variable number and the
- *    usual equation number.
+ *    Right now, there is a 1-1 correspondence between the variable number and the usual equation number.
  */
 enum Var_Name_Enum {
     Variable_Type_Unspecified = -2,   //!< Variable_Type_Unspecified
