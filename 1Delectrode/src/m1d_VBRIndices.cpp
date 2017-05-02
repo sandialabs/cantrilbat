@@ -4,8 +4,12 @@
  */
 
 /*
- *  $Id: m1d_VBRIndices.cpp 504 2013-01-07 22:32:48Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
  */
+
 #include "m1d_VBRIndices.h"
 #include "m1d_GlobalIndices.h"
 #include "m1d_ProblemResidEval.h"
@@ -13,13 +17,13 @@
 #include "m1d_LocalNodeIndices.h"
 
 using namespace std;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
 //LocalRowNodeVBRIndices *LRN_VBR_ptr = 0;
 
-//==========================================================================================================================
+//==================================================================================================================================
 LocalRowNodeVBRIndices::LocalRowNodeVBRIndices(Epetra_Comm* comm_ptr,
                                                bool copyMode,
                                                GlobalIndices* gi_ptr,
@@ -28,7 +32,7 @@ LocalRowNodeVBRIndices::LocalRowNodeVBRIndices(Epetra_Comm* comm_ptr,
     Func_ptr_(0)
 {
 }
-//=======================================================================================================================
+//==================================================================================================================================
 LocalRowNodeVBRIndices::~LocalRowNodeVBRIndices()
 {
     freeBlockMatrices();
@@ -44,15 +48,14 @@ LocalRowNodeVBRIndices::~LocalRowNodeVBRIndices()
         }
     }
 }
-//===========================================================================
+//==================================================================================================================================
 LocalRowNodeVBRIndices::LocalRowNodeVBRIndices(const LocalRowNodeVBRIndices& r) :
     Comm_ptr_(r.Comm_ptr_), CopyMode(r.CopyMode), NumLcRowNodes(0), GI_ptr_(r.GI_ptr_), LI_ptr_(r.LI_ptr_)
 {
     *this = r;
 }
-//===========================================================================
-LocalRowNodeVBRIndices&
-LocalRowNodeVBRIndices::operator=(const LocalRowNodeVBRIndices& r)
+//==================================================================================================================================
+LocalRowNodeVBRIndices& LocalRowNodeVBRIndices::operator=(const LocalRowNodeVBRIndices& r)
 {
     if (this == &r) {
         return *this;
@@ -107,10 +110,8 @@ LocalRowNodeVBRIndices::operator=(const LocalRowNodeVBRIndices& r)
 
     return *this;
 }
-//===========================================================================
-
-void
-LocalRowNodeVBRIndices::freeBlockMatrices()
+//==================================================================================================================================
+void LocalRowNodeVBRIndices::freeBlockMatrices()
 {
     for (int i = 0; i < NumLcRowNodes; i++) {
         if (BlockMatrices[i]) {
@@ -124,9 +125,8 @@ LocalRowNodeVBRIndices::freeBlockMatrices()
         }
     }
 }
-//===========================================================================
-void
-LocalRowNodeVBRIndices::initSize(int numLcRowNodes)
+//==================================================================================================================================
+void LocalRowNodeVBRIndices::initSize(int numLcRowNodes)
 {
     NumLcRowNodes = numLcRowNodes;
     NumColBlocks_LcRNodes.resize(NumLcRowNodes);
@@ -135,13 +135,12 @@ LocalRowNodeVBRIndices::initSize(int numLcRowNodes)
     IndexLcNodeColBlock_LcRNodes.resize(NumLcRowNodes, 0);
     Copy_IndexLcNodeColBlock_LcRNodes.resize(NumLcRowNodes, 0);
 }
-//===========================================================================
+//==================================================================================================================================
 // determine the number of block columns in each block row
 /*
  *   This determines the matrix stencil
  */
-void
-LocalRowNodeVBRIndices::determineBlockCol()
+void LocalRowNodeVBRIndices::determineBlockCol()
 {
     int index;
     /*
@@ -212,9 +211,8 @@ LocalRowNodeVBRIndices::determineBlockCol()
         AssertTrace(index == NumColBlocks_LcRNodes[i]);
     }
 }
-//===========================================================================
-void
-LocalRowNodeVBRIndices::mallocBlockMatrices()
+//==================================================================================================================================
+void LocalRowNodeVBRIndices::mallocBlockMatrices()
 {
     NumOwnedEqns = LI_ptr_->NumLcOwnedEqns;
     /*
@@ -232,9 +230,8 @@ LocalRowNodeVBRIndices::mallocBlockMatrices()
         }
     }
 }
-//===========================================================================
-void
-LocalRowNodeVBRIndices::copyBlockMatrices(const std::vector<Epetra_SerialDenseMatrix**>& c_BlockMatrices)
+//==================================================================================================================================
+void LocalRowNodeVBRIndices::copyBlockMatrices(const std::vector<Epetra_SerialDenseMatrix**>& c_BlockMatrices)
 {
 
     int numOwnedLcNodes = c_BlockMatrices.size();
@@ -269,9 +266,8 @@ LocalRowNodeVBRIndices::copyBlockMatrices(const std::vector<Epetra_SerialDenseMa
     }
 
 }
-//===========================================================================
-Epetra_VbrMatrix*
-LocalRowNodeVBRIndices::alloc_VbrMatrix()
+//==================================================================================================================================
+Epetra_VbrMatrix* LocalRowNodeVBRIndices::alloc_VbrMatrix()
 {
     m1d::stream0 w0;
 
@@ -344,14 +340,13 @@ LocalRowNodeVBRIndices::alloc_VbrMatrix()
 
     return A;
 }
-//=====================================================================================================================
-Epetra_VbrRowMatrix*
-LocalRowNodeVBRIndices::alloc_VbrRowMatrix(Epetra_VbrMatrix* A)
+//==================================================================================================================================
+Epetra_VbrRowMatrix* LocalRowNodeVBRIndices::alloc_VbrRowMatrix(Epetra_VbrMatrix* A)
 {
     Epetra_VbrRowMatrix* B = new Epetra_VbrRowMatrix(A);
     return B;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Calculate the row sum scales
 /*
  *  This calculates the sum of the abs value of all entries
@@ -359,8 +354,7 @@ LocalRowNodeVBRIndices::alloc_VbrRowMatrix(Epetra_VbrMatrix* A)
  *
  * @param rowScales  returns the row sum scales
  */
-void
-LocalRowNodeVBRIndices::calcInvRowSumScales(Epetra_Vector& rowScales) const
+void LocalRowNodeVBRIndices::calcInvRowSumScales(Epetra_Vector& rowScales) const
 {
 
 #ifdef DEBUG_MODE
@@ -413,7 +407,7 @@ LocalRowNodeVBRIndices::calcInvRowSumScales(Epetra_Vector& rowScales) const
         rowScales[i] = 1.0 /  rowScales[i];
     }
 }
-//===========================================================================
+//===================================================================================================================================
 // Print out the matrix structure of the VBR Matrix
 /*
  *   Using this routine to learn more about Epetra
@@ -499,14 +493,12 @@ LocalRowNodeVBRIndices::queryMatrixStructure(const Epetra_VbrMatrix* const A, st
             oo << " )\n";
         }
     }
-}//===========================================================================
-void
-LocalRowNodeVBRIndices::informProblem(ProblemResidEval* r_ptr)
+}//=================================================================================================================================
+void LocalRowNodeVBRIndices::informProblem(ProblemResidEval* r_ptr)
 {
     Func_ptr_ = r_ptr;
 }
-//====================================================================================================================
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------
 
-//===========================================================================
-} // end of namespace m1d
-//===========================================================================
