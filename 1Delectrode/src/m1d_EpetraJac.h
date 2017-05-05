@@ -106,10 +106,12 @@ public:
     //! Calculate a Jacobian -> internal
     /*!
      *
-     *
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Solution vector
+     *  @param[in]           doTimeDependentResid Boolean indicating whether we should formulate the time dependent residual
+     *  @param[in]           solnBase             Solution vector containing the base solution
+     *  @param[in]           solnDotBase          Solution derivative vector containing the base solution
+     *  @param[in]           t                    current value of the time
+     *  @param[in]           rdelta_t             Inverse of the deltaT value
+     *  @param[in]           solveType            Type of the solution solve
      */
     void matrixEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase,
                     const Epetra_Vector* const solnDotBase, const double t, const double rdelta_t,
@@ -118,50 +120,47 @@ public:
     //! Calculate a Jacobian and a residual
     /*!
      *
-     *
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Solution vector
+     *  @param[in]           doTimeDependentResid Boolean indicating whether we should formulate the time dependent residual
+     *  @param[in]           solnBase             Solution vector containing the base solution
+     *  @param[in]           solnDotBase          Solution derivative vector containing the base solution
+     *  @param[out]          resBase              Base value of the residual
+     *  @param[in]           t                    current value of the time
+     *  @param[in]           rdelta_t             Inverse of the deltaT value
+     *  @param[in]           solveType            Type of the solution solve
      */
-    void matrixResEval(const bool doTimeDependentResid,
-                       const Epetra_Vector* const solnBase,
-                       const Epetra_Vector* const solnDotBase,
-                       Epetra_Vector* const resBase,
-                       const double t,
-                       const double rdelta_t,
-                       const m1d::Solve_Type_Enum solveType);
+    void matrixResEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase,
+                       const Epetra_Vector* const solnDotBase, Epetra_Vector* const resBase,
+                       const double t, const double rdelta_t, const m1d::Solve_Type_Enum solveType);
 
     //! Calculate a Jacobian -> internal
     /*!
      *
-     *
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Solution vector
+     *  @param[in]           doTimeDependentResid Boolean indicating whether we should formulate the time dependent residual
+     *  @param[in]           solnBase             Solution vector containing the base solution
+     *  @param[in]           solnDotBase          Solution derivative vector containing the base solution
+     *  @param[out]          resBase              Base value of the residual
+     *  @param[in]           t                    current value of the time
+     *  @param[in]           rdelta_t             Inverse of the deltaT value
+     *  @param[in]           solveType            Type of the solution solve
      */
-    void
-    matrixEval1(const bool doTimeDependentResid,
-                const Epetra_Vector* const solnBase,
-                const Epetra_Vector* const solnDotBase,
-                Epetra_Vector* const resBase,
-                const double t,
-                const double rdelta_t,
-                const m1d::Solve_Type_Enum solveType);
+    void matrixEval1(const bool doTimeDependentResid, const Epetra_Vector* const solnBase, const Epetra_Vector* const solnDotBase,
+                     Epetra_Vector* const resBase, const double t, const double rdelta_t, const m1d::Solve_Type_Enum solveType);
 
 private:
     //! Evaluate the Jacobian at x0.
     /*!
      * The unperturbed residual function is resid0, which must be supplied on input. The
-     * third parameter 'rdt' is the reciprocal of the time
-     * step. If zero, the steady-state Jacobian is evaluated.
+     * third parameter 'rdt' is the reciprocal of the time step. If zero, the steady-state Jacobian is evaluated.
+     *
+     *  @param[in]           doTimeDependentResid Boolean indicating whether we should formulate the time dependent residual
+     *  @param[in]           solnBase             Solution vector containing the base solution
+     *  @param[in]           solnDotBase          Solution derivative vector containing the base solution
+     *  @param[out]          resBase              Base value of the residual
+     *  @param[in]           t                    current value of the time
+     *  @param[in]           rdelta_t             Inverse of the deltaT value
      */
-    void
-    eval(const bool doTimeDependentResid,
-         const Epetra_Vector* const solnBase,
-         const Epetra_Vector* const solnDotBase,
-         const Epetra_Vector& residBase,
-         const double t,
-         const double rdelta_t);
+    void eval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase, const Epetra_Vector* const solnDotBase,
+              const Epetra_Vector& residBase, const double t, const double rdelta_t);
 
 public:
 
@@ -199,38 +198,55 @@ public:
     double elapsedTime() const;
 
     //! Number of Jacobian evaluations.
+    /*!
+     *  @return                                  Returns the number of jacobian evaluations done in the entire calculation
+     */
     int nEvals() const;
 
     //! Return the number of times 'incrementAge' has been called since the
+    /*!
+     *  @return                                  Returns the age of the jacobian
+     */
     int age() const;
 
     //! Increment the Jacobian age.
     void incrementAge();
 
+    //! Add the transient jacobian term back into the diagonal
+    /*!
+     *  (INOPERABLE)
+     *
+     *  @param[in]           rdt                 inverse of deltaT
+     *  @param[in]           mask                mask declaring which terms get a deltat term
+     */
     void updateTransient(double rdt, int* mask);
 
-    //! Set the age.
+    //! Set the age of the jacobian
     /*!
-     *
-     * @param age  Value to set the age
+     *  @param[in]           age                 Value to set the age
      */
     void setAge(int age);
 
     //! Accessor routine for the mask variable
     /*!
-     *
-     * @return Returns a changeable reference to the mask variable
+     *  @return                                  Returns a changeable reference to the mask variable
      */
     Epetra_IntVector& transientMask();
 
     //! Increment the diagonal of the matrix
     /*!
+     *  (INOPERABLE)
      *
+     *  @param[in]           j                   local row number
+     *  @param[in]           d                   Value of the diagonal of the matrix to replace the entry with
      */
     void incrementDiagonal(int j, double d);
 
+    //! Return a reference to the delta for the solution variables used to calculate the one-sided numerical jacobian
+    /*!
+     *  @return                                  Returns an Epetra_Vector with ghost nodes containing the delta variables
+     */ 
     const Epetra_Vector& deltaSolnJac() const;
-
 
     //! Zero the matrix
     void zeroMatrix();
@@ -302,6 +318,9 @@ public:
     double _value(const int iGlobalEqn, const int jGlobalEqn) const;
 
     //! Returns the number of global equations in the matrix
+    /*!
+     *  @return                                  Returns the number of global equations in the matrix
+     */
     int nRows() const;
 
     //! Number of columns
@@ -311,23 +330,43 @@ public:
     int nSubDiagonals() const;
 
     //! Number of superdiagonals
+    /*!
+     *   @return                                 Returns the number of superdiagonals
+     */
     int nSuperDiagonals() const;
 
+    //! Returns the bandwidth of the matrix
+    /*!
+     *   @return                                 Returns the value of  2 * m_kl + m_ku + 1
+     */
     int ldim() const;
 
     //! Multiply A*b and write result to prod.
+    /*!
+     *  @param[in]           b                   The const value of b
+     *  @param[out]          prod                The vector, A * b , which is the result
+     */
     void mult(const Epetra_Vector& b, Epetra_Vector& prod) const;
 
-    /// Multiply b*A and write result to prod.
+    //! Multiply b*A and write result to prod.
+    /*!
+     *  @param[in]           b                   The const value of b
+     *  @param[out]          prod                The vector, b * A , which is the result
+     */
     void leftMult(const Epetra_Vector& b, Epetra_Vector& prod) const;
-
+  
+    //! Factor the matrix
+    /*!
+     *  (NOT USED)
+     *  @return                                  Returns 0 if the factorization was successful
+     */
     int factor();
 
     //! Main routine to solve the linear system
     /*!
      *
      *  @param[in]             b                   This is the input rhs
-     *  @param[in]             x                   Returns the solved system in x
+     *  @param[out]             x                   Returns the solved system in x
      *  @param[out]            its                 Returns the number of iterations to solve the linear system
      *  @param[out]            norm                The norm of the value of (Ax-b) on return if doRes is true
      *  @param[in]             doRes               We check the Ax-b calc if true

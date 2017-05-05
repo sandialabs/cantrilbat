@@ -287,10 +287,9 @@ Epetra_IntVector& EpetraJac::transientMask()
     return *m_isAlgebraic;
 }
 //==================================================================================================================================
-void
-EpetraJac::matrixEval(const bool doTimeDependentResid, const Epetra_Vector* solnBase_ptr,
-                      const Epetra_Vector* solnDotBase_ptr, const double t,
-                      const double rdelta_t, const Solve_Type_Enum solveType)
+void EpetraJac::matrixEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
+                           const Epetra_Vector* const solnDotBase_ptr, const double t, const double rdelta_t,
+                           const Solve_Type_Enum solveType)
 {
     // Epetra_Vector *resBase = new Epetra_Vector(*(GI_ptr_->GbEqnstoOwnedLcEqnsMap));
     Epetra_Vector* resBase = new Epetra_Vector(*(LI_ptr_->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap));
@@ -299,14 +298,9 @@ EpetraJac::matrixEval(const bool doTimeDependentResid, const Epetra_Vector* soln
     safeDelete(resBase);
 }
 //===================================================================================================================================
-void
-EpetraJac::matrixResEval(const bool doTimeDependentResid,
-                         const Epetra_Vector* solnBase_ptr,
-                         const Epetra_Vector* solnDotBase_ptr,
-                         Epetra_Vector* const resBase,
-                         const double t,
-                         const double rdelta_t,
-                         Solve_Type_Enum solveType)
+void EpetraJac::matrixResEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
+                              const Epetra_Vector* const solnDotBase_ptr, Epetra_Vector* const resBase,
+                              const double t, const double rdelta_t, Solve_Type_Enum solveType)
 {
     matrixEval1(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, resBase, t, rdelta_t, solveType);
     fillVbr();
@@ -315,10 +309,9 @@ EpetraJac::matrixResEval(const bool doTimeDependentResid,
 /*
  *   solnBase contains ghost nodes
  */
-void
-EpetraJac::matrixEval1(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
-                       const Epetra_Vector* const solnDotBase_ptr, Epetra_Vector* const resBase,
-                       const double t, const double rdelta_t, Solve_Type_Enum solveType)
+void EpetraJac::matrixEval1(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
+                            const Epetra_Vector* const solnDotBase_ptr, Epetra_Vector* const resBase,
+                            const double t, const double rdelta_t, Solve_Type_Enum solveType)
 {
     solveType_ = solveType;
     m_resid->residEval(resBase, doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, t, rdelta_t, Base_ResidEval,
@@ -487,8 +480,7 @@ void EpetraJac::eval(const bool doTimeDependentResid, const Epetra_Vector* const
     safeDelete(solnDot_ptr);
 }
 //==================================================================================================================================
-void
-EpetraJac::fillVbr()
+void EpetraJac::fillVbr()
 {
     bool copyMode = LRN_VBR_ptr_->CopyMode;
     if (!copyMode) {
@@ -541,8 +533,7 @@ void EpetraJac::columnScale(const Epetra_Vector* const colScales)
     m_columnScaled = true;
 }
 //==================================================================================================================================
-void
-EpetraJac::rowScale(const Epetra_Vector* const rowScales)
+void EpetraJac::rowScale(const Epetra_Vector* const rowScales)
 {
     if (m_factored) {
         throw m1d_Error("EpetraJac::rowScale", "matrix is factored");
@@ -624,8 +615,7 @@ void EpetraJac::zeroMatrix()
  *            to that row and column. Will return 0 if this number is not on the current
  *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
  */
-double*
-EpetraJac::GbBlkValue(int gbRow, int lcRowIndex, int gbCol, int lcColIndex) const
+double* EpetraJac::GbBlkValue(int gbRow, int lcRowIndex, int gbCol, int lcColIndex) const
 {
     double* vptr = nullptr;
 
@@ -749,8 +739,7 @@ int EpetraJac::nRows() const
 /*
  * Multiply A*b and write result to \c prod.
  */
-void
-EpetraJac::mult(const Epetra_Vector& b, Epetra_Vector& prod) const
+void EpetraJac::mult(const Epetra_Vector& b, Epetra_Vector& prod) const
 {
     int err = A_->Multiply1(false, b, prod);
     if (err) {
@@ -761,8 +750,7 @@ EpetraJac::mult(const Epetra_Vector& b, Epetra_Vector& prod) const
 /*
  * Multiply b*A and write result to \c prod.
  */
-void
-EpetraJac::leftMult(const Epetra_Vector& b, Epetra_Vector& prod) const
+void EpetraJac::leftMult(const Epetra_Vector& b, Epetra_Vector& prod) const
 {
     int err = A_->Multiply1(true, b, prod);
     if (err) {
@@ -770,8 +758,7 @@ EpetraJac::leftMult(const Epetra_Vector& b, Epetra_Vector& prod) const
     }
 }
 //==================================================================================================================================
-int
-EpetraJac::factor()
+int EpetraJac::factor()
 {
     if (solverType_ == Direct) {
 

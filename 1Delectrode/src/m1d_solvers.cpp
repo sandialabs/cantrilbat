@@ -37,14 +37,10 @@ namespace m1d
 
 int PrintLevel_LinearSolver = 0;
 
-//=====================================================================================
-void
-fill_matrix(Epetra_VbrMatrix*& A,
-            Epetra_Vector*& v,
-            Epetra_Vector*& b,
-            m1d::GlobalIndices *gi_ptr,
-            m1d::LocalNodeIndices *li_ptr,
-            m1d::LocalRowNodeVBRIndices *lrn_vbr_ptr)
+//==================================================================================================================================
+void fill_matrix(Epetra_VbrMatrix*& A, Epetra_Vector*& v, Epetra_Vector*& b,
+                 m1d::GlobalIndices* const gi_ptr, m1d::LocalNodeIndices* const li_ptr,
+                 m1d::LocalRowNodeVBRIndices* const lrn_vbr_ptr)
 {
   bool copyMode = lrn_vbr_ptr->CopyMode;
   int numLcRowNodes = lrn_vbr_ptr->NumLcRowNodes;
@@ -143,10 +139,8 @@ fill_matrix(Epetra_VbrMatrix*& A,
   }
 
 }
-
-//=====================================================================================
-int
-solve_aztecoo(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b, EpetraJac *jac)
+//==================================================================================================================================
+int solve_aztecoo(Epetra_VbrMatrix* const A, Epetra_Vector* const v, Epetra_Vector* const b, EpetraJac* const jac)
 {
 
 #ifdef HAVE_MPI
@@ -237,9 +231,8 @@ solve_aztecoo(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b, EpetraJac
 
   return 0;
 }
-//=====================================================================================
-int
-solve_aztecoo(Epetra_VbrRowMatrix* Arow, Epetra_Vector* v, Epetra_Vector* b, EpetraJac *jac)
+//==================================================================================================================================
+int solve_aztecoo(Epetra_VbrRowMatrix* const Arow, Epetra_Vector* const v, Epetra_Vector* const b, EpetraJac* const jac)
 {
 
 #ifdef HAVE_MPI
@@ -330,23 +323,18 @@ solve_aztecoo(Epetra_VbrRowMatrix* Arow, Epetra_Vector* v, Epetra_Vector* b, Epe
 
   return 0;
 }
-//==================================================================================
-int
-solve_amesos(Epetra_VbrMatrix* A, Epetra_Vector* x, Epetra_Vector* b, EpetraJac *jac)
+//==================================================================================================================================
+int solve_amesos(Epetra_VbrMatrix* const A, Epetra_Vector* const x, Epetra_Vector* const b, EpetraJac* const jac)
 {
-  // Creates an epetra linear problem, contaning matrix
-  // A, solution x and rhs b.
+  // Creates an epetra linear problem, contaning matrix A, solution x and rhs b.
   Epetra_LinearProblem Problem(A, x, b);
 
-   // Initializes the Amesos solver. This is the base class for
-   // Amesos. It is a pure virtual class (hence objects of this
-   // class cannot be allocated, and can exist only as pointers
-   // or references).
+   // Initializes the Amesos solver. This is the base class for Amesos. It is a pure virtual class (hence objects of this
+   // class cannot be allocated, and can exist only as pointers or references).
    //
    Amesos_BaseSolver* Solver = 0;
 
-   // Initializes the Factory. Factory is a function class (a
-   // class that contains methods only, no data). Factory
+   // Initializes the Factory. Factory is a function class (a class that contains methods only, no data). Factory
    // will be used to create Amesos_BaseSolver derived objects.
    //
    Amesos Factory;
@@ -368,18 +356,20 @@ solve_amesos(Epetra_VbrMatrix* A, Epetra_Vector* x, Epetra_Vector* b, EpetraJac 
  //  std::string SolverType = "Umfpack";
    std::string SolverType = jac->directSolverName_;
    //std::string SolverType = "Superludist";
+
    Solver = Factory.Create(SolverType, Problem);
-   // Factory.Create() returns 0 if the requested solver
-   // is not available
+
+   // Factory.Create() returns 0 if the requested solver is not available
    if (Solver == 0) {
      std::cerr << "Selected solver (" << SolverType << ") is not available" << std::endl;
      std::cerr << "     available solvers: Umfpack(default) Klu, Superludist" << std::endl;
      return(-1);
    }
 
-   // Calling solve to compute the solution. This calls the symbolic
-   // factorization and the numeric factorization.
+   // Calling solve to compute the solution. This calls the symbolic factorization and the numeric factorization.
+
    Solver->Solve();
+
    // Print out solver timings and get timings in parameter list.
    //Solver->PrintStatus();
    //Solver->PrintTiming();
@@ -418,15 +408,9 @@ solve_amesos(Epetra_VbrMatrix* A, Epetra_Vector* x, Epetra_Vector* b, EpetraJac 
     }
     return 0;
 }
-//==================================================================================
-int
-solve_amesos(Epetra_VbrRowMatrix* Arow, Epetra_Vector* x, Epetra_Vector* b, EpetraJac *jac)
+//==================================================================================================================================
+int solve_amesos(Epetra_VbrRowMatrix* const Arow, Epetra_Vector* const x, Epetra_Vector* const b, EpetraJac* const jac)
 {
-
-  /*
-   * 
-   */
-
   double **xPoint;
   x->ExtractView(&xPoint);
   //Epetra_Map *acol = new Epetra_Map(Arow->RowMatrixColMap()); 
@@ -438,11 +422,7 @@ solve_amesos(Epetra_VbrRowMatrix* Arow, Epetra_Vector* x, Epetra_Vector* b, Epet
 
   Epetra_MultiVector* b_row = new Epetra_MultiVector(View, arow, bPoint, 1);
 
-
-
-
-  // Creates an epetra linear problem, contaning matrix
-  // A, solution x and rhs b.
+  // Creates an epetra linear problem, contaning matrix A, solution x and rhs b.
   Epetra_LinearProblem Problem(Arow, x_row, b_row);
 
   /*
@@ -454,15 +434,12 @@ solve_amesos(Epetra_VbrRowMatrix* Arow, Epetra_Vector* x, Epetra_Vector* b, Epet
      return(-1);
   }
 
-   // Initializes the Amesos solver. This is the base class for
-   // Amesos. It is a pure virtual class (hence objects of this
-   // class cannot be allocated, and can exist only as pointers
-   // or references).
+   // Initializes the Amesos solver. This is the base class for Amesos. It is a pure virtual class (hence objects of this
+   // class cannot be allocated, and can exist only as pointers or references).
    //
    Amesos_BaseSolver* Solver = 0;
 
-   // Initializes the Factory. Factory is a function class (a
-   // class that contains methods only, no data). Factory
+   // Initializes the Factory. Factory is a function class (a class that contains methods only, no data). Factory
    // will be used to create Amesos_BaseSolver derived objects.
    //
    Amesos Factory;
@@ -485,8 +462,7 @@ solve_amesos(Epetra_VbrRowMatrix* Arow, Epetra_Vector* x, Epetra_Vector* b, Epet
    //std::string SolverType = "Umfpack";
    //std::string SolverType = "Superludist";
    Solver = Factory.Create(solverType, Problem);
-   // Factory.Create() returns 0 if the requested solver
-   // is not available
+   // Factory.Create() returns 0 if the requested solver is not available
    if (Solver == 0) {
      std::cerr << "Selected solver (" << solverType << ") is not available" << std::endl;
      std::cerr << "     available solvers: Umfpack(default) Klu, Superludist" << std::endl;
@@ -544,8 +520,7 @@ solve_amesos(Epetra_VbrRowMatrix* Arow, Epetra_Vector* x, Epetra_Vector* b, Epet
     }
     return 0;
 }
-//==================================================================================
+//==================================================================================================================================
 }
-//==================================================================================
-
+//----------------------------------------------------------------------------------------------------------------------------------
 

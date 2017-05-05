@@ -210,6 +210,10 @@ public:
      */
     int GbEqnToLcEqn(const int gbEqn) const;
 
+    //! Here we initialize the initial and current positions in this object from the Nodal variables
+    /*!
+     *  We also update the nodal positions in the global object
+     */
     void InitializeLocalNodePositions();
 
     //! Update the nodal variables structure
@@ -528,6 +532,11 @@ public:
      */
     Epetra_Vector* Xpos_LcNode_p;
 
+    //! Actual Position of the owned nodes
+    /*!
+     *  Actual position of the owned nodes. There may be displacements that alter the
+     *  position. Length is the number of nodes owned by the processor
+     */
     Epetra_Vector* Xpos_LcOwnedNode_p;
 
     //! Vector of nodal variables descriptors.

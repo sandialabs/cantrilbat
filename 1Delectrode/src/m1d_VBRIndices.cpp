@@ -264,7 +264,6 @@ void LocalRowNodeVBRIndices::copyBlockMatrices(const std::vector<Epetra_SerialDe
             rowBlocks[j] = new Epetra_SerialDenseMatrix(*c_block);
         }
     }
-
 }
 //==================================================================================================================================
 Epetra_VbrMatrix* LocalRowNodeVBRIndices::alloc_VbrMatrix()

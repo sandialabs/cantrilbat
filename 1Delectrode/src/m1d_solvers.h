@@ -50,17 +50,19 @@ fill_matrix(Epetra_VbrMatrix*& A,
  */
 extern int PrintLevel_LinearSolver;
 
-int
-solve_aztecoo(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b, EpetraJac *jac);
+int solve_aztecoo(Epetra_VbrMatrix* const A, Epetra_Vector* const v, Epetra_Vector* const b, EpetraJac* const jac);
 
-int
-solve_aztecoo(Epetra_VbrRowMatrix* A, Epetra_Vector* v, Epetra_Vector* b,  EpetraJac *jac);
+int solve_aztecoo(Epetra_VbrRowMatrix* const A, Epetra_Vector* const v, Epetra_Vector* const b,  EpetraJac* const jac);
 
-int
-solve_amesos(Epetra_VbrMatrix* A, Epetra_Vector* v, Epetra_Vector* b,  EpetraJac *jac);
+//! Solve the system
+/*!
+ *   Note, I've tried making b const, and it doesn't work. The format is to assume that b may change during the solution process.
+ *   The actually underlying software assumes that the matrix is an Epetra_RowMatrix and b is an Epetra_MultiVector. This should be
+ *   a priority to switch to that format. (and figure out what the reasons are for the differentiation)
+ */
+int solve_amesos(Epetra_VbrMatrix* const A, Epetra_Vector* const v, Epetra_Vector* b, EpetraJac* const jac);
 
-int
-solve_amesos(Epetra_VbrRowMatrix* A, Epetra_Vector* v, Epetra_Vector* b,  EpetraJac *jac);
+int solve_amesos(Epetra_VbrRowMatrix* const A, Epetra_Vector* const v, Epetra_Vector* const b,  EpetraJac* const jac);
 
 }
 //----------------------------------------------------------------------------------------------------------------------------------
