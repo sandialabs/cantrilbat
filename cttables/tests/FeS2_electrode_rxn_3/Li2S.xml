@@ -8,7 +8,6 @@
     </elementArray>
     <speciesArray datasrc="#species_Li2S(S)"> Li2S(S) </speciesArray>
     <thermo model="StoichSubstance">
-      <density units="g/cm3"> 4.838 </density>
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
@@ -22,8 +21,7 @@
     <species name="Li2S(S)">
       <atomArray> Li:2 S:1 </atomArray>
      <standardState  model="constant_incompressible">
-        <!--   molar volume from McCammon et.al, Physics and Chem of Minerals, v11 no4 p182 2006 -->
-        <molarVolume units="m3/kmol"> 0.01817 </molarVolume>
+        <density units="g/cm3"> 4.838 </density>
       </standardState>
       <!-- Morachevskii Russian J. of Applied Chem. 74(12) 2001 p 1934 (from Khachkuruzov) dH_298=-445.6, S_298=62-->
       <thermo>

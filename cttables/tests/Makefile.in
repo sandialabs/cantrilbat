@@ -31,7 +31,11 @@ clean:
 	cd LiMetal_LiIon_electrode_rxn; ./cleanup
 	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
 	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./cleanup
 	cd FeS_electrode_rxn;  ./cleanup
+	cd FeS2_electrode_rxn_1; ./cleanup
+	cd FeS2_electrode_rxn_2; ./cleanup
+	cd FeS2_electrode_rxn_3; ./cleanup
 	cd NewmanFeS2Electrode_rxn; ./cleanup
 
 depends:
@@ -61,7 +65,11 @@ test:
 	cd LiMetal_LiIon_electrode_rxn; ./runtest
 	cd MCMBAnode_LiIon_electrode_rxn; ./runtest
 	cd LiCoO2Cathode_LiIon_electrode_rxn; ./runtest
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./runtest
 	cd FeS_electrode_rxn;  ./runtest
+	cd FeS2_electrode_rxn_1; ./runtest
+	cd FeS2_electrode_rxn_2; ./runtest
+	cd FeS2_electrode_rxn_3; ./runtest
 	cd NewmanFeS2Electrode_rxn; ./runtest
 
 rebaseline:
@@ -86,8 +94,12 @@ rebaseline:
 	cd LiSi_3_LiCl_electrode_rxn; ./rebaseline
 	cd LiMetal_LiIon_electrode_rxn; ./rebaseline
 	cd MCMBAnode_LiIon_electrode_rxn; ./rebaseline
-	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
+	cd LiCoO2Cathode_LiIon_electrode_rxn; ./rebaseline
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./rebaseline
 	cd FeS_electrode_rxn;  ./rebaseline
+	cd FeS2_electrode_rxn_1; ./rebaseline
+	cd FeS2_electrode_rxn_2; ./rebaseline
+	cd FeS2_electrode_rxn_3; ./rebaseline
 	cd NewmanFeS2Electrode_rxn; ./rebaseline
 
 

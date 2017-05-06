@@ -13,8 +13,8 @@ States Government.
         Carrier Species (used in diff. calcs) = LiCoO2
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1          LiCoO2          0.8000       3.270E-05       5.107E-01
-              2            CoO2          0.2000       8.175E-06       1.520E-04
+              1          LiCoO2          0.8000       5.457E-02       5.107E-01
+              2            CoO2          0.2000       1.364E-02       1.520E-04
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -33,8 +33,8 @@ INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Margules1"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
@@ -73,8 +73,8 @@ INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Margules1"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = 24.4654 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
@@ -446,8 +446,8 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "LiCoO2_Margules1"
         Carrier Species (used in diff. calcs) = LiCoO2
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1          LiCoO2          0.8000       3.270E-05       5.107E-01
-              2            CoO2          0.2000       8.175E-06       1.520E-04
+              1          LiCoO2          0.8000       5.457E-02       5.107E-01
+              2            CoO2          0.2000       1.364E-02       1.520E-04
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "metal_Li_LiIon_electrons", with name, "metal_Li_LiIon_electrons", with eosType, "StoichSubstance"

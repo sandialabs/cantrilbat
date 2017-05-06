@@ -14,12 +14,12 @@
          <binaryNeutralSpeciesParameters speciesA="Li2FeS2(A)" speciesB="Li[7/3]Fe[2/3]S2(A)">
             <excessEnthalpy model="poly_Xb" terms="2" units="kJ/mol">
 0.0434, -46.6186
-<!-- 0.0144,-42.5674
+<!-- 0.0144,-42.5674 -->
 <!--                3.652882571,  12.12609346 -->
             </excessEnthalpy>
             <excessEntropy  model="poly_Xb" terms="2" units="J/mol/K">
 26.8043, -49.1421
-<!-- 27.2778, -42.2129
+<!-- 27.2778, -42.2129 -->
 <!--                15.61329675,  21.49453177 -->
             </excessEntropy>
             <excessVolume_Enthalpy model="poly_Xb" terms="2" units="ml/mol">
@@ -41,9 +41,12 @@
         
 
       <!-- species Li2FeS2(A)   -->
-      <! --    -->
+      <!--    -->
       <species name="Li2FeS2(A)">
        <atomArray> Li:2 Fe:1 S:2  </atomArray>
+       <standardState  model="constant_incompressible">
+          <molarVolume units="m3/kmol"> 0.01817 </molarVolume>
+       </standardState>
        <thermo>
         <Shomate Pref="1 atm" Tmax="800.0" Tmin="650.0">
            <floatArray size="7">
@@ -59,9 +62,12 @@
 
 
       <!-- species Li[7/3]Fe[2/3]S2(A)   -->
-      <! --    -->
+      <!--    -->
       <species name="Li[7/3]Fe[2/3]S2(A)">
        <atomArray> Li:2.333333333333333 Fe:0.666666666666666 S:2  </atomArray>
+       <standardState  model="constant_incompressible">
+          <molarVolume units="m3/kmol"> 0.01817 </molarVolume>
+       </standardState>
        <thermo>
         <Shomate Pref="1 atm" Tmax="800.0" Tmin="650.0">
            <floatArray size="7">

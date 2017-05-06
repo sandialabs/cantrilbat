@@ -48,7 +48,7 @@
     <!--      melting temperature = 1463 K -->
     <species name="FeS(B)">
       <atomArray> Fe:1 S:1 </atomArray>
-     <standardState  model="constant_incompressible">
+      <standardState  model="constant_incompressible">
         <!--   molar volume from McCammon et.al, Physics and Chem of Minerals, v11 no4 p182 2006 -->
         <molarVolume units="m3/kmol"> 0.01817 </molarVolume>
       </standardState>
@@ -118,7 +118,7 @@
     <!--      melting temperature = 386.0 K -->
     <species name="VaS(B)">
       <atomArray> S:1 </atomArray>
-     <standardState  model="constant_incompressible">
+      <standardState  model="constant_incompressible">
         <!--   molar volume from periodni.com and speclab.com -->
         <molarVolume units="m3/kmol"> 0.01549 </molarVolume>
       </standardState>
