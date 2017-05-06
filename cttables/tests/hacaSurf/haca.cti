@@ -40,6 +40,8 @@ stoichiometric_solid(name = 'soot',
 
 species(name = 'CB-CB3',
         atoms = 'C:1',
+        standardStateModel = "constantVolume",
+        density = (3.52, 'g/cm3'),
         thermo = const_cp(t0  = (1000., 'K'),
                           h0  = (9.22, 'kcal/mol')  ,
                           s0  = (-3.02, 'cal/mol/K'),

@@ -26,6 +26,7 @@ stoichiometric_solid(name = 'diamond',
 
 species(name = 'C(d)',
         atoms = 'C:1',
+        standardStateModel = 'constantVolume' ,
         thermo = const_cp() )   #no thermo needed (rxn is ireversible) 
 
 #------------- the diamond surface -------------------------------------
@@ -42,41 +43,49 @@ ideal_interface(name = 'diamond_100',
 
 species(name = 'c6H*',
         atoms = 'H:1',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (51.7, 'kcal/mol'),
                           s0 = (19.5, 'cal/mol/K') ) )
 
 species(name = 'c6*H',
         atoms = 'H:1',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (46.1, 'kcal/mol'),
                           s0 = (19.9, 'cal/mol/K') ) )
 
 species(name = 'c6HH',
         atoms = 'H:2',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (11.4, 'kcal/mol'),
                           s0 = (21.0, 'cal/mol/K') ) )
 
 species(name = 'c6HM',
         atoms = 'C:1 H:4',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (26.9, 'kcal/mol'),
                           s0 = (40.3, 'cal/mol/K') ) )
 
 species(name = 'c6HM*',
         atoms = 'C:1 H:3',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (65.8, 'kcal/mol'),
                           s0 = (40.1, 'cal/mol/K') ) )
 
 species(name = 'c6*M',
         atoms = 'C:1 H:3',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (53.3, 'kcal/mol'),
                           s0 = (38.9, 'cal/mol/K') ) )
 
 species(name = 'c6**',
         atoms = 'C:0',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (90.0, 'kcal/mol'),
                           s0 = (18.4, 'cal/mol/K') ) )
 
 species(name = 'c6B',
         atoms = 'H:2 C:1',
+        standardStateModel = 'covalentSite' ,
         thermo = const_cp(h0 = (40.9, 'kcal/mol'),
                           s0 = (26.9, 'cal/mol/K') ) )
 

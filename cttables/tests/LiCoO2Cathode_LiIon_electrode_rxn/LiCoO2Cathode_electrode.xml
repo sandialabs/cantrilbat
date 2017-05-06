@@ -30,6 +30,7 @@
    <!-- species li_site   -->
     <species name="li_site">
       <atomArray>  </atomArray>
+      <standardState model="covalentSite"/>
       <thermo>
         <const_cp Tmax="5000.0" Tmin="100.0">
            <t0 units="K">298.15</t0>
