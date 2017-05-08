@@ -1,0 +1,142 @@
+#
+#  Makefile.in: 
+#
+#
+# utilProg dir
+#
+# Copywrite (2005) Sandia Corporation. Under the terms of 
+# Contract DE-AC04-94AL85000 with Sandia Corporation, the
+# U.S. Government retains certain rights in this software.
+#
+.SUFFIXES: .d
+#
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+#
+
+# These links are to Cantera's install space
+CANTERA_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CANTERA_INCROOT)/cantera/Cantera.mak
+
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = ../ctpadds/src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+#
+# Set up the Cantera Application Base directory
+#
+#CTAPPLBASE_DIR = ../Electrode/src
+#CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
+#CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
+#
+# Utilsrc setup
+#
+UTILSRC_DIR =../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+
+#########################################################################
+# Set up the executable extension
+########################################################################
+
+TT=@EXE_EXT@
+ifeq ($(TT),)
+EXE_EXT=
+else
+EXE_EXT=$(TT)
+endif
+
+PURIFY=@PURIFY@
+
+#############################################################################
+
+PROGB=BarinConversion_LiOH
+OBJ_TOT= $(PROGB).o
+
+
+BarinConversion_EXE=$(PROGB)$(EXE_EXT)
+
+all:  $(BarinConversion_EXE)  .dependsT
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+
+LDEFINES = 
+
+INCLUDE_DIRS= $(CANTERA_TOTAL_INCLUDES) -I$(UTILSRC_DIR) -I$(CTPADDS_DIR)  
+
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS)
+#
+.cpp.o: 
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+
+############################################################################
+# section to set up depends
+###########################################################################
+DEPENDS = $(OBJ_TOT:.o=.d) 
+
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+
+.dependsT: $(DEPENDS)
+	cat *.d > .depends
+	touch .dependsT
+
+depends: 
+	$(MAKE) .dependsT
+
+$(OBJ_TOT): Makefile
+
+$(DEPENDS): Makefile
+
+##############################################################################
+
+$(BarinConversion_EXE): $(PROGB).o   \
+         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(BarinConversion_EXE)  $(PROGB).o   \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+##################################################################################
+
+clean:
+	$(RM) $(OBJ_TOT) $(BarinConversion_EXE) *.d .depends .dependsT
+
+#############################################################################
+#          INSTALL RULES
+##############################################################################
+
+
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

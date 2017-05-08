@@ -841,6 +841,7 @@ AC_OUTPUT(Makefile \
 	  cttables/Makefile \
 	  cttables/src/Makefile \
 	  cttables/tests/Makefile \
+          utilProg/Makefile \
           doc/doxygen/Makefile \
           Electrode/Makefile \
           Electrode/examples/Makefile \
