@@ -87,9 +87,17 @@ struct Thermo_Shomate {
     void convert_PhaseChange_Barin_ToShomate(const Thermo_Shomate& solid, double T_melt, double deltaH_kcals,
                                              double deltaS_cals);
 
+    void convert_H_Barin_ToShomate(double T, double H_kcals);
+
+    void convert_S_Barin_ToShomate(double T, double S_cals);
+
     double h(double T) const;
 
     double s(double T) const;
+
+    double cp(double T) const;
+
+    double g(double T) const;
 
     void printThermoBlock( int n, double tmax, double tmin = 250.);
 };
@@ -119,6 +127,33 @@ void Thermo_Shomate::convert_S298_Barin_ToShomate(double S298_cals)
    double SmG = a_s * log(t) +  b_s * t + c_s * t * t / 2.0 + d_s * t * t * t / 3.0  - e_s / (2.0 * t * t);
    S298_s = S298_cals * 4.184;
    g_s = S298_s - SmG;
+}
+
+//==================================================================================================================================
+void Thermo_Shomate::convert_H_Barin_ToShomate(double T, double H_kcals)
+{
+   //H= A t + \frac{B t^2}{2} + \frac{C t^3}{3} + \frac{D t^4}{4}  - \frac{E}{t}  + F.
+
+   double H_kJ = H_kcals * 4.184;
+
+   double t = T / 1000.;
+   double HfmF =  a_s * t + b_s * t * t / 2.0 + c_s * t * t * t / 3.0 + d_s * t * t * t * t / 4.0  - e_s / t;
+
+   f_s = H_kJ - HfmF;
+   Hf298_s = h(298.15);
+}
+//==================================================================================================================================
+void Thermo_Shomate::convert_S_Barin_ToShomate(double T, double S_cals)
+{
+   //H= A t + \frac{B t^2}{2} + \frac{C t^3}{3} + \frac{D t^4}{4}  - \frac{E}{t}  + F.
+
+   double S_joules = S_cals * 4.184;
+
+   double t = T / 1000.;
+   double SmG = a_s * log(t) +  b_s * t + c_s * t * t / 2.0 + d_s * t * t * t / 3.0  - e_s / (2.0 * t * t);
+
+   g_s = S_joules - SmG;
+   S298_s = s(298.15);
 }
 //==================================================================================================================================
 void Thermo_Shomate::convert_DeltaH_Barin_ToShomate(const Thermo_Shomate& solid, double T_melt, double deltaH_kcals)
@@ -166,6 +201,7 @@ void Thermo_Shomate::convert_PhaseChange_Barin_ToShomate(const Thermo_Shomate& s
    convert_DeltaS_Barin_ToShomate(solid, T_melt, deltaS_calsm);
 }
 //==================================================================================================================================
+// h in kJ/gmol/K
 double Thermo_Shomate::h(double T) const
 {
    double t = T / 1000.;
@@ -173,11 +209,30 @@ double Thermo_Shomate::h(double T) const
    return H;
 }
 //==================================================================================================================================
+// s in j/gmol/K
 double Thermo_Shomate::s(double T) const
 {
    double t = T / 1000.;
    double S = a_s * log(t) +  b_s * t + c_s * t * t / 2.0 + d_s * t * t * t / 3.0  - e_s / (2.0 * t * t) + g_s;
    return S;
+}
+//==================================================================================================================================
+// cp in j/gmol/K
+double Thermo_Shomate::cp(double T) const
+{
+   double t = T / 1000.;
+   double cp = a_s +  b_s * t + c_s * t * t  + d_s * t * t * t  + e_s / (t * t);
+   return cp;
+}
+//==================================================================================================================================
+// g in kJ/gmol/K
+double Thermo_Shomate::g(double T) const
+{
+   double t = T / 1000.;
+   double H = h(T);
+   double S = s(T);
+   double G = H - S * t;
+   return G;
 }
 //==================================================================================================================================
 void Thermo_Shomate::printThermoBlock(int n, double tmax, double tmin )
