@@ -164,20 +164,26 @@ private:
 
 public:
 
+    //! Fill in the Block VBR matrix
+    /*!
+     *   We move over each blockRow and then each block col for that block row.
+     *   We then use the SubmitBlockEntry() option to fill in the VBR matrix from the  LRN_VBR_ptr_ global structure
+     *
+     *    A_->SubmitBlockEntry(*rowColBlock)
+     */
     void fillVbr();
 
     //! Get the row scales for the matrix
     /*!
-     * In this calculation we sum up the absolute value of all elements on a row. Then take the inverse.
+     *  In this calculation we sum up the absolute value of all elements on a row. Then take the inverse.
      *
-     * @param rowScales  Epetra_Vector of length num local  equations on the processor.
+     *  @param[out]          rowScales           Epetra_Vector of length num local  equations on the processor.
      */
     void getRowScales(Epetra_Vector* const rowScales) const;
 
     //! Scale the columns of the matrix with a vector
     /*!
-     * @param colScales  This is a vector with map columnMap()
-     *                   that scales the columns of the matrix
+     *  @param[in]           colScales           This is a vector with map columnMap() that scales the columns of the matrix
      */
     void columnScale(const Epetra_Vector* const colScales);
 
