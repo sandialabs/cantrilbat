@@ -671,10 +671,10 @@ double ReactingSurDomain::calcCurrentDensity(double nu, double nStoich, double i
 /*
  *  This ostream function describes how to extend cout output
  *  functions to this object. The way this is done is to
- *  call the Cantera's report function, which takes a ThermoPhase
+ *  call the Zuzax's report function, which takes a ThermoPhase
  *  object as its arugment.
  *  This is a "friend" function to the class IdealReactingGas.
- *  Both this function and report are in the Cantera namespace.
+ *  Both this function and report are in the Zuzax namespace.
  *
  *  Note -> The output doesn't cover kinetics.
  */

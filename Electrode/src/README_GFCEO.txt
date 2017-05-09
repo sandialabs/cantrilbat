@@ -4,7 +4,7 @@ Work on structuring the Globally Fully Coupled Electrode Object
 **************************************************************************************************
 
 The Electrode_Integrator uses the multiple inheritance class construct to
-make all Electrode objects an inheritor from Cantera::ResidJacEval. 
+make all Electrode objects an inheritor from Zuzax::ResidJacEval. 
 Therefore that method is not available for the GFCEO problem.
 
  Electrode_CSTR::evalResidNJ
@@ -19,12 +19,12 @@ using
         
      pSolve_ = new NonlinearSolver(this);
 
-where pSolve_ is a pointer to a Cantera::NonlinearSolver object.
+where pSolve_ is a pointer to a Zuzax::NonlinearSolver object.
 
-The new object doesn't necessarily have to be a Cantera::NonlinearSolver
+The new object doesn't necessarily have to be a Zuzax::NonlinearSolver
 object since we aren't solving the nonlinear problem separately.
 However, it probably would save time if it were inherited from
-a  Cantera::ResidJacEval object.
+a  Zuzax::ResidJacEval object.
 
 SOLUTION 1
 ------------------------------
@@ -34,10 +34,10 @@ in Electrode with the prefix GFCEO (globally fully coupled electrode object
     GFCEO_evalresisNJ()
     GFCEO_nEquations()
 
-Then, have an interface class that inherits from Cantera::ResidJacEval 
+Then, have an interface class that inherits from Zuzax::ResidJacEval 
 that takes a pointer to the Electrode object.
 Then, we could provide a default interface that attaches the 
-new member functions to the Cantera::ResidJacEval member functions.
+new member functions to the Zuzax::ResidJacEval member functions.
 
 This may involve the smallest amount of work.
 
@@ -66,7 +66,7 @@ We could also see if we can utilize the phase death problem to in a subcycle ite
 SOLUTION METHOD FOR THE RESULTING TIME EQUATIONS
 
 GFCEO -> To solve these systems, we can fall back on the general DAE solution methods supplied by
-         Cantera using the DAE_Solver class
+         Zuzax using the DAE_Solver class
 
 
 

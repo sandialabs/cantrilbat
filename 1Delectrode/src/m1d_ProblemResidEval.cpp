@@ -1192,7 +1192,7 @@ ZZCantera::XML_Node* ProblemResidEval::selectSolutionRecordNumber(ZZCantera::XML
     if (xctml->name() != "ctml") {
         xctml = xmlTop->findByName("ctml");
         if (!xctml) {
-            throw CanteraError("selectSolutionRecordNumber()","Can't find the top ctml node");
+            throw ZuzaxError("selectSolutionRecordNumber()","Can't find the top ctml node");
         }
     }
     //
@@ -1202,7 +1202,7 @@ ZZCantera::XML_Node* ProblemResidEval::selectSolutionRecordNumber(ZZCantera::XML
     xctml->getChildren("simulation", ccc);
     int sz = ccc.size();
     if (globalRecordNumber < 0 || globalRecordNumber >= sz) {
-        throw CanteraError("selectSolutionRecordNumber()",
+        throw ZuzaxError("selectSolutionRecordNumber()",
                            "Can't find the global record number " + int2str(globalRecordNumber));
     }
     XML_Node* xs = ccc[globalRecordNumber];
@@ -2042,7 +2042,7 @@ void ProblemResidEval::setAtolDeltaDamping_DAEInit(double relCoeff, const Epetra
 const Epetra_Vector_Ghosted& ProblemResidEval::atolVector() const
 {
     if (!m_atolVector) {
-        throw CanteraError("ProblemResidEval:: atolVector()",
+        throw ZuzaxError("ProblemResidEval:: atolVector()",
                            "m_atolVector vector hasn't been malloced yet. This is done when an initial guess "
                            "to the solution is supplied");
     }
@@ -2053,7 +2053,7 @@ const Epetra_Vector_Ghosted& ProblemResidEval::atolVector() const
 const Epetra_Vector_Owned& ProblemResidEval::atolVector_DAEInit() const
 {
     if (!m_atolVector_DAEInit) {
-        throw CanteraError("ProblemResidEval:: atolVector_DAEInit()",
+        throw ZuzaxError("ProblemResidEval:: atolVector_DAEInit()",
                            "m_atolVector_DAEInit vector hasn't been malloced yet. This is done when an initial guess "
                            "to the solution is supplied");
     }
@@ -2066,7 +2066,7 @@ const Epetra_Vector_Owned& ProblemResidEval::atolVector_DAEInit() const
 const Epetra_Vector_Ghosted& ProblemResidEval::atolDeltaDamping() const
 {
     if (!m_atolDeltaDamping) {
-        throw CanteraError("ProblemResidEval:: atol_deltaDamping()",
+        throw ZuzaxError("ProblemResidEval:: atol_deltaDamping()",
                            "m_atolDeltaDamping vector hasn't been malloced yet");
     }
     return *m_atolDeltaDamping;

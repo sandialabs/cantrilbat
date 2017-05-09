@@ -118,7 +118,7 @@ bool doubleEqual(double a1, double a2, double atol = 1.0E-13, int digits = 13);
 //==================================================================================================================================
 //! Assertion must be true or an error is thrown
 /*!
- * Assertion must be true or else a CanteraError is thrown. A diagnostic string containing the
+ * Assertion must be true or else a ZuzaxError is thrown. A diagnostic string containing the
  * file and line number,  indicating where the error
  * occured is added to the thrown object.
  *
@@ -132,7 +132,7 @@ bool doubleEqual(double a1, double a2, double atol = 1.0E-13, int digits = 13);
 //==================================================================================================================================
 //!  Assertion must be true or an error is thrown
 /*!
- * Assertion must be true or else a CanteraError is thrown. A diagnostic string indicating where the error
+ * Assertion must be true or else a ZuzaxError is thrown. A diagnostic string indicating where the error
  * occurred is added to the thrown object.
  *
  * @param expr       Boolean expression that must be true
@@ -145,8 +145,7 @@ bool doubleEqual(double a1, double a2, double atol = 1.0E-13, int digits = 13);
 //==================================================================================================================================
 //!  Assertion must be true or an error is thrown
 /*!
- * Assertion must be true or else a CanteraError is thrown. A
- * diagnostic string indicating where the error occurred is added
+ * Assertion must be true or else a ZuzaxError is thrown. A diagnostic string indicating where the error occurred is added
  * to the thrown object.
  *
  * @param expr       Boolean expression that must be true

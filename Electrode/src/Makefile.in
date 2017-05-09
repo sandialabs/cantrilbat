@@ -19,21 +19,21 @@ MPIHOME  = /usr/local/mpich
 MPI_INC = -I$(MPIHOME)/include
 MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
 #
-# These links are to Cantera's install space
+# These links are to Zuzax's install space
 CT_INCROOT =  @ct_incroot@
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
 
 CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
 
-# The directory where Cantera include files may be found.
+# The directory where Zuzax include files may be found.
 CANTERA_INCROOT=@ct_incroot@
 
 PURIFY=@PURIFY@
 
-# Find the Build root for Cantera
+# Find the Build root for Zuzax 
 #
 CANTERA_BUILD_ROOT=@ctb_root@
 #
@@ -93,10 +93,8 @@ allsrc: .depends libElectrode.a
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
 # 
-# These classes compile against the Cantera kernel
-# format
+# These classes compile against the Zuzax kernel format
 #
-
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)

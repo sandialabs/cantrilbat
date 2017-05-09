@@ -33,10 +33,10 @@ namespace Cantera
 struct OCV_Override_input;
 
 //==================================================================================================================================
-//!  ReactingSurDomain is a class of reaction that combines the PhaseList information with the Cantera ElectrodeKinetics class
+//!  ReactingSurDomain is a class of reaction that combines the PhaseList information with the Zuzax ElectrodeKinetics class
 /*!
- *      This is an inheritance class for the ElectrodeKinetics class of Cantera.
- *      Essentially this class takes care of the bookkeeping between Cantera and the PhaseList class
+ *      This is an inheritance class for the ElectrodeKinetics class of Zuzax.
+ *      Essentially this class takes care of the bookkeeping between Zuzax and the PhaseList class
  *
  *      The class also implements the OCV override.
  *
@@ -114,7 +114,7 @@ public:
      *   The routine finds all of the ThermoPhase objects that are part of the Kinetics object by
      *   querying the XML node phaseArray. It then finds these ThermoPhase objects within the PhaseList
      *   objects to see if the kinetics object can be successfully formulated.
-     *   It then creates the kinetics object by calling Cantera's importPhase() routine.
+     *   It then creates the kinetics object by calling Zuzax's importPhase() routine.
      *   
      *   Then other initializations are carried out such as formulating the kinetics species list
      *   and its indexing into the Phaselist species list.

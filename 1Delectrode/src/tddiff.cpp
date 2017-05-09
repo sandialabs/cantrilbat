@@ -32,7 +32,7 @@
  *
  *
  *    We will create a system for solving one dimensional problems based
- *    on using Trilinos and Cantera.
+ *    on using Trilinos and Zuzax.
  *
  *    The matrix stencil for the calculations will be based on  a set of
  *    of domains that are connected with each other by tie-regions.
@@ -352,11 +352,9 @@ main(int argc, char **argv)
     cerr << "caught an error\n" << endl;
     m1d::showErrors(std::cerr);
   }
-  catch (ZZCantera::CanteraError &mC) {
+  catch (ZZCantera::ZuzaxError &mC) {
     ZZCantera::showErrors(std::cerr);
-
   }
-
 }
 
 //==============================================================================
