@@ -178,7 +178,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
     ThermoPhase &tref = mix->phase(ip);
     int nspPhase = tref.nSpecies();
     for (int k = 0; k < nspPhase; k++, kGlob++) {
-      phaseMole += vprob->w[kGlob];
+      phaseMole += vprob->m_spMoles[kGlob];
     }
     //phaseMole *= 1.0E-3;
     mix->setPhaseMoles(ip, phaseMole);
@@ -218,8 +218,8 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
 	printf("  %15.3e %15.3e  ", 0.0, vprob->mf[i]);
 	printf("%15.3e\n", vprob->m_gibbsSpecies[i]);
       } else {
-	printf("  %15.3e   %15.3e  ", vprob->w[i], vprob->mf[i]);
-	if (vprob->w[i] <= 0.0) {
+	printf("  %15.3e   %15.3e  ", vprob->m_spMoles[i], vprob->mf[i]);
+	if (vprob->m_spMoles[i] <= 0.0) {
 	  int iph = vprob->PhaseID[i];
 	  vcs_VolPhase *VPhase = vprob->VPhaseList[iph];
 	  if (VPhase->nSpecies() > 1) {
