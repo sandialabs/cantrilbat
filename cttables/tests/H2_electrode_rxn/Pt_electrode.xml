@@ -30,6 +30,8 @@
     <speciesArray datasrc="#species_PtH2electrode"> Pt_electron </speciesArray>
     <thermo model="MetalSHEelectrons">
        <referenceInterface> SHE </referenceInterface>
+        <!-- <pressureDependence model="idealgas" /> -->
+        <pressureDependence model="none" />
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>

@@ -8,9 +8,11 @@ Cantera File Name = HMW_ZnSO4_pdss.xml
 Cantera File Name = Zn.xml
 #
 #
+Output Units = KJoule
+
 !Debugging = true
 Bath Temperature = 300.
-Bath Pressure =  1 atm
+Bath Pressure =  1 atm 
 !-----------------------------------------------------------------
 !  Add Chemical Potential Column = [ true ] [ false ]
 !
@@ -48,7 +50,7 @@ START BLOCK Temperature Table Format
   !  Added Temperatures = Variable length list of dbles
   !
   !----------------------------------------------------------
-  Added Temperatures = 333.15 273.15 373.15
+  Added Temperatures = 333.15 273.15 350. 373.15
   !---------------------------------------------------------
 END BLOCK Temperature Table Format
 

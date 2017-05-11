@@ -23,7 +23,7 @@
     <species name="Zn(S)">
       <atomArray> Zn:1  </atomArray>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="1075.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="1075.0" Tmin="250.0">
           <floatArray size="7">
              25.60123,
              -4.405292,

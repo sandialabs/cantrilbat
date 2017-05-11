@@ -12,7 +12,7 @@
     </speciesArray>
     <state>
       <temperature units="K"> 298.15 </temperature>
-      <pressure units="Pa"> 101325.0 </pressure>
+      <pressure units="Pa"> 100000.0 </pressure>
       <soluteMolalities>
              Zn++:6.0954
              SO4--:6.0954
@@ -160,7 +160,7 @@
         -->
       <atomArray>H:2 O:1 </atomArray>
       <thermo>
-        <NASA Tmax="600.0" Tmin="273.14999999999998" P0="101325">
+        <NASA Tmax="600.0" Tmin="273.14999999999998" P0="100000">
            <floatArray name="coeffs" size="7">
              7.255750050E+01,  -6.624454020E-01,   2.561987460E-03,  -4.365919230E-06,
              2.781789810E-09,  -4.188654990E+04,  -2.882801370E+02
@@ -184,7 +184,7 @@
       <atomArray> Na:1 </atomArray>
       <charge> +1 </charge>
       <thermo model="HKFT">
-        <HKFT Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <HKFT Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
           <DG0_f_Pr_Tr units="cal/gmol"> -62591. </DG0_f_Pr_Tr>
           <DH0_f_Pr_Tr units="cal/gmol"> -57433. </DH0_f_Pr_Tr>
           <S0_Pr_Tr units="cal/gmol/K"> 13.96 </S0_Pr_Tr>
@@ -208,7 +208,7 @@
       <atomArray> Cl:1 E:1 </atomArray>
       <charge> -1 </charge>
       <thermo model="HKFT">
-        <HKFT Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <HKFT Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
           <DG0_f_Pr_Tr units="cal/gmol"> -31379. </DG0_f_Pr_Tr>
           <DH0_f_Pr_Tr units="cal/gmol"> -39933. </DH0_f_Pr_Tr>
           <S0_Pr_Tr units="cal/gmol/K"> 13.56 </S0_Pr_Tr>
@@ -232,7 +232,7 @@
       <atomArray> H:1 E:-1 </atomArray>
       <charge> +1 </charge>
       <thermo model="HKFT">
-        <HKFT Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <HKFT Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
           <DG0_f_Pr_Tr units="cal/gmol"> 0.0 </DG0_f_Pr_Tr>
           <DH0_f_Pr_Tr units="cal/gmol"> 0.0 </DH0_f_Pr_Tr>
           <S0_Pr_Tr units="cal/gmol/K">  0.0 </S0_Pr_Tr>
@@ -257,7 +257,7 @@
       <atomArray> O:1 H:1 E:1 </atomArray>
       <charge> -1 </charge>
       <thermo model="HKFT">
-        <HKFT Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <HKFT Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
           <DG0_f_Pr_Tr units="cal/gmol"> -37595. </DG0_f_Pr_Tr>
           <DH0_f_Pr_Tr units="cal/gmol"> -54977. </DH0_f_Pr_Tr>
           <S0_Pr_Tr units="cal/gmol/K"> -2.56 </S0_Pr_Tr>
@@ -281,7 +281,7 @@
       <atomArray> Mg:1 </atomArray>
       <charge> 2 </charge>
       <thermo model="HKFT">
-        <HKFT Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <HKFT Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
           <DG0_f_Pr_Tr units="cal/gmol"> -108505 </DG0_f_Pr_Tr>
           <DH0_f_Pr_Tr units="cal/gmol"> -111367. </DH0_f_Pr_Tr>
           <S0_Pr_Tr units="cal/gmol/K"> -33 </S0_Pr_Tr>
@@ -305,7 +305,7 @@
      <atomArray> Zn:1 </atomArray>
      <charge> 2 </charge>
      <thermo model="HKFT">
-        <HKFT Pref="1 atm" Tmax="625.15" Tmin="298.15">
+        <HKFT Pref="1 bar" Tmax="625.15" Tmin="298.15">
            <DG0_f_Pr_Tr units="cal/gmol"> -35200 </DG0_f_Pr_Tr>
            <DH0_f_Pr_Tr units="cal/gmol"> -36660 </DH0_f_Pr_Tr>
            <S0_Pr_Tr units="cal/gmol/K"> -26.2 </S0_Pr_Tr>
@@ -329,7 +329,7 @@
       <atomArray> S:1 O:4 </atomArray>
       <charge> -2 </charge>
       <thermo model="HKFT">
-        <HKFT Pref="1 atm" Tmax="   623.15" Tmin="   298.00">
+        <HKFT Pref="1 bar" Tmax="   623.15" Tmin="   298.00">
           <DG0_f_Pr_Tr units="cal/gmol"> -177930. </DG0_f_Pr_Tr>
           <DH0_f_Pr_Tr units="cal/gmol"> -217400. </DH0_f_Pr_Tr>
           <S0_Pr_Tr units="cal/gmol/K">   4.5     </S0_Pr_Tr>
