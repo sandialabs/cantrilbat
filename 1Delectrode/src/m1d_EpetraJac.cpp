@@ -1,8 +1,13 @@
 /**
- *
- *  @file EpetraJac.cpp
- *
- *  Implementation file for class EpetraJac
+ *  @file m1d_EpetraJac.cpp
+ *      Implementation file for class EpetraJac
+ */
+
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 
@@ -692,8 +697,8 @@ double& EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn)
     int igbCol = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcColIndex);
 #ifdef DEBUG_MODE
     double* pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
-    if (pos == 0) {
-        throw m1d_Error("EpetraJac::operator()", "bad indecises");
+    if (pos == nullptr) {
+        throw m1d_Error("EpetraJac::value()", "bad indecises");
     }
     return *pos;
 #else
@@ -707,18 +712,6 @@ double& EpetraJac::operator()(const int iGlobalEqn, const int jGlobalEqn)
 }
 //==================================================================================================================================
 double EpetraJac::value(const int iGlobalEqn, const int jGlobalEqn) const
-{
-    int lcRowIndex, lcColIndex;
-    int igbRow = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcRowIndex);
-    int igbCol = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcColIndex);
-    const double* pos = GbBlkValue(igbRow, lcRowIndex, igbCol, lcColIndex);
-    if (pos == 0) {
-        return 0.0;
-    }
-    return *pos;
-}
-//==================================================================================================================================
-double EpetraJac::_value(const int iGlobalEqn, const int jGlobalEqn) const
 {
     int lcRowIndex, lcColIndex;
     int igbRow = GI_ptr_->GbEqnToGbNode(iGlobalEqn, lcRowIndex);

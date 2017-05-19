@@ -2,6 +2,14 @@
  *  @file m1d_EpetraJac.h This class stores an Epetra block matrix
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
+
+
 #ifndef M1D_EPETRAJAC_H
 #define M1D_EPETRAJAC_H
 
@@ -286,42 +294,34 @@ public:
      */
     double& operator()(const int iGlobalEqn, const int jGlobalEqn);
 
-    //! Return a changeable reference into the matrix given Global equation numbers
+    //! Return a changeable reference into the matrix given the global row number and the global column number
     /*!
-     *   I don't think this will ever be used in practice, because of the speed. But,
-     *   here it is. This is overloaded with the (i,j) operator
+     *  I don't think this will ever be used in practice, because of the speed. But,
+     *  here it is. This is overloaded with the (i,j) operator.
      *
-     * @param gbRow          Global row number
-     * @param lcRowIndex     local row index of the equation on that row
-     * @param gbCol          Global col number
-     * @param lcColIndex     local col index of the variable on that col
-     * @return    Returns a pointer to the position in the block matrix corresponding
-     *            to that row and column. Will return 0 if this number is not on the current
-     *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
+     *  @param[in]           iGlobalEqn          Global row number
+     *  @param[in]           jGlobalEqn          Global col number
+     * 
+     *  @return                                  Returns a changeable reference to the position in the block matrix corresponding
+     *                                           to that row and column. 
+     *                                           Will throw an error if this number is not on the current
+     *                                           processor. Will throw an error if this number isn't in the sparce matrix stencil.
      */
     double& value(const int iGlobalEqn, const int jGlobalEqn);
 
-    //! Return the value of the matrix given by Global equation numbers
+    //! Return the value of the matrix given by Global row numbers and global column numbers
     /*!
-     *   I don't think this will ever be used in practice, because of the speed. But,
-     *   here it is. This is overloaded with the (i,j) operator
+     *  I don't think this will ever be used in practice, because of the speed. But,
+     *  here it is. This is overloaded with the (i,j) operator
      *
-     * @param iGlobalEqn          Global row equation number
-     * @param jGlobalEqn          Global col equation number
-     * @return    Returns the value of the matrix entry
+     *  @param[in]           iGlobalEqn          Global row equation number
+     *  @param[in]           jGlobalEqn          Global col equation number
+     *
+     *  @return                                  Returns the value of the matrix entry
+     *                                           Returns zer if this number is not on the current processor, or if the number isn't
+     *                                           in the sparse matrix stencil.
      */
     double value(const int iGlobalEqn, const int jGlobalEqn) const;
-
-    //! Return the value of the matrix given by Global equation numbers
-    /*!
-     *   I don't think this will ever be used in practice, because of the speed. But,
-     *   here it is. This is overloaded with the (i,j) operator
-     *
-     * @param iGlobalEqn          Global row equation number
-     * @param jGlobalEqn          Global col equation number
-     * @return   Returns the value of the matrix entry
-     */
-    double _value(const int iGlobalEqn, const int jGlobalEqn) const;
 
     //! Returns the number of global equations in the matrix
     /*!
@@ -405,10 +405,13 @@ public:
 
 protected:
 
+    //! Number of rows
     int m_n;
 
+    //! Number of lower rows
     int m_kl;
 
+    //! Number of upper rows
     int m_ku;
 
 public:
@@ -421,7 +424,13 @@ public:
     //! local copy of the Epetra_Comm ptr object
     Epetra_Comm* Comm_ptr_;
 
+    //! Storage for the B - AX values
+    /*!
+     *  This is related to the analysis of the overall solve of the system
+     */
     Epetra_Vector* m_BmAX;
+
+    //! Storage for the AX product
     Epetra_Vector* m_AX;
 
     //! Pointer to the delta solution vector
@@ -430,18 +439,22 @@ public:
      */
     Epetra_Vector* deltaSoln_;
 
-    //! pointer to the residual evaluator.
+    //! Pointer to the residual evaluator.
     /*!
-     * This is not owned by this object
+     *  This is not owned by this object
      */
     ProblemResidEval* m_resid;
 
+    //! Relative tolerance
     double m_rtol;
 
+    //! abslute tolerance
     double m_atol;
 
+    //! Elapsed time
     double m_elapsed;
 
+    //! Vector containing the diagonal entries of the jacobian
     Epetra_Vector* m_ssdiag;
 
     //! Matrix as represented by an CrsMatrix format
