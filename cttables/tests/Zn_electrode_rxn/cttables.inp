@@ -11,7 +11,8 @@ Cantera File Name = Zn.xml
 Output Units = KJoule
 
 !Debugging = true
-Bath Temperature = 300.
+!Bath Temperature = 300.
+Bath Temperature = 298.15
 Bath Pressure =  1 atm 
 !-----------------------------------------------------------------
 !  Add Chemical Potential Column = [ true ] [ false ]

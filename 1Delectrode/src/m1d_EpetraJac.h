@@ -32,8 +32,12 @@ class BlockEntry;
 namespace m1d
 {
 //==================================================================================================================================
+//! Enumerator describing whether the solver is direct or iterator
 enum SolverType {
+    //! solve the matrix using a direct-solver approach
     Direct = 0,
+ 
+    //! Solve the matrix using an interative solver
     Iterative
 };
 //==================================================================================================================================
@@ -69,6 +73,12 @@ public:
     };
 
     //! Static function to create a parsing block for the jacobian object to read
+    /*!
+     *  @param[in]           Parent              Parent of the BlockEntry
+     *  @param[in]           dbb                 pointer to the RecordTree_base object. Defaults to 0.
+     *
+     *  @return                                  Returns a pointer to the RecordTree_base object
+     */
     static RecordTree_base* setupMDinput_pass1(BEInput::BlockEntry* Parent, RecordTree_base* dbb = 0);
 
     //! Constructor.
@@ -157,13 +167,13 @@ public:
 private:
     //! Evaluate the Jacobian at x0.
     /*!
-     * The unperturbed residual function is resid0, which must be supplied on input. The
-     * third parameter 'rdt' is the reciprocal of the time step. If zero, the steady-state Jacobian is evaluated.
+     *  The unperturbed residual function is resid0, which must be supplied on input. The
+     *  third parameter 'rdt' is the reciprocal of the time step. If zero, the steady-state Jacobian is evaluated.
      *
      *  @param[in]           doTimeDependentResid Boolean indicating whether we should formulate the time dependent residual
      *  @param[in]           solnBase             Solution vector containing the base solution
      *  @param[in]           solnDotBase          Solution derivative vector containing the base solution
-     *  @param[out]          resBase              Base value of the residual
+     *  @param[out]          residBase            Base value of the residual
      *  @param[in]           t                    current value of the time
      *  @param[in]           rdelta_t             Inverse of the deltaT value
      */
@@ -209,6 +219,9 @@ public:
     void queryMatrixStructure(std::ostream& oo);
 
     //! Elapsed CPU time spent computing the Jacobian.
+    /*!
+     *  @return                                  Return the elapsed time spent in solving the systems
+     */
     double elapsedTime() const;
 
     //! Number of Jacobian evaluations.
@@ -267,30 +280,30 @@ public:
 
     //! Return a changeable pointer into the matrix given Global Block Row indices
     /*!
-     *   I don't think this will ever be used in practice, because of the speed. But,
-     *   here it is.
-     * @param gbRow          Global row number
-     * @param lcRowIndex     local row index of the equation on that row
-     * @param gbCol          Global col number
-     * @param lcColIndex     local col index of the variable on that col
-     * @return    Returns a pointer to the position in the block matrix corresponding
-     *            to that row and column. Will return 0 if this number is not on the current
-     *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
+     *  I don't think this will ever be used in practice, because of the speed. But, here it is.
+     *
+     *  @param[in]           gbRow               Global row number
+     *  @param[in]           lcRowIndex          Local row index of the equation on that row
+     *  @param[in]           gbCol               Global col number
+     *  @param[in]           lcColIndex          Local col index of the variable on that column
+     * 
+     *  @return                                  Returns a pointer to the position in the block matrix corresponding
+     *                                           to that row and column. Will return 0 if this number is not on the current
+     *                                           processor. Will return 0 if this number isn't in the sparce matrix stencil.
      */
     double* GbBlkValue(int gbRow, int lcRowIndex, int gbCol, int lcColIndex) const;
 
-    //! Return a changeable reference into the matrix given Global equation numbers
+    //! Return a changeable reference into the matrix given global equation numbers for the row and column
     /*!
-     *   I don't think this will ever be used in practice, because of the speed. But,
-     *   here it is. This is overloaded with the (i,j) operator
+     *  I don't think this will ever be used in practice, because of the speed. But, here it is.
+     *  This is overloaded with the (i,j) operator
      *
-     * @param gbRow          Global row number
-     * @param lcRowIndex     local row index of the equation on that row
-     * @param gbCol          Global col number
-     * @param lcColIndex     local col index of the variable on that col
-     * @return    Returns a pointer to the position in the block matrix corresponding
-     *            to that row and column. Will return 0 if this number is not on the current
-     *            processor. Will return 0 if this number isn't in the sparce matrix stencil.
+     *  @param[in]           iGlobalEqn          Global row number
+     *  @param[in]           jGlobalEqn          Global col number
+     *
+     *  @return                                  Returns a pointer to the position in the block matrix corresponding
+     *                                           to that row and column. Will return 0 if this number is not on the current
+     *                                           processor. Will return 0 if this number isn't in the sparce matrix stencil.
      */
     double& operator()(const int iGlobalEqn, const int jGlobalEqn);
 
@@ -330,9 +343,15 @@ public:
     int nRows() const;
 
     //! Number of columns
+    /*!
+     *  @return                                  Returns the number of columns
+     */
     int nColumns() const;
 
     //! Number of subdiagonals
+    /*!
+     *  @return                                  Returns the number of subdiagonals
+     */
     int nSubDiagonals() const;
 
     //! Number of superdiagonals

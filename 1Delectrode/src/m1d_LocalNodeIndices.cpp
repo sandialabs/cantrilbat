@@ -1,11 +1,14 @@
 /**
- * @file m1d_LocalRowNodeIndices.cpp
- *
+ * @file m1d_LocalNodeIndices.cpp structure containing the local index values
+ */
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
-/*
- *  $Id: m1d_LocalNodeIndices.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
+
 #include "Epetra_Map.h"
 #include "Epetra_BlockMap.h"
 #include "Epetra_MapColoring.h"
