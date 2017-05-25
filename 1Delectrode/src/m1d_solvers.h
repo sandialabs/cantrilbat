@@ -24,6 +24,8 @@ namespace m1d
 class LocalRowNodeVBRIndices;
 class GlobalIndices;
 class EpetraJac;
+class LocalNodeIndices;
+
 //==================================================================================================================================
 //! Construct the matrix
 /*!
@@ -32,10 +34,12 @@ class EpetraJac;
  *  @param[in]               v
  *  @param[in]               b                   rhs of the matrix problem
  *  @param[in]               gi_ptr              Pointer to the GlobalIndices structure for the matrix
+ *  @param[in]               li_ptr              Pointer to the LocalNodeIndices structure for the matrix
  *  @param[in]               lrn_vbr_ptr         Pointer to the LocalRowNodeVBRIndices structure
  */
-void fill_matrix(Epetra_VbrMatrix*& A, Epetra_Vector*& v, Epetra_Vector*& b, m1d::GlobalIndices* gi_ptr,
-                 m1d::LocalRowNodeVBRIndices* lrn_vbr_ptr);
+void fill_matrix(Epetra_VbrMatrix*& A, Epetra_Vector*& v, Epetra_Vector*& b, m1d::GlobalIndices* const gi_ptr,
+                 m1d::LocalNodeIndices* const li_ptr, m1d::LocalRowNodeVBRIndices* const lrn_vbr_ptr);
+
 
 //==================================================================================================================================
 //! Print level for the linear solver
@@ -58,7 +62,7 @@ extern int PrintLevel_LinearSolver;
  *  @param[in]               b                   rhs of the matrix problem
  *  @param[out]              jac                 not used
  *
- *  @return                                      Returns an int
+ *  @return                                      Returns an int, 0, for a successful solve
  */
 int solve_aztecoo(Epetra_VbrMatrix* const A, Epetra_Vector* const v, Epetra_Vector* const b, EpetraJac* const jac);
 
@@ -71,7 +75,7 @@ int solve_aztecoo(Epetra_VbrMatrix* const A, Epetra_Vector* const v, Epetra_Vect
  *  @param[in]               b                   rhs of the matrix problem
  *  @param[in]               jac                 not used
  *
- *  @return                                      Returns an int
+ *  @return                                      Returns an int, 0, for a successful solve
  */
 int solve_aztecoo(Epetra_VbrRowMatrix* const A, Epetra_Vector* const v, Epetra_Vector* const b,  EpetraJac* const jac);
 
@@ -87,7 +91,7 @@ int solve_aztecoo(Epetra_VbrRowMatrix* const A, Epetra_Vector* const v, Epetra_V
  *  @param[in]               b                   rhs of the matrix problem
  *  @param[out]              jac                 Pointer to the EpetraJac object. Used to find the direct solver name only
  *
- *  @return                                      Returns an int
+ *  @return                                      Returns an int, 0, for a successful solve
  */
 int solve_amesos(Epetra_VbrMatrix* const A, Epetra_Vector* const v, Epetra_Vector* b, EpetraJac* const jac);
 
@@ -100,7 +104,7 @@ int solve_amesos(Epetra_VbrMatrix* const A, Epetra_Vector* const v, Epetra_Vecto
  *  @param[in]               b                   rhs of the matrix problem
  *  @param[out]              jac                 Pointer to the EpetraJac object. Used to find the direct solver name only
  *
- *  @return                                      Returns an int
+ *  @return                                      Returns an int, 0, for a successful solve
  */
 int solve_amesos(Epetra_VbrRowMatrix* const A, Epetra_Vector* const v, Epetra_Vector* const b,  EpetraJac* const jac);
 

@@ -871,8 +871,8 @@ INPUT                  = ../../util_src/src \
                          ../../1Delectrode/src/m1d_EpetraExtras.h   ../../1Delectrode/src/m1d_EpetraExtras.cpp \
                          ../../1Delectrode/src/m1d_EpetraJac.h   ../../1Delectrode/src/m1d_EpetraJac.cpp \
                          ../../1Delectrode/src/m1d_solvers.h   ../../1Delectrode/src/m1d_solvers.cpp \
-                         
-
+                         ../../1Delectrode/src/m1d_SolNonlinear.h  ../../1Delectrode/src/m1d_SolNonlinear.cpp \
+                         ../../1Delectrode/src/m1d_SolGlobalNonlinear.h  ../../1Delectrode/src/m1d_SolGlobalNonlinear.cpp \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

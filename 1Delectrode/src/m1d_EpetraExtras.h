@@ -48,7 +48,7 @@ Epetra_Vector* gatherOn0(const Epetra_Vector& distribV, const Epetra_Comm* const
  *  @param[in]               comm_ptr            Pointer to the Epetra_comm object
  *
  */
-void printOn0(const Epetra_Vector& distribV, const Epetra_Comm* const acomm_ptr = nullptr);
+void printOn0(const Epetra_Vector& distribV, const Epetra_Comm* const comm_ptr = nullptr);
 
 //==================================================================================================================================
 //! Take a distributed vector and gather it all on all of the processors
@@ -81,7 +81,7 @@ Epetra_Vector* gatherOnAll(const Epetra_Vector& distribV, const Epetra_Comm* con
  *  @param[in]               comm_ptr            Pointer to the Epetra_comm object. Defaults to nullptr
  */
 void gather_nodeV_OnAll(Epetra_Vector& global_node_V, const Epetra_Vector& distrib_node_V,
-                        const Epetra_Comm* const acomm_ptr=nullptr);
+                        const Epetra_Comm* const comm_ptr=nullptr);
 
 //==================================================================================================================================
 //! Gather all of a distributed vector of ints of element size one onto an existing Global_All_ALl int vector
@@ -95,7 +95,7 @@ void gather_nodeV_OnAll(Epetra_Vector& global_node_V, const Epetra_Vector& distr
  *  @param[in]               comm_ptr            Pointer to the Epetra_comm object. Defaults to nullptr
  */
 void gather_nodeIntV_OnAll(Epetra_IntVector& global_node_IV, const Epetra_IntVector& distrib_node_IV,
-                           const Epetra_Comm* const acomm_ptr=nullptr);
+                           const Epetra_Comm* const comm_ptr=nullptr);
 
 //==================================================================================================================================
 //! Create a new view of the original vector using potentially a different map
