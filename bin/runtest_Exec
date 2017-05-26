@@ -345,25 +345,25 @@ for b in $BLESSED_CSV_FILES
 do
     g=`first_el $CSV_FILES`
     n=`first_el $DIFF_CSV_NAMES`
-    r=`first_el $DIFF_CSV_REQ`
+    rrr=`first_el $DIFF_CSV_REQ`
     DIFF_REQUIRED="True"
-    if [ $r = "True" ]
+    if [ $rrr = "True" ]
     then
        DIFF_REQUIRED="True"
-    elif  [ $r = "False" ]
+    elif  [ $rrr = "False" ]
     then
         DIFF_REQUIRED="False"
     else
-        echo "Unknown DIFF_REQ field: must be True or False:" '"'$r'"'
+        echo "Unknown DIFF_REQ field: must be True or False:" '"'$rrr'"'
         /bin/rm runInProgress.txt
         exit -1
     fi
     # echo 'Trying the command b = ' $b
     csvdiff_compare_file $b $g $n
 
-    CSV_FILES=`chop_head $DATA_FILES`
-    DIFF_CSV_NAMES=`chop_head $DIFF_NAMES`
-    DIFF_CSV_REQ=`chop_head $DIFF_REQ`
+    CSV_FILES=`chop_head $CSV_FILES`
+    DIFF_CSV_NAMES=`chop_head $DIFF_CSV_NAMES`
+    DIFF_CSV_REQ=`chop_head $DIFF_CSV_REQ`
 done
 #
 ############################################################################################################################

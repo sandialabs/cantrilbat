@@ -17,6 +17,18 @@ PROG_NAME = CO2_solubility
 # and from C/C++ separately
 OBJS = CO2_solubility.o CO2_solubility_1.o
 
+BLESSED_FILES = good_out.txt vcs_equilibrate_blessed.csv
+BLESSED_DEBUG_FILES = good_dout.txt vcs_equilibrate_blessed.csv
+
+DATA =  problem_setup.sh problem_setup_d.sh \
+        gas.xml  HMW_BrineDatabase_CO2.xml  NaCl_Solid.xml
+
+TEST_FLAGS = runGood runBad runInProgress.txt runGood_debug
+
+TEST_INTERMEDIATES = diff_summary.txt diff_out.txt diff_dout.txt err_dout.txt err_out.txt out.txt dout.txt 
+
+TOPDIR = @abs_top_srcdir@
+
 # Location of the current build. Will assume that tests are run
 # in the source directory tree location
 src_dir_tree = 0
@@ -70,8 +82,7 @@ CANTERA_LIBDIR=@ct_libdir@
 
 
 ifeq (@build_lapack@, 1)
-CANTERA_LAPACK_DEPS = $(CANTERA_LIBDIR)/libctblas.a \
-                      $(CANTERA_LIBDIR)/libctlapack.a
+CANTERA_LAPACK_DEPS = $(CANTERA_LIBDIR)/libctblas.a  $(CANTERA_LIBDIR)/libctlapack.a
 endif
 
 
@@ -92,7 +103,7 @@ DEPENDS=$(OBJS:.o=.d)
 # Program Name
 PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
-all: $(PROGRAM) CO2_solubility_1 .depends
+all: $(PROGRAM) CO2_solubility_1 .dependsT
 
 $(PROGRAM): CO2_solubility.o $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) CO2_solubility.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
@@ -109,34 +120,47 @@ $(OBJS): Makefile
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	@MAKE@ .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
+
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+testd: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME)"_debug" ': '
+	@gmake -q -s  runGood_debug ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood_debug ; fi
+
+
+runGood: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	 @echo 'RUNNING TEST ' $(TESTNAME)
+	/bin/rm -f runGood_release
+	$(TOPDIR)/bin/runtest_Exec
+
+runGood_debug: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_DEBUG_FILES)
+	if test -e "runGood" ; then cp runGood runGood_release ; fi
+	@echo 'RUNNING TEST ' $(TESTNAME)"_debug"
+	$(TOPDIR)/bin/runtest_Exec -i problem_setup_d.sh
+	if test -e "runGood" ; then cp runGood runGood_debug ; fi
+	if test -e "runGood_release" ; then mv runGood_release runGood ; fi
 
 rebaseline:
-	./rebaseline
+	if test -e out.txt ; then cp out.txt good_out.txt ; fi
+	cp vcs_equilibrate_res.csv vcs_equilibrate_blessed.csv
+	if test -e dout.txt ; then cp dout.txt good_dout.txt ; fi
 
-# Do the test -> For the windows vc++ environment, we have to skip checking on
-#                whether the program is uptodate, because we don't utilize make
-#                in that environment to build programs.
-test:
-ifeq ($(os_is_win), 1)
-else
-	@MAKE@ $(PROGRAM)
-endif
-	./runtest
 
 clean:
-	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends vcs_equilibrate_res*csv diff_csv* \
-            diff_out.txt diff_dout.txt err_dout.txt err_out.txt out.txt dout.txt
-	(if test -d SunWS_cache ; then \
-           $(RM) -rf SunWS_cache ; \
-         fi )
-
+	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT vcs_equilibrate_res*csv diff_csv* \
+	      $(TEST_FLAGS) $(TEST_INTERMEDIATES)
 
 #############################################################################
-#          INSTALL RULES
+#	  INSTALL RULES
 ##############################################################################
 
 ifeq ($(wildcard .depends), .depends)

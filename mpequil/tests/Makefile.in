@@ -17,14 +17,14 @@ test:
 	- cd she_electrode;                     @MAKE@ test 
 	- cd sce_electrode;                     @MAKE@ test
 	- cd ex_gri;                            @MAKE@ test
-	- cd CO2_solubility_test; ./runtest
+	- cd CO2_solubility_test;               @MAKE@ test
 
 testd:
 	- cd multiPhase;			@MAKE@ testd 
 	- cd she_electrode;                     @MAKE@ testd
 	- cd sce_electrode;                     @MAKE@ testd
 	- cd ex_gri;                            @MAKE@ testd
-	- cd CO2_solubility_test; ./runtestd
+	- cd CO2_solubility_test;               @MAKE@ testd
 
 clean:
 	cd multiPhase;         			@MAKE@ clean 
@@ -38,7 +38,7 @@ rebaseline:
 	cd she_electrode;                       @MAKE@ rebaseline
 	cd sce_electrode;                       @MAKE@ rebaseline
 	cd ex_gri;                              @MAKE@ rebaseline
-	cd CO2_solubility_test;   ../rebase.sh
+	cd CO2_solubility_test;                 @MAKE@ rebaseline
 
 
 install:
