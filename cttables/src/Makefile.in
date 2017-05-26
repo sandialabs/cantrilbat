@@ -60,8 +60,7 @@ PURIFY=@PURIFY@
 
 #############################################################################
 
-OBJ_CTTABLES= cttables.o cttables_kin.o cttables_vol.o  \
-              cttInput.o sortAlgorithms.o cttables_thermo.o 
+OBJ_CTTABLES= cttables.o cttables_kin.o cttInput.o sortAlgorithms.o cttables_thermo.o 
 
 OBJ_CANTERA_ADDONS =   ReactingVolDomain.o
 
