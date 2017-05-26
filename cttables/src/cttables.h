@@ -159,7 +159,22 @@ extern void printBathSpeciesConditions(ZZCantera::ThermoPhase& g,
                                        ZZCantera::PhaseList* pl,
                                        int printLvl);
 
+// Functions in cttables_thermo.cpp
 
+//! Gather the entropy of the elements of a species at 298 K.
+/*!
+ *  This is useful for going back and forth from the gibbs free energy of formation and the absolute gibbs free energy 
+ *  in NIST format. 
+ *  This routine calls entropyElement298(m, true) to get the absolute entropy of the element in its standard state at 298 K 
+ *  and 1 bar
+ *
+ *  @param[in]               g_ptr               ThermoPhase pointer
+ *  @param[in]               k                   Species index
+ *
+ *  @return                                      Total entropy of the elements that make up the ThermoPhase
+ *                                               Returns ENTROPY298_UNKNOWN if any of the elements that make up the species 
+ *                                               has an unknown entropy.
+ */
 double entropyElem298(ZZCantera::ThermoPhase* g_ptr, size_t k);
 
 //==================================================================================================================================
