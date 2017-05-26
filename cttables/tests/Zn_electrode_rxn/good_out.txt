@@ -8,7 +8,7 @@ States Government.
       Bath Composition for Phase id, "metalElectrons", with name, "metalElectrons", with eosType, "MetalSHEelectrons"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = electronSHE
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -31,8 +31,8 @@ INFORMATION TABLE FOR SPECIES "electronSHE" IN PHASE "metalElectrons"
                 Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 6000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.00020566 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 0.00020566 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.00020566 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.00020566 m3/kmol
         Molar Volume formulation for eos type 9 is not known to cttables
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
@@ -65,16 +65,16 @@ INFORMATION TABLE FOR SPECIES "electronSHE" IN PHASE "metalElectrons"
       Bath Composition for Phase id, "ZnSO4_electrolyte", with name, "ZnSO4_electrolyte", with eosType, "UnknownPhaseType"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = H2O(L)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1          H2O(L)          0.9652       5.526E-02       9.830E-01
-              2            Zn++          0.0174       9.956E-04       5.214E-02
-              3           SO4--          0.0174       9.956E-04       5.214E-02
-              4              H+          0.0000       9.956E-11       3.721E-08
-              5             OH-          0.0000       9.956E-11       2.742E-08
+              1          H2O(L)          0.9652       5.531E-02       9.829E-01
+              2            Zn++          0.0174       9.964E-04       5.284E-02
+              3           SO4--          0.0174       9.964E-04       5.284E-02
+              4              H+          0.0000       9.964E-11       3.741E-08
+              5             OH-          0.0000       9.964E-11       2.752E-08
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -92,9 +92,9 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "ZnSO4_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 200 K
         Maximum Temperature = 10000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.0177791 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 0.0180775 m3/kmol
-        species partial Molar Volume = 0.0177791 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0177751 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0180686 m3/kmol
+        species partial Molar Volume = 0.0177751 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 0
@@ -139,9 +139,9 @@ INFORMATION TABLE FOR SPECIES "Zn++" IN PHASE "ZnSO4_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298.15 K
         Maximum Temperature = 625.15 K
-        Partial    Molar Volume at (T,P) of (300,101325) = -0.0131439 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = -0.0206503 m3/kmol
-        species partial Molar Volume = -0.0131439 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = -0.0133167 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -0.0206984 m3/kmol
+        species partial Molar Volume = -0.0133167 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 1
@@ -198,9 +198,9 @@ INFORMATION TABLE FOR SPECIES "SO4--" IN PHASE "ZnSO4_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.0213751 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 0.0138688 m3/kmol
-        species partial Molar Volume = 0.0213751 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0210933 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0137117 m3/kmol
+        species partial Molar Volume = 0.0210933 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 2
@@ -256,9 +256,9 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "ZnSO4_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.00187658 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = -8.34081e-25 m3/kmol
-        species partial Molar Volume = 0.00187658 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0018454 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -4.17086e-25 m3/kmol
+        species partial Molar Volume = 0.0018454 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 3
@@ -315,9 +315,9 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 298 K
         Maximum Temperature = 623.15 K
-        Partial    Molar Volume at (T,P) of (300,101325) = -0.00231348 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = -0.00419007 m3/kmol
-        species partial Molar Volume = -0.00231348 m**3 / kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = -0.00242721 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = -0.00427261 m3/kmol
+        species partial Molar Volume = -0.00242721 m**3 / kmol
         standard Concentration value =  1/(solvent volume) units of kmol/m3
         Presure Dependent Standard State form
                PDSS Species index    = 4
@@ -360,7 +360,7 @@ INFORMATION TABLE FOR SPECIES "OH-" IN PHASE "ZnSO4_electrolyte"
       Bath Composition for Phase id, "Zn(S)", with name, "Zn(S)", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = Zn(S)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -382,8 +382,8 @@ INFORMATION TABLE FOR SPECIES "Zn(S)" IN PHASE "Zn(S)"
                 Phase and Species Reference Pressure = 101325 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.0241969 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 0.0241969 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.0241969 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.0241969 m3/kmol
         StoichSubstance constant density = 2702 kg m-3 
         species Molar Volume = 0.0241969 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
@@ -420,7 +420,7 @@ INFORMATION TABLE FOR SPECIES "Zn(S)" IN PHASE "Zn(S)"
       Bath Composition for Phase id, "zinc_surface", with name, "zinc_surface", with eosType, "Surface"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = zn_site
           Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
@@ -441,8 +441,8 @@ INFORMATION TABLE FOR SPECIES "zn_site" IN PHASE "zinc_surface"
                 Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
-        StandState Molar Volume at (T,P) of (300,101325) = 0.01 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.01 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.01 m3/kmol
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
@@ -524,10 +524,10 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage = phi_Metal - phi_Soln  = 0 Volts
                nStoichElectrons (product electrons - reactant electrons) = 2 
-               Delta G (rxn)   =   -1.5461e+08 J/kmol   --->                  E    = -0.801193 Volts
-               Delta G_SS (rxn)=   -1.4724e+08 J/kmol   --->                  E_SS = -0.763013 Volts
+               Delta G (rxn)   =   -1.5457e+08 J/kmol   --->                  E    = -0.800985 Volts
+               Delta G_SS (rxn)=   -1.4728e+08 J/kmol   --->                  E_SS = -0.76321 Volts
                Bath Gas conditions:
-                  T = 300 K
+                  T = 298.15 K
                   P = 101325 Pascal
                        SurfSpecName         Theta_k_Bath
                            zn_site            1
@@ -536,43 +536,43 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
                |  Voltage  |    Rfwd          Rrev         Rnet   |        Ifwd         Irev         Inet  |
                |   Volts   |             (kmol/m**2 s)            |               (amps/cm2)               |
                ---------------------------------------------------------------------------------------------
-               !      -1.4 |   1.11e-18          147         -147 |    2.15e-14    -2.83e+06     -2.83e+06 |
-               !      -1.2 |   2.55e-15        0.064       -0.064 |    4.93e-11    -1.24e+03     -1.24e+03 |
-               !        -1 |   5.85e-12      2.8e-05     -2.8e-05 |    1.13e-07        -0.54         -0.54 |
-               !   -0.8012 |   1.28e-08     1.28e-08    -1.74e-22 |    0.000247    -0.000247     -3.35e-18 |
-               !      -0.8 |   1.34e-08     1.22e-08     1.18e-09 |    0.000258    -0.000236      2.28e-05 |
-               !      -0.6 |   3.07e-05     5.33e-12     3.07e-05 |       0.592    -1.03e-07         0.592 |
-               !      -0.4 |     0.0702     2.33e-15       0.0702 |    1.36e+03    -4.49e-11      1.36e+03 |
-               !      -0.2 |        161     1.02e-18          161 |     3.1e+06    -1.96e-14       3.1e+06 |
-               !         0 |   3.68e+05     4.44e-22     3.68e+05 |    7.11e+09    -8.57e-18      7.11e+09 |
-               !       0.2 |   8.43e+08     1.94e-25     8.43e+08 |    1.63e+13    -3.74e-21      1.63e+13 |
-               !       0.4 |   1.93e+12     8.46e-29     1.93e+12 |    3.73e+16    -1.63e-24      3.73e+16 |
-               !       0.6 |   4.42e+15      3.7e-32     4.42e+15 |    8.54e+19    -7.13e-28      8.54e+19 |
+               !      -1.4 |   7.58e-19          135         -135 |    1.46e-14    -2.61e+06     -2.61e+06 |
+               !      -1.2 |   1.82e-15       0.0562      -0.0562 |    3.51e-11    -1.08e+03     -1.08e+03 |
+               !        -1 |   4.38e-12     2.34e-05    -2.34e-05 |    8.44e-08       -0.452        -0.452 |
+               !    -0.801 |   1.01e-08     1.01e-08     6.29e-23 |    0.000195    -0.000195      1.21e-18 |
+               !      -0.8 |   1.05e-08     9.74e-09     7.76e-10 |    0.000203    -0.000188       1.5e-05 |
+               !      -0.6 |   2.53e-05     4.05e-12     2.53e-05 |       0.488    -7.82e-08         0.488 |
+               !      -0.4 |     0.0607     1.69e-15       0.0607 |    1.17e+03    -3.26e-11      1.17e+03 |
+               !      -0.2 |        146     7.02e-19          146 |    2.81e+06    -1.35e-14      2.81e+06 |
+               !         0 |    3.5e+05     2.92e-22      3.5e+05 |    6.76e+09    -5.64e-18      6.76e+09 |
+               !       0.2 |   8.42e+08     1.22e-25     8.42e+08 |    1.62e+13    -2.35e-21      1.62e+13 |
+               !       0.4 |   2.02e+12     5.06e-29     2.02e+12 |     3.9e+16    -9.77e-25       3.9e+16 |
+               !       0.6 |   4.86e+15     2.11e-32     4.86e+15 |    9.38e+19    -4.07e-28      9.38e+19 |
                ---------------------------------------------------------------------------------------------
                 TABLE that uses the Surface Solver to Solve for Surface Site Concentrations
                -----------------------------------------------------------------
                |  Voltage  |       Ifwd         Irev        Inet  |    zn_site |
                |   Volts   |               (amps/cm2)             |            |
                -----------------------------------------------------------------
-               !      -1.4 |   2.15e-14    -2.83e+06    -2.83e+06 |         1  |
-               !      -1.2 |   4.93e-11    -1.24e+03    -1.24e+03 |         1  |
-               !        -1 |   1.13e-07        -0.54        -0.54 |         1  |
-               !   -0.8012 |   0.000247    -0.000247    -3.35e-18 |         1  |
-               !      -0.8 |   0.000258    -0.000236     2.28e-05 |         1  |
-               !      -0.6 |      0.592    -1.03e-07        0.592 |         1  |
-               !      -0.4 |   1.36e+03    -4.49e-11     1.36e+03 |         1  |
-               !      -0.2 |    3.1e+06    -1.96e-14      3.1e+06 |         1  |
-               !         0 |   7.11e+09    -8.57e-18     7.11e+09 |         1  |
-               !       0.2 |   1.63e+13    -3.74e-21     1.63e+13 |         1  |
-               !       0.4 |   3.73e+16    -1.63e-24     3.73e+16 |         1  |
-               !       0.6 |   8.54e+19    -7.13e-28     8.54e+19 |         1  |
+               !      -1.4 |   1.46e-14    -2.61e+06    -2.61e+06 |         1  |
+               !      -1.2 |   3.51e-11    -1.08e+03    -1.08e+03 |         1  |
+               !        -1 |   8.44e-08       -0.452       -0.452 |         1  |
+               !    -0.801 |   0.000195    -0.000195     1.21e-18 |         1  |
+               !      -0.8 |   0.000203    -0.000188      1.5e-05 |         1  |
+               !      -0.6 |      0.488    -7.82e-08        0.488 |         1  |
+               !      -0.4 |   1.17e+03    -3.26e-11     1.17e+03 |         1  |
+               !      -0.2 |   2.81e+06    -1.35e-14     2.81e+06 |         1  |
+               !         0 |   6.76e+09    -5.64e-18     6.76e+09 |         1  |
+               !       0.2 |   1.62e+13    -2.35e-21     1.62e+13 |         1  |
+               !       0.4 |    3.9e+16    -9.77e-25      3.9e+16 |         1  |
+               !       0.6 |   9.38e+19    -4.07e-28     9.38e+19 |         1  |
                -----------------------------------------------------------------
         ----------------------------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "metalElectrons", with name, "metalElectrons", with eosType, "MetalSHEelectrons"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = electronSHE
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -583,22 +583,22 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
       Bath Composition for Phase id, "ZnSO4_electrolyte", with name, "ZnSO4_electrolyte", with eosType, "UnknownPhaseType"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = H2O(L)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1          H2O(L)          0.9652       5.526E-02       9.830E-01
-              2            Zn++          0.0174       9.956E-04       5.214E-02
-              3           SO4--          0.0174       9.956E-04       5.214E-02
-              4              H+          0.0000       9.956E-11       3.721E-08
-              5             OH-          0.0000       9.956E-11       2.742E-08
+              1          H2O(L)          0.9652       5.531E-02       9.829E-01
+              2            Zn++          0.0174       9.964E-04       5.284E-02
+              3           SO4--          0.0174       9.964E-04       5.284E-02
+              4              H+          0.0000       9.964E-11       3.741E-08
+              5             OH-          0.0000       9.964E-11       2.752E-08
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "Zn(S)", with name, "Zn(S)", with eosType, "StoichSubstance"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = Zn(S)
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
@@ -609,7 +609,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metalElectrons"
       Bath Composition for Phase id, "zinc_surface", with name, "zinc_surface", with eosType, "Surface"
      
         Total pressure = 760 torr 
-        Temperature (where needed) = 300 Kelvin
+        Temperature (where needed) = 298.15 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = zn_site
           Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
@@ -668,10 +668,10 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metalElectro
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage                         = 0 Volts
                nStoicElectrons (product electrons - reactant electrons) = -1 
-               Delta G (rxn)   =    7.7303e+07 J/kmol   --->                  E    = -0.801193 Volts
-               Delta G_SS (rxn)=     7.362e+07 J/kmol   --->                  E_SS = -0.763013 Volts
+               Delta G (rxn)   =    7.7283e+07 J/kmol   --->                  E    = -0.800985 Volts
+               Delta G_SS (rxn)=    7.3639e+07 J/kmol   --->                  E_SS = -0.76321 Volts
                Bath Conditions:
-                  T = 300 K
+                  T = 298.15 K
                   P = 101325 Pascal
                        SurfSpecName         Theta_k_Bath
                            zn_site            1
@@ -681,17 +681,17 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metalElectro
                |  Voltage  |       Ifwd   Iexchange_f   Beta_f   |       Irev   Iexchange_r   Beta_r   |    Inet     |    zn_site |
                |   Volts   |         (amps/cm2)                  |         (amps/cm2)                  |             |            |
                -------------------------------------------------------------------------------------------------------------------
-               !      -1.4 | -1.4149e+06 -0.00012337           1 |  1.0757e-14 -0.00012337           1 | -1.4149e+06 |         1  |
-               !      -1.2 |     -617.86 -0.00012337           1 |  2.4635e-11 -0.00012337           1 |     -617.86 |         1  |
-               !        -1 |     -0.2698 -0.00012337           1 |  5.6416e-08 -0.00012337           1 |     -0.2698 |         1  |
-               !   -0.8012 | -0.00012337 -0.00012337           1 |  0.00012337 -0.00012337           1 | -1.3089e-18 |         1  |
-               !      -0.8 | -0.00011781 -0.00012337           1 |   0.0001292 -0.00012337           1 |  1.1387e-05 |         1  |
-               !      -0.6 | -5.1443e-08 -0.00012337           1 |     0.29587 -0.00012337           1 |     0.29587 |         1  |
-               !      -0.4 | -2.2464e-11 -0.00012337           1 |      677.57 -0.00012337           1 |      677.57 |         1  |
-               !      -0.2 |  -9.809e-15 -0.00012337           1 |  1.5517e+06 -0.00012337           1 |  1.5517e+06 |         1  |
-               !         0 | -4.2832e-18 -0.00012337           1 |  3.5535e+09 -0.00012337           1 |  3.5535e+09 |         1  |
-               !       0.2 | -1.8703e-21 -0.00012337           1 |  8.1379e+12 -0.00012337           1 |  8.1379e+12 |         1  |
-               !       0.4 | -8.1671e-25 -0.00012337           1 |  1.8637e+16 -0.00012337           1 |  1.8637e+16 |         1  |
-               !       0.6 | -3.5663e-28 -0.00012337           1 |  4.2679e+19 -0.00012337           1 |  4.2679e+19 |         1  |
+               !      -1.4 | -1.3034e+06 -9.7636e-05           1 |   7.314e-15 -9.7636e-05           1 | -1.3034e+06 |         1  |
+               !      -1.2 |     -542.45 -9.7636e-05           1 |  1.7573e-11 -9.7636e-05           1 |     -542.45 |         1  |
+               !        -1 |    -0.22577 -9.7636e-05           1 |  4.2223e-08 -9.7636e-05           1 |    -0.22577 |         1  |
+               !    -0.801 | -9.7636e-05 -9.7636e-05           1 |  9.7636e-05 -9.7636e-05           1 |  9.7369e-19 |         1  |
+               !      -0.8 | -9.3964e-05 -9.7636e-05           1 |  0.00010145 -9.7636e-05           1 |  7.4864e-06 |         1  |
+               !      -0.6 | -3.9108e-08 -9.7636e-05           1 |     0.24376 -9.7636e-05           1 |     0.24376 |         1  |
+               !      -0.4 | -1.6277e-11 -9.7636e-05           1 |      585.67 -9.7636e-05           1 |      585.67 |         1  |
+               !      -0.2 | -6.7743e-15 -9.7636e-05           1 |  1.4072e+06 -9.7636e-05           1 |  1.4072e+06 |         1  |
+               !         0 | -2.8194e-18 -9.7636e-05           1 |  3.3811e+09 -9.7636e-05           1 |  3.3811e+09 |         1  |
+               !       0.2 | -1.1734e-21 -9.7636e-05           1 |  8.1237e+12 -9.7636e-05           1 |  8.1237e+12 |         1  |
+               !       0.4 | -4.8838e-25 -9.7636e-05           1 |  1.9519e+16 -9.7636e-05           1 |  1.9519e+16 |         1  |
+               !       0.6 | -2.0326e-28 -9.7636e-05           1 |  4.6898e+19 -9.7636e-05           1 |  4.6898e+19 |         1  |
                -------------------------------------------------------------------------------------------------------------------
         ----------------------------------------------------------------------------------------------------
