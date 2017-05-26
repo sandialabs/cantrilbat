@@ -648,8 +648,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8153043464512E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8156651301576E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8153043464788E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8156651301852E+03
    --- subroutine FORCE: Beginning Slope = -0.501651
    --- subroutine FORCE: End Slope       = -0.271318
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -675,8 +675,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8153043464512E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8156651301576E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8153043464788E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8156651301852E+03
    --- Increment counter increased, step is accepted:    1
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -718,8 +718,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8156651301576E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8160427490520E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8156651301852E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8160427490796E+03
    --- subroutine FORCE: Beginning Slope = -0.584433
    --- subroutine FORCE: End Slope       = -0.221702
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -745,8 +745,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8156651301576E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8160427490520E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8156651301852E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8160427490796E+03
    --- Increment counter increased, step is accepted:    2
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -786,8 +786,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8160427490520E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161534029876E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8160427490796E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161534030151E+03
    --- subroutine FORCE: Beginning Slope = -0.197964
    --- subroutine FORCE: End Slope       = -0.0326507
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -813,8 +813,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8160427490520E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161534029876E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8160427490796E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161534030151E+03
    --- Increment counter increased, step is accepted:    3
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -856,8 +856,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161534029876E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572567102E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161534030151E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572567378E+03
    --- subroutine FORCE: Beginning Slope = -0.00756114
    --- subroutine FORCE: End Slope       = -0.00021668
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -883,8 +883,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161534029876E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572567102E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161534030151E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572567378E+03
    --- Increment counter increased, step is accepted:    4
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -925,8 +925,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572567102E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572567378E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- subroutine FORCE: Beginning Slope = -6.57692e-06
    --- subroutine FORCE: End Slope       = -5.46258e-09
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -952,8 +952,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572567102E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572567378E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- Increment counter increased, step is accepted:    5
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -993,8 +993,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- subroutine FORCE: Beginning Slope = -4.54495e-12
    --- subroutine FORCE: End Slope       = -3.08936e-16
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1020,8 +1020,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- Increment counter increased, step is accepted:    6
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1061,8 +1061,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- subroutine FORCE: Beginning Slope = -6.54828e-15
    --- subroutine FORCE: End Slope       = -5.57011e-15
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1088,8 +1088,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- Increment counter increased, step is accepted:    7
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1131,8 +1131,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- subroutine FORCE: Beginning Slope = -1.02135e-13
    --- subroutine FORCE: End Slope       = -8.50964e-14
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1158,8 +1158,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- Increment counter increased, step is accepted:    8
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1200,8 +1200,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- subroutine FORCE: Beginning Slope = -1.31064e-12
    --- subroutine FORCE: End Slope       = -1.06367e-12
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1227,8 +1227,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- Increment counter increased, step is accepted:    9
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1268,8 +1268,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- subroutine FORCE: Beginning Slope = -1.34394e-11
    --- subroutine FORCE: End Slope       = -1.05394e-11
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1295,8 +1295,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600005E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600281E+03
    --- Increment counter increased, step is accepted:   10
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1336,8 +1336,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600006E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600282E+03
    --- subroutine FORCE: Beginning Slope = -1.05987e-10
    --- subroutine FORCE: End Slope       = -7.93602e-11
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1363,8 +1363,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600005E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600006E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600281E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600282E+03
    --- Increment counter increased, step is accepted:   11
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1406,8 +1406,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600006E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600011E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600282E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600287E+03
    --- subroutine FORCE: Beginning Slope = -6.10394e-10
    --- subroutine FORCE: End Slope       = -4.28203e-10
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1433,8 +1433,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600006E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600011E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600282E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600287E+03
    --- Increment counter increased, step is accepted:   12
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1475,8 +1475,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600011E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600029E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600287E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600305E+03
    --- subroutine FORCE: Beginning Slope = -2.38592e-09
    --- subroutine FORCE: End Slope       = -1.51887e-09
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1502,8 +1502,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600011E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600029E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600287E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600305E+03
    --- Increment counter increased, step is accepted:   13
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1543,8 +1543,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600029E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600070E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600305E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600346E+03
    --- subroutine FORCE: Beginning Slope = -5.67616e-09
    --- subroutine FORCE: End Slope       = -3.09281e-09
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1570,8 +1570,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600029E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600070E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600305E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600346E+03
    --- Increment counter increased, step is accepted:   14
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1611,8 +1611,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600070E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600116E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600346E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600391E+03
    --- subroutine FORCE: Beginning Slope = -6.91014e-09
    --- subroutine FORCE: End Slope       = -2.86353e-09
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1638,8 +1638,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600070E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600116E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600346E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600391E+03
    --- Increment counter increased, step is accepted:   15
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1681,8 +1681,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600116E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600134E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600391E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600410E+03
    --- subroutine FORCE: Beginning Slope = -3.19131e-09
    --- subroutine FORCE: End Slope       = -7.72225e-10
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1708,8 +1708,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600116E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600134E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600391E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600410E+03
    --- Increment counter increased, step is accepted:   16
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1750,8 +1750,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600134E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600136E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600410E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600412E+03
    --- subroutine FORCE: Beginning Slope = -3.17677e-10
    --- subroutine FORCE: End Slope       = -2.4209e-11
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1777,8 +1777,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600134E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600136E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600410E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600412E+03
    --- Increment counter increased, step is accepted:   17
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1818,8 +1818,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600136E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600136E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600412E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600412E+03
    --- subroutine FORCE: Beginning Slope = -2.1574e-12
    --- subroutine FORCE: End Slope       = -1.38072e-14
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1845,8 +1845,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600136E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600136E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600412E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600412E+03
    --- Increment counter increased, step is accepted:   18
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1886,8 +1886,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600136E+03
-   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600136E+03
+   --- Total Old       Dimensionless Gibbs Free Energy = -1.8161572600412E+03
+   --- Total tentative Dimensionless Gibbs Free Energy = -1.8161572600412E+03
    --- subroutine FORCE: Beginning Slope = -8.95249e-17
    --- subroutine FORCE: End Slope       = -3.98044e-21
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1913,8 +1913,8 @@ VCS CALCULATION METHOD
    ---       Mercury_liquid =   1.3000000E+01
    ---    MetalSHEelectrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600136E+03
-   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600136E+03
+   --- Total Old Dimensionless Gibbs Free Energy = -1.8161572600412E+03
+   --- Total New Dimensionless Gibbs Free Energy = -1.8161572600412E+03
    --- Increment counter increased, step is accepted:   19
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1951,11 +1951,11 @@ VCS CALCULATION METHOD
  Hg2Cl2(S)                 3.0000000E+00      1.0000000E+00     -1.3003E+02     0
  KCl(S)                    2.4913882E+00      1.0000000E+00     -1.8609E+02     0
  K+                        5.3861182E-01      7.6104959E-02     -1.1295E+02     0
- OH-                       6.5567724E-09      9.2646111E-10     -1.0824E+02     0
+ OH-                       6.5567724E-09      9.2646110E-10     -1.0824E+02     0
  Na+                       0.0000000E+00      0.0000000E+00     -4.2439E+02     0
  Cl-                       5.3861182E-01      7.6104959E-02     -7.3135E+01  KMolNum 
  she_electron                     NA          1.0000000E+00     -1.7265E+01   Voltage =  2.4167646E-01
- H+                        6.5567724E-09      9.2646111E-10     -1.5654E+01  KMolNum 
+ H+                        6.5567724E-09      9.2646110E-10     -1.5654E+01  KMolNum 
 --------------------------------------------------------------------------------
 
 
@@ -1977,13 +1977,13 @@ VCS CALCULATION METHOD
                   | Element   |          O          H          K         Na         Cl cn_KCl_ele         Hg          E          N          C |                     |
     PhaseName     |KMolTarget |          6         12       3.03          0       9.03          0         19          0          0          0 |     Gibbs Total     |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-   0 KCl_electrol | 7.077e+00 |          6         12      0.539          0      0.539          0          0          0          0          0 | -8.43592630942E+02 |
+   0 KCl_electrol | 7.077e+00 |          6         12      0.539          0      0.539          0          0          0          0          0 | -8.43592630970E+02 |
    1 KCl(S)       | 2.491e+00 |          0          0       2.49          0       2.49          0          0          0          0          0 | -4.63610224748E+02 |
    2 Calomel(S)   | 3.000e+00 |          0          0          0          0          6          0          6          0          0          0 | -3.90082215607E+02 |
    3 Mercury_liqu | 1.300e+01 |          0          0          0          0          0          0         13          0          0          0 | -1.18872188717E+02 |
    4 MetalSHEelec | 0.000e+00 |          0          0          0          0          0          0          0          0          0          0 |  0.00000000000E+00 |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-    TOTAL         | 2.557e+01 |          6         12       3.03          0       9.03          0         19          0          0          0 | -1.81615726001E+03 |
+    TOTAL         | 2.557e+01 |          6         12       3.03          0       9.03          0         19          0          0          0 | -1.81615726004E+03 |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -2008,15 +2008,15 @@ Chemical Potentials of the Species: (dimensionless)
     Name        TKMoles     StandStateChemPot      ln(AC)       ln(X_i)      |   F z_i phi   |    ChemPot    | (-lnMnaught)|  (MolNum ChemPot)|
 ---------------------------------------------------------------------------------------------------------------------------------------------------
  Hg(L)         1.3000000E+01 -9.1440145E+00   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -9.1440E+00 |             |      -1.188721887E+02 |
- H2O(L)        6.0000000E+00 -1.2371564E+02  -1.3407023E-02  -1.6512222E-01  | 0.0000000E+00 |   -1.2389E+02 |             |      -7.433649952E+02 |
+ H2O(L)        6.0000000E+00 -1.2371564E+02  -1.3407023E-02  -1.6512222E-01  | 0.0000000E+00 |   -1.2389E+02 |             |      -7.433649953E+02 |
  Hg2Cl2(S)     3.0000000E+00 -1.3002741E+02   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -1.3003E+02 |             |      -3.900822156E+02 |
  KCl(S)        2.4913882E+00 -1.8608510E+02   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -1.8609E+02 |             |      -4.636102247E+02 |
  K+            5.3861182E-01 -1.1402970E+02  -3.6152408E-01  -2.5756418E+00  | 0.0000000E+00 |   -1.1295E+02 |(4.01653E+00)|      -6.083638337E+01 |
- OH-           6.5567724E-09 -9.1483592E+01   2.6601575E-02  -2.0799649E+01  |-0.0000000E+00 |   -1.0824E+02 |(4.01653E+00)|      -7.097057368E-07 |
+ OH-           6.5567724E-09 -9.1483592E+01   2.6601575E-02  -2.0799649E+01  |-0.0000000E+00 |   -1.0824E+02 |(4.01653E+00)|      -7.097057352E-07 |
  Na+           0.0000000E+00 -1.0395020E+02  -1.4208789E-01  -3.2431879E+02  | 0.0000000E+00 |   -4.2439E+02 |(4.01653E+00)|      -0.000000000E+00 |
  Cl-           5.3861182E-01 -7.4214139E+01  -3.6152408E-01  -2.5756418E+00  |-0.0000000E+00 |   -7.3135E+01 |(4.01653E+00)|      -3.939125153E+01 |
  she_electron  2.4167646E-01 -7.8586119E+00   0.0000000E+00   0.0000000E+00  |-9.4064704E+00 |   -1.7265E+01 |             |      -4.172563967E+00 |
- H+            6.5567724E-09  0.0000000E+00   1.1290529E+00  -2.0799649E+01  | 0.0000000E+00 |   -1.5654E+01 |(4.01653E+00)|      -1.026401169E-07 |
+ H+            6.5567724E-09  0.0000000E+00   1.1290529E+00  -2.0799649E+01  | 0.0000000E+00 |   -1.5654E+01 |(4.01653E+00)|      -1.026401167E-07 |
                                                                                                                                   -1.816157260E+03
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2040,7 +2040,7 @@ Pressure    = 101325 Pa
 
 -------------------------------------------------------------
  Name             Mole_Number(kmol)  Mole_Fraction     Chem_Potential (J/kmol)
--------------------------------------------------------------
+--------------------------------------------------------------
 H2O(L)              6.000e+00         8.478e-01       -3.071e+08
 Cl-                 5.386e-01         7.610e-02       -1.813e+08
 H+                  6.557e-09         9.265e-10       -3.881e+07
@@ -2176,7 +2176,7 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
                           1 kg            1 kmol
                        -----------      ------------
           enthalpy          12.185         0.006641     J
-   internal energy     -4.5485e+09       -2.479e+06     J
+   internal energy          12.185         0.006641     J
            entropy      1.1989e+08        6.534e+04     J/K
     Gibbs function     -3.5745e+10       -1.948e+07     J
  heat capacity c_p      2.6455e+07        1.442e+04     J/K

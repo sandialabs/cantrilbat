@@ -12,7 +12,7 @@
 .SUFFIXES: .d
 
 PROGRAM = mpequil
-TESTNAME = mpequil_multiPhase
+TESTNAME = mpequil_she_electrode
 
 TOPDIR = @abs_top_srcdir@
 
@@ -22,7 +22,7 @@ BLESSED_FILES = good_out.txt vcs_equilibrate_blessed.csv
 BLESSED_DEBUG_FILES = good_dout.txt vcs_equilibrate_blessed.csv 
 
 DATA = mpequil.inp problem_setup.sh \
-       CaCO3_Solid.xml  CaO_Solid.xml  C_Solid.xml  Fe3O4_Solid.xml  FeO_Solid.xml  Fe_Solid.xml  gas.xml
+       h2gas.xml  HMW_NaCl_sp1977_alt.xml  HMW_NaCl.xml  Pt_H2electrons.xml
 
 all:   mpequil
 
@@ -52,10 +52,9 @@ runGood_debug: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_DEBUG_FILES
 	if test -e "runGood" ; then cp runGood runGood_debug ; fi
 	if test -e "runGood_release" ; then mv runGood_release runGood ; fi
         
-
 rebaseline:
 	if test -e out.txt ; then cp out.txt good_out.txt ; fi
-	cp vcs_equilibrate.csv vcs_equilibrate_blessed.csv
+	cp vcs_equilibrate_res.csv vcs_equilibrate_blessed.csv
 	if test -e dout.txt ; then cp dout.txt good_dout.txt ; fi
 
 clean:

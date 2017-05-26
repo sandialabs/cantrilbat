@@ -1,16 +1,17 @@
 #!/bin/sh
-############################################################################
-#
-#  Makefile to compile and link a C++ application to 
-#  Cantera.
-#
-#############################################################################
 
 # addition to suffixes
 .SUFFIXES : .d
 
 # the name of the executable program to be created
 PROG_NAME = gri_equil
+
+BLESSED_FILES = good_out.txt vcs_equilibrate_blessed.csv
+BLESSED_DEBUG_FILES = good_dout.txt vcs_equilibrate_blessed.csv
+
+DATA =  problem_setup.sh problem_setup_d.sh gri30.xml
+
+TOPDIR = @abs_top_srcdir@
 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
@@ -74,21 +75,33 @@ depends:
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+testd: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME)"_debug" ': '
+	@gmake -q -s  runGood_debug ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood_debug ; fi
+
+
+runGood: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	 @echo 'RUNNING TEST ' $(TESTNAME)
+	/bin/rm -f runGood_release
+	$(TOPDIR)/bin/runtest_Exec
+
+runGood_debug: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_DEBUG_FILES)
+	if test -e "runGood" ; then cp runGood runGood_release ; fi
+	@echo 'RUNNING TEST ' $(TESTNAME)"_debug"
+	$(TOPDIR)/bin/runtest_Exec -i problem_setup_d.sh
+	if test -e "runGood" ; then cp runGood runGood_debug ; fi
+	if test -e "runGood_release" ; then mv runGood_release runGood ; fi
+
 rebaseline:
-	cp   vcs_equilibrate_res.csv vcs_equilibrate_blessed.csv
-	cp out.txt good_out.txt
-	cp dout.txt good_dout.txt
-
-
-# Do the test -> For the windows vc++ environment, we have to skip checking on
-#                whether the program is uptodate, because we don't utilize make
-#                in that environment to build programs.
-test:
-ifeq ($(os_is_win), 1)
-else
-	@MAKE@ $(PROGRAM)
-endif
-	./runtest
+	if test -e out.txt ; then cp out.txt good_out.txt ; fi
+	cp vcs_equilibrate_res.csv vcs_equilibrate_blessed.csv
+	if test -e dout.txt ; then cp dout.txt good_dout.txt ; fi
 
 
 clean:

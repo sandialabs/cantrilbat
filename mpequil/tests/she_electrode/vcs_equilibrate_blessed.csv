@@ -4,7 +4,7 @@ Pressure     =  1.0132e+05 Pascal
 Total Volume =       73.45 m**3
 Number Basis optimizations = 2
 Number VCS iterations = 20
-        Name,      Phase,  PhaseMoles,  Mole_Fract, Molalities,  ActCoeff,   Activity,ChemPot_SS0,   ChemPot,   mole_num,       PMVol, Phase_Volume
+        Name,      Phase,  PhaseMoles,  Mole_Fract, Molalities,  ActCoeff,   Activity, ChemPot_SS0,   ChemPot,   mole_num,       PMVol, Phase_Volume
             ,           ,      (kmol),            ,           ,          ,           ,   (J/kmol),  (J/kmol),     (kmol), (m**3/kmol),     (m**3)
       H2O(L), NaCl_electrolyte,   3.000e+00,   1.000e+00,   5.551e+01,   1.000e+00,   1.000e+00, -3.067e+02,  -3.067e+02,   3.000e+00,   1.807e-02,   5.421e-02
          Cl-, NaCl_electrolyte,   3.000e+00,   0.000e+00,   0.000e+00,   9.996e-01,   0.000e+00, -1.840e+02,  -1.896e+03,   0.000e+00,   8.340e-03,   5.421e-02

@@ -2,7 +2,7 @@
 #
 #     Problem setup for runtest_Electrode
 #
-TEST_NAME=mpequil_multiPhase
+TEST_NAME=mpequil_she_electrode
 #
 #  Name of the program to run
 #
@@ -10,16 +10,15 @@ PROGRAM=mpequil
 #
 #  Any other program options
 #
-PROGRAM_OPTS=' mpequil.inp -d 8'
+PROGRAM_OPTS=' mpequil.inp'
 #
-PROGRAM_STD_OUTPUT='dout.txt'
 #  
 #
 #   Text files to compare against
 #
-BLESSED_DATA_FILES=" good_dout.txt  "
-DATA_FILES="         dout.txt       "
-DIFF_NAMES="         diff_dout.txt  "
+BLESSED_DATA_FILES=" good_out.txt  "
+DATA_FILES="         out.txt       "
+DIFF_NAMES="         diff_out.txt  "
 DIFF_REQ="           True          "
 #
 #  CSV file to compare against

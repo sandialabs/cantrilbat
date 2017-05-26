@@ -919,6 +919,8 @@ AC_OUTPUT(Makefile \
           mpequil/tests/CO2_solubility_test/Makefile \
           mpequil/tests/ex_gri/Makefile \
           mpequil/tests/multiPhase/Makefile \
+          mpequil/tests/she_electrode/Makefile \
+          mpequil/tests/sce_electrode/Makefile \
           mpequil/failures/Makefile \
           mpequil/failures/LiFeS/Makefile \
           imt_model/Makefile \

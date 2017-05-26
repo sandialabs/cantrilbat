@@ -2,7 +2,7 @@
 #
 #     Problem setup for runtest_Electrode
 #
-TEST_NAME=mpequil_multiPhase
+TEST_NAME=mpequil_sce_electrode
 #
 #  Name of the program to run
 #

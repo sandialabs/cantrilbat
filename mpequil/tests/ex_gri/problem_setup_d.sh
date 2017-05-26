@@ -2,15 +2,15 @@
 #
 #     Problem setup for runtest_Electrode
 #
-TEST_NAME=mpequil_multiPhase
+TEST_NAME=gri_equil
 #
 #  Name of the program to run
 #
-PROGRAM=mpequil
+PROGRAM=gri_equil
 #
 #  Any other program options
 #
-PROGRAM_OPTS=' mpequil.inp -d 8'
+PROGRAM_OPTS=' -d 8'
 #
 PROGRAM_STD_OUTPUT='dout.txt'
 #  

@@ -331,7 +331,7 @@ vcs_Cantera_convert: Species Type 4 not known
              Na+          0   NaCl_electrolyte             0         
              OH-          0   NaCl_electrolyte             0         
               H2          1              h2gas             3         
-    Pt_electrons          2     Pt_H2electrons             0         
+    Pt_electrons          2     Pt_H2electrons     Volts = 0         
 
 --------------------------------------------------------------------------------
              Information about phases
@@ -357,7 +357,7 @@ NaCl_electrolyte     0     0        0 UnkType: -1             5     0.000000e+00
              Na+          0   NaCl_electrolyte             0         
              OH-          0   NaCl_electrolyte             0         
               H2          1              h2gas             3         
-    Pt_electrons          2     Pt_H2electrons             0         
+    Pt_electrons          2     Pt_H2electrons     Volts = 0         
 
 --------------------------------------------------------------------------------
              Information about phases
@@ -512,8 +512,8 @@ VCS CALCULATION METHOD
     ---                Components:          0          1          2          3          4
    ---          Components Moles:  3.000E+00  3.000E+00  0.000E+00  0.000E+00  0.000E+00
    ---   NonComponent|   Moles  |     H2O(L)         H2         H+        Na+        Cl-
-   ---   5 OH-       | 0.000E+00|     -1.000     -0.000     +1.000     -0.000     -0.000
-   ---   6 Pt_electro| 0.000E+00|     -0.000     -0.500     +1.000     -0.000     -0.000
+   ---   5 OH-       | 0.000E+00|     -1.000     +0.000     +1.000     +0.000     +0.000
+   ---   6 Pt_electro| 0.000E+00|     +0.000     -0.500     +1.000     -0.000     -0.000
    ---               largest error in Stoich coeff = 0 at rxn = 0 OH-        element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -560,8 +560,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -3.63994e-23
    --- subroutine FORCE: End Slope       = -4.68498e-24
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -582,8 +582,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    1
    --- Normal element abundance check - passed
    --- Get a new basis because OH- is better than comp H+ and share nonzero stoic: 1.0      
@@ -610,8 +610,8 @@ VCS CALCULATION METHOD
     ---                Components:          0          1          2          3          4
    ---          Components Moles:  3.000E+00  3.000E+00  6.000E-26  0.000E+00  0.000E+00
    ---   NonComponent|   Moles  |     H2O(L)         H2        OH-        Na+        Cl-
-   ---   5 H+        | 6.000E-26|     -1.000     -0.000     +1.000     -0.000     -0.000
-   ---   6 Pt_electro|-8.207E+00|     +1.000     -0.500     -1.000     -0.000     -0.000
+   ---   5 H+        | 6.000E-26|     -1.000     +0.000     +1.000     +0.000     +0.000
+   ---   6 Pt_electro| 0.000E+00|     +1.000     -0.500     -1.000     +0.000     +0.000
    ---               largest error in Stoich coeff = 0 at rxn = 0 H+         element = 0 O    
    -----------------------------------------------------------------------------
    --- Subroutine vcs_deltag called for all noncomponents
@@ -656,8 +656,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -1.82909e-22
    --- subroutine FORCE: End Slope       = -1.65622e-22
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -678,8 +678,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    2
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -714,8 +714,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -6.00498e-21
    --- subroutine FORCE: End Slope       = -5.39461e-21
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -736,8 +736,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    3
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -771,8 +771,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -1.76171e-19
    --- subroutine FORCE: End Slope       = -1.56815e-19
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -793,8 +793,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    4
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -830,8 +830,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -4.57264e-18
    --- subroutine FORCE: End Slope       = -4.02647e-18
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -852,8 +852,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    5
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -888,8 +888,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -1.03775e-16
    --- subroutine FORCE: End Slope       = -9.02099e-17
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -910,8 +910,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    6
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -945,8 +945,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -2.03045e-15
    --- subroutine FORCE: End Slope       = -1.73771e-15
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -967,8 +967,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    7
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1002,8 +1002,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -3.3668e-14
    --- subroutine FORCE: End Slope       = -2.8266e-14
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1012,10 +1012,10 @@ VCS CALCULATION METHOD
    ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
    ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
    ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
-   ---   OH-               4.908520E-17  9.580973E-16 -1.261186E+02 -1.231473E+02
+   ---   OH-               4.908520E-17  9.580972E-16 -1.261186E+02 -1.231473E+02
    ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
    ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
-   ---   H+            1   4.908520E-17  9.580973E-16 -3.463505E+01 -3.166366E+01 -3.703806E+01 -3.109528E+01
+   ---   H+            1   4.908520E-17  9.580972E-16 -3.463505E+01 -3.166366E+01 -3.703806E+01 -3.109528E+01
    ---   Pt_electrons -5   1.418916E-01  6.173944E-02 -1.338128E+01 -1.026162E+01 -3.119662E+00 -2.971392E+00
    ---                                                        Norms of Delta G():  2.628260E+01  2.208784E+01
    ---           Phase_Name    KMoles(after update)
@@ -1024,8 +1024,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    8
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1061,8 +1061,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- subroutine FORCE: Beginning Slope = -4.63201e-13
    --- subroutine FORCE: End Slope       = -3.79596e-13
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1071,10 +1071,10 @@ VCS CALCULATION METHOD
    ---      Species Status Initial_KMoles Final_KMoles Initial_Mu/RT     Mu/RT     Init_Del_G/RT   Delta_G/RT
    ---   H2O(L)            3.000000E+00  3.000000E+00 -1.237156E+02 -1.237156E+02
    ---   H2                3.000000E+00  3.000000E+00 -1.571722E+01 -1.571722E+01
-   ---   OH-               9.580973E-16  1.585427E-14 -1.231473E+02 -1.203410E+02
+   ---   OH-               9.580972E-16  1.585427E-14 -1.231473E+02 -1.203410E+02
    ---   Na+               0.000000E+00  0.000000E+00 -4.234200E+02 -4.234200E+02
    ---   Cl-               0.000000E+00  0.000000E+00 -3.936581E+02 -3.936581E+02
-   ---   H+            1   9.580973E-16  1.585427E-14 -3.166366E+01 -2.885742E+01 -3.109528E+01 -2.548279E+01
+   ---   H+            1   9.580972E-16  1.585427E-14 -3.166366E+01 -2.885742E+01 -3.109528E+01 -2.548279E+01
    ---   Pt_electrons -5   6.173944E-02 -1.460326E-02 -1.026162E+01 -7.290227E+00 -2.971392E+00 -2.806245E+00
    ---                                                        Norms of Delta G():  2.208784E+01  1.812798E+01
    ---           Phase_Name    KMoles(after update)
@@ -1083,8 +1083,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169925E+02
    --- Increment counter increased, step is accepted:    9
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1119,8 +1119,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169926E+02
    --- subroutine FORCE: Beginning Slope = -5.14767e-12
    --- subroutine FORCE: End Slope       = -4.08899e-12
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1141,8 +1141,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168546E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169925E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169926E+02
    --- Increment counter increased, step is accepted:   10
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1176,8 +1176,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168550E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169926E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169929E+02
    --- subroutine FORCE: Beginning Slope = -4.46328e-11
    --- subroutine FORCE: End Slope       = -3.401e-11
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1198,8 +1198,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168546E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168550E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169926E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169929E+02
    --- Increment counter increased, step is accepted:   11
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1207,7 +1207,6 @@ VCS CALCULATION METHOD
 
 ==============================================================================================================
  Iteration =  11, Iterations since last evaluation of optimal basis =  10 (only major species)
-   --- vcs_phaseStabilityFE_value(0) has a value: 10.1209
    --- vcs_popPhaseID() called
    ---   Phase                 Status       F_e        MoleNum
    --------------------------------------------------------------------------
@@ -1234,8 +1233,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168550E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168574E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169929E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169953E+02
    --- subroutine FORCE: Beginning Slope = -2.88207e-10
    --- subroutine FORCE: End Slope       = -2.07311e-10
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1256,8 +1255,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168550E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168574E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169929E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169953E+02
    --- Increment counter increased, step is accepted:   12
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1293,8 +1292,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168574E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168675E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169953E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858170054E+02
    --- subroutine FORCE: Beginning Slope = -1.29918e-09
    --- subroutine FORCE: End Slope       = -8.59118e-10
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1315,8 +1314,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168574E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168675E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169953E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858170054E+02
    --- Increment counter increased, step is accepted:   13
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1351,8 +1350,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168675E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858168949E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858170054E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858170329E+02
    --- subroutine FORCE: Beginning Slope = -3.7198e-09
    --- subroutine FORCE: End Slope       = -2.15744e-09
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1373,8 +1372,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168675E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858168949E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858170054E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858170329E+02
    --- Increment counter increased, step is accepted:   14
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1408,8 +1407,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858168949E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169348E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858170329E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858170727E+02
    --- subroutine FORCE: Beginning Slope = -5.84185e-09
    --- subroutine FORCE: End Slope       = -2.71114e-09
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1430,8 +1429,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858168949E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169348E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858170329E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858170727E+02
    --- Increment counter increased, step is accepted:   15
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1465,8 +1464,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169348E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169589E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858170727E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858170968E+02
    --- subroutine FORCE: Beginning Slope = -3.93557e-09
    --- subroutine FORCE: End Slope       = -1.19817e-09
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1487,8 +1486,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169348E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169589E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858170727E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858170968E+02
    --- Increment counter increased, step is accepted:   16
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1524,8 +1523,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169589E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858170968E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858171008E+02
    --- subroutine FORCE: Beginning Slope = -7.25038e-10
    --- subroutine FORCE: End Slope       = -9.11329e-11
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1546,8 +1545,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169589E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858170968E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858171008E+02
    --- Increment counter increased, step is accepted:   17
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1582,8 +1581,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169629E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858171008E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858171009E+02
    --- subroutine FORCE: Beginning Slope = -1.48992e-11
    --- subroutine FORCE: End Slope       = -2.74663e-13
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1604,8 +1603,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169629E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858171008E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858171009E+02
    --- Increment counter increased, step is accepted:   18
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1639,8 +1638,8 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169629E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858171009E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858171009E+02
    --- subroutine FORCE: Beginning Slope = -5.2547e-15
    --- subroutine FORCE: End Slope       = -1.82974e-18
    --- subroutine FORCE produced no adjustments, s2 < 0
@@ -1661,8 +1660,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169629E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858171009E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858171009E+02
    --- Increment counter increased, step is accepted:   19
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1696,10 +1695,10 @@ VCS CALCULATION METHOD
    --- Finished Main Loop
    --- Subroutine vcs_dfe called for all species using tentative solution
    --- Subroutine vcs_deltag called for all noncomponents
-   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858169629E+02
-   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old       Dimensionless Gibbs Free Energy = -4.1829858171009E+02
+   --- Total tentative Dimensionless Gibbs Free Energy = -4.1829858171009E+02
    --- subroutine FORCE: Beginning Slope = -6.3758e-22
-   --- subroutine FORCE: End Slope       = -7.47111e-29
+   --- subroutine FORCE: End Slope       = -5.60333e-29
    --- subroutine FORCE produced no adjustments, s2 < 0
    -------------------------------------------------------------------------------------------------------
    --- Summary of the Update  (only major species):
@@ -1709,7 +1708,7 @@ VCS CALCULATION METHOD
    ---   OH-               5.417814E-09  5.417815E-09 -1.075996E+02 -1.075996E+02
    ---   Na+               0.000000E+00  0.000000E+00 -4.234204E+02 -4.234204E+02
    ---   Cl-               0.000000E+00  0.000000E+00 -3.936585E+02 -3.936585E+02
-   ---   H+            1   5.417814E-09  5.417815E-09 -1.611602E+01 -1.611602E+01 -4.850984E-07 -5.684342E-14
+   ---   H+            1   5.417814E-09  5.417815E-09 -1.611602E+01 -1.611602E+01 -4.850984E-07 -4.263256E-14
    ---   Pt_electrons -5  -4.140442E-01 -4.140621E-01  8.256714E+00  8.257410E+00 -6.963161E-04 -2.425492E-07
    ---                                                        Norms of Delta G():  4.923699E-04  1.715082E-07
    ---           Phase_Name    KMoles(after update)
@@ -1718,8 +1717,8 @@ VCS CALCULATION METHOD
    ---                h2gas =   3.0000000E+00
    ---       Pt_H2electrons =   0.0000000E+00
    -------------------------------------------------------------------------------------------------------
-   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858169629E+02
-   --- Total New Dimensionless Gibbs Free Energy = -4.1829858169629E+02
+   --- Total Old Dimensionless Gibbs Free Energy = -4.1829858171009E+02
+   --- Total New Dimensionless Gibbs Free Energy = -4.1829858171009E+02
    --- Increment counter increased, step is accepted:   20
    --- Normal element abundance check - passed
    --- Check for an optimum basis passed
@@ -1727,7 +1726,6 @@ VCS CALCULATION METHOD
    --- Subroutine vcs_dfe called for components and minors
    --- Subroutine vcs_deltag called for minor noncomponents
    --- Equilibrium check for minor species:  CONVERGENCE achieved
-   --- Subroutine vcs_deltag called for all noncomponents
    --- Equilibrium check for major species:  MAJOR SPECIES CONVERGENCE achieved
    --- Subroutine vcs_dfe called for components and minors
    --- Subroutine vcs_deltag called for minor noncomponents
@@ -1767,7 +1765,7 @@ VCS CALCULATION METHOD
                | Components|     H2O(L)         H2        OH-        Na+        Cl- |           |
  NonComponent  |   Moles   |          3          3   5.42e-09          0          0 | DG/RT Rxn |
 -----------------------------------------------------------------------------------------------
-   5 H+        |  5.42e-09 |      -1.00       0.00       1.00       0.00       0.00 | -5.68e-14 |
+   5 H+        |  5.42e-09 |      -1.00       0.00       1.00       0.00       0.00 | -4.26e-14 |
    6 Pt_electro|    -0.414 |       1.00      -0.50      -1.00       0.00       0.00 | -2.43e-07 |
 -----------------------------------------------------------------------------------------------
 
@@ -1779,11 +1777,11 @@ VCS CALCULATION METHOD
                   | Element   |          O          H         Na         Cl cn_NaCl_el          N          C         Fe          E         Si |                     |
     PhaseName     |KMolTarget |          3         12          0          0          0          0          0          0          0          0 |     Gibbs Total     |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-   0 NaCl_electro | 3.000e+00 |          3          6          0          0          0          0          0          0          0          0 | -3.71146910301E+02 |
+   0 NaCl_electro | 3.000e+00 |          3          6          0          0          0          0          0          0          0          0 | -3.71146910314E+02 |
    1 h2gas        | 3.000e+00 |          0          6          0          0          0          0          0          0          0          0 | -4.71516713957E+01 |
    2 Pt_H2electro | 0.000e+00 |          0          0          0          0          0          0          0          0          0          0 |  0.00000000000E+00 |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-    TOTAL         | 6.000e+00 |          3         12          0          0          0          0          0          0          0          0 | -4.18298581696E+02 |
+    TOTAL         | 6.000e+00 |          3         12          0          0          0          0          0          0          0          0 | -4.18298581710E+02 |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1807,13 +1805,13 @@ Chemical Potentials of the Species: (dimensionless)
 		(RT = 2.47896e+06 J/kmol)
     Name        TKMoles     StandStateChemPot      ln(AC)       ln(X_i)      |   F z_i phi   |    ChemPot    | (-lnMnaught)|  (MolNum ChemPot)|
 ---------------------------------------------------------------------------------------------------------------------------------------------------
- H2O(L)        3.0000000E+00 -1.2371564E+02   4.4741988E-13  -3.6118768E-09  | 0.0000000E+00 |   -1.2372E+02 |             |      -3.711469096E+02 |
+ H2O(L)        3.0000000E+00 -1.2371564E+02   4.4764192E-13  -3.6118768E-09  | 0.0000000E+00 |   -1.2372E+02 |             |      -3.711469096E+02 |
  H2            3.0000000E+00 -1.5717224E+01   0.0000000E+00   0.0000000E+00  | 0.0000000E+00 |   -1.5717E+01 |             |      -4.715167140E+01 |
- OH-           5.4178153E-09 -9.1483592E+01  -3.7171638E-04  -2.0132185E+01  |-0.0000000E+00 |   -1.0760E+02 |(4.01653E+00)|      -5.829548367E-07 |
+ OH-           5.4178153E-09 -9.1483592E+01  -3.7171638E-04  -2.0132185E+01  |-0.0000000E+00 |   -1.0760E+02 |(4.01653E+00)|      -5.829548353E-07 |
  Na+           0.0000000E+00 -1.0397603E+02  -3.7164114E-04  -3.2346053E+02  | 0.0000000E+00 |   -4.2342E+02 |(4.01653E+00)|      -0.000000000E+00 |
  Cl-           0.0000000E+00 -7.4214139E+01  -3.7163180E-04  -3.2346053E+02  |-0.0000000E+00 |   -3.9366E+02 |(4.01653E+00)|      -0.000000000E+00 |
- H+            5.4178153E-09  0.0000000E+00  -3.7171638E-04  -2.0132185E+01  | 0.0000000E+00 |   -1.6116E+01 |(4.01653E+00)|      -8.731363144E-08 |
- Pt_electrons -4.1406212E-01 -7.8586119E+00   0.0000000E+00   0.0000000E+00  | 1.6116022E+01 |    8.2574E+00 |             |      -3.419080755E+00 |
+ H+            5.4178153E-09  0.0000000E+00  -3.7171638E-04  -2.0132185E+01  | 0.0000000E+00 |   -1.6116E+01 |(4.01653E+00)|      -8.731363126E-08 |
+ Pt_electrons -4.1406212E-01 -7.8586119E+00   0.0000000E+00   0.0000000E+00  | 1.6116022E+01 |    8.2574E+00 |             |      -3.419080756E+00 |
                                                                                                                                   -4.182985817E+02
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1837,7 +1835,7 @@ Pressure    = 101325 Pa
 
 -------------------------------------------------------------
  Name             Mole_Number(kmol)  Mole_Fraction     Chem_Potential (J/kmol)
--------------------------------------------------------------
+--------------------------------------------------------------
 H2O(L)              3.000e+00         1.000e+00       -3.067e+08
 Cl-                 0.000e+00         0.000e+00       -1.000e+300
 H+                  5.418e-09         1.806e-09       -3.995e+07
@@ -1856,9 +1854,9 @@ Pressure    = 101325 Pa
  Name             Mole_Number     Mole_Fraction     Chem_Potential (J/kmol)
 -------------------------------------------------------------
 H2O(L)           3.000000e+00    1.000000e+00    -3.066857e+08
-Cl-              0.000000e+00    0.000000e+00    -1.040176e+09
+Cl-              0.000000e+00    0.000000e+00    -1.896377e+09
 H+               5.417815e-09    1.805938e-09    -3.995092e+07
-Na+              0.000000e+00    0.000000e+00    -1.113954e+09
+Na+              0.000000e+00    0.000000e+00    -1.970156e+09
 OH-              5.417815e-09    1.805938e-09    -2.667348e+08
 H2               3.000000e+00    1.000000e+00    -3.896232e+07
 Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
@@ -1901,11 +1899,11 @@ Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy      0.00658857          0.01328     J
-   internal energy    -1.22971e+06       -2.479e+06     J
-           entropy         64825.4        1.307e+05     J/K
-    Gibbs function    -1.93277e+07       -3.896e+07     J
- heat capacity c_p         14304.5        2.884e+04     J/K
+          enthalpy       0.0065886          0.01328     J
+   internal energy     -1.2297e+06       -2.479e+06     J
+           entropy           64825        1.307e+05     J/K
+    Gibbs function     -1.9328e+07       -3.896e+07     J
+ heat capacity c_p           14305        2.884e+04     J/K
  heat capacity c_v           10180        2.052e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
@@ -1923,12 +1921,12 @@ Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy         12.1851         0.006641     J
-   internal energy        -34.6163         -0.01887     J
+          enthalpy          12.185         0.006641     J
+   internal energy         -34.616         -0.01887     J
            entropy      1.1989e+08        6.534e+04     J/K
-    Gibbs function    -3.57452e+10       -1.948e+07     J
- heat capacity c_p     2.64552e+07        1.442e+04     J/K
- heat capacity c_v     2.64552e+07        1.442e+04     J/K
+    Gibbs function     -3.5745e+10       -1.948e+07     J
+ heat capacity c_p      2.6455e+07        1.442e+04     J/K
+ heat capacity c_v      2.6455e+07        1.442e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------
