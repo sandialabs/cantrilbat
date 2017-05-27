@@ -17,6 +17,8 @@
 #include "cantera/transport.h"
 #include "cttInput.h"
 
+#include "cantera/thermo.h"
+
 #include "TemperatureTable.h"
 #include "VoltageTable.h"
 
@@ -129,18 +131,37 @@ struct UnitsIO {
 };
 extern UnitsIO UIO;
 
+//==================================================================================================================================
+
+//! Reference state Entropy at 298 for the current ThermoPhase
+/*!
+ *  Length: Number of species in ThermoPhase
+ */
+extern std::vector<double> g_S298_refThermo;
+
+//==================================================================================================================================
+
+
+/**
+ *  This routine will print out a table of information about a species in an ideal gas thermo phse. It explicitly
+ *  assumes that a multitransport object has been created for  the phase, and it presumes a NASA polynomial form for the
+ *  species thermodynamics.
+ */
+extern void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& TT, Zuzax::DenseMatrix& Cp_Table,
+                               Zuzax::DenseMatrix& Hrel_Table, Zuzax::DenseMatrix& Grel_Table, Zuzax::DenseMatrix& S_Table,
+                               bool haveSpeciesTransportProps, Zuzax::DenseMatrix& Visc_Table, Zuzax::DenseMatrix& Cond_Table,
+                               Zuzax::DenseMatrix& Diff_Table, std::vector<double> H298, Zuzax::DenseMatrix& Urel_Table,
+                               std::vector<double> U298);
+
+
 /**********************************************************************/
 /**********************************************************************/
 /**********************************************************************/
 
 extern void print_char(const char c, const int nTimes);
 
-extern void print_bool(const bool b);
-
-extern void pr_if(const int i, const int w);
-
-extern void pr_sf(const std::string s, const int w);
-extern void pr_sf_lj(const std::string s, const int w, const int crop = 0);
+extern void pr_sf(const std::string& s, const int w);
+extern void pr_sf_lj(const std::string& s, const int w, const int crop = 0);
 extern void pr_df(const double d, const int w, const int p);
 extern void pr_dfp(const double d, const int p);
 extern void pr_de(const double d, const int w, const int p);

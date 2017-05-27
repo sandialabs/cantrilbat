@@ -1,9 +1,7 @@
 /**
  *  @file cttables.cpp
  *
- *  $Id: cttables.cpp 554 2013-03-01 23:28:07Z hkmoffa $
  */
-
 
 /*
  * Copywrite (2005) Sandia Corporation. Under the terms of
@@ -11,11 +9,10 @@
  * U.S. Government retains certain rights in this software.
  */
 
-
 #include "cttables.h"
-
 #include "cttInput.h"
 #include "cttables_kin.h"
+
 #include "BlockEntryGlobal.h"
 #include "cantera/base/clockWC.h"
 
@@ -23,6 +20,8 @@
 #include "importAllCTML.h"
 #include "importPL.h"
 #include "ReactingVolDomain.h"
+
+//==================================================================================================================================
 
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
@@ -34,6 +33,9 @@ using namespace std;
 using namespace BEInput;
 using namespace mdpUtil;
 
+//==================================================================================================================================
+// Global Data
+//==================================================================================================================================
 std::string InputFile;
 std::string TransportFile;
 std::string LogFile;
@@ -51,65 +53,36 @@ int DebugPrinting(0);
  */
 bool TopIsKineticsObject = false;
 
-std::vector<double> S298;
+std::vector<double> g_S298_refThermo;
 
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
+//==================================================================================================================================
 void print_char(const char c, const int nTimes)
 {
-    for (int i = 0; i < nTimes; i++) {
-        cout << c;
-    }
+    for (int i = 0; i < nTimes; i++) printf("%c", c);
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
-void print_bool(const bool b)
-{
-    if (b) {
-        cout << "yes";
-    } else {
-        cout << "no ";
-    }
-}
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-void pr_if(const int i, const int w)
-{
-    cout.width(w);
-    cout << i;
-}
-//===================================================================================================================================
+//==================================================================================================================================
 // Print a string with a minimum string width
 //    -> note the maximum string width is not controlled
-void pr_sf(const std::string s, const int w)
+void pr_sf(const std::string& s, const int w)
 {
-    int sz = s.size();
+    int sz = (int) s.size();
     if (sz < w) {
         int num = w - sz;
-        for (int i = 0; i < num; i++) {
-            cout << " ";
-        }
+        for (int i = 0; i < num; i++)  printf(" ");
     }
-    cout << s;
+    printf("%s", s.c_str());
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-void pr_sf_lj(const string s, const int w, const int crop)
+//==================================================================================================================================
+void pr_sf_lj(const std::string& s, const int w, const int crop)
 {
-    int sz = s.size();
+    int sz = (int) s.size();
     if (crop && sz > w) {
         const char* pos = s.c_str();
         for (int i = 0; i < w; i++, pos++) {
             cout << *pos;
         }
     } else {
-        cout << s;
+        std::cout << s;
     }
     if (sz < w) {
         int num = w - sz;
@@ -118,9 +91,7 @@ void pr_sf_lj(const string s, const int w, const int crop)
         }
     }
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
+//==================================================================================================================================
 /*
  * pr_df():
  *   print with a fixed precision and width in fixed format.
@@ -147,15 +118,7 @@ void pr_df(const double d, const int w, const int p)
     }
     printf("%*.*f", w, puse, d);
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-/**
- * pr_dfp()
- *   Print with a fixed precision and a variable width in a
- *   fixed format (i.e., non scientific notation)
- */
-
+//==================================================================================================================================
 void pr_dfp(const double d, const int p)
 {
     //int pp = cout.precision(p);
@@ -164,10 +127,7 @@ void pr_dfp(const double d, const int p)
     cout.precision(6);
     cout.setf(ios_base::fmtflags(0), ios_base::floatfield);
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
+//==================================================================================================================================
 void pr_de(const double d, const int w, const int p)
 {
     cout.setf(ios_base::scientific | ios_base::uppercase);
@@ -177,10 +137,7 @@ void pr_de(const double d, const int w, const int p)
     pp = cout.precision(pp);
     cout.unsetf(ios_base::scientific);
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
+//==================================================================================================================================
 void pr_dg(const double d, const int w, const int p)
 {
     if (d == 0.0) {
@@ -193,10 +150,7 @@ void pr_dg(const double d, const int w, const int p)
         pr_df(d, w, p);
     }
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
+//==================================================================================================================================
 void dnt(const int i)
 {
     if (i == 0) {
@@ -218,10 +172,7 @@ void dnt(const int i)
         print_char(' ', 8);
     }
 }
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
+//==================================================================================================================================
 void print_map(const map<string,double>& m, const string& prefix)
 {
     if (prefix.size() > 0) {
@@ -236,431 +187,7 @@ void print_map(const map<string,double>& m, const string& prefix)
         cout << it->first << ", " << it->second << ")";
     }
 }
-/**********************************************************************/
-/******* bltest_blessed.out
-***************************************************************/
-/**********************************************************************/
-/*
- *  print_phase:
- *        Phase is an enumerated int, as currently defined in
- *        Cantera. This program interprets the int, and prints
- *        a string
- */
-//void print_phase(const int p) {
-// if      (p == GAS)         cout << "GAS";
-// else if (p == LIQUID)      cout << "LIQUID";
-// else if (p == SOLID)       cout << "SOLID";
-// else if (p == PURE_FLUID) cout << "PURE_FLUID";
-// else {
-//   cout << "internal error" << endl;
-//   exit(-1);
-// }
-//}
-
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-/**
- *  This routine will print out a table of information about
- *  a species in an ideal gas thermo phse. It explicitly
- *  assumes that a multitransport object has been created for
- *  the phase, and it presumes a NASA polynomial form for the
- *  species thermodynamics.
- */
-void printIdealGasSpeciesTable(ThermoPhase& g,
-                               int k, TemperatureTable& TT,
-                               DenseMatrix& Cp_Table,
-                               DenseMatrix& Hrel_Table,
-                               DenseMatrix& Grel_Table,
-                               DenseMatrix& S_Table,
-                               bool haveSpeciesTransportProps,
-                               DenseMatrix& Visc_Table,
-                               DenseMatrix& Cond_Table,
-                               DenseMatrix& Diff_Table,
-                               vector<double> H298,
-                               DenseMatrix& Urel_Table,
-                               vector<double> U298)
-{
-    int tModel = 0;
-    /*
-     *  Get the species data object from the Mixture object
-     *  this is defined in the constituents.h file, and is
-     *  inherited by Mixture through BaseMix
-     */
-    string sName = g.speciesName(k);
-    /*
-     *  Dump out all of the information about the species
-     */
-    cout << endl;
-    print_char('=', 120);
-    cout << endl;
-    cout << "INFORMATION TABLE FOR IDEAL GAS SPECIES \""  << sName;
-    cout << "\" IN PHASE \"";
-    cout << g.id();
-    cout << "\"" << endl;
-    dnt(1);
-    cout << "Overall, this is the " << k+1
-         <<"th species in the mechanism" << endl;
-    dnt(1);
-    cout << "It is the " << k+1
-         <<"th species in the phase" << endl;
-
-    double elementEntropyTotal = entropyElem298(&g, (size_t) k);
-    double ch = g.charge(k);
-    if (ch != 0.0) {
-        double entCh = g.entropyCharge(ch);
-        elementEntropyTotal += entCh;
-    }
-
-    dnt(1);
-    cout << "Elemental Composition:" << endl;
-    for (int m = 0; m < (int) g.nElements(); m++) {
-        double na = g.nAtoms(k, m);
-        if (na != 0.0) {
-            dnt(3);
-            cout << g.elementName(m) << ": " << na <<endl;
-        }
-    }
-    dnt(1);
-    cout << "Electronic Charge = ";
-    pr_dfp(g.charge(k), 2);
-    cout << endl;
-    double mw = g.molecularWeight(k);
-    if (mw == Tiny) {
-        dnt(1);
-        cout << "Molecular Weight = 0 (set to " << Tiny << " for massF conversion)"
-             << " gm/mol" << endl;
-    } else {
-        dnt(1);
-        cout << "Molecular Weight = " << mw << " gm/mol" << endl;
-    }
-    if (GTran) {
-        tModel = GTran->model();
-    }
-    if (tModel == cMulticomponent || tModel == CK_Multicomponent) {
-        if (haveSpeciesTransportProps) {
-
-//TODO: figure out how to do this w/2.0
-            MultiTransport* mt = dynamic_cast<MultiTransport*>(GTran);
-            //GasTransportData td = mt->getGasTransportData(k);
-            dnt(1);
-            double wellDepth = mt->m_eps[k] / Boltzmann;
-            cout << "L-J Potential Well Depth = " << wellDepth << " K" << endl;
-            dnt(1);
-            double diameter = mt->m_sigma[k] * 1.0E10;
-            cout << "L-J collision diameter = "
-                 << diameter << " Angstroms" << endl;
-            dnt(1);
-            double dipoleMoment =  1.0E25 / SqrtTen * mt->m_dipole(k,k);
-            cout << "Dipole Moment = " << dipoleMoment << " Debeye" << endl;
-            dnt(1);
-            double polarizability = mt->m_alpha[k] * 1.0E30;
-            cout << "Polarizability = ";
-            pr_dfp(polarizability, 2);
-            cout << " Angstroms**3" << endl;
-            dnt(1);
-            double rotRelaxNumber = mt->m_zrot[k];
-            cout << "Rotational Collision Number at 298 K = "
-                 << rotRelaxNumber << endl;
-            dnt(1);
-            double crot = mt->m_crot[k];
-            if (crot == 0.0) {
-                cout <<"This molecule is monatomic" << endl;
-            } else if (crot == 1.0) {
-                cout <<"This molecule is linear" << endl;
-            } else if (crot == 1.5) {
-                cout <<"This molecule is nonlinear" << endl;
-            } else {
-                throw CanteraError("", "Unknown crot = " + ZZCantera::fp2str(crot));
-            }
-
-        }
-    }
-    if (tModel == cMixtureAveraged || tModel == CK_MixtureAveraged) {
-        if (haveSpeciesTransportProps) {
-            MixTransport* mt = dynamic_cast<MixTransport*>(GTran);
-
-            //	GasTransportData td = mt->getGasTransportData(k);
-            dnt(1);
-            double wellDepth = mt->m_eps[k] / Boltzmann;
-            cout << "L-J Potential Well Depth = "
-                 << wellDepth << " K" << endl;
-            dnt(1);
-            double diameter = mt->m_sigma[k] * 1.0E10;
-            cout << "L-J collision diameter = " << diameter
-                 << " Angstroms" << endl;
-            dnt(1);
-            double dipoleMoment = 1.0E25 / SqrtTen * mt->m_dipole(k,k);
-            cout << "Dipole Moment = " << dipoleMoment << " Debeye" << endl;
-            dnt(1);
-            double polarizability = mt->m_alpha[k] * 1.0E30;
-            cout << "Polarizability = ";
-            pr_dfp(polarizability, 2);
-            cout << " Angstroms**3" << endl;
-            dnt(1);
-            double rotRelaxNumber = mt->m_zrot[k];
-            cout << "Rotational Collision Number at 298 K = "
-                 <<  rotRelaxNumber << endl;
-            dnt(1);
-            double crot = mt->m_crot[k];
-            if (crot == 0.0) {
-                cout <<"This molecule is monatomic" << endl;
-            } else if (crot == 1.0) {
-                cout <<"This molecule is linear" << endl;
-            } else if (crot == 1.5) {
-                cout <<"This molecule is nonlinear" << endl;
-            } else {
-                throw CanteraError("", "Unknown crot = " + ZZCantera::fp2str(crot));
-            }
-
-        }
-    }
-    /*
-     * Print out the Heat of Formation at 298.15 K
-     */
-    dnt(1);
-    cout << "Heat of formation (298.15K) = ";
-    pr_dfp(H298[k], 4);
-    printf(" %8s\n", UIO.sGibbs.c_str());
-    dnt(1);
-    double mu_o = H298[k];
-    cout << "mu_0(298.15K) = H298[k]  " << mu_o << endl;
-
-    double deltaGf = 1.0E6 * H298[k] - 298.15 * S298[k] + 298.15 * elementEntropyTotal;
-    deltaGf /= 1.0E6;
-    dnt(1);
-    cout << "DeltaGf (298.15K) = ";
-    pr_dfp(deltaGf, 4);
-    printf(" %8s\n", UIO.sGibbs.c_str());
-    dnt(1);
-
-    /*
-     * Optionally print out the internal energy at 298.15 K
-     */
-    if (IOO.IntEnergyColumn) {
-        dnt(1);
-        cout << "Int Energy (298.15K, refPres) = ";
-        pr_dfp(U298[k], 4);
-        printf(" %8s\n", UIO.sGibbs.c_str());
-    }
-
-    /*
-     * Print out the reference pressure
-     */
-    SpeciesThermo& sThermo = g.speciesThermo();
-    double presRef = sThermo.refPressure(k);
-    double presRefPhase = g.refPressure();
-    if (IOO.OutputUnits == UNITS_KCAL_CGS) {
-        if (doubleEqual(presRef, presRefPhase)) {
-            dnt(1);
-            cout << "Phase and Species Reference Pressure = "
-                 << presRefPhase *10. << " erg cm-2" << endl;
-        } else {
-            dnt(1);
-            cout << "Phase Reference Pressure = "
-                 << presRefPhase *10. << " erg cm-2" << endl;
-            dnt(1);
-            cout << "Species Reference Pressure = "
-                 << presRef  *10. << " erg cm-2" << endl;
-        }
-    } else  if (IOO.OutputUnits == UNITS_KJOULE) {
-        if (doubleEqual(presRef, presRefPhase)) {
-            dnt(1);
-            cout << "Phase and Species Reference Pressure = "
-                 << presRefPhase << " Pa" << endl;
-        } else {
-            dnt(1);
-            cout << "Phase Reference Pressure = "
-                 << presRefPhase << " Pa" << endl;
-            dnt(1);
-            cout << "Species Reference Pressure = "
-                 << presRef  << " Pa" << endl;
-        }
-    }
-    double minTemp = g.minTemp(k);
-    double maxTemp = g.maxTemp(k);
-    dnt(1);
-    printf("Minimum Temperature = %g K\n", minTemp);
-    dnt(1);
-    printf("Maximum Temperature = %g K\n", maxTemp);
-
-    printThermoCoeffSpecies(&g, k);
-
-    /*
-     *  Dump out a species thermo and transport table
-     */
-    int tableWidth = 120;
-    print_char('-', 120);
-    if (IOO.IntEnergyColumn) {
-        tableWidth += 15;
-        print_char('-', 15);
-    }
-    if (IOO.ChemPotColumn) {
-        tableWidth += 15;
-        print_char('-', 15);
-    }
-    printf("\n");
-
-    double ptable = presRef;
-    if (IOO.UseRefPressureInThermoTables) {
-        printf("|------------ Thermo Functions for Reference Pressure");
-    } else {
-        printf("|----------- Thermo Functions for BathSpecies Pressure");
-        ptable = BG.Pressure;
-    }
-    if (IOO.OutputUnits == UNITS_KCAL_CGS) {
-        printf(" %11.3g erg cm-2", ptable * 10.0);
-    } else {
-        printf(" %11.3g Pa -----", ptable);
-    }
-    for (int i = 0; i < tableWidth-79; i++) {
-        printf("-");
-    }
-    printf("----|\n");
-
-    if (haveSpeciesTransportProps) {
-        printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
-               "   S       ");
-        if (IOO.IntEnergyColumn) {
-            printf("|  (U - U298)  ");
-        }
-        if (IOO.ChemPotColumn) {
-            printf("|     G_abs    ");
-        }
-        printf("|  Viscosity  Therm_Cond   Dif_Co_with_");;
-        string tmp = g.speciesName(BG.BathSpeciesID);
-        pr_sf_lj(tmp, 9, 1);
-        cout << "|" << endl;
-        if (IOO.OutputUnits == UNITS_KCAL_CGS) {
-            printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
-                   "(cal/mol*K)");
-            if (IOO.IntEnergyColumn) {
-                printf("|  (kcal/mol)  ");
-            }
-            if (IOO.ChemPotColumn) {
-                printf("|  (kcal/mol)  ");
-            }
-            printf("|   (gm/cm*sec) (erg/cm*sec*K)   (cm**2/sec)    ");
-            printf("|\n");
-        } else  if (IOO.OutputUnits == UNITS_KJOULE) {
-            printf("|      (K)  |  (kJ/gmol)      (kJ/gmol)      (J/gmol*K)     "
-                   "(J/gmol*K) ");
-            if (IOO.IntEnergyColumn) {
-                printf("|  (kJ/gmol)  ");
-            }
-            if (IOO.ChemPotColumn) {
-                printf("|  (kJ/gmol)  ");
-            }
-            printf("|   (kg/m*sec)    (J/m*sec*K)     (m**2/sec)    ");
-            printf("|\n");
-        }
-        printf("|-----------|-----------------------------------------------"
-               "-----------");
-        if (IOO.IntEnergyColumn) {
-            printf("|--------------");
-        }
-        if (IOO.ChemPotColumn) {
-            printf("|--------------");
-        }
-        printf("|-----------------------------------------------");
-        printf("|\n");
-    } else {
-        printf("|     Temp  |   (H-H298)        (G-H298)            Cp      "
-               "   S       ");
-        if (IOO.IntEnergyColumn) {
-            printf("|  (U - U298)    ");
-        }
-        if (IOO.ChemPotColumn) {
-            printf("|      G_abs     ");
-        }
-        printf("|\n");
-        if (IOO.OutputUnits == UNITS_KCAL_CGS) {
-            printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
-                   "(cal/mol*K)");
-            if (IOO.IntEnergyColumn) {
-                printf("|   (kcal/mol)  ");
-            }
-            if (IOO.ChemPotColumn) {
-                printf("|   (kcal/mol)  ");
-            }
-            printf("|\n");
-        } else  if (IOO.OutputUnits == UNITS_KJOULE) {
-            printf("|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    "
-                   "(J/gmol*K) ");
-            if (IOO.IntEnergyColumn) {
-                printf("|   (kJ/gmol)  ");
-            }
-            if (IOO.ChemPotColumn) {
-                printf("|   (kJ/gmol)  ");
-            }
-            printf("|\n");
-        }
-        printf("|-----------|-----------------------------------------------"
-               "-----------");
-        if (IOO.IntEnergyColumn) {
-            printf("|--------------");
-        }
-        if (IOO.ChemPotColumn) {
-            printf("|--------------");
-        }
-        printf("|\n");
-    }
-
-    bool outOfRange = false;
-    for (int i = 0; i < TT.size(); i++) {
-        outOfRange = false;
-        if (TT[i] + 1.0E-3 < minTemp) {
-            outOfRange = true;
-        }
-        if (TT[i] - 1.0E-3 > maxTemp) {
-            outOfRange = true;
-        }
-        if (outOfRange) {
-            cout << "|**";
-            pr_df(TT[i], 8, 2);
-            cout << "*|";
-        } else {
-            cout << "|  ";
-            pr_df(TT[i], 8, 2);
-            cout << " |";
-        }
-        pr_df(Hrel_Table(i,k), 11, 4);
-        pr_df(Grel_Table(i,k), 16, 4);
-        pr_df(Cp_Table(i,k), 15, 4);
-        pr_df(S_Table(i,k), 13, 4);
-        printf("   ");
-        if (IOO.IntEnergyColumn) {
-            printf("|");
-            double valu = Urel_Table(i,k);
-            pr_df(valu, 13, 4);
-            printf(" ");
-        }
-        if (IOO.ChemPotColumn) {
-            printf("|");
-            double valmu = Grel_Table(i,k) + H298[k];
-            pr_df(valmu, 13, 4);
-            printf(" ");
-        }
-        printf("| ");
-        if (haveSpeciesTransportProps) {
-            pr_de(Visc_Table(i,k), 12, 3);
-            pr_de(Cond_Table(i,k), 14, 3);
-            pr_dg(Diff_Table(i,k), 14, 3);
-            cout << "      |";
-        }
-        printf("\n");
-    }
-    print_char('-', 120);
-    if (IOO.IntEnergyColumn) {
-        print_char('-', 15);
-    }
-    if (IOO.ChemPotColumn) {
-        print_char('-', 15);
-    }
-    printf("\n");
-}
-
-//=====================================================================================================================================
+//==================================================================================================================================
 /**
  *  This routine will print out a table of information about
  *  a species in an ideal gas thermo phse. It explicitly
@@ -724,7 +251,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
         if (na != 0.0) {
             double se = g_ptr->entropyElement298(m, true);
             dnt(3);
-            pr_sf(g_ptr->elementName(m), 3);
+            printf("%3s", g_ptr->elementName(m).c_str());
             cout << ": " << na << "      |              ";
             if (se == ENTROPY298_UNKNOWN) {
                 printf("[UNAVAILABLE] ");
@@ -738,8 +265,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
     if (ch != 0.0 &&  elementEntropyTotal != ENTROPY298_UNKNOWN) {
         double entCh = g_ptr->entropyCharge(ch);
         dnt(3);
-        pr_sf("E-", 3);
-        cout << ": " << ch << "      |              ";
+        cout << " E-: " << ch << "      |              ";
         pr_df(-entCh / 1.0E3, 13, 3);
         printf("\n");
         elementEntropyTotal += entCh;
@@ -779,16 +305,14 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
      * Optionally print out the internal energy at 298.15 K
      */
     if (IOO.IntEnergyColumn) {
-        dnt(1);
-        cout << "Int Energy (298.15K, refPres) = ";
+        dnt(1); printf(" Int Energy (298.15K, refPres) = ");
         pr_dfp(U298[k], 4);
         printf(" %8s\n", UIO.sGibbs.c_str());
     }
 
-    double deltaGf = 1.0E6 * H298[k] - 298.15 * S298[k] + 298.15 * elementEntropyTotal;
+    double deltaGf = 1.0E6 * H298[k] - 298.15 * g_S298_refThermo[k] + 298.15 * elementEntropyTotal;
     deltaGf /= 1.0E6;
-    dnt(1);
-    cout << "DeltaGf (298.15K) = ";
+    dnt(1);  printf("DeltaGf (298.15K) = ");
     pr_dfp(deltaGf, 4);
     printf(" %8s\n", UIO.sGibbs.c_str());
     dnt(1);
@@ -1020,7 +544,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
                 vector<double>& U298)
 {
 
-    int nsp = g.nSpecies();
+    size_t nsp = g.nSpecies();
     double T298 = 298.15;
     double* h_RT = mdp_alloc_dbl_1(nsp, 0.0);
     double* u_RT = mdp_alloc_dbl_1(nsp, 0.0);
@@ -1057,17 +581,20 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
     g.setState_TPX(T298, P, y);
     g.getEnthalpy_RT(h_RT);
     g.getEnthalpy_RT_ref(h_RT);
-    g.getEntropy_R_ref(DATA_PTR(S298));
+    if (g_S298_refThermo.size() < nsp) {
+        g_S298_refThermo.resize(nsp, 0.0);
+    }
+    g.getEntropy_R_ref(DATA_PTR(g_S298_refThermo));
     g.getGibbs_RT_ref(g_RT);
 
 
     if (IOO.IntEnergyColumn) {
         g.getIntEnergy_RT_ref(u_RT);
     }
-    for (int i = 0; i < nsp; i++) {
+    for (size_t i = 0; i < nsp; i++) {
         H298[i] = h_RT[i] * T298 * RGibbs;
         U298[i] = u_RT[i] * T298 * RGibbs;
-        S298[i] *= GasConstant;
+        g_S298_refThermo[i] *= GasConstant;
     }
 
     g.getEntropy_R_ref(S_R);
@@ -1090,7 +617,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
          * zero off the 298 K heat of formation. Also,
          * translate to real units.
          */
-        for (int j = 0; j < nsp; j++) {
+        for (size_t j = 0; j < nsp; j++) {
             Cp_Table(i, j)   = cp_R[j] * UIO.mEntropy;
             Hrel_Table(i, j) = h_RT[j] * RGibbs * T;
             Urel_Table(i, j) = u_RT[j] * RGibbs * T;
@@ -1104,7 +631,7 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
 
     if (IOO.UseRefPressureInThermoTables) {
         SpeciesThermo& sThermo = g.speciesThermo();
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; k++) {
             double presRef = sThermo.refPressure(k);
             if (! doubleEqual(P, presRef)) {
                 g.setState_TPX(T298, presRef, y);
@@ -1148,18 +675,14 @@ getThermoTables(TemperatureTable& TT, DenseMatrix& Cp_Table,
     mdp_safe_free((void**) &g_RT);
     mdp_safe_free((void**) &cp_R);
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
+//==================================================================================================================================
 /**
  * Setup the transport tables for gases. This function assumes
  * that the phase is a gas, and that the Multitransport class
  * handles the calculation of transport properties.
  */
 void
-getGasTransportTables(TemperatureTable& TT, ThermoPhase& g,
-                      DenseMatrix& Visc_Table,
-                      DenseMatrix& Cond_Table,
+getGasTransportTables(TemperatureTable& TT, ThermoPhase& g, DenseMatrix& Visc_Table, DenseMatrix& Cond_Table,
                       DenseMatrix& Diff_Table)
 {
 
@@ -1297,7 +820,7 @@ getGenericTransportTables(TemperatureTable& TT, ThermoPhase& g,
     }
     g.setState_TPX(BG.Temperature, BG.Pressure, BG.Xmol);
 }
-//======================================================================================================================
+//==================================================================================================================================
 void
 setAllBathSpeciesConditions(PhaseList* pl)
 {
@@ -1306,7 +829,7 @@ setAllBathSpeciesConditions(PhaseList* pl)
         setBathSpeciesConditions(*gThermoMainPhase, pl, 0);
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 void
 printAllBathSpeciesConditions(PhaseList* pl)
 {
@@ -1315,10 +838,7 @@ printAllBathSpeciesConditions(PhaseList* pl)
         printBathSpeciesConditions(*gThermoMainPhase, pl, 1);
     }
 }
-//======================================================================================================================
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
+//==================================================================================================================================
 /*
  *  Set the bath gas for the one ThermoPhase. Note, we hardcode
  *  what we want here. An input deck might be the more appropriate
@@ -1366,9 +886,7 @@ setBathSpeciesConditions(ThermoPhase& g, PhaseList* pl, int printLvl)
         printBathSpeciesConditions(g, pl, printLvl);
     }
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
+//==================================================================================================================================
 /*
  *  prints the bath gas for the one thermophase.
  */
@@ -1443,10 +961,10 @@ printBathSpeciesConditions(ThermoPhase& g, PhaseList* pl, int printLvl)
         dnt(4);
         cout << "-----------------------------------------------------------------------------";
         cout << endl;
-        string spN;
+        std::string spN;
         for (int k = 0; k < (int) g.nSpecies(); k++) {
             dnt(4);
-            pr_if(k+1, 5);
+            printf("%5d", k+1);
             spN = g.speciesName(k);
             pr_sf(spN, 16);
             pr_df(BG.XmolPLPhases[iph][k], 16, 4);
@@ -1461,13 +979,7 @@ printBathSpeciesConditions(ThermoPhase& g, PhaseList* pl, int printLvl)
         delete [] act;
     }
 }
-
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-
-bool setupGasTransport(XML_Node* xmlPhase, ThermoPhase& g)
-
+//==================================================================================================================================
 /*************************************************************
  *
  * setupGasTransport
@@ -1475,6 +987,7 @@ bool setupGasTransport(XML_Node* xmlPhase, ThermoPhase& g)
  *    This routine sets up the transport for the entire
  *    application
  *************************************************************/
+bool setupGasTransport(XML_Node* xmlPhase, ThermoPhase& g)
 {
     bool retn = true;
     double T = 300.;
@@ -1499,12 +1012,7 @@ bool setupGasTransport(XML_Node* xmlPhase, ThermoPhase& g)
     }
     return retn;
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-
-void print_Mixture_members(ThermoPhase& g)
-
+//==================================================================================================================================
 /*************************************************************
  *
  * print_Mixture_members():
@@ -1513,6 +1021,7 @@ void print_Mixture_members(ThermoPhase& g)
  *    ThermoPhase class itself.
  *
  *************************************************************/
+void print_Mixture_members(ThermoPhase& g)
 {
     print_char('-', 64);
     cout << endl;
@@ -1541,11 +1050,7 @@ void print_Mixture_members(ThermoPhase& g)
     }
     delete []y;
 }
-
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-
+//==================================================================================================================================
 void printUsage()
 {
     cout << "usage: cttables [-h] [-d DebugLvl] [cantera.xml] < command_file.txt "
@@ -1556,10 +1061,7 @@ void printUsage()
     cout << "       cttables -help_cmdfile  <command_file.txt"
          << endl;
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-
+//==================================================================================================================================
 int main(int argc, char** argv)
 {
     FILE* inputFP = stdin;
@@ -1894,9 +1396,6 @@ int main(int argc, char** argv)
             DenseMatrix S_Table(TT_ptr->size(), nSpecies);
             std::vector<double> H298(nSpecies);
             std::vector<double> U298(nSpecies);
-            if (nSpecies > S298.size()) {
-                S298.resize(nSpecies);
-            }
             getThermoTables(*TT_ptr, Cp_Table, Hrel_Table, Grel_Table, S_Table, H298, *gThermoMainPhase, Urel_Table, U298);
 
             /*
