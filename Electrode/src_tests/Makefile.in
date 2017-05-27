@@ -71,7 +71,7 @@ LCXX_END_LIBS = @LCXX_END_LIBS@
 # flags passed to the C++ compiler/linker for the linking step
 LCXX_FLAGS = @CXXFLAGS@
 
-all: $(PROGRAM) .depends
+all: $(PROGRAM) .dependsT
 
 # How to compile C++ source files to object files
 .cpp.o:
@@ -85,11 +85,10 @@ all: $(PROGRAM) .depends
 DEPENDS=$(TOBJS:.o=.d)
 
 $(TOBJS): Makefile
-
 $(DEPENDS): Makefile
 
-
 rebaseline:
+
 
 $(PROGRAM): $(TOBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
               $(CTPADDS_DEP)
@@ -100,22 +99,17 @@ $(PROGRAM): $(TOBJS) $(ELECTRODE_DEP) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC_DEP) \
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	@MAKE@ .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
-# Do the test -> For the windows vc++ environment, we have to skip checking on
-#                whether the program is uptodate, because we don't utilize make
-#                in that environment to build programs.
 test:
-ifeq ($(os_is_win), 1)
-else
-	@MAKE@ $(PROGRAM)
-endif
+
 
 clean:
-	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends 
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends  .dependsT
 
 install:
 	@INSTALL@ -c $(PROGRAM) @cta_bindir@

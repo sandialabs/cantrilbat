@@ -69,14 +69,13 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM)
+all: .dependsT $(PROGRAM)
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
-
 
 OBJ_ANODE =  $(OBJ)
 
@@ -113,6 +112,7 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
 
 
+
 ############################################################################
 # section to set up depends
 ###########################################################################
@@ -129,10 +129,11 @@ DEPENDS = $(OBJ_ANODE:.o=.d)
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 test: 
 	@gmake -s
@@ -150,7 +151,7 @@ rebaseline:
 
 ##############################################################################
 
-$(OBJ_MPEQUIL): Makefile
+$(OBJ_ANODE): Makefile
 $(DEPENDS): Makefile
 
 $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
