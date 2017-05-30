@@ -15,6 +15,7 @@
 
 #include "BlockEntryGlobal.h"
 #include "cantera/base/clockWC.h"
+#include "cantera/base/PrintCtrl.h"
 
 // Kinetics includes
 #include "importAllCTML.h"
@@ -71,25 +72,6 @@ void pr_sf(const std::string& s, const int w)
         for (int i = 0; i < num; i++)  printf(" ");
     }
     printf("%s", s.c_str());
-}
-//==================================================================================================================================
-void pr_sf_lj(const std::string& s, const int w, const int crop)
-{
-    int sz = (int) s.size();
-    if (crop && sz > w) {
-        const char* pos = s.c_str();
-        for (int i = 0; i < w; i++, pos++) {
-            cout << *pos;
-        }
-    } else {
-        std::cout << s;
-    }
-    if (sz < w) {
-        int num = w - sz;
-        for (int i = 0; i < num; i++) {
-            cout << " ";
-        }
-    }
 }
 //==================================================================================================================================
 /*
@@ -189,10 +171,8 @@ void print_map(const map<string,double>& m, const string& prefix)
 }
 //==================================================================================================================================
 /**
- *  This routine will print out a table of information about
- *  a species in an ideal gas thermo phse. It explicitly
- *  assumes that a multitransport object has been created for
- *  the phase, and it presumes a NASA polynomial form for the
+ *  This routine will print out a table of information about  a species in an ideal gas thermo phase. It explicitly
+ *  assumes that a multitransport object has been created for  the phase, and it presumes a NASA polynomial form for the
  *  species thermodynamics.
  */
 void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
@@ -209,6 +189,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
                                   DenseMatrix& Urel_Table,
                                   vector<double> U298)
 {
+   PrintCtrl pc;
     /*
      *  Get the species data object from the Mixture object
      *  this is defined in the constituents.h file, and is
@@ -411,8 +392,8 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
             printf("|     G_abs     ");
         }
         printf("|  Viscosity  Therm_Cond   Dif_Co_with_");
-        string tmp = g_ptr->speciesName(BG.BathSpeciesID);
-        pr_sf_lj(tmp, 9, 1);
+        std::string tmp = g_ptr->speciesName(BG.BathSpeciesID);
+        pc.pr_str_MinMax(tmp, 9, 9);
         printf("|\n");
         if (IOO.OutputUnits == UNITS_KCAL_CGS) {
             printf("|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    "
@@ -515,8 +496,10 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
         }
         printf("| ");
         if (haveSpeciesTransportProps) {
-            pr_de(Visc_Table(i,k), 12, 3);
-            pr_de(Cond_Table(i,k), 14, 3);
+            pc.pr_de(Visc_Table(i,k), 3, 12, 12);
+            //pr_de(Visc_Table(i,k), 12, 3);
+            //pr_de(Visc_Table(i,k), 12, 3);
+            pc.pr_de(Cond_Table(i,k), 3, 14, 14);
             pr_dg(Diff_Table(i,k), 14, 3);
             printf("      |");
         }

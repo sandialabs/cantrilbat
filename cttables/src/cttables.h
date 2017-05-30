@@ -161,7 +161,6 @@ extern void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureT
 extern void print_char(const char c, const int nTimes);
 
 extern void pr_sf(const std::string& s, const int w);
-extern void pr_sf_lj(const std::string& s, const int w, const int crop = 0);
 extern void pr_df(const double d, const int w, const int p);
 extern void pr_dfp(const double d, const int p);
 extern void pr_de(const double d, const int w, const int p);

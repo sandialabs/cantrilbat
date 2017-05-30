@@ -17,6 +17,7 @@
 #include "cantera/thermo/PDSS.h"
 #include "cantera/thermo/ThermoPhase.h"
 #include "cantera/thermo/IdealSolidSolnPhase.h"
+#include "cantera/base/PrintCtrl.h"
 
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
@@ -484,6 +485,7 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
                                Zuzax::DenseMatrix& Diff_Table, std::vector<double> H298, Zuzax::DenseMatrix& Urel_Table,
                                std::vector<double> U298)
 {
+    PrintCtrl pc;
     int tModel = 0;
     /*
      *  Get the species data object from the Mixture object
@@ -709,7 +711,8 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
         }
         printf("|  Viscosity  Therm_Cond   Dif_Co_with_");;
         std::string tmp = g.speciesName(BG.BathSpeciesID);
-        pr_sf_lj(tmp, 9, 1);
+        pc.pr_str_MinMax(tmp, 9, 9);
+        //pr_sf_lj(tmp, 9, 1);
 
         cout << "|" << endl;
         if (IOO.OutputUnits == UNITS_KCAL_CGS) {
