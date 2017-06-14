@@ -43,17 +43,13 @@ using std::endl;
  */
 //======================================================================================================================
 
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
+//=================================================================================================================================
 /*
  * Calculate the arrhenius parameters from a fit from two points.
  * Ea/R is returned. This has units of Kelvin.
  *
  */
-void calcArrhParam(double k1, double T1,
-                   double k2, double T2,
-                   double& Afac, double& EadivR)
+void calcArrhParam(double k1, double T1, double k2, double T2, double& Afac, double& EadivR)
 {
     if (T1 <= 0.0 || T2 <= 0.0) {
         Afac = k1;
@@ -74,7 +70,7 @@ void calcArrhParam(double k1, double T1,
     Afac = exp(log(k1) + EadivR/T1);
     return;
 }
-
+//=================================================================================================================================
 //!  Fit two current vs voltage points to an exponential relation
 //!  based on the overpotential
 /*!
@@ -101,9 +97,7 @@ void calcArrhParam(double k1, double T1,
  *  Currently, the signs are passed through unchanged
  *
  */
-void calcBF(double i1, double V1, double i2,
-            double V2, double Erxn, int iform, double FdRT,
-            double& i0, double& alpha)
+void calcBF(double i1, double V1, double i2, double V2, double Erxn, int iform, double FdRT, double& i0, double& alpha)
 {
 
     double n1 = V1 - Erxn;
@@ -143,26 +137,11 @@ void calcBF(double i1, double V1, double i2,
 
     return;
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-/**
- * Setup the tables for the reactions.
- */
-void
-getKineticsTables(TemperatureTable& TT, PhaseList* pl,
-                  ZZCantera::Kinetics& kin,
-                  DenseMatrix& kfwd_Table,
-                  DenseMatrix& krev_Table,
-                  DenseMatrix& deltaG_Table,
-                  DenseMatrix& deltaH_Table,
-                  DenseMatrix& deltaS_Table,
-                  DenseMatrix& Afwd_Table,
-                  DenseMatrix& EafwddivR_Table,
-                  DenseMatrix& Arev_Table,
-                  DenseMatrix& EarevdivR_Table,
-                  DenseMatrix& kfwdPrime_Table,
-                  DenseMatrix& krevPrime_Table)
+//=================================================================================================================================
+void getKineticsTables(TemperatureTable& TT, PhaseList* pl, ZZCantera::Kinetics& kin, DenseMatrix& kfwd_Table,
+                  DenseMatrix& krev_Table, DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table, DenseMatrix& deltaS_Table,
+                  DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table, DenseMatrix& Arev_Table, DenseMatrix& EarevdivR_Table,
+                  DenseMatrix& kfwdPrime_Table, DenseMatrix& krevPrime_Table)
 {
     int i, j, iph;
     int nReactions = kin.nReactions();
@@ -272,10 +251,7 @@ getKineticsTables(TemperatureTable& TT, PhaseList* pl,
 
     delete [] Rarray;
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-
+//=================================================================================================================================
 std::string iunit_string(int i)
 {
     std::string val;
@@ -304,7 +280,7 @@ std::string iunit_string(int i)
     }
     return val;
 }
-
+//=================================================================================================================================
 bool isInteger(double num)
 {
     int inum = (int) num;
@@ -314,10 +290,7 @@ bool isInteger(double num)
     }
     return false;
 }
-/*****************************************************************/
-/*****************************************************************/
-/*****************************************************************/
-
+//=================================================================================================================================
 std::string formUnitsString(double unitsA[6])
 {
     std::string num;
@@ -406,13 +379,9 @@ std::string formUnitsString(double unitsA[6])
     }
     return val;
 }
-
 //==================================================================================================================================
 /*
- *  This routine will print out a table of information a single
- *  reaction, j.
- *
- *
+ *  This routine will print out a table of information a single reaction, j.
  */
 void printKineticsTable(PhaseList* pl, int j,
                         TemperatureTable& TT,
@@ -1021,29 +990,16 @@ RxnMolChangeLocal::RxnMolChangeLocal(Kinetics* kinPtr, ExtraGlobalRxn* egr) :
     }
 
 }
-
-
+//==================================================================================================================================
 RxnMolChangeLocal::~RxnMolChangeLocal()
 {
-
 }
 //==================================================================================================================================
-
-void processCurrentVsPotTable(RxnMolChange* rmc,
-                              PhaseList* pl, int irxn,
-                              TemperatureTable& TT,
-                              Kinetics& kin,
-                              DenseMatrix& kfwd_Table,
-                              DenseMatrix& krev_Table,
-                              DenseMatrix& deltaG_Table,
-                              DenseMatrix& deltaH_Table,
-                              DenseMatrix& deltaS_Table,
-                              DenseMatrix& Afwd_Table,
-                              DenseMatrix& EafwddivR_Table,
-                              DenseMatrix& Arev_Table,
-                              DenseMatrix& EarevdivR_Table,
-                              DenseMatrix& kfwdPrime_Table,
-                              DenseMatrix& krevPrime_Table)
+void processCurrentVsPotTable(RxnMolChange* rmc, PhaseList* pl, int irxn, TemperatureTable& TT,
+                              Kinetics& kin, DenseMatrix& kfwd_Table, DenseMatrix& krev_Table,
+                              DenseMatrix& deltaG_Table, DenseMatrix& deltaH_Table, DenseMatrix& deltaS_Table,
+                              DenseMatrix& Afwd_Table, DenseMatrix& EafwddivR_Table, DenseMatrix& Arev_Table,
+                              DenseMatrix& EarevdivR_Table, DenseMatrix& kfwdPrime_Table, DenseMatrix& krevPrime_Table)
 {
     int iph, k, e;
     ThermoPhase* tp = 0;
@@ -1342,29 +1298,20 @@ void processCurrentVsPotTable(RxnMolChange* rmc,
     print_char('-', pwidth);
     printf("\n");
 }
-
-
+//==================================================================================================================================
 RxnTempTableStuff::RxnTempTableStuff(int irxn, int irxnGE) :
     m_irxn(irxn),
     m_irxnGlobalExtra(irxnGE)
 {
 }
-
+//==================================================================================================================================
 RxnTempTableStuff::~RxnTempTableStuff()
 {
 }
-
-/*
- *
- */
-void
-getGERKineticsTables(TemperatureTable& TT, PhaseList* pl,
-                     ZZCantera::Kinetics& kin,
-                     ExtraGlobalRxn& egr,
+//==================================================================================================================================
+void getGERKineticsTables(TemperatureTable& TT, PhaseList* pl, ZZCantera::Kinetics& kin, ExtraGlobalRxn& egr,
                      RxnTempTableStuff& rts)
 {
-
-
     int i, iph;
     int nReactions = kin.nReactions();
     int nPhases = kin.nPhases();
@@ -1506,8 +1453,7 @@ getGERKineticsTables(TemperatureTable& TT, PhaseList* pl,
     delete [] Rarray;
     delete [] R2array;
 }
-
-//===============================================================================================
+//==================================================================================================================================
 struct StoichVectors {
     StoichVectors() :
         kKinV(0),
@@ -1799,10 +1745,7 @@ void printAffinityHeader(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int iRxn, 
     print_char('-', pwidth);
     printf("\n");
 
-
-
     delete [] actConc;
-
 }
 //==================================================================================================================================
 void processAffinityTable(ZZCantera::RxnMolChange* rmc, PhaseList* pl, int irxn, TemperatureTable& TT,
@@ -2138,14 +2081,9 @@ void printGERKineticsTable(PhaseList* pl, int iGER,
     print_char('-', tableWidth);
     cout << "|" << endl;
 }
-
-/*************************************************************************/
-void processGERCurrentVsPotTable(RxnMolChange* rmc,
-                                 PhaseList* pl, int iGERrxn,
-                                 TemperatureTable& TT,
-                                 Kinetics& kin,
-                                 ExtraGlobalRxn& egr,
-                                 RxnTempTableStuff& rts)
+//==================================================================================================================================
+void processGERCurrentVsPotTable(RxnMolChange* rmc, PhaseList* pl, int iGERrxn, TemperatureTable& TT,
+                                 Kinetics& kin, ExtraGlobalRxn& egr, RxnTempTableStuff& rts)
 {
     int iph, k, e;
     ThermoPhase* tp = 0;
@@ -2480,7 +2418,6 @@ void processGERCurrentVsPotTable(RxnMolChange* rmc,
     printf("\n");
 
 
-
     dnt(1);
     print_char('-', pwidth);
     printf("\n");
@@ -2492,4 +2429,4 @@ void processGERCurrentVsPotTable(RxnMolChange* rmc,
 #endif
 
 }
-
+//==================================================================================================================================

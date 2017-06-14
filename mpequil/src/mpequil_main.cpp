@@ -100,16 +100,16 @@ int mpequil_convert(MPEQUIL_INPUT *prob_input, ZZVCSnonideal::VCS_PROB *vprob) {
       // gather some useful info about the element constraint
       //int elType = vprob->m_elType[e];
       //int elActive = vprob->ElActive[e];
-      string elName = vprob->ElName[e];
+      std::string elName = vprob->ElName[e];
       // Zero out the element abundance for this element.
-      vprob->gai[e] = 0.0;
+      vprob->m_elemAbund[e] = 0.0;
       // Now find the equivalent element in the multiphase object by comparing names
       int mixNE = mix->nElements();
       for (int ie = 0; ie < mixNE; ie++) {
-	string mname = mix->elementName(ie);
+	std::string mname = mix->elementName(ie);
 	if (elName == mname) {
 	  //! override the element abundances
-	  vprob->gai[e] = prob_input->elementMoles[ie];
+	  vprob->m_elemAbund[e] = prob_input->elementMoles[ie];
 	}
       }
     }
