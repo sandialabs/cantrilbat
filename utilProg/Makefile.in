@@ -58,13 +58,14 @@ PURIFY=@PURIFY@
 #############################################################################
 
 PROGB=BarinConversion_LiOH
-OBJ_TOT= $(PROGB).o BarinConversion_Ca.o BarinConversion_C.o
+OBJ_TOT= $(PROGB).o BarinConversion_Ca.o BarinConversion_C.o  thermoUtilProg.o \
+          BarinConversion_Cu.o
 
 
 BarinConversion_EXE=$(PROGB)$(EXE_EXT)
 
 all:  $(BarinConversion_EXE)  .dependsT BarinConversion_Ca BarinConversion_CaO \
-      BarinConversion_C
+      BarinConversion_C BarinConversion_Cu
 
 ############################################################################
 # section to set up compiler rules
@@ -119,30 +120,37 @@ $(DEPENDS): Makefile
 
 ##############################################################################
 
-$(BarinConversion_EXE): $(PROGB).o   \
+$(BarinConversion_EXE): $(PROGB).o  thermoUtilProg.o  \
          $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(BarinConversion_EXE)  $(PROGB).o   \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(BarinConversion_EXE)  $(PROGB).o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
-BarinConversion_Ca: BarinConversion_Ca.o \
+BarinConversion_Ca: BarinConversion_Ca.o  thermoUtilProg.o\
          $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_Ca BarinConversion_Ca.o   \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_Ca BarinConversion_Ca.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
-BarinConversion_CaO: BarinConversion_CaO.o \
+BarinConversion_CaO: BarinConversion_CaO.o  thermoUtilProg.o\
          $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_CaO BarinConversion_CaO.o   \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_CaO BarinConversion_CaO.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
-BarinConversion_C: BarinConversion_C.o \
+BarinConversion_C: BarinConversion_C.o thermoUtilProg.o \
          $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_C BarinConversion_C.o   \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_C BarinConversion_C.o thermoUtilProg.o  \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+BarinConversion_Cu: BarinConversion_Cu.o thermoUtilProg.o \
+         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_Cu BarinConversion_Cu.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
