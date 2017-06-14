@@ -58,12 +58,13 @@ PURIFY=@PURIFY@
 #############################################################################
 
 PROGB=BarinConversion_LiOH
-OBJ_TOT= $(PROGB).o
+OBJ_TOT= $(PROGB).o BarinConversion_Ca.o BarinConversion_C.o
 
 
 BarinConversion_EXE=$(PROGB)$(EXE_EXT)
 
-all:  $(BarinConversion_EXE)  .dependsT
+all:  $(BarinConversion_EXE)  .dependsT BarinConversion_Ca BarinConversion_CaO \
+      BarinConversion_C
 
 ############################################################################
 # section to set up compiler rules
@@ -121,6 +122,27 @@ $(DEPENDS): Makefile
 $(BarinConversion_EXE): $(PROGB).o   \
          $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(BarinConversion_EXE)  $(PROGB).o   \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+BarinConversion_Ca: BarinConversion_Ca.o \
+         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_Ca BarinConversion_Ca.o   \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+BarinConversion_CaO: BarinConversion_CaO.o \
+         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_CaO BarinConversion_CaO.o   \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+BarinConversion_C: BarinConversion_C.o \
+         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o BarinConversion_C BarinConversion_C.o   \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 

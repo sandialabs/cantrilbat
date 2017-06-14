@@ -30,6 +30,13 @@ static void ind(size_t n)
 //==================================================================================================================================
 
 // -------------------------------------------------------
+//! Heat Capacity in Barin format
+/*!
+ *  Hist inputs are in the form of 4 parameters listed as:
+ *     A   B   C   D
+ *
+ *  The input here is the same as the table input
+ */
 struct Cp_Barin {
    double A ;
    double B ;
@@ -44,6 +51,10 @@ struct Cp_Barin {
    {
    }
 
+   //! Calculate the value of Cp in J/gmol/K
+   /*!
+    *
+    */
    double value(double T) 
    {
       double value_cals = A + B * 1.0E-3 * T + C * 1.0E5 / (T * T) + D * 1.0E-6 * T * T;
@@ -77,6 +88,12 @@ struct Thermo_Shomate {
      *  @param[in]         Hf_Barin      heat of formation at 298.15 in kcal/gmol
      */
     void convert_Hf_Barin_ToShomate(double Hf_kcals);
+
+    //! Set the S298 value
+    /*!
+     *  @param[in]           S298                Entropy at 298 (Joules / gmol /K)
+     */
+    void set_S298(double S298);
 
     void convert_S298_Barin_ToShomate(double S298_cals);
 
@@ -118,6 +135,15 @@ void Thermo_Shomate::convert_Hf_Barin_ToShomate (double Hf_kcals)
   double HfmF =  a_s * t + b_s * t * t / 2.0 + c_s * t * t * t / 3.0 + d_s * t * t * t * t / 4.0  - e_s / t;
   Hf298_s = Hf_kcals  * 4.184;
   f_s = Hf298_s - HfmF;
+}
+//==================================================================================================================================
+void Thermo_Shomate::set_S298(double S298)
+{
+   double t = 298.15 / 1000.;
+   //  \tilde{s}^0(T) = A\ln t + B t + \frac{C t^2}{2} + \frac{D t^3}{3} - \frac{E}{2t^2}  + G.
+   double SmG = a_s * log(t) +  b_s * t + c_s * t * t / 2.0 + d_s * t * t * t / 3.0  - e_s / (2.0 * t * t);
+   S298_s = S298;
+   g_s = S298_s - SmG;
 }
 //==================================================================================================================================
 void Thermo_Shomate::convert_S298_Barin_ToShomate(double S298_cals)
@@ -183,6 +209,10 @@ void Thermo_Shomate::convert_DeltaS_Barin_ToShomate(const Thermo_Shomate& solid,
    S298_s = s(298.15);
 }
 //==================================================================================================================================
+//! Do a phase change
+/*!
+ *
+ */
 void Thermo_Shomate::convert_PhaseChange_Barin_ToShomate(const Thermo_Shomate& solid, double T_melt, double deltaH_kcals,
                                                          double deltaS_cals)
 {
@@ -257,57 +287,60 @@ void Thermo_Shomate::printThermoBlock(int n, double tmax, double tmin )
 int main () {
 
 
-  Cp_Barin Cp_LiOH(11.99, 8.24, -2.27, 0.0);
+  Cp_Barin Cp_Cgraph_SolA(0.026, 9.307, -0.354, -4.155);   //298 - 737
+  Cp_Barin Cp_Cgraph_SolB(5.841, 0.104, -7.559, 0.0);
 
-  Thermo_Shomate ts_LiOH;
+  Thermo_Shomate ts_Cgraph_SolA;
 
-  ts_LiOH.convertCpBarinToShomate(Cp_LiOH);
+  ts_Cgraph_SolA.convertCpBarinToShomate(Cp_Cgraph_SolA);
 
-  ts_LiOH.convert_Hf_Barin_ToShomate(-115.84);
+  ts_Cgraph_SolA.convert_Hf_Barin_ToShomate(0.0);
 
-  ts_LiOH.convert_S298_Barin_ToShomate(10.2);
+  //ts_Cgraph_SolA.convert_S298_Barin_ToShomate(1.372);
+  // Set it to the exact value that we are using for the element Ca entropy contribution
+  ts_Cgraph_SolA.set_S298(5.740);
 
 
-  double dens = 1.46;  // gm / cm3;
-  double mw = 2.0 * 6.941 + 32.066; 
+  double dens = 2.15;  // gm / cm3;
+  double mw = 12.011; 
   double mv = mw / dens * 1.0E-3;
   
-  printf("      <!-- species LiOH(S)   -->\n");
+  printf("      <!-- species Cgraph_SolA   -->\n");
  
-  printf("      <species name=\"LiOH(S)\">\n");
-  printf("        <atomArray> Li:1 O:1 H:1 </atomArray>\n");
-  ts_LiOH.printThermoBlock(8, 1700., 250.);
+  printf("      <species name=\"Cgraph_SolA\">\n");
+  printf("        <atomArray> C:1 </atomArray>\n");
+  ts_Cgraph_SolA.printThermoBlock(8, 1100 , 200.);
   printf("        <standardState  model=\"constant_incompressible\">\n");
-  printf("          <!-- molar volume from Li2O(s) based on density of %g gm/cm3 --> \n", dens);
+  printf("          <!-- molar volume from C(s) based on density of %g gm/cm3 --> \n", dens);
   printf("          <molarVolume units=\"m3/kmol\">  %-11.8g </molarVolume>\n", mv);
   printf("        </standardState>\n");
   printf("      </species>\n");
   printf("                \n");
 
   //---------------------------------------------------------------------------------------------------------------
-  // do LiOH(l)
 
-  Thermo_Shomate LiOH_l;
+  Thermo_Shomate ts_Cgraph_SolB;
 
-  Cp_Barin Cp_LiOH_l(20.74, 0.0, 0.0, 0.0);
-  Thermo_Shomate ts_LiOH_l;
-  ts_LiOH_l.convertCpBarinToShomate(Cp_LiOH_l);
-  
+  ts_Cgraph_SolB.convertCpBarinToShomate(Cp_Cgraph_SolB);
+  ts_Cgraph_SolB.convert_PhaseChange_Barin_ToShomate(ts_Cgraph_SolA, 1100., 0.00, 0.0);
 
-  ts_LiOH_l.convert_DeltaH_Barin_ToShomate(ts_LiOH, 744.3, 5.01);
-  ts_LiOH_l.convert_DeltaS_Barin_ToShomate(ts_LiOH, 744.3, 6.731);
-  ts_LiOH_l.convert_PhaseChange_Barin_ToShomate(ts_LiOH, 744.3, 5.01, 6.731);
+  printf("      <!-- species Cgraph_SolB  -->\n");
 
-  printf("      <!-- species LiOH(L)   -->\n");
-  printf("      <species name=\"LiOH(L)\">\n");
-  printf("       <atomArray> Li:1 O:1 H:1 </atomArray>\n");
-  ts_LiOH_l.printThermoBlock(8, 2500., 1500.);
+  printf("      <species name=\"Cgraph_SolB\">\n");
+  printf("       <atomArray> C:1  </atomArray>\n");
+  ts_Cgraph_SolB.printThermoBlock(8, 4073, 1100.);
   printf("       <standardState  model=\"constant_incompressible\">\n");
-  printf("          <!-- molar volume from Li2O(s) --> \n");
+  printf("          <!-- molar volume from C(s) --> \n");
   printf("          <molarVolume units=\"m3/kmol\">  %-11.8g </molarVolume>\n", mv);
   printf("       </standardState>\n");
   printf("      </species>\n");
   printf("                \n");
 
+  //---------------------------------------------------------------------------------------------------------------
+
+
   return 0;
+
 }
+
+
