@@ -211,7 +211,7 @@ int  mpequil_equilibrate(MPEQUIL_INPUT *prob_input, int estimateInit, int printF
       printf(" (J/kmol)\n");
     printf("--------------------------------------------------"
 	   "-----------\n");
-    for (size_t i = 0; i < vprob->nspecies; i++) {
+    for (size_t i = 0; i < vprob->nSpecies(); i++) {
       printf("%-12s", vprob->SpName[i].c_str());
       if (vprob->SpeciesUnknownType[i] == 
 	  VCS_SPECIES_TYPE_INTERFACIALVOLTAGE) {

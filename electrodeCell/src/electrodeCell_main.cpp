@@ -182,7 +182,7 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
       printf(" (J/kmol)\n");
     printf("--------------------------------------------------"
 	   "-----------\n");
-    for (int i = 0; i < (int) vprob->nspecies; i++) {
+    for (int i = 0; i < (int) vprob->nSpecies(); i++) {
       printf("%-12s", vprob->SpName[i].c_str());
       if (vprob->SpeciesUnknownType[i] == 
 	  VCS_SPECIES_TYPE_INTERFACIALVOLTAGE) {
