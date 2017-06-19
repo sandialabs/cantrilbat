@@ -76,7 +76,7 @@ namespace Cantera
 
   
     if (!thermo_ptr) {
-      throw CanteraError("ElectrolyteKinetics Constructor",
+      throw ZuzaxError("ElectrolyteKinetics Constructor",
 			 "Must supply a valid ThermoPhase object");
     }
     Kinetics::addPhase(*thermo_ptr);
@@ -370,7 +370,7 @@ namespace Cantera
     for (i = 0; i < m_nrev; i++) {
       size_t irxn = m_revindex[i];
       if (irxn < 0 || irxn >= nReactions()) {
-	throw CanteraError("ElectrolyteKinetics",
+	throw ZuzaxError("ElectrolyteKinetics",
 			   "illegal value: irxn = "+int2str(irxn));
       }
       m_rkc[irxn] = exp(m_rkc[irxn]*rrt);
@@ -981,7 +981,7 @@ namespace Cantera
   void ElectrolyteKinetics::init() { 
     m_kk = thermo().nSpecies();
     if (m_kk <= 0) {
-      throw CanteraError("ElectrolyteKinetics::init",
+      throw ZuzaxError("ElectrolyteKinetics::init",
 			 "m_kk is zero or less");
     }
     m_rrxn.resize(m_kk);
@@ -1014,7 +1014,7 @@ namespace Cantera
     string path = findInputFile(inputFile);
     ifstream fin(path.c_str());
     if (!fin) {
-      throw CanteraError("ElectrolyteKinetics::importMechanism",
+      throw ZuzaxError("ElectrolyteKinetics::importMechanism",
 			 "could not open "
 			 +path+" for reading.");
     }
@@ -1056,7 +1056,7 @@ namespace Cantera
     string idp = phaseNode.id();
     if (id.size() > 0) {
       if (idp != id) {
-	throw CanteraError("initThermo", 
+	throw ZuzaxError("initThermo", 
 			   "phasenode and Id are incompatible");
       }
     }
@@ -1069,7 +1069,7 @@ namespace Cantera
      */
     int index = phaseIndex(idp);
     if (index != 0) {
-      throw CanteraError("ElectrolyteKinetics::importMechanism",
+      throw ZuzaxError("ElectrolyteKinetics::importMechanism",
 			 "phaseNode set to incompatible phase");
     }
 
@@ -1082,7 +1082,7 @@ namespace Cantera
      * If there is a phaseArray object, throw an exception
      */
     if (phaseNode.hasChild("phaseArray")) {
-      throw CanteraError("ElectrolyteKinetics::importMechanism", 
+      throw ZuzaxError("ElectrolyteKinetics::importMechanism", 
 			 "phaseArray element not allowed" );
     }
 
@@ -1093,7 +1093,7 @@ namespace Cantera
      */
     string kintype = phaseNode.child("kinetics")["model"];
     if (kintype != "ElectrolyteKinetics") {
-      throw CanteraError("ElectrolyteKinetics::importMechanism", 
+      throw ZuzaxError("ElectrolyteKinetics::importMechanism", 
 			 "kinetics model must have model "
 			 "attribute ElectrolyteKinetics");
 	  
@@ -1120,27 +1120,27 @@ namespace Cantera
     switch (eosT) {
     case cIdealSolidSolnPhase0:
       if (kinsubtype != "unity") {
-	throw CanteraError("ElectrolyteKinetics::importMechanism", 
+	throw ZuzaxError("ElectrolyteKinetics::importMechanism", 
 			   "kinetics submodel must have submodel "
 			   "attribute \"unity\"");
       }
       break;
     case cIdealSolidSolnPhase1:
       if (kinsubtype != "molar_volume") {
-	throw CanteraError("ElectrolyteKinetics::importMechanism", 
+	throw ZuzaxError("ElectrolyteKinetics::importMechanism", 
 			   "kinetics submodel must have submodel "
 			   "attribute \"molar volume\"");
       }	    
       break;
     case cIdealSolidSolnPhase2:
       if (kinsubtype != "solvent_volume") {
-	throw CanteraError("ElectrolyteKinetics::importMechanism", 
+	throw ZuzaxError("ElectrolyteKinetics::importMechanism", 
 			   "kinetics submodel must have submodel "
 			   "attribute \"solvent volume\"");
       }
       break;
     default:
-      throw CanteraError("ElectrolyteKinetics::importMechanism", 
+      throw ZuzaxError("ElectrolyteKinetics::importMechanism", 
 			 "Unknown standard concentration model");
       break;
     }
@@ -1156,7 +1156,7 @@ namespace Cantera
      */
     bool ok = installReactionArrays(phaseNode, *this, idp);
     if (!ok) {
-      throw CanteraError("ElectrolyteKinetics::importMechanism",
+      throw ZuzaxError("ElectrolyteKinetics::importMechanism",
 			 "installReactionArrays returned an error flag");
     }
   }

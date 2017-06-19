@@ -30,7 +30,6 @@ namespace Zuzax
 namespace Cantera
 #endif 
 {
-
 //==================================================================================================================================
 //!  Given an XML_Node pointing to a phase, add the phase to a PhaseList object
 /*!
@@ -47,8 +46,7 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
 {
     thermo_t_double* tPhase = processExpandedThermoPhase(xmlphase);
     if (!tPhase) { 
-	throw CanteraError("processPhasePL()",
-			   "ERROR: tPhase = 0 while processing phase in file, " + canteraFile);
+	throw ZuzaxError("processPhasePL()", "ERROR: tPhase = 0 while processing phase in file, " + canteraFile);
     }
     std::string dimS = xmlphase->operator[]("dim");
     size_t iphGlob;
@@ -59,7 +57,7 @@ static void processPhasePL(XML_Node* const xmlphase, PhaseList* const pl, const 
     } else if (dimS == "1") {
         iphGlob = pl->addEdgePhase(tPhase, xmlphase);
     } else {
-        throw CanteraError("processPhasePL()", "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
+        throw ZuzaxError("processPhasePL()", "While processing file, " + canteraFile + ", unknown dim string: " + dimS);
     }
     pl->movePhaseOwnership(2, iphGlob);
 }
@@ -106,10 +104,13 @@ size_t importAllCTMLIntoPhaseList(PhaseList* const pl, const std::string& canter
         xc = get_XML_File(canteraFile);
     }  catch (CanteraError) {
         showErrors();
-        throw CanteraError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
+        throw ZuzaxError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
+    }  catch (ZuzaxError) {
+        showErrors();
+        throw ZuzaxError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
     }
     if (!xc) {
-        throw CanteraError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
+        throw ZuzaxError("importAllCTMLIntoPhaseList", "Could not find/process file, " + canteraFile + " -> aborting");
     }
     // Search the first 3 levels of the XML tree for a phase node. -> I don't think there is any need to go further.
     findXMLAllPhasePL(xc, pl, canteraFile, 2);

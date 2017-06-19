@@ -93,11 +93,11 @@ Kinetics* processExpandedKinetics(XML_Node* const xmlPhase, std::vector<thermo_t
 {
     Kinetics* kin = nullptr;
     if (tpList.size() == 0) {
-        throw CanteraError("processExpandedKinetics()", "Expecting tpList to be filled before entry\n");
+        throw ZuzaxError("processExpandedKinetics()", "Expecting tpList to be filled before entry\n");
     }
     thermo_t_double* tp = tpList[0];
     if (!tp) {
-        throw CanteraError("processExpandedKinetics()", "Expecting tpList to be filled before entry\n");
+        throw ZuzaxError("processExpandedKinetics()", "Expecting tpList to be filled before entry\n");
     }
 
     XML_Node& kinNode = xmlPhase->child("kinetics");
@@ -141,11 +141,11 @@ InterfaceKinetics* processExpandedInterfaceKinetics(XML_Node* const xmlPhase, st
 {
     InterfaceKinetics* kin = nullptr;
     if (tpList.size() == 0) {
-        throw CanteraError("processExpandedKinetics()", "Expecting tpList to be filled before entry");
+        throw ZuzaxError("processExpandedKinetics()", "Expecting tpList to be filled before entry");
     }
     thermo_t_double* tp = tpList[0];
     if (!tp) {
-        throw CanteraError("processExpandedKinetics()", "Expecting tpList to be filled before entry\n");
+        throw ZuzaxError("processExpandedKinetics()", "Expecting tpList to be filled before entry\n");
     }
     XML_Node& kinNode = xmlPhase->child("kinetics");
     std::string kModel = kinNode.attrib("model");
@@ -156,14 +156,14 @@ InterfaceKinetics* processExpandedInterfaceKinetics(XML_Node* const xmlPhase, st
             Kinetics* kinBase = newKineticsMgr(*xmlPhase, tpList);
             kin = dynamic_cast<InterfaceKinetics*>(kinBase);
             if (kin == 0) {
-                throw CanteraError("ProcessExpandedInterfaceKinetics()", " Dynamic cast to InterfaceKinetics failed");
+                throw ZuzaxError("ProcessExpandedInterfaceKinetics()", " Dynamic cast to InterfaceKinetics failed");
             }
         } catch (UnknownKineticsModel& ee) {
             XML_Node& kinNode = xmlPhase->child("kinetics");
             std::string kModel = kinNode.attrib("model");
             if (kModel == "Electrode") {
                 popError();
-                throw CanteraError(" processExpandedInterfaceKinetics", "Electrode model selected");
+                throw ZuzaxError(" processExpandedInterfaceKinetics", "Electrode model selected");
                 kin = 0;
                 popError();
             } else if (kModel == "NONE") {

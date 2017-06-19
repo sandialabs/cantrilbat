@@ -67,7 +67,7 @@ SolidKinetics(thermo_t* thermo_ptr) :
     m_kdata = new SolidKineticsData;
 
     if (!thermo_ptr) {
-	throw CanteraError("SolidKinetics Constructor",
+	throw ZuzaxError("SolidKinetics Constructor",
 			   "Must supply a valid ThermoPhase object");
     }
     /*
@@ -867,7 +867,7 @@ addReaction(ReactionData& r) {
     if (r.reactionType == ELEMENTARY_RXN) {
         addElementaryReaction(r);
     } else {
-	throw CanteraError("addReaction", "Unknown reaction type");
+	throw ZuzaxError("addReaction", "Unknown reaction type");
     }
 
     BulkKinetics::addReaction(r);
@@ -876,7 +876,7 @@ addReaction(ReactionData& r) {
      * Check m_finalized
      */
     if (m_finalized) {
-	throw CanteraError("addReaction():", 
+	throw ZuzaxError("addReaction():", 
 			   "Mechanism already finalized");
     }
 	
@@ -1149,7 +1149,7 @@ addReaction(ReactionData& r) {
         BulkKinetics::init();
         m_NumKinSpecies = thermo().nSpecies();
 	if (m_NumKinSpecies <= 0) {
-	  throw CanteraError("SolidKinetics::init",
+	  throw ZuzaxError("SolidKinetics::init",
 			     "m_NumKinSpecies is zero or less");
 	}
         //m_rrxn.resize(m_NumKinSpecies);
@@ -1185,7 +1185,7 @@ addReaction(ReactionData& r) {
 	string path = findInputFile(inputFile);
 	std::ifstream fin(path.c_str());
 	if (!fin) {
-	  throw CanteraError("SolidKinetics::importMechanism",
+	  throw ZuzaxError("SolidKinetics::importMechanism",
 			     "could not open "
 			     +path+" for reading.");
 	}
@@ -1226,7 +1226,7 @@ addReaction(ReactionData& r) {
 	string idp = phaseNode.id();
 	if (id.size() > 0) {
 	  if (idp != id) {
-	    throw CanteraError("initThermo", 
+	    throw ZuzaxError("initThermo", 
 			       "phasenode and Id are incompatible");
 	  }
 	}
@@ -1239,7 +1239,7 @@ addReaction(ReactionData& r) {
 	 */
 	int index = phaseIndex(idp);
 	if (index != 0) {
-	  throw CanteraError("SolidKinetics::importMechanism",
+	  throw ZuzaxError("SolidKinetics::importMechanism",
 			     "phaseNode set to incompatible phase");
 	}
 
@@ -1252,7 +1252,7 @@ addReaction(ReactionData& r) {
 	 * If there is a phaseArray object, throw an exception
 	 */
         if (phaseNode.hasChild("phaseArray")) {
-	  throw CanteraError("SolidKinetics::importMechanism", 
+	  throw ZuzaxError("SolidKinetics::importMechanism", 
 			     "phaseArray element not allowed" );
         }
 
@@ -1263,7 +1263,7 @@ addReaction(ReactionData& r) {
 	 */
         string kintype = phaseNode.child("kinetics")["model"];
 	if (kintype != "SolidKinetics") {
-	  throw CanteraError("SolidKinetics::importMechanism", 
+	  throw ZuzaxError("SolidKinetics::importMechanism", 
 			     "kinetics model must have model "
 			     "attribute SolidKinetics");
 	  
@@ -1290,27 +1290,27 @@ addReaction(ReactionData& r) {
 	switch (eosT) {
 	case cIdealSolidSolnPhase0:
 	    if (kinsubtype != "unity") {
-	      throw CanteraError("SolidKinetics::importMechanism", 
+	      throw ZuzaxError("SolidKinetics::importMechanism", 
 				 "kinetics submodel must have submodel "
 				 "attribute \"unity\"");
 	    }
 	    break;
         case cIdealSolidSolnPhase1:
 	    if (kinsubtype != "molar_volume") {
-	      throw CanteraError("SolidKinetics::importMechanism", 
+	      throw ZuzaxError("SolidKinetics::importMechanism", 
 				 "kinetics submodel must have submodel "
 				 "attribute \"molar volume\"");
 	    }	    
 	    break;
 	case cIdealSolidSolnPhase2:
 	    if (kinsubtype != "solvent_volume") {
-	      throw CanteraError("SolidKinetics::importMechanism", 
+	      throw ZuzaxError("SolidKinetics::importMechanism", 
 				 "kinetics submodel must have submodel "
 				 "attribute \"solvent volume\"");
 	    }
 	    break;
 	default:
-	    throw CanteraError("SolidKinetics::importMechanism", 
+	    throw ZuzaxError("SolidKinetics::importMechanism", 
 			       "Unknown standard concentration model");
 	    break;
 	}
@@ -1326,7 +1326,7 @@ addReaction(ReactionData& r) {
 	 */
         bool ok = installReactionArrays(phaseNode, *this, idp);
 	if (!ok) {
-	  throw CanteraError("SolidKinetics::importMechanism",
+	  throw ZuzaxError("SolidKinetics::importMechanism",
 			     "installReactionArrays returned an error flag");
 	}
     }
