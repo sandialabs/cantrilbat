@@ -196,3 +196,53 @@ void Thermo_Shomate::printThermoBlock(int n, double tmax, double tmin )
      ind(n); printf("</thermo>\n");
 }
 //==================================================================================================================================
+void Thermo_NASA::adjustH(double T, double Hinput)
+{
+    double hnow = h(T);
+    double HinputRT = Hinput * 1.0E6 /( Zuzax::GasConstant * T);
+    double hnowRT = hnow / ( Zuzax::GasConstant * T);
+
+    if (fabs(hnowRT - HinputRT ) > 1.0E-14) {
+         m_coeffs[0] += (HinputRT -  hnowRT ) * T;
+    }
+
+    double hnew = h(T);
+
+    if (fabs(hnew - Hinput*1.0E6) > 1.0E-9) {
+         printf("error\n");
+         exit(-1);
+    }
+}
+//==================================================================================================================================
+void Thermo_NASA::adjustS(double T, double Sinput)
+{
+    double snow = s(T);
+    double SinputR = Sinput * 1.0E3 /( Zuzax::GasConstant );
+    double snowR = snow / ( Zuzax::GasConstant );
+
+    if (fabs(snowR - SinputR ) > 1.0E-14) {
+         m_coeffs[1] += (SinputR - snowR );
+    }
+
+    double snew = s(T);
+
+    if (fabs(snew - Sinput*1.0E3) > 1.0E-9) {
+         printf("error\n");
+         exit(-1);
+    }
+}
+//==================================================================================================================================
+void Thermo_NASA::printThermoBlock(int n)
+{
+     ind(n); printf("<!-- thermo , Hf298 = %g kJ/gmol S298= %g J/gmol/K -->\n", Hf298_s, S298_s);
+     ind(n); printf("<thermo>\n");
+     ind(n); printf("  <NASA Pref=\"1 bar\" Tmax=\"%g\" Tmin=\"%g\" P0=\"100000\">\n", thigh_, tlow_);
+     ind(n); printf("     <floatArray name=\"coeffs\" size=\"7\">\n");
+     int m = n + 6;
+     ind(m); printf("%-18.10E %-18.10E %-18.10E %-18.10E", m_coeffs[0], m_coeffs[1], m_coeffs[2], m_coeffs[3]);
+     ind(m); printf("%-18.10E %-18.10E %-18.10E", m_coeffs[4], m_coeffs[5], m_coeffs[6]);
+     ind(n); printf(" </floatArray>\n");
+     ind(n); printf("  </NASA>\n");
+     ind(n); printf("</thermo>\n");
+}
+//==================================================================================================================================

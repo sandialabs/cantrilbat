@@ -16,6 +16,8 @@
 #include <cmath>
 #include <cstdlib>
 
+#include "cantera/base/ct_defs.h"
+
 //==================================================================================================================================
 //! print an indent 
 /*!
@@ -116,6 +118,128 @@ struct Thermo_Shomate {
 
     void printThermoBlock( int n, double tmax, double tmin = 250.);
 };
+//==================================================================================================================================
+//! Thermodynamics polynomial for NASA
+/*!
+ *
+ */
+struct Thermo_NASA {
+     double Hf298_s;
+     double S298_s;
+     double tlow_;
+     double thigh_;
+     double pref_;
+     mutable double tt[6];
+     double m_coeffs[7];
+
+     Thermo_NASA() :
+         Hf298_s(0.0),
+         S298_s(0.0),
+         tlow_(5.0),
+         thigh_(1000.),
+         pref_(100000.)
+      {
+        for (size_t i = 0; i < 7; i++) {
+            m_coeffs[i] = 0.0;
+        }
+      }
+
+      Thermo_NASA(double tlow, double thigh, double pref, const double* coeffs) :
+          Hf298_s(0.0),
+          S298_s(0.0),
+          tlow_(tlow),
+          pref_(pref)
+     {
+        for (size_t i = 0; i < 7; i++) {
+            m_coeffs[i] = coeffs[i];
+        }
+        Hf298_s = h(298.15);
+        S298_s = s(298.15);
+     }
+
+     void updateTemperaturePoly(double T) const {
+        tt[0] = T;
+        tt[1] = T * T;
+        tt[2] = tt[1] * T;
+        tt[3] = tt[2] * T;
+        tt[4] = 1.0 / T;
+        tt[5] = std::log(T);
+    }
+
+    double cp(double T) const {
+        updateTemperaturePoly(T);
+        double ct0 = m_coeffs[2];          // a0
+        double ct1 = m_coeffs[3]*tt[0];    // a1 * T
+        double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
+        double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
+        double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+
+        double cpR= ct0 + ct1 + ct2 + ct3 + ct4;
+        return cpR * Zuzax::GasConstant;
+    }
+
+    double h(double T) const {
+        updateTemperaturePoly(T);
+        double ct0 = m_coeffs[2];          // a0
+        double ct1 = m_coeffs[3]*tt[0];    // a1 * T
+        double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
+        double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
+        double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+
+        double hRT = ct0 + 0.5*ct1 + ct2 / 3.0 + 0.25*ct3 + 0.2*ct4 + m_coeffs[0]*tt[4];     // last term is a5/T
+
+        return hRT * T * Zuzax::GasConstant;
+    }
+
+    double s(double T) const {
+        updateTemperaturePoly(T);
+        double ct0 = m_coeffs[2];          // a0
+        double ct1 = m_coeffs[3]*tt[0];    // a1 * T
+        double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
+        double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
+        double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+
+        double sR = ct0*tt[5] + ct1 + 0.5*ct2 + ct3/3.0 +0.25*ct4 + m_coeffs[1];          // last term is a6
+  
+        return sR * Zuzax::GasConstant;
+     }
+
+     //! adjust the value of H given in kJ/gmol at a particular temperature
+     /*!
+      *   @param[in]
+      */
+     void adjustH(double T, double Hinput);
+
+     void adjustS(double T, double Sinput);
+
+    void printThermoBlock( int n );
+};
+//==================================================================================================================================
+
+struct nasaMatch {
+    double tempMatch;
+    Thermo_NASA* nlow;
+    Thermo_NASA* nhigh;
+
+    nasaMatch(double T, Thermo_NASA* nl, Thermo_NASA* nh) :
+        tempMatch(T),
+        nlow(nl),
+        nhigh(nh)
+    {
+    }
+};
+
+struct Regions_Nasa
+{
+    std::vector<Thermo_NASA*> NASA_list;
+
+    std::vector<nasaMatch> match_list;
+
+    
+
+};
+
+
 // -------------------------------------------------------
 
 

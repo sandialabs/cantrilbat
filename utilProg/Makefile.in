@@ -59,13 +59,13 @@ PURIFY=@PURIFY@
 
 PROGB=BarinConversion_LiOH
 OBJ_TOT= $(PROGB).o BarinConversion_Ca.o BarinConversion_C.o  thermoUtilProg.o \
-          BarinConversion_Cu.o
+          BarinConversion_Cu.o findRefState.o
 
 
 BarinConversion_EXE=$(PROGB)$(EXE_EXT)
 
 all:  $(BarinConversion_EXE)  .dependsT BarinConversion_Ca BarinConversion_CaO \
-      BarinConversion_C BarinConversion_Cu
+      BarinConversion_C BarinConversion_Cu findRefState
 
 ############################################################################
 # section to set up compiler rules
@@ -155,7 +155,18 @@ BarinConversion_Cu: BarinConversion_Cu.o thermoUtilProg.o \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
+
+findRefState: findRefState.o thermoUtilProg.o \
+         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o findRefState  findRefState.o thermoUtilProg.o  \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
 ##################################################################################
+install:
+	@INSTALL@ -d @cta_bindir@
+	@INSTALL@ -c findRefState @cta_bindir@
 
 clean:
 	$(RM) $(OBJ_TOT) $(BarinConversion_EXE) *.d .depends .dependsT
