@@ -424,7 +424,7 @@ MetalSHEelectrons     4     1        0 UnkType: -1             1     0.000000e+0
 	Solve a constant T, P problem:
 		T    = 298.15 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0    KCl_electrolyte             6                          Mol_Num
@@ -519,6 +519,21 @@ VCS CALCULATION METHOD
  H+                 0       1       0       0       0       1       0      -1       0       0          0   0.00000E+00   0.00000E+00       Mol_Num
  Cl-                0       0       0       0       1      -1       0       1       0       0          0  -1.83974E+08   3.00000E-02       Mol_Num
  she_electron       0       0       0       0       0       0       0       1       0       0          4  -1.94812E+07   0.00000E+00       Voltage
+ Stan. Chem. Pot. is MU/RT
+
+ SPECIES            FORMULA VECTOR                                               STAN_CHEM_POT  EQUILIBRIUM_EST.  Species_Type
+
+                    O       H       K       Na      Cl      cn_K    Hg      E       N       C          PhaseID
+ Hg(L)              0       0       0       0       0       0       1       0       0       0          3  -9.14401E+00   1.30000E+01       Mol_Num
+ H2O(L)             1       2       0       0       0       0       0      -0       0       0          0  -1.23716E+02   6.00000E+00       Mol_Num
+ Hg2Cl2(S)          0       0       0       0       2       0       2       0       0       0          2  -1.30027E+02   3.00000E+00       Mol_Num
+ KCl(S)             0       0       1       0       1       0       0       0       0       0          1  -1.86085E+02   3.00000E+00       Mol_Num
+ K+                 0       0       1       0       0       1       0      -1       0       0          0  -1.14030E+02   3.00000E-02       Mol_Num
+ OH-                1       1       0       0       0      -1       0       1       0       0          0  -9.14836E+01   0.00000E+00       Mol_Num
+ Na+                0       0       0       1       0       1       0      -1       0       0          0  -1.03950E+02   0.00000E+00       Mol_Num
+ H+                 0       1       0       0       0       1       0      -1       0       0          0   0.00000E+00   0.00000E+00       Mol_Num
+ Cl-                0       0       0       0       1      -1       0       1       0       0          0  -7.42141E+01   3.00000E-02       Mol_Num
+ she_electron       0       0       0       0       0       0       0       1       0       0          4  -7.85861E+00   0.00000E+00       Voltage
 
 
 

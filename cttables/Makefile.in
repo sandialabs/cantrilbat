@@ -8,7 +8,7 @@
 build_python=@BUILD_PYTHON@
 
 all:
-	cd src; @MAKE@
+	cd src; @MAKE@ -j 4
 
 allsrc:
 	cd src; @MAKE@

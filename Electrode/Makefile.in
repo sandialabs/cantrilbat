@@ -7,7 +7,7 @@
 ###############################################################
 
 all:
-	cd src;                       @MAKE@
+	cd src;                       @MAKE@ -j 4
 	cd src_tests;		      @MAKE@
 	cd tests;                     @MAKE@ 
 	cd tests_develop;             @MAKE@ 
@@ -22,7 +22,7 @@ debug:
 	cd tests; make debug
 
 test:
-	cd src;			      @MAKE@ 
+	cd src;			      @MAKE@ -j 4
 	cd src_tests;	 	      @MAKE@ -s test
 	cd tests;                     @MAKE@ -s test
 	cd tests_develop;             @MAKE@ -s test

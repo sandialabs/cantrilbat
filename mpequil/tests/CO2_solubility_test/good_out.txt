@@ -6,7 +6,7 @@
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             7.992                      Mol_Num
@@ -198,7 +198,7 @@ Moles: 0.00885547
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             6.9918                     Mol_Num
@@ -390,7 +390,7 @@ Moles: 1.03614
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             5.9647                     Mol_Num
@@ -582,7 +582,7 @@ Moles: 2.06342
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             4.9376                     Mol_Num
@@ -774,7 +774,7 @@ Moles: 3.0907
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             3.9105                     Mol_Num
@@ -966,7 +966,7 @@ Moles: 4.11799
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             2.8834                     Mol_Num
@@ -1158,7 +1158,7 @@ Moles: 5.14527
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             1.8563                     Mol_Num
@@ -1350,7 +1350,7 @@ Moles: 6.17255
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             0.82921                    Mol_Num
@@ -1542,7 +1542,7 @@ Moles: 7.19984
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             0                          Mol_Num
@@ -1735,7 +1735,7 @@ we are here
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             0                          Mol_Num
@@ -1927,7 +1927,7 @@ Moles: 9.19998
 	Solve a constant T, P problem:
 		T    = 300 K
 		Pres = 1 atm
-
+		Initial Estimation Method = Use existing mole numbers
              Phase IDs of species
             species     phaseID        phaseName    Initial_Estimated_Moles   Species_Type
           H2O(L)          0   carbonate_electrolyte             0                          Mol_Num
