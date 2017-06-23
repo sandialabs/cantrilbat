@@ -1,0 +1,201 @@
+
+Copywrite (2005) Sandia Corporation. Under the terms of 
+Contract DE-Ac04-94AL85000, there is a non-exclusive license
+for use of this work by or on behalf of the U.S. Government.
+Export of this program may require a license from the United
+States Government.
+#
+# This is comment line
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name = O_Element.xml
+ => Cantera File Name = O_Element.xml
+ ====> CanteraFileNames =  O_Element.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 298.15
+Bath Pressure = 1.0 atm
+Add Chemical Potential Column = true
+Output Units = KJoule
+
+
+START BLOCK Temperature Table Format
+  Number of Points = 25
+  Added Temperatures = 1050. 1000  1000.0001 999.9999
+END BLOCK Temperature Table Format
+
+
+# the above were empty lines
+#
+# This is comment line
+#
+Number of Cantera Files = 1
+ => Number of Cantera Files ====> Number of Cantera Files = 1
+Cantera File Name = O_Element.xml
+ => Cantera File Name = O_Element.xml
+ ====> CanteraFileNames =  O_Element.xml
+
+DebugPrinting = true
+ => DebugPrinting = true
+ ====> DebugPrinting = 1
+Bath Temperature = 298.15
+ => Bath Temperature = 298.15
+ ====> BG.Temperature = 298.15
+Bath Pressure = 1.0 atm
+ => Bath Pressure = 1.0 atm
+ ====> BG.Pressure = 101325
+Add Chemical Potential Column = true
+ => Add Chemical Potential Column = true
+ ====> ChemPotColumn = 1
+Output Units = KJoule
+ => Output Units = KJoule
+ ====> OutputUnits = KJoule, list item 1
+
+
+START BLOCK Temperature Table Format
+  Number of Points = 25
+ => Number of Points ====> TTpts = 25
+  Added Temperatures = 1050. 1000  1000.0001 999.9999
+ => Added Temperatures ====> AddedTemperatures = 1000
+END BLOCK Temperature Table Format
+
+
+# the above were empty lines
+Bath Species set to O2
+----------------------------------------------------------------
+ Dump of Mixture properties: 
+Bath Species set to O2
+Bath Species set to O2
+     ====================================================================================================
+      Bath Composition for Phase id, "O2gas", with name, "O2gas", with eosType, "IdealGas"
+     
+        Total pressure = 760 torr 
+        Temperature (where needed) = 298.15 Kelvin
+        Voltage (where needed) = 0 Volts
+        Carrier Species (used in diff. calcs) = O2
+          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          -----------------------------------------------------------------------------
+              1              O2          1.0000       4.087E-05       1.000E+00
+              2               O          0.0000       0.000E+00       0.000E+00
+          ------------------------------------------------------------------------------
+EOS type = 1
+PrintOut of Phase, "O2gas", using the Ideal Gas Thermodynamics Functions:
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "O2gas"
+        Overall, this is the 1th species in the mechanism
+        It is the 1th species in the phase
+        Elemental Composition:
+                  O: 2
+        Electronic Charge = 0.000000
+        Molecular Weight = 31.9988 gm/mol
+        Heat of formation (298.15K) = 0.000000  kJ/gmol 
+        mu_0(298.15K) = H298[k]  1.63434E-08
+        DeltaGf (298.15K) = -0.000383  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 200 K
+        Maximum Temperature = 3500 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                     3.7825   -0.0029967   9.8473e-06  -9.6813e-09
+                 3.2437e-12      -1063.9       3.6577
+               High temperature polynomials: 1000 < T < 3500: 
+                     3.28253784    0.00148308754  -7.57966669e-07   2.09470555e-10
+                -2.16717794e-14      -1088.45772       5.45323129
+---------------------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------------------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) |   (kJ/gmol)  |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        -61.1650        29.3782     205.1485   |     -61.1650 | 
+|    300.00 |     0.0544        -61.5447        29.3881     205.3303   |     -61.5447 | 
+|    400.00 |     3.0270        -82.5238        30.1214     213.8769   |     -82.5238 | 
+|    500.00 |     6.0862       -104.2635        31.0835     220.6994   |    -104.2635 | 
+|    600.00 |     9.2448       -126.6284        32.0828     226.4555   |    -126.6284 | 
+|    700.00 |    12.4997       -149.5300        32.9923     231.4710   |    -149.5300 | 
+|    800.00 |    15.8381       -172.9041        33.7497     235.9278   |    -172.9041 | 
+|    900.00 |    19.2446       -196.7008        34.3575     239.9393   |    -196.7008 | 
+|   1000.00 |    22.7068       -220.8798        34.8830     243.5867   |    -220.8798 | 
+|   1000.00 |    22.7068       -220.8798        34.8830     243.5867   |    -220.8798 | 
+|   1000.00 |    22.7068       -220.8798        34.8830     243.5867   |    -220.8798 | 
+|   1000.00 |    22.7068       -220.8799        34.8830     243.5867   |    -220.8799 | 
+|   1050.00 |    24.4562       -233.1021        35.0893     245.2936   |    -233.1021 | 
+|   1100.00 |    26.2156       -245.4080        35.2855     246.9306   |    -245.4080 | 
+|   1200.00 |    29.7627       -270.2574        35.6508     250.0167   |    -270.2574 | 
+|   1300.00 |    33.3447       -295.4041        35.9842     252.8837   |    -295.4041 | 
+|   1400.00 |    36.9586       -320.8278        36.2908     255.5618   |    -320.8278 | 
+|   1500.00 |    40.6021       -346.5110        36.5753     258.0754   |    -346.5110 | 
+|   1600.00 |    44.2731       -372.4381        36.8418     260.4445   |    -372.4381 | 
+|   1700.00 |    47.9700       -398.5956        37.0941     262.6856   |    -398.5956 | 
+|   1800.00 |    51.6916       -424.9714        37.3354     264.8128   |    -424.9714 | 
+|   1900.00 |    55.4368       -451.5547        37.5687     266.8377   |    -451.5547 | 
+|   2000.00 |    59.2051       -478.3359        37.7964     268.7705   |    -478.3359 | 
+|   2100.00 |    62.9960       -505.3061        38.0206     270.6200   |    -505.3061 | 
+|   2200.00 |    66.8092       -532.4574        38.2427     272.3939   |    -532.4574 | 
+|   2300.00 |    70.6445       -559.7825        38.4641     274.0987   |    -559.7825 | 
+|   2400.00 |    74.5020       -587.2750        38.6853     275.7404   |    -587.2750 | 
+|   2500.00 |    78.3816       -614.9287        38.9066     277.3241   |    -614.9287 | 
+|   2600.00 |    82.2833       -642.7380        39.1280     278.8544   |    -642.7380 | 
+|   2700.00 |    86.2072       -670.6979        39.3489     280.3352   |    -670.6979 | 
+---------------------------------------------------------------------------------------------------------------------------------------
+
+========================================================================================================================
+INFORMATION TABLE FOR IDEAL GAS SPECIES "O" IN PHASE "O2gas"
+        Overall, this is the 2th species in the mechanism
+        It is the 2th species in the phase
+        Elemental Composition:
+                  O: 1
+        Electronic Charge = 0.000000
+        Molecular Weight = 15.9994 gm/mol
+        Heat of formation (298.15K) = 249.173924  kJ/gmol 
+        mu_0(298.15K) = H298[k]  249.174
+        DeltaGf (298.15K) = 231.736314  kJ/gmol 
+                Phase and Species Reference Pressure = 100000 Pa
+        Minimum Temperature = 200 K
+        Maximum Temperature = 3500 K
+        NASA Polynomial format: 2 zones
+               Low  temperature polynomials: 200 < T < 1000: 
+                     3.1683   -0.0032793   6.6431e-06  -6.1281e-09
+                 2.1127e-12        29122       2.0519
+               High temperature polynomials: 1000 < T < 3500: 
+                     2.56942078  -8.59741137e-05   4.19484589e-08  -1.00177799e-11
+                 1.22833691e-15       29217.5791       4.78433864
+---------------------------------------------------------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------------------------------------------------------|
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
+|      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) |   (kJ/gmol)  |
+|-----------|----------------------------------------------------------|--------------|
+|    298.15 |     0.0000        -48.0200        21.9115     161.0597   |     201.1540 | 
+|    300.00 |     0.0405        -48.3180        21.9003     161.1952   |     200.8559 | 
+|    400.00 |     2.2062        -64.7652        21.4623     167.4285   |     184.4087 | 
+|    500.00 |     4.3404        -81.7555        21.2469     172.1916   |     167.4185 | 
+|    600.00 |     6.4591        -99.1738        21.1380     176.0548   |     150.0001 | 
+|    700.00 |     8.5690       -116.9462        21.0620     179.3074   |     132.2277 | 
+|    800.00 |    10.6715       -135.0205        20.9870     182.1150   |     114.1534 | 
+|    900.00 |    12.7667       -153.3579        20.9235     184.5829   |      95.8160 | 
+|   1000.00 |    14.8583       -171.9283        20.9242     186.7866   |      77.2456 | 
+|   1000.00 |    14.8583       -171.9283        20.9242     186.7866   |      77.2456 | 
+|   1000.00 |    14.8583       -171.9283        20.9242     186.7866   |      77.2456 | 
+|   1000.00 |    14.8583       -171.9283        20.9242     186.7866   |      77.2456 | 
+|   1050.00 |    15.9042       -181.2934        20.9133     187.8072   |      67.8806 | 
+|   1100.00 |    16.9496       -190.7082        20.9032     188.7799   |      58.4657 | 
+|   1200.00 |    19.0390       -209.6785        20.8851     190.5979   |      39.4955 | 
+|   1300.00 |    21.1267       -228.8229        20.8697     192.2690   |      20.3510 | 
+|   1400.00 |    23.2130       -248.1281        20.8569     193.8151   |       1.0458 | 
+|   1500.00 |    25.2982       -267.5824        20.8465     195.2537   |     -18.4084 | 
+|   1600.00 |    27.3824       -287.1757        20.8383     196.5988   |     -38.0018 | 
+|   1700.00 |    29.4659       -306.8994        20.8322     197.8619   |     -57.7255 | 
+|   1800.00 |    31.5489       -326.7457        20.8282     199.0526   |     -77.5718 | 
+|   1900.00 |    33.6316       -346.7078        20.8261     200.1786   |     -97.5338 | 
+|   2000.00 |    35.7142       -366.7795        20.8259     201.2468   |    -117.6056 | 
+|   2100.00 |    37.7968       -386.9554        20.8276     202.2630   |    -137.7815 | 
+|   2200.00 |    39.8798       -407.2305        20.8312     203.2319   |    -158.0566 | 
+|   2300.00 |    41.9631       -427.6003        20.8367     204.1580   |    -178.4264 | 
+|   2400.00 |    44.0472       -448.0608        20.8442     205.0450   |    -198.8869 | 
+|   2500.00 |    46.1320       -468.6081        20.8537     205.8961   |    -219.4342 | 
+|   2600.00 |    48.2180       -489.2389        20.8653     206.7142   |    -240.0650 | 
+|   2700.00 |    50.3052       -509.9500        20.8793     207.5019   |    -260.7760 | 
+---------------------------------------------------------------------------------------------------------------------------------------

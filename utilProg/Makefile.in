@@ -59,13 +59,13 @@ PURIFY=@PURIFY@
 
 PROGB=BarinConversion_LiOH
 OBJ_TOT= $(PROGB).o BarinConversion_Ca.o BarinConversion_C.o  thermoUtilProg.o \
-          BarinConversion_Cu.o findRefState.o
+          BarinConversion_Cu.o findRefState.o O2_NASAVerification.o
 
 
 BarinConversion_EXE=$(PROGB)$(EXE_EXT)
 
 all:  $(BarinConversion_EXE)  .dependsT BarinConversion_Ca BarinConversion_CaO \
-      BarinConversion_C BarinConversion_Cu findRefState
+      BarinConversion_C BarinConversion_Cu findRefState O2_NASAVerification
 
 ############################################################################
 # section to set up compiler rules
@@ -159,6 +159,14 @@ BarinConversion_Cu: BarinConversion_Cu.o thermoUtilProg.o \
 findRefState: findRefState.o thermoUtilProg.o \
          $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o findRefState  findRefState.o thermoUtilProg.o  \
+	          $(CTPADDS_LIB)  \
+                  $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LIBF2C) $(LCXX_END_LIBS) 
+
+
+O2_NASAVerification: O2_NASAVerification.o thermoUtilProg.o \
+         $(CANTERA_CORE_LIBS_DEP)  $(UTILSRC_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o  O2_NASAVerification O2_NASAVerification.o thermoUtilProg.o  \
 	          $(CTPADDS_LIB)  \
                   $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
