@@ -384,6 +384,13 @@ public:
      */
     double adjustCp(double T, double Sinput);
 
+    //! Print out a block of XML code representing the NASA representation
+    /*! 
+     *  @param[in]           n                   Minimum indentation of all of the lines
+     *  @param[in]           p                   Precision in the writing of the block
+     */
+    void printNASABlock(int n, int p = 10);
+
     //! Print out a block of XML code representing the thermodynamic representation
     /*! 
      *  @param[in]           n                   Minimum indentation of all of the lines
@@ -496,24 +503,50 @@ struct nasaMatch {
     double adjustCp_avg();
 };
 //==================================================================================================================================
-
-struct Regions_NASA {
-
+//! Container for holding pointer to Multiple NASA polynomial interpolations representing the thermo of a single speices
+/*!
+ *   Designed for pointers
+ *
+ *  This could be much more sophisticated. However, it serves its purpose as is.
+ */
+class Regions_NASA {
+public:
     //! Vector of thermo representations, must be ordered from low to high temperature regions
     std::vector<Thermo_NASA*> NASA_list;
 
     //! vector of matching temperature conditions
     std::vector<nasaMatch> match_list;
 
+    //! Low value of the temperature
     double tlowReg_;
+
+    //! High value of the temperatue
     double thighReg_;
 
+    //! Added another temperature polynomial covering temperatures above the current region
+    /*!
+     *  Program checks that the temperature region is above the last region.
+     *  Automatically adds a matchingNASA condition at the interface temperature.
+     *
+     *  @param[in]           tNasa               Pointer to the Thermo_NASA polynomial for the next higher temperature region
+     */
     void addRegionPoly(Thermo_NASA* tNasa);
 
+    //! Carry out matching conditions at the interface temperatures
+    /*!
+     *  Ensures continuity of H, S, and Cp at the interface temperatures.
+     *  Goes from low to high temperature matching temperatures, changing the high temperature polynomial
+     *
+     *  @return                                   Returns the max enthalpy change
+     */
     double adjust_high();
 
+    //! Print out a block of XML code representing the thermodynamic representation
+    /*! 
+     *  @param[in]           n                   Minimum indentation of all of the lines
+     *  @param[in]           p                   Precision in the writing of the block
+     */
     void printThermoBlock(int n, int p);
-
 };
 //==================================================================================================================================
 

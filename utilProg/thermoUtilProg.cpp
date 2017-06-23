@@ -177,6 +177,22 @@ double Thermo_Shomate::g(double T) const
    return G;
 }
 //==================================================================================================================================
+double Thermo_Shomate::adjustH(double T, double Hinput)
+{
+   double hnow = h(T);
+   double H_kJ = Hinput;
+   double t = T / 1000.;
+   double HfmF =  a_s * t + b_s * t * t / 2.0 + c_s * t * t * t / 3.0 + d_s * t * t * t * t / 4.0  - e_s / t;
+   f_s = H_kJ - HfmF;
+   Hf298_s = h(298.15);
+   double hnew = h(T);
+   if (fabs(hnew - Hinput) > 1.0E-10) {
+       printf("Thermo_Shomate::adjustH() ERROR: There is failure somewhere\n");
+       exit(-1);
+   }
+   return (hnew - hnow);
+}
+//==================================================================================================================================
 void Thermo_Shomate::printThermoBlock(int n, double tmax, double tmin )
 {
      ind(n); printf("<!-- thermo From Barin-Knacke Translation, Hf298 = %g kJ/gmol S298= %g J/gmol/K -->\n", Hf298_s, S298_s);
@@ -196,6 +212,36 @@ void Thermo_Shomate::printThermoBlock(int n, double tmax, double tmin )
      ind(n); printf("</thermo>\n");
 }
 //==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+Thermo_NASA::Thermo_NASA() :
+    Hf298_s(0.0),
+    S298_s(0.0),
+    tlow_(5.0),
+    thigh_(1000.),
+    pref_(100000.)
+{   
+    for (size_t i = 0; i < 7; i++) {
+        m_coeffs[i] = 0.0;
+    }
+}
+//==================================================================================================================================
+Thermo_NASA::Thermo_NASA(double tlow, double thigh, double pref, const double* XMLcoeffs) :
+    Hf298_s(0.0),
+    S298_s(0.0),
+    tlow_(tlow),
+    thigh_(thigh),
+    pref_(pref)
+{
+    m_coeffs[0] = XMLcoeffs[5];
+    m_coeffs[1] = XMLcoeffs[6];
+    for (size_t i = 0; i < 5; i++) {
+       m_coeffs[2+i] = XMLcoeffs[i];
+    }
+    Hf298_s = h(298.15);
+    S298_s = s(298.15);
+}
+//==================================================================================================================================
 void Thermo_NASA::updateTemperaturePoly(double T) const 
 {
     tt[0] = T;
@@ -206,7 +252,48 @@ void Thermo_NASA::updateTemperaturePoly(double T) const
     tt[5] = std::log(T);
 }
 //==================================================================================================================================
-void Thermo_NASA::adjustH(double T, double Hinput)
+double Thermo_NASA::cp(double T) const
+{
+    updateTemperaturePoly(T);
+    double ct0 = m_coeffs[2];          // a0
+    double ct1 = m_coeffs[3]*tt[0];    // a1 * T
+    double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
+    double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
+    double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+    double cpR= ct0 + ct1 + ct2 + ct3 + ct4;
+    return cpR * Zuzax::GasConstant * 1.0E-3;
+}
+//==================================================================================================================================
+double Thermo_NASA::h(double T) const
+{
+    updateTemperaturePoly(T);
+    double ct0 = m_coeffs[2];          // a0
+    double ct1 = m_coeffs[3]*tt[0];    // a1 * T
+    double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
+    double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
+    double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+    double hRT = ct0 + 0.5*ct1 + ct2 / 3.0 + 0.25*ct3 + 0.2*ct4 + m_coeffs[0]*tt[4];     // last term is a5/T
+    return hRT * T * Zuzax::GasConstant * 1.0E-6;
+}
+//==================================================================================================================================
+double Thermo_NASA::s(double T) const
+{
+    updateTemperaturePoly(T);
+    double ct0 = m_coeffs[2];          // a0
+    double ct1 = m_coeffs[3]*tt[0];    // a1 * T
+    double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
+    double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
+    double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+    double sR = ct0*tt[5] + ct1 + 0.5*ct2 + ct3/3.0 +0.25*ct4 + m_coeffs[1];          // last term is a6
+    return sR * Zuzax::GasConstant * 1.0E-3;
+}
+//==================================================================================================================================
+double Thermo_NASA::deltaH(double T) const
+{
+    return h(T) - Hf298_s;
+}
+//==================================================================================================================================
+double Thermo_NASA::adjustH(double T, double Hinput)
 {
     double hnow = h(T);
     double HinputRT = Hinput * 1.0E6 /( Zuzax::GasConstant * T);
@@ -215,20 +302,19 @@ void Thermo_NASA::adjustH(double T, double Hinput)
     if (fabs(hnowRT - HinputRT ) > 1.0E-14) {
          m_coeffs[0] += (HinputRT -  hnowRT ) * T;
     }
-
     double hnew = h(T);
     Hf298_s = h(298.15);
     if (fabs( Hf298_s ) < 1.0E-14) {
        Hf298_s = 0.0;
     }
-
     if (fabs(hnew - Hinput) > 1.0E-9) {
          printf("error\n");
          exit(-1);
     }
+    return (hnew - hnow);
 }
 //==================================================================================================================================
-void Thermo_NASA::adjustS(double T, double Sinput)
+double Thermo_NASA::adjustS(double T, double Sinput)
 {
     double snow = s(T);
     double SinputR = Sinput * 1.0E3 /( Zuzax::GasConstant );
@@ -237,27 +323,210 @@ void Thermo_NASA::adjustS(double T, double Sinput)
     if (fabs(snowR - SinputR) > 1.0E-14) {
          m_coeffs[1] += (SinputR - snowR);
     }
-
     double snew = s(T);
     S298_s = s(298.15);
-
     if (fabs(snew - Sinput) > 1.0E-9) {
          printf("error\n");
          exit(-1);
     }
+    return (snew - snow);
 }
 //==================================================================================================================================
-void Thermo_NASA::printThermoBlock(int n)
+double Thermo_NASA::adjustCp(double T, double Cpinput)
 {
-     ind(n); printf("<!-- thermo , Hf298 = %g kJ/gmol S298= %g J/gmol/K -->\n", Hf298_s, S298_s);
-     ind(n); printf("<thermo>\n");
-     ind(n); printf("  <NASA Tmax=\"%g\" Tmin=\"%g\" P0=\"100000\">\n", thigh_, tlow_);
-     ind(n); printf("     <floatArray name=\"coeffs\" size=\"7\">\n");
+    double snow = s(T);
+    double hnow = h(T);
+    double cpnow = cp(T);
+    double delCoeff2 = (Cpinput - cpnow) / (Zuzax::GasConstant * 1.0E-3);
+    m_coeffs[2] += delCoeff2;
+    double cpnew = cp(T);
+    (void) adjustH(T, hnow);
+    (void) adjustS(T, snow);
+    S298_s = s(298.15);
+    Hf298_s = h(298.15);
+    if (fabs(cpnew - Cpinput) > 1.0E-10) {
+        printf("Thermo_NASA::adjustCp() ERROR: something didn't work\n");
+        exit(-1);
+    }
+    return (cpnew - cpnow);
+}
+//==================================================================================================================================
+void Thermo_NASA::printNASABlock(int n, int p)
+{
+     if (p < 5) {
+         printf("p must be greater than 5\n");
+         p = 5;
+     } else if (p > 16) {
+         printf("p must be loess than 17\n");
+         p = 16;
+     }
+     char m_fmt[32];
+     ind(n); printf("<NASA Tmax=\"%g\" Tmin=\"%g\" P0=\"100000\">\n", thigh_, tlow_);
+     ind(n); printf("    <floatArray name=\"coeffs\" size=\"7\">\n");
+     int wMin = p + 7;
+     snprintf(m_fmt, 31, "%s -%d.%dE ", "%", wMin, p);
      int m = n + 6;
-     ind(m); printf("%-18.10E %-18.10E %-18.10E %-18.10E\n", m_coeffs[2], m_coeffs[3], m_coeffs[4], m_coeffs[5]);
-     ind(m); printf("%-18.10E %-18.10E %-18.10E", m_coeffs[6], m_coeffs[0], m_coeffs[1]);
+     ind(m); printf(m_fmt, m_coeffs[2]);
+     printf(m_fmt, m_coeffs[3]);
+     printf(m_fmt, m_coeffs[4]);
+     printf(m_fmt, m_coeffs[5]);
+     printf("\n");
+     ind(m); 
+     printf(m_fmt, m_coeffs[6]);
+     printf(m_fmt, m_coeffs[0]);
+     printf(m_fmt, m_coeffs[1]);
      ind(n); printf(" </floatArray>\n");
-     ind(n); printf("  </NASA>\n");
+     ind(n); printf("</NASA>\n");
+}
+//==================================================================================================================================
+void Thermo_NASA::printThermoBlock(int n, int p)
+{
+     double val = Hf298_s;
+     if (fabs(val) < 1.0E-5) {
+         val = 0.0;
+     }
+     ind(n); printf("<!-- thermo , Hf298 = %g kJ/gmol S298= %g J/gmol/K -->\n", val, S298_s);
+     ind(n); printf("<thermo>\n");
+     printNASABlock(n+2, p); 
      ind(n); printf("</thermo>\n");
 }
 //==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+double nasaMatch::adjustH_high()
+{
+    double hlow = nlow->h(tempMatch);
+    double hhigh = nhigh->h(tempMatch);
+    (void) nhigh->adjustH(tempMatch, hlow);
+    return (hlow - hhigh);
+}
+//==================================================================================================================================
+double nasaMatch::adjustS_high()
+{
+    double slow = nlow->s(tempMatch);
+    double shigh = nhigh->s(tempMatch);
+    (void) nhigh->adjustS(tempMatch, slow);
+    return (slow - shigh);
+}
+//==================================================================================================================================
+double nasaMatch::adjustCp_high()
+{
+    double Cplow = nlow->cp(tempMatch);
+    double Cphigh = nhigh->cp(tempMatch);
+    // This call will also ensure that H and S at tempMatch doesn't change
+    (void) nhigh->adjustCp(tempMatch, Cplow);
+    return (Cplow - Cphigh);
+}
+//==================================================================================================================================
+double nasaMatch::adjustH_low()
+{
+    double hlow = nlow->h(tempMatch);
+    double hhigh = nhigh->h(tempMatch);
+    (void) nlow->adjustH(tempMatch, hhigh);
+    return (hhigh - hlow);
+}
+//==================================================================================================================================
+double nasaMatch::adjustS_low()
+{
+    double slow = nlow->s(tempMatch);
+    double shigh = nhigh->s(tempMatch);
+    (void) nlow->adjustS(tempMatch, shigh);
+    return (shigh - slow);
+}
+//==================================================================================================================================
+double nasaMatch::adjustCp_low()
+{
+    double Cplow = nlow->cp(tempMatch);
+    double Cphigh = nhigh->cp(tempMatch);
+    // This call will also ensure that H and S at tempMatch doesn't change
+    (void) nlow->adjustCp(tempMatch, Cphigh);
+    return (Cphigh - Cplow);
+}
+//==================================================================================================================================
+double nasaMatch::adjustH_avg()
+{
+    double hlow = nlow->h(tempMatch);
+    double hhigh = nhigh->h(tempMatch);
+    double havg = 0.5 * (hlow - hhigh);
+    (void) nlow->adjustH(tempMatch, havg);
+    (void) nhigh->adjustH(tempMatch, havg);
+    return (havg - hhigh);
+}
+//==================================================================================================================================
+double nasaMatch::adjustS_avg()
+{
+    double slow = nlow->s(tempMatch);
+    double shigh = nhigh->s(tempMatch);
+    double savg = 0.5 * (slow + shigh);
+    (void) nlow->adjustS(tempMatch, savg);
+    (void) nhigh->adjustS(tempMatch, savg);
+    return (savg - shigh);
+}
+//==================================================================================================================================
+double nasaMatch::adjustCp_avg()
+{
+    double Cplow = nlow->cp(tempMatch);
+    double Cphigh = nhigh->cp(tempMatch);
+    double Cpnew = (Cplow + Cphigh) * 0.5;
+    // This call will also ensure that H and S at tempMatch doesn't change
+    (void) nlow->adjustCp(tempMatch, Cpnew);
+    (void) nhigh->adjustCp(tempMatch, Cpnew);
+    return (Cpnew - Cphigh);
+}
+//==================================================================================================================================
+void Regions_NASA::addRegionPoly(Thermo_NASA* tNasa)
+{
+    if (NASA_list.size() == 0) {
+        NASA_list.push_back(tNasa);
+        tlowReg_ = tNasa->tlow_;
+        thighReg_ = tNasa->thigh_;
+    } else {
+        Thermo_NASA* tNASA_ct = NASA_list.back();
+        if (fabs(tNASA_ct->thigh_ - tNasa->tlow_) > 1.0E-8) {
+          printf("Regions_NASA::addRegionPolyERROR: temperature regions aren't compatible");
+          exit(-1);
+        }
+        NASA_list.push_back(tNasa);
+        thighReg_ = tNasa->thigh_;
+        nasaMatch newM(tNASA_ct->thigh_, tNASA_ct, tNasa);
+        match_list.push_back(newM);
+    }
+}
+//==================================================================================================================================
+double Regions_NASA::adjust_high()
+{
+    double vH, vS, vCp;
+    double deltaHmax = 0.0;
+    int is = 0;
+    for (nasaMatch& mm : match_list) {
+        vH = mm.adjustH_high();
+        vS = mm.adjustS_high();
+        vCp = mm.adjustCp_high();
+        double tt = mm.tempMatch;
+        printf("Match %d at T = %g: Adjustment in regions: delta H = %g, deltaS = %g, deltaCp = %g \n", is, tt, vH, vS, vCp);
+        is++;
+        deltaHmax = std::max(vH, deltaHmax);
+    }
+    return deltaHmax;
+}
+//==================================================================================================================================
+void Regions_NASA::printThermoBlock(int n, int p)
+{
+
+    Thermo_NASA* tNASA_ct = NASA_list[0];
+    double hf298 = tNASA_ct->Hf298_s;
+    double S298 = tNASA_ct->S298_s;
+    double val = hf298; 
+    if (fabs(val) < 1.0E-5) {
+        val = 0.0;
+    }
+    ind(n); printf("<!-- thermo , Hf298 = %g kJ/gmol S298= %g J/gmol/K -->\n", val, S298);
+    ind(n); printf("<thermo>\n");
+
+    for (Thermo_NASA* tn : NASA_list) {
+        tn->printNASABlock(n + 2, p);
+    }
+    ind(n); printf("</thermo>\n");
+}
+//=================================================================================================================================
+

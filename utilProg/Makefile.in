@@ -17,6 +17,8 @@
 
 # These links are to Cantera's install space
 CANTERA_INCROOT =  @ct_incroot@
+INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
+
 
 #
 # Bring in the Cantera includes through the .mak file
@@ -175,6 +177,10 @@ O2_NASAVerification: O2_NASAVerification.o thermoUtilProg.o \
 install:
 	@INSTALL@ -d @cta_bindir@
 	@INSTALL@ -c findRefState @cta_bindir@
+	@INSTALL@ -d @cta_incdir@
+	$(INSTALL_TSC) thermoUtilProg.h  @cta_incdir@/thermoUtilProg.h
+	@INSTALL@ -d @cta_libdir@
+	$(INSTALL_TSC) thermoUtilProg.o @cta_libdir@
 
 clean:
 	$(RM) $(OBJ_TOT) $(BarinConversion_EXE) *.d .depends .dependsT
