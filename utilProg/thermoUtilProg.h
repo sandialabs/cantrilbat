@@ -243,6 +243,15 @@ struct Thermo_Shomate {
      */
     double g(double T) const;
 
+    //! Adjust the value of H given in kJ/gmol at a particular temperature
+    /*!
+     *  @param[in]          T                    Temperature (kelvin)
+     *  @param[in]          Hinput               Value of the enthalpy to use at the temperature (kJ/gmol)
+     *
+     *  @return                                  Returns the net adjustment of H in kJ/gmol
+     */
+    double adjustH(double T, double Hinput);
+
     //! Prints out an XML thermo block for the parameterization
     /*!
      *  @param[in]           n                   Amount to indent each line
@@ -268,46 +277,46 @@ struct Thermo_Shomate {
  *          \frac{s^0(T)}{R} = a_0\ln T + a_1 T + \frac{a_2}{2} T^2 + \frac{a_3}{3} T^3 + \frac{a_4}{4} T^4  + a_6.
  * \f]
  *
+ *  Note assignment object and copy constructor cannot the default implementation, due to arrays. Need to fix.
  */
 struct Thermo_NASA {
+
+    //! Enthalpy at 298.15K and reference pressure (kJ/gmol)
     double Hf298_s;
+    //! Entropy at 298.15K and reference pressure (J/gmol/K)
     double S298_s;
+    //! Low temperature limit
     double tlow_;
+    //! High temperature limit
     double thigh_;
+    //! Reference pressure (bar)
     double pref_;
+    //! Temporary temperature polynomials 
     mutable double tt[6];
+    //! Coefficients of the representation. 
+    /*!
+     *  These are in the order that the NASA object within Zuzax uses. The order is changed
+     *  from what is in the XML file.
+     */
     double m_coeffs[7];
 
-    Thermo_NASA() :
-        Hf298_s(0.0),
-        S298_s(0.0),
-        tlow_(5.0),
-        thigh_(1000.),
-        pref_(100000.)
-    {
-        for (size_t i = 0; i < 7; i++) {
-            m_coeffs[i] = 0.0;
-        }
-    }
+    //! Default constructor
+    Thermo_NASA(); 
 
-    Thermo_NASA(double tlow, double thigh, double pref, const double* XMLcoeffs) :
-        Hf298_s(0.0),
-        S298_s(0.0),
-        tlow_(tlow),
-        thigh_(thigh),
-        pref_(pref)
-    {
-        m_coeffs[0] = XMLcoeffs[5];
-        m_coeffs[1] = XMLcoeffs[6];
-        for (size_t i = 0; i < 5; i++) {
-            m_coeffs[2+i] = XMLcoeffs[i];
-        }
-        Hf298_s = h(298.15);
-        S298_s = s(298.15);
-    }
+    //! Main constructor for the NASA polynomial routine
+    /*!
+     *  @param[in]           tlow                Low temperature value of the polynomial
+     *  @param[in]           thigh               high temperature value of the polynomial
+     *  @param[in]           pref                Reference pressure for the representation
+     *  @param[in]           XMLcoeffs           Vector of coefficients for the representation in  the order
+     *                                           that they appear in the Zuzax XML files. Note they are transmuted
+     *                                           into a different order within this object and within the NASA
+     *                                           polynomial object within Zuzax.
+     */
+    Thermo_NASA(double tlow, double thigh, double pref, const double* XMLcoeffs);
 
 private:
-    //! update the temperature polynomial
+    //! Update the temperature polynomial
     /*!
      *  @param[in]          T                   Temperature in Kelvin
      */
@@ -320,18 +329,7 @@ public:
      *
      *  @return                                  Returns the heat capacity in units of J/gmol /K
      */
-    double cp(double T) const
-    {
-        updateTemperaturePoly(T);
-        double ct0 = m_coeffs[2];          // a0
-        double ct1 = m_coeffs[3]*tt[0];    // a1 * T
-        double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
-        double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
-        double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
-
-        double cpR= ct0 + ct1 + ct2 + ct3 + ct4;
-        return cpR * Zuzax::GasConstant * 1.0E-3;
-    }
+    double cp(double T) const;
 
     //! Returns the enthalpy in units of kJ/gmol at the specified temperature
     /*!
@@ -339,19 +337,7 @@ public:
      *
      *  @return                                  Returns the enthalpy in units of kJ/gmol
      */
-    double h(double T) const
-    {
-        updateTemperaturePoly(T);
-        double ct0 = m_coeffs[2];          // a0
-        double ct1 = m_coeffs[3]*tt[0];    // a1 * T
-        double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
-        double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
-        double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
-
-        double hRT = ct0 + 0.5*ct1 + ct2 / 3.0 + 0.25*ct3 + 0.2*ct4 + m_coeffs[0]*tt[4];     // last term is a5/T
-
-        return hRT * T * Zuzax::GasConstant * 1.0E-6;
-    }
+    double h(double T) const;
 
     //! Returns the entropy in units of J/gmol/K at the specified temperature
     /*!
@@ -359,55 +345,178 @@ public:
      *
      *  @return                                  Returns the entropy in units of J/gmol /K
      */
-    double s(double T) const
-    {
-        updateTemperaturePoly(T);
-        double ct0 = m_coeffs[2];          // a0
-        double ct1 = m_coeffs[3]*tt[0];    // a1 * T
-        double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
-        double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
-        double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+    double s(double T) const;
 
-        double sR = ct0*tt[5] + ct1 + 0.5*ct2 + ct3/3.0 +0.25*ct4 + m_coeffs[1];          // last term is a6
-
-        return sR * Zuzax::GasConstant * 1.0E-3;
-    }
-
-    //! adjust the value of H given in kJ/gmol at a particular temperature
+    //! Returns the enthalpy difference at T from the 298.15K value
     /*!
-     *   @param[in]
+     *  @param[in]           T                   Temperature
+     *  @return                                  Returns the H-H298 in kJ/gmol
      */
-    void adjustH(double T, double Hinput);
+    double deltaH(double T) const;
 
-    void adjustS(double T, double Sinput);
+    //! Adjust the value of H given in kJ/gmol at a particular temperature
+    /*!
+     *  @param[in]          T                    Temperature (kelvin)
+     *  @param[in]          Hinput               Value of the enthalpy to use at the temperature (kJ/gmol)
+     *
+     *  @return                                  Returns the net adjustment of H in kJ/gmol
+     */
+    double adjustH(double T, double Hinput);
 
-    void printThermoBlock(int n);
+    //! Adjust the value of S given in J/gmol/K at a particular temperature
+    /*!
+     *  @param[in]          T                    Temperature (kelvin)
+     *  @param[in]          Sinput               Value of the entropy to use at the temperature (J/gmol/K)
+     *
+     *  @return                                  Returns the net adjustment of S in kJ/gmol/K
+     */
+    double adjustS(double T, double Sinput);
+
+    //! Adjust the value of Cp given in J/gmol/K at a particular temperature
+    /*!
+     *  This is different than just adjusting the value of H or S. We change the coefficients for the value of H and S 
+     *  after the adjust in Cp so that it gives the same value of H and S at T as the representation gave previously.
+     *
+     *  @param[in]          T                    Temperature to apply all of the adjustments (kelvin).
+     *  @param[in]          Cpinput              Value of the heat capacity to use at the temperature (J/gmol/K)
+     *
+     *  @return                                  Returns the net adjustment of Cp in kJ/gmol/K
+     */
+    double adjustCp(double T, double Sinput);
+
+    //! Print out a block of XML code representing the thermodynamic representation
+    /*! 
+     *  @param[in]           n                   Minimum indentation of all of the lines
+     *  @param[in]           p                   Precision in the writing of the block
+     */
+    void printThermoBlock(int n, int p = 10);
 };
 //==================================================================================================================================
-
+//! Estabilish a matching condition between two polynomials
+/*!
+ *     Note by design, this uses pointers. The temperature polynomials should be malloced and storred elsewhere.
+ * 
+ */
 struct nasaMatch {
     double tempMatch;
     Thermo_NASA* nlow;
     Thermo_NASA* nhigh;
 
+    //! Constructor for the nasaMatch structure
+    /*!
+     *  @param[in]           T                   Temperature of the matching condition
+     *                                           This should also equal the high temp of the low polynomial, and the low temp of the
+     *                                           high temperature polynomial
+     *  @param[in]           nl                  Pointer to the low temperature NASA polynomial
+     *  @param[in]           nh                  Pointer to the high temperature NASA polynomial
+     *
+     */
     nasaMatch(double T, Thermo_NASA* nl, Thermo_NASA* nh) :
         tempMatch(T),
         nlow(nl),
         nhigh(nh)
     {
+        if (fabs(nlow->thigh_ - nhigh->tlow_) > 1.0E-10) {
+            printf(" nasaMatch constructor: tlow and thigh are not set correctly: %25.15E %25.15E\n",
+                     nlow->thigh_ , nhigh->tlow_);
+            exit(-1);
+        } 
     }
-};
 
-struct Regions_Nasa {
+    //! Adjust the high temperature polynomial so that there is matching enthalpy condition at the  tempMatch temperature
+    /*!
+     *  @return                                  Returns the deltaH change in the high temperature value of H needed to
+     *                                           accomplish the matching condition (kJ/gmol)
+     */
+    double adjustH_high();
+
+    //! Adjust the high temperature polynomial so that there is matching entropy condition at the tempMatch temperature
+    /*!
+     *  @return                                  Returns the deltaS change in the high temperature value of S needed to
+     *                                           accomplish the matching condition (J/gmol/K)
+     */
+    double adjustS_high();
+
+    //! Adjust the high temperature polynomial so that there is matching Cp condition at the tempMatch temperature
+    /*!
+     *  @return                                  Returns the deltaCp change in the high temperature value of Cp needed to
+     *                                           accomplish the matching condition (J/gmol/K)
+     */
+    double adjustCp_high();
+
+    //! Adjust the low temperature polynomial so that there is matching enthalpy condition at the  tempMatch temperature
+    /*!
+     *  @return                                  Returns the deltaH change in the low temperature value of H needed to
+     *                                           accomplish the matching condition (kJ/gmol)
+     */
+    double adjustH_low();
+
+    //! Adjust the low temperature polynomial so that there is matching entropy condition at the tempMatch temperature
+    /*!
+     *  @return                                  Returns the deltaS change in the low temperature value of S needed to
+     *                                           accomplish the matching condition (J/gmol/K)
+     */
+    double adjustS_low();
+
+    //! Adjust the low temperature polynomial so that there is matching Cp condition at the tempMatch temperature
+    /*!
+     *  @return                                  Returns the deltaCp change in the low temperature value of Cp needed to
+     *                                           accomplish the matching condition (J/gmol/K)
+     */
+    double adjustCp_low();
+
+    //! Adjust the high and low temperature polynomial so that there is matching enthalpy condition at the  tempMatch temperature
+    /*!
+     *  This takes the high and low polynomial value of H, and uses the average value at tempMatch of H.
+     *  Therefore both polynomials are changed.
+     *
+     *  @return                                  Returns the deltaH change in the high temperature value of H needed to
+     *                                           accomplish the matching condition (kJ/gmol)
+     */
+    double adjustH_avg();
+
+    //! Adjust the high temperature polynomial so that there is matching entropy condition at the tempMatch temperature
+    /*!
+     *  This takes the high and low polynomial value of S, and uses the average value at tempMatch of S.
+     *  Therefore both polynomials are changed.
+     *
+     *  @return                                  Returns the deltaS change in the high temperature value of S needed to
+     *                                           accomplish the matching condition (J/gmol/K)
+     */
+    double adjustS_avg();
+
+    //! Adjust the high and low temperature polynomial so that there is matching Cp condition at the tempMatch temperature
+    /*!
+     *  This takes the high and low polynomial value of Cp, and uses the average value at tempMatch of Cp.
+     *  Therefore both polynomials are changed.
+     *
+     *  @return                                  Returns the deltaCp change in the high temperature value of Cp needed to
+     *                                           accomplish the matching condition (J/gmol/K)
+     */
+    double adjustCp_avg();
+};
+//==================================================================================================================================
+
+struct Regions_NASA {
+
+    //! Vector of thermo representations, must be ordered from low to high temperature regions
     std::vector<Thermo_NASA*> NASA_list;
 
+    //! vector of matching temperature conditions
     std::vector<nasaMatch> match_list;
 
+    double tlowReg_;
+    double thighReg_;
 
+    void addRegionPoly(Thermo_NASA* tNasa);
+
+    double adjust_high();
+
+    void printThermoBlock(int n, int p);
 
 };
+//==================================================================================================================================
 
 
-// -------------------------------------------------------
 
 
