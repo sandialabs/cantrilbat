@@ -152,8 +152,11 @@ runGood_debug: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_DEBUG_FILES
 rebaseline:
 	if test -e out.txt ; then cp out.txt good_out.txt ; fi
 	cp vcs_equilibrate_res.csv vcs_equilibrate_blessed.csv
+	cp vcs_equilibrate_res_1.csv  vcs_equilibrate_blessed_1.csv
+	cp vcs_equilibrate_res_2.csv  vcs_equilibrate_blessed_2.csv
+	cp vcs_equilibrate_res_3.csv  vcs_equilibrate_blessed_3.csv
+	cp vcs_equilibrate_res_4.csv  vcs_equilibrate_blessed_4.csv
 	if test -e dout.txt ; then cp dout.txt good_dout.txt ; fi
-
 
 clean:
 	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT vcs_equilibrate_res*csv diff_csv* \

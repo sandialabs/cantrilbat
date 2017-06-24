@@ -1,8 +1,0 @@
-cp vcs_equilibrate_res.csv  vcs_equilibrate_blessed.csv
-cp vcs_equilibrate_res_1.csv  vcs_equilibrate_blessed_1.csv
-cp vcs_equilibrate_res_2.csv  vcs_equilibrate_blessed_2.csv
-cp vcs_equilibrate_res_3.csv  vcs_equilibrate_blessed_3.csv
-cp vcs_equilibrate_res_4.csv  vcs_equilibrate_blessed_4.csv
-
-cp out.txt good_out.txt
-cp dout.txt good_dout.txt
