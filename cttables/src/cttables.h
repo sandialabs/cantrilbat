@@ -1,7 +1,6 @@
 /**
  *  @file cttables.h
  *
- * $Id: cttables.h 497 2013-01-07 21:17:04Z hkmoffa $
  */
 
 /*
@@ -24,9 +23,6 @@
 
 #include <cstdio>
 
-const double R_kcalmol = 8.314472E7 /  4.184E7 * 1.0E-3;
-const double R_Jgmol = 8.314472;
-const double R_kJgmol = 8.314472 * 1.0E-3;
 
 #ifdef useZuzaxNamepace
 #ifndef ZZCantera
@@ -37,6 +33,10 @@ const double R_kJgmol = 8.314472 * 1.0E-3;
 #define ZZCantera Cantera
 #endif
 #endif
+
+const double R_kcalmol = ZZCantera::GasConstant / 4.184E6;
+const double R_Jgmol = ZZCantera::GasConstant * 1.0E-3;
+const double R_kJgmol = ZZCantera::GasConstant * 1.0E-6;
 
 extern ZZCantera::Transport* GTran;
 

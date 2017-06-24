@@ -364,7 +364,7 @@ void Thermo_NASA::printNASABlock(int n, int p)
      ind(n); printf("<NASA Tmax=\"%g\" Tmin=\"%g\" P0=\"100000\">\n", thigh_, tlow_);
      ind(n); printf("    <floatArray name=\"coeffs\" size=\"7\">\n");
      int wMin = p + 7;
-     snprintf(m_fmt, 31, "%s -%d.%dE ", "%", wMin, p);
+     snprintf(m_fmt, 31, "%s -%d.%dE, ", "%", wMin, p);
      int m = n + 6;
      ind(m); printf(m_fmt, m_coeffs[2]);
      printf(m_fmt, m_coeffs[3]);
@@ -374,8 +374,9 @@ void Thermo_NASA::printNASABlock(int n, int p)
      ind(m); 
      printf(m_fmt, m_coeffs[6]);
      printf(m_fmt, m_coeffs[0]);
+     snprintf(m_fmt, 31, "%s -%d.%dE ", "%", wMin, p);
      printf(m_fmt, m_coeffs[1]);
-     ind(n); printf(" </floatArray>\n");
+     ind(n); printf("</floatArray>\n");
      ind(n); printf("</NASA>\n");
 }
 //==================================================================================================================================

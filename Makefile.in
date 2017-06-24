@@ -30,6 +30,7 @@ all:
 	cd electrodeCell;                 @MAKE@
 	cd imt_model;                     @MAKE@
 	cd batteryDevelop;		  @MAKE@
+	cd utilProg;			  @MAKE@
 #
 # allsrc:  This makes executables and libraries that will be installed, only.
 #          It skips making tests for the most part
@@ -43,10 +44,12 @@ allsrc:
 	cd cttables;                      @MAKE@ allsrc
 	cd electrodeCell;                 @MAKE@ allsrc
 	cd batteryDevelop;		  @MAKE@
+	cd utilProg;			  @MAKE@
 #
 # allback: Compile all programs from the back
 #
 allback:
+	cd utilProg;		          @MAKE@
 	cd batteryDevelop;		  @MAKE@
 	cd imt_model;                     @MAKE@
 	cd electrodeCell;                 @MAKE@
@@ -63,6 +66,7 @@ allback:
 #        Leaves the current output from test programs (IMPLEMENTATION IN PROGRESS).
 #
 clean:
+	cd utilProg;		          $(MAKE) clean
 	cd batteryDevelop;		  @MAKE@ clean
 	cd util_src;                      @MAKE@ clean
 	cd ctpadds;$(RM) .depends ;       @MAKE@ clean
@@ -90,6 +94,7 @@ test_clean:
 	cd electrodeCell;                 @MAKE@ clean
 	cd imt_model;                     @MAKE@ clean
 	cd batteryDevelop;		  @MAKE@ clean
+	cd utilProg;			  $(MAKE) clean
 #
 #  dist_clean: Carries out all of the operations of clean and test_clean:
 #              Also wipes out all installed file that this module is responsible for posting.
@@ -106,6 +111,7 @@ dist_clean:
 	cd electrodeCell;                 @MAKE@ clean
 	cd imt_model;                     @MAKE@ clean
 	cd batteryDevelop;		  @MAKE@ clean
+	cd utilProg;			  $(MAKE) clean
 #
 # depends:  Calculates all depends files from scratch
 #
@@ -121,6 +127,7 @@ depends:
 	cd electrodeCell;                @MAKE@ depends
 	cd imt_model;                    @MAKE@ depends
 	cd batteryDevelop;	         @MAKE@ depends
+	cd utilProg;			 $(MAKE) depends
 
 #
 # test:       Carries out all tests
@@ -176,5 +183,6 @@ install:
 	cd fitShomate;                    @MAKE@ install
 	cd electrodeCell;                 @MAKE@ install
 	cd imt_model;                     @MAKE@ install
+	cd utilProg;                      $(MAKE) install
 #
 
