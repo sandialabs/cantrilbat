@@ -1525,12 +1525,9 @@ SolNonlinear::setColumnScaleVector(const Epetra_Vector_Owned& colScales)
 //=====================================================================================================================
 // Setup the problem for solution.
 void
-SolNonlinear::setup_problem(Solve_Type_Enum solnType,
-                            Epetra_Vector_Ghosted* y_init,
-                            Epetra_Vector_Ghosted* ydot_init,
-                            double time_curr,
-                            ProblemResidEval& problem,
-                            EpetraJac& jac)
+SolNonlinear::setup_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* const y_init,
+                            Epetra_Vector_Ghosted* ydot_init, double time_curr,
+                            ProblemResidEval& problem, EpetraJac& jac)
 {
     tdjac_ptr = &jac;
     Epetra_VbrMatrix* A = jac.A_;
@@ -1715,19 +1712,14 @@ SolNonlinear::setup_problem(Solve_Type_Enum solnType,
     num_failures = 0;
     m_maxAge = 5;
     m_elapsed = 0.0;
-
 }
-//=====================================================================================================================
-/*
- *
- */
+//==================================================================================================================================
 void
 SolNonlinear::setPredicted_soln(const Epetra_Vector& y_pred)
 {
     mdpUtil::mdp_copy_dbl_1(&(*m_y_pred_n)[0], &(y_pred[0]), m_NumLcEqns);
 }
-
-//=====================================================================================================================
+//==================================================================================================================================
 /*
  * solve_nonlinear_problem():
  *

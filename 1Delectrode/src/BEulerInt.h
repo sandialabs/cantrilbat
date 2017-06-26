@@ -103,33 +103,35 @@ public:
     /*!
      *  Default settings: epetra jacobian, no user-supplied
      *  Jacobian function, Newton iteration.
-     *  */
+     */
     BEulerInt();
 
     //! Copy constructor
     /*!
-     *
-     * @param r  Object to be copied
+     *  @param[in]           r                   Object to be copied
      */
     BEulerInt(const BEulerInt &r);
 
     //! Virtual destructor
-    virtual
-    ~BEulerInt();
+    virtual ~BEulerInt();
 
     //! Assignment operator
     /*!
-     * @param r  Object to be copied
-     * @return  Returns the current object
+     *  @param[in]           r                   Object to be copied
+     *  @return                                  Returns the current object
      */
-    BEulerInt &
-    operator=(const BEulerInt &r);
+    BEulerInt& operator=(const BEulerInt &r);
 
     /*************************************** Member functions ***********************************************/
     /******************************        BASIC SETUP FUNCTIONS        *********************************/
 
-    virtual void
-    setTolerancesEpetra(double reltol, const m1d::Epetra_Vector_Owned &abstol);
+    //! Setup the time-step tolerances and the nonlinear solver tolerances
+    /*!
+     *  @param[in]           reltol              Relative tolerance
+     *  @param[in]           abstol              Reference to the abs tolerances for each variable in the solution vector.
+     *                                           We assume that a vector is needed here.
+     */
+    virtual void setTolerancesEpetra(double reltol, const m1d::Epetra_Vector_Owned &abstol);
 
     //! Set the algebraic constraints in the system
     /*!

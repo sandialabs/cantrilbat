@@ -31,34 +31,46 @@ public:
 
 #define BEULER_JAC_ANAL 2
 #define BEULER_JAC_NUM  1
-
-/**
- *  Wrapper class for 'beuler' integrator
- *  We derive the class from the class Integrator
- *  Newton iterator for multi-domain, one-dimensional problems.
+//==================================================================================================================================
+//!   Wrapper class for 'beuler' integrator
+/*!
+ *  We derive the class from the class Integrator  Newton iterator for multi-domain, one-dimensional problems.
  *  Used by class OneDim.
+ *
  */
 class SolNonlinear : public SolGlobalNonlinear
 {
-
 public:
-    /**
-     * The default constructor doesn't take an argument.
-     */
+    //!  The default constructor doesn't take an argument.
     SolNonlinear();
 
     //! Destructor
-    virtual
-    ~SolNonlinear();
+    virtual ~SolNonlinear();
 
     //! Setup the problem for solution.
-    virtual  void
-    setup_problem(Solve_Type_Enum solveType,
-                  Epetra_Vector_Ghosted* y_init,
-                  Epetra_Vector_Ghosted* ydot_init,
-                  double time_curr,
-                  ProblemResidEval& problem,
-                  EpetraJac& jac);
+    /*!
+     *   Find the solution to F(X) = 0 by damped Newton iteration.  On entry, x0 contains an initial estimate of the solution. 
+     *   on successful return, x1 contains the converged solution.
+     *
+     *  @param[in]           solveType           Enum of type Solve_Type_Enum. Describes the type of the problem to be solved.
+     *                                               SteadyState_Solve 
+     *                                               TimeDependentAccurate_Solve
+     *                                               TimeDependentInitial
+     *                                               TimeDependentRelax_Solve,
+     *                                               DAESystemInitial_Solve
+     *                                           This parameters needs to be passed down to residual calculation, and in some 
+     *                                           cases, this effects the nonlinear solve itself.
+     *  @param[in]           y_init              Pointer to a ghosted Epetra_Vector. This contains the initial solution at
+     *                                           the current time.
+     *  @param[in]           ydot_init           Pointer to a ghosted Epetra_Vector. This may contain the initial ydot value
+     *                                           at the current time. It may be nullptr for steady state problems.
+     *  @param[in]           time_curr           Current time
+     *  @param[in]           problem             Reference to the  ProblemResidEval object
+     *  @param[in]           jac                 Reference to teh EpetraJac object
+     */ 
+    virtual void setup_problem(Solve_Type_Enum solveType, Epetra_Vector_Ghosted* const y_init,
+                               Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval& problem, 
+                               EpetraJac& jac) override;
 
     //! Apply hard bounds on the step size
     /*!

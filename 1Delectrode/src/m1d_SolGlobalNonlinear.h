@@ -58,8 +58,8 @@ public:
   //! Setup the problem for solution.
   virtual void
   setup_problem(Solve_Type_Enum solveType,
-		Epetra_Vector_Ghosted* y_init,
-                Epetra_Vector_Ghosted* ydot_init,
+		Epetra_Vector_Ghosted* const y_init,
+                Epetra_Vector_Ghosted* const ydot_init,
                 double time_curr,
                 ProblemResidEval &problem,
                 EpetraJac& jac);
