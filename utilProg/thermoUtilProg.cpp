@@ -222,7 +222,7 @@ Thermo_NASA::Thermo_NASA() :
     pref_(100000.)
 {   
     for (size_t i = 0; i < 7; i++) {
-        m_coeffs[i] = 0.0;
+        m_coeff[i] = 0.0;
     }
 }
 //==================================================================================================================================
@@ -233,10 +233,10 @@ Thermo_NASA::Thermo_NASA(double tlow, double thigh, double pref, const double* X
     thigh_(thigh),
     pref_(pref)
 {
-    m_coeffs[0] = XMLcoeffs[5];
-    m_coeffs[1] = XMLcoeffs[6];
+    m_coeff[0] = XMLcoeffs[5];
+    m_coeff[1] = XMLcoeffs[6];
     for (size_t i = 0; i < 5; i++) {
-       m_coeffs[2+i] = XMLcoeffs[i];
+       m_coeff[2+i] = XMLcoeffs[i];
     }
     Hf298_s = h(298.15);
     S298_s = s(298.15);
@@ -255,11 +255,11 @@ void Thermo_NASA::updateTemperaturePoly(double T) const
 double Thermo_NASA::cp(double T) const
 {
     updateTemperaturePoly(T);
-    double ct0 = m_coeffs[2];          // a0
-    double ct1 = m_coeffs[3]*tt[0];    // a1 * T
-    double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
-    double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
-    double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
+    double ct0 = m_coeff[2];          // a0
+    double ct1 = m_coeff[3]*tt[0];    // a1 * T
+    double ct2 = m_coeff[4]*tt[1];    // a2 * T^2
+    double ct3 = m_coeff[5]*tt[2];    // a3 * T^3
+    double ct4 = m_coeff[6]*tt[3];    // a4 * T^4
     double cpR= ct0 + ct1 + ct2 + ct3 + ct4;
     return cpR * Zuzax::GasConstant * 1.0E-3;
 }
@@ -267,24 +267,24 @@ double Thermo_NASA::cp(double T) const
 double Thermo_NASA::h(double T) const
 {
     updateTemperaturePoly(T);
-    double ct0 = m_coeffs[2];          // a0
-    double ct1 = m_coeffs[3]*tt[0];    // a1 * T
-    double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
-    double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
-    double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
-    double hRT = ct0 + 0.5*ct1 + ct2 / 3.0 + 0.25*ct3 + 0.2*ct4 + m_coeffs[0]*tt[4];     // last term is a5/T
+    double ct0 = m_coeff[2];          // a0
+    double ct1 = m_coeff[3]*tt[0];    // a1 * T
+    double ct2 = m_coeff[4]*tt[1];    // a2 * T^2
+    double ct3 = m_coeff[5]*tt[2];    // a3 * T^3
+    double ct4 = m_coeff[6]*tt[3];    // a4 * T^4
+    double hRT = ct0 + 0.5*ct1 + ct2 / 3.0 + 0.25*ct3 + 0.2*ct4 + m_coeff[0]*tt[4];     // last term is a5/T
     return hRT * T * Zuzax::GasConstant * 1.0E-6;
 }
 //==================================================================================================================================
 double Thermo_NASA::s(double T) const
 {
     updateTemperaturePoly(T);
-    double ct0 = m_coeffs[2];          // a0
-    double ct1 = m_coeffs[3]*tt[0];    // a1 * T
-    double ct2 = m_coeffs[4]*tt[1];    // a2 * T^2
-    double ct3 = m_coeffs[5]*tt[2];    // a3 * T^3
-    double ct4 = m_coeffs[6]*tt[3];    // a4 * T^4
-    double sR = ct0*tt[5] + ct1 + 0.5*ct2 + ct3/3.0 +0.25*ct4 + m_coeffs[1];          // last term is a6
+    double ct0 = m_coeff[2];          // a0
+    double ct1 = m_coeff[3]*tt[0];    // a1 * T
+    double ct2 = m_coeff[4]*tt[1];    // a2 * T^2
+    double ct3 = m_coeff[5]*tt[2];    // a3 * T^3
+    double ct4 = m_coeff[6]*tt[3];    // a4 * T^4
+    double sR = ct0*tt[5] + ct1 + 0.5*ct2 + ct3/3.0 +0.25*ct4 + m_coeff[1];          // last term is a6
     return sR * Zuzax::GasConstant * 1.0E-3;
 }
 //==================================================================================================================================
@@ -300,7 +300,7 @@ double Thermo_NASA::adjustH(double T, double Hinput)
     double hnowRT = hnow * 1.0E6 / ( Zuzax::GasConstant * T);
 
     if (fabs(hnowRT - HinputRT ) > 1.0E-14) {
-         m_coeffs[0] += (HinputRT -  hnowRT ) * T;
+         m_coeff[0] += (HinputRT -  hnowRT ) * T;
     }
     double hnew = h(T);
     Hf298_s = h(298.15);
@@ -321,7 +321,7 @@ double Thermo_NASA::adjustS(double T, double Sinput)
     double snowR = snow * 1.0E3 / ( Zuzax::GasConstant );
 
     if (fabs(snowR - SinputR) > 1.0E-14) {
-         m_coeffs[1] += (SinputR - snowR);
+         m_coeff[1] += (SinputR - snowR);
     }
     double snew = s(T);
     S298_s = s(298.15);
@@ -338,7 +338,7 @@ double Thermo_NASA::adjustCp(double T, double Cpinput)
     double hnow = h(T);
     double cpnow = cp(T);
     double delCoeff2 = (Cpinput - cpnow) / (Zuzax::GasConstant * 1.0E-3);
-    m_coeffs[2] += delCoeff2;
+    m_coeff[2] += delCoeff2;
     double cpnew = cp(T);
     (void) adjustH(T, hnow);
     (void) adjustS(T, snow);
@@ -366,16 +366,16 @@ void Thermo_NASA::printNASABlock(int n, int p)
      int wMin = p + 7;
      snprintf(m_fmt, 31, "%s -%d.%dE, ", "%", wMin, p);
      int m = n + 6;
-     ind(m); printf(m_fmt, m_coeffs[2]);
-     printf(m_fmt, m_coeffs[3]);
-     printf(m_fmt, m_coeffs[4]);
-     printf(m_fmt, m_coeffs[5]);
+     ind(m); printf(m_fmt, m_coeff[2]);
+     printf(m_fmt, m_coeff[3]);
+     printf(m_fmt, m_coeff[4]);
+     printf(m_fmt, m_coeff[5]);
      printf("\n");
      ind(m); 
-     printf(m_fmt, m_coeffs[6]);
-     printf(m_fmt, m_coeffs[0]);
+     printf(m_fmt, m_coeff[6]);
+     printf(m_fmt, m_coeff[0]);
      snprintf(m_fmt, 31, "%s -%d.%dE ", "%", wMin, p);
-     printf(m_fmt, m_coeffs[1]);
+     printf(m_fmt, m_coeff[1]);
      ind(n); printf("</floatArray>\n");
      ind(n); printf("</NASA>\n");
 }
@@ -530,4 +530,190 @@ void Regions_NASA::printThermoBlock(int n, int p)
     ind(n); printf("</thermo>\n");
 }
 //=================================================================================================================================
+//=================================================================================================================================
+//=================================================================================================================================
+Thermo_NASA9::Thermo_NASA9() :
+    Hf298_s(0.0),
+    S298_s(0.0),
+    tlow_(5.0),
+    thigh_(1000.),
+    pref_(100000.)
+{   
+    for (size_t i = 0; i < 9; i++) {
+        m_coeff[i] = 0.0;
+    }
+}
+//==================================================================================================================================
+Thermo_NASA9::Thermo_NASA9(double tlow, double thigh, double pref, const double* XMLcoeffs) :
+    Hf298_s(0.0),
+    S298_s(0.0),
+    tlow_(tlow),
+    thigh_(thigh),
+    pref_(pref)
+{
+    for (size_t i = 0; i < 9; i++) {
+       m_coeff[i] = XMLcoeffs[i];
+    }
+    Hf298_s = h(298.15);
+    S298_s = s(298.15);
+}
+//==================================================================================================================================
+void Thermo_NASA9::updateTemperaturePoly(double T) const 
+{
+    tt[0]  = T;
+    tt[1]  = T * T;
+    tt[2]  = tt[1] * T;
+    tt[3]  = tt[2] * T;
+    tt[4]  = 1.0 / T;
+    tt[5]  = tt[4] / T;
+    tt[6]  = std::log(T);
+}
+//==================================================================================================================================
+double Thermo_NASA9::cp(double T) const
+{
+    updateTemperaturePoly(T);
+    double ct0 = m_coeff[0] * tt[5];   // a0 / (T^2)
+    double ct1 = m_coeff[1] * tt[4];   // a1 / T
+    double ct2 = m_coeff[2];           // a2
+    double ct3 = m_coeff[3] * tt[0];   // a3 * T
+    double ct4 = m_coeff[4] * tt[1];   // a4 * T^2
+    double ct5 = m_coeff[5] * tt[2];   // a5 * T^3
+    double ct6 = m_coeff[6] * tt[3];   // a6 * T^4
+    double cpdivR = ct0 + ct1 + ct2 + ct3 + ct4 + ct5 + ct6;
+    return cpdivR * Zuzax::GasConstant * 1.0E-3;
+}
+//==================================================================================================================================
+double Thermo_NASA9::h(double T) const
+{
+    updateTemperaturePoly(T);
+    double ct0 = m_coeff[0] * tt[5];   // a0 / (T^2)
+    double ct1 = m_coeff[1] * tt[4];   // a1 / T
+    double ct2 = m_coeff[2];           // a2
+    double ct3 = m_coeff[3] * tt[0];   // a3 * T
+    double ct4 = m_coeff[4] * tt[1];   // a4 * T^2
+    double ct5 = m_coeff[5] * tt[2];   // a5 * T^3
+    double ct6 = m_coeff[6] * tt[3];   // a6 * T^4
+    double hdivRT = -ct0 + tt[6]*ct1  + ct2 + 0.5*ct3 + ct4/3.0 + 0.25*ct5  + 0.2*ct6 + m_coeff[7] * tt[4];
+    return hdivRT * T * Zuzax::GasConstant * 1.0E-6;
+}
+//==================================================================================================================================
+double Thermo_NASA9::s(double T) const
+{
+    updateTemperaturePoly(T);
+    double ct0 = m_coeff[0] * tt[5];   // a0 / (T^2)
+    double ct1 = m_coeff[1] * tt[4];   // a1 / T
+    double ct2 = m_coeff[2];           // a2
+    double ct3 = m_coeff[3] * tt[0];   // a3 * T
+    double ct4 = m_coeff[4] * tt[1];   // a4 * T^2
+    double ct5 = m_coeff[5] * tt[2];   // a5 * T^3
+    double ct6 = m_coeff[6] * tt[3];   // a6 * T^4
+    double sdivR  = -0.5*ct0  - ct1 + tt[6]*ct2  + ct3  + 0.5*ct4 + ct5/3.0 + 0.25*ct6 + m_coeff[8];
+    return sdivR * Zuzax::GasConstant * 1.0E-3;
+}
+//==================================================================================================================================
+double Thermo_NASA9::deltaH(double T) const
+{
+    return h(T) - Hf298_s;
+}
+//==================================================================================================================================
+double Thermo_NASA9::adjustH(double T, double Hinput)
+{
+    double hnow = h(T);
+    double HinputRT = Hinput * 1.0E6 /( Zuzax::GasConstant * T);
+    double hnowRT = hnow * 1.0E6 / ( Zuzax::GasConstant * T);
 
+    if (fabs(hnowRT - HinputRT ) > 1.0E-14) {
+         m_coeff[7] += (HinputRT -  hnowRT ) * T;
+    }
+    double hnew = h(T);
+    Hf298_s = h(298.15);
+    if (fabs( Hf298_s ) < 1.0E-14) {
+       Hf298_s = 0.0;
+    }
+    if (fabs(hnew - Hinput) > 1.0E-9) {
+         printf("Thermo_NASA9::adjustH() error\n");
+         exit(-1);
+    }
+    return (hnew - hnow);
+}
+//==================================================================================================================================
+double Thermo_NASA9::adjustS(double T, double Sinput)
+{
+    double snow = s(T);
+    double SinputR = Sinput * 1.0E3 /( Zuzax::GasConstant );
+    double snowR = snow * 1.0E3 / ( Zuzax::GasConstant );
+
+    if (fabs(snowR - SinputR) > 1.0E-14) {
+         m_coeff[8] += (SinputR - snowR);
+    }
+    double snew = s(T);
+    S298_s = s(298.15);
+    if (fabs(snew - Sinput) > 1.0E-9) {
+         printf(" Thermo_NASA9::adjustS() error\n");
+         exit(-1);
+    }
+    return (snew - snow);
+}
+//==================================================================================================================================
+double Thermo_NASA9::adjustCp(double T, double Cpinput)
+{
+    double snow = s(T);
+    double hnow = h(T);
+    double cpnow = cp(T);
+    double delCoeff2 = (Cpinput - cpnow) / (Zuzax::GasConstant * 1.0E-3);
+    m_coeff[2] += delCoeff2;
+    double cpnew = cp(T);
+    (void) adjustH(T, hnow);
+    (void) adjustS(T, snow);
+    S298_s = s(298.15);
+    Hf298_s = h(298.15);
+    if (fabs(cpnew - Cpinput) > 1.0E-10) {
+        printf("Thermo_NASA::adjustCp() ERROR: something didn't work\n");
+        exit(-1);
+    }
+    return (cpnew - cpnow);
+}
+//==================================================================================================================================
+void Thermo_NASA9::printNASA9Block(int n, int p)
+{
+     if (p < 5) {
+         printf("p must be greater than 5\n");
+         p = 5;
+     } else if (p > 16) {
+         printf("p must be loess than 17\n");
+         p = 16;
+     }
+     char m_fmt[32];
+     ind(n); printf("<NASA9 Tmax=\"%g\" Tmin=\"%g\" P0=\"100000\">\n", thigh_, tlow_);
+     ind(n); printf("    <floatArray name=\"coeffs\" size=\"9\">\n");
+     int wMin = p + 7;
+     snprintf(m_fmt, 31, "%s -%d.%dE, ", "%", wMin, p);
+     int m = n + 6;
+     ind(m); printf(m_fmt, m_coeff[0]);
+     printf(m_fmt, m_coeff[1]);
+     printf(m_fmt, m_coeff[2]);
+     printf(m_fmt, m_coeff[3]);
+     printf(m_fmt, m_coeff[4]);
+     printf("\n");
+     ind(m); printf(m_fmt, m_coeff[5]);
+     printf(m_fmt, m_coeff[6]);
+     printf(m_fmt, m_coeff[7]);
+     snprintf(m_fmt, 31, "%s -%d.%dE ", "%", wMin, p);
+     printf(m_fmt, m_coeff[9]);
+     printf("\n");
+     ind(n); printf("    </floatArray>\n");
+     ind(n); printf("</NASA>\n");
+}
+//==================================================================================================================================
+void Thermo_NASA9::printThermoBlock(int n, int p)
+{
+     double val = Hf298_s;
+     if (fabs(val) < 1.0E-5) {
+         val = 0.0;
+     }
+     ind(n); printf("<!-- thermo , Hf298 = %g kJ/gmol S298= %g J/gmol/K -->\n", val, S298_s);
+     ind(n); printf("<thermo>\n");
+     printNASA9Block(n+2, p); 
+     ind(n); printf("</thermo>\n");
+}
+//==================================================================================================================================

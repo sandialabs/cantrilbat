@@ -88,48 +88,31 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
     // switch on the report type, printing out a formatted representation of the polynomials
     switch (rt) {
     case NASA2:
-        dnt(1);
-        printf("NASA Polynomial format: 2 zones\n");
-        dnt(2);
-        printf("Low  temperature polynomials: %g < T < %g: \n", minTemp, c[0]);
-        dnt(2);
-        printf("%12.5g %12.5g %12.5g %12.5g\n", c[3], c[4],  c[5],  c[6]);
-        dnt(2);
-        printf("%12.5g %12.5g %12.5g\n", c[7], c[1], c[2]);
-        dnt(2);
-        printf("High temperature polynomials: %g < T < %g: \n", c[0], maxTemp);
-        dnt(2);
-        printf("%16.10g %16.10g %16.10g %16.10g\n", c[10], c[11], c[12],  c[13]);
-        dnt(2);
-        printf("%16.10g %16.10g %16.10g\n", c[14], c[8], c[9]);
+        dnt(1); printf("NASA Polynomial format: 2 zones\n");
+        dnt(2); printf("Low  temperature polynomials: %g < T < %g: \n", minTemp, c[0]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[3], c[4], c[5], c[6]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[7], c[1], c[2]);
+        dnt(2); printf("High temperature polynomials: %g < T < %g: \n", c[0], maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[10], c[11], c[12],  c[13]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[14], c[8], c[9]);
         break;
 
     case SHOMATE2:
         dnt(1);
         printf("SHOMATE Polynomial format: 2 zones\n");
-        dnt(2);
-        printf("Low  temperature polynomials: %g < T < %g: \n", minTemp, c[0]);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g %17.11g\n", c[1],  c[2], c[3], c[4]);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g\n", c[5],  c[6], c[7]);
-        dnt(2);
-        printf("High temperature polynomials: %g < T < %g: \n", c[0], maxTemp);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g %17.11g\n", c[8],  c[9], c[10], c[11]);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g\n", c[12], c[13], c[14]);
+        dnt(2); printf("Low  temperature polynomials: %g < T < %g: \n", minTemp, c[0]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,n", c[1], c[2], c[3], c[4]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[5],  c[6], c[7]);
+        dnt(2); printf("High temperature polynomials: %g < T < %g: \n", c[0], maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,n", c[8], c[9], c[10], c[11]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[12], c[13], c[14]);
         break;
 
     case NASA1:
-        dnt(1);
-        printf("NASA Polynomial format: 1 zones\n");
-        dnt(2);
-        printf("temperature polynomials: %g < T < %g: \n", minTemp, maxTemp);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g %17.11g\n", c[1], c[2],  c[3],  c[4]);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g\n", c[5], c[6], c[7]);
+        dnt(1); printf("NASA Polynomial format: 1 zones\n");
+        dnt(2); printf("temperature polynomials: %g < T < %g: \n", minTemp, maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,n", c[1], c[2],  c[3],  c[4]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[5], c[6], c[7]);
         break;
 
     case SHOMATE1:
@@ -138,54 +121,40 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
         dnt(2);
         printf("temperature polynomials: %g < T < %g: \n", minTemp, maxTemp);
         dnt(2);
-        printf("%17.11g %17.11g %17.11g %17.11g\n", c[0],  c[1], c[2], c[3]);
+        printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,/n", c[0], c[1], c[2], c[3]);
         dnt(2);
-        printf("%17.11g %17.11g %17.11g\n", c[4],  c[5], c[6]);
+        printf("% 23.15E,% 23.15E,% 23.15E\n", c[4], c[5], c[6]);
         break;
 
     case CONSTANT_CP:
     case SIMPLE:
-        dnt(1);
-        printf("CONSTANT_CP format:\n");
-        dnt(2);
-        printf(" Valid Range: %g < T < %g: \n", minTemp, maxTemp);
-        dnt(2);
-        printf(" at T = %5g K, H  = %17.11g J kmol-1\n", c[0], c[1]);
-        dnt(2);
-        printf("                 S  = %17.11g J kmol-1 K-1\n", c[2]);
-        dnt(2);
-        printf("                 Cp = %17.11g J kmol-1 K-1\n", c[3]);
+        dnt(1); printf("CONSTANT_CP format:\n");
+        dnt(2); printf(" Valid Range: %g < T < %g: \n", minTemp, maxTemp);
+        dnt(2); printf(" at T = %5g K, H  = % 23.15E J kmol-1\n", c[0], c[1]);
+        dnt(2); printf("                 S  = % 23.15E J kmol-1 K-1\n", c[2]);
+        dnt(2); printf("                 Cp = % 23.15E J kmol-1 K-1\n", c[3]);
         break;
 
     case MU0_INTERP:
-        dnt(1);
-        printf("MU0_POLY format:\n");
+        dnt(1); printf("MU0_POLY format:\n");
         nint = (int) c[0];
-        dnt(2);
-        printf(" Valid Range: %g < T < %g: \n", minTemp, maxTemp);
-        dnt(2);
-        printf(" T        mu_0\n");
+        dnt(2); printf(" Valid Range: %g < T < %g: \n", minTemp, maxTemp);
+        dnt(2); printf(" T        mu_0\n");
         j = 2;
         for (i =0 ; i < nint; i++) {
-            dnt(2);
-            printf(" %g   %17.11g\n", c[j], c[j+1]);
+            dnt(2); printf(" %g   %17.11g\n", c[j], c[j+1]);
             j += 2;
         }
         break;
 
     case NASA9:
         nzones = 1;
-        dnt(1);
-        printf("NASA9 Polynomial format: %d zones\n", nzones);
+        dnt(1); printf("NASA9 Polynomial format: %d zones\n", nzones);
         cptr = c;
-        dnt(2);
-        printf("%2d:  Temperature polynomials: %g < T < %g: \n", 0, minTemp, maxTemp);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g %17.11g\n", cptr[3], cptr[4],  cptr[5],  cptr[6]);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g %17.11g\n", cptr[7], cptr[8], cptr[9], cptr[10]);
-        dnt(2);
-        printf("%17.11g\n", cptr[11]);
+        dnt(2); printf("%2d:  Temperature polynomials: %g < T < %g: \n", 0, minTemp, maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", cptr[3], cptr[4],  cptr[5],  cptr[6]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", cptr[7], cptr[8], cptr[9], cptr[10]);
+        dnt(2); printf("% 23.15E\n", cptr[11]);
         break;
 
     case NASA9MULTITEMP:
@@ -197,14 +166,10 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
             minTemp = c[index];
             maxTemp = c[index+1];
             cptr = c+index+2;
-            dnt(2);
-            printf("%2d:  Temperature polynomials: %g < T < %g: \n", i, minTemp, maxTemp);
-            dnt(2);
-            printf("%17.11g %17.11g %17.11g %17.11g\n", cptr[0], cptr[1],  cptr[2],  cptr[3]);
-            dnt(2);
-            printf("%17.11g %17.11g %17.11g %17.11g\n", cptr[4], cptr[5], cptr[6], cptr[7]);
-            dnt(2);
-            printf("%17.11g\n", cptr[8]);
+            dnt(2); printf("%2d:  Temperature polynomials: %g < T < %g: \n", i, minTemp, maxTemp);
+            dnt(2); printf("% 23.15E % 23.15E % 23.15E % 23.15E\n", cptr[0], cptr[1],  cptr[2],  cptr[3]);
+            dnt(2); printf("% 23.15E % 23.15E % 23.15E % 23.15E\n", cptr[4], cptr[5], cptr[6], cptr[7]);
+            dnt(2); printf("% 23.15E\n", cptr[8]);
             index += 11;
         }
         break;
@@ -224,110 +189,71 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
         } else {
             dg_consistent =  Mu0_tr_pr + 298.15 * (stotal);
         }
-        dnt(1);
-        printf("MinEQ3 format:  (a varient of Shomate1 format) \n");
-        dnt(2);
-        printf("temperature polynomials (Shomate Form): %g < T < %g: \n", minTemp, maxTemp);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g %17.11g\n", c[0],  c[1], c[2], c[3]);
-        dnt(2);
-        printf("%17.11g %17.11g %17.11g\n",  c[4],  c[5], c[6]);
-        dnt(2);
-        printf("  Delta G0_Tr_Pr = %16.9E cal/gmol\n", DG0_tr_pr / (4.184 * 1.0E3));
-        dnt(2);
-        printf("                 = %16.6g kJ /gmol\n", DG0_tr_pr/1.0E6);
-        dnt(2);
-        printf("  Delta H0_Tr_Pr = %16.9E cal/gmol\n", DH0_tr_pr / (4.184 * 1.0E3));
-        dnt(2);
-        printf("        S0_Tr_Pr = %16.9g cal/gmol/K\n", S0_tr_pr / (4.184 * 1.0E3));
-        dnt(2);
-        printf("                 = %16.6g  J /gmol/K\n", S0_tr_pr / 1.0E3);
-        dnt(2);
-        printf("       mu0_Tr_Pr = %16.6g kJ /gmol\n",   Mu0_tr_pr / 1.0E6);
+        dnt(1); printf("MinEQ3 format:  (a varient of Shomate1 format) \n");
+        dnt(2); printf("temperature polynomials (Shomate Form): %g < T < %g: \n", minTemp, maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[0],  c[1], c[2], c[3]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n",  c[4],  c[5], c[6]);
+        dnt(2); printf("  Delta G0_Tr_Pr = %16.9E cal/gmol\n", DG0_tr_pr / (4.184 * 1.0E3));
+        dnt(2); printf("                 = %16.6g kJ /gmol\n", DG0_tr_pr/1.0E6);
+        dnt(2); printf("  Delta H0_Tr_Pr = %16.9E cal/gmol\n", DH0_tr_pr / (4.184 * 1.0E3));
+        dnt(2); printf("        S0_Tr_Pr = %16.9g cal/gmol/K\n", S0_tr_pr / (4.184 * 1.0E3));
+        dnt(2); printf("                 = %16.6g  J /gmol/K\n", S0_tr_pr / 1.0E3);
+        dnt(2); printf("       mu0_Tr_Pr = %16.6g kJ /gmol\n",   Mu0_tr_pr / 1.0E6);
         if (dg_consistent == ENTROPY298_UNKNOWN) {
-            dnt(2);
-            printf(" Delta G0_consis = [UNAVAILABE BECAUSE ENTROPY298 NOT INPUT]\n");
+            dnt(2); printf(" Delta G0_consis = [UNAVAILABE BECAUSE ENTROPY298 NOT INPUT]\n");
         } else {
-            dnt(2);
-            printf(" Delta G0_consis = %16.6g kJ /gmol\n", dg_consistent / 1.0E6);
+            dnt(2); printf(" Delta G0_consis = %16.6g kJ /gmol\n", dg_consistent / 1.0E6);
         }
-        dnt(2);
-        printf("               a = %16.9g cal/gkmol/K\n", as);
-        dnt(2);
-        printf("               b = %16.9g cal/kmol/K2\n", bs);
-        dnt(2);
-        printf("               c = %16.9g cal-K/gmol\n", cs);
+        dnt(2); printf("               a = %16.9g cal/gkmol/K\n", as);
+        dnt(2); printf("               b = %16.9g cal/kmol/K2\n", bs);
+        dnt(2); printf("               c = %16.9g cal-K/gmol\n", cs);
         break;
 
     case PDSS_TYPE:
-        dnt(1);
-        printf("Presure Dependent Standard State form\n");
+        dnt(1); printf("Presure Dependent Standard State form\n");
         vpss = dynamic_cast<VPStandardStateTP*>(g_ptr);
         pdss_ptr = vpss->providePDSS(k);
         ptype = pdss_ptr->reportPDSSType();
-
         double minTemp, maxTemp, refPressure;
         pdss_ptr->reportParams(kindex, type, &c[0], minTemp, maxTemp, refPressure);
-
-        dnt(2);
-        printf("PDSS Species index    = %d\n", (int) kindex);
-        dnt(2);
-        printf("PDSS min Temperature  = %g\n", minTemp);
-        dnt(2);
-        printf("PDSS max Temperature  = %g\n", maxTemp);
-        dnt(2);
-        printf("PDSS reference pres   = %g\n", refPressure);
+        dnt(2); printf("PDSS Species index    = %d\n", (int) kindex);
+        dnt(2); printf("PDSS min Temperature  = %g\n", minTemp);
+        dnt(2); printf("PDSS max Temperature  = %g\n", maxTemp);
+        dnt(2); printf("PDSS reference pres   = %g\n", refPressure);
 
         switch (ptype) {
         case cPDSS_IDEALGAS:
-            dnt(2);
-            printf("Ideal Gas PDSS thermo type\n");
+            dnt(2); printf("Ideal Gas PDSS thermo type\n");
             break;
         case  cPDSS_CONSTVOL:
-            dnt(2);
-            printf("ConstVol PDSS thermo type\n");
+            dnt(2); printf("ConstVol PDSS thermo type\n");
             break;
         case cPDSS_MOLAL_CONSTVOL:
-            dnt(2);
-            printf("Molal ConstVol PDSS thermo type\n");
+            dnt(2); printf("Molal ConstVol PDSS thermo type\n");
             break;
         case cPDSS_WATER:
-            dnt(2);
-            printf("Water PDSS thermo type\n");
+            dnt(2); printf("Water PDSS thermo type\n");
             break;
         case cPDSS_MOLAL_HKFT:
-            dnt(2);
-            printf("PDSS_MOLAL_HKFT PDSS thermo type\n");
-            dnt(3);
-            printf("deltaG_formation_tr_pr = %g\n", c[0]);
-            dnt(3);
-            printf("deltaH_formation_tr_pr = %g\n", c[1]);
-            dnt(3);
-            printf("Mu0_tr_pr              = %g\n", c[2]);
-            dnt(3);
-            printf("Entrop_tr_pr           = %g\n", c[3]);
-            dnt(3);
-            printf("a1                     = %g\n", c[4]);
-            dnt(3);
-            printf("a2                     = %g\n", c[5]);
-            dnt(3);
-            printf("a3                     = %g\n", c[6]);
-            dnt(3);
-            printf("a4                     = %g\n", c[7]);
-            dnt(3);
-            printf("c1                     = %g\n", c[8]);
-            dnt(3);
-            printf("c2                     = %g\n", c[9]);
-            dnt(3);
-            printf("omega_pr_tr            = %g\n", c[10]);
+            dnt(2); printf("PDSS_MOLAL_HKFT PDSS thermo type\n");
+            dnt(3); printf("deltaG_formation_tr_pr = %g\n", c[0]);
+            dnt(3); printf("deltaH_formation_tr_pr = %g\n", c[1]);
+            dnt(3); printf("Mu0_tr_pr              = %g\n", c[2]);
+            dnt(3); printf("Entrop_tr_pr           = %g\n", c[3]);
+            dnt(3); printf("a1                     = %g\n", c[4]);
+            dnt(3); printf("a2                     = %g\n", c[5]);
+            dnt(3); printf("a3                     = %g\n", c[6]);
+            dnt(3); printf("a4                     = %g\n", c[7]);
+            dnt(3); printf("c1                     = %g\n", c[8]);
+            dnt(3); printf("c2                     = %g\n", c[9]);
+            dnt(3); printf("omega_pr_tr            = %g\n", c[10]);
 
             break;
         case cPDSS_UNDEF:
-            dnt(2);
-            printf("Undefined PDSS thermo type\n");
+            dnt(2); printf("Undefined PDSS thermo type\n");
             break;
         default:
-            printf("unknown species PDSS thermo type %d\n", (int) ptype);
+            dnt(2); printf("unknown species PDSS thermo type %d\n", (int) ptype);
         }
 
         break;
@@ -606,14 +532,12 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
     /*
      * Print out the Heat of Formation at 298.15 K
      */
-    dnt(1); printf("Heat of formation (298.15K) = %4f %8s\n", H298[k], UIO.sGibbs.c_str());
+    dnt(1); printf("Heat of formation (298.15K) = %.4f %8s\n", H298[k], UIO.sGibbs.c_str());
     double mu_o = H298[k];
-    // TODO -> take out the next line. Doesn't make too much sense.
-    dnt(1); printf("mu_0(298.15K) = H298[k]  %G\n", mu_o);
 
     double deltaGf = 1.0E6 * H298[k] - 298.15 * g_S298_refThermo[k] + 298.15 * elementEntropyTotal;
     deltaGf /= 1.0E6;
-    dnt(1); printf("DeltaGf (298.15K) = %4f %8s\n", deltaGf, UIO.sGibbs.c_str());
+    dnt(1); printf("DeltaGf (298.15K) = %.4f %8s\n", deltaGf, UIO.sGibbs.c_str());
     dnt(1);
 
     /*
@@ -837,28 +761,3 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
     printf("\n");
 }
 //=====================================================================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -298,7 +298,7 @@ struct Thermo_NASA {
      *  These are in the order that the NASA object within Zuzax uses. The order is changed
      *  from what is in the XML file.
      */
-    double m_coeffs[7];
+    double m_coeff[7];
 
     //! Default constructor
     Thermo_NASA(); 
@@ -550,6 +550,146 @@ public:
 };
 //==================================================================================================================================
 
+//==================================================================================================================================
+//! Thermodynamics polynomial for NASA9
+/*!
+ *  Nine coefficients \f$(a_0,\dots,a_6)\f$ are used to represent \f$ c_p^0(T)\f$, \f$ h^0(T)\f$, and \f$ s^0(T) \f$
+ *  as polynomials in \f$ T \f$ :
+ *
+ * \f[
+ *     \frac{C_p^0(T)}{R} = a_0 T^{-2} + a_1 T^{-1} + a_2 + a_3 T + a_4 T^2 + a_5 T^3 + a_6 T^4
+ * \f]
+ *
+ * \f[
+ *     \frac{H^0(T)}{RT} = - a_0 T^{-2} + a_1 \frac{\ln T}{T} + a_2 + \frac{a_3}{2} T + \frac{a_4}{3} T^2  + \frac{a_5}{4} T^3 +
+ *                          \frac{a_6}{5} T^4 + \frac{a_7}{T}
+ * \f]
+ *
+ * \f[
+ *    \frac{s^0(T)}{R} = - \frac{a_0}{2} T^{-2} - a_1 T^{-1} + a_2 \ln T + a_3 T + \frac{a_4}{2} T^2 + \frac{a_5}{3} T^3 
+ *                       + \frac{a_6}{4} T^4 + a_8
+ * \f]
+ *
+ *
+ *  Note assignment object and copy constructor cannot the default implementation, due to arrays. Need to fix.
+ */
+struct Thermo_NASA9 {
 
+    //! Enthalpy at 298.15K and reference pressure (kJ/gmol)
+    double Hf298_s;
+    //! Entropy at 298.15K and reference pressure (J/gmol/K)
+    double S298_s;
+    //! Low temperature limit
+    double tlow_;
+    //! High temperature limit
+    double thigh_;
+    //! Reference pressure (bar)
+    double pref_;
+    //! Temporary temperature polynomials 
+    mutable double tt[7];
+    //! Coefficients of the representation. 
+    /*!
+     *  These are in the order that the NASA object within Zuzax uses.
+     */
+    double m_coeff[9];
 
+    //! Default constructor
+    Thermo_NASA9(); 
+
+    //! Main constructor for the NASA polynomial routine
+    /*!
+     *  @param[in]           tlow                Low temperature value of the polynomial
+     *  @param[in]           thigh               high temperature value of the polynomial
+     *  @param[in]           pref                Reference pressure for the representation
+     *  @param[in]           XMLcoeffs           Vector of coefficients for the representation in  the order
+     *                                           that they appear in the Zuzax XML files. Note they are transmuted
+     *                                           into a different order within this object and within the NASA
+     *                                           polynomial object within Zuzax.
+     */
+    Thermo_NASA9(double tlow, double thigh, double pref, const double* XMLcoeffs);
+
+private:
+    //! Update the temperature polynomial
+    /*!
+     *  @param[in]          T                   Temperature in Kelvin
+     */
+    void updateTemperaturePoly(double T) const;
+
+public:
+    //! Returns the constant pressure heat capacity in units of J/gmol/K at the specified temperature
+    /*!
+     *  @param[in]           T                   Temperature (kelvin)
+     *
+     *  @return                                  Returns the heat capacity in units of J/gmol /K
+     */
+    double cp(double T) const;
+
+    //! Returns the enthalpy in units of kJ/gmol at the specified temperature
+    /*!
+     *  @param[in]           T                   Temperature (kelvin)
+     *
+     *  @return                                  Returns the enthalpy in units of kJ/gmol
+     */
+    double h(double T) const;
+
+    //! Returns the entropy in units of J/gmol/K at the specified temperature
+    /*!
+     *  @param[in]           T                   Temperature (kelvin)
+     *
+     *  @return                                  Returns the entropy in units of J/gmol /K
+     */
+    double s(double T) const;
+
+    //! Returns the enthalpy difference at T from the 298.15K value
+    /*!
+     *  @param[in]           T                   Temperature
+     *  @return                                  Returns the H-H298 in kJ/gmol
+     */
+    double deltaH(double T) const;
+
+    //! Adjust the value of H given in kJ/gmol at a particular temperature
+    /*!
+     *  @param[in]          T                    Temperature (kelvin)
+     *  @param[in]          Hinput               Value of the enthalpy to use at the temperature (kJ/gmol)
+     *
+     *  @return                                  Returns the net adjustment of H in kJ/gmol
+     */
+    double adjustH(double T, double Hinput);
+
+    //! Adjust the value of S given in J/gmol/K at a particular temperature
+    /*!
+     *  @param[in]          T                    Temperature (kelvin)
+     *  @param[in]          Sinput               Value of the entropy to use at the temperature (J/gmol/K)
+     *
+     *  @return                                  Returns the net adjustment of S in kJ/gmol/K
+     */
+    double adjustS(double T, double Sinput);
+
+    //! Adjust the value of Cp given in J/gmol/K at a particular temperature
+    /*!
+     *  This is different than just adjusting the value of H or S. We change the coefficients for the value of H and S 
+     *  after the adjust in Cp so that it gives the same value of H and S at T as the representation gave previously.
+     *
+     *  @param[in]          T                    Temperature to apply all of the adjustments (kelvin).
+     *  @param[in]          Cpinput              Value of the heat capacity to use at the temperature (J/gmol/K)
+     *
+     *  @return                                  Returns the net adjustment of Cp in kJ/gmol/K
+     */
+    double adjustCp(double T, double Sinput);
+
+    //! Print out a block of XML code representing the NASA representation
+    /*! 
+     *  @param[in]           n                   Minimum indentation of all of the lines
+     *  @param[in]           p                   Precision in the writing of the block
+     */
+    void printNASA9Block(int n, int p = 10);
+
+    //! Print out a block of XML code representing the thermodynamic representation
+    /*! 
+     *  @param[in]           n                   Minimum indentation of all of the lines
+     *  @param[in]           p                   Precision in the writing of the block
+     */
+    void printThermoBlock(int n, int p = 10);
+};
+//==================================================================================================================================
 
