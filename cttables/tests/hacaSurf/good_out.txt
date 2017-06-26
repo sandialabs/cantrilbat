@@ -29,19 +29,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "gas"
                   H: 1
         Electronic Charge = 0.000000
         Molecular Weight = 1.00794 gm/mol
-        Heat of formation (298.15K) = 52.102575 kcal/gmol
-        mu_0(298.15K) = H298[k]  52.1026
-        DeltaGf (298.15K) = 37.380762 kcal/gmol
+        Heat of formation (298.15K) = 52.1026 kcal/gmol
+        DeltaGf (298.15K) = 37.3808 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
-                        2.5   7.0533e-13  -1.9959e-15   2.3008e-18
-                -9.2773e-22        25474     -0.44668
+                 2.500000000000000E+00,  7.053328190000000E-13, -1.995919640000000E-15,  2.300816320000000E-18,
+                -9.277323320000001E-22,  2.547365990000000E+04, -4.466828530000000E-01
                High temperature polynomials: 1000 < T < 3500: 
-                     2.50000001  -2.30842973e-11   1.61561948e-14  -4.73515235e-18
-                 4.98197357e-22       25473.6599     -0.446682914
+                 2.500000010000000E+00, -2.308429730000000E-11,  1.615619480000000E-14, -4.735152350000000E-18,
+                 4.981973570000000E-22,  2.547365990000000E+04, -4.466829140000000E-01
 ---------------------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------------------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
@@ -72,19 +71,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
                   N: 2
         Electronic Charge = 0.000000
         Molecular Weight = 28.0135 gm/mol
-        Heat of formation (298.15K) = 0.000342 kcal/gmol
-        mu_0(298.15K) = H298[k]  0.000341755
-        DeltaGf (298.15K) = 0.029194 kcal/gmol
+        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        DeltaGf (298.15K) = 0.0292 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     3.2987    0.0014082  -3.9632e-06   5.6415e-09
-                -2.4449e-12      -1020.9       3.9504
+                 3.298677000000000E+00,  1.408240400000000E-03, -3.963222000000000E-06,  5.641515000000000E-09,
+                -2.444854000000000E-12, -1.020899900000000E+03,  3.950372000000000E+00
                High temperature polynomials: 1000 < T < 5000: 
-                        2.92664     0.0014879768     -5.68476e-07    1.0097038e-10
-                  -6.753351e-15        -922.7977         5.980528
+                 2.926640000000000E+00,  1.487976800000000E-03, -5.684760000000000E-07,  1.009703800000000E-10,
+                -6.753351000000000E-15, -9.227977000000000E+02,  5.980528000000000E+00
 ---------------------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------------------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
@@ -116,19 +114,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH3" IN PHASE "gas"
                   C: 1
         Electronic Charge = 0.000000
         Molecular Weight = 15.0348 gm/mol
-        Heat of formation (298.15K) = 35.109740 kcal/gmol
-        mu_0(298.15K) = H298[k]  35.1097
-        DeltaGf (298.15K) = 37.421057 kcal/gmol
+        Heat of formation (298.15K) = 35.1097 kcal/gmol
+        DeltaGf (298.15K) = 37.4211 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
-                     3.6736     0.002011   5.7302e-06  -6.8712e-09
-                 2.5439e-12        16445       1.6046
+                 3.673590400000000E+00,  2.010951750000000E-03,  5.730218560000000E-06, -6.871174250000000E-09,
+                 2.543857340000000E-12,  1.644499880000000E+04,  1.604564330000000E+00
                High temperature polynomials: 1000 < T < 3500: 
-                     2.28571772    0.00723990037  -2.98714348e-06   5.95684644e-10
-                -4.67154394e-14       16775.5843       8.48007179
+                 2.285717720000000E+00,  7.239900370000000E-03, -2.987143480000000E-06,  5.956846440000000E-10,
+                -4.671543940000000E-14,  1.677558430000000E+04,  8.480071790000000E+00
 ---------------------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------------------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
@@ -160,19 +157,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "CH4" IN PHASE "gas"
                   C: 1
         Electronic Charge = 0.000000
         Molecular Weight = 16.0428 gm/mol
-        Heat of formation (298.15K) = -17.829725 kcal/gmol
-        mu_0(298.15K) = H298[k]  -17.8297
-        DeltaGf (298.15K) = 6.239860 kcal/gmol
+        Heat of formation (298.15K) = -17.8297 kcal/gmol
+        DeltaGf (298.15K) = 6.2399 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
-                     5.1499    -0.013671    4.918e-05  -4.8474e-08
-                 1.6669e-11       -10247      -4.6413
+                 5.149876130000000E+00, -1.367097880000000E-02,  4.918005990000000E-05, -4.847430260000000E-08,
+                 1.666939560000000E-11, -1.024664760000000E+04, -4.641303760000000E+00
                High temperature polynomials: 1000 < T < 3500: 
-                    0.074851495     0.0133909467  -5.73285809e-06   1.22292535e-09
-                 -1.0181523e-13      -9468.34459        18.437318
+                 7.485149500000000E-02,  1.339094670000000E-02, -5.732858090000000E-06,  1.222925350000000E-09,
+                -1.018152300000000E-13, -9.468344590000001E+03,  1.843731800000000E+01
 ---------------------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------------------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
@@ -204,19 +200,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "C2H2" IN PHASE "gas"
                   C: 2
         Electronic Charge = 0.000000
         Molecular Weight = 26.0379 gm/mol
-        Heat of formation (298.15K) = 54.540795 kcal/gmol
-        mu_0(298.15K) = H298[k]  54.5408
-        DeltaGf (298.15K) = 37.022847 kcal/gmol
+        Heat of formation (298.15K) = 54.5408 kcal/gmol
+        DeltaGf (298.15K) = 37.0228 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
-                    0.80868     0.023362  -3.5517e-05   2.8015e-08
-                -8.5007e-12        26429        13.94
+                 8.086810940000000E-01,  2.336156290000000E-02, -3.551718150000000E-05,  2.801524370000000E-08,
+                -8.500729740000000E-12,  2.642898070000000E+04,  1.393970510000000E+01
                High temperature polynomials: 1000 < T < 3500: 
-                     4.14756964    0.00596166664  -2.37294852e-06   4.67412171e-10
-                -3.61235213e-14       25935.9992      -1.23028121
+                 4.147569640000000E+00,  5.961666640000000E-03, -2.372948520000000E-06,  4.674121710000000E-10,
+                -3.612352130000000E-14,  2.593599920000000E+04, -1.230281210000000E+00
 ---------------------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------------------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
@@ -247,19 +242,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "gas"
                   H: 2
         Electronic Charge = 0.000000
         Molecular Weight = 2.01588 gm/mol
-        Heat of formation (298.15K) = 0.000000 kcal/gmol
-        mu_0(298.15K) = H298[k]  3.17442E-09
-        DeltaGf (298.15K) = -0.000078 kcal/gmol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        DeltaGf (298.15K) = -0.0001 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
-                     2.3443    0.0079805  -1.9478e-05   2.0157e-08
-                -7.3761e-12      -917.94      0.68301
+                 2.344331120000000E+00,  7.980520749999999E-03, -1.947815100000000E-05,  2.015720940000000E-08,
+                -7.376117610000001E-12, -9.179351730000000E+02,  6.830102380000000E-01
                High temperature polynomials: 1000 < T < 3500: 
-                      3.3372792  -4.94024731e-05   4.99456778e-07  -1.79566394e-10
-                 2.00255376e-14      -950.158922      -3.20502331
+                 3.337279200000000E+00, -4.940247310000000E-05,  4.994567780000000E-07, -1.795663940000000E-10,
+                 2.002553760000000E-14, -9.501589220000000E+02, -3.205023310000000E+00
 ---------------------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------------------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |      G_abs     |
@@ -316,9 +310,9 @@ INFORMATION TABLE FOR SPECIES "CB-CB3" IN PHASE "soot"
         standard Concentration value =  unity
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
-                at T =  1000 K, H  =          38576480 J kmol-1
-                                S  =         -12635.68 J kmol-1 K-1
-                                Cp =           24894.8 J kmol-1 K-1
+                at T =  1000 K, H  =   3.857648000000000E+07 J kmol-1
+                                S  =  -1.263568000000000E+04 J kmol-1 K-1
+                                Cp =   2.489480000000000E+04 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
@@ -374,9 +368,9 @@ INFORMATION TABLE FOR SPECIES "Csoot-*" IN PHASE "soot_interface"
         Surface Site Density = 2.28841E+15 # per cm2 
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
-                at T =  1000 K, H  =         216312800 J kmol-1
-                                S  =             81588 J kmol-1 K-1
-                                Cp =          35187.44 J kmol-1 K-1
+                at T =  1000 K, H  =   2.163128000000000E+08 J kmol-1
+                                S  =   8.158800000000000E+04 J kmol-1 K-1
+                                Cp =   3.518744000000000E+04 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
@@ -421,9 +415,9 @@ INFORMATION TABLE FOR SPECIES "Csoot-H" IN PHASE "soot_interface"
         Surface Site Density = 2.28841E+15 # per cm2 
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
-                at T =  1000 K, H  =          47697600 J kmol-1
-                                S  =             87864 J kmol-1 K-1
-                                Cp =          35187.44 J kmol-1 K-1
+                at T =  1000 K, H  =   4.769760000000000E+07 J kmol-1
+                                S  =   8.786400000000000E+04 J kmol-1 K-1
+                                Cp =   3.518744000000000E+04 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------

@@ -40,11 +40,9 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiCl" IN PHASE "metal_Li_LiCl_electro
         standard Concentration value =  unity
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 400 < T < 700: 
-                       -40.71053          6.411257         -6.010738          4.150772
-                       -0.007908         410.01408        -77.614337
+                -4.071053000000000E+01,  6.411257000000000E+00, -6.010738000000000E+00,  4.150772000000000E+00,n                -7.908000000000000E-03,  4.100140800000000E+02, -7.761433700000001E+01
                High temperature polynomials: 700 < T < 2700: 
-                       -47.17129         14.679607         -3.696837          0.794099
-                        0.330556         412.93171        -85.545107
+                -4.717129000000000E+01,  1.467960700000000E+01, -3.696837000000000E+00,  7.940990000000000E-01,n                 3.305560000000000E-01,  4.129317100000000E+02, -8.554510700000000E+01
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -100,7 +98,7 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "LiKCl_electrolyte"
                PDSS min Temperature  = 700
                PDSS max Temperature  = 2000
                PDSS reference pres   = 101325
-unknown species PDSS thermo type 107
+               unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -143,7 +141,7 @@ INFORMATION TABLE FOR SPECIES "K+" IN PHASE "LiKCl_electrolyte"
                PDSS min Temperature  = 700
                PDSS max Temperature  = 2000
                PDSS reference pres   = 101325
-unknown species PDSS thermo type 107
+               unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -186,7 +184,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
                PDSS min Temperature  = 700
                PDSS max Temperature  = 2000
                PDSS reference pres   = 101325
-unknown species PDSS thermo type 107
+               unknown species PDSS thermo type 107
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -240,11 +238,9 @@ INFORMATION TABLE FOR SPECIES "Li12Si7(S)" IN PHASE "Li12Si7(S)"
         standard Concentration value =  unity
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 250 < T < 700: 
-                       549.35697          -4.33513        -76.505731         51.059085
-                       -2.410209        -640.31881         1028.6723
+                 5.493569700000000E+02, -4.335130000000000E+00, -7.650573100000000E+01,  5.105908500000000E+01,n                -2.410209000000000E+00, -6.403188100000000E+02,  1.028672300000000E+03
                High temperature polynomials: 700 < T < 2700: 
-                       471.82785          94.88507        -48.738919         10.779009
-                        1.651359        -605.30726         933.50302
+                 4.718278500000000E+02,  9.488507000000000E+01, -4.873891900000000E+01,  1.077900900000000E+01,n                 1.651359000000000E+00, -6.053072600000000E+02,  9.335030200000000E+02
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -297,11 +293,9 @@ INFORMATION TABLE FOR SPECIES "Si(S)" IN PHASE "Si(S)"
         standard Concentration value =  unity
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 250 < T < 1750: 
-                        22.81719           3.89951         -0.082885          0.042111
-                       -0.354063         -8.163946          43.27846
+                 2.281719000000000E+01,  3.899510000000000E+00, -8.288500000000000E-02,  4.211100000000000E-02,n                -3.540630000000000E-01, -8.163945999999999E+00,  4.327846000000000E+01
                High temperature polynomials: 1750 < T < 1750: 
-                        22.81719           3.89951         -0.082885          0.042111
-                       -0.354063         -8.163946          43.27846
+                 2.281719000000000E+01,  3.899510000000000E+00, -8.288500000000000E-02,  4.211100000000000E-02,n                -3.540630000000000E-01, -8.163945999999999E+00,  4.327846000000000E+01
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -350,9 +344,9 @@ INFORMATION TABLE FOR SPECIES "lisi_3_site" IN PHASE "LiSi_3_surface"
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
+                at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
+                                S  =   0.000000000000000E+00 J kmol-1 K-1
+                                Cp =   0.000000000000000E+00 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------

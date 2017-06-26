@@ -129,19 +129,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "gas"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = -0.000000 kcal/gmol
-        mu_0(298.15K) = H298[k]  -2.63116E-16
-        DeltaGf (298.15K) = 0.032867 kcal/gmol
+        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        DeltaGf (298.15K) = 0.0329 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                        2.5            0            0            0
-                          0      -745.38      0.91535
+                 2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
+                 0.000000000000000E+00, -7.453750000000000E+02,  9.153488000000000E-01
                High temperature polynomials: 1000 < T < 5000: 
-                            2.5                0                0                0
-                              0         -745.375        0.9153489
+                 2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
+                 0.000000000000000E+00, -7.453750000000000E+02,  9.153489000000000E-01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_HE       |
@@ -178,19 +177,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "gas"
         Polarizability = 1.600000 Angstroms**3
         Rotational Collision Number at 298 K = 3.8
         This molecule is linear
-        Heat of formation (298.15K) = -0.000203 kcal/gmol
-        mu_0(298.15K) = H298[k]  -0.000202594
-        DeltaGf (298.15K) = 0.030703 kcal/gmol
+        Heat of formation (298.15K) = -0.0002 kcal/gmol
+        DeltaGf (298.15K) = 0.0307 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     3.2129    0.0011275  -5.7562e-07   1.3139e-09
-                -8.7686e-13      -1005.2       6.0347
+                 3.212936000000000E+00,  1.127486400000000E-03, -5.756150000000000E-07,  1.313877300000000E-09,
+                -8.768554000000000E-13, -1.005249000000000E+03,  6.034737000000000E+00
                High temperature polynomials: 1000 < T < 5000: 
-                       3.697578     0.0006135197    -1.258842e-07     1.775281e-11
-                 -1.1364354e-15       -1233.9301         3.189165
+                 3.697578000000000E+00,  6.135197000000000E-04, -1.258842000000000E-07,  1.775281000000000E-11,
+                -1.136435400000000E-15, -1.233930100000000E+03,  3.189165000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_HE       |
@@ -227,19 +225,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
         Polarizability = 1.760000 Angstroms**3
         Rotational Collision Number at 298 K = 4
         This molecule is linear
-        Heat of formation (298.15K) = 0.000342 kcal/gmol
-        mu_0(298.15K) = H298[k]  0.000341755
-        DeltaGf (298.15K) = 0.029194 kcal/gmol
+        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        DeltaGf (298.15K) = 0.0292 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     3.2987    0.0014082  -3.9632e-06   5.6415e-09
-                -2.4449e-12      -1020.9       3.9504
+                 3.298677000000000E+00,  1.408240400000000E-03, -3.963222000000000E-06,  5.641515000000000E-09,
+                -2.444854000000000E-12, -1.020899900000000E+03,  3.950372000000000E+00
                High temperature polynomials: 1000 < T < 5000: 
-                        2.92664     0.0014879768     -5.68476e-07    1.0097038e-10
-                  -6.753351e-15        -922.7977         5.980528
+                 2.926640000000000E+00,  1.487976800000000E-03, -5.684760000000000E-07,  1.009703800000000E-10,
+                -6.753351000000000E-15, -9.227977000000000E+02,  5.980528000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_HE       |

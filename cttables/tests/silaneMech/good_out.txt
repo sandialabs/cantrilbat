@@ -171,19 +171,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "silane"
         Polarizability = 0.790000 Angstroms**3
         Rotational Collision Number at 298 K = 280
         This molecule is linear
-        Heat of formation (298.15K) = 0.000000 kcal/gmol
-        mu_0(298.15K) = H298[k]  3.17442E-09
-        DeltaGf (298.15K) = -0.000078 kcal/gmol
+        Heat of formation (298.15K) = 0.0000 kcal/gmol
+        DeltaGf (298.15K) = -0.0001 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
-                     2.3443    0.0079805  -1.9478e-05   2.0157e-08
-                -7.3761e-12      -917.94      0.68301
+                 2.344331120000000E+00,  7.980520749999999E-03, -1.947815100000000E-05,  2.015720940000000E-08,
+                -7.376117610000001E-12, -9.179351730000000E+02,  6.830102380000000E-01
                High temperature polynomials: 1000 < T < 3500: 
-                      3.3372792  -4.94024731e-05   4.99456778e-07  -1.79566394e-10
-                 2.00255376e-14      -950.158922      -3.20502331
+                 3.337279200000000E+00, -4.940247310000000E-05,  4.994567780000000E-07, -1.795663940000000E-10,
+                 2.002553760000000E-14, -9.501589220000000E+02, -3.205023310000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -220,19 +219,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = 52.102575 kcal/gmol
-        mu_0(298.15K) = H298[k]  52.1026
-        DeltaGf (298.15K) = 37.380762 kcal/gmol
+        Heat of formation (298.15K) = 52.1026 kcal/gmol
+        DeltaGf (298.15K) = 37.3808 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 200 < T < 1000: 
-                        2.5   7.0533e-13  -1.9959e-15   2.3008e-18
-                -9.2773e-22        25474     -0.44668
+                 2.500000000000000E+00,  7.053328190000000E-13, -1.995919640000000E-15,  2.300816320000000E-18,
+                -9.277323320000001E-22,  2.547365990000000E+04, -4.466828530000000E-01
                High temperature polynomials: 1000 < T < 3500: 
-                     2.50000001  -2.30842973e-11   1.61561948e-14  -4.73515235e-18
-                 4.98197357e-22       25473.6599     -0.446682914
+                 2.500000010000000E+00, -2.308429730000000E-11,  1.615619480000000E-14, -4.735152350000000E-18,
+                 4.981973570000000E-22,  2.547365990000000E+04, -4.466829140000000E-01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -269,19 +267,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = -0.000000 kcal/gmol
-        mu_0(298.15K) = H298[k]  -2.63116E-16
-        DeltaGf (298.15K) = 0.032867 kcal/gmol
+        Heat of formation (298.15K) = -0.0000 kcal/gmol
+        DeltaGf (298.15K) = 0.0329 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                        2.5            0            0            0
-                          0      -745.38      0.91535
+                 2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
+                 0.000000000000000E+00, -7.453750000000000E+02,  9.153488000000000E-01
                High temperature polynomials: 1000 < T < 5000: 
-                            2.5                0                0                0
-                              0         -745.375        0.9153489
+                 2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
+                 0.000000000000000E+00, -7.453750000000000E+02,  9.153489000000000E-01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -319,19 +316,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH4" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 8.200162 kcal/gmol
-        mu_0(298.15K) = H298[k]  8.20016
-        DeltaGf (298.15K) = 30.860852 kcal/gmol
+        Heat of formation (298.15K) = 8.2002 kcal/gmol
+        DeltaGf (298.15K) = 30.8609 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     1.4516     0.013987  -4.2346e-06  -2.3606e-09
-                 1.3712e-12       3113.4       12.322
+                 1.451640400000000E+00,  1.398736300000000E-02, -4.234563900000000E-06, -2.360614200000000E-09,
+                 1.371208900000000E-12,  3.113410500000000E+03,  1.232185500000000E+01
                High temperature polynomials: 1000 < T < 2000: 
-                      0.7935938      0.017671899   -1.1398009e-05    3.5992604e-09
-                 -4.5241571e-13        3198.2127        15.242257
+                 7.935938000000000E-01,  1.767189900000000E-02, -1.139800900000000E-05,  3.599260400000000E-09,
+                -4.524157100000000E-13,  3.198212700000000E+03,  1.524225700000000E+01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -368,19 +364,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is monatomic
-        Heat of formation (298.15K) = 107.701660 kcal/gmol
-        mu_0(298.15K) = H298[k]  107.702
-        DeltaGf (298.15K) = 63.263829 kcal/gmol
+        Heat of formation (298.15K) = 107.7017 kcal/gmol
+        DeltaGf (298.15K) = 63.2638 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     3.1794   -0.0027647   4.4784e-06  -3.2833e-09
-                 9.1214e-13        53339       2.7273
+                 3.179353700000000E+00, -2.764699200000000E-03,  4.478403800000000E-06, -3.283317700000000E-09,
+                 9.121363100000000E-13,  5.333903200000000E+04,  2.727320400000000E+00
                High temperature polynomials: 1000 < T < 5000: 
-                      2.6506014   -0.00035763852    2.9592293e-07   -7.2804829e-11
-                  5.7963329e-15        53437.054        5.2204057
+                 2.650601400000000E+00, -3.576385200000000E-04,  2.959229300000000E-07, -7.280482900000000E-11,
+                 5.796332900000000E-15,  5.343705400000000E+04,  5.220405700000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -418,19 +413,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is linear
-        Heat of formation (298.15K) = 91.709468 kcal/gmol
-        mu_0(298.15K) = H298[k]  91.7095
-        DeltaGf (298.15K) = 61.658057 kcal/gmol
+        Heat of formation (298.15K) = 91.7095 kcal/gmol
+        DeltaGf (298.15K) = 61.6581 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                      3.836   -0.0027027   6.8491e-06  -5.4242e-09
-                 1.4721e-12        45076      0.93508
+                 3.836010000000000E+00, -2.702657000000000E-03,  6.849070000000000E-06, -5.424184000000000E-09,
+                 1.472131000000000E-12,  4.507593000000000E+04,  9.350778000000000E-01
                High temperature polynomials: 1000 < T < 2000: 
-                        3.11043      0.001094946     2.898629e-08    -2.745104e-10
-                   7.051799e-14         45168.98         4.193487
+                 3.110430000000000E+00,  1.094946000000000E-03,  2.898629000000000E-08, -2.745104000000000E-10,
+                 7.051798999999999E-14,  4.516898000000000E+04,  4.193487000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -468,19 +462,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH2" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 64.807690 kcal/gmol
-        mu_0(298.15K) = H298[k]  64.8077
-        DeltaGf (298.15K) = 47.628177 kcal/gmol
+        Heat of formation (298.15K) = 64.8077 kcal/gmol
+        DeltaGf (298.15K) = 47.6282 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     3.4751    0.0021393   7.6723e-07   5.2177e-10
-                -9.8988e-13        31474       4.4366
+                 3.475092000000000E+00,  2.139338000000000E-03,  7.672306000000000E-07,  5.217668000000000E-10,
+                -9.898824000000000E-13,  3.147397000000000E+04,  4.436585000000000E+00
                High temperature polynomials: 1000 < T < 3000: 
-                        4.14239      0.002150191     -2.19073e-07    -2.073725e-10
-                   4.741018e-14         31104.84        0.2930745
+                 4.142390000000000E+00,  2.150191000000000E-03, -2.190730000000000E-07, -2.073725000000000E-10,
+                 4.741018000000000E-14,  3.110484000000000E+04,  2.930745000000000E-01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -518,19 +511,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH3" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 47.432137 kcal/gmol
-        mu_0(298.15K) = H298[k]  47.4321
-        DeltaGf (298.15K) = 46.852976 kcal/gmol
+        Heat of formation (298.15K) = 47.4321 kcal/gmol
+        DeltaGf (298.15K) = 46.8530 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     2.9467    0.0064668   5.9917e-07  -2.2184e-09
-                 3.0527e-13        22702       7.3479
+                 2.946733000000000E+00,  6.466764000000000E-03,  5.991653000000000E-07, -2.218413000000000E-09,
+                 3.052670000000000E-13,  2.270173000000000E+04,  7.347948000000000E+00
                High temperature polynomials: 1000 < T < 3000: 
-                       5.015906       0.00373275    -3.609053e-07    -3.729193e-10
-                    8.46849e-14         21902.33        -4.291368
+                 5.015906000000000E+00,  3.732750000000000E-03, -3.609053000000000E-07, -3.729193000000000E-10,
+                 8.468490000000000E-14,  2.190233000000000E+04, -4.291368000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -568,19 +560,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H3SISIH" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 74.971639 kcal/gmol
-        mu_0(298.15K) = H298[k]  74.9716
-        DeltaGf (298.15K) = 77.628115 kcal/gmol
+        Heat of formation (298.15K) = 74.9716 kcal/gmol
+        DeltaGf (298.15K) = 77.6281 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 4000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1500: 
-                     3.6987     0.018702  -1.4307e-05   6.0058e-09
-                -1.1163e-12        35908       8.8252
+                 3.698707000000000E+00,  1.870180000000000E-02, -1.430704000000000E-05,  6.005836000000000E-09,
+                -1.116293000000000E-12,  3.590825000000000E+04,  8.825191000000000E+00
                High temperature polynomials: 1500 < T < 4000: 
-                       11.27202      0.002538145    -2.998472e-07    -9.465367e-11
-                   1.855053e-14         32971.69        -32.64598
+                 1.127202000000000E+01,  2.538145000000000E-03, -2.998472000000000E-07, -9.465367000000000E-11,
+                 1.855053000000000E-14,  3.297169000000000E+04, -3.264598000000000E+01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -618,19 +609,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2H6" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 19.100376 kcal/gmol
-        mu_0(298.15K) = H298[k]  19.1004
-        DeltaGf (298.15K) = 65.596410 kcal/gmol
+        Heat of formation (298.15K) = 19.1004 kcal/gmol
+        DeltaGf (298.15K) = 65.5964 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                    0.67348     0.040932  -4.4841e-05   2.9952e-08
-                -8.9011e-12       7932.8       18.627
+                 6.734798300000000E-01,  4.093153100000000E-02, -4.484125500000000E-05,  2.995223200000000E-08,
+                -8.901085399999999E-12,  7.932787500000000E+03,  1.862740300000000E+01
                High temperature polynomials: 1000 < T < 2000: 
-                      3.4074936      0.027206479   -1.7713204e-05    5.6391177e-09
-                 -7.1378682e-13        7532.1842        6.1321754
+                 3.407493600000000E+00,  2.720647900000000E-02, -1.771320400000000E-05,  5.639117700000000E-09,
+                -7.137868200000000E-13,  7.532184200000000E+03,  6.132175400000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -668,19 +658,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2SISIH2" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 62.876489 kcal/gmol
-        mu_0(298.15K) = H298[k]  62.8765
-        DeltaGf (298.15K) = 68.558138 kcal/gmol
+        Heat of formation (298.15K) = 62.8765 kcal/gmol
+        DeltaGf (298.15K) = 68.5581 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     5.1332     0.012529  -4.6204e-07  -6.6061e-09
-                 2.8643e-12        29569      0.76051
+                 5.133186000000000E+00,  1.252855000000000E-02, -4.620421000000000E-07, -6.606075000000000E-09,
+                 2.864345000000000E-12,  2.956915000000000E+04,  7.605132999999999E-01
                High temperature polynomials: 1000 < T < 3000: 
-                       8.986817      0.005405047    -5.214022e-07    -5.313742e-10
-                   1.188727e-13         28327.48        -20.04478
+                 8.986817000000000E+00,  5.405047000000000E-03, -5.214022000000000E-07, -5.313742000000000E-10,
+                 1.188727000000000E-13,  2.832748000000000E+04, -2.004478000000000E+01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -718,19 +707,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3H8" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 28.900570 kcal/gmol
-        mu_0(298.15K) = H298[k]  28.9006
-        DeltaGf (298.15K) = 97.751599 kcal/gmol
+        Heat of formation (298.15K) = 28.9006 kcal/gmol
+        DeltaGf (298.15K) = 97.7516 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                    0.77197     0.063443  -7.6726e-05   5.4544e-08
-                -1.6612e-11        12071       21.533
+                 7.719684600000000E-01,  6.344274000000000E-02, -7.672610900000000E-05,  5.454371500000000E-08,
+                -1.661172900000000E-11,  1.207126300000000E+04,  2.153250700000000E+01
                High temperature polynomials: 1000 < T < 2000: 
-                      6.0933341      0.036580112   -2.3892361e-05    7.6271932e-09
-                 -9.6769384e-13        11297.205       -2.7475654
+                 6.093334100000000E+00,  3.658011200000000E-02, -2.389236100000000E-05,  7.627193200000000E-09,
+                -9.676938400000000E-13,  1.129720500000000E+04, -2.747565400000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -767,19 +755,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is linear
-        Heat of formation (298.15K) = 141.002776 kcal/gmol
-        mu_0(298.15K) = H298[k]  141.003
-        DeltaGf (298.15K) = 83.675771 kcal/gmol
+        Heat of formation (298.15K) = 141.0028 kcal/gmol
+        DeltaGf (298.15K) = 83.6758 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     2.9672     0.006312  -1.0971e-05   8.9279e-09
-                -2.7874e-12        69871        9.279
+                 2.967197600000000E+00,  6.311955800000000E-03, -1.097079000000000E-05,  8.927868000000000E-09,
+                -2.787368900000000E-12,  6.987073800000000E+04,  9.278950300000000E+00
                High temperature polynomials: 1000 < T < 2000: 
-                      4.1446779    0.00065234677    -5.010852e-07    1.8062843e-10
-                 -2.5161111e-14        69694.707        3.8627366
+                 4.144677900000000E+00,  6.523467700000000E-04, -5.010851999999999E-07,  1.806284300000000E-10,
+                -2.516111100000000E-14,  6.969470699999999E+04,  3.862736600000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -816,19 +803,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3" IN PHASE "silane"
         Polarizability = 0.000000 Angstroms**3
         Rotational Collision Number at 298 K = 1
         This molecule is nonlinear
-        Heat of formation (298.15K) = 152.004362 kcal/gmol
-        mu_0(298.15K) = H298[k]  152.004
-        DeltaGf (298.15K) = 88.991261 kcal/gmol
+        Heat of formation (298.15K) = 152.0044 kcal/gmol
+        DeltaGf (298.15K) = 88.9913 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     4.5979     0.010715    -1.61e-05   1.0969e-08
-                -2.7833e-12        74766       3.4422
+                 4.597912900000000E+00,  1.071527400000000E-02, -1.610042200000000E-05,  1.096920700000000E-08,
+                -2.783287500000000E-12,  7.476632399999999E+04,  3.442167100000000E+00
                High temperature polynomials: 1000 < T < 5000: 
-                       7.421336   -0.00011709948    8.9820775e-08    7.1935964e-12
-                 -2.5670837e-15        74146.699       -10.365274
+                 7.421336000000000E+00, -1.170994800000000E-04,  8.982077500000000E-08,  7.193596400000000E-12,
+                -2.567083700000000E-15,  7.414669899999999E+04, -1.036527400000000E+01
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
@@ -865,19 +851,18 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "silane"
         Polarizability = 1.760000 Angstroms**3
         Rotational Collision Number at 298 K = 4
         This molecule is linear
-        Heat of formation (298.15K) = 0.000342 kcal/gmol
-        mu_0(298.15K) = H298[k]  0.000341755
-        DeltaGf (298.15K) = 0.029194 kcal/gmol
+        Heat of formation (298.15K) = 0.0003 kcal/gmol
+        DeltaGf (298.15K) = 0.0292 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
                Low  temperature polynomials: 300 < T < 1000: 
-                     3.2987    0.0014082  -3.9632e-06   5.6415e-09
-                -2.4449e-12      -1020.9       3.9504
+                 3.298677000000000E+00,  1.408240400000000E-03, -3.963222000000000E-06,  5.641515000000000E-09,
+                -2.444854000000000E-12, -1.020899900000000E+03,  3.950372000000000E+00
                High temperature polynomials: 1000 < T < 5000: 
-                        2.92664     0.0014879768     -5.68476e-07    1.0097038e-10
-                  -6.753351e-15        -922.7977         5.980528
+                 2.926640000000000E+00,  1.487976800000000E-03, -5.684760000000000E-07,  1.009703800000000E-10,
+                -6.753351000000000E-15, -9.227977000000000E+02,  5.980528000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2---------------------------------------------|
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |  Viscosity  Therm_Cond   Dif_Co_with_H2       |
