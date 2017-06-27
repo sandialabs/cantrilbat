@@ -32,16 +32,17 @@ const int NDAMP = 10;
 
 
 //=====================================================================================================================
-class errBC : public m1d_Error {
+class errBC : public m1d_Error
+{
 public:
     errBC(std::string procedure) :
-      m1d_Error(procedure, "Base Class SolGlobalNonlinear called")
+        m1d_Error(procedure, "Base Class SolGlobalNonlinear called")
     {
     }
 };
 //=====================================================================================================================
 SolGlobalNonlinear::SolGlobalNonlinear() :
- m_print_flag(3)
+    m_print_flag(3)
 {
 }
 //=====================================================================================================================
@@ -62,14 +63,14 @@ SolGlobalNonlinear::~SolGlobalNonlinear()
  *   @param printLargest if True a table is printed of the largest contributors.
  */
 double
-SolGlobalNonlinear::soln_error_norm(const Epetra_Vector &delta_y,
-                              const bool printLargest,
-                              const char *title,
-                              const int typeYsoln,
-                              const double dampFactor) const
+SolGlobalNonlinear::soln_error_norm(const Epetra_Vector& delta_y,
+                                    const bool printLargest,
+                                    const char* title,
+                                    const int typeYsoln,
+                                    const double dampFactor) const
 {
-  throw errBC("soln_error_norm()");
-  return 0.0;
+    throw errBC("soln_error_norm()");
+    return 0.0;
 }
 //=====================================================================================================================
 //    L2 Weighted Norm of the residual
@@ -85,32 +86,32 @@ SolGlobalNonlinear::soln_error_norm(const Epetra_Vector &delta_y,
  *   @param printLargest if True a table is printed of the largest contributors.
  */
 double
-SolGlobalNonlinear::res_error_norm(const Epetra_Vector_Owned &resid, const char *title, const int printLargest) const
+SolGlobalNonlinear::res_error_norm(const Epetra_Vector_Owned& resid, const char* title, const int printLargest) const
 {
- 
-  throw errBC("res_error_norm()");
-  return 0.0;
+
+    throw errBC("res_error_norm()");
+    return 0.0;
 }
 //=====================================================================================================================
 void
 SolGlobalNonlinear::get_res(const double time_curr,
-                      const double rdelta_t,
-                      const Epetra_Vector_Ghosted *solnBase_ptr,
-                      const Epetra_Vector_Ghosted *solnDotBase_ptr)
+                            const double rdelta_t,
+                            const Epetra_Vector_Ghosted* solnBase_ptr,
+                            const Epetra_Vector_Ghosted* solnDotBase_ptr)
 {
- throw errBC("scaleMatrix()");
+    throw errBC("scaleMatrix()");
 }
 
 //=====================================================================================================================
 void
-SolGlobalNonlinear::scaleMatrix(Epetra_Vector_Owned &delta_soln,
-                          const Epetra_Vector_Ghosted &y_curr,
-                          const Epetra_Vector_Ghosted &ydot_curr,
-                          const double time_curr,
-                          const double rdelta_t,
-                          int loglevel)
+SolGlobalNonlinear::scaleMatrix(Epetra_Vector_Owned& delta_soln,
+                                const Epetra_Vector_Ghosted& y_curr,
+                                const Epetra_Vector_Ghosted& ydot_curr,
+                                const double time_curr,
+                                const double rdelta_t,
+                                int loglevel)
 {
-  throw errBC("scaleMatrix()");
+    throw errBC("scaleMatrix()");
 }
 //=====================================================================================================================
 //  Compute the undamped Newton step.
@@ -121,29 +122,29 @@ SolGlobalNonlinear::scaleMatrix(Epetra_Vector_Owned &delta_soln,
  * but the Jacobian is not recomputed.
  */
 void
-SolGlobalNonlinear::doNewtonSolve(Epetra_Vector_Owned &delta_soln,
-                            const Epetra_Vector_Ghosted &y_curr,
-                            const Epetra_Vector_Ghosted &ydot_curr,
-                            const double time_curr,
-                            const double rdelta_t,
-                            int loglevel)
+SolGlobalNonlinear::doNewtonSolve(Epetra_Vector_Owned& delta_soln,
+                                  const Epetra_Vector_Ghosted& y_curr,
+                                  const Epetra_Vector_Ghosted& ydot_curr,
+                                  const double time_curr,
+                                  const double rdelta_t,
+                                  int loglevel)
 {
-  throw errBC("doNewtonSolve()");
+    throw errBC("doNewtonSolve()");
 }
 //=====================================================================================================================
 
 int
-SolGlobalNonlinear::doHardBounds(const Epetra_Vector_Ghosted &y_old, Epetra_Vector_Owned &step, double &fbound)
+SolGlobalNonlinear::doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Owned& step, double& fbound)
 {
-  throw errBC("doHardBounds()");
-  return 1;
+    throw errBC("doHardBounds()");
+    return 1;
 }
 //=====================================================================================================================
 double
 SolGlobalNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0)
 {
-  throw errBC("deltaBoundStep()");
-  return 0.0;
+    throw errBC("deltaBoundStep()");
+    return 0.0;
 }
 //=====================================================================================================================
 /*
@@ -179,8 +180,8 @@ SolGlobalNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_
 double
 SolGlobalNonlinear::highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0, int loglevel)
 {
-  throw errBC("highLowBoundStep()");
-  return 1.0;
+    throw errBC("highLowBoundStep()");
+    return 1.0;
 }
 
 //=====================================================================================================================
@@ -192,7 +193,7 @@ SolGlobalNonlinear::highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetr
 void
 SolGlobalNonlinear::setDefaultColumnScaleVector()
 {
-  throw errBC("setDefaultColumnScaleVector()");
+    throw errBC("setDefaultColumnScaleVector()");
 }
 //=====================================================================================================================
 // Return the column scales
@@ -202,10 +203,10 @@ SolGlobalNonlinear::setDefaultColumnScaleVector()
  * @param colScales
  */
 bool
-SolGlobalNonlinear::getColumnScaleVector(Epetra_Vector_Owned & colScales) const
+SolGlobalNonlinear::getColumnScaleVector(Epetra_Vector_Owned& colScales) const
 {
- throw  errBC("getColumnScaleVector()");
- return true;
+    throw  errBC("getColumnScaleVector()");
+    return true;
 }
 //=====================================================================================================================
 // Set the column scales
@@ -215,31 +216,24 @@ SolGlobalNonlinear::getColumnScaleVector(Epetra_Vector_Owned & colScales) const
  * @param colScales
  */
 void
-SolGlobalNonlinear::setColumnScaleVector(const Epetra_Vector_Owned & colScales)
+SolGlobalNonlinear::setColumnScaleVector(const Epetra_Vector_Owned& colScales)
 {
- throw errBC("setColumnScaleVector()");
+    throw errBC("setColumnScaleVector()");
 }
 
 //=====================================================================================================================
-// Setup the problem for solution.
 void
-SolGlobalNonlinear::setup_problem(Solve_Type_Enum solveType,
-				  Epetra_Vector_Ghosted* const y_init,
-				  Epetra_Vector_Ghosted* const ydot_init,
-				  double time_curr,
-				  ProblemResidEval &problem,
-				  EpetraJac& jac)
+SolGlobalNonlinear::setup_problem(Solve_Type_Enum solveType, const Epetra_Vector_Ghosted* const y_init,
+                                  const Epetra_Vector_Ghosted* const ydot_init, double time_curr,
+                                  ProblemResidEval& problem, EpetraJac& jac)
 {
-  throw errBC("setup_problem()");
+    throw errBC("setup_problem()");
 }
 //=====================================================================================================================
-/*
- *
- */
 void
-SolGlobalNonlinear::setPredicted_soln(const Epetra_Vector &y_pred)
+SolGlobalNonlinear::setPredicted_soln(const Epetra_Vector& y_pred)
 {
-  throw errBC("setPredicted_soln()");
+    throw errBC("setPredicted_soln()");
 }
 //=====================================================================================================================
 /*
@@ -255,16 +249,16 @@ SolGlobalNonlinear::setPredicted_soln(const Epetra_Vector &y_pred)
  */
 int
 SolGlobalNonlinear::solve_nonlinear_problem(Solve_Type_Enum solveType,
-					    Epetra_Vector_Ghosted *y_comm,
-					    Epetra_Vector_Ghosted *ydot_comm,
-					    double CJ,
-					    double time_curr,
-					    int &num_newt_its_comm,
-					    int &num_linear_solves,
-					    int &num_backtracks)
+                                            Epetra_Vector_Ghosted* y_comm,
+                                            Epetra_Vector_Ghosted* ydot_comm,
+                                            double CJ,
+                                            double time_curr,
+                                            int& num_newt_its_comm,
+                                            int& num_linear_solves,
+                                            int& num_backtracks)
 {
-  throw errBC("solve_nonlinear_problem()");
-  return 1;
+    throw errBC("solve_nonlinear_problem()");
+    return 1;
 }
 //=====================================================================================================================
 /* Function to calculate the acceleration vector ydot for the first or
@@ -301,48 +295,49 @@ SolGlobalNonlinear::solve_nonlinear_problem(Solve_Type_Enum solveType,
  * because we may be using a look-ahead scheme.
  */
 void
-SolGlobalNonlinear::calc_ydot(int order, const Epetra_Vector &y_curr, Epetra_Vector &ydot_curr)
+SolGlobalNonlinear::calc_ydot(int order, const Epetra_Vector& y_curr, Epetra_Vector& ydot_curr)
 {
-  throw errBC("calc_ydot()");
+    throw errBC("calc_ydot()");
 }
 //=====================================================================================================================
 void
-SolGlobalNonlinear::setTolerances(double reltol, int n, const double * const abstol)
+SolGlobalNonlinear::setTolerances(double reltol, int n, const double* const abstol)
 {
-  throw errBC("setTolerances()");
+    throw errBC("setTolerances()");
 }
 //=====================================================================================================================
 void
-SolGlobalNonlinear::setTolerances_deltaDamping(double reltol_dd, int n, const double * const abstol_dd)
+SolGlobalNonlinear::setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd)
 {
-  throw errBC("setTolerances_deltaDamping()");
+    throw errBC("setTolerances_deltaDamping()");
 }
 
 //=====================================================================================================================
-  // Set the value of the maximum # of newton iterations
-  /*
-   *  @param maxNewtIts   Maximum number of newton iterations
-   */
-  void SolGlobalNonlinear:: setMaxNewtIts(const int maxNewtIts) {
+// Set the value of the maximum # of newton iterations
+/*
+ *  @param maxNewtIts   Maximum number of newton iterations
+ */
+void SolGlobalNonlinear:: setMaxNewtIts(const int maxNewtIts)
+{
     throw errBC("setMaxnewtIts()");
-  }
+}
 //=====================================================================================================================
 void
 SolGlobalNonlinear::setProblemType(int jacFormMethod)
 {
-  throw errBC("setProblemType()");
+    throw errBC("setProblemType()");
 }
 //=====================================================================================================================
 void
 SolGlobalNonlinear::setDefaultSolnWeights()
 {
-  throw errBC("setDefaultSolnWeights()");
+    throw errBC("setDefaultSolnWeights()");
 }
 //=====================================================================================================================
 void
 SolGlobalNonlinear::setPrintFlag(int print_flag)
 {
-  m_print_flag = print_flag;
+    m_print_flag = print_flag;
 }
 //=====================================================================================================================
 /*
@@ -354,14 +349,14 @@ SolGlobalNonlinear::setPrintFlag(int print_flag)
 void
 SolGlobalNonlinear::setPrintSolnOptions(bool dumpJacobians)
 {
-  throw errBC("setPrintSolnOptions()");
+    throw errBC("setPrintSolnOptions()");
 }
 //=====================================================================================================================
 void
 SolGlobalNonlinear::setNonLinOptions(int min_newt_its, bool matrixConditioning, bool colScaling, bool rowScaling,
-                               int colScaleUpdateFrequency)
+                                     int colScaleUpdateFrequency)
 {
-  throw errBC("setNonLinOptions()");
+    throw errBC("setNonLinOptions()");
 }
 //=====================================================================================================================
 // set the previous time step
@@ -370,9 +365,10 @@ SolGlobalNonlinear::setNonLinOptions(int min_newt_its, bool matrixConditioning, 
  * @param jac
  */
 void
-SolGlobalNonlinear::setPreviousTimeStep(const double timeStep_comm, const Epetra_Vector& y_nm1, const Epetra_Vector& ydot_nm1)
+SolGlobalNonlinear::setPreviousTimeStep(const double timeStep_comm, const Epetra_Vector& y_nm1,
+                                        const Epetra_Vector& ydot_nm1)
 {
-  throw errBC("setPreviousTimeStep()");
+    throw errBC("setPreviousTimeStep()");
 }
 //=====================================================================================================================
 // Compute the Residual Weights
@@ -388,27 +384,27 @@ SolGlobalNonlinear::setPreviousTimeStep(const double timeStep_comm, const Epetra
  */
 void
 SolGlobalNonlinear::computeResidWts()
-{ 
-  throw errBC("computeResidWts()");
- 
+{
+    throw errBC("computeResidWts()");
+
 }
 //=====================================================================================================================
 void
-SolGlobalNonlinear::getResidWts(Epetra_Vector_Owned &residWts)
+SolGlobalNonlinear::getResidWts(Epetra_Vector_Owned& residWts)
 {
-  throw errBC("getResidWts()");
+    throw errBC("getResidWts()");
 }
 //=====================================================================================================================
 void
 SolGlobalNonlinear::setRowScaling(bool onoff)
 {
-  throw errBC("setRowScaling()");
+    throw errBC("setRowScaling()");
 }
 //=====================================================================================================================
 void
 SolGlobalNonlinear::setColScaling(bool onoff, int colScaleUpdateFrequency)
 {
-  throw errBC("setColScaling()");
+    throw errBC("setColScaling()");
 }
 //=====================================================================================================================
 // Set the toggles for solution damping
@@ -421,7 +417,7 @@ SolGlobalNonlinear::setColScaling(bool onoff, int colScaleUpdateFrequency)
 void
 SolGlobalNonlinear::setDampingToggles(const bool residSolnDamping, const bool deltaDamping, const bool highLowDamping)
 {
-  throw errBC("setDampingToggles()");
+    throw errBC("setDampingToggles()");
 }
 //=====================================================================================================================
 // Set the vectors for lower and upper boundaries.
@@ -430,9 +426,9 @@ SolGlobalNonlinear::setDampingToggles(const bool residSolnDamping, const bool de
  * @param highBounds
  */
 void
-SolGlobalNonlinear::setSolutionBounds(const Epetra_Vector_Owned &lowBounds, const Epetra_Vector_Owned &highBounds)
+SolGlobalNonlinear::setSolutionBounds(const Epetra_Vector_Owned& lowBounds, const Epetra_Vector_Owned& highBounds)
 {
-  throw errBC("setSolutionBounds()");
+    throw errBC("setSolutionBounds()");
 }
 //=====================================================================================================================
 }

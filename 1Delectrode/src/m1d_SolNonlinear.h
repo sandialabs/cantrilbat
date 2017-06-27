@@ -20,27 +20,38 @@
 namespace m1d
 {
 //==================================================================================================================================
-/**
- * Exception class thrown when a BEuler error is encountered.
+//!  Exception class thrown when an error in the nonlinear solver is encountered.
+/*!
+ *
  */
 class SolNonlinearErr : public m1d_Error
 {
 public:
+
+    //! Constructor 
+    /*!
+     *  @param[in]           msg                 Message to be written
+     */
     SolNonlinearErr(std::string msg);
 };
-
-#define BEULER_JAC_ANAL 2
-#define BEULER_JAC_NUM  1
 //==================================================================================================================================
-//!   Wrapper class for 'beuler' integrator
+
+//! Analytical jacobian
+#define BEULER_JAC_ANAL 2
+//! Numerical jacobian
+#define BEULER_JAC_NUM  1
+
+//==================================================================================================================================
+//!  This is the nonlinear solver.
 /*!
- *  We derive the class from the class Integrator  Newton iterator for multi-domain, one-dimensional problems.
- *  Used by class OneDim.
+ *   This is the main nonlinear solver for steady state and time-dependent problems.
+ *   It employs a two-way convergence criteria: one for the residual and one for the solution update vector
  *
  */
 class SolNonlinear : public SolGlobalNonlinear
 {
 public:
+
     //!  The default constructor doesn't take an argument.
     SolNonlinear();
 
@@ -68,9 +79,10 @@ public:
      *  @param[in]           problem             Reference to the  ProblemResidEval object
      *  @param[in]           jac                 Reference to teh EpetraJac object
      */ 
-    virtual void setup_problem(Solve_Type_Enum solveType, Epetra_Vector_Ghosted* const y_init,
-                               Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval& problem, 
-                               EpetraJac& jac) override;
+    virtual void 
+    setup_problem(Solve_Type_Enum solveType, const Epetra_Vector_Ghosted* const y_init,
+                  const Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval& problem, 
+                  EpetraJac& jac) override;
 
     //! Apply hard bounds on the step size
     /*!

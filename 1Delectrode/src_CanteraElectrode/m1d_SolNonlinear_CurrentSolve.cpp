@@ -116,21 +116,23 @@ void SolNonlinear_CurrentSolve::setTolerances(double reltol, int n, const double
     rtol_ = reltol;
     m_solverConstantVoltage->setTolerances(0.5 * reltol, n, abstol);
 }
-//=====================================================================================================================
-void SolNonlinear_CurrentSolve::setTolerances_deltaDamping(double reltol_dd, int n, const double * const abstol_dd)
+//==================================================================================================================================
+void
+SolNonlinear_CurrentSolve::setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd)
 {
     m_solverConstantVoltage->setTolerances_deltaDamping(reltol_dd, n, abstol_dd);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Setup the problem for solution
 /*
  *   Here we change the underlying solution to a constant voltage representation, in which we will create an
  *   outer loop to converge on a desired current.
  *   In this routine, we store the address of the jacobian and the residual function.
  */
-void SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_init,
-                                              Epetra_Vector_Ghosted* ydot_init, double time_curr, ProblemResidEval &cv_problem,
-                                              EpetraJac& jac)
+void 
+SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init,
+                                         const Epetra_Vector_Ghosted* const ydot_init, double time_curr,
+                                         ProblemResidEval &cv_problem, EpetraJac& jac)
 {
     /*
      *  Store the address of the constant voltage or constant current problem
@@ -190,13 +192,14 @@ void SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, Epetra_V
 
     // printLvl_ = 9;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Change the problem to a constant voltage boundary condition problem
-void SolNonlinear_CurrentSolve::transform_cc_to_cv(Epetra_Vector_Ghosted* soln, Epetra_Vector_Ghosted* solnDot, double time_curr)
+void
+SolNonlinear_CurrentSolve::transform_cc_to_cv(const Epetra_Vector_Ghosted* const soln,
+                                              const Epetra_Vector_Ghosted* const solnDot, double time_curr)
 {
 
     VarType v1(Voltage, 2, "CathodeVoltage");
-
 
     // Go get the boundary condition that is being implemented now
     int BC_Type;
@@ -264,9 +267,11 @@ void SolNonlinear_CurrentSolve::transform_cc_to_cv(Epetra_Vector_Ghosted* soln, 
     // Set the toggle for the boundary condition
     BC_Now_Voltage_ = true;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Change the problem to a constant current boundary condition problem
-void SolNonlinear_CurrentSolve::transform_cv_to_cc(Epetra_Vector_Ghosted * soln, Epetra_Vector_Ghosted * solnDot, double time_curr)
+void 
+SolNonlinear_CurrentSolve::transform_cv_to_cc(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot, 
+                                              double time_curr)
 {
 
     VarType v1(Voltage, 2, "CathodeVoltage");

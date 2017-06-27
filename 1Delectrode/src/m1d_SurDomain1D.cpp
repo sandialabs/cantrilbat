@@ -766,7 +766,7 @@ void SurDomain1D::writeSolutionTecplot(const Epetra_Vector* const soln_GlAll_ptr
     }
 }
 //===================================================================================================================================
-double SurDomain1D::extractSolnValue(Epetra_Vector_Ghosted* const soln_ptr, VarType v1)
+double SurDomain1D::extractSolnValue(const Epetra_Vector_Ghosted* const soln_ptr, VarType v1)
 {
     double val = -1.0E300;
     /*

@@ -386,7 +386,7 @@ public:
      *                                           on the processor this routine returns the value of -1.0E300.
      */
     double
-    extractSolnValue(Epetra_Vector_Ghosted* const soln_ptr, VarType v1);
+    extractSolnValue(const Epetra_Vector_Ghosted* const soln_ptr, VarType v1);
 
     //! Transfer the bulk flux vectors to the surface flux vectors
     /*!

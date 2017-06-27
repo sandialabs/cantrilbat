@@ -270,7 +270,7 @@ SolNonlinear::soln_error_norm(const Epetra_Vector_Owned& delta_y, const bool pri
     }
     return sum_norm;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //    L2 Weighted Norm of the residual
 /*
  *   The vector m_residWts[i]'s are always used to weight the residual errors in
@@ -1525,8 +1525,8 @@ SolNonlinear::setColumnScaleVector(const Epetra_Vector_Owned& colScales)
 //=====================================================================================================================
 // Setup the problem for solution.
 void
-SolNonlinear::setup_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* const y_init,
-                            Epetra_Vector_Ghosted* ydot_init, double time_curr,
+SolNonlinear::setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init,
+                            const Epetra_Vector_Ghosted* const ydot_init, double time_curr,
                             ProblemResidEval& problem, EpetraJac& jac)
 {
     tdjac_ptr = &jac;

@@ -45,20 +45,41 @@ public:
 
     //! Setup the problem for solution.
     /*!
+     *   Find the solution to F(X) = 0 by damped Newton iteration.  On entry, x0 contains an initial estimate of the solution. 
+     *   on successful return, x1 contains the converged solution.
+     *
      *   Here we change the underlying solution to a constant voltage representation, in which we will create an
      *   outer loop to converge on a desired current.
      *   In this routine, we store the address of the jacobian and the residual function.
+     *
+     *  @param[in]           solveType           Enum of type Solve_Type_Enum. Describes the type of the problem to be solved.
+     *                                               SteadyState_Solve 
+     *                                               TimeDependentAccurate_Solve
+     *                                               TimeDependentInitial
+     *                                               TimeDependentRelax_Solve,
+     *                                               DAESystemInitial_Solve
+     *                                           This parameters needs to be passed down to residual calculation, and in some 
+     *                                           cases, this effects the nonlinear solve itself.
+     *  @param[in]           y_init              Pointer to a ghosted Epetra_Vector. This contains the initial solution at
+     *                                           the current time.
+     *  @param[in]           ydot_init           Pointer to a ghosted Epetra_Vector. This may contain the initial ydot value
+     *                                           at the current time. It may be nullptr for steady state problems.
+     *  @param[in]           time_curr           Current time
+     *  @param[in]           problem             Reference to the  ProblemResidEval object
+     *  @param[in]           jac                 Reference to teh EpetraJac object
      */
     virtual void
-    setup_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_init, Epetra_Vector_Ghosted* ydot_init, double time_curr,
-                  ProblemResidEval &problem, EpetraJac& jac);
+    setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init, 
+                  const Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval &problem, 
+                  EpetraJac& jac) override;
 
     //! Set the value of the maximum # of newton iterations
     /*!
-     *  @param maxNewtIts   Maximum number of newton iterations
-     *                      The default value of this is 50 iterations
+     *  @param[in]           maxNewtIts          Maximum number of newton iterations
+     *                                           The default value of this is 50 iterations
      */
-    virtual void setMaxNewtIts(const int maxNewtIts);
+    virtual void
+    setMaxNewtIts(const int maxNewtIts) override;
 
     //! Set nonlinear options in the underlying solver.
     /*!
@@ -138,10 +159,27 @@ public:
     solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_comm, Epetra_Vector_Ghosted* ydot_comm, double CJ,
                             double time_curr, int &num_newt_its, int &num_linear_solves, int &num_backtracks);
 
+    //! Change the problem to a constant voltage boundary condition problem
+    /*!
+     *  @param[in]           soln                Pointer to a ghosted Epetra_Vector. This contains the initial solution at
+     *                                           the current time.
+     *  @param[in]           solnDot             Pointer to a ghosted Epetra_Vector. This may contain the initial ydot value
+     *                                           at the current time. It may be nullptr for steady state problems.
+     *  @param[in]           time_curr           Current time
+     */
     void
-    transform_cc_to_cv(Epetra_Vector_Ghosted* y_init, Epetra_Vector_Ghosted* ydot_init, double time_curr);
+    transform_cc_to_cv(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot, double time_curr);
+
+    //! Change the problem to a constant current boundary condition problem
+    /*!
+     *  @param[in]           soln                Pointer to a ghosted Epetra_Vector. This contains the initial solution at
+     *                                           the current time.
+     *  @param[in]           solnDot             Pointer to a ghosted Epetra_Vector. This may contain the initial ydot value
+     *                                           at the current time. It may be nullptr for steady state problems.
+     *  @param[in]           time_curr           Current time
+     */
     void
-    transform_cv_to_cc(Epetra_Vector_Ghosted* soln, Epetra_Vector_Ghosted* solnDot, double time_curr);
+    transform_cv_to_cc(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot, double time_curr);
 
     //---------------------------------------------------------------------------------------------------------
     // Member 
