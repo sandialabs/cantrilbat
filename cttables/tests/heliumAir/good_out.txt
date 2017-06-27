@@ -135,10 +135,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "gas"
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
                  0.000000000000000E+00, -7.453750000000000E+02,  9.153488000000000E-01
-               High temperature polynomials: 1000 < T < 5000: 
+               High temperature polynomials: 1000 < T < 5000:
                  2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
                  0.000000000000000E+00, -7.453750000000000E+02,  9.153489000000000E-01
 ------------------------------------------------------------------------------------------------------------------------
@@ -183,10 +183,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "O2" IN PHASE "gas"
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  3.212936000000000E+00,  1.127486400000000E-03, -5.756150000000000E-07,  1.313877300000000E-09,
                 -8.768554000000000E-13, -1.005249000000000E+03,  6.034737000000000E+00
-               High temperature polynomials: 1000 < T < 5000: 
+               High temperature polynomials: 1000 < T < 5000:
                  3.697578000000000E+00,  6.135197000000000E-04, -1.258842000000000E-07,  1.775281000000000E-11,
                 -1.136435400000000E-15, -1.233930100000000E+03,  3.189165000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -231,10 +231,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "gas"
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  3.298677000000000E+00,  1.408240400000000E-03, -3.963222000000000E-06,  5.641515000000000E-09,
                 -2.444854000000000E-12, -1.020899900000000E+03,  3.950372000000000E+00
-               High temperature polynomials: 1000 < T < 5000: 
+               High temperature polynomials: 1000 < T < 5000:
                  2.926640000000000E+00,  1.487976800000000E-03, -5.684760000000000E-07,  1.009703800000000E-10,
                 -6.753351000000000E-15, -9.227977000000000E+02,  5.980528000000000E+00
 ------------------------------------------------------------------------------------------------------------------------

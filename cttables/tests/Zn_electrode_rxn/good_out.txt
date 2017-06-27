@@ -35,10 +35,10 @@ INFORMATION TABLE FOR SPECIES "electronSHE" IN PHASE "metalElectrons"
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.00020566 m3/kmol
         Molar Volume formulation for eos type 9 is not known to cttables
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 200 < T < 1000: 
+               Low  temperature polynomials: 200 < T < 1000:
                  1.172165560000000E+00,  3.990260375000000E-03, -9.739075499999999E-06,  1.007860470000000E-08,
                 -3.688058805000000E-12, -4.589675865000000E+02,  3.415051190000000E-01
-               High temperature polynomials: 1000 < T < 6000: 
+               High temperature polynomials: 1000 < T < 6000:
                  1.466432895000000E+00,  4.133039835000000E-04, -7.320116749999999E-08,  7.705017950000000E-12,
                 -3.444022160000000E-16, -4.065327985000000E+02, -5.121644350000000E-01
 ---------------------------------------------------------------------------------------
@@ -390,10 +390,12 @@ INFORMATION TABLE FOR SPECIES "Zn(S)" IN PHASE "Zn(S)"
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
         SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 250 < T < 1075: 
-                 2.560123000000000E+01, -4.405292000000000E+00,  2.042206000000000E+01, -7.399697000000000E+00,n                -4.580100000000000E-02, -7.755964000000000E+00,  7.291373000000000E+01
-               High temperature polynomials: 1075 < T < 1075: 
-                 2.560123000000000E+01, -4.405292000000000E+00,  2.042206000000000E+01, -7.399697000000000E+00,n                -4.580100000000000E-02, -7.755964000000000E+00,  7.291373000000000E+01
+               Low  temperature polynomials: 250 < T < 1075:
+                 2.560123000000000E+01, -4.405292000000000E+00,  2.042206000000000E+01, -7.399697000000000E+00,
+                -4.580100000000000E-02, -7.755964000000000E+00,  7.291373000000000E+01
+               High temperature polynomials: 1075 < T < 1075:
+                 2.560123000000000E+01, -4.405292000000000E+00,  2.042206000000000E+01, -7.399697000000000E+00,
+                -4.580100000000000E-02, -7.755964000000000E+00,  7.291373000000000E+01
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -444,7 +446,7 @@ INFORMATION TABLE FOR SPECIES "zn_site" IN PHASE "zinc_surface"
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
+                Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
                                 S  =   0.000000000000000E+00 J kmol-1 K-1
                                 Cp =   0.000000000000000E+00 J kmol-1 K-1

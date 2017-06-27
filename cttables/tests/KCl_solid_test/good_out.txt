@@ -125,7 +125,7 @@ INFORMATION TABLE FOR SPECIES "KCl(S)" IN PHASE "KCl(S)"
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
         MinEQ3 format:  (a varient of Shomate1 format) 
-               temperature polynomials (Shomate Form): 200 < T < 1043: 
+               temperature polynomials (Shomate Form): 200 < T < 1043:
                  4.137976000000000E+01,  2.175680000000000E+01,  0.000000000000000E+00,  0.000000000000000E+00,
                  3.221680000000000E-01, -4.489079168845959E+02,  1.279517035730814E+02
                  Delta G0_Tr_Pr = -9.773500000E+04 cal/gmol

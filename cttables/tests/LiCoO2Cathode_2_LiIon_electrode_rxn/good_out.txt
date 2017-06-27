@@ -37,7 +37,7 @@ INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Margules1"
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
+                Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =  -4.064033000000000E+08 J kmol-1
                                 S  =   0.000000000000000E+00 J kmol-1 K-1
                                 Cp =   0.000000000000000E+00 J kmol-1 K-1
@@ -77,7 +77,7 @@ INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Margules1"
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
+                Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
                                 S  =   0.000000000000000E+00 J kmol-1 K-1
                                 Cp =   0.000000000000000E+00 J kmol-1 K-1
@@ -132,10 +132,12 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_elect
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
         SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 250 < T < 500: 
-                 1.695520000000000E+02, -8.827110000000000E+02,  1.977438000000000E+03, -1.487312000000000E+03,n                -1.609635000000000E+00, -3.124825000000000E+01,  4.136466000000000E+02
-               High temperature polynomials: 500 < T < 500: 
-                 1.695520000000000E+02, -8.827110000000000E+02,  1.977438000000000E+03, -1.487312000000000E+03,n                -1.609635000000000E+00, -3.124825000000000E+01,  4.136466000000000E+02
+               Low  temperature polynomials: 250 < T < 500:
+                 1.695520000000000E+02, -8.827110000000000E+02,  1.977438000000000E+03, -1.487312000000000E+03,
+                -1.609635000000000E+00, -3.124825000000000E+01,  4.136466000000000E+02
+               High temperature polynomials: 500 < T < 500:
+                 1.695520000000000E+02, -8.827110000000000E+02,  1.977438000000000E+03, -1.487312000000000E+03,
+                -1.609635000000000E+00, -3.124825000000000E+01,  4.136466000000000E+02
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
@@ -186,7 +188,7 @@ INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
         StandState Molar Volume at (T,P) of (298.15,101325) = 1.5 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
+                Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =  -5.000000000000000E+08 J kmol-1
                                 S  =   1.000000000000000E+05 J kmol-1 K-1
                                 Cp =   1.000000000000000E+01 J kmol-1 K-1
@@ -227,7 +229,7 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
         StandState Molar Volume at (T,P) of (298.15,101325) = 0 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
+                Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
                                 S  =   0.000000000000000E+00 J kmol-1 K-1
                                 Cp =   0.000000000000000E+00 J kmol-1 K-1
@@ -269,7 +271,7 @@ INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
         StandState Molar Volume at (T,P) of (298.15,101325) = 1 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
+                Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =  -5.000000000000000E+08 J kmol-1
                                 S  =   5.000000000000000E+04 J kmol-1 K-1
                                 Cp =   1.000000000000000E+01 J kmol-1 K-1
@@ -319,7 +321,7 @@ INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "cathode_surface"
         Volume Properties are from fixed surface site equation
         Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
+                Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
                                 S  =   0.000000000000000E+00 J kmol-1 K-1
                                 Cp =   0.000000000000000E+00 J kmol-1 K-1

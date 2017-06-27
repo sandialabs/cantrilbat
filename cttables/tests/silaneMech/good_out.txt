@@ -177,10 +177,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2" IN PHASE "silane"
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 200 < T < 1000: 
+               Low  temperature polynomials: 200 < T < 1000:
                  2.344331120000000E+00,  7.980520749999999E-03, -1.947815100000000E-05,  2.015720940000000E-08,
                 -7.376117610000001E-12, -9.179351730000000E+02,  6.830102380000000E-01
-               High temperature polynomials: 1000 < T < 3500: 
+               High temperature polynomials: 1000 < T < 3500:
                  3.337279200000000E+00, -4.940247310000000E-05,  4.994567780000000E-07, -1.795663940000000E-10,
                  2.002553760000000E-14, -9.501589220000000E+02, -3.205023310000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -225,10 +225,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H" IN PHASE "silane"
         Minimum Temperature = 200 K
         Maximum Temperature = 3500 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 200 < T < 1000: 
+               Low  temperature polynomials: 200 < T < 1000:
                  2.500000000000000E+00,  7.053328190000000E-13, -1.995919640000000E-15,  2.300816320000000E-18,
                 -9.277323320000001E-22,  2.547365990000000E+04, -4.466828530000000E-01
-               High temperature polynomials: 1000 < T < 3500: 
+               High temperature polynomials: 1000 < T < 3500:
                  2.500000010000000E+00, -2.308429730000000E-11,  1.615619480000000E-14, -4.735152350000000E-18,
                  4.981973570000000E-22,  2.547365990000000E+04, -4.466829140000000E-01
 ------------------------------------------------------------------------------------------------------------------------
@@ -273,10 +273,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "HE" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
                  0.000000000000000E+00, -7.453750000000000E+02,  9.153488000000000E-01
-               High temperature polynomials: 1000 < T < 5000: 
+               High temperature polynomials: 1000 < T < 5000:
                  2.500000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
                  0.000000000000000E+00, -7.453750000000000E+02,  9.153489000000000E-01
 ------------------------------------------------------------------------------------------------------------------------
@@ -322,10 +322,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH4" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  1.451640400000000E+00,  1.398736300000000E-02, -4.234563900000000E-06, -2.360614200000000E-09,
                  1.371208900000000E-12,  3.113410500000000E+03,  1.232185500000000E+01
-               High temperature polynomials: 1000 < T < 2000: 
+               High temperature polynomials: 1000 < T < 2000:
                  7.935938000000000E-01,  1.767189900000000E-02, -1.139800900000000E-05,  3.599260400000000E-09,
                 -4.524157100000000E-13,  3.198212700000000E+03,  1.524225700000000E+01
 ------------------------------------------------------------------------------------------------------------------------
@@ -370,10 +370,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  3.179353700000000E+00, -2.764699200000000E-03,  4.478403800000000E-06, -3.283317700000000E-09,
                  9.121363100000000E-13,  5.333903200000000E+04,  2.727320400000000E+00
-               High temperature polynomials: 1000 < T < 5000: 
+               High temperature polynomials: 1000 < T < 5000:
                  2.650601400000000E+00, -3.576385200000000E-04,  2.959229300000000E-07, -7.280482900000000E-11,
                  5.796332900000000E-15,  5.343705400000000E+04,  5.220405700000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -419,10 +419,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  3.836010000000000E+00, -2.702657000000000E-03,  6.849070000000000E-06, -5.424184000000000E-09,
                  1.472131000000000E-12,  4.507593000000000E+04,  9.350778000000000E-01
-               High temperature polynomials: 1000 < T < 2000: 
+               High temperature polynomials: 1000 < T < 2000:
                  3.110430000000000E+00,  1.094946000000000E-03,  2.898629000000000E-08, -2.745104000000000E-10,
                  7.051798999999999E-14,  4.516898000000000E+04,  4.193487000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -468,10 +468,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH2" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  3.475092000000000E+00,  2.139338000000000E-03,  7.672306000000000E-07,  5.217668000000000E-10,
                 -9.898824000000000E-13,  3.147397000000000E+04,  4.436585000000000E+00
-               High temperature polynomials: 1000 < T < 3000: 
+               High temperature polynomials: 1000 < T < 3000:
                  4.142390000000000E+00,  2.150191000000000E-03, -2.190730000000000E-07, -2.073725000000000E-10,
                  4.741018000000000E-14,  3.110484000000000E+04,  2.930745000000000E-01
 ------------------------------------------------------------------------------------------------------------------------
@@ -517,10 +517,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SIH3" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  2.946733000000000E+00,  6.466764000000000E-03,  5.991653000000000E-07, -2.218413000000000E-09,
                  3.052670000000000E-13,  2.270173000000000E+04,  7.347948000000000E+00
-               High temperature polynomials: 1000 < T < 3000: 
+               High temperature polynomials: 1000 < T < 3000:
                  5.015906000000000E+00,  3.732750000000000E-03, -3.609053000000000E-07, -3.729193000000000E-10,
                  8.468490000000000E-14,  2.190233000000000E+04, -4.291368000000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -566,10 +566,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H3SISIH" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 4000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1500: 
+               Low  temperature polynomials: 300 < T < 1500:
                  3.698707000000000E+00,  1.870180000000000E-02, -1.430704000000000E-05,  6.005836000000000E-09,
                 -1.116293000000000E-12,  3.590825000000000E+04,  8.825191000000000E+00
-               High temperature polynomials: 1500 < T < 4000: 
+               High temperature polynomials: 1500 < T < 4000:
                  1.127202000000000E+01,  2.538145000000000E-03, -2.998472000000000E-07, -9.465367000000000E-11,
                  1.855053000000000E-14,  3.297169000000000E+04, -3.264598000000000E+01
 ------------------------------------------------------------------------------------------------------------------------
@@ -615,10 +615,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2H6" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  6.734798300000000E-01,  4.093153100000000E-02, -4.484125500000000E-05,  2.995223200000000E-08,
                 -8.901085399999999E-12,  7.932787500000000E+03,  1.862740300000000E+01
-               High temperature polynomials: 1000 < T < 2000: 
+               High temperature polynomials: 1000 < T < 2000:
                  3.407493600000000E+00,  2.720647900000000E-02, -1.771320400000000E-05,  5.639117700000000E-09,
                 -7.137868200000000E-13,  7.532184200000000E+03,  6.132175400000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -664,10 +664,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "H2SISIH2" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 3000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  5.133186000000000E+00,  1.252855000000000E-02, -4.620421000000000E-07, -6.606075000000000E-09,
                  2.864345000000000E-12,  2.956915000000000E+04,  7.605132999999999E-01
-               High temperature polynomials: 1000 < T < 3000: 
+               High temperature polynomials: 1000 < T < 3000:
                  8.986817000000000E+00,  5.405047000000000E-03, -5.214022000000000E-07, -5.313742000000000E-10,
                  1.188727000000000E-13,  2.832748000000000E+04, -2.004478000000000E+01
 ------------------------------------------------------------------------------------------------------------------------
@@ -713,10 +713,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3H8" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  7.719684600000000E-01,  6.344274000000000E-02, -7.672610900000000E-05,  5.454371500000000E-08,
                 -1.661172900000000E-11,  1.207126300000000E+04,  2.153250700000000E+01
-               High temperature polynomials: 1000 < T < 2000: 
+               High temperature polynomials: 1000 < T < 2000:
                  6.093334100000000E+00,  3.658011200000000E-02, -2.389236100000000E-05,  7.627193200000000E-09,
                 -9.676938400000000E-13,  1.129720500000000E+04, -2.747565400000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -761,10 +761,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI2" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 2000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  2.967197600000000E+00,  6.311955800000000E-03, -1.097079000000000E-05,  8.927868000000000E-09,
                 -2.787368900000000E-12,  6.987073800000000E+04,  9.278950300000000E+00
-               High temperature polynomials: 1000 < T < 2000: 
+               High temperature polynomials: 1000 < T < 2000:
                  4.144677900000000E+00,  6.523467700000000E-04, -5.010851999999999E-07,  1.806284300000000E-10,
                 -2.516111100000000E-14,  6.969470699999999E+04,  3.862736600000000E+00
 ------------------------------------------------------------------------------------------------------------------------
@@ -809,10 +809,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "SI3" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  4.597912900000000E+00,  1.071527400000000E-02, -1.610042200000000E-05,  1.096920700000000E-08,
                 -2.783287500000000E-12,  7.476632399999999E+04,  3.442167100000000E+00
-               High temperature polynomials: 1000 < T < 5000: 
+               High temperature polynomials: 1000 < T < 5000:
                  7.421336000000000E+00, -1.170994800000000E-04,  8.982077500000000E-08,  7.193596400000000E-12,
                 -2.567083700000000E-15,  7.414669899999999E+04, -1.036527400000000E+01
 ------------------------------------------------------------------------------------------------------------------------
@@ -857,10 +857,10 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "N2" IN PHASE "silane"
         Minimum Temperature = 300 K
         Maximum Temperature = 5000 K
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 300 < T < 1000: 
+               Low  temperature polynomials: 300 < T < 1000:
                  3.298677000000000E+00,  1.408240400000000E-03, -3.963222000000000E-06,  5.641515000000000E-09,
                 -2.444854000000000E-12, -1.020899900000000E+03,  3.950372000000000E+00
-               High temperature polynomials: 1000 < T < 5000: 
+               High temperature polynomials: 1000 < T < 5000:
                  2.926640000000000E+00,  1.487976800000000E-03, -5.684760000000000E-07,  1.009703800000000E-10,
                 -6.753351000000000E-15, -9.227977000000000E+02,  5.980528000000000E+00
 ------------------------------------------------------------------------------------------------------------------------

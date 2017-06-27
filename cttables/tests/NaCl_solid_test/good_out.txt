@@ -157,7 +157,7 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)" IN PHASE "NaCl(S)"
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
         MinEQ3 format:  (a varient of Shomate1 format) 
-               temperature polynomials (Shomate Form): 200 < T < 1073: 
+               temperature polynomials (Shomate Form): 200 < T < 1073:
                  4.594032000000001E+01,  1.631760000000000E+01,  0.000000000000000E+00,  0.000000000000000E+00,
                  0.000000000000000E+00, -4.255422100634930E+02,  1.228621392139345E+02
                  Delta G0_Tr_Pr = -9.180700000E+04 cal/gmol
@@ -234,10 +234,12 @@ INFORMATION TABLE FOR SPECIES "NaCl(S)_nist" IN PHASE "NaCl(S)_nist"
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
         SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 250 < T < 1075: 
-                 5.072389000000000E+01,  6.672267000000000E+00, -2.517167000000000E+00,  1.015934000000000E+01,n                -2.006750000000000E-01, -4.272115000000000E+02,  1.303973000000000E+02
-               High temperature polynomials: 1075 < T < 1075: 
-                 5.072389000000000E+01,  6.672267000000000E+00, -2.517167000000000E+00,  1.015934000000000E+01,n                -2.006750000000000E-01, -4.272115000000000E+02,  1.303973000000000E+02
+               Low  temperature polynomials: 250 < T < 1075:
+                 5.072389000000000E+01,  6.672267000000000E+00, -2.517167000000000E+00,  1.015934000000000E+01,
+                -2.006750000000000E-01, -4.272115000000000E+02,  1.303973000000000E+02
+               High temperature polynomials: 1075 < T < 1075:
+                 5.072389000000000E+01,  6.672267000000000E+00, -2.517167000000000E+00,  1.015934000000000E+01,
+                -2.006750000000000E-01, -4.272115000000000E+02,  1.303973000000000E+02
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------

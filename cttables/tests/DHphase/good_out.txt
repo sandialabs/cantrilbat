@@ -132,10 +132,10 @@ INFORMATION TABLE FOR SPECIES "H2O(L)" IN PHASE "NaCl_electrolyte"
         Pres dependence -> (U, S, V, and Cp are independent)
                         -> (H and G dependent): h(T) = u(T) + pv
         NASA Polynomial format: 2 zones
-               Low  temperature polynomials: 273.15 < T < 600: 
+               Low  temperature polynomials: 273.15 < T < 600:
                  7.255750050000000E+01, -6.624454020000000E-01,  2.561987460000000E-03, -4.365919230000000E-06,
                  2.781789810000000E-09, -4.188654990000000E+04, -2.882801370000000E+02
-               High temperature polynomials: 600 < T < 600: 
+               High temperature polynomials: 600 < T < 600:
                  7.255750050000000E+01, -6.624454020000000E-01,  2.561987460000000E-03, -4.365919230000000E-06,
                  2.781789810000000E-09, -4.188654990000000E+04, -2.882801370000000E+02
 ------------------------------------------------------------------------

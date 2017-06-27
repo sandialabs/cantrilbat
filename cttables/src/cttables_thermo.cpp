@@ -33,7 +33,6 @@ using std::cout;
 //===================================================================================================================================
 // Gather the entropy of the elements of a species at 298 K. This is useful for going back and forth from the
 // gibbs free energy of formation and the absolute gibbs free energy in NIST format.
-//
 double entropyElem298(ZZCantera::ThermoPhase* g_ptr, size_t k)
 {
     double se;
@@ -89,10 +88,10 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
     switch (rt) {
     case NASA2:
         dnt(1); printf("NASA Polynomial format: 2 zones\n");
-        dnt(2); printf("Low  temperature polynomials: %g < T < %g: \n", minTemp, c[0]);
+        dnt(2); printf("Low  temperature polynomials: %g < T < %g:\n", minTemp, c[0]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[3], c[4], c[5], c[6]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[7], c[1], c[2]);
-        dnt(2); printf("High temperature polynomials: %g < T < %g: \n", c[0], maxTemp);
+        dnt(2); printf("High temperature polynomials: %g < T < %g:\n", c[0], maxTemp);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[10], c[11], c[12],  c[13]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[14], c[8], c[9]);
         break;
@@ -100,36 +99,32 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
     case SHOMATE2:
         dnt(1);
         printf("SHOMATE Polynomial format: 2 zones\n");
-        dnt(2); printf("Low  temperature polynomials: %g < T < %g: \n", minTemp, c[0]);
-        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,n", c[1], c[2], c[3], c[4]);
+        dnt(2); printf("Low  temperature polynomials: %g < T < %g:\n", minTemp, c[0]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[1], c[2], c[3], c[4]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[5],  c[6], c[7]);
-        dnt(2); printf("High temperature polynomials: %g < T < %g: \n", c[0], maxTemp);
-        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,n", c[8], c[9], c[10], c[11]);
+        dnt(2); printf("High temperature polynomials: %g < T < %g:\n", c[0], maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[8], c[9], c[10], c[11]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[12], c[13], c[14]);
         break;
 
     case NASA1:
         dnt(1); printf("NASA Polynomial format: 1 zones\n");
-        dnt(2); printf("temperature polynomials: %g < T < %g: \n", minTemp, maxTemp);
-        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,n", c[1], c[2],  c[3],  c[4]);
+        dnt(2); printf("temperature polynomials: %g < T < %g:\n", minTemp, maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[1], c[2],  c[3],  c[4]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[5], c[6], c[7]);
         break;
 
     case SHOMATE1:
-        dnt(1);
-        printf("SHOMATE Polynomial format: 1 zones\n");
-        dnt(2);
-        printf("temperature polynomials: %g < T < %g: \n", minTemp, maxTemp);
-        dnt(2);
-        printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,/n", c[0], c[1], c[2], c[3]);
-        dnt(2);
-        printf("% 23.15E,% 23.15E,% 23.15E\n", c[4], c[5], c[6]);
+        dnt(1); printf("SHOMATE Polynomial format: 1 zones\n");
+        dnt(2); printf("temperature polynomials: %g < T < %g:\n", minTemp, maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[0], c[1], c[2], c[3]);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n", c[4], c[5], c[6]);
         break;
 
     case CONSTANT_CP:
     case SIMPLE:
         dnt(1); printf("CONSTANT_CP format:\n");
-        dnt(2); printf(" Valid Range: %g < T < %g: \n", minTemp, maxTemp);
+        dnt(2); printf(" Valid Range: %g < T < %g:\n", minTemp, maxTemp);
         dnt(2); printf(" at T = %5g K, H  = % 23.15E J kmol-1\n", c[0], c[1]);
         dnt(2); printf("                 S  = % 23.15E J kmol-1 K-1\n", c[2]);
         dnt(2); printf("                 Cp = % 23.15E J kmol-1 K-1\n", c[3]);
@@ -151,7 +146,7 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
         nzones = 1;
         dnt(1); printf("NASA9 Polynomial format: %d zones\n", nzones);
         cptr = c;
-        dnt(2); printf("%2d:  Temperature polynomials: %g < T < %g: \n", 0, minTemp, maxTemp);
+        dnt(2); printf("%2d:  Temperature polynomials: %g < T < %g:\n", 0, minTemp, maxTemp);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", cptr[3], cptr[4],  cptr[5],  cptr[6]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", cptr[7], cptr[8], cptr[9], cptr[10]);
         dnt(2); printf("% 23.15E\n", cptr[11]);
@@ -159,14 +154,13 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
 
     case NASA9MULTITEMP:
         nzones = (int) c[0];
-        dnt(1);
-        printf("NASA9 Polynomial format: %d zones\n", nzones);
+        dnt(1); printf("NASA9 Polynomial format: %d zones\n", nzones);
         index = 1;
         for (i = 0; i < nzones; i++) {
             minTemp = c[index];
             maxTemp = c[index+1];
             cptr = c+index+2;
-            dnt(2); printf("%2d:  Temperature polynomials: %g < T < %g: \n", i, minTemp, maxTemp);
+            dnt(2); printf("%2d:  Temperature polynomials: %g < T < %g:\n", i, minTemp, maxTemp);
             dnt(2); printf("% 23.15E % 23.15E % 23.15E % 23.15E\n", cptr[0], cptr[1],  cptr[2],  cptr[3]);
             dnt(2); printf("% 23.15E % 23.15E % 23.15E % 23.15E\n", cptr[4], cptr[5], cptr[6], cptr[7]);
             dnt(2); printf("% 23.15E\n", cptr[8]);
@@ -190,8 +184,8 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
             dg_consistent =  Mu0_tr_pr + 298.15 * (stotal);
         }
         dnt(1); printf("MinEQ3 format:  (a varient of Shomate1 format) \n");
-        dnt(2); printf("temperature polynomials (Shomate Form): %g < T < %g: \n", minTemp, maxTemp);
-        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[0],  c[1], c[2], c[3]);
+        dnt(2); printf("temperature polynomials (Shomate Form): %g < T < %g:\n", minTemp, maxTemp);
+        dnt(2); printf("% 23.15E,% 23.15E,% 23.15E,% 23.15E,\n", c[0], c[1], c[2], c[3]);
         dnt(2); printf("% 23.15E,% 23.15E,% 23.15E\n",  c[4],  c[5], c[6]);
         dnt(2); printf("  Delta G0_Tr_Pr = %16.9E cal/gmol\n", DG0_tr_pr / (4.184 * 1.0E3));
         dnt(2); printf("                 = %16.6g kJ /gmol\n", DG0_tr_pr/1.0E6);
@@ -247,7 +241,6 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
             dnt(3); printf("c1                     = %g\n", c[8]);
             dnt(3); printf("c2                     = %g\n", c[9]);
             dnt(3); printf("omega_pr_tr            = %g\n", c[10]);
-
             break;
         case cPDSS_UNDEF:
             dnt(2); printf("Undefined PDSS thermo type\n");
@@ -255,7 +248,6 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
         default:
             dnt(2); printf("unknown species PDSS thermo type %d\n", (int) ptype);
         }
-
         break;
     default:
         printf("unknown species reference thermo type %d\n", rt);
@@ -279,10 +271,8 @@ void printVolSpecies(ThermoPhase* const g_ptr, size_t k)
     double currTemp = g_ptr->temperature();
     double currPres = g_ptr->pressure();
 
-    dnt(1);
-    printf("Partial    Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, pmVol[k], 3);
-    dnt(1);
-    printf("StandState Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, ssVol[k], 3);
+    dnt(1); printf("Partial    Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, pmVol[k], 3);
+    dnt(1); printf("StandState Molar Volume at (T,P) of (%g,%g) = %g m%1d/kmol\n", currTemp, currPres, ssVol[k], 3);
 
     /*
      * Loop over the known types of eos's. Print out what's available.
@@ -291,112 +281,73 @@ void printVolSpecies(ThermoPhase* const g_ptr, size_t k)
 
         IdealSolidSolnPhase* issp = static_cast<IdealSolidSolnPhase*>(g_ptr);
         double mV = issp->speciesMolarVolume(k);
-        dnt(1);
-        cout << "species Molar Volume = " << mV << " m**3 / kmol\n";
+        dnt(1); cout << "species Molar Volume = " << mV << " m**3 / kmol\n";
 
         switch (eos) {
         case cIdealSolidSolnPhase0:
-            dnt(1);
-            cout << "standard Concentration value =  unity\n";
+            dnt(1); cout << "standard Concentration value =  unity\n";
             break;
         case cIdealSolidSolnPhase1:
-            dnt(1);
-            cout << "standard Concentration value =  1/(molar volume) units of kmol/m3\n";
+            dnt(1); cout << "standard Concentration value =  1/(molar volume) units of kmol/m3\n";
             break;
         case cIdealSolidSolnPhase2:
-            dnt(1);
-            cout << "standard Concentration value =  1/(solvent volume) units of kmol/m3\n";
+            dnt(1); cout << "standard Concentration value =  1/(solvent volume) units of kmol/m3\n";
             break;
         }
 
-        dnt(1);
-        cout << "Pres dependence -> (U, S, V, and Cp are independent)\n";
-        dnt(1);
-        cout << "                -> (H and G dependent): h(T) = u(T) + pv" << endl;
-
+        dnt(1); cout << "Pres dependence -> (U, S, V, and Cp are independent)\n";
+        dnt(1); cout << "                -> (H and G dependent): h(T) = u(T) + pv" << endl;
     } else if (eos == cStoichSubstance) {
-
         //StoichSubstance* issp = static_cast<StoichSubstance*>(g_ptr);
         double dens = g_ptr->density();
         double mw = g_ptr->molecularWeight(0);
         double mV = mw / (dens);
-        dnt(1);
-        cout << "StoichSubstance constant density = " << dens << " kg m-3 \n";
-        dnt(1);
-        cout << "species Molar Volume = " << mV << " m**3 / kmol <- constant\n";
-        dnt(1);
-        cout << "Press dependence -> (U, S, V, and Cp are independent)\n";
-        dnt(1);
-        cout << "                 -> (H and G dependent): h(T) = u(T) + pv\n";
-        dnt(1);
-        cout << "standard Concentration value =  unity" << endl;
-
+        dnt(1); cout << "StoichSubstance constant density = " << dens << " kg m-3 \n";
+        dnt(1); cout << "species Molar Volume = " << mV << " m**3 / kmol <- constant\n";
+        dnt(1); cout << "Press dependence -> (U, S, V, and Cp are independent)\n";
+        dnt(1); cout << "                 -> (H and G dependent): h(T) = u(T) + pv\n";
+        dnt(1); cout << "standard Concentration value =  unity" << endl;
     } else if (eos == cIdealGas) {
-
-        dnt(1);
-        cout << "Volume Properties are from ideal gas law\n";
-        dnt(1);
-        cout << "Standard concentration value =  P / (R T) with units of kmol/m3" << endl;
-
+        dnt(1); cout << "Volume Properties are from ideal gas law\n";
+        dnt(1); cout << "Standard concentration value =  P / (R T) with units of kmol/m3" << endl;
     } else if (eos == cDebyeHuckel0  || eos == cDebyeHuckel1  || eos == cDebyeHuckel2) {
-
         double mV = pmVol[k];
-        dnt(1);
-        cout << "species partial Molar Volume = " << mV << " m**3 / kmol\n";
+        dnt(1); cout << "species partial Molar Volume = " << mV << " m**3 / kmol\n";
         switch (eos) {
         case cDebyeHuckel0:
-            dnt(1);
-            cout << "standard Concentration value =  unity\n";
+            dnt(1); cout << "standard Concentration value =  unity\n";
             break;
         case cDebyeHuckel1:
-            dnt(1);
-            cout << "standard Concentration value =  1/(molar volume) units of kmol/m3\n";
+            dnt(1); cout << "standard Concentration value =  1/(molar volume) units of kmol/m3\n";
             break;
         case cDebyeHuckel2:
-            dnt(1);
-            cout << "standard Concentration value =  1/(solvent volume) units of kmol/m3\n";
+            dnt(1); cout << "standard Concentration value =  1/(solvent volume) units of kmol/m3\n";
             break;
         }
-        dnt(1);
-        cout << "Pres dependence -> (U, S, V, and Cp are independent)\n";
-        dnt(1);
-        cout << "                -> (H and G dependent): h(T) = u(T) + pv" << endl;
-
+        dnt(1); cout << "Pres dependence -> (U, S, V, and Cp are independent)\n";
+        dnt(1); cout << "                -> (H and G dependent): h(T) = u(T) + pv" << endl;
     } else if (eos == cHMWSoln0  || eos == cHMWSoln1  || eos == cHMWSoln2) {
-
         double mV = pmVol[k];
-        dnt(1);
-        cout << "species partial Molar Volume = " << mV << " m**3 / kmol\n";
+        dnt(1); cout << "species partial Molar Volume = " << mV << " m**3 / kmol\n";
         switch (eos) {
         case cHMWSoln0:
-            dnt(1);
-            cout << "standard Concentration value =  unity" << endl;
+            dnt(1); cout << "standard Concentration value =  unity" << endl;
             break;
         case  cHMWSoln1 :
-            dnt(1);
-            cout << "standard Concentration value =  1/(molar volume) units of kmol/m3" << endl;
+            dnt(1); cout << "standard Concentration value =  1/(molar volume) units of kmol/m3" << endl;
             break;
         case cHMWSoln2:
-            dnt(1);
-            cout << "standard Concentration value =  1/(solvent volume) units of kmol/m3" << endl;
+            dnt(1); cout << "standard Concentration value =  1/(solvent volume) units of kmol/m3" << endl;
             break;
         }
-
     } else if (eos == cSurf) {
-
-        dnt(1);
-        cout << "Volume Properties are from fixed surface site equation\n";
+        dnt(1); cout << "Volume Properties are from fixed surface site equation\n";
         SurfPhase* isurf = static_cast<SurfPhase*>(g_ptr);
         double sited = isurf->siteDensity();
         sited  *= Avogadro / 1.0E4;
-        dnt(1);
-        cout << "Surface Site Density = " << sited << " # per cm2 " << endl;
-
+        dnt(1); cout << "Surface Site Density = " << sited << " # per cm2 " << endl;
     } else {
-
-        dnt(1);
-        cout << "Molar Volume formulation for eos type " << eos << " is not known to cttables" << endl;
-
+        dnt(1); cout << "Molar Volume formulation for eos type " << eos << " is not known to cttables" << endl;
     }
 }
 //=================================================================================================================================
@@ -533,8 +484,6 @@ void printIdealGasSpeciesTable(Zuzax::ThermoPhase& g, int k, TemperatureTable& T
      * Print out the Heat of Formation at 298.15 K
      */
     dnt(1); printf("Heat of formation (298.15K) = %.4f %8s\n", H298[k], UIO.sGibbs.c_str());
-    double mu_o = H298[k];
-
     double deltaGf = 1.0E6 * H298[k] - 298.15 * g_S298_refThermo[k] + 298.15 * elementEntropyTotal;
     deltaGf /= 1.0E6;
     dnt(1); printf("DeltaGf (298.15K) = %.4f %8s\n", deltaGf, UIO.sGibbs.c_str());
