@@ -55,7 +55,8 @@ namespace beuler {
 
 enum BEulerMethodType
 {
-    BEulerFixedStep = 0, BEulerVarStep
+    BEulerFixedStep = 0, 
+    BEulerVarStep
 };
 
 /**

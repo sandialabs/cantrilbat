@@ -1,14 +1,6 @@
 /**
- *
  *  @file m1d_SolNonlinear.cpp
- *
- *  Damped Newton solver for 1D multi-domain problems
- */
-
-/*
- *  $Author: hkmoffa $
- *  $Date: 2013-01-07 15:32:48 -0700 (Mon, 07 Jan 2013) $
- *  $Revision: 504 $
+ *    Damped Newton solver for 1D multi-domain problems
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -45,7 +37,7 @@ using namespace std;
 #ifndef MIN
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
@@ -59,9 +51,8 @@ const int NDAMP = 10;
 //-----------------------------------------------------------
 //                 Static Functions
 //-----------------------------------------------------------
-
-static void
-print_line(const char* str, int n)
+//==================================================================================================================================
+static void print_line(const char* const str, int n)
 {
     for (int i = 0; i < n; i++) {
         printf("%s", str);
@@ -72,7 +63,7 @@ print_line(const char* str, int n)
 //  Default value of a static quantities
 bool  SolNonlinear::s_print_NumJac = false;
 
-//=====================================================================================================================
+//==================================================================================================================================
 SolNonlinear::SolNonlinear() :
     SolGlobalNonlinear(),
     solnType_(SteadyState_Solve), m_jacFormMethod(0), m_rowScaling(false), m_colScaling(false), colScaleUpdateFrequency_(1),
@@ -107,7 +98,7 @@ SolNonlinear::SolNonlinear() :
     m_elapsed(0.0), mypid_(0)
 {
 }
-//=====================================================================================================================
+//==================================================================================================================================
 SolNonlinear::~SolNonlinear()
 {
     safeDelete(m_y_curr_owned);
@@ -137,7 +128,7 @@ SolNonlinear::~SolNonlinear()
     safeDelete(m_absTol_deltaDamping);
     safeDelete(m_abstol);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 //    L2 Weighted Norm of a delta in the solution
 /*
  *   The vector m_ewt[i]'s are always used to weight the solution errors in
@@ -638,10 +629,6 @@ SolNonlinear::doNewtonSolve(Epetra_Vector_Owned& delta_soln,
     m_numTotalLinearSolves++;
 }
 //===================================================================================================================================
-//  Do a hard bounds on the step size
-/*
- * We apply this before other terms, by decreasing the size of the initial step size, step[].
- */
 int
 SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Owned& step, double& fbound)
 {
@@ -664,10 +651,7 @@ SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Own
         lowered = true;
         fbound = fbound_new;
     }
-
-    /*
-     *  Do the delta bounds constraint algorithm
-     */
+    //   Do the delta bounds constraint algorithm
     if (doDeltaDamping_) {
         fbound_new = deltaBoundStep(y_old, step);
         if (fbound_new < fbound) {
@@ -680,14 +664,10 @@ SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Own
             printf("\t              ... fbound increased maximally to %10.3g\n", fbound);
         }
     }
-
-    // if fbound is very small, then y0 is already close to the
-    // boundary and step0 points out of the allowed domain. In
-    // this case, the Newton algorithm fails, so return an error
-    // condition.
+    //  If fbound is very small, then y0 is already close to the boundary and step0 points out of the allowed domain.
+    //  In this case, the Newton algorithm fails, so return an error condition.
     /*
-     *  This algorithm is just not sufficient, and I expect that
-     *  there will be a lot more work that will be inserted into
+     *  This algorithm is just not sufficient, and I expect that there will be a lot more work that will be inserted into
      *  this routine, here.
      */
     if (fbound < 1.e-20) {
@@ -696,12 +676,11 @@ SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Own
         }
         return -3;
     }
-    /*
-     * Scale the step size to the correct value to ensure that the bounds are satisfied.
-     */
+    // Scale the step size to the correct value to ensure that the bounds are satisfied.
     if (fbound < 1.0) {
         step.Scale(fbound);
     }
+    // Print final line
     if (m_print_flag > 3 && !mypid_) {
         printf("\t  ");
         print_line("-", 90);

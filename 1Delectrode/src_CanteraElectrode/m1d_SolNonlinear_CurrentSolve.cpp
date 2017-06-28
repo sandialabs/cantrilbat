@@ -1,15 +1,9 @@
 /**
- *
  *  @file m1d_SolNonlinear.cpp
  *
  *  Damped Newton solver for 1D multi-domain problems
  */
 
-/*
- *  $Author: hkmoffa $
- *  $Date: 2013-02-27 15:18:26 -0700 (Wed, 27 Feb 2013) $
- *  $Revision: 540 $
- */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -57,52 +51,53 @@ using namespace Cantera;
 #ifndef MIN
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
-
-namespace m1d {
-
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace m1d
+{
 //=====================================================================================================================
 SolNonlinear_CurrentSolve::SolNonlinear_CurrentSolve() :
-        SolGlobalNonlinear(),
-        m_solverConstantVoltage(0),
-        m_func(0),
-        methodForSoln_(0),
-        currentNeeded_(0.0),
-        currentActual_(0.0),
-        cathodeVoltageOld_(0.0),
-        timeOld_(0.0),
-        timeLast_(0.0),
-        timeStep_(0.0),
-        BC_Now_Voltage_(false),
-        BC_Type_currentBC_(1),
-        Value_currentBC_(0.0),
-        BCFuncPtr_currentBC_(0),
-        TimeDepFuncPtr_currentBC_(0),
-        BC_Type_voltageBC_(0),
-        Value_voltageBC_(0.0),
-        BCFuncPtr_voltageBC_(0),
-        TimeDepFuncPtr_voltageBC_(0),
-        cathodeVoltageBest_(0.0),
-        cathodeVoltageDot_(0.0),
-        cathodeVoltageMin_(-10.),
-        cathodeVoltageMax_(10.),
-        cathodeVoltageDelta_(0.02),
-        printLvl_(0),
-        rtol_(1.0E-3)
+    SolGlobalNonlinear(),
+    m_solverConstantVoltage(0),
+    m_func(0),
+    methodForSoln_(0),
+    currentNeeded_(0.0),
+    currentActual_(0.0),
+    cathodeVoltageOld_(0.0),
+    timeOld_(0.0),
+    timeLast_(0.0),
+    timeStep_(0.0),
+    BC_Now_Voltage_(false),
+    BC_Type_currentBC_(1),
+    Value_currentBC_(0.0),
+    BCFuncPtr_currentBC_(0),
+    TimeDepFuncPtr_currentBC_(0),
+    BC_Type_voltageBC_(0),
+    Value_voltageBC_(0.0),
+    BCFuncPtr_voltageBC_(0),
+    TimeDepFuncPtr_voltageBC_(0),
+    cathodeVoltageBest_(0.0),
+    cathodeVoltageDot_(0.0),
+    cathodeVoltageMin_(-10.),
+    cathodeVoltageMax_(10.),
+    cathodeVoltageDelta_(0.02),
+    printLvl_(0),
+    rtol_(1.0E-3)
 {
     m_solverConstantVoltage = new SolNonlinear();
 }
-//=====================================================================================================================
+//==================================================================================================================================
 SolNonlinear_CurrentSolve::~SolNonlinear_CurrentSolve()
 {
     delete m_solverConstantVoltage;
     m_solverConstantVoltage = 0;
 }
-//=====================================================================================================================
-void SolNonlinear_CurrentSolve::get_res(const double time_curr, const double rdelta_t, const Epetra_Vector_Ghosted *solnBase_ptr,
-                                        const Epetra_Vector_Ghosted *solnDotBase_ptr)
+//==================================================================================================================================
+void SolNonlinear_CurrentSolve::get_res(const double time_curr, const double rdelta_t,
+                                        const Epetra_Vector_Ghosted* solnBase_ptr,
+                                        const Epetra_Vector_Ghosted* solnDotBase_ptr)
 {
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Set the absolute tolerances for the solution variables
 /*
  *   Set the absolute tolerances used in the calculation
@@ -111,7 +106,7 @@ void SolNonlinear_CurrentSolve::get_res(const double time_curr, const double rde
  *  @param n        Length of abstol. Should be equal to m_NumLcEqns
  *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
  */
-void SolNonlinear_CurrentSolve::setTolerances(double reltol, int n, const double * const abstol)
+void SolNonlinear_CurrentSolve::setTolerances(double reltol, int n, const double* const abstol)
 {
     rtol_ = reltol;
     m_solverConstantVoltage->setTolerances(0.5 * reltol, n, abstol);
@@ -129,18 +124,18 @@ SolNonlinear_CurrentSolve::setTolerances_deltaDamping(double reltol_dd, int n, c
  *   outer loop to converge on a desired current.
  *   In this routine, we store the address of the jacobian and the residual function.
  */
-void 
+void
 SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init,
                                          const Epetra_Vector_Ghosted* const ydot_init, double time_curr,
-                                         ProblemResidEval &cv_problem, EpetraJac& jac)
+                                         ProblemResidEval& cv_problem, EpetraJac& jac)
 {
     /*
      *  Store the address of the constant voltage or constant current problem
      */
-    m_func =  dynamic_cast<BatteryResidEval *>(&cv_problem);
+    m_func =  dynamic_cast<BatteryResidEval*>(&cv_problem);
     if (!m_func) {
         throw m1d_Error("SolNonlinear_CurrentSolve::setup_problem",
-	                "Dynamic cast failed");
+                        "Dynamic cast failed");
     }
 
     /*
@@ -154,7 +149,7 @@ SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, const Epetra_
      */
     int BC_Type;
     double value;
-    BoundaryCondition *bcFuncPtr;
+    BoundaryCondition* bcFuncPtr;
     TimeDepFunctionPtr tFuncPtr;
     m_func->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
 
@@ -204,7 +199,7 @@ SolNonlinear_CurrentSolve::transform_cc_to_cv(const Epetra_Vector_Ghosted* const
     // Go get the boundary condition that is being implemented now
     int BC_Type;
     double value;
-    BoundaryCondition *bcFuncPtr;
+    BoundaryCondition* bcFuncPtr;
     TimeDepFunctionPtr tFuncPtr;
     m_func->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
     if (BC_Type == 1 || BC_Type == 3 || BC_Type == 5 || BC_Type == 7 || BC_Type == 9) {
@@ -242,9 +237,9 @@ SolNonlinear_CurrentSolve::transform_cc_to_cv(const Epetra_Vector_Ghosted* const
     // Go get the current value of the cathode current
     currentActual_ = m_func->reportCathodeCurrent();
 
-    DomainLayout &DL = * (m_func->DL_ptr_);
+    DomainLayout& DL = * (m_func->DL_ptr_);
     // want last surface, but be careful when we go to double tap batteries
-    SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
+    SurDomain1D* d_ptr = DL.SurDomain1D_List.back();
     double vCheck = d_ptr->extractSolnValue(soln, v1);
     cathodeVoltageBest_ = vCheck;
     //  if (fabs(cathodeVoltage - vCheck) > 1.0E-8) {
@@ -269,19 +264,19 @@ SolNonlinear_CurrentSolve::transform_cc_to_cv(const Epetra_Vector_Ghosted* const
 }
 //==================================================================================================================================
 // Change the problem to a constant current boundary condition problem
-void 
-SolNonlinear_CurrentSolve::transform_cv_to_cc(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot, 
+void
+SolNonlinear_CurrentSolve::transform_cv_to_cc(const Epetra_Vector_Ghosted* const soln,
+                                              const Epetra_Vector_Ghosted* const solnDot,
                                               double time_curr)
 {
-
     VarType v1(Voltage, 2, "CathodeVoltage");
 
-    BatteryResidEval *batResid = dynamic_cast<BatteryResidEval *>(m_func);
+    BatteryResidEval* batResid = dynamic_cast<BatteryResidEval*>(m_func);
 
     // Go get the boundary condition that is being implemented now
     int BC_Type;
     double value;
-    BoundaryCondition *bcFuncPtr;
+    BoundaryCondition* bcFuncPtr;
     TimeDepFunctionPtr tFuncPtr;
     m_func->reportCathodeVoltageBC(time_curr, BC_Type, value, bcFuncPtr, tFuncPtr);
     /*
@@ -310,10 +305,10 @@ SolNonlinear_CurrentSolve::transform_cv_to_cc(const Epetra_Vector_Ghosted* const
     // Go get the current value of the cathode voltage and use that as the initial value of the voltage boundary condition
     double cathodeVoltage = batResid->reportCathodeVoltage();
 
-    DomainLayout &DL = * (batResid->DL_ptr_);
+    DomainLayout& DL = * (batResid->DL_ptr_);
 
     // We want the last surface, but be careful when we go to double tap batteries
-    SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
+    SurDomain1D* d_ptr = DL.SurDomain1D_List.back();
     double vCheck = d_ptr->extractSolnValue(soln, v1);
     if (fabs(cathodeVoltage - vCheck) > 1.0E-8) {
         printf("we have prob, cv_to_cc\n");
@@ -343,10 +338,12 @@ void SolNonlinear_CurrentSolve::setMaxNewtIts(const int maxNewtIts)
     m_solverConstantVoltage->setMaxNewtIts(maxNewtIts);
 }
 //=====================================================================================================================
-void SolNonlinear_CurrentSolve::setNonLinOptions(int min_newt_its, bool matrixConditioning, bool colScaling, bool rowScaling,
+void SolNonlinear_CurrentSolve::setNonLinOptions(int min_newt_its, bool matrixConditioning, bool colScaling,
+                                                 bool rowScaling,
                                                  int colScaleUpdateFrequency)
 {
-    m_solverConstantVoltage->setNonLinOptions(min_newt_its, matrixConditioning, colScaling, rowScaling, colScaleUpdateFrequency);
+    m_solverConstantVoltage->setNonLinOptions(min_newt_its, matrixConditioning, colScaling, rowScaling,
+                                              colScaleUpdateFrequency);
 }
 //=====================================================================================================================
 //  Set the level of printing that occurs during the nonlinear solve
@@ -374,15 +371,12 @@ void SolNonlinear_CurrentSolve::setPrintFlag(int print_flag)
         }
     }
 }
-//=====================================================================================================================
-/*
- *
- */
-void SolNonlinear_CurrentSolve::setPredicted_soln(const Epetra_Vector &y_pred)
+//==================================================================================================================================
+void SolNonlinear_CurrentSolve::setPredicted_soln(const Epetra_Vector& y_pred)
 {
     m_solverConstantVoltage->setPredicted_soln(y_pred);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Set the values for the previous time step
 /*
  *   We set the values for the previous time step here. These are used in the nonlinear
@@ -400,7 +394,7 @@ void SolNonlinear_CurrentSolve::setPreviousTimeStep(const double timeStep, const
     timeStep_ = timeStep;
     // We may have to extract the old cathode voltage here.
 }
-//=====================================================================================================================
+//==================================================================================================================================
 /*
  * solve_nonlinear_problem():
  *
@@ -412,9 +406,9 @@ void SolNonlinear_CurrentSolve::setPreviousTimeStep(const double timeStep, const
  *        equation system for now. Will make it more general later,
  *        if an application comes up.
  */
-int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted *y_comm,
-                                                       Epetra_Vector_Ghosted *ydot_comm, double CJ, double time_curr,
-                                                       int &num_newt_its_comm, int &num_linear_solves, int &num_backtracks)
+int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_comm,
+                                                       Epetra_Vector_Ghosted* ydot_comm, double CJ, double time_curr,
+                                                       int& num_newt_its_comm, int& num_linear_solves, int& num_backtracks)
 {
 
     if (time_curr > timeOld_) {
@@ -438,7 +432,6 @@ int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType,
     // double currentObtained = currentNeeded;
 
     CurrentFunc ec(this, m_solverConstantVoltage, m_func, y_comm, ydot_comm, CJ, time_curr, deltaT);
-
     /*
      *  Do a first order prediction of the cathode voltage.
      */
@@ -480,7 +473,6 @@ int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType,
         m1d_Error("", "confused");
         break;
     }
-
     /*
      *  Call the root finder. The actual current found is returned in currentObtained
      */
@@ -496,17 +488,15 @@ int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType,
     } else {
         if (printLvl_) {
             printf("CurrentSolve(): bad status = %d Volts (%g amps) = %g. "
-                    "Returning from nonlinear solver with an error condition\n", status, currentObtained, xBest_);
+                   "Returning from nonlinear solver with an error condition\n", status, currentObtained, xBest_);
         }
         return -1;
     }
-
     if (methodForSoln_ == 1) {
         transform_cv_to_cc(y_comm, ydot_comm, time_curr);
     }
-
     return 1;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------

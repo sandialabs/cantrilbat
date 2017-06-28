@@ -1,16 +1,11 @@
 /**
- *  @file m1d_SolGlobalNonlinear.h
+ *  @file m1d_SolNonlinear_CurrentSolve.h
+ *   Rootfinder that wraps around the current solve
  */
-
-/*
- *  $Id: m1d_SolNonlinear_CurrentSolve.h 534 2013-02-22 21:33:41Z hkmoffa $
- */
-
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
- * retains certain rights in this software.
- * See file License.txt for licensing information.
+ * retains certain rights in this software. See file License.txt for licensing information.
  */
 #ifndef M1D_SOLGLOBALNONLINEAR_CURRENTSOLVE_H
 #define M1D_SOLGLOBALNONLINEAR_CURRENTSOLVE_H
@@ -18,34 +13,37 @@
 #include "m1d_SolGlobalNonlinear.h"
 #include "m1d_SurDomain1D.h"
 
-namespace m1d {
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace m1d
+{
 
 class BoundaryCondition;
 class BatteryResidEval;
 class SolNonlinear;
-
-/**
- *  Wrapper class for 'beuler' integrator
- *  We derive the class from the class Integrator
- *  Newton iterator for multi-domain, one-dimensional problems.
- *  Used by class OneDim.
+//==================================================================================================================================
+//! Nonlinear solver that does a constant voltage solver to solve a constant current condition using a root solver.
+//!
+/*!
+ *  This wraps a root solver around the regular nonlinear solver class.
+ *
+ *  There is no highLowBoundStep() method. There are no bounds with the rootsolver provided at this level.
+ *
  */
 class SolNonlinear_CurrentSolve: public SolGlobalNonlinear
 {
 
 public:
-    /**
-     * The default constructor doesn't take an argument.
-     */
+    //! The default constructor doesn't take an argument.
     SolNonlinear_CurrentSolve();
 
     //! Destructor
-    virtual
-    ~SolNonlinear_CurrentSolve();
+    virtual ~SolNonlinear_CurrentSolve();
 
     //! Setup the problem for solution.
     /*!
-     *   Find the solution to F(X) = 0 by damped Newton iteration.  On entry, x0 contains an initial estimate of the solution. 
+     *  (Virtual from SolGlobalNonlinear)
+     *
+     *   Find the solution to F(X) = 0 by damped Newton iteration.  On entry, x0 contains an initial estimate of the solution.
      *   on successful return, x1 contains the converged solution.
      *
      *   Here we change the underlying solution to a constant voltage representation, in which we will create an
@@ -53,12 +51,12 @@ public:
      *   In this routine, we store the address of the jacobian and the residual function.
      *
      *  @param[in]           solveType           Enum of type Solve_Type_Enum. Describes the type of the problem to be solved.
-     *                                               SteadyState_Solve 
+     *                                               SteadyState_Solve
      *                                               TimeDependentAccurate_Solve
      *                                               TimeDependentInitial
      *                                               TimeDependentRelax_Solve,
      *                                               DAESystemInitial_Solve
-     *                                           This parameters needs to be passed down to residual calculation, and in some 
+     *                                           This parameters needs to be passed down to residual calculation, and in some
      *                                           cases, this effects the nonlinear solve itself.
      *  @param[in]           y_init              Pointer to a ghosted Epetra_Vector. This contains the initial solution at
      *                                           the current time.
@@ -69,8 +67,8 @@ public:
      *  @param[in]           jac                 Reference to teh EpetraJac object
      */
     virtual void
-    setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init, 
-                  const Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval &problem, 
+    setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init,
+                  const Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval& problem,
                   EpetraJac& jac) override;
 
     //! Set the value of the maximum # of newton iterations
@@ -86,7 +84,8 @@ public:
      *  This is a pass-through function
      */
     virtual void
-    setNonLinOptions(int min_newt_its, bool matrixConditioning, bool colScaling, bool rowScaling, int colScaleUpdateFrequency);
+    setNonLinOptions(int min_newt_its, bool matrixConditioning, bool colScaling, bool rowScaling,
+                     int colScaleUpdateFrequency);
 
     //!  Set the level of printing that occurs during the nonlinear solve
     /*!
@@ -105,7 +104,7 @@ public:
     void setPrintFlag(int print_flag);
 
     virtual void
-    setPredicted_soln(const Epetra_Vector &y_pred);
+    setPredicted_soln(const Epetra_Vector& y_pred);
 
     //! Set the absolute tolerances for the solution variables
     /*!
@@ -115,7 +114,7 @@ public:
      *  @param n        Length of abstol. Should be equal to m_NumLcEqns
      *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
      */
-    virtual void setTolerances(double reltol, int n, const double * const abstol);
+    virtual void setTolerances(double reltol, int n, const double* const abstol);
 
     //! Set the absolute tolerances for the solution variables
     /*!
@@ -125,7 +124,7 @@ public:
      *  @param n        Length of abstol. Should be equal to m_NumLcEqns
      *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
      */
-    virtual void setTolerances_deltaDamping(double reltol_dd, int n, const double * const abstol_dd);
+    virtual void setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd);
 
     //! get the residual
     /*!
@@ -136,8 +135,8 @@ public:
      * @param solnDotBase_ptr
      */
     virtual void
-    get_res(const double time_curr, const double rdelta_t, const Epetra_Vector_Ghosted *solnBase_ptr,
-            const Epetra_Vector_Ghosted *solnDotBase_ptr);
+    get_res(const double time_curr, const double rdelta_t, const Epetra_Vector_Ghosted* solnBase_ptr,
+            const Epetra_Vector_Ghosted* solnDotBase_ptr);
 
 public:
 
@@ -156,8 +155,9 @@ public:
     //! Main routine to launch a nonlinear solve at the current conditions
     //! whether it's a steady state solve or a time-dependent run.
     virtual int
-    solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_comm, Epetra_Vector_Ghosted* ydot_comm, double CJ,
-                            double time_curr, int &num_newt_its, int &num_linear_solves, int &num_backtracks);
+    solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_comm, Epetra_Vector_Ghosted* ydot_comm,
+                            double CJ,
+                            double time_curr, int& num_newt_its, int& num_linear_solves, int& num_backtracks);
 
     //! Change the problem to a constant voltage boundary condition problem
     /*!
@@ -168,7 +168,8 @@ public:
      *  @param[in]           time_curr           Current time
      */
     void
-    transform_cc_to_cv(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot, double time_curr);
+    transform_cc_to_cv(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot,
+                       double time_curr);
 
     //! Change the problem to a constant current boundary condition problem
     /*!
@@ -179,18 +180,19 @@ public:
      *  @param[in]           time_curr           Current time
      */
     void
-    transform_cv_to_cc(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot, double time_curr);
+    transform_cv_to_cc(const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot,
+                       double time_curr);
 
     //---------------------------------------------------------------------------------------------------------
-    // Member 
+    // Member
     //--------------------------------------------------------------------------------------------------------
 
     //! Pointer to the normal solver using a damped Newton's method
-    m1d::SolNonlinear *m_solverConstantVoltage;
+    m1d::SolNonlinear* m_solverConstantVoltage;
 
     //! Residual problem for the constant voltage or constant current battery
     //ProblemResidEval *m_func;
-    BatteryResidEval *m_func;
+    BatteryResidEval* m_func;
 
     //! Flag for how the solver works
     /*!
@@ -210,7 +212,7 @@ public:
      */
     double currentNeeded_;
 
-    //! 
+    //!
     double currentActual_;
 
     //! Value of the cathode voltage at the last time step
@@ -302,9 +304,8 @@ public:
     int printLvl_;
 
     double rtol_;
-
 };
-
-} // namespace
-
+//==================================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

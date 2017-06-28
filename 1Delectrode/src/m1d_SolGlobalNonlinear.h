@@ -16,41 +16,19 @@
 #include "m1d_ProblemResidEval.h"
 
 #include "Epetra_Vector.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
-//==================================================================================================================================
-enum BEulerMethodType {
-    BEulerFixedStep = 0,
-    BEulerVarStep
-};
-
-//==================================================================================================================================
-/**
- * Exception class thrown when a BEuler error is encountered.
- */
-class SolGlobalNonlinearErr : public m1d_Error
-{
-public:
-    SolGlobalNonlinearErr(std::string msg);
-};
-
-//==================================================================================================================================
-
-#define BEULER_JAC_ANAL 2
-#define BEULER_JAC_NUM  1
-
 //==================================================================================================================================
 //! This is the nonlinear solver base class
 /*!
- *   
  *   This is the main nonlinear solver for steady state and time-dependent problems.
  *   It employs a two-way convergence criteria: one for the residual and one for the solution update vector
+ *   A base class is needed because the equation sometimes need a root solver based on a constant voltage solve to solve for
+ *   a given current condition.
  */
 class SolGlobalNonlinear
 {
-
 public:
     //! The default constructor doesn't take an argument.
     SolGlobalNonlinear();
@@ -84,12 +62,31 @@ public:
                   const Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval& problem,
                   EpetraJac& jac);
 
-    //! Apply hard bounds on the step size
+    //! Apply hard bounds on the step size due to bounds constraints
     /*!
-     *  We apply this before other terms, by decreasing the size of the original
-     *  step size.
+     *  (virtual from SolGlobalNonlinear)
      *
-     *  @param fbound Factor that the step size had to be reduced by
+     *  We apply this before other terms, by decreasing the size of the original step size.
+     *  There are two different types of bounds constraints that are implemented here:
+     *
+     *        highlow bounds constraints: The values of the unknowns can be kept within a strict bounds. Note, the
+     *                                    equations have to have this as a principle. i.e., there must be a 
+     *                                    maximum principle.
+     *        delta bounds constraints:   The unknowns shouldn't change by an overall amount on any one step.
+     *                                    This stems from the trust region concept. The nonlinear jacobian isn't 
+     *                                    predictive beyond a certain trust region.
+     *
+     *  @param[in]           y_old               Reference to Epetra ghosted Value of the solution at the previous nonlinear step.
+     *  @param[in,out]       step                Reference to the Epetra owned-only step change of the predicted solution change.
+     *                                           On return step is scaled by the fbound factor.
+     *
+     *  @param[out]          fbound              Factor that the step size has to be reduced by.
+     *
+     *  @return                                  Returns the following values:
+     *                                             1 :  Returns 1 if there is no reduction in the step size
+     *                                             0 :  Returns 0 if there is a reduction in the step size 
+     *                                                  due to bounds constraints
+     *                                            -3 :  fbounds has become too small. Signal that the newton algorithm has failed.
      */
     virtual int doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Owned& step, double& fbound);
 

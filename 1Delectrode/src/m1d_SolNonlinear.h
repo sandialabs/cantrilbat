@@ -1,5 +1,5 @@
 /**
- *  @file m1d_SolnNonlinear.h
+ *  @file m1d_SolNonlinear.h
  */
 
 /*
@@ -60,6 +60,8 @@ public:
 
     //! Setup the problem for solution.
     /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
      *   Find the solution to F(X) = 0 by damped Newton iteration.  On entry, x0 contains an initial estimate of the solution. 
      *   on successful return, x1 contains the converged solution.
      *
@@ -84,15 +86,34 @@ public:
                   const Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval& problem, 
                   EpetraJac& jac) override;
 
-    //! Apply hard bounds on the step size
+    //! Apply hard bounds on the step size due to bounds constraints
     /*!
-     *  We apply this before other terms, by decreasing the size of the original
-     *  step size.
+     *  (virtual from SolGlobalNonlinear)
      *
-     *  @param fbound Factor that the step size had to be reduced by
+     *  We apply this before other terms, by decreasing the size of the original step size.
+     *  There are two different types of bounds constraints that are implemented here:
+     *
+     *        highlow bounds constraints: The values of the unknowns can be kept within a strict bounds. Note, the
+     *                                    equations have to have this as a principle. i.e., there must be a 
+     *                                    maximum principle.
+     *        delta bounds constraints:   The unknowns shouldn't change by an overall amount on any one step.
+     *                                    This stems from the trust region concept. The nonlinear jacobian isn't 
+     *                                    predictive beyond a certain trust region.
+     *
+     *  @param[in]           y_old               Reference to Epetra ghosted Value of the solution at the previous nonlinear step.
+     *  @param[in,out]       step                Reference to the Epetra owned-only step change of the predicted solution change.
+     *                                           On return step is scaled by the fbound factor.
+     *
+     *  @param[out]          fbound              Factor that the step size has to be reduced by.
+     *
+     *  @return                                  Returns the following values:
+     *                                             1 :  Returns 1 if there is no reduction in the step size
+     *                                             0 :  Returns 0 if there is a reduction in the step size 
+     *                                                  due to bounds constraints
+     *                                            -3 :  fbounds has become too small. Signal that the newton algorithm has failed.
      */
     virtual int
-    doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Owned& step, double& fbound);
+    doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Owned& step, double& fbound) override;
 
     //! Compute factor to keep all components in bounds.
     virtual double
