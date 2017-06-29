@@ -90,7 +90,7 @@ double
 SolGlobalNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0)
 {
     throw errBC("deltaBoundStep()");
-    return 0.0;
+    return 1.0;
 }
 //==================================================================================================================================
 double

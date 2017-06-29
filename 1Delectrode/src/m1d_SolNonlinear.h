@@ -116,8 +116,33 @@ public:
     doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Owned& step, double& fbound) override;
 
     //! Compute factor to keep all components in bounds.
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  Return the factor by which the undamped Newton step 'step0'
+     *  must be multiplied in order to keep all solution components in
+     *  all domains not-appreciably changing so much that the jacobian isn't representative.
+     *
+     *  Delta bounds: The idea behind these is that the Jacobian couldn't possibly be representative, if the
+     *               variable is changed by a lot. (true for nonlinear systems, false for linear systems)
+     *
+     *    For variables which have a strict minimum of zero: 
+     *      Maximum increase in variable in any one newton iteration: 
+     *          a)   factor of 2 when above the value of the fabs(change) is above m_ewt_deltaDamping[i]
+     *          b)   Equal to the change if the fabs(change) is below m_ewt_deltaDamping[i].
+     *
+     *      Maximum decrease in variable in any one newton iteration:
+     *          a)   factor of 5 when above the value of the fabs(change) is above m_ewt_deltaDamping[i]
+     *          b)   Equal to the change if the fabs(change) is below m_ewt_deltaDamping[i].
+     *
+     *    For arithmetically scaled variables, the maximum increase or decrease in an iteration is given by the value of 
+     *    m_ewt_deltaDamping[i].
+     *
+     *  @param[in]           y                   Ghosted Epetra_Vector reference for the current solution 
+     *  @param[in]           step0               Owned Epetra_Vector reference for the current step in the solution unknowns
+     */
     virtual double
-    deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0);
+    deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0) override;
 
     virtual double
     highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0, int loglevel);

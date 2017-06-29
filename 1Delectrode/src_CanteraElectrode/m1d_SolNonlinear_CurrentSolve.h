@@ -27,6 +27,7 @@ class SolNonlinear;
  *  This wraps a root solver around the regular nonlinear solver class.
  *
  *  There is no highLowBoundStep() method. There are no bounds with the rootsolver provided at this level.
+ *  There is no deltaBoundStep() method. The voltage can jump around all it wants. ?!
  *
  */
 class SolNonlinear_CurrentSolve: public SolGlobalNonlinear

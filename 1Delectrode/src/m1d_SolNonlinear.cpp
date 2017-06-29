@@ -691,33 +691,24 @@ SolNonlinear::doHardBounds(const Epetra_Vector_Ghosted& y_old, Epetra_Vector_Own
     }
     return 1;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 /*
+ *  Return the factor by which the undamped Newton step 'step0' must be multiplied in order to keep all solution components in
+ *  all domains not-appreciably changing so much that the jacobian isn't representative.
+ *  The idea behind these is that the Jacobian couldn't possibly be representative, if the  variable is changed by a lot. 
+ *  (true for nonlinear systems, false for linear systems)
  *
- * deltaBoundStep():
+ *    For variables which have a strict minimum of zero: 
+ *      Maximum increase in variable in any one newton iteration: 
+ *          a)   factor of 2 when above the value of the fabs(change) is above m_ewt_deltaDamping[i]
+ *          b)   Equal to the change if the fabs(change) is below m_ewt_deltaDamping[i].
  *
- * Return the factor by which the undamped Newton step 'step0'
- * must be multiplied in order to keep all solution components in
- * all domains between their specified lower and upper bounds.
- * Other bounds may be applied here as well.
+ *      Maximum decrease in variable in any one newton iteration:
+ *          a)   factor of 5 when above the value of the fabs(change) is above m_ewt_deltaDamping[i]
+ *          b)   Equal to the change if the fabs(change) is below m_ewt_deltaDamping[i].
  *
- * Currently the bounds are hard coded into this routine:
- *
- *  Minimum value for all variables: - 0.01 * m_ewt[i]
- *  Maximum value = none.
- *
- * Thus, this means that all solution components are expected
- * to be numerical greater than zero in the limit of time step
- * truncation errors going to zero.
- *
- * Delta bounds: The idea behind these is that the Jacobian
- *               couldn't possibly be representative, if the
- *               variable is changed by a lot. (true for
- *               nonlinear systems, false for linear systems)
- *  Maximum increase in variable in any one newton iteration:
- *   factor of 2
- *  Maximum decrease in variable in any one newton iteration:
- *   factor of 5
+ *    For arithmetically scaled variables, the maximum increase or decrease in an iteration is given by the value of 
+ *    m_ewt_deltaDamping[i].
  */
 double
 SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0)
@@ -775,12 +766,11 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
             f_delta_bounds = ff;
             i_fbounds = i;
         }
-        f_delta_bounds = MIN(f_delta_bounds, ff);
     }
+    // Communicate between processors to find the lowest values
     double flocal = f_delta_bounds;
     int i_fbounds_gb = m_func->LI_ptr_->IndexGbEqns_LcEqns[i_fbounds];
     int iproc = procChoice_Min_Brcst1Int(flocal, *Comm_ptr_, f_delta_bounds, i_fbounds_gb);
-
     fbound = f_delta_bounds;
 
     int iLcNode;
@@ -789,9 +779,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
     VarType var;
     VAR_TYPE_SUBNUM vtsub;
     std::string vstring = m_func->variableID(i_fbounds, iLcNode, iGbNode, iNodeEqnNum, var, vtsub);
-    string v24 = var.VariableName(24);
-
-
+    std::string v24 = var.VariableName(24);
 
     /*
      * Report on any corrections
@@ -869,7 +857,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
 
     return fbound;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 /*
  *
  * boundStep():
