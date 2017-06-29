@@ -2,7 +2,10 @@
 <?xml version="1.0"?>
 <ctml>
   <validate reactions="yes" species="yes"/>
-                   
+ <!-- 
+    This is an example of a previous implementation for electrons where they occupied
+    regular phases. Here it is an ideal gas phase, with an ideal gas pressure dependence
+ -->                  
  <!-- phase metalElectrons    -->
   <phase dim="3" id="metalElectrons">
     <elementArray datasrc="elements.xml">
@@ -20,6 +23,11 @@
     <species name="electronSHE">
       <atomArray> E:1  </atomArray>
       <charge> -1 </charge>
+      <standardState model="electronPhase">
+          <referenceInterface> SHE </referenceInterface>
+          <pressureDependence model="idealGas" />
+          <density> 2.65 </density>
+      </standardState>
       <thermo>
         <NASA Tmax="1000.0" Tmin="200.0" P0="101325">
          <floatArray name="coeffs" size="7">

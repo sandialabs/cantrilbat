@@ -25,9 +25,14 @@
       <!--   stoichiometric quantity in electrode rxn =    5.763152824644609 -->
       <species name="electron_Li_LiCl">
        <atomArray> E:1.0  </atomArray>
+       <standardState model="electronPhase">
+            <referenceInterface> Li_LiCl </referenceInterface>
+            <pressureDependence model="none"/>
+            <density units="g/cm3"> 100. </density>
+       </standardState>
        <charge> -1 </charge>
        <thermo>
-        <Shomate Pref="1 atm" Tmax="700.0" Tmin="400.0">
+        <Shomate Pref="1 bar" Tmax="700.0" Tmin="400.0">
            <floatArray size="7">
                -40.71053  ,
                6.411257   ,
@@ -38,7 +43,7 @@
                -77.614337  
            </floatArray>
         </Shomate>
-        <Shomate Pref="1 atm" Tmax="2700.0" Tmin="700.0">
+        <Shomate Pref="1 bar" Tmax="2700.0" Tmin="700.0">
            <floatArray size="7">
                -47.17129  ,
                14.679607  ,
@@ -52,7 +57,6 @@
        </thermo>
         <density units="g/cm3"> 100. </density>
       </species>
-                
                 
     </speciesData>
         

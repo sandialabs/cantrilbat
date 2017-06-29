@@ -5,17 +5,11 @@
    <!-- phase metal_Li_LiIon_electrons    -->
    <phase dim="3" id="metal_Li_LiIon_electrons">
        <!--      -->
-     <elementArray datasrc="elements.xml">
-          E 
-     </elementArray>
+     <elementArray datasrc="elements.xml"> E </elementArray>
      <speciesArray datasrc="#species_electrode"> 
           electron_Li_LiIon
      </speciesArray>
-     <thermo model="StoichSubstance">
-     <density units="g/cm3"> 
-          1.0E-6 
-     </density>
-     </thermo>
+     <thermo model="StoichSubstance"/>
      <transport model="None"/>
      <kinetics model="none"/>
    </phase>
@@ -29,6 +23,11 @@
       <species name="electron_Li_LiIon">
        <atomArray> E:1.0  </atomArray>
        <charge> -1 </charge>
+       <standardState model="electronPhase">
+           <referenceInterface> Li_LiIon </referenceInterface>
+           <pressureDependence model="none"/>
+           <density units="g/cm3"> 1.0E-6 </density>
+       </standardState>
        <thermo>
        <Shomate Pref="1 atm" Tmax="500.0" Tmin="250.0">
           <floatArray size="7">
@@ -43,7 +42,6 @@
         </Shomate>
 
        </thermo>
-        <density units="g/cm3"> 1.0E-6 </density>
       </species>
                 
                 

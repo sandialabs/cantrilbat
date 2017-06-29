@@ -10,8 +10,8 @@
     </elementArray>
     <speciesArray datasrc="#species_electrode"> electronSHE </speciesArray>
     <thermo model="MetalSHEelectrons">
-      <density> 2.65 </density>
-      <pressureDependence model="none" />
+        <referenceInterface> SHE </referenceInterface>
+        <pressureDependence model="none" />
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
@@ -23,6 +23,11 @@
     <species name="electronSHE">
       <atomArray> E:1  </atomArray>
       <charge> -1 </charge>
+      <standardState model="electronPhase">
+        <referenceInterface> SHE </referenceInterface>
+        <density> 2.65 </density>
+        <pressureDependence model="none" />
+      </standardState>
       <thermo>
         <NASA Tmax="1000.0" Tmin="200.0" P0="100000">
          <floatArray name="coeffs" size="7">
@@ -37,7 +42,6 @@
           </floatArray>
         </NASA>
       </thermo>
-      <density> 2.65 </density>
     </species>
 
   </speciesData>

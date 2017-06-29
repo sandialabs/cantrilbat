@@ -43,6 +43,11 @@
     <species name="Pt_electron">
       <atomArray> E:1  </atomArray>
       <charge> -1 </charge>
+      <standardState model="electronPhase">
+         <referenceInterface> SHE </referenceInterface>
+         <density> 2.53E3 </density> 
+         <pressureDependence model="none" />
+      </standardState>
       <thermo>
         <NASA Tmax="1000.0" Tmin="200.0" P0="101325">
          <floatArray name="coeffs" size="7">
@@ -62,6 +67,7 @@
    <!-- species pt_site   -->
     <species name="pt_site">
       <atomArray>  </atomArray>
+      <standardState model="covalentSite" />
       <thermo>
         <const_cp Tmax="5000.0" Tmin="100.0">
            <t0 units="K">298.15</t0>
@@ -75,6 +81,7 @@
    <!-- species H*_site   -->
     <species name="H*_site">
       <atomArray> H:1  </atomArray>
+      <standardState model="covalentSite" />
       <thermo>
         <const_cp Tmax="5000.0" Tmin="100.0">
            <t0 units="K">298.15</t0>
