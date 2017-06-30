@@ -140,14 +140,51 @@ public:
      *
      *  @param[in]           y                   Ghosted Epetra_Vector reference for the current solution 
      *  @param[in]           step0               Owned Epetra_Vector reference for the current step in the solution unknowns
+     *
+     *  @return                                  Returns the factor which the step should be reduced by.
      */
     virtual double
     deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0) override;
 
+    //! Compute factor to keep all components in bounds.
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  Return the factor by which the undamped Newton step 'step0'
+     *  must be multiplied in order to keep all solution components in
+     *  all domains not-appreciably changing so much that the jacobian isn't representative.
+     *
+     *  Return the factor by which the undamped Newton step 'step0'
+     *  must be multiplied in order to keep all solution components in
+     *  all domains between their specified lower and upper bounds.
+     * 
+     *  This routine is meant to be used with cropping. In other words,
+     *  each component is allowed to go slightly out of bounds. However, cropping may be used to enforce a strict limit.
+     *
+     * Currently the bounds are hard coded into this routine:
+     *
+     *  Minimum value for all variables: solnLowBound[i] - 0.01 * m_ewt[i]
+     *  Maximum value = none. solnHighBound[i] + 0.01 * m_ewt[i]
+     *
+     *  On any single step, each solution component is not allowed to go more than 9/10 of the way to the boundary, from where 
+     *  it currently is.
+     *
+     *  If the component is already out of bounds, bounds checking is no longer carried out on that component.
+     *
+     *  @param[in]           y                   Ghosted Epetra_Vector reference for the current solution 
+     *  @param[in]           step0               Owned Epetra_Vector reference for the current step in the solution unknowns
+     *  @param[in]           loglevel            Level of printing. If greater than 3, a line is printed out about the
+     *                                           damping caused by this routine.
+     *
+     *  @return                                  Returns the factor which the step should be reduced by.
+     */
     virtual double
     highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0, int loglevel);
 
-    /// Set options.
+    //! Set options.
+    /*!
+     *  @param[in]           maxJacAge           Maximum age of the jacobian
+     */
     virtual  void
     setOptions(int maxJacAge = 5)
     {
@@ -444,44 +481,33 @@ public:
 
     //! Attempt to find a damping step
     /*!
-     * On entry, step0 must contain an undamped Newton step for the
-     * solution x0. This method attempts to find a damping coefficient
-     * such that the next undamped step would have a norm smaller than
-     * that of step0. If successful, the new solution after taking the
-     * damped step is returned in y1, and the undamped step at y1 is
-     * returned in step1.
+     *  On entry, step0 must contain an undamped Newton step for the solution x0. This method attempts to 
+     *  find a damping coefficient
+     *  such that the next undamped step would have a norm smaller than
+     *  that of step0. If successful, the new solution after taking the
+     *  damped step is returned in y1, and the undamped step at y1 is  returned in step1.
      *
-     * @param time_curr
-     * @param y0
-     * @param ydot0
-     * @param step0
-     * @param y1
-     * @param ydot1
-     * @param step1
-     * @param s1
-     * @param r
-     * @param jac
-     * @param loglevel
-     * @param num_backtracks
-     * @return
-     *           1 Successful step was taken: Next step was less than previous step.
-     *                                        s1 is calculated
-     *           2 Successful step: Next step's norm is less than 0.8
-     *           3 Success:  The final residual is less than 1.0
-     *                        A predicted deltaSoln is not produced however. s1 is estimated.
-     *           4 Success:  The final residual is less than the residual
-     *                       from the previous step.
-     *                        A predicted deltaSoln is not produced however. s1 is estimated.
-     *           0 Uncertain Success: s1 is about the same as s0
-     *          -2 Unsuccessful step.
+     *  @param[in]           time_curr           Current time
+     *  @param[in]           y0                  Current value of the solution vector
+     *  @param[in]           ydot0_ptr
+     *  @param[in]           s1                  Overall damping factor for the step
+     *  @param[in]           loglevel            Loglevel controls the amount of printing
+     *  @param[out]          num_backtracks      Returns the number of backtrack steps
+     *
+     *  @return                                  1 Successful step was taken: Next step was less than previous step.
+     *                                                                        s1 is calculated
+     *                                           2 Successful step: Next step's norm is less than 0.8
+     *                                           3 Success:  The final residual is less than 1.0
+     *                                                       A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                           4 Success:  The final residual is less than the residual
+     *                                                       from the previous step.
+     *                                                       A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                           0 Uncertain Success: s1 is about the same as s0
+     *                                          -2 Unsuccessful step.
      */
-    int
-    dampStep(double time_curr,
-             const Epetra_Vector& y0,
-             const Epetra_Vector* ydot0_ptr,
-             double& s1,
-             int& loglevel,
-             int& num_backtracks);
+    int dampStep(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double& s1,
+                 int& loglevel, int& num_backtracks);
+
 
     int dampStep_alt(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double& s1, int& loglevel,
                      int& num_backtracks);

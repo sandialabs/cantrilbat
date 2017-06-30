@@ -858,36 +858,6 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
     return fbound;
 }
 //==================================================================================================================================
-/*
- *
- * boundStep():
- *
- * Return the factor by which the undamped Newton step 'step0'
- * must be multiplied in order to keep all solution components in
- * all domains between their specified lower and upper bounds.
- * *
- * This routine is meant to be used with cropping. In other words,
- * each component is allowed to go slightly out of bounds. However,
- * cropping is used to enforce a strict limit.
- *
- * Currently the bounds are hard coded into this routine:
- *
- *  Minimum value for all variables: solnLowBound[i] - 0.01 * m_ewt[i]
- *  Maximum value = none. solnHighBound[i] + 0.01 * m_ewt[i]
- *
- * Thus, this means that all solution components are expected
- * to be numerical greater than zero in the limit of time step
- * truncation errors going to zero.
- *
- * Delta bounds: The idea behind these is that the Jacobian
- *               couldn't possibly be representative, if the
- *               variable is changed by a lot. (true for
- *               nonlinear systems, false for linear systems)
- *  Maximum increase in variable in any one newton iteration:
- *   factor of 2
- *  Maximum decrease in variable in any one newton iteration:
- *   factor of 5
- */
 double
 SolNonlinear::highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0, int loglevel)
 {
@@ -980,7 +950,7 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,  cons
 
     // Compute the weighted norm of the undamped step size step0
     double s0 = m_normSolnFRaw;
-    string ResS;
+    std::string ResS;
 
     double rdelta_t = 0.0;
     if (delta_t_n > 1.0E-300) {
@@ -997,17 +967,12 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,  cons
     num_backtracks = 0;
     double fbound = m_fbound;
     for (m = 0; m < NDAMP; m++) {
-
         ff = m_fdamp;
-
         // step the solution by the damped step size
         /*
-         * Whenever we update the solution, we must also always
-         * update the time derivative.
+         * Whenever we update the solution, we must also always update the time derivative.
          */
         updateSoln(y0, ydot0_ptr, ff, step0);
-
-
         /*
          *  Compute the next residual that would result if m_y_new[] were accepted.
          *  This is computed and storred in the vector m_resid[].
@@ -1094,8 +1059,7 @@ SolNonlinear::dampStep(double time_curr,  const Epetra_Vector_Ghosted& y0,  cons
 
             if (s1 > s0) {
                 if (loglevel >= 4 && !mypid_) {
-                    printf("\t\t\tdampStep(): current trial step and damping"
-                           " coefficient accepted because test step < 1\n");
+                    printf("\t\t\tdampStep(): current trial step and damping coefficient accepted because test step < 1\n");
                     printf("\t\t\t          s1 = %g, s0 = %g\n", s1, s0);
                 }
                 retnTrial = 2;
