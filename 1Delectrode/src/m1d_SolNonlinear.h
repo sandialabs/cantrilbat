@@ -479,18 +479,17 @@ public:
     doNewtonSolve(Epetra_Vector_Owned& delta_soln, const Epetra_Vector& y_curr, const Epetra_Vector& ydot_curr,
                   const double time_curr, const double rdelta_t, int loglevel);
 
-    //! Attempt to find a damping step
+    //! Attempt to find a damping step that leads to a better solution
     /*!
-     *  On entry, step0 must contain an undamped Newton step for the solution x0. This method attempts to 
-     *  find a damping coefficient
-     *  such that the next undamped step would have a norm smaller than
-     *  that of step0. If successful, the new solution after taking the
-     *  damped step is returned in y1, and the undamped step at y1 is  returned in step1.
+     *  On entry, the member variable m_stp  contains an undamped Newton step for the solution (y0, ydot0_ptr). 
+     *  This method attempts to  find a damping coefficient such that the next undamped step would have
+     *  a norm smaller than that of step0. If successful, the new solution after taking the
+     *  damped step is returned in y1, and the undamped step at y1 is returned in step1.
      *
      *  @param[in]           time_curr           Current time
      *  @param[in]           y0                  Current value of the solution vector
-     *  @param[in]           ydot0_ptr
-     *  @param[in]           s1                  Overall damping factor for the step
+     *  @param[in]           ydot0_ptr           Current pointer to the solution Time derivative
+     *  @param[in]           s1                  Overall damping factor for the step that produces a viable result.
      *  @param[in]           loglevel            Loglevel controls the amount of printing
      *  @param[out]          num_backtracks      Returns the number of backtrack steps
      *
@@ -508,7 +507,31 @@ public:
     int dampStep(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double& s1,
                  int& loglevel, int& num_backtracks);
 
-
+    //! Attempt to find a damping step that leads to a better solution
+    /*!
+     *  On entry, the member variable m_stp  contains an undamped Newton step for the solution (y0, ydot0_ptr). 
+     *  This method attempts to  find a damping coefficient such that the next undamped step would have
+     *  a norm smaller than that of step0. If successful, the new solution after taking the
+     *  damped step is returned in y1, and the undamped step at y1 is returned in step1.
+     *
+     *  @param[in]           time_curr           Current time
+     *  @param[in]           y0                  Current value of the solution vector
+     *  @param[in]           ydot0_ptr           Current pointer to the solution Time derivative
+     *  @param[in]           s1                  Overall damping factor for the step that produces a viable result.
+     *  @param[in]           loglevel            Loglevel controls the amount of printing
+     *  @param[out]          num_backtracks      Returns the number of backtrack steps
+     *
+     *  @return                                  1 Successful step was taken: Next step was less than previous step.
+     *                                                                        s1 is calculated
+     *                                           2 Successful step: Next step's norm is less than 0.8
+     *                                           3 Success:  The final residual is less than 1.0
+     *                                                       A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                           4 Success:  The final residual is less than the residual
+     *                                                       from the previous step.
+     *                                                       A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                           0 Uncertain Success: s1 is about the same as s0
+     *                                          -2 Unsuccessful step.
+     */
     int dampStep_alt(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double& s1, int& loglevel,
                      int& num_backtracks);
 
