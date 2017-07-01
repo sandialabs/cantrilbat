@@ -349,7 +349,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "LiCoO2_Interstitials_cathode"
         LiCoO2 <=> Li+  + electron_Li_LiIon + CoO2
 
         There is one reactant: LiCoO2 
-        There are 3 products: Li+ electron_Li_LiIon CoO2 
+        There are 3 products: CoO2 Li+ electron_Li_LiIon 
         Reaction Type = Surface rxn
         Reaction is reversible
 

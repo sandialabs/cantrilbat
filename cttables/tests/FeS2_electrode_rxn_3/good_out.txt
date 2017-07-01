@@ -579,8 +579,8 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
 
         0.5 Li2FeS2(A) +   Li+  + electron_Li_LiCl <=> Li2S(S) + 0.5 Fe(S)
 
-        There are 3 reactants: Li2FeS2(A) Li+ electron_Li_LiCl 
-        There are 2 products: Li2S(S) Fe(S) 
+        There are 3 reactants: Li+ Li2FeS2(A) electron_Li_LiCl 
+        There are 2 products: Fe(S) Li2S(S) 
         Reaction Type = Surface rxn
         Reaction is reversible
 
@@ -676,7 +676,7 @@ INFORMATION TABLE FOR Reaction "1" IN PHASE "metal_Li_LiCl_electrons"
 
         0.5 FeS(B) + 0.5 VaS(B) + Li+  + electron_Li_LiCl  <=>  0.5 Li2FeS2(A)
 
-        There are 4 reactants: FeS(B) VaS(B) Li+ electron_Li_LiCl 
+        There are 4 reactants: FeS(B) Li+ VaS(B) electron_Li_LiCl 
         There is one product: Li2FeS2(A) 
         Reaction Type = Surface rxn
         Reaction is reversible
@@ -773,7 +773,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "metal_Li_LiCl_electrons"
 
         6 Li[7/3]Fe[2/3]S2(A) + 3 FeS(B) <=>  7 Li2FeS2(A) + VaS(B)
 
-        There are 9 reactants: Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) FeS(B) FeS(B) FeS(B) 
+        There are 9 reactants: FeS(B) FeS(B) FeS(B) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) Li[7/3]Fe[2/3]S2(A) 
         There are 8 products: Li2FeS2(A) Li2FeS2(A) Li2FeS2(A) Li2FeS2(A) Li2FeS2(A) Li2FeS2(A) Li2FeS2(A) VaS(B) 
         Reaction Type = Surface rxn
         Reaction is reversible

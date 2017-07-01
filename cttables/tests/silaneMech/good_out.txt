@@ -891,7 +891,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "silane"
 
         SIH4 + H <=> SIH3 + H2
 
-        There are 2 reactants: SIH4 H 
+        There are 2 reactants: H SIH4 
         There are 2 products: H2 SIH3 
         Reaction Type = Elementary Rxn
         Reaction is reversible
@@ -1059,7 +1059,7 @@ INFORMATION TABLE FOR Reaction "4" IN PHASE "silane"
 
         SIH4 + SIH2 <=> H3SISIH + H2
 
-        There are 2 reactants: SIH4 SIH2 
+        There are 2 reactants: SIH2 SIH4 
         There are 2 products: H2 H3SISIH 
         Reaction Type = Elementary Rxn
         Reaction is reversible
@@ -1141,7 +1141,7 @@ INFORMATION TABLE FOR Reaction "6" IN PHASE "silane"
 
         SIH + SIH4 <=> H3SISIH + H
 
-        There are 2 reactants: SIH4 SIH 
+        There are 2 reactants: SIH SIH4 
         There are 2 products: H H3SISIH 
         Reaction Type = Elementary Rxn
         Reaction is reversible
@@ -1310,7 +1310,7 @@ INFORMATION TABLE FOR Reaction "10" IN PHASE "silane"
         SI3H8 (+ M) <=> SIH4 + H3SISIH (+ M)
 
         There is one reactant: SI3H8 
-        There are 2 products: SIH4 H3SISIH 
+        There are 2 products: H3SISIH SIH4 
         Reaction Type = Falloff Rxn
                 Rate Constants below include third body collision partner effects
                 and are effected by current pressure, 101325 Pa 
@@ -1439,7 +1439,7 @@ INFORMATION TABLE FOR Reaction "13" IN PHASE "silane"
         SI2H6 (+ M) <=> SIH4 + SIH2 (+ M)
 
         There is one reactant: SI2H6 
-        There are 2 products: SIH4 SIH2 
+        There are 2 products: SIH2 SIH4 
         Reaction Type = Falloff Rxn
                 Rate Constants below include third body collision partner effects
                 and are effected by current pressure, 101325 Pa 

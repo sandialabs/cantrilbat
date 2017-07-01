@@ -480,50 +480,50 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	   solve_nonlinear_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 60.0111, residTrial = 4.6198e-07
+	              resid0 = 60.0111, residTrial = 4.61878e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   4.6198E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.9506E-09  
+		   residErrorNorm():  Resulting full residual norm =   4.6188E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.9502E-09  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    4.6198E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    4.6188E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 4.6198e-07, residTrial = 3.8752e-10
+	              resid0 = 4.61878e-07, residTrial = 3.87564e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   3.8752E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 3.7500E-11  
+		   residErrorNorm():  Resulting full residual norm =   3.8756E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 3.7512E-11  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  3.0825557E-11  -5.0363192E-13  -1.7126404E-14   3.1346316E-11  -7.7006922E-20  -3.0457271E-16  
-		      1 -1.1020963E-11  -1.2766227E-11   3.8028936E-15   1.7414620E-12  -2.3583331E-23  -1.6789545E-18  
-		      2  3.4810098E-15   0.0000000E+00  -1.9141233E-18   3.4829239E-15  -3.6167695E-25  -1.2874328E-17  
-		      3 -1.7032314E-11  -1.8776574E-11   2.7975030E-15   1.7414620E-12   5.0448990E-22   3.5915860E-17  
-		      4 -3.0010913E-12  -3.0051733E-12   5.9900048E-16   3.4829239E-15   1.1423499E-24   4.0663329E-17  
+		      0  3.0825557E-11  -5.0363192E-13  -1.7126404E-14   3.1346316E-11  -7.7006916E-20  -3.0457269E-16  
+		      1 -1.1020963E-11  -1.2766227E-11   3.8028936E-15   1.7414620E-12  -2.3583129E-23  -1.6789402E-18  
+		      2  3.4810098E-15   0.0000000E+00  -1.9141233E-18   3.4829239E-15  -3.6167616E-25  -1.2874300E-17  
+		      3 -1.7032314E-11  -1.8776574E-11   2.7975030E-15   1.7414620E-12   5.0449010E-22   3.5915874E-17  
+		      4 -3.0010913E-12  -3.0051733E-12   5.9900048E-16   3.4829239E-15   1.1423507E-24   4.0663357E-17  
 		      5  5.7227158E-13   5.7238604E-13  -1.1445434E-16   0.0000000E+00  -2.4454688E-28  -4.2724117E-16  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1698433E-04  -1.8452903E-04                   6.7544698E-05  -1.1515474E-14  -6.2404674E-11  
+		    V_S -1.1698433E-04  -1.8452903E-04                   6.7544698E-05  -1.1515460E-14  -6.2404601E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  2.8376132E-13   0.0000000E+00   8.1756709E-16   2.8294375E-13  -7.3112719E-22  -7.6064730E-17  
-		      1 -1.9564861E-11  -1.9852592E-11   4.7872892E-15   2.8294317E-13  -3.8391823E-22  -3.9941939E-17  
+		      0  2.8376132E-13   0.0000000E+00   8.1756709E-16   2.8294375E-13  -7.3124988E-22  -7.6077494E-17  
+		      1 -1.9564861E-11  -1.9852592E-11   4.7872892E-15   2.8294317E-13  -3.8404091E-22  -3.9954702E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  5.0353122E-13   5.0363192E-13  -1.0070618E-16   1.4822345E-20  -2.2513632E-28  -4.4702552E-16  
+		      3  5.0353122E-13   5.0363192E-13  -1.0070618E-16   1.4822345E-20  -2.2514275E-28  -4.4703828E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4621858E-27   1.1453547E-16  
+		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4620229E-27   1.1452270E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  3.0045730E-12   3.0051733E-12  -6.0091248E-16   6.5433248E-19  -2.9097888E-27  -1.3090417E-16  
+		      8  3.0045730E-12   3.0051733E-12  -6.0091248E-16   6.5433248E-19  -2.9100725E-27  -1.3091694E-16  
 		      k  Mole Sum        GrossVol
 		      0  1.9223832E-05   1.9223832E-05                                  -3.3881318E-21  -1.7624643E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9729884E-04   1.8452903E-04                   1.2769811E-05  -4.2510483E-14  -2.1546241E-10  
+		    V_S  1.9729884E-04   1.8452903E-04                   1.2769811E-05  -4.2516019E-14  -2.1549047E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 1e-05
@@ -605,30 +605,30 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  3.0825557E-11  -5.0363192E-13  -1.7126404E-14   3.1346316E-11  -7.7006922E-20  -3.0457271E-16  
-		      1 -1.1020963E-11  -1.2766227E-11   3.8028936E-15   1.7414620E-12  -2.3583331E-23  -1.6789545E-18  
-		      2  3.4810098E-15   0.0000000E+00  -1.9141233E-18   3.4829239E-15  -3.6167695E-25  -1.2874328E-17  
-		      3 -1.7032314E-11  -1.8776574E-11   2.7975030E-15   1.7414620E-12   5.0448990E-22   3.5915860E-17  
-		      4 -3.0010913E-12  -3.0051733E-12   5.9900048E-16   3.4829239E-15   1.1423499E-24   4.0663329E-17  
+		      0  3.0825557E-11  -5.0363192E-13  -1.7126404E-14   3.1346316E-11  -7.7006916E-20  -3.0457269E-16  
+		      1 -1.1020963E-11  -1.2766227E-11   3.8028936E-15   1.7414620E-12  -2.3583129E-23  -1.6789402E-18  
+		      2  3.4810098E-15   0.0000000E+00  -1.9141233E-18   3.4829239E-15  -3.6167616E-25  -1.2874300E-17  
+		      3 -1.7032314E-11  -1.8776574E-11   2.7975030E-15   1.7414620E-12   5.0449010E-22   3.5915874E-17  
+		      4 -3.0010913E-12  -3.0051733E-12   5.9900048E-16   3.4829239E-15   1.1423507E-24   4.0663357E-17  
 		      5  5.7227158E-13   5.7238604E-13  -1.1445434E-16   0.0000000E+00  -2.4454688E-28  -4.2724117E-16  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1698433E-04  -1.8452903E-04                   6.7544698E-05  -1.1515474E-14  -6.2404674E-11  
+		    V_S -1.1698433E-04  -1.8452903E-04                   6.7544698E-05  -1.1515460E-14  -6.2404601E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  2.8376132E-13   0.0000000E+00   8.1756709E-16   2.8294375E-13  -7.3112719E-22  -7.6064730E-17  
-		      1 -1.9564861E-11  -1.9852592E-11   4.7872892E-15   2.8294317E-13  -3.8391823E-22  -3.9941939E-17  
+		      0  2.8376132E-13   0.0000000E+00   8.1756709E-16   2.8294375E-13  -7.3124988E-22  -7.6077494E-17  
+		      1 -1.9564861E-11  -1.9852592E-11   4.7872892E-15   2.8294317E-13  -3.8404091E-22  -3.9954702E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  5.0353122E-13   5.0363192E-13  -1.0070618E-16   1.4822345E-20  -2.2513632E-28  -4.4702552E-16  
+		      3  5.0353122E-13   5.0363192E-13  -1.0070618E-16   1.4822345E-20  -2.2514275E-28  -4.4703828E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4621858E-27   1.1453547E-16  
+		      6  1.2763675E-11   1.2766227E-11  -2.5527334E-15   3.7572166E-19   1.4620229E-27   1.1452270E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  3.0045730E-12   3.0051733E-12  -6.0091248E-16   6.5433248E-19  -2.9097888E-27  -1.3090417E-16  
+		      8  3.0045730E-12   3.0051733E-12  -6.0091248E-16   6.5433248E-19  -2.9100725E-27  -1.3091694E-16  
 		      k  Mole Sum        GrossVol
 		      0  1.9223832E-05   1.9223832E-05                                  -3.3881318E-21  -1.7624643E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9729884E-04   1.8452903E-04                   1.2769811E-05  -4.2510483E-14  -2.1546241E-10  
+		    V_S  1.9729884E-04   1.8452903E-04                   1.2769811E-05  -4.2516019E-14  -2.1549047E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       1       t_init =  0.00000E+00,       t_final =  1.00000E-05
                          IntegrationCounter =       1  t_init_init =  0.00000E+00, t_final_final =  1.00000E-05
@@ -737,21 +737,21 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    8.6281E+01
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 86.2809, residTrial = 1.42379e-07
+	              resid0 = 86.2809, residTrial = 1.42393e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.4238E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.1522E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.4239E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.1525E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.4238E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.4239E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.42379e-07, residTrial = 7.51918e-10
+	              resid0 = 1.42393e-07, residTrial = 7.51566e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   7.5192E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 9.4096E-11  
+		   residErrorNorm():  Resulting full residual norm =   7.5157E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 9.4043E-11  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
@@ -766,21 +766,21 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1696731E-04  -1.8452220E-04                   6.7554886E-05  -4.3183773E-14  -2.3403023E-10  
+		    V_S -1.1696731E-04  -1.8452220E-04                   6.7554886E-05  -4.3183786E-14  -2.3403031E-10  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4956942E-22   9.8790937E-17  
-		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.5999996E-24   7.9068747E-19  
+		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4957729E-22   9.8791756E-17  
+		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.6078755E-24   7.9150687E-19  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0546972E-28  -1.3964480E-16  
+		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0546910E-28  -1.3964398E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499654E-27   1.2274657E-16  
+		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499811E-27   1.2274739E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19  -1.9497335E-27  -8.2161720E-17  
+		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19   1.2818545E-27   5.4017317E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223830E-05   1.9223830E-05                                   6.7762636E-21   3.5249289E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0674047E-13  -5.4108278E-10  
+		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0673976E-13  -5.4107918E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 1.5e-05
@@ -871,21 +871,21 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1696731E-04  -1.8452220E-04                   6.7554886E-05  -4.3183773E-14  -2.3403023E-10  
+		    V_S -1.1696731E-04  -1.8452220E-04                   6.7554886E-05  -4.3183786E-14  -2.3403031E-10  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4956942E-22   9.8790937E-17  
-		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.5999996E-24   7.9068747E-19  
+		      0  1.4186318E-13   0.0000000E+00   6.1314712E-16   1.4125003E-13   9.4957729E-22   9.8791756E-17  
+		      1 -9.7812547E-12  -9.9260946E-12   3.5903185E-15   1.4124959E-13   7.6078755E-24   7.9150687E-19  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0546972E-28  -1.3964480E-16  
+		      3  2.5174016E-13   2.5181568E-13  -7.5527069E-17   1.1098952E-20  -1.0546910E-28  -1.3964398E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499654E-27   1.2274657E-16  
+		      6  6.3811806E-12   6.3830948E-12  -1.9144838E-15   2.8133970E-19   2.3499811E-27   1.2274739E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19  -1.9497335E-27  -8.2161720E-17  
+		      8  1.5020484E-12   1.5024987E-12  -4.5066042E-16   3.4872627E-19   1.2818545E-27   5.4017317E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223830E-05   1.9223830E-05                                   6.7762636E-21   3.5249289E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0674047E-13  -5.4108278E-10  
+		    V_S  1.9727198E-04   1.8452220E-04                   1.2749789E-05  -1.0673976E-13  -5.4107918E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       2       t_init =  1.00000E-05,       t_final =  1.50000E-05
                          IntegrationCounter =       2  t_init_init =  1.00000E-05, t_final_final =  2.00000E-05
@@ -917,50 +917,50 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    9.9798E+01
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 99.7978, residTrial = 1.83358e-07
+	              resid0 = 99.7978, residTrial = 1.83365e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.8336E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.5736E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.8337E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.5738E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.8336E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.8337E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.83358e-07, residTrial = 2.64859e-09
+	              resid0 = 1.83365e-07, residTrial = 2.64859e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   2.6486E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 5.6340E-10  
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 5.6337E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5408946E-11  -2.5181540E-13  -1.7124632E-14   1.5677886E-11   7.4810169E-20   2.9588423E-16  
-		      1 -5.5082799E-12  -6.3830758E-12   3.8023064E-15   8.7099364E-13   5.4281940E-22   3.8644675E-17  
-		      2  1.7400734E-15   0.0000000E+00  -1.9139257E-18   1.7419873E-15   8.4033112E-25   2.9912598E-17  
-		      3 -8.5141066E-12  -9.3878975E-12   2.7972627E-15   8.7099364E-13   2.7559463E-22   1.9620286E-17  
-		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065746E-24   5.3636945E-17  
+		      0  1.5408946E-11  -2.5181540E-13  -1.7124632E-14   1.5677886E-11   7.4810173E-20   2.9588424E-16  
+		      1 -5.5082799E-12  -6.3830758E-12   3.8023064E-15   8.7099364E-13   5.4281961E-22   3.8644690E-17  
+		      2  1.7400734E-15   0.0000000E+00  -1.9139257E-18   1.7419873E-15   8.4033132E-25   2.9912605E-17  
+		      3 -8.5141066E-12  -9.3878975E-12   2.7972627E-15   8.7099364E-13   2.7559483E-22   1.9620300E-17  
+		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065748E-24   5.3636952E-17  
 		      5  2.8606599E-13   2.8618044E-13  -1.1444390E-16   0.0000000E+00  -3.5548045E-29  -3.1061560E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.0842022E-19  -3.8585774E-16
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1695029E-04  -1.8451536E-04                   6.7565073E-05   2.5770553E-13   1.3966616E-09  
+		    V_S -1.1695029E-04  -1.8451536E-04                   6.7565073E-05   2.5770555E-13   1.3966617E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4184568E-13   0.0000000E+00   8.1748258E-16   1.4102821E-13  -1.1354841E-20  -1.1813305E-15  
-		      1 -9.7800789E-12  -9.9258933E-12   4.7868442E-15   1.4102763E-13   4.0261567E-22   4.1887304E-17  
+		      0  1.4184568E-13   0.0000000E+00   8.1748258E-16   1.4102821E-13  -1.1354837E-20  -1.1813301E-15  
+		      1 -9.7800789E-12  -9.9258933E-12   4.7868442E-15   1.4102763E-13   4.0261991E-22   4.1887745E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5171471E-13   2.5181540E-13  -1.0069849E-16   1.4774740E-20  -8.1108247E-29  -8.0545548E-17  
+		      3  2.5171471E-13   2.5181540E-13  -1.0069849E-16   1.4774740E-20  -8.1107798E-29  -8.0545102E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3805237E-12   6.3830758E-12  -2.5525348E-15   3.7451444E-19  -9.8475827E-28  -3.8579574E-17  
+		      6  6.3805237E-12   6.3830758E-12  -2.5525348E-15   3.7451444E-19  -9.8474695E-28  -3.8579131E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5018104E-12   1.5024108E-12  -6.0084069E-16   3.7021354E-19   2.7005159E-28   1.0702637E-17  
+		      8  1.5018104E-12   1.5024108E-12  -6.0084069E-16   3.7021354E-19   2.7045719E-28   1.0718712E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223829E-05   1.9223829E-05                                   6.7762636E-21   3.5249292E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9724513E-04   1.8451536E-04                   1.2729769E-05  -3.7506945E-13  -1.9015397E-09  
+		    V_S  1.9724513E-04   1.8451536E-04                   1.2729769E-05  -3.7506908E-13  -1.9015378E-09  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 2e-05
@@ -1042,30 +1042,30 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5408946E-11  -2.5181540E-13  -1.7124632E-14   1.5677886E-11   7.4810169E-20   2.9588423E-16  
-		      1 -5.5082799E-12  -6.3830758E-12   3.8023064E-15   8.7099364E-13   5.4281940E-22   3.8644675E-17  
-		      2  1.7400734E-15   0.0000000E+00  -1.9139257E-18   1.7419873E-15   8.4033112E-25   2.9912598E-17  
-		      3 -8.5141066E-12  -9.3878975E-12   2.7972627E-15   8.7099364E-13   2.7559463E-22   1.9620286E-17  
-		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065746E-24   5.3636945E-17  
+		      0  1.5408946E-11  -2.5181540E-13  -1.7124632E-14   1.5677886E-11   7.4810173E-20   2.9588424E-16  
+		      1 -5.5082799E-12  -6.3830758E-12   3.8023064E-15   8.7099364E-13   5.4281961E-22   3.8644690E-17  
+		      2  1.7400734E-15   0.0000000E+00  -1.9139257E-18   1.7419873E-15   8.4033132E-25   2.9912605E-17  
+		      3 -8.5141066E-12  -9.3878975E-12   2.7972627E-15   8.7099364E-13   2.7559483E-22   1.9620300E-17  
+		      4 -1.5000699E-12  -1.5024108E-12   5.9892938E-16   1.7419873E-15   1.5065748E-24   5.3636952E-17  
 		      5  2.8606599E-13   2.8618044E-13  -1.1444390E-16   0.0000000E+00  -3.5548045E-29  -3.1061560E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.0842022E-19  -3.8585774E-16
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1695029E-04  -1.8451536E-04                   6.7565073E-05   2.5770553E-13   1.3966616E-09  
+		    V_S -1.1695029E-04  -1.8451536E-04                   6.7565073E-05   2.5770555E-13   1.3966617E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4184568E-13   0.0000000E+00   8.1748258E-16   1.4102821E-13  -1.1354841E-20  -1.1813305E-15  
-		      1 -9.7800789E-12  -9.9258933E-12   4.7868442E-15   1.4102763E-13   4.0261567E-22   4.1887304E-17  
+		      0  1.4184568E-13   0.0000000E+00   8.1748258E-16   1.4102821E-13  -1.1354837E-20  -1.1813301E-15  
+		      1 -9.7800789E-12  -9.9258933E-12   4.7868442E-15   1.4102763E-13   4.0261991E-22   4.1887745E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5171471E-13   2.5181540E-13  -1.0069849E-16   1.4774740E-20  -8.1108247E-29  -8.0545548E-17  
+		      3  2.5171471E-13   2.5181540E-13  -1.0069849E-16   1.4774740E-20  -8.1107798E-29  -8.0545102E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3805237E-12   6.3830758E-12  -2.5525348E-15   3.7451444E-19  -9.8475827E-28  -3.8579574E-17  
+		      6  6.3805237E-12   6.3830758E-12  -2.5525348E-15   3.7451444E-19  -9.8474695E-28  -3.8579131E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5018104E-12   1.5024108E-12  -6.0084069E-16   3.7021354E-19   2.7005159E-28   1.0702637E-17  
+		      8  1.5018104E-12   1.5024108E-12  -6.0084069E-16   3.7021354E-19   2.7045719E-28   1.0718712E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223829E-05   1.9223829E-05                                   6.7762636E-21   3.5249292E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9724513E-04   1.8451536E-04                   1.2729769E-05  -3.7506945E-13  -1.9015397E-09  
+		    V_S  1.9724513E-04   1.8451536E-04                   1.2729769E-05  -3.7506908E-13  -1.9015378E-09  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       3       t_init =  1.50000E-05,       t_final =  2.00000E-05
                          IntegrationCounter =       2  t_init_init =  1.00000E-05, t_final_final =  2.00000E-05
@@ -1174,21 +1174,21 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.1046E+02
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 110.46, residTrial = 2.02872e-07
+	              resid0 = 110.46, residTrial = 2.02936e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   2.0287E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.6209E-10  
+		   residErrorNorm():  Resulting full residual norm =   2.0294E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.6220E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.0287E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    2.0294E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 2.02872e-07, residTrial = 7.78127e-10
+	              resid0 = 2.02936e-07, residTrial = 7.78125e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   7.7813E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.3047E-10  
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.3043E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
@@ -1198,26 +1198,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5071795E-12  -6.3830569E-12   4.7524426E-15   8.7112495E-13   5.4728438E-22   3.8962563E-17  
 		      2  1.7398576E-15   0.0000000E+00  -2.3922588E-18   1.7422499E-15  -7.1261888E-25  -2.5366525E-17  
 		      3 -8.5130815E-12  -9.3877028E-12   3.4963981E-15   8.7112495E-13   2.1078454E-22   1.5006299E-17  
-		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1958329E-25   2.9180295E-17  
+		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1897745E-25   2.9158724E-17  
 		      5  2.8603110E-13   2.8617415E-13  -1.4304703E-16   0.0000000E+00  -3.1702348E-29  -2.2162196E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1693327E-04  -1.8450853E-04                   6.7575259E-05  -1.6159030E-14  -8.7578770E-11  
+		    V_S -1.1693327E-04  -1.8450853E-04                   6.7575259E-05  -1.6159058E-14  -8.7578917E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4182821E-13   0.0000000E+00   1.0217899E-15   1.4080643E-13  -1.0213850E-20  -1.0626245E-15  
-		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3742596E-23   8.7124158E-18  
+		      0  1.4182821E-13   0.0000000E+00   1.0217899E-15   1.4080643E-13  -1.0213816E-20  -1.0626210E-15  
+		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3773444E-23   8.7156251E-18  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7644560E-28   1.4018357E-16  
+		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7645006E-28   1.4018711E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6310188E-27   5.1120710E-17  
+		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6311320E-27   5.1124257E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19  -1.9748876E-28  -7.3872256E-18  
+		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19   4.0894412E-28   1.5296883E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223827E-05   1.9223827E-05                                   3.3881318E-21   1.7624647E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964559E-13  -6.0666582E-10  
+		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964253E-13  -6.0665027E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 2.5e-05
@@ -1303,26 +1303,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5071795E-12  -6.3830569E-12   4.7524426E-15   8.7112495E-13   5.4728438E-22   3.8962563E-17  
 		      2  1.7398576E-15   0.0000000E+00  -2.3922588E-18   1.7422499E-15  -7.1261888E-25  -2.5366525E-17  
 		      3 -8.5130815E-12  -9.3877028E-12   3.4963981E-15   8.7112495E-13   2.1078454E-22   1.5006299E-17  
-		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1958329E-25   2.9180295E-17  
+		      4 -1.4998321E-12  -1.5023230E-12   7.4860838E-16   1.7422499E-15   8.1897745E-25   2.9158724E-17  
 		      5  2.8603110E-13   2.8617415E-13  -1.4304703E-16   0.0000000E+00  -3.1702348E-29  -2.2162196E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1693327E-04  -1.8450853E-04                   6.7575259E-05  -1.6159030E-14  -8.7578770E-11  
+		    V_S -1.1693327E-04  -1.8450853E-04                   6.7575259E-05  -1.6159058E-14  -8.7578917E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4182821E-13   0.0000000E+00   1.0217899E-15   1.4080643E-13  -1.0213850E-20  -1.0626245E-15  
-		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3742596E-23   8.7124158E-18  
+		      0  1.4182821E-13   0.0000000E+00   1.0217899E-15   1.4080643E-13  -1.0213816E-20  -1.0626210E-15  
+		      1 -9.7789032E-12  -9.9256921E-12   5.9832220E-15   1.4080570E-13   8.3773444E-23   8.7156251E-18  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7644560E-28   1.4018357E-16  
+		      3  2.5168926E-13   2.5181511E-13  -1.2586734E-16   1.8438542E-20   1.7645006E-28   1.4018711E-16  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6310188E-27   5.1120710E-17  
+		      6  6.3798669E-12   6.3830569E-12  -3.1905197E-15   4.6738519E-19   1.6311320E-27   5.1124257E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19  -1.9748876E-28  -7.3872256E-18  
+		      8  1.5015724E-12   1.5023230E-12  -7.5099708E-16   3.9162812E-19   4.0894412E-28   1.5296883E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223827E-05   1.9223827E-05                                   3.3881318E-21   1.7624647E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964559E-13  -6.0666582E-10  
+		    V_S  1.9721829E-04   1.8450853E-04                   1.2709753E-05  -1.1964253E-13  -6.0665027E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       4       t_init =  2.00000E-05,       t_final =  2.50000E-05
                          IntegrationCounter =       3  t_init_init =  2.00000E-05, t_final_final =  3.00000E-05
@@ -1354,7 +1354,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.1918E+02
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 119.175, residTrial = 3.04643e-07
+	              resid0 = 119.175, residTrial = 3.04644e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
 		   residErrorNorm():  Resulting full residual norm =   3.0464E-07
@@ -1365,39 +1365,39 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    3.0464E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 3.04643e-07, residTrial = 3.25726e-10
+	              resid0 = 3.04644e-07, residTrial = 3.26055e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   3.2573E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.1303E-10  
+		   residErrorNorm():  Resulting full residual norm =   3.2606E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.1315E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5405114E-11  -2.5181483E-13  -2.5683701E-14   1.5682612E-11  -7.3950257E-20  -2.9248312E-16  
-		      1 -5.5060794E-12  -6.3830380E-12   5.7023831E-15   8.7125624E-13   4.9293946E-22   3.5093625E-17  
-		      2  1.7396420E-15   0.0000000E+00  -2.8705261E-18   1.7425125E-15  -1.3327338E-24  -4.7440256E-17  
-		      3 -8.5120565E-12  -9.3875082E-12   4.1954533E-15   8.7125624E-13  -3.2383838E-23  -2.3054910E-18  
-		      4 -1.4995943E-12  -1.5022351E-12   8.9826369E-16   1.7425125E-15  -1.6085130E-25  -5.7272264E-18  
+		      0  1.5405114E-11  -2.5181483E-13  -2.5683701E-14   1.5682612E-11  -7.3950260E-20  -2.9248313E-16  
+		      1 -5.5060794E-12  -6.3830380E-12   5.7023831E-15   8.7125624E-13   4.9293926E-22   3.5093610E-17  
+		      2  1.7396420E-15   0.0000000E+00  -2.8705261E-18   1.7425125E-15  -1.3327340E-24  -4.7440263E-17  
+		      3 -8.5120565E-12  -9.3875082E-12   4.1954533E-15   8.7125624E-13  -3.2384040E-23  -2.3055053E-18  
+		      4 -1.4995943E-12  -1.5022351E-12   8.9826369E-16   1.7425125E-15  -1.6105345E-25  -5.7344239E-18  
 		      5  2.8599621E-13   2.8616786E-13  -1.7164669E-16   0.0000000E+00  -2.4380732E-29  -1.4204031E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1691626E-04  -1.8450170E-04                   6.7585443E-05   8.5412905E-15   4.6293830E-11  
+		    V_S -1.1691626E-04  -1.8450170E-04                   6.7585443E-05   8.5412634E-15   4.6293683E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4181073E-13   0.0000000E+00   1.2260691E-15   1.4058465E-13   3.5995645E-21   3.7449009E-16  
-		      1 -9.7777276E-12  -9.9254909E-12   7.1794517E-15   1.4058378E-13  -5.0030846E-23  -5.2051166E-18  
+		      0  1.4181073E-13   0.0000000E+00   1.2260691E-15   1.4058465E-13   3.5995639E-21   3.7449003E-16  
+		      1 -9.7777276E-12  -9.9254909E-12   7.1794517E-15   1.4058378E-13  -5.0031427E-23  -5.2051770E-18  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5166382E-13   2.5181483E-13  -1.5103364E-16   2.2090359E-20   2.0273843E-30   1.3423371E-18  
+		      3  2.5166382E-13   2.5181483E-13  -1.5103364E-16   2.2090359E-20   2.0272910E-30   1.3422753E-18  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3792101E-12   6.3830380E-12  -3.8284386E-15   5.5995196E-19   4.4597184E-27   1.1648901E-16  
+		      6  6.3792101E-12   6.3830380E-12  -3.8284386E-15   5.5995196E-19   4.4597161E-27   1.1648895E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.5537955E-27   9.0447374E-17  
+		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.7557422E-27   9.7599687E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223826E-05   1.9223826E-05                                  -3.3881318E-21  -1.7624649E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9719144E-04   1.8450170E-04                   1.2689738E-05   4.5779286E-14   2.3215656E-10  
+		    V_S  1.9719144E-04   1.8450170E-04                   1.2689738E-05   4.5779229E-14   2.3215627E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 3e-05
@@ -1479,30 +1479,30 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5405114E-11  -2.5181483E-13  -2.5683701E-14   1.5682612E-11  -7.3950257E-20  -2.9248312E-16  
-		      1 -5.5060794E-12  -6.3830380E-12   5.7023831E-15   8.7125624E-13   4.9293946E-22   3.5093625E-17  
-		      2  1.7396420E-15   0.0000000E+00  -2.8705261E-18   1.7425125E-15  -1.3327338E-24  -4.7440256E-17  
-		      3 -8.5120565E-12  -9.3875082E-12   4.1954533E-15   8.7125624E-13  -3.2383838E-23  -2.3054910E-18  
-		      4 -1.4995943E-12  -1.5022351E-12   8.9826369E-16   1.7425125E-15  -1.6085130E-25  -5.7272264E-18  
+		      0  1.5405114E-11  -2.5181483E-13  -2.5683701E-14   1.5682612E-11  -7.3950260E-20  -2.9248313E-16  
+		      1 -5.5060794E-12  -6.3830380E-12   5.7023831E-15   8.7125624E-13   4.9293926E-22   3.5093610E-17  
+		      2  1.7396420E-15   0.0000000E+00  -2.8705261E-18   1.7425125E-15  -1.3327340E-24  -4.7440263E-17  
+		      3 -8.5120565E-12  -9.3875082E-12   4.1954533E-15   8.7125624E-13  -3.2384040E-23  -2.3055053E-18  
+		      4 -1.4995943E-12  -1.5022351E-12   8.9826369E-16   1.7425125E-15  -1.6105345E-25  -5.7344239E-18  
 		      5  2.8599621E-13   2.8616786E-13  -1.7164669E-16   0.0000000E+00  -2.4380732E-29  -1.4204031E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1691626E-04  -1.8450170E-04                   6.7585443E-05   8.5412905E-15   4.6293830E-11  
+		    V_S -1.1691626E-04  -1.8450170E-04                   6.7585443E-05   8.5412634E-15   4.6293683E-11  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4181073E-13   0.0000000E+00   1.2260691E-15   1.4058465E-13   3.5995645E-21   3.7449009E-16  
-		      1 -9.7777276E-12  -9.9254909E-12   7.1794517E-15   1.4058378E-13  -5.0030846E-23  -5.2051166E-18  
+		      0  1.4181073E-13   0.0000000E+00   1.2260691E-15   1.4058465E-13   3.5995639E-21   3.7449003E-16  
+		      1 -9.7777276E-12  -9.9254909E-12   7.1794517E-15   1.4058378E-13  -5.0031427E-23  -5.2051770E-18  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5166382E-13   2.5181483E-13  -1.5103364E-16   2.2090359E-20   2.0273843E-30   1.3423371E-18  
+		      3  2.5166382E-13   2.5181483E-13  -1.5103364E-16   2.2090359E-20   2.0272910E-30   1.3422753E-18  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3792101E-12   6.3830380E-12  -3.8284386E-15   5.5995196E-19   4.4597184E-27   1.1648901E-16  
+		      6  6.3792101E-12   6.3830380E-12  -3.8284386E-15   5.5995196E-19   4.4597161E-27   1.1648895E-16  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.5537955E-27   9.0447374E-17  
+		      8  1.5013344E-12   1.5022351E-12  -9.0112958E-16   4.1296994E-19   2.7557422E-27   9.7599687E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223826E-05   1.9223826E-05                                  -3.3881318E-21  -1.7624649E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9719144E-04   1.8450170E-04                   1.2689738E-05   4.5779286E-14   2.3215656E-10  
+		    V_S  1.9719144E-04   1.8450170E-04                   1.2689738E-05   4.5779229E-14   2.3215627E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       5       t_init =  2.50000E-05,       t_final =  3.00000E-05
                          IntegrationCounter =       3  t_init_init =  2.00000E-05, t_final_final =  3.00000E-05
@@ -1611,21 +1611,21 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    8.5054E+01
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 85.0538, residTrial = 1.45843e-07
+	              resid0 = 85.0538, residTrial = 1.45827e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.4584E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.3189E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.4583E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.3186E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.4584E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.4583E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.45843e-07, residTrial = 7.31349e-10
+	              resid0 = 1.45827e-07, residTrial = 7.31391e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   7.3135E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 2.2739E-10  
+		   residErrorNorm():  Resulting full residual norm =   7.3139E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 2.2743E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
@@ -1635,26 +1635,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5049794E-12  -6.3830191E-12   6.6521280E-15   8.7138751E-13  -5.9625384E-22  -4.2448857E-17  
 		      2  1.7394263E-15   0.0000000E+00  -3.3487275E-18   1.7427750E-15   6.6516574E-25   2.3677371E-17  
 		      3 -8.5110316E-12  -9.3873136E-12   4.8944284E-15   8.7138751E-13   2.8946394E-22   2.0607715E-17  
-		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1549161E-25   1.8355430E-17  
+		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1528966E-25   1.8348239E-17  
 		      5  2.8596133E-13   2.8616157E-13  -2.0024286E-16   0.0000000E+00  -6.7718778E-29  -3.3818349E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.6263033E-19  -5.7878660E-16
 		         drhodt          massFluxA_                      advDens  
 		    V_S -1.1689925E-04  -1.8449488E-04                   6.7595626E-05   1.9856333E-13   1.0762539E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4179325E-13   0.0000000E+00   1.4303203E-15   1.4036294E-13  -4.9198021E-21  -5.1184445E-16  
-		      1 -9.7765522E-12  -9.9252897E-12   8.3755334E-15   1.4036192E-13   5.5322406E-22   5.7556466E-17  
+		      0  1.4179325E-13   0.0000000E+00   1.4303203E-15   1.4036294E-13  -4.9198153E-21  -5.1184582E-16  
+		      1 -9.7765522E-12  -9.9252897E-12   8.3755334E-15   1.4036192E-13   5.5320925E-22   5.7554924E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.6292344E-30   2.0597506E-18  
+		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.6268150E-30   2.0583775E-18  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1712343E-27   9.3393490E-17  
+		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1711730E-27   9.3392117E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5010964E-12   1.5021473E-12  -1.0512382E-15   4.3423918E-19  -1.6174235E-27  -5.4392315E-17  
+		      8  1.5010964E-12   1.5021473E-12  -1.0512382E-15   4.3423918E-19   1.8164471E-27   6.1085277E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223824E-05   1.9223824E-05                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9716460E-04   1.8449488E-04                   1.2669727E-05  -8.9940969E-14  -4.5617198E-10  
+		    V_S  1.9716460E-04   1.8449488E-04                   1.2669727E-05  -8.9942217E-14  -4.5617832E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 3.5e-05
@@ -1740,26 +1740,26 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5049794E-12  -6.3830191E-12   6.6521280E-15   8.7138751E-13  -5.9625384E-22  -4.2448857E-17  
 		      2  1.7394263E-15   0.0000000E+00  -3.3487275E-18   1.7427750E-15   6.6516574E-25   2.3677371E-17  
 		      3 -8.5110316E-12  -9.3873136E-12   4.8944284E-15   8.7138751E-13   2.8946394E-22   2.0607715E-17  
-		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1549161E-25   1.8355430E-17  
+		      4 -1.4993566E-12  -1.5021473E-12   1.0478953E-15   1.7427750E-15   5.1528966E-25   1.8348239E-17  
 		      5  2.8596133E-13   2.8616157E-13  -2.0024286E-16   0.0000000E+00  -6.7718778E-29  -3.3818349E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                  -1.6263033E-19  -5.7878660E-16
 		         drhodt          massFluxA_                      advDens  
 		    V_S -1.1689925E-04  -1.8449488E-04                   6.7595626E-05   1.9856333E-13   1.0762539E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4179325E-13   0.0000000E+00   1.4303203E-15   1.4036294E-13  -4.9198021E-21  -5.1184445E-16  
-		      1 -9.7765522E-12  -9.9252897E-12   8.3755334E-15   1.4036192E-13   5.5322406E-22   5.7556466E-17  
+		      0  1.4179325E-13   0.0000000E+00   1.4303203E-15   1.4036294E-13  -4.9198153E-21  -5.1184582E-16  
+		      1 -9.7765522E-12  -9.9252897E-12   8.3755334E-15   1.4036192E-13   5.5320925E-22   5.7554924E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.6292344E-30   2.0597506E-18  
+		      3  2.5163838E-13   2.5181455E-13  -1.7619738E-16   2.5730201E-20   3.6268150E-30   2.0583775E-18  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1712343E-27   9.3393490E-17  
+		      6  6.3785534E-12   6.3830191E-12  -4.4662914E-15   6.5221501E-19   4.1711730E-27   9.3392117E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5010964E-12   1.5021473E-12  -1.0512382E-15   4.3423918E-19  -1.6174235E-27  -5.4392315E-17  
+		      8  1.5010964E-12   1.5021473E-12  -1.0512382E-15   4.3423918E-19   1.8164471E-27   6.1085277E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223824E-05   1.9223824E-05                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9716460E-04   1.8449488E-04                   1.2669727E-05  -8.9940969E-14  -4.5617198E-10  
+		    V_S  1.9716460E-04   1.8449488E-04                   1.2669727E-05  -8.9942217E-14  -4.5617832E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       6       t_init =  3.00000E-05,       t_final =  3.50000E-05
                          IntegrationCounter =       4  t_init_init =  3.00000E-05, t_final_final =  4.00000E-05
@@ -1802,7 +1802,7 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.9352E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.93518e-07, residTrial = 1.05338e-09
+	              resid0 = 1.93518e-07, residTrial = 1.05339e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.0534E-09
 	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 8.4721E-11  
@@ -1815,12 +1815,12 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5038797E-12  -6.3830001E-12   7.6016773E-15   8.7151876E-13  -1.2703513E-22  -9.0439638E-18  
 		      2  1.7392107E-15   0.0000000E+00  -3.8268630E-18   1.7430375E-15   1.5572035E-25   5.5430521E-18  
 		      3 -8.5100069E-12  -9.3871190E-12   5.5933234E-15   8.7151876E-13   4.0658684E-22   2.8946026E-17  
-		      4 -1.4991189E-12  -1.5020594E-12   1.1975032E-15   1.7430375E-15   1.2864645E-24   4.5810386E-17  
+		      4 -1.4991189E-12  -1.5020594E-12   1.1975032E-15   1.7430375E-15   1.2862626E-24   4.5803195E-17  
 		      5  2.8592645E-13   2.8615529E-13  -2.2883556E-16   0.0000000E+00  -1.6640035E-28  -7.2716188E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1688224E-04  -1.8448805E-04                   6.7605808E-05   1.9698387E-13   1.0677324E-09  
+		    V_S -1.1688224E-04  -1.8448805E-04                   6.7605808E-05   1.9698384E-13   1.0677323E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
 		      0  1.4177579E-13   0.0000000E+00   1.6345433E-15   1.4014124E-13   6.8999240E-21   7.1785158E-16  
 		      1 -9.7753770E-12  -9.9250885E-12   9.5714672E-15   1.4014008E-13   4.9629332E-22   5.1633543E-17  
@@ -1830,11 +1830,11 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3778968E-12   6.3830001E-12  -5.1040782E-15   7.4417431E-19   3.5115176E-27   6.8798105E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5008586E-12   1.5020594E-12  -1.2013229E-15   4.5543576E-19   8.6716922E-29   2.7760867E-18  
+		      8  1.5008586E-12   1.5020594E-12  -1.2013229E-15   4.5543576E-19   2.8945398E-28   9.2663499E-18  
 		      k  Mole Sum        GrossVol
 		      0  1.9223823E-05   1.9223823E-05                                   3.3881318E-21   1.7624652E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9713777E-04   1.8448805E-04                   1.2649719E-05   9.8926228E-14   5.0181266E-10  
+		    V_S  1.9713777E-04   1.8448805E-04                   1.2649719E-05   9.8926282E-14   5.0181294E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 4e-05
@@ -1920,12 +1920,12 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      1 -5.5038797E-12  -6.3830001E-12   7.6016773E-15   8.7151876E-13  -1.2703513E-22  -9.0439638E-18  
 		      2  1.7392107E-15   0.0000000E+00  -3.8268630E-18   1.7430375E-15   1.5572035E-25   5.5430521E-18  
 		      3 -8.5100069E-12  -9.3871190E-12   5.5933234E-15   8.7151876E-13   4.0658684E-22   2.8946026E-17  
-		      4 -1.4991189E-12  -1.5020594E-12   1.1975032E-15   1.7430375E-15   1.2864645E-24   4.5810386E-17  
+		      4 -1.4991189E-12  -1.5020594E-12   1.1975032E-15   1.7430375E-15   1.2862626E-24   4.5803195E-17  
 		      5  2.8592645E-13   2.8615529E-13  -2.2883556E-16   0.0000000E+00  -1.6640035E-28  -7.2716188E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1688224E-04  -1.8448805E-04                   6.7605808E-05   1.9698387E-13   1.0677324E-09  
+		    V_S -1.1688224E-04  -1.8448805E-04                   6.7605808E-05   1.9698384E-13   1.0677323E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
 		      0  1.4177579E-13   0.0000000E+00   1.6345433E-15   1.4014124E-13   6.8999240E-21   7.1785158E-16  
 		      1 -9.7753770E-12  -9.9250885E-12   9.5714672E-15   1.4014008E-13   4.9629332E-22   5.1633543E-17  
@@ -1935,11 +1935,11 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      6  6.3778968E-12   6.3830001E-12  -5.1040782E-15   7.4417431E-19   3.5115176E-27   6.8798105E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5008586E-12   1.5020594E-12  -1.2013229E-15   4.5543576E-19   8.6716922E-29   2.7760867E-18  
+		      8  1.5008586E-12   1.5020594E-12  -1.2013229E-15   4.5543576E-19   2.8945398E-28   9.2663499E-18  
 		      k  Mole Sum        GrossVol
 		      0  1.9223823E-05   1.9223823E-05                                   3.3881318E-21   1.7624652E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9713777E-04   1.8448805E-04                   1.2649719E-05   9.8926228E-14   5.0181266E-10  
+		    V_S  1.9713777E-04   1.8448805E-04                   1.2649719E-05   9.8926282E-14   5.0181294E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       7       t_init =  3.50000E-05,       t_final =  4.00000E-05
                          IntegrationCounter =       4  t_init_init =  3.00000E-05, t_final_final =  4.00000E-05
@@ -2048,50 +2048,50 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.3820E+02
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 138.202, residTrial = 1.89703e-07
+	              resid0 = 138.202, residTrial = 1.89765e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.8970E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.8071E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.8976E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.8080E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.8970E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.8976E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.89703e-07, residTrial = 1.25908e-09
+	              resid0 = 1.89765e-07, residTrial = 1.25914e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   1.2591E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 6.9271E-11  
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 6.9252E-11  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5399368E-11  -2.5181399E-13  -3.8517876E-14   1.5689700E-11   1.2185116E-19   4.8193750E-16  
-		      1 -5.5027802E-12  -6.3829812E-12   8.5510310E-15   8.7164999E-13   7.7586856E-22   5.5236137E-17  
-		      2  1.7389951E-15   0.0000000E+00  -4.3049326E-18   1.7433000E-15  -1.2399438E-24  -4.4137278E-17  
-		      3 -8.5089823E-12  -9.3869244E-12   6.2921383E-15   8.7164999E-13  -7.8206958E-22  -5.5677700E-17  
-		      4 -1.4988812E-12  -1.5019716E-12   1.3470875E-15   1.7433000E-15   7.7053251E-25   2.7439759E-17  
+		      0  1.5399368E-11  -2.5181399E-13  -3.8517876E-14   1.5689700E-11   1.2185116E-19   4.8193748E-16  
+		      1 -5.5027802E-12  -6.3829812E-12   8.5510310E-15   8.7164999E-13   7.7586825E-22   5.5236116E-17  
+		      2  1.7389951E-15   0.0000000E+00  -4.3049326E-18   1.7433000E-15  -1.2399444E-24  -4.4137299E-17  
+		      3 -8.5089823E-12  -9.3869244E-12   6.2921383E-15   8.7164999E-13  -7.8206989E-22  -5.5677722E-17  
+		      4 -1.4988812E-12  -1.5019716E-12   1.3470875E-15   1.7433000E-15   7.7073387E-25   2.7446930E-17  
 		      5  2.8589158E-13   2.8614900E-13  -2.5742477E-16   0.0000000E+00  -1.2118876E-28  -4.7077395E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1686524E-04  -1.8448122E-04                   6.7615988E-05   2.5595493E-14   1.3874308E-10  
+		    V_S -1.1686524E-04  -1.8448122E-04                   6.7615988E-05   2.5595520E-14   1.3874322E-10  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4175829E-13   0.0000000E+00   1.8387382E-15   1.3991957E-13  -1.9767550E-20  -2.0565686E-15  
-		      1 -9.7742019E-12  -9.9248874E-12   1.0767253E-14   1.3991827E-13   2.2882954E-22   2.3807074E-17  
+		      0  1.4175829E-13   0.0000000E+00   1.8387382E-15   1.3991957E-13  -1.9767525E-20  -2.0565659E-15  
+		      1 -9.7742019E-12  -9.9248874E-12   1.0767253E-14   1.3991827E-13   2.2885516E-22   2.3809740E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0483306E-28   4.6280272E-17  
+		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0483909E-28   4.6282937E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3772403E-12   6.3829812E-12  -5.7417989E-15   8.3583007E-19  -1.8367518E-27  -3.1989047E-17  
+		      6  6.3772403E-12   6.3829812E-12  -5.7417989E-15   8.3583007E-19  -1.8365987E-27  -3.1986380E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5006207E-12   1.5019716E-12  -1.3513838E-15   4.7655977E-19  -2.7596302E-27  -8.4295099E-17  
+		      8  1.5006207E-12   1.5019716E-12  -1.3513838E-15   4.7655977E-19  -2.9605053E-27  -9.0430990E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223821E-05   1.9223821E-05                                  -3.3881318E-21  -1.7624653E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9711094E-04   1.8448122E-04                   1.2629713E-05  -1.9577557E-13  -9.9322532E-10  
+		    V_S  1.9711094E-04   1.8448122E-04                   1.2629713E-05  -1.9577334E-13  -9.9321400E-10  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 4.5e-05
@@ -2173,30 +2173,30 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
 		 Residual Satisfaction
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.5399368E-11  -2.5181399E-13  -3.8517876E-14   1.5689700E-11   1.2185116E-19   4.8193750E-16  
-		      1 -5.5027802E-12  -6.3829812E-12   8.5510310E-15   8.7164999E-13   7.7586856E-22   5.5236137E-17  
-		      2  1.7389951E-15   0.0000000E+00  -4.3049326E-18   1.7433000E-15  -1.2399438E-24  -4.4137278E-17  
-		      3 -8.5089823E-12  -9.3869244E-12   6.2921383E-15   8.7164999E-13  -7.8206958E-22  -5.5677700E-17  
-		      4 -1.4988812E-12  -1.5019716E-12   1.3470875E-15   1.7433000E-15   7.7053251E-25   2.7439759E-17  
+		      0  1.5399368E-11  -2.5181399E-13  -3.8517876E-14   1.5689700E-11   1.2185116E-19   4.8193748E-16  
+		      1 -5.5027802E-12  -6.3829812E-12   8.5510310E-15   8.7164999E-13   7.7586825E-22   5.5236116E-17  
+		      2  1.7389951E-15   0.0000000E+00  -4.3049326E-18   1.7433000E-15  -1.2399444E-24  -4.4137299E-17  
+		      3 -8.5089823E-12  -9.3869244E-12   6.2921383E-15   8.7164999E-13  -7.8206989E-22  -5.5677722E-17  
+		      4 -1.4988812E-12  -1.5019716E-12   1.3470875E-15   1.7433000E-15   7.7073387E-25   2.7446930E-17  
 		      5  2.8589158E-13   2.8614900E-13  -2.5742477E-16   0.0000000E+00  -1.2118876E-28  -4.7077395E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   0.0000000E+00   0.0000000E+00
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1686524E-04  -1.8448122E-04                   6.7615988E-05   2.5595493E-14   1.3874308E-10  
+		    V_S -1.1686524E-04  -1.8448122E-04                   6.7615988E-05   2.5595520E-14   1.3874322E-10  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4175829E-13   0.0000000E+00   1.8387382E-15   1.3991957E-13  -1.9767550E-20  -2.0565686E-15  
-		      1 -9.7742019E-12  -9.9248874E-12   1.0767253E-14   1.3991827E-13   2.2882954E-22   2.3807074E-17  
+		      0  1.4175829E-13   0.0000000E+00   1.8387382E-15   1.3991957E-13  -1.9767525E-20  -2.0565659E-15  
+		      1 -9.7742019E-12  -9.9248874E-12   1.0767253E-14   1.3991827E-13   2.2885516E-22   2.3809740E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0483306E-28   4.6280272E-17  
+		      3  2.5158750E-13   2.5181399E-13  -2.2651718E-16   3.2973964E-20   1.0483909E-28   4.6282937E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3772403E-12   6.3829812E-12  -5.7417989E-15   8.3583007E-19  -1.8367518E-27  -3.1989047E-17  
+		      6  6.3772403E-12   6.3829812E-12  -5.7417989E-15   8.3583007E-19  -1.8365987E-27  -3.1986380E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5006207E-12   1.5019716E-12  -1.3513838E-15   4.7655977E-19  -2.7596302E-27  -8.4295099E-17  
+		      8  1.5006207E-12   1.5019716E-12  -1.3513838E-15   4.7655977E-19  -2.9605053E-27  -9.0430990E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223821E-05   1.9223821E-05                                  -3.3881318E-21  -1.7624653E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9711094E-04   1.8448122E-04                   1.2629713E-05  -1.9577557E-13  -9.9322532E-10  
+		    V_S  1.9711094E-04   1.8448122E-04                   1.2629713E-05  -1.9577334E-13  -9.9321400E-10  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       8       t_init =  4.00000E-05,       t_final =  4.50000E-05
                          IntegrationCounter =       5  t_init_init =  4.00000E-05, t_final_final =  5.00000E-05
@@ -2228,21 +2228,21 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	   solve_nonlinear_problem(): Initial Residual Norm =    1.4301E+02
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 143.007, residTrial = 1.92366e-07
+	              resid0 = 143.007, residTrial = 1.92259e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newtoniterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.9237E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.7700E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.9226E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.7685E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.9237E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.9226E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.92366e-07, residTrial = 2.15016e-09
+	              resid0 = 1.92259e-07, residTrial = 2.15021e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 		   residErrorNorm():  Resulting full residual norm =   2.1502E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.1245E-10  
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.1251E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
@@ -2251,27 +2251,27 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.5397453E-11  -2.5181371E-13  -4.2794753E-14   1.5692062E-11  -2.4380802E-19  -9.6429297E-16  
 		      1 -5.5016809E-12  -6.3829623E-12   9.5001893E-15   8.7178121E-13   1.2063478E-22   8.5883129E-18  
 		      2  1.7387795E-15   0.0000000E+00  -4.7829364E-18   1.7435624E-15  -1.3549122E-24  -4.8229712E-17  
-		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194787E-22  -1.1529524E-17  
-		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4042119E-24   5.0008652E-17  
+		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194625E-22  -1.1529409E-17  
+		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4044138E-24   5.0015844E-17  
 		      5  2.8585671E-13   2.8614272E-13  -2.8601050E-16   0.0000000E+00   1.1389179E-28   3.9820887E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   5.4210109E-20   1.9292887E-16
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039382E-13  -1.3573364E-09  
+		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039379E-13  -1.3573363E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344924E-21   6.1741037E-16  
-		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9569120E-22   8.2782576E-17  
+		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344498E-21   6.1740593E-16  
+		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9565182E-22   8.2778479E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4142567E-29   2.9459763E-17  
+		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4131409E-29   2.9455330E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9809240E-27  -6.2402081E-17  
+		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9812069E-27  -6.2406516E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -1.8634093E-27  -5.4424999E-17  
+		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -2.0647207E-27  -6.0304748E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223820E-05   1.9223820E-05                                   3.3881318E-21   1.7624654E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9266851E-13  -1.4849929E-09  
+		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9267231E-13  -1.4850122E-09  
 	Nonlinear problem solved successfully in 2 its
    ==============================================================================================
       imtPSS_NoSurf_DiffBL at intermediate-step time final = 5e-05
@@ -2356,27 +2356,27 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 		      0  1.5397453E-11  -2.5181371E-13  -4.2794753E-14   1.5692062E-11  -2.4380802E-19  -9.6429297E-16  
 		      1 -5.5016809E-12  -6.3829623E-12   9.5001893E-15   8.7178121E-13   1.2063478E-22   8.5883129E-18  
 		      2  1.7387795E-15   0.0000000E+00  -4.7829364E-18   1.7435624E-15  -1.3549122E-24  -4.8229712E-17  
-		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194787E-22  -1.1529524E-17  
-		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4042119E-24   5.0008652E-17  
+		      3 -8.5079578E-12  -9.3867299E-12   6.9908731E-15   8.7178121E-13  -1.6194625E-22  -1.1529409E-17  
+		      4 -1.4986436E-12  -1.5018838E-12   1.4966480E-15   1.7435624E-15   1.4044138E-24   5.0015844E-17  
 		      5  2.8585671E-13   2.8614272E-13  -2.8601050E-16   0.0000000E+00   1.1389179E-28   3.9820887E-17  
 		      k  Mole Sum        GrossVol
 		      0  2.8098495E-04   2.8098495E-04                                   5.4210109E-20   1.9292887E-16
 		         drhodt          massFluxA_                      advDens  
-		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039382E-13  -1.3573364E-09  
+		    V_S -1.1684823E-04  -1.8447440E-04                   6.7626167E-05  -2.5039379E-13  -1.3573363E-09  
 		      k  deltaMoles      rxnMole         fluxMoles       advMoles        resid           normResid 
-		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344924E-21   6.1741037E-16  
-		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9569120E-22   8.2782576E-17  
+		      0  1.4174084E-13   0.0000000E+00   2.0429050E-15   1.3969793E-13   5.9344498E-21   6.1740593E-16  
+		      1 -9.7730269E-12  -9.9246863E-12   1.1962891E-14   1.3969649E-13   7.9565182E-22   8.2778479E-17  
 		      2  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4142567E-29   2.9459763E-17  
+		      3  2.5156207E-13   2.5181371E-13  -2.5167324E-16   3.6577892E-20   7.4131409E-29   2.9455330E-17  
 		      4  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
 		      5  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9809240E-27  -6.2402081E-17  
+		      6  6.3765838E-12   6.3829623E-12  -6.3794536E-15   9.2718228E-19  -3.9812069E-27  -6.2406516E-17  
 		      7  0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00  
-		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -1.8634093E-27  -5.4424999E-17  
+		      8  1.5003829E-12   1.5018838E-12  -1.5014208E-15   4.9761118E-19  -2.0647207E-27  -6.0304748E-17  
 		      k  Mole Sum        GrossVol
 		      0  1.9223820E-05   1.9223820E-05                                   3.3881318E-21   1.7624654E-16
 		         drhodt          massFluxB_                      advDens  
-		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9266851E-13  -1.4849929E-09  
+		    V_S  1.9708411E-04   1.8447440E-04                   1.2609709E-05  -2.9267231E-13  -1.4850122E-09  
  -------------------------------------------------------------------------------------------------------------------
  PREDICTOR_CORRECTOR  SubIntegrationCounter =       9       t_init =  4.50000E-05,       t_final =  5.00000E-05
                          IntegrationCounter =       5  t_init_init =  4.00000E-05, t_final_final =  5.00000E-05

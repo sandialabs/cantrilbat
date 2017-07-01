@@ -448,7 +448,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "gas"
         Csoot-H + H <=> Csoot-* + H2
 
         There are 2 reactants: Csoot-H H 
-        There are 2 products: H2 Csoot-* 
+        There are 2 products: Csoot-* H2 
         Reaction Type = Surface rxn
         Reaction is reversible
 
@@ -490,7 +490,7 @@ INFORMATION TABLE FOR Reaction "1" IN PHASE "gas"
 
         Csoot-* + H => Csoot-H
 
-        There are 2 reactants: H Csoot-* 
+        There are 2 reactants: Csoot-* H 
         There is one product: Csoot-H 
         Reaction Type = Surface rxn
         Reaction is not reversible
@@ -533,8 +533,8 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "gas"
 
         Csoot-* + C2H2 => Csoot-H + H + 2 CB-CB3
 
-        There are 2 reactants: Csoot-* C2H2 
-        There are 4 products: Csoot-H H CB-CB3 CB-CB3 
+        There are 2 reactants: C2H2 Csoot-* 
+        There are 4 products: CB-CB3 CB-CB3 Csoot-H H 
         Reaction Type = Surface rxn
         Reaction is not reversible
 

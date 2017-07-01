@@ -244,7 +244,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "solidSolutionExample"
         C2H2-graph <=> H2-solute + 2 C-graph
 
         There is one reactant: C2H2-graph 
-        There are 3 products: H2-solute C-graph C-graph 
+        There are 3 products: C-graph C-graph H2-solute 
         Reaction Type = Elementary Rxn
         Reaction is reversible
 

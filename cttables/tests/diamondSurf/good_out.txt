@@ -687,7 +687,7 @@ INFORMATION TABLE FOR Reaction "1" IN PHASE "gas"
 
         c6H* + H   <=> c6HH
 
-        There are 2 reactants: c6H* H 
+        There are 2 reactants: H c6H* 
         There is one product: c6HH 
         Reaction Type = Surface rxn
         Reaction is reversible
@@ -730,7 +730,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "gas"
 
         c6H* + CH3 <=> c6HM
 
-        There are 2 reactants: c6H* CH3 
+        There are 2 reactants: CH3 c6H* 
         There is one product: c6HM 
         Reaction Type = Surface rxn
         Reaction is reversible
@@ -902,7 +902,7 @@ INFORMATION TABLE FOR Reaction "6" IN PHASE "gas"
 
         c6HM* + H  <=> c6HM
 
-        There are 2 reactants: c6HM* H 
+        There are 2 reactants: H c6HM* 
         There is one product: c6HM 
         Reaction Type = Surface rxn
         Reaction is reversible
@@ -988,8 +988,8 @@ INFORMATION TABLE FOR Reaction "8" IN PHASE "gas"
 
         c6HM* + H  <=> c6H* + CH3
 
-        There are 2 reactants: c6HM* H 
-        There are 2 products: c6H* CH3 
+        There are 2 reactants: H c6HM* 
+        There are 2 products: CH3 c6H* 
         Reaction Type = Surface rxn
         Reaction is reversible
 
@@ -1031,7 +1031,7 @@ INFORMATION TABLE FOR Reaction "9" IN PHASE "gas"
 
         c6HM* + H  <=> c6B + H2
 
-        There are 2 reactants: c6HM* H 
+        There are 2 reactants: H c6HM* 
         There are 2 products: H2 c6B 
         Reaction Type = Surface rxn
         Reaction is reversible
@@ -1160,7 +1160,7 @@ INFORMATION TABLE FOR Reaction "12" IN PHASE "gas"
 
         c6*H + H   <=> c6HH
 
-        There are 2 reactants: c6*H H 
+        There are 2 reactants: H c6*H 
         There is one product: c6HH 
         Reaction Type = Surface rxn
         Reaction is reversible
@@ -1203,7 +1203,7 @@ INFORMATION TABLE FOR Reaction "13" IN PHASE "gas"
 
         c6H* + H   <=> c6** + H2
 
-        There are 2 reactants: c6H* H 
+        There are 2 reactants: H c6H* 
         There are 2 products: H2 c6** 
         Reaction Type = Surface rxn
         Reaction is reversible
@@ -1289,7 +1289,7 @@ INFORMATION TABLE FOR Reaction "15" IN PHASE "gas"
 
         c6*H + H   <=> c6** + H2
 
-        There are 2 reactants: c6*H H 
+        There are 2 reactants: H c6*H 
         There are 2 products: H2 c6** 
         Reaction Type = Surface rxn
         Reaction is reversible

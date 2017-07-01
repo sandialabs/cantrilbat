@@ -379,7 +379,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
         3/11 Li13Si4(S) <=>  4/11 Li7Si3(S) + Li+  + electron_Li_LiCl
 
         There is one reactant: Li13Si4(S) 
-        There are 3 products: Li7Si3(S) Li+ electron_Li_LiCl 
+        There are 3 products: Li+ Li7Si3(S) electron_Li_LiCl 
         Reaction Type = Surface rxn
         Reaction is reversible
 

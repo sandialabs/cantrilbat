@@ -347,7 +347,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "MCMB_Interstitials_anode"
         Li_C6-bulk <=>  V_C6-bulk + Li+  + electron_Li_LiIon
 
         There is one reactant: Li_C6-bulk 
-        There are 3 products: V_C6-bulk Li+ electron_Li_LiIon 
+        There are 3 products: Li+ V_C6-bulk electron_Li_LiIon 
         Reaction Type = Surface rxn
         Reaction is reversible
 

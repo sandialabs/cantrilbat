@@ -379,7 +379,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
         4/23 Li22Si5(S) <=> 5/23  Li13Si4(S) + Li+  + electron_Li_LiCl
 
         There is one reactant: Li22Si5(S) 
-        There are 3 products: Li13Si4(S) Li+ electron_Li_LiCl 
+        There are 3 products: Li+ Li13Si4(S) electron_Li_LiCl 
         Reaction Type = Surface rxn
         Reaction is reversible
 
