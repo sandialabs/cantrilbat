@@ -8,3 +8,6 @@ cathode and the anode.
 This is a non-isothermal problem. A temperature ramp is imposed on the battery.
 
 
+7/1/2017 
+  Noticed that it fails with an umfpack assert of a singular matrix
+

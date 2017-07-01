@@ -5,6 +5,9 @@ HKM 6/2/2015
 are modified so that volume expansion will occur. Therefore, there is volume expansion during reaction on both the
 cathode and the anode.
 
+
 This is an isothermal problem.
 
+7/1/2017
+  Noticed that it runs until there is an umfpack assertion of singular matrix
 

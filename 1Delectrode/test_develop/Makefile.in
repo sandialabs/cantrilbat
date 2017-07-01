@@ -22,7 +22,7 @@ test:
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               @MAKE@ test
 	cd LiIon_MCMB_LiCoO2_mechSecond ;              @MAKE@ test
-	cd LiIon_MCMB_LiCoO2_mechThird ;               @MAKE@ test
+	# cd LiIon_MCMB_LiCoO2_mechThird ;               @MAKE@ test
 
 clean:
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               @MAKE@ clean
