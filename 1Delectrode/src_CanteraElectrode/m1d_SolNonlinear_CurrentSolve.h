@@ -74,6 +74,7 @@ public:
 
     //! Set the value of the maximum # of newton iterations
     /*!
+     *  (virtual from SolGlobalNonlinear)
      *  @param[in]           maxNewtIts          Maximum number of newton iterations
      *                                           The default value of this is 50 iterations
      */
@@ -82,6 +83,7 @@ public:
 
     //! Set nonlinear options in the underlying solver.
     /*!
+     *  (virtual from SolGlobalNonlinear)
      *  This is a pass-through function
      */
     virtual void
@@ -90,6 +92,7 @@ public:
 
     //!  Set the level of printing that occurs during the nonlinear solve
     /*!
+     *  (virtual from SolGlobalNonlinear)
      *   0 -> absolutely nothing is printed for a single time step.
      *   1 -> One line summary per time step
      *   2 -> short description, points of interest
@@ -104,32 +107,36 @@ public:
      */
     void setPrintFlag(int print_flag);
 
-    virtual void
-    setPredicted_soln(const Epetra_Vector& y_pred);
+    virtual void setPredicted_soln(const Epetra_Vector& y_pred);
 
     //! Set the absolute tolerances for the solution variables
     /*!
-     *   Set the absolute tolerances used in the calculation
+     *  (virtual from SolGlobalNonlinear)
+     *  Set the absolute tolerances used in the calculation
      *
-     *  @param reltol   relative tolerance used in the nonlinear solver
-     *  @param n        Length of abstol. Should be equal to m_NumLcEqns
-     *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
+     *  @param[in]           reltol              relative tolerance used in the nonlinear solver
+     *  @param[in]           n                   Length of abstol. Should be equal to m_NumLcEqns
+     *  @param[in]           abstol              Vector of length n that contains the tolerances to be used
+     *                                           for the solution variables
      */
     virtual void setTolerances(double reltol, int n, const double* const abstol);
 
-    //! Set the absolute tolerances for the solution variables
+    //! Set the absolute tolerances for the solution variables for delta damping
     /*!
-     *   Set the absolute tolerances used in the calculation
+     *  (virtual from SolGlobalNonlinear)
+     *  Set the absolute tolerances used in the delta damping algorithm. Essentially we shouldn't control 
+     *  step sizes if the step is below the absolute tolerance
      *
-     *  @param reltol   relative tolerance used in the nonlinear solver
-     *  @param n        Length of abstol. Should be equal to m_NumLcEqns
-     *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
+     *  @param[in]           reltol_dd           relative tolerance used in the delta damping algorithm.
+     *  @param[in]           n                   Length of abstol. Should be equal to m_NumLcEqns
+     *  @param[in]           abstol_dd           Vector of length n that contains the tolerances to be used 
+     *                                           for the solution variables
      */
     virtual void setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd);
 
     //! get the residual
     /*!
-     *
+     *  (virtual from SolGlobalNonlinear)
      * @param time_curr
      * @param rdelta_t
      * @param solnBase_ptr
@@ -143,6 +150,8 @@ public:
 
     //! Set the values for the previous time step
     /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
      *   We set the values for the previous time step here. These are used in the nonlinear
      *   solve because they affect the calculation of ydot.
      *
@@ -155,6 +164,10 @@ public:
 
     //! Main routine to launch a nonlinear solve at the current conditions
     //! whether it's a steady state solve or a time-dependent run.
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     */
     virtual int
     solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_comm, Epetra_Vector_Ghosted* ydot_comm,
                             double CJ,

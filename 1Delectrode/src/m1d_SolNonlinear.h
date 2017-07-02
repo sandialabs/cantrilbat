@@ -179,54 +179,66 @@ public:
      *  @return                                  Returns the factor which the step should be reduced by.
      */
     virtual double
-    highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0, int loglevel);
+    highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0, int loglevel) override;
 
     //! Set options.
     /*!
+     *  (virtual from SolGlobalNonlinear)
      *  @param[in]           maxJacAge           Maximum age of the jacobian
      */
-    virtual  void
-    setOptions(int maxJacAge = 5)
+    virtual void setOptions(int maxJacAge = 5) override
     {
         m_maxAge = maxJacAge;
     }
 
     //! Set the absolute tolerances for the solution variables
-    /*!
-     *   Set the absolute tolerances used in the calculation
+    /*! 
+     *  (virtual from SolGlobalNonlinear)
+     *  Set the absolute tolerances used in the calculation
      *
-     *  @param reltol   relative tolerance used in the nonlinear solver
-     *  @param n        Length of abstol. Should be equal to m_NumLcEqns
-     *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
+     *  @param[in]           reltol              relative tolerance used in the nonlinear solver
+     *  @param[in]           n                   Length of abstol. Should be equal to m_NumLcEqns
+     *  @param[in]           abstol              Vector of length n that contains the tolerances to be used
+     *                                           for the solution variables
      */
-    virtual void setTolerances(double reltol, int n, const double* const abstol);
+    virtual void setTolerances(double reltol, int n, const double* const abstol) override;
 
-    //! Set the absolute tolerances for the solution variables
+    //! Set the absolute tolerances for the solution variables for delta damping
     /*!
-     *   Set the absolute tolerances used in the calculation
+     *  (virtual from SolGlobalNonlinear)
+     *  Set the absolute tolerances used in the delta damping algorithm. Essentially we shouldn't control 
+     *  step sizes if the step is below the absolute tolerance
      *
-     *  @param reltol   relative tolerance used in the nonlinear solver
-     *  @param n        Length of abstol. Should be equal to m_NumLcEqns
-     *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
+     *  @param[in]           reltol_dd           relative tolerance used in the delta damping algorithm.
+     *  @param[in]           n                   Length of abstol. Should be equal to m_NumLcEqns
+     *  @param[in]           abstol_dd           Vector of length n that contains the tolerances to be used 
+     *                                           for the solution variables
      */
-    virtual void setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd);
+    virtual void setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd) override;
 
     //! Set the value of the maximum # of newton iterations
     /*!
-     *  @param maxNewtIts   Maximum number of newton iterations
-     *                      The default value of this is 50 iterations
+     *  (virtual from SolGlobalNonlinear)
+     *  @param[in]           maxNewtIts          Maximum number of newton iterations.
+     *                                           The default value of this is 50 iterations
      */
-    void setMaxNewtIts(const int maxNewtIts);
+    virtual void setMaxNewtIts(const int maxNewtIts) override;
 
-    virtual void
-    setProblemType(int probtype);
+    //! Set the problem type
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *  @param[in]           probtype            problem type
+     */
+    virtual void setProblemType(int probtype) override;
 
     //! Set the solution weights based on the atol and rtol values
-    virtual void
-    setDefaultSolnWeights();
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     */
+    virtual void setDefaultSolnWeights() override;
 
-    virtual void
-    setRowScaling(bool onoff);
+    
+    virtual void setRowScaling(bool onoff);
 
     //! Toggle that turns on and off column scaling
     /*!

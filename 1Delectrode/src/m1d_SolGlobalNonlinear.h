@@ -118,44 +118,95 @@ public:
      */
     virtual double deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0);
 
+    //! Compute factor to keep all components in bounds.
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  Return the factor by which the undamped Newton step 'step0'
+     *  must be multiplied in order to keep all solution components in
+     *  all domains not-appreciably changing so much that the jacobian isn't representative.
+     *
+     *  Return the factor by which the undamped Newton step 'step0'
+     *  must be multiplied in order to keep all solution components in
+     *  all domains between their specified lower and upper bounds.
+     * 
+     *  This routine is meant to be used with cropping. In other words,
+     *  each component is allowed to go slightly out of bounds. However, cropping may be used to enforce a strict limit.
+     *
+     *  Currently the bounds are hard coded into this routine:
+     *
+     *  Minimum value for all variables: solnLowBound[i] - 0.01 * m_ewt[i]
+     *  Maximum value = none. solnHighBound[i] + 0.01 * m_ewt[i]
+     *
+     *  On any single step, each solution component is not allowed to go more than 9/10 of the way to the boundary, from where 
+     *  it currently is.
+     *
+     *  If the component is already out of bounds, bounds checking is no longer carried out on that component.
+     *
+     *  @param[in]           y                   Ghosted Epetra_Vector reference for the current solution 
+     *  @param[in]           step0               Owned Epetra_Vector reference for the current step in the solution unknowns
+     *  @param[in]           loglevel            Level of printing. If greater than 3, a line is printed out about the
+     *                                           damping caused by this routine.
+     *
+     *  @return                                  Returns the factor which the step should be reduced by.
+     */
     virtual double highLowBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0, int loglevel);
 
-    /// Set options.
+    //! Set options.
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *  @param[in]           maxJacAge           Maximum age of the jacobian
+     */
     virtual void setOptions(int maxJacAge = 5)
     {
-
     }
 
     //! Set the absolute tolerances for the solution variables
     /*!
-     *   Set the absolute tolerances used in the calculation
+     *  (virtual from SolGlobalNonlinear)
+     *  Set the absolute tolerances used in the calculation
      *
-     *  @param reltol   relative tolerance used in the nonlinear solver
-     *  @param n        Length of abstol. Should be equal to m_NumLcEqns
-     *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
+     *  @param[in]           reltol              relative tolerance used in the nonlinear solver
+     *  @param[in]           n                   Length of abstol. Should be equal to m_NumLcEqns
+     *  @param[in]           abstol              Vector of length n that contains the tolerances to be used
+     *                                           for the solution variables
      */
     virtual void setTolerances(double reltol, int n, const double* const abstol);
 
-    //! Set the absolute tolerances for the solution variables
+    //! Set the absolute tolerances for the solution variables for delta damping
     /*!
-     *   Set the absolute tolerances used in the calculation
+     *  (virtual from SolGlobalNonlinear)
+     *  Set the absolute tolerances used in the delta damping algorithm. Essentially we shouldn't control 
+     *  step sizes if the step is below the absolute tolerance
      *
-     *  @param reltol   relative tolerance used in the nonlinear solver
-     *  @param n        Length of abstol. Should be equal to m_NumLcEqns
-     *  @param abstol   Vector of length n that contains the tolerances to be used for the solution variables
+     *  @param[in]           reltol_dd           relative tolerance used in the delta damping algorithm.
+     *  @param[in]           n                   Length of abstol. Should be equal to m_NumLcEqns
+     *  @param[in]           abstol_dd           Vector of length n that contains the tolerances to be used 
+     *                                           for the solution variables
      */
     virtual void setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd);
 
     //! Set the value of the maximum # of newton iterations
     /*!
-     *  @param maxNewtIts   Maximum number of newton iterations
-     *                      The default value of this is 50 iterations
+     *  (virtual from SolGlobalNonlinear)
+     *  @param[in]           maxNewtIts          Maximum number of newton iterations.
+     *                                           The default value of this is 50 iterations
      */
     virtual void setMaxNewtIts(const int maxNewtIts);
 
+    //! Set the problem type
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *  @param[in]           probtype            problem type
+     */
     virtual void setProblemType(int probtype);
 
+    //! Set the solution weights based on the atol and rtol values
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     */
     virtual void setDefaultSolnWeights();
+
 
     virtual void setRowScaling(bool onoff);
 

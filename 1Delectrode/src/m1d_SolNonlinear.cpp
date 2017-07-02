@@ -2247,7 +2247,7 @@ SolNonlinear::convergenceCheck(int dampCode, double s1)
     }
     return retn;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::setTolerances(double reltol, int n, const double* const abstol)
 {
@@ -2263,8 +2263,7 @@ SolNonlinear::setTolerances(double reltol, int n, const double* const abstol)
     }
     m_reltol = reltol;
 }
-
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd)
 {
@@ -2285,7 +2284,7 @@ SolNonlinear::setTolerances_deltaDamping(double reltol_dd, int n, const double* 
         }
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Set the value of the maximum # of newton iterations
 /*
  *  @param maxNewtIts   Maximum number of newton iterations
@@ -2294,7 +2293,7 @@ void SolNonlinear:: setMaxNewtIts(const int maxNewtIts)
 {
     maxNewtIts_ = maxNewtIts;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::setProblemType(int jacFormMethod)
 {
