@@ -207,34 +207,60 @@ public:
      */
     virtual void setDefaultSolnWeights();
 
-
-    virtual void setRowScaling(bool onoff);
+    //! Set the boolean for turning on and off row scaling
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *  Row scaling is on by default. It's nearly always a good choice to have it on.
+     *
+     *  @param[in]           onoff               True if you want row scaling
+     */
+    virtual void setRowScaling(const bool onoff);
 
     //! Toggle that turns on and off column scaling
     /*!
-     * Columns scaling is turned on by default
-     * @param onoff  toggle
-     * @param colScaleUpdateFrequency column scale update frequency
-     *        0 never
-     *        1 once at the start
-     *        2 after every jac update
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  Columns scaling is turned on by default
+     *
+     *  @param[in]           onoff               toggle
+     *  @param[in]           colScaleUpdateFrequency column scale update frequency
+     *                                                  0: never
+     *                                                  1: once at the start
+     *                                                  2: after every jac update
      */
-    virtual void setColScaling(bool onoff, int colScaleUpdateFrequency);
+    virtual void setColScaling(const bool onoff, const int colScaleUpdateFrequency);
 
     //! Set the toggles for solution damping
     /*!
+     *  (virtual from SolGlobalNonlinear)
      *
-     * @param residSolnDamping
-     * @param deltaDamping
-     * @param highLowDamping
+     *  Residual solution damping means that line-step updates will not be accepted if the residual norm is larger
+     *  than the previous residual norm. We shrink the step size until we find an update with a smaller
+     *  residual norm, or if the weigted residual norm is less than one, then we accept the step as well.
+     *
+     *  Delta damping means that a solution component will not be allowed to be changed beyond a certain factor
+     *  or range in any one step. The default is on.
+     *
+     *  High/Low damping means that all solution components have high and low bounds that they can't cross.
+     *  
+     *
+     *  @param[in]           residSolnDamping    Toggle damping due to the value of the residual
+     *                                              (defaults to on) 
+     *  @param[in]           deltaDamping        Toggle damping due to the delta damping criteria
+     *                                              (defaults to on) 
+     *  @param[in]           highLowDamping      Toggle damping due to max and min bounds on each variable.
+     *                                              (defaults to on) 
      */
     virtual void setDampingToggles(const bool residSolnDamping, const bool deltaDamping, const bool highLowDamping);
 
     //! Set the vectors for lower and upper boundaries.
     /*!
+     *  (virtual from SolGlobalNonlinear)
      *
-     * @param lowBounds
-     * @param highBounds
+     *  @param[in]           lowBounds           Epetra owned vector reference containing the Low bounds 
+     *                                           for all solution componets
+     *  @param[in]           highBounds          Epetra owned vector reference containing the high bounds 
+     *                                           for all solution components
      */
     virtual void setSolutionBounds(const Epetra_Vector_Owned& lowBounds, const Epetra_Vector_Owned& highBounds);
 

@@ -17,6 +17,9 @@ namespace m1d
 {
 //==================================================================================================================================
 //! Wrapper error class to denote a parent class that has not been implemented
+/*!
+ *
+ */
 class errBC : public m1d_Error
 {
 public:
@@ -185,7 +188,7 @@ SolGlobalNonlinear::setPrintFlag(int print_flag)
 }
 //==================================================================================================================================
 void
-SolGlobalNonlinear::setPrintSolnOptions(bool dumpJacobians)
+SolGlobalNonlinear::setPrintSolnOptions(const bool dumpJacobians)
 {
     throw errBC("setPrintSolnOptions()");
 }
@@ -217,13 +220,13 @@ SolGlobalNonlinear::getResidWts(Epetra_Vector_Owned& residWts)
 }
 //==================================================================================================================================
 void
-SolGlobalNonlinear::setRowScaling(bool onoff)
+SolGlobalNonlinear::setRowScaling(const bool onoff)
 {
     throw errBC("setRowScaling()");
 }
 //==================================================================================================================================
 void
-SolGlobalNonlinear::setColScaling(bool onoff, int colScaleUpdateFrequency)
+SolGlobalNonlinear::setColScaling(const bool onoff, const int colScaleUpdateFrequency)
 {
     throw errBC("setColScaling()");
 }

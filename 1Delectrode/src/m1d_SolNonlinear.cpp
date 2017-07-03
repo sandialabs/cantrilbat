@@ -73,8 +73,13 @@ SolNonlinear::SolNonlinear() :
     m_order(1), m_failure_counter(0),
     m_min_newt_its(0),
     maxNewtIts_(50),
-    m_jacAge(0), m_curr_linearIts(0), m_curr_normLin(0.0), doResidSolnDamping_(true),
-    doDeltaDamping_(true), doHighLowDamping_(false), m_NumLcEqns(0), m_NumLcOwnedEqns(0), m_NumGbEqns(0),
+    m_jacAge(0), m_curr_linearIts(0), m_curr_normLin(0.0), 
+    doResidSolnDamping_(true),
+    doDeltaDamping_(true),
+    doHighLowDamping_(false),
+    m_NumLcEqns(0),
+    m_NumLcOwnedEqns(0), 
+    m_NumGbEqns(0),
     m_y_curr(0), m_y_curr_owned(0), m_y_new(0), m_y_new_owned(0), m_y_nm1(0), m_y_pred_n(0), m_ydot_curr(0),
     m_ydot_curr_owned(0),
     m_ydot_new(0),
@@ -1134,6 +1139,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
     Epetra_Vector_Owned& step0 = *m_stp;
     //Epetra_Vector_Owned& step1 = *m_step_2;
     int retnTrial = 0;
+    bool residLoweringAccepted = false;
 
     // Compute the weighted norm of the undamped step size step0
     double s0 = m_normSolnFRaw;
@@ -1152,7 +1158,6 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
     int m;
     double ff;
     num_backtracks = 0;
-    bool raccepted = false;
     for (m = 0; m < NDAMP; m++) {
 
         ff = m_fdamp * m_fbound;
@@ -1193,9 +1198,9 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
             s1 = s0 * m_normResidTrial / m_normResid0;
         }
         //
-        //  We accept the step if the Residual is less than one, or if the residual is less than the initial residual
+        //  We accept the step if the weighted residual is less than rtest, or if the residual is less than the initial residual
         //
-        double rtest =   m_normResid0 * (0.2 * (1.0 - ff) * (1.0 - ff) * (1.0 - ff) * (1.0 - ff) + 0.8);
+        double rtest = m_normResid0 * (0.2 * (1.0 - ff) * (1.0 - ff) * (1.0 - ff) * (1.0 - ff) + 0.8);
         bool steepEnough = (m_normResidTrial < rtest);
 
         bool atEnd = false;
@@ -1221,7 +1226,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
         }
 
         if (atEnd || steepEnough || !doResidSolnDamping_) {
-            raccepted = true;
+            residLoweringAccepted = true;
             if (loglevel >= 5 && !mypid_) {
                 if (m_normResidTrial < m_normResid0) {
                     printf("\t  dampStep(): Current trial step and damping"
@@ -1271,7 +1276,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
 
 
 
-        if (raccepted) {
+        if (residLoweringAccepted) {
             if (m_normResidTrial < 1.0) {
                 retnTrial = 3;
             } else {
@@ -1285,7 +1290,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
                 retnTrial = 1;
             }
         }
-        if (raccepted) {
+        if (residLoweringAccepted) {
             break;
         }
 
@@ -2061,7 +2066,7 @@ done:
 
     return m;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 /* Function to calculate the acceleration vector ydot for the first or
  * second order predictor/corrector time integrator.  This routine can be
  * called by a first order - forward Euler / backward Euler predictor /
@@ -2118,13 +2123,12 @@ SolNonlinear::calc_ydot(int order, const Epetra_Vector& y_curr, Epetra_Vector& y
     }
 }
 //===================================================================================================================================
-
 void
 SolNonlinear::print_solnDelta_norm_contrib(const Epetra_Vector& solnDelta0, const char* const s0,
                                            const Epetra_Vector& solnDelta1, const char* const s1,
                                            const char* const title,
                                            const Epetra_Vector& y0, const Epetra_Vector& y1,
-                                           double damp, int num_entries)
+                                           const double damp, const int num_entries)
 {
     int i, j, jnum;
     bool used;
@@ -2192,7 +2196,7 @@ SolNonlinear::print_solnDelta_norm_contrib(const Epetra_Vector& solnDelta0, cons
     }
     print0_sync_end(false, ss, *Comm_ptr_);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Check to see if the nonlinear problem has converged
 /*
  *
@@ -2249,7 +2253,7 @@ SolNonlinear::convergenceCheck(int dampCode, double s1)
 }
 //==================================================================================================================================
 void
-SolNonlinear::setTolerances(double reltol, int n, const double* const abstol)
+SolNonlinear::setTolerances(const double reltol, const int n, const double* const abstol)
 {
     if (!m_abstol) {
         m_abstol = new Epetra_Vector(m_y_curr->Map());
@@ -2265,7 +2269,7 @@ SolNonlinear::setTolerances(double reltol, int n, const double* const abstol)
 }
 //==================================================================================================================================
 void
-SolNonlinear::setTolerances_deltaDamping(double reltol_dd, int n, const double* const abstol_dd)
+SolNonlinear::setTolerances_deltaDamping(const double reltol_dd, const int n, const double* const abstol_dd)
 {
     if (!m_absTol_deltaDamping) {
         m_absTol_deltaDamping = new Epetra_Vector(m_y_curr->Map());
@@ -2285,11 +2289,8 @@ SolNonlinear::setTolerances_deltaDamping(double reltol_dd, int n, const double* 
     }
 }
 //==================================================================================================================================
-// Set the value of the maximum # of newton iterations
-/*
- *  @param maxNewtIts   Maximum number of newton iterations
- */
-void SolNonlinear:: setMaxNewtIts(const int maxNewtIts)
+void 
+SolNonlinear::setMaxNewtIts(const int maxNewtIts)
 {
     maxNewtIts_ = maxNewtIts;
 }
@@ -2299,7 +2300,7 @@ SolNonlinear::setProblemType(int jacFormMethod)
 {
     m_jacFormMethod = jacFormMethod;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::setDefaultSolnWeights()
 {
@@ -2342,21 +2343,13 @@ SolNonlinear::setDefaultSolnWeights()
         }
     }
 }
-//=====================================================================================================================
-
-//=====================================================================================================================
-/*
- *
- * @param dumpJacobians Dump jacobians to disk.
- *
- *                   default = false
- */
+//==================================================================================================================================
 void
 SolNonlinear::setPrintSolnOptions(bool dumpJacobians)
 {
     m_dumpJacobians = dumpJacobians;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::setNonLinOptions(int min_newt_its, bool matrixConditioning, bool colScaling, bool rowScaling,
                                int colScaleUpdateFrequency)
@@ -2366,12 +2359,7 @@ SolNonlinear::setNonLinOptions(int min_newt_its, bool matrixConditioning, bool c
     setColScaling(colScaling, colScaleUpdateFrequency);
     setRowScaling(rowScaling);
 }
-//=====================================================================================================================
-// set the previous time step
-/*
- *
- * @param jac
- */
+//==================================================================================================================================
 void
 SolNonlinear::setPreviousTimeStep(const double timeStep_comm, const Epetra_Vector& y_nm1, const Epetra_Vector& ydot_nm1)
 {
@@ -2409,14 +2397,13 @@ SolNonlinear::getResidWts(Epetra_Vector_Owned& residWts)
         residWts[i] = (*m_residWts)[i];
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::print_SVector(std::string header, const Epetra_MultiVector& v) const
 {
     if (!mypid_) {
         printf("%s\n", header.c_str());
     }
-
     Epetra_VbrMatrix* A = (*tdjac_ptr).A_;
     const Epetra_BlockMap& domainMap = A->DomainMap();
     Epetra_Vector_Owned* vv = new Epetra_Vector(domainMap);
@@ -2425,16 +2412,13 @@ SolNonlinear::print_SVector(std::string header, const Epetra_MultiVector& v) con
         double* a = v[0];
         (*vv)[i] = a[i];
     }
-
-
     m_func->showSolutionVector(header, time_n, delta_t_n, *vv);
-
     delete vv;
 
-// stream0 ss;
-//Print0_epMultiVector(ss, v);
+    // stream0 ss;
+    //Print0_epMultiVector(ss, v);
 }
-//====================================================================================================================
+//==================================================================================================================================
 void
 SolNonlinear::print_IntSVector(std::string header, const Epetra_IntVector& v) const
 {
@@ -2442,31 +2426,21 @@ SolNonlinear::print_IntSVector(std::string header, const Epetra_IntVector& v) co
         printf("%s\n", header.c_str());
     }
     m_func->showSolutionIntVector(header, time_n, delta_t_n, v);
-
-// stream0 ss;
-//Print0_epMultiVector(ss, v);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
-SolNonlinear::setRowScaling(bool onoff)
+SolNonlinear::setRowScaling(const bool onoff)
 {
     m_rowScaling = onoff;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
-SolNonlinear::setColScaling(bool onoff, int colScaleUpdateFrequency)
+SolNonlinear::setColScaling(const bool onoff, const int colScaleUpdateFrequency)
 {
     m_colScaling = onoff;
     colScaleUpdateFrequency_ = colScaleUpdateFrequency;
 }
-//=====================================================================================================================
-// Set the toggles for solution damping
-/*
- *
- * @param residSolnDamping
- * @param deltaDamping
- * @param highLowDamping
- */
+//==================================================================================================================================
 void
 SolNonlinear::setDampingToggles(const bool residSolnDamping, const bool deltaDamping, const bool highLowDamping)
 {
@@ -2474,12 +2448,7 @@ SolNonlinear::setDampingToggles(const bool residSolnDamping, const bool deltaDam
     doDeltaDamping_ = deltaDamping;
     doHighLowDamping_ = highLowDamping;
 }
-//=====================================================================================================================
-// Set the vectors for lower and upper boundaries.
-/*
- * @param lowBounds
- * @param highBounds
- */
+//==================================================================================================================================
 void
 SolNonlinear::setSolutionBounds(const Epetra_Vector_Owned& lowBounds, const Epetra_Vector_Owned& highBounds)
 {
@@ -2493,6 +2462,6 @@ SolNonlinear::setSolutionBounds(const Epetra_Vector_Owned& lowBounds, const Epet
         (*solnHighBound_)[i] = highBounds[i];
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
