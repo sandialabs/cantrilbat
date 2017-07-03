@@ -504,12 +504,27 @@ public:
     doNewtonSolve(Epetra_Vector_Owned& delta_soln, const Epetra_Vector& y_curr, const Epetra_Vector& ydot_curr,
                   const double time_curr, const double rdelta_t, int loglevel);
 
-    //! Attempt to find a damping step that leads to a better solution
+    //! Attempt to find a damping step using a line search algorithm that leads to a better solution
     /*!
      *  On entry, the member variable m_stp  contains an undamped Newton step for the solution (y0, ydot0_ptr). 
      *  This method attempts to  find a damping coefficient such that the next undamped step would have
      *  a norm smaller than that of step0. If successful, the new solution after taking the
      *  damped step is returned in y1, and the undamped step at y1 is returned in step1.
+     *
+     * On entry, the member variable m_stp must contain the Newton step for the
+     * solution y0. The step size at this point may have already gone through a HighLow bounds check and a 
+     * delta solution bounds check. Therefore, it may have already been reduced. The factor for the reduction is kept
+     * in the variable m_fbound.
+     * 
+     *  This method attempts to find a damping coefficient for the current value of m_stp
+     *  such that the next undamped step would have a norm smaller than
+     *  that of step0. If successful, the new solution after taking the
+     *  damped step is returned in m_y_new and m_ydot_new, and the undamped next step from m_y_new[] is storred 
+     *  in m_step_2[].
+     *
+     *  However, before it tries a new newton step, it will accept a step if the new residual norm is less than the first
+     *  residual norm or if the new residual norm is less than one. This option leads to return codes of 3 and 4. In this
+     *  case the weighted solution norm for the next step, s1, is estimated and not calculated.
      *
      *  @param[in]           time_curr           Current time
      *  @param[in]           y0                  Current value of the solution vector
@@ -521,16 +536,22 @@ public:
      *  @return                                  1 Successful step was taken: Next step was less than previous step.
      *                                                                        s1 is calculated
      *                                           2 Successful step: Next step's norm is less than 0.8
-     *                                           3 Success:  The final residual is less than 1.0
+     *                                           3 Success:  The final residual is less than 1.0.
      *                                                       A predicted deltaSoln is not produced however. s1 is estimated.
-     *                                           4 Success:  The final residual is less than the residual
-     *                                                       from the previous step.
+     *                                           4 Success:  The final residual is less than the residual from the previous step.
      *                                                       A predicted deltaSoln is not produced however. s1 is estimated.
      *                                           0 Uncertain Success: s1 is about the same as s0
      *                                          -2 Unsuccessful step.
+     *
+     *  Return member data:
+     *
+     *       m_y_new[]         New solution vector to be used in the next nonlin step 
+     *       m_ydot_new[]      New solutionDot vector to be used in the next nonlin step
+     *       m_step_2[]        New raw step vector computed from m_y_new[] using a Newton's method.
      */
     int dampStep(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double& s1,
                  int& loglevel, int& num_backtracks);
+
 
     //! Attempt to find a damping step that leads to a better solution
     /*!
