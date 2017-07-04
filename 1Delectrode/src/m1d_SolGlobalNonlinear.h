@@ -264,14 +264,55 @@ public:
      */
     virtual void setSolutionBounds(const Epetra_Vector_Owned& lowBounds, const Epetra_Vector_Owned& highBounds);
 
-
+    //! Sets the print solution options
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  @param[in]           dumpJacobians       Boolean indicating whether jacobians are to be dumped out
+     */
     virtual void setPrintSolnOptions(bool dumpJacobians);
 
-    virtual void setNonLinOptions(int min_newt_its = 0, bool matrixConditioning = false, bool colScaling = false, bool rowScaling =
-                         true, int colScalingUpdateFrequency = 1);
+    //! Set some nonlinear solver options
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  @param[in]           min_newt_its        Set the minimum number of newton iterations to carry out at every step.
+     *                                           A value of 2 is useful to monitor convergence.
+     *                                           (defaults to 0)
+     *  @param[in]           matrixConditioning  If true, carry out matrix conditioning process before trying to find the
+     *                                           inverse of the matrix (Not implemented).
+     *                                           (defaults to false)
+     *  @param[in]           colScaling          Implement column scaling to the matrix system. The unknowns are then scaled
+     *                                           inversely to the matrix. Scaling is carried out so that the deltas at
+     *                                           convergence of the matrix are scaled to a value of one. This means that
+     *                                           the column scales are equal to the weighting matrix.
+     *                                           Column scaling is carried out before row scaling.
+     *                                           (default = false)
+     *  @param[in]           rowScaling          Implement row scaling to the matrix system. The max row element in the
+     *                                           jacobian is caled to one by multiplying all terms in the row and rhs
+     *                                           by a scale factor. Note, this is effective in practise in reducing
+     *                                           the condition number of the matrix.
+     *                                           (default = true).
+     *  @param[in]           colScalingUpdateFrequency frequency of column scaling
+     *                                             0  Column scales are never updated by this routine. They are
+     *                                                an input to this routine.
+     *                                             1  Column scales are updated once at the start of the sol_nonlinear_problem
+     *                                                call. A call to setDefaultColScales() is made just after the
+     *                                                solution weights are evaluated (default).
+     *                                             2  Column scales are updated after each jacobian evaluation.
+     *                                                A call to setDefaultColScales() is made during the scaleMatrix routine.
+     *                                               (Defaults to 1)
+     */
+    virtual void 
+    setNonLinOptions(int min_newt_its = 0, bool matrixConditioning = false, bool colScaling = false, 
+                     bool rowScaling = true, int colScalingUpdateFrequency = 1);
 
     //!  Set the level of printing that occurs during the nonlinear solve
     /*!
+     *  Printing is done to stdout.
+     *
+     *  @param[in]           print_flag          Set up the level of printing according to the table below
+     *
      *   0 -> absolutely nothing is printed for a single time step.
      *   1 -> One line summary per time step
      *   2 -> short description, points of interest
@@ -284,9 +325,18 @@ public:
      *   8 -> Additional info on the linear solve is printed out.
      *   9 -> Info on a per iterate of the linear solve is printed out.
      */
-    virtual void setPrintFlag(int print_flag);
+    void setPrintFlag(int print_flag);
 
-    virtual void setPredicted_soln(const Epetra_Vector& y_pred);
+    //!  Supply a predicted solution which will be used to help set up the solution weights
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  This routine is used to set up the scales for the solution error weights. 
+     * 
+     *  @param[in]           y_pred              Value of the predicted solution with ghost values
+     */
+    virtual void 
+    setPredicted_soln(const Epetra_Vector_Ghosted& y_pred);
 
     //!    L2 Weighted Norm of a delta in the solution
     /*!

@@ -283,30 +283,27 @@ public:
     virtual void
     setSolutionBounds(const Epetra_Vector_Owned& lowBounds, const Epetra_Vector_Owned& highBounds) override;
 
-    //! Print the largest contributors to the solution update
-    //! on a relative term
+    //! Print the largest contributors to the solution update on a relative term
     /*!
+     *  A table of the largest contributors to the solution update is printed out, according to the weights.
+     *  This is useful in debugging to understand what is not converging.
      *
-     * @param soln0
-     * @param s0
-     * @param soln1
-     * @param s1
-     * @param title
-     * @param y0
-     * @param y1
-     * @param damp
-     * @param num_entries
+     *  @param[in]           solnDelta0          Delta in the current solution
+     *  @param[in]           s0                  Title for the solnDelta0 contribution usually "DeltaSoln"
+     *  @param[in]           solnDelta1          Next soln delta step after the current delta is taken
+     *  @param[in]           s1                  title for the solnDelta1 contribution usually "DeltaSolnTrialTest"
+     *  @param[in]           title               Title of the table , usually
+     *                                                  "dampNewt: Important Entries for Weighted Soln Updates"
+     *  @param[in]           y0                  Old soln
+     *  @param[in]           y1                  New solution after solnDelta0 is applied
+     *  @param[in]           damp                current value of the damping factor
+     *  @param[in]           num_entries         Number of entries in the table to be printed out
      */
     void
-    print_solnDelta_norm_contrib(const Epetra_Vector& soln0,
-                                 const char* const s0,
-                                 const Epetra_Vector& soln1,
-                                 const char* const s1,
-                                 const char* const title,
-                                 const Epetra_Vector& y0,
-                                 const Epetra_Vector& y1,
-                                 double damp,
-                                 int num_entries);
+    print_solnDelta_norm_contrib(const Epetra_Vector& solnDelta0, const char* const s0,
+                                 const Epetra_Vector& soln1, const char* const s1,
+                                 const char* const title, const Epetra_Vector& y0, const Epetra_Vector& y1,
+                                 double damp, int num_entries);
 
     //!  Update the solution vector using the step change that was just computed.
     /*!
@@ -355,37 +352,58 @@ public:
 
     //! Sets some printing options
     /*!
-     *   @param dumpJacobians Dump jacobians to disk.
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  @param[in]           dumpJacobians       Dump jacobians to disk.
      */
     virtual void
-    setPrintSolnOptions(bool dumpJacobians);
+    setPrintSolnOptions(bool dumpJacobians) override;
 
     //! Set some nonlinear solver options
     /*!
-     *    @param min_newt_its          Set the minimum number of newton iterations to carry out at every step.
-     *                                 A value of 2 is useful to monitor convergence.
-     *    @param matrixConditioning    If true, carry out matrix conditioning process before trying to find the
-     *                                 inverse of the matrix (Not implemented).
-     *    @param colScaling            Implement column scaling to the matrix system. The unknowns are then scaled
-     *                                 inversely to the matrix. Scaling is carried out so that the deltas at
-     *                                 convergence of the matrix are scaled to a value of one. This means that
-     *                                 the column scales are equal to the weighting matrix.
-     *                                 Column scaling is carried out before row scaling.
-     *                                 (default = off)
-     *    @param rowScaling            Implement row scaling to the matrix system. The max row element in the
-     *                                 jacobian is caled to one by multiplying all terms in the row and rhs
-     *                                 by a scale factor. Note, this is effective in practise in reducing
-     *                                 the condition number of the matrix.
-     *                                 (default = on).
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  @param[in]           min_newt_its        Set the minimum number of newton iterations to carry out at every step.
+     *                                           A value of 2 is useful to monitor convergence.
+     *                                           (defaults to 0)
+     *  @param[in]           matrixConditioning  If true, carry out matrix conditioning process before trying to find the
+     *                                           inverse of the matrix (Not implemented).
+     *                                           (defaults to false)
+     *  @param[in]           colScaling          Implement column scaling to the matrix system. The unknowns are then scaled
+     *                                           inversely to the matrix. Scaling is carried out so that the deltas at
+     *                                           convergence of the matrix are scaled to a value of one. This means that
+     *                                           the column scales are equal to the weighting matrix.
+     *                                           Column scaling is carried out before row scaling.
+     *                                           (default = false)
+     *  @param[in]           rowScaling          Implement row scaling to the matrix system. The max row element in the
+     *                                           jacobian is caled to one by multiplying all terms in the row and rhs
+     *                                           by a scale factor. Note, this is effective in practise in reducing
+     *                                           the condition number of the matrix.
+     *                                           (default = true).
+     *  @param[in]           colScalingUpdateFrequency frequency of column scaling
+     *                                             0  Column scales are never updated by this routine. They are
+     *                                                an input to this routine.
+     *                                             1  Column scales are updated once at the start of the sol_nonlinear_problem
+     *                                                call. A call to setDefaultColScales() is made just after the
+     *                                                solution weights are evaluated (default).
+     *                                             2  Column scales are updated after each jacobian evaluation.
+     *                                                A call to setDefaultColScales() is made during the scaleMatrix routine.
+     *                                               (Defaults to 1)
      */
-    void
-    setNonLinOptions(int min_newt_its = 0, bool matrixConditioning = false, bool colScaling = false, bool rowScaling =
-                         true, int colScalingUpdateFrequency = 1);
-
-
-    //!
     virtual void
-    setPredicted_soln(const Epetra_Vector& y_pred);
+    setNonLinOptions(int min_newt_its = 0, bool matrixConditioning = false, bool colScaling = false, bool rowScaling =
+                         true, int colScalingUpdateFrequency = 1) override;
+
+    //!  Supply a predicted solution which will be used to help set up the solution weights
+    /*!
+     *  (virtual from SolGlobalNonlinear)
+     *
+     *  This routine is used to set up the scales for the solution error weights. 
+     * 
+     *  @param[in]           y_pred              Value of the predicted solution with ghost values
+     */
+    virtual void
+    setPredicted_soln(const Epetra_Vector_Ghosted& y_pred) override;
 
     //!    L2 Weighted Norm of a delta in the solution
     /*!
@@ -743,17 +761,13 @@ protected:
      */
     Solve_Type_Enum solnType_;
 
-    /**
-     * m_jacFormMethod determines how a matrix is formed.
-     */
+    //! m_jacFormMethod determines how a matrix is formed.
     int m_jacFormMethod;
 
     //!  If true then row sum scaling of the Jacobian matrix is carried out when solving the linear systems.
     bool m_rowScaling;
-    /**
-     * m_colScaling is a boolean. If true, then column scaling
-     * is performed on each solution of the linear system.
-     */
+    
+    //!  If true, then column scaling is performed on each solution of the linear system.
     bool m_colScaling;
 
     //! Frequency with which the column scales are updated
@@ -769,23 +783,22 @@ protected:
      */
     int colScaleUpdateFrequency_;
 
-    /**
-     * m_matrixConditioning is a boolean. If true, then the
-     * Jacobian and every rhs is multiplied by the inverse
-     * of a matrix that is suppose to rfeduce the condition
-     * number of the matrix. This is done before row scaling.
+    //!  m_matrixConditioning is a boolean. 
+    /*!
+     *  If true, then the Jacobian and every rhs is multiplied by the inverse
+     *  of a matrix that is suppose to rfeduce the condition number of the matrix. This is done before row scaling.
      */
     bool m_matrixConditioning;
 
-    /**
-     *  Relative nonlinear solver truncation error tolerances
-     */
+    //! Relative nonlinear solver truncation error tolerances
     double m_reltol;
-    /**
-     *  Vector of absolute nonlinear solver truncation error tolerance
-     *  when not uniform for all variables.
+    
+    //! Vector of absolute nonlinear solver truncation error tolerance when not uniform for all variables.
+    /*!
+     *  only the owned nodes
      */
     Epetra_Vector_Owned* m_abstol;
+
     /**
      * Error Weights. This is a surprisingly important quantity.
      */
@@ -854,27 +867,45 @@ protected:
      *    METHOD OPTIONS FOR THE LINEAR SOLVER
      ********************************************************************************/
 
+    //! Value of the current solutionDot vector with ghost node values
     Epetra_Vector_Ghosted* m_y_curr;
+
+    //! Value of the current solutionDot vector with only owned values
     Epetra_Vector_Owned*   m_y_curr_owned;
 
+    //! Value of the proposed new solution vector with ghost node values
     Epetra_Vector_Ghosted* m_y_new;
-    Epetra_Vector_Owned*   m_y_new_owned;
 
-    //! Stored solution vector
-    //Epetra_Vector_Ghosted *m_y_n;
+    //! Value of the proposed new solution vector with only owned values
+    Epetra_Vector_Owned*   m_y_new_owned;
 
     //! Stored solution vector at the previous time step
     Epetra_Vector_Ghosted* m_y_nm1;
 
-    //! Predicted solution vector at the current time step
+    //! "Predicted" solution vector at the current time step, really used as a scaling value for the error weights
+    /*!
+     *  We use this as an initial scaling vector for the solution tolerances
+     *  We keep a copy of the previously converged solution around here to help set the value 
+     *  of the solution weights for the next call to this nonlinear solver.
+     */
     Epetra_Vector_Ghosted* m_y_pred_n;
 
+    //! Value of the current solutionDot vector with ghost node values
     Epetra_Vector_Ghosted* m_ydot_curr;
-    Epetra_Vector_Owned*   m_ydot_curr_owned;
 
+    //! Value of the current solutionDot vector but only with owned values
+    Epetra_Vector_Owned* m_ydot_curr_owned;
+
+    //! Value of the proposed new solutionDot vector with ghost node values
     Epetra_Vector_Ghosted* m_ydot_new;
-    Epetra_Vector_Owned*   m_ydot_new_owned;
 
+    //! Value of the proposed new solutionDot vector but only with owned values
+    Epetra_Vector_Owned* m_ydot_new_owned;
+
+    //! Value of the previous solutionDot vector from the previous time step
+    /*!
+     *  This is sometimes needed to update the solution and solutionDot vector for the current time step
+     */
     Epetra_Vector_Ghosted* m_ydot_nm1;
 
     /*******************************************************************************
@@ -899,8 +930,8 @@ protected:
     //! False if we are solving a steady state problem.
     bool doTimeDependentResid_;
 
+    //! Current value of the time
     double time_n;
-    //double timeStep;
 
     /**********************************************************************************
      * INTERNAL SOLUTION DATA VALUES
@@ -908,8 +939,7 @@ protected:
 
     //! Current value of the time step
     /*!
-     *  This doesn't change within the routine
-     *  This is set by setPrevoiusTimeStep
+     *  This doesn't change within the routine.  This is set by setPrevoiusTimeStep
      */
     double delta_t_n;
 

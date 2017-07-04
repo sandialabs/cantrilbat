@@ -31,12 +31,15 @@
 using namespace std;
 
 #ifndef MAX
+//! max value of two quantities
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
 #endif
 
 #ifndef MIN
+//! min value of two quantities
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
+
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
@@ -45,13 +48,21 @@ namespace m1d
 //                 Constants
 //-----------------------------------------------------------
 
+//! Value of decrease in the damping factor whenever it needs to be decreased
 const double DampFactor = 4;
+
+//! value of the number of times damping factor is decreased before giving up on the line search algorithm
 const int NDAMP = 10;
 
 //-----------------------------------------------------------
 //                 Static Functions
 //-----------------------------------------------------------
 //==================================================================================================================================
+//! Print a line of C-strings with a endofline character to stdout
+/*!
+ *  @param[in]               str                 C-string to be repeatedly printed
+ *  @param[in]               n                   Number of repetitions
+ */
 static void print_line(const char* const str, int n)
 {
     for (int i = 0; i < n; i++) {
@@ -59,54 +70,84 @@ static void print_line(const char* const str, int n)
     }
     printf("\n");
 }
-
+//==================================================================================================================================
 //  Default value of a static quantities
+
 bool  SolNonlinear::s_print_NumJac = false;
 
 //==================================================================================================================================
 SolNonlinear::SolNonlinear() :
     SolGlobalNonlinear(),
-    solnType_(SteadyState_Solve), m_jacFormMethod(0), m_rowScaling(false), m_colScaling(false), colScaleUpdateFrequency_(1),
-    m_matrixConditioning(false), m_reltol(1.0E-3), m_abstol(0), m_ewt(0),
-    m_ewt_deltaDamping(0),
-    m_absTol_deltaDamping(0),
-    m_order(1), m_failure_counter(0),
+    solnType_(SteadyState_Solve), 
+    m_jacFormMethod(0), 
+    m_rowScaling(false), 
+    m_colScaling(false), 
+    colScaleUpdateFrequency_(1),
+    m_matrixConditioning(false),
+    m_reltol(1.0E-3), 
+    m_abstol(nullptr), 
+    m_ewt(nullptr),
+    m_ewt_deltaDamping(nullptr),
+    m_absTol_deltaDamping(nullptr),
+    m_order(1),
+    m_failure_counter(0),
     m_min_newt_its(0),
     maxNewtIts_(50),
-    m_jacAge(0), m_curr_linearIts(0), m_curr_normLin(0.0), 
+    m_jacAge(0), 
+    m_curr_linearIts(0), 
+    m_curr_normLin(0.0), 
     doResidSolnDamping_(true),
     doDeltaDamping_(true),
     doHighLowDamping_(false),
     m_NumLcEqns(0),
     m_NumLcOwnedEqns(0), 
     m_NumGbEqns(0),
-    m_y_curr(0), m_y_curr_owned(0), m_y_new(0), m_y_new_owned(0), m_y_nm1(0), m_y_pred_n(0), m_ydot_curr(0),
-    m_ydot_curr_owned(0),
-    m_ydot_new(0),
-    m_ydot_new_owned(0),
-    m_ydot_nm1(0), m_dumpJacobians(0),
+    m_y_curr(nullptr),
+    m_y_curr_owned(nullptr), 
+    m_y_new(nullptr),
+    m_y_new_owned(nullptr),
+    m_y_nm1(nullptr), 
+    m_y_pred_n(nullptr), 
+    m_ydot_curr(nullptr),
+    m_ydot_curr_owned(nullptr),
+    m_ydot_new(nullptr),
+    m_ydot_new_owned(nullptr),
+    m_ydot_nm1(nullptr),
+    m_dumpJacobians(0),
     doTimeDependentResid_(false),
     time_n(0.0),
     delta_t_n(0.0),
-    m_resid(0),
+    m_resid(nullptr),
     m_resid_scaled(false), 
-    m_rhs(0), m_residWts(0), 
+    m_rhs(0), 
+    m_residWts(nullptr), 
     m_normResid0(0.0),
     m_normResidFRaw(0.0), 
     m_normSolnFRaw(0.0),
-    solnLowBound_(0), 
-    solnHighBound_(0),
-    m_stp(0),
-    m_step_2(0), m_func(0), m_rowScales(0), m_colScales(0),
-    m_isAlgebraic(0),
-    m_isArithmeticScaled(0),
-    m_fbound(1.0), m_fdamp(1.0), tdjac_ptr(0), m_nfe(0), m_nJacEval(0),
+    solnLowBound_(nullptr), 
+    solnHighBound_(nullptr),
+    m_stp(nullptr),
+    m_step_2(nullptr),
+    m_func(0),
+    m_rowScales(nullptr), 
+    m_colScales(nullptr),
+    m_isAlgebraic(nullptr),
+    m_isArithmeticScaled(nullptr),
+    m_fbound(1.0),
+    m_fdamp(1.0),
+    tdjac_ptr(nullptr),
+    m_nfe(0),
+    m_nJacEval(0),
     m_num_newt_its(0),
     m_numTotalNewtIts(0),
-    m_numTotalLinearSolves(0), m_numTotalConvFails(0), m_numTotalTruncFails(0), num_failures(0),
+    m_numTotalLinearSolves(0), 
+    m_numTotalConvFails(0), 
+    m_numTotalTruncFails(0), 
+    num_failures(0),
     m_frequencyResidWtUpdatesTD(10),
     m_maxAge(5),
-    m_elapsed(0.0), mypid_(0)
+    m_elapsed(0.0), 
+    mypid_(0)
 {
 }
 //==================================================================================================================================
@@ -153,9 +194,8 @@ SolNonlinear::~SolNonlinear()
  *   @param printLargest if True a table is printed of the largest contributors.
  */
 double
-SolNonlinear::soln_error_norm(const Epetra_Vector_Owned& delta_y, const bool printLargest, const char* title,
-                              const int typeYsoln,
-                              const double dampFactor) const
+SolNonlinear::soln_error_norm(const Epetra_Vector_Owned& delta_y, const bool printLargest, const char* const title,
+                              const int typeYsoln, const double dampFactor) const
 {
     int i;
     int idLocalEqnMax = -1;
@@ -467,8 +507,7 @@ SolNonlinear::scaleMatrix(Epetra_Vector_Owned& delta_soln,
     if (m_colScaling) {
         if (!jac.m_columnScaled) {
             /*
-             * Go get new scales, put the scales in the vector,
-             * m_colScales
+             * Go get new scales, put the scales in the vector, m_colScales
              */
             if (colScaleUpdateFrequency_ >= 2) {
                 setDefaultColumnScaleVector();
@@ -976,7 +1015,7 @@ SolNonlinear::dampStep(double time_curr, const Epetra_Vector_Ghosted& y0,  const
     // Compute the weighted norm of the entry step size step0
     // HKM -> may want to change the algorithm to calculate s0 from step0, which may have been damped.
     //        This seems more apples to apples since s1 is computed that way.
-    double s0 = m_normSolnFRaw * m_fbound;
+    //double s0 = m_normSolnFRaw * m_fbound;
 
     double rdelta_t = 0.0;
     if (delta_t_n > 1.0E-300) {
@@ -1277,7 +1316,6 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
             }
         }
 
-        // xxxxx
         if (loglevel==3) {
             printf("              %11.4E      |                  |%11.4E | %6.2E | %10.4E  | %10.2E %2d |                  %11.4E\n",
                    m_normResid0, s0, m_fbound,  m_normResidFRaw, m_fdamp, m, m_normResidTrial);
@@ -1670,7 +1708,7 @@ SolNonlinear::setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghoste
 }
 //==================================================================================================================================
 void
-SolNonlinear::setPredicted_soln(const Epetra_Vector& y_pred)
+SolNonlinear::setPredicted_soln(const Epetra_Vector_Ghosted& y_pred)
 {
     mdpUtil::mdp_copy_dbl_1(&(*m_y_pred_n)[0], &(y_pred[0]), m_NumLcEqns);
 }
@@ -1988,7 +2026,6 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
                 } else {
                     printf("  N   ");
                 }
-                // xxxxx
                 printf("|%5d %11.4E | %10.4E |", m_curr_linearIts, m_curr_normLin, m_normSolnFRaw);
                 printf("%9.2E |", m_fbound);
                 printf(" %10.4E  ", m_normResidFRaw);
@@ -2057,8 +2094,8 @@ done:
     }
 
     /*
-     *  If we are successful, save the old solution as a prediction for
-     *  use the next time the solver is called.
+     *  If we are successful, save the old solution as a scaling vector for
+     *  use in formulating the solution error weights the next time the solver is called.
      */
     if (m == 1) {
         mdpUtil::mdp_copy_dbl_1(&((*m_y_pred_n)[0]), &((*m_y_curr)[0]), m_NumLcEqns);
