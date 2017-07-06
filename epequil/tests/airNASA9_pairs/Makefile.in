@@ -79,11 +79,11 @@ depends:
 #                whether the program is uptodate, because we don't utilize make
 #                in that environment to build programs.
 test:
-ifeq ($(os_is_win), 1)
-else
-	@MAKE@ $(PROGRAM)
-endif
+	$(MAKE) all
 	./runtest
+
+rebaseline:
+	cp output.txt output_blessed.txt
 
 clean:
 	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends airNASA9_pairs_300

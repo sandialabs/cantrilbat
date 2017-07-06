@@ -1,10 +1,11 @@
 Initial T = 207.283, pres = 5.89439e-09 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         207.283  K
           pressure     0.000597249  Pa
            density           1e-08  kg/m^3
+      molar volume     2.88565e+09  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -33,11 +34,12 @@ Initial T = 207.283, pres = 5.89439e-09 atm
 Final T = 207.283, pres = 5.89439e-09 atm
 Initial T = 207.283, pres = 5.89439e-08 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         207.283  K
           pressure      0.00597249  Pa
            density           1e-07  kg/m^3
+      molar volume     2.88565e+08  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -66,11 +68,12 @@ Initial T = 207.283, pres = 5.89439e-08 atm
 Final T = 207.283, pres = 5.89439e-08 atm
 Initial T = 207.283, pres = 5.89439e-07 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         207.283  K
           pressure       0.0597249  Pa
            density           1e-06  kg/m^3
+      molar volume     2.88565e+07  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -99,11 +102,12 @@ Initial T = 207.283, pres = 5.89439e-07 atm
 Final T = 207.283, pres = 5.89439e-07 atm
 Initial T = 207.283, pres = 5.89439e-06 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         207.283  K
           pressure        0.597249  Pa
            density           1e-05  kg/m^3
+      molar volume     2.88565e+06  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -132,11 +136,12 @@ Initial T = 207.283, pres = 5.89439e-06 atm
 Final T = 207.283, pres = 5.89439e-06 atm
 Initial T = 207.283, pres = 5.89439e-05 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         207.283  K
           pressure         5.97249  Pa
            density          0.0001  kg/m^3
+      molar volume          288565  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -165,11 +170,12 @@ Initial T = 207.283, pres = 5.89439e-05 atm
 Final T = 207.283, pres = 5.89439e-05 atm
 Initial T = 207.283, pres = 0.000589439 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         207.283  K
           pressure         59.7249  Pa
            density           0.001  kg/m^3
+      molar volume         28856.5  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -198,11 +204,12 @@ Initial T = 207.283, pres = 0.000589439 atm
 Final T = 207.283, pres = 0.000589439 atm
 Initial T = 207.283, pres = 0.00589439 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         207.283  K
           pressure         597.249  Pa
            density            0.01  kg/m^3
+      molar volume         2885.65  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -231,11 +238,12 @@ Initial T = 207.283, pres = 0.00589439 atm
 Final T = 207.283, pres = 0.00589439 atm
 Initial T = 414.143, pres = 1.17767e-08 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         414.143  K
           pressure      0.00119328  Pa
            density           1e-08  kg/m^3
+      molar volume     2.88565e+09  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -264,11 +272,12 @@ Initial T = 414.143, pres = 1.17767e-08 atm
 Final T = 414.143, pres = 1.17767e-08 atm
 Initial T = 414.143, pres = 1.17767e-07 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         414.143  K
           pressure       0.0119328  Pa
            density           1e-07  kg/m^3
+      molar volume     2.88565e+08  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -297,11 +306,12 @@ Initial T = 414.143, pres = 1.17767e-07 atm
 Final T = 414.143, pres = 1.17767e-07 atm
 Initial T = 414.143, pres = 1.17767e-06 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         414.143  K
           pressure        0.119328  Pa
            density           1e-06  kg/m^3
+      molar volume     2.88565e+07  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -330,11 +340,12 @@ Initial T = 414.143, pres = 1.17767e-06 atm
 Final T = 414.143, pres = 1.17767e-06 atm
 Initial T = 414.143, pres = 1.17767e-05 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         414.143  K
           pressure         1.19328  Pa
            density           1e-05  kg/m^3
+      molar volume     2.88565e+06  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -363,11 +374,12 @@ Initial T = 414.143, pres = 1.17767e-05 atm
 Final T = 414.143, pres = 1.17767e-05 atm
 Initial T = 414.143, pres = 0.000117767 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         414.143  K
           pressure         11.9328  Pa
            density          0.0001  kg/m^3
+      molar volume          288565  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -396,11 +408,12 @@ Initial T = 414.143, pres = 0.000117767 atm
 Final T = 414.143, pres = 0.000117767 atm
 Initial T = 414.143, pres = 0.00117767 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         414.143  K
           pressure         119.328  Pa
            density           0.001  kg/m^3
+      molar volume         28856.5  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -429,11 +442,12 @@ Initial T = 414.143, pres = 0.00117767 atm
 Final T = 414.143, pres = 0.00117767 atm
 Initial T = 414.143, pres = 0.0117767 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         414.143  K
           pressure         1193.28  Pa
            density            0.01  kg/m^3
+      molar volume         2885.65  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -462,11 +476,12 @@ Initial T = 414.143, pres = 0.0117767 atm
 Final T = 414.143, pres = 0.0117767 atm
 Initial T = 1153.16, pres = 3.27918e-08 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1152.47  K
           pressure      0.00332065  Pa
            density           1e-08  kg/m^3
+      molar volume     2.88562e+09  m^3/kmol
   mean mol. weight         28.8562  amu
  
                           1 kg            1 kmol
@@ -495,11 +510,12 @@ Initial T = 1153.16, pres = 3.27918e-08 atm
 Final T = 1152.47, pres = 3.27723e-08 atm
 Initial T = 1152.47, pres = 3.27723e-07 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1152.61  K
           pressure       0.0332105  Pa
            density           1e-07  kg/m^3
+      molar volume     2.88564e+08  m^3/kmol
   mean mol. weight         28.8564  amu
  
                           1 kg            1 kmol
@@ -528,11 +544,12 @@ Initial T = 1152.47, pres = 3.27723e-07 atm
 Final T = 1152.61, pres = 3.27762e-07 atm
 Initial T = 1152.61, pres = 3.27762e-06 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1152.66  K
           pressure        0.332118  Pa
            density           1e-06  kg/m^3
+      molar volume     2.88565e+07  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -561,11 +578,12 @@ Initial T = 1152.61, pres = 3.27762e-06 atm
 Final T = 1152.66, pres = 3.27775e-06 atm
 Initial T = 1152.66, pres = 3.27775e-05 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1152.68  K
           pressure         3.32122  Pa
            density           1e-05  kg/m^3
+      molar volume     2.88565e+06  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -594,11 +612,12 @@ Initial T = 1152.66, pres = 3.27775e-05 atm
 Final T = 1152.68, pres = 3.27779e-05 atm
 Initial T = 1152.68, pres = 0.000327779 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1152.68  K
           pressure         33.2123  Pa
            density          0.0001  kg/m^3
+      molar volume          288565  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -627,11 +646,12 @@ Initial T = 1152.68, pres = 0.000327779 atm
 Final T = 1152.68, pres = 0.00032778 atm
 Initial T = 1152.68, pres = 0.0032778 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1152.68  K
           pressure         332.124  Pa
            density           0.001  kg/m^3
+      molar volume         28856.5  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -660,11 +680,12 @@ Initial T = 1152.68, pres = 0.0032778 atm
 Final T = 1152.68, pres = 0.00327781 atm
 Initial T = 1152.68, pres = 0.0327781 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1152.68  K
           pressure         3321.24  Pa
            density            0.01  kg/m^3
+      molar volume         2885.65  m^3/kmol
   mean mol. weight         28.8565  amu
  
                           1 kg            1 kmol
@@ -693,11 +714,12 @@ Initial T = 1152.68, pres = 0.0327781 atm
 Final T = 1152.68, pres = 0.0327781 atm
 Initial T = 3008.94, pres = 8.55633e-08 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1764.11  K
           pressure      0.00544642  Pa
            density           1e-08  kg/m^3
+      molar volume     2.69308e+09  m^3/kmol
   mean mol. weight         26.9308  amu
  
                           1 kg            1 kmol
@@ -726,11 +748,12 @@ Initial T = 3008.94, pres = 8.55633e-08 atm
 Final T = 1764.11, pres = 5.3752e-08 atm
 Initial T = 1764.11, pres = 5.3752e-07 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         1879.19  K
           pressure       0.0576567  Pa
            density           1e-07  kg/m^3
+      molar volume      2.7099e+08  m^3/kmol
   mean mol. weight          27.099  amu
  
                           1 kg            1 kmol
@@ -759,11 +782,12 @@ Initial T = 1764.11, pres = 5.3752e-07 atm
 Final T = 1879.19, pres = 5.69028e-07 atm
 Initial T = 1879.19, pres = 5.69028e-06 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         2006.78  K
           pressure        0.611351  Pa
            density           1e-06  kg/m^3
+      molar volume     2.72925e+07  m^3/kmol
   mean mol. weight         27.2925  amu
  
                           1 kg            1 kmol
@@ -792,11 +816,12 @@ Initial T = 1879.19, pres = 5.69028e-06 atm
 Final T = 2006.78, pres = 6.03356e-06 atm
 Initial T = 2006.78, pres = 6.03356e-05 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         2147.22  K
           pressure          6.4886  Pa
            density           1e-05  kg/m^3
+      molar volume     2.75144e+06  m^3/kmol
   mean mol. weight         27.5144  amu
  
                           1 kg            1 kmol
@@ -825,11 +850,12 @@ Initial T = 2006.78, pres = 6.03356e-05 atm
 Final T = 2147.22, pres = 6.40375e-05 atm
 Initial T = 2147.22, pres = 0.000640375 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         2299.14  K
           pressure         68.8485  Pa
            density          0.0001  kg/m^3
+      molar volume          277655  m^3/kmol
   mean mol. weight         27.7655  amu
  
                           1 kg            1 kmol
@@ -858,11 +884,12 @@ Initial T = 2147.22, pres = 0.000640375 atm
 Final T = 2299.14, pres = 0.000679482 atm
 Initial T = 2299.14, pres = 0.00679482 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature          2457.5  K
           pressure         728.699  Pa
            density           0.001  kg/m^3
+      molar volume         28040.1  m^3/kmol
   mean mol. weight         28.0401  amu
  
                           1 kg            1 kmol
@@ -891,11 +918,12 @@ Initial T = 2299.14, pres = 0.00679482 atm
 Final T = 2457.5, pres = 0.0071917 atm
 Initial T = 2457.5, pres = 0.071917 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         2610.53  K
           pressure          7664.7  Pa
            density            0.01  kg/m^3
+      molar volume         2831.83  m^3/kmol
   mean mol. weight         28.3183  amu
  
                           1 kg            1 kmol
@@ -924,11 +952,12 @@ Initial T = 2457.5, pres = 0.071917 atm
 Final T = 2610.53, pres = 0.0756447 atm
 Initial T = 5900, pres = 1.86538e-07 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         2945.66  K
           pressure       0.0104079  Pa
            density           1e-08  kg/m^3
+      molar volume     2.35318e+09  m^3/kmol
   mean mol. weight         23.5318  amu
  
                           1 kg            1 kmol
@@ -957,11 +986,12 @@ Initial T = 5900, pres = 1.86538e-07 atm
 Final T = 2945.66, pres = 1.02718e-07 atm
 Initial T = 2945.66, pres = 1.02718e-06 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         3079.99  K
           pressure        0.108465  Pa
            density           1e-07  kg/m^3
+      molar volume       2.361e+08  m^3/kmol
   mean mol. weight           23.61  amu
  
                           1 kg            1 kmol
@@ -990,11 +1020,12 @@ Initial T = 2945.66, pres = 1.02718e-06 atm
 Final T = 3079.99, pres = 1.07046e-06 atm
 Initial T = 3079.99, pres = 1.07046e-05 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         3207.45  K
           pressure         1.12586  Pa
            density           1e-06  kg/m^3
+      molar volume      2.3687e+07  m^3/kmol
   mean mol. weight          23.687  amu
  
                           1 kg            1 kmol
@@ -1023,11 +1054,12 @@ Initial T = 3079.99, pres = 1.07046e-05 atm
 Final T = 3207.45, pres = 1.11114e-05 atm
 Initial T = 3207.45, pres = 0.000111114 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature          3318.6  K
           pressure         11.6123  Pa
            density           1e-05  kg/m^3
+      molar volume     2.37613e+06  m^3/kmol
   mean mol. weight         23.7613  amu
  
                           1 kg            1 kmol
@@ -1056,11 +1088,12 @@ Initial T = 3207.45, pres = 0.000111114 atm
 Final T = 3318.6, pres = 0.000114605 atm
 Initial T = 3318.6, pres = 0.00114605 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature          3417.1  K
           pressure         119.127  Pa
            density          0.0001  kg/m^3
+      molar volume          238496  m^3/kmol
   mean mol. weight         23.8496  amu
  
                           1 kg            1 kmol
@@ -1089,11 +1122,12 @@ Initial T = 3318.6, pres = 0.00114605 atm
 Final T = 3417.1, pres = 0.00117569 atm
 Initial T = 3417.1, pres = 0.0117569 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         3555.18  K
           pressure         1230.49  Pa
            density           0.001  kg/m^3
+      molar volume         24022.4  m^3/kmol
   mean mol. weight         24.0224  amu
  
                           1 kg            1 kmol
@@ -1122,11 +1156,12 @@ Initial T = 3417.1, pres = 0.0117569 atm
 Final T = 3555.18, pres = 0.012144 atm
 Initial T = 3555.18, pres = 0.12144 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         3800.17  K
           pressure         12968.3  Pa
            density            0.01  kg/m^3
+      molar volume         2436.43  m^3/kmol
   mean mol. weight         24.3643  amu
  
                           1 kg            1 kmol
@@ -1155,11 +1190,12 @@ Initial T = 3555.18, pres = 0.12144 atm
 Final T = 3800.17, pres = 0.127987 atm
 Initial T = 5900, pres = 2.37509e-07 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         3293.99  K
           pressure       0.0125025  Pa
            density           1e-08  kg/m^3
+      molar volume     2.19058e+09  m^3/kmol
   mean mol. weight         21.9058  amu
  
                           1 kg            1 kmol
@@ -1188,11 +1224,12 @@ Initial T = 5900, pres = 2.37509e-07 atm
 Final T = 3293.99, pres = 1.2339e-07 atm
 Initial T = 3293.99, pres = 1.2339e-06 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         3516.01  K
           pressure        0.132781  Pa
            density           1e-07  kg/m^3
+      molar volume     2.20165e+08  m^3/kmol
   mean mol. weight         22.0165  amu
  
                           1 kg            1 kmol
@@ -1221,11 +1258,12 @@ Initial T = 3293.99, pres = 1.2339e-06 atm
 Final T = 3516.01, pres = 1.31045e-06 atm
 Initial T = 3516.01, pres = 1.31045e-05 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         3766.66  K
           pressure         1.41427  Pa
            density           1e-06  kg/m^3
+      molar volume     2.21442e+07  m^3/kmol
   mean mol. weight         22.1442  amu
  
                           1 kg            1 kmol
@@ -1254,11 +1292,12 @@ Initial T = 3516.01, pres = 1.31045e-05 atm
 Final T = 3766.66, pres = 1.39577e-05 atm
 Initial T = 3766.66, pres = 0.000139577 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         4050.36  K
           pressure         15.1064  Pa
            density           1e-05  kg/m^3
+      molar volume     2.22928e+06  m^3/kmol
   mean mol. weight         22.2928  amu
  
                           1 kg            1 kmol
@@ -1287,11 +1326,12 @@ Initial T = 3766.66, pres = 0.000139577 atm
 Final T = 4050.36, pres = 0.000149089 atm
 Initial T = 4050.36, pres = 0.00149089 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         4371.57  K
           pressure         161.774  Pa
            density          0.0001  kg/m^3
+      molar volume          224679  m^3/kmol
   mean mol. weight         22.4679  amu
  
                           1 kg            1 kmol
@@ -1320,11 +1360,12 @@ Initial T = 4050.36, pres = 0.00149089 atm
 Final T = 4371.57, pres = 0.00159659 atm
 Initial T = 4371.57, pres = 0.0159659 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature         4734.02  K
           pressure         1735.66  Pa
            density           0.001  kg/m^3
+      molar volume         22677.7  m^3/kmol
   mean mol. weight         22.6777  amu
  
                           1 kg            1 kmol
@@ -1353,11 +1394,12 @@ Initial T = 4371.57, pres = 0.0159659 atm
 Final T = 4734.02, pres = 0.0171296 atm
 Initial T = 4734.02, pres = 0.171296 atm 
  
-  air_below6000K:
+  air_below6000K using EOS IdealGas:
  
        temperature          5139.7  K
           pressure         18630.6  Pa
            density            0.01  kg/m^3
+      molar volume         2293.74  m^3/kmol
   mean mol. weight         22.9374  amu
  
                           1 kg            1 kmol

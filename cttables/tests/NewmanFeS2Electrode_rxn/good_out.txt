@@ -205,7 +205,7 @@ INFORMATION TABLE FOR SPECIES "Cl-" IN PHASE "LiKCl_electrolyte"
 |    950.00 |     0.0000          0.0000         0.0000       0.0000   |       0.0000 | 
 ---------------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "LiKCl_Margules", with name, "LiKCl_Margules", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "LiKCl_Margules", with name, "LiKCl_Margules", with eosType, "Margules"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 700 Kelvin
@@ -234,7 +234,7 @@ INFORMATION TABLE FOR SPECIES "LiCl(L)" IN PHASE "LiKCl_Margules"
         Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0.02048 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Molar Volume formulation for eos type 301 is not known to cttables
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 700 < T < 2000:
                  7.318025000000000E+01, -9.047231999999999E+00, -3.163900000000000E-01,  7.958700000000000E-02,
@@ -277,7 +277,7 @@ INFORMATION TABLE FOR SPECIES "KCl(L)" IN PHASE "LiKCl_Margules"
         Maximum Temperature = 2000 K
         Partial    Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
         StandState Molar Volume at (T,P) of (700,101325) = 0.0375761 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Molar Volume formulation for eos type 301 is not known to cttables
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 700 < T < 2000:
                  7.359698000000000E+01,  0.000000000000000E+00,  0.000000000000000E+00,  0.000000000000000E+00,
@@ -644,7 +644,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiCl_electrons"
               3             Cl-          0.5000       4.883E-02       5.000E-01
           ------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "LiKCl_Margules", with name, "LiKCl_Margules", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "LiKCl_Margules", with name, "LiKCl_Margules", with eosType, "Margules"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 700 Kelvin

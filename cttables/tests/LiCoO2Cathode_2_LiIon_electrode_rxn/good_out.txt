@@ -5,7 +5,7 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "LiCoO2_Margules1", with name, "LiCoO2_Margules1", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "LiCoO2_Margules1", with name, "LiCoO2_Margules1", with eosType, "Margules"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 298.15 Kelvin
@@ -35,7 +35,7 @@ INFORMATION TABLE FOR SPECIES "LiCoO2" IN PHASE "LiCoO2_Margules1"
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Molar Volume formulation for eos type 301 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =  -4.064033000000000E+08 J kmol-1
@@ -75,7 +75,7 @@ INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Margules1"
         Maximum Temperature = 5000 K
         Partial    Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
         StandState Molar Volume at (T,P) of (298.15,101325) = 0.01466 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Molar Volume formulation for eos type 301 is not known to cttables
         CONSTANT_CP format:
                 Valid Range: 100 < T < 5000:
                 at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
@@ -438,7 +438,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "LiCoO2_Margules1"
                -----------------------------------------------------------------
         ----------------------------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "LiCoO2_Margules1", with name, "LiCoO2_Margules1", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "LiCoO2_Margules1", with name, "LiCoO2_Margules1", with eosType, "Margules"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 298.15 Kelvin

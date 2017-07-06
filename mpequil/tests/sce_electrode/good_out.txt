@@ -707,11 +707,12 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
                OH-   9.26461e-10      6.06594e-08     -2.68323e+08   -2.26784e+08       0.870645
 
  
-  KCl(S):
+  KCl(S) using EOS StoichSubstance:
  
        temperature          298.15  K
           pressure          101325  Pa
            density            1984  kg/m^3
+      molar volume       0.0375761  m^3/kmol
   mean mol. weight          74.551  amu
  
                           1 kg            1 kmol
@@ -728,11 +729,12 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
             KCl(S)              1                1         -186.085
 
  
-  Calomel(S):
+  Calomel(S) using EOS StoichSubstance:
  
        temperature          298.15  K
           pressure          101325  Pa
            density            7150  kg/m^3
+      molar volume       0.0660259  m^3/kmol
   mean mol. weight         472.085  amu
  
                           1 kg            1 kmol
@@ -749,11 +751,12 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
          Hg2Cl2(S)              1                1         -130.027
 
  
-  Mercury_liquid:
+  Mercury_liquid using EOS StoichSubstance:
  
        temperature          298.15  K
           pressure          101325  Pa
            density         13546.2  kg/m^3
+      molar volume       0.0148078  m^3/kmol
   mean mol. weight          200.59  amu
  
                           1 kg            1 kmol
@@ -770,13 +773,14 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
              Hg(L)              1                1         -9.14401
 
  
-  MetalSHEelectrons:
+  MetalSHEelectrons using MetalSHEelectrons:
  
+ ref Elec Interface    SHE (no pres dep)
        temperature          298.15  K
           pressure          101325  Pa
            density            2165  kg/m^3
   mean mol. weight        0.000545  amu
-         potential        0.241676  V
+electric potential        0.241676  V
  
                           1 kg            1 kmol
                        -----------      ------------
@@ -785,7 +789,6 @@ she_electron     0.000000e+00    1.000000e+00    -1.948116e+07
            entropy      1.1989e+08        6.534e+04     J/K
     Gibbs function     -3.5745e+10       -1.948e+07     J
  heat capacity c_p      2.6455e+07        1.442e+04     J/K
- heat capacity c_v      2.6455e+07        1.442e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------

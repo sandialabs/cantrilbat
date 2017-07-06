@@ -1,9 +1,10 @@
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature            6100  K
           pressure            0.01  Pa
            density     2.47889e-09  kg/m^3
+      molar volume     5.07182e+09  m^3/kmol
   mean mol. weight         12.5725  amu
  
                           1 kg            1 kmol
@@ -29,11 +30,12 @@
                 O+       0.109122         0.138861         -11.2124
                 e-        0.17299      7.49885e-06         -25.5641
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature            6100  K
           pressure            0.01  Pa
            density     2.30263e-09  kg/m^3
+      molar volume     5.07182e+09  m^3/kmol
   mean mol. weight         11.6785  amu
  
                           1 kg            1 kmol

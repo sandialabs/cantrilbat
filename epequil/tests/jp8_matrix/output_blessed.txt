@@ -65,11 +65,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
 	Value computed using low-temperature polynomial:  60.0894.
 	Value computed using high-temperature polynomial: 60.2483.
  
-  jp8mech:
+  jp8mech using EOS IdealGas:
  
        temperature             300  K
           pressure               1  Pa
            density      8.3513e-06  kg/m^3
+      molar volume     2.49434e+06  m^3/kmol
   mean mol. weight          20.831  amu
  
                           1 kg            1 kmol
@@ -292,11 +293,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
             CYC6H8    1.41333e-31       5.4366e-31          -76.437
            C9H19-5    1.41739e-71      8.65841e-71         -250.371
  
-  jp8mech:
+  jp8mech using EOS IdealGas:
  
        temperature             300  K
           pressure               1  Pa
            density     1.21895e-05  kg/m^3
+      molar volume     2.49434e+06  m^3/kmol
   mean mol. weight         30.4047  amu
  
                           1 kg            1 kmol
@@ -519,11 +521,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
             CYC6H8              0                0     
            C9H19-5              0                0     
  
-  jp8mech:
+  jp8mech using EOS IdealGas:
  
        temperature            2000  K
           pressure          101325  Pa
            density        0.120021  kg/m^3
+      molar volume         164.115  m^3/kmol
   mean mol. weight         19.6972  amu
  
                           1 kg            1 kmol
@@ -746,11 +749,12 @@ For species L-C5H7, discontinuity in s/R detected at Tmid = 1000
             CYC6H8    4.99449e-48      2.03179e-47         -162.055
            C9H19-5    3.50778e-90      2.26613e-89         -315.887
  
-  jp8mech:
+  jp8mech using EOS IdealGas:
  
        temperature            2000  K
           pressure               1  Pa
            density     8.12342e-07  kg/m^3
+      molar volume     1.66289e+07  m^3/kmol
   mean mol. weight         13.5084  amu
  
                           1 kg            1 kmol

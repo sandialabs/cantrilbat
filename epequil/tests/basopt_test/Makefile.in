@@ -53,7 +53,7 @@ DEPENDS=$(OBJS:.o=.d)
 # Program Name
 PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
-all: $(PROGRAM) .depends
+all: $(PROGRAM) .dependsT
 
 $(PROGRAM): $(OBJS) $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
@@ -72,26 +72,24 @@ $(DEPENDS): Makefile
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	@MAKE@ .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 # Do the test -> For the windows vc++ environment, we have to skip checking on
 #                whether the program is uptodate, because we don't utilize make
 #                in that environment to build programs.
 test:
-ifeq ($(os_is_win), 1)
-else
-	@MAKE@ $(PROGRAM)
-endif
+	$(MAKE) all
 	./runtest
 
+rebaseline:
+	cp output.txt output_blessed.txt
+
 clean:
-	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends
-	(if test -d SunWS_cache ; then \
-           $(RM) -rf SunWS_cache ; \
-         fi )
+	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
 
 
 #############################################################################

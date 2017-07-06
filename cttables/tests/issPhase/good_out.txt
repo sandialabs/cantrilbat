@@ -71,7 +71,7 @@ Bath Species set to C2H2-graph
 Bath Species set to C2H2-graph
 Bath Species set to C2H2-graph
      ====================================================================================================
-      Bath Composition for Phase id, "solidSolutionExample", with name, "solidSolutionExample", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "solidSolutionExample", with name, "solidSolutionExample", with eosType, "IdealSolidSolution1"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 298.15 Kelvin

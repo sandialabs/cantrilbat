@@ -1,9 +1,10 @@
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature            6500  K
           pressure          100000  Pa
            density       0.0357339  kg/m^3
+      molar volume          540.44  m^3/kmol
   mean mol. weight         19.3121  amu
  
                           1 kg            1 kmol
@@ -31,11 +32,12 @@
  enth = 2.05902e+07
 attempted equil at (H,P) =  2.049e+07,      1e+05
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature         6490.61  K
           pressure          100000  Pa
            density        0.035846  kg/m^3
+      molar volume         539.659  m^3/kmol
   mean mol. weight         19.3446  amu
  
                           1 kg            1 kmol
@@ -63,11 +65,12 @@ attempted equil at (H,P) =  2.049e+07,      1e+05
  entropy = 13252.2
 attempted equil at (S,P) =      13352,      1e+05
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature         6550.94  K
           pressure          100000  Pa
            density       0.0351293  kg/m^3
+      molar volume         544.676  m^3/kmol
   mean mol. weight         19.1341  amu
  
                           1 kg            1 kmol
@@ -95,11 +98,12 @@ attempted equil at (S,P) =      13352,      1e+05
  dens = 0.0351293
 attempted equil at (S,V,dens) =      13352,     31.629,   0.031616
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature          6482.8  K
           pressure         88660.8  Pa
            density       0.0316164  kg/m^3
+      molar volume         607.946  m^3/kmol
   mean mol. weight          19.221  amu
  
                           1 kg            1 kmol
@@ -126,11 +130,12 @@ attempted equil at (S,V,dens) =      13352,     31.629,   0.031616
                 e-    0.000425371      1.20611e-08         -15.7193
 attempted equil at (T,V, dens) =       6800,     31.629,   0.031616
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature            6800  K
           pressure         98100.3  Pa
            density       0.0316164  kg/m^3
+      molar volume         576.332  m^3/kmol
   mean mol. weight         18.2215  amu
  
                           1 kg            1 kmol
@@ -158,11 +163,12 @@ attempted equil at (T,V, dens) =       6800,     31.629,   0.031616
  inte = 2.10151e+07
 attempted equil at (U,V,dens) = 2.0915e+07,     31.629,   0.031616
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature          6789.9  K
           pressure         97785.5  Pa
            density       0.0316164  kg/m^3
+      molar volume         577.328  m^3/kmol
   mean mol. weight          18.253  amu
  
                           1 kg            1 kmol

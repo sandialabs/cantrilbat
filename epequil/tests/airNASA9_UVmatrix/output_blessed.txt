@@ -1,9 +1,10 @@
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature            1300  K
           pressure             100  Pa
            density     0.000277608  kg/m^3
+      molar volume          108088  m^3/kmol
   mean mol. weight         30.0061  amu
  
                           1 kg            1 kmol
@@ -30,11 +31,12 @@
                 e-    5.54815e-23      1.00771e-27         -62.4316
 GOAL inteEnergy = 725050, vol = 3602.2
  
-  airNASA9:
+  airNASA9 using EOS IdealGas:
  
        temperature         1303.32  K
           pressure         100.256  Pa
            density     0.000277608  kg/m^3
+      molar volume          108088  m^3/kmol
   mean mol. weight         30.0061  amu
  
                           1 kg            1 kmol

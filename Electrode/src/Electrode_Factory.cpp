@@ -191,8 +191,7 @@ Electrode_Factory* Electrode_Factory::factory()
     }
     return s_factory;
 }
-//====================================================================================================================
-// delete the static instance of this factory
+//==================================================================================================================================
 void  Electrode_Factory::deleteFactory()
 {
 #if defined(THREAD_SAFE_CANTERA)
@@ -203,14 +202,7 @@ void  Electrode_Factory::deleteFactory()
         s_factory = 0;
     }
 }
-//====================================================================================================================
-// Create a new Electrode Object
-/*
- * @param model  String to look up the model against
- *
- * @return    Returns a pointer to a new Electrode instance matching the  model string. Returns NULL if
- *            something went wrong. Throws an exception if the string wasn't matched.
- */
+//==================================================================================================================================
 Electrode* Electrode_Factory::newElectrodeObject(std::string model)
 {
     /*
@@ -256,8 +248,7 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
         ee = new    Electrode_RadialDiffRegions();
         break;
     default:
-        throw Electrode_Error("Electrode_Factory::newElectrodeObject()",
-                           "Unknown Electrode model: " + model);
+        throw Electrode_Error("Electrode_Factory::newElectrodeObject()", "Unknown Electrode model: " + model);
     }
     return ee;
 }

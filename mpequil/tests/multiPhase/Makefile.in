@@ -55,7 +55,7 @@ runGood_debug: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_DEBUG_FILES
 
 rebaseline:
 	if test -e out.txt ; then cp out.txt good_out.txt ; fi
-	cp vcs_equilibrate.csv vcs_equilibrate_blessed.csv
+	cp vcs_equilibrate_res.csv vcs_equilibrate_blessed.csv
 	if test -e dout.txt ; then cp dout.txt good_dout.txt ; fi
 
 clean:

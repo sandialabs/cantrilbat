@@ -140,11 +140,12 @@ Moles: 9.79
 *************** NaCl(S) *****************
 Moles: 0.101623
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -163,11 +164,12 @@ Moles: 0.101623
 *************** air *****************
 Moles: 0.00885524
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -332,11 +334,12 @@ Moles: 8.5318
 *************** NaCl(S) *****************
 Moles: 0.217082
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -355,11 +358,12 @@ Moles: 0.217082
 *************** air *****************
 Moles: 1.03614
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -524,11 +528,12 @@ Moles: 7.2736
 *************** NaCl(S) *****************
 Moles: 0.33254
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -547,11 +552,12 @@ Moles: 0.33254
 *************** air *****************
 Moles: 2.06342
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -716,11 +722,12 @@ Moles: 6.0154
 *************** NaCl(S) *****************
 Moles: 0.447999
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -739,11 +746,12 @@ Moles: 0.447999
 *************** air *****************
 Moles: 3.0907
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -908,11 +916,12 @@ Moles: 4.7572
 *************** NaCl(S) *****************
 Moles: 0.563457
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -931,11 +940,12 @@ Moles: 0.563457
 *************** air *****************
 Moles: 4.11799
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -1100,11 +1110,12 @@ Moles: 3.499
 *************** NaCl(S) *****************
 Moles: 0.678916
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -1123,11 +1134,12 @@ Moles: 0.678916
 *************** air *****************
 Moles: 5.14527
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -1292,11 +1304,12 @@ Moles: 2.2408
 *************** NaCl(S) *****************
 Moles: 0.794374
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -1315,11 +1328,12 @@ Moles: 0.794374
 *************** air *****************
 Moles: 6.17255
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -1484,11 +1498,12 @@ Moles: 0.982598
 *************** NaCl(S) *****************
 Moles: 0.909833
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -1507,11 +1522,12 @@ Moles: 0.909833
 *************** air *****************
 Moles: 7.19984
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.75991  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.3242  amu
  
                           1 kg            1 kmol
@@ -1676,11 +1692,12 @@ Moles: 0
 *************** NaCl(S) *****************
 Moles: 1
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -1699,11 +1716,12 @@ Moles: 1
 *************** air *****************
 Moles: 8.19998
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.76331  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.4078  amu
  
                           1 kg            1 kmol
@@ -1869,11 +1887,12 @@ Moles: 0
 *************** NaCl(S) *****************
 Moles: 1
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -1892,11 +1911,12 @@ Moles: 1
 *************** air *****************
 Moles: 9.19998
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.76597  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.4732  amu
  
                           1 kg            1 kmol
@@ -2061,11 +2081,12 @@ Moles: 0
 *************** NaCl(S) *****************
 Moles: 1
  
-  NaCl(S):
+  NaCl(S) using EOS StoichSubstance:
  
        temperature             300  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume       0.0269942  m^3/kmol
   mean mol. weight         58.4425  amu
  
                           1 kg            1 kmol
@@ -2084,11 +2105,12 @@ Moles: 1
 *************** air *****************
 Moles: 10.2
  
-  air:
+  air using EOS IdealGas:
  
        temperature             300  K
           pressure          101325  Pa
            density         1.76811  kg/m^3
+      molar volume         24.6172  m^3/kmol
   mean mol. weight         43.5258  amu
  
                           1 kg            1 kmol

@@ -1,9 +1,10 @@
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature            1500  K
           pressure          100000  Pa
            density        0.158006  kg/m^3
+      molar volume         124.717  m^3/kmol
   mean mol. weight         19.7061  amu
  
                           1 kg            1 kmol
@@ -73,11 +74,12 @@
  enth = -2.1541e+06
 attempted equil at (H,P) = -2.2541e+06,      1e+05
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature         1449.39  K
           pressure          100000  Pa
            density        0.163524  kg/m^3
+      molar volume         120.509  m^3/kmol
   mean mol. weight         19.7061  amu
  
                           1 kg            1 kmol
@@ -147,11 +149,12 @@ attempted equil at (H,P) = -2.2541e+06,      1e+05
  entropy = 12212
 attempted equil at (S,P) =      12312,      1e+05
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature          1524.6  K
           pressure          100000  Pa
            density        0.155457  kg/m^3
+      molar volume         126.762  m^3/kmol
   mean mol. weight          19.706  amu
  
                           1 kg            1 kmol
@@ -221,11 +224,12 @@ attempted equil at (S,P) =      12312,      1e+05
  dens = 0.155457
 attempted equil at (S,V,dens) =      12312,     7.1474,    0.13991
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature         1481.65  K
           pressure         87464.7  Pa
            density        0.139911  kg/m^3
+      molar volume         140.847  m^3/kmol
   mean mol. weight         19.7061  amu
  
                           1 kg            1 kmol
@@ -294,11 +298,12 @@ attempted equil at (S,V,dens) =      12312,     7.1474,    0.13991
             CH3CHO    1.59408e-15      3.56358e-15         -87.3521
 attempted equil at (T,V, dens) =       1800,     7.1474,    0.13991
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature            1800  K
           pressure          106267  Pa
            density        0.139911  kg/m^3
+      molar volume         140.834  m^3/kmol
   mean mol. weight         19.7042  amu
  
                           1 kg            1 kmol
@@ -368,11 +373,12 @@ attempted equil at (T,V, dens) =       1800,     7.1474,    0.13991
  inte = -2.31473e+06
 attempted equil at (U,V,dens) = -2.4147e+06,     7.1474,    0.13991
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature         1737.25  K
           pressure          102558  Pa
            density        0.139911  kg/m^3
+      molar volume         140.839  m^3/kmol
   mean mol. weight          19.705  amu
  
                           1 kg            1 kmol

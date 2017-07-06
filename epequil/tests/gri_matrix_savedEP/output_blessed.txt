@@ -1,9 +1,10 @@
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature             500  K
           pressure          101325  Pa
            density        0.507719  kg/m^3
+      molar volume         41.0287  m^3/kmol
   mean mol. weight         20.8311  amu
  
                           1 kg            1 kmol
@@ -71,11 +72,12 @@
             CH2CHO              0                0     
             CH3CHO              0                0     
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature             500  K
           pressure          101325  Pa
            density        0.741059  kg/m^3
+      molar volume         41.0287  m^3/kmol
   mean mol. weight         30.4047  amu
  
                           1 kg            1 kmol
@@ -143,11 +145,12 @@
             CH2CHO              0                0     
             CH3CHO              0                0     
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature            2000  K
           pressure          101325  Pa
            density        0.120021  kg/m^3
+      molar volume         164.115  m^3/kmol
   mean mol. weight         19.6972  amu
  
                           1 kg            1 kmol
@@ -215,11 +218,12 @@
             CH2CHO    6.11141e-18      1.33555e-17         -80.3462
             CH3CHO    3.34175e-17      7.47388e-17         -90.7538
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature            2000  K
           pressure               1  Pa
            density     8.11604e-07  kg/m^3
+      molar volume     1.66289e+07  m^3/kmol
   mean mol. weight         13.4961  amu
  
                           1 kg            1 kmol

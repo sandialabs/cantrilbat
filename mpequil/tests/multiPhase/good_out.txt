@@ -397,11 +397,12 @@ CaCO3(S)         0.000000e+00    1.000000e+00    -9.424500e+08
 FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
 -------------------------------------------------------------
  
-  air:
+  air using EOS IdealGas:
  
        temperature            1050  K
           pressure          101325  Pa
            density         0.32245  kg/m^3
+      molar volume         86.1602  m^3/kmol
   mean mol. weight         27.7824  amu
  
                           1 kg            1 kmol
@@ -428,11 +429,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
                 N2       0.662856         0.668369        -0.398035
 
  
-  C(S):
+  C(S) using EOS StoichSubstance:
  
        temperature            1050  K
           pressure          101325  Pa
            density            3520  kg/m^3
+      molar volume      0.00341222  m^3/kmol
   mean mol. weight          12.011  amu
  
                           1 kg            1 kmol
@@ -449,11 +451,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
               C(d)              1                1       5.1788e-07
 
  
-  Fe(S):
+  Fe(S) using EOS StoichSubstance:
  
        temperature            1050  K
           pressure          101325  Pa
            density            3520  kg/m^3
+      molar volume       0.0158656  m^3/kmol
   mean mol. weight          55.847  amu
  
                           1 kg            1 kmol
@@ -470,11 +473,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
           Fe_Solid              1                1      2.40796e-06
 
  
-  CaO(S):
+  CaO(S) using EOS StoichSubstance:
  
        temperature            1050  K
           pressure          101325  Pa
            density            3520  kg/m^3
+      molar volume       0.0159311  m^3/kmol
   mean mol. weight         56.0774  amu
  
                           1 kg            1 kmol
@@ -491,11 +495,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
             CaO(S)              1                1         -60.6161
 
  
-  Fe3O4(S):
+  Fe3O4(S) using EOS StoichSubstance:
  
        temperature            1050  K
           pressure          101325  Pa
            density            3520  kg/m^3
+      molar volume        0.065778  m^3/kmol
   mean mol. weight         231.539  amu
  
                           1 kg            1 kmol
@@ -512,11 +517,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
           Fe3O4(S)              1                1          -87.359
 
  
-  CaCO3(S):
+  CaCO3(S) using EOS StoichSubstance:
  
        temperature            1050  K
           pressure          101325  Pa
            density            3520  kg/m^3
+      molar volume       0.0284339  m^3/kmol
   mean mol. weight         100.087  amu
  
                           1 kg            1 kmol
@@ -533,11 +539,12 @@ FeO_Solid        0.000000e+00    1.000000e+00    -1.939300e+08
           CaCO3(S)              1                1         -107.953
 
  
-  FeO(S):
+  FeO(S) using EOS StoichSubstance:
  
        temperature            1050  K
           pressure          101325  Pa
            density            3520  kg/m^3
+      molar volume       0.0204109  m^3/kmol
   mean mol. weight         71.8464  amu
  
                           1 kg            1 kmol

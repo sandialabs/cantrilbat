@@ -1,9 +1,10 @@
  
-  gri30_mix:
+  gri30_mix using EOS IdealGas:
  
        temperature            2000  K
           pressure          101325  Pa
            density        0.100263  kg/m^3
+      molar volume         164.115  m^3/kmol
   mean mol. weight         16.4546  amu
  
                           1 kg            1 kmol

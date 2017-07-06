@@ -357,7 +357,7 @@ INFORMATION TABLE FOR SPECIES "Li[7/3]Fe[2/3]S2(A)" IN PHASE "Li[2+x]Fe[1-x]S2(S
 |**  823.15*|   212.5610          0.8923         3.9035     257.1448   |    -732.1384 | 
 ---------------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "Fe[1-x]S(S)", with name, "Fe[1-x]S(S)", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "Fe[1-x]S(S)", with name, "Fe[1-x]S(S)", with eosType, "Margules"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 723.15 Kelvin
@@ -386,7 +386,7 @@ INFORMATION TABLE FOR SPECIES "FeS(B)" IN PHASE "Fe[1-x]S(S)"
         Maximum Temperature = 1900 K
         Partial    Molar Volume at (T,P) of (723.15,101325) = 0.01817 m3/kmol
         StandState Molar Volume at (T,P) of (723.15,101325) = 0.01817 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Molar Volume formulation for eos type 301 is not known to cttables
         NASA9 Polynomial format: 3 zones
                 0:  Temperature polynomials: 298 < T < 411:
                  1.624978846782997E+06   0.000000000000000E+00  -3.994274891572467E+01   1.258949069909696E-02
@@ -433,7 +433,7 @@ INFORMATION TABLE FOR SPECIES "VaS(B)" IN PHASE "Fe[1-x]S(S)"
         Maximum Temperature = 1300 K
         Partial    Molar Volume at (T,P) of (723.15,101325) = 0.01549 m3/kmol
         StandState Molar Volume at (T,P) of (723.15,101325) = 0.01549 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Molar Volume formulation for eos type 301 is not known to cttables
         SHOMATE Polynomial format: 2 zones
                Low  temperature polynomials: 298.15 < T < 368.3:
                  1.100700000000000E+01,  5.305800000000000E+01, -4.652600000000000E+01,  0.000000000000000E+00,
@@ -787,7 +787,7 @@ INFORMATION TABLE FOR Reaction "2" IN PHASE "metal_Li_LiCl_electrons"
               2Li[7/3]Fe[2/3]S2(A)          0.0000       0.000E+00       0.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "Fe[1-x]S(S)", with name, "Fe[1-x]S(S)", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "Fe[1-x]S(S)", with name, "Fe[1-x]S(S)", with eosType, "Margules"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 723.15 Kelvin

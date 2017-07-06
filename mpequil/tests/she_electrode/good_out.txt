@@ -357,11 +357,12 @@ Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
                OH-   1.80594e-09      1.00245e-07     -2.66735e+08   -2.26784e+08       0.999628
 
  
-  h2gas:
+  h2gas using EOS IdealGas:
  
        temperature          298.15  K
           pressure          101325  Pa
            density       0.0823972  kg/m^3
+      molar volume         24.4654  m^3/kmol
   mean mol. weight         2.01588  amu
  
                           1 kg            1 kmol
@@ -378,13 +379,14 @@ Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
                 H2              1                1         -15.7172
 
  
-  Pt_H2electrons:
+  Pt_H2electrons using EOS StoichSubstance:
  
        temperature          298.15  K
           pressure          101325  Pa
            density            2165  kg/m^3
+      molar volume     2.51732e-07  m^3/kmol
   mean mol. weight        0.000545  amu
-         potential       -0.414062  V
+electric potential       -0.414062  V
  
                           1 kg            1 kmol
                        -----------      ------------
