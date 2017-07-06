@@ -141,12 +141,8 @@ SolNonlinear::SolNonlinear() :
     m_num_newt_its(0),
     m_numTotalNewtIts(0),
     m_numTotalLinearSolves(0), 
-    m_numTotalConvFails(0), 
-    m_numTotalTruncFails(0), 
-    num_failures(0),
     m_frequencyResidWtUpdatesTD(10),
     m_maxAge(5),
-    m_elapsed(0.0), 
     mypid_(0)
 {
 }
@@ -1700,11 +1696,7 @@ SolNonlinear::setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghoste
     m_nJacEval = 0;
     m_numTotalNewtIts = 0;
     m_numTotalLinearSolves = 0;
-    m_numTotalConvFails = 0;
-    m_numTotalTruncFails = 0;
-    num_failures = 0;
     m_maxAge = 5;
-    m_elapsed = 0.0;
 }
 //==================================================================================================================================
 void

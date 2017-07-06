@@ -16,7 +16,7 @@
 #include "m1d_exception.h"
 
 #include "m1d_EpetraJac.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 //==================================================================================================================================
@@ -626,12 +626,12 @@ public:
 
     //! Set the values for the previous time step
     /*!
-     *   We set the values for the previous time step here. These are used in the nonlinear
-     *   solve because they affect the calculation of ydot.
+     *  We set the values for the previous time step here. These are used in the nonlinear
+     *  solve, because they affect the calculation of ydot.
      *
-     * @param timeStep  Time step between current time and previous time
-     * @param y_nm1     Value of the solution vector at the previous time step
-     * @param ydot_nm1  Value of the solution vector derivative at the previous time step
+     *  @param[in]           timeStep            Time step between current time and previous time
+     *  @param[in]           y_nm1               Value of the solution vector at the previous time step
+     *  @param[in]           ydot_nm1            Value of the solution vector derivative at the previous time step
      */
     virtual void
     setPreviousTimeStep(const double timeStep, const Epetra_Vector& y_nm1, const Epetra_Vector& ydot_nm1);
@@ -655,7 +655,7 @@ public:
      *  The residual weights are defined here to be equal to the inverse of the row scaling factors used to
      *  row scale the matrix, after column scaling is used. This routine returns the residual weights.
      *
-     * @param residWts  Returns the residual weights in a vector of length
+     *  @param[in]           residWts            Returns the residual weights in a vector of length
      */
     virtual void getResidWts(Epetra_Vector_Owned& residWts);
 
@@ -665,12 +665,11 @@ public:
      *  The variable names and node positions are printed along with the values.
      *
      *  This routine uses the member function showSolutionVector() of the
-     *  ProblemResidEval class, which does the layout printing. It can be used to
-     *  print to a file as well.
+     *  ProblemResidEval class, which does the layout printing. It can be used to print to a file as well.
      *
-     * @param header   Header that is printed out to
-     * @param v        Epetra vector -> Note only the owned elements are needed.
-     *                     (mp behavior hasn't been checked)
+     *  @param[in]           header              Header that is printed out to
+     *  @param[in]           v                   Epetra vector -> Note only the owned elements are needed.
+     *                                           (mp behavior hasn't been checked)
      */
     void print_SVector(std::string header, const Epetra_MultiVector& v) const;
 
@@ -732,6 +731,9 @@ public:
 private:
     //! Check to see if the nonlinear problem has converged
     /*!
+     *  @param[in]           dampCode            Code returned from the line solve damping algorithm
+     *
+     *  @param[in]           s1                  Predicted value of the normalized step size in the next nonlinear iteration
      *
      * @return integer is returned. If positive, then the problem has converged
      *           1 Successful step was taken: Next step's norm is less than 1.0.
@@ -783,7 +785,7 @@ protected:
      */
     int colScaleUpdateFrequency_;
 
-    //!  m_matrixConditioning is a boolean. 
+    //!  Boolean that turn son  matrix conditioning
     /*!
      *  If true, then the Jacobian and every rhs is multiplied by the inverse
      *  of a matrix that is suppose to rfeduce the condition number of the matrix. This is done before row scaling.
@@ -795,30 +797,37 @@ protected:
     
     //! Vector of absolute nonlinear solver truncation error tolerance when not uniform for all variables.
     /*!
-     *  only the owned nodes
+     *  only the owned unknowns
      */
     Epetra_Vector_Owned* m_abstol;
 
-    /**
-     * Error Weights. This is a surprisingly important quantity.
+    //! Solution error weighting vector
+    /*!
+     *  pointer to an Epetra_vector for owned unknowns
      */
     Epetra_Vector_Owned* m_ewt;
 
+    //! Solution delta damping weighting vector
+    /*!
+     *  pointer to an Epetra_vector for owned unknowns
+     */
     Epetra_Vector_Owned* m_ewt_deltaDamping;
+
+    //! Absolute tolerance criteria for delta damping
+    /*!
+     *  pointer to an Epetra_vector for owned unknowns
+     */
     Epetra_Vector_Owned* m_absTol_deltaDamping;
 
+    //! Pointer to the Epetra_Comm object
     const Epetra_Comm* Comm_ptr_;
 
-    /**
-     * Current integration order
-     */
+    //! Current integration order
     int m_order;
 
-    /**
-     * Failure Counter -> keeps track of the number
-     * of consequetive failures
-     */
+    //! Failure Counter -> keeps track of the number * of consequetive failures
     int m_failure_counter;
+
     /**
      * Minimum Number of Newton Iterations per nonlinear step
      * default = 0
@@ -831,8 +840,10 @@ protected:
     //! Age of the current jacobian
     int m_jacAge;
 
+    //! Number of linear iterations used to solve the linear system
     int m_curr_linearIts;
 
+    //! Norm of the solution for the linear system
     double m_curr_normLin;
 
     /****************************************************************************
@@ -848,16 +859,10 @@ protected:
     //! Toggle High Low Bounds Damping
     bool doHighLowDamping_;
 
-    /**
-     * Number of equations in the ode integrator on the
-     * current processor
-     */
+    //! Number of equations in the ode integrator on the current processor
     int m_NumLcEqns;
-
-    /**
-     * Number of equations in the ode integrator on the
-     * current processor that are owned by the current processor.
-     */
+    
+    //! Number of equations in the ode integrator on the current processor that are owned by the current processor.
     int m_NumLcOwnedEqns;
 
     //! Number of equations on all processors
@@ -871,13 +876,13 @@ protected:
     Epetra_Vector_Ghosted* m_y_curr;
 
     //! Value of the current solutionDot vector with only owned values
-    Epetra_Vector_Owned*   m_y_curr_owned;
+    Epetra_Vector_Owned* m_y_curr_owned;
 
     //! Value of the proposed new solution vector with ghost node values
     Epetra_Vector_Ghosted* m_y_new;
 
     //! Value of the proposed new solution vector with only owned values
-    Epetra_Vector_Owned*   m_y_new_owned;
+    Epetra_Vector_Owned* m_y_new_owned;
 
     //! Stored solution vector at the previous time step
     Epetra_Vector_Ghosted* m_y_nm1;
@@ -912,10 +917,7 @@ protected:
      *  METHOD OPTIONS FOR PRINTING ALGORITHM BEHAVIOR AND SOLUTION PROGRESS
      ********************************************************************************/
 
-    /**
-     * Dump Jacobians to disk
-     *     default false
-     */
+    //! Dump Jacobians to disk -  default false
     bool m_dumpJacobians;
 
     /*******************************************************************************
@@ -1000,7 +1002,7 @@ protected:
 
     //! Main step change variable
     /*!
-     *
+     *  Epectra vector for owned unknowns
      */
     Epetra_Vector_Owned* m_stp;
 
@@ -1010,7 +1012,10 @@ protected:
     //! Pointer to the Residual Function
     ProblemResidEval* m_func;
 
+    //! Epetra_Vector pointer  for  Vector of row scaling factors -  owned unknowns
     Epetra_Vector_Owned* m_rowScales;
+
+    //! Epetra_Vector pointer  for  Vector of column scaling factors -  owned unknowns
     Epetra_Vector_Owned* m_colScales;
 
     //! Boolean Vector indicating whether its algebraic
@@ -1019,57 +1024,35 @@ protected:
     //! Integer vector
     Epetra_IntVector* m_isArithmeticScaled;
 
+    //! Damping factor for the bounds algorithm
     double m_fbound;
+
     //! Current value of the damping factor
     double m_fdamp;
 
-
-    /**
-     * Pointer to the jacobian representing the
-     * time dependent problem
-     */
+    //! Pointer to the jacobian representing the time dependent problem
     EpetraJac* tdjac_ptr;
 
-    /**
-     * Number of function evaluations
-     */
+    //! Number of function evaluations
     int m_nfe;
-    /**
-     * Number of Jacobian Evaluations and
-     * factorization steps (they are the same)
-     */
+    
+    //! Number of Jacobian Evaluations and factorization steps (they are the same)
     int m_nJacEval;
 
     //! Number of newton its in the current solve
     int m_num_newt_its;
 
-    /**
-     * Number of total newton iterations
-     */
+    //!  Number of total newton iterations
     int m_numTotalNewtIts;
-    /**
-     * Total number of linear iterations
-     */
+
+    //! Total number of linear iterations
     int m_numTotalLinearSolves;
-    /**
-     * Total number of convergence failures.
-     */
-    int m_numTotalConvFails;
-    /**
-     * Total Number of time truncation error failures
-     */
-    int m_numTotalTruncFails;
-    /*
-     *
-     */
-    int num_failures;
 
     //! Freqency of residual updates
     int m_frequencyResidWtUpdatesTD;
 
+    //! Maximum value of the jacobian age (unused atm)
     int m_maxAge;
-    int m_nv, m_np, m_n;
-    double m_elapsed;
 
     /***********************************************************************************************
      *   INTERNAL COMMUNICATORS
@@ -1083,10 +1066,10 @@ public:
      *   Dump the jacobian if true and print level is >= 7
      */
     static bool s_print_NumJac;
-
 };
-
+//==================================================================================================================================
 } // namespace
+//----------------------------------------------------------------------------------------------------------------------------------
 
 
 #endif
