@@ -19,6 +19,10 @@
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
+    <state>
+         <temperature> 1000.0 </temperature>
+         <pressure> 100000. </pressure>
+    </state>
   </phase>
 
  <!-- species definitions     -->
@@ -27,14 +31,16 @@
   
     <species name="LiFixed">
       <atomArray> Li:1 </atomArray>
+      <standardState model="constantVolume">
+          <molarVolume> 0.0 </molarVolume>
+      </standardState>
       <thermo>
-        <Shomate Pref="1 atm" Tmax="1075.0" Tmin="250.0">
-          <floatArray size="7">
-           50.72389, 6.672267, -2.517167,
-           10.15934, -0.200675, -427.2115,
-           130.3973
-          </floatArray>
-        </Shomate>
+        <const_cp  Pref="1 bar" Tmax="1075.0" Tmin="250.0">
+           <t0 units="K"> 1000. </t0>
+           <h0 units="kJ/mol">  -2.3E1  </h0>
+           <s0 units="J/mol/K">  0.0  </s0>
+           <cp0 units="J/mol/K"> 0.0 </cp0>
+        </const_cp>
       </thermo>
     </species>
 

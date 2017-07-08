@@ -17,7 +17,7 @@ DebugPrinting = true
  => DebugPrinting = true
  ====> DebugPrinting = 1
 Bath Temperature = 1000.
-Bath Pressure = 1.0 atm
+Bath Pressure = 1.0 bar 
 Output Units = KJoule
 !-----------------------------------------------------------------
 !  Add Chemical Potential Column = [ true ] [ false ]
@@ -56,9 +56,9 @@ DebugPrinting = true
 Bath Temperature = 1000.
  => Bath Temperature = 1000.
  ====> BG.Temperature = 1000
-Bath Pressure = 1.0 atm
- => Bath Pressure = 1.0 atm
- ====> BG.Pressure = 101325
+Bath Pressure = 1.0 bar 
+ => Bath Pressure = 1.0 bar
+ ====> BG.Pressure = 100000
 Output Units = KJoule
  => Output Units = KJoule
  ====> OutputUnits = KJoule, list item 1
@@ -102,13 +102,13 @@ Bath Species set to LiFixed
      ====================================================================================================
       Bath Composition for Phase id, "LiFixed", with name, "LiFixed", with eosType, "FixedChemPot"
      
-        Total pressure = 760 torr 
+        Total pressure = 750.062 torr 
         Temperature (where needed) = 1000 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = LiFixed
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1         LiFixed          1.0000       1.441E-07       1.000E+00
+              1         LiFixed          1.0000       1.441E+96       1.000E+00
           ------------------------------------------------------------------------------
 EOS type = 70
 PrintOut of Phase, "LiFixed", using Generic Thermodynamics Functions:
@@ -124,21 +124,19 @@ INFORMATION TABLE FOR SPECIES "LiFixed" IN PHASE "LiFixed"
         Molecular Weight = 6.941 gm/mol
         Heat of formation (298.15K) = -23.000000  kJ/gmol 
         DeltaGf (298.15K) = -14.328307  kJ/gmol 
-                Phase and Species Reference Pressure = 101325 Pa
+                Phase and Species Reference Pressure = 100000 Pa
         Minimum Temperature = 250 K
         Maximum Temperature = 1075 K
-        Partial    Molar Volume at (T,P) of (1000,101325) = 0 m3/kmol
-        StandState Molar Volume at (T,P) of (1000,101325) = 0 m3/kmol
+        Partial    Molar Volume at (T,P) of (1000,100000) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (1000,100000) = 0 m3/kmol
         Molar Volume formulation for eos type 70 is not known to cttables
-        SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 250 < T < 1075:
-                 5.072389000000000E+01,  6.672267000000000E+00, -2.517167000000000E+00,  1.015934000000000E+01,
-                -2.006750000000000E-01, -4.272115000000000E+02,  1.303973000000000E+02
-               High temperature polynomials: 1075 < T < 1075:
-                 5.072389000000000E+01,  6.672267000000000E+00, -2.517167000000000E+00,  1.015934000000000E+01,
-                -2.006750000000000E-01, -4.272115000000000E+02,  1.303973000000000E+02
+        CONSTANT_CP format:
+                Valid Range: 250 < T < 1075:
+                at T =  1000 K, H  =  -2.300000000000000E+07 J kmol-1
+                                S  =   0.000000000000000E+00 J kmol-1 K-1
+                                Cp =   0.000000000000000E+00 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+05 Pa -----------------|
+|------------ Thermo Functions for Reference Pressure       1e+05 Pa -----------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |   (kJ/gmol)      (kJ/gmol)      (J/gmol*K)    (J/gmol*K) | (kJ/gmol)    |
@@ -156,6 +154,6 @@ INFORMATION TABLE FOR SPECIES "LiFixed" IN PHASE "LiFixed"
 |** 1200.00*|     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
 |** 1300.00*|     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
 |** 1400.00*|     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
-|** 1500.00*|    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
+|** 1500.00*|     0.0000          0.0000         0.0000       0.0000   |     -23.0000 | 
 |** 1600.00*|    -0.0000         -0.0000         0.0000       0.0000   |     -23.0000 | 
 ---------------------------------------------------------------------------------------

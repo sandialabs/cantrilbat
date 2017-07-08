@@ -22,7 +22,7 @@ BLESSED_FILES = good_out.txt vcs_equilibrate_blessed.csv
 BLESSED_DEBUG_FILES = good_dout.txt vcs_equilibrate_blessed.csv 
 
 DATA = mpequil.inp problem_setup.sh \
-       Calomel.xml  HMW_KCl.xml  KCl_solid.xml  Mercury_liquid.xml  Metal_SHEelectrons.xml  MetalSHEelectrons.xml
+       Calomel.xml  HMW_KCl.xml  KCl_solid.xml  Mercury_liquid.xml   MetalSHEelectrons.xml
 
 all:   mpequil
 

@@ -6,7 +6,7 @@ Cantera File Name = LiFixed.xml
 
 DebugPrinting = true
 Bath Temperature = 1000.
-Bath Pressure = 1.0 atm
+Bath Pressure = 1.0 bar 
 Output Units = KJoule
 !-----------------------------------------------------------------
 !  Add Chemical Potential Column = [ true ] [ false ]
