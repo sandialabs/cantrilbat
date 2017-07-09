@@ -3,7 +3,7 @@ Temperature  =        2000 kelvin
 Pressure     =  1.0132e+05 Pascal
 Total Volume =      295.46 m**3
 Number Basis optimizations = 5
-Number VCS iterations = 21
+Number VCS iterations = 24
         Name,       Phase,  PhaseMoles,  Mole_Fract,  Molalities,   ActCoeff,    Activity,  ChemPotSS0,     ChemPot,   mole_num,       PMVol, Phase_Volume
             ,            ,      (kmol),            ,            ,           ,            ,    (J/kmol),    (J/kmol),     (kmol), (m**3/kmol),       (m**3)
           H2,   gri30_mix,   1.800e+00,   4.433e-01,   0.000e+00,   1.000e+00,   4.433e-01,  -3.239e+02,  -3.374e+02,  7.982e-01,   1.641e+02,   2.955e+02

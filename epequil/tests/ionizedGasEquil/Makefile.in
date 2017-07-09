@@ -51,7 +51,7 @@ DEPENDS=$(OBJS:.o=.d)
 # Program Name
 PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
-all: $(PROGRAM) .depends .dependsT
+all: $(PROGRAM) .dependsT
 
 $(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
@@ -86,7 +86,6 @@ rebaseline:
 	$(RM) *blessed*
 	$(PROGRAM) > output_blessed.txt
 	rename .csv _blessed.csv *.csv
-
 
 #############################################################################
 #          DEPENDS RULES
