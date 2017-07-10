@@ -405,21 +405,19 @@ public:
     virtual void
     setPredicted_soln(const Epetra_Vector_Ghosted& y_pred) override;
 
-    //!    L2 Weighted Norm of a delta in the solution
+    //! L2 Weighted Norm of a delta in the solution
     /*!
-     *   The vector m_ewt[i]'s are always used to weight the solution errors in
-     *   the calculation.
+     *  The vector m_ewt[i]'s are always used to weight the solution errors in the calculation.
      *
-     *   The second argument has a default of false. However,
-     *   if true, then a table of the largest values is printed
-     *   out to standard output.
+     *  The second argument has a default of false. However,
+     *  if true, then a table of the largest values is printed  out to standard output.
      *
-     *   @param delta_y  Norm of a delta of the solution vector
-     *   @param printLargest if True a table is printed of the largest contributors.
-     *   @param title      Printed out on the title line
-     *   @param typeYsoln  Parameter indicating whether m_y_curr[] is currently
-     *                     evaluated before the delta or after the delta has been implemented.
-     *   @param dampFactor Damping factor that will be applied to delta_y before creating a new ysoln
+     *  @param[in]           delta_y             Norm of a delta of the solution vector
+     *  @param[in]           printLargest        if True a table is printed of the largest contributors.
+     *  @param[in]           title               Printed out on the title line
+     *  @param[in]           typeYsoln           Parameter indicating whether m_y_curr[] is currently
+     *                                           evaluated before the delta or after the delta has been implemented.
+     *  @param[in]           dampFactor          Damping factor that will be applied to delta_y before creating a new ysoln
      */
     virtual double
     soln_error_norm(const Epetra_Vector_Owned& delta_y,
@@ -444,83 +442,109 @@ public:
     virtual double
     res_error_norm(const Epetra_Vector_Owned& resid, const char* title = 0, const int printLargest = 0) const;
 
-    //!  Function called by SolNonlinear to evaluate the Jacobian matrix and the
+    //! Function called by SolNonlinear to evaluate the Jacobian matrix and the rhs
     /*!
      *
-     * @param jac
-     * @param doTimeDependentResid
-     * @param time_curr
-     * @param rdelta_t
-     * @param solnBase_ptr
-     * @param solnDotBase_ptr
-     * @return
+     *  @param[out]          jac                 Returns the calculated jacobian
+     *  @param[out]          res                 Returns the calculated residual vector
+     *  @param[in]           doTimeDependentResid  True if we are doing a time dependent residual
+     *  @param[in]           time_curr           Current time
+     *  @param[in]           rdelta_t            one over the current deltaT value
+     *  @param[in]           solnBase_ptr        Current value of the solution, ghosted Epetra vector
+     *  @param[in]           solnDotBase_ptr     Ghosted Epetra vector ptr to the current value of the solution dot
+     *
+     *  @return                                  Returns 0
      */
     int
-    get_jac(EpetraJac& jac,
-            Epetra_Vector_Owned* res,
-            const bool doTimeDependentResid,
-            double time_curr,
-            double rdelta_t,
-            const Epetra_Vector_Ghosted* solnBase_ptr,
-            const Epetra_Vector_Ghosted* solnDotBase_ptr);
+    get_jac(EpetraJac& jac, Epetra_Vector_Owned* const res,
+            const bool doTimeDependentResid, double time_curr, double rdelta_t,
+            const Epetra_Vector_Ghosted* const solnBase_ptr, const Epetra_Vector_Ghosted* const solnDotBase_ptr);
 
-    //! get the residual
+    //! Evaluate the residual at the current conditions
     /*!
+     *  The evaluated residual is stored in the internal vector, m_resid.
      *
-     * @param time_curr
-     * @param rdelta_t
-     * @param solnBase_ptr
-     * @param solnDotBase_ptr
+     *  @param[in]           time_curr           Current value of the time
+     *  @param[in]           rdelta_t            one over the current deltaT value
+     *  @param[in]           solnBase_ptr        ptr to Ghosted Epetra vector containing the current value of the solution
+     *  @param[in]           solnDotBase_ptr     ptro to Ghosted Epetra vector containing the current value of the solution dot
      */
     virtual void
-    get_res(const double time_curr,
-            const double rdelta_t,
-            const Epetra_Vector_Ghosted* solnBase_ptr,
-            const Epetra_Vector_Ghosted* solnDotBase_ptr);
+    get_res(const double time_curr, const double rdelta_t, const Epetra_Vector_Ghosted* const solnBase_ptr, 
+            const Epetra_Vector_Ghosted* const solnDotBase_ptr) override;
 
 public:
 
     //! Main routine to launch a nonlinear solve at the current conditions
     //! whether it's a steady state solve or a time-dependent run.
-    virtual int
-    solve_nonlinear_problem(Solve_Type_Enum solveType,
-                            Epetra_Vector_Ghosted* y_comm,
-                            Epetra_Vector_Ghosted* ydot_comm,
-                            double CJ,
-                            double time_curr,
-                            int& num_newt_its,
-                            int& num_linear_solves,
-                            int& num_backtracks);
-
-    //!  Scale the matrix.
     /*!
-     * @param delta_soln
-     * @param y_curr
-     * @param ydot_curr
-     * @param time_curr
-     * @param rdelta_t
-     * @param loglevel
+     *   Find the solution to F(X) = 0 by damped Newton iteration.  On
+     *   entry, y_comm contains an initial estimate of the solution.  On successful return, y_comm contains the converged solution.
+     *
+     *  @param[in]           solveType           = TRANSIENT -> we will assume we are relaxing a transient equation system for now.
+     *                                                          Will make it more general later,if an application comes up.
+     *                                           = DAEINIT Solve the initial conditions problem for a DAE system.
+
+     *  @param[in,out]       y_comm              ptr to Ghosted Epetra vector containing the current value of the solution
+     *  @param[in,out]       ydot_comm           ptr to Ghosted Epetra vector containing the current value of the solution dot
+     *  @param[in]           CJ                  Proportionality factor between the dependence of ydot on the solution y.
+     *                                           (Comes from the BDF formulas).
+     *  @param[in]           time_curr           Current value of the time
+     *  @param[out]          num_newt_its        Number of newton iterations it took to solve the system
+     *  @param[out]          num_linear_solves   Number of linear solution steps it took during the linear solves
+     *  @param[out]          num_backtracks      Number of back tracks along line searches taken to solve the system.
+     *
+     *  @return                                  Return code:
+     *                                             1 :  Successful step was taken: Next step was less than previous step.
+     *                                                  s1 is calculated
+     *                                             2 :  Successful step: Next step's norm is less than 0.8
+     *                                             3 :  Success:  The final residual is less than 1.0
+     *                                                  A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                             4 :  Success:  The final residual is less than the residual
+     *                                                  from the previous step.
+     *                                                  A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                             1 :  Nonlinear problem solved successfully.
+     *
+     *                                            -1 :  We ran out of the allowed newton iterations. Nothing happened
+     *                                                  that was a show stopper. We just ran out of iterations
+     *                                                  Return the current solution as the best case.
+     *                                            -2 :
+     *                                            -3 :  We ran into a hard bounds problem. This is a show stopper, because
+     *                                                  it is a hard bounds. This usually indicates that the either the nonlinear
+     *                                                  solution path veers into prohibited territory before settling down into
+     *                                                  valid territory, or, it may mean that there is sufficient round off error
+     *                                                  from ill-conditioning that the step goes into prohibited territory.
+     */
+    virtual int
+    solve_nonlinear_problem(Solve_Type_Enum solveType, Epetra_Vector_Ghosted* const y_comm,
+                            Epetra_Vector_Ghosted* const ydot_comm, double CJ, double time_curr,
+                            int& num_newt_its, int& num_linear_solves, int& num_backtracks) override;
+
+    //!  Scale the matrix using column scaling and row scaling
+    /*!
+     *  @param               delta_soln          Unused
+     *  @param[in]           y_curr              Ghosted Epetra vector containing the current value of the solution
+     *  @param[in]           ydot_curr           Ghosted Epetra vector containing the current value of the solution dot
+     *  @param[in]           time_curr           current time
+     *  @param[in]           rdelta_t            One over the value of deltaT
+     *  @param[in]           loglevel            Log level
      */
     virtual void
-    scaleMatrix(Epetra_Vector_Owned& delta_soln,
-                const Epetra_Vector_Ghosted& y_curr,
-                const Epetra_Vector_Ghosted& ydot_curr,
-                const double time_curr,
-                const double rdelta_t,
-                int loglevel);
+    scaleMatrix(Epetra_Vector_Owned& delta_soln, const Epetra_Vector_Ghosted& y_curr, const Epetra_Vector_Ghosted& ydot_curr,
+                const double time_curr, const double rdelta_t, int loglevel) override; 
 
     //! Compute the undamped Newton step.
     /*!
-     * @param delta_soln
-     * @param y_curr
-     * @param ydot_curr
-     * @param time_curr
-     * @param rdelta_t
-     * @param loglevel
+     *  @param[out]          delta_soln          Owned Epetra vector containing computed the delta_soln update
+     *  @param[in]           y_curr              Ghosted Epetra vector containing the current value of the solution
+     *  @param[in]           ydot_curr           Ghosted Epetra vector containing the current value of the solution dot
+     *  @param[in]           time_curr           Current time
+     *  @param[in]           rdelta_t            One over the value of deltaT
+     *  @param[in]           loglevel            log level
      */
     virtual void
     doNewtonSolve(Epetra_Vector_Owned& delta_soln, const Epetra_Vector& y_curr, const Epetra_Vector& ydot_curr,
-                  const double time_curr, const double rdelta_t, int loglevel);
+                  const double time_curr, const double rdelta_t, int loglevel) override;
 
     //! Attempt to find a damping step using a line search algorithm that leads to a better solution
     /*!
@@ -570,7 +594,6 @@ public:
     int dampStep(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double& s1,
                  int& loglevel, int& num_backtracks);
 
-
     //! Attempt to find a damping step that leads to a better solution
     /*!
      *  On entry, the member variable m_stp  contains an undamped Newton step for the solution (y0, ydot0_ptr). 
@@ -599,21 +622,20 @@ public:
     int dampStep_alt(double time_curr, const Epetra_Vector& y0, const Epetra_Vector* ydot0_ptr, double& s1, int& loglevel,
                      int& num_backtracks);
 
-
     //! Set the column scales used in the program
     /*!
      *
      * @param colScales
      */
     virtual void
-    setColumnScaleVector(const Epetra_Vector_Owned& colScales);
+    setColumnScaleVector(const Epetra_Vector_Owned& colScales) override;
 
     //! Set the column scaling vector at the current time
     /*!
      * The column scales are set equal to the current value of the weighting vector
      */
     virtual void
-    setDefaultColumnScaleVector();
+    setDefaultColumnScaleVector() override;
 
     //! return the column scales used in the program
     /*!
@@ -622,7 +644,7 @@ public:
      * @return returns true if column scaling is being used
      */
     virtual bool
-    getColumnScaleVector(Epetra_Vector_Owned& colScales) const;
+    getColumnScaleVector(Epetra_Vector_Owned& colScales) const override;
 
     //! Set the values for the previous time step
     /*!
@@ -634,7 +656,7 @@ public:
      *  @param[in]           ydot_nm1            Value of the solution vector derivative at the previous time step
      */
     virtual void
-    setPreviousTimeStep(const double timeStep, const Epetra_Vector& y_nm1, const Epetra_Vector& ydot_nm1);
+    setPreviousTimeStep(const double timeStep, const Epetra_Vector& y_nm1, const Epetra_Vector& ydot_nm1) override;
 
     //! Compute the Residual Weights
     /*!
@@ -648,7 +670,7 @@ public:
      *  When the tolerance in delta x is achieved, the tolerance in the residual is also achieved.
      */
     virtual void
-    computeResidWts();
+    computeResidWts() override;
 
     //! Get the Residual Weights
     /*!
@@ -657,7 +679,7 @@ public:
      *
      *  @param[in]           residWts            Returns the residual weights in a vector of length
      */
-    virtual void getResidWts(Epetra_Vector_Owned& residWts);
+    virtual void getResidWts(Epetra_Vector_Owned& residWts) override;
 
     //! Print a solution-like vector in a form that is easy to interpret
     /*!
@@ -722,11 +744,10 @@ public:
      *      ydot_curr[]   - Current acceleration vector at time n
      *
      * Note we use the current attribute to denote the possibility that
-     * y_curr[] may not be equal to m_y_n[] during the nonlinear solve
-     * because we may be using a look-ahead scheme.
+     * y_curr[] may not be equal to m_y_n[] during the nonlinear solve because we may be using a look-ahead scheme.
      */
     virtual void
-    calc_ydot(int order, const Epetra_Vector& y_curr, Epetra_Vector& ydot_curr);
+    calc_ydot(int order, const Epetra_Vector& y_curr, Epetra_Vector& ydot_curr) override;
 
 private:
     //! Check to see if the nonlinear problem has converged
@@ -735,21 +756,21 @@ private:
      *
      *  @param[in]           s1                  Predicted value of the normalized step size in the next nonlinear iteration
      *
-     * @return integer is returned. If positive, then the problem has converged
-     *           1 Successful step was taken: Next step's norm is less than 1.0.
-     *                                        The final residual norm is less than 1.0.
-     *           2 Successful step: Next step's norm is less than 0.8.
-     *                              This step's norm is less than 1.0.
-     *                              The residual norm can be anything.
-     *           3 Success:  The final residual is less than 1.0
-     *                        The predicted deltaSoln is below 1.0.
-     *           0 Uncertain Success: s1 is about the same as s0
+     *  @return                                  integer is returned. If positive, then the problem has converged
+     *                                            1 : Successful step was taken: Next step's norm is less than 1.0.
+     *                                                The final residual norm is less than 1.0.
+     *                                            2 : Successful step: Next step's norm is less than 0.8.
+     *                                                This step's norm is less than 1.0.
+     *                                                The residual norm can be anything.
+     *                                            3 : Success:  The final residual is less than 1.0
+     *                                                The predicted deltaSoln is below 1.0.
+     *                                            0 : Uncertain Success: s1 is about the same as s0
      */
     int
-    convergenceCheck(int m, double s1);
+    convergenceCheck(int dampCode, double s1);
 
 protected:
-    /************************************************ Member data ***********************************/
+    // ----------------------------------------------------------- MEMBER DATA -----------------------------------------
     /*********************
      * METHOD FLAGS
      *********************/

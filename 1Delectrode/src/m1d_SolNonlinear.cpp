@@ -439,18 +439,13 @@ SolNonlinear::res_error_norm(const Epetra_Vector_Owned& resid, const char* title
     }
     return sum_norm;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 int
-SolNonlinear::get_jac(EpetraJac& jac,
-                      Epetra_Vector_Owned* res,
-                      const bool doTimeDependentResid,
-                      double time_curr,
-                      double rdelta_t,
-                      const Epetra_Vector_Ghosted* solnBase_ptr,
-                      const Epetra_Vector_Ghosted* solnDotBase_ptr)
+SolNonlinear::get_jac(EpetraJac& jac, Epetra_Vector_Owned* const res,
+                      const bool doTimeDependentResid, double time_curr, double rdelta_t,
+                      const Epetra_Vector_Ghosted* solnBase_ptr, const Epetra_Vector_Ghosted* solnDotBase_ptr)
 {
     m_nfe++;
-
     jac.matrixResEval(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, res, time_curr, rdelta_t, solnType_);
     // Only print the residual and matrix if print flag is high and static bool is set to true
     if (m_print_flag >= 7 && s_print_NumJac) {
@@ -474,28 +469,20 @@ SolNonlinear::get_jac(EpetraJac& jac,
 }
 //==================================================================================================================================
 void
-SolNonlinear::get_res(const double time_curr,
-                      const double rdelta_t,
-                      const Epetra_Vector_Ghosted* solnBase_ptr,
-                      const Epetra_Vector_Ghosted* solnDotBase_ptr)
+SolNonlinear::get_res(const double time_curr, const double rdelta_t,
+                      const Epetra_Vector_Ghosted* solnBase_ptr, const Epetra_Vector_Ghosted* solnDotBase_ptr)
 {
     m_func->residEval(m_resid, doTimeDependentResid_, solnBase_ptr, solnDotBase_ptr, time_curr, rdelta_t, Base_ResidEval,
                       solnType_);
     m_nfe++;
     m_resid_scaled = false;
 }
-
 //===================================================================================================================================
 void
-SolNonlinear::scaleMatrix(Epetra_Vector_Owned& delta_soln,
-                          const Epetra_Vector_Ghosted& y_curr,
-                          const Epetra_Vector_Ghosted& ydot_curr,
-                          const double time_curr,
-                          const double rdelta_t,
-                          int loglevel)
+SolNonlinear::scaleMatrix(Epetra_Vector_Owned& delta_soln, const Epetra_Vector_Ghosted& y_curr,
+                          const Epetra_Vector_Ghosted& ydot_curr, const double time_curr, const double rdelta_t, int loglevel)
 {
     EpetraJac& jac = *tdjac_ptr;
-
     /*
      * Column scaling -> We scale the columns of the Jacobian
      * by the nominal important change in the solution vector
@@ -514,7 +501,6 @@ SolNonlinear::scaleMatrix(Epetra_Vector_Owned& delta_soln,
             jac.columnScale(m_colScales);
         }
     }
-
     /*
      * row sum scaling -> Note, this is an unequivocal success
      *      at keeping the small numbers well balanced and nonnegative.
@@ -549,18 +535,13 @@ SolNonlinear::scaleMatrix(Epetra_Vector_Owned& delta_soln,
 //===================================================================================================================================
 //  Compute the undamped Newton step.
 /*
- * The residual function is
- * evaluated at the current time, time_curr, at the current values of the
- * solution vector, y_curr, and the solution time derivative, ydot_curr,
- * but the Jacobian is not recomputed.
+ * The residual function is evaluated at the current time, time_curr, at the current values of the
+ * solution vector, y_curr, and the solution time derivative, ydot_curr, but the Jacobian is not recomputed.
  */
 void
-SolNonlinear::doNewtonSolve(Epetra_Vector_Owned& delta_soln,
-                            const Epetra_Vector_Ghosted& y_curr,
-                            const Epetra_Vector_Ghosted& ydot_curr,
-                            const double time_curr,
-                            const double rdelta_t,
-                            int loglevel)
+SolNonlinear::doNewtonSolve(Epetra_Vector_Owned& delta_soln, const Epetra_Vector_Ghosted& y_curr,
+                            const Epetra_Vector_Ghosted& ydot_curr, const double time_curr,
+                            const double rdelta_t, int loglevel)
 {
     EpetraJac& jac = *tdjac_ptr;
     int irow;
@@ -1890,9 +1871,8 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
          *  On return the recommended new solution and derivative is located in:
          *          m_y_new
          *          m_y_dot_new
-         *  The estimate of the solution update norm for the next step is located in
-         *          s1
-         * @return   1 Successful step was taken: Next step was less than previous step.
+         *  The estimate of the solution update norm for the next step is located in s1
+         *  @return  1 Successful step was taken: Next step was less than previous step.
          *                                        s1 is calculated
          *           2 Successful step: Next step's norm is less than 0.8
          *           3 Success:  The final residual is less than 1.0
@@ -1934,12 +1914,13 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
                     printf("\t   ... Minimum newton iterations not attained ...\n");
                 }
             }
+            // Set the flag m to indicate we need to do another Newton Step
             if (m > 0) {
                 m = 0;
             }
         }
         /*
-         * Impose max newton iteration
+         * Impose max newton iteration limits. Set m to -1 to indicate failure to converge.
          */
         if (m_num_newt_its > maxNewtIts_) {
             m = -1;
@@ -1953,6 +1934,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
             res_error_norm(*m_resid, ResS.c_str(), 10);
         }
 
+        // Check for the convergence criteria, return a boolean
         convRes = 0;
         if (m > 0) {
             convRes = convergenceCheck(m, s1);

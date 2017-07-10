@@ -327,7 +327,7 @@ public:
      */
     void setPrintFlag(int print_flag);
 
-    //!  Supply a predicted solution which will be used to help set up the solution weights
+    //! Supply a predicted solution which will be used to help set up the solution weights
     /*!
      *  (virtual from SolGlobalNonlinear)
      *
@@ -338,64 +338,100 @@ public:
     virtual void 
     setPredicted_soln(const Epetra_Vector_Ghosted& y_pred);
 
-    //!    L2 Weighted Norm of a delta in the solution
+    //! L2 Weighted Norm of a delta in the solution
     /*!
-     *   The vector m_ewt[i]'s are always used to weight the solution errors in
-     *   the calculation.
+     *  The vector m_ewt[i]'s are always used to weight the solution errors in the calculation.
      *
-     *   The second argument has a default of false. However,
-     *   if true, then a table of the largest values is printed
-     *   out to standard output.
+     *  The second argument has a default of false. However,
+     *  if true, then a table of the largest values is printed  out to standard output.
      *
-     *   @param delta_y  Norm of a delta of the solution vector
-     *   @param printLargest if True a table is printed of the largest contributors.
-     *   @param title      Printed out on the title line
-     *   @param typeYsoln  Parameter indicating whether m_y_curr[] is currently
-     *                     evaluated before the delta or after the delta has been implemented.
-     *   @param dampFactor Damping factor that will be applied to delta_y before creating a new ysoln
+     *  @param[in]           delta_soln          Norm of a delta of the solution vector
+     *  @param[in]           printLargest        if True a table is printed of the largest contributors.
+     *  @param[in]           title               Printed out on the title line
+     *  @param[in]           typeYsoln           Parameter indicating whether m_y_curr[] is currently
+     *                                           evaluated before the delta or after the delta has been implemented.
+     *  @param[in]           dampFactor          Damping factor that will be applied to delta_y before creating a new ysoln
+     *
+     *  @return                                  L2 weighted norm of the solution update vector
      */
     virtual double
     soln_error_norm(const Epetra_Vector& delta_y, const bool printLargest = false, const char* title = 0,
                     const int typeYsoln = 1, const double dampFactor = 1.0) const;
 
-    //!    L2 Weighted Norm of the residual
+    //!  L2 Weighted Norm of the residual
     /*!
-     *   The vector m_residWt[i]'s are always used to weight the solution errors in
-     *   the calculation.
+     *   The vector m_residWt[i]'s are always used to weight the solution errors in the calculation.
      *
-     *   The second argument has a default of false. However,
-     *   if true, then a table of the largest values is printed
+     *   The second argument has a default of false. However, if true, then a table of the largest values is printed
      *   out to standard output.
      *
-     *   @param delta_y  Norm of a delta of the solution vector
-     *   @param title      Printed out on the title line
-     *   @param printLargest if True a table is printed of the largest contributors.
+     *   @param[in]          resid               Owned Epetra vector reference containing the computed residual
+     *   @param[in]          title               Printed out on the title line
+     *   @param[in]          printLargest        if True a table is printed of the largest contributors.
+     *
+     *   @return                                 L2 weighted norm of the residual vector
      */
     virtual double
     res_error_norm(const Epetra_Vector_Owned& resid, const char* title = 0, const int printLargest = 0) const;
 
-
-    //! get the residual
+   //! Evaluate the residual at the current conditions
     /*!
+     *  The evaluated residual is stored in the internal vector, m_resid.
      *
-     * @param time_curr
-     * @param rdelta_t
-     * @param solnBase_ptr
-     * @param solnDotBase_ptr
+     *  @param[in]           time_curr           Current value of the time
+     *  @param[in]           rdelta_t            one over the current deltaT value
+     *  @param[in]           solnBase_ptr        ptr to Ghosted Epetra vector containing the current value of the solution
+     *  @param[in]           solnDotBase_ptr     ptro to Ghosted Epetra vector containing the current value of the solution dot
      */
     virtual void
-    get_res(const double time_curr,
-            const double rdelta_t,
-            const Epetra_Vector_Ghosted* solnBase_ptr,
-            const Epetra_Vector_Ghosted* solnDotBase_ptr);
+    get_res(const double time_curr, const double rdelta_t,
+            const Epetra_Vector_Ghosted* const solnBase_ptr, const Epetra_Vector_Ghosted* const solnDotBase_ptr);
 
 public:
 
     //! Main routine to launch a nonlinear solve at the current conditions
     //! whether it's a steady state solve or a time-dependent run.
+    /*!
+     *   Find the solution to F(X) = 0 by damped Newton iteration.  On
+     *   entry, y_comm contains an initial estimate of the solution.  On successful return, y_comm contains the converged solution.
+     *
+     *  @param[in]           solveType           = TRANSIENT -> we will assume we are relaxing a transient equation system for now.
+     *                                                          Will make it more general later,if an application comes up.
+     *                                           = DAEINIT Solve the initial conditions problem for a DAE system.
+
+     *  @param[in,out]       y_comm              ptr to Ghosted Epetra vector containing the current value of the solution
+     *  @param[in,out]       ydot_comm           ptr to Ghosted Epetra vector containing the current value of the solution dot
+     *  @param[in]           CJ                  Proportionality factor between the dependence of ydot on the solution y.
+     *                                           (Comes from the BDF formulas).
+     *  @param[in]           time_curr           Current value of the time
+     *  @param[out]          num_newt_its        Number of newton iterations it took to solve the system
+     *  @param[out]          num_linear_solves   Number of linear solution steps it took during the linear solves
+     *  @param[out]          num_backtracks      Number of back tracks along line searches taken to solve the system.
+     *
+     *  @return                                  Return code:
+     *                                             1 :  Successful step was taken: Next step was less than previous step.
+     *                                                  s1 is calculated
+     *                                             2 :  Successful step: Next step's norm is less than 0.8
+     *                                             3 :  Success:  The final residual is less than 1.0
+     *                                                  A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                             4 :  Success:  The final residual is less than the residual
+     *                                                  from the previous step.
+     *                                                  A predicted deltaSoln is not produced however. s1 is estimated.
+     *                                             1 :  Nonlinear problem solved successfully.
+     *
+     *                                            -1 :  We ran out of the allowed newton iterations. Nothing happened
+     *                                                  that was a show stopper. We just ran out of iterations
+     *                                                  Return the current solution as the best case.
+     *                                            -2 :
+     *                                            -3 :  We ran into a hard bounds problem. This is a show stopper, because
+     *                                                  it is a hard bounds. This usually indicates that the either the nonlinear
+     *                                                  solution path veers into prohibited territory before settling down into
+     *                                                  valid territory, or, it may mean that there is sufficient round off error
+     *                                                  from ill-conditioning that the step goes into prohibited territory.
+     */
     virtual int
-    solve_nonlinear_problem(Solve_Type_Enum solveType, Epetra_Vector_Ghosted* y_comm,
-                            Epetra_Vector_Ghosted* ydot_comm, double CJ,
+    solve_nonlinear_problem(Solve_Type_Enum solveType, Epetra_Vector_Ghosted* const y_comm,
+                            Epetra_Vector_Ghosted* const ydot_comm, double CJ,
                             double time_curr, int& num_newt_its, int& num_linear_solves, int& num_backtracks);
 
     //!  Scale the matrix.
