@@ -57,7 +57,7 @@ static void print_line(const char *str, int n)
  * Cantera Error handler in the initialization list
  */
 BEulerErr::BEulerErr(std::string msg) :
-        CanteraError("BEulerInt", msg)
+        ZuzaxError("BEulerInt", msg)
 {
 }
 //=====================================================================================================================
@@ -234,7 +234,6 @@ void BEulerInt::setTimeRegionBoundaries(const std::vector<double>& timeRegionBou
     m_currentTimeRegion = 0;
     m_func->m_numTimeRegions = m_numTimeRegions;
     m_func->m_currentTimeRegion = m_currentTimeRegion;
-
 }
 //=====================================================================================================================
 void BEulerInt::setTimeRegion(double time, int iregion)

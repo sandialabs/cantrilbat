@@ -301,24 +301,24 @@ public:
      */
     void
     print_solnDelta_norm_contrib(const Epetra_Vector& solnDelta0, const char* const s0,
-                                 const Epetra_Vector& soln1, const char* const s1,
+                                 const Epetra_Vector& solnDelta1, const char* const s1,
                                  const char* const title, const Epetra_Vector& y0, const Epetra_Vector& y1,
                                  double damp, int num_entries);
 
     //!  Update the solution vector using the step change that was just computed.
     /*!
      *    We update the solution vector and the solution dot vector (this is the time derivative vector),
-     *    putting the answer into the fixed location,
-     *       m_y_new[]   and m_ydot_new[]
-     *    given the previous solution vector,
-     *          y0[]     and ydot0_ptr[]
-     *    and the update step vector with a damping factor
-     *          ff           step_1[]
+     *    putting the answer into the fixed locations,
      *
-     *   @param  y0         INPUT     Input solution vector     - Ghosted Epectra_Vector reference
-     *   @param  ydot0_ptr  INPUT     Input solution dot vector - Ghosted Epectra_Vector ptr
-     *   @param  ff         INPUT     Damping factor - double
-     *   @param  step_1     INPUT     Input step vector         - Ghosted Epectra_Vector reference
+     *       m_y_new[]   and m_ydot_new[]
+     *
+     *    given the previous solution vector,
+     *
+     *          y0[]     and ydot0_ptr[]
+     *
+     *    and the update step vector with a damping factor
+     *
+     *          ff           step0[]
      *
      *    OUTPUT
      * ----------------
@@ -330,7 +330,7 @@ public:
      * ----------------
      *
      *    This routine will update the locally owned values. Then, it will call updateGhostEqns()
-     *    for both the m_y_new and  m_ydot_new vectors to update the ghost unknowns on neighboring processors.
+     *    for both the m_y_new and m_ydot_new vectors to update the ghost unknowns on neighboring processors.
      *
      *    For the  DAESystemInitial_Solve problem this routine will scatter the step vector unknowns
      *    into the correct locations in the m_y_new and *m_ydot_new vectors according to whether the
@@ -339,16 +339,16 @@ public:
      *    the equation set. However, here we set (*m_ydot_new)[j] = 0.0 for DAE unknowns to avoid
      *    doing nothing with the entry.
      *
-     *  @param y0    Base solution vector for the current time. The delta is applied to this variable.
-     *  @param ydot0_ptr   Base Solution dot vector for the current time. The delta is applied
-     *                     to this after division of the time step coefficient.
-     *  @param ff    Damping coefficient to use. The step is reduced by this factor.
-     *  @param step0 Step to be taken. If we are doing the DAE initial problem, this is a
-     *               mixture of the base solution step and the ydot solution step, depending
-     *               upon the value of (*m_isAlgebraic)[j].
+     *  @param[in]           y0                  Base solution vector for the current time. The delta is applied to this variable.
+     *  @param[in]           ydot0_ptr           Base Solution dot vector for the current time. The delta is applied
+     *                                           to this after division of the time step coefficient.
+     *  @param[in]           ff                  Damping coefficient to use. The step is reduced by this factor.
+     *  @param[in]           step0               Step to be taken. If we are doing the DAE initial problem, this is a
+     *                                           mixture of the base solution step and the ydot solution step, depending
+     *                                           upon the value of (*m_isAlgebraic)[j].
      */
-    void updateSoln(const Epetra_Vector_Ghosted& y0, const Epetra_Vector_Ghosted* ydot0_ptr,
-                    double ff, const Epetra_Vector_Ghosted&  step0);
+    void updateSoln(const Epetra_Vector_Ghosted& y0, const Epetra_Vector_Ghosted* const ydot0_ptr,
+                    double ff, const Epetra_Vector_Ghosted& step0);
 
     //! Sets some printing options
     /*!
@@ -412,35 +412,34 @@ public:
      *  The second argument has a default of false. However,
      *  if true, then a table of the largest values is printed  out to standard output.
      *
-     *  @param[in]           delta_y             Norm of a delta of the solution vector
+     *  @param[in]           delta_soln          Norm of a delta of the solution vector
      *  @param[in]           printLargest        if True a table is printed of the largest contributors.
      *  @param[in]           title               Printed out on the title line
      *  @param[in]           typeYsoln           Parameter indicating whether m_y_curr[] is currently
      *                                           evaluated before the delta or after the delta has been implemented.
      *  @param[in]           dampFactor          Damping factor that will be applied to delta_y before creating a new ysoln
+     *
+     *  @return                                  L2 weighted norm of the solution update vector
      */
     virtual double
-    soln_error_norm(const Epetra_Vector_Owned& delta_y,
-                    const bool printLargest = false,
-                    const char* title = 0,
-                    const int typeYsoln = 1,
-                    const double dampFactor = 1.0) const;
+    soln_error_norm(const Epetra_Vector_Owned& delta_soln, const bool printLargest = false,
+                    const char* title = 0, const int typeYsoln = 1, const double dampFactor = 1.0) const override;
 
-    //!    L2 Weighted Norm of the residual
+    //!  L2 Weighted Norm of the residual
     /*!
-     *   The vector m_residWt[i]'s are always used to weight the solution errors in
-     *   the calculation.
+     *   The vector m_residWt[i]'s are always used to weight the solution errors in the calculation.
      *
-     *   The second argument has a default of false. However,
-     *   if true, then a table of the largest values is printed
+     *   The second argument has a default of false. However, if true, then a table of the largest values is printed
      *   out to standard output.
      *
-     *   @param delta_y  Norm of a delta of the solution vector
-     *   @param title      Printed out on the title line
-     *   @param printLargest if True a table is printed of the largest contributors.
+     *   @param[in]          resid               Owned Epetra vector reference containing the computed residual
+     *   @param[in]          title               Printed out on the title line
+     *   @param[in]          printLargest        if True a table is printed of the largest contributors.
+     *
+     *   @return                                 L2 weighted norm of the residual vector
      */
     virtual double
-    res_error_norm(const Epetra_Vector_Owned& resid, const char* title = 0, const int printLargest = 0) const;
+    res_error_norm(const Epetra_Vector_Owned& resid, const char* const title = 0, const int printLargest = 0) const override;
 
     //! Function called by SolNonlinear to evaluate the Jacobian matrix and the rhs
     /*!
@@ -721,30 +720,26 @@ public:
      * predictor / corrector.  See Nachos documentation Sand86-1816 and Gresho,
      * Lee, Sani LLNL report UCRL - 83282 for more information.
      *
-     *  variables:
+     *  other variables:
      *
-     *    on input:
-     *
-     *       N          - number of local unknowns on the processor
-     *                    This is equal to internal plus border unknowns.
-     *       order      - indicates order of method
-     *                    = 1 -> first order forward Euler/backward Euler
-     *                           predictor/corrector
-     *                    = 2 -> second order Adams-Bashforth/Trapezoidal Rule
-     *                           predictor/corrector
-     *
-     *      delta_t_n   - Magnitude of the current time step at time n
-     *                    (i.e., = t_n - t_n-1)
-     *      y_curr[]    - Current Solution vector at time n
+     *      delta_t_n   - Magnitude of the current time step at time n  (i.e., = t_n - t_n-1)
      *      y_nm1[]     - Solution vector at time n-1
-     *      ydot_nm1[] - Acceleration vector at time n-1
+     *      ydot_nm1[]  - Acceleration vector at time n-1
      *
-     *   on output:
+     *  output:
      *
      *      ydot_curr[]   - Current acceleration vector at time n
      *
      * Note we use the current attribute to denote the possibility that
      * y_curr[] may not be equal to m_y_n[] during the nonlinear solve because we may be using a look-ahead scheme.
+     *
+     *  @param[in]           order               Order of the time stepping method
+     *                                              = 1 -> first order forward Euler/backward Euler
+     *                                                     predictor/corrector
+     *                                              = 2 -> second order Adams-Bashforth/Trapezoidal Rule
+     *                                                     predictor/corrector
+     *  @param[in]           y_curr              Current value of the solution vector at time n
+     *  @param[out]          ydot_curr           Calculated value of the solution dot vector at time n
      */
     virtual void
     calc_ydot(int order, const Epetra_Vector& y_curr, Epetra_Vector& ydot_curr) override;

@@ -3,17 +3,13 @@
  */
 
 /*
- *  $Id: BEulerInt.h 560 2013-03-06 23:50:04Z hkmoffa $
- */
-
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
-#ifndef CT_BEULERINT_H
-#define CT_BEULERINT_H
+#ifndef ZZ_M1D_BEULERINT_H
+#define ZZ_M1D_BEULERINT_H
 
 #include "cantera/base/config.h"
 #include "cantera/numerics/Integrator.h"
@@ -30,13 +26,15 @@
 #include "Epetra_IntVector.h"
 
 #ifndef MAX
+//! Max function
 #define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
 #endif
 
 #ifndef MIN
+//! Min Function
 #define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
 #endif
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler {
 
 #define OPT_SIZE 10
@@ -47,29 +45,36 @@ namespace beuler {
 #define BE_STEADY 0
 #define BE_TRANSIENT 1
 
-//! Macro to check pointers before deleting their contents.
-/*!
- *   This macro will set the pointer to zero, indicating that the contents are
- *   now inaccessible
- */
-
+//!  Enum for variable of fixed step
 enum BEulerMethodType
 {
+    //! Use a fixed step
     BEulerFixedStep = 0, 
+    //! use a variable step
     BEulerVarStep
 };
 
-/**
- * Exception class thrown when a BEuler error is encountered.
+//! Exception class thrown when a BEuler error is encountered.
+/*!
+ *
  */
-class BEulerErr: public ZZCantera::CanteraError
+class BEulerErr: public ZZCantera::ZuzaxError
 {
 public:
+    //! Constructor
+    /*!
+     *  @param[in]           msg                 String with the error message
+     */
     BEulerErr(std::string msg);
 };
 
+//==================================================================================================================================
+//! use an analytical jacobian
 #define BEULER_JAC_ANAL 2
+
+//! Use a numerical jacobian
 #define BEULER_JAC_NUM  1
+
 //==================================================================================================================================
 //!  Wrapper class for 'beuler' integrator We derive the class from the class Integrator
 /*!
@@ -136,12 +141,32 @@ public:
 
     //! Set the algebraic constraints in the system
     /*!
-     *  @param algebraicConstraint
+     *  @param[in]           algebraicConstraint  EpetraInt vector containing whether a unknown is a an algbebraic constraint or not.
+     *                                            This is an owned Epetra_Int vector, but gets translated into a ghosted vector
+     *                                             0 : not algebraic
+     *                                             1 : is algebraic
+     *                                             2 : Is algebraic, but consists of mole fraction sum or charge balance sum.
      */
     virtual void setAlgebraicConstraints(const Epetra_IntVector &algebraicConstraint);
 
+    //! Set the method for formation of the Jacobian
+    /*!
+     *  Only numerical jacobians are allowed.
+     *
+     *  @param[in]           probtype            Input with BEULER_JAC_NUM
+     */
     virtual void setProblemType(int probtype);
 
+    //! Set the regions for time, given by the setup of the boundary conditions.
+    /*!
+     *  Normally there are set periods where the boundary condition on the problem goes through changes.
+     *  Here we specify the times. The time stepper will not integrate through a time boundary.
+     *  They will integrate until the exact time of the boundary. Then, they will continue at t+ on the other side
+     *  of the boundary after changing the boundary conditions on the problem. 
+     *
+     *  @param[in]           timeRegionBoundaries   This is a std::vector of times. At each time, 
+     *                                              the boundary condition to the problem changes
+     */
     virtual void setTimeRegionBoundaries(const std::vector<double>& timeRegionBoundaries);
 
     //! Set or reset the initial time of the integration along with the
@@ -846,13 +871,25 @@ protected:
      * INTERNAL SOLUTION DATA VALUES
      ***********************************************************************************/
 
+    //! Value of the solution at the current time step, n
     m1d::Epetra_Vector_Ghosted *m_y_n;
+
+    //! Value of the solution at the last time step, n-1
     m1d::Epetra_Vector_Ghosted *m_y_nm1;
+
+    //! Value of the predicted solution at the current time step, n
     m1d::Epetra_Vector_Ghosted *m_y_pred_n;
+
+    //! Value of the solution dot at the current time step, n
     m1d::Epetra_Vector_Ghosted *m_ydot_n;
+
+    //! Value of the solution dot at the previous time step, n-1
     m1d::Epetra_Vector_Ghosted *m_ydot_nm1;
 
+    //! value of the solution at the current time step, n, -> owned unknowns only
     m1d::Epetra_Vector_Owned *m_y_n_owned;
+
+    //! value of the solution dot at the current time step, n, -> owned unknowns only
     m1d::Epetra_Vector_Owned *m_ydot_n_owned;
 
     /*****************************************************************************************
@@ -882,23 +919,35 @@ protected:
 
     //! Initial time at the start of the integration
     double m_t0;
-    /**
-     * Final time
-     */
+
+    //! Final time to integrate to
     double m_time_final;
-    /**
-     *
-     */
+
+    //! Current time at the step n
     double time_n;
+
+    //! Time of the previous step, n-1
     double time_nm1;
+
+    //! Time of the previous step, n-2
     double time_nm2;
+
+    //! Current time step = time_n - time_nm1
     double delta_t_n;
+
+    //! Last time step = time_nm1 - time_nm2
     double delta_t_nm1;
+
+    //! LastLast time step = time_nm2 - time_nm3
     double delta_t_nm2;
+
+    //! Time step to use on the next step
     double delta_t_np1;
 
     //! value of the residual weights
     m1d::Epetra_Vector_Owned *m_residWts;
+
+    //! Epetra Owned workspace
     m1d::Epetra_Vector_Owned *m_wksp;
 
     //! Main hook into the problem
@@ -907,7 +956,10 @@ protected:
      */
     m1d::ProblemResidEval *m_func;
 
+    //! Epetra_Vector_Owned vector of row scales
     m1d::Epetra_Vector_Owned *m_rowScales;
+
+    //! Epetra_Vector_Owned vector of column scales
     m1d::Epetra_Vector_Owned *m_colScales;
 
     //!  Pointer to the Jacobian representing the time dependent problem
@@ -917,6 +969,7 @@ protected:
      * Number of function evaluations
      */
     int m_nfe;
+
     /**
      * Number of Jacobian Evaluations and
      * factorization steps (they are the same)
@@ -930,23 +983,37 @@ protected:
      * Total number of linear iterations
      */
     int m_numTotalLinearSolves;
+
     /**
      * Total number of convergence failures.
      */
     int m_numTotalConvFails;
+
     /**
      * Total Number of time truncation error failures
      */
     int m_numTotalTruncFails;
-    /*
-     *
-     */
+
+    //! Total number of failures
     int num_failures;
 
+    //! bad prediction
     int m_DAEDOT_Predicted_Bad;
+
+    //! bad prediction
     int m_DOT_Predicted_Bad;
+
+    //! bad prediction
     int m_DAE_Predicted_Bad;
 
+
+    //! Epetra Int vector containing whether each unknown is arithmetically scaled.
+    /*!
+     *  Arithmetically scaled means that the component can have negative and positive values, and doesn't matter
+     *  if it crosses the origin.  Example (enthalpy, velocity).
+     *
+     *  Examples where it isn't arithmetically scaled -> mole fraction, mole number.
+     */
     Epetra_IntVector *m_isArithmeticScaled;
 
     //!  Number of time regions defined in the problem
@@ -958,9 +1025,9 @@ protected:
 
     //! Current time region defined in the problem
     /*!
-     *  This number varies from zero to  m_numTimeRegions.
+     *  This number varies from zero to m_numTimeRegions.
      *  The basic idea is that step jumps in boundary conditions can occur only at time region
-     *  boundaries.
+     *  boundaries. Step jumps are defined to occur at tbound+. They 
      */
     int m_currentTimeRegion;
 
@@ -980,7 +1047,6 @@ protected:
      **********************************************************************************************/
 };
 //==================================================================================================================================
-} // namespace
+}
 //----------------------------------------------------------------------------------------------------------------------------------
-
-#endif // CT_BEULER
+#endif 

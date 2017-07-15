@@ -115,6 +115,8 @@ public:
      *
      *  @param[in]           y                   Ghosted Epetra_Vector reference for the current solution 
      *  @param[in]           step0               Owned Epetra_Vector reference for the current step in the solution unknowns
+     *
+     *  @return                                  Returns the factor which the step should be reduced by.
      */
     virtual double deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector_Owned& step0);
 
@@ -355,7 +357,7 @@ public:
      *  @return                                  L2 weighted norm of the solution update vector
      */
     virtual double
-    soln_error_norm(const Epetra_Vector& delta_y, const bool printLargest = false, const char* title = 0,
+    soln_error_norm(const Epetra_Vector& delta_soln, const bool printLargest = false, const char* title = 0,
                     const int typeYsoln = 1, const double dampFactor = 1.0) const;
 
     //!  L2 Weighted Norm of the residual
@@ -538,8 +540,6 @@ public:
     virtual void
     getResidWts(Epetra_Vector_Owned& residWts);
 
-
-
     //! Calculate a consistent ydot
     /*!
      * Function to calculate the acceleration vector ydot for the first or
@@ -549,31 +549,26 @@ public:
      * predictor / corrector.  See Nachos documentation Sand86-1816 and Gresho,
      * Lee, Sani LLNL report UCRL - 83282 for more information.
      *
-     *  variables:
+     *  other variables:
      *
-     *    on input:
-     *
-     *       N          - number of local unknowns on the processor
-     *                    This is equal to internal plus border unknowns.
-     *       order      - indicates order of method
-     *                    = 1 -> first order forward Euler/backward Euler
-     *                           predictor/corrector
-     *                    = 2 -> second order Adams-Bashforth/Trapezoidal Rule
-     *                           predictor/corrector
-     *
-     *      delta_t_n   - Magnitude of the current time step at time n
-     *                    (i.e., = t_n - t_n-1)
-     *      y_curr[]    - Current Solution vector at time n
+     *      delta_t_n   - Magnitude of the current time step at time n  (i.e., = t_n - t_n-1)
      *      y_nm1[]     - Solution vector at time n-1
-     *      ydot_nm1[] - Acceleration vector at time n-1
+     *      ydot_nm1[]  - Acceleration vector at time n-1
      *
-     *   on output:
+     *  output:
      *
      *      ydot_curr[]   - Current acceleration vector at time n
      *
      * Note we use the current attribute to denote the possibility that
-     * y_curr[] may not be equal to m_y_n[] during the nonlinear solve
-     * because we may be using a look-ahead scheme.
+     * y_curr[] may not be equal to m_y_n[] during the nonlinear solve because we may be using a look-ahead scheme.
+     *
+     *  @param[in]           order               Order of the time stepping method
+     *                                              = 1 -> first order forward Euler/backward Euler
+     *                                                     predictor/corrector
+     *                                              = 2 -> second order Adams-Bashforth/Trapezoidal Rule
+     *                                                     predictor/corrector
+     *  @param[in]           y_curr              Current value of the solution vector at time n
+     *  @param[out]          ydot_curr           Calculated value of the solution dot vector at time n
      */
     virtual void
     calc_ydot(int order, const Epetra_Vector& y_curr, Epetra_Vector& ydot_curr);

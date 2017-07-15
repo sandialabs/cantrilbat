@@ -1409,7 +1409,7 @@ SolNonlinear::dampStep_alt(double time_curr,  const Epetra_Vector_Ghosted& y0, c
  *
  */
 void SolNonlinear::updateSoln(const Epetra_Vector_Ghosted& y0, const Epetra_Vector_Ghosted* ydot0_ptr,
-                              double ff, const Epetra_Vector_Ghosted& step_1)
+                              double ff, const Epetra_Vector_Ghosted& step0)
 {
     int j;
     if (solnType_ != DAESystemInitial_Solve) {
@@ -1420,10 +1420,10 @@ void SolNonlinear::updateSoln(const Epetra_Vector_Ghosted& y0, const Epetra_Vect
          * update the time derivative.
          */
         for (j = 0; j < m_NumLcOwnedEqns; j++) {
-            (*m_y_new)[j] = y0[j] + ff * step_1[j];
+            (*m_y_new)[j] = y0[j] + ff * step0[j];
         }
-
         m_func->updateGhostEqns(m_y_new, m_y_new_owned);
+
         if (solnType_ != SteadyState_Solve) {
             calc_ydot(m_order, *m_y_new, *m_ydot_new);
             m_func->updateGhostEqns(m_ydot_new, m_ydot_new_owned);
@@ -1431,11 +1431,11 @@ void SolNonlinear::updateSoln(const Epetra_Vector_Ghosted& y0, const Epetra_Vect
     } else {
         for (j = 0; j < m_NumLcOwnedEqns; j++) {
             if ((*m_isAlgebraic)[j] == 1) {
-                (*m_y_new)[j] = y0[j] + ff * step_1[j];
+                (*m_y_new)[j] = y0[j] + ff * step0[j];
                 // Theoretically, it shouldn't matter what the DAE time derivatives are
                 (*m_ydot_new)[j] = 0.0;
             } else {
-                (*m_ydot_new)[j] = (*ydot0_ptr)[j] + ff * step_1[j];
+                (*m_ydot_new)[j] = (*ydot0_ptr)[j] + ff * step0[j];
                 (*m_y_new)[j] = y0[j];
             }
         }
