@@ -6,7 +6,7 @@
 #
 #################################################################################################################################
 #  Default values set here
-XED_ATOL=1.0E-12
+XED_ATOL=1.0E-13
 XED_RTOL=1.0E-6
 XED_PL=6
 #
@@ -150,7 +150,7 @@ csvdiff_compare_file() {
    fi
    /bin/rm -rf $difname
  
-   csvdiff $bb $gg > $difname
+   csvdiff -a $XED_ATOL -r $XED_RTOL  $bb $gg > $difname
    retnStat=$?
    if test $retnStat = "0"
    then

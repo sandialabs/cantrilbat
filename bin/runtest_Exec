@@ -50,6 +50,8 @@
 #             CSV_FILES='out.txt  out2.txt
 #             DIFF_CSV_NAMES='diff.txt diff_2.txt'
 #             DIFF_CSV_REQ='True True'
+#             ATOL_CSV=1.0E-15
+#             RTOL_CSV=1.0E-6
 #
 #   Required Executables:
 #
@@ -165,7 +167,7 @@ csvdiff_compare_file() {
       difname=diff_"$filename".txt
    fi
 
-   csvdiff $bb $gg >> $difname
+   csvdiff $bb $gg > $difname
    retnStat=$?
    if test $retnStat = "0"
    then
@@ -291,6 +293,22 @@ if test ! -x $PROGRAM   ; then
     /bin/rm -f runInProgress.txt
     exit -1
   fi
+fi
+#
+##############################################################################################################################
+#
+#  Change the defaults for atol and rtol for csvdiff by reading the environmental variables
+#
+atol_csv='1.0E-15'
+if test -n "$ATOL_CSV"
+then
+    atol_csv=$ATOL_CSV
+fi
+
+rtol_csv='1.0E-6'
+if test -n "$RTOL_CSV"
+then
+    rtol_csv=$RTOL_CSV
 fi
 #
 ##############################################################################################################################
