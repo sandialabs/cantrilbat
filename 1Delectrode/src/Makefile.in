@@ -25,9 +25,8 @@ M1D_HDRS =  m1d_Comm.h md_wrap_mpi.h m1d_EpetraExtras.h \
         m1d_SolGlobalNonlinear.h m1d_SolNonlinear.h m1d_SimpleTDDiff_dom1D.h m1d_ProblemStatement.h \
         m1d_RecordTree_base.h m1d_BoundaryCondition.h m1d_defs.h m1d_Eqn_Names.h
 
-
-BE_OBJS =  BEulerInt.o
-BE_HDRS = BEulerInt.h
+BE_OBJS = m1d_BEulerInt.o
+BE_HDRS = m1d_BEulerInt.h
 
 //NOBJS = m1d_nox_interface.o m1d_nox_problem.o
 

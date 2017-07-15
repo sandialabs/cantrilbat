@@ -1,10 +1,6 @@
 /**
- * @file tddiff.h
+ * @file Cu2S_growth.h
  *
- */
-
-/*
- *  $Id: Cu2S_growth.h 506 2013-01-07 22:43:59Z hkmoffa $
  */
 
 #include "cantera/base/mdp_allo.h"

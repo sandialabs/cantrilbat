@@ -24,7 +24,7 @@
 #include "m1d_globals.h"
 #include "m1d_DomainLayout_LiKCl_infPlateBat.h"
 #include "m1d_ProblemStatementCell.h"
-#include "BEulerInt.h"
+#include "m1d_BEulerInt.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 
 //=====================================================================================

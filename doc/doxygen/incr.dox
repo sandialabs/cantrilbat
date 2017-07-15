@@ -873,7 +873,7 @@ INPUT                  = ../../util_src/src \
                          ../../1Delectrode/src/m1d_solvers.h   ../../1Delectrode/src/m1d_solvers.cpp \
                          ../../1Delectrode/src/m1d_SolNonlinear.h  ../../1Delectrode/src/m1d_SolNonlinear.cpp \
                          ../../1Delectrode/src/m1d_SolGlobalNonlinear.h  ../../1Delectrode/src/m1d_SolGlobalNonlinear.cpp \
-                         ../../1Delectrode/src/BEulerInt.h  ../../1Delectrode/src/BEulerInt.cpp \
+                         ../../1Delectrode/src/m1d_BEulerInt.h  ../../1Delectrode/src/m1d_BEulerInt.cpp \
 
 
 # This tag can be used to specify the character encoding of the source files

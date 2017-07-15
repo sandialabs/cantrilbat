@@ -2,9 +2,6 @@
  *  @file BEulerInt_Battery.h
  */
 
-/*
- *  $Id: BEulerInt_Battery.h 564 2013-03-08 23:35:51Z hkmoffa $
- */
 
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -15,14 +12,14 @@
 #ifndef CT_BEULERINT_BATTERY_H
 #define CT_BEULERINT_BATTERY_H
 
-#include "BEulerInt.h"
+#include "m1d_BEulerInt.h"
 #include "m1d_SurDomain1D.h"
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
   class BoundaryCondition;
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler
 {
 
@@ -109,6 +106,7 @@ namespace beuler
     double CathodeVoltageBest_;
   };
 
-} // namespace
+}
+//----------------------------------------------------------------------------------------------------------------------------------
+#endif 
 
-#endif // CT_BEULER

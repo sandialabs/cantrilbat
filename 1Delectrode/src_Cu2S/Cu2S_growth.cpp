@@ -31,7 +31,7 @@
 #include "m1d_ProblemStatement.h"
 #include "m1d_DomainLayout_Cu2S.h"
 
-#include "BEulerInt.h"
+#include "m1d_BEulerInt.h"
 
 #include <Epetra_Map.h>
 #include <Epetra_Vector.h>

@@ -40,7 +40,7 @@
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 
-#include "BEulerInt.h"
+#include "m1d_BEulerInt.h"
 
 #include "Epetra_CrsMatrix.h"
 #include "Epetra_VbrMatrix.h"

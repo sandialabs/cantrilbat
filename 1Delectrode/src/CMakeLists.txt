@@ -18,8 +18,8 @@ list(REMOVE_ITEM M1D_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/m1d_nox_interface.h")
 list(REMOVE_ITEM M1D_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/m1d_nox_problem.h")
 list(APPEND  M1D_HEADERS md_wrap_mpi.h)
 
-set(BEuler_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/BEulerInt.cpp")
-set(BEuler_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/BEulerInt.h")
+set(BEuler_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/m1d_BEulerInt.cpp")
+set(BEuler_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/m1d_BEulerInt.h")
 
 add_library(m1d ${M1D_SOURCES} ${M1D_HEADERS} ${BEuler_SOURCES} ${BEuler_HEADERS})
 

@@ -1,5 +1,5 @@
 /**
- *  @file BEulerInt.cpp
+ *  @file m1d_BEulerInt.cpp
  *
  */
 
@@ -10,7 +10,7 @@
  * See file License.txt for licensing information.
  */
 
-#include "BEulerInt.h"
+#include "m1d_BEulerInt.h"
 
 #include "cantera/numerics/SquareMatrix.h"
 
