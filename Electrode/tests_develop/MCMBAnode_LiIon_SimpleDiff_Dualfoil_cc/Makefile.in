@@ -134,6 +134,7 @@ rebaseline:
 	cp MCMB_CC_intResults_0_0.csv     MCMB_CC_intResults_blessed_0_0.csv
 	cp MCMB_CC_globalResults_0_0.csv  MCMB_CC_globalResults_blessed_0_0.csv
 	cp ccout.txt good_ccout.txt
+	cp  outputTable.csv  outputTable_blessed.csv
 
 ##############################################################################
 
