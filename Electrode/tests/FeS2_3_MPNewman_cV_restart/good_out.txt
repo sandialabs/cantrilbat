@@ -1528,7 +1528,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           3.303E-05    1.366E-02    4.511E-07    3.500E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    2.913E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    2.913E-01             
@@ -1537,7 +1537,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = NA amps 
                 Electric Potential = 1.6 volts
 
@@ -1636,7 +1636,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.406E-05    2.393E-02    3.365E-07    2.709E-01             
      FeS2_B(S)                   1.406E-05    2.393E-02    3.365E-07    2.709E-01             
@@ -1645,7 +1645,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = NA amps 
                 Electric Potential = 1.6 volts
 
@@ -1753,7 +1753,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.406E-05    2.393E-02    3.365E-07    2.709E-01             
      FeS2_B(S)                   1.406E-05    2.393E-02    3.365E-07    2.709E-01             
@@ -1762,7 +1762,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -1870,7 +1870,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -1879,7 +1879,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = -1.24095e-09 amps 
                 Electric Potential = 1.6 volts
 
@@ -1987,7 +1987,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -1996,7 +1996,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -2096,7 +2096,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2105,7 +2105,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 3.22332e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -2213,7 +2213,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2222,7 +2222,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 1.38818e-09 amps 
                 Electric Potential = 1.6 volts
 
@@ -2330,7 +2330,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2339,7 +2339,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -2439,7 +2439,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2448,7 +2448,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.5223e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -2556,7 +2556,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2565,7 +2565,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -2665,7 +2665,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2674,7 +2674,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -2782,7 +2782,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2791,7 +2791,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -2891,7 +2891,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -2900,7 +2900,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -3008,7 +3008,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3017,7 +3017,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -3117,7 +3117,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3126,7 +3126,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -3234,7 +3234,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3243,7 +3243,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -3343,7 +3343,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3352,7 +3352,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -3460,7 +3460,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3469,7 +3469,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -3569,7 +3569,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3578,7 +3578,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -3686,7 +3686,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3695,7 +3695,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -3795,7 +3795,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3804,7 +3804,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -3912,7 +3912,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -3921,7 +3921,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -4021,7 +4021,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4030,7 +4030,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -4138,7 +4138,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4147,7 +4147,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -4247,7 +4247,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4256,7 +4256,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -4364,7 +4364,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4373,7 +4373,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -4473,7 +4473,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4482,7 +4482,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -4590,7 +4590,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4599,7 +4599,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -4699,7 +4699,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4708,7 +4708,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -4816,7 +4816,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4825,7 +4825,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -4925,7 +4925,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -4934,7 +4934,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -5042,7 +5042,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5051,7 +5051,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -5151,7 +5151,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5160,7 +5160,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -5268,7 +5268,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5277,7 +5277,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -5377,7 +5377,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5386,7 +5386,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -5494,7 +5494,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5503,7 +5503,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -5603,7 +5603,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5612,7 +5612,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -5720,7 +5720,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5729,7 +5729,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -5829,7 +5829,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5838,7 +5838,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -5946,7 +5946,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -5955,7 +5955,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -6055,7 +6055,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6064,7 +6064,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -6172,7 +6172,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6181,7 +6181,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -6281,7 +6281,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6290,7 +6290,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -6398,7 +6398,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6407,7 +6407,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -6507,7 +6507,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6516,7 +6516,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -6624,7 +6624,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6633,7 +6633,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -6733,7 +6733,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6742,7 +6742,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -6850,7 +6850,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6859,7 +6859,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -6959,7 +6959,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -6968,7 +6968,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -7076,7 +7076,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7085,7 +7085,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -7185,7 +7185,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7194,7 +7194,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -7302,7 +7302,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7311,7 +7311,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -7411,7 +7411,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7420,7 +7420,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -7528,7 +7528,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7537,7 +7537,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -7637,7 +7637,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7646,7 +7646,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -7754,7 +7754,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7763,7 +7763,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -7863,7 +7863,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7872,7 +7872,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -7980,7 +7980,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -7989,7 +7989,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -8089,7 +8089,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8098,7 +8098,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -8206,7 +8206,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8215,7 +8215,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -8315,7 +8315,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8324,7 +8324,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -8432,7 +8432,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8441,7 +8441,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -8541,7 +8541,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8550,7 +8550,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -8658,7 +8658,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8667,7 +8667,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -8767,7 +8767,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8776,7 +8776,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -8884,7 +8884,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -8893,7 +8893,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -8993,7 +8993,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9002,7 +9002,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -9110,7 +9110,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9119,7 +9119,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -9219,7 +9219,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9228,7 +9228,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -9336,7 +9336,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9345,7 +9345,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -9445,7 +9445,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9454,7 +9454,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -9562,7 +9562,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9571,7 +9571,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -9671,7 +9671,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9680,7 +9680,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -9788,7 +9788,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9797,7 +9797,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -9897,7 +9897,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -9906,7 +9906,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -10014,7 +10014,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10023,7 +10023,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -10123,7 +10123,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10132,7 +10132,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -10240,7 +10240,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10249,7 +10249,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -10349,7 +10349,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10358,7 +10358,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -10466,7 +10466,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10475,7 +10475,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -10575,7 +10575,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10584,7 +10584,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -10692,7 +10692,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10701,7 +10701,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -10801,7 +10801,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10810,7 +10810,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -10918,7 +10918,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -10927,7 +10927,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -11027,7 +11027,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11036,7 +11036,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -11144,7 +11144,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11153,7 +11153,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -11253,7 +11253,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11262,7 +11262,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -11370,7 +11370,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11379,7 +11379,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -11479,7 +11479,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11488,7 +11488,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -11596,7 +11596,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11605,7 +11605,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -11705,7 +11705,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11714,7 +11714,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -11822,7 +11822,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11831,7 +11831,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -11931,7 +11931,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -11940,7 +11940,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -12048,7 +12048,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12057,7 +12057,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -12157,7 +12157,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12166,7 +12166,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -12274,7 +12274,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12283,7 +12283,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -12383,7 +12383,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12392,7 +12392,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -12500,7 +12500,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12509,7 +12509,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -12609,7 +12609,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12618,7 +12618,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -12726,7 +12726,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12735,7 +12735,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -12835,7 +12835,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12844,7 +12844,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
@@ -12952,7 +12952,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -12961,7 +12961,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -13061,7 +13061,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -13070,7 +13070,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -13178,7 +13178,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -13187,7 +13187,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 
@@ -13287,7 +13287,7 @@ oc[0] = 0
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiCl_electrons     0.000E+00    5.450E-09    0.000E+00    0.000E+00  1.60000E+00
+     metal_Li_LiCl_electrons     0.000E+00    5.459E-09    0.000E+00    0.000E+00  1.60000E+00
      LiKCl_electrolyte           2.960E-05    1.366E-02    4.043E-07    3.255E-01  0.00000E+00
      FeS2_A(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
      FeS2_B(S)                   1.569E-05    2.393E-02    3.754E-07    3.023E-01             
@@ -13296,7 +13296,7 @@ oc[0] = 0
      ============================================================================================
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E-06 cm3 gmol-1
+                Molar Volume = 5.45858E-06 cm3 gmol-1
                 Current = 7.36155e-10 amps 
                 Electric Potential = 1.6 volts
 

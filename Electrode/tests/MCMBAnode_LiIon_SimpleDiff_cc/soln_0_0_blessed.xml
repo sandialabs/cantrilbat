@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Tue Mar 28 16:30:09 2017
+      Sun Jul 16 14:31:22 2017
     </string>
     <ElectrodeIdentification>
       <electrodeTypeString vtype="string"> SimpleDiff </electrodeTypeString>

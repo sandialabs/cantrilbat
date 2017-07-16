@@ -1375,7 +1375,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1383,7 +1383,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = NA amps 
                 Electric Potential = 0
 
@@ -1473,7 +1473,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1481,7 +1481,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000963644 amps 
                 Electric Potential = 0
 
@@ -1571,7 +1571,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1579,7 +1579,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000963583 amps 
                 Electric Potential = 0
 
@@ -1669,7 +1669,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1677,7 +1677,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000963491 amps 
                 Electric Potential = 0
 
@@ -1767,7 +1767,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1775,7 +1775,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000963353 amps 
                 Electric Potential = 0
 
@@ -1865,7 +1865,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1873,7 +1873,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000963145 amps 
                 Electric Potential = 0
 
@@ -1963,7 +1963,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1971,7 +1971,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000962979 amps 
                 Electric Potential = 0
 
@@ -2055,7 +2055,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2063,7 +2063,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000963259 amps 
                 Electric Potential = 0
 
@@ -2153,7 +2153,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2161,7 +2161,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000962669 amps 
                 Electric Potential = 0
 
@@ -2251,7 +2251,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2259,7 +2259,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000962275 amps 
                 Electric Potential = 0
 
@@ -2343,7 +2343,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2351,7 +2351,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000962449 amps 
                 Electric Potential = 0
 
@@ -2441,7 +2441,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.205E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2449,7 +2449,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000961808 amps 
                 Electric Potential = 0
 
@@ -2539,7 +2539,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2547,7 +2547,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000961567 amps 
                 Electric Potential = 0
 
@@ -2631,7 +2631,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2639,7 +2639,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000961727 amps 
                 Electric Potential = 0
 
@@ -2729,7 +2729,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2737,7 +2737,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000960871 amps 
                 Electric Potential = 0
 
@@ -2827,7 +2827,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2835,7 +2835,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000960858 amps 
                 Electric Potential = 0
 
@@ -2919,7 +2919,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2927,7 +2927,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000960871 amps 
                 Electric Potential = 0
 
@@ -3017,7 +3017,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3025,7 +3025,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00096016 amps 
                 Electric Potential = 0
 
@@ -3109,7 +3109,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3117,7 +3117,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00096016 amps 
                 Electric Potential = 0
 
@@ -3207,7 +3207,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3215,7 +3215,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000959455 amps 
                 Electric Potential = 0
 
@@ -3299,7 +3299,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3307,7 +3307,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000959455 amps 
                 Electric Potential = 0
 
@@ -3397,7 +3397,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3405,7 +3405,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00095875 amps 
                 Electric Potential = 0
 
@@ -3489,7 +3489,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3497,7 +3497,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00095875 amps 
                 Electric Potential = 0
 
@@ -3587,7 +3587,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3595,7 +3595,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000958045 amps 
                 Electric Potential = 0
 
@@ -3679,7 +3679,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3687,7 +3687,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000958045 amps 
                 Electric Potential = 0
 
@@ -3777,7 +3777,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3785,7 +3785,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000957341 amps 
                 Electric Potential = 0
 
@@ -3869,7 +3869,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.949E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3877,7 +3877,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000957341 amps 
                 Electric Potential = 0
 
@@ -3967,7 +3967,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3975,7 +3975,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000956637 amps 
                 Electric Potential = 0
 
@@ -4059,7 +4059,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4067,7 +4067,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000956637 amps 
                 Electric Potential = 0
 
@@ -4157,7 +4157,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4165,7 +4165,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000955933 amps 
                 Electric Potential = 0
 
@@ -4249,7 +4249,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.204E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4257,7 +4257,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000955933 amps 
                 Electric Potential = 0
 
@@ -4347,7 +4347,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4355,7 +4355,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00095523 amps 
                 Electric Potential = 0
 
@@ -4439,7 +4439,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4447,7 +4447,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00095523 amps 
                 Electric Potential = 0
 
@@ -4537,7 +4537,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4545,7 +4545,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000954526 amps 
                 Electric Potential = 0
 
@@ -4629,7 +4629,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4637,7 +4637,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000954526 amps 
                 Electric Potential = 0
 
@@ -4727,7 +4727,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4735,7 +4735,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000953823 amps 
                 Electric Potential = 0
 
@@ -4819,7 +4819,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4827,7 +4827,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000953823 amps 
                 Electric Potential = 0
 
@@ -4917,7 +4917,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4925,7 +4925,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000953121 amps 
                 Electric Potential = 0
 
@@ -5009,7 +5009,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5017,7 +5017,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000953121 amps 
                 Electric Potential = 0
 
@@ -5107,7 +5107,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5115,7 +5115,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000952418 amps 
                 Electric Potential = 0
 
@@ -5199,7 +5199,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5207,7 +5207,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000952418 amps 
                 Electric Potential = 0
 
@@ -5297,7 +5297,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5305,7 +5305,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000951716 amps 
                 Electric Potential = 0
 
@@ -5389,7 +5389,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5397,7 +5397,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000951716 amps 
                 Electric Potential = 0
 
@@ -5487,7 +5487,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5495,7 +5495,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000951014 amps 
                 Electric Potential = 0
 
@@ -5579,7 +5579,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5587,7 +5587,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000951014 amps 
                 Electric Potential = 0
 
@@ -5677,7 +5677,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5685,7 +5685,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000950313 amps 
                 Electric Potential = 0
 
@@ -5769,7 +5769,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.782E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5777,7 +5777,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000950313 amps 
                 Electric Potential = 0
 
@@ -5867,7 +5867,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.781E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5875,7 +5875,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000949611 amps 
                 Electric Potential = 0
 
@@ -5959,7 +5959,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.203E-03    1.781E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5967,7 +5967,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000949611 amps 
                 Electric Potential = 0
 
@@ -6057,7 +6057,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6065,7 +6065,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00094891 amps 
                 Electric Potential = 0
 
@@ -6149,7 +6149,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.948E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6157,7 +6157,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00094891 amps 
                 Electric Potential = 0
 
@@ -6247,7 +6247,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6255,7 +6255,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000948209 amps 
                 Electric Potential = 0
 
@@ -6339,7 +6339,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6347,7 +6347,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000948209 amps 
                 Electric Potential = 0
 
@@ -6437,7 +6437,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6445,7 +6445,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000947508 amps 
                 Electric Potential = 0
 
@@ -6529,7 +6529,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6537,7 +6537,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000947508 amps 
                 Electric Potential = 0
 
@@ -6627,7 +6627,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6635,7 +6635,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000946807 amps 
                 Electric Potential = 0
 
@@ -6719,7 +6719,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6727,7 +6727,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000946807 amps 
                 Electric Potential = 0
 
@@ -6817,7 +6817,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6825,7 +6825,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000946107 amps 
                 Electric Potential = 0
 
@@ -6909,7 +6909,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6917,7 +6917,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000946107 amps 
                 Electric Potential = 0
 
@@ -7007,7 +7007,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7015,7 +7015,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000945406 amps 
                 Electric Potential = 0
 
@@ -7099,7 +7099,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7107,7 +7107,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000945406 amps 
                 Electric Potential = 0
 
@@ -7197,7 +7197,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7205,7 +7205,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000944706 amps 
                 Electric Potential = 0
 
@@ -7289,7 +7289,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7297,7 +7297,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000944706 amps 
                 Electric Potential = 0
 
@@ -7387,7 +7387,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7395,7 +7395,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000944006 amps 
                 Electric Potential = 0
 
@@ -7479,7 +7479,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.202E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7487,7 +7487,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000944006 amps 
                 Electric Potential = 0
 
@@ -7577,7 +7577,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7585,7 +7585,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000943306 amps 
                 Electric Potential = 0
 
@@ -7669,7 +7669,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7677,7 +7677,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000943306 amps 
                 Electric Potential = 0
 
@@ -7767,7 +7767,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7775,7 +7775,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000942607 amps 
                 Electric Potential = 0
 
@@ -7859,7 +7859,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7867,7 +7867,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000942607 amps 
                 Electric Potential = 0
 
@@ -7957,7 +7957,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7965,7 +7965,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000941907 amps 
                 Electric Potential = 0
 
@@ -8049,7 +8049,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8057,7 +8057,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000941907 amps 
                 Electric Potential = 0
 
@@ -8147,7 +8147,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8155,7 +8155,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000941207 amps 
                 Electric Potential = 0
 
@@ -8239,7 +8239,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.947E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8247,7 +8247,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000941207 amps 
                 Electric Potential = 0
 
@@ -8337,7 +8337,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8345,7 +8345,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000940508 amps 
                 Electric Potential = 0
 
@@ -8429,7 +8429,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8437,7 +8437,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000940508 amps 
                 Electric Potential = 0
 
@@ -8527,7 +8527,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8535,7 +8535,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000939809 amps 
                 Electric Potential = 0
 
@@ -8619,7 +8619,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8627,7 +8627,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000939809 amps 
                 Electric Potential = 0
 
@@ -8717,7 +8717,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8725,7 +8725,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000939109 amps 
                 Electric Potential = 0
 
@@ -8809,7 +8809,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8817,7 +8817,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000939109 amps 
                 Electric Potential = 0
 
@@ -8907,7 +8907,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8915,7 +8915,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00093841 amps 
                 Electric Potential = 0
 
@@ -8999,7 +8999,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9007,7 +9007,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.00093841 amps 
                 Electric Potential = 0
 
@@ -9097,7 +9097,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9105,7 +9105,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000937711 amps 
                 Electric Potential = 0
 
@@ -9189,7 +9189,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.201E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9197,7 +9197,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000937711 amps 
                 Electric Potential = 0
 
@@ -9287,7 +9287,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9295,7 +9295,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000937012 amps 
                 Electric Potential = 0
 
@@ -9379,7 +9379,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9387,7 +9387,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000937012 amps 
                 Electric Potential = 0
 
@@ -9477,7 +9477,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9485,7 +9485,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000936313 amps 
                 Electric Potential = 0
 
@@ -9569,7 +9569,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9577,7 +9577,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000936313 amps 
                 Electric Potential = 0
 
@@ -9667,7 +9667,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9675,7 +9675,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000935614 amps 
                 Electric Potential = 0
 
@@ -9759,7 +9759,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9767,7 +9767,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000935614 amps 
                 Electric Potential = 0
 
@@ -9857,7 +9857,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9865,7 +9865,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000934916 amps 
                 Electric Potential = 0
 
@@ -9949,7 +9949,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9957,7 +9957,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000934916 amps 
                 Electric Potential = 0
 
@@ -10047,7 +10047,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10055,7 +10055,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000934217 amps 
                 Electric Potential = 0
 
@@ -10139,7 +10139,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10147,7 +10147,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000934217 amps 
                 Electric Potential = 0
 
@@ -10237,7 +10237,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10245,7 +10245,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000933518 amps 
                 Electric Potential = 0
 
@@ -10329,7 +10329,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10337,7 +10337,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000933518 amps 
                 Electric Potential = 0
 
@@ -10427,7 +10427,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10435,7 +10435,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000932819 amps 
                 Electric Potential = 0
 
@@ -10519,7 +10519,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.946E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10527,7 +10527,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000932819 amps 
                 Electric Potential = 0
 
@@ -10617,7 +10617,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.945E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10625,7 +10625,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000932121 amps 
                 Electric Potential = 0
 
@@ -10709,7 +10709,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    9.996E-01 -2.00000E-01
      MCMB_Interstitials_anode    3.424E-08    5.200E-03    1.781E-10    3.945E-04             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10717,7 +10717,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = 0.000932121 amps 
                 Electric Potential = 0
 

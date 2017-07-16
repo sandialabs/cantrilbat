@@ -28,7 +28,7 @@
                NO+     5.5288e-07      1.31951e-06         -42.9658
                 N+      0.0638667        0.0711497         -6.18927
                 O+       0.109122         0.138861         -11.2124
-                e-        0.17299      7.49885e-06         -25.5641
+                e-        0.17299      7.51065e-06         -25.5641
  
   airNASA9 using EOS IdealGas:
  
@@ -59,7 +59,7 @@
                NO+              0                0     
                 N+       0.166221         0.199351         -5.23275
                 O+              0                0     
-                e-       0.166221      7.75703e-06          -25.604
+                e-       0.166221      7.76924e-06          -25.604
 PASS: ChemEquil equilibration passed at  T    = 300 Pres = 1e-06 x_O2 = 0
 PASS: ChemEquil equilibration passed at  T    = 500 Pres = 1e-06 x_O2 = 0
 PASS: ChemEquil equilibration passed at  T    = 700 Pres = 1e-06 x_O2 = 0

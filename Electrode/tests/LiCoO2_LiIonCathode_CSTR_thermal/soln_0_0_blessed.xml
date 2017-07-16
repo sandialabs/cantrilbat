@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Tue Apr 11 21:14:40 2017
+      Sun Jul 16 14:29:58 2017
     </string>
     <ElectrodeIdentification>
       <electrodeTypeString vtype="string"> CSTR_LiCoO2Cathode </electrodeTypeString>

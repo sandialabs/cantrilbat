@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Tue Apr 11 21:30:19 2017
+      Sun Jul 16 14:30:59 2017
     </string>
     <ElectrodeIdentification>
       <electrodeTypeString vtype="string"> CSTR_MCMBAnode </electrodeTypeString>

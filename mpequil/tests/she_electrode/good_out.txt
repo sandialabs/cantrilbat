@@ -384,18 +384,18 @@ Pt_electrons     0.000000e+00    1.000000e+00    -1.948116e+07
        temperature          298.15  K
           pressure          101325  Pa
            density            2165  kg/m^3
-      molar volume     2.51732e-07  m^3/kmol
-  mean mol. weight        0.000545  amu
+      molar volume     2.52128e-07  m^3/kmol
+  mean mol. weight     0.000545858  amu
 electric potential       -0.414062  V
  
                           1 kg            1 kmol
                        -----------      ------------
-          enthalpy          12.185         0.006641     J
-   internal energy         -34.616         -0.01887     J
-           entropy      1.1989e+08        6.534e+04     J/K
-    Gibbs function     -3.5745e+10       -1.948e+07     J
- heat capacity c_p      2.6455e+07        1.442e+04     J/K
- heat capacity c_v      2.6455e+07        1.442e+04     J/K
+          enthalpy          12.166         0.006641     J
+   internal energy         -34.635         -0.01891     J
+           entropy       1.197e+08        6.534e+04     J/K
+    Gibbs function     -3.5689e+10       -1.948e+07     J
+ heat capacity c_p      2.6414e+07        1.442e+04     J/K
+ heat capacity c_v      2.6414e+07        1.442e+04     J/K
  
                            X                 Y          Chem. Pot. / RT    
                      -------------     ------------     ------------

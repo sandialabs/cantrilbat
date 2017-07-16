@@ -124,7 +124,6 @@ runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
 	./runtest
 
 rebaseline:
-	cp MCMB.out MCMB_blessed.out
 	cp MCMBThermo.out  MCMBThermo_blessed.out
 	cp MCMBThermo_RSD_Override.out  MCMBThermo_RSD_Override_blessed.out
 	cp thermo.csv thermo_blessed.csv

@@ -1266,7 +1266,7 @@ oc[0] = 3.98922
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.90000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.90000E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1274,7 +1274,7 @@ oc[0] = 3.98922
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = NA amps 
                 Electric Potential = 3.9
 
@@ -1583,7 +1583,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1591,7 +1591,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -1765,7 +1765,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1773,7 +1773,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -1937,7 +1937,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -1945,7 +1945,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -2109,7 +2109,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2117,7 +2117,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -2281,7 +2281,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2289,7 +2289,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -2453,7 +2453,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2461,7 +2461,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -2625,7 +2625,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2633,7 +2633,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -2797,7 +2797,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2805,7 +2805,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -2969,7 +2969,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -2977,7 +2977,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -3141,7 +3141,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78325E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78325E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3149,7 +3149,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78325
      ============================================================================================
@@ -3313,7 +3313,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3321,7 +3321,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -3485,7 +3485,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3493,7 +3493,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -3657,7 +3657,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3665,7 +3665,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -3829,7 +3829,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -3837,7 +3837,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -4001,7 +4001,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4009,7 +4009,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -4173,7 +4173,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4181,7 +4181,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -4345,7 +4345,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4353,7 +4353,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -4517,7 +4517,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4525,7 +4525,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -4689,7 +4689,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4697,7 +4697,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -4861,7 +4861,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -4869,7 +4869,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -5033,7 +5033,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78324E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78324E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5041,7 +5041,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78324
      ============================================================================================
@@ -5205,7 +5205,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5213,7 +5213,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -5377,7 +5377,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5385,7 +5385,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -5549,7 +5549,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5557,7 +5557,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -5721,7 +5721,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5729,7 +5729,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -5893,7 +5893,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -5901,7 +5901,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -6065,7 +6065,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6073,7 +6073,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -6237,7 +6237,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6245,7 +6245,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -6409,7 +6409,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6417,7 +6417,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -6581,7 +6581,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6589,7 +6589,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -6753,7 +6753,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6761,7 +6761,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -6925,7 +6925,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -6933,7 +6933,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -7097,7 +7097,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78323E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78323E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7105,7 +7105,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78323
      ============================================================================================
@@ -7269,7 +7269,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7277,7 +7277,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -7441,7 +7441,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7449,7 +7449,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -7613,7 +7613,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7621,7 +7621,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -7785,7 +7785,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7793,7 +7793,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -7957,7 +7957,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -7965,7 +7965,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -8129,7 +8129,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8137,7 +8137,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -8301,7 +8301,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8309,7 +8309,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -8473,7 +8473,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8481,7 +8481,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -8645,7 +8645,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8653,7 +8653,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -8817,7 +8817,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8825,7 +8825,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -8989,7 +8989,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78322E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78322E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -8997,7 +8997,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78322
      ============================================================================================
@@ -9161,7 +9161,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78321E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9169,7 +9169,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78321
      ============================================================================================
@@ -9333,7 +9333,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78321E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9341,7 +9341,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78321
      ============================================================================================
@@ -9505,7 +9505,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78321E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9513,7 +9513,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78321
      ============================================================================================
@@ -9677,7 +9677,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78321E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9685,7 +9685,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78321
      ============================================================================================
@@ -9849,7 +9849,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78321E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -9857,7 +9857,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78321
      ============================================================================================
@@ -10021,7 +10021,7 @@ RootFind success: convergence achieved
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  3.78321E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  3.78321E+00
      ECDMC_LiPF6                 3.366E-07    1.340E+00    4.511E-07    3.500E-01  0.00000E+00
      LiCoO2_Margules_1           1.941E-05    4.317E-02    8.378E-07    6.500E-01             
      cathode_surface             7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -10029,7 +10029,7 @@ RootFind success: convergence achieved
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = -0.1 amps 
                 Electric Potential = 3.78321
      ============================================================================================
