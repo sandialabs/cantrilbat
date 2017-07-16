@@ -12,7 +12,7 @@ all:
 	cd TBP_Diff; @MAKE@
 
 test:
-	cd TBP_Water_HeteroCSTR; @MAKE@ test
+#	cd TBP_Water_HeteroCSTR; @MAKE@ test
 	cd TBP_NoDiff;           @MAKE@ test
 	cd TBP_Diff;             @MAKE@ test
 	cd AtoB;                 @MAKE@ test

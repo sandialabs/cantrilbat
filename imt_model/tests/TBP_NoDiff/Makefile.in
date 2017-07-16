@@ -61,7 +61,7 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
-all: .depends $(PROGRAM)
+all: .dependsT $(PROGRAM)
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
@@ -116,10 +116,11 @@ DEPENDS = $(OBJ:.o=.d)
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 test: 
 	@MAKE@
@@ -127,6 +128,7 @@ test:
 
 rebaseline:
 	cp out.txt good_out.txt
+	cp  WaterTBP_intResults_0_0.csv WaterTBP_intResults_blessed_0_0.csv
 
 ##############################################################################
 
@@ -148,8 +150,7 @@ include .depends
 endif
 
 
-
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT
 	$(RM) ${PROG} anode_intSurf
 
