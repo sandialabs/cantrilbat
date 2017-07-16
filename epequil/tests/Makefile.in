@@ -37,8 +37,20 @@ test:
 	@ cd jp8_matrix;                              @MAKE@ test
 
 rebaseline:
+	cd airNASA9_matrix;			      $(MAKE) rebaseline
+	cd airNASA9_pairs ;      		      $(MAKE) rebaseline
+	cd airNASA9_UVmatrix ;      		      $(MAKE) rebaseline
+	cd basopt_modgri ;      		      $(MAKE) rebaseline
+	cd basopt_red1 ;         		      $(MAKE) rebaseline
+	cd basopt_test ;         		      $(MAKE) rebaseline
+	cd ex_gri ;              		      ./rebaseline
+	cd ex_jp8 ;              		      ./rebaseline
 	cd  gri_matrix;                               @MAKE@ rebaseline
+	cd  gri_matrix_savedEP;                       @MAKE@ rebaseline
+	cd  gri_pairs;                                @MAKE@ rebaseline
 	cd jp8_matrix;                                @MAKE@ rebaseline
+	cd ionizedGasEquil;                           @MAKE@ rebaseline
+	cd silane_equil;                              ./rebaseline
 
 clean:
 	cd silane_equil;                              @MAKE@ clean
