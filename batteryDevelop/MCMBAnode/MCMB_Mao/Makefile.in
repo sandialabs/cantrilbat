@@ -125,20 +125,20 @@ DEPENDS = $(OBJ_TOTAL:.o=.d)
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) .dependsT
 
 .dependsT: $(DEPENDS)
 	cat *.d > .depends
 	touch .dependsT
 
 test: 
-	@MAKE@
+	$(MAKE) all
 	./runtest
 
 rebaseline:
-	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
-	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
-	cp out.txt good_out.txt
+	cp  thermo.csv thermo_blessed.csv
+	cp  MCMBThermo.out  MCMBThermo_blessed.out
+	cp  MCMBThermo_RSD_Override.out  MCMBThermo_RSD_Override_blessed.out
 
 ##############################################################################
 

@@ -30,7 +30,7 @@ using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
-using namespace VCSnonideal;
+using namespace ZZVCSnonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -53,9 +53,7 @@ int main(int argc, char **argv)
 {
  
 
-
-
-  VCSnonideal::vcs_timing_print_lvl = 0;
+  ZZVCSnonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 
@@ -186,7 +184,7 @@ int main(int argc, char **argv)
      ocv_input_ptr->rxnID = 0;
      ocv_input_ptr->temperatureDerivType = 0;
      ocv_input_ptr->temperatureBase = 298.15;
-     ocv_input_ptr->OCVTempDerivModel = "Constant 0.0";
+     ocv_input_ptr->OCVTempDerivModel = "Cathode_Constant 0.0";
      ocv_input_ptr->DoDSurrogateSpeciesName = "LiCoO2";
      int iphS = 0;
 	 
@@ -201,8 +199,8 @@ int main(int argc, char **argv)
 			       + ocv_input_ptr->replacedSpeciesName);
      }
      ocv_input_ptr->replacedGlobalSpeciesID = kg;
-     int phaseID;
-     int localSpeciesIndex;
+     size_t phaseID;
+     size_t localSpeciesIndex;
      pl->getLocalIndecisesFromGlobalSpeciesIndex(kg, phaseID, localSpeciesIndex);
      //
      // Store the phase index and local species index of the replaced species
