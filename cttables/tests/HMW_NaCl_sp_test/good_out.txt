@@ -282,7 +282,7 @@ INFORMATION TABLE FOR SPECIES "H+" IN PHASE "NaCl_electrolyte"
                    E-: 1      |                     65.340
                                                      0.000 J/gmol/K 
         Electronic Charge = 1.000000
-        Molecular Weight = 1.0074 gm/mol
+        Molecular Weight = 1.00739 gm/mol
         Heat of formation (298.15K) = 0.000000  kJ/gmol 
         DeltaGf (298.15K) = 0.000000  kJ/gmol 
                 Phase and Species Reference Pressure = 100000 Pa

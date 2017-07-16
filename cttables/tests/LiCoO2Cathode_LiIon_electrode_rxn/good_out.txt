@@ -106,7 +106,7 @@ INFORMATION TABLE FOR SPECIES "CoO2" IN PHASE "LiCoO2_Interstitials_cathode"
         Carrier Species (used in diff. calcs) = electron_Li_LiIon
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1electron_Li_LiIon          1.0000       1.835E-03       1.000E+00
+              1electron_Li_LiIon          1.0000       1.832E-03       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
@@ -118,16 +118,16 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_elect
                    E-: -1      |                     -0.000
                                                      0.000 J/gmol/K 
         Electronic Charge = -1.000000
-        Molecular Weight = 0.000545 gm/mol
+        Molecular Weight = 0.000545858 gm/mol
         Heat of formation (298.15K) = 0.000082 kcal/gmol
         DeltaGf (298.15K) = -8.671958 kcal/gmol
                 Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 250 K
         Maximum Temperature = 500 K
-        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.545 m3/kmol
-        StandState Molar Volume at (T,P) of (298.15,101325) = 0.545 m3/kmol
+        Partial    Molar Volume at (T,P) of (298.15,101325) = 0.545858 m3/kmol
+        StandState Molar Volume at (T,P) of (298.15,101325) = 0.545858 m3/kmol
         StoichSubstance constant density = 0.001 kg m-3 
-        species Molar Volume = 0.545 m**3 / kmol <- constant
+        species Molar Volume = 0.545858 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
@@ -219,7 +219,7 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
                    E-: 1      |                     -0.000
                                                     29.085 J/gmol/K 
         Electronic Charge = 1.000000
-        Molecular Weight = 6.94046 gm/mol
+        Molecular Weight = 6.94045 gm/mol
         Heat of formation (298.15K) = 0.000000 kcal/gmol
         DeltaGf (298.15K) = 8.671693 kcal/gmol
                 Phase and Species Reference Pressure = 1E+06 erg cm-2
@@ -358,7 +358,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "LiCoO2_Interstitials_cathode"
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
                |LiCoO2_Interstitials_cathode|   3           0      -6.941 |             0                 0 |
-               |metal_Li_LiIon_electrons|   3           1    0.000545 |            -1                 0 |
+               |metal_Li_LiIon_electrons|   3           1  0.00054586 |            -1                 0 |
                |         ECDMC_LiPF6|   3           1      6.9405 |             1                 0 |
                |     cathode_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------
@@ -458,7 +458,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "LiCoO2_Interstitials_cathode"
         Carrier Species (used in diff. calcs) = electron_Li_LiIon
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1electron_Li_LiIon          1.0000       1.835E-03       1.000E+00
+              1electron_Li_LiIon          1.0000       1.832E-03       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "ECDMC_LiPF6", with name, "ECDMC_LiPF6", with eosType, "UnknownPhaseType"
@@ -500,7 +500,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "LiCoO2_Inter
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
                |LiCoO2_Interstitials_cathode|   3           0       6.941 |             0                 0 |
-               |metal_Li_LiIon_electrons|   3          -1   -0.000545 |             1                 0 |
+               |metal_Li_LiIon_electrons|   3          -1 -0.00054586 |             1                 0 |
                |         ECDMC_LiPF6|   3          -1     -6.9405 |            -1                 0 |
                |     cathode_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------

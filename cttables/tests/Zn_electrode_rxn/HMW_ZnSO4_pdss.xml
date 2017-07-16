@@ -145,7 +145,7 @@
        </activityCoefficients>
        <solvent> H2O(L) </solvent>
     </thermo>
-    <elementArray datasrc="elements.xml"> O H C Zn Mg S N Na Cl </elementArray>
+    <elementArray datasrc="elements.xml"> O H C Zn Mg S N Na Cl E </elementArray>
     <kinetics model="none">
     </kinetics>
   </phase>

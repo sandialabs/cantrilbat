@@ -717,7 +717,7 @@ INFORMATION TABLE FOR IDEAL GAS SPECIES "e-" IN PHASE "airNASA9"
         Elemental Composition:
                   E: 1
         Electronic Charge = -1.000000
-        Molecular Weight = 0.000545 gm/mol
+        Molecular Weight = 0.000545858 gm/mol
         Heat of formation (298.15K) = -0.0000 kcal/gmol
         DeltaGf (298.15K) = -6.2549 kcal/gmol
                 Phase and Species Reference Pressure = 1E+06 erg cm-2

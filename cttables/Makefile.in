@@ -24,7 +24,7 @@ install:
 	cd src; @MAKE@ install
 
 rebaseline:
-	cd test; @MAKE@ rebaseline
+	cd tests; $(MAKE) rebaseline
 
 test:
 	cd tests; @MAKE@ test
