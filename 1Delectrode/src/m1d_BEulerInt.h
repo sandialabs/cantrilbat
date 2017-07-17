@@ -12,6 +12,7 @@
 #define ZZ_M1D_BEULERINT_H
 
 #include "cantera/base/config.h"
+//#include "cantera/numerics/DAE_Solver.h"
 #include "cantera/numerics/Integrator.h"
 #include "cantera/numerics/SquareMatrix.h"
 
@@ -86,6 +87,7 @@ public:
  *
  */
 class BEulerInt: public ZZCantera::Integrator
+//class BEulerInt: public ZZCantera::DAE_Solver
 {
 
 public:

@@ -165,6 +165,7 @@ BEulerInt& BEulerInt::operator=(const BEulerInt &r)
     if (this == &r) {
         return *this;
     }
+    //ZZCantera::DAE_Solver::operator=(r);
     ZZCantera::Integrator::operator=(r);
 
     m_currentTimeRegion = r.m_currentTimeRegion;
