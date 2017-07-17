@@ -435,7 +435,7 @@ main(int argc, char **argv)
       // We should actually base this on a roundoff error of the TFinal.
       if ( PSinput.cathodeBCType_  == 6 
 	   || PSinput.cathodeBCType_  == 7 ) {
-	double smallTimeShift = MAX( 1e-4 * PSinput.initialTimeStep_, 1e-10 * TFinal );
+	double smallTimeShift = std::max( 1e-4 * PSinput.initialTimeStep_, 1e-10 * TFinal );
 	//double smallTimeShift = 1e-10 * TFinal;
 	Tstop = TFinal - smallTimeShift;
 	Tstop = t1.integratePRE( Tstop );

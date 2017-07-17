@@ -41,9 +41,25 @@ using namespace Zuzax;
 using namespace Cantera;
 #endif
 using namespace m1d;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler {
 
+#ifndef BE_SUCCESS
+//! success return from a function
+#define BE_SUCCESS 0
+#endif
+
+#ifndef BE_FAILURE
+//! bad return from a function
+#define BE_FAILURE 1
+#endif
+
+//=====================================================================================================================
+//! Print a line
+/*!
+ *  @param[in]               str                 string to repetitively print
+ *  @param[in]               n                   repetitions
+ */
 static void print_line(const char *str, int n)
 {
     for (int i = 0; i < n; i++) {
@@ -222,9 +238,9 @@ void BEulerInt::setAlgebraicConstraints(const Epetra_IntVector &algebraicConstra
     }
 }
 //=====================================================================================================================
-void BEulerInt::setProblemType(int jacFormMethod)
+void BEulerInt::setProblemType(int jt)
 {
-    m_jacFormMethod = jacFormMethod;
+    m_jacFormMethod = jt;
 }
 //=====================================================================================================================
 void BEulerInt::setTimeRegionBoundaries(const std::vector<double>& timeRegionBoundaries)
@@ -1203,7 +1219,7 @@ double BEulerInt::time_error_norm() const
     double sum_norm, error, tfac;
     //  Algebraic constraints get reduced if the time step is cut down.
     //  -> their values can have jump discontinuities when time steps are reduced.
-    double dd = MAX(delta_t_nm1, delta_t_nm2);
+    double dd = std::max(delta_t_nm1, delta_t_nm2);
     tfac = delta_t_n / dd;
     if (tfac > 1.0)
         tfac = 1.0;
@@ -1360,7 +1376,7 @@ double BEulerInt::time_step_control(int order, double time_error_factor) const
     /*
      * Special case time_error_factor so that zeroes don't cause a problem.
      */
-    time_error_factor = MAX(1.0E-50, time_error_factor);
+    time_error_factor = std::max(1.0E-50, time_error_factor);
 
     /*
      * Calculate the factor for the change in magnitude of time step.
@@ -1383,7 +1399,7 @@ double BEulerInt::time_step_control(int order, double time_error_factor) const
         }
         delta_t = -0.5 * delta_t_n;
     } else {
-        factor = MIN(factor, 1.5);
+        factor = std::min(factor, 1.5);
         delta_t = factor * delta_t_n;
     }
     return delta_t;
@@ -1995,7 +2011,7 @@ double BEulerInt::step(double t_max)
                  * if the recent "History" of the time step behavior is still bad
                  */
                 else if (m_failure_counter > 0) {
-                    delta_t_np1 = MIN(delta_t_np1, delta_t_n);
+                    delta_t_np1 = std::min(delta_t_np1, delta_t_n);
                 }
             } else {
                 delta_t_np1 = delta_t_n;
@@ -2026,7 +2042,7 @@ double BEulerInt::step(double t_max)
                     double iter_adjust_zone = max_Newton_steps - target_num_iter;
                     double target_time_step = delta_t_n
                             * (1.0 - iter_diff * fabs(iter_diff) / ( (2.0 * iter_adjust_zone * iter_adjust_zone)));
-                    target_time_step = MAX(0.5*delta_t_n, target_time_step);
+                    target_time_step = std::max(0.5*delta_t_n, target_time_step);
                     if (!mypid_ && target_time_step < delta_t_np1) {
                         printf("\tNext time step will be decreased from %g to %g"
                                 " because of new its restraint\n", delta_t_np1, target_time_step);
@@ -2101,7 +2117,7 @@ double BEulerInt::step(double t_max)
             /*
              * Decrement the number of consecutive failure counter.
              */
-            m_failure_counter = MAX(0, m_failure_counter-1);
+            m_failure_counter = std::max(0, m_failure_counter-1);
 
             /*
              * Print out final results of a successful time step.

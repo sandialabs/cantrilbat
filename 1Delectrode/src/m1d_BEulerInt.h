@@ -25,26 +25,11 @@
 #include "Epetra_Comm.h"
 #include "Epetra_IntVector.h"
 
-#ifndef MAX
-//! Max function
-#define MAX(x,y)    (( (x) > (y) ) ? (x) : (y))
-#endif
-
-#ifndef MIN
-//! Min Function
-#define MIN(x,y)    (( (x) < (y) ) ? (x) : (y))
-#endif
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler {
 
-#define OPT_SIZE 10
 
-#define BE_SUCCESS 0
-#define BE_FAILURE 1
-
-#define BE_STEADY 0
-#define BE_TRANSIENT 1
-
+//==================================================================================================================================
 //!  Enum for variable of fixed step
 enum BEulerMethodType
 {
@@ -53,7 +38,7 @@ enum BEulerMethodType
     //! use a variable step
     BEulerVarStep
 };
-
+//==================================================================================================================================
 //! Exception class thrown when a BEuler error is encountered.
 /*!
  *
@@ -67,8 +52,8 @@ public:
      */
     BEulerErr(std::string msg);
 };
-
 //==================================================================================================================================
+
 //! use an analytical jacobian
 #define BEULER_JAC_ANAL 2
 
@@ -97,7 +82,7 @@ public:
  *   time integrator.  These absolute tolerances are provided by the ProblemResidualEval object.
  *
  *
- *
+ *  todo Change the base type to DAE_Solve. That's what this actually does
  *
  */
 class BEulerInt: public ZZCantera::Integrator
@@ -107,8 +92,7 @@ public:
 
     //!The default constructor doesn't take an argument.
     /*!
-     *  Default settings: epetra jacobian, no user-supplied
-     *  Jacobian function, Newton iteration.
+     *  Default settings: epetra jacobian, no user-supplied  Jacobian function, Newton iteration.
      */
     BEulerInt();
 
@@ -155,7 +139,7 @@ public:
      *
      *  @param[in]           probtype            Input with BEULER_JAC_NUM
      */
-    virtual void setProblemType(int probtype);
+    virtual void setProblemType(int jacType);
 
     //! Set the regions for time, given by the setup of the boundary conditions.
     /*!
