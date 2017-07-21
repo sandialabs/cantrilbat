@@ -319,30 +319,6 @@ void BEulerInt::setNumInitialConstantDeltaTSteps(int num)
     m_numInitialConstantDeltaTSteps = num;
 }
 //=====================================================================================================================
-/*
- * setPrintSolnOptins():
- *
- * This routine controls when the solution is printed
- *
- * @param printStepInterval If greater than 0, then the
- *                     soln is printed every printStepInterval
- *                     steps.
- *
- * @param printNumberToTout The solution is printed at
- *                  regular invervals a total of
- *                  "printNumberToTout" times.
- *
- * @param printSolnFirstSteps The solution is printed out
- *                   the first "printSolnFirstSteps"
- *                   steps. After these steps the other
- *                   parameters determine the printing.
- *                   default = 0
- *
- * @param dumpJacobians Dump jacobians to disk.
- *
- *                   default = false
- *
- */
 void BEulerInt::setPrintSolnOptions(int printSolnStepInterval, int printSolnNumberToTout, int printSolnFirstSteps,
                                     bool dumpJacobians)
 {

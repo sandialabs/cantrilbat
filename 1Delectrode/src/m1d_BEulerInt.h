@@ -245,19 +245,20 @@ public:
         return (*m_y_n);
     }
 
-    //!    Return a changeable reference to the solution dot vector
+    //! Return a changeable reference to the solution dot vector
     /*!
      *  @param returns a ghosted Epetra_Vector reference to the solution vector
+     *
+     *  @return                                  Returns a changeable reference to the ghosted time derivative of the solution
      */
-    m1d::Epetra_Vector_Ghosted & solnDotVector()
+    m1d::Epetra_Vector_Ghosted& solnDotVector()
     {
         return (*m_ydot_n);
     }
 
     //! Return the number of global equations in the equation system
     /*!
-     *
-     * @return returns the number of global equations in the equation system
+     *  @return returns the number of global equations in the equation system
      */
     int nEquations() const
     {
@@ -265,46 +266,55 @@ public:
     }
 
     //! Return the total number of function evaluations
-    virtual int
-    nEvals() const;
-
-    //! find the time region
     /*!
-     * @param   val
-     *  @param start   If the input is a starting point. If so, we return the greater region
-     *  @return returns the region
+     *  @return                                  Returns the number of function evaluations
+     */
+    virtual int nEvals() const;
+
+    //! Find the time region and return the region number
+    /*!
+     *  @param[in]            val                Value of the time
+     *  @param[in]            start              If the input is a starting point. If so, we return the greater region
+     *  @return                                  returns the region number
      */
     int findTimeRegion(double val, bool start);
 
     /*************************************** Member functions ***********************************************/
     /******************************     PARAMETER SPECIFICATION FUNCTIONS                *********************************/
 
+    //! Sets the Backwards Euler method Type
+    /*!
+     *  @param[in]           t                   Type of step : Always BEulerVarStep
+     */
     virtual void
     setMethodBEMT(BEulerMethodType t);
 
     //! Set the maximum time step size allowed in the calculation
     /*!
-     * @param    hmax              value of the maximum time step size
+     *  @param[in]           hmax                value of the maximum time step size
      */
     void  setMaxStep(double hmax);
 
  
     //! Set the minimum time step size allowed in the calculation
     /*!
-     * @param hmin value of the maximum time step size
+     *  @param[in]           hmin                value of the maximum time step size
      */
     void setMinStep(double hmin);
 
-    //! Set the time step for algebraic discontinuities
+    //! Set the time step for algebraic discontinuities to be removed from time step truncation error
     /*!
-     * @param h_AUD                 Delta_t at which the algebraic constraints are linearly removed from the time step 
-     *                              truncation error tolerance criteria
+     *  Below a certain time step, the algebraic constraints are taken out of the time step control algorithm.
+     *  This is an attempt to limit a time step death spiral that is not caused by a convergence issue.
+     *
+     *  @param[in]           h_AUD               Delta_t at which the algebraic constraints are linearly removed from the time step 
+     *                                           truncation error tolerance criteria
      */
     void setTimeStep_AUD(double h_AUD);
 
     //! Set the maximum number of time steps
     /*!
-     * @param[in]   maxTimeStep     the maximum number of time steps
+     *  @param[in]           maxTimeStep         the maximum number of time steps
      */
     void setMaxNumTimeSteps(int maxTimeSteps);
 
@@ -316,21 +326,55 @@ public:
      *  This input controls the number of steps to take at the beginning of the calculation.
      *  The default is 2.
      *
-     *  @param numSteps   Number of steps to keep constant
+     *  @param[in]           numSteps            Number of steps to keep constant
      */
     virtual void
     setNumInitialConstantDeltaTSteps(int numSteps);
 
+    //! Sets the print solution options
+    /*!
+     *  @param[in]           printSolnStepInterval  If greater than 0, then the soln is printed every printStepInterval steps.
+     *                                                (no default but initially set to a value of 0)
+     *  @param[in]           printSolnNumberToTout  The solution is printed at regular invervals a total of
+     *                                                "printNumberToTout" times.
+     *                                                (no default but initially set to a value of 0)
+     *  @param[in]           printSolnFirstSteps    The solution is printed out the first "printSolnFirstSteps"
+     *                                                steps. After these steps the other parameters determine the printing.
+     *                                                default = 0
+     *  @param[in]           dumpJacobians          Boolean indicating whether the Jacobian should be dumped to stdout.
+     *                                                 default = false;
+     */
     virtual void
-    setPrintSolnOptions(int printSolnStepInterval, int printSolnNumberToTout, int printSolnFirstSteps = 0, bool dumpJacobians =
-                                false);
+    setPrintSolnOptions(int printSolnStepInterval, int printSolnNumberToTout, int printSolnFirstSteps = 0, 
+                        bool dumpJacobians = false);
+
+    //! Set the nonlinear solve options
+    /*!
+     *  @param[in]           min_newt_its        Minimum number of newton iterations
+     *                                                (defaults to 0)
+     *  @param[in]           matrixConditioning  Carry out some matrix conditioning. 
+     *                                                Defaults to false.
+     *  @param[in]           colScaling          Carry out column scaling.
+     *                                                Defaults to false.
+     *  @param[in]           rowScaling          Carry out row sum scaling of the residuals
+     *                                                Defaults to true
+     */
     void
     setNonLinOptions(int min_newt_its = 0, bool matrixConditioning = false, bool colScaling = false, bool rowScaling = true);
 
-    //!  Check to see that the predicted solution satisfies proper requirements.
+    //! Check to see that the predicted solution satisfies proper requirements.
     /*!
-     *       @return Returns a negative number if the step is inappropriate. Then the stepsize is reduced
-     *               and the method is checked again.
+     *  This is a user input routine. Basically, we predict the solution using the recommended time step. However, sometimes 
+     *  the predicted solution veers out of bounds and there is no hope of solving the system at the current time.
+     *  This routine will abort the time step and reduce the attempted step size.
+     *
+     *  @param[in]           y_n                 Changeable reference to the ghosted Epetra_Vector solution vector
+     *  @param[in]           ydot_n              Changeable reference to the ghosted Epetra_Vector solution dot vector
+     *  @param[in]           CJ                  Value of the leading coefficient to solution dot dep on solution (1/deltaT)
+     *  @param[in]           time_n              Current time
+     *
+     *  @return                                  Returns a negative number if the step is inappropriate. Then the stepsize is reduced
+     *                                           and the method is checked again.
      */
     virtual int check_predicted_soln(m1d::Epetra_Vector_Ghosted & y_n, m1d::Epetra_Vector_Ghosted & ydot_n,
 				     double CJ, double time_n);
@@ -349,71 +393,71 @@ public:
      *   8 -> Additional info on the linear solve is printed out.
      *   9 -> Info on a per iterate of the linear solve is printed out.
      *
-     * @param print_flag   Flag for printout of the time-stepper
+     *  @param[in]           print_flag          Flag for printout of the time-stepper
      *
-     * @param nonlinPrintflag    Flag for the nonlinear solver
-     *                           Default is to control nonlinear printout from the time stepper.
+     *  @param[in]           nonlinPrintflag     Flag for the nonlinear solver
+     *                                            Default is to control nonlinear printout from the time stepper.
      */
     virtual void setPrintFlag(const int print_flag, const int nonlinPrintFlag = -1);
 
+    //! Set the column scales
     virtual void setColumnScales();
 
-    //!  Calculate the L2 Weighted Norm of a delta in the solution
+    //! Calculate the L2 Weighted Norm of a delta in the solution
     /*!
-     *   The vector m_ewt[i]'s are always used to weight the solution errors in
-     *   the calculation.
+     *  The vector m_ewt[i]'s are always used to weight the solution errors in the calculation.
+     *  A table of the largest values may be  printed out to standard output.
      *
-     *   The second argument has a default of false. However,
-     *   if true, then a table of the largest values is printed
-     *   out to standard output.
+     *  @param[in]           delta_y             Norm of a delta of the solution vector
+     *  @param[in]           printLargest        if non-zero a table is printed of the largest contributors.
+     *  @param[in]           typeYsoln           Parameter indicating whether m_y_curr[] is currently
+     *                                             evaluated before the delta or after the delta has been implemented.
+     *  @param[in]           dampFactor          Damping factor that will be applied to delta_y before creating a new ysoln
      *
-     *   @param delta_y  Norm of a delta of the solution vector
-     *   @param printLargest if True a table is printed of the largest contributors.
-     *   @param typeYsoln  Parameter indicating whether m_y_curr[] is currently
-     *                     evaluated before the delta or after the delta has been implemented.
-     *   @param dampFactor Damping factor that will be applied to delta_y before creating a new ysoln
+     *  @return                                  Returns the weighted solution update norm
      */
     virtual double
-    soln_error_norm(const Epetra_Vector &delta_y, const int printLargest = 10, const int typeYsoln = 1, const double dampFactor =
-                            1.0) const;
+    soln_error_norm(const Epetra_Vector& delta_y, const int printLargest = 10, const int typeYsoln = 1, 
+                    const double dampFactor = 1.0) const;
 
-    //!    L2 Weighted Norm of the residual
+    //! L2 Weighted Norm of the residual
     /*!
-     *   The vector m_residWt[i]'s are always used to weight the solution errors in
-     *   the calculation.
+     *  The vector m_residWt[i]'s are always used to weight the solution errors in the calculation.
      *
-     *   The third argument has a default of false. However,
-     *   if true, then a table of the largest values is printed
-     *   out to standard output.
+     *  The third argument has a default of 0. However, if non-zero, then a table of the largest values is
+     *  printed out to standard output.
      *
-     *   @param resid       Residual vector
-     *   @param title      Printed out on the title line
-     *   @param printLargest if True a table is printed of the largest contributors.
+     *  @param[in]           resid               Reference to a owned Epetra_Vector const Residual vector
+     *  @param[in]           title               Printed out on the title line
+     *  @param[in]           printLargest        If True a table is printed of the largest contributors.
+     *
+     *  @return                                  Returns the weighted residual norm
      */
     virtual double
     res_error_norm(const Epetra_Vector &resid, const char *title = 0, const int printLargest = 0) const;
 
     //! Set the initial value of the time step
     /*!
-     *  @param delta_t
+     *  @param[in]           delta_t             Value of the initial time step to use
      */
     virtual void
     setInitialTimeStep(double delta_t);
 
-    //!  Function called by BEuler to evaluate the Jacobian matrix and the
-    //!  current residual at the current time step.
+    //! Function called by BEuler to evaluate the Jacobian matrix and the
+    //! current residual at the current time step.
     /*!
-     *  @param J = Jacobian matrix to be filled in
-     *  @param f = Right hand side. This routine returns the current
-     *             value of the rhs (output), so that it does
-     *             not have to be computed again.
-     *  @param time_curr current time
-     *  @param CJ   coefficient for the time derivative term
-     *  @param y_curr    current solution
-     *  @param y_curr_dot  Current solution derivative
-     *  @param num_newt_its  number of newton iterations
-     *  @param jacType        0  Normal jacobian
-     *                        1  DAE initialization problem
+     *  @param[out]          J                   Jacobian matrix to be filled in
+     *  @param[in]           f                   Right hand side. This routine returns the current
+     *                                             value of the rhs (output), so that it does
+     *                                             not have to be computed again.
+     *  @param[in]           time_curr           current time
+     *  @param[in]           CJ                  coefficient for the time derivative term
+     *  @param[in]           y_curr              current solution
+     *  @param[in]           y_curr_dot          Current solution derivative
+     *  @param[in]           num_newt_its        number of newton iterations
+     *  @param[in]           jacType             0  Normal jacobian
+     *                                           1  DAE initialization problem
+     *                                              (Defaults to 0, a normal jacobian)
      */
     void
     beuler_jac(m1d::EpetraJac &J, m1d::Epetra_Vector_Owned * const f, double time_curr, double CJ,
@@ -424,11 +468,12 @@ public:
     /******************************     INTERNAL PROCEDURE CALLS                  *********************************/
 
 protected:
+    //! Internally grab the necessary memory
     void
     internalMalloc();
 
-    // Function to calculate the predicted solution vector, m_y_pred_n for the (n+1)th time step.
-    /*
+    //! Function to calculate the predicted solution vector, m_y_pred_n for the (n+1)th time step.
+    /*!
      * This routine can be used by a first order - forward
      * Euler / backward Euler predictor / corrector method or for a second order
      * Adams-Bashforth / Trapezoidal Rule predictor / corrector method.  See Nachos
@@ -455,6 +500,8 @@ protected:
      * on output:
      *
      *    m_y_pred_n[]    - predicted solution vector at time n + 1
+     *
+     *  @param[in]           order               Order of the prediction method
      */
     void
     calc_y_pred(const int order);
