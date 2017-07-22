@@ -264,7 +264,7 @@ if test ! -x $PROGRAM_SETUP ; then
     /bin/rm -f runInProgress.txt
     exit -1
 fi
-./$PROGRAM_SETUP
+. ./$PROGRAM_SETUP
 
 PROGRAM_OPTS="$PROGRAM_OPTS "$PROGRAM_EXTRA_OPTS
 #

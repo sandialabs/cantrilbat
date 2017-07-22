@@ -38,9 +38,8 @@ include $(CT_INCROOT)/cantera/Cantera.mak
 # Top of the directory structure for git module
 TOPDIR = @abs_top_srcdir@
 
-
 # Define the include directories
-INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES)
 
 # the C++ compiler
 CXX = @CXX@
