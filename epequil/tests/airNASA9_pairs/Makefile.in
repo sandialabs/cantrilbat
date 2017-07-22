@@ -1,16 +1,25 @@
 #!/bin/sh
-############################################################################
-#
-#  Makefile to compile and link a C++ application to 
-#  Cantera.
-#
-#############################################################################
 
 # addition to suffixes
 .SUFFIXES : .d
 
 # the name of the executable program to be created
 PROG_NAME = airNASA9_pairs
+
+TESTNAME = $(PROG_NAME)
+
+TOPDIR = @abs_top_srcdir@
+
+BLESSED_FILES = output_blessed.txt
+
+DATA = problem_setup.sh
+
+TEST_RESULTS = output.txt
+
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES =   diff_summary.txt  diff_out.txt err_out.txt
+
 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
@@ -40,7 +49,7 @@ LCXX_FLAGS = @CXXFLAGS@
 # Program Name
 PROGRAM = $(PROG_NAME)$(EXE_EXT)
 
-all: $(PROGRAM) airNASA9_pairs_300 .depends
+all: $(PROGRAM) airNASA9_pairs_300 .dependsT
 
 # How to compile C++ source files to object files
 .cpp.o:
@@ -70,26 +79,43 @@ airNASA9_pairs_300: airNASA9_pairs_300.o $(CANTERA_CORE_LIBS_DEP)
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	@MAKE@ .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
+	touch .dependsT
 
 # Do the test -> For the windows vc++ environment, we have to skip checking on
 #                whether the program is uptodate, because we don't utilize make
 #                in that environment to build programs.
-test:
-	$(MAKE) all
-	./runtest
+
+
+test: 
+	@$(MAKE) -s all
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	$(TOPDIR)/bin/runtest_Exec
+
 
 rebaseline:
 	cp output.txt output_blessed.txt
 
 clean:
-	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends airNASA9_pairs_300
-	(if test -d SunWS_cache ; then \
-           $(RM) -rf SunWS_cache ; \
-         fi )
+	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends airNASA9_pairs_300 .dependsT $(TEST_FLAGS)
+
+clean_test:
+	rm -f $(TEST_RESULTS) $(TEST_INTERMEDIATES) $(TEST_FLAGS)
+
+clean_test_flags:
+	rm -f $(TEST_FLAGS)
+
+clean_dist: 
+	$(MAKE) clean
+	$(MAKE) clean_test
 
 #############################################################################
 #          DEPENDS RULES

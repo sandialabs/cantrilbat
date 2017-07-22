@@ -236,7 +236,6 @@ then
   TEST_NAME=`basename $ff`
 fi
 #
-#
 #############################################################################################################################
 #
 #  Check the file flag to see if a run is in progress
@@ -258,23 +257,22 @@ trap cleanup INT TERM TSTP QUIT
 #
 #############################################################################################################################
 #
-if test ! -x $PROGRAM_SETUP   ; then
+#  Run the program setup shell commands from the file, whose default is program_setup.sh
+#
+if test ! -x $PROGRAM_SETUP ; then
     echo 'ERROR:  ' $PROGRAM_SETUP ' setup file can not be found'
     /bin/rm -f runInProgress.txt
     exit -1
 fi
-. ./$PROGRAM_SETUP
+./$PROGRAM_SETUP
 
 PROGRAM_OPTS="$PROGRAM_OPTS "$PROGRAM_EXTRA_OPTS
-# echo 'PROGRAM_OPTS = ' $PROGRAM_OPTS
 #
 #############################################################################################################################
 #
 #  Remove temporary files
 #
-Files=" out_raw.txt out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt \
-            solution.xml diff_b*.txt diff_s*.txt diff_s3.txt diff_IV.txt \
-            runGood runBad diff_summary.txt"
+Files=" out_raw.txt out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt runGood runBad diff_summary.txt"
 readCleanFiles=$EXTRA_WHACKED_FILES
 Files+=`echo "$readCleanFiles"`
 #  echo 'Files to be whacked: ' $Files
@@ -284,8 +282,7 @@ Files+=`echo "$readCleanFiles"`
 #
 # Create a symbolic link to the executable, if none exists already
 #
-# echo 'program = ' $PROGRAM
-if test ! -x $PROGRAM   ; then
+if test ! -x $PROGRAM ; then
   if test -x ${CANTERA_APPS_INSTALL_BINDIR}/${PROGRAM} ; then
     ln -s ${CANTERA_APPS_INSTALL_BINDIR}/${PROGRAM} .
   else
@@ -312,14 +309,16 @@ then
 fi
 #
 ##############################################################################################################################
-
+#
+# Determine the name of the std out file
+#
 OutputFile="out.txt"
 if test ! -z $PROGRAM_STD_OUTPUT
 then
     OutputFile=${PROGRAM_STD_OUTPUT}
     /bin/rm -f $OutputFile
 fi
-
+#
 ##############################################################################################################################
 #
 #   Run the program and check exit status
@@ -339,7 +338,6 @@ fi
 #
 if test $retnStat_run != "0" 
 then
-  temp_success="0"
 #
 #    Some tests indicate failure solely by setting a bad return flag
 #    This is true of gtests tests. Therefore, this is a normal exit point
@@ -433,6 +431,8 @@ else
   /bin/rm -f runGood
 fi
 #
+############################################################################################################################
+#
 #  Release the semiphore
 #
 /bin/rm runInProgress.txt
@@ -440,3 +440,4 @@ fi
 # return 0 for no errors, 1 for errors which break the test suite
 #
 exit 0
+

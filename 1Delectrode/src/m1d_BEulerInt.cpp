@@ -1840,7 +1840,7 @@ double BEulerInt::step(double t_max)
           step_failed = true;
         }
 
-        if (! step_failed)  {
+        if (! step_failed) {
 
 	    /*
 	     * Calculate a new Solution Error Weighting vector

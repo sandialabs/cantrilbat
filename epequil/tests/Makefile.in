@@ -19,6 +19,7 @@ all:
 depends:
 	cd gri_matrix;                                @MAKE@ depends
 	cd jp8_matrix;                                @MAKE@ depends
+	cd airNASA9_pairs;		              $(MAKE) depends
 
 test:
 	@ cd silane_equil;                            @MAKE@ test
@@ -73,7 +74,7 @@ clean_dist:
 	cd ex_jp8;                                    @MAKE@ clean
 	cd ex_gri;                                    @MAKE@ clean
 	cd gri_pairs;                                 @MAKE@ clean
-	cd airNASA9_pairs;                            @MAKE@ clean
+	cd airNASA9_pairs;                            @MAKE@ clean_dist
 	cd gri_matrix;                                @MAKE@ clean_dist
 	cd gri_matrix_savedEP;                        @MAKE@ clean
 	cd airNASA9_matrix;                           @MAKE@ clean
@@ -88,13 +89,14 @@ clean_dist:
 clean_test_flags:
 	cd  gri_matrix;                               @MAKE@ clean_test_flags
 	cd jp8_matrix;                                @MAKE@ clean_test_flags
+	cd airNASA9_pairs;		              $(MAKE) clean_test_flags
 
 clean_test:
 	cd silane_equil;                              @MAKE@ clean
 	cd ex_jp8;                                    @MAKE@ clean
 	cd ex_gri;                                    @MAKE@ clean
 	cd gri_pairs;                                 @MAKE@ clean
-	cd airNASA9_pairs;                            @MAKE@ clean
+	cd airNASA9_pairs;                            @MAKE@ clean_test
 	cd  gri_matrix;                               @MAKE@ clean_test
 	cd gri_matrix_savedEP;                        @MAKE@ clean
 	cd airNASA9_matrix;                           @MAKE@ clean
