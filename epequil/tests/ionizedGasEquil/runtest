@@ -1,17 +1,38 @@
 #!/bin/sh
 #
 #
-temp_success="1"
-/bin/rm  -f output.txt outputa.txt
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+#############################################################################################################################
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    echo '               Remove the flag file if you want to run the test'
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+
 ######################################################################
 
-ctv=other
-realtest="1"
-if test ! $ctv = "1.8_liquidTransportDevelop"
-then
-   ./runtest_old
-   exit 0
-fi
+/bin/rm  -f output.txt outputa.txt
+
 
 #################################################################
 #
@@ -48,12 +69,17 @@ diff -w output.txt output_blessed.txt > diff_test.out
 retnStat=$?
 
 
-if [ $retnTotal = "0" ] #&& [ $txtStat = "0" ]
+if [ $retnTotal = "0" ] 
 then
   echo "successful test comparison on "`pwd`" test"
+  echo "  Test Passed: " `date` > runGood
+  /bin/rm -f runBad
 else
   echo "unsuccessful test comparison on "`pwd`" test see gasData_txtdiff.txt and gasData_csvdiff.txt"
-  echo "FAILED" > csvCode.txt
-  temp_success="0"
+  echo "  Test Failed: " `date` > runBad
+  /bin/rm -f runGood
 fi
+
+/bin/rm -f  runInProgress.txt
+exit 0
 

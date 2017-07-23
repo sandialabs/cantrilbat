@@ -908,7 +908,6 @@ AC_OUTPUT(Makefile \
           epequil/tests/ex_jp8/Makefile \
           epequil/tests/ex_gri/Makefile \
           epequil/tests/ionizedGasEquil/Makefile \
-          epequil/tests/ionizedGasEquil/runtest \
 	  Experiment/Makefile \
 	  Experiment/src/Makefile \
           fitShomate/Makefile \
@@ -978,7 +977,6 @@ AC_OUTPUT(Makefile \
           util_src/tests/test_timer/Makefile \
           )
 #
-chmod +x  epequil/tests/ionizedGasEquil/runtest
 chmod +x  1Delectrode/test_suite/runtest
 chmod +x  Electrode/tests/runtest_Electrode
 #

@@ -13,6 +13,21 @@
 # the name of the executable program to be created
 PROG_NAME = ionizedGasEquil
 
+TESTNAME = $(PROG_NAME)
+
+BLESSED_FILES = output_blessed.txt gas_0_0_Data_blessed.csv    gas_3_2_Data_blessed.csv  gas_6_5_Data_blessed.csv
+
+DATA =  air_below6000K.xml  LiKCl_Margules_trans.xml  LiKCl_recipmoltenSalt_trans.xml runtest
+
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt
+
+TEST_RESULTS = output.txt
+
+# Top of the directory structure for git module
+TOPDIR = @abs_top_srcdir@
+ 
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
 OBJS = ionizedGasEquil.o
@@ -55,8 +70,8 @@ all: $(PROGRAM) .dependsT
 
 $(PROGRAM): $(OBJS)  $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                  $(CANTERA_TOTAL_LIBS) \
-                  $(LCXX_END_LIBS)
+	          $(CANTERA_TOTAL_LIBS) \
+	          $(LCXX_END_LIBS)
 
 $(OBJS): Makefile
 
@@ -71,21 +86,34 @@ depends:
 	cat *.d > .depends
 	touch .dependsT
 
-# Do the test -> For the windows vc++ environment, we have to skip checking on
-#                whether the program is uptodate, because we don't utilize make
-#                in that environment to build programs.
-test:
-	$(MAKE) all
-	./runtest
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
 
-clean:
-	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends *~ .dependsT
-	$(RM) *Data.csv diff* output.txt csvCode.txt
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	./runtest
 
 rebaseline:
 	$(RM) *blessed*
 	$(PROGRAM) > output_blessed.txt
 	rename .csv _blessed.csv *.csv
+
+clean:
+	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
+	$(RM) *Data.csv diff* output.txt csvCode.txt
+
+clean_test:
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS) *Data.csv
+
+clean_dist: 
+	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+
+clean_test_flags: 
+	$(RM) $(TEST_FLAGS)
+
 
 #############################################################################
 #          DEPENDS RULES
