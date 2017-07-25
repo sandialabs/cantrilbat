@@ -866,41 +866,38 @@ double BEulerInt::filterNewStep(double timeCurrent, Epetra_Vector_Ghosted &y_cur
     }
     return s1;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void BEulerInt::print_time_step1(int order, int n_time_step, double time, double delta_t_n, double delta_t_nm1, bool step_failed,
                                  int num_failures) const
-                                 /*
-                                  * Print out for relevant time step information
-                                  */
 {
     if (!mypid_) {
-        const char *string = 0;
+        const char *str = 0;
         if (order == 0)
-            string = "Backward Euler";
+            str = "Backward Euler";
         else if (order == 1)
-            string = "Forward/Backward Euler";
+            str = "Forward/Backward Euler";
         else if (order == 2)
-            string = "Adams-Bashforth/TR";
+            str = "Adams-Bashforth/TR";
         printf("\n");
         print_line("=", 80);
         printf("\nStart of Time Step: %5d       Time_n = %9.5g Time_nm1 = %9.5g\n", n_time_step, time, time - delta_t_n);
-        printf("\tIntegration method = %s\n", string);
+        printf("\tIntegration method = %s\n", str);
         if (step_failed)
             printf("\tPreviously attempted step was a failure\n");
         if (delta_t_n > delta_t_nm1)
-            string = "(Increased from previous iteration)";
+            str = "(Increased from previous iteration)";
         else if (delta_t_n < delta_t_nm1)
-            string = "(Decreased from previous iteration)";
+            str = "(Decreased from previous iteration)";
         else {
-            string = "(same as previous iteration)";
+            str = "(same as previous iteration)";
         }
-        printf("\tdelta_t_n        = %8.5e %s", delta_t_n, string);
+        printf("\tdelta_t_n        = %8.5e %s", delta_t_n, str);
         if (num_failures > 0)
             printf("\t(Bad_History Failure Counter = %d)", num_failures);
         printf("\n\tdelta_t_nm1      = %8.5e\n", delta_t_nm1);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  * Print out for relevant time step information
  */
@@ -929,15 +926,13 @@ void BEulerInt::print_time_fail(bool convFailure, int time_step_num, double time
         printf("\n");
         print_line("=", 80);
         if (convFailure) {
-            printf("\tTime Step Number %5d experienced a convergence "
-                    "failure\n", time_step_num);
+            printf("\tTime Step Number %5d experienced a convergence failure\n", time_step_num);
             printf("\tin the non-linear or linear solver\n");
             printf("\t\tValue of time at failed step           = %g\n", time);
             printf("\t\tdelta_t of the   failed step           = %g\n", delta_t_n);
             printf("\t\tSuggested value of delta_t to try next = %g\n", delta_t_np1);
         } else {
-            printf("\tTime Step Number %5d experienced a truncation error "
-                    "failure!\n", time_step_num);
+            printf("\tTime Step Number %5d experienced a truncation error failure!\n", time_step_num);
             printf("\t\tValue of time at failed step           = %g\n", time);
             printf("\t\tdelta_t of the   failed step           = %g\n", delta_t_n);
             printf("\t\tSuggested value of delta_t to try next = %g\n", delta_t_np1);
@@ -947,7 +942,7 @@ void BEulerInt::print_time_fail(bool convFailure, int time_step_num, double time
         print_line("=", 80);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  * Print out the final results and counters
  */
@@ -974,7 +969,7 @@ void BEulerInt::print_final(double time, int step_failed, int time_step_num, int
         print_line("=", 80);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  * Header info for one line comment about a time step
  */
@@ -1002,12 +997,12 @@ void BEulerInt::print_lvl1_Header(int nTimes) const
         print_line("-", 80);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void BEulerInt::print_lvl3_Header() const
 {
     print_SVector("initial Atol vector", *m_abstol);
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  * One line entry about time step
  *   rslt -> 4 letter code
@@ -1023,7 +1018,7 @@ void BEulerInt::print_lvl1_summary(int time_step_num, double time, const char *r
         printf("\n");
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void BEulerInt::print_SVector(std::string header, const Epetra_MultiVector &v) const
 {
     if (!mypid_) {
@@ -1045,18 +1040,17 @@ void BEulerInt::print_SVector(std::string header, const Epetra_MultiVector &v) c
     // stream0 ss;
     //Print0_epMultiVector(ss, v);
 }
-//====================================================================================================================
+//==================================================================================================================================
 void BEulerInt::print_IntSVector(std::string header, const Epetra_IntVector &v) const
 {
     if (!mypid_) {
         printf("%s\n", header.c_str());
     }
     m_func->showSolutionIntVector(header, time_n, delta_t_n, v);
-
-    // stream0 ss;
+    //stream0 ss;
     //Print0_epMultiVector(ss, v);
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  * Function to calculate the predicted solution vector, m_y_pred_n for the
  * (n+1)th time step.
@@ -1064,8 +1058,7 @@ void BEulerInt::print_IntSVector(std::string header, const Epetra_IntVector &v) 
  * This routine can be used by a first order - forward
  * Euler / backward Euler predictor / corrector method or for a second order
  * Adams-Bashforth / Trapezoidal Rule predictor / corrector method.  See Nachos
- * documentation Sand86-1816 and Gresho, Lee, Sani LLNL report UCRL - 83282 for
- * more information.
+ * documentation Sand86-1816 and Gresho, Lee, Sani LLNL report UCRL - 83282 for more information.
  *
  * variables:
  *
@@ -1122,7 +1115,7 @@ void BEulerInt::calc_y_pred(const int order)
      */
     m_func->filterSolnPrediction(time_n, *m_y_pred_n);
 }
-//====================================================================================================================
+//==================================================================================================================================
 /* Function to calculate the acceleration vector ydot for the first or
  * second order predictor/corrector time integrator.  This routine can be
  * called by a first order - forward Euler / backward Euler predictor /
@@ -1152,11 +1145,10 @@ void BEulerInt::calc_y_pred(const int order)
  *
  *      ydot_curr[]   - Current acceleration vector at time n
  *
- * Note we use the current attribute to denote the possibility that
- * y_curr[] may not be equal to m_y_n[] during the nonlinear solve
- * because we may be using a look-ahead scheme.
+ *  Note we use the current attribute to denote the possibility that
+ *  y_curr[] may not be equal to m_y_n[] during the nonlinear solve because we may be using a look-ahead scheme.
  */
-void BEulerInt::calc_ydot(int order, m1d::Epetra_Vector_Ghosted & y_curr, m1d::Epetra_Vector_Ghosted & ydot_curr)
+void BEulerInt::calc_ydot(int order, const m1d::Epetra_Vector_Ghosted& y_curr, m1d::Epetra_Vector_Ghosted& ydot_curr)
 {
     int i;
     double c1;
@@ -1176,7 +1168,7 @@ void BEulerInt::calc_ydot(int order, m1d::Epetra_Vector_Ghosted & y_curr, m1d::E
         return;
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // This function calculates the time step error norm using an L2 formula
 /*
  *    on input:

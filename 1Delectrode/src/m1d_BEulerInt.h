@@ -513,12 +513,14 @@ protected:
     void
     boundStep_y_pred();
 
-    /**
-     * Internal function to calculate the time derivative at the
-     * new step
-     */
+    //!  Internal function to calculate the time derivative at the next step
+    /*!
+     *  @param[in]           order               Order of the time step method
+     *  @param[in]           y_curr              Reference to the ghosted solution vector at the new time 
+     *  @param[out]          ydot_curr           Reference to the ghosted solution dot vector to be calculated at the new time
+     */ 
     void
-    calc_ydot(const int order, m1d::Epetra_Vector_Ghosted & y_curr, m1d::Epetra_Vector_Ghosted & ydot_curr);
+    calc_ydot(const int order, const m1d::Epetra_Vector_Ghosted& y_curr, m1d::Epetra_Vector_Ghosted& ydot_curr);
 
     //! This function calculates the time step error norm using an L2 formula
     /*!
@@ -528,7 +530,7 @@ protected:
      *      m_y_pred_n   -  Predicted value of the solution
      *      m_ewt        - Weight vector
      *
-     *   Returns the l2 norm of (m_y_n[i] - m_y_pred_n[i]) / m_ewt[i]
+     *  @return                                  Returns the l2 norm of (m_y_n[i] - m_y_pred_n[i]) / m_ewt[i]
      */
     double time_error_norm() const;
 
@@ -612,60 +614,122 @@ protected:
      *  Note that it can be called at any time in the calculation. However, it should always be called at the
      *  start of the calculation.
      *
-     *  @return 0  Always returns 0
+     *  @return                                  Always returns 0
      */
     virtual int calcConsistentInitialDerivs();
 
-    /*
-     * Filter a new step
+    //! Filter a new step
+    /*!
+     *  At the end of every successful step, this routine is used to allow the user to filter the solution vector.
+     *  If the norm of the filter is greater than one, then the step is failed
+     *
+     *  @param[in]           timeCurrent         Current value of the time
+     *  @param[in,out]       y_curr              Referenced to the current Epetra_Vector ghosted solution vector
+     *  @param[in,out]       ydot_curr           Referenced to the current Epetra_Vector ghosted solution dot vector
+     *
+     *  @return                                  Returns the norm of the filter step
      */
     double
-    filterNewStep(double timeCurrent, m1d::Epetra_Vector_Ghosted &y_curr, m1d::Epetra_Vector_Ghosted &ydot_current);
+    filterNewStep(double timeCurrent, m1d::Epetra_Vector_Ghosted& y_curr, m1d::Epetra_Vector_Ghosted& ydot_curr);
 
     /*************************************** Member functions ***********************************************/
     /******************************          PRINTING FUNCTIONS                     *********************************/
 
     //! Returns the next time of a printout
     /*!
-     * The variable m_printSolnNumberToTout causes the program to print out the solution at even intervals
-     * from the beginning of the simulation to the end. This program will return the time for the next printout.
-     *   @param   time_current  Current time
-     *   @return  returns the next print out time
+     *  The variable m_printSolnNumberToTout causes the program to print out the solution at even intervals
+     *  from the beginning of the simulation to the end. This program will return the time for the next printout.
+     *
+     *  @param[in]           time_current        Current time
+     *
+     *  @return                                  Returns the next print out time
      */
     double
     getPrintTime(const double time_current) const;
 
+    //! Print out an initial statement about the step
+    /*!
+     *  @param[in]           order               Order of the time step
+     *  @param[in]           time_step_num       Global time step number
+     *  @param[in]           time                Value of the time at the current step 
+     *  @param[in]           delta_t_n           Value of delta t at the current step
+     *  @param[in]           delta_t_nm1         Value of delta t at the last step
+     *  @param[in]           step_failed         Boolean indicating whether previous time step was a failure
+     *  @param[in]           num_failures        Number of failures
+     */
     void
-    print_time_step1(int order, int n_time_step, double time, double delta_t_n, double delta_t_nm1, bool step_failed,
+    print_time_step1(int order, int time_step_num, double time, double delta_t_n, double delta_t_nm1, bool step_failed,
                      int num_failures) const;
 
+    //! Print out for relevant time step information for a successful time step
+    /*!
+     *  @param[in]           time_step_num       Global time step number
+     *  @param[in]           order               Order of the time step
+     *  @param[in]           time                Value of the time at the current step 
+     *  @param[in]           time_error_factor   Value of the time step truncation error factor
+     *  @param[in]           delta_t_n           Value of delta t at the current step
+     *  @param[in]           delta_t_np1         Value of delta t to try next
+     */
     void
     print_time_step2(int time_step_num, int order, double time, double time_error_factor, double delta_t_n,
                      double delta_t_np1) const;
 
+    //! Printing for a failed time step - descriptive information on why the current step failed
+    /*!
+     *  @param[in]           convFailure         True if there was a nonlinear convergence failure. False means that there was a
+     *                                           time step truncation error failure.
+     *  @param[in]           time_step_num       Global time step number
+     *  @param[in]           time                Value of the time at the failed step 
+     *  @param[in]           delta_t_n           Value of delta t at the failed step
+     *  @param[in]           delta_t_np1         Value of delta t to try next
+     *  @param[in]           time_error_factor   Value of the time step truncation error factor
+     */
     void
     print_time_fail(bool convFailure, int time_step_num, double time, double delta_t_n, double delta_t_np1,
                     double time_error_factor) const;
 
+    //!  Print out the final results and counters for a time step, whether it passed or failed
+    /*!
+     *  @param[in]           time                Value of the time at the accepted step 
+     *  @param[in]           step_failed         True if the time step was a failure
+     *  @param[in]           time_step_num       Global time step number
+     *  @param[in]           num_newt_its        Number of newton iterations taken
+     *  @param[in]           total_linear_solves Number of linear matrix solves carried out
+     *  @param[in]           numConvFails        Number of convergence failures
+     *  @param[in]           numTruncFails       Number of time step truncation error failures
+     *  @param[in]           nJacEval            Number of Jacobian evaluations
+     */
     void
     print_final(double time, int step_failed, int time_step_num, int num_newt_its, int total_linear_solves, int numConvFails,
                 int numTruncFails, int nfe, int nJacEval) const;
 
+    //! Print out lvl 1 headers - prints headers for a column format
+    /*!
+     *  @param[in]           nTimes              If true prints a line
+     */
     void
     print_lvl1_Header(int nTimes) const;
 
+
+    //! Lvl 3 header printer
     void
     print_lvl3_Header() const;
 
+    //! Print a Lvl 1 summary of the time step -> all goes on one line
+    /*!
+     *  @param[in]           time_step_num       Global time step number
+     *  @param[in]           time                Value of the time at the accepted step 
+     *  @param[in]           rslt                String describing the result of the step
+     *  @param[in]           delta_t_n           delta t for the step
+     *  @param[in]           num_newt_its        Number of newton iterations taken
+     *  @param[in]           aztec_its           Number of linear matrix solves carried out
+     *  @param[in]           bktr_stps           Number of backtrack steps
+     *  @param[in]           time_error_factor   Value of the time step truncation error tolerance
+     *  @param[in]           comment             Comment field to print out
+     */
     void
-    print_lvl1_summary(int time_step_num, double time, const char *rslt, double delta_t_n, int newt_its, int aztec_its,
+    print_lvl1_summary(int time_step_num, double time, const char *rslt, double delta_t_n, int num_newt_its, int aztec_its,
                        int bktr_stps, double time_error_factor, const char *comment) const;
-
-public:
-    void
-    print_solnDelta_norm_contrib(const double * const soln0, const char * const s0, const double * const soln1,
-                                 const char * const s1, const char * const title, const double * const y0, const double * const y1,
-                                 double damp, int num_entries);
 
 protected:
     //! Print a solution-like vector in a form that is easy to interpret
@@ -754,17 +818,14 @@ protected:
      */
     bool m_colScaling;
 
-    /**
-     * m_matrixConditioning is a boolean. If true, then the
-     * Jacobian and every rhs is multiplied by the inverse
-     * of a matrix that is suppose to reduce the condition
-     * number of the matrix. This is done before row scaling.
+    //! m_matrixConditioning is a boolean. 
+    /*!
+     *  If true, then the Jacobian and every rhs is multiplied by the inverse of a matrix that is suppose to reduce the condition
+     *  number of the matrix. This is done before row scaling.
      */
     bool m_matrixConditioning;
 
-    /**
-     *  Relative time truncation error tolerances
-     */
+    //!  Relative time truncation error tolerances
     double m_reltol;
 
 public:
@@ -773,14 +834,18 @@ public:
 
     //! Map of the owned unknowns of the problem
     Epetra_BlockMap *m_ownedMap;
+
 protected:
-    /**
-     *  Vector of absolute time truncation error tolerance
-     *  when not uniform for all variables.
+    //! Vector of absolute time step truncation error tolerance when not uniform for all variables.
+    /*!
+     *  Lengths: number of owned unknowns on the processor
      */
     m1d::Epetra_Vector_Owned *m_abstol;
-    /**
-     * Error Weights. This is a surprisingly important quantity.
+
+    //! Error Weights for the solution unknowns 
+    /*!
+     *  This is a surprisingly important quantity
+     *  Lengths: number of owned unknowns on the processor
      */
     m1d::Epetra_Vector_Owned *m_ewt;
 
@@ -818,19 +883,19 @@ protected:
      */
     int m_min_newt_its;
 
-    /**
-     * Time step number
-     */
+    //! Global Time step number
     int m_time_step_num;
+
+    //! Number of attemps at a time step
     int m_time_step_attempts;
-    /**
-     * Max time steps allowed
-     */
+
+    //! Max time steps attempts allowed
     int m_max_time_step_attempts;
 
     /******************************************************************************
      *    METHOD OPTIONS FOR THE LINEAR SOLVER
      ********************************************************************************/
+
     //! Dump Jacobians to disk
     /*!
      *     default false
@@ -875,17 +940,16 @@ protected:
      */
     int m_print_flag;
 
-    //!Step Interval at which to print out the solution
+    //! Step Interval at which to print out the solution
     /*!
-     * default = 1;
-     * If set to zero, there is no printout
+     *  Default = 1;
+     *  If set to zero, there is no printout
      */
     int m_printSolnStepInterval;
-    /**
-     * Number of evenly spaced printouts of the solution
-     * If zero, there is no printout from this option
-     *  default 1
-     * If set to zero there is no printout.
+
+    //! Number of evenly spaced printouts of the solution. If zero, there is no printout from this option
+    /*!
+     *  Default 1
      */
     int m_printSolnNumberToTout;
 
@@ -893,10 +957,9 @@ protected:
      *      COUNTERS FOR SOLUTION PROGRESS
      ********************************************************************************/
 
-    /**
-     * Number of initial steps that the solution is
-     * printed out.
-     *     default = 0
+    //! Number of initial steps that the solution is printed out.
+    /*!
+     *  default = 0
      */
     int m_printSolnFirstSteps;
 
@@ -998,9 +1061,7 @@ protected:
     //!  Pointer to the Jacobian representing the time dependent problem
     m1d::EpetraJac *tdjac_ptr;
 
-    /**
-     * Number of function evaluations
-     */
+    //! Total Number of function evaluations
     int m_nfe;
 
     /**
@@ -1012,6 +1073,7 @@ protected:
      * Number of total newton iterations
      */
     int m_numTotalNewtIts;
+
     /**
      * Total number of linear iterations
      */
@@ -1022,9 +1084,7 @@ protected:
      */
     int m_numTotalConvFails;
 
-    /**
-     * Total Number of time truncation error failures
-     */
+    //! Total Number of time truncation error failures
     int m_numTotalTruncFails;
 
     //! Total number of failures
