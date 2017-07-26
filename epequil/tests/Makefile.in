@@ -2,8 +2,8 @@
 ##############################################################################################
 all:
 	cd silane_equil;                              $(MAKE) 
-	cd ex_jp8;                                    $(MAKE)
-	cd ex_gri;                                    $(MAKE)
+	cd ex_jp8;                                    $(MAKE) all
+	cd ex_gri;                                    $(MAKE) all
 	cd gri_pairs;                                 $(MAKE)
 	cd airNASA9_pairs;                            $(MAKE)
 	cd gri_matrix;                                $(MAKE)
@@ -24,7 +24,7 @@ depends:
 test:
 	@ cd silane_equil;                            $(MAKE) test
 	@ cd ex_jp8;                                  $(MAKE) test
-	@ cd ex_gri;                                  $(MAKE) test
+	@ cd ex_gri;                                  $(MAKE) test 
 	@ cd gri_pairs;                               $(MAKE) test
 	@ cd airNASA9_pairs;                          $(MAKE) test
 	@ cd gri_matrix;                              $(MAKE) test
@@ -38,9 +38,9 @@ test:
 	@ cd jp8_matrix;                              $(MAKE) test
 
 rebaseline:
-	cd silane_equil;                              ./rebaseline
-	cd ex_jp8 ;              		      ./rebaseline
-	cd ex_gri ;              		      ./rebaseline
+	cd silane_equil;                              $(MAKE) rebaseline
+	cd ex_jp8 ;              		      $(MAKE) rebaseline
+	cd ex_gri ;              		      $(MAKE) rebaseline
 	cd gri_pairs;                                 $(MAKE) rebaseline
 	cd airNASA9_pairs ;      		      $(MAKE) rebaseline
 	cd gri_matrix;                                $(MAKE) rebaseline
@@ -70,9 +70,9 @@ clean:
 	cd jp8_matrix;                                $(MAKE) clean
 
 clean_dist:
-	cd silane_equil;                              $(MAKE) clean
-	cd ex_jp8;                                    $(MAKE) clean
-	cd ex_gri;                                    $(MAKE) clean
+	cd silane_equil;                              $(MAKE) clean_dist
+	cd ex_jp8;                                    $(MAKE) clean_dist
+	cd ex_gri;                                    $(MAKE) clean_dist
 	cd gri_pairs;                                 $(MAKE) clean
 	cd airNASA9_pairs;                            $(MAKE) clean_dist
 	cd gri_matrix;                                $(MAKE) clean_dist
@@ -86,8 +86,9 @@ clean_dist:
 	cd jp8_matrix;                                $(MAKE) clean_dist
 
 clean_test_flags:
-	cd silane_equil;                              $(MAKE) clean
-	cd ex_jp8;                                    $(MAKE) clean
+	cd silane_equil;                              $(MAKE) clean_test_flags
+	cd ex_jp8;                                    $(MAKE) clean_test_flags
+	cd ex_gri30;                                  $(MAKE) clean_test_flags
 	cd gri_pairs;                                 $(MAKE) clean
 	cd airNASA9_pairs;		              $(MAKE) clean_test_flags
 	cd gri_matrix;                                $(MAKE) clean_test_flags
@@ -102,9 +103,9 @@ clean_test_flags:
 	cd jp8_matrix;                                $(MAKE) clean
 
 clean_test:
-	cd silane_equil;                              $(MAKE) clean
-	cd ex_jp8;                                    $(MAKE) clean
-	cd ex_gri;                                    $(MAKE) clean
+	cd silane_equil;                              $(MAKE) clean_test
+	cd ex_jp8;                                    $(MAKE) clean_test
+	cd ex_gri;                                    $(MAKE) clean_test
 	cd gri_pairs;                                 $(MAKE) clean
 	cd airNASA9_pairs;                            $(MAKE) clean_test
 	cd gri_matrix;                                $(MAKE) clean_test

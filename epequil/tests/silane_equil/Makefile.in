@@ -1,23 +1,57 @@
 #/bin/sh
-###############################################################
-#  $Author: hkmoffa $
-#  $Date: 2006/12/12 02:17:08 $
-#  $Revision: 1.2 $
-#
-###############################################################
-all:
-	@(if test ! -f epequil ; then \
-               ln -s ../../src/epequil . ; \
-        fi) 
 
-test:
-	./runtest
+RM = /bin/rm -f
+
+# Top of the directory structure for git module
+TOPDIR = @abs_top_srcdir@
+
+TESTNAME = epequil_silane
+
+BLESSED_FILES = output_blessed.txt
+
+DATA =  problem_setup.sh  silane.xml
+
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt 
+
+TEST_RESULTS = output.txt
+
+
+BPROGRAM = ../../src/epequil
+
+all: epequil
+
+epequil:
+	@(if test ! -f epequil ; then  ln -s ../../src/epequil . ;  fi) 
+
+test: 
+	@gmake -s all
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(BPROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	$(TOPDIR)/bin/runtest_Exec
+
+rebaseline:
+	cp output.txt output_blessed.txt
+
 clean:
-	/bin/rm -f diff_test.out csvCode.txt
+	/bin/rm -f epequil  $(TEST_FLAGS)
+
+clean_test:
+	/bin/rm -f $(TEST_INTERMEDIATES) $(TEST_RESULTS) $(TEST_FLAGS)
+
+clean_dist:
+	$(MAKE) clean
+	$(MAKE) clean_test
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
 
 install:
 
 depends:
 
 
-# end of file
