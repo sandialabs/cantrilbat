@@ -139,7 +139,7 @@ public:
     /*!
      *  Only numerical jacobians are allowed.
      *
-     *  @param[in]           probtype            Input with BEULER_JAC_NUM
+     *  @param[in]           jacType            Input with BEULER_JAC_NUM
      */
     virtual void setProblemType(int jacType);
 
@@ -155,38 +155,42 @@ public:
      */
     virtual void setTimeRegionBoundaries(const std::vector<double>& timeRegionBoundaries);
 
-    //! Set or reset the initial time of the integration along with the
+    //! Set or reset the initial time of the integration along with the region
+    /*!
+     *  @param[in]           t0                  Initial time
+     *  @param[in]           iregion             time region
+     */
     virtual void setTimeRegion(double t0, int iregion);
 
     //!  Specify the nonlinear solver to be used in the problem
     /*!
      *   Note, a default nonlinear solver is used, so this step is not necessary necessarily
      *   Note, the BEulerInt object owns the nonlinear solver, so nothing needs to be freed.
+     *
+     *  @param[in]           nonlin              Pointer to the nonlinear solver
      */
     void specifyNonLinearSolver(m1d::SolGlobalNonlinear *nonlin);
 
     //!  Setup the problem by specifying the object that generates the problem to be solved,
     //!  mallocing internal objects and memory
     /*!
-     *
-     * @param func       func is the object that supplies the problem.
+     *  @param[in]           func                func is the object that supplies the problem.
      */
     virtual void initializePRE(m1d::ProblemResidEval& func);
 
     //!  Setup the problem by specifying the object that generates the problem to be solved,
     //!  mallocing internal objects and memory
     /*!
-     *
-     * @param func       func is the object that supplies the problem.
+     *  @param[in]           func                func is the object that supplies the problem.
      */
     virtual void reinitializePRE(m1d::ProblemResidEval& func);
 
     //! Default initialization routines that are now not allowed
     /*!
-     * Initialize the integrator for a new problem. Call after
-     * all options have been set.
-     * @param t0   initial time
-     * @param func RHS evaluator object for system of equations.
+     *  Initialize the integrator for a new problem. Call after all options have been set.
+     *
+     *  @param[in]           t0                  initial time
+     *  @param[in]           func                RHS evaluator object for system of equations.
      */
     virtual void initialize(double t0, ZZCantera::FuncEval& func)
     {
@@ -217,16 +221,22 @@ public:
     /*************************************** Member functions ***********************************************/
     /******************************       BASIC INTEGRATION FUNCTIONS                    *********************************/
 
+    //! Integrate the equations using multiple steps until a time is reached or exceeded
+    /*!
+     *  @param[in]           tout                Time to integrate to
+     *
+     *  @return                                  Returns the time that the calculation got to
+     */
     virtual double integratePRE(double tout);
 
     //!    This routine advances the calculations one time step
     /*!
-     * It uses a predictor  corrector approach. We use an implicit algorithm here.
+     *  It uses a predictor  corrector approach. We use an implicit algorithm here.
      *
-     * @param t_max   Final time that the simulation should be advanced to. The simulation will
-     *                pick a delta_t and and t_final. t_final will not be greater than t_max.
+     *  @param[in]           t_max               Final time that the simulation should be advanced to. The simulation will
+     *                                           pick a delta_t and and t_final. t_final will not be greater than t_max.
      *
-     * @return  returns the time that the calculation was advanced to
+     *  @return                                  returns the time that the calculation was advanced to
      */
     virtual double step(double t_max);
 
@@ -236,9 +246,9 @@ public:
     /*************************************** Member functions ***********************************************/
     /******************************     SOLUTION ACCESS FUNCTIONS                 *********************************/
 
-    //!    Return a changeable reference to the solution vector
+    //! Return a changeable reference to the solution vector
     /*!
-     *  @param returns a ghosted Epetra_Vector reference to the solution vector
+     *  @return                                  returns a ghosted Epetra_Vector reference to the solution vector
      */
     m1d::Epetra_Vector_Ghosted & solnVector()
     {
@@ -247,8 +257,6 @@ public:
 
     //! Return a changeable reference to the solution dot vector
     /*!
-     *  @param returns a ghosted Epetra_Vector reference to the solution vector
-     *
      *  @return                                  Returns a changeable reference to the ghosted time derivative of the solution
      */
     m1d::Epetra_Vector_Ghosted& solnDotVector()
@@ -258,7 +266,7 @@ public:
 
     //! Return the number of global equations in the equation system
     /*!
-     *  @return returns the number of global equations in the equation system
+     *  @return                                  returns the number of global equations in the equation system
      */
     int nEquations() const
     {
@@ -275,6 +283,7 @@ public:
     /*!
      *  @param[in]            val                Value of the time
      *  @param[in]            start              If the input is a starting point. If so, we return the greater region
+     *
      *  @return                                  returns the region number
      */
     int findTimeRegion(double val, bool start);
@@ -286,14 +295,13 @@ public:
     /*!
      *  @param[in]           t                   Type of step : Always BEulerVarStep
      */
-    virtual void
-    setMethodBEMT(BEulerMethodType t);
+    virtual void setMethodBEMT(BEulerMethodType t);
 
     //! Set the maximum time step size allowed in the calculation
     /*!
      *  @param[in]           hmax                value of the maximum time step size
      */
-    void  setMaxStep(double hmax);
+    void setMaxStep(double hmax);
 
  
     //! Set the minimum time step size allowed in the calculation
@@ -314,7 +322,7 @@ public:
 
     //! Set the maximum number of time steps
     /*!
-     *  @param[in]           maxTimeStep         the maximum number of time steps
+     *  @param[in]           maxTimeSteps        Maximum number of time steps
      */
     void setMaxNumTimeSteps(int maxTimeSteps);
 
@@ -328,8 +336,7 @@ public:
      *
      *  @param[in]           numSteps            Number of steps to keep constant
      */
-    virtual void
-    setNumInitialConstantDeltaTSteps(int numSteps);
+    virtual void setNumInitialConstantDeltaTSteps(int numSteps);
 
     //! Sets the print solution options
     /*!
@@ -395,7 +402,7 @@ public:
      *
      *  @param[in]           print_flag          Flag for printout of the time-stepper
      *
-     *  @param[in]           nonlinPrintflag     Flag for the nonlinear solver
+     *  @param[in]           nonlinPrintFlag     Flag for the nonlinear solver
      *                                            Default is to control nonlinear printout from the time stepper.
      */
     virtual void setPrintFlag(const int print_flag, const int nonlinPrintFlag = -1);
@@ -440,8 +447,7 @@ public:
     /*!
      *  @param[in]           delta_t             Value of the initial time step to use
      */
-    virtual void
-    setInitialTimeStep(double delta_t);
+    virtual void setInitialTimeStep(double delta_t);
 
     //! Function called by BEuler to evaluate the Jacobian matrix and the
     //! current residual at the current time step.
@@ -469,8 +475,7 @@ public:
 
 protected:
     //! Internally grab the necessary memory
-    void
-    internalMalloc();
+    void internalMalloc();
 
     //! Function to calculate the predicted solution vector, m_y_pred_n for the (n+1)th time step.
     /*!
@@ -503,15 +508,13 @@ protected:
      *
      *  @param[in]           order               Order of the prediction method
      */
-    void
-    calc_y_pred(const int order);
+    void calc_y_pred(const int order);
 
     //! Bound the y_pred step.
     /*!
      *  This will involve lowering the step size
      */
-    void
-    boundStep_y_pred();
+    void boundStep_y_pred();
 
     //!  Internal function to calculate the time derivative at the next step
     /*!
@@ -519,8 +522,7 @@ protected:
      *  @param[in]           y_curr              Reference to the ghosted solution vector at the new time 
      *  @param[out]          ydot_curr           Reference to the ghosted solution dot vector to be calculated at the new time
      */ 
-    void
-    calc_ydot(const int order, const m1d::Epetra_Vector_Ghosted& y_curr, m1d::Epetra_Vector_Ghosted& ydot_curr);
+    void calc_ydot(const int order, const m1d::Epetra_Vector_Ghosted& y_curr, m1d::Epetra_Vector_Ghosted& ydot_curr);
 
     //! This function calculates the time step error norm using an L2 formula
     /*!
@@ -561,21 +563,16 @@ protected:
      *                           and the power are not yet applied to normalize the
      *                           predictor/corrector ratio. (see output value)
      *
-     *   on output:
+     *  @param[in]           order               Order of the method
+     *  @param[in]           time_error_factor   Estimated value of the time step truncation error factor. 
      *
-     *      return - delta_t for the next time step
-     *               If delta_t is negative, then the current time step is
-     *               rejected because the time-step truncation error is
-     *               too large.  The return value will contain the negative
-     *               of the recommended next time step.
-     *
-     *      time_error_factor  - This output value is normalized so that
-     *                           values greater than one indicate the current time
-     *                           integration error is greater than the user
-     *                           specified magnitude.
+     *  @return                                  Returns the delta_t for the next time step
+     *                                           If delta_t is negative, then the current time step is
+     *                                           rejected because the time-step truncation error is
+     *                                           too large.  The return value will contain the negative
+     *                                           of the recommended next time step.
      */
-    double
-    time_step_control(int m_order, double time_error_factor) const;
+    double time_step_control(int order, double time_error_factor) const;
 
     //! computeResidWts():
     /*!
@@ -595,11 +592,10 @@ protected:
      *    Row and column scaling must be used on the matrix.
      *    The Jacobian must have already been formed.
      */
-    void
-    computeResidWts();
+    void computeResidWts();
 
-    // Solve for the consistent initial conditions and consistent initial time derivatives.
-    /*
+    //! Solve for the consistent initial conditions and consistent initial time derivatives.
+    /*!
      *  A special nonlinear problem is solved to find the consistent initial time derivatives and DAE
      *  values that cause the residual system to be solved at t = time_n.
      *
@@ -697,6 +693,7 @@ protected:
      *  @param[in]           total_linear_solves Number of linear matrix solves carried out
      *  @param[in]           numConvFails        Number of convergence failures
      *  @param[in]           numTruncFails       Number of time step truncation error failures
+     *  @param[in]           nfe                 Number of function evaluations
      *  @param[in]           nJacEval            Number of Jacobian evaluations
      */
     void
@@ -766,8 +763,8 @@ protected:
 
     //! Pointer to the nonlinear solver
     m1d::SolGlobalNonlinear *m_nonlin;
-
       
+    //! Pointer to the Epetra communications object
     const Epetra_Comm *Comm_ptr_;
 
     //! My processor number
