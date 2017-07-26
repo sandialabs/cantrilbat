@@ -13,10 +13,21 @@
 # the name of the executable program to be created
 PROG_NAME = basopt_gri
 
+TESTNAME = $(PROG_NAME)
+
+BLESSED_FILES = output_blessed.txt
+
+DATA =  problem_setup.sh gri30.xml
+
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt
+
+TEST_RESULTS = output.txt
+
 # the object files to be linked together. List those generated from Fortran
 # and from C/C++ separately
 OBJS = basopt_gri.o
-
 
 # This link is to Cantera's install space
 CT_INCROOT=@ct_incroot@
@@ -24,9 +35,11 @@ CT_INCROOT=@ct_incroot@
 # Bring in the Cantera includes through the .mak file
 include $(CT_INCROOT)/cantera/Cantera.mak
 
+# Top of the directory structure for git module
+TOPDIR = @abs_top_srcdir@
+
 # Define the include directories
 INCLUDE_DIRS =  $(CANTERA_TOTAL_INCLUDES)
-
 
 # the C++ compiler
 CXX = @CXX@
@@ -57,13 +70,13 @@ all: $(PROGRAM) .dependsT
 
 $(PROGRAM): $(OBJS) $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o $(PROGRAM) $(OBJS) $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                  $(CANTERA_TOTAL_LIBS) \
-                  $(LCXX_END_LIBS)
+	          $(CANTERA_TOTAL_LIBS) \
+	          $(LCXX_END_LIBS)
 
 basopt_red1: basopt_red1.o  $(CANTERA_CORE_LIBS_DEP)
 	$(CXX) -o basopt_red1 basopt_red1.o $(LCXX_FLAGS) $(LINK_OPTIONS) \
-                  $(CANTERA_TOTAL_LIBS) \
-                  $(LCXX_END_LIBS)
+	          $(CANTERA_TOTAL_LIBS) \
+	          $(LCXX_END_LIBS)
 
 $(OBJS): Makefile
 
@@ -78,23 +91,31 @@ depends:
 	cat *.d > .depends
 	touch .dependsT
 
-# Do the test -> For the windows vc++ environment, we have to skip checking on
-#                whether the program is uptodate, because we don't utilize make
-#                in that environment to build programs.
-test:
-	$(MAKE) all
-	./runtest
+test: 
+	@gmake -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	$(TOPDIR)/bin/runtest_Exec
 
 rebaseline:
 	cp output.txt output_blessed.txt
 
 clean:
-	$(RM) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
+	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
 
+clean_test:
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
 
-#############################################################################
-#          DEPENDS RULES
-##############################################################################
+clean_dist: 
+	$(RM) $(TEST_FLAGS) $(OBJS) $(PROGRAM) $(DEPENDS) .depends .dependsT
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+
+clean_test_flags: 
+	$(RM) $(TEST_FLAGS)
+
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
