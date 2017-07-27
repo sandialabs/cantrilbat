@@ -1,0 +1,53 @@
+#/bin/sh
+
+RM = /bin/rm -f
+
+# Top of the directory structure for git module
+TOPDIR = @abs_top_srcdir@
+
+BLESSED_FILES = good_out.txt
+
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt diff.out 
+
+TEST_RESULTS = out.txt
+
+
+BPROGRAM = ../../src/cttables
+
+all: cttables
+
+cttables:
+	@(if test ! -f cttables ; then  ln -s ../../src/cttables . ;  fi) 
+
+test: 
+	@ $(MAKE) -s all
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+
+runGood: $(BPROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	$(TOPDIR)/bin/runtest_Exec
+
+rebaseline:
+	cp output.txt output_blessed.txt
+
+clean:
+	/bin/rm -f cttables $(TEST_FLAGS)
+
+clean_test:
+	/bin/rm -f $(TEST_INTERMEDIATES) $(TEST_RESULTS) $(TEST_FLAGS)
+
+clean_dist:
+	$(MAKE) clean
+	$(MAKE) clean_test
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
+
+install:
+
+depends:
+
+
