@@ -10,14 +10,12 @@
       </elementArray>
       <speciesArray datasrc="#species_electrode"> electron_Li_LiCl </speciesArray>
       <thermo model="StoichSubstance">
-      <density units="g/cm3"> 100. </density>
      </thermo>
      <transport model="None"/>
      <kinetics model="none"/>
    </phase>
-           
           
-   <!-- species definitions     qq-->
+   <!-- species definitions     -->
    <speciesData id="species_electrode">
         
       <!-- species electron_Li_LiCl -->
@@ -55,7 +53,6 @@
            </floatArray>
         </Shomate>
        </thermo>
-        <density units="g/cm3"> 100. </density>
       </species>
                 
     </speciesData>

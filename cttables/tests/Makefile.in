@@ -24,6 +24,7 @@ clean:
 	cd NaCl_solid_test; ./cleanup
 	cd HMW_NaCl_sp_test; ./cleanup
 	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s clean
 	cd LiSi_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_2_LiCl_electrode_rxn; ./cleanup
@@ -58,6 +59,7 @@ test:
 	cd NaCl_solid_test; ./runtest
 	cd HMW_NaCl_sp_test; ./runtest
 	cd HMW_NaKCl_EQ3_test; ./runtest
+	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s test
 	cd LiSi_LiCl_electrode_rxn; ./runtest
 	cd LiSi_0_LiCl_electrode_rxn; ./runtest
 	cd LiSi_2_LiCl_electrode_rxn; ./runtest
@@ -88,6 +90,7 @@ rebaseline:
 	cd NaCl_solid_test; ./rebaseline
 	cd HMW_NaCl_sp_test; ./rebaseline
 	cd HMW_NaKCl_EQ3_test; ./rebaseline
+	cd Li_LiCl_electrode_rxn ;                          $(MAKE) rebaseline
 	cd LiSi_LiCl_electrode_rxn; ./rebaseline
 	cd LiSi_0_LiCl_electrode_rxn; ./rebaseline
 	cd LiSi_2_LiCl_electrode_rxn; ./rebaseline
@@ -119,6 +122,7 @@ clean_dist:
 	cd NaCl_solid_test; ./cleanup
 	cd HMW_NaCl_sp_test; ./cleanup
 	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s clean_dist
 	cd LiSi_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_2_LiCl_electrode_rxn; ./cleanup
@@ -133,6 +137,67 @@ clean_dist:
 	cd FeS2_electrode_rxn_3; ./cleanup
 	cd NewmanFeS2Electrode_rxn; ./cleanup
 
+clean_test:
+	cd silaneMech; ./cleanup
+	cd fixedChemPot; ./cleanup
+	cd heliumAir; ./cleanup
+	cd issPhase; ./cleanup
+	cd DHphase; ./cleanup
+	cd hacaSurf;                                           $(MAKE) clean_test
+	cd diamondSurf; ./cleanup
+	cd airNASA9; ./cleanup
+	cd H2_electrode_rxn; ./cleanup
+	cd Al_electrode_rxn; ./cleanup
+	cd Zn_electrode_rxn; ./cleanup
+	cd KCl_solid_test; ./cleanup
+	cd NaCl_solid_test; ./cleanup
+	cd HMW_NaCl_sp_test; ./cleanup
+	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s clean_test_flags
+	cd LiSi_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_2_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_3_LiCl_electrode_rxn; ./cleanup
+	cd LiMetal_LiIon_electrode_rxn; ./cleanup
+	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
+	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./cleanup
+	cd FeS_electrode_rxn;  ./cleanup
+	cd FeS2_electrode_rxn_1; ./cleanup
+	cd FeS2_electrode_rxn_2; ./cleanup
+	cd FeS2_electrode_rxn_3; ./cleanup
+	cd NewmanFeS2Electrode_rxn; ./cleanup
+
+clean_test_flags:
+	cd silaneMech; ./cleanup
+	cd fixedChemPot; ./cleanup
+	cd heliumAir; ./cleanup
+	cd issPhase; ./cleanup
+	cd DHphase; ./cleanup
+	cd hacaSurf;                                           $(MAKE) clean_test_flags
+	cd diamondSurf; ./cleanup
+	cd airNASA9; ./cleanup
+	cd H2_electrode_rxn; ./cleanup
+	cd Al_electrode_rxn; ./cleanup
+	cd Zn_electrode_rxn; ./cleanup
+	cd KCl_solid_test; ./cleanup
+	cd NaCl_solid_test; ./cleanup
+	cd HMW_NaCl_sp_test; ./cleanup
+	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s clean_test_flags
+	cd LiSi_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_2_LiCl_electrode_rxn; ./cleanup
+	cd LiSi_3_LiCl_electrode_rxn; ./cleanup
+	cd LiMetal_LiIon_electrode_rxn; ./cleanup
+	cd MCMBAnode_LiIon_electrode_rxn; ./cleanup
+	cd LiCoO2Cathode_LiIon_electrode_rxn; ./cleanup
+	cd LiCoO2Cathode_2_LiIon_electrode_rxn; ./cleanup
+	cd FeS_electrode_rxn;  ./cleanup
+	cd FeS2_electrode_rxn_1; ./cleanup
+	cd FeS2_electrode_rxn_2; ./cleanup
+	cd FeS2_electrode_rxn_3; ./cleanup
+	cd NewmanFeS2Electrode_rxn; ./cleanup
 
 # end of file
 

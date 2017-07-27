@@ -1,20 +1,11 @@
+#!/bin/sh
+
+TESTNAME = Li_LiCl_electrode_rxn
+
+BLESSED_FILES =   problem_setup.sh Li_electrode.xml  LiKCl_Margules.xml \
+    LiKCl_recipmoltenSalt.xml  Li_Liquid.xml  metal_Li_LiCl_electrons.xm
+
+include ../Makefile_sub
 
 
 
-
-CXXFLAGS = -g -Wall -DDEBUG_HKM
-LCXX_FLAGS = -g -Wall -DDEBUG_HKM
-
-CXX=gcc
-
-.cpp.o:
-	$(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-
-all: metal_Li_LiCl_electrons
-
-
-metal_Li_LiCl_electrons: metal_Li_LiCl_electrons.o
-	$(CXX) $(LCXX_FLAGS) -o metal_Li_LiCl_electrons   metal_Li_LiCl_electrons.o -lm -lstdc++ 
-
-clean:
-	rm -f *.o metal_Li_LiCl_electrons out.txt polarizationData.csv diff*
