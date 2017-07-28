@@ -4,6 +4,12 @@
  *        for the blocks of the VBR matrix (see \ref matrixInteraction
  *        and class \link m1d::LocalRowNodeVBRIndices LocalRowNodeVBRIndices\endlink).
  */
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
 
 #include "m1d_RecordTree_base.h"
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -37,13 +43,11 @@ RecordTree_base::RecordTree_base(const RecordTree_base& right, RecordTree_base* 
     RecordTree_base::operator=(right);
 }
 //==================================================================================================================================
-RecordTree_base& RecordTree_base::
-operator=(const RecordTree_base& right)
+RecordTree_base& RecordTree_base::operator=(const RecordTree_base& right)
 {
     if (this == &right) {
         return *this;
     }
-
     for (int i = 0; i < numSubBE_; i++) {
         delete SubBE_[i];
         SubBE_[i] = 0;
@@ -58,7 +62,7 @@ operator=(const RecordTree_base& right)
     return *this;
 }
 //==================================================================================================================================
-RecordTree_base* RecordTree_base::duplicateMyselfAsRecordTree(RecordTree_base* parent)
+RecordTree_base* RecordTree_base::duplicateMyselfAsRecordTree(RecordTree_base* parent) const
 {
     RecordTree_base* rt = new RecordTree_base(*this, parent);
     return rt;

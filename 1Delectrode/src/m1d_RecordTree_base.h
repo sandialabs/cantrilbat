@@ -11,7 +11,7 @@
 
 #ifndef _M1D_RECORDTREE_BASE_H
 #define _M1D_RECORDTREE_BASE_H
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 //==================================================================================================================================
@@ -26,17 +26,36 @@ class RecordTree_base
 public:
 
     //! Constructor
+    /*!
+     *  @param[in]           parent              Parent of the current object. Defaults to null
+     */
     RecordTree_base(RecordTree_base* parent = 0);
 
-
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               Object to be copied
+     *  @param[in]           parent              Parent of the current object. Defaults to null.
+     */
     RecordTree_base(const RecordTree_base& right, RecordTree_base* parent = 0);
 
     //! Destructor
     virtual ~RecordTree_base();
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *
+     *  @return                                  Reference to the current object
+     */
     RecordTree_base& operator=(const RecordTree_base& right);
 
-    virtual RecordTree_base* duplicateMyselfAsRecordTree(RecordTree_base* parent = 0);
+    //! Duplicator object
+    /*!
+     *  @param[in]           parent              Parent of the current object. Defaults to null
+     * 
+     *  @return                                  Returns a pointer to the newly created object
+     */
+    virtual RecordTree_base* duplicateMyselfAsRecordTree(RecordTree_base* parent = 0) const;
 
     //! Generic name of the record
     std::string GeneralName_;
@@ -52,7 +71,6 @@ public:
 
     //! Parent to the current position
     RecordTree_base* parent_;
-
 };
 //==================================================================================================================================
 }

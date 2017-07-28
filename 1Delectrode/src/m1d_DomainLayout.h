@@ -360,7 +360,6 @@ public:
 
     //! Hard coded problem number
     int ProbNum_;
-
 };
 //==================================================================================================================================
 
@@ -372,40 +371,44 @@ class SimpleTimeDependentDiffusionLayout : public DomainLayout
 {
 public:
     //! Constructor
+    /*!
+     *  @param[in]           psInput_ptr         Pointer to the ProblemStatement object.
+     *                                           Defaults to null.
+     */
     SimpleTimeDependentDiffusionLayout(ProblemStatement* psInput_ptr = 0);
 
     //! Constructor - hard coded problem
+    /*!
+     *  @param[in]           probNum             Integer number for the hardcoding
+     *  @param[in]           psInput_ptr         Pointer to the ProblemStatement object.
+     *                                           Defaults to null.
+     */
     SimpleTimeDependentDiffusionLayout(int probNum, ProblemStatement* psInput_ptr);
 
     //! Copy constructor
     /*!
-     * @param r  Object to be copied
+     *  @param               r                   Object to be copied
      */
     SimpleTimeDependentDiffusionLayout(const SimpleTimeDependentDiffusionLayout& r);
 
     //! Destructor
-    virtual
-    ~SimpleTimeDependentDiffusionLayout();
+    virtual ~SimpleTimeDependentDiffusionLayout();
 
     //! Assignment operator
     /*!
-     * @param r  Object to be copied.
-     * @return   returns a changeable reference to the current object
+     *  @param               r                   Object to be copied.
+     *  @return                                  returns a changeable reference to the current object
      */
-    SimpleTimeDependentDiffusionLayout&
-    operator=(const SimpleTimeDependentDiffusionLayout& r);
+    SimpleTimeDependentDiffusionLayout& operator=(const SimpleTimeDependentDiffusionLayout& r);
 
     //! Allocate the domain structure
-    virtual void
-    malloc_domains();
+    virtual void malloc_domains();
 
 
-    //==================================================================================
     //! Hard coded problem number
     int ProbNum_;
-
 };
-//=====================================================================================
-} // end namespace m1d
-//=====================================================================================
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

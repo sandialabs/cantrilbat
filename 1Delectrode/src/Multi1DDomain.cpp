@@ -1,10 +1,6 @@
 /**
- * @file Multi1DDomain.cpp
+ * @file Multi1DDomain.cpp  Sample problem
  *
- */
-
-/*
- *  $Id: Multi1DDomain.cpp 504 2013-01-07 22:32:48Z hkmoffa $
  */
 
 #include "m1d_defs.h"
@@ -18,23 +14,24 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-#include "Multi1DDomain.h"
+#include "m1d_Comm.h"
 #include "m1d_EpetraExtras.h"
 #include "m1d_globals.h"
 #include "m1d_DomainLayout.h"
 #include "m1d_SolNonlinear.h"
 #include "m1d_ProblemStatement.h"
 #include "m1d_GlobalIndices.h"
-
 #include <fstream>
 
-int
-alloc_double_matrix_3d(double ****double_matrix_3d, int L, int M, int N);
+namespace m1d
+{
+class ProblemResidEval;
+class GlobalIndices;
+class LocalRowNodeVBRIndices;
+}
 
-void
-ex_write_output_file(M1D_MPI_Comm mpi_comm, Epetra_CrsMatrix*& A, Epetra_Vector*& v, Epetra_Vector*& b);
 
-//=====================================================================================
+//==================================================================================================================================
 /*
  * HKM
  *
@@ -77,12 +74,23 @@ ex_write_output_file(M1D_MPI_Comm mpi_comm, Epetra_CrsMatrix*& A, Epetra_Vector*
 using namespace std;
 using namespace m1d;
 
+//==================================================================================================================================
+//! Storage for the global ProblemResidEval pointer
 m1d::ProblemResidEval *PS_ptr = 0;
 
+//! Storage for the global ProblemStatement object
 m1d::ProblemStatement PSinput;
 
-void
-printUsage()
+//==================================================================================================================================
+//! Generate the domains
+/*!
+ *  @param[in]               ps                  Pointer to the ProblemResidEval object
+ */
+void generateDomain1D(ProblemResidEval *ps);
+
+//==================================================================================================================================
+//! Print the command line usage
+void printUsage()
 {
   cout << "usage: mpequil [-h] [-help_cmdfile] [-d #] [mpequil.inp]" << endl;
   cout << "    -h           help" << endl;
@@ -91,9 +99,13 @@ printUsage()
   cout << "                     : (if missing, assume mpequil.inp)" << endl;
   cout << endl;
 }
-
-//=====================================================================================
-
+//==================================================================================================================================
+//! main routine
+/*!
+ *  @param[in]               argc                Number of arguments
+ *  @param[in]               argv                Pointer to the vector of arguments
+ *  @return                                      returns 0 for success
+ */
 int
 main(int argc, char **argv)
 {
@@ -388,16 +400,15 @@ main(int argc, char **argv)
   }
 
 }
-
-//==============================================================================
-void
-generateDomain1D(ProblemResidEval *ps)
+//==================================================================================================================================
+//! Generate the domains
+/*!
+ *  @param[in]               ps                  Pointer to the ProblemResidEval object
+ */
+void generateDomain1D(ProblemResidEval *ps)
 {
   (ps->DL_ptr_)->generateDomain1D(ps);
 }
-//==================================================================================
-
-//==================================================================================
-//==================================================================================
+//==================================================================================================================================
 
 
