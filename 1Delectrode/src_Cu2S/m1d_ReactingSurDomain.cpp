@@ -2,12 +2,8 @@
  * @file m1d_SurReactionRate.h
  * Virtual base class 
  */
-/*
- *$Id: m1d_ReactingSurDomain.cpp 506 2013-01-07 22:43:59Z hkmoffa $
- */
 
 #include "m1d_ReactingSurDomain.h"
-#include "m1d_exception.h"
 //=====================================================================================================================
 namespace m1d
 {
@@ -44,8 +40,7 @@ ReactingSurDomain::operator=(const ReactingSurDomain &r)
 double
 ReactingSurDomain::calculateRate(const double * const y)
 {
-  throw m1d_Error("SurReactionRate::calculateRate",
-                  "base class called -> error");
+  throw m1d_Error("SurReactionRate::calculateRate", "base class called -> error");
 }
 //=====================================================================================================================
 }

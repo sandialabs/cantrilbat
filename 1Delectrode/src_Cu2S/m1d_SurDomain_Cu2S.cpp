@@ -3,21 +3,12 @@
  *  object to calculate the  surface domains in the Cu2S problem
  */
 
-
 #include "m1d_SurDomain_Cu2S.h"
-
 #include "m1d_NodalVars.h"
 #include "m1d_SDD_Mixed.h"
-
-#include "m1d_exception.h"
 #include "m1d_GlobalIndices.h"
-
-#include "Cu2S_models.h"
-
-#include "Epetra_Comm.h"
-#include "Epetra_Vector.h"
-
 #include "m1d_Comm.h"
+#include "Cu2S_models.h"
 
 using namespace std;
 using namespace CanteraLite;

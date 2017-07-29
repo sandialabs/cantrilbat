@@ -2,9 +2,6 @@
  * @file m1d_SurfDomainTypes.cpp
  */
 
-/*
- *  $Id: m1d_SDD_Mixed_Cu2S.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
 
 #include "m1d_SDD_Mixed_Cu2S.h"
 #include "m1d_SurDomain_Cu2S.h"

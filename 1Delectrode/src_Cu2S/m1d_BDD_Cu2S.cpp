@@ -2,13 +2,8 @@
  * @file m1d_BDD_Cu2S.cpp
  */
 
-/*
- *  $Id: m1d_BDD_Cu2S.cpp 361 2012-08-21 00:39:02Z hkmoffa $
- */
 
 #include "m1d_BDD_Cu2S.h"
-
-
 #include "m1d_TDGrowingFilm_dom1D.h"
 
 namespace m1d

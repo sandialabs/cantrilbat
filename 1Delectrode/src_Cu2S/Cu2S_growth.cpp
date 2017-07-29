@@ -1,14 +1,8 @@
 /**
- * @file tddiff.cpp
+ * @file Cu2S_growth.cpp
  *
  */
 
-/*
- *  $Id: Cu2S_growth.cpp 506 2013-01-07 22:43:59Z hkmoffa $
- */
-
-#include <Ifpack.h>
-#include <AztecOO.h>
 #include "m1d_defs.h"
 
 #include "mdp_allo.h"
@@ -20,40 +14,14 @@
 #include "Epetra_SerialComm.h"
 #endif
 
-#include "m1d_defs.h"
 #include "m1d_Comm.h"
-#include "m1d_EpetraExtras.h"
 #include "m1d_globals.h"
-#include "m1d_BulkDomain1D.h"
-
-#include "m1d_DomainLayout.h"
-#include "m1d_SolGlobalNonlinear.h"
 #include "m1d_ProblemStatement.h"
 #include "m1d_DomainLayout_Cu2S.h"
-
+#include "m1d_GlobalIndices.h"
 #include "m1d_BEulerInt.h"
 
-#include <Epetra_Map.h>
-#include <Epetra_Vector.h>
-#include <Epetra_CrsMatrix.h>
-#include <Epetra_VbrMatrix.h>
-#include <Epetra_VbrRowMatrix.h>
-#include "m1d_EpetraJac.h"
-#include <Teuchos_ParameterList.hpp>
-
-#include <vector>
-#include <iostream>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#include "tddiff.h"
-#include "m1d_solvers.h"
+#include <fstream>
 
 //=====================================================================================
 /*
@@ -95,15 +63,18 @@
  *  For our first step we will assume one domain, with no tie regions !
  */
 
-#include "m1d_GlobalIndices.h"
-#include "m1d_LocalNodeIndices.h"
-#include "m1d_exception.h"
-#include "m1d_VBRIndices.h"
-#include "m1d_ProblemResidEval.h"
 
 using namespace std;
 using namespace m1d;
 using namespace beuler;
+
+
+//!  Generate Domain Objects
+/*!
+ *  @param[in]               ps                  Ptr to the ProblemResidEval object
+ */
+void generateDomain1D(m1d::ProblemResidEval * const ps);
+
 
 
 ProblemResidEval *PS_ptr = 0;

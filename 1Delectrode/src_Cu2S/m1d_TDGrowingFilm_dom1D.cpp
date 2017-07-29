@@ -10,16 +10,8 @@
 #include "m1d_TDGrowingFilm_dom1D.h"
 
 #include "m1d_NodalVars.h"
-#include "m1d_LocalNodeIndices.h"
 
-#include "m1d_GlobalIndices.h"
-#include "m1d_exception.h"
 #include "m1d_DomainLayout.h"
-
-#include "cantera/base/ctml.h"
-
-#include "stdio.h"
-#include "stdlib.h"
 
 using namespace std;
 using namespace m1d;

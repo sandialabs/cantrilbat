@@ -8,8 +8,6 @@
 #ifndef REACTIONRATE_H
 #define REACTIONRATE_H
 
-#include <vector>
-
 #include "m1d_defs.h"
 
 //=====================================================================================================================

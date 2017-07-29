@@ -4,17 +4,10 @@
  */
 
 #include "m1d_defs.h"
-#include "m1d_DomainLayout.h"
-#include "m1d_BulkDomainTypes.h"
-#include "m1d_SDD_Mixed.h"
-
 #include "m1d_DomainLayout_Cu2S.h"
 #include "m1d_BDD_Cu2S.h"
 #include "m1d_SDD_Mixed_Cu2S.h"
-
-#include "m1d_exception.h"
-
-#include <iostream>
+#include "m1d_DomainLayout.h"
 
 using namespace std;
 
