@@ -20,6 +20,7 @@ namespace Cantera
 #endif
 {
 
+//! Specific input for a region that has a radial morphology
 class ELECTRODE_RadialRegion_KEY_INPUT : public ELECTRODE_KEY_INPUT
 {
 public:
@@ -767,7 +768,7 @@ protected:
     std::vector<double> actCoeff_Cell_final_;
 
 
-   Electrode_RadialDiffRegions* ee_;
+    Electrode_RadialDiffRegions* ee_;
 };
 //==================================================================================================================================
 }

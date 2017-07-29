@@ -845,36 +845,11 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_FuncCurrent.h \
                          ../../Electrode/src/Electrode_SurfaceRegion.h \
                          ../../Electrode/src/Electrode_SurfaceRegion.cpp \
-                         ../../1Delectrode/src/md_wrap_mpi.h  ../../1Delectrode/src/md_wrap_mpi.cpp \
-                         ../../1Delectrode/src/m1d_Comm.h ../../1Delectrode/src/m1d_Comm.cpp \
-                         ../../1Delectrode/src/m1d_exception.h ../../1Delectrode/src/m1d_exception.cpp \
-                         ../../1Delectrode/src/m1d_defs.h  ../../1Delectrode/src/m1d_Eqn_Names.h \
-                         ../../1Delectrode/src/m1d_app.h ../../1Delectrode/src/m1d_app.cpp \
-                         ../../1Delectrode/src/m1d_EqnVarTypes.h ../../1Delectrode/src/m1d_EqnVarTypes.cpp \
-                         ../../1Delectrode/src/m1d_globals.h    ../../1Delectrode/src/m1d_globals.cpp \
-                         ../../1Delectrode/src/m1d_Domain1D.h   ../../1Delectrode/src/m1d_Domain1D.cpp \
-                         ../../1Delectrode/src/m1d_BulkDomain1D.h   ../../1Delectrode/src/m1d_BulkDomain1D.cpp \
-                         ../../1Delectrode/src/m1d_SurDomain1D.h   ../../1Delectrode/src/m1d_SurDomain1D.cpp \
-                         ../../1Delectrode/src/m1d_DomainDescription.h   ../../1Delectrode/src/m1d_DomainDescription.cpp \
-                         ../../1Delectrode/src/m1d_SurfDomainDescription.h   ../../1Delectrode/src/m1d_SurfDomainDescription.cpp \
-                         ../../1Delectrode/src/m1d_BulkDomainDescription.h   ../../1Delectrode/src/m1d_BulkDomainDescription.cpp \
-                         ../../1Delectrode/src/m1d_BulkDomainTypes.h   ../../1Delectrode/src/m1d_BulkDomainTypes.cpp \
-                         ../../1Delectrode/src/m1d_SDD_Mixed.h   ../../1Delectrode/src/m1d_SDD_Mixed.cpp \
-                         ../../1Delectrode/src/m1d_app.h ../../1Delectrode/src/m1d_app.cpp \
-                          ../../1Delectrode/src/m1d_BoundaryCondition.h   ../../1Delectrode/src/m1d_BoundaryCondition.cpp \
-                         ../../1Delectrode/src/m1d_ProblemStatement.h ../../1Delectrode/src/m1d_ProblemStatement.cpp \
-                         ../../1Delectrode/src/m1d_GlobalIndices.h   ../../1Delectrode/src/m1d_GlobalIndices.cpp \
-                         ../../1Delectrode/src/m1d_LocalNodeIndices.h  ../../1Delectrode/src/m1d_LocalNodeIndices.cpp \
-                         ../../1Delectrode/src/m1d_NodalVars.h  ../../1Delectrode/src/m1d_NodalVars.cpp \
-                         ../../1Delectrode/src/m1d_ProblemResidEval.h ../../1Delectrode/src/m1d_ProblemResidEval.cpp \
-                         ../../1Delectrode/src/m1d_VBRIndices.h  ../../1Delectrode/src/m1d_VBRIndices.cpp \
-                         ../../1Delectrode/src/m1d_EpetraExtras.h   ../../1Delectrode/src/m1d_EpetraExtras.cpp \
-                         ../../1Delectrode/src/m1d_EpetraJac.h   ../../1Delectrode/src/m1d_EpetraJac.cpp \
-                         ../../1Delectrode/src/m1d_solvers.h   ../../1Delectrode/src/m1d_solvers.cpp \
-                         ../../1Delectrode/src/m1d_SolNonlinear.h  ../../1Delectrode/src/m1d_SolNonlinear.cpp \
-                         ../../1Delectrode/src/m1d_SolGlobalNonlinear.h  ../../1Delectrode/src/m1d_SolGlobalNonlinear.cpp \
-                         ../../1Delectrode/src/m1d_BEulerInt.h  ../../1Delectrode/src/m1d_BEulerInt.cpp \
-                         ../../1Delectrode/src
+                         ../../Electrode/src/Electrode_SuccessiveSubstitution.h ../../Electrode/src/Electrode_SuccessiveSubstitution.cpp \
+                         ../../Electrode/src/Electrode_Equilibrium.h ../../Electrode/src/Electrode_Equilibrium.cpp \
+                         ../../Electrode/src/Electrode_RadialRegion.h  ../../Electrode/src/Electrode_RadialRegion.cpp \
+                         ../../1Delectrode/src/*.h ../../1Delectrode/src/*.cpp
+
 
 
 # This tag can be used to specify the character encoding of the source files

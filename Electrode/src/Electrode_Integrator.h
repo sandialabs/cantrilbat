@@ -370,10 +370,12 @@ public:
     double time_step_next;
 };
 //==================================================================================================================================
+
 //! This class is a derived class used to model phase - change electrodes
 /*!
- * Complete problem statement
+ *  It inherits from Electrode and from ResidJacEval.
  *
+ *  Therefore, it can be called by any DAE integrator as a residual function evaluator.
  */
 class Electrode_Integrator : public Electrode , public ZZCantera::ResidJacEval
 {

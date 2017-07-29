@@ -1,5 +1,5 @@
 /**
- *   @file Electrode_SimpleDiff.h
+ ode.cpp                     Electrode_Equilibrium.d       Electrode_InfCapacity.h    Electrode_MP_RxnExtent_FeS2.o    Electrode_SimpleDiff.o         rode_SimpleDiff.h
  */
 
 /*
@@ -51,11 +51,11 @@ public:
     Electrode_SimpleDiff();
 
     //! Destructor
-    virtual  ~Electrode_SimpleDiff();
+    virtual ~Electrode_SimpleDiff();
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     *  @param right Object to be copied
      */
     Electrode_SimpleDiff(const Electrode_SimpleDiff& right);
 
@@ -193,8 +193,8 @@ public:
     /*!
      *  (virtual from Electrode.h)
      *
-     *   This is the main routine for calculating the solid volume of the electode.
-     *   We leave out the solnPhase_ volume from the calculation.
+     *  This is the main routine for calculating the solid volume of the electode.
+     *  We leave out the solnPhase_ volume from the calculation.
      *
      *  @return                                  Returns the solid volume of the electrode (m**3)
      */
@@ -204,7 +204,7 @@ public:
     // --------------------------------------  QUERY HEAT CAPACITY  -----------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------
 
-    //!  Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
+    //! Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
     /*!
      *  This is an extensive quantity.
      *  (virtual from Electrode)
@@ -213,7 +213,7 @@ public:
      */
     virtual double SolidHeatCapacityCV() const override;
 
-    //!  Returns the total enthalpy of the Material in the Solid Electrode
+    //! Returns the total enthalpy of the Material in the Solid Electrode
     /*!
      *  (virtual from Electrode)
      *  This is an extensive quantity.
@@ -228,17 +228,17 @@ public:
 
     //! Extract information from reaction mechanisms
     /*!
-     *   (virtual from Electrode_Integrator)
+     *  (virtual from Electrode_Integrator)
      *  Calculate the reaction rates on the one exterior surface
      */
     virtual void extractInfo() override;
 
     //! Collect mole change information
     /*!
-     *   (virtual from Electrode_Integrator)
-     *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
-     *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
-     *   all species in the electrode due to surface reactions
+     *  (virtual from Electrode_Integrator)
+     *  We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
+     *  and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
+     *  all species in the electrode due to surface reactions
      */
     virtual void updateSpeciesMoleChangeFinal() override;
 
@@ -246,7 +246,7 @@ public:
     // --------------------------------------- PRINTING UTILITIES -------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------
 
-    //!  Print a group of radially varying field variables to stdout
+    //! Print a group of radially varying field variables to stdout
     /*!
      *  The fields are printed out 5 to a line, with each preceded by the radial coordinate value.
      *
@@ -284,7 +284,7 @@ public:
 			const double * const vals_init,  const double * const vals_final,
 			const std::vector<std::string> &varNames, int numFields);
 
-    //!  Print out the residual and associated tolerances for one field variable that is distributed over the radial coordinate
+    //! Print out the residual and associated tolerances for one field variable that is distributed over the radial coordinate
     /*!
      *  iField and iEqns can be different values
      *
@@ -500,7 +500,6 @@ public:
      */
     virtual void setInitInitStateFromFinalFinal();
 
-
     //! Set the internal final intermediate state from the internal init state
     /*!
      *  (virtual function from Electrode)
@@ -619,7 +618,7 @@ public:
      */
     virtual void updateState();
 
-    //! check total moles of stuff against geometry of particle
+    //! Check total moles of stuff against geometry of particle
     /*!
      *  error exit if inconsistency
      *  works on _final_ state only
@@ -1011,7 +1010,7 @@ protected:
      */
     std::vector<size_t> phaseIndeciseKRsolidPhases_;
 
-    //! Returns the distributed phase index given the regular phase Index.
+    //! Returns the distributed phase index given the regular phase index.
     /*!
      *  distribPhIndex = phaseIndeciseKRsolidPhases_[iPh];
      *
@@ -1383,7 +1382,7 @@ protected:
 
     //! we identify the phases here as being the exterior surface
     /*!
-     *  The  phase will be in direct contact with the electrolyte.
+     *  The phase will be in direct contact with the electrolyte.
      */
     int surfIndexExteriorSurface_;
 
@@ -1427,14 +1426,14 @@ protected:
     //! Cell id of the shortest time to a phase death
     int cellID_TimeDeathMin_;
 
-    //! This integer describes if the system is current on a Region boundary at the start of a subgrid integration step
+    //! This integer describes if the system is currently on a Region boundary at the start of a subgrid integration step
     /*!  
      *  We define a region boundary here iff all cells are on that boundary
      *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
      */
     int onRegionBoundary_init_;
 
-    //! This integer describes if the system is current on a Region boundary at the end of a subgrid
+    //! This integer describes if the system is currently on a Region boundary at the end of a subgrid
     //! integration step
     /*!
      *   We define a region boundary here iff all cells are on that boundary
@@ -1442,14 +1441,14 @@ protected:
      */
     int onRegionBoundary_final_;
 
-    //! This integer describes if the system is current on a Region boundary at the start of a global
+    //! This integer describes if the system is currently on a Region boundary at the start of a global
     //! integration step
     /*!
      *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
      */
     int onRegionBoundary_init_init_;
 
-    //! This integer describes if the system is current on a Region boundary at the end of a global
+    //! This integer describes if the system is currently on a Region boundary at the end of a global
     //! integration step
     /*!
      *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
@@ -1484,14 +1483,14 @@ public:
      */
     double numLattices_pred_;
 
-    //! Total number of lattice sites with each Cell at the start of the current electrode subcycle time step
+    //! Total number of lattice sites within each Cell at the start of the current electrode subcycle time step
     /*!
      *  Length: numRCells_
      *  Units:  kmol
      */
     std::vector<double> numLatticeCBR_init_;
 
-    //! Total number of lattice sites with each Cell at the end of the current electrode subcycle time step
+    //! Total number of lattice sites within each Cell at the end of the current electrode subcycle time step
     /*!
      *  Length: numRCells_
      *  Units:  kmol
