@@ -9,9 +9,9 @@ BLESSED_FILES = good_out.txt
 
 TEST_FLAGS = runGood runBad runInProgress.txt
 
-TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt diff.out 
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_summary.txt diff_out.txt diff.out diff_csv.txt
 
-TEST_RESULTS = out.txt
+TEST_RESULTS = out.txt  polarizationData.csv
 
 
 BPROGRAM = ../../src/cttables
@@ -30,8 +30,8 @@ runGood: $(BPROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	$(TOPDIR)/bin/runtest_Exec
 
-rebaseline:
-	cp output.txt output_blessed.txt
+rebaseline::
+	cp out.txt good_out.txt
 
 clean:
 	/bin/rm -f cttables $(TEST_FLAGS)

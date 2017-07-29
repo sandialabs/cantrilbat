@@ -10,14 +10,14 @@ all:
 
 clean:
 	cd silaneMech; ./cleanup
-	cd fixedChemPot; ./cleanup
+	cd fixedChemPot;                                      $(MAKE) clean
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
 	cd hacaSurf;                                           $(MAKE) clean
 	cd diamondSurf; ./cleanup
 	cd airNASA9; ./cleanup
-	cd H2_electrode_rxn; ./cleanup
+	cd H2_electrode_rxn;                                   $(MAKE) clean
 	cd Al_electrode_rxn; ./cleanup
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
@@ -45,21 +45,21 @@ install:
 
 test:
 	cd silaneMech; ./runtest
-	cd fixedChemPot; ./runtest
+	cd fixedChemPot;                                      $(MAKE) -s test
 	cd heliumAir; ./runtest
 	cd issPhase; ./runtest
 	cd DHphase; ./runtest
 	cd hacaSurf;                                           $(MAKE) -s test
 	cd diamondSurf; ./runtest
 	cd airNASA9; ./runtest
-	cd H2_electrode_rxn; ./runtest
+	cd H2_electrode_rxn;                                   $(MAKE) -s test
 	cd Al_electrode_rxn; ./runtest
 	cd Zn_electrode_rxn; ./runtest
 	cd KCl_solid_test; ./runtest
 	cd NaCl_solid_test; ./runtest
 	cd HMW_NaCl_sp_test; ./runtest
 	cd HMW_NaKCl_EQ3_test; ./runtest
-	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s test
+	cd Li_LiCl_electrode_rxn ;                             $(MAKE) -s test
 	cd LiSi_LiCl_electrode_rxn; ./runtest
 	cd LiSi_0_LiCl_electrode_rxn; ./runtest
 	cd LiSi_2_LiCl_electrode_rxn; ./runtest
@@ -76,14 +76,14 @@ test:
 
 rebaseline:
 	cd silaneMech; ./rebaseline
-	cd fixedChemPot; ./rebaseline
+	cd fixedChemPot;                                        $(MAKE) rebaseline
 	cd heliumAir; ./rebaseline
 	cd issPhase; ./rebaseline
 	cd DHphase; ./rebaseline
-	cd hacaSurf;                                        $(MAKE) rebaseline
+	cd hacaSurf;                                            $(MAKE) rebaseline
 	cd diamondSurf; ./rebaseline
 	cd airNASA9; ./rebaseline
-	cd H2_electrode_rxn; ./rebaseline
+	cd H2_electrode_rxn;                                    $(MAKE) rebaseline
 	cd Al_electrode_rxn; ./rebaseline
 	cd Zn_electrode_rxn; ./rebaseline
 	cd KCl_solid_test; ./rebaseline
@@ -108,14 +108,14 @@ rebaseline:
 
 clean_dist:
 	cd silaneMech; ./cleanup
-	cd fixedChemPot; ./cleanup
+	cd fixedChemPot;                                      $(MAKE) clean_dist
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
 	cd hacaSurf;                                           $(MAKE) clean_dist
 	cd diamondSurf; ./cleanup
 	cd airNASA9; ./cleanup
-	cd H2_electrode_rxn; ./cleanup
+	cd H2_electrode_rxn;                                   $(MAKE) clean_dist
 	cd Al_electrode_rxn; ./cleanup
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
@@ -139,7 +139,7 @@ clean_dist:
 
 clean_test:
 	cd silaneMech; ./cleanup
-	cd fixedChemPot; ./cleanup
+	cd fixedChemPot;                                       $(MAKE) clean_test
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
@@ -153,7 +153,7 @@ clean_test:
 	cd NaCl_solid_test; ./cleanup
 	cd HMW_NaCl_sp_test; ./cleanup
 	cd HMW_NaKCl_EQ3_test; ./cleanup
-	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s clean_test_flags
+	cd Li_LiCl_electrode_rxn ;                          $(MAKE) -s clean_test
 	cd LiSi_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_2_LiCl_electrode_rxn; ./cleanup
@@ -170,14 +170,14 @@ clean_test:
 
 clean_test_flags:
 	cd silaneMech; ./cleanup
-	cd fixedChemPot; ./cleanup
+	cd fixedChemPot;                                       $(MAKE) clean_test_flags
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
 	cd hacaSurf;                                           $(MAKE) clean_test_flags
 	cd diamondSurf; ./cleanup
 	cd airNASA9; ./cleanup
-	cd H2_electrode_rxn; ./cleanup
+	cd H2_electrode_rxn;                                   $(MAKE) clean_test_flags
 	cd Al_electrode_rxn; ./cleanup
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup

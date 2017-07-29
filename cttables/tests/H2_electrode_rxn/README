@@ -1,6 +1,0 @@
-
-
-This problem is failing now. For one reason or another, the surface phase isn't being set to its default value 
-in the input file. This causes the program to produced a bad OCV and then fail on the surface solve.
-
-
