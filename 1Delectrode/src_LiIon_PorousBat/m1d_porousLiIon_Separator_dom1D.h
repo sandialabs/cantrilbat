@@ -139,7 +139,7 @@ public:
               const double t,
               const double rdelta_t,
               const ResidEval_Type_Enum residType = Base_ResidEval,
-              const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+              const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
     virtual void
     eval_PostSoln(const bool doTimeDependentResid,
@@ -192,7 +192,7 @@ public:
                       const double t,
                       const double rdelta_t,
                       const ResidEval_Type_Enum residType,
-                      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+                      const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
 
     //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
@@ -289,8 +289,8 @@ public:
      */
     virtual void
     initialConditions(const bool doTimeDependentResid,
-                      Epetra_Vector* soln,
-                      Epetra_Vector* solnDot,
+                      Epetra_Vector* const soln,
+                      Epetra_Vector* const solnDot,
                       const double t,
                       const double delta_t);
 

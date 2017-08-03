@@ -590,7 +590,7 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
 					 const double t,
 					 const double rdelta_t,
 					 const ResidEval_Type_Enum residType,
-					 const Solve_Type_Enum solveType)
+					 const Zuzax::Solve_Type solveType)
   {
     residType_Curr_ = residType;
     int index_RightLcNode;
@@ -1092,7 +1092,7 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
        *       For the regular problem, we specify the mole fraction formulation.
        *       Both are equivalent - > set m_isAlgebraic = 2
        */
-      if (solveType == DAESystemInitial_Solve) { 
+      if (solveType == Zuzax::Solve_Type::DAESystemInitial_Solve) { 
 	res[indexCent_EqnStart_BD + EQ_MFSum_offset_BD] = 0.0;
 	for (int k = 0; k < nsp_; k++) {
 	  res[indexCent_EqnStart_BD + EQ_MFSum_offset_BD] += mfElectrolyte_SolnDot_Curr_[k]; 
@@ -1110,7 +1110,7 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
        *       For the regular problem, we specify the mole fraction formulation.
        *       Both are equivalent - > set m_isAlgebraic = 2
        */
-      if (solveType == DAESystemInitial_Solve) {
+      if (solveType == Zuzax::Solve_Type::DAESystemInitial_Solve) {
 	res[indexCent_EqnStart_BD + EQ_ChargeBal_offset_BD] = 0.0;
 	for (int k = 0; k < nsp_; k++) {
 	  res[indexCent_EqnStart_BD + EQ_ChargeBal_offset_BD] += mfElectrolyte_SolnDot_Curr_[k] * spCharge_[k];
@@ -1219,7 +1219,7 @@ porousLiKCl_LiSiAnode_dom1D::revertToInitialGlobalTime()
 	/*
 	 *  For this calculation we do the time derivative another way
 	 */
-	if (solveType == DAESystemInitial_Solve) {
+	if (solveType == Zuzax::Solve_Type::DAESystemInitial_Solve) {
 
 	  double tmp2;
 	  /*
@@ -1278,7 +1278,7 @@ porousLiKCl_LiSiAnode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 					       const double t,
 					       const double rdelta_t,
 					       const ResidEval_Type_Enum residType,
-					       const Solve_Type_Enum solveType)
+					       const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;
   const Epetra_Vector &soln = *soln_ptr;

@@ -90,7 +90,7 @@ public:
             const double t,
             const double rdelta_t,
             const ResidEval_Type_Enum residType = Base_ResidEval,
-	    const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
 
   //!  Fill the vector atolVector with the values from the DomainDescription for abs tol

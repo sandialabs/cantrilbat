@@ -17,10 +17,12 @@
 #include "m1d_defs.h"
 #include "m1d_EqnVarTypes.h"
 
+
 #include "Epetra_Vector.h"
 #include "Epetra_IntVector.h"
 #include "Epetra_VbrMatrix.h"
 
+#include "cantera/numerics/ResidJacEval.h"
 #include "cantera/base/xml.h"
 
 #include "m1d_LocalNodeIndices.h"
@@ -55,7 +57,8 @@ class RecordTree_base;
 
 //==================================================================================================================================
 //! The types of solution problems that are solved.
-enum Solve_Type_Enum {
+/*
+enum class Solve_Type {
     //! Steady state solve
     SteadyState_Solve = 0,
     //! Time dependent solve that is time accurate
@@ -68,20 +71,35 @@ enum Solve_Type_Enum {
     //! Initial conditions for a DAE system
     DAESystemInitial_Solve
 };
+*/
+// take this out eventually
+//using Zuzax::Solve_Type;
 //==================================================================================================================================
 //! Differentiates the type of residual evaluations according to functionality
 enum ResidEval_Type_Enum {
+
     //! Base residual calculation for the time-stepping function
     Base_ResidEval = 0,
+
     //! Base residual calculation for the Jacobian calculation
     JacBase_ResidEval,
+
     //! Delta residual calculation for the Jacbobian calculation
     JacDelta_ResidEval,
+
     //! Base residual calculation for the showSolution routine
     /*!
      *    We calculate this when we want to display a solution
      */
-    Base_ShowSolution
+    Base_ShowSolution,
+
+    //! Base residual calculation containing any lagged components
+    /*!
+     *  We use this to calculate residuals when doing line searches along
+     *  directions determined by Jacobians that are missing contributions
+     *  from lagged entries.
+     */
+    Base_LaggedSolutionComponents
 };
 //==================================================================================================================================
 //! Differentiates the type of coordinate system
@@ -125,6 +143,7 @@ struct Porosity_EqnType_Status {
  *   This is the base class for 
  */
 class ProblemResidEval
+//class ProblemResidEval : public Zuzax::ResidJacEval  (under construction)
 {
 public:
     //! Default constructor
@@ -249,7 +268,7 @@ public:
                            const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot,
                            const double t, const double rdelta_t,
                            const ResidEval_Type_Enum residType = Base_ResidEval,
-                           const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+                           const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Function that gets called at end the start of every time step
     /*!
@@ -669,7 +688,7 @@ public:
      */
     virtual void calcDeltaSolnVariables(const double t, const Epetra_Vector_Ghosted& soln,
                                         const Epetra_Vector_Ghosted* const solnDot_ptr, Epetra_Vector_Ghosted& deltaSoln,
-                                        const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                                        const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
                                         const Epetra_Vector_Ghosted* const solnWeights = nullptr);
 
     //! Save the solution to the end of an XML file using XML solution format
@@ -800,7 +819,7 @@ public:
     virtual void showProblemSolution(const int ievent, bool doTimeDependentResid, const double t,
                                      const double delta_t, const Epetra_Vector_Owned& y_n,
                                      const Epetra_Vector_Owned* const ydot_n,
-                                     const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                                     const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
                                      const double delta_t_np1 = 0.0);
 
     //! Write out Tecplot solution files
@@ -827,7 +846,7 @@ public:
      */
     virtual void writeTecplot(const int ievent, std::string baseFileName, bool doTimeDependentResid,
                               const double t, const double delta_t, const Epetra_Vector_Ghosted& y_n,
-                              const Epetra_Vector_Ghosted* const ydot_n, const Solve_Type_Enum solveType,
+                              const Epetra_Vector_Ghosted* const ydot_n, const Zuzax::Solve_Type solveType,
                               const double delta_t_np1);
 
     //! Write a solution vector type to either the screen or a log file
@@ -886,7 +905,7 @@ public:
     virtual void writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current,
                                const double delta_t_n, const int istep, const Epetra_Vector_Ghosted& soln_n,
                                const Epetra_Vector_Ghosted* const solnDot_n_ptr,
-                               const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                               const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
                                const double delta_t_np1 = 0.0);
 
     //! This function may be used to create output at various points in the execution of an application.
@@ -923,12 +942,15 @@ public:
      *  In general, multiply the matrix by the inverse of a matrix which lead to a better conditioned system. 
      *  The default, specified here, is to do nothing.
      *
-     *  @param[in,out]       matrix              Pointer to the matrix 
+     *  @param[in,out]       matrix_ptr          Pointer to the matrix 
      *  @param[in]           nrows               Number of rows in the matrix
      *  @param[in,out]       rhs                 Right-hand side of the linear system, for which we are trying to find
      *                                           the solution for
+     *  @return                                  Returns a flag to indicate that the operation is successful.
+     *                                             - 1  Means a successful operation
+     *                                             - 0  or neg value means an unsuccessful operation
      */
-    virtual void matrixConditioning(double* const matrix, int nrows, double* const rhs);
+    virtual int matrixConditioning(double* const matrix_ptr, int nrows, double* const rhs);
 
     //! Returns the base file name of the solution file
     /*!

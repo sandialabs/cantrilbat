@@ -429,7 +429,7 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
                             const double t,
                             const double rdelta_t,
                             const ResidEval_Type_Enum residType,
-                            const Solve_Type_Enum solveType)
+                            const Zuzax::Solve_Type solveType)
 {
     if (!resInternal_ptr_) {
 	resInternal_ptr_ = new Epetra_Vector(*res);
@@ -605,7 +605,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
                                       const double delta_t,
                                       const Epetra_Vector_Ghosted &y_n,
                                       const Epetra_Vector_Ghosted * const ydot_n,
-                                      const Solve_Type_Enum solveType,
+                                      const Zuzax::Solve_Type solveType,
                                       const double delta_t_np1)
 {
 
@@ -644,7 +644,7 @@ BatteryResidEval::showProblemSolution(const int ievent,
 	ZZCantera::writelog(buf);
 	sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
 	ZZCantera::writelog(buf);
-	if (solveType == TimeDependentInitial) {
+	if (solveType == Zuzax::Solve_Type::TimeDependentInitial) {
 	    sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind, delta_t);
 	} else {
 	    sprintf(buf, "%s                       Delta_t    %-12.3E\n", ind, delta_t);
@@ -733,7 +733,7 @@ BatteryResidEval::writeSolution(const int ievent,
 				int istep,
 				const Epetra_Vector_Ghosted &y_n,
 				const Epetra_Vector_Ghosted * const ydot_n_ptr,
-				const Solve_Type_Enum solveType, 
+				const Zuzax::Solve_Type solveType, 
 				const double delta_t_np1)
 {
     ProblemResidEval::writeSolution(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
@@ -864,7 +864,7 @@ BatteryResidEval::write_IV(const int ievent,
 void
 BatteryResidEval::writeGlobalTecplot(const int ievent, const bool doTimeDependentResid, const double time_current,
 				     const double delta_t_n, int istep, const Epetra_Vector_Ghosted &y_n, 
-                                     const Epetra_Vector_Ghosted * const ydot_n_ptr, const Solve_Type_Enum solveType, 
+                                     const Epetra_Vector_Ghosted * const ydot_n_ptr, const Zuzax::Solve_Type solveType, 
 				     const double delta_t_np1)
 {
     static int headerWritten = false;
@@ -972,7 +972,7 @@ BatteryResidEval::writeGlobalTecplotHeader(const int ievent,
 					   int istep,
 					   const Epetra_Vector_Ghosted &y_n,
 					   const Epetra_Vector_Ghosted * const ydot_n_ptr,
-					   const Solve_Type_Enum solveType, 
+					   const Zuzax::Solve_Type solveType, 
 					   const double delta_t_np1)
 {
     int mypid = LI_ptr_->Comm_ptr_->MyPID();
@@ -1372,12 +1372,12 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      *          domain 2 is cathode
      *  We may also have to analyse the current collectors to get more polarization resistance
      */
-    class globalHeatBalValsBat pVals;
-    DomainLayout &DL = *DL_ptr_;
+    //class globalHeatBalValsBat pVals;
+    //DomainLayout &DL = *DL_ptr_;
 
-    const size_t domAnode = 0;
-    const size_t domSeparator = 1;
-    const size_t domCathode = 2;
+    //const size_t domAnode = 0;
+    //const size_t domSeparator = 1;
+    //const size_t domCathode = 2;
 
     /*
      *  at any time step we know the current.`At any time step we know the current through each electrode object

@@ -82,7 +82,7 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res,
                                const double t,
                                const double rdelta_t,
                                ResidEval_Type_Enum residType,
-			       const Solve_Type_Enum solveType)
+			       const Zuzax::Solve_Type solveType)
 {
   const double surfArea = 1.0;
   int index_RightLcNode;

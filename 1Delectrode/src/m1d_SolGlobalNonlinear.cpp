@@ -123,7 +123,7 @@ SolGlobalNonlinear::setColumnScaleVector(const Epetra_Vector_Owned& colScales)
 }
 //==================================================================================================================================
 void
-SolGlobalNonlinear::setup_problem(Solve_Type_Enum solveType, const Epetra_Vector_Ghosted* const y_init,
+SolGlobalNonlinear::setup_problem(Zuzax::Solve_Type solveType, const Epetra_Vector_Ghosted* const y_init,
                                   const Epetra_Vector_Ghosted* const ydot_init, double time_curr,
                                   ProblemResidEval& problem, EpetraJac& jac)
 {
@@ -137,7 +137,7 @@ SolGlobalNonlinear::setPredicted_soln(const Epetra_Vector& y_pred)
 }
 //==================================================================================================================================
 int
-SolGlobalNonlinear::solve_nonlinear_problem(Solve_Type_Enum solveType, Epetra_Vector_Ghosted* const y_comm,
+SolGlobalNonlinear::solve_nonlinear_problem(Zuzax::Solve_Type solveType, Epetra_Vector_Ghosted* const y_comm,
                                             Epetra_Vector_Ghosted* const ydot_comm, double CJ,
                                             double time_curr, int& num_newt_its_comm,
                                             int& num_linear_solves, int& num_backtracks)

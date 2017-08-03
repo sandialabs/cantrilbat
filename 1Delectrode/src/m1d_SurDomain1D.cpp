@@ -240,7 +240,7 @@ void SurDomain1D::domain_prep(LocalNodeIndices* const li_ptr)
 //==================================================================================================================================
 void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                             const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                            const double rdelta_t, ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
+                            const double rdelta_t, ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
 {
     /*
      *   We call an error routine because the base class residual calculation should
@@ -558,7 +558,7 @@ SurDomain1D::fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScaled)
 void
 SurDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* const solnDot_ptr,
                                     Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
-                                    const Solve_Type_Enum solveType, const Epetra_Vector* const solnWeights)
+                                    const Zuzax::Solve_Type solveType, const Epetra_Vector* const solnWeights)
 {
 
     int mySDD_ID = SDD_.ID();
@@ -1267,7 +1267,7 @@ SurBC_Dirichlet::reportBoundaryCondition(double time, const VarType vtDir, int& 
 //==================================================================================================================================
 void SurBC_Dirichlet::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                                 const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                                const double rdelta_t, const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
+                                const double rdelta_t, const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
 {
     size_t ieqn;
     const Epetra_Vector& soln = *soln_ptr;

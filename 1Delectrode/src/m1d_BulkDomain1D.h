@@ -110,14 +110,14 @@ public:
      *  @param[in]           solnDot_ptr         Pointer to the time-derivative of the solution vector
      *  @param[out]          deltaSoln           Reference to the Epetra_Vector that will contain the solution deltas.
      *  @param[in]           atolVector_ptr      Pointer to  the atol vector for the solution unknowns
-     *  @param[in]           solveType           Type of solution Type. Uses the Solve_Type_Enum  type.
+     *  @param[in]           solveType           Type of solution Type. Uses the Solve_Type type.
      *                                           Defaults to  TimeDependentAccurate_Solve
      *  @param[in]           solnWeights         Pointer to the solution weights vector. Defaults to nullptr.
      */
     virtual void
     calcDeltaSolnVariables(const double t, const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted* solnDot_ptr,
                            Epetra_Vector_Ghosted& deltaSoln, const Epetra_Vector_Ghosted* const atolVector_ptr,
-                           const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                           const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
                            const Epetra_Vector* solnWeights = 0) override;
 
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol

@@ -145,8 +145,8 @@ namespace m1d
 				  int istep,
 				  const Epetra_Vector_Ghosted &y_n,
 				  const Epetra_Vector_Ghosted * const ydot_n_ptr,
-				  const Solve_Type_Enum solveType, 
-                                  const double delta_t_np1)
+				  const Zuzax::Solve_Type solveType, 
+                                  const double delta_t_np1) 
   {
     ProblemResidEval::writeSolution(ievent, doTimeDependentResid, time_current, delta_t_n, istep, y_n,
 				    ydot_n_ptr, solveType, delta_t_np1);

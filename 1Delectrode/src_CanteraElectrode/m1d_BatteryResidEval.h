@@ -251,7 +251,7 @@ public:
 	      const double t,
 	      const double rdelta_t,
 	      const ResidEval_Type_Enum residType = Base_ResidEval,
-	      const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+	      const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Write the solution to either the screen or to a log file
     /*!
@@ -278,10 +278,9 @@ public:
 			const double delta_t,
 			const Epetra_Vector_Owned &y_n,
 			const Epetra_Vector_Owned * const ydot_n,
-			const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
-			const double delta_t_np1 = 0.0);
+			const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
+			const double delta_t_np1 = 0.0) override;
     
-  
 
     //! Write out to a file or to standard output the current solution
     /*!
@@ -310,8 +309,8 @@ public:
     virtual void
     writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current, const double delta_t_n,
                   const int istep, const Epetra_Vector_Ghosted &soln_n, const Epetra_Vector_Ghosted * const solnDot_n_ptr,
-                  const Solve_Type_Enum solveType = TimeDependentAccurate_Solve, 
-	          const double delta_t_np1 = 0.0);
+                  const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve, 
+	          const double delta_t_np1 = 0.0) override;
 
     //! This function may be used to create output at various points in the
     //! execution of an application.
@@ -378,7 +377,7 @@ public:
 		       int istep,
 		       const Epetra_Vector_Ghosted &y_n,
 		       const Epetra_Vector_Ghosted * const ydot_n_ptr,
-		       const Solve_Type_Enum solveType, 
+		       const Zuzax::Solve_Type solveType, 
 		       const double delta_t_np1);
 
     virtual void
@@ -389,7 +388,7 @@ public:
 			     int istep,
 			     const Epetra_Vector_Ghosted &y_n,
 			     const Epetra_Vector_Ghosted * const ydot_n_ptr,
-			     const Solve_Type_Enum solveType, 
+			     const Zuzax::Solve_Type solveType, 
 			     const double delta_t_np1);
     
     //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered

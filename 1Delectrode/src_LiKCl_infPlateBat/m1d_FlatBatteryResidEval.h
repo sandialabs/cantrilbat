@@ -93,7 +93,7 @@ public:
     virtual void
     writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current, const double delta_t_n,
                   const int istep, const Epetra_Vector_Ghosted &soln_n, const Epetra_Vector_Ghosted * const solnDot_n_ptr,
-                  const Solve_Type_Enum solveType = TimeDependentAccurate_Solve, 
+                  const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve, 
 	          const double delta_t_np1 = 0.0);
 
     //! This function may be used to create output at various points in the

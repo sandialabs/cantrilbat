@@ -121,7 +121,7 @@ void Domain1D::domain_prep(LocalNodeIndices* const li_ptr)
 //==================================================================================================================================
 void Domain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                          const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                         const double rdelta_t, const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
+                         const double rdelta_t, const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
 {
     residType_Curr_ = residType;
     err("residEval()");
@@ -151,7 +151,7 @@ void
 Domain1D::residEval_PreCalc(const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                             const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr,
                             const double t, const double rdelta_t, const ResidEval_Type_Enum residType,
-                            const Solve_Type_Enum solveType)
+                            const Zuzax::Solve_Type solveType)
 {
 }
 //==================================================================================================================================
@@ -159,7 +159,7 @@ void
 Domain1D::residEval_PostCalc(Epetra_Vector& res, const bool doTimeDependentResid,
                              const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
                              const Epetra_Vector* const solnOld_ptr, const double t, const double rdelta_t,
-                             const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType)
+                             const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
 {
 }
 //==================================================================================================================================
@@ -267,7 +267,7 @@ Domain1D::initialConditions(const bool doTimeDependentResid, Epetra_Vector* cons
 void Domain1D:: calcDeltaSolnVariables(const double t, const Epetra_Vector& soln,
                                        const Epetra_Vector* const solnDot_ptr, Epetra_Vector& deltaSoln,
                                        const Epetra_Vector* const atolVector_ptr,
-                                       const Solve_Type_Enum solveType,
+                                       const Zuzax::Solve_Type solveType,
                                        const  Epetra_Vector* const solnWeights)
 {
     printf("Domain1D: function not implemented\n");

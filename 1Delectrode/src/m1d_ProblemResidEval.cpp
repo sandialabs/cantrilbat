@@ -423,12 +423,12 @@ void ProblemResidEval::fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScal
 void
 ProblemResidEval::residEval(Epetra_Vector_Owned* const& res,
                             const bool doTimeDependentResid,
-                            const Epetra_Vector* soln_ptr,
-                            const Epetra_Vector* solnDot_ptr,
+                            const Epetra_Vector* const soln_ptr,
+                            const Epetra_Vector* const solnDot_ptr,
                             const double t,
                             const double rdelta_t,
                             const ResidEval_Type_Enum residType,
-                            const Solve_Type_Enum solveType)
+                            const Solve_Type solveType)
 {
     if (!resInternal_ptr_) {
         resInternal_ptr_ = new Epetra_Vector(*res);
@@ -1263,7 +1263,7 @@ static void sprint_line(char* buf, const char* const st, const int num)
  */
 void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependentResid, const double t,
                                       const double delta_t, const Epetra_Vector_Ghosted& y_n,
-                                      const Epetra_Vector_Ghosted* const ydot_n, const Solve_Type_Enum solveType,
+                                      const Epetra_Vector_Ghosted* const ydot_n, const Solve_Type solveType,
                                       const double delta_t_np1)
 {
 
@@ -1299,7 +1299,7 @@ void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependen
         writelog(buf);
         sprintf(buf, "%s ShowProblemSolution : Time       %-12.3E\n", ind, t);
         writelog(buf);
-        if (solveType == TimeDependentInitial) {
+        if (solveType == Solve_Type::TimeDependentInitial) {
             sprintf(buf, "%s                       Delta_t    %-12.3E  (initial solution with no previous solution)\n", ind,
                     delta_t);
         } else {
@@ -1356,7 +1356,7 @@ void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependen
 //==================================================================================================================================
 void ProblemResidEval::writeTecplot(const int ievent, std::string baseFileName, bool doTimeDependentResid, const double t,
                                const double delta_t, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted* const ydot_n,
-                               const Solve_Type_Enum solveType, const double delta_t_np1)
+                               const Solve_Type solveType, const double delta_t_np1)
 {
     // Get a local copy of the domain layout
     DomainLayout& DL = *DL_ptr_;
@@ -1620,7 +1620,7 @@ void ProblemResidEval::showSolutionIntVector(std::string& solnVecName, const dou
 void ProblemResidEval::writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current,
                                 const double delta_t_n, int istep, const Epetra_Vector_Ghosted& y_n,
                                 const Epetra_Vector_Ghosted* const ydot_n_ptr,
-                                const Solve_Type_Enum solveType, const double delta_t_np1)
+                                const Solve_Type solveType, const double delta_t_np1)
 {
     //
     // HKM -> Could gather solnAll, i.e., the entire solution on proc 0,  here
@@ -1675,8 +1675,9 @@ bool ProblemResidEval::evalStoppingCritera(double& time_current, double& delta_t
     return false;
 }
 //==================================================================================================================================
-void ProblemResidEval::matrixConditioning(double* const matrix, int nrows, double* const rhs)
+int ProblemResidEval::matrixConditioning(double* const matrix, int nrows, double* const rhs)
 {
+    return 1;
 }
 //==================================================================================================================================
 void ProblemResidEval::domain_prep()
@@ -1848,7 +1849,7 @@ int ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
 }
 //==================================================================================================================================
 void ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
-                                              Epetra_Vector& deltaSoln, const Solve_Type_Enum solveType,
+                                              Epetra_Vector& deltaSoln, const Solve_Type solveType,
                                               const Epetra_Vector* solnWeights)
 {
     DomainLayout& DL = *DL_ptr_;

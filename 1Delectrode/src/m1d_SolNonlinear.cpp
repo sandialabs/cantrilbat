@@ -78,7 +78,7 @@ bool  SolNonlinear::s_print_NumJac = false;
 //==================================================================================================================================
 SolNonlinear::SolNonlinear() :
     SolGlobalNonlinear(),
-    solnType_(SteadyState_Solve), 
+    solnType_(Zuzax::Solve_Type::SteadyState_Solve), 
     m_jacFormMethod(0), 
     m_rowScaling(false), 
     m_colScaling(false), 
@@ -282,7 +282,7 @@ SolNonlinear::soln_error_norm(const Epetra_Vector_Owned& delta_y, const bool pri
                         error = delta_y[i] / (*m_ewt)[i];
                         soln_curr = (*m_y_curr)[idLocalEqnMax];
                         soln_new = (*m_y_curr)[idLocalEqnMax] + delta_y[idLocalEqnMax] * dampFactor;
-                        if (solnType_ == DAESystemInitial_Solve) {
+                        if (solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) {
                             if ((*m_isAlgebraic)[idLocalEqnMax] != 1) {
                                 soln_curr = (*m_ydot_curr)[idLocalEqnMax];
                                 soln_new = (*m_ydot_curr)[idLocalEqnMax] + delta_y[idLocalEqnMax] * dampFactor;
@@ -751,7 +751,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
     for (int i = 0; i < m_NumLcOwnedEqns; i++) {
         double y_curr = y[i];
         double y_new = y[i] + step0[i];
-        if (solnType_ == DAESystemInitial_Solve) {
+        if (solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) {
             if ((*m_isAlgebraic)[i] != 1) {
                 y_curr = (*m_ydot_curr)[i];
                 y_new = (*m_ydot_curr)[i] + step0[i];
@@ -817,7 +817,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
             print0_sync_start(false, ss, *Comm_ptr_);
             if (iproc == mypid_) {
                 if (ifbd) {
-                    if ((solnType_ == DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
+                    if ((solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
                         printf("\t   ... delta damping: Increase of variableTimeDeriv  %24s-%-4d  (iG=%d) causing "
                                "delta damping of %12.5E: origVal = %12.5E, undampedNew = %12.5E, dampedNew = %12.5E\n",
                                v24.c_str(), iLcNode, i_fbounds_gb, f_delta_bounds,
@@ -830,7 +830,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
                                y[i_fbounds], y[i_fbounds]+step0[i_fbounds] , y[i_fbounds]+f_delta_bounds*step0[i_fbounds]);
                     }
                 } else {
-                    if ((solnType_ == DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
+                    if ((solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
                         printf("\t   ... delta damping: Decrease of variableTimeDeriv  %24s-%-4d  (iG=%d) causing "
                                "delta damping of %12.5E: origVal = %12.5E, undampedNew = %12.5E, dampedNew = %12.5E\n",
                                v24.c_str(), iLcNode, i_fbounds_gb, f_delta_bounds,
@@ -851,7 +851,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
             print0_sync_start(false, ss, *Comm_ptr_);
             if (!mypid_) {
                 if (ifbd) {
-                    if ((solnType_ == DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
+                    if ((solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
                         printf("\t\tboundStep:  Increase of variableTimeDeriv  %24s-%-4d  (iG=%d) causing "
                                "delta damping of %12.5E: origVal = %12.5E, undampedNew = %12.5E, dampedNew = %12.5E\n",
                                v24.c_str(), iLcNode, i_fbounds_gb, f_delta_bounds,
@@ -864,7 +864,7 @@ SolNonlinear::deltaBoundStep(const Epetra_Vector_Ghosted& y, const Epetra_Vector
                                y[i_fbounds], y[i_fbounds]+step0[i_fbounds] , y[i_fbounds]+f_delta_bounds*step0[i_fbounds]);
                     }
                 } else {
-                    if ((solnType_ == DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
+                    if ((solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) && ((*m_isAlgebraic)[i_fbounds] != 1)) {
                         printf("\t\tboundStep:  Decrease of variableTimeDeriv  %24s-%-4d  (iG=%d) causing "
                                "delta damping of %12.5E: origVal = %12.5E, undampedNew = %12.5E, dampedNew = %12.5E\n",
                                v24.c_str(), iLcNode, i_fbounds_gb, f_delta_bounds,
@@ -1412,7 +1412,7 @@ void SolNonlinear::updateSoln(const Epetra_Vector_Ghosted& y0, const Epetra_Vect
                               double ff, const Epetra_Vector_Ghosted& step0)
 {
     int j;
-    if (solnType_ != DAESystemInitial_Solve) {
+    if (solnType_ != Zuzax::Solve_Type::DAESystemInitial_Solve) {
 
         // step the solution by the damped step size
         /*
@@ -1424,7 +1424,7 @@ void SolNonlinear::updateSoln(const Epetra_Vector_Ghosted& y0, const Epetra_Vect
         }
         m_func->updateGhostEqns(m_y_new, m_y_new_owned);
 
-        if (solnType_ != SteadyState_Solve) {
+        if (solnType_ != Zuzax::Solve_Type::SteadyState_Solve) {
             calc_ydot(m_order, *m_y_new, *m_ydot_new);
             m_func->updateGhostEqns(m_ydot_new, m_ydot_new_owned);
         }
@@ -1495,7 +1495,7 @@ SolNonlinear::setColumnScaleVector(const Epetra_Vector_Owned& colScales)
 //=====================================================================================================================
 // Setup the problem for solution.
 void
-SolNonlinear::setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init,
+SolNonlinear::setup_problem(Zuzax::Solve_Type solnType, const Epetra_Vector_Ghosted* const y_init,
                             const Epetra_Vector_Ghosted* const ydot_init, double time_curr,
                             ProblemResidEval& problem, EpetraJac& jac)
 {
@@ -1699,7 +1699,7 @@ SolNonlinear::setPredicted_soln(const Epetra_Vector_Ghosted& y_pred)
  *          = DAEINIT Solve the initial conditions problem
  */
 int
-SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
+SolNonlinear::solve_nonlinear_problem(Zuzax::Solve_Type solnType,
                                       Epetra_Vector_Ghosted* y_comm,
                                       Epetra_Vector_Ghosted* ydot_comm,
                                       double CJ,
@@ -1709,7 +1709,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
                                       int& num_backtracks)
 {
     ZZCantera::clockWC t0;
-    if (solnType == SteadyState_Solve) {
+    if (solnType == Zuzax::Solve_Type::SteadyState_Solve) {
         doTimeDependentResid_ = false;
     } else {
         doTimeDependentResid_ = true;
@@ -1725,7 +1725,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
     solnType_ = solnType;
 
     mdpUtil::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*y_comm)[0], m_NumLcEqns);
-    if (solnType != SteadyState_Solve) {
+    if (solnType != Zuzax::Solve_Type::SteadyState_Solve) {
         mdpUtil::mdp_copy_dbl_1(&(*m_ydot_curr)[0], &(*ydot_comm)[0], m_NumLcEqns);
     }
     setDefaultSolnWeights();
@@ -1754,7 +1754,7 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
 
     if (m_print_flag == 2 || m_print_flag == 3) {
         if (!mypid_) {
-            if (solnType_ == DAESystemInitial_Solve) {
+            if (solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) {
                 printf("\tSolve_Nonlinear_Problem: DAESystemInitial\n\n");
             } else {
                 printf("\tSolve_Nonlinear_Problem:\n\n");
@@ -1978,12 +1978,12 @@ SolNonlinear::solve_nonlinear_problem(Solve_Type_Enum solnType,
         }
         // Write new solution into the curr solutions
         if (m >= 0) {
-            if (solnType_ == DAESystemInitial_Solve) {
+            if (solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) {
                 mdpUtil::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*m_y_new)[0], m_NumLcEqns);
                 mdpUtil::mdp_copy_dbl_1(&(*m_ydot_curr)[0], &(*m_ydot_new)[0], m_NumLcEqns);
             } else {
                 mdpUtil::mdp_copy_dbl_1(&(*m_y_curr)[0], &(*m_y_new)[0], m_NumLcEqns);
-                if (solnType_ != SteadyState_Solve) {
+                if (solnType_ != Zuzax::Solve_Type::SteadyState_Solve) {
                     calc_ydot(m_order, *m_y_curr, *m_ydot_curr);
                 }
             }
@@ -2062,7 +2062,7 @@ done:
      */
     if (m >= -1) {
         mdpUtil::mdp_copy_dbl_1(&((*y_comm)[0]), &((*m_y_curr)[0]), m_NumLcEqns);
-        if (solnType_ != SteadyState_Solve) {
+        if (solnType_ != Zuzax::Solve_Type::SteadyState_Solve) {
             mdpUtil::mdp_copy_dbl_1(&(*ydot_comm)[0], &(*m_ydot_curr)[0], m_NumLcEqns);
         }
     }
@@ -2339,7 +2339,7 @@ SolNonlinear::setDefaultSolnWeights()
     Epetra_Vector_Owned& ewt = *m_ewt;
     Epetra_Vector_Owned& ewt_deltaDamping = *m_ewt_deltaDamping;
     Epetra_IntVector& isS = *m_isArithmeticScaled;
-    if (solnType_ == DAESystemInitial_Solve) {
+    if (solnType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) {
         Epetra_IntVector& isA = *m_isAlgebraic;
 
 

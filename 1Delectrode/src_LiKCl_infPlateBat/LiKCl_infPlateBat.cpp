@@ -338,7 +338,7 @@ main(int argc, char **argv)
     // debugging section to do a matrix formation and a solve
 
     ps->residEval(res, false, &solnInt, 0, 0.0, 0.0);
-    jac->matrixEval(false, &solnInt, 0, 0.0, 0.0, SteadyState_Solve);
+    jac->matrixEval(false, &solnInt, 0, 0.0, 0.0, Zuzax::Solve_Type::SteadyState_Solve);
 
     print0_epVbrMatrix(*(jac->A_));
 

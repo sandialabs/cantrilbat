@@ -158,7 +158,7 @@ void SurDomain_CathodeCollector::domain_prep(LocalNodeIndices* li_ptr)
 void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                                            const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
                                            const double rdelta_t, const ResidEval_Type_Enum residType,
-                                           const Solve_Type_Enum solveType)
+                                           const Zuzax::Solve_Type solveType)
 {
     residType_Curr_ = residType;
     size_t ieqn;

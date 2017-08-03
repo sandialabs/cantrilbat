@@ -66,7 +66,7 @@ EpetraJac::EpetraJac(ProblemResidEval& r) :
     GI_ptr_(0),
     LI_ptr_(0),
     LRN_VBR_ptr_(0),
-    solveType_(SteadyState_Solve)
+    solveType_(Zuzax::Solve_Type::SteadyState_Solve)
 {
     m_NumGbEqns = r.NumGbEqns();
     m_GbBlockRows = r.NumGbNodes();
@@ -294,7 +294,7 @@ Epetra_IntVector& EpetraJac::transientMask()
 //==================================================================================================================================
 void EpetraJac::matrixEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
                            const Epetra_Vector* const solnDotBase_ptr, const double t, const double rdelta_t,
-                           const Solve_Type_Enum solveType)
+                           const Zuzax::Solve_Type solveType)
 {
     // Epetra_Vector *resBase = new Epetra_Vector(*(GI_ptr_->GbEqnstoOwnedLcEqnsMap));
     Epetra_Vector* resBase = new Epetra_Vector(*(LI_ptr_->GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap));
@@ -305,7 +305,7 @@ void EpetraJac::matrixEval(const bool doTimeDependentResid, const Epetra_Vector*
 //===================================================================================================================================
 void EpetraJac::matrixResEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
                               const Epetra_Vector* const solnDotBase_ptr, Epetra_Vector* const resBase,
-                              const double t, const double rdelta_t, Solve_Type_Enum solveType)
+                              const double t, const double rdelta_t, Zuzax::Solve_Type solveType)
 {
     matrixEval1(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, resBase, t, rdelta_t, solveType);
     fillVbr();
@@ -316,7 +316,7 @@ void EpetraJac::matrixResEval(const bool doTimeDependentResid, const Epetra_Vect
  */
 void EpetraJac::matrixEval1(const bool doTimeDependentResid, const Epetra_Vector* const solnBase_ptr,
                             const Epetra_Vector* const solnDotBase_ptr, Epetra_Vector* const resBase,
-                            const double t, const double rdelta_t, Solve_Type_Enum solveType)
+                            const double t, const double rdelta_t, Zuzax::Solve_Type solveType)
 {
     solveType_ = solveType;
     m_resid->residEval(resBase, doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, t, rdelta_t, Base_ResidEval,
@@ -331,7 +331,7 @@ void EpetraJac::eval(const bool doTimeDependentResid, const Epetra_Vector* const
 {
     m_nevals++;
     double timeDim = 0.0;
-    if (solveType_ == DAESystemInitial_Solve) {
+    if (solveType_ == Zuzax::Solve_Type::DAESystemInitial_Solve) {
         timeDim = 1.0E-3;
     }
     //
@@ -383,7 +383,7 @@ void EpetraJac::eval(const bool doTimeDependentResid, const Epetra_Vector* const
                 //soln[iLcEqn] = m_resid->deltaSolnCompJac(*solnBase_ptr, iLcEqn);
                 //delta[iLcEqn] = soln[iLcEqn] - solnBase[iLcEqn];
                 soln[iLcEqn] += (*deltaSoln_)[iLcEqn];
-                if (solveType_ != DAESystemInitial_Solve || (*m_isAlgebraic)[iLcEqn] == 1) {
+                if (solveType_ != Zuzax::Solve_Type::DAESystemInitial_Solve || (*m_isAlgebraic)[iLcEqn] == 1) {
                     if (solnDotBase_ptr) {
                         //(*solnDot_ptr)[iLcEqn] += delta[iLcEqn] * rdelta_t;
                         (*solnDot_ptr)[iLcEqn] += (*deltaSoln_)[iLcEqn] * rdelta_t;

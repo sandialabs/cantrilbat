@@ -118,7 +118,7 @@ public:
                       const double t,
                       const double rdelta_t,
                       const ResidEval_Type_Enum residType,
-                      const Solve_Type_Enum solveType);
+                      const Zuzax::Solve_Type solveType);
 
     //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
     //!  and updating Cantera's objects

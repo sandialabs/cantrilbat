@@ -211,7 +211,7 @@ public:
               const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
               const Epetra_Vector* const solnOld_ptr, const double t, const double rdelta_t,
               const ResidEval_Type_Enum residType = Base_ResidEval,
-              const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+              const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
 
     //! Evaluate Post-solution quantities of interest after each converged time step
@@ -287,7 +287,7 @@ public:
     virtual void
     residEval_PreCalc(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr, const Epetra_Vector* solnDot_ptr,
                       const Epetra_Vector* solnOld_ptr, const double t, const double rdelta_t,
-                      const ResidEval_Type_Enum residType, const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+                      const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Auxiliary function to calculate the residual for the current domain.
     /*!
@@ -303,14 +303,14 @@ public:
      *  @param[in]           rdelta_t            inverse of delta_t
      *  @param[in]           residType           Type of evaluation of the residual. Uses the ResidEval_Type_Enum type.
      *                                             Defaults to Base_ResidEval
-     *  @param[in]           solveType           Type of solution Type. Uses the Solve_Type_Enum  type.
+     *  @param[in]           solveType           Type of solution Type. Uses the Solve_Type  type.
      *                                             Defaults to  TimeDependentAccurate_Solve
      */
     virtual void
     residEval_PostCalc(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                        const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
                        const double rdelta_t, const ResidEval_Type_Enum residType = Base_ResidEval,
-                       const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+                       const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Function that gets called at end the start of every time step
     /*!
@@ -558,7 +558,7 @@ public:
     virtual void
     calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* const solnDot_ptr,
                            Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
-                           const Solve_Type_Enum solveType = TimeDependentAccurate_Solve,
+                           const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
                            const  Epetra_Vector* const solnWeights = nullptr);
 
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol

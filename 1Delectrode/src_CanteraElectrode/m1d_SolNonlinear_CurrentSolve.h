@@ -51,7 +51,7 @@ public:
      *   outer loop to converge on a desired current.
      *   In this routine, we store the address of the jacobian and the residual function.
      *
-     *  @param[in]           solveType           Enum of type Solve_Type_Enum. Describes the type of the problem to be solved.
+     *  @param[in]           solveType           Enum of type Solve_Type. Describes the type of the problem to be solved.
      *                                               SteadyState_Solve
      *                                               TimeDependentAccurate_Solve
      *                                               TimeDependentInitial
@@ -68,7 +68,7 @@ public:
      *  @param[in]           jac                 Reference to teh EpetraJac object
      */
     virtual void
-    setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init,
+    setup_problem(Zuzax::Solve_Type solnType, const Epetra_Vector_Ghosted* const y_init,
                   const Epetra_Vector_Ghosted* const ydot_init, double time_curr, ProblemResidEval& problem,
                   EpetraJac& jac) override;
 
@@ -169,7 +169,7 @@ public:
      *
      */
     virtual int
-    solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_comm, Epetra_Vector_Ghosted* ydot_comm,
+    solve_nonlinear_problem(Zuzax::Solve_Type solnType, Epetra_Vector_Ghosted* y_comm, Epetra_Vector_Ghosted* ydot_comm,
                             double CJ,
                             double time_curr, int& num_newt_its, int& num_linear_solves, int& num_backtracks);
 

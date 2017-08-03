@@ -102,7 +102,7 @@ public:
             const double t,
             const double rdelta_t,
             const ResidEval_Type_Enum residType = Base_ResidEval,
-	    const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
   //! Base class for saving the solution on the domain in an xml node.
   /*!
@@ -320,7 +320,7 @@ public:
             const double t,
             const double rdelta_t,
             const ResidEval_Type_Enum residType = Base_ResidEval,
-	    const Solve_Type_Enum solveType = TimeDependentAccurate_Solve);
+	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
   //! Base class for saving the solution on the domain in an xml node.
   /*!

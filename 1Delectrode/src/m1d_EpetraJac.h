@@ -133,7 +133,7 @@ public:
      */
     void matrixEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase,
                     const Epetra_Vector* const solnDotBase, const double t, const double rdelta_t,
-                    const m1d::Solve_Type_Enum solveType);
+                    const Zuzax::Solve_Type solveType);
 
     //! Calculate a Jacobian and a residual
     /*!
@@ -148,7 +148,7 @@ public:
      */
     void matrixResEval(const bool doTimeDependentResid, const Epetra_Vector* const solnBase,
                        const Epetra_Vector* const solnDotBase, Epetra_Vector* const resBase,
-                       const double t, const double rdelta_t, const m1d::Solve_Type_Enum solveType);
+                       const double t, const double rdelta_t, const Zuzax::Solve_Type solveType);
 
     //! Calculate a Jacobian -> internal
     /*!
@@ -162,7 +162,7 @@ public:
      *  @param[in]           solveType            Type of the solution solve
      */
     void matrixEval1(const bool doTimeDependentResid, const Epetra_Vector* const solnBase, const Epetra_Vector* const solnDotBase,
-                     Epetra_Vector* const resBase, const double t, const double rdelta_t, const m1d::Solve_Type_Enum solveType);
+                     Epetra_Vector* const resBase, const double t, const double rdelta_t, const Zuzax::Solve_Type solveType);
 
 private:
     //! Evaluate the Jacobian at x0.
@@ -557,7 +557,7 @@ public:
      *      2    TimeDependentRelax_Solve,
      *      3    DAESystemInitial_Solve
      */
-    m1d::Solve_Type_Enum solveType_;
+    Zuzax::Solve_Type solveType_;
 };
 //==================================================================================================================================
 

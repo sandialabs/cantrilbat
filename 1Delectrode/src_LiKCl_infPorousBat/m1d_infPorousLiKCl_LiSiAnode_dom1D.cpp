@@ -519,7 +519,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
                                        const double t,
                                        const double rdelta_t,
                                        const ResidEval_Type_Enum residType,
-				       const Solve_Type_Enum solveType)
+				       const Zuzax::Solve_Type solveType)
 {
   int index_RightLcNode;
   int index_LeftLcNode;

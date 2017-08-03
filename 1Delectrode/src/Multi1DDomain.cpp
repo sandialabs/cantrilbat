@@ -279,7 +279,7 @@ main(int argc, char **argv)
     SolNonlinear *snp = new SolNonlinear();
 
     // Setup the problem for solution.
-    Solve_Type_Enum stype = SteadyState_Solve;
+    Zuzax::Solve_Type stype = Zuzax::Solve_Type::SteadyState_Solve;
     snp->setup_problem(stype, soln, soln, 0.0, *ps, *jac);
 
     int num_newt_its = 0;
@@ -306,7 +306,7 @@ main(int argc, char **argv)
     ps->saveSolutionEnd(0, fn, *soln_owned, 0, 0.0, 0.0);
 
     ps->residEval(res, false, soln, 0, 0.0, 0.0);
-    jac->matrixEval(false, soln, 0, 0.0, 0.0, SteadyState_Solve);
+    jac->matrixEval(false, soln, 0, 0.0, 0.0, Zuzax::Solve_Type::SteadyState_Solve);
 
     print0_epVbrMatrix(*(jac->A_));
 

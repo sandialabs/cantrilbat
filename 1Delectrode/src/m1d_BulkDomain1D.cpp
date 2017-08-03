@@ -589,7 +589,7 @@ void BulkDomain1D::setAtolVector(double atolDefault, const Epetra_Vector_Ghosted
 void
 BulkDomain1D::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* const solnDot_ptr,
                                      Epetra_Vector& deltaSoln, const Epetra_Vector* const atolVector_ptr,
-                                     const Solve_Type_Enum solveType, const Epetra_Vector* const solnWeights)
+                                     const Zuzax::Solve_Type solveType, const Epetra_Vector* const solnWeights)
 {
     double base;
     size_t index;

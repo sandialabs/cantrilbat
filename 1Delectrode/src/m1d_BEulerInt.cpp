@@ -216,9 +216,9 @@ void BEulerInt::beuler_jac(m1d::EpetraJac &tjac, m1d::Epetra_Vector_Owned * cons
 {
     m_nfe++;
     m_nJacEval++;
-    Solve_Type_Enum solnType = TimeDependentAccurate_Solve;
+    Zuzax::Solve_Type solnType = Zuzax::Solve_Type::TimeDependentAccurate_Solve;
     if (jacType == 1) {
-        solnType = DAESystemInitial_Solve;
+        solnType = Zuzax::Solve_Type::DAESystemInitial_Solve;
     }
 
     tjac.matrixResEval(true, y_curr, y_curr_dot, res, time_curr, CJ, solnType);
@@ -283,7 +283,7 @@ void BEulerInt::specifyNonLinearSolver(m1d::SolGlobalNonlinear *nonlin)
 
     // Setup the problem for solution.
     if (tdjac_ptr) {
-        Solve_Type_Enum stype = TimeDependentAccurate_Solve;
+        Zuzax::Solve_Type stype = Zuzax::Solve_Type::TimeDependentAccurate_Solve;
         m_nonlin->setup_problem(stype, m_y_n, m_ydot_n, 0.0, *m_func, *tdjac_ptr);
     }
 
@@ -462,7 +462,7 @@ void BEulerInt::initializePRE(m1d::ProblemResidEval &func )
         m_nonlin = new SolNonlinear();
     }
     // Setup the problem for solution.
-    Solve_Type_Enum stype = TimeDependentAccurate_Solve;
+    Zuzax::Solve_Type stype = Zuzax::Solve_Type::TimeDependentAccurate_Solve;
     m_nonlin->setup_problem(stype, m_y_n, m_ydot_n, 0.0, func, *tdjac_ptr);
 
     /*
@@ -1477,7 +1477,7 @@ double BEulerInt::integratePRE(double tout)
      */
     if (m_print_flag > 0) {
         m_func->writeSolution(ievent, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
-			      TimeDependentInitial, delta_t_np1);
+			      Zuzax::Solve_Type::TimeDependentInitial, delta_t_np1);
     }
 
     /*
@@ -1578,7 +1578,7 @@ double BEulerInt::integratePRE(double tout)
          */
         if (doPrintSoln && flag != BE_FAILURE) {
             m_func->writeSolution(1, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n,
-				  TimeDependentAccurate_Solve, delta_t_np1);
+				  Zuzax::Solve_Type::TimeDependentAccurate_Solve, delta_t_np1);
             printStep = 0;
             doPrintSoln = false;
             if (m_print_flag == 1) {
@@ -1625,7 +1625,7 @@ double BEulerInt::integratePRE(double tout)
      */
     if (flag == BE_SUCCESS) {
         m_func->writeSolution(2, true, time_current, delta_t_n, istep, *m_y_n, m_ydot_n, 
-			      TimeDependentAccurate_Solve, delta_t_np1);
+			      Zuzax::Solve_Type::TimeDependentAccurate_Solve, delta_t_np1);
 
         m_func->evalTimeTrackingEqns(2, time_current, delta_t_n, *m_y_n, m_ydot_n);
 
@@ -1865,7 +1865,7 @@ double BEulerInt::step(double t_max)
 	     */
 	    int num_linear_solves;
 	    int numbacktracks;
-	    m1d::Solve_Type_Enum ss = TimeDependentAccurate_Solve;
+	    Zuzax::Solve_Type ss = Zuzax::Solve_Type::TimeDependentAccurate_Solve;
 	    int ierror = m_nonlin->solve_nonlinear_problem(ss, m_y_n, m_ydot_n, CJ, time_n, num_newt_its, num_linear_solves,
 							   numbacktracks);
 
@@ -2203,7 +2203,7 @@ int BEulerInt::calcConsistentInitialDerivs()
     int num_linear_solves;
     int numbacktracks;
     int num_newt_its;
-    m1d::Solve_Type_Enum ss = DAESystemInitial_Solve;
+    Zuzax::Solve_Type ss = Zuzax::Solve_Type::DAESystemInitial_Solve;
     double CJ = 1.0 / delta_t_n;
 
     int ierror = m_nonlin->solve_nonlinear_problem(ss, m_y_n, m_ydot_n, CJ, time_n, num_newt_its, num_linear_solves, numbacktracks);
@@ -2220,7 +2220,7 @@ int BEulerInt::calcConsistentInitialDerivs()
      */
     if (m_print_flag > 0) {
         m_func->writeSolution(0, true, time_n, delta_t_n, 0.0, *m_y_n, m_ydot_n,
-                              TimeDependentAccurate_Solve, delta_t_np1);
+                              Zuzax::Solve_Type::TimeDependentAccurate_Solve, delta_t_np1);
     }
     if (m_print_flag > 0) {
         std::string snn = "Solution Time Derivative";
@@ -2239,7 +2239,8 @@ int BEulerInt::calcConsistentInitialDerivs()
      */
     if (m_print_flag > 5) {
         double rdelta_t = 1.0 / delta_t_n;
-        m_func->residEval(m_resid, true, m_y_n, m_ydot_n, 0.0, rdelta_t, Base_ResidEval, DAESystemInitial_Solve);
+        m_func->residEval(m_resid, true, m_y_n, m_ydot_n, 0.0, rdelta_t, m1d::ResidEval_Type_Enum::Base_ResidEval,
+                          Zuzax::Solve_Type::DAESystemInitial_Solve);
         double rnorm = res_error_norm(*m_resid, "DAE_Init_Residual", 10);
         printf("rnorm (DAE) = %g\n", rnorm);
     }

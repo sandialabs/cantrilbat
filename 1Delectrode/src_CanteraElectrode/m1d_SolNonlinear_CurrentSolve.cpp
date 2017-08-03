@@ -125,7 +125,7 @@ SolNonlinear_CurrentSolve::setTolerances_deltaDamping(double reltol_dd, int n, c
  *   In this routine, we store the address of the jacobian and the residual function.
  */
 void
-SolNonlinear_CurrentSolve::setup_problem(Solve_Type_Enum solnType, const Epetra_Vector_Ghosted* const y_init,
+SolNonlinear_CurrentSolve::setup_problem(Zuzax::Solve_Type solnType, const Epetra_Vector_Ghosted* const y_init,
                                          const Epetra_Vector_Ghosted* const ydot_init, double time_curr,
                                          ProblemResidEval& cv_problem, EpetraJac& jac)
 {
@@ -406,7 +406,7 @@ void SolNonlinear_CurrentSolve::setPreviousTimeStep(const double timeStep, const
  *        equation system for now. Will make it more general later,
  *        if an application comes up.
  */
-int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Solve_Type_Enum solnType, Epetra_Vector_Ghosted* y_comm,
+int SolNonlinear_CurrentSolve::solve_nonlinear_problem(Zuzax::Solve_Type solnType, Epetra_Vector_Ghosted* y_comm,
                                                        Epetra_Vector_Ghosted* ydot_comm, double CJ, double time_curr,
                                                        int& num_newt_its_comm, int& num_linear_solves, int& num_backtracks)
 {

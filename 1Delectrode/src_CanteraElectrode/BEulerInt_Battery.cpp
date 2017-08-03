@@ -184,7 +184,7 @@ int BEulerInt_Battery::calcConsistentInitialDerivs_Inner()
     int num_linear_solves;
     int numbacktracks;
     int num_newt_its;
-    m1d::Solve_Type_Enum ss = m1d::DAESystemInitial_Solve;
+    Zuzax::Solve_Type ss = Zuzax::Solve_Type::DAESystemInitial_Solve;
     double CJ = 1.0/delta_t_n;
 
 #ifdef DEBUG_INIT_CALCULATION
@@ -232,7 +232,7 @@ int BEulerInt_Battery::calcConsistentInitialDerivs_Inner()
      */
     if (m_print_flag > 5) {
         double rdelta_t = 1.0 /  delta_t_n;
-        m_func->residEval(m_resid, true, m_y_n, m_ydot_n, 0.0, rdelta_t, m1d::Base_ResidEval, m1d::DAESystemInitial_Solve);
+        m_func->residEval(m_resid, true, m_y_n, m_ydot_n, 0.0, rdelta_t, m1d::Base_ResidEval, Zuzax::Solve_Type::DAESystemInitial_Solve);
         double rnorm = res_error_norm(*m_resid, "DAE_Init_Residual", 10);
         printf("rnorm (DAE) = %g\n", rnorm);
     }

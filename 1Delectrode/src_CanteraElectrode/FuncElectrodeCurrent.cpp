@@ -111,7 +111,7 @@ namespace Cantera
     /*
      *  Solve the system of equations at constant voltage
      */
-    m1d::Solve_Type_Enum ss = m1d::TimeDependentAccurate_Solve;
+    Zuzax::Solve_Type ss = Zuzax::Solve_Type::TimeDependentAccurate_Solve;
     int num_newt_its, num_linear_solves, numbacktracks;
     m_solver_constantVoltage->solve_nonlinear_problem(ss, m_y_comm, m_ydot_comm, m_CJ, m_time_curr, num_newt_its, num_linear_solves,
 						      numbacktracks);

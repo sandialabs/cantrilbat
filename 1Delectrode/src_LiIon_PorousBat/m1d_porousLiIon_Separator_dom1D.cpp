@@ -399,7 +399,7 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
                                        const double t,
                                        const double rdelta_t,
                                        const ResidEval_Type_Enum residType,
-                                       const Solve_Type_Enum solveType)
+                                       const Zuzax::Solve_Type solveType)
 {
   static int tmpsSetup = 0;
   if (!tmpsSetup) {
@@ -1299,7 +1299,7 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 					       const double t,
 					       const double rdelta_t,
 					       const ResidEval_Type_Enum residType,
-					       const Solve_Type_Enum solveType)
+					       const Zuzax::Solve_Type solveType)
 {
     static int tmpsSetup = 0;
     if (!tmpsSetup) {
@@ -1323,7 +1323,7 @@ porousLiIon_Separator_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         t_init_ = t;
     } else {
         // We want an infinitly small time step 
-        if (solveType == TimeDependentInitial) {
+        if (solveType == Zuzax::Solve_Type::TimeDependentInitial) {
            t_init_ = t;
         } else {
            t_init_ = t - 1.0/rdelta_t;

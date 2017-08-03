@@ -713,7 +713,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
                                    const double t,
                                    const double rdelta_t,
                                    const ResidEval_Type_Enum residType,
-                                   const Solve_Type_Enum solveType)
+                                   const Zuzax::Solve_Type solveType)
 {
     static int tmpsSetup = 0;
     if (!tmpsSetup) {
@@ -1517,7 +1517,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0) {
- 	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+ 	    //valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	    double thick_lc_now = -9e9;
 	    double gross_vol_now = -9e9;
 	    if(iCell == 0 ) {
@@ -1680,7 +1680,7 @@ porousLiIon_Anode_dom1D::residEval(Epetra_Vector& res,
 	  NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	  NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;	
 	  NodalVars* nodeCent = cTmps.nvCent_;
-	  NodalVars* nodeLeft = cTmps.nvLeft_;
+	  //NodalVars* nodeLeft = cTmps.nvLeft_;
 	  indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	  nodeTmpsCenter.Offset_Displacement_Axial   = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
 
@@ -1733,7 +1733,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
                                            const double t,
                                            const double rdelta_t,
                                            const ResidEval_Type_Enum residType,
-                                           const Solve_Type_Enum solveType)
+                                           const Zuzax::Solve_Type solveType)
 {
    static int tmpsSetup = 0;
     if (!tmpsSetup) {
@@ -1753,7 +1753,7 @@ porousLiIon_Anode_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
         t_init_ = t;
     } else {
         // We want an infinitly small time step 
-        if (solveType == TimeDependentInitial) {
+        if (solveType == Zuzax::Solve_Type::TimeDependentInitial) {
            t_init_ = t;
         } else {
            t_init_ = t - 1.0/rdelta_t;
