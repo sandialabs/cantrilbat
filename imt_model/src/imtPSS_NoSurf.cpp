@@ -296,7 +296,7 @@ namespace Cantera
    *  (virtual fucntion from InterfacialMassTransfer_Integrator)
    *
    */
-  int imtPSS_NoSurf::calcResid(doublevalue* const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf::calcResid(doublevalue* const resid, const ResidEval_Type evalType)
   {
     resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
     return 1;

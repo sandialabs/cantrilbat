@@ -240,7 +240,7 @@ void SurDomain1D::domain_prep(LocalNodeIndices* const li_ptr)
 //==================================================================================================================================
 void SurDomain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                             const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                            const double rdelta_t, ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
+                            const double rdelta_t, Zuzax::ResidEval_Type residType, const Zuzax::Solve_Type solveType)
 {
     /*
      *   We call an error routine because the base class residual calculation should
@@ -1267,7 +1267,7 @@ SurBC_Dirichlet::reportBoundaryCondition(double time, const VarType vtDir, int& 
 //==================================================================================================================================
 void SurBC_Dirichlet::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                                 const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                                const double rdelta_t, const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
+                                const double rdelta_t, const Zuzax::ResidEval_Type residType, const Zuzax::Solve_Type solveType)
 {
     size_t ieqn;
     const Epetra_Vector& soln = *soln_ptr;

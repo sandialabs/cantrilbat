@@ -232,7 +232,8 @@ int BEulerInt_Battery::calcConsistentInitialDerivs_Inner()
      */
     if (m_print_flag > 5) {
         double rdelta_t = 1.0 /  delta_t_n;
-        m_func->residEval(m_resid, true, m_y_n, m_ydot_n, 0.0, rdelta_t, m1d::Base_ResidEval, Zuzax::Solve_Type::DAESystemInitial_Solve);
+        m_func->residEval(m_resid, true, m_y_n, m_ydot_n, 0.0, rdelta_t, Zuzax::ResidEval_Type::Base_ResidEval, 
+                          Zuzax::Solve_Type::DAESystemInitial_Solve);
         double rnorm = res_error_norm(*m_resid, "DAE_Init_Residual", 10);
         printf("rnorm (DAE) = %g\n", rnorm);
     }

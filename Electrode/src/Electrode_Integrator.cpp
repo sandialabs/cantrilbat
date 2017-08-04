@@ -1648,7 +1648,7 @@ void Electrode_Integrator::updateSpeciesMoleChangeFinal()
  *  (virtual fucntion from Electrode_Integrator)
  *
  */
-int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type evalType)
 {
     throw Electrode_Error(" Electrode_Integrator::calcResid()",  "unimplemented");
     return 0;
@@ -1656,14 +1656,14 @@ int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type_En
 //==================================================================================================================
 int Electrode_Integrator::GFCEO_evalResidNJ(const double t, const double delta_t,
                             const double* const y, const double* const ydot,
-                            double* const resid, const ResidEval_Type_Enum evalType,
+                            double* const resid, const ResidEval_Type evalType,
                             const int id_x, const double delta_x)
 {
     throw Electrode_Error(" Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================
-int Electrode_Integrator::GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_Integrator::GFCEO_calcResid(double* const resid, const ResidEval_Type evalType)
 {
     throw Electrode_Error(" Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
     return 0;
@@ -2222,27 +2222,27 @@ double Electrode_Integrator::reportStateVariableIntegrationError(int& numSV, dou
 int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
                                       const double* const y, const double* const ySolnDot,
                                       double* const resid,
-                                      const ResidEval_Type_Enum evalType, const int id_x,
+                                      const ResidEval_Type evalType, const int id_x,
                                       const double delta_x)
 {
     int retn = 1;
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         printf("\t\t===============================================================================================================================\n");
         printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
-        if (evalType ==  Base_ResidEval) {
+        if (evalType ==  ResidEval_Type::Base_ResidEval) {
             printf(" BASE RESIDUAL");
-        } else if (evalType == JacBase_ResidEval) {
+        } else if (evalType == ResidEval_Type::JacBase_ResidEval) {
             printf(" BASE JAC RESIDUAL");
-        } else  if (evalType == JacDelta_ResidEval) {
+        } else  if (evalType == ResidEval_Type::JacDelta_ResidEval) {
             printf(" DELTA JAC RESIDUAL");
             printf(" var = %d delta_x = %12.4e Y_del = %12.4e Y_base = %12.4e", id_x, delta_x, y[id_x], y[id_x] - delta_x);
-        } else  if (evalType == Base_ShowSolution) {
+        } else  if (evalType == ResidEval_Type::Base_ShowSolution) {
             printf(" BASE RESIDUAL - SHOW SOLUTION");
         }
         printf(" DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
     }
-    if ((evalType != JacDelta_ResidEval)) {
+    if ((evalType != ResidEval_Type::JacDelta_ResidEval)) {
         std::fill(phaseJustDied_.begin(), phaseJustDied_.end(), 0);
     }
     /*
@@ -2250,7 +2250,7 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
      */
     unpackNonlinSolnVector(y);
 
-    if (evalType != JacDelta_ResidEval && (evalType != Base_LaggedSolutionComponents)) {
+    if (evalType != ResidEval_Type::JacDelta_ResidEval && (evalType != ResidEval_Type::Base_LaggedSolutionComponents)) {
         //    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double *)DATA_PTR(phaseMoles_final_), m_NumTotPhases);
     }
 
@@ -2286,7 +2286,7 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
      * Change the problem specification for the nonlinear solve in certain circumstances when the solver
      *  is calculating the base residual of a jacobian
      */
-    if (evalType == JacBase_ResidEval) {
+    if (evalType == ResidEval_Type::JacBase_ResidEval) {
         /*
          *  Perform some checks that would lead to the return flag indicating an error condition
          */

@@ -224,7 +224,7 @@ SurDomain_FlatLiSiAnode::residEval(Epetra_Vector &res,
                                    const Epetra_Vector *solnOld_ptr,
                                    const double t,
                                    const double rdelta_t,
-                                   const ResidEval_Type_Enum residType,
+                                   const Zuzax::ResidEval_Type residType,
 				   const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;
@@ -381,7 +381,7 @@ SurDomain_FlatLiSiAnode::residEval(Epetra_Vector &res,
    */
 #ifdef DEBUG_HKM
   if (doTimeDependentResid) {
-    if (residType == Base_ResidEval) {
+    if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       double tmp = -electrodeSpeciesProdRates_[speciesIndex0] * surfaceArea_ * area_cvb;
 
       //printf(" Cell = %d, AnodeSource = %10.3e, ResTotal = %10.3e\n", 0, tmp,
@@ -403,7 +403,7 @@ SurDomain_FlatLiSiAnode::residEval(Epetra_Vector &res,
 void
 SurDomain_FlatLiSiAnode::updateDependencies(const Epetra_Vector *soln_ptr,
                                             const double t,
-                                            const ResidEval_Type_Enum residType)
+                                            const Zuzax::ResidEval_Type residType)
 {
   /*
    *  Figure out the equation start for this node

@@ -210,7 +210,7 @@ public:
     residEval(Epetra_Vector& res, const bool doTimeDependentResid,
               const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
               const Epetra_Vector* const solnOld_ptr, const double t, const double rdelta_t,
-              const ResidEval_Type_Enum residType = Base_ResidEval,
+              const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
               const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
 
@@ -287,7 +287,7 @@ public:
     virtual void
     residEval_PreCalc(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr, const Epetra_Vector* solnDot_ptr,
                       const Epetra_Vector* solnOld_ptr, const double t, const double rdelta_t,
-                      const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
+                      const Zuzax::ResidEval_Type residType, const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Auxiliary function to calculate the residual for the current domain.
     /*!
@@ -309,7 +309,7 @@ public:
     virtual void
     residEval_PostCalc(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                        const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                       const double rdelta_t, const ResidEval_Type_Enum residType = Base_ResidEval,
+                       const double rdelta_t, const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
                        const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Function that gets called at end the start of every time step
@@ -618,7 +618,7 @@ public:
     /*!
      *  @param[in]           residType           Type of the residual call
      */
-    void incrementCounters(const ResidEval_Type_Enum residType);
+    void incrementCounters(const Zuzax::ResidEval_Type residType);
 
     // ------------------------------------------------  DATA ---------------------------------------------------------------
 
@@ -716,7 +716,7 @@ public:
 protected:
 
     //! Current value of the residual type
-    ResidEval_Type_Enum residType_Curr_;
+    Zuzax::ResidEval_Type residType_Curr_;
 
 private:
     //! Local error routine

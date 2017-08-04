@@ -78,12 +78,12 @@ SimpleDiff_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 void
 SimpleDiff_dom1D::residEval(Epetra_Vector &res,
                             const bool doTimeDependentResid,
-                            const Epetra_Vector *soln_ptr,
-                            const Epetra_Vector *solnDot_ptr,
-                            const Epetra_Vector *solnOld_ptr,
+                            const Epetra_Vector* const soln_ptr,
+                            const Epetra_Vector* const solnDot_ptr,
+                            const Epetra_Vector* constsolnOld_ptr,
                             const double t,
                             const double rdelta_t,
-                            const ResidEval_Type_Enum residType,
+                            const Zuzax::ResidEval_Type residType,
 			    const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;

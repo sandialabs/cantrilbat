@@ -95,7 +95,7 @@ int GFCEO_Electrode::evalResidNJ(const double t, const double delta_t,
                             const double* const y,
                             const double* const ydot,
                             double* const resid,
-                            const ResidEval_Type_Enum evalType,
+                            const ResidEval_Type evalType,
                             const int id_x,
                             const double delta_x)
 {

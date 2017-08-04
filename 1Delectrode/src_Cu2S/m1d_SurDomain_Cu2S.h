@@ -94,15 +94,13 @@ public:
    *  @param rdelta_t    inverse of delta_t
    */
   virtual void
-  residEval(Epetra_Vector &res,
-            const bool doTimeDependentResid,
-            const Epetra_Vector *soln_ptr,
-            const Epetra_Vector *solnDot_ptr,
-            const Epetra_Vector *solnOld_ptr,
-            const double t,
-            const double rdelta_t,
-            const ResidEval_Type_Enum residType = Base_ResidEval,
-	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
+  residEval(Epetra_Vector &res, const bool doTimeDependentResid,
+            const Epetra_Vector* const soln_ptr,
+            const Epetra_Vector* const solnDot_ptr,
+            const Epetra_Vector* const solnOld_ptr,
+            const double t, const double rdelta_t,
+            const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
+	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
   //! Base class for saving the solution on the domain in an xml node.
   /*!
@@ -118,10 +116,10 @@ public:
    */
   virtual void
   saveDomain(ZZCantera::XML_Node& oNode,
-             const Epetra_Vector *soln_GlAll_ptr,
-             const Epetra_Vector *solnDot_GlAll_ptr,
+             const Epetra_Vector* const soln_GlAll_ptr,
+             const Epetra_Vector* const solnDot_GlAll_ptr,
              const double t,
-             bool duplicateOnAllProcs = false);
+             bool duplicateOnAllProcs = false) override;
 
   //! Base class for writing the solution on the domain to a logfile.
   /*!
@@ -150,7 +148,7 @@ public:
                const double t,
                const double rdelta_t,
                int indentSpaces,
-               bool duplicateOnAllProcs = false);
+               bool duplicateOnAllProcs = false) override;
 
   //! Generate the initial conditions
   /*!
@@ -167,10 +165,10 @@ public:
    */
   virtual void
   initialConditions(const bool doTimeDependentResid,
-                    Epetra_Vector *soln,
-                    Epetra_Vector *solnDot,
+                    Epetra_Vector* const soln,
+                    Epetra_Vector* const solnDot,
                     const double t,
-                    const double delta_t);
+                    const double delta_t) override;
 
   // ******************************************************************************
   //  Member Data for this boundary condition
@@ -319,7 +317,7 @@ public:
             const Epetra_Vector *solnOld_ptr,
             const double t,
             const double rdelta_t,
-            const ResidEval_Type_Enum residType = Base_ResidEval,
+            const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
 	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
   //! Base class for saving the solution on the domain in an xml node.

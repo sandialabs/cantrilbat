@@ -77,7 +77,7 @@ public:
    *  @param[in]             solnOld_ptr         Solution vector at the old time
    *  @param[in]             t                   time
    *  @param[in]             rdelta_t            inverse of delta_t
-   *  @param[in]             residType           Enum ResidEval_Type_Enum describing the type of residual
+   *  @param[in]             residType           Enum ResidEval_Type describing the type of residual
    *                                                Defaults to the Base_ResidEval type
    *  @param[in]             solveType           Enum Solven_Type describing the type of solve.
    *                                                Defaults to the TimeDependentAccurate_Solve
@@ -86,7 +86,7 @@ public:
   residEval(Epetra_Vector &res, const bool doTimeDependentResid,
             const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
             const Epetra_Vector* const solnOld_ptr, const double t, const double rdelta_t,
-            const ResidEval_Type_Enum residType = Base_ResidEval,
+            const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
 	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
   //! Base class for saving the solution on the domain in an xml node.

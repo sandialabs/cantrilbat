@@ -93,7 +93,7 @@ public:
             const Epetra_Vector *solnOld_ptr,
             const double t,
             const double rdelta_t,
-            const ResidEval_Type_Enum residType = Base_ResidEval,
+            const Zuzax::ResidEval_Type residType =  Zuzax::ResidEval_Type::Base_ResidEval,
 	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
   //! utility routine to update the objects used to calculate quantities at the surface
@@ -105,8 +105,8 @@ public:
    * @param residType    Residual evaluation type
    */
   virtual void
-  updateDependencies(const Epetra_Vector *soln_ptr, const double t, const ResidEval_Type_Enum residType =
-      Base_ResidEval);
+  updateDependencies(const Epetra_Vector *soln_ptr, const double t,
+                     const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval);
   void
   getMFElectrolyte_soln(const double * const solnBulk);
 

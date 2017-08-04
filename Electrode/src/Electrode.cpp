@@ -4097,7 +4097,7 @@ Electrode::integrate_ResidJacEval::integrate_ResidJacEval(Electrode* ee) :
 }
 //  -----------------------------------------------------------------------------------------------------------------
 int Electrode::integrate_ResidJacEval::evalResidNJ(double t, const double deltaT, const double* const y,
-        const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType, int id_x,
+        const double* const ydot, double* const resid, const ResidEval_Type evalType, int id_x,
         double delta_x)
 {
     int retn = ee_->integrateResid(t, deltaT, y, ydot, resid, evalType, id_x, delta_x);
@@ -4133,7 +4133,7 @@ int Electrode::integrate_ResidJacEval::nEquations() const
  * @param delta_x       Value of the delta used in the numerical differencing
  */
 int Electrode::integrateResid(const double tfinal, const double deltaTsubcycle, const double* const y,
-        const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType, const int id_x,
+        const double* const ydot, double* const resid, const ResidEval_Type evalType, const int id_x,
         const double delta_x)
 {
     throw Electrode_Error(" Electrode::integrateResid()", "Base class called");

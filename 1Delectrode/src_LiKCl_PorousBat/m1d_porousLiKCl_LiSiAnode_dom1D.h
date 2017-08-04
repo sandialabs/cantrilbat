@@ -144,7 +144,7 @@ public:
             const Epetra_Vector *solnOld_ptr,
             const double t,
             const double rdelta_t,
-            const ResidEval_Type_Enum residType = Base_ResidEval,
+            const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
 	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
   //! Utility function to calculate quantities before the main residual routine.
@@ -171,7 +171,7 @@ public:
 		    const Epetra_Vector *solnOld_ptr,
 		    const double t,
 		    const double rdelta_t,
-		    const ResidEval_Type_Enum residType,
+		    const Zuzax::ResidEval_Type residType,
 	            const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
   //!  Calculate the electrode reaction rates and store it in internal variables

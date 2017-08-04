@@ -242,13 +242,13 @@ namespace Cantera
      *  @return Returns 1 if everything is ok.
      *          Returns 0 if the current conditions can not be calculated.
      */
-    virtual int calcResid(doublevalue * const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(doublevalue * const resid, const ResidEval_Type evalType);
 
     //! Artificial compressibility version 
-    int calcResid_F1(doublevalue * const resid, const ResidEval_Type_Enum evalType);
+    int calcResid_F1(doublevalue * const resid, const ResidEval_Type evalType);
 
     //! Artificial compressibility version 
-    int calcResid_F2(doublevalue * const resid, const ResidEval_Type_Enum evalType);
+    int calcResid_F2(doublevalue * const resid, const ResidEval_Type evalType);
 
     // ----------------------------------------------------------------------------------------------
     // ----------------------------- GET CONDITIONS OUT --------------------------------------------

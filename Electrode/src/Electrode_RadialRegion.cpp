@@ -940,7 +940,7 @@ void  Electrode_RadialRegion::extractInfoJustBorn(std::vector<size_t>& justBornM
  *  --------------------------------------------------------------------------------------------------------------
  *
  */
-int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_RadialRegion::calcResid(double* const resid, const ResidEval_Type evalType)
 {
     // Indexes
     int iCell, iPh, jPh;

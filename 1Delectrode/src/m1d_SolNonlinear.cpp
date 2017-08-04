@@ -472,8 +472,8 @@ void
 SolNonlinear::get_res(const double time_curr, const double rdelta_t,
                       const Epetra_Vector_Ghosted* solnBase_ptr, const Epetra_Vector_Ghosted* solnDotBase_ptr)
 {
-    m_func->residEval(m_resid, doTimeDependentResid_, solnBase_ptr, solnDotBase_ptr, time_curr, rdelta_t, Base_ResidEval,
-                      solnType_);
+    m_func->residEval(m_resid, doTimeDependentResid_, solnBase_ptr, solnDotBase_ptr, time_curr, rdelta_t, 
+                      Zuzax::ResidEval_Type::Base_ResidEval, solnType_);
     m_nfe++;
     m_resid_scaled = false;
 }

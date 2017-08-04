@@ -75,33 +75,6 @@ enum class Solve_Type {
 // take this out eventually
 //using Zuzax::Solve_Type;
 //==================================================================================================================================
-//! Differentiates the type of residual evaluations according to functionality
-enum ResidEval_Type_Enum {
-
-    //! Base residual calculation for the time-stepping function
-    Base_ResidEval = 0,
-
-    //! Base residual calculation for the Jacobian calculation
-    JacBase_ResidEval,
-
-    //! Delta residual calculation for the Jacbobian calculation
-    JacDelta_ResidEval,
-
-    //! Base residual calculation for the showSolution routine
-    /*!
-     *    We calculate this when we want to display a solution
-     */
-    Base_ShowSolution,
-
-    //! Base residual calculation containing any lagged components
-    /*!
-     *  We use this to calculate residuals when doing line searches along
-     *  directions determined by Jacobians that are missing contributions
-     *  from lagged entries.
-     */
-    Base_LaggedSolutionComponents
-};
-//==================================================================================================================================
 //! Differentiates the type of coordinate system
 enum CoordinateSystem_Type_Enum {
     //! Rectilinear coordinate system
@@ -141,6 +114,7 @@ struct Porosity_EqnType_Status {
 //!  A class for the description of 1D problems that  encompass multiple regions in 1D and multiple time regions
 /*!
  *   This is the base class for 
+ *  todo make it inherit from Zuzax::ResidJacEval.  Rename Epetra routines that override
  */
 class ProblemResidEval
 //class ProblemResidEval : public Zuzax::ResidJacEval  (under construction)
@@ -267,7 +241,7 @@ public:
     virtual void residEval(Epetra_Vector* const&  res, const bool doTimeDependentResid,
                            const Epetra_Vector_Ghosted* const soln, const Epetra_Vector_Ghosted* const solnDot,
                            const double t, const double rdelta_t,
-                           const ResidEval_Type_Enum residType = Base_ResidEval,
+                           const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
                            const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Function that gets called at end the start of every time step

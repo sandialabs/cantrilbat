@@ -1057,7 +1057,7 @@ namespace Cantera
    *
    *   We define that Velo_A_CVB_final_ = 0.0 as a start of the calculation.
    */
-  int imtPSS_NoSurf_DiffBL::calcResid_F1(doublevalue* const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf_DiffBL::calcResid_F1(doublevalue* const resid, const ResidEval_Type evalType)
   {
     resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
 
@@ -1168,7 +1168,7 @@ namespace Cantera
    *
    *   We define that Velo_A_CVB_final_ = 0.0 as a start of the calculation.
    */
-  int imtPSS_NoSurf_DiffBL::calcResid_F2(doublevalue* const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf_DiffBL::calcResid_F2(doublevalue* const resid, const ResidEval_Type evalType)
   {
     resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
 
@@ -1281,7 +1281,7 @@ namespace Cantera
    *
    *   We define that Velo_A_CVB_final_ = 0.0 as a start of the calculation.
    */
-  int imtPSS_NoSurf_DiffBL::calcResid(doublevalue* const resid, const ResidEval_Type_Enum evalType)
+  int imtPSS_NoSurf_DiffBL::calcResid(doublevalue* const resid, const ResidEval_Type evalType)
   {
 
 #ifdef DEBUG_METHOD_F1
@@ -1883,7 +1883,7 @@ namespace Cantera
     if (subTimeStep) {
       std::vector<double> residNLS(neq_);
       evalResidNJ(t_final_,deltaTsubcycleCalc_,
-			      &yvalNLS_[0], &ydotNLS_[0], &residNLS[0],  Base_ShowSolution);
+			      &yvalNLS_[0], &ydotNLS_[0], &residNLS[0],  ResidEval_Type::Base_ShowSolution);
       
     }
 

@@ -36,7 +36,7 @@ Domain1D::Domain1D() :
     energyEquationProbType_(0),
     solidMechanicsProbType_(0),
     porosityEquationProbType_(Porosity_EqnType_Status::None),
-    residType_Curr_(Base_ResidEval),
+    residType_Curr_(Zuzax::ResidEval_Type::Base_ResidEval),
     counterResBaseCalcs_(0),
     counterJacBaseCalcs_(0),
     counterJacDeltaCalcs_(0),
@@ -67,7 +67,7 @@ Domain1D::Domain1D(const Domain1D& r) :
     PressureReference_(1.01325e5),
     energyEquationProbType_(0),
     solidMechanicsProbType_(0),
-    residType_Curr_(Base_ResidEval),
+    residType_Curr_(Zuzax::ResidEval_Type::Base_ResidEval),
     counterResBaseCalcs_(0),
     counterJacBaseCalcs_(0),
     counterJacDeltaCalcs_(0),
@@ -121,7 +121,7 @@ void Domain1D::domain_prep(LocalNodeIndices* const li_ptr)
 //==================================================================================================================================
 void Domain1D::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                          const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                         const double rdelta_t, const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
+                         const double rdelta_t, const Zuzax::ResidEval_Type residType, const Zuzax::Solve_Type solveType)
 {
     residType_Curr_ = residType;
     err("residEval()");
@@ -150,7 +150,7 @@ void Domain1D::eval_SpeciesElemBalance(const int ifunc, const double t, const do
 void
 Domain1D::residEval_PreCalc(const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                             const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr,
-                            const double t, const double rdelta_t, const ResidEval_Type_Enum residType,
+                            const double t, const double rdelta_t, const Zuzax::ResidEval_Type residType,
                             const Zuzax::Solve_Type solveType)
 {
 }
@@ -159,7 +159,7 @@ void
 Domain1D::residEval_PostCalc(Epetra_Vector& res, const bool doTimeDependentResid,
                              const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
                              const Epetra_Vector* const solnOld_ptr, const double t, const double rdelta_t,
-                             const ResidEval_Type_Enum residType, const Zuzax::Solve_Type solveType)
+                             const Zuzax::ResidEval_Type residType, const Zuzax::Solve_Type solveType)
 {
 }
 //==================================================================================================================================
@@ -308,13 +308,13 @@ Domain1D::setAtolDeltaDamping_DAEInit(double atolDefault, double relcoeff, const
 }
 //==================================================================================================================================
 void
-Domain1D::incrementCounters(const ResidEval_Type_Enum residType)
+Domain1D::incrementCounters(const Zuzax::ResidEval_Type residType)
 {
-    if (residType == Base_ResidEval) {
+    if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         counterResBaseCalcs_++;
-    } else if (residType == JacBase_ResidEval) {
+    } else if (residType == Zuzax::ResidEval_Type::JacBase_ResidEval) {
         counterJacBaseCalcs_++;
-    } else if (residType == Base_ShowSolution) {
+    } else if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
         counterResShowSolutionCalcs_++;
     } else {
         counterJacDeltaCalcs_++;

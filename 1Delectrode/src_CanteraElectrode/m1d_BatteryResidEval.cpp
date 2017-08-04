@@ -428,20 +428,20 @@ BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
                             const Epetra_Vector *solnDot_ptr,
                             const double t,
                             const double rdelta_t,
-                            const ResidEval_Type_Enum residType,
+                            const Zuzax::ResidEval_Type residType,
                             const Zuzax::Solve_Type solveType)
 {
     if (!resInternal_ptr_) {
 	resInternal_ptr_ = new Epetra_Vector(*res);
     }
 
-    if (residType == Base_ResidEval) {
+    if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
 	counterResBaseCalcs_++;
-    } else if (residType == JacBase_ResidEval) {
+    } else if (residType == Zuzax::ResidEval_Type::JacBase_ResidEval) {
 	counterJacBaseCalcs_++;
-    } else if (residType == JacDelta_ResidEval) {
+    } else if (residType == Zuzax::ResidEval_Type::JacDelta_ResidEval) {
 	counterJacDeltaCalcs_++;
-    } else if (residType == Base_ShowSolution) {
+    } else if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
 	counterResShowSolutionCalcs_++;
     }
     // Get a local copy of the domain layout
@@ -630,8 +630,9 @@ BatteryResidEval::showProblemSolution(const int ievent,
 	rdelta_t = 1.0 / delta_t;
     }
 
-    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t, Base_ShowSolution, solveType);
- 
+    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n, t, rdelta_t,
+              Zuzax::ResidEval_Type::Base_ShowSolution, solveType);
+
     gatherCapacityStatistics();
 
 

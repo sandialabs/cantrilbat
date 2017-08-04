@@ -2530,7 +2530,7 @@ void  Electrode_MP_RxnExtent::unpackNonlinSolnVector(const double* const y)
  *  @return  1 Means a good calculation that produces a valid result
  *           0 Bad calculation that means that the current nonlinear iteration should be terminated
  */
-int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type evalType)
 {
 
 
@@ -2552,7 +2552,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
             deltaTdeath_ = 1000. * deltaTsubcycle_;
         }
 
-        if (evalType != JacDelta_ResidEval) {
+        if (evalType != ResidEval_Type::JacDelta_ResidEval) {
             if (deltaTdeath_ < deltaTsubcycle_) {
                 if (SrcDot_ExtentRxn_final_ > 1.0E-200) {
                     if (onRegionBoundary_final_ != -1) {
@@ -2594,7 +2594,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
                                  + SrcDot_ExtentRxn_final_ * deltaTsubcycleCalc_ / spMoles_FeS2_Normalization_;
 
 #ifdef DEBUG_MODE_PREDICTION
-        if (evalType == Base_ShowSolution) {
+        if (evalType == ResidEval_Type::Base_ShowSolution) {
             double pred_RelativeExtentRxn_final_   =  predictSave[0];
             double pred_ROP                        =  predictSave[1];
             double pred_DaOuter_                   =  predictSave[2];
@@ -2700,7 +2700,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
                  *   This is the only spot where we may allow a change in equation type.
                  *   However, here we do not allow a change in equation type.
                  */
-                if (evalType != JacDelta_ResidEval) {
+                if (evalType != ResidEval_Type::JacDelta_ResidEval) {
                     if (onRegionBoundary_final_ >= 0) {
                         if (onRegionBoundary_final_ == xRegion_final_ + 1) {
                             //  we're searching for a calculation that ends up at the forward boundary, and we just ended up at the back boundary.
@@ -2734,7 +2734,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
 #ifdef DEBUG_MODE_PREDICTION
         double srcDot_ExtentRxn_final = theta1 * spMoles_FeS2_Normalization_;
         double _rop = (ca_Lip_ * krExt_ - kfExt_ * Lin_);
-        if (evalType == Base_ShowSolution) {
+        if (evalType == ResidEval_Type::Base_ShowSolution) {
             FILE* fp = fopen("predict.txt", "a");
             fprintf(fp, "calcResid                             counterNumberSubIntegrations_    = %d\n", counterNumberSubIntegrations_);
             fprintf(fp, "                                      RelativeExtentRxn_init_          = %17.9E\n", RelativeExtentRxn_init_);
@@ -2763,7 +2763,7 @@ int Electrode_MP_RxnExtent::calcResid(double* const resid, const ResidEval_Type_
 #endif
 
 #ifdef DEBUG_MODE_PREDICTION
-        if (evalType == Base_ShowSolution) {
+        if (evalType == ResidEval_Type::Base_ShowSolution) {
             double pred_RelativeExtentRxn_final_   =  predictSave[0];
             double pred_ROP                        =  predictSave[1];
             double pred_DaOuter_                   =  predictSave[2];
@@ -2860,20 +2860,20 @@ void Electrode_MP_RxnExtent::gatherIntegratedSrcPrediction()
 int Electrode_MP_RxnExtent::integrateResid(const double t, const double delta_t,
         const double* const y, const double* const ySolnDot,
         double* const resid,
-        const ResidEval_Type_Enum evalType, const int id_x,
+        const ResidEval_Type evalType, const int id_x,
         const double delta_x)
 {
-    if ((enableExtraPrinting_ && detailedResidPrintFlag_ > 1) || evalType == Base_ShowSolution) {
+    if ((enableExtraPrinting_ && detailedResidPrintFlag_ > 1) || evalType == ResidEval_Type::Base_ShowSolution) {
         printf("\t\t===============================================================================================================================\n");
         printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
-        if (evalType ==  Base_ResidEval) {
+        if (evalType ==  ResidEval_Type::Base_ResidEval) {
             printf(" BASE RESIDUAL");
-        } else if (evalType == JacBase_ResidEval) {
+        } else if (evalType == ResidEval_Type::JacBase_ResidEval) {
             printf(" BASE JAC RESIDUAL");
-        } else  if (evalType == JacDelta_ResidEval) {
+        } else  if (evalType == ResidEval_Type::JacDelta_ResidEval) {
             printf(" DELTA JAC RESIDUAL");
             printf(" var = %d delta_x = %12.4e Y_del = %12.4e Y_base = %12.4e", id_x, delta_x, y[id_x], y[id_x] - delta_x);
-        } else  if (evalType == Base_ShowSolution) {
+        } else  if (evalType == ResidEval_Type::Base_ShowSolution) {
             printf(" BASE RESIDUAL - SHOW SOLUTION");
         }
         printf(" DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
@@ -2894,12 +2894,12 @@ int Electrode_MP_RxnExtent::integrateResid(const double t, const double delta_t,
     /*
      *  We either
      */
-    //  if (evalType == JacBase_ResidEval) {
+    //  if (evalType == ResidEval_Type::JacBase_ResidEval) {
     double rTop = RegionBoundaries_ExtentRxn_[xRegion_final_ + 1];
     double rBot = RegionBoundaries_ExtentRxn_[xRegion_final_];
     if (onRegionBoundary_final_ < 0) {
         if (RelativeExtentRxn_final_ > rTop * (1.0000001)) {
-            if (evalType == JacBase_ResidEval) {
+            if (evalType == ResidEval_Type::JacBase_ResidEval) {
                 onRegionBoundary_final_ = xRegion_init_ + 1;
 
                 bool behaviorChangePossible = false;
@@ -2938,7 +2938,7 @@ int Electrode_MP_RxnExtent::integrateResid(const double t, const double delta_t,
      */
     int info = calcResid(resid, evalType);
 
-    if ((enableExtraPrinting_ && detailedResidPrintFlag_ > 1) || evalType == Base_ShowSolution) {
+    if ((enableExtraPrinting_ && detailedResidPrintFlag_ > 1) || evalType == ResidEval_Type::Base_ShowSolution) {
 
         if (info != 1) {
             printf("\t\t    !!!!  FAILED RESIDUAL CALCULATION info = %d !!!!\n", info);
@@ -3301,7 +3301,7 @@ void Electrode_MP_RxnExtent::predictorCorrectorPrint(const std::vector<double>& 
      *  This is very useful for debugging the predictor.
      */
     //double resid[8];
-    //integrateResid(tfinal_, deltaTsubcycle_, &yvalNLS_[0], &ydotNLS_[0], resid, Base_ShowSolution, 0, 0.0);
+    //integrateResid(tfinal_, deltaTsubcycle_, &yvalNLS_[0], &ydotNLS_[0], resid, ResidEval_Type::Base_ShowSolution, 0, 0.0);
 
 
 }
@@ -3631,12 +3631,9 @@ int Electrode_MP_RxnExtent::calcDeltaSolnVariables(const double t, const double*
 //==================================================================================================================================
 // Evaluate the residual function
 int Electrode_MP_RxnExtent::evalResidNJ(const double tdummy, const double delta_t_dummy,
-                                        const double* const ySoln,
-                                        const double* const ySolnDot,
-                                        double* const resid,
-                                        const ResidEval_Type_Enum evalType,
-                                        const int id_x,
-                                        const double delta_x)
+                                        const double* const ySoln, const double* const ySolnDot,
+                                        double* const resid, const ResidEval_Type evalType,
+                                        const int id_x, const double delta_x)
 {
     int retn =  integrateResid(tdummy, delta_t_dummy, ySoln, ySolnDot, resid, evalType, id_x, delta_x);
     return retn;

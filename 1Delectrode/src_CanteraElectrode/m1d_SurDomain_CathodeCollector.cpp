@@ -157,7 +157,7 @@ void SurDomain_CathodeCollector::domain_prep(LocalNodeIndices* li_ptr)
  */
 void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
                                            const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr, const double t,
-                                           const double rdelta_t, const ResidEval_Type_Enum residType,
+                                           const double rdelta_t, const Zuzax::ResidEval_Type residType,
                                            const Zuzax::Solve_Type solveType)
 {
     residType_Curr_ = residType;
@@ -187,7 +187,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
     //
     //  Store the entrance residual for later processing in balancing applications
     //
-    if (residType == Base_ResidEval || residType == Base_ShowSolution) {
+    if (residType == Zuzax::ResidEval_Type::Base_ResidEval || residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
 	for (size_t i = 0; i < (size_t) NumNodeEqns; i++) {
 	    Resid_BeforeSurDomain_NE[i] = res[index_EqnStart + i];
 	}
@@ -309,7 +309,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
                 throw m1d_Error("SurDomain_CathodeCollector::residEval",
                                 "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
             }
-	    if (residType == Base_ShowSolution) {
+	    if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
                 DomainResidVector_LastResid_NE[i] = res_contrib;
             }
 
@@ -317,7 +317,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
     }
 #ifdef DEBUG_HKM
     if (doTimeDependentResid) {
-        if (residType == Base_ResidEval) {
+        if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         }
     }
 #endif
@@ -355,7 +355,7 @@ void SurDomain_CathodeCollector::residEval(Epetra_Vector& res, const bool doTime
 	    DomainResidVector_LastResid_NE[offsetTemp] -= res_contrib;
         }
     }
-    if (residType_Curr_ == Base_ShowSolution) {
+    if (residType_Curr_ == Zuzax::ResidEval_Type::Base_ShowSolution) {
 	//if (SDD_cathode_ptr->voltageVarBCType_ == 11) {
 	if (SDD_cathode_ptr->voltageVarBCType_ != 10) {
 	    phiCathodeCC_ =  phiCathodeCCcalc;

@@ -578,7 +578,7 @@ namespace Cantera
     virtual int integrateResid(const doublevalue tfinal, const doublevalue delta_t,
 			       const doublevalue * const y, const doublevalue * const ydot,
 			       doublevalue * const resid,
-			       const ResidEval_Type_Enum evalType, const int id_x, const doublevalue delta_x);
+			       const ResidEval_Type evalType, const int id_x, const doublevalue delta_x);
 
  
     // ----------------------------------------------------------------------------------------------

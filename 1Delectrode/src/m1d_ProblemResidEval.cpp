@@ -427,8 +427,8 @@ ProblemResidEval::residEval(Epetra_Vector_Owned* const& res,
                             const Epetra_Vector* const solnDot_ptr,
                             const double t,
                             const double rdelta_t,
-                            const ResidEval_Type_Enum residType,
-                            const Solve_Type solveType)
+                            const Zuzax::ResidEval_Type residType,
+                            const Zuzax::Solve_Type solveType)
 {
     if (!resInternal_ptr_) {
         resInternal_ptr_ = new Epetra_Vector(*res);
@@ -440,13 +440,13 @@ ProblemResidEval::residEval(Epetra_Vector_Owned* const& res,
         t_old = t - delta_t;
     }
 
-    if (residType == Base_ResidEval) {
+    if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         counterResBaseCalcs_++;
-    } else if (residType == JacBase_ResidEval) {
+    } else if (residType == Zuzax::ResidEval_Type::JacBase_ResidEval) {
         counterJacBaseCalcs_++;
-    } else if (residType == JacDelta_ResidEval) {
+    } else if (residType == Zuzax::ResidEval_Type::JacDelta_ResidEval) {
         counterJacDeltaCalcs_++;
-    } else if (residType == Base_ShowSolution) {
+    } else if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
         counterResShowSolutionCalcs_++;
     }
 
@@ -1633,8 +1633,8 @@ void ProblemResidEval::writeSolution(const int ievent, const bool doTimeDependen
     if (delta_t_n > 0.0) {
         rdelta_t = 1.0 / delta_t_n;
     }
-    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n_ptr, time_current, rdelta_t, Base_ShowSolution,
-              solveType);
+    residEval(resInternal_ptr_, doTimeDependentResid, &y_n, ydot_n_ptr, time_current, rdelta_t, 
+              Zuzax::ResidEval_Type::Base_ShowSolution, solveType);
 
 
     static double lastTime = -10000000.;

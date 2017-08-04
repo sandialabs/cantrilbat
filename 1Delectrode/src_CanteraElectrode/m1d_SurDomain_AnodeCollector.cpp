@@ -140,12 +140,12 @@ SurDomain_AnodeCollector::domain_prep(LocalNodeIndices* li_ptr)
 void
 SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                                     const bool doTimeDependentResid,
-                                    const Epetra_Vector* soln_ptr,
-                                    const Epetra_Vector* solnDot_ptr,
-                                    const Epetra_Vector* solnOld_ptr,
+                                    const Epetra_Vector* const soln_ptr,
+                                    const Epetra_Vector* const solnDot_ptr,
+                                    const Epetra_Vector* const solnOld_ptr,
                                     const double t,
                                     const double rdelta_t,
-                                    const ResidEval_Type_Enum residType,
+                                    const Zuzax::ResidEval_Type residType,
                                     const Zuzax::Solve_Type solveType)
 {
     residType_Curr_ = residType;
@@ -169,7 +169,7 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
     //
     //  Store the entrance residual for later processing in balancing applications
     //
-    if (residType == Base_ResidEval || residType == Base_ShowSolution) {
+    if (residType == Zuzax::ResidEval_Type::Base_ResidEval || residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
         size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
         if (ieqnTemp != npos) {
             TempCollector_ = soln[index_EqnStart + ieqnTemp];
@@ -276,14 +276,14 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                 throw m1d_Error("SurDomain_AnodeCollector::residEval",
                                 "BC_Type_NE[i] 0-9 for Dirichlet, Neumann, and Time Dependence");
             }
-	    if (residType == Base_ShowSolution) { 
+	    if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) { 
 		DomainResidVector_LastResid_NE[i] = res_contrib;
 	    }
         }
     }
 #ifdef DEBUG_HKM
     if (doTimeDependentResid) {
-        if (residType == Base_ResidEval) {
+        if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         }
     }
 #endif

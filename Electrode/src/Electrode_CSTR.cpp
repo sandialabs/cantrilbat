@@ -1627,25 +1627,25 @@ void  Electrode_CSTR::determineBigMoleFractions()
  * @param delta_x       Value of the delta used in the numerical differencing
  */
 int Electrode_CSTR::integrateResid(const double t, const double delta_t, const double* const y, const double* const ySolnDot,
-                                   double* const resid, const ResidEval_Type_Enum evalType, const int id_x, const double delta_x)
+                                   double* const resid, const ResidEval_Type evalType, const int id_x, const double delta_x)
 {
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         printf("\t\t===============================================================================================================================\n");
         printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
-        if (evalType ==  Base_ResidEval) {
+        if (evalType ==  ResidEval_Type::Base_ResidEval) {
             printf(" BASE RESIDUAL");
-        } else if (evalType == JacBase_ResidEval) {
+        } else if (evalType == ResidEval_Type::JacBase_ResidEval) {
             printf(" BASE JAC RESIDUAL");
-        } else  if (evalType == JacDelta_ResidEval) {
+        } else  if (evalType == ResidEval_Type::JacDelta_ResidEval) {
             printf(" DELTA JAC RESIDUAL");
             printf(" var = %d delta_x = %12.4e Y_del = %12.4e Y_base = %12.4e", id_x, delta_x, y[id_x], y[id_x] - delta_x);
-        } else  if (evalType == Base_ShowSolution) {
+        } else  if (evalType == ResidEval_Type::Base_ShowSolution) {
             printf(" BASE RESIDUAL - SHOW SOLUTION");
         }
         printf(" DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
                electrodeDomainNumber_, electrodeCellNumber_, counterNumberSubIntegrations_);
     }
-    if ((evalType != JacDelta_ResidEval)) {
+    if ((evalType != ResidEval_Type::JacDelta_ResidEval)) {
         std::fill(justDied_.begin(), justDied_.end(), 0);
     }
     /*
@@ -1653,7 +1653,7 @@ int Electrode_CSTR::integrateResid(const double t, const double delta_t, const d
      */
     unpackNonlinSolnVector(y);
 
-    if (evalType != JacDelta_ResidEval && (evalType != Base_LaggedSolutionComponents)) {
+    if (evalType != ResidEval_Type::JacDelta_ResidEval && (evalType != ResidEval_Type::Base_LaggedSolutionComponents)) {
         std::copy(phaseMoles_final_.begin(), phaseMoles_final_.end(), phaseMoles_final_lagged_.begin());
     }
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
@@ -1705,7 +1705,7 @@ REDO:
      * Change the problem specification for the nonlinear solve in certain circumstances when the solver
      *  is calculating the base residual of a jacobian
      */
-    if (evalType == JacBase_ResidEval) {
+    if (evalType == ResidEval_Type::JacBase_ResidEval) {
 #ifdef DEBUG_HKM
         if (deltaTsubcycleCalc_ < 0.0) {
             printf("we are here deltTsybcycleCalc_ = %g\n",deltaTsubcycleCalc_);
@@ -1880,7 +1880,7 @@ REDO:
  *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[1]
  *
  */
-int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type evalType)
 {
 
     int index = 0;
@@ -1907,7 +1907,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
      * HKM -> CONSIDER WHACKING THIS SECTION - chose minPH_ at the predictor level and don't let it change?
      */
     size_t minPHtmp = minPH_;
-    if (evalType != JacDelta_ResidEval) {
+    if (evalType != ResidEval_Type::JacDelta_ResidEval) {
 
         for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
             size_t iph = phaseIndexSolidPhases_[ph];
@@ -1956,7 +1956,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
             }
         }
 
-        if (evalType == JacBase_ResidEval) {
+        if (evalType == ResidEval_Type::JacBase_ResidEval) {
             if (minPH_ == npos && minPH_ != minPHtmp) {
                 minPH_ = minPHtmp;
             }
@@ -2081,7 +2081,7 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type_Enum eva
 //==================================================================================================================================
 int Electrode_CSTR::GFCEO_evalResidNJ(const double tdummy, const double delta_t_dummy,
                                 const double* const y, const double* const ySolnDot,
-                                double* const resid, const ResidEval_Type_Enum evalType,
+                                double* const resid, const ResidEval_Type evalType,
                                 const int id_x, const double delta_x)
 {
 
@@ -2118,7 +2118,7 @@ int Electrode_CSTR::GFCEO_evalResidNJ(const double tdummy, const double delta_t_
  *  @return  1 Means a good calculation that produces a valid result
  *           0 Bad calculation that means that the current nonlinear iteration should be terminated
  */
-int Electrode_CSTR::GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_CSTR::GFCEO_calcResid(double* const resid, const ResidEval_Type evalType)
 {
     size_t index = 0;
     // This has to be scaled
@@ -2376,7 +2376,7 @@ int Electrode_CSTR::evalResidNJ(const double tdummy, const double delta_t_dummy,
                                 const double* const y,
                                 const double* const ySolnDot,
                                 double* const resid,
-                                const ResidEval_Type_Enum evalType,
+                                const ResidEval_Type evalType,
                                 const int id_x,
                                 const double delta_x)
 {

@@ -109,15 +109,13 @@ public:
                         const double t, const double t_old);
 
 
-
-
     virtual void residEval_PreCalc(const bool doTimeDependentResid,
                       const Epetra_Vector* soln_ptr,
                       const Epetra_Vector* solnDot_ptr,
                       const Epetra_Vector* solnOld_ptr,
                       const double t,
                       const double rdelta_t,
-                      const ResidEval_Type_Enum residType,
+                      const Zuzax::ResidEval_Type residType,
                       const Zuzax::Solve_Type solveType);
 
     //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites

@@ -232,7 +232,7 @@ namespace Cantera
      *  @return Returns 1 if everything is ok.
      *          Returns 0 if the current conditions can not be calculated.
      */
-    virtual int calcResid(doublevalue * const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(doublevalue * const resid, const ResidEval_Type evalType);
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
@@ -302,7 +302,7 @@ namespace Cantera
 			    const doublevalue * const y,
 			    const doublevalue * const ydot,
 			    doublevalue * const resid,
-			    const ResidEval_Type_Enum evalType = Base_ResidEval,
+			    const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
 			    const int id_x = -1, 
 			    const doublevalue delta_x = 0.0);
 

@@ -319,8 +319,8 @@ void EpetraJac::matrixEval1(const bool doTimeDependentResid, const Epetra_Vector
                             const double t, const double rdelta_t, Zuzax::Solve_Type solveType)
 {
     solveType_ = solveType;
-    m_resid->residEval(resBase, doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, t, rdelta_t, Base_ResidEval,
-                       solveType);
+    m_resid->residEval(resBase, doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, t, rdelta_t, 
+                       Zuzax::ResidEval_Type::Base_ResidEval, solveType);
 
     eval(doTimeDependentResid, solnBase_ptr, solnDotBase_ptr, *resBase, t, rdelta_t);
 }
@@ -399,7 +399,8 @@ void EpetraJac::eval(const bool doTimeDependentResid, const Epetra_Vector* const
             }
         }
 
-        m_resid->residEval(res, doTimeDependentResid, &soln, solnDot_ptr, t, rdelta_t, JacDelta_ResidEval, solveType_);
+        m_resid->residEval(res, doTimeDependentResid, &soln, solnDot_ptr, t, rdelta_t, 
+                           Zuzax::ResidEval_Type::JacDelta_ResidEval, solveType_);
 
         // loop over the block rows
         for (int iBlockRow = 0; iBlockRow < numLcRowNodes; iBlockRow++) {

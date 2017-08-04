@@ -127,7 +127,7 @@ public:
                             const double* const y,
                             const double* const ydot,
                             double* const resid,
-                            const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
                             const int id_x = -1,
                             const double delta_x = 0.0);
 

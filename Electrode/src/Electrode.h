@@ -943,7 +943,7 @@ public:
      *                                           of the nonlinear solver to occur.
      */
     virtual int integrateResid(const double tfinal, const double delta_t, const double* const y,
-                               const double* const ySolnDot, double* const resid, const ResidEval_Type_Enum evalType, 
+                               const double* const ySolnDot, double* const resid, const ResidEval_Type evalType, 
                                const int id_x, const double delta_x);
 
     //!  Calculate the change in the state of the system when integrating from Tinitial to Tfinal
@@ -1242,7 +1242,7 @@ public:
                          const double* const y,
                          const double* const ydot,
                          double* const resid,
-                         const ResidEval_Type_Enum evalType = Base_ResidEval,
+                         const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
                          const int id_x = -1,
                          const double delta_x = 0.0) override;
 

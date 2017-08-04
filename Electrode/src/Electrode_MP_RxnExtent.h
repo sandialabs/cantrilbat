@@ -588,7 +588,7 @@ public:
      *  @return                                  1 Means a good calculation that produces a valid result
      *                                           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
-    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType) override;
+    virtual int calcResid(double* const resid, const ResidEval_Type evalType) override;
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
@@ -628,7 +628,7 @@ public:
     virtual int integrateResid(const double tfinal, const double delta_t,
                                const double* const y, const double* const ydot,
                                double* const resid,
-                               const ResidEval_Type_Enum evalType, const int id_x, const double delta_x) override;
+                               const ResidEval_Type evalType, const int id_x, const double delta_x) override;
 
 
 
@@ -1191,7 +1191,8 @@ public:
      * @return              Returns 1 if successful, 0 for an unsuccessful operation
      */
     virtual int evalResidNJ(const double t, const double delta_t, const double* const y,
-                            const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const double* const ydot, double* const resid,
+                            const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
                             const int id_x = -1, const double delta_x = 0.0) override;
 
     //! Fill in the initial conditions

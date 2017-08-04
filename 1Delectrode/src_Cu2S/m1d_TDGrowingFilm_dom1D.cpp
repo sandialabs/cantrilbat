@@ -74,14 +74,13 @@ TDGrowingFilm_dom1D::domain_prep(LocalNodeIndices *li_ptr)
  *
  */
 void
-TDGrowingFilm_dom1D::residEval(Epetra_Vector &res,
-                               const bool doTimeDependentResid,
-                               const Epetra_Vector *soln_ptr,
-                               const Epetra_Vector *solnDot_ptr,
-                               const Epetra_Vector *solnOld_ptr,
+TDGrowingFilm_dom1D::residEval(Epetra_Vector &res, const bool doTimeDependentResid,
+                               const Epetra_Vector* const soln_ptr,
+                               const Epetra_Vector* const solnDot_ptr,
+                               const Epetra_Vector* const solnOld_ptr,
                                const double t,
                                const double rdelta_t,
-                               ResidEval_Type_Enum residType,
+                               const Zuzax::ResidEval_Type residType,
 			       const Zuzax::Solve_Type solveType)
 {
   const double surfArea = 1.0;
@@ -224,7 +223,7 @@ TDGrowingFilm_dom1D::residEval(Epetra_Vector &res,
   for (int iCell = 0; iCell < NumLcCells; iCell++) {
 
 #ifdef DEBUG_HKM
-    if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
+    if (counterResBaseCalcs_ > 125 && residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       if (iCell == NumLcCells - 1) {
         // printf("we are here\n");
       }

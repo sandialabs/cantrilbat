@@ -176,7 +176,7 @@ namespace Cantera
      *  @return Returns 1 if everything is ok.
      *          Returns 0 if the current conditions can not be calculated.
      */
-    virtual int calcResid(doublevalue * const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(doublevalue * const resid, const ResidEval_Type evalType) override;
 
     // ----------------------------------------------------------------------------------------------
     // ----------------------------- GET CONDITIONS OUT --------------------------------------------

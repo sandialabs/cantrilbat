@@ -518,7 +518,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
                                        const Epetra_Vector *solnOld_ptr,
                                        const double t,
                                        const double rdelta_t,
-                                       const ResidEval_Type_Enum residType,
+                                       const Zuzax::ResidEval_Type residType,
 				       const Zuzax::Solve_Type solveType)
 {
   int index_RightLcNode;
@@ -621,7 +621,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
    */
   bool doLeftFluxCalc = true;
 #ifdef DEBUG_HKM
-  if (residType == Base_ResidEval) {
+  if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
     if (doTimeDependentResid) {
       // printf("we are here\n");
     }
@@ -636,7 +636,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
     cIndex_cc_ = iCell;
 
 #ifdef DEBUG_HKM
-    if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
+    if (counterResBaseCalcs_ > 125 && residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       if (iCell == NumLcCells - 1) {
         // printf("we are here\n");
       }
@@ -926,7 +926,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
 #ifdef DEBUG_CELLRES_HKM
     if (doTimeDependentResid) {
 
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" Cell = %d, Totalflux_K+ = %10.3e,  Totalflux_Cl- = %10.3e \n", iCell, fluxXright[1], fluxXright[2]);
         printf("           Vmolal = %10.3e, jd_Li+ = %10.3e  jd_K+ = %10.3e jd_Cl- = %10.3e\n", Fright_cc_,
                jFlux_trCurr_[0], jFlux_trCurr_[1], jFlux_trCurr_[2]);
@@ -940,7 +940,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
      * --------------- ADD FLUX TERMS INTO THE RESIDUALS --------------------------------------
      */
 #ifdef DEBUG_HKM
-    if (iCell == 9 && residType == Base_ResidEval) {
+    if (iCell == 9 && residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       if (iCell == NumLcCells - 1) {
        // printf("we are here fluxFLeft = %g\n", fluxFleft);
       }
@@ -1037,11 +1037,11 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
      * These are the correct currents that work for the global balances
      */
     if (IOwnLeft && iCell == 0) {
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         DiffFluxLeftBound_LastResid_NE[EQ_Current_offset_BD] = res[indexCent_EqnStart_BD + EQ_Current_offset_BD];
         DiffFluxLeftBound_LastResid_NE[EQ_Current_offset_ED] = res[indexCent_EqnStart_BD + EQ_Current_offset_ED];
       }
-      if (residType == Base_ShowSolution || residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution || residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         icurrElectrode_CBL_[iCell] += +icurrInterface_Curr_ * surfaceAreaDensity_Cell_[iCell] * xdelCell
             + icurrElectrode_CBR_[iCell];
 
@@ -1053,17 +1053,17 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
      * These are the correct currents that work for the global balances
      */
     if (IOwnRight && iCell == (NumLcCells - 1)) {
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         DiffFluxRightBound_LastResid_NE[EQ_Current_offset_BD] = res[indexCent_EqnStart_BD + EQ_Current_offset_BD];
         DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED] = res[indexCent_EqnStart_BD + EQ_Current_offset_ED];
       }
-      if (residType == Base_ShowSolution || residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution || residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         icurrElectrolyte_CBR_[iCell] = +icurrInterface_Curr_ * surfaceAreaDensity_Cell_[iCell] * xdelCell
             + icurrElectrolyte_CBL_[iCell];
 
       }
     }
-    if (residType == Base_ShowSolution) {
+    if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
       deltaV_Cell_[iCell] = Electrode_->voltage();
       Ess_Cell_[iCell] = Electrode_->openCircuitVoltage(0);
       overpotential_Cell_[iCell] = Electrode_->overpotential(0);
@@ -1079,7 +1079,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
 #ifdef DEBUG_CELLRES_HKM
       // double concTot_CurrNew = concTot_Curr_;
       // double mfNew = mfElectrolyte_Soln_Curr_[0];
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[0], fluxXleft[0]);
       }
 #endif
@@ -1099,7 +1099,7 @@ infPorousLiKCl_LiSiAnode_dom1D::residEval(Epetra_Vector &res,
       double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
 
 #ifdef DEBUG_CELLRES_HKM
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" deltaT term = %10.3e BulkSum = %10.3e\n", tmp, tmp + (fluxXright[0] - fluxXleft[0]));
       }
 #endif
@@ -1158,7 +1158,7 @@ infPorousLiKCl_LiSiAnode_dom1D::calcElectrode()
   int sf = Electrode_->solnPhaseIndex();
   solnMoleFluxInterface_Curr_ = phaseMoleFlux_[sf];
 
-  if (residType_Curr_ == Base_ShowSolution) {
+  if (residType_Curr_ == Zuzax::ResidEval_Type::Base_ShowSolution) {
     capacityDischarged_Cell_[cIndex_cc_] = Electrode_->capacityDischarged();
     depthOfDischarge_Cell_[cIndex_cc_] = Electrode_->depthOfDischarge();
     capacityLeft_Cell_[cIndex_cc_] = Electrode_->capacityLeft();

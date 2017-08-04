@@ -138,7 +138,7 @@ public:
               const Epetra_Vector* solnOld_ptr,
               const double t,
               const double rdelta_t,
-              const ResidEval_Type_Enum residType = Base_ResidEval,
+              const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
               const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
     virtual void
@@ -147,7 +147,7 @@ public:
 		  const Epetra_Vector *solnDot_ptr,
 		  const Epetra_Vector *solnOld_ptr,
 		  const double t,
-		  const double rdelta_t);
+		  const double rdelta_t) override;
 
     virtual void
     eval_HeatBalance(const int ifunc,
@@ -191,7 +191,7 @@ public:
                       const Epetra_Vector* solnOld_ptr,
                       const double t,
                       const double rdelta_t,
-                      const ResidEval_Type_Enum residType,
+                      const Zuzax::ResidEval_Type residType,
                       const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
 
@@ -270,7 +270,7 @@ public:
                const Epetra_Vector* soln_GlAll_ptr,
                const Epetra_Vector* solnDot_GlAll_ptr,
                const double t,
-               bool duplicateOnAllProcs = false);
+               bool duplicateOnAllProcs = false) override;
 
 
     //! Generate the initial conditions
@@ -292,7 +292,7 @@ public:
                       Epetra_Vector* const soln,
                       Epetra_Vector* const solnDot,
                       const double t,
-                      const double delta_t);
+                      const double delta_t) override;
 
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
     /*!
@@ -303,7 +303,7 @@ public:
      */
     virtual void setAtolVector(double atolDefault, const Epetra_Vector_Ghosted& soln,
                                Epetra_Vector_Ghosted& atolVector,
-                               const Epetra_Vector_Ghosted* const atolV = 0);
+                               const Epetra_Vector_Ghosted* const atolV = 0) override;
 
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
     /*!
@@ -315,7 +315,7 @@ public:
     virtual void setAtolVector_DAEInit(double atolDefault, const Epetra_Vector_Ghosted& soln,
                                        const Epetra_Vector_Ghosted& solnDot,
                                        Epetra_Vector_Ghosted& atolVector_DAEInit,
-                                       const Epetra_Vector_Ghosted* const atolV = 0);
+                                       const Epetra_Vector_Ghosted* const atolV = 0) override;
 
     //! Evaluates the atol vector used in the delta damping process.
     /*!

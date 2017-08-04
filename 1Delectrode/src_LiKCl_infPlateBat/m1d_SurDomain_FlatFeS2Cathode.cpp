@@ -229,7 +229,7 @@ SurDomain_FlatFeS2Cathode::residEval(Epetra_Vector &res,
                                      const Epetra_Vector *solnOld_ptr,
                                      const double t,
                                      const double rdelta_t,
-                                     const ResidEval_Type_Enum residType,
+                                     const Zuzax::ResidEval_Type residType,
 				     const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;
@@ -391,7 +391,7 @@ SurDomain_FlatFeS2Cathode::residEval(Epetra_Vector &res,
   if (doTimeDependentResid) {
 
 #ifdef DEBUG_HKM
-    if (residType == Base_ResidEval) {
+    if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       double tmp = -electrodeSpeciesProdRates_[speciesIndex0] * surfaceArea_ * area_cvb;
 
       //printf(" Cell = %d, CathdSource = %10.3e, ResTotal = %10.3e\n", 9, tmp,
@@ -419,7 +419,7 @@ SurDomain_FlatFeS2Cathode::residEval(Epetra_Vector &res,
 void
 SurDomain_FlatFeS2Cathode::updateDependencies(const Epetra_Vector *soln_ptr,
                                               const double t,
-                                              const ResidEval_Type_Enum residType)
+                                              const Zuzax::ResidEval_Type residType)
 {
   /*
    *  Figure out the equation start for this node

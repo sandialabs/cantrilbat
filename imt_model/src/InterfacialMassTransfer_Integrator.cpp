@@ -56,7 +56,7 @@ namespace Cantera
   //======================================================================================================================
   SubIntegrationHistory::SubIntegrationHistory(const SubIntegrationHistory &right) :
     nTimeSteps_(right.nTimeSteps_),
-    TimeStepList_(TimeStepList_),
+    TimeStepList_(right.TimeStepList_),
     GsolnNorm_(right.GsolnNorm_),
     GwdotNorm_(right.GwdotNorm_)
   {
@@ -1142,7 +1142,7 @@ namespace Cantera
    *  (virtual fucntion from InterfacialMassTransfer_Integrator)
    *
    */
-  int InterfacialMassTransfer_Integrator::calcResid(doublevalue * const resid, const ResidEval_Type_Enum evalType)
+  int InterfacialMassTransfer_Integrator::calcResid(doublevalue * const resid, const ResidEval_Type evalType)
   {
     throw CanteraError(" InterfacialMassTransfer_Integrator::calcResid()",  "unimplemented");
   }
@@ -1739,27 +1739,27 @@ namespace Cantera
   int InterfacialMassTransfer_Integrator::evalResidNJ(const doublevalue t, const doublevalue delta_t,
 					const doublevalue * const y, const doublevalue * const ySolnDot,
 					doublevalue * const resid,
-					const ResidEval_Type_Enum evalType, const int id_x,
+					const ResidEval_Type evalType, const int id_x,
 					const doublevalue delta_x)
   {
     int retn = 1;
-    if ((evalType == Base_ShowSolution) || (enableExtraPrinting_ && detailedResidPrintFlag_ > 1)) {
+    if ((evalType == ResidEval_Type::Base_ShowSolution) || (enableExtraPrinting_ && detailedResidPrintFlag_ > 1)) {
       printf("\t\t===============================================================================================================================\n");
       printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
-      if (evalType ==  Base_ResidEval) {
+      if (evalType ==  ResidEval_Type::Base_ResidEval) {
         printf(" BASE RESIDUAL");
-      } else if (evalType == JacBase_ResidEval) {
+      } else if (evalType == ResidEval_Type::JacBase_ResidEval) {
         printf(" BASE JAC RESIDUAL");
-      } else  if  (evalType == JacDelta_ResidEval) {
+      } else  if  (evalType == ResidEval_Type::JacDelta_ResidEval) {
         printf(" DELTA JAC RESIDUAL");
         printf(" var = %d delta_x = %12.4e Y_del = %12.4e Y_base = %12.4e", id_x, delta_x, y[id_x], y[id_x] - delta_x);
-      } else  if  (evalType == Base_ShowSolution) {
+      } else  if  (evalType == ResidEval_Type::Base_ShowSolution) {
         printf(" BASE RESIDUAL - SHOW SOLUTION");
       }
       printf(" DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
              DomainNumber_, CellNumber_, counterNumberIntegrations_);
     }
-    if ((evalType != JacDelta_ResidEval)) {
+    if ((evalType != ResidEval_Type::JacDelta_ResidEval)) {
       mdpUtil::mdp_init_size_t_1(DATA_PTR(phaseJustDied_), 0, m_NumTotPhases);
     }
     /*
@@ -1767,7 +1767,7 @@ namespace Cantera
      */
     unpackNonlinSolnVector(y);
 
-    if (evalType != JacDelta_ResidEval && (evalType != Base_LaggedSolutionComponents)) {
+    if (evalType != ResidEval_Type::JacDelta_ResidEval && (evalType != ResidEval_Type::Base_LaggedSolutionComponents)) {
       //    mdpUtil::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double *)DATA_PTR(phaseMoles_final_), m_NumTotPhases);
     }
 
@@ -1808,7 +1808,7 @@ namespace Cantera
      * Change the problem specification for the nonlinear solve in certain circumstances when the solver
      *  is calculating the base residual of a jacobian 
      */
-    if (evalType == JacBase_ResidEval) {
+    if (evalType == ResidEval_Type::JacBase_ResidEval) {
       /*
        *  Perform some checks that would lead to the return flag indicating an error condition
        */
@@ -1816,7 +1816,7 @@ namespace Cantera
     }
 
  
-    if ((evalType == Base_ShowSolution) || (enableExtraPrinting_ && detailedResidPrintFlag_ > 1)) {
+    if ((evalType == ResidEval_Type::Base_ShowSolution) || (enableExtraPrinting_ && detailedResidPrintFlag_ > 1)) {
       printResid_ResidSatisfaction();
 
     }

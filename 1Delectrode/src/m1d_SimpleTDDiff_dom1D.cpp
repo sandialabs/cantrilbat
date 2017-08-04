@@ -87,7 +87,7 @@ SimpleTDDiff_dom1D::residEval(Epetra_Vector &res,
                               const Epetra_Vector *solnOld_ptr,
                               const double t,
                               const double rdelta_t,
-                              const ResidEval_Type_Enum residType,
+                              const Zuzax::ResidEval_Type residType,
 			      const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;

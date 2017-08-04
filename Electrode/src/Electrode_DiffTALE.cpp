@@ -2660,7 +2660,7 @@ int  Electrode_DiffTALE::evalResidNJ(const double t, const double delta_t,
                                        const double* const y,
                                        const double* const ySolnDot,
                                        double* const resid,
-                                       const ResidEval_Type_Enum evalType,
+                                       const ResidEval_Type evalType,
                                        const int id_x,
                                        const double delta_x)
 {
@@ -2684,7 +2684,7 @@ int  Electrode_DiffTALE::evalResidNJ(const double t, const double delta_t,
 int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
 					 const double* const y, const double* const ySolnDot,
 					 double* const resid,
-					 const ResidEval_Type_Enum evalType, const int id_x,
+					 const ResidEval_Type evalType, const int id_x,
 					 const double delta_x)
 {
     
@@ -2693,14 +2693,14 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         printf("\t\t===============================================================================================================================\n");
         printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
-        if (evalType ==  Base_ResidEval) {
+        if (evalType ==  ResidEval_Type::Base_ResidEval) {
             printf(" BASE RESIDUAL");
-        } else if (evalType == JacBase_ResidEval) {
+        } else if (evalType == ResidEval_Type::JacBase_ResidEval) {
             printf(" BASE JAC RESIDUAL");
-        } else  if (evalType == JacDelta_ResidEval) {
+        } else  if (evalType == ResidEval_Type::JacDelta_ResidEval) {
             printf(" DELTA JAC RESIDUAL");
             printf(" var = %d delta_x = %12.4e Y_del = %12.4e Y_base = %12.4e", id_x, delta_x, y[id_x], y[id_x] - delta_x);
-        } else  if (evalType == Base_ShowSolution) {
+        } else  if (evalType == ResidEval_Type::Base_ShowSolution) {
             printf(" BASE RESIDUAL - SHOW SOLUTION");
         }
         printf(" DomainNumber = %2d , CellNumber = %2d , SubIntegrationCounter = %d\n",
@@ -2861,7 +2861,7 @@ int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
  *        1/31/14 confirmed that this routine makes no inherent assumption that the cell boundaries are halfway between nodes
  *
  */
-int Electrode_DiffTALE::calcResid(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_DiffTALE::calcResid(double* const resid, const ResidEval_Type evalType)
 {
     size_t iCell, iPh, jPh, jCell;
     double I_j;
@@ -3314,7 +3314,7 @@ int Electrode_DiffTALE::calcResid(double* const resid, const ResidEval_Type_Enum
  *  --------------------------------------------------------------------------------------------------------------
  *  **********************************DEAD  BRANCH *****************************************************************
  */
-int Electrode_DiffTALE::calcResid_2(double* const resid, const ResidEval_Type_Enum evalType)
+int Electrode_DiffTALE::calcResid_2(double* const resid, const ResidEval_Type evalType)
 {
     size_t iCell, iPh, jPh, jCell;
     double I_j;

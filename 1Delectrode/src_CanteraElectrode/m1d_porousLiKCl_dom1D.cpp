@@ -292,7 +292,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
                              const Epetra_Vector *solnOld_ptr,
                              const double t,
                              const double rdelta_t,
-                             ResidEval_Type_Enum residType,
+                             const Zuzax::ResidEval_Type residType,
 			     const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;
@@ -389,7 +389,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
     cIndex_cc_ = iCell;
 
 #ifdef DEBUG_HKM_NOT
-    if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
+    if (counterResBaseCalcs_ > 125 && residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       if (iCell == NumLcCells - 1) {
        // printf("we are here\n");
       }
@@ -666,7 +666,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
 #ifdef DEBUG_HKM_NOT
     if (doTimeDependentResid) {
 
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" Cell = %d, Totalflux_K+ = %10.3e,  Totalflux_Cl- = %10.3e \n", iCell, fluxXright[1], fluxXright[2]);
         printf("           Vmolal = %10.3e, jd_Li+ = %10.3e  jd_K+ = %10.3e jd_Cl- = %10.3e\n", Fright_cc_,
             jFlux_trCurr_[0], jFlux_trCurr_[1], jFlux_trCurr_[2]);
@@ -776,7 +776,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
      * These are the correct currents that work for the global balances
      */
     if (IOwnLeft && iCell == 0) {
-      if (residType == Base_ShowSolution) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
         icurrElectrolyte_CBL_[iCell] =  icurrElectrolyte_CBR_[iCell];
       }
     }
@@ -786,7 +786,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
      * These are the correct currents that work for the global balances
      */
     if (IOwnRight && iCell == (NumLcCells - 1)) {
-      if (residType == Base_ShowSolution) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
         icurrElectrolyte_CBR_[iCell] =  icurrElectrolyte_CBL_[iCell];
       }
     }
@@ -796,7 +796,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
     if (doTimeDependentResid) {
 
 #ifdef DEBUG_HKM_NOT
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[0], fluxXleft[0]);
       }
 #endif
@@ -814,7 +814,7 @@ porousLiKCl_dom1D::residEval(Epetra_Vector &res,
       // double delta_concTot_CurrNew = concTot_CurrNew - concTot_Curr_;
       //  double delta_mf = mfNew - mfElectrolyte_Soln_Curr_[0];
 #ifdef DEBUG_HKM_NOT
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" deltaT term = %10.3e BulkSum = %10.3e\n", tmp, tmp + (fluxXright[0] - fluxXleft[0]));
       }
 #endif

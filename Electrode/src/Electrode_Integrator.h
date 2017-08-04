@@ -748,8 +748,9 @@ public:
      *                                           Returns negative numbers to indicate types of failures
      */
     virtual int evalResidNJ(const double t, const double delta_t, const double* const y,
-                            const double* const ydot, double* const resid, const ResidEval_Type_Enum evalType = Base_ResidEval,
-                            const int id_x = -1, const double delta_x = 0.0);
+                            const double* const ydot, double* const resid,
+                            const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                            const int id_x = -1, const double delta_x = 0.0) override;
 
     //! Calculate the residual
     /*!
@@ -772,7 +773,7 @@ public:
      *  @return                                  Returns a value of 1 if everything went well
      *                                           Returns negative numbers to indicate types of failures
      */
-    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType);
+    virtual int calcResid(double* const resid, const ResidEval_Type evalType);
 
     //! Evaluate the residual function for the "Globally Fully Coupled Electrode Object" formulation
     /*!
@@ -795,7 +796,7 @@ public:
                             const double* const y,
                             const double* const ydot,
                             double* const resid,
-                            const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
                             const int id_x = -1,
                             const double delta_x = 0.0);
 
@@ -807,7 +808,7 @@ public:
      *  @return                                  1 Means a good calculation that produces a valid result
      *                                           0 Bad calculation that means that the current nonlinear iteration should be terminated
      */
-    virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type_Enum evalType);
+    virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type evalType);
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!

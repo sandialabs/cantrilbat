@@ -250,7 +250,7 @@ public:
 	      const Epetra_Vector_Ghosted *solnDot,
 	      const double t,
 	      const double rdelta_t,
-	      const ResidEval_Type_Enum residType = Base_ResidEval,
+	      const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
 	      const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
     //! Write the solution to either the screen or to a log file

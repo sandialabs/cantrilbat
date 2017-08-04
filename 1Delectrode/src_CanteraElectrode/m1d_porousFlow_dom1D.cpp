@@ -757,7 +757,7 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
                                              const Epetra_Vector* solnOld_ptr,
                                              const double t,
                                              const double rdelta_t,
-                                             const ResidEval_Type_Enum residType,
+                                             const Zuzax::ResidEval_Type residType,
                                              const Zuzax::Solve_Type solveType)
 
 {

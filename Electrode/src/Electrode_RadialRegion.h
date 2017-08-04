@@ -212,7 +212,7 @@ public:
     //! Get all of the reaction rates and parameters from Cantera
     void extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies);
 
-    int calcResid(double* const resid,  const ResidEval_Type_Enum evalType) ;
+    int calcResid(double* const resid,  const ResidEval_Type evalType);
 
 
     //! Set the internal initial intermediate and initial global state from the internal final state

@@ -674,7 +674,7 @@ public:
      *                                           of the nonlinear solver to occur.
      */
     virtual int evalResidNJ(const double t, const double delta_t, const double* const y, const double* const ydot,
-                            double* const resid, const ResidEval_Type_Enum evalType = Base_ResidEval,
+                            double* const resid, const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
                             const int id_x = -1, const double delta_x = 0.0) override;
 
     //!  Residual calculation for the solution of the Nonlinear integration problem
@@ -703,7 +703,7 @@ public:
      *                                           of the nonlinear solver to occur.
      */
     virtual int integrateResid(const double tfinal, const double delta_t, const double* const y, const double* const ySolnDot,
-		               double* const resid, const ResidEval_Type_Enum evalType, const int id_x,
+		               double* const resid, const ResidEval_Type evalType, const int id_x,
 		               const double delta_x) override;
 
     //! Main internal routine to calculate the residual
@@ -754,7 +754,7 @@ public:
      *  @return                                  Returns a value of 1 if everything went well.
      *                                           Returns negative numbers to indicate types of failures.
      */
-    virtual int calcResid(double* const resid, const ResidEval_Type_Enum evalType) override;
+    virtual int calcResid(double* const resid, const ResidEval_Type evalType) override;
 
     //! Calculate an alternate formulation of the residual
     /*!
@@ -766,7 +766,7 @@ public:
      *  @return                                  Returns a value of 1 if everything went well.
      *                                           Returns negative numbers to indicate types of failures.
      */
-    int calcResid_2(double* const resid, const ResidEval_Type_Enum evalType);
+    int calcResid_2(double* const resid, const ResidEval_Type evalType);
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions 
     /*!

@@ -203,12 +203,12 @@ Cu2S_TopSurface::domain_prep(LocalNodeIndices *li_ptr)
 void
 Cu2S_TopSurface::residEval(Epetra_Vector &res,
                            const bool doTimeDependentResid,
-                           const Epetra_Vector *soln_ptr,
-                           const Epetra_Vector *solnDot_ptr,
-                           const Epetra_Vector *solnOld_ptr,
+                           const Epetra_Vector* const soln_ptr,
+                           const Epetra_Vector* const solnDot_ptr,
+                           const Epetra_Vector* const solnOld_ptr,
                            const double t,
                            const double rdelta_t,
-                           const ResidEval_Type_Enum residType,
+                           const Zuzax::ResidEval_Type residType,
 			   const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;
@@ -683,12 +683,12 @@ Cu2S_BotSurface::domain_prep(LocalNodeIndices *li_ptr)
 void
 Cu2S_BotSurface::residEval(Epetra_Vector &res,
                            const bool doTimeDependentResid,
-                           const Epetra_Vector *soln_ptr,
-                           const Epetra_Vector *solnDot_ptr,
-                           const Epetra_Vector *solnOld_ptr,
+                           const Epetra_Vector* const soln_ptr,
+                           const Epetra_Vector* const solnDot_ptr,
+                           const Epetra_Vector* const solnOld_ptr,
                            const double t,
                            const double rdelta_t,
-                           const ResidEval_Type_Enum residType,
+                           const Zuzax::ResidEval_Type residType,
 			   const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;

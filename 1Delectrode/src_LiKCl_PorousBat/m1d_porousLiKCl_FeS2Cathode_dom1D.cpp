@@ -585,7 +585,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
                                          const Epetra_Vector *solnOld_ptr,
                                          const double t,
                                          const double rdelta_t,
-                                         const ResidEval_Type_Enum residType,
+                                         const Zuzax::ResidEval_Type residType,
 					 const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;
@@ -694,7 +694,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
     Electrode * Electrode_ptr = Electrode_Cell_[iCell];
 
 #ifdef DEBUG_RESID
-    if (counterResBaseCalcs_ > 125 && residType == Base_ResidEval) {
+    if (counterResBaseCalcs_ > 125 && residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       if (iCell == NumLcCells - 1) {
        // printf("we are here\n");
       }
@@ -999,7 +999,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
 #ifdef DEBUG_RESID
     if (doTimeDependentResid) {
 
-      //     if (residType == Base_ResidEval) {
+      //     if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
       //      printf(" Cell = %d, Totalflux_K+ = %10.3e,  Totalflux_Cl- = %10.3e \n", iCell, fluxXright[1], fluxXright[2]);
       //	  printf("           Old porosity = %10.3e,  New porosity = %10.3e \n", porosity_Cell_old_[iCell], porosity_Cell_[iCell] );
       //       printf("           Vmolal = %10.3e, jd_Li+ = %10.3e  jd_K+ = %10.3e jd_Cl- = %10.3e\n", Fright_cc_,
@@ -1129,10 +1129,10 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
      * These are the correct currents that work for the global balances
      */
     if (IOwnLeft && iCell == 0) {
-      if (residType == Base_ShowSolution || residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution || residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         icurrElectrolyte_CBL_[iCell] = -icurrInterface_Cell_[iCell]  + icurrElectrolyte_CBR_[iCell];
       }
-      if (residType == Base_ShowSolution || residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution || residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         DiffFluxLeftBound_LastResid_NE[EQ_Current_offset_BD] = icurrElectrolyte_CBL_[iCell];
         DiffFluxLeftBound_LastResid_NE[EQ_Current_offset_ED] = icurrElectrode_CBL_[iCell];
       }
@@ -1144,15 +1144,15 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
      */
     if (IOwnRight && iCell == (NumLcCells - 1)) {
 
-      if (residType == Base_ShowSolution || residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution || residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         icurrElectrode_CBR_[iCell] += -icurrInterface_Cell_[iCell]  + icurrElectrode_CBL_[iCell];
       }
-      if (residType == Base_ShowSolution || residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution || residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         DiffFluxRightBound_LastResid_NE[EQ_Current_offset_BD] = icurrElectrolyte_CBR_[iCell];
         DiffFluxRightBound_LastResid_NE[EQ_Current_offset_ED] = icurrElectrode_CBR_[iCell];
       }
     }
-    if (residType == Base_ShowSolution) {
+    if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
       deltaV_Cell_[iCell] = Electrode_ptr->voltage();
       for (int jSurf = 0; jSurf < nSurfsElectrode_ ; jSurf++ ) { 
 	Ess_Cell_[nSurfsElectrode_ * iCell + jSurf] = Electrode_ptr->openCircuitVoltage(jSurf);
@@ -1171,12 +1171,12 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
        *   .................... Calculate quantities needed at the current time
        */
 #ifdef DEBUG_HKM_NOT
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" Cell = %d, Totalflux_Li+_r = %10.3e,  = %10.3e, Totalflux_Li+_l ", iCell, fluxXright[0], fluxXleft[0]);
       }
 #endif
 #ifdef DEBUG_HKM_LI
-      if (residType == Base_ShowSolution) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
 	if (iCell == 7) {
 	  printf(" Cell = %d, Totalflux_Li+_R = %- 14.7e, -Totalflux_Li+_L = %- 14.7e", iCell, fluxXright[0], -fluxXleft[0]);
           printf(", -Source/dt = %- 14.7e",
@@ -1200,12 +1200,12 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
       double tmp = (newStuffSpecies0 - oldStuffSpecies0) * rdelta_t;
 
 #ifdef DEBUG_HKM_NOT
-      if (residType == Base_ResidEval) {
+      if (residType == Zuzax::ResidEval_Type::Base_ResidEval) {
         printf(" deltaT term = %10.3e BulkSum = %10.3e\n", tmp, tmp + (fluxXright[0] - fluxXleft[0]));
       }
 #endif
 #ifdef DEBUG_HKM_LI
-      if (residType == Base_ShowSolution) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
 	if (iCell == 7) {
 	  printf(", d(XCP)/dt = %- 14.7e", tmp);
 	  double sumResidualX = tmp +  fluxXright[0] - fluxXleft[0] -
@@ -1217,7 +1217,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
 #endif
 
 #ifdef DEBUG_HKM_LI
-      if (residType == Base_ShowSolution) {
+      if (residType == Zuzax::ResidEval_Type::Base_ShowSolution) {
 	if (iCell == 7) {
 	  printf(" Cell = %d, Totalflux_R = %- 14.7e, -Totalflux_L = %- 14.7e", iCell, fluxFright, -fluxFleft);
           printf(", -Source/dt = %- 14.7e", -solnMoleFluxInterface_Cell_[iCell] * rdelta_t);
@@ -1297,7 +1297,7 @@ porousLiKCl_FeS2Cathode_dom1D::residEval_PreCalc(const bool doTimeDependentResid
 						 const Epetra_Vector *solnOld_ptr,
 						 const double t,
 						 const double rdelta_t,
-						 ResidEval_Type_Enum residType,
+						 const Zuzax::ResidEval_Type residType,
                                                  const Zuzax::Solve_Type solveType)
 {
   residType_Curr_ = residType;
@@ -1523,7 +1523,7 @@ porousLiKCl_FeS2Cathode_dom1D::calcElectrode()
   //  porosity_Cell_[cIndex_cc_] = 1 -  Electrode_ptr->SolidVol() / (xdelCell_Cell_[cIndex_cc_] * electrodeCrossSectionalArea_);
   //  porosity_Cell_[cIndex_cc_] = 0.64007;
 
-  if (residType_Curr_ == Base_ShowSolution) {
+  if (residType_Curr_ == Zuzax::ResidEval_Type::Base_ShowSolution) {
     capacityDischargedPA_Cell_[cIndex_cc_] = Electrode_ptr->capacityDischarged() / electrodeCrossSectionalArea_;
     depthOfDischargePA_Cell_[cIndex_cc_] = Electrode_ptr->depthOfDischarge() / electrodeCrossSectionalArea_;
     capacityLeftPA_Cell_[cIndex_cc_] = Electrode_ptr->capacityLeft() / electrodeCrossSectionalArea_;

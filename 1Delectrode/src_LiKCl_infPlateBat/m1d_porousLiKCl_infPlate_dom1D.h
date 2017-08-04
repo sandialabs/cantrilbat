@@ -101,13 +101,13 @@ public:
   virtual void
   residEval(Epetra_Vector &res,
             const bool doTimeDependentResid,
-            const Epetra_Vector *soln_ptr,
-            const Epetra_Vector *solnDot_ptr,
-            const Epetra_Vector *solnOld_ptr,
+            const Epetra_Vector* const soln_ptr,
+            const Epetra_Vector* const solnDot_ptr,
+            const Epetra_Vector* const solnOld_ptr,
             const double t,
             const double rdelta_t,
-            const ResidEval_Type_Enum residType = Base_ResidEval,
-	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
+            const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
+	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
   //!  Setup shop at a particular point in the domain, calculating intermediate quantites
   //!  and updating Cantera's objects

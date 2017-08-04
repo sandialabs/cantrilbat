@@ -119,7 +119,7 @@ public:
             const Epetra_Vector *solnOld_ptr,
             const double t,
             const double rdelta_t,
-            const ResidEval_Type_Enum residType = Base_ResidEval,
+            const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
 	    const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
   //!  Calculate the electrode reaction rates and store it in internal variables
