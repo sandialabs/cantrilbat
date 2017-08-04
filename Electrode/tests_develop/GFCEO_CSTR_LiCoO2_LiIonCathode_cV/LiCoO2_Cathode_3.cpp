@@ -9,20 +9,17 @@
  */
 
 #include "cantera/equilibrium.h"
-#include "cantera/thermo/MolalityVPSSTP.h"
 
-#include "cantera/equil/vcs_MultiPhaseEquil.h"
-#include "cantera/equil/vcs_prob.h"
-#include "cantera/equil/vcs_solve.h"
 #include "cantera/equil/vcs_VolPhase.h"
 #include "cantera/equil/vcs_internal.h"
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/RootFind.h"
 #include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/DAE_Solver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
+#include "GFCEO_Electrode.h"
 
 #include <stdio.h>
 #include <sstream>
@@ -55,10 +52,7 @@ void printUsage() {
 int main(int argc, char **argv)
 {
   int retn = 0;
-  string commandFileNet = "cell.inp";
-
-  string commandFileA = "anode.inp";
-  // printed usage
+  std::string commandFileA = "cathode.inp";
 
   vcs_nonideal::vcs_timing_print_lvl = 0;
   NonlinearSolver::s_TurnOffTiming = true;
@@ -96,8 +90,6 @@ int main(int argc, char **argv)
 	    exit(1);
 	  }
 	}
-      } else if (commandFileNet == "") {
-	commandFileNet = tok;
       } else {
 	printUsage();
 	exit(1);
@@ -106,15 +98,8 @@ int main(int argc, char **argv)
   }
 
   try {
-    /*
-     * Go get the Cell problem description from the input file
-     */
-    if (retn == -1) {
-      printf("exiting with error\n");
-      exit(-1);
-    }
   
-    Electrode_CSTR_LiCoO2Cathode *electrodeC  = new Electrode_CSTR_LiCoO2Cathode();
+    Electrode_CSTR_LiCoO2Cathode *electrodeC = new Electrode_CSTR_LiCoO2Cathode();
     ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     std::string commandFileC = "cathode.inp";
 	
@@ -122,7 +107,7 @@ int main(int argc, char **argv)
     BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
  
     // Go get the problem description from the input file
-     electrodeC_input->printLvl_ = 5; 
+    electrodeC_input->printLvl_ = 5; 
     retn = electrodeC_input->electrode_input(commandFileC, cfC);
     if (retn == -1) {
       printf("exiting with error\n");
@@ -159,14 +144,11 @@ int main(int argc, char **argv)
     double molNum[10];
 
     electrodeC->setPhaseExistenceForReactingSurfaces(true);
- 
-    
     electrodeC->setVoltages(3.2, 0.0);
 
     double oc = electrodeC->openCircuitVoltageSSRxn(0, 0);
     oc = electrodeC->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
-
 
     int nT = 50;
     deltaT = 2.0E-2;
@@ -179,13 +161,12 @@ int main(int argc, char **argv)
     //electrodeC->enableExtraPrinting_ = 10;
     electrodeC->printCSVLvl_ = 3;
 
-
-    try {
-      throw Electrode_Error("sample error throw", " %s  %g %d Sample formatted string\n",
-                            "This is a sample string", 78. , 32);
-    } catch (const Electrode_Error& ee) {
-       showErrors();
-    }
+    int iOwn = 0;
+    double atol = 1.0E-13;
+    GFCEO_Electrode gee(electrodeC, atol, iOwn);
+    DAE_Solver* integDAE = Zuzax::newDAE_Solver("IDA", gee);
+    gee.setDAESolver(integDAE);
+    gee.setTolerances(1.0E-6, 1.0E-13);
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
@@ -194,7 +175,7 @@ int main(int argc, char **argv)
       
       Tfinal = Tinitial + deltaT;
 
-      electrodeC->integrate(deltaT);
+      gee.integrate(deltaT);
       electrodeC->getMoleNumSpecies(molNum);
       double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);

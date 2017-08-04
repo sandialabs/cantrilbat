@@ -8,7 +8,7 @@
 .SUFFIXES: .d
 
 PROGRAM = LiCoO2_Cathode_3
-TESTNAME = LiCoO2_LiIonCathode_CSTR_3
+TESTNAME = GFCEO_CSTR_LiCoO2_LiIonCathode_cV
 
 BLESSED_FILES = good_out.txt soln_0_0_blessed.xml 
 
@@ -16,57 +16,64 @@ DATA = cathode.inp problem_setup.sh \
        ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml \
        metal_Li_LiIon_electrons.xml
 
-all: .depends $(PROGRAM)
-#
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = diff_gcsv.txt  diff_out.txt  diff_summary.txt  diff_xml.txt err_out.txt
+
+TEST_RESULTS = soln_0_0.xml out.txt LiCoO2_intResults_0_0.csv  LiCoO2_globalResults_0_0.csv
+
+all: .dependsT $(PROGRAM)
+
 ################################################################################################################
 #                          Setup The Cantera Directory locations
 ################################################################################################################
-#
+
 PURIFY=@PURIFY@
-#
+
 # These links are to Cantera's install space
-#
-CT_INCROOT =  @ct_incroot@
-#
 # Bring in the Cantera includes through the .mak file
-#
+
+CT_INCROOT = @ct_incroot@
 include $(CT_INCROOT)/cantera/Cantera.mak
-#
+
+# Top of the directory structure for git module
+TOPDIR = @abs_top_srcdir@
+
 # Setup the util_src library for inclusion in this project
-#
-UTILSRC_DIR = ../../../util_src/src
+
+UTILSRC_DIR = $(TOPDIR)/util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-#
+
 # Set up the Cantera addition library
-#
-CTPADDS_DIR = ../../../ctpadds/src
+
+CTPADDS_DIR = $(TOPDIR)/ctpadds/src
 CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
 CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
-#
+
 # Set up the Cantera Application Base directory
-#
-CTAPPLBASE_DIR = ../../src
-CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
-CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
-#
+
+ZZ_ELECTRODE_DIR = ../../src
+ZZ_ELECTRODE_DEP =   $(ZZ_ELECTRODE_DIR)/libElectrode.a
+ZZ_ELECTRODE_LIB = -L$(ZZ_ELECTRODE_DIR) -lElectrode
+
 ###################################################################################################################
 #                    Set up the various local and global defines
 ##################################################################################################################
-#
+
 LDEFINES = -DDEBUG 
 GDEFINES =
-#
+
 # Set up the global include directory macro
-#
-INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
-#
+
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ZZ_ELECTRODE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
+
 ##################################################################################################################
 #                          SECTION TO SET UP COMPILER RULES 
 ##################################################################################################################
-#
+
 # the C++ compiler
-#
+
 CXX = @CXX@
 CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 CXXFLAGS = @CXXFLAGS@
@@ -78,7 +85,7 @@ CFLAGS = @CXXFLAGS@
 #
 # Both the C and C++ compiler predefines
 #
-CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+CCFLAGS = $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
@@ -86,25 +93,25 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 ##################################################################################################################
 #                        Section to Set Up Linking Rules
 ##################################################################################################################
-#
+
 CXXLDR = $(CXX)
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
-#
+
 OBJ = $(PROGRAM).o
 $(OBJ): Makefile
-#
+
 $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
-               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ZZ_ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
 	          $(OBJ_CANTERA_ADDONS)  \
-                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(ZZ_ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
-#
+
 #######################################################################################################################
 #                          SECTION TO SET UP DEPENDS RULES
 #######################################################################################################################
-#
+
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
@@ -114,49 +121,50 @@ $(DEPENDS): Makefile
 
 depends:
 	$(RM) $(DEPENDS)
-	$(MAKE) .depends
+	$(MAKE) .dependsT
 
-.depends: $(DEPENDS)
+.dependsT: $(DEPENDS)
 	cat *.d > .depends
-#
+	touch .dependsT
+
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-#
+
 ########################################################################################################################
 #                        SECTION TO SET UP TEST RUNS
 ########################################################################################################################
-#
+
 test: 
-	@gmake -s
+	@gmake -s all
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
 	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
-#
+
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
-	../runtest_Electrode
-#
+	../../tests/runtest_Electrode
+
 rebaseline:
 	cp out.txt                   good_out.txt
 	cp soln_0_0.xml              soln_0_0_blessed.xml
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv
-#
+
 ##########################################################################################################################
 #          SECTION TO SET UP CLEAN RULES
 ##########################################################################################################################
-#
-test_clean:
-	$(RM) runInProgress.txt runBad runGood \
-	      diff_out.txt diff_csv.txt err_out.txt soln_0_0.xml out.txt diff_gcsv.txt diff_icsv.txt \
-              LiCoO2_intResults_0_0.csv  LiCoO2_globalResults_0_0.csv
-#
+
+clean_test:
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS) 
+
 clean:
-	$(RM) runInProgress.txt runBad runGood 
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) 
-#
-dist_clean:
-	@MAKE@ test_clean
-	@MAKE@ clean
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT $(TEST_FLAGS)
+
+clean_dist:
+	$(MAKE) test_clean
+	$(MAKE) clean
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
 #
 ##########################################################################################################################
 #

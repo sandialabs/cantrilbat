@@ -11,9 +11,9 @@
 #ifndef _GFCEO_ELECTRODE_H
 #define _GFCEO_ELECTRODE_H
 
-
 #include "Electrode_Integrator.h"
 #include "cantera/numerics/ResidJacEval.h"
+
 //-----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -21,6 +21,9 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
+
+class DAE_Solver;
+
 //===================================================================================================================================
 //! This class is a derived class used to carry out fully coupled simulations
 /*!
@@ -70,6 +73,12 @@ public:
      *  @return                                        Returns the number of equations in the equation system
      */
     virtual int nEquations() const;
+
+    //! Set the time integration object using a DAE_Solver child object
+    /*!
+     *  @param[in]           integDAE            Pointer to the DAE_Solver object to use to integrate in time.
+     */
+    void set_DAE_Integrator(DAE_Solver* integDAE);
 
    //! Constrain solution component k. 
     /*!
@@ -389,6 +398,9 @@ protected:
 
     //! This object owns the Electrode object and is responsible for deletion.
     bool iOwnObject_;
+
+    //! DAE_Solver integrator
+    DAE_Solver* integDAE_;
 
 };
 //==================================================================================================================================
