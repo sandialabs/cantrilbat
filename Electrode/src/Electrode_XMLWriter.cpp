@@ -1,10 +1,17 @@
+/**
+ *  @file Electrode_XMLWriter.cpp
+ *     Implementation of the XML read and write routines.
+ *     (see \ref electrode_mgr and class \link Zuzax::Electrode Electrode\endlink).
+ */
 
 /*
- * $Id: Electrode_XMLWriter.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #include "Electrode.h"
-
 #include <fstream>
 
 using namespace std;
@@ -73,7 +80,7 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
     xmlTimeIncrementIntermediateData_->mergeAsChild(*xmt);
 }
 
-//====================================================================================================================
+//==================================================================================================================================
 // Creates a timeIncrement XML element to store the results for global steps of the Electrode solver
 /*
  *   Creates a XML Tree structure of the following form. What this function does is to delete the old record
@@ -167,13 +174,12 @@ void Electrode::addtoXML_TI_final(bool notDone)
 bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
 {
     std::string fmt = "%22.14E";
-    //
-    //   There may be situations when we haven't created the state data. When that happens we will create the
-    //   the state data right here. This currently occurs for writing out initial conditions.
-    //
+    
+    // There may be situations when we haven't created the state data. When that happens we will create the
+    // the state data right here. This currently occurs for writing out initial conditions.
     if (!xmlStateData_final_) {
-	if (eState_final_) {
-	    xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();
+	if (eState_save_) {
+	    xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
 	}
     }
     if (xmlStateData_final_) {
@@ -182,15 +188,14 @@ bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
 	ts.addAttribute("domain", electrodeDomainNumber_);
 	ts.addAttribute("cellNumber", electrodeCellNumber_);
 	ts.addChild("time", tfinal_, fmt);
-	//
+	
 	//  Add information from the saved solution to the record. (Lengthy operation)
-	//
 	ts.addChild(*xmlStateData_final_);
 	return true;
     }
     return false;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Given a Time increment record this routine loads the saved solution for t_final into the electrode object
 /*
  *
@@ -205,37 +210,32 @@ bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
  *                  </timeState>
  *                  <timeState type="t_intermediate">
  *                      ....xmlStateData_final_
- *                 </timeState>
- *                 <timeState type="t_final">
- *                    <time>   3.45 <time>             <-----------  time used.
- *                    <electrodeState>                 <-----------  Record read
- *                    </electrodeState>
- *                 </timeState>
+ *                  </timeState>
+ *                  <timeState type="t_final">
+ *                     <time> 3.45 <time>               <-----------  time used.
+ *                     <electrodeState>                 <-----------  Record read
+ *                     </electrodeState>
+ *                  </timeState>
  *               </timeIncrement>
- *             </globalTimeStep>
+ *            </globalTimeStep>
  *
  *
  *
  *  @param xGSTI    Global time step increment record
  */
-void Electrode::loadGlobalTimeStepTFinalState(XML_Node* xGTS)
+void Electrode::loadGlobalTimeStepTFinalState(XML_Node* const xGTS)
 {
-    /*
-     * Check name
-     */
-    string ss = xGTS->name();
+    // Check name
+    std::string ss = xGTS->name();
     if (ss != "globalTimeStep") {
-        throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()",
-                           "expected node named globalTimeStep. got " + ss);
+        throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()", "Expected node named globalTimeStep. got " + ss);
     }
     XML_Node* xGTSI = xGTS->findByName("timeIncrement");
     if (!xGTSI) {
-        throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()",
-                           "could not find a node named timeIncrement");
+        throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()", "could not find a node named timeIncrement");
     }
     if (pendingIntegratedStep_) {
-        throw Electrode_Error("Electrode::setTime()",
-                           "called when there is a pending step");
+        throw Electrode_Error("Electrode::setTime()", "called when there is a pending step");
     }
     /*
      *   Search the immediate children for the t_final attribute.
@@ -249,38 +249,38 @@ void Electrode::loadGlobalTimeStepTFinalState(XML_Node* xGTS)
     // load
     loadTimeStateFinal(*rTFinal);
 }
-//====================================================================================================================
-double Electrode::loadTimeStateFinal(const XML_Node& xFinal)
+//==================================================================================================================================
+double Electrode::loadTimeStateFinal(const XML_Node& xTimeState)
 {
-    /*
-     *  Get the time of the solution
-     */
-    double time = ZZctml::getFloat(xFinal, "time");
-    /*
-     *  Get the XML electrodeState record from the timeState XML element.
-     *  Store the pointer in xState. It's an error if we don't have it.
-     */
-    const XML_Node* xState = xFinal.findByName("electrodeState");
+    //  Check name of the XML element that will be read to make sure we're in the right location
+    std::string ss = xTimeState.name();
+    if (ss != "timeState") {
+        throw Electrode_Error("Electrode::loadTimeStateFinal()", "Expecting the XML element \"timeState\", but got %s", ss.c_str());
+    }
+    std::string type = xTimeState["type"];
+    
+    //  Get the time of the solution saved in the 
+    double time = ZZctml::getFloat(xTimeState, "time");
+    
+    //  Get the XML electrodeState record from the timeState XML element.
+    const XML_Node* const xState = xTimeState.findByName("electrodeState");
     if (!xState) {
         throw Electrode_Error("Electrode::loadTimeStateFinal()", 
                               "Could not find the electrodeState XMl element within XML state record");
     }
-    /*
-     *  Read the state into the Estate object
-     */
-    eState_final_->readStateFromXML(*xState);
-    /*
-     *  Then, set this electrode's internal state from eState current values. When we do this all init and final
-     *  states are set to this state.
-     */
-    eState_final_->setStateElectrode_fromEState(this);
-    /*
-     *  Set the time within the electrode object
-     */
+
+    //  Read the state of the electrode into the Estate object
+    eState_save_->readStateFromXML(*xState);
+
+    //  Then, set this Electrode's internal state from eState current values. 
+    //  When we do this all init and final states are set to this state.
+    eState_save_->setStateElectrode_fromEState(this);
+    
+    //  Set the time within the electrode object
     setTime(time);
     return time;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Select the global time step increment record by the consequatively numbered record index number
 /*
  *    @param   xSoln               Solution file for the electrode object
@@ -352,8 +352,7 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset)
      */
     static int solnNum = 1;
 
-
-    if (!eState_final_) {
+    if (!eState_save_) {
         throw Electrode_Error("Electrode::writeSolutionTimeIncrement()", 
                               "Solution Output has been requested, but it has never been set up by invoking electrode_stateSave_create()");
     }
@@ -415,15 +414,12 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset)
             doTrunc = true;
         }
 
-	//   Add a time stamp
+	//  Add a time stamp
         ZZctml::addString(soln, "timeStamp", asctime(newtime));
 
-	/*
-	 *  Add an identification XML element
-	 */
-	XML_Node* xmlID = eState_final_->writeIdentificationToXML();
+	//  Add an identification XML element
+	XML_Node* xmlID = eState_save_->writeIdentificationToXML();
 	soln.mergeAsChild(*xmlID);
-
     }
 
     /*

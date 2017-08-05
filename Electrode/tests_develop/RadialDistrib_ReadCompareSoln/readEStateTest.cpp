@@ -219,16 +219,16 @@ int main(int argc, char **argv)
   NonlinearSolver::s_print_NumJac = true;
 
 
-  ZZCantera::XML_Node* xEout =  getElectrodeOutputFile("solnSaveA_0_0.xml", 1);
+  ZZCantera::XML_Node* xEout = getElectrodeOutputFile("solnSaveA_0_0.xml", 1);
   if (!xEout) {
       throw Electrode_Error("getElectrodeOutputFile", "Error");
   }
-  string file1 = "solnSaveA_0_0.xml";
-  string file2 = "solnSaveB_0_0.xml";
+  std::string file1 = "solnSaveA_0_0.xml";
+  std::string file2 = "solnSaveB_0_0.xml";
 
-  ZZCantera::EState* es1 =  readEStateFileLastStep("solnSaveA_0_0.xml", time1);
+  ZZCantera::EState* es1 = readEStateFileLastStep("solnSaveA_0_0.xml", time1);
 
-  ZZCantera::EState* es2 =  readEStateFileLastStep("solnSaveB_0_0.xml", time2);
+  ZZCantera::EState* es2 = readEStateFileLastStep("solnSaveB_0_0.xml", time2);
   bool includeHist = false;
   int printLvl = 5;
   int nDigits = 6;
@@ -248,7 +248,6 @@ int main(int argc, char **argv)
 
 
   EState_ID_struct e_id;
-
   
   get_Estate_Indentification(*xEout ,  e_id);
 
@@ -260,9 +259,8 @@ int main(int argc, char **argv)
   ZZCantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
 
   double timeVal;
-  ZZCantera::XML_Node* xSt =  locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
+  ZZCantera::XML_Node* xSt = locateTimeLast_GlobalTimeStepIntervalFromXML(*x, timeVal, 1);
   es->readStateFromXML(*xSt);
-  //es->readStateFromXML(*x);
 
   delete es; 
   es = 0;

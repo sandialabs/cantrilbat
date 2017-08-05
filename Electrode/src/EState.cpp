@@ -315,19 +315,17 @@ XML_Node* EState::write_PhaseListID_ToXML() const
 
     return x;
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Write the electrodeState to an XML_Node tree
-/*
- *  @return pointer to the XML_Node tree
- */
 XML_Node* EState::write_electrodeState_ToXML() const
 {
+    int nsp, np;
     XML_Node* x = new XML_Node("electrodeState");
 
-    int nsp = spMoles_.size();
+    nsp = spMoles_.size();
     ZZctml::addNamedFloatArray(*x, "spMoles", nsp, DATA_PTR(spMoles_), "kmol");
 
-    int np = phaseVoltages_.size();
+    np = phaseVoltages_.size();
     ZZctml::addNamedFloatArray(*x, "phaseVoltages", np, DATA_PTR(phaseVoltages_), "volt");
 
     ZZctml::addFloat(*x, "temperature",  temperature_, "Kelvin");
@@ -350,16 +348,11 @@ XML_Node* EState::write_electrodeState_ToXML() const
     ZZctml::addFloat(*x, "relativeElectronsDischargedPerMole", relativeElectronsDischargedPerMole_, "");
     ZZctml::addFloat(*x, "relativeDepthOfDischarge", relativeDepthOfDischarge_, "");
     ZZctml::addFloat(*x, "capacityDischargedToDate", capacityDischargedToDate_, "coulomb");
-    //ZZctml::addFloat(*x, "electronKmolDischargedToDate", electronKmolDischargedToDate_, "kmol");
     ZZctml::addFloat(*x, "deltaTsubcycle_init_next", deltaTsubcycle_init_next_, "s");
 
     return x;
 }
-//======================================================================================================================
-// Write the ElectrodeState to an XML_Node tree
-/*
- *  @return pointer to the XML_Node tree
- */
+//==================================================================================================================================
 void EState::readStateFromXMLRoot(const XML_Node& xmlRoot)
 {
     if (xmlRoot.hasChild("electrodeState")) {
@@ -367,31 +360,26 @@ void EState::readStateFromXMLRoot(const XML_Node& xmlRoot)
         readStateFromXML(x);
     }
 }
-//======================================================================================================================
+//==================================================================================================================================
 void EState::readIdentificationFromXML(const XML_Node& xmlEI)
 {
     std::string typeSS;
-
     std::string nn = xmlEI.name();
     const XML_Node* x = &xmlEI;
     if (nn != "ElectrodeIndentification") {
 	x = xmlEI.findByName("ElectrodeIdentification");
 	if (!x) {
-	    throw Electrode_Error("EState::readIdentificationFromXM",
-				  "Could not find the XML node named ElectrodeIdentification");
+	    throw Electrode_Error("EState::readIdentificationFromXM", "Could not find the XML node named ElectrodeIdentification");
 	}
     }
-
     ZZctml::getNamedStringValue(*x, "electrodeTypeString", electrodeTypeString_ , typeSS);
-
-    EST_lastFileRead_ = (EState_Type_Enum)  ZZctml::getInteger(*x, "EState_Type");
+    EST_lastFileRead_ = (EState_Type_Enum) ZZctml::getInteger(*x, "EState_Type");
 
     std::string EState_Type_String;
     if (x->hasChild("EState_Type_String")) {
-
 	ZZctml::getNamedStringValue(*x, "EState_Type_String", EState_Type_String, typeSS);
 	ZZCantera::EState_Type_Enum echeck = esmodel::string_to_EState_Type_Enum(EState_Type_String);
-	if (echeck !=  EST_lastFileRead_ ) {
+	if (echeck != EST_lastFileRead_ ) {
 	    throw Electrode_Error("EState::readIdentificationFromXM",
 				  "Incompatibility between EState_Type and EState_Type_String ");
 	}
@@ -400,7 +388,6 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
     if (x->hasChild("fileVersionNumber")) {
 	EST_Version_lastFileRead_ = ZZctml::getInteger(*x, "fileVersionNumber");
     }
-   
     if (x->hasChild("electrodeCapacityType")) {
 	electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ZZctml::getInteger(*x, "electrodeCapacityType");
     }
@@ -428,9 +415,6 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
 }
 //==================================================================================================================================
 // Read identification information from a struct EState_Identification object
-/*
- *
- */
 void EState::readIdentificationFromStruct(const EState_ID_struct& es_ID)
 {
     // @todo do checking on compatible values
@@ -472,14 +456,11 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     relativeElectronsDischargedPerMole_ = ZZctml::getFloat(xmlEState, "relativeElectronsDischargedPerMole", "toSI");
     relativeDepthOfDischarge_ = ZZctml::getFloat(xmlEState, "relativeDepthOfDischarge", "toSI");
     capacityDischargedToDate_ = ZZctml::getFloat(xmlEState, "capacityDischargedToDate", "toSI");
-    // if (xmlEState.hasChild("electronKmolDischargedToDate")) {
-    //	electronKmolDischargedToDate_ = ZZctml::getFloat(xmlEState, "electronKmolDischargedToDate", "toSI");
-    //  } else {
     electronKmolDischargedToDate_ =  capacityDischargedToDate_ / ZZCantera::Faraday;
     if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
 	electronKmolDischargedToDate_ *= -1.0;
     }
-    
+
     deltaTsubcycle_init_next_ = ZZctml::getFloat(xmlEState, "deltaTsubcycle_init_next", "toSI");
 }
 //======================================================================================================================

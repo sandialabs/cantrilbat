@@ -172,7 +172,7 @@ Electrode::Electrode() :
                 xmlStateData_init_(0),
                 xmlStateData_final_(0),
                 xmlStateData_final_final_(0),
-                eState_final_(0),
+                eState_save_(nullptr),
                 baseNameSoln_("soln"),
                 electrodeChemistryModelType_(0),
                 electrodeDomainNumber_(0),
@@ -292,7 +292,7 @@ Electrode::Electrode(const Electrode& right) :
                 xmlStateData_init_(0),
                 xmlStateData_final_(0),
                 xmlStateData_final_final_(0),
-                eState_final_(0),
+                eState_save_(nullptr),
                 baseNameSoln_("soln"),
                 electrodeChemistryModelType_(0),
                 electrodeDomainNumber_(0),
@@ -534,8 +534,8 @@ Electrode& Electrode::operator=(const Electrode& right)
         xmlStateData_final_final_ = new XML_Node(*right.xmlStateData_final_final_);
     }
 
-    SAFE_DELETE(eState_final_);
-    eState_final_ = new EState();
+    SAFE_DELETE(eState_save_);
+    eState_save_ = new EState();
 
     baseNameSoln_ = right.baseNameSoln_;
 
@@ -550,7 +550,7 @@ Electrode& Electrode::operator=(const Electrode& right)
     counterNumberIntegrations_ = 0;
     counterNumberSubIntegrations_ = 0;
 
-    eState_final_->initialize(this);
+    eState_save_->initialize(this);
 
     /*
      * Return the reference to the current object
@@ -600,7 +600,7 @@ Electrode::~Electrode()
     SAFE_DELETE(xmlStateData_final_);
     SAFE_DELETE(xmlStateData_final_final_);
 
-    SAFE_DELETE(eState_final_);
+    SAFE_DELETE(eState_save_);
 }
 //======================================================================================================================
 // Duplicator function

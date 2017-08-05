@@ -838,9 +838,7 @@ AC_OUTPUT(Makefile \
           ctpadds/src/Makefile \
           ctpadds/tests/Makefile \
           ctpadds/tests/SolidKinTests/Makefile \
-	  cttables/Makefile \
 	  cttables/src/Makefile \
-	  cttables/tests/Makefile \
 	  cttables/tests/Makefile_sub \
           utilProg/Makefile \
           doc/doxygen/Makefile \

@@ -2562,20 +2562,20 @@ public:
      *   The electrodeState record is written out by the child Electrode objects from saved data.
      *   Usually, all objects within the domain write their own records.
      *
-     *   @param bb  Output XML mode
+     *  @param bb  Output XML mode
      *
-     *   @return Returns whether the step was successful or not. Note, the electrode object doesn't
+     *  @return Returns whether the step was successful or not. Note, the electrode object doesn't
      *           necessarily create the XML information to be saved, in which case this routine
      *           will return false.
      */
     bool writeTimeStateFinal_toXML(XML_Node&  bb);
 
-    //!  Select the global time step increment record by the consequatively numbered record index number
+    //! Select the global time step increment record by the consequatively numbered record index number
     /*!
-     *    @param   xSoln               Solution file for the electrode object
-     *    @param   globalTimeStepNum   Time step number to select
+     *  @param   xSoln               Solution file for the electrode object
+     *  @param   globalTimeStepNum   Time step number to select
      *
-     *    @return                                 Returns the XML_Node pointer to the solution for the selected global time Step
+     *  @return                                 Returns the XML_Node pointer to the solution for the selected global time Step
      *                                            number. If not found, it returns zero.
      *
      *  @todo    shouldn't this be a static routine.
@@ -2610,7 +2610,7 @@ public:
      */
     void loadGlobalTimeStepTFinalState(XML_Node* xGTSI);
 
-    //!  Given an XML_Node timeState this routine sets the electrode object to that state and returns the time
+    //! Given an XML_Node timeState this routine sets the electrode object to that state and returns the time
     /*!
      *  This routine needs the timeState XML_Node reference. Then, it will initialize the electrode object.
      *  Here is an example XML record:
@@ -2629,7 +2629,7 @@ public:
      */
     double loadTimeStateFinal(const XML_Node& xTimeState);
 
-    //------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------- D A T A --------------------------------------------------
 
 protected:
 
@@ -2640,7 +2640,7 @@ protected:
      *  This determines what it direction it means to have positive capacity and
      *  the direction of the state of charge as well.
      */
-    Electrode_Capacity_Type_Enum  electrodeCapacityType_;
+    Electrode_Capacity_Type_Enum electrodeCapacityType_;
 
     //! Boolean, true if there is a pending integration step
     /*!
@@ -2759,8 +2759,6 @@ protected:
      */
     double deltaTsubcycle_init_next_;
 
-
-
 public:
     //! Flag for the choice for the initial subcycle time step for a new global time interval
     /*!
@@ -2773,8 +2771,7 @@ public:
     //! Number of subcyles taken on the last integration
     size_t numIntegrationSubCycles_final_final_;
 
-    //! Boolean indicating whether we should be doing thermal property calculations during updateState()
-    //! calculations.
+    //! Boolean indicating whether we should be doing thermal property calculations during updateState() calculations.
     /*!
      *   This is public and can be changed externally
      */
@@ -2834,8 +2831,9 @@ protected:
      *   Number of moles of each species in each phase at the end of each
      *   subcycle of the integration step.
      *
-     *    length = Number of species in PhaseList
-     *    indexing of PhaseList
+     *  Length:   Number of species in PhaseList
+     *  Indexing: PhaseList global species list
+     *  Units:    kmol
      */
     std::vector<double> spMoles_final_;
 
@@ -2846,8 +2844,9 @@ protected:
      *   Number of moles of each species in each phase at the end of each
      *   subcycle of the integration step.
      *
-     *    length = Number of species in PhaseList
-     *    indexing of PhaseList
+     *  Length:   Number of species in PhaseList
+     *  Indexing: PhaseList global species list
+     *  Units:    kmol
      */
     std::vector<double> spMoles_final_final_;
 
@@ -2858,8 +2857,9 @@ protected:
      *   Number of moles of each species in each phase at the start of each
      *   subcycle of the integration step.
      *
-     *    length = Number of species in PhaseList
-     *    indexing of PhaseList
+     *  Length:   Number of species in PhaseList
+     *  Indexing: PhaseList global species list
+     *  Units:    kmol
      */
     std::vector<double> spMoles_init_;
 
@@ -3490,7 +3490,7 @@ protected:
     XML_Node* xmlStateData_final_final_;
 
     //!  Pointer to the object that is in charge of formulating the saved state and writing that state out to an XML object
-    EState* eState_final_;
+    EState* eState_save_;
 
     //! Base name of the solution file, currently defaults to "soln"
     std::string baseNameSoln_;

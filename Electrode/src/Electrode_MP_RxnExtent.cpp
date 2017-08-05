@@ -802,8 +802,8 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 //====================================================================================================================
 int Electrode_MP_RxnExtent::electrode_stateSave_create()
 {
-    eState_final_ = new EState();
-    int rr = eState_final_->initialize(this);
+    eState_save_ = new EState();
+    int rr = eState_save_->initialize(this);
     return rr;
 }
 //====================================================================================================================
@@ -3405,18 +3405,20 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
 	spMoles_init_init_[is_FeS2_B] = spMoles_FeS2_Normalization_ / 2.0;
 	phaseMoles_final_[ip_FeS2_B] =  spMoles_FeS2_Normalization_ / 2.0;
 	
-	if (eState_final_) {
+	if (eState_save_) {
 	    if (!xmlStateData_final_) {
-		eState_final_->copyElectrode_intoState(this);
-		xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();
+                // Save the state into eState
+		eState_save_->copyElectrode_intoState(this);
+                // Write out the XML file
+		xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
 	    }
 	    delete xmlStateData_init_init_;
-	    xmlStateData_init_init_ =   xmlStateData_final_;
+	    xmlStateData_init_init_ = xmlStateData_final_;
 	    delete xmlStateData_init_;
 	    xmlStateData_init_ = new XML_Node(*xmlStateData_final_);
-	    xmlStateData_final_ = 0;
+	    xmlStateData_final_ = nullptr;
 	    delete xmlStateData_final_final_;
-	    xmlStateData_final_final_ = 0;
+	    xmlStateData_final_final_ = nullptr;
 	}
     }
 }

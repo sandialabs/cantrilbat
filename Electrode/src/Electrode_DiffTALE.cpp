@@ -537,8 +537,8 @@ int Electrode_DiffTALE::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 //==================================================================================================================================
 int Electrode_DiffTALE::electrode_stateSave_create()
 {
-    eState_final_ = new EState_RadialDistrib();
-    int rr = eState_final_->initialize(this);
+    eState_save_ = new EState_RadialDistrib();
+    int rr = eState_save_->initialize(this);
     if (rr >= 0) {
         rr = 0;
     }

@@ -775,43 +775,30 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     rtolNLS_      = GlobalRtolSrcTerm;
     rtolResidNLS_ = GlobalRtolSrcTerm * 1.0E-2;
 
-    /*
-     *   Set the absolute tolerance vector for the nonlinear solver, both the residual and the solution tolerances
-     *   We control both because we have had trouble making sure that the equations are solved
-     *   to a sufficient accuracy.
-     */
+    //  Set the absolute tolerance vector for the nonlinear solver, both the residual and the solution tolerances
+    //  We control both because we have had trouble making sure that the equations are solved to a sufficient accuracy.
     setResidAtolNLS();
-
-    /*
-     *   Zero vectors that are accumulated over local time step to represent global time step quantities
-     *                   the integrated source term - This will be accumulated over the subcycling
-     *                   Estimated global time step errors
-     */
+    
+    //  Zero vectors that are accumulated over local time step to represent global time step quantities,
+    //       the integrated source term. This will be accumulated over the subcycling estimated global time step errors
     zeroGlobalStepAccumulationTerms();
 
-    /*
-     *   Update the state
-     */
+    //  Update the state
     updateState();
-
-    /*
-     *  Determine the big mole fractions of multispecies phases
-     */
+    
+    //  Determine the big mole fractions of multispecies phases
     determineBigMoleFractions();
 
-    /*
-     *  Save the state into an XML state object
-     */
-    if (eState_final_) {
-        eState_final_->copyElectrode_intoState(this);
+    //  Save the Electrode state into an XML state object
+    if (eState_save_) {
+        eState_save_->copyElectrode_intoState(this);
         SAFE_DELETE(xmlStateData_init_);
-        xmlStateData_init_ = eState_final_->write_electrodeState_ToXML();
+        xmlStateData_init_ = eState_save_->write_electrodeState_ToXML();
         startXML_TI_final();
     }
-    //
+    
     // *****************************************************************************************************************
-    //
-    // Loop over any possible subcycling of the time step
+    //  Loop over any possible subcycling of the time step
     do {
         /*
          *  Increment the local subcycle counter
@@ -1448,12 +1435,12 @@ topConvergence:
             deltaTsubcycle_init_next_ = deltaTsubcycleNext_;
         }
         /*
-         *  Save the state of the object
+         *  Save the state of the Electrode object into the XML final spot
          */
-        if (eState_final_) {
-            eState_final_->copyElectrode_intoState(this);
+        if (eState_save_) {
+            eState_save_->copyElectrode_intoState(this);
             SAFE_DELETE(xmlStateData_final_);
-            xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();
+            xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
             makeXML_TI_intermediate();
             addtoXML_TI_final(notDone);
         }

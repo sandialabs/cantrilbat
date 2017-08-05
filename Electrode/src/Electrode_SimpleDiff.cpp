@@ -466,112 +466,82 @@ Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 
     return 0;
 }
-//====================================================================================================================
-//  Set the electrode initial conditions from the input file.
-/*
- *   (virtual from Electrode)
- *   (This is a serial virtual function or an overload function)
- *
- *    This is one of the most important routines. It sets up the initial conditions of the electrode
- *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
- *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
- *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
- *    object and the initial state of that object.
- *
- *    The routine works like an onion initialization. The parent object is initialized before the
- *    child. This means the child object first calls the parent, before it does its own initializations.
- *
- *  @param eibase    ELECTRODE_KEY_INPUT pointer object
- *
- *  @return  Returns zero if successful, and -1 if not successful.
- */
-int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
+//==================================================================================================================================
+int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* const eibase)
 {
-    ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
+    ELECTRODE_RadialDiffRegions_KEY_INPUT* const ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw Electrode_Error(" Electrode_SimpleDiff::electrode_model_create()",
-                           " Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
+        throw Electrode_Error("Electrode_SimpleDiff::electrode_model_create()",
+                              "Expecting a child ELECTRODE_RadialDiffRegions_KEY_INPUT object and didn't get it");
     }
-   
     int flag = Electrode_Integrator::setInitialConditions(ei);
     if (flag != 0) {
         return flag;
     }
-
-    /*
-     *  Initialize all of the variables on the domain
-     *    We take the grid size and the mole numbers from the base Electrode representation
-     *    and create a distributed representation.
-     *    Any disparity in mole numbers creates an error.
-     */
+    
+    //  Initialize all of the variables on the domain.
+    //     We take the grid size and the mole numbers from the base Electrode representation and create a distributed representation.
+    //     Any disparity in mole numbers creates an error.
     initializeAsEvenDistribution();
-
-    /*
-     *  Set the initial state and the init_init state from the final state.
-     */
+    
+    //  Set the initial state and the init_init state from the final state.
     setInitStateFromFinal(true);
 
-    if (eState_final_) {
+    if (eState_save_) {
         delete xmlStateData_final_;
-        xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();	 
+        eState_save_->copyElectrode_intoState(this);
+        xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();	 
     }
-
     return 0;
 }
-//====================================================================================================================
-int
-Electrode_SimpleDiff::electrode_stateSave_create()
+//==================================================================================================================================
+int Electrode_SimpleDiff::electrode_stateSave_create()
 {
-    eState_final_ = new EState_RadialDistrib();
-    int rr = eState_final_->initialize(this);
+    eState_save_ = new EState_RadialDistrib();
+    int rr = eState_save_->initialize(this);
     if (rr >= 0) {
         rr = 0;
     }
     delete xmlStateData_final_;
-    xmlStateData_final_ = eState_final_->write_electrodeState_ToXML();
+    eState_save_->copyElectrode_intoState(this);
+    xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
     return rr;
 }
-//====================================================================================================================
-// Resize the solid phase and electrolyte mole numbers within the object
+//==================================================================================================================================
 /*
- *  (virtual from Electrode)
+ *  Resize the solid phase and electrolyte mole numbers within the object
  * 
  *  This routine uses particleDiameter_ , particleNumberToFollow_, and porosity_ to recalculate
  *  all the mole numbers in the electrode. This is done by rescaling all of the numbers.
  *  At the end of the process, the total volume of the electrode object is
  *
- *    grossVol = SolidVol() / ( 1.0 - porosity_)
+ *      grossVol = SolidVol() / ( 1.0 - porosity_)
  *
  *  where the SolidVol() is equal to
  *
- *   SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
- *
+ *       SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
  */
 void Electrode_SimpleDiff::resizeMoleNumbersToGeometry()
 {
-
     Electrode::resizeMoleNumbersToGeometry();
-
     initializeAsEvenDistribution();
-
     updateState();
     double currentSolidVol = SolidVol();
     double totalVol = TotalVol();
     double calcPor = (totalVol - currentSolidVol) / totalVol;
     if (fabs(calcPor - porosity_) > 1.0E-6) {
-        throw Electrode_Error("Electrode_SimpleDiff::resizeMoleNumbersToGeometry() Error",
-                           "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
+        throw Electrode_Error("Electrode_SimpleDiff::resizeMoleNumbersToGeometry()",
+                              "Couldn't set the porosity correctly: %g  vs %g", calcPor, porosity_);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 size_t Electrode_SimpleDiff::nEquations_calc() const
 {
     size_t neq = 1 +  numEqnsCell_ * numRCells_;
     return neq;
 }
-//====================================================================================================================
-void
-Electrode_SimpleDiff::init_sizes()
+//==================================================================================================================================
+void Electrode_SimpleDiff::init_sizes()
 {
     neq_ = nEquations_calc();
     size_t kspCell =  numKRSpecies_ *  numRCells_;
@@ -601,7 +571,6 @@ Electrode_SimpleDiff::init_sizes()
     phaseMoles_KRsolid_Cell_final_.resize(nPhCell, 0.0);
     phaseMoles_KRsolid_Cell_init_.resize(nPhCell, 0.0);
     phaseMoles_KRsolid_Cell_init_init_.resize(nPhCell, 0.0);
-
 
     spMf_KRSpecies_Cell_final_.resize(kspCell, 0.0);
     spMf_KRSpecies_Cell_init_.resize(kspCell, 0.0);
@@ -650,16 +619,15 @@ Electrode_SimpleDiff::init_sizes()
     size_t maxNumRxns = RSD_List_[0]->nReactions();
     ROP_.resize(maxNumRxns, 0.0);
 }
-//====================================================================================================================
-void
-Electrode_SimpleDiff::init_grid()
+//==================================================================================================================================
+void Electrode_SimpleDiff::init_grid()
 {
-    // inner and outer radius
-     double  volContainedCell;
+     // inner and outer radius
+     double volContainedCell;
      double r_in = m_rbot0_;
      double rnode3;
-     double r_out =  Radius_exterior_final_;
-     //double partVol = Pi * inputParticleDiameter_ * inputParticleDiameter_ * inputParticleDiameter_ / 6.0;
+     double r_out = Radius_exterior_final_;
+     // double partVol = Pi * inputParticleDiameter_ * inputParticleDiameter_ * inputParticleDiameter_ / 6.0;
      double nn = numRCells_ - 1.0;
 
      for (size_t iCell = 0; iCell < numRCells_; iCell++) {
@@ -668,8 +636,6 @@ Electrode_SimpleDiff::init_grid()
 
      double vol_total_part = Pi * 4. / 3.0 * ((r_out * r_out * r_out) - (r_in * r_in * r_in));
      double rbot3 = r_in * r_in * r_in;
-     //double vbot = rbot3 * 4.0 * Pi / 3.0;
-   
      cellBoundL_final_[0] = r_in;
      rnodePos_final_[0] = r_in;
      for (size_t iCell = 0; iCell < numRCells_-1; iCell++) { 
@@ -684,30 +650,23 @@ Electrode_SimpleDiff::init_grid()
      }
      cellBoundR_final_[numRCells_-1] = rnodePos_final_[numRCells_-1];
 
-     /*
-      *  Have to center the node in the middle to avoid even more confusing logic!
-      */
+     // Have to center the node in the middle to avoid even more confusing logic!
      rnodePos_final_[0] = m_rbot0_;
      for (size_t iCell = 1; iCell < numRCells_-2; iCell++) { 
 	 rnodePos_final_[iCell] = 0.5 *(cellBoundL_final_[iCell] + cellBoundR_final_[iCell]);
      }
- 
      for (size_t iCell = 0; iCell < numRCells_; iCell++) {
 	 rnodePos_final_final_[iCell] = rnodePos_final_[iCell];
 	 rnodePos_init_[iCell] = rnodePos_final_[iCell];
 	 rnodePos_init_init_[iCell] = rnodePos_final_[iCell];
 
-
 	 double cbl3 = cellBoundL_final_[iCell] * cellBoundL_final_[iCell] * cellBoundL_final_[iCell];
 	 double cbR3 = cellBoundR_final_[iCell] * cellBoundR_final_[iCell] * cellBoundR_final_[iCell];
 	 volPP_Cell_final_[iCell] = 4. * Pi / 3. * (cbR3 - cbl3);
-
-
      }
 }
-//====================================================================================================================
-void
-Electrode_SimpleDiff::initializeAsEvenDistribution()
+//==================================================================================================================================
+void Electrode_SimpleDiff::initializeAsEvenDistribution()
 {
     /*
      *  Overall algorithm is to fill out the final state variables. Then populate the other times
@@ -776,17 +735,12 @@ Electrode_SimpleDiff::initializeAsEvenDistribution()
 	    kspCell += nsp;
 	}
     }
-    /*
-     *  Now transfer that to other states
-     */
+    
+    //  Now transfer that to other states
     setFinalFinalStateFromFinal();
     setInitStateFromFinal(true);
 }
-//====================================================================================================================
-//    Return the total volume of solid material
-/*
- *
- */
+//==================================================================================================================================
 double Electrode_SimpleDiff::SolidVol() const
 {
     double v0_3 = 4. * Pi * m_rbot0_ * m_rbot0_ * m_rbot0_ / 3.;
@@ -795,7 +749,7 @@ double Electrode_SimpleDiff::SolidVol() const
     double svol = (Vext_3 -  v0_3) * particleNumberToFollow_;
     return svol;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Returns the total enthalpy of the solid electrode
 /*
  *  This is an extensive quantity.
@@ -859,7 +813,7 @@ double Electrode_SimpleDiff::SolidEnthalpy() const
     }
     return enthalpy;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode_SimpleDiff::SolidHeatCapacityCV() const
 {
     size_t jRPh, iPh;
