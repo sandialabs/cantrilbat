@@ -75,6 +75,20 @@ int GFCEO_Electrode::nEquations() const
     return 0;
 }
 //===================================================================================================================================
+void GFCEO_Electrode::set_DAE_Integrator(DAE_Solver* integDAE)
+{
+    if (integDAE_) {
+        if (iOwnObject_) {
+            delete integDAE_;
+        }
+    }
+    integDAE_ = integDAE;
+    ResidJacEval* r_ptr = integDAE->resid_ptr();
+    if (r_ptr != this) {
+         throw Electrode_Error("GFCEO_Electrode::set_DAE_Integrator()", "Residual objects are not right");
+    }
+}
+//===================================================================================================================================
 void GFCEO_Electrode::constrain(const int k, const int flag)
 {
 // COMPLETE

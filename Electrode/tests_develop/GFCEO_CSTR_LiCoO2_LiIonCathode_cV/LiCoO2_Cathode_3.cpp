@@ -165,7 +165,7 @@ int main(int argc, char **argv)
     double atol = 1.0E-13;
     GFCEO_Electrode gee(electrodeC, atol, iOwn);
     DAE_Solver* integDAE = Zuzax::newDAE_Solver("IDA", gee);
-    gee.setDAESolver(integDAE);
+    gee.set_DAE_Integrator(integDAE);
     gee.setTolerances(1.0E-6, 1.0E-13);
   
     for (int itimes = 0; itimes < nT; itimes++) {

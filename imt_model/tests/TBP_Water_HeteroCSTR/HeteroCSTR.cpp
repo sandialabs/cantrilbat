@@ -405,7 +405,7 @@ int main(int argc, char **argv)
       //Tinitial = Tfinal;
 
 
-      double *y = integ->solution();
+      const double *y = integ->solutionVector();
 
       /*
        *  It seems that the current solution is never in the iface object when returned by cvode
