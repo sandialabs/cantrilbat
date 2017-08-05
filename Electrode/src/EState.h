@@ -216,6 +216,13 @@ public:
      */
     virtual XML_Node* writeIdentificationToXML() const;
 
+
+    //! Create an indentification XML_Node element for the PhaseList Object
+    /*!
+     *  @return                                  Returns a  malloced XML_Node tree containing the identification information
+     */
+    virtual XML_Node* write_PhaseListID_ToXML() const;
+
     //! Write the electrodeState contained within the EState object to a new malloced XML_Node tree
     /*!
      *  (virtual function from EState)

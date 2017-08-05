@@ -285,7 +285,7 @@ namespace Cantera
 	phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
 	if (phaseArrayXML) {
 	  std::vector<std::string> phase_ids;
-	  ZZctml::getStringArray(*phaseArrayXML, phase_ids);
+	  ZZctml::getTokenArray(*phaseArrayXML, phase_ids);
 	  size_t npToFind = phase_ids.size();
 	  for (size_t iph = 0; iph < npToFind; iph++) {
 	    std::string phaseID = phase_ids[iph];

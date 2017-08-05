@@ -118,7 +118,7 @@ bool ReactingVolDomain::importFromXML(XML_Node& phaseRoot)
             phaseArrayXML = xmlPhase->findNameID("phaseArray", "");
             if (phaseArrayXML) {
                 std::vector<std::string> phase_ids;
-                ZZctml::getStringArray(*phaseArrayXML, phase_ids);
+                ZZctml::getTokenArray(*phaseArrayXML, phase_ids);
                 size_t np = phase_ids.size();
                 for (size_t iph = 0; iph < np; iph++) {
                     std::string phaseID = phase_ids[iph];

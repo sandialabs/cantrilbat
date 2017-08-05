@@ -257,11 +257,11 @@ const std::string& EState::electrodeType() const
     return electrodeTypeString_;
 }
 //==================================================================================================================================
-// Write the ElectrodeState to an XML_Node tree
+// Write the Identification to an XML_Node tree
 /*
  *  @return pointer to the XML_Node tree
  */
-XML_Node*   EState::writeIdentificationToXML() const
+XML_Node* EState::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
 
@@ -279,6 +279,40 @@ XML_Node*   EState::writeIdentificationToXML() const
     } else {
 	ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
     }
+    x->addChildToTree( write_PhaseListID_ToXML());
+
+    return x;
+}
+//======================================================================================================================
+// Write the PhaseList ID to an XML_Node tree
+/*
+ *  @return pointer to the XML_Node tree
+ */
+XML_Node* EState::write_PhaseListID_ToXML() const
+{
+    XML_Node* x = new XML_Node("PhaseList_Id");
+    ZZctml::addInteger(*x, "PhaseList_DomainNumber",  electrodeDomainNumber_);
+    ZZctml::addInteger(*x, "PhaseList_CellNumber",  electrodeCellNumber_);
+    ZZctml::addNamedString(*x, "PhaseList_Name",  eRef_->electrodeName_);
+    ZZctml::addInteger(*x, "nPhases",  eRef_->nPhases());
+    std::vector<std::string> v;
+    for (size_t i = 0; i < eRef_->nPhases(); ++i) {
+        v.push_back(eRef_->phaseIDString(i));
+    }
+    ZZctml::addTokenArray(*x, "phaseIDStrings", v);
+
+    std::vector<int> iv;
+    for (size_t i = 0; i < eRef_->nPhases(); ++i) {
+        iv.push_back(eRef_->thermo(i).nSpecies());
+    }
+    ZZctml::addNamedIntegerArray(*x, "phaseNumSpecies", eRef_->nPhases(), &iv[0]);
+
+    v.empty();
+    for (size_t i = 0; i < eRef_->nGlobalSpecies(); ++i) {
+        v.push_back(eRef_->speciesName(i));
+    }
+    ZZctml::addTokenArray(*x, "speciesNames", v);
+
     return x;
 }
 //======================================================================================================================
