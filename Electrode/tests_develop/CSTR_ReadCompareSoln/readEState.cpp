@@ -54,19 +54,14 @@ int main(int argc, char **argv)
 
 
   ZZCantera::XML_Node* xEout =  getElectrodeOutputFile("solnSave_0_0.xml", 1);
-
   
   EState_ID_struct e_id;
-
-  
-  get_Estate_Indentification(*xEout ,  e_id);
+  get_Estate_Identification(*xEout , e_id);
 
   EState* es = newEStateObject(e_id.EState_Type_String_);
-
   es->readIdentificationFromXML(*xEout); 
 
   int globalTimeStepNum = 0;
-
   ZZCantera::XML_Node* x = selectLastGlobalTimeStepInterval(xEout, globalTimeStepNum);
 
   double timeVal;

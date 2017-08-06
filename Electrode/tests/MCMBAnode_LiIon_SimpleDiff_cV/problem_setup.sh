@@ -14,9 +14,9 @@ PROGRAM=MCMBAnode_SimpleDiff
 PROGRAM_OPTS=''
 #
 #  
-SOLUTION_BLESSED_XML="   soln_0_0_blessed.xml "
-SOLUTION_XML="           soln_0_0.xml         "
-SOLUTION_XML_DIFFNAME="  diff_xml.txt         "
+SOLUTION_BLESSED_XML="   soln_0_0_blessed.xml soln_Restart_4_0_0_blessed.xml "
+SOLUTION_XML="           soln_0_0.xml         soln_Restart_4_0_0.xml "
+SOLUTION_XML_DIFFNAME="  diff_xml.txt         diff_xmlR.txt           "
 #
 #   Text files to compare against
 #

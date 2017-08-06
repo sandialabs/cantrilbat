@@ -3134,7 +3134,7 @@ porousLiIon_Cathode_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
         ee->writeTimeStateFinal_toXML(bdom);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //
 //  This treatment assumes that the problem size stays constant. If this is not the case, the routine will
 //  error exit. If we need to change the problem size, then we will need to reinitialize a lot more that just
@@ -3182,15 +3182,15 @@ porousLiIon_Cathode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
     int lastGbNode = BDD_ptr_->LastGbNode;
     int numNodes = lastGbNode - firstGbNode + 1;
 
-    string iidd      = (*domainNode_ptr)["id"];
-    string s_points  = (*domainNode_ptr)["points"];
+    std::string iidd      = (*domainNode_ptr)["id"];
+    std::string s_points  = (*domainNode_ptr)["points"];
     int points = atoi(s_points.c_str());
     if (points != numNodes) {
         printf("we have an unequal number of points\n");
         exit(-1);
     }
-    string ttype    = (*domainNode_ptr)["type"];
-    string snumVar  = (*domainNode_ptr)["numVariables"];
+    std::string ttype    = (*domainNode_ptr)["type"];
+    std::string snumVar  = (*domainNode_ptr)["numVariables"];
     int numVar = atoi(snumVar.c_str());
     if (numVar != numEquationsPerNode) {
        printf("we have an unequal number of equations\n");
@@ -3228,15 +3228,13 @@ porousLiIon_Cathode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
 
         Electrode* ee = Electrode_Cell_[iCell];
         int cellNum = ee->electrodeCellNumber_;
-        // ee->writeStateToXML();
 
         XML_Node *xCell = domainNode_ptr->findByAttr("cellNumber", int2str(cellNum), 1);
         if (!xCell) {
-            throw m1d_Error("porousLiIon_Cathode_dom1D::readDomain() ERROR",
-                            "Can't find cell number " + int2str(cellNum));
+            throw m1d_Error("porousLiIon_Cathode_dom1D::readDomain() ERROR", "Can't find cell number " + int2str(cellNum));
         }
         //  Read the state into the electrode object
-        double timeE = ee->loadTimeStateFinal(*xCell);
+        double timeE = ee->loadTimeState(*xCell);
 	if (globalTimeRead >= 0.0) {
 	    if (globalTimeRead != timeE) {
 		ee->setTime(globalTimeRead);
@@ -3245,7 +3243,7 @@ porousLiIon_Cathode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
     }
 }
 
-//=====================================================================================================================
+//==================================================================================================================================
 // Method for writing the header for the surface domain to a tecplot file.
 void
 porousLiIon_Cathode_dom1D::writeSolutionTecplotHeader()

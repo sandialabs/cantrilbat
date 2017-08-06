@@ -404,10 +404,25 @@ fi
 #
 retnStat_cum="0"
 #
-xml_electrode_compare  $SOLUTION_BLESSED_XML $SOLUTION_XML $SOLUTION_XML_DIFFNAME
+# xml_electrode_compare  $SOLUTION_BLESSED_XML $SOLUTION_XML $SOLUTION_XML_DIFFNAME
 #
-retnStat_xml=$?
 # 
+############################################################################################################################
+#
+for b in $SOLUTION_BLESSED_XML
+do
+    g=`first_el $SOLUTION_XML`
+    n=`first_el $SOLUTION_XML_DIFFNAME`
+    DIFF_REQUIRED="True"
+    xml_electrode_compare $b $g $n
+    retnStat_xml=$?
+   # csvdiff_compare_file $b $g $n
+
+    SOLUTION_XML=`chop_head $SOLUTION_XML`
+    SOLUTION_XML_DIFFNAME=`chop_head $SOLUTION_XML_DIFFNAME`
+done
+
+#
 ############################################################################################################################
 #
 for b in $BLESSED_CSV_FILES

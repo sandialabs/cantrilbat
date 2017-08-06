@@ -597,6 +597,9 @@ void  Electrode_Integrator::resetStartingCondition(double Tinitial, bool doReset
     if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doResetAlways) {
         resetToInitInit = true;
     }
+
+    
+
     /*
      *  Clear the time step histories for the base and current timeHistories.
      */
@@ -764,8 +767,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     setPhaseExistenceForReactingSurfaces(false);
 
     /*
-     *   Set up the global tolerances for the source term vector. Here we firm up what the source term vector
-     *   is
+     *   Set up the global tolerances for the source term vector. Here we firm up what the source term vector is
      */
     setNLSGlobalSrcTermTolerances(GlobalRtolSrcTerm);
 
@@ -1453,7 +1455,6 @@ topConvergence:
      *  Calcualte the first time step for the next global iteration
      */
     if (choiceDeltaTsubcycle_init_ == 0) {
-        // deltaTsubcycle_init_next_ = MIN(deltaTsubcycle_init_next_, deltaTsubcycleNext_);
         deltaTsubcycle_init_next_ = MIN(deltaTsubcycle_init_next_, 2.0 * deltaT);
     }
 

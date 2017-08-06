@@ -3197,11 +3197,10 @@ porousLiIon_Anode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
 
 	XML_Node *xCell = domainNode_ptr->findByAttr("cellNumber", int2str(cellNum), 1);
         if (!xCell) {  
-	    throw m1d_Error("porousLiIon_Anode_dom1D::readDomain() ERROR",
-                            "Can't find cell number " + int2str(cellNum));
+	    throw m1d_Error("porousLiIon_Anode_dom1D::readDomain() ERROR", "Can't find cell number " + int2str(cellNum));
 	}
 	//  Read the state into the electrode object
-	double timeE = ee->loadTimeStateFinal(*xCell);
+	double timeE = ee->loadTimeState(*xCell);
 	if (globalTimeRead >= 0.0) {
 	    if (globalTimeRead != timeE) {
 		ee->setTime(globalTimeRead);
@@ -3209,10 +3208,6 @@ porousLiIon_Anode_dom1D::readDomain(const ZZCantera::XML_Node& SimulationNode,
 	}
     }
 }
-
-
-
-
 //===================================================================================================================================
 // Method for writing the header for the bulk domain to a tecplot file.
 void

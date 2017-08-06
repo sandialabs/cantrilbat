@@ -98,20 +98,15 @@ void EState_Identification::readIdentificationFromXML(const XML_Node& xmlEI)
   
 }
 //==================================================================================================================================
-/*
- * EState constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
+//==================================================================================================================================
+//==================================================================================================================================
 EState::EState() :
-    eRef_(0),
+    eRef_(nullptr),
     electrodeTypeString_(""),
     EST_lastFileRead_(EST_CSTR),
     EST_Version_lastFileRead_(1),
     EST_fileToBeWritten_(EST_CSTR),
     EST_Version_fileToBeWritten_(1),
-    spMoles_(0),
     phaseVoltages_(0),
     temperature_(298.15),
     pressure_(OneAtm),
@@ -148,7 +143,6 @@ EState::EState(const EState& right) :
     EST_Version_lastFileRead_(1),
     EST_fileToBeWritten_(EST_CSTR),
     EST_Version_fileToBeWritten_(1),
-    spMoles_(0),
     phaseVoltages_(0),
     temperature_(298.15),
     pressure_(OneAtm),

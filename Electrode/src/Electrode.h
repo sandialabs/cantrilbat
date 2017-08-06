@@ -2480,9 +2480,10 @@ public:
 
     //! Creates a timeIncrement XML element to store the results for global steps of the Electrode solver
     /*!
-     *   Creates a XML Tree structure of the following form. What this function does is to delete the old record
-     *   and start a new record. Later calls to addtoXML_TI_final() adds records to the XML tree.
-     *  \verbatim
+     *  Creates a XML Tree structure of the following form. What this function does is to delete the old record
+     *  and start a new record. Later calls to addtoXML_TI_final() adds records to the XML tree.
+     *
+     *     \verbatim
      *     <timeIncrement   type="global">
      *        <timeState type="t_init">
      *              ....xmlStateData_init_
@@ -2494,38 +2495,76 @@ public:
      *              ....xmlStateData_final_
      *        </timeState>
      *     </timeIncrement>
-     *  \endverbatim
-     *    This XML Tree is storred in the variable  xmlTimeIncrementData_
+     *     \endverbatim
      *
+     *  This XML Tree is storred in the variable xmlTimeIncrementData_
      *
-     *  @param addInitState   Boolean that if true adds the initial state to the tree.
-     *                        The default is true.
+     *  @param[in]           addInitState        Boolean that if true adds the initial state to the tree.
+     *                                           The default is true.
      */
     void startXML_TI_final(bool addInitState = true);
 
     //! Specifies the amount of output that the Electrode object writes to its XML solution file
     /*!
-     *    The level is given by the following table
+     *  The level is given by the following table:
      *            - 0     Zero output (default)
      *            - 1     Global time end
      *            - 2     global time increment
      *            - 3     intermediate steps
      *
-     *    @param[in]      level                Specifies the level of output written to XML solution file
-     *    @param[in]      baseName             Basename of the output file. The domain and cell number are tacked on.
+     *  @param[in]           level               Specifies the level of output written to XML solution file
+     *  @param[in]           baseName            Basename of the output file. The domain and cell number are tacked on.
      */
     void specifySolutionFileLevel(int level, const char* const baseName);
 
-    //!  Wrap the Time increment XML element with a solution XML element and then write it out to
-    //!  an output file
+    //! Wrap the Time increment XML element with a solution XML element and then write it out to an output file
     /*!
-     *       We assume that the XML file has the following topology
+     *  We assume that the XML file has the following topology
+     *
+     *         \verbatim
+     *         <ctml>
+     *           <electrodeOutput index="solutionNumberIndex" >
+     *             <timeIncrement index="stepNumberIndex" >
+     *
+     *             </timeIncrement>
+     *           </electrodeOutput>
+     *         </ctml>
+     *         \endverbatim
+     *
+     *  This routine adds another  \verbatim <timeIncrement> \endverbatim  XML element to the end of the file. It
+     *  takes care to first eliminate any existing to backspace over the last
+     *  \verbatim </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML  \endverbatim element.
+     *
+     *  @param[in]           startNewRecord      If this is true, then a new electrodeOutput record is started, bumping up the 
+     *                                           solution index value. Defaults to false.
+     *
+     *  @param[in]           reset               If this is true, then the current file is truncated, and a new file is written
+     *                                           from scratch with a static step number index of 1. Defaults to false. 
+     *
+     *  @param[in]           stepNumOverride     This may be used to override the static step number, which is kept
+     *                                           within this routine.
+     *                                             Defaults to -1, which means to use the static value.
+     */
+    void writeSolutionTimeIncrement( bool startNewRecord = false, bool reset = false, int stepNumOverride = -1);
+
+    //! Write a restart file -> file with the last global time step written out to it
+    /*!
+     *    Wrap the Time increment XML element with a solution XML element and then write it out to an output file
+     *    The XML file has the following layout:
      *
      *   \verbatim
      *         <ctml>
      *           <electrodeOutput index = 1>
      *             <timeIncrement index = 1>
-     *
+     *                <timeState type="t_init">
+     *                  ....xmlStateData_init_
+     *                </timeState>
+     *                <timeState type="t_intermediate">
+     *                      ....xmlStateData_final_
+     *                </timeState>
+     *                <timeState type="t_final">
+     *                      ....xmlStateData_final_
+     *                </timeState>
      *             </timeIncrement index>
      *           </electrodeOutput>
      *         </ctml>
@@ -2533,15 +2572,21 @@ public:
      *
      *  This routine adds another  \verbatim <timeIncrement> \endverbatim  XML element to the end of the file. It
      *  takes care to first eliminate any existing to backspace over the last
-     *  \verbatim </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML  \endverbatim
-     *  element.
+     *  \verbatim </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML  \endverbatim element.
      *
      *  @param[in]           startNewRecord      If this is true, then a new electrodeOutput record is started, bumping up the 
      *                                           index value. Defaults to false.
      *  @param[in]           reset               If this is true, then the current file is truncated, and a new file is written
      *                                           from scratch with an index of 1. Defaults to false. 
+     *
+     *  @param[in]           stepNum             This may be used to override the global step number.
+     *                                             Defaults to -1, which means to use
+     * 
+     *  @param[in]           restartFile         True if we are writing a restartFile, single off file . 
+     *                                             Defaults to false
      */
-    void writeSolutionTimeIncrement( bool startNewRecord = false, bool reset = false);
+    void writeRestartFile(int stepNum, int solnNum = 1, const std::string& nameAddition = "");
+
 
     //!  Write the state of the Electrode object at the t_final time out to the output XML_Node
     /*!
@@ -2608,7 +2653,17 @@ public:
      *
      *  @param[in]        xGTSI                Global time step increment record used to restart the object
      */
-    void loadGlobalTimeStepTFinalState(XML_Node* xGTSI);
+    void loadGlobalTimeStepTFinalState(const XML_Node* const xGTSI);
+
+    //! Given a Time increment record this routine loads the saved solution for t_final into the electrode object
+    /*!
+     *  This routine reads an XML tree layout, such as the example below. It is given the globalTimeStep XML element
+     *  pointer. It then reads the timeState  init record and init time, and initializes the current object with
+     *  the state contained in the record.
+     *
+     *  @param[in]        xGTSI                Global time step increment record used to restart the object
+     */
+    void loadGlobalTimeStepTInitState(const XML_Node* const xGTSI);
 
     //! Given an XML_Node timeState this routine sets the electrode object to that state and returns the time
     /*!
@@ -2625,9 +2680,9 @@ public:
      *  @param[in]              xTimeState            Input XML_Node Reference of the time state record that will
      *                                                be used to initialize the electrode object    
      *
-     *  @return                                       Returns the time
+     *  @return                                       Returns the time storred in the TimeState XML element
      */
-    double loadTimeStateFinal(const XML_Node& xTimeState);
+    double loadTimeState(const XML_Node& xTimeState);
 
     //------------------------------------------------------- D A T A --------------------------------------------------
 
@@ -3459,10 +3514,10 @@ protected:
 
 protected:
 
-    //!  a timeIncrement XML element to store the final results for local steps of the solver
+    //!  A timeIncrement XML element to store the final results for local steps of the solver
     XML_Node* xmlTimeIncrementData_;
 
-    //!  a timeIncrement XML element to store the results for intermediate steps of the solver
+    //!  A timeIncrement XML element to store the results for intermediate steps of the solver
     XML_Node* xmlTimeIncrementIntermediateData_;
 
     //! Storage of the  external state of the system in terms of an XML data structure - init_init state
@@ -3523,6 +3578,7 @@ public:
     //! Number of integrations (successful or failed) carried out by this object
     /*!
      *  This number can be used to identify every unique global integration that the object undergoes.
+     *  Note, because jacobians may be calculated, this does not correspond to the global time step number
      */
     int counterNumberIntegrations_;
 
@@ -3531,6 +3587,22 @@ public:
      *  This number can be used to identify every unique integration that the object undergoes.
      */
     int counterNumberSubIntegrations_;
+
+    //! Global time step number 
+    /*!
+     *  This is either set by an external call. or it is incremented in resetStartingConditions
+     *  when the initial time is increased above the previous step
+     *  Starts at 1
+     */
+    int globalTimeStepNumber_;
+
+    //! Boolean indicating to write a restart file after each successful step
+    /*!
+     *   If greater than 1, it will write a restart file with a different name at every time step
+     *   defaults to 0
+     */
+    int writeRestartFileOnSuccessfulStep_;
+
 
     //! Amount of printing to be carried out by the object
     /*!

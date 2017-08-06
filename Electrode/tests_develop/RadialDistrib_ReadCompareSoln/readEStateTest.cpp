@@ -246,13 +246,10 @@ int main(int argc, char **argv)
       printf("WARNING files are different\n");
   }
 
-
   EState_ID_struct e_id;
-  
-  get_Estate_Indentification(*xEout ,  e_id);
+  get_Estate_Identification(*xEout ,  e_id);
 
   EState* es = newEStateObject(e_id.EState_Type_String_);
-
   es->readIdentificationFromXML(*xEout); 
 
   int globalTimeStepNum = 0;

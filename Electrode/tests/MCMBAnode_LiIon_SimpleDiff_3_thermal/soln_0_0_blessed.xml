@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Sun Jul 16 14:31:19 2017
+      Sat Aug  5 19:15:57 2017
     </string>
     <ElectrodeIdentification>
       <electrodeTypeString vtype="string"> SimpleDiff </electrodeTypeString>
@@ -15,6 +15,7 @@
     </ElectrodeIdentification>
     <globalTimeStep index="1">
       <deltaTime_init_next vtype="float"> 5.000000000000000E-07 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 2.500000000000000E-04 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 1 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">

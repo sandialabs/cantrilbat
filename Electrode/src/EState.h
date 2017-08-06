@@ -216,7 +216,6 @@ public:
      */
     virtual XML_Node* writeIdentificationToXML() const;
 
-
     //! Create an indentification XML_Node element for the PhaseList Object
     /*!
      *  @return                                  Returns a  malloced XML_Node tree containing the identification information

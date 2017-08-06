@@ -162,16 +162,16 @@ Electrode::Electrode() :
                 Radius_exterior_final_final_(5.0E-7),
                 porosity_(0.0),
                 molarAtol_(1.0E-16),
-                xmlTimeIncrementData_(0),
-                xmlTimeIncrementIntermediateData_(0),
-                xmlExternalData_init_init_(0),
-                xmlExternalData_init_(0),
-                xmlExternalData_final_(0),
-                xmlExternalData_final_final_(0),
-                xmlStateData_init_init_(0),
-                xmlStateData_init_(0),
-                xmlStateData_final_(0),
-                xmlStateData_final_final_(0),
+                xmlTimeIncrementData_(nullptr),
+                xmlTimeIncrementIntermediateData_(nullptr),
+                xmlExternalData_init_init_(nullptr),
+                xmlExternalData_init_(nullptr),
+                xmlExternalData_final_(nullptr),
+                xmlExternalData_final_final_(nullptr),
+                xmlStateData_init_init_(nullptr),
+                xmlStateData_init_(nullptr),
+                xmlStateData_final_(nullptr),
+                xmlStateData_final_final_(nullptr),
                 eState_save_(nullptr),
                 baseNameSoln_("soln"),
                 electrodeChemistryModelType_(0),
@@ -179,6 +179,8 @@ Electrode::Electrode() :
                 electrodeCellNumber_(0),
                 counterNumberIntegrations_(0),
                 counterNumberSubIntegrations_(0),
+                globalTimeStepNumber_(1),
+                writeRestartFileOnSuccessfulStep_(0),
                 printLvl_(4),
                 printXMLLvl_(0),
                 printCSVLvl_(0),
@@ -282,8 +284,8 @@ Electrode::Electrode(const Electrode& right) :
                 Radius_exterior_final_final_(5.0E-7),
                 porosity_(0.0),
                 molarAtol_(1.0E-16),
-                xmlTimeIncrementData_(0),
-                xmlTimeIncrementIntermediateData_(0),
+                xmlTimeIncrementData_(nullptr),
+                xmlTimeIncrementIntermediateData_(nullptr),
                 xmlExternalData_init_init_(0),
                 xmlExternalData_init_(0),
                 xmlExternalData_final_(0),
@@ -299,6 +301,8 @@ Electrode::Electrode(const Electrode& right) :
                 electrodeCellNumber_(0),
                 counterNumberIntegrations_(0),
                 counterNumberSubIntegrations_(0),
+                globalTimeStepNumber_(1),
+                writeRestartFileOnSuccessfulStep_(0),
                 printLvl_(4),
                 printXMLLvl_(0),
                 printCSVLvl_(0),
@@ -549,6 +553,8 @@ Electrode& Electrode::operator=(const Electrode& right)
     enableExtraPrinting_ = right.enableExtraPrinting_;
     counterNumberIntegrations_ = 0;
     counterNumberSubIntegrations_ = 0;
+    globalTimeStepNumber_ = right.globalTimeStepNumber_;
+    writeRestartFileOnSuccessfulStep_  = right.writeRestartFileOnSuccessfulStep_;
 
     eState_save_->initialize(this);
 
@@ -4160,6 +4166,20 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doResetAlways) {
         resetToInitInit = true;
+    }
+
+    if (!resetToInitInit) {
+       if (Tinitial > t_init_init_) {
+           if (writeRestartFileOnSuccessfulStep_) {
+                if (writeRestartFileOnSuccessfulStep_ > 1) {
+                    std::string extraN = "_" + int2str(globalTimeStepNumber_);
+                    writeRestartFile(globalTimeStepNumber_, 1, extraN);
+                } else {
+                    writeRestartFile(globalTimeStepNumber_);
+                }
+           }
+           globalTimeStepNumber_++;
+       }
     }
     /*
      *  The final_final time must be equal to the new Tinitial time if we are not resetting to the initial condition

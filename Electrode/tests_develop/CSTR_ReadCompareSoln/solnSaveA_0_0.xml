@@ -12,6 +12,7 @@
     </ElectrodeIdentification>
     <globalTimeStep index="1">
       <deltaTime_init_next> 2.00000000000000E-04 </deltaTime_init_next>
+      <deltaTime_init_init> 2.00000000000000E-04 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 1 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -89,6 +90,7 @@
       </timeIncrement>
     </globalTimeStep>
     <globalTimeStep index="2">
+      <deltaTime_init_init> 2.00000000000000E-04 </deltaTime_init_init>
       <deltaTime_init_next> 2.00000000000000E-04 </deltaTime_init_next>
       <numIntegrationSubCycles vtype="integer"> 1 </numIntegrationSubCycles>
       <timeIncrement type="global">

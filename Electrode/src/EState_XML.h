@@ -391,6 +391,9 @@ public:
 
     //! The next delta T to be used on the next subintegration on the next global step
     double deltaTime_init_next_;
+
+    //! The  delta T to be used on the first subintegration on the this global step
+    double deltaTime_init_init_;
 };
 
 //==================================================================================================================================
@@ -577,7 +580,7 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCanter
  *  @param[in,out]           e_id                EState_ID_struct containing the structure to be filled in 
  *  @return                                      Returns true if successful
  */
-bool get_Estate_Indentification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct & e_id);
+bool get_Estate_Identification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct & e_id);
 
 //==================================================================================================================================
 //!   Read an EState XMLfile returning the last time step and its corresponding time

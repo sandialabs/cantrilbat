@@ -201,6 +201,8 @@ int main(int argc, char **argv)
       electrodeC->getMoleNumSpecies(molNum);
       double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
+      double startRE = 0.0; 
+      double finalRE = 0.0; 
  
       fprintf(fp, " %5d, %5d, %10.3E, %10.3E, %10.3E, %10.3E, %10.3E\n", itimes, numSubSteps, Tinitial, Tfinal, startRE, finalRE,  amps);
       electrodeC->printElectrode();              // Print out the state of the electrode 

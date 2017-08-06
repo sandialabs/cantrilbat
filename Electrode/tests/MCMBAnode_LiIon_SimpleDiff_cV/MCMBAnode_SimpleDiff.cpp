@@ -178,6 +178,7 @@ int main(int argc, char **argv)
 
  //   electrodeA->enableExtraPrinting_ = true;
     electrodeA->detailedResidPrintFlag_ = 4;
+    electrodeA->writeRestartFileOnSuccessfulStep_ = 2;
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;

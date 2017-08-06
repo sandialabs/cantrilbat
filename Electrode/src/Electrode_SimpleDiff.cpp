@@ -18,6 +18,10 @@ using namespace std;
 using namespace BEInput;
 using namespace TKInput;
 
+#ifndef SAVE_DELETE
+//! Delete a malloced quantity and set the pointer to 0
+#define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = nullptr ; }
+#endif
 
 static const double ONE_THIRD = 1.0 / 3.0;
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -1696,7 +1700,14 @@ double Electrode_SimpleDiff::fixMoleBalance_final_init()
 	}
 	kstart += nSpecies;
 	if (fatalError) {
-	    throw Electrode_Error("Electrode_SimpleDiff::checkMoles_final_init() ERROR",
+            if (eState_save_) {
+                 eState_save_->copyElectrode_intoState(this);
+                 SAFE_DELETE(xmlStateData_final_);
+                 xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
+                 makeXML_TI_intermediate();
+                 addtoXML_TI_final(false);
+            }
+	    throw Electrode_Error("Electrode_SimpleDiff::fixMoleBalance_final_init()",
 				  "Mass loss is too egregeous");
 	}
     }

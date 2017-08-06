@@ -350,7 +350,8 @@ ETimeInterval::ETimeInterval() :
      index_(-1),
      numIntegrationSubCycles_(1),
      etsList_(0),
-     deltaTime_init_next_(1.0E-8)
+     deltaTime_init_next_(1.0E-8),
+     deltaTime_init_init_(1.0E-8)
 {
 }
 //==================================================================================================================================
@@ -374,8 +375,8 @@ ETimeInterval::ETimeInterval(const ETimeInterval& right) :
      intervalType_(right.intervalType_),
      index_(right.index_),
      numIntegrationSubCycles_(right.numIntegrationSubCycles_),
-     etsList_(0),
-     deltaTime_init_next_(right.deltaTime_init_next_)
+     deltaTime_init_next_(right.deltaTime_init_next_),
+     deltaTime_init_init_(right.deltaTime_init_init_)
 {
      etsList_.resize(numIntegrationSubCycles_+1, 0);
      for (size_t k = 0; k < (size_t) (numIntegrationSubCycles_+1); ++k) {
@@ -405,6 +406,7 @@ ETimeInterval& ETimeInterval::operator=(const ETimeInterval& right)
          }
 
          deltaTime_init_next_ = right.deltaTime_init_next_;
+         deltaTime_init_init_ = right.deltaTime_init_init_;
      }
      return *this;
 }
@@ -423,24 +425,15 @@ ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index) const
      XML_Node* xtg = new XML_Node("globalTimeStep");
      xtg->addAttribute("index", int2str(ii));
      ZZctml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
+     ZZctml::addFloat(*xtg, "deltaTime_init_init", deltaTime_init_init_);
      ZZctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
      XML_Node* xti = new XML_Node("timeIncrement");
      xti->addAttribute("type", "global");
      for (size_t k = 0; k < etsList_.size(); ++k) {
          XML_Node* xmi = etsList_[k]->write_ETimeState_ToXML();
-#ifdef NEW_XML
          xti->addChildToTree(xmi); 
-#else
-         xti->addChild(*xmi); 
-         delete xmi;
-#endif
      }
-#ifdef NEW_XML
      xtg->addChildToTree(xti);
-#else
-     xtg->addChild(*xti);
-     delete xti;
-#endif
      return xtg;
 }
 //==================================================================================================================================
@@ -455,6 +448,7 @@ void ETimeInterval::read_ETimeInterval_fromXML(const ZZCantera::XML_Node& xTimeI
     index_ = atoi(nn.c_str());
     numIntegrationSubCycles_ = ZZctml::getInteger(xTimeInterval, "numIntegrationSubCycles");
     deltaTime_init_next_ = ZZctml::getFloat(xTimeInterval, "deltaTime_init_next");
+    deltaTime_init_init_ = ZZctml::getFloat(xTimeInterval, "deltaTime_init_init");
     const XML_Node* xTimeIncr = xTimeInterval.findByName("timeIncrement");
     std::vector<XML_Node*> xStatesList = xTimeIncr->getChildren("timeState");
     size_t num =  xStatesList.size();
@@ -603,7 +597,6 @@ ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionO
     if (index != -1) {
         windex = index;
     }
-#ifdef NEW_XML
     XML_Node* xEO = new XML_Node("electrodeOutput");
     xEO->addAttribute("index",  int2str(windex));
     ZZctml::addString(*xEO, "timeStamp", timeStamp_);
@@ -613,23 +606,8 @@ ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionO
 	ETimeInterval* eti = etiList_[k];
 	int timeIndex =  eti->index_;
 	XML_Node* xETI = eti->write_ETimeInterval_ToXML(timeIndex);
-	xEO->addChildToTree(ETI);
+	xEO->addChildToTree(xETI);
     }
-#else
-    XML_Node* xEO = new XML_Node("electrodeOutput");
-    xEO->addAttribute("index",  int2str(windex));
-    ZZctml::addString(*xEO, "timeStamp", timeStamp_);
-    XML_Node* xID = e_ID_.writeIdentificationToXML();
-    xEO->addChild(*xID);
-    delete xID;
-    for (size_t k = 0; k < etiList_.size(); ++k) {
-	ETimeInterval* eti = etiList_[k];
-	int timeIndex =  eti->index_;
-	XML_Node* xETI = eti->write_ETimeInterval_ToXML(timeIndex);
-	xEO->addChild(*xETI);
-        delete xETI;
-    }
-#endif
     return xEO;
 }
 //==================================================================================================================================
@@ -996,7 +974,7 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCanter
     return eStateX;
 }
 //====================================================================================================================================
-bool get_Estate_Indentification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct& e_id)
+bool get_Estate_Identification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct& e_id)
 {
 
     bool retn = true;
@@ -1048,7 +1026,6 @@ ZZCantera::EState* newEStateObject(std::string model, EState_Factory* f)
         f = EState_Factory::factory();
     }
     return f->newEStateObject(model);
-
 }
 //==================================================================================================================================
 /*
@@ -1070,7 +1047,7 @@ ZZCantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double
      *   Read the identification structure, putting that into e_id struct
      */
     EState_ID_struct e_id;
-    get_Estate_Indentification(*xEout , e_id);
+    get_Estate_Identification(*xEout , e_id);
     /*
      *   Malloc the appropriate type of EState object
      */

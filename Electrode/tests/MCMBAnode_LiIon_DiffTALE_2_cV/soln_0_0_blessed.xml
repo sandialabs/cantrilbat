@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Sun Jul 16 15:33:30 2017
+      Sat Aug  5 19:15:04 2017
     </string>
     <ElectrodeIdentification>
       <electrodeTypeString vtype="string"> DiffTALE </electrodeTypeString>
@@ -15,6 +15,7 @@
     </ElectrodeIdentification>
     <globalTimeStep index="1">
       <deltaTime_init_next vtype="float"> 5.000000000000000E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 2.500000000000000E-04 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 1 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -133,6 +134,7 @@
     </globalTimeStep>
     <globalTimeStep index="2">
       <deltaTime_init_next vtype="float"> 5.000000000000000E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 5.000000000000000E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -307,6 +309,7 @@
     </globalTimeStep>
     <globalTimeStep index="3">
       <deltaTime_init_next vtype="float"> 5.000000000000000E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 5.000000000000000E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -481,6 +484,7 @@
     </globalTimeStep>
     <globalTimeStep index="4">
       <deltaTime_init_next vtype="float"> 7.500000000000001E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 5.000000000000000E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -655,6 +659,7 @@
     </globalTimeStep>
     <globalTimeStep index="5">
       <deltaTime_init_next vtype="float"> 7.500000000000001E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 7.500000000000001E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -829,6 +834,7 @@
     </globalTimeStep>
     <globalTimeStep index="6">
       <deltaTime_init_next vtype="float"> 7.500000000000001E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 7.500000000000001E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -1003,6 +1009,7 @@
     </globalTimeStep>
     <globalTimeStep index="7">
       <deltaTime_init_next vtype="float"> 7.500000000000001E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 7.500000000000001E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -1177,6 +1184,7 @@
     </globalTimeStep>
     <globalTimeStep index="8">
       <deltaTime_init_next vtype="float"> 7.500000000000001E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 7.500000000000001E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -1351,6 +1359,7 @@
     </globalTimeStep>
     <globalTimeStep index="9">
       <deltaTime_init_next vtype="float"> 7.500000000000001E-06 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 7.500000000000001E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -1525,6 +1534,7 @@
     </globalTimeStep>
     <globalTimeStep index="10">
       <deltaTime_init_next vtype="float"> 1.125000000000000E-05 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 7.500000000000001E-06 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 2 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">

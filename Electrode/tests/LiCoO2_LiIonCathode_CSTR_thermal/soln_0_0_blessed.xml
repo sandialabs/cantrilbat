@@ -1,7 +1,7 @@
 <ctml>
   <electrodeOutput index="1">
     <string title="timeStamp">
-      Sun Jul 16 14:29:58 2017
+      Sat Aug  5 18:57:02 2017
     </string>
     <ElectrodeIdentification>
       <electrodeTypeString vtype="string"> CSTR_LiCoO2Cathode </electrodeTypeString>
@@ -12,9 +12,27 @@
       <electrodeDomainNumber vtype="integer"> 0 </electrodeDomainNumber>
       <electrodeCellNumber vtype="integer"> 0 </electrodeCellNumber>
       <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
+      <PhaseList_Id>
+        <PhaseList_DomainNumber vtype="integer"> 0 </PhaseList_DomainNumber>
+        <PhaseList_CellNumber vtype="integer"> 0 </PhaseList_CellNumber>
+        <PhaseList_Name vtype="string"> LiCoO2 </PhaseList_Name>
+        <nPhases vtype="integer"> 4 </nPhases>
+        <phaseIDStrings vtype="string">
+           metal_Li_LiIon_electrons;metal_Li_LiIon_electrons ECDMC_LiPF6;ECDMC_LiPF6 LiCoO2_Margules_1;LiCoO2_Margules_1 cathode_surface;cathode_surface 
+        </phaseIDStrings>
+        <phaseNumSpecies size="4" vtype="integerArray">
+          1, 3, 2,
+          1
+        </phaseNumSpecies>
+        <speciesNames vtype="string">
+          metal_Li_LiIon_electrons;metal_Li_LiIon_electrons ECDMC_LiPF6;ECDMC_LiPF6 LiCoO2_Margules_1;LiCoO2_Margules_1 cathode_surface;cathode_surface electron_Li_LiIon ECDMC Li+ PF6- 
+          LiCoO2 CoO2 li_site 
+        </speciesNames>
+      </PhaseList_Id>
     </ElectrodeIdentification>
     <globalTimeStep index="1">
       <deltaTime_init_next vtype="float"> 2.000000000000000E-04 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 1.000000000000000E-02 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 1 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
@@ -93,6 +111,7 @@
     </globalTimeStep>
     <globalTimeStep index="2">
       <deltaTime_init_next vtype="float"> 2.000000000000000E-04 </deltaTime_init_next>
+      <deltaTime_init_init vtype="float"> 2.000000000000000E-04 </deltaTime_init_init>
       <numIntegrationSubCycles vtype="integer"> 1 </numIntegrationSubCycles>
       <timeIncrement type="global">
         <timeState cellNumber="0" domain="0" type="t_init">
