@@ -83,7 +83,7 @@ public:
      *
      *  @return                                  Returns 0 if the evaluation was successful
      */
-    virtual int evalSS(const double t, const double* const x, double* const r) override {
+    virtual int evalResidSS(const double t, const double* const x, double* const r) override {
         // set the metal and the electrolyte voltage
         m_ee->setVoltages(x[0], 0.0);
         if (printLvl_ > 0) {
@@ -205,7 +205,7 @@ public:
      *
      *  @return                                  Returns 0 if the evaluation was successful
      */
-    virtual int evalSS(const double t, const double* const x, double* const r) override {
+    virtual int evalResidSS(const double t, const double* const x, double* const r) override {
         // set the metal and the electrolyte voltage
 
         ThermoPhase& mtp = m_rsd->thermo(ikMetalPhase_);

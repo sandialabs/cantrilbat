@@ -2313,12 +2313,12 @@ double Electrode::moleFraction(size_t globalSpeciesIndex) const
 {
     return spMf_final_[globalSpeciesIndex];
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::moleNumSpecies(size_t globalSpeciesIndex) const
 {
     return spMoles_final_[globalSpeciesIndex];
 }
-//================================================================================================
+//==================================================================================================================================
 // Returns the index of a phase in the ReactionSurfaceDomain object
 // given the index of that phase in the PhaseList object
 /*
@@ -2337,29 +2337,29 @@ size_t Electrode::ReactingSurfacePhaseIndex(size_t isk, size_t PLph) const
     }
     return (int) rsd->PLtoKinPhaseIndex_[PLph];
 }
-//================================================================================================
+//==================================================================================================================================
 void Electrode::setState_TP(double temperature, double pressure)
 {
     temperature_ = temperature;
     pressure_ = pressure;
     updateState();
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::temperature() const
 {
     return temperature_;
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::pressure() const
 {
     return pressure_;
 }
-//================================================================================================
+//==================================================================================================================================
 double Electrode::porosity() const
 {
     return porosity_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode::SolidVol() const
 {
     double vol = 0.0;
@@ -2375,14 +2375,15 @@ double Electrode::SolidVol() const
     }
     return vol;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode::SolidTotalMoles() const
 {
     double tot = 0.0;
     for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
         size_t kStart = m_PhaseSpeciesStartIndex[iph];
-        ThermoPhase& tp = thermo(iph);
-        size_t nspPhase = tp.nSpecies();
+        //ThermoPhase& tp = thermo(iph);
+        //size_t nspPhase = tp.nSpecies();
+        size_t nspPhase = NumSpeciesList_[iph];
         if (iph != solnPhase_ && (iph != metalPhase_)) {
             for (size_t k = 0; k < nspPhase; k++) {
                 tot += spMoles_final_[kStart + k];
@@ -2391,7 +2392,7 @@ double Electrode::SolidTotalMoles() const
     }
     return tot;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode::TotalVol(bool ignoreErrors) const
 {
     double vol = 0.0;
@@ -2431,7 +2432,7 @@ double Electrode::TotalVol(bool ignoreErrors) const
     }
     return vol;
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode::getPhaseVol(double* const phaseVols) const
 {
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {

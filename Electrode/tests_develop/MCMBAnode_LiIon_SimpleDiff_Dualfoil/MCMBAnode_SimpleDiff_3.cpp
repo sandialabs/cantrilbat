@@ -188,7 +188,8 @@ int main(int argc, char **argv)
     remove("soln.xml");
 
     //electrodeA->enableExtraPrinting_ = true;
-    electrodeA->detailedResidPrintFlag_ = 4;
+    electrodeA->setPrintLevel(9);
+    electrodeA->detailedResidPrintFlag_ = 10;
     //electrodeA->setMaxNumberSubCycles(40);
 
     nT = 5000; 
@@ -201,7 +202,6 @@ int main(int argc, char **argv)
       electrodeA->getMoleNumSpecies(molNum);
       double net[12];
       double amps = electrodeA->getIntegratedProductionRatesCurrent(net);
- 
       cout << setw(15) << Tfinal << setw(15) << amps << numSubIntegrations << endl;
       electrodeA->printElectrode();
       electrodeA->writeSolutionTimeIncrement();

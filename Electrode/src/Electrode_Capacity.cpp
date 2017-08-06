@@ -163,7 +163,7 @@ bool Electrode::checkCapacityBalances_final(int platNum) const
     denom = std::max(capOrig, capDischarged);
     denom = std::max(denom, 1.0E-50);
 #ifdef DEBUG_MASSLOSS
-    string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
+    std::string fff = "capCheck_" + int2str(electrodeCellNumber_) + ".txt";
     FILE *fp = fopen(fff.c_str(), "a");
     if (firstTime) {
 	fprintf(fp,"                  \"cap\"               \"capLeft\"             \" capDischarged\"            \"spMoles4\"   "

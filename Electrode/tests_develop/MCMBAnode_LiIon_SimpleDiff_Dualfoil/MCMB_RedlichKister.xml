@@ -10,7 +10,7 @@
 
   <phase dim="3" id="MCMB_Interstitials_anode">
     <elementArray datasrc="elements.xml">
-       Li C6-bulk
+        Li C6-bulk
     </elementArray>
     <speciesArray datasrc="#species_MCMB"> 
         Li_C6-bulk V_C6-bulk

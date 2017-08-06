@@ -73,15 +73,14 @@ Electrode_PhaseStability::Electrode_PhaseStability(const Electrode_PhaseStabilit
      */
     *this = operator=(right);
 }
-//====================================================================================================================
-// Destructor
+//==================================================================================================================================
 Electrode_PhaseStability::~Electrode_PhaseStability()
 {
     SAFE_DELETE(m_resid);
     SAFE_DELETE(jac_);
     SAFE_DELETE(pSolve_);
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Assignment operator
 /*
  *  @param right object to be copied
@@ -143,8 +142,7 @@ Electrode_PhaseStability& Electrode_PhaseStability::operator=(const Electrode_Ph
      */
     return *this;
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
 {
     bool found = false;
@@ -174,7 +172,7 @@ void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
                 CDotVector_pl_.push_back(mole_fractions);
                 DDotVector_pl_.push_back(mole_fractions);
                 DDotLinVector_pl_.push_back(mole_fractions);
-                string sss = tp->id();
+                std::string sss = tp->id();
                 phasePopNames_.push_back(sss);
 
                 int bigone = 0;
@@ -227,8 +225,7 @@ void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
     pSolve_->setRtol(1.0E-5);
     pSolve_->setBoundsConstraints(&ylow_[0], &yhigh_[0]);
 }
-//====================================================================================================================
-
+//==================================================================================================================================
 int Electrode_PhaseStability::determinePhaseStability(double& retnFunc)
 {
     printLvl_ = 9;
@@ -288,18 +285,17 @@ int Electrode_PhaseStability::determinePhaseStability(double& retnFunc)
     }
     return 0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 std::vector<std::vector<double> >& Electrode_PhaseStability::moleFractions()
 {
     return mfVector_pl_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 int Electrode_PhaseStability::nResidEquations() const
 {
     return neq_;
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 // Unpack the soln vector
 /*
  *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
@@ -332,8 +328,7 @@ int Electrode_PhaseStability::unpackNonlinSolnVector(const double* const y)
     }
     return 0;
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 // Pack the soln vector
 /*
  *  This function packs the solution vector
@@ -366,11 +361,10 @@ int Electrode_PhaseStability::packNonlinSolnVector(double* const y)
     }
     return 0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Seed the soln vector
 void Electrode_PhaseStability::seedMfVector()
 {
-
     for (int iii = 0; iii < nPhasesToPop_; iii++) {
         int ph = phasePopSolidIndexList_[iii];
         int iph = phasePopIndexList_[iii];
@@ -379,17 +373,12 @@ void Electrode_PhaseStability::seedMfVector()
 
         for (int sp = 0; sp < emp_->numSpecInSolidPhases_[ph]; sp++) {
             mfVector[sp] = emp_->spMf_final_[iStart+sp];
-
         }
-
-
     }
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_PhaseStability::updatePhaseMoleFractions(int iii, int iph)
 {
-
 
     int istart = emp_->m_PhaseSpeciesStartIndex[iph];
     ThermoPhase& tp = emp_->thermo(iph);
@@ -408,7 +397,7 @@ void Electrode_PhaseStability::updatePhaseMoleFractions(int iii, int iph)
     tp.getElectrochemPotentials(&(emp_->spElectroChemPot_[istart]));
 
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  *  Calculate CDot, DDot, DDotLin
  */
@@ -462,7 +451,7 @@ void Electrode_PhaseStability::extractInfo()
                 printf("\t\t   Outer surface ROP   %d  surfaceArea = %10.5g                                "
                        "        ROP      fwdROP        revROP     DeltaElectroChem\n", isk, surfaceArea);
                 for (int i = 0; i < emp_->numRxns_[isk]; i++) {
-                    string ss = rsd->reactionString(i);
+                    std::string ss = rsd->reactionString(i);
                     printf("\t\t    %-80.80s % -12.4e  % -12.4e  % -12.4e  % -12.4e\n", ss.c_str(), netROP[i],
                            fwdROP[i], revROP[i], deltaGrxn[i]);
                 }
@@ -520,7 +509,7 @@ void Electrode_PhaseStability::extractInfo()
 
 
         if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
-            string sss = phasePopNames_[iii];
+            std::string sss = phasePopNames_[iii];
             ThermoPhase tp = emp_->thermo(iph);
             printf("\t\t   Phase_%-15.15s:    "
                    "    X            NetROP       Creation     Destruction  Dest/X       Z\n", sss.c_str());
@@ -652,7 +641,7 @@ int Electrode_PhaseStability::optResid(const double tdummy, const double delta_t
         }
 
         if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
-            string sss =  phasePopNames_[iii];
+            std::string sss =  phasePopNames_[iii];
             double net = 0.0;
             double fnet = 0.0;
             double rnet = 0.0;
@@ -687,7 +676,6 @@ int Electrode_PhaseStability::optResid(const double tdummy, const double delta_t
 
     }
 
-
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         printf("\t\t=============================================================="
                "=================================================================\n");
@@ -695,8 +683,7 @@ int Electrode_PhaseStability::optResid(const double tdummy, const double delta_t
 
     return 1;
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 // Constructor of the functional
 /*
  *  @param elec pointer to the electrode model. This is usually the current Electrode class
@@ -707,7 +694,7 @@ Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::calcPhaseStabFunc_Resi
 {
     neq_ = eps_->nResidEquations();
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Evaluate the residual function
 /*
  * @param t             Time                    (input)
@@ -751,7 +738,7 @@ int Electrode_PhaseStability::calcPhaseStabFunc_ResidJacEval::nEquations() const
 {
     return neq_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Apply a filtering process to the step
 /*
  *  @param timeCurrent    Current value of the time
@@ -767,7 +754,7 @@ filterNewStep(const double timeCurrent, const double* const ybase,
 {
     return 0.0;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //   Determine the big mole fraction in the phase
 void  Electrode_PhaseStability::determineBigMoleFractions()
 {
@@ -790,11 +777,11 @@ void  Electrode_PhaseStability::determineBigMoleFractions()
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 } // End of #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
 #endif
-//======================================================================================================================
+//==================================================================================================================================
 
