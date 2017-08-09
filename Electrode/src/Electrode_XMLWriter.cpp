@@ -293,6 +293,11 @@ double Electrode::loadTimeState(const XML_Node& xTimeState)
         throw Electrode_Error("Electrode::loadTimeState()", "Could not find the electrodeState XMl element within XML state record");
     }
 
+    if (!eState_save_) {
+        // Create the object to read the XML file
+        electrode_stateSave_create();
+    }
+
     //  Read the state of the electrode into the Estate object
     eState_save_->readStateFromXML(*xState);
 
