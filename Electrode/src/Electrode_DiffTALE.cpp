@@ -535,12 +535,23 @@ int Electrode_DiffTALE::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     return 0;
 }
 //==================================================================================================================================
-int Electrode_DiffTALE::electrode_stateSave_create()
+int Electrode_DiffTALE::electrode_stateSave_create(bool force)
 {
+   if (eState_save_) {
+         if (!force) {
+             return 0;
+         } else {
+             delete eState_save_;
+         }
+    }
     eState_save_ = new EState_RadialDistrib();
     int rr = eState_save_->initialize(this);
     if (rr >= 0) {
         rr = 0;
+    }
+    if (!xmlStateData_final_) {
+        eState_save_->copyElectrode_intoState(this);
+        xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
     }
     return rr;
 }

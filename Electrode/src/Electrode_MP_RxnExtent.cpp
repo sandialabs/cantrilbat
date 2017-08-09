@@ -800,13 +800,6 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     return 0;
 }
 //====================================================================================================================
-int Electrode_MP_RxnExtent::electrode_stateSave_create()
-{
-    eState_save_ = new EState();
-    int rr = eState_save_->initialize(this);
-    return rr;
-}
-//====================================================================================================================
 void Electrode_MP_RxnExtent::setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity)
 {
     Electrode_Integrator::setElectrodeSizeParams(electrodeArea, electrodeThickness, porosity);
@@ -4322,15 +4315,11 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
     double io;
     double nu;
     double beta, resist;
-#ifdef DONOTREMOVE
-    double icurr = rsd->getExchangeCurrentDensityFormulation(irxn, &dStoich, &OCV, &io, &nu, &beta, &resist);
-#else
     bool okk = rsd->getExchangeCurrentDensityFormulation(irxn, dStoich, OCV, io, nu, beta, resist);
     double icurr = 0.0;
     if (okk) {
 	icurr = rsd->calcCurrentDensity(nu, dStoich, io, beta, temperature_, resist);
     }
-#endif
 
     printf("          OCV from (rsd)                                         %- 12.7g Volts\n", OCV);
     printf("          i_o                                                    %- 12.7E coul/sec/m2\n", io);

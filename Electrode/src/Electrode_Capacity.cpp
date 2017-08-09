@@ -298,7 +298,7 @@ double Electrode::calcRelativeExtentRxn_final() const
 {
     return depthOfDischargeFraction(-1);
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Reset the counters that keep track of the amount of discharge to date
 void Electrode::resetCapacityDischargedToDate() 
 {
@@ -309,17 +309,17 @@ void Electrode::resetCapacityDischargedToDate()
     electronKmolDischargedToDate_ = 0.0;
     depthOfDischargeStarting_ = depthOfDischarge();
 }
-//======================================================================================================================
+//==================================================================================================================================
 Electrode_Capacity_Type_Enum Electrode::capacityType() const
 {
     return electrodeCapacityType_;
 }
-//======================================================================================================================
+//==================================================================================================================================
 void  Electrode::setCapacityType(Electrode_Capacity_Type_Enum electrodeCapacityType)
 {
     electrodeCapacityType_ = electrodeCapacityType;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Set parameters that tell the object how to calculate the capacity of the electrode
 /*
  * @param sName          Name of the species that contains the capacity

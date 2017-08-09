@@ -425,10 +425,10 @@ public:
     /*!
      *  The pointer to the malloced object is saved in the internal variable eState_final_ .
      *  Because there is an object, the state of the electrode will be saved at each step.
-     *
-     *  @return                                   Returns zero if successful, and -1 if not successful.
+     *  @param[in]           force               Force the construction of a new object (false)
+     *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_stateSave_create();
+    virtual int electrode_stateSave_create(bool force = false); 
 
     //! Set the sizes of the electrode from the input parameters
     /*!
@@ -2243,8 +2243,8 @@ public:
 
     //! Returns the capacity type of the electrode
     /*!
-     *  @return returns whether the electrode capacity calculation is designated a
-     *                  anode or a cathode type
+     *  @return                                  Returns whether the electrode capacity calculation is designated an
+     *                                           anode or a cathode type
      */
     Electrode_Capacity_Type_Enum  capacityType() const;
 
@@ -3680,7 +3680,7 @@ private:
 	 *
 	 *     @return                            A return of zero indicates success. Anthing else is a failure
 	 */
-        int evalSS(const double t, const double* const y,  double* const r);
+        int evalResidSS(const double t, const double* const y,  double* const r);
 
 	//! get the initial conditions for the problem
 	/*!

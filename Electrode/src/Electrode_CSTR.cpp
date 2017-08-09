@@ -372,16 +372,6 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     return 0;
 }
 //==================================================================================================================================
-int Electrode_CSTR::electrode_stateSave_create()
-{
-    eState_save_ = new EState();
-    int rr = eState_save_->initialize(this);
-    if (rr >= 0) {
-        rr = 0;
-    }
-    return rr;
-}
-//==================================================================================================================================
 void Electrode_CSTR::init_sizes()
 {
     neq_ = nEquations_calc();

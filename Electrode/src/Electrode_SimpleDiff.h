@@ -142,10 +142,10 @@ public:
      *  Because this pointer is now non-null, the state of the electrode will be saved at each step
      *  and the electrode object has a restart capability.
      *  If the pointer is null, no restart information is generated
-     *
+     *  @param[in]           force               Force the creation of a new eState object. Defaults to false.
      *  @return                                  Returns zero if successful, and -1 if not successful.
      */
-    virtual int electrode_stateSave_create() override;
+    virtual int electrode_stateSave_create(bool force = false) override;
 
     //! Resize the solid phase and electrolyte mole numbers within the object
     /*!
