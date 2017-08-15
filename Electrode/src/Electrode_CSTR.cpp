@@ -1288,17 +1288,17 @@ int  Electrode_CSTR::predictSoln()
 
     return 1;
 }
-//====================================================================================================================
-// Unpack the soln vector
+//==================================================================================================================================
 /*
  *  This function unpacks the solution vector into deltaTsubcycleCalc_ and RelativeExtentRxn_final_
+ *   -> put in a check for negative mole fractions
  */
-void  Electrode_CSTR::unpackNonlinSolnVector(const double* const y)
+int Electrode_CSTR::unpackNonlinSolnVector(const double* const y)
 {
-    size_t index = 0;
+    size_t index = 1;
     deltaTsubcycleCalc_ = y[0];
     tfinal_ = tinit_ + deltaTsubcycleCalc_;
-    index++;
+    //bool mfAllpos = true;
 
     for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
         size_t iph = phaseIndexSolidPhases_[ph];
@@ -1335,6 +1335,7 @@ void  Electrode_CSTR::unpackNonlinSolnVector(const double* const y)
     RelativeExtentRxn_final_ = tmp;
 
     checkStillOnRegionBoundary();
+    return 1;
 }
 //==================================================================================================================================
 void Electrode_CSTR::checkStillOnRegionBoundary()

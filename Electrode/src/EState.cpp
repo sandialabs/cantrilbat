@@ -132,10 +132,6 @@ EState::EState() :
 {
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 EState::EState(const EState& right) :
     eRef_(right.eRef_),
     electrodeTypeString_(""),

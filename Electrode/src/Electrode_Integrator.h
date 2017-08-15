@@ -838,12 +838,17 @@ public:
      *  (virtual from Electrode_Integrator)
      *
      *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
+     *  If there is a bounds error, this routine will return an unsuccessful operation.
      *
      *  @param[in]           ySoln               Solution vector as returned from the time stepper.
      *                                           What the solution actually refers to depends on the individual Electrode objects.
      *                                           y[0] is always the current  deltaTsubcycleCalc_ value
+     *
+     *  @return                                   Returns a flag to indicate that operation is successful.
+     *                                           - 1  Means a successful operation
+     *                                           - 0  Means an unsuccessful operation
      */
-    virtual void unpackNonlinSolnVector(const double* const ySoln);
+    virtual int unpackNonlinSolnVector(const double* const ySoln);
 
     //! Check to see that the preceding step is a successful one
     /*!
@@ -1228,7 +1233,7 @@ protected:
 
     //! Vector of low bounds on the solution variables for the nonlinear solver
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Value of the solution components
      *  values at all global and local times
      */
@@ -1236,7 +1241,7 @@ protected:
 
     //! Vector of high bounds on the solution variables for the nonlinear solver
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Value of the solution components
      *  values at all global and local times
      */
@@ -1244,7 +1249,7 @@ protected:
 
     //! Vector of solution values for the nonlinear solver for the current final local time step
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Value of the solution components
      *  values at t_n
      */
@@ -1252,7 +1257,7 @@ protected:
 
     //! Vector of initial solution values for the nonlinear solver for the current  local time step
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Value of the solution components
      *  values at t_n-1
      */
@@ -1260,7 +1265,7 @@ protected:
 
     //! Vector of initial solution values for the nonlinear solver for the current global time step
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Value of the solution components
      *  values at tGlob_m-1
      */
@@ -1268,7 +1273,7 @@ protected:
 
     //! Vector of final solution values for the nonlinear solver for the current global time step
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Value of the solution components
      *  values at tGlob_m
      */
@@ -1282,7 +1287,7 @@ protected:
      *  value of yvalNLS_[]. ydotNLS_[] is kept consistent with yvalNLS_[] by calling calc_ydot() within the NonlinearSolver
      *  routine. After a successful converged step, ydotNLS_[] is transfered to solnDot_final_[]
      *
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units   Value of the solution components divided by deltaTsubgridcalc
      *  values at t_n
      */
@@ -1291,7 +1296,7 @@ protected:
     //! Vector of normalized error values at the current local time step
     //! multiplied by rtolNLS_. Thus a 10^-3 value would indicate the error is 1 part in 1000.
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  values at t_n
      */
     std::vector<double> errorLocalNLS_;
@@ -1300,7 +1305,7 @@ protected:
     //! multiplied by rtolNLS_. Thus a 10^-3 value would indicate the error is 1 part in 1000.
     /*!
      *  This is the accumulated error for an unknown over multiple sub time steps for the global m time step
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  values at tGlob_m
      */
     std::vector<double> errorGlobalNLS_;
@@ -1310,7 +1315,7 @@ protected:
      *  Step sizes that are smaller than this value are not controlled by numerical damping.
      *  Usually,  this is set to (1000 atol[i]). 
      *
-     *  length: ResidJacEval::neq_ 
+     *  Length: ResidJacEval::neq_ 
      *  Units:  These are the solution unknown units for the time stepping problem
      *  values at all time steps.
      */
@@ -1337,7 +1342,7 @@ protected:
      *  We use the equation system to come up with predictions. This approximation doesn't use solnDot to produce a guess.
      *  We augment this vector with the onBoundaryRegion value prediction.
      *
-     *  length: ResidJacEval::neq_ 
+     *  Length: ResidJacEval::neq_ 
      *  Units:  These are the solution unknown units for the time stepping problem
      *  Values: These are predictions at t_n given previous conditions
      */
@@ -1352,7 +1357,7 @@ protected:
 
     //! Vector of initial solution dot values for the nonlinear solver for the current local time step
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Solution components values divided by delta_t 
      *  values at t_n-1
      */
@@ -1363,7 +1368,7 @@ protected:
      *  This is used to store the solnDot values at the end of a converged solution. During the solution
      *  phase, ydotNLS_[] is used.
      *
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Solution components values divided by delta_t 
      *  values at t_n
      */
@@ -1371,7 +1376,7 @@ protected:
 
     //! Vector of final solution dot values for the nonlinear solver for the current global time step
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Solution components values divided by delta_t
      *  values at tGlob_m
      */
@@ -1379,7 +1384,7 @@ protected:
 
     //! Vector of initial solution dot values for the nonlinear solver for the current global time step
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Solution components values divided by delta_t 
      *  values at tGlob_m
      */
@@ -1391,7 +1396,7 @@ protected:
      *  and its derivative at the previous time step. This is the later guess. The best predictor is used to
      *  control the time step. 
      *
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Solution components values divided by delta_t 
      *  values at t_n
      */

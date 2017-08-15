@@ -26,12 +26,12 @@ DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode_extra.xml problem_setup.sh   LiCo
 BLESSED_FILES = LiCoO2_globalResults_blessed_0_0.csv  LiCoO2_intResults_blessed_0_0.csv \
          LiCoO2_blessed.out   LiCoO2Thermo_blessed.out soln_0_0_blessed.xml good_out.txt
 
-OUTPUT_FILES = out.txt   LiCoO2_intResults_0_0.csv    LiCoO2_globalResults_0_0.csv LiCoO2.out \
-               soln_0_0.xml  LiCoO2Thermo.out
-
-TEST_INTERMEDIATE_FILES = diff_csv.txt diff_summary.txt diff_out.txt diff_gcsv.txt  diff_xml.txt err_out.txt
+TEST_INTERMEDIATES = diff_csv.txt diff_summary.txt diff_out.txt diff_gcsv.txt  diff_xml.txt err_out.txt
 
 TEST_FLAGS =  runGood runBad runInProgress.txt
+
+TEST_RESULTS = out.txt  LiCoO2_intResults_0_0.csv    LiCoO2_globalResults_0_0.csv LiCoO2.out \
+               soln_0_0.xml  LiCoO2Thermo.out
 
 ##########################################################################
 #           Setup The Cantera Directory locations
@@ -186,12 +186,18 @@ dist_clean:
 	@MAKE@ clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2 .dependsT
 	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt
-
+	$(MAKE) clean_test
 
 clean:
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2 LiCoO2Thermo LiCoO2 .dependsT
-	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt
+	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt $(TEST_FLAGS)
 
 test_clean:
-	$(RM) LiCoO2_intResults_0_0.csv 
+	$(RM) LiCoO2_intResults_0_0.csv  $(TEST_FLAGS)
+
+clean_test:
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
 

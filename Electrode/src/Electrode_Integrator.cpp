@@ -1055,6 +1055,7 @@ topConvergence:
 
 
             int solnType = NSOLN_TYPE_STEADY_STATE;
+            //int solnType = NSOLN_TYPE_TIME_DEPENDENT;
 
             /*
              *  Set the tolerances on the solution variables
@@ -1858,9 +1859,10 @@ int Electrode_Integrator::calcDeltaSolnVariables(const double t, const double* c
  *
  *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
  */
-void Electrode_Integrator::unpackNonlinSolnVector(const double* const y)
+int Electrode_Integrator::unpackNonlinSolnVector(const double* const y)
 {
     throw Electrode_Error(" Electrode_Integrator::unpackNonlinSolnVector()", "unimplemented");
+    return 1;
 }
 //==================================================================================================================================
 bool Electrode_Integrator::checkSubIntegrationStepAcceptable() const

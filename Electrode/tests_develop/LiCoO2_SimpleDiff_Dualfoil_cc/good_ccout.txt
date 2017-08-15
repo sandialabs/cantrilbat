@@ -976,7 +976,7 @@ Electrode_ECurr: Curr(voltage =       3.632531723271) =   -0.002000002025007   n
 Electrode_ECurr: call integrate with voltage =       3.632531778058
 Electrode_ECurr: Curr(voltage =       3.632531778058) =     -0.0019999998934   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632531775174
-Electrode_ECurr: Curr(voltage =       3.632531775174) =   -0.002000000005611   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.632531775174) =    -0.00200000000561   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632531775325
 Electrode_ECurr: Curr(voltage =       3.632531775325) =   -0.001999999999705   nsteps = 1
 RootFind success: convergence achieved
@@ -1359,7 +1359,7 @@ Electrode_ECurr: Curr(voltage =       3.632475955634) =   -0.001999999891869   n
 Electrode_ECurr: call integrate with voltage =       3.632475952708
 Electrode_ECurr: Curr(voltage =       3.632475952708) =   -0.002000000005691   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632475952862
-Electrode_ECurr: Curr(voltage =       3.632475952862) =   -0.001999999999701   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.632475952862) =     -0.0019999999997   nsteps = 1
 RootFind success: convergence achieved
             0.9         -0.0021
    ==============================================================================================
@@ -1474,7 +1474,7 @@ RootFind success: convergence achieved
 Electrode_ECurr: call integrate with voltage =       3.632475952862
 Electrode_ECurr: Curr(voltage =       3.632475952862) =   -0.001999282701496   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632839200457
-Electrode_ECurr: Curr(voltage =       3.632839200457) =   -0.001985204581635   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.632839200457) =   -0.001985204581634   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632439628103
 Electrode_ECurr: Curr(voltage =       3.632439628103) =    -0.00200069599074   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632458524733
@@ -1727,8 +1727,8 @@ RootFind success: convergence achieved
    ==============================================================================================
 Electrode_ECurr: call integrate with voltage =       3.632439157178
 Electrode_ECurr: Curr(voltage =       3.632439157178) =     -0.0019992891468   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632802401094
-Electrode_ECurr: Curr(voltage =       3.632802401094) =   -0.001985211119407   nsteps = 1
+Electrode_ECurr: call integrate with voltage =       3.632802401093
+Electrode_ECurr: Curr(voltage =       3.632802401093) =   -0.001985211119407   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632402832786
 Electrode_ECurr: Curr(voltage =       3.632402832786) =    -0.00200070242671   nsteps = 1
 Electrode_ECurr: call integrate with voltage =        3.63242190409
@@ -2627,7 +2627,7 @@ Electrode_ECurr: Curr(voltage =       3.632295180526) =   -0.002000002147002   n
 Electrode_ECurr: call integrate with voltage =       3.632295238613
 Electrode_ECurr: Curr(voltage =       3.632295238613) =   -0.001999999886977   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632295235555
-Electrode_ECurr: Curr(voltage =       3.632295235555) =   -0.002000000005949   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.632295235555) =   -0.002000000005948   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632295235716
 Electrode_ECurr: Curr(voltage =       3.632295235716) =   -0.001999999999687   nsteps = 1
 RootFind success: convergence achieved
@@ -3125,7 +3125,7 @@ RootFind success: convergence achieved
 Electrode_ECurr: call integrate with voltage =       3.632242573106
 Electrode_ECurr: Curr(voltage =       3.632242573106) =   -0.001999323136564   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632605797363
-Electrode_ECurr: Curr(voltage =       3.632605797363) =   -0.001985245606241   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.632605797363) =    -0.00198524560624   nsteps = 1
 Electrode_ECurr: call integrate with voltage =        3.63220625068
 Electrode_ECurr: Curr(voltage =        3.63220625068) =   -0.002000736366295   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632226243088
@@ -3893,7 +3893,7 @@ Electrode_ECurr: Curr(voltage =       3.632102989429) =   -0.002000753883012   n
 Electrode_ECurr: call integrate with voltage =       3.632123457218
 Electrode_ECurr: Curr(voltage =       3.632123457218) =   -0.001999957393661   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632122304717
-Electrode_ECurr: Curr(voltage =       3.632122304717) =   -0.002000002234017   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.632122304717) =   -0.002000002234016   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632122365158
 Electrode_ECurr: Curr(voltage =       3.632122365158) =   -0.001999999882395   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.632122361976
@@ -5167,7 +5167,7 @@ Electrode_ECurr: Curr(voltage =        3.63195678075) =   -0.002000002315534   n
 Electrode_ECurr: call integrate with voltage =       3.631956843397
 Electrode_ECurr: Curr(voltage =       3.631956843397) =   -0.001999999878103   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.631956840099
-Electrode_ECurr: Curr(voltage =       3.631956840099) =   -0.002000000006415   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.631956840099) =   -0.002000000006416   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.631956840273
 Electrode_ECurr: Curr(voltage =       3.631956840273) =   -0.001999999999662   nsteps = 1
 RootFind success: convergence achieved
@@ -5790,7 +5790,7 @@ RootFind success: convergence achieved
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_ECurr: call integrate with voltage =       3.631892586092
-Electrode_ECurr: Curr(voltage =       3.631892586092) =   -0.001999381677484   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.631892586092) =   -0.001999381677485   nsteps = 1
 Electrode_ECurr: call integrate with voltage =        3.63225577535
 Electrode_ECurr: Curr(voltage =        3.63225577535) =   -0.001985305045697   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.631856267166
@@ -6429,7 +6429,7 @@ Electrode_ECurr: Curr(voltage =        3.63181377611) =   -0.001999394487568   n
 Electrode_ECurr: call integrate with voltage =       3.632176957488
 Electrode_ECurr: Curr(voltage =       3.632176957488) =   -0.001985318060683   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.631777457972
-Electrode_ECurr: Curr(voltage =       3.631777457972) =   -0.002000807605918   nsteps = 1
+Electrode_ECurr: Curr(voltage =       3.631777457972) =   -0.002000807605917   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.631799383673
 Electrode_ECurr: Curr(voltage =       3.631799383673) =   -0.001999954369839   nsteps = 1
 Electrode_ECurr: call integrate with voltage =       3.631798149396

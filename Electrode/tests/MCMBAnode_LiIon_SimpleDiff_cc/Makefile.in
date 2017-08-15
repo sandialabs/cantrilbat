@@ -25,6 +25,12 @@ DATA = anode.inp ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_Red
 
 OBJ = $(PROGRAM).o
 
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES =  diff_gcsv.txt  diff_ocsv.txt  diff_out.txt  diff_summary.txt  diff_tcsv.txt  diff_xml.txt err_out.txt
+
+TEST_RESULTS = out.txt  MCMB_globalResults_0_0.csv   outputTable.csv  soln_0_0.xml 
+
 ##########################################################################
 #           Setup The Cantera Directory locations
 #########################################################################
@@ -140,14 +146,11 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	../runtest_Electrode
 
-
 rebaseline:
 	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
 	cp outputTable.csv outputTable_blessed.csv
 	cp soln_0_0.xml soln_0_0_blessed.xml
 	cp out.txt good_out.txt
-
-##############################################################################
 
 $(OBJ_MPEQUIL): Makefile
 $(DEPENDS): Makefile
@@ -159,16 +162,24 @@ $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
+install:
+
+clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)
+	$(RM) ${PROG} anode_intSurf $(TEST_FLAGS)
+
+clean_test: 
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+
+clean_dist:
+	$(MAKE) clean_test
+	$(MAKE) clean
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
-clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM)
-	$(RM) ${PROG} anode_intSurf
 

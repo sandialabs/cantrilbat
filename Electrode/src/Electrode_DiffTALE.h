@@ -625,8 +625,12 @@ public:
      *  @param[in]           ySoln               Solution vector as returned from the time stepper.
      *                                           What the solution actually refers to depends on the individual Electrode objects.
      *                                           y[0] is always the current  deltaTsubcycleCalc_ value
+     *
+     * @return                                   Returns the success of the operation
+     *                                            1  success
+     *                                            0  failure - bounds problems
      */
-    virtual void unpackNonlinSolnVector(const double* const ySoln) override;
+    virtual int unpackNonlinSolnVector(const double* const ySoln) override;
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!

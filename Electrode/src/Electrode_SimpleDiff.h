@@ -440,6 +440,7 @@ public:
      */
     virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const override;
 
+
     //------------------------------------------------------------------------------------------------------------------
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -732,8 +733,12 @@ public:
      *  @param[in]           ySoln               Solution vector as returned from the time stepper.
      *                                           What the solution actually refers to depends on the individual Electrode objects.
      *                                           y[0] is always the current  deltaTsubcycleCalc_ value
+     *
+     *  @return                                  Returns the success of the operation
+     *                                             1 success
+     *                                             0 failure - bounds problems
      */
-    virtual void unpackNonlinSolnVector(const double* const ySoln) override;
+    virtual int unpackNonlinSolnVector(const double* const ySoln) override;
 
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
@@ -812,6 +817,19 @@ public:
                                double* const resid, const ResidEval_Type evalType, const int id_x,
                                const double delta_x) override;
 
+    //! Additional bounds checking
+    /*!
+     *  Do any problem specific bounds checking.
+     *
+     *  @param[in]           t                   Time                    (input)
+     *  @param[in]           ybase               Solution vector (input, output)
+     *  @param[in]           step                Proposed step in the solution that will be cropped
+     *
+     *  @return                                  returns the damping coefficient needed for this problem
+     */
+    virtual doublevalue boundsCheckAddn(const doublevalue t, const doublevalue* const ybase, const doublevalue* const step, 
+                                        const doublevalue dampIn) override;
+
     //! Main internal routine to calculate the residual
     /*!
      *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
@@ -852,6 +870,7 @@ public:
      *                                           Returns negative numbers to indicate types of failures.
      */
     virtual int calcResid(double* const resid, const ResidEval_Type evalType) override;
+
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions
     /*!
@@ -925,6 +944,7 @@ protected:
 
     //! Total number of equations defined at each node of the radial mesh
     size_t numEqnsCell_;
+
 
     //! Pointers to the ThermoPhase objects that make up the radially distributed portion of this Electrode object
     /*!
@@ -1419,6 +1439,12 @@ protected:
      *   Units:  unitless
      */
     std::vector<double> actCoeff_Cell_init_;
+
+    //! Temporary storage for solution vector
+    /*!
+     *   Length: ResidEvalJac::neq_
+     */
+    std::vector<double> m_yvalNLS_Alt;
 
     //! phase id of the phase which will die at the shortest time
     int phaseID_TimeDeathMin_;

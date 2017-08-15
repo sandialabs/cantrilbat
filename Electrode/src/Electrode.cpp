@@ -4271,25 +4271,27 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
 	deltaTsubcycle_init_next_ = 1.0E300;
     }
 }
-//====================================================================================================================
-// Returns the initial global time
-/*
- *  @return Returns the initial time
- */
+//==================================================================================================================================
+double Electrode::timeInit() const
+{
+    return tinit_;
+}
+//==================================================================================================================================
+double Electrode::timeFinal() const
+{
+    return tfinal_;
+}
+//==================================================================================================================================
 double Electrode::timeInitInit() const
 {
     return t_init_init_;
 }
-//====================================================================================================================
-// Returns the final global
-/*   
- *  @return Returns the final time
- */
+//==================================================================================================================================
 double Electrode::timeFinalFinal() const
 {
     return t_final_final_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Set the internal initial intermediate and initial global state from the internal final state
 /*
  *  (non-virtual function)  -> function should onionize in-first.
@@ -5720,6 +5722,11 @@ void Electrode::setDeltaTSubcycle(double deltaTsubcycle)
     deltaTsubcycleNext_ = deltaTsubcycle;
     deltaTsubcycle_init_next_ = deltaTsubcycle;
     deltaTsubcycle_init_init_ = deltaTsubcycle;
+}
+//====================================================================================================================
+double Electrode::deltaTsubcycle_init_init() const
+{
+    return deltaTsubcycle_init_init_;
 }
 //====================================================================================================================
 void Electrode::setDeltaTSubcycleMax(double deltaTsubcycle)

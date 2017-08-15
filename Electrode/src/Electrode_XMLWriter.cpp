@@ -229,6 +229,11 @@ void Electrode::loadGlobalTimeStepTFinalState(const XML_Node* const xGTS)
     if (ss != "globalTimeStep") {
         throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()", "Expected node named globalTimeStep. got " + ss);
     }
+    double deltaTime_init_init =  ZZctml::getFloat(*xGTS, "deltaTime_init_init");
+    double deltaTime_init_next =  ZZctml::getFloat(*xGTS, "deltaTime_init_next");
+    deltaTsubcycle_init_init_  = deltaTime_init_init;
+    deltaTsubcycle_init_next_  = deltaTime_init_next;
+
     const XML_Node* const xGTSI = xGTS->findByName("timeIncrement");
     if (!xGTSI) {
         throw Electrode_Error("Electrode::loadGlobalTimeStepTFinalState()", "could not find a node named timeIncrement");
@@ -256,6 +261,11 @@ void Electrode::loadGlobalTimeStepTInitState(const XML_Node* const xGTS)
     if (ss != "globalTimeStep") {
         throw Electrode_Error("Electrode::loadGlobalTimeStepTInitState()", "Expected node named globalTimeStep. got " + ss);
     }
+    double deltaTime_init_init = ZZctml::getFloat(*xGTS, "deltaTime_init_init");
+    double deltaTime_init_next = ZZctml::getFloat(*xGTS, "deltaTime_init_next");
+    deltaTsubcycle_init_init_  = deltaTime_init_init;
+    deltaTsubcycle_init_next_  = deltaTime_init_next;
+
     const XML_Node* const xGTSI = xGTS->findByName("timeIncrement");
     if (!xGTSI) {
         throw Electrode_Error("Electrode::loadGlobalTimeStepTInitState()", "could not find a node named timeIncrement");

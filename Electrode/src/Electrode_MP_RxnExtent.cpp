@@ -2492,11 +2492,12 @@ int  Electrode_MP_RxnExtent::predictSoln()
 /*
  *  This function unpacks the solution vector into deltaTsubcycleCalc_  and   RelativeExtentRxn_final_
  */
-void  Electrode_MP_RxnExtent::unpackNonlinSolnVector(const double* const y)
+int Electrode_MP_RxnExtent::unpackNonlinSolnVector(const double* const y)
 {
     deltaTsubcycleCalc_ = y[0];
     tfinal_ = tinit_ + deltaTsubcycleCalc_;
     RelativeExtentRxn_final_ = y[1];
+    return 1;
 }
 //====================================================================================================================
 // Main internal routine to calculate the rate constant

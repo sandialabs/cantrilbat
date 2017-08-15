@@ -292,8 +292,7 @@ int Electrode_SimpleDiff::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
     return 0;
 }
 //======================================================================================================================
-int
-Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
+int Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
     size_t jPh;
     /*
@@ -627,6 +626,8 @@ void Electrode_SimpleDiff::init_sizes()
 
     numLatticeCBR_init_.resize(numRCells_, 0.0);
     numLatticeCBR_final_.resize(numRCells_, 0.0);
+
+    m_yvalNLS_Alt.resize(neq_, 0.0);
 
     size_t maxNumRxns = RSD_List_[0]->nReactions();
     ROP_.resize(maxNumRxns, 0.0);
@@ -1343,14 +1344,17 @@ void Electrode_SimpleDiff::updateState()
         size_t indexMidKRSpecies =  iCell * numKRSpecies_;
         size_t kstart = 0;
         size_t indexCellPhase = iCell * numSPhases_;
-        /*
-         *  Loop over distributed phases
-         */
-        for (jRPh = 0; jRPh <  numSPhases_; jRPh++) {
 
+        //  Loop over distributed phases
+        for (jRPh = 0; jRPh < numSPhases_; ++jRPh) {
             ThermoPhase* th = thermoSPhase_List_[jRPh];
             size_t nSpecies = th->nSpecies();
             double phaseMoles = phaseMoles_KRsolid_Cell_final_[indexCellPhase + jRPh];
+            phaseMoles = 0.0;
+            for (size_t kSp = 0; kSp < nSpecies; kSp++) {
+                phaseMoles += spMoles_KRsolid_Cell_final_[indexMidKRSpecies + kstart + kSp];
+            }
+            phaseMoles_KRsolid_Cell_final_[indexCellPhase + jRPh] = phaseMoles;
             /*
              * Find the mole fractions
              *     from spMoles_KRsolid_Cell_final_;
@@ -1358,9 +1362,8 @@ void Electrode_SimpleDiff::updateState()
             if (phaseMoles > 1.0E-200) {
                 for (size_t kSp = 0; kSp < nSpecies; kSp++) {
                     size_t iKRSpecies = kstart + kSp;
-                    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] =  spMoles_KRsolid_Cell_final_[indexMidKRSpecies +
-                                                                                  iKRSpecies]
-                                                                                  / phaseMoles;
+                    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] =  
+                         spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] / phaseMoles;
                 }
             } else {
                 for (size_t kSp = 0; kSp < nSpecies; kSp++) {
@@ -1396,7 +1399,7 @@ void Electrode_SimpleDiff::updateState()
      *  Now, calculate the cell boundaries since we know the amount of material in each cell
      */
     cellBoundL_final_[0] = rnodePos_final_[0];
-    double cbL3_final =  cellBoundL_final_[0] *  cellBoundL_final_[0] *  cellBoundL_final_[0];
+    double cbL3_final = cellBoundL_final_[0] * cellBoundL_final_[0] * cellBoundL_final_[0];
     double cbR3_final = cbL3_final;
     for (iCell = 0; iCell < numRCells_; iCell++) {
         cbL3_final = cbR3_final;
@@ -1489,7 +1492,7 @@ void Electrode_SimpleDiff::checkGeometry() const
         }
     }
 }
-//========================================================================================================================
+//==================================================================================================================================
 //  Here we check to see if we can account for the mass loss
 /*
  *  Algorithm is to check for mass loss. If there is some, then add moles back into far last cell.
@@ -2270,6 +2273,7 @@ int Electrode_SimpleDiff::predictSoln()
 //==================================================================================================================
 int Electrode_SimpleDiff::predictSolnDot()
 {
+    int info;
     //
     //  All unknowns are mole numbers in the cells. These should remain positive. Therefore, we'll just
     //  damp the changes to make sure this is the case. The damping will cause a bad prediction. However,
@@ -2299,14 +2303,17 @@ int Electrode_SimpleDiff::predictSolnDot()
     // We only use the prediction if the predictSolnDot method is deemed the best predictor!
     //
     if (predictDotBetter_) {
-        unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+        info = unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+        if (info != 1) {
+            return -1;
+        }
         updateState();
         extractInfo();
         updateSpeciesMoleChangeFinal();
     }
     return 1;
 }
-//==================================================================================================================
+//================================================================================================================== 
 void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
 {
     packNonlinSolnVector(DATA_PTR(yvalNLS_init_));
@@ -2321,10 +2328,8 @@ void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
     }
 }
 //====================================================================================================================
-// Unpack the soln vector
 /*
- *  (virtual from Electrode_Integrator)
- *
+ * unpack the solution vector
  * --------------------------------------------------------------------------------------------------------------
  *         Residual (Time)                                     deltaSubcycleCalc_                   0
  *                                                                                            1
@@ -2337,30 +2342,45 @@ void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
  *            Residual (speciesMoles _ k=Ns-1)              spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
  *  --------------------------------------------------------------------------------------------------------------
  */
-void Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
+int Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 {
-    size_t index = 0;
-    size_t kstart, jRPh, iKRSpecies;
+    int retn = 1;
+    size_t index = 1;
+    size_t kstart, nsp, jRPh, istart;
     deltaTsubcycleCalc_ = y[0];
     tfinal_ = tinit_ + deltaTsubcycleCalc_;
-    index++;
 
     for (size_t iCell = 0; iCell < numRCells_; iCell++) {
         kstart = 0;
-
+        istart = iCell * numKRSpecies_;
         for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
-            size_t nsp = numSpeciesInKRSolidPhases_[jRPh];
+            nsp = numSpeciesInKRSolidPhases_[jRPh];
             phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
-            spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + kstart + 0]= y[index];
+            double tot = std::max(fabs(phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]), 1.0E-23);
+            spMoles_KRsolid_Cell_final_[istart + kstart]           = y[index];
             for (size_t kSp = 1; kSp < nsp; kSp++) {
-                iKRSpecies = kstart + kSp;
-                spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]      = y[index + kSp];
-                spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + kstart + 0] -= y[index + kSp];
+                spMoles_KRsolid_Cell_final_[istart + kstart + kSp] = y[index + kSp];
+                spMoles_KRsolid_Cell_final_[istart + kstart]      -= y[index + kSp];
+                if (y[index + kSp] < 0.0) {
+                    if (y[index + kSp] / tot > -1.0E-14) {
+                      spMoles_KRsolid_Cell_final_[istart + kstart + kSp] = 0.0;
+                    } else {
+                      retn = 0; 
+                    }
+                }
             }
+            if (spMoles_KRsolid_Cell_final_[istart + kstart] < 0.0) {
+                if (spMoles_KRsolid_Cell_final_[istart + kstart] / tot > -1.0E-14) {
+                  spMoles_KRsolid_Cell_final_[istart + kstart] = 0.0;
+                } else {
+                  retn = 0;
+                }
+            } 
             kstart += nsp;
             index += nsp;
         }
     }
+    return retn;
 }
 //==================================================================================================================================
 /*
@@ -2684,7 +2704,8 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  *
- * @return
+ * @return              1 successful
+ *                      0 or neg failure
  */
 int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t,
                                        const double* const y,
@@ -2717,8 +2738,7 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
                                          const ResidEval_Type evalType, const int id_x,
                                          const double delta_x)
 {
-
-    //int neq = nResidEquations();
+    int retn = 1;
 
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         printf("\t\t===============================================================================================================================\n");
@@ -2740,8 +2760,10 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
     /*
      *  UNPACK THE SOLUTION VECTOR
      */
-    unpackNonlinSolnVector(y);
-
+    retn = unpackNonlinSolnVector(y);
+    if (retn != 1) {
+        return -1;
+    }
 
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         if (phaseID_TimeDeathMin_ >= 0) {
@@ -2873,6 +2895,29 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
                "============================\n");
     }
     return 1;
+}
+//==================================================================================================================================
+double Electrode_SimpleDiff::boundsCheckAddn(const double t, const double* const ybase, const double* const step, 
+                                             const double dampIn) 
+{
+    double dampOut = dampIn;
+    int iter = 0;
+    int info;
+    bool ok = false;
+    while (!ok) {
+        iter++;
+        for (size_t i = 0; i < neq_; ++i) {
+            m_yvalNLS_Alt[i] = ybase[i] + dampOut * step[i];
+        }
+        info = unpackNonlinSolnVector(m_yvalNLS_Alt.data());
+        if (info != 1) {
+            dampOut *= 0.5;
+        } else {
+            ok = true;
+        }
+        if (iter >= 6) return 0.0;
+    }
+    return dampOut;
 }
 //==================================================================================================================================
 /*

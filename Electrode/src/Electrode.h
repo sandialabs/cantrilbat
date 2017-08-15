@@ -849,21 +849,40 @@ public:
 
     //! Get the final state time
     /*!
-     *  @return  Returns the time used in the _final_ state.
+     *  @deprecated
+     *  @return                                  Returns the time used in the _final_ state.
      */
     double getFinalTime() const;
 
+    //! Returns the initial intermediate time
+    /*!
+     *  @return                                  Returns the initial intermediate time
+     */
+    double timeInit() const;
+  
+    //! Returns the final intermediate time
+    /*!
+     *  @return                                  Returns the intermediate time
+     */
+    double timeFinal() const;
+
     //! Returns the initial global time
     /*!
-     *  @return Returns the initial time
+     *  @return                                  Returns the initial time
      */
     double timeInitInit() const;
   
     //! Returns the final global time
     /*!
-     *  @return Returns the final time
+     *  @return                                  Returns the final global time
      */
     double timeFinalFinal() const;
+
+    //! Returns the next time step value for the first subcycle of the global time step
+    /*!
+     *  @return                                  returns the deltaT for the subcycle of the global time step
+     */ 
+    double deltaTsubcycle_init_init() const;
 
     //! The internal state of the electrode must be kept for the initial and final times of an integration step.
     /*!

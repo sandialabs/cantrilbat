@@ -2272,7 +2272,7 @@ void Electrode_DiffTALE::check_yvalNLS_init(bool doOthers)
  *            Residual (Concentration _ k=Ns-1)               concKRSpecies_Cell_final_[iCell * numKRSpecies_ + iKRSpecies]
  *  --------------------------------------------------------------------------------------------------------------
  */
-void Electrode_DiffTALE::unpackNonlinSolnVector(const double* const y)
+int Electrode_DiffTALE::unpackNonlinSolnVector(const double* const y)
 { 
     size_t index = 0;
     size_t kstart, jRPh, iKRSpecies;
@@ -2304,6 +2304,7 @@ void Electrode_DiffTALE::unpackNonlinSolnVector(const double* const y)
 	    index += nsp;
 	}
     }
+    return 1;
 }
 //==================================================================================================================================
 /*
