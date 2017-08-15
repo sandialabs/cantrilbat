@@ -824,6 +824,7 @@ dnl      some reason. I have yet to find out why.
 dnl
 
 AC_OUTPUT(Makefile \
+          bin/runtest_Electrode \
           batteryDevelop/Makefile \
           batteryDevelop/MCMBAnode/Makefile \
           batteryDevelop/MCMBAnode/MCMB_Mao/Makefile \
@@ -976,6 +977,7 @@ AC_OUTPUT(Makefile \
           util_src/tests/test_timer/Makefile \
           )
 #
+chmod +x  bin/runtest_Electrode
 chmod +x  1Delectrode/test_suite/runtest
 chmod +x  Electrode/tests/runtest_Electrode
 #

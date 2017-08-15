@@ -19,142 +19,142 @@ CT_prefix =  @ct_prefix@
 #  all:   Compiles all programs, both application and tests
 #
 all:
-	cd util_src;                      @MAKE@
-	cd ctpadds;                       @MAKE@
-	cd Electrode;                     @MAKE@
-	cd 1Delectrode;                   @MAKE@
-	cd mpequil;                       @MAKE@
-	cd epequil;                       @MAKE@
-	cd cttables;                      @MAKE@
-	cd fitShomate;                    @MAKE@
-	cd electrodeCell;                 @MAKE@
-	cd imt_model;                     @MAKE@
-	cd batteryDevelop;		  @MAKE@
-	cd utilProg;			  @MAKE@
+	cd util_src;                      $(MAKE)
+	cd ctpadds;                       $(MAKE)
+	cd Electrode;                     $(MAKE)
+	cd 1Delectrode;                   $(MAKE)
+	cd mpequil;                       $(MAKE)
+	cd epequil;                       $(MAKE)
+	cd cttables;                      $(MAKE)
+	cd fitShomate;                    $(MAKE)
+	cd electrodeCell;                 $(MAKE)
+	cd imt_model;                     $(MAKE)
+	cd batteryDevelop;		  $(MAKE)
+	cd utilProg;			  $(MAKE)
 #
 # allsrc:  This makes executables and libraries that will be installed, only.
 #          It skips making tests for the most part
 allsrc:
-	cd util_src;                      @MAKE@
-	cd ctpadds;                       @MAKE@
-	cd Electrode;                     @MAKE@ allsrc
-	cd 1Delectrode;                   @MAKE@ allsrc
-	cd mpequil;                       @MAKE@ allsrc
-	cd epequil;                       @MAKE@ allsrc
-	cd cttables;                      @MAKE@ allsrc
-	cd electrodeCell;                 @MAKE@ allsrc
-	cd batteryDevelop;		  @MAKE@
-	cd utilProg;			  @MAKE@
+	cd util_src;                      $(MAKE)
+	cd ctpadds;                       $(MAKE)
+	cd Electrode;                     $(MAKE) allsrc
+	cd 1Delectrode;                   $(MAKE) allsrc
+	cd mpequil;                       $(MAKE) allsrc
+	cd epequil;                       $(MAKE) allsrc
+	cd cttables;                      $(MAKE) allsrc
+	cd electrodeCell;                 $(MAKE) allsrc
+	cd batteryDevelop;		  $(MAKE)
+	cd utilProg;			  $(MAKE)
 #
 # allback: Compile all programs from the back
 #
 allback:
-	cd utilProg;		          @MAKE@
-	cd batteryDevelop;		  @MAKE@
-	cd imt_model;                     @MAKE@
-	cd electrodeCell;                 @MAKE@
-	cd fitShomate;                    @MAKE@
-	cd cttables;                      @MAKE@
-	cd epequil;                       @MAKE@
-	cd mpequil;                       @MAKE@
-	cd 1Delectrode;                   @MAKE@
-	cd Electrode;                     @MAKE@
-	cd ctpadds;                       @MAKE@
-	cd util_src;                      @MAKE@
+	cd utilProg;		          $(MAKE)
+	cd batteryDevelop;		  $(MAKE)
+	cd imt_model;                     $(MAKE)
+	cd electrodeCell;                 $(MAKE)
+	cd fitShomate;                    $(MAKE)
+	cd cttables;                      $(MAKE)
+	cd epequil;                       $(MAKE)
+	cd mpequil;                       $(MAKE)
+	cd 1Delectrode;                   $(MAKE)
+	cd Electrode;                     $(MAKE)
+	cd ctpadds;                       $(MAKE)
+	cd util_src;                      $(MAKE)
 #
 # clean: Clean all executables, depends files, and objects from the directory tree.
 #        Leaves the current output from test programs (IMPLEMENTATION IN PROGRESS).
 #
 clean:
 	cd utilProg;		          $(MAKE) clean
-	cd batteryDevelop;		  @MAKE@ clean
-	cd util_src;                      @MAKE@ clean
-	cd ctpadds;$(RM) .depends ;       @MAKE@ clean
-	cd Electrode;                     @MAKE@ clean
-	cd 1Delectrode;                   @MAKE@ clean
-	cd mpequil;                       @MAKE@ clean
-	cd epequil;                       @MAKE@ clean
-	cd cttables;                      @MAKE@ clean
-	cd fitShomate;                    @MAKE@ clean
-	cd electrodeCell;                 @MAKE@ clean
-	cd imt_model;                     @MAKE@ clean
+	cd batteryDevelop;		  $(MAKE) clean
+	cd util_src;                      $(MAKE) clean
+	cd ctpadds;$(RM) .depends ;       $(MAKE) clean
+	cd Electrode;                     $(MAKE) clean
+	cd 1Delectrode;                   $(MAKE) clean
+	cd mpequil;                       $(MAKE) clean
+	cd epequil;                       $(MAKE) clean
+	cd cttables;                      $(MAKE) clean
+	cd fitShomate;                    $(MAKE) clean
+	cd electrodeCell;                 $(MAKE) clean
+	cd imt_model;                     $(MAKE) clean
 #
 #  test_clean: Clean all traces of tests taken in the directory tree.
 #              Removes objects and executables from test directories.
 #
 test_clean:
-	cd util_src;                      @MAKE@ clean
-	cd ctpadds;$(RM) .depends ;       @MAKE@ clean
-	cd Electrode;                     @MAKE@ test_clean
-	cd 1Delectrode;                   @MAKE@ test_clean
-	cd mpequil;                       @MAKE@ clean
-	cd epequil;                       @MAKE@ clean
-	cd cttables;                      @MAKE@ clean
-	cd fitShomate;                    @MAKE@ clean
-	cd electrodeCell;                 @MAKE@ clean
-	cd imt_model;                     @MAKE@ clean
-	cd batteryDevelop;		  @MAKE@ clean
+	cd util_src;                      $(MAKE) clean
+	cd ctpadds;$(RM) .depends ;       $(MAKE) clean
+	cd Electrode;                     $(MAKE) test_clean
+	cd 1Delectrode;                   $(MAKE) test_clean
+	cd mpequil;                       $(MAKE) clean
+	cd epequil;                       $(MAKE) clean
+	cd cttables;                      $(MAKE) clean
+	cd fitShomate;                    $(MAKE) clean
+	cd electrodeCell;                 $(MAKE) clean
+	cd imt_model;                     $(MAKE) clean
+	cd batteryDevelop;		  $(MAKE) clean
 	cd utilProg;			  $(MAKE) clean
 #
 #  dist_clean: Carries out all of the operations of clean and test_clean:
 #              Also wipes out all installed file that this module is responsible for posting.
 #
 dist_clean:
-	cd util_src;                      @MAKE@ dist_clean
-	cd ctpadds;			  $(RM) .depends ;     @MAKE@ clean
-	cd Electrode;                     @MAKE@ dist_clean
-	cd 1Delectrode;                   @MAKE@ clean
-	cd mpequil;                       @MAKE@ clean
-	cd epequil;                       @MAKE@ clean
-	cd cttables;                      @MAKE@ clean
-	cd fitShomate;                    @MAKE@ clean
-	cd electrodeCell;                 @MAKE@ clean
-	cd imt_model;                     @MAKE@ clean
-	cd batteryDevelop;		  @MAKE@ clean
+	cd util_src;                      $(MAKE) dist_clean
+	cd ctpadds;			  $(RM) .depends ;     $(MAKE) clean
+	cd Electrode;                     $(MAKE) dist_clean
+	cd 1Delectrode;                   $(MAKE) clean
+	cd mpequil;                       $(MAKE) clean
+	cd epequil;                       $(MAKE) clean
+	cd cttables;                      $(MAKE) clean
+	cd fitShomate;                    $(MAKE) clean
+	cd electrodeCell;                 $(MAKE) clean
+	cd imt_model;                     $(MAKE) clean
+	cd batteryDevelop;		  $(MAKE) clean
 	cd utilProg;			  $(MAKE) clean
 #
 # depends:  Calculates all depends files from scratch
 #
 depends:
-	cd util_src;                     @MAKE@ depends
-	cd ctpadds;                      @MAKE@ depends
-	cd Electrode;                    @MAKE@ depends
-	cd 1Delectrode;                  @MAKE@ depends
-	cd mpequil;                      @MAKE@ depends
-	cd epequil;                      @MAKE@ depends
-	cd cttables;                     @MAKE@ depends
-	cd fitShomate;                   @MAKE@ depends
-	cd electrodeCell;                @MAKE@ depends
-	cd imt_model;                    @MAKE@ depends
-	cd batteryDevelop;	         @MAKE@ depends
+	cd util_src;                     $(MAKE) depends
+	cd ctpadds;                      $(MAKE) depends
+	cd Electrode;                    $(MAKE) depends
+	cd 1Delectrode;                  $(MAKE) depends
+	cd mpequil;                      $(MAKE) depends
+	cd epequil;                      $(MAKE) depends
+	cd cttables;                     $(MAKE) depends
+	cd fitShomate;                   $(MAKE) depends
+	cd electrodeCell;                $(MAKE) depends
+	cd imt_model;                    $(MAKE) depends
+	cd batteryDevelop;	         $(MAKE) depends
 	cd utilProg;			 $(MAKE) depends
 
 #
 # test:       Carries out all tests
 #
 test:
-	cd util_src;                      @MAKE@ -s test
-	cd Electrode;                     @MAKE@ -s test
-	cd 1Delectrode;                   @MAKE@ -s test
-	cd mpequil;                       @MAKE@ -s test
-	cd epequil;                       @MAKE@ -s test
-	cd cttables;                      @MAKE@ -s test
-	cd electrodeCell;                 @MAKE@ -s test
-	cd imt_model;                     @MAKE@ -s test
-	cd batteryDevelop;		  @MAKE@ -s test
+	cd util_src;                      $(MAKE) -s test
+	cd Electrode;                     $(MAKE) -s test
+	cd 1Delectrode;                   $(MAKE) -s test
+	cd mpequil;                       $(MAKE) -s test
+	cd epequil;                       $(MAKE) -s test
+	cd cttables;                      $(MAKE) -s test
+	cd electrodeCell;                 $(MAKE) -s test
+	cd imt_model;                     $(MAKE) -s test
+	cd batteryDevelop;		  $(MAKE) -s test
 
 #
 # testback:       Carries out back tests
 #                      skips the Electrode and 1Delectrode tests
 #
 testback:
-	cd batteryDevelop;		  @MAKE@ -s test
-	cd util_src;                      @MAKE@ -s test
-	cd mpequil;                       @MAKE@ -s test
-	cd epequil;                       @MAKE@ -s test
-	cd cttables;                      @MAKE@ -s test
-	cd electrodeCell;                 @MAKE@ -s test
-	cd imt_model;                     @MAKE@ -s test
+	cd batteryDevelop;		  $(MAKE) -s test
+	cd util_src;                      $(MAKE) -s test
+	cd mpequil;                       $(MAKE) -s test
+	cd epequil;                       $(MAKE) -s test
+	cd cttables;                      $(MAKE) -s test
+	cd electrodeCell;                 $(MAKE) -s test
+	cd imt_model;                     $(MAKE) -s test
 
 #
 # install_clean
@@ -172,17 +172,18 @@ install:
 	@ @INSTALL@ -d @cta_libdir@
 	@ @INSTALL@ -d @cta_bindir@
 	cd bin;       $(INSTALL_TSC)  runtest_Exec @cta_bindir@
+	cd bin;       $(INSTALL_TSC)  runtest_Electrode @cta_bindir@
 	$(INSTALL_TSC) configCantrilbat.h  @cta_incdir@
-	cd util_src;                      @MAKE@ install
-	cd ctpadds;                       @MAKE@ install
-	cd Electrode;                     @MAKE@ install
-	cd 1Delectrode;                   @MAKE@ install
-	cd mpequil;                       @MAKE@ install
-	cd epequil;                       @MAKE@ install
-	cd cttables;                      @MAKE@ install
-	cd fitShomate;                    @MAKE@ install
-	cd electrodeCell;                 @MAKE@ install
-	cd imt_model;                     @MAKE@ install
+	cd util_src;                      $(MAKE) install
+	cd ctpadds;                       $(MAKE) install
+	cd Electrode;                     $(MAKE) install
+	cd 1Delectrode;                   $(MAKE) install
+	cd mpequil;                       $(MAKE) install
+	cd epequil;                       $(MAKE) install
+	cd cttables;                      $(MAKE) install
+	cd fitShomate;                    $(MAKE) install
+	cd electrodeCell;                 $(MAKE) install
+	cd imt_model;                     $(MAKE) install
 	cd utilProg;                      $(MAKE) install
 #
 

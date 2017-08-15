@@ -1,0 +1,509 @@
+#!/bin/sh
+################################################################################################################################
+#      Electrode Test Harness Runner
+#
+#   runtest_Electrode [ PROGRAM  [ $PROGRAM_OPTS ] ]
+#
+#################################################################################################################################
+#  Default values set here
+XED_ATOL=1.0E-13
+XED_RTOL=1.0E-6
+XED_PL=6
+#
+################################################################################################################################
+function cleanup {
+  if test -e runInProgress.txt
+  then
+    /bin/rm -f runInProgress.txt
+    echo "  Run Interrupted: " `date` > runBad
+    /bin/rm -f runGood
+  fi
+  exit 0
+}
+#
+DIFF_REQUIRED="True"
+#
+################################################################################################################################
+#  chop_head: Remove the 1st element of a string
+#
+chop_head() {
+    shift
+    echo "$@"
+}
+#
+################################################################################################################################
+# first_el: Echo the 1st element of a string
+#
+first_el() {
+    echo "$1"
+}
+#
+################################################################################################################################
+#
+#   Compare two XML electrode ouput files using the xmlElectrodeDiff command
+#
+#   arg 1 = blessed file
+#   arg 2 = other file to be compared
+#   arg 3 = diffOutputFileName  (this is optional) (the default is to use diff_{$gg}.txt
+# 
+#   Environment:
+#        Summary file to put a one line entry in : diff_summary.txt
+#      DIFF_REQUIRED        environmental variable that flags whether difference is fatal to the test
+#      retnstat_cum         Environmental variable that gets set to nonzero whenever there is a fatal bad result
+#                           It's not touched by good results.
+#
+#
+xml_electrode_compare() {
+
+   bb=$1
+   gg=$2
+
+   difname=''
+   filename=''
+   diff_comparison_file="diff_summary.txt"
+
+   if test $# -ge 3
+   then
+      difname=$3
+   else
+      filename="${gg%.*}"
+      difname=diff_"$filename".txt
+   fi
+   diffCode='0'
+
+   if  test ! -f $bb 
+   then
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $bb "
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $bb " >> $diff_comparison_file
+        echo "  Bad dataFile: " `date` > runBad
+        /bin/rm -f runGood
+        retnStat_cum=5
+        return 5
+   fi
+   if  test ! -f $gg 
+   then
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $gg "
+        echo "     * FAILED: diff comparison ($bb vs. $gg). Could not find file, $gg " >> $diff_comparison_file
+        echo "  Bad dataFile: " `date` > runBad
+        /bin/rm -f runGood
+        retnStat_cum=5
+        return 5
+   fi
+
+   $XMLELECTRODEDIFF -a $XED_ATOL -r $XED_RTOL -d $XED_PL $bb $gg > $difname
+   retnStat=$?
+   if test $retnStat = "0"
+   then
+        echo "     * PASSED: diff comparison ($bb vs. $gg)"
+        echo "     * PASSED: diff comparison ($bb vs. $gg)" >> $diff_comparison_file
+    else
+        echo "     * FAILED: diff comparison ($bb vs. $gg)"
+        echo "     * FAILED: diff comparison ($bb vs. $gg)" >> $diff_comparison_file
+        diffCode='FAILED'
+        if test $DIFF_REQUIRED = "True"
+        then
+           echo "  Bad dataFile: " `date` > runBad
+           /bin/rm -f runGood
+           retnStat_cum=$retnStat
+        else
+            echo "     *       : However not required for test success"
+            echo "     *       : However not required for test success" >> $diff_comparison_file
+            retnStat="0"
+        fi
+    fi
+    unset bb
+    unset gg
+    unset difname
+    unset filename
+
+    return $retnStat
+}
+################################################################################################################################
+#
+#  Run a csvdiff program against files
+# 
+#   arg 1 = blessed file
+#   arg 2 = test    file
+#   arg 3 = diffOutputFileName  (this is optional) (the default is to use diff_{$gg}.txt
+# 
+#   Environment:
+#        Summary file to put a one line entry in : diff_summary.txt
+#      DIFF_REQUIRED        environmental variable that flags whether difference is fatal to the test
+#      retnstat_cum         Environmental variable that gets set to nonzero whenever there is a fatal bad result
+#                           It's not touched by good results.
+#
+csvdiff_compare_file() {
+
+   bb=$1
+   gg=$2
+
+   difname=''
+   filename=''
+   diff_comparison_file="diff_summary.txt"
+
+   if test $# -ge 3
+   then
+      difname=$3
+   else
+      filename="${gg%.*}"
+      difname=diff_"$filename".txt
+   fi
+   /bin/rm -rf $difname
+ 
+   csvdiff -a $XED_ATOL -r $XED_RTOL  $bb $gg > $difname
+   retnStat=$?
+   if test $retnStat = "0"
+   then
+        echo "     * PASSED: csvdiff comparison ($bb vs. $gg)"
+        echo "     * PASSED: csvdiff comparison ($bb vs. $gg)" >> $diff_comparison_file
+    else
+        echo "     * FAILED: csvdiff comparison ($bb vs. $gg)"
+        echo "     * FAILED: csvdiff comparison ($bb vs. $gg)" >> $diff_comparison_file
+        diffCode='FAILED'
+        if test $DIFF_REQUIRED = "True"
+        then
+          echo "  Bad dataFile: " `date` > runBad
+          /bin/rm -f runGood
+          retnStat_cum=$retnStat
+        else
+            echo "     *       : However not required for test success"
+            echo "     *       : However not required for test success" >> $diff_comparison_file
+            retnStat="0"
+        fi
+    fi
+    unset bb
+    unset gg
+    unset difname
+    unset filename
+
+    return $retnStat
+}
+#
+################################################################################################################################
+#
+#   Compare two ascii files using the generic diff command
+#
+#   arg 1 = blessed file
+#   arg 2 = other file to be compared
+#  arg 3 = diffOutputFileName  (this is optional) (the default is to use diff_{$gg}.txt
+# 
+#   Environment:
+#        Summary file to put a one line entry in : diff_summary.txt
+#      DIFF_REQUIRED        environmental variable that flags whether difference is fatal to the test
+#      retnstat_cum         Environmental variable that gets set to nonzero whenever there is a fatal bad result
+#                           It's not touched by good results.
+#
+diff_compare_file() {
+
+   bb=$1
+   gg=$2
+
+   difname=''
+   filename=''
+   diff_comparison_file="diff_summary.txt"
+
+   if test $# -ge 3
+   then
+      difname=$3
+   else
+      filename="${gg%.*}"
+      difname=diff_"$filename".txt
+   fi
+   diffCode='0'
+
+   diff $bb $gg >> $difname
+   retnStat=$?
+   if test $retnStat = "0"
+   then
+        echo "     * PASSED: diff comparison ($bb vs. $gg)"
+        echo "     * PASSED: diff comparison ($bb vs. $gg)" >> $diff_comparison_file
+    else
+        echo "     * FAILED: diff comparison ($bb vs. $gg)"
+        echo "     * FAILED: diff comparison ($bb vs. $gg)" >> $diff_comparison_file
+        diffCode='FAILED'
+        if test $DIFF_REQUIRED = "True"
+        then
+          echo "  Bad dataFile: " `date` > runBad
+          /bin/rm -f runGood
+          retnStat_cum=$retnStat
+        else
+            echo "     *       : However not required for test success"
+            echo "     *       : However not required for test success" >> $diff_comparison_file
+            retnStat="0"
+        fi
+    fi
+    unset bb
+    unset gg
+    unset difname
+    unset filename
+    return $retnStat
+}
+#
+###############################################################################################################
+#
+#        MAIN PROGRAM
+#
+###############################################################################################################
+#
+fff='0'
+while getopts "fh" opt; do
+  case $opt in
+    f  ) fff='1' ;;
+    h  ) echo 'usage runtest_Electrode [-f] [-h] [ PROGRAM [ PROGRAM_OPTS] ] '
+        exit 1 ;;
+    \? ) echo 'usage runtest_Electrode [-f] [-h] [ PROGRAM [ PROGRAM_OPTS] ]'
+        exit 1 ;;
+  esac
+done
+shift $(($OPTIND - 1))
+#
+#       READ THE SETUP FOR THE PROBLEM
+#
+. ./problem_setup.sh
+#
+#
+if test $# -ge 1
+then
+   //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
+   PROGRAM=$1
+   shift
+fi
+#
+# Add to the defaults via the command line
+#       PROGRAM_OPTS is set within problem_setup.sh to specify the default arguments
+#
+if test $# -ge 1
+then
+   //echo 'more than one ' $# ' '  $0 ' ' $1 ' '  $? '  ' $@
+   PROGRAM_OPTS="$PROGRAM_OPTS $@"
+   shift
+fi
+#
+###############################################################################################################
+#
+#
+#  Check the file flag to see if a run is in progress
+#
+if test -f runInProgress.txt
+then
+  if test $fff == '0'
+  then
+    echo 'Runner ' $$ ': Test skipped due to runInProgress.txt flag: ' `pwd`
+    echo '               Remove the flag file if you want to run the test'
+    exit 0
+  fi
+fi
+echo $$ > runInProgress.txt
+#
+#  trap interrupt and signals. 
+#
+trap cleanup INT TERM TSTP QUIT
+#
+#############################################################################################################################
+#
+#  Remove temporary files
+#
+Files=" out_raw.txt out.txt outa.txt err_out.txt diff_xml.txt  diff_out.txt \
+            solution.xml diff_b*.txt diff_s*.txt diff_s3.txt diff_IV.txt \
+            runGood runBad diff_summary.txt"
+readCleanFiles=$EXTRA_WHACKED_FILES
+Files+=`echo "$readCleanFiles"`
+#  echo 'Files to be whacked: ' $Files
+/bin/rm  -f  $Files
+#
+#############################################################################################################################
+#
+#  This is where we bring in the CANTERA_APPS_INSTALL_DIR location.
+#  If it is defined in the environment, we use the environment. Autoconf will create a default
+#  value for this variable.
+#
+CANTERA_APPS_INSTALL_DIR=${CANTERA_APPS_INSTALL_DIR:=@cta_prefix@}
+CANTERA_APPS_INSTALL_BINDIR=${CANTERA_APPS_INSTALL_DIR}/bin
+#
+#############################################################################################################################
+#
+#   Check directories and files for existence
+#
+if test ! -d ${CANTERA_APPS_INSTALL_DIR}
+then
+   echo 'Fatal error. Dir , ' ${CANTERA_APPS_INSTALL_DIR} ', doesn't exist or isn't a directory'
+   /bin/rm -f runInProgress.txt
+   exit -1
+fi
+
+if test ! -d ${CANTERA_APPS_INSTALL_BINDIR}
+then
+   echo 'Fatal error. Dir , ' ${CANTERA_APPS_INSTALL_BINDIR} ', doesn't exist or isn't a directory'
+   /bin/rm -f runInProgress.txt
+   exit -1
+fi
+#
+#  Find and resolve the soln differencer
+#      -> Can either pull from the source directory or the install dir. The general rule is that current module
+#         always pulls from itself. Downstream modules pull from the install dir only.  
+pullFromInstall=1
+#
+XBINDIR=${CANTERA_APPS_INSTALL_BINDIR}
+if test $pullFromInstall = 1
+then
+  XBINDIR=${CANTERA_APPS_INSTALL_BINDIR}
+else
+  XBINDIR=@abs_top_builddir@/Electrode/src_tests
+fi
+XMLELECTRODEDIFF=${XBINDIR}/xmlElectrodeDiff
+if test ! -x ${XMLELECTRODEDIFF}
+then
+   echo 'Fatal error. file xmlElectrodeDiff, ' ${XMLELECTRODEDIFF} ', doesn't exist or isn't executable'
+   /bin/rm -f runInProgress.txt
+   exit -1
+fi
+# 
+############################################################################################################################
+#
+# Create a symbolic link to the executable, if none exists already
+#
+if test ! -x $PROGRAM   ; then
+  if test -x ${CANTERA_APPS_INSTALL_BINDIR}/${PROGRAM} ; then
+    ln -s ${CANTERA_APPS_INSTALL_BINDIR}/${PROGRAM} .
+  else
+    echo 'ERROR:  ' $PROGRAM ' executable can not be found'
+    /bin/rm -f runInProgress.txt
+    exit -1
+  fi
+fi
+# 
+############################################################################################################################
+#
+# Actually run the calculation
+#
+ELECTRODE_EXE=$PROGRAM
+#
+# Specify the program options
+#
+export M1D_PRINT_DEBUGTABLES="false"
+export M1D_PRINT_TIMINGINFORMATION="false"
+ELECTRODE_TURN_OFF_PC_PRINTING=true
+export ELECTRODE_TURN_OFF_PC_PRINTING
+#
+# Execute the command
+#
+echo "$ELECTRODE_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt"
+      $ELECTRODE_EXE $PROGRAM_OPTS  > out.txt 2>err_out.txt
+retnStat_run=$?
+if test $retnStat_run != "0"
+then
+  temp_success="0"
+  echo "${PROGRAM} returned with bad status, $retnStat, check output"
+  /bin/rm -f runInProgress.txt
+  exit 0
+fi
+# 
+############################################################################################################################
+#
+# Run the XML diff program to see if the calculation has passed 
+#
+retnStat_cum="0"
+#
+# xml_electrode_compare  $SOLUTION_BLESSED_XML $SOLUTION_XML $SOLUTION_XML_DIFFNAME
+#
+# 
+############################################################################################################################
+#
+for b in $SOLUTION_BLESSED_XML
+do
+    g=`first_el $SOLUTION_XML`
+    n=`first_el $SOLUTION_XML_DIFFNAME`
+    DIFF_REQUIRED="True"
+    xml_electrode_compare $b $g $n
+    retnStat_xml=$?
+   # csvdiff_compare_file $b $g $n
+
+    SOLUTION_XML=`chop_head $SOLUTION_XML`
+    SOLUTION_XML_DIFFNAME=`chop_head $SOLUTION_XML_DIFFNAME`
+done
+
+#
+############################################################################################################################
+#
+for b in $BLESSED_CSV_FILES
+do
+    g=`first_el $CSV_FILES`
+    n=`first_el $DIFF_CSV_NAMES`
+    r=`first_el $DIFF_CSV_REQ`
+    DIFF_REQUIRED="True"
+    if [ $r = "True" ]
+    then
+       DIFF_REQUIRED="True"
+    elif  [ $r = "False" ]
+    then
+        DIFF_REQUIRED="False"
+    else
+        echo "Unknown DIFF_REQ field: must be True or False:" '"'$r'"'
+        /bin/rm runInProgress.txt
+        exit -1
+    fi
+    csvdiff_compare_file $b $g $n
+
+    CSV_FILES=`chop_head $CSV_FILES`
+    DIFF_CSV_NAMES=`chop_head $DIFF_CSV_NAMES`
+    DIFF_CSV_REQ=`chop_head $DIFF_CSV_REQ`
+done
+#
+#####################################################################################################################
+#
+for b in $BLESSED_DATA_FILES
+do
+    g=`first_el $DATA_FILES`
+    n=`first_el $DIFF_NAMES`
+    r=`first_el $DIFF_REQ`
+    DIFF_REQUIRED="True"
+    if [ $r = "True" ]
+    then
+       DIFF_REQUIRED="True"
+    elif  [ $r = "False" ]
+    then
+        DIFF_REQUIRED="False"
+    else
+        echo "Unknown DIFF_REQ field: must be True or False:" '"'$r'"'
+        /bin/rm runInProgress.txt
+        exit -1
+    fi
+    diff_compare_file $b $g $n
+
+    DATA_FILES=`chop_head $DATA_FILES`
+    DIFF_NAMES=`chop_head $DIFF_NAMES`
+    DIFF_REQ=`chop_head $DIFF_REQ`
+done
+# 
+############################################################################################################################
+#
+# Determine the overall success of the run
+#
+eCode=$retnStat_run_
+if test $retnStat_run = "0"
+then
+   eCode=$retnStat_cum
+fi
+
+if [ $eCode == "0" ]
+then
+  echo "Successful   test comparison of \"$TEST_NAME\" in dir, "`pwd`
+
+  echo "  Test Passed: " `date` > runGood
+  /bin/rm -f runBad
+else
+  echo "Unsuccessful test comparison of \"$TEST_NAME\" in dir, "`pwd`
+  echo "  Test Failed: " `date` > runBad
+  /bin/rm -f runGood
+fi
+#
+#  Release the semiphore
+#
+/bin/rm runInProgress.txt
+#
+# return 0 for no errors, 1 for errors which break the test suite
+#
+exit 0
+#
+############################################################################################################################
+#
