@@ -1,5 +1,6 @@
-/*
- * $Id: FuncElectrodeCurrent.h 534 2013-02-22 21:33:41Z hkmoffa $
+/**
+ *  @file funcElectrodeCurrent.h
+ *
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -10,26 +11,22 @@
 #ifndef _FUNCELECTRODECURRENT_H
 #define _FUNCELECTRODECURRENT_H
 
-//#include "cantera/numerics/ResidEval.h"
-//#include "cantera/numerics/RootFind.h"
-
 #include "m1d_SolNonlinear.h"
 #include "m1d_SolNonlinear_CurrentSolve.h"
 #include "m1d_ProblemResidEval.h"
 
 #include "Electrode.h"
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
 namespace Cantera
-#endif 
+#endif
 {
 
-
-//! Class to solve the battery equations at a constant voltage condition, and then report the resulting
-//! current as a function value
+//==================================================================================================================================
+//! Class to solve the battery equations at a constant voltage condition, and then report the resulting current as a function value
 /*!
  *   This class is a child of the ResidEval class
  */
@@ -42,28 +39,37 @@ public:
      *
      *
      */
-    CurrentFunc(m1d::SolNonlinear_CurrentSolve * solverC, m1d::SolNonlinear * solverV, m1d::ProblemResidEval *func,
-                m1d::Epetra_Vector_Ghosted *y_comm, m1d::Epetra_Vector_Ghosted *ydot_comm, double CJ, double time_curr,
+    CurrentFunc(m1d::SolNonlinear_CurrentSolve* solverC, m1d::SolNonlinear* solverV, m1d::ProblemResidEval* func,
+                m1d::Epetra_Vector_Ghosted* y_comm, m1d::Epetra_Vector_Ghosted* ydot_comm, double CJ, double time_curr,
                 double deltaT);
 
+    //! Destructor
     ~CurrentFunc();
 
-    int nEquations() const;
-
-    //!  Function to calculate the current given a voltage
+    //! Return the number of equations
     /*!
-     *
+     *  @return                                  Returns a value of 1
      */
-    virtual int evalSS(const double t, const double* const x, double* const r);
+    virtual int nEquations() const override;
+
+    //! Function to calculate the current given a voltage
+    /*!
+     *  @param[in]           t                   Time
+     *  @param[in]           x                   Vector of unknowns
+     *  @param[out]          r                   Residual to be calculated
+     *
+     *  @return                                  Returns 1 if ok
+     */
+    virtual int evalResidSS(const double t, const double* const x, double* const r);
 
     void set_deltaT(double deltaT);
 
     m1d::SolNonlinear_CurrentSolve* m_solver_constantCurr;
     m1d::SolNonlinear* m_solver_constantVoltage;
 
-    m1d::ProblemResidEval *m_func_constV;
-    m1d::Epetra_Vector_Ghosted *m_y_comm;
-    m1d::Epetra_Vector_Ghosted *m_ydot_comm;
+    m1d::ProblemResidEval* m_func_constV;
+    m1d::Epetra_Vector_Ghosted* m_y_comm;
+    m1d::Epetra_Vector_Ghosted* m_ydot_comm;
 
     double m_deltaT;
 
@@ -77,9 +83,9 @@ public:
     static int fileInit_;
 
     //! provides output of currents given voltage guesses so you can watch the iterative process.
-    FILE *ivResultFile_;
+    FILE* ivResultFile_;
 };
-
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
