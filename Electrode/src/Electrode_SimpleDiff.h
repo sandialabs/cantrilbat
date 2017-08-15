@@ -142,6 +142,7 @@ public:
      *  Because this pointer is now non-null, the state of the electrode will be saved at each step
      *  and the electrode object has a restart capability.
      *  If the pointer is null, no restart information is generated
+     *
      *  @param[in]           force               Force the creation of a new eState object. Defaults to false.
      *  @return                                  Returns zero if successful, and -1 if not successful.
      */
@@ -181,7 +182,7 @@ public:
     //! Initialize the distribution of species evenly across the radius
     /*!
      *  This routine takes the spMoles values and spreads the values evenly in the radial
-     *  direction so that the radial concencentrations are constant
+     *  direction so that the radial concencentrations and mole fractions are constant.
      */
     void initializeAsEvenDistribution();
 
@@ -206,10 +207,10 @@ public:
 
     //! Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
     /*!
-     *  This is an extensive quantity.
      *  (virtual from Electrode)
+     *  This is an extensive quantity.
      *
-     *  @return                                  Joule K-1
+     *  @return                                  Returns the heat capacity of the solid phases (Joule K-1)
      */
     virtual double SolidHeatCapacityCV() const override;
 
@@ -218,7 +219,7 @@ public:
      *  (virtual from Electrode)
      *  This is an extensive quantity.
      *
-     *  @return                                  returns the total enthalpy (Joules)
+     *  @return                                  Returns the total enthalpy (Joules)
      */
     virtual double SolidEnthalpy() const override;
 
@@ -236,6 +237,7 @@ public:
     //! Collect mole change information
     /*!
      *  (virtual from Electrode_Integrator)
+     * 
      *  We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
      *  and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
      *  all species in the electrode due to surface reactions
@@ -260,8 +262,8 @@ public:
      *  @param[in]           varNames            string names of the fields
      *  @param[in]           numFields           Number of variables to be printed out (this is the inner loop).
      */
-    void showOneField(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
-		      const double * const vals, const std::vector<std::string> &varNames, int numFields);
+    void showOneField(const std::string &title, int indentSpaces, const double* const radialValues, int numRadialVals, 
+		      const double* const vals, const std::vector<std::string> &varNames, int numFields);
 
     //! Print a group of radially varying field variables to stdout. Print the init vs the final for each
     /*!
@@ -281,7 +283,7 @@ public:
      *  @param[in]           numFields           Number of variables to be printed out (this is the inner loop).
      */
     void showOneFieldInitFinal(const std::string &title, int indentSpaces, const double * const radialValues, int numRadialVals, 
-			const double * const vals_init,  const double * const vals_final,
+			const double* const vals_init,  const double * const vals_final,
 			const std::vector<std::string> &varNames, int numFields);
 
     //! Print out the residual and associated tolerances for one field variable that is distributed over the radial coordinate

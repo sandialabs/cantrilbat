@@ -2222,23 +2222,23 @@ int Electrode_SimpleDiff::predictSolnResid()
 
     return 1;
 }
-//==================================================================================================================
+//==================================================================================================================================
 int Electrode_SimpleDiff::predictSoln()
 {
     int retn = -1;
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
 #ifdef DEBUG_MODE
-    if (counterNumberSubIntegrations_==29) {
+//    if (counterNumberSubIntegrations_==29) {
 //	printf("WARNING deltaTubcycle_ = %g,  counterNumberSubIntegrations_=%d\n", deltaTsubcycle_, counterNumberSubIntegrations_ );
-    }
+//    }
 #endif
     /*
      * Copy initial to final
      */
     setFinalStateFromInit();
     /*
-     *  Update the Internal State of ThermoPhase Objects
+     *  Update the internal State of ThermoPhase Objects
      */
     updateState();
     /*
@@ -2257,8 +2257,7 @@ int Electrode_SimpleDiff::predictSoln()
      *  If we can't do a prediction set it back to the initial state
      */
     if (retn < 0) {
-        setFinalStateFromInit();
-        updateState();
+        return retn;
     }
     /*
      *  Keep a copy of the estimated soln vector to do a predictor corrector step
@@ -2270,7 +2269,7 @@ int Electrode_SimpleDiff::predictSoln()
 
     return retn;
 }
-//==================================================================================================================
+//==================================================================================================================================
 int Electrode_SimpleDiff::predictSolnDot()
 {
     int info;
@@ -2313,7 +2312,7 @@ int Electrode_SimpleDiff::predictSolnDot()
     }
     return 1;
 }
-//================================================================================================================== 
+//==================================================================================================================================
 void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
 {
     packNonlinSolnVector(DATA_PTR(yvalNLS_init_));

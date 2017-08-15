@@ -916,8 +916,7 @@ topConvergence:
              */
             attemptSubCycle++;
             if (attemptSubCycle > 10) {
-                throw Electrode_Error("Electrode_Integrator::integrate()",
-                                   "FAILURE too many nonlinear convergence failures");
+                throw Electrode_Error("Electrode_Integrator::integrate()", "FAILURE too many nonlinear convergence failures");
             }
 	    tfinal_ = tinit_ + deltaTsubcycle_;
 	    tfinal_start = tfinal_;
@@ -926,22 +925,20 @@ topConvergence:
              */
             std::fill(phaseJustDied_.begin(), phaseJustDied_.end(), 0);
             std::fill(phaseJustBorn_.begin(), phaseJustBorn_.end(), 0);
-
             /*
-             * Ok at this point we have a time step deltaTsubcycle_
-             * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
-             * We now calculate predicted solution components from these conditions.
-             * Additionally, we evaluate whether any multispecies phases are going to pop into existence,
-             * adding in potential seed values and we set the phaseExistence flags in the kinetics solver
+             *  Ok at this point we have a time step deltaTsubcycle_ and initial conditions consisting of 
+             *  phaseMoles_init_ and spMF_init_. We now calculate predicted solution components from these conditions.
+             *  Additionally, we evaluate whether any multispecies phases are going to pop into existence,
+             *  adding in potential seed values and we set the phaseExistence flags in the kinetics solver
              */
             int info = predictSoln();
 #ifdef DEBUG_MODE
-	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
-		//	printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
-	    }
+	 //   if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
+	 //       printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
+	 //   }
 #endif
             if (info != 1) {
-                conseqFailures++ ;
+                conseqFailures++;
                 nonlinConverged = 0;
                 if (printCSVLvl_) {
                     writeCSVData(-2);
