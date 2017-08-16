@@ -113,15 +113,19 @@ public:
     /*!
      *  @param[in]           emp                 Pointer to to a SimpleDiff electrode whose state will be copied into this
      *                                           container.
+     *  @param[in]           doFinal             Copy the final quantities. Defaults to true
+     *                                           If false it copies the init quantitites.
      */
-    void copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp);
+    void copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp, bool doFinal = true);
 
     //! Copy the current contents of a SimpleDiff Electrode into this state
     /*!
      *  @param[in]           emp                 Pointer to to a DiffTALE electrode whose state will be copied into this
      *                                           container.
+     *  @param[in]           doFinal             Copy the final quantities. Defaults to true
+     *                                           If false it copies the init quantitites.
      */
-    void copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp);
+    void copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp, bool doFinal = true);
 
     //! Set the State of this object from the state of the Electrode object
     /*!
@@ -136,8 +140,10 @@ public:
      *  @param e   Pointer to the Electrode object. Note, this class may use dynamic casting
      *             to choose a child object, and then may invoke an error if the match isn't
      *             correct.
+     *  @param[in]           doFinal             Copy the final quantities. Defaults to true
+     *                                           If false it copies the init quantitites.
      */
-    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e) override;
+    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal = true) override;
 
     //! Set the state of a SimpleDiff electrode object from the contents of this object
     /*!

@@ -1,13 +1,4 @@
 #
-#
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.2 2010/07/13 01:30:41 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
-#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
@@ -26,6 +17,11 @@ PROGRAM = anode_5_intSurf
 TEST_NAME = LiSi_Anode_5_Integrate
 PROGRAM_ORIGIN=$(PROGRAM)
 
+TEST_FLAGS = runGood runBad runInProgress.txt
+
+TEST_INTERMEDIATES = diff_out.txt err_out.txt
+
+TEST_RESULTS = out.txt
 
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
@@ -40,7 +36,6 @@ TOPDIR = @abs_top_builddir@
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-
 #
 # Set up the Cantera addition library
 #
@@ -130,9 +125,9 @@ depends:
 	cat *.d > .depends
 
 test:
-	@@MAKE@ -s
+	@ $(MAKE) -s all
 	@echo -n 'Checking need to run test $(TEST_NAME): '
-	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
+	@ $(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
 
 runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
@@ -154,16 +149,22 @@ anode_5_intSurf: $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
-
-ifeq ($(wildcard .depends), .depends)
-include .depends
-endif
-
+install:
 
 clean:
 	$(RM) *.o  .depends *.d *~
 	$(RM) ${PROG} anode_intSurf
 
+clean_dist:
+	$(MAKE) clean
+	$(MAKE) clean_test
+
+clean_test:
+	$(RM) $(TEST_RESULTS) $(TEST_INTERMEDIATES) $(TEST_FLAGS)
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif

@@ -696,15 +696,15 @@ public:
      */
     int predictSolnResid();
 
-    //! Predict the solution
+    //! Predict the solution at the next time step
     /*!
-     * Ok at this point we have a time step deltalimiTsubcycle_
-     * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
-     * We now calculate predicted solution components from these conditions.
+     *  Ok at this point we have a time step deltalimiTsubcycle_
+     *  and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+     *  We now calculate predicted solution components from these conditions.
      *
-     *  Calls predictSolnResid(). If it works that good, if not reduce time step and call again.
+     *  Calls predictSolnResid(). If it works that good, if not reduce the time step and call the procedure again.
      *
-     * @return                                   Returns the success of the operation
+     *  @return                                  Returns the success of the operation
      *                                            1  A predicted solution is achieved
      *                                            2  A predicted solution with a multispecies phase pop is acheived
      *                                            0  A predicted solution is not achieved, but go ahead anyway

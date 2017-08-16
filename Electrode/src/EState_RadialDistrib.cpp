@@ -187,10 +187,10 @@ void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
     ZZctml::getFloatArray(xmlEState, concKRSpecies_Cell_, true, "", "concKRSpecies_Cell");
     ZZctml::getFloatArray(xmlEState, spMoles_KRsolid_Cell_, true, "", "spMoles_KRsolid_Cell");
 }
-//======================================================================================================================
-void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp)
+//==================================================================================================================================
+void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const ZZCantera::Electrode_SimpleDiff* const emp, bool doFinal)
 {
-    EState::copyElectrode_intoState(emp);
+    EState::copyElectrode_intoState(emp, doFinal);
 
     rnodePos_                    = emp->rnodePos_final_;
     cellBoundR_                  = emp->cellBoundR_final_;
@@ -198,10 +198,10 @@ void EState_RadialDistrib::copyElectrode_SimpleDiff_intoState(const ZZCantera::E
     concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
     spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
 }
-//======================================================================================================================
-void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp)
+//==================================================================================================================================
+void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const ZZCantera::Electrode_DiffTALE* const emp, bool doFinal)
 {
-    EState::copyElectrode_intoState(emp);
+    EState::copyElectrode_intoState(emp, doFinal);
 
     rnodePos_                    = emp->rnodePos_final_;
     cellBoundR_                  = emp->cellBoundR_final_;
@@ -209,7 +209,7 @@ void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const ZZCantera::Ele
     concKRSpecies_Cell_          = emp->concKRSpecies_Cell_final_;
     spMoles_KRsolid_Cell_        = emp->spMoles_KRsolid_Cell_final_;
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Set the State of this object from the state of the Electrode object
 /*
  *  (virtual function)
@@ -223,15 +223,15 @@ void EState_RadialDistrib::copyElectrode_DiffTALE_intoState(const ZZCantera::Ele
  *             to choose a child object, and then may invoke an error if the match isn't
  *             correct.
  */
-void EState_RadialDistrib::copyElectrode_intoState(const ZZCantera::Electrode* const e)
+void EState_RadialDistrib::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal)
 {
     const ZZCantera::Electrode_SimpleDiff* const emp = dynamic_cast<const ZZCantera::Electrode_SimpleDiff* const>(e);
     if (emp) {
-        copyElectrode_SimpleDiff_intoState(emp);
+        copyElectrode_SimpleDiff_intoState(emp, doFinal);
     } else {
        const ZZCantera::Electrode_DiffTALE* const edt = dynamic_cast<const ZZCantera::Electrode_DiffTALE* const>(e);
        if (edt) {
-          copyElectrode_DiffTALE_intoState(edt);
+          copyElectrode_DiffTALE_intoState(edt, doFinal);
        } else {
           throw Electrode_Error("EState_RadialDistrib::copyElectrode_intoState()","bad cast");
        }

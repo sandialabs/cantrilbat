@@ -479,13 +479,13 @@ int  Electrode_Integrator::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
     create_solvers();
     return 0;
 }
-//===================================================================================================================
+//==================================================================================================================================
 size_t Electrode_Integrator::nEquations_calc() const
 {
     throw Electrode_Error("Electrode_Integrator::nEquations_calc()", "Parent member function called");
     return 0;
 }
-//===================================================================================================================
+//==================================================================================================================================
 int Electrode_Integrator::create_solvers()
 {
     //
@@ -544,7 +544,7 @@ int Electrode_Integrator::create_solvers()
     pSolve_ = new NonlinearSolver(this);
     return neqNLS;
 }
-//===================================================================================================================
+//==================================================================================================================================
 int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
 {
     int numDofs = 0;
@@ -793,7 +793,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
 
     //  Save the Electrode state into an XML state object
     if (eState_save_) {
-        eState_save_->copyElectrode_intoState(this);
+        eState_save_->copyElectrode_intoState(this, false);
         SAFE_DELETE(xmlStateData_init_);
         xmlStateData_init_ = eState_save_->write_electrodeState_ToXML();
         startXML_TI_final();
@@ -1438,7 +1438,7 @@ topConvergence:
          *  Save the state of the Electrode object into the XML final spot
          */
         if (eState_save_) {
-            eState_save_->copyElectrode_intoState(this);
+            eState_save_->copyElectrode_intoState(this, true);
             SAFE_DELETE(xmlStateData_final_);
             xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
             makeXML_TI_intermediate();
@@ -1564,43 +1564,19 @@ void  Electrode_Integrator::setResidAtolNLS()
 {
     throw Electrode_Error("Electrode_Integrator::setResidAtolNLS()", "unimplemented");
 }
-//==================================================================================================================
-//  Predict the solution
-/*
- *  (virtual from Electrode_Integrator)
- *
- * Ok at this point we have a time step
- * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
- * We now calculate predicted solution components from these conditions.
- * Additionally, we evaluate whether any multispecies phases are going to pop into existence,
- * adding in potential seed values, or die, creating a different equation set and time step equation.
- * We set the phaseExistence flags in the kinetics solver to reflect phase pops.
- *
- * @return   Returns the success of the operation
- *                 1  A predicted solution is achieved
- *                 2  A predicted solution with a multispecies phase pop is acheived
- *                 0  A predicted solution is not achieved, but go ahead anyway
- *                -1  The predictor suggests that the time step be reduced and a retry occur.
- */
-int  Electrode_Integrator::predictSoln()
+//==================================================================================================================================
+int Electrode_Integrator::predictSoln()
 {
     throw Electrode_Error(" Electrode_Integrator::predictSoln()","unimplemented");
 }
-//==================================================================================================================
-// Do a traditional predictor
-/*
- *   (virtual from Electrode_Integrator)
- *
- */
+//==================================================================================================================================
 int Electrode_Integrator::predictSolnDot()
 {
     soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
     for (int i = 1; i < (int) yvalNLS_.size(); i++) {
 	soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
     }
-    //
     // We only use the prediction if the predictSolnDot method is deemed the best predictor!
-    //
     if (predictDotBetter_) {
 	unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
 	updateState();
@@ -1609,69 +1585,42 @@ int Electrode_Integrator::predictSolnDot()
     }
     return 1;
 }
-//==================================================================================================================
-// Extract information from cantera
-/*
- *  (virtual function from Electrode_Integrator)
- */
+//==================================================================================================================================
 void  Electrode_Integrator::extractInfo()
 {
     throw Electrode_Error("Electrode_Integrator::extractInfo()",  "unimplemented");
 }
-//==================================================================================================================
-// Collect mole change information
-/*
- *  (virtual fucntion from Electrode_Integrator)
- */
+//==================================================================================================================================
 void Electrode_Integrator::updateSpeciesMoleChangeFinal()
 {
     throw Electrode_Error(" Electrode_Integrator::updateSpeciesMoleChangeFinal()",  "unimplemented");
 }
-//==================================================================================================================
-// calculate the residual
-/*
- *
- *  (virtual fucntion from Electrode_Integrator)
- *
- */
+//==================================================================================================================================
 int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type evalType)
 {
     throw Electrode_Error(" Electrode_Integrator::calcResid()",  "unimplemented");
     return 0;
 }
-//==================================================================================================================
-int Electrode_Integrator::GFCEO_evalResidNJ(const double t, const double delta_t,
-                            const double* const y, const double* const ydot,
-                            double* const resid, const ResidEval_Type evalType,
-                            const int id_x, const double delta_x)
+//==================================================================================================================================
+int Electrode_Integrator::GFCEO_evalResidNJ(const double t, const double delta_t, const double* const y, const double* const ydot,
+                                            double* const resid, const ResidEval_Type evalType,
+                                            const int id_x, const double delta_x)
 {
     throw Electrode_Error(" Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
     return 0;
 }
-//==================================================================================================================
+//==================================================================================================================================
 int Electrode_Integrator::GFCEO_calcResid(double* const resid, const ResidEval_Type evalType)
 {
     throw Electrode_Error(" Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
     return 0;
 }
-//==================================================================================================================
-//  Gather the predicted solution values and the predicted integrated source terms
-/*
- *  (virtual from Electrode_Integrator)
- *
- *  Both the predicted solution values and the predicted integrated source terms are used
- *  in the time step control
- */
+//==================================================================================================================================
 void Electrode_Integrator::gatherIntegratedSrcPrediction()
 {
     throw Electrode_Error(" Electrode_Integrator::gatherIntegratedSrcPrediction()",  "unimplemented");
 }
-//==================================================================================================================
-//   Calculate the integrated source terms and do other items now that we have a completed time step
-/*
- *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
- *  for the current step, and we are calculating post-processed quantities like source terms.
- */
+//==================================================================================================================================
 void Electrode_Integrator::calcSrcTermsOnCompletedStep()
 {
     /*
@@ -1691,13 +1640,7 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
 }
-//==================================================================================================================
-//   Accumulate src terms and other results from the local step into the global holding bins.
-/*
- *  Accumulate source terms on completion of a step. At this point we have solved the nonlinear problem
- *  for the current step and we have satisfied all accuracy requirements.
- *  The step is good. We now accumulate the results before going on to a new local step.
- */
+//==================================================================================================================================
 void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
 {
     if (remove) {
@@ -1718,12 +1661,11 @@ void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
 	}
     }
 }
-//==================================================================================================================
+//==================================================================================================================================
 void  Electrode_Integrator::check_yvalNLS_init(bool doOthers)
 {
-  
 }
-//==================================================================================================================
+//==================================================================================================================================
 void Electrode_Integrator::setInitStateFromFinal(bool setInitInit)
 {
     Electrode::setInitStateFromFinal(setInitInit);
@@ -1742,7 +1684,7 @@ void Electrode_Integrator::setInitStateFromFinal(bool setInitInit)
 	}
     }
 }
-//==================================================================================================================
+//==================================================================================================================================
 void Electrode_Integrator::setInitInitStateFromFinalFinal()
 {
     Electrode::setInitInitStateFromFinalFinal();
@@ -1757,7 +1699,7 @@ void Electrode_Integrator::setInitInitStateFromFinalFinal()
 	yvalNLS_[i]           = yvalNLS_final_final_[i];
     }
 }
-//==================================================================================================================
+//==================================================================================================================================
 // Set the internal final intermediate and from the internal init state
 /*
  *  (non-virtual function)  -> function should onionize in-first.
@@ -1789,73 +1731,48 @@ void Electrode_Integrator::setFinalStateFromInit()
 	yvalNLS_[i] = yvalNLS_init_[i];
     }
 }
-//==================================================================================================================
-// Set the internal initial intermediate from the internal initial global state
-/*
- *  Set the intial state from the init init state. We also can set the final state from this
- *  routine as well.
- *
- *  The final_final is not touched.
- *
- * @param setFinal   Boolean indicating whether you should set the final as well
- */
+//==================================================================================================================================
 void Electrode_Integrator::setInitStateFromInitInit(bool setFinal)
 {
+    size_t i, neqNLS;
     Electrode::setInitStateFromInitInit(setFinal);
-    int neqNLS = nEquations();
+    neqNLS = nEquations();
     if (solnDot_init_.empty()) {
 	create_solvers();
     }
-    for (int i = 0; i < neqNLS; i++) {
+    for (i = 0; i < neqNLS; i++) {
 	solnDot_init_[i] = solnDot_init_init_[i];
 	yvalNLS_init_[i] = yvalNLS_init_init_[i];
     }
+    if (setFinal) {
+        for (i = 0; i < neqNLS; i++) {
+            solnDot_final_[i] = solnDot_init_init_[i];
+	    yvalNLS_[i] = yvalNLS_init_init_[i];
+        }
+    }
 }
-//==================================================================================================================
- void  Electrode_Integrator::setFinalFinalStateFromFinal()
- {
-     Electrode::setFinalFinalStateFromFinal();
-     int neqNLS = nEquations();
-    if( solnDot_init_.empty() ) create_solvers();
-     for (int i = 0; i < neqNLS; i++) {
+//==================================================================================================================================
+void Electrode_Integrator::setFinalFinalStateFromFinal()
+{
+    size_t i, neqNLS;
+    Electrode::setFinalFinalStateFromFinal();
+    neqNLS = nEquations();
+    if (solnDot_init_.empty() ) {
+         create_solvers();
+    }
+    for (i = 0; i < neqNLS; i++) {
 	 solnDot_final_final_[i] = solnDot_final_[i];
 	 yvalNLS_final_final_[i] = yvalNLS_[i];
      }
  }
-//==================================================================================================================
-//  Return a vector of delta y's for calculation of the numerical Jacobian
-/*
- * (virtual from ResidJacEval)
- *
- *   There is a default algorithm provided.
- *
- *        delta_y[i] = atol[i] + 1.0E-6 ysoln[i]
- *        delta_y[i] = atol[i] + MAX(1.0E-6 ysoln[i] , 0.01 * solnWeights[i])
- *
- * @param t             Time                    (input)
- * @param y             Solution vector (input, do not modify)
- * @param ydot          Rate of change of solution vector. (input, do not modify)
- * @param delta_y       Value of the delta to be used in calculating the numerical jacobian
- * @param solnWeights   Value of the solution weights that are used in determining convergence (default = 0)
- *
- * @return Returns a flag to indicate that operation is successful.
- *            1  Means a successful operation
- *            0  Means an unsuccessful operation
- */
-int Electrode_Integrator::calcDeltaSolnVariables(const double t, const double* const ySoln,
-        const double* const ySolnDot, double* const deltaYSoln,
-        const double* const solnWeights)
+//==================================================================================================================================
+int Electrode_Integrator::calcDeltaSolnVariables(const double t, const double* const ySoln, const double* const ySolnDot, 
+                                                 double* const deltaYSoln, const double* const solnWeights)
 {
     int retn = ResidJacEval::calcDeltaSolnVariables(t, ySoln, ySolnDot, deltaYSoln, solnWeights);
     return retn;
 }
-//==================================================================================================================
-//   Unpack the soln vector
-/*
- *  (virtual from Electrode_Integrator)
- *
- *  This function unpacks the solution vector into  phaseMoles_final_,  spMoles_final_, and spMf_final_[]
- */
+//==================================================================================================================================
 int Electrode_Integrator::unpackNonlinSolnVector(const double* const y)
 {
     throw Electrode_Error(" Electrode_Integrator::unpackNonlinSolnVector()", "unimplemented");
@@ -2473,6 +2390,17 @@ double Electrode_Integrator::l0norm_PC_NLS(const std::vector<double>& v1, const 
         errorLocalNLS_[k] = ee * rtol;
     }
     return max0;
+}
+//==================================================================================================================================
+void Electrode_Integrator::setState_EState(const EState& es)
+{
+    Electrode::setState_EState(es);
+    if (es.solnDot_.size() >= solnDot_final_.size()) {
+        solnDot_final_ = es.solnDot_;
+        solnDot_init_ = es.solnDot_;
+        solnDot_init_init_ = es.solnDot_;
+        solnDot_final_final_ = es.solnDot_;
+    }
 }
 //==================================================================================================================================
 int Electrode_Integrator::setTimeHistoryBaseFromCurrent()

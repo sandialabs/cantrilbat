@@ -685,10 +685,6 @@ static void pmatch(std::vector<std::string>& pn, int pos, std::string expected)
     }
 }
 //==================================================================================================================================
-//  Setup the electrode
-/*
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- */
 int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 {
     Electrode_Types_Enum ieos = electrodeType();
@@ -1304,6 +1300,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         // setRelativeCapacityDischarged(ei->RelativeCapacityDischarged);
     }
 
+    // Set the initial zeroDoD capacity by calling the capacity function at the beginning.
     capacityInitialZeroDod_ = capacity();
     electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
 
@@ -1455,6 +1452,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
      */
     resizeSurfaceAreasToGeometry();
 
+    // Set the initial ZeroDoD capacity by calling the capacity() here.
     capacityInitialZeroDod_ = capacity();
 
     Electrode::updateState();
@@ -1939,8 +1937,7 @@ void Electrode::setState_EState(const EState& e)
 void Electrode::setState_EStateBase(const EState& e)
 {
     if (pendingIntegratedStep_) {
-        throw Electrode_Error("Electrode::setState_EState()",
-			      "called when there is a pending step");
+        throw Electrode_Error("Electrode::setState_EState()", "called when there is a pending step");
     }
     spMoles_final_                     = e.spMoles_;
     phaseVoltages_                     = e.phaseVoltages_;
@@ -1966,9 +1963,10 @@ void Electrode::setState_EStateBase(const EState& e)
 
       //relativeDepthOfDischarge_          = e.relativeDepthOfDischarge_ 
     electronKmolDischargedToDate_      = e.electronKmolDischargedToDate_;
-
   
     deltaTsubcycle_init_next_          = e.deltaTsubcycle_init_next_;
+
+    
 
     double grossVol = e.grossVolume_;
     double currentSolidVol = e.electrodeSolidVolume_;

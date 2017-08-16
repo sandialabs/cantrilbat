@@ -1,13 +1,11 @@
- comparison at times 1 and 1
+ comparison at times 5000 and 5000
 		EState_RadialDistrib::compareOtherState() Start comparison of types SimpleDiff vs. SimpleDiff
 		EState::compareOtherState() Start comparison of types SimpleDiff vs. SimpleDiff
 		EState:: SUCCESS: States are the same
 		EState_RadialDistrib:: SUCCESS: States are the same
- type = t_init  time = 0.99
- type = t_intermediate  time = 0.993375
- type = t_intermediate  time = 0.99675
- type = t_final  time = 1
-read global time step num 100
+ type = t_init  time = 4900
+ type = t_final  time = 5000
+read global time step num 50
 [==========] Running 3 tests from 1 test case.
 [----------] Global test environment set-up.
 [----------] 3 tests from EStateComparisonTest

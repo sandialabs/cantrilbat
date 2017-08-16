@@ -1328,7 +1328,7 @@ public:
 
     //! Sets the state of the Electrode object given an EState object
     /*!
-     *   (virtual function)
+     *   (virtual function from Electrode)
      *   This sets all of the states within the object to the same state.
      *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
      *
@@ -2147,81 +2147,78 @@ public:
      *
      *  capacity() = capacityDischarged() + capacityLeft() + depthOfDischargeStarting().
      *
-     *    If there is capacity lost, this loss is reflected both in the capacityLeft() and depthOfDischargeStarting()
-     *    quantities so that the above relation holds.
+     *  If there is capacity lost, this loss is reflected both in the capacityLeft() and depthOfDischargeStarting()
+     *  quantities so that the above relation holds.
      *
-     *   @param[in]     platNum                  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]     platNum                  Plateau number. Default is -1 which treats all plateaus as a single entity.
      *                                           If positive or zero, each plateau is treated as a separate entity.
-     *   @param[in]     voltsMax                 Maximum voltage to search for capacity. Defaults to +50 volts
-     *   @param[in]     voltsMin                 Minimum voltage to search for capacity. Defaults to -50 volts
+     *  @param[in]     voltsMax                 Maximum voltage to search for capacity. Defaults to +50 volts
+     *  @param[in]     voltsMin                 Minimum voltage to search for capacity. Defaults to -50 volts
      *
-     *   @return                                 Returns the capacity left  in units of Amp sec = coulombs
+     *  @return                                 Returns the capacity left  in units of Amp sec = coulombs
      */
     virtual double capacityLeft(int platNum = -1, double voltsMax = 50.0, double voltsMin = -50.0) const;
 
     //! Initial starting depth of discharge in coulombs
     /*!
-     *   When there is capacity lost, this number may be modified.
+     *  When there is capacity lost, this number may be modified.
      *
-     *   @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *                   If positive or zero, each plateau is treated as a separate entity.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *                                           If positive or zero, each plateau is treated as a separate entity.
      *
-     *   @return                           Returns the capacity discharged in units of Amp sec = coulombs
+     *  @return                                  Returns the capacity discharged in units of Amp sec = coulombs
      */
     virtual double depthOfDischargeStarting(int platNum = -1) const;
 
-    //! Report the current depth of discharge in Amp seconds
+    //! Report the current depth of discharge in (Amp seconds)
     /*!
      *  Report the current depth of discharge. This is roughly equal to the total
      *  number of electrons that has been theoretically discharged from a fully charged state.
      *  For multiple cycles, this becomes the true electron counter for the electrode.
      *
      *  Usually this is reported as a function of the discharge rate and there is a
-     *  cutoff voltage at which the electron counting is turned off. Neither of these
-     *  concepts is employed here.
+     *  cutoff voltage at which the electron counting is turned off. Neither of these concepts is employed here.
      *
-     *  The depth of discharge may be modified when there is capacity lost.
+     *  The depth of discharge may be modified when there is capacity lost. This is accounted for by reducing the capacity()
+     *  and capacityLeft() of the electrode. Therefore, for a severely depleted electrode, the depth of discharge may
+     *  still be zero, but the capacity left may be severely reduced.
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
      *
-     *  @return  returns the depth of discharge in Amp seconds = coulombs
+     *  @return                                  Returns the depth of discharge in Amp seconds = coulombs
      */
     double depthOfDischarge(int platNum = -1) const;
 
     //! Report the current depth of discharge as a fraction of the total capacity
     /*!
-     * Report the current depth of discharge. This is roughly equal to the total
-     * number of electrons that has been theoretically discharged from a fully charged state compared
-     * to the number of electrons that can theoretically be discharged.
+     *  Report the current depth of discharge. This is roughly equal to the total
+     *  number of electrons that has been theoretically discharged from a fully charged state compared
+     *  to the number of electrons that can theoretically be discharged.
      *
-     * Usually this is reported as a function of the discharge rate and there is a
-     * cutoff voltage at which the electron counting is turned off. Neither of these
-     * concepts is employed here.
+     *  Usually this is reported as a function of the discharge rate and there is a
+     *  cutoff voltage at which the electron counting is turned off. Neither of these concepts is employed here.
      *
-     *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
      *
-     *  @return  returns the depth of discharge as a fraction of the total possible discharged
+     *  @return                                  Returns the depth of discharge as a fraction of the total possible discharged
      */
     double depthOfDischargeFraction(int platNum = -1) const;
 
     //! Report the current depth of discharge divided by the molar size of the electrode
     /*!
-     * Report the current depth of discharge divided by the molar size of the electrode.
+     *  Report the current depth of discharge divided by the molar size of the electrode.
+     *  Usually this is reported as a function of the discharge rate and there is a
+     *  cutoff voltage at which the electron counting is turned off. Neither of these concepts is employed here.
      *
-     * Usually this is reported as a function of the discharge rate and there is a
-     * cutoff voltage at which the electron counting is turned off. Neither of these
-     * concepts is employed here.
+     *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
      *
-     *  @param[in]            platNum                Plateau number. Default is -1 which treats all plateaus as a single entity.
-     *
-     *  @return                                      Returns the depth of discharge in percent
+     *  @return                                  Returns the depth of discharge in percent
      */
     double depthOfDischargePerMole(int platNum = -1) const;
 
-    //!  Check on the accounting of the capacity, done at t_final
+    //! Check on the accounting of the capacity, done at t_final
     /*!
-     *     (virtual from Electrode) 
-     *
+     *  (virtual from Electrode) 
      *  This check should be as extensive as possible. It should be more extensive in the child routines. The
      *  parent routines does a cursory accounting.
      *
@@ -2243,8 +2240,7 @@ public:
      * 
      *  The relative extent of reaction is a dimensionless number that varies. It doesn't
      *  always vary between 0 and 1. Sometimes there are Li's that can be reacted or sites
-     *  that can't be filled with Li.... At 0, the battery is fully charged. At ~1, the battery
-     *  is fully discharged.
+     *  that can't be filled with Li.... At 0, the battery is fully charged. At ~1, the battery is fully discharged.
      *
      *  The way we do this for the base case is to use DoDFraction() to calculate the dimensionless number.
      *  However there is frequently a better way to do this. Also, for intercalating electrodes, we want this
@@ -3428,7 +3424,6 @@ protected:
      */
     mutable std::vector<double> capacityLeftSpeciesCoeff_;
 
-
     //! Array of discharge Capacity coefficients
     mutable ZZCantera::Array2D capacityLeftSpeciesCoeffPlat_;
 
@@ -3748,11 +3743,12 @@ private:
      *  This function takes the electrode objects _final_ state and copies it into this object.
      *  This function must be carried out before the XML_Node tree is written.
      *
-     *  @param e   Pointer to the Electrode object. Note, this class may use dynamic casting
-     *             to choose a child object, and then may invoke an error if the match isn't
-     *             correct.
+     *  @param[in]           e                   Pointer to the Electrode object. Note, this class may use dynamic casting
+     *                                           to choose a child object, and then may invoke an error if the match isn't
+     *                                           correct.
+     *  @param[in]           doFinal             Copy the final state. Defaults to true. (if false, use init quantities)
      */
-    friend void ZZCantera::EState::copyElectrode_intoState(const ZZCantera::Electrode* const e);
+    friend void ZZCantera::EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal = true);
 
     //! make the equilibrium class a friend
     friend class ZZCantera::Electrode_Equilibrium;

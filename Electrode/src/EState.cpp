@@ -209,27 +209,21 @@ EState& EState::operator=(const EState& right)
     electronKmolDischargedToDate_      = right.electronKmolDischargedToDate_;
 
     deltaTsubcycle_init_next_          = right.deltaTsubcycle_init_next_;
+    solnDot_                           = right.solnDot_;
 
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
-//======================================================================================================================
+//==================================================================================================================================
 EState::~EState()
 {
 }
-//======================================================================================================================
-// Duplicator function for this class
-/*
- *  @return Returns a duplication of the current state as a pointer to the base class
- */
+//==================================================================================================================================
 EState* EState::duplMyselfAsEState() const
 {
     EState* es = new EState(*this);
     return es;
 }
-//===================================================================================================================================
+//==================================================================================================================================
 int EState::initialize(const ZZCantera::Electrode* const e)
 {
     eRef_ = e;
@@ -339,7 +333,11 @@ XML_Node* EState::write_electrodeState_ToXML() const
     ZZctml::addFloat(*x, "relativeDepthOfDischarge", relativeDepthOfDischarge_, "");
     ZZctml::addFloat(*x, "capacityDischargedToDate", capacityDischargedToDate_, "coulomb");
     ZZctml::addFloat(*x, "deltaTsubcycle_init_next", deltaTsubcycle_init_next_, "s");
-
+    
+    int neq = solnDot_.size();
+    if (neq > 0) {
+        ZZctml::addNamedFloatArray(*x, "solnDot", neq, solnDot_.data(), "");
+    } 
     return x;
 }
 //==================================================================================================================================
@@ -452,10 +450,14 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     }
 
     deltaTsubcycle_init_next_ = ZZctml::getFloat(xmlEState, "deltaTsubcycle_init_next", "toSI");
+
+    if (xmlEState.hasChild("solnDot")) {
+        ZZctml::getFloatArray(xmlEState, solnDot_, true, "", "solnDot");
+    }
 }
-//======================================================================================================================
+//==================================================================================================================================
 // Set the State of this object from the state of the Electrode object
-void EState::copyElectrode_intoState(const ZZCantera::Electrode* const e)
+void EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal)
 {
     eRef_                              = e;
     spMoles_                           = e->spMoles_final_;
@@ -497,9 +499,17 @@ void EState::copyElectrode_intoState(const ZZCantera::Electrode* const e)
         relativeElectronsDischargedPerMole_ = relCapUsed;
     }
 
+    const Electrode_Integrator* ei = dynamic_cast<const Electrode_Integrator*>(e);
+    if (ei) {
+        if (doFinal) {
+            solnDot_                  = ei->solnDot_final_;
+        } else {
+            solnDot_                  = ei->solnDot_init_;
+        }
+    }
 }
 //======================================================================================================================
-//Set the state of the Electrode from the state of this object
+//Set the state of the Electrode from the state of this object -> both init and final and init_init and final_final
 void EState::setStateElectrode_fromEState(ZZCantera::Electrode* const e) const
 {
     EState::copyEState_toElectrode(e);
@@ -510,9 +520,6 @@ void EState::setStateElectrode_fromEState(ZZCantera::Electrode* const e) const
 }
 //======================================================================================================================
 // Set the state of the Electrode Class from the state of the EState object
-/*
- *  This is not a virtual function
- */
 void EState::copyEState_toElectrode(ZZCantera::Electrode* const e) const
 {
     e->spMoles_final_                     = spMoles_;
@@ -524,12 +531,20 @@ void EState::copyEState_toElectrode(ZZCantera::Electrode* const e) const
     e->electrodeCellNumber_               = electrodeCellNumber_;
     e->particleNumberToFollow_            = particleNumberToFollow_;
     e->ElectrodeSolidVolume_              = electrodeSolidVolume_;
+    // grossVolume_
     e->Radius_exterior_final_             = radiusExterior_;
     e->surfaceAreaRS_final_               = surfaceAreaRS_;
+    // electrodeMoles_
+    e->setCapacityType(electrodeCapacityType_);
+    // capacityLeft_ -> ok no explicit storage of this quantity in Electrode object
+    e->capacityInitialZeroDod_            = capacityInitial_;
+    // depthOfDischarge_  -> ok no explicit storage of this quantity in Electrode object
     e->depthOfDischargeStarting_          = depthOfDischargeStarting_;
+    // relativeElectronsDischargedPerMole_
+    // relativeDeptOfDischarge_
+    // capacityDischargedToDate_
     // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / ZZCantera::Faraday;
     e->electronKmolDischargedToDate_      = electronKmolDischargedToDate_;
-    e->setCapacityType(electrodeCapacityType_);
 
     for (size_t iph = 0; iph < e->m_NumTotPhases; iph++) {
         e->updateState_Phase(iph);
@@ -538,25 +553,21 @@ void EState::copyEState_toElectrode(ZZCantera::Electrode* const e) const
     e->deltaTsubcycle_init_next_          = deltaTsubcycle_init_next_;
     e->deltaTsubcycle_init_init_          = deltaTsubcycle_init_next_;
 
+    Electrode_Integrator* const ei = dynamic_cast<Electrode_Integrator* const>(e);
+    if (ei->solnDot_final_.size() == solnDot_.size()) {
+        ei->solnDot_final_ = solnDot_;
+        ei->solnDot_init_ = solnDot_;
+        ei->solnDot_init_init_ = solnDot_;
+    }
 
     Electrode_MP_RxnExtent* const emp = dynamic_cast<Electrode_MP_RxnExtent* const>(e);
     if (emp) {
         emp->RelativeExtentRxn_final_ = relativeElectronsDischargedPerMole_;
     }
 }
-//==================================================================================================================================
-/*
-static double setAtolEm40(double a1, double a2)
-{
-    double m1 = std::max(a1, a2);
-    double m2 = std::max(m1, 1.0E-40);
-    return m2;
-}
-*/
 //=================================================================================================================================
 int EState::printHead(int printLvl) const
 {
-    
     static bool printHead = false;
     static int num = 0;
     if (printLvl == -1) {
@@ -575,8 +586,9 @@ int EState::printHead(int printLvl) const
     return num;
 }
 //=================================================================================================================================
-//! print a difference between two strings
-void EState::printDiff(const std::string& vexp, bool significant,  const std::string& val, const std::string& gval, int printLvl) const
+// print a difference between two strings
+void EState::printDiff(const std::string& vexp, bool significant,  const std::string& val, 
+                       const std::string& gval, int printLvl) const
 {
     std::string istr = "no ";
     if (significant) {

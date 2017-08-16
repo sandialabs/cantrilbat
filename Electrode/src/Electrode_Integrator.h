@@ -547,14 +547,13 @@ public:
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     * Ok at this point we have a time step
-     * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
-     * We now calculate predicted solution components from these conditions.
-     * Additionally, we evaluate whether any multispecies phases are going to pop into existence,
-     * adding in potential seed values, or die, creating a different equation set and time step equation.
-     * We set the phaseExistence flags in the kinetics solver to reflect phase pops.
+     *  Ok at this point we have a time step and initial conditions consisting of phaseMoles_init_ and spMF_init_.
+     *  We now calculate predicted solution components from these conditions.
+     *  Additionally, we evaluate whether any multispecies phases are going to pop into existence,
+     *  adding in potential seed values, or die, creating a different equation set and time step equation.
+     *  We set the phaseExistence flags in the kinetics solver to reflect phase pops.
      *
-     * @return                                   Returns the success of the operation
+     *  @return                                  Returns the success of the operation
      *                                           -  1  A predicted solution is achieved
      *                                           -  2  A predicted solution with a multispecies phase pop is acheived
      *                                           -  0  A predicted solution is not achieved, but go ahead anyway
@@ -562,14 +561,12 @@ public:
      */
     virtual int predictSoln();
 
-    //!  Predict the derivative of the solution
+    //! Predict the solution at t_final_ from the derivative of the solution at the current time t_init_
     /*!
      * (virtual from Electrode_Integrator)
-     * 
-     *  Predicts the solution at the final time from the current derivative of the solution at the initial time.
+     * Predicts the solution at the final time from the current derivative of the solution at the initial time.
      *
-     *
-     *   @return                                 Returns the success of the operation
+     * @return                                   Returns the success of the operation
      *                                           -  1  A predicted solution is achieved
      *                                           -  2  A predicted solution with a multispecies phase pop is acheived
      *                                           -  0  A predicted solution is not achieved, but go ahead anyway
@@ -581,15 +578,14 @@ public:
     /*!
      *  (virtual function from Electrode_Integrator)
      *
-     *   In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
-     *   The function loops over active ReactingSurDomain objects. It calculates ROP_ for each reaction by
-     *   calling                   
+     *  In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
+     *  The function loops over active ReactingSurDomain objects. It calculates ROP_ for each reaction by calling                   
      *                         getNetRatesOfProgress()
      * 
-     *   It gets spNetProdPerArea by calling:
+     *  It gets spNetProdPerArea by calling:
      *            getNetSurfaceProductionRates(isk, spNetProdPerArea);
      *   
-     *   It may also fill in 
+     *  It may also fill in 
      *            justBornPhase_[]
      */
     virtual void extractInfo();
@@ -625,8 +621,8 @@ public:
 
     //! Check the nonlinear residual equations for completeness and the ability to be solved
     /*!
-     *   @return  0 Everything is good
-     *           -1 residual isn't good. We need to cut the time step and retry again.
+     *  @return                                   0 Everything is good
+     *                                           -1 residual isn't good. We need to cut the time step and retry again.
      */
     virtual int check_nonlinResidConditions();
 
@@ -1007,6 +1003,22 @@ public:
      */
     double l0norm_PC_NLS(const std::vector<double>& v1, const std::vector<double>& v2, size_t num,
                          const std::vector<double>& atolVec, const double rtol);
+
+    //------------------------------------------------------------------------------------------------------------------
+    // -------------------------------  SetState Functions -------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+
+    //! Sets the state of the Electrode object given an EState object
+    /*!
+     *   (virtual function from Electrode)
+     *   This sets all of the states within the object to the same state.
+     *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+     *
+     *   @param[in]  es          const reference to the EState object.  Must be the correct EState object for the
+     *                           current Electrode object, or else it will throw an error. However, there is an option to 
+     *                           read EState objects with less information. 
+     */
+    virtual void setState_EState(const EState& es) override;
 
     // ----------------------------------------------------------------------------------------------
     // ----------------------------- GET CONDITIONS OUT ---------------------------------------------------------------------
@@ -1487,7 +1499,6 @@ public:
 };
 //==================================================================================================================================
 }
-
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
-/*****************************************************************************/
+

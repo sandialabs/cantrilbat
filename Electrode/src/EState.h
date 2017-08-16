@@ -24,6 +24,7 @@ namespace Cantera
 {
 
 class Electrode;
+class Electrode_Integrator;
 class XML_Node;
 class Electrode_Factory;
 
@@ -273,11 +274,13 @@ public:
      *  This function takes the electrode objects _final_ state and copies it into this object.
      *  This function must be carried out before the XML_Node tree is written.
      *
-     *  @param e   Pointer to the Electrode object. Note, this class may use dynamic casting
-     *             to choose a child object, and then may invoke an error if the match isn't
-     *             correct.
+     *  @param[in]           e                   Pointer to the Electrode object. Note, this class may use dynamic casting
+     *                                           to choose a child object, and then may invoke an error if the match isn't
+     *                                           correct.
+     *  @param[in]           doFinal             Copy the final quantities. Defaults to true
+     *                                           If false it copies the init quantitites.
      */
-    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e);
+    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal = true);
 
     //! Set the state of the Electrode from the state of this object
     /*!
@@ -422,8 +425,7 @@ protected:
 
     //  STATE INFORMATION
 
-    //! Number of moles of each species in each phase at the end of each
-    //! subcycle of the integration step
+    //! Number of moles of each species in each phase at the end of each subcycle of the integration step
     /*!
      *  INDEPENDENT STATE VARIABLE FOR THE ELECTRODE PROBLEM
      *   Number of moles of each species in each phase at the end of each
@@ -477,17 +479,17 @@ protected:
 
     //! Total volume of the electrode solid phase (compared to the electrolyte)
     /*!
-     * units of m**3
+     *  Units: m**3
      */
     double electrodeSolidVolume_;
 
     //! Gross volume of the electrode (m3)
     /*!
-     * Total volume of the electrode.
+     *  Total volume of the electrode.
      */
     double grossVolume_;
 
-    //!  Radius of the exterior of the particle
+    //! Radius of the exterior of the particle
     /*!
      *  This is at the start of the global time step
      */
@@ -500,8 +502,8 @@ protected:
      *  In most constitutive models only one external reacting surface will be present at
      *  any one time.  This vector is over internal and external surfaces.
      *
-     *  length = number of external surfaces that may be present
-     *  units m**2
+     *  Length = number of external surfaces that may be present
+     *  Units m**2
      *
      *  This is the final value at each time step
      */
@@ -554,11 +556,18 @@ protected:
     //! Initial value of the next subcycle deltaT
     double deltaTsubcycle_init_next_;
 
+    //! Vector of variation in solution components with time
+    /*!
+     *  Length: neq_
+     */
+    std::vector<double> solnDot_;
+
     //! Statement that the Electrode class can access any information in this class
     /*!
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
     friend class ZZCantera::Electrode;
+    friend class ZZCantera::Electrode_Integrator;
 };
 //==================================================================================================================================
 }

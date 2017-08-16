@@ -25,7 +25,7 @@ namespace Cantera
 // ------------------------------------------------------------------------------------------------
 // --------------------------- CAPACITY CALCULATION OUTPUT  ---------------------------------------
 // ------------------------------------------------------------------------------------------------
-//====================================================================================================================
+//==================================================================================================================================
 // Returns the total capacity of the electrode in Amp seconds
 /*
  *  Returns the capacity of the electrode in Amps seconds.
@@ -61,19 +61,12 @@ double Electrode::capacity(int platNum) const
     double tmp = capZeroDoD * Faraday;
     return tmp;
 }
-
-//====================================================================================================================
-// Initial capacity of the elctrode in Amp seconds
-/*
- *  This is the initial capacity of the electrode before any degradation occurs.
- *
- *  @param platNum Plateau number. Default is -1 which treats all plateaus as a single entity.
- */
+//==================================================================================================================================
 double Electrode::capacityInitial(int platNum) const
 {
     return capacityInitialZeroDod_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Amount of charge that the electrode that has available to be discharged
 /*
  *   We report the number in terms of Amp seconds = coulombs
@@ -98,29 +91,15 @@ double Electrode::capacityLeft(int platNum, double voltsMax, double voltsMin) co
     }
     return capLeft * Faraday;
 }
-//====================================================================================================================
-// Report the current depth of discharge in amps sec = coulumbs
-/*
- * Report the current depth of discharge. This is roughly equal to the total
- * number of electrons that has been theoretically discharged from a fully charged state compared
- * to the number of electrons that can theoretically be discharged.
- *
- * Usually this is reported as a function of the discharge rate and there is a
- * cutoff voltage at which the electron counting is turned off. Neither of these
- * concepts is employed here.
- *
- *  @param platNum  Plateau number. Default is -1 which treats all plateaus as a single entity.
- *
- * @return  returns the depth of discharge in amp seconds = coulombs
- */
+//==================================================================================================================================
 double Electrode::depthOfDischarge(int platNum) const
 {
     double capLeft = capacityLeft(platNum);
     double capZeroDod = capacity(platNum);
     double dod = capZeroDod - capLeft;
-    return (dod);
+    return dod;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Check on the accounting of the capacity, done at t_final
 /*
  *  This check should be as extensive as possible. It should be more extensive in the child routines. The
