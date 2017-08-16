@@ -285,9 +285,6 @@ public:
     //! Set the state of the Electrode from the state of this object
     /*!
      *  (virtual function)
-     *
-     *   Virtual function -> main way to get the process going and the child functions called.
-     *
      *   This function is called from the Electrode object or a battery simulator to
      *   initialize the Electrode object from an input file.
      *
@@ -296,8 +293,12 @@ public:
      *   the next time step taken by the object will result in the same values and time step
      *   that would have occurred if there hadn't been a restart.
      *
-     *  @param  e  Changeable pointer to the base class Electrode object. This function may
-     *             do dynamic casting to get the correct child Electrode object.
+     *  @param[in,out]       e                   Changeable pointer to the base class Electrode object. This function may
+     *                                           do dynamic casting to get the correct child Electrode object.
+     * 
+     *   @deprecated There are two ways to do the same operation. The other way is using the Electrode 
+     *               setState_EState() function. Let's get rid of this one, and use the Electrode member
+     *               function instead.
      */
     virtual void setStateElectrode_fromEState(ZZCantera::Electrode* const e) const;
 
