@@ -8,82 +8,99 @@
 build_python=@BUILD_PYTHON@
 
 all:
-	cd src;                           @MAKE@ -j 4
-	cd src_test;                      @MAKE@
-	cd src_CanteraElectrode;          @MAKE@ -j 4
-	cd src_LiIon_PorousBat;           @MAKE@ -j 4
-	cd src_Cu2S;                      @MAKE@ -j 4
-	cd src_LiKCl_infPlateBat;         @MAKE@ -j 4
-	cd src_LiKCl_infPorousBat;        @MAKE@ -j 4
-	cd src_LiKCl_PorousBat;           @MAKE@ -j 4
-	cd test_suite;                    @MAKE@
-	cd test_develop;                  @MAKE@
+	cd src;                           $(MAKE) -j 4
+	cd src_test;                      $(MAKE)
+	cd src_CanteraElectrode;          $(MAKE) -j 4
+	cd src_LiIon_PorousBat;           $(MAKE) -j 4
+	cd src_Cu2S;                      $(MAKE) -j 4
+	cd src_LiKCl_infPlateBat;         $(MAKE) -j 4
+	cd src_LiKCl_infPorousBat;        $(MAKE) -j 4
+	cd src_LiKCl_PorousBat;           $(MAKE) -j 4
+	cd test_suite;                    $(MAKE)
+	cd test_develop;                  $(MAKE)
+	cd test_other;                    $(MAKE) 
+	cd test_LiKCl;                    $(MAKE)
 
 allsrc:
-	cd src;                           @MAKE@ -j 4 allsrc
-	cd src_test;                      @MAKE@
-	cd src_CanteraElectrode;          @MAKE@
-	cd src_LiIon_PorousBat;           @MAKE@
-	cd src_Cu2S;                      @MAKE@
-	cd src_LiKCl_infPlateBat;         @MAKE@
-	cd src_LiKCl_infPorousBat;        @MAKE@
-	cd src_LiKCl_PorousBat;           @MAKE@
+	cd src;                           $(MAKE) -j 4 allsrc
+	cd src_test;                      $(MAKE)
+	cd src_CanteraElectrode;          $(MAKE)
+	cd src_LiIon_PorousBat;           $(MAKE)
+	cd src_Cu2S;                      $(MAKE)
+	cd src_LiKCl_infPlateBat;         $(MAKE)
+	cd src_LiKCl_infPorousBat;        $(MAKE)
+	cd src_LiKCl_PorousBat;           $(MAKE)
 
 test:
-	cd test_suite;                    @MAKE@ test
-
+	cd test_suite;                    $(MAKE) test
+	cd test_other;                    $(MAKE) test
+	cd test_LiKCl;                    $(MAKE) test
+	cd test_develop;                  $(MAKE) test
 
 clean:
-	cd src;                           (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_test;                      (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_CanteraElectrode;          (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_Cu2S;                      (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
-	cd test_suite;                    @MAKE@ clean
-	cd test_develop;                  @MAKE@ clean
+	cd src;                           (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_test;                      (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_CanteraElectrode;          (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_Cu2S;                      (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
+	cd test_suite;                    $(MAKE) clean
+	cd test_develop;                  $(MAKE) clean
+	cd test_other;                    $(MAKE) clean
+	cd test_LiKCl;                    $(MAKE) clean
 
-test_clean:
-	cd test_suite;                    @MAKE@ test_clean
-	cd test_develop;                  @MAKE@ test_develop
+clean_test:
+	cd test_suite;                    $(MAKE) clean_test
+	cd test_develop;                  $(MAKE) clean_test
+	cd test_other;                    $(MAKE) clean_test
+	cd test_LiKCl;                    $(MAKE) clean_test
 
 dist_clean:
-	cd src;                           (/bin/rm -f .depends ; @MAKE@ dist_clean )
-	cd src_test;	              (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_CanteraElectrode;          (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_Cu2S;                      (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
-	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; @MAKE@ clean )
-	cd test_suite;                    @MAKE@ clean
-	cd test_develop;                  @MAKE@ clean
+	$(MAKE) clean_dist
+
+clean_dist:
+	cd src;                           (/bin/rm -f .depends ; $(MAKE) dist_clean )
+	cd src_test;	              (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_CanteraElectrode;          (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_Cu2S;                      (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiKCl_infPlateBat;         (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiKCl_infPorousBat;        (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiKCl_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
+	cd src_LiIon_PorousBat;           (/bin/rm -f .depends ; $(MAKE) clean )
+	cd test_suite;                    $(MAKE) clean_dist
+	cd test_other;                    $(MAKE) clean_dist
+	cd test_LiKCl;                    $(MAKE) clean_dist
+	cd test_develop;                  $(MAKE) clean_dist
 
 
 depends:
-	cd src;                           @MAKE@ depends
-	cd src_test;                      @MAKE@ depends
-	cd src_CanteraElectrode;          @MAKE@ depends
-	cd src_Cu2S;                      @MAKE@ depends
-	cd src_LiKCl_infPlateBat;         @MAKE@ depends
-	cd src_LiKCl_infPorousBat;        @MAKE@ depends
-	cd src_LiKCl_PorousBat;           @MAKE@ depends
-	cd src_LiIon_PorousBat;           @MAKE@ depends
-	cd test_suite;                    @MAKE@ depends
-	cd test_develop;                  @MAKE@ depends
+	cd src;                           $(MAKE) depends
+	cd src_test;                      $(MAKE) depends
+	cd src_CanteraElectrode;          $(MAKE) depends
+	cd src_Cu2S;                      $(MAKE) depends
+	cd src_LiKCl_infPlateBat;         $(MAKE) depends
+	cd src_LiKCl_infPorousBat;        $(MAKE) depends
+	cd src_LiKCl_PorousBat;           $(MAKE) depends
+	cd src_LiIon_PorousBat;           $(MAKE) depends
+	cd test_suite;                    $(MAKE) depends
+	cd test_other;                    $(MAKE) depends
+	cd test_LiKCl;                    $(MAKE) depends
+	cd test_develop;                  $(MAKE) depends
 
 install:
-	cd src;                           @MAKE@ install
-	cd src_test;                      @MAKE@ install
-	cd src_CanteraElectrode;          @MAKE@ install
-	cd src_Cu2S;                      @MAKE@ install
-	cd src_LiKCl_infPlateBat;         @MAKE@ install
-	cd src_LiKCl_infPorousBat;        @MAKE@ install
-	cd src_LiKCl_PorousBat;           @MAKE@ install
-	cd src_LiIon_PorousBat;           @MAKE@ install
-	cd test_suite;                    @MAKE@ install
+	cd src;                           $(MAKE) install
+	cd src_test;                      $(MAKE) install
+	cd src_CanteraElectrode;          $(MAKE) install
+	cd src_Cu2S;                      $(MAKE) install
+	cd src_LiKCl_infPlateBat;         $(MAKE) install
+	cd src_LiKCl_infPorousBat;        $(MAKE) install
+	cd src_LiKCl_PorousBat;           $(MAKE) install
+	cd src_LiIon_PorousBat;           $(MAKE) install
+	cd test_suite;                    $(MAKE) install
+	cd test_other;                    $(MAKE) install
+	cd test_LiKCl;                    $(MAKE) install
 
 # end of file
 
