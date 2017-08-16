@@ -1918,64 +1918,53 @@ void Electrode::setTime(double time)
  *                           current Electrode object, or else it will throw an error. However, there is an option to 
  *                           read EState objects with less information. 
  */
-void Electrode::setState_EState(const EState& e)
+void Electrode::setState_EState(const EState& es)
 {
-    Electrode::setState_EStateBase(e);
+    Electrode::setState_EStateBase(es);
 }
 //==================================================================================================================================
-// Sets the state of the Electrode object given a base EState object
-/*
- *   This is not a virtual function.
- *   This sets all of the states (t_final, t_init, t_init_init_)  within the object to the same state.
- *   Therefore, it is an error to call this function during a pending step where there can be a difference between t_init and
- *   t_final.
- *
- *   @param[in]  es          const reference to the base EState object.  Must be the base EState object .
- *                           There is an option to read base EState objects, even though the current Electrode 
- *                           may be more complicated.
- */
-void Electrode::setState_EStateBase(const EState& e)
+void Electrode::setState_EStateBase(const EState& es)
 {
     if (pendingIntegratedStep_) {
         throw Electrode_Error("Electrode::setState_EState()", "called when there is a pending step");
     }
-    spMoles_final_                     = e.spMoles_;
-    phaseVoltages_                     = e.phaseVoltages_;
-    temperature_                       = e.temperature_;
-    pressure_                          = e.pressure_;
-    electrodeChemistryModelType_       = e.electrodeChemistryModelType_;
-    electrodeDomainNumber_             = e.electrodeDomainNumber_;
-    electrodeCellNumber_               = e.electrodeCellNumber_;
-    particleNumberToFollow_            = e.particleNumberToFollow_;
-    ElectrodeSolidVolume_              = e.electrodeSolidVolume_;
-     
-    Radius_exterior_final_             = e.radiusExterior_;
+    spMoles_final_                     = es.spMoles_;
+    phaseVoltages_                     = es.phaseVoltages_;
+    temperature_                       = es.temperature_;
+    pressure_                          = es.pressure_;
+    electrodeChemistryModelType_       = es.electrodeChemistryModelType_;
+    electrodeDomainNumber_             = es.electrodeDomainNumber_;
+    electrodeCellNumber_               = es.electrodeCellNumber_;
+    particleNumberToFollow_            = es.particleNumberToFollow_;
+    ElectrodeSolidVolume_              = es.electrodeSolidVolume_;
+    // es.grossVolume_ 
+    Radius_exterior_final_             = es.radiusExterior_;
+    surfaceAreaRS_final_               = es.surfaceAreaRS_;
+    // electrodeMoles_                    = es.electrodeMoles_;
+    electrodeCapacityType_             = es.electrodeCapacityType_;
+    //capacityLeft_                      = es.capacityLeft_; (no explicit storage of this object in Electrode object)
+    capacityInitialZeroDod_            = es.capacityInitial_;
 
-    surfaceAreaRS_final_               = e.surfaceAreaRS_;
-    // electrodeMoles_                    = e.electrodeMoles_;
-    electrodeCapacityType_             = e.electrodeCapacityType_;
-
-    //capacityLeft_                      = e.capacityLeft_;
-    capacityInitialZeroDod_            = e.capacityInitial_;
-
-    // depthOfDischarge_                  = e.depthOfDischarge_;
-    depthOfDischargeStarting_          = e.depthOfDischargeStarting_;
-
-      //relativeDepthOfDischarge_          = e.relativeDepthOfDischarge_ 
-    electronKmolDischargedToDate_      = e.electronKmolDischargedToDate_;
+    // depthOfDischarge_                  = es.depthOfDischarge_; (no explicit storage of this object in Electrode object)
+    depthOfDischargeStarting_          = es.depthOfDischargeStarting_;
+    // relativeElectronsDischargedPerMole_
+    // relativeDepthOfDischarge_          = es.relativeDepthOfDischarge_ 
+    // capacityDischargedToDate_
+    electronKmolDischargedToDate_      = es.electronKmolDischargedToDate_;
   
-    deltaTsubcycle_init_next_          = e.deltaTsubcycle_init_next_;
+    deltaTsubcycle_init_next_          = es.deltaTsubcycle_init_next_;
 
-    
-
-    double grossVol = e.grossVolume_;
-    double currentSolidVol = e.electrodeSolidVolume_;
-    
+    // Calculate the porosity from the EState gross volume and solid volume
+    double grossVol = es.grossVolume_;
+    double currentSolidVol = es.electrodeSolidVolume_;
     porosity_ = currentSolidVol / grossVol;
 
+    // Update the _final_ state locally. Calculate phase moles and phase mole fractions
     Electrode::updateState();
 
+    // Set the _init_ and _init_init_ states from the final state
     Electrode::setInitStateFromFinal(true);
+    // Set the _final_final_ state 
     Electrode::setFinalFinalStateFromFinal();
 }
 //==================================================================================================================================
@@ -2607,25 +2596,19 @@ void Electrode::setPhaseElectricPotential(size_t iph, double phi)
  */
 void Electrode::updateState()
 {
-     // 
-     //   Loop over all phases in the object, volume and surface phases
-     //
+    //   Loop over all phases in the object, volume and surface phases
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         updateState_Phase(iph);
     }
     deltaVoltage_ = phaseVoltages_[metalPhase_] - phaseVoltages_[solnPhase_];
-    //
+    
     //    Calculate the volume of the electrode phase. This is the main routine to do this.
-    //
     ElectrodeSolidVolume_ = SolidVol();
 
-    double vol = ElectrodeSolidVolume_ / particleNumberToFollow_;
-
-    /*
-     *  Calculate the external radius of the particle (in meters) assuming that all particles are the same
-     *  size and are spherical
-     */
-    Radius_exterior_final_ = pow(vol * 3.0 / (4.0 * Pi), 0.3333333333333333);
+    //  Calculate the external radius of the particle (in meters) assuming that all particles are the same
+    //  size and are spherical
+    double volParticle = ElectrodeSolidVolume_ / particleNumberToFollow_;
+    Radius_exterior_final_ = pow(volParticle * 3.0 / (4.0 * Pi), 0.3333333333333333);
 }
 //====================================================================================================================
 //

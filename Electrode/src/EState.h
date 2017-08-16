@@ -284,19 +284,19 @@ public:
 
     //! Set the state of the Electrode from the state of this object
     /*!
-     *  (virtual function)
-     *   This function is called from the Electrode object or a battery simulator to
-     *   initialize the Electrode object from an input file.
+     *  (virtual function from EState)
+     *  This function is called from the Electrode object or a battery simulator to
+     *  initialize the Electrode object from an input file.
      *
-     *   This function will set the _final_ state of the Electrode object.
-     *   This function will also set all of the internal degrees of freedom such that
-     *   the next time step taken by the object will result in the same values and time step
-     *   that would have occurred if there hadn't been a restart.
+     *  This function will set the _final_ state of the Electrode object.
+     *  This function will also set all of the internal degrees of freedom such that
+     *  the next time step taken by the object will result in the same values and time step
+     *  that would have occurred if there hadn't been a restart.
      *
      *  @param[in,out]       e                   Changeable pointer to the base class Electrode object. This function may
      *                                           do dynamic casting to get the correct child Electrode object.
      * 
-     *   @deprecated There are two ways to do the same operation. The other way is using the Electrode 
+     *  @deprecated  There are three ways to do the same operation. The other way is using the Electrode 
      *               setState_EState() function. Let's get rid of this one, and use the Electrode member
      *               function instead.
      */
@@ -304,17 +304,16 @@ public:
 
     //! Set the state of the Electrode Class from the state of the EState object
     /*!
-     *  (virtual function)
+     *  virtual function, because the base class is called from general code, allowing the child classes to be invoked.
      *
-     *  virtual function, because the base class is called from general code, allowing
-     *      the child classes to be invoked.
+     *  This is not a virtual function. It copies information from one fixed class to another using the "friend" paradigm.
      *
-     *  This is not a virtual function.  It copies information from one fixed class to another
-     *  using the "friend" paradigm.
+     *  @param[in,out]       e                   Pointer to the Electrode object. Note, this class may use dynamic casting
+     *                                           to choose a child object, and then may invoke an error if the match isn't correct.
      *
-     *  @param e   Pointer to the Electrode object. Note, this class may use dynamic casting
-     *             to choose a child object, and then may invoke an error if the match isn't
-     *             correct.
+     *  @deprecated  There are three ways to do the same operation. The other way is using the Electrode 
+     *               setState_EState() function. Let's get rid of this one, and use the Electrode member
+     *               function instead.
      */
     void copyEState_toElectrode(ZZCantera::Electrode* const e) const;
 
