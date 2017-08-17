@@ -232,6 +232,7 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     DiffCoeff_default_                  = right.DiffCoeff_default_;
     actCoeff_Cell_final_                = right.actCoeff_Cell_final_;
     actCoeff_Cell_init_                 = right.actCoeff_Cell_init_;
+    m_yvalNLS_Alt                       = right.m_yvalNLS_Alt;
     phaseID_TimeDeathMin_               = right.phaseID_TimeDeathMin_;
     cellID_TimeDeathMin_                = right.cellID_TimeDeathMin_;
     onRegionBoundary_init_              = right.onRegionBoundary_init_;

@@ -520,13 +520,14 @@ void EState::setStateElectrode_fromEState(ZZCantera::Electrode* const e) const
 }
 //======================================================================================================================
 // Set the state of the Electrode Class from the state of the EState object
+//   @deprecated
 void EState::copyEState_toElectrode(ZZCantera::Electrode* const e) const
 {
     e->spMoles_final_                     = spMoles_;
     e->phaseVoltages_                     = phaseVoltages_;
     e->temperature_                       = temperature_;
     e->pressure_                          = pressure_;
-    e->electrodeChemistryModelType_                = electrodeChemistryModelType_;
+    e->electrodeChemistryModelType_       = electrodeChemistryModelType_;
     e->electrodeDomainNumber_             = electrodeDomainNumber_;
     e->electrodeCellNumber_               = electrodeCellNumber_;
     e->particleNumberToFollow_            = particleNumberToFollow_;
