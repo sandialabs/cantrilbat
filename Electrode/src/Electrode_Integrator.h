@@ -1354,7 +1354,9 @@ protected:
      *  We use the equation system to come up with predictions. This approximation doesn't use solnDot to produce a guess.
      *  We augment this vector with the onBoundaryRegion value prediction.
      *
-     *  Length: ResidJacEval::neq_ 
+     *   soln_predict_[neq_] = onBoundaryRegion;
+     *
+     *  Length: ResidJacEval::neq_ + 2
      *  Units:  These are the solution unknown units for the time stepping problem
      *  Values: These are predictions at t_n given previous conditions
      */

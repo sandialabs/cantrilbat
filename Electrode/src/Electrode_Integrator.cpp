@@ -957,17 +957,14 @@ topConvergence:
 
 	    /*
              *  We've done an explicit predictor. However, for some systems this isn't a good predictor, or it's too expenseive
-	     *  and time consuming to do a good job. Therefore, we will back it up with a traditional predictor -corrector method
-	     *  which 
-	     *  For some other systems, this step can be bypassed. 
-	     *  Whatever is more accurate is used as the error indicator
+	     *  and time consuming to do a good job. Therefore, we will back it up with a traditional predictor -corrector method.
+	     *  For some other systems, this step can be bypassed. Whatever is more accurate is used as the error indicator
+             *
+             *  If the predictDotBetter_ variable is true, then we actually use the predicted solution from predictSolnDot as 
+             *  the initial guess to the nonlinear equation solver. If that prediction produces an out of bounds result, we 
+             *  fail the solution step. and try again with a smaller time step after setting predictDotBetter_ to false;
              */
 	    info = predictSolnDot();
-#ifdef DEBUG_MODE
-	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
-		//	printf("WARNING deltaTubcycle_ = %g\n", deltaTsubcycle_ );
-	    }
-#endif
 	    if (info != 1) {
                 conseqFailures++ ;
                 nonlinConverged = 0;
@@ -1117,6 +1114,7 @@ topConvergence:
                 }
             }
 	    //bool specialSolve = false;
+otherFailureType:
             if (nonlinearFlag < 0) {
                 conseqFailures++ ;
                 nonlinConverged = 0;
@@ -1127,16 +1125,22 @@ topConvergence:
                 deltaTsubcycle_ = deltaTsubcycle_ * 0.25;
                 deltaTsubcycleNext_ = deltaTsubcycle_;
                 tfinal_ += deltaTsubcycle_;
-                /*
-                 * Revert to the old solution -> copy _init_ to _final_
-                 */
+                
+                // Revert to the old solution -> copy _init_ to _final_
                 setFinalStateFromInit();
             } else {
-                unpackNonlinSolnVector(DATA_PTR(yvalNLS_));
-                /*
-                 *  Correct the final time
-                 */
+                //  HKM -> Don't think this can happen, but checking anyway
+                info = unpackNonlinSolnVector(DATA_PTR(yvalNLS_));
+                if (info != 1) {
+                    if (printLvl_ > 1) {
+                        printf("Electrode_Integrate::integrate(): WARNING "
+                               "Nonlinear problem produced a solution that had a bounds problem!\n");
+                    }
+                   nonlinearFlag = -1;
+                   goto otherFailureType;
+                }
 
+                //  Correct the final time
                 if (deltaTsubcycleCalc_ < deltaTsubcycle_ * (1.0 - 1.0E-10)) {
                     if (printLvl_ > 1) {
                         printf("deltaT reduced to %g from %g due to phase death capture\n",
@@ -1572,18 +1576,28 @@ int Electrode_Integrator::predictSoln()
 //==================================================================================================================================
 int Electrode_Integrator::predictSolnDot()
 {
+    int info = 1;
     soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
     for (int i = 1; i < (int) yvalNLS_.size(); i++) {
 	soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
     }
     // We only use the prediction if the predictSolnDot method is deemed the best predictor!
     if (predictDotBetter_) {
-	unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+        // HKM -> This can happen if the prediction is bad. It must be checked.
+	info = unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+        if (info != 1) {
+            predictDotBetter_ = false;
+            // Go back to the previous soln_predict_[] created from the previous estimation method to get an initial solution.
+            info = unpackNonlinSolnVector(&soln_predict_[0]);
+            if (info != 1) {
+                return -1;
+            }
+        }
 	updateState();
 	extractInfo();
 	updateSpeciesMoleChangeFinal();
     }
-    return 1;
+    return info;
 }
 //==================================================================================================================================
 void  Electrode_Integrator::extractInfo()
@@ -2152,7 +2166,13 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
     /*
      *  UNPACK THE SOLUTION VECTOR
      */
-    unpackNonlinSolnVector(y);
+    retn = unpackNonlinSolnVector(y);
+    if (retn != 1) {
+        if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
+          printf(" Bounds problem unpacking solution vector. Bailing on residual calculation\n");
+          return -1;
+        }
+    }
 
     if (evalType != ResidEval_Type::JacDelta_ResidEval && (evalType != ResidEval_Type::Base_LaggedSolutionComponents)) {
         //    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double *)DATA_PTR(phaseMoles_final_), m_NumTotPhases);

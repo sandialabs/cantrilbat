@@ -1,5 +1,5 @@
-/*
- * $Id: Electrode_SimpleDiff.cpp 571 2013-03-26 16:44:21Z hkmoffa $
+/**
+ * @file Electrode_SimpleDiff.cpp
  */
 
 #include <stdio.h>

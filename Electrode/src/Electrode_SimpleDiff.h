@@ -1,5 +1,5 @@
 /**
- ode.cpp                     Electrode_Equilibrium.d       Electrode_InfCapacity.h    Electrode_MP_RxnExtent_FeS2.o    Electrode_SimpleDiff.o         rode_SimpleDiff.h
+ *  @file Electrode_SimpleDiff.h
  */
 
 /*
