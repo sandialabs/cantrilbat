@@ -1335,8 +1335,8 @@ protected:
 
     //! Boolean vector indicating a phase just died on this subgrid time integration step
     /*!
-     *  Length = m_NumTotPhases
-     *  Units = boolean 
+     *  Length:   m_NumTotPhases
+     *  Units:    boolean 
      *  Values are reset to 0 at the start of every local subgrid time step
      */
     std::vector<int> phaseJustDied_;
@@ -1352,9 +1352,9 @@ protected:
     //! Vector of predicted solutions for the t_n given values at t_n-1 and previous
     /*!
      *  We use the equation system to come up with predictions. This approximation doesn't use solnDot to produce a guess.
-     *  We augment this vector with the onBoundaryRegion value prediction.
+     *  We augment this vector with the onBoundaryRegion value prediction at the end of the vector
      *
-     *   soln_predict_[neq_] = onBoundaryRegion;
+     *   soln_predict_[neq_] = onRegionBoundary_final_predicted;
      *
      *  Length: ResidJacEval::neq_ + 2
      *  Units:  These are the solution unknown units for the time stepping problem

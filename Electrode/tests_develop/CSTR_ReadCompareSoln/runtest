@@ -49,6 +49,7 @@ temp_success="1"
 PROG_EXE=./readEStateTest
 if test ! -x ${PROG_EXE}  ; then
   echo 'ERROR: ' ${PROG_EXE} ' executable can not be found'
+  /bin/rm -f runInProgress.txt
   exit -1
 fi
 
@@ -65,6 +66,7 @@ if test $retnStat != "0"
 then
   temp_success="0"
   echo "$PROG_EXE returned with bad status, $retnStat, check output"
+  /bin/rm -f runInProgress.txt
   exit 0
 fi
 
