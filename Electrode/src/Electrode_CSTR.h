@@ -114,15 +114,6 @@ public:
      */
     virtual Electrode_Types_Enum electrodeType() const;
 
-    //! Set the electrode ID information
-    /*!
-     *  This is used to identify the electrode object within printouts.
-     *
-     *  @param[in]           domainNum           Number of the domain
-     *  @param[in]           cellNum             Cell number
-     */
-    void setID(int domainNum, int cellNum);
-
     //! This function will extend the input options for the electrode to included child input
     //! and then return a child object of ELECTRODE_KEY_INPUT
     /*!

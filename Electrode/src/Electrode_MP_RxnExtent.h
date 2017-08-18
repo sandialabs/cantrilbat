@@ -1,6 +1,7 @@
-/*
- * $Id: Electrode_MP_RxnExtent.h 604 2013-05-24 16:27:35Z hkmoffa $
+/**
+ *   @file Electrode_MP_ReactionExtent.h
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -184,14 +185,7 @@ public:
      *
      *  @return Returns an enum type, called   Electrode_Types_Enum
      */
-    virtual Electrode_Types_Enum electrodeType() const;
-
-    //! Set the electrode ID information
-    /*!
-     *  @param[in]           domainNum           Value of the domain number
-     *  @param[in]           cellNum             value of the cell number
-     */
-    void setID(int domainNum, int cellNum);
+    virtual Electrode_Types_Enum electrodeType() const override;
 
     //! Change the ELECTRODE_KEY_INPUT to the correct type, parsing the command file again, and then returning the struct in its place
     /*!
@@ -317,7 +311,7 @@ public:
      * @param[in]            temperature         Temperature (Kelvin)
      * @param[in]            pressure            Pressure (Pa)
      */
-    void setState_TP(double temperature, double pressure);
+    virtual void setState_TP(double temperature, double pressure) override;
 
     // -------------------------  VOLUMES -----------------------------------------------------------
 
@@ -448,11 +442,12 @@ public:
 
     //! Calculate the production rate of species in the electrode at the final time of the time step
     /*!
+     *  (virtual from Electrode_Integrator)
      *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
      *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
      *   all species in the electrode.
      */
-    void updateSpeciesMoleChangeFinal();
+    virtual void updateSpeciesMoleChangeFinal() override;
 
     //! returns the old region
     /*!
@@ -588,10 +583,9 @@ public:
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *  Both the predicted solution values and the predicted integrated source terms are used
-     *  in the time step control
+     *  Both the predicted solution values and the predicted integrated source terms are used in the time step control
      */
-    virtual void gatherIntegratedSrcPrediction();
+    virtual void gatherIntegratedSrcPrediction() override;
 
     //!  Residual calculation for the solution of the Nonlinear integration problem
     /*!
@@ -901,6 +895,7 @@ public:
      *   @return                                 returns the standard state voltage.
      */
     double openCircuitVoltage_Region(double relativeExtentRxn, int xRegion, bool comparedToReferenceElectrode = false) const;
+                                   
 
     //! Returns the equilibrium standard state open circuit voltage for the current conditions 
     /*!
@@ -1002,22 +997,21 @@ public:
      *                                           the relative discharged as a single combined fraction. If platNum is
      *                                           >= 0, then the discharge is relative to the current plateau.
      */
-    virtual void setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum = -1);
+    virtual void setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum = -1) override;
 
 
     // -------------------------------  SetState Functions -------------------------------------------------------
 
 
-    //!   Set the current capacity discharged in amp seconds
+    //! Set the current capacity discharged in amp seconds
     /*!
-     *   The relative extent of reaction is a dimensionless number on the order of one
-     *   that represents the state of the electrode. A value of zero represents the
-     *   fully charged state, while a value of one (or equivalent) represents a fully
-     *   discharged state. 
+     *  The relative extent of reaction is a dimensionless number on the order of one
+     *  that represents the state of the electrode. A value of zero represents the
+     *  fully charged state, while a value of one (or equivalent) represents a fully discharged state. 
      *
-     *  @param  relativeExtentRxn  Relative extent of reaction variable (input)
+     *  @param[in]           relativeExtentRxn   Relative extent of reaction variable
      */
-    void setState_relativeExtentRxn(double relativeExtentRxn);
+    virtual void setState_relativeExtentRxn(double relativeExtentRxn) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
@@ -1135,7 +1129,7 @@ public:
     /*!
      *  @return                                  Returns the number of extra print tables
      */
-    virtual int getNumPrintTables() const;
+    virtual int getNumPrintTables() const override;
 
     //! Get the values that are printed in tables for the 1D code.
     /*!
