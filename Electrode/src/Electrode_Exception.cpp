@@ -27,15 +27,15 @@ namespace Cantera
 #endif
 {
 //==================================================================================================================================
-Electrode_Error::Electrode_Error(const std::string &proc, const std::string &msg) :
-    ZZCantera::ZuzaxError("Electrode_Error: " + proc, msg)
+Electrode_Error::Electrode_Error(const std::string& proc, const std::string& msg) :
+    ZZCantera::ZuzaxError(proc, msg)
 {
 }
 //==================================================================================================================================
-Electrode_Error::Electrode_Error(const std::string &proc, const char* fmt, ...) :
+Electrode_Error::Electrode_Error(const std::string& proc, const char* fmt, ...) :
     ZZCantera::ZuzaxError()
 {
-    procedure_ = "Electrode_Error: " + proc;    
+    procedure_ = proc;
     msg_.resize(1024);
     va_list args;
     va_start(args, fmt);
@@ -44,7 +44,7 @@ Electrode_Error::Electrode_Error(const std::string &proc, const char* fmt, ...) 
     int n = _vsnprintf(sbuf, 1023, fmt, args);
 #else
     int n = vsnprintf(sbuf, 1023, fmt, args);
-#endif 
+#endif
     if (n < 1024) {
         // if n is negative, we just go ahead and put a zero at the end of the buffer and write anyway
         va_end(args);
@@ -61,7 +61,7 @@ Electrode_Error::Electrode_Error(const std::string &proc, const char* fmt, ...) 
         n = vsnprintf(sbuf, sze-1, fmt, args);
 #endif
         // Negative n is not trapped. We just print anyway.
-        va_end(args); 
+        va_end(args);
         sbuf[sze-1] = '\0';
     }
     save();
@@ -78,29 +78,30 @@ Electrode_Error::Electrode_Error() :
 //==================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-namespace esmodel 
+namespace esmodel
 {
 //==================================================================================================================================
-void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string &procedure, const std::string &msg)
+void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string& procedure, const std::string& msg)
 {
     int eDom = e.electrodeDomainNumber_;
     int eCell = e.electrodeCellNumber_;
     int printLvl_ = e.printLvl_;
 
     if (printLvl_) {
-    ZZCantera::Electrode_Types_Enum etype = e.electrodeType();
-    std::string estring = Electrode_Types_Enum_to_string(etype);
-    std::string pmsg = "Electrode_Warning: dom: " + ZZCantera::int2str(eDom) + " Cell: " + ZZCantera::int2str(eCell) + ": " + estring + ":" + procedure;
-    std::cerr << pmsg << " " << msg << std::endl; 
-   }
+        ZZCantera::Electrode_Types_Enum etype = e.electrodeType();
+        std::string estring = Electrode_Types_Enum_to_string(etype);
+        std::string pmsg = "Electrode_Warning: dom: " + ZZCantera::int2str(eDom) + " Cell: " + ZZCantera::int2str(
+                               eCell) + ": " + estring + ":" + procedure;
+        std::cerr << pmsg << " " << msg << std::endl;
+    }
 }
 //==================================================================================================================================
-void ESModel_Warning(const std::string &procedure, const std::string &msg)
+void ESModel_Warning(const std::string& procedure, const std::string& msg)
 {
     int printLvl_ = 1;
     if (printLvl_) {
-    std::string pmsg = "ESModel Warning: " + procedure;
-    std::cerr << pmsg << " " << msg << std::endl; 
+        std::string pmsg = "ESModel Warning: " + procedure;
+        std::cerr << pmsg << " " << msg << std::endl;
     }
 }
 //==================================================================================================================================
@@ -139,12 +140,12 @@ bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<do
     size_t j = a1.size();
     size_t j2 = a2.size();
     if (j2 != j) {
-        return false; 
-    } 
+        return false;
+    }
     for (size_t i = 0; i < j; ++i) {
-       if (!doubleEqualNoAtol(a1[i], a2[i], digits)) {
-           return false;
-       }
+        if (!doubleEqualNoAtol(a1[i], a2[i], digits)) {
+            return false;
+        }
     }
     return true;
 }
@@ -156,17 +157,18 @@ bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>&
     size_t j = a1.size();
     size_t j2 = a2.size();
     if (j2 != j) {
-        return false; 
-    } 
+        return false;
+    }
     for (size_t i = 0; i < j; ++i) {
-       if (! doubleEqual(a1[i], a2[i], atol, digits)) {
-           return false;
-       }
+        if (! doubleEqual(a1[i], a2[i], atol, digits)) {
+            return false;
+        }
     }
     return true;
 }
 //==================================================================================================================================
-double l0norm(const std::vector<double>& v1, const std::vector<double>& v2, const std::vector<double>& atolVec, const double rtol)
+double l0norm(const std::vector<double>& v1, const std::vector<double>& v2, const std::vector<double>& atolVec,
+              const double rtol)
 {
     double max0 = 0.0, ee;
     for (size_t k = 0; k < v1.size(); k++) {

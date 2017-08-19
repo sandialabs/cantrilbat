@@ -14,7 +14,7 @@
 #ifndef ELECTRODE_EXCEPTION_H
 #define ELECTRODE_EXCEPTION_H
 
-#include "cantera/base/ctexceptions.h" 
+#include "cantera/base/ctexceptions.h"
 #include "Electrode_defs.h"
 
 #include <string>
@@ -24,7 +24,7 @@
 namespace Zuzax
 #else
 namespace Cantera
-#endif 
+#endif
 {
 class Electrode;
 }
@@ -40,41 +40,50 @@ namespace Cantera
 /*!
  *  This error class is built on top of the Zuzax error procedures.
  */
-class Electrode_Error : public ZZCantera::ZuzaxError {
+class Electrode_Error : public ZZCantera::ZuzaxError
+{
 public:
 
-  //! Normal Constructor for the m1d_Error base class
-  /*!
-   * This class doesn't have any storage associated with it. In its constructor, 
-   * a call to the Zuzax::Application class is made to store the strings associated with the generated error condition.
-   *
-   * @param[in]              procedure           String name for the function within which the error was  generated.
-   * @param[in]              msg                 Descriptive string describing the type of error message.
-   */
-  Electrode_Error(const std::string &procedure, const std::string &msg);
+    //! Normal Constructor for the m1d_Error base class
+    /*!
+     * This class doesn't have any storage associated with it. In its constructor,
+     * a call to the Zuzax::Application class is made to store the strings associated with the generated error condition.
+     *
+     * @param[in]              procedure           String name for the function within which the error was  generated.
+     * @param[in]              msg                 Descriptive string describing the type of error message.
+     */
+    Electrode_Error(const std::string& procedure, const std::string& msg);
 
-  //! printf-like constructor for the Electrode_Error base class
-  /*!
-   * The message is formatted according to the standard c printing routines.
-   *
-   * @param[in]              procedure           String name for the function within which the error was generated.
-   * @param[in]              fmt                 printf-like format string
-   * 
-   *  Add parameters for fmt string according to the printf, fprintf man pages
-   */
-  Electrode_Error(const std::string& procedure, const char* fmt, ...);
+    //! printf-like constructor for the Electrode_Error base class
+    /*!
+     * The message is formatted according to the standard c printing routines.
+     *
+     * @param[in]              procedure           String name for the function within which the error was generated.
+     * @param[in]              fmt                 printf-like format string
+     *
+     *  Add parameters for fmt string according to the printf, fprintf man pages
+     */
+    Electrode_Error(const std::string& procedure, const char* fmt, ...);
 
+    //! Method overridden by derived classes to indicate their type
+    /*!
+     *      @return                              Returns a string indicating the class name.
+     */
+    virtual std::string getClass() const override
+    {
+        return std::string("Electrode_Error");
+    }
 
-  //! Destructor for base class does nothing
-  virtual ~Electrode_Error() throw ();
+    //! Destructor for base class does nothing
+    virtual ~Electrode_Error() throw ();
 
 protected:
 
-  //! Empty base constructor is made protected so that it may be used only by inherited classes.
-  /*!
-   *  We want to discourage throwing an error containing no information.
-   */
-  Electrode_Error();
+    //! Empty base constructor is made protected so that it may be used only by inherited classes.
+    /*!
+     *  We want to discourage throwing an error containing no information.
+     */
+    Electrode_Error();
 };
 //==================================================================================================================================
 
@@ -170,7 +179,7 @@ namespace esmodel
  *   @param[in]             procedure             String identifying the procedure where the warning occurred.
  *   @param[in]             msg                   String with the message
  */
-void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string &procedure, const std::string &msg);
+void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string& procedure, const std::string& msg);
 
 //! Write a warning to the logfile when not within an Electrode object
 /*!
@@ -179,7 +188,7 @@ void Electrode_Warning(const ZZCantera::Electrode& e,  const std::string &proced
  *   @param[in]             procedure             String identifying the procedure where the warning occurred.
  *   @param[in]             msg                   String with the message
  */
-void ESModel_Warning(const std::string &procedure, const std::string &msg);
+void ESModel_Warning(const std::string& procedure, const std::string& msg);
 
 //==================================================================================================================================
 //! Assert two numbers are equal up to a number of digits and to an absolute tolerance
@@ -193,7 +202,7 @@ void ESModel_Warning(const std::string &procedure, const std::string &msg);
  */
 bool doubleEqual(double a1, double a2, double atol = 1.0E-300, int digits = 6);
 
-//! Assert two numbers are equal up to a number of digits 
+//! Assert two numbers are equal up to a number of digits
 /*!
  *   @param[in]      a1                  First float
  *   @param[in]      a2                  Second float
@@ -212,7 +221,8 @@ bool doubleEqualNoAtol(double a1, double a2, int digits = 6);
  *
  *   @return                             Returns true if floats are equal up to the specification
  */
-bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol = 1.0E-300, int digits = 6);
+bool doubleVectorEqual(const std::vector<double>& a1, const std::vector<double>& a2, double atol = 1.0E-300,
+                       int digits = 6);
 
 //! Assert two vectors of doubles are equal up to a number of digits
 /*!
@@ -232,15 +242,15 @@ bool doubleVectorEqualNoAtol(const std::vector<double>& a1, const std::vector<do
  *
  *     L0_i    =     || Actual_i - Pred_i || / ( rtol * MAX(||Actual_i||, || Pred_i ||)
  *
- *   if ||Abstol_i|| > rtol * MAX(||Actual_i||, || Pred_i || 
- * 
+ *   if ||Abstol_i|| > rtol * MAX(||Actual_i||, || Pred_i ||
+ *
  *    L0_i    =     || Actual_i - Pred_i || / ( MAX(||Abstol_i|| )
  *
  *  @param[in]               v1                  First vector to compare against. Lengt
  *  @param[in]               v2                  Second vector to compare against. Length >= num
  *  @param[in]               atolVec             Absolute tolerance vector. Length >= num
  *  @param[in]               rtol                Relative tolerance
- * 
+ *
  *   @return                                     returns the maximum value of Lo_i for all i.
  */
 double l0norm(const std::vector<double>& v1, const std::vector<double>& v2, const std::vector<double>& atolVec,
@@ -248,7 +258,7 @@ double l0norm(const std::vector<double>& v1, const std::vector<double>& v2, cons
 
 //! Return a relative difference between two doubles given an absolute tolerance
 /*!
- *  Returns the dimensionless value representative of the number of digits of agreement between two number above an 
+ *  Returns the dimensionless value representative of the number of digits of agreement between two number above an
  *  absolute tolerance level.
  *
  *   rel_diff = fabs( a - b ) / MAX( || a || , || b || , atol , 1.0E-300 )
