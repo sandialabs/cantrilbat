@@ -214,7 +214,8 @@ Start Time = 0.0
 ! 
 ! Simulation end time  [s]   - 60 minutes
 !
-End Time = 3600.0
+!End Time = 3600.0
+End Time = 3.0
 !-------------------------------------------------------------------------
 !
 ! Initial Time Step [s]
@@ -254,7 +255,7 @@ Maximum Time Step = 25.0
 !        each time step
 !
 !-------------------------------------------------------------------------
-Solution Behavior Print Level = 5
+Solution Behavior Print Level = 3
 !-------------------------------------------------------------------------
 !
 !  Time Stepper Print Level - int (optiona)
@@ -274,7 +275,7 @@ Solution Behavior Print Level = 5
 !   9 -> Info on a per iterate of the linear solve is printed out.
 !
 !-------------------------------------------------------------------------
-Time Stepper Print Level = 6
+Time Stepper Print Level = 2
 !-------------------------------------------------------------------------
 !
 !    Nonlinear Solver Log Level - int (optional)
@@ -292,7 +293,7 @@ Time Stepper Print Level = 6
 !   8 -> Info on a per iterate of the linear solve is printed out.
 !
 !-------------------------------------------------------------------------
-Nonlinear Solver Log Level = 3
+Nonlinear Solver Log Level = 1
 !--------------------------------------------------------------------------
 !
 
