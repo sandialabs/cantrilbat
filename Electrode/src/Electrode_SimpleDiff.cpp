@@ -2624,7 +2624,11 @@ void Electrode_SimpleDiff::setNLSGlobalSrcTermTolerances(double rtolResid)
  */
 void  Electrode_SimpleDiff::setResidAtolNLS()
 {
-    double atolMF = 1.0E-12;
+    size_t iCell, cindex, cIndexPhStart, jPh, kSp, nSpecies;
+    // We set the absolute tolerance on Mole Fraction variables to be this value
+    const double atolMF = 1.0E-13;
+    double phaseConc, cellVol, atolSpecies;
+    //double atolMF = 1.0E-12;
     double deltaT = t_final_final_ - t_init_init_;
     deltaT = std::max(deltaT, 1.0E-3);
     /*
@@ -2637,47 +2641,38 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
      *  residual has the same units as soln.
      */
     atolResidNLS_[0] = deltaT * 1.0E-6;
-    /*
-     *  Calculate the atolVal that will be used in the calculation of phase moles.
-     *  Note, from experience we cannot follow within the equil solver the phases with mole number that
-     *  are additively insignificant compared to the total number of moles. This is a basic
-     *  limitation. However, they must be followed kinetically up to the level that they contribute
-     *  electrons. So, we will set atolBaseResid_ to 1.0E-25 with possible additions later.
-     */
-    //double atolVal = solidMoles * atolBaseResid_;
 
-    /*
-     *  set the atol on the time step
-     */
+    //  set the atol on the time step
     atolNLS_[0] = (1.0E-50);
+
     size_t index = 0;
     index++;
 
-    for (size_t iCell = 0; iCell < numRCells_; iCell++) {
+    for (iCell = 0; iCell < numRCells_; iCell++) {
 
-        size_t cindex = 1 + numEqnsCell_ * iCell;
-        size_t cIndexPhStart = cindex;
+        cindex = 1 + numEqnsCell_ * iCell;
+        cIndexPhStart = cindex;
 
-        for (size_t jPh = 0; jPh < numSPhases_; jPh++) {
-            size_t iPh = phaseIndeciseKRsolidPhases_[jPh];
+        for (jPh = 0; jPh < numSPhases_; jPh++) {
             /*
              *  set the tolerance on the phase concentration
+             *  (could set the state here to be more accurate)
              */
-            ThermoPhase* th = & thermo(iPh);
-            size_t nSpecies = th->nSpecies();
-            double molarVol = th->molarVolume();
-            double phaseConc = 1.0 / molarVol;
-            double cellVol = volPP_Cell_final_[iCell] * particleNumberToFollow_;
-            atolNLS_[cIndexPhStart] = cellVol * phaseConc * atolMF;
-            atolResidNLS_[cIndexPhStart] = atolNLS_[cIndexPhStart];
+            ThermoPhase* th = & thermo(phaseIndeciseKRsolidPhases_[jPh]);
+            nSpecies = th->nSpecies();
+            phaseConc = 1.0 / th->molarVolume();
+            cellVol = volPP_Cell_final_[iCell] * particleNumberToFollow_;
+            // Absolute tolerance is in terms of kmol within each cell (1.0E-12 kmolInEachCell)
+            atolSpecies = cellVol * phaseConc * atolMF;
+            atolNLS_[cIndexPhStart] = atolSpecies;
+            atolResidNLS_[cIndexPhStart] = atolSpecies;
 
-            for (size_t kSp = 1; kSp < nSpecies; kSp++) {
-                atolNLS_[cIndexPhStart + kSp] = cellVol * phaseConc * atolMF;
-                atolResidNLS_[cIndexPhStart + kSp] = atolNLS_[cIndexPhStart + kSp];
+            for (kSp = 1; kSp < nSpecies; kSp++) {
+                atolNLS_[cIndexPhStart + kSp] = atolSpecies;
+                atolResidNLS_[cIndexPhStart + kSp] = atolSpecies;
             }
             cIndexPhStart += nSpecies;
         }
-
     }
 
     if (atolNLS_.size() !=  neq_) {

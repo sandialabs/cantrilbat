@@ -716,8 +716,7 @@ protected:
     /*!
      *  (virtual from Electrode_Integrator)
      *
-     *   Set the absolute error tolerances fror the nonlinear solvers. This is called at the top
-     *   of the integrator() routine.
+     *   Set the absolute error tolerances fror the nonlinear solvers. This is called at the top of the integrator() routine.
      *
      *   Calculates atolResidNLS_[]
      *   Calculates atolNLS_[]
