@@ -203,6 +203,9 @@ bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
  *     the state contained in the record.
  *
  *            <globalTimeStep index = 312>
+ *               <deltaTime_init_init vtype="float"> 1.557235273415415E+00 </deltaTime_init_init>
+ *               <deltaTime_init_next vtype="float"> 1.275243476790791E+00 </deltaTime_init_next>
+ *               <numIntegrationSubCycles vtype="integer"> 1 </numIntegrationSubCycles>
  *               <timeIncrement type="global">
  *                  <timeState type="t_init">
  *                     ....xmlStateData_init_
@@ -219,7 +222,6 @@ bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
  *            </globalTimeStep>
  *
  *
- *
  *  @param xGSTI    Global time step increment record
  */
 void Electrode::loadGlobalTimeStepTFinalState(const XML_Node* const xGTS)
@@ -233,6 +235,9 @@ void Electrode::loadGlobalTimeStepTFinalState(const XML_Node* const xGTS)
     double deltaTime_init_next =  ZZctml::getFloat(*xGTS, "deltaTime_init_next");
     deltaTsubcycle_init_init_  = deltaTime_init_init;
     deltaTsubcycle_init_next_  = deltaTime_init_next;
+    if (xGTS->hasAttrib("index")) {
+        globalTimeStepNumber_ = intValueCheck((*xGTS)["index"]);
+    }
 
     const XML_Node* const xGTSI = xGTS->findByName("timeIncrement");
     if (!xGTSI) {
@@ -252,6 +257,7 @@ void Electrode::loadGlobalTimeStepTFinalState(const XML_Node* const xGTS)
     }
     // load
     loadTimeState(*rTFinal);
+    globalTimeStepNumber_++;
 }
 //==================================================================================================================================
 void Electrode::loadGlobalTimeStepTInitState(const XML_Node* const xGTS)
@@ -265,6 +271,9 @@ void Electrode::loadGlobalTimeStepTInitState(const XML_Node* const xGTS)
     double deltaTime_init_next = ZZctml::getFloat(*xGTS, "deltaTime_init_next");
     deltaTsubcycle_init_init_  = deltaTime_init_init;
     deltaTsubcycle_init_next_  = deltaTime_init_next;
+    if (xGTS->hasAttrib("index")) {
+        globalTimeStepNumber_ = intValueCheck((*xGTS)["index"]);
+    }
 
     const XML_Node* const xGTSI = xGTS->findByName("timeIncrement");
     if (!xGTSI) {
@@ -380,7 +389,7 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
                               "Solution Output has been requested, but it has never been set up by invoking electrode_stateSave_create()");
     }
     /*
-     *  stepNum is the global time step number written to the file.
+     *  stepNum is the number of time steps written to the file.
      */
     static int stepNum = 0;
 
@@ -426,8 +435,7 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
      *  -> so far we have an index of one. However, if there are continuation runs in the
      *     file and we want to add more than one
      */
-    std::string ii = ZZCantera::int2str(solnNum);
-    soln.addAttribute("index", ii);
+    soln.addAttribute("index", int2str(solnNum));
 
     stepNum++;
     if (stepNumOverride != -1) {
@@ -449,8 +457,10 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
      *  Add the globalTimeStep XML element with the global time step number as an attribute
      */
     ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
-    ii = ZZCantera::int2str(stepNum);
-    gts.addAttribute("index", ii);
+    gts.addAttribute("index", int2str(globalTimeStepNumber_));
+    gts.addAttribute("windex", int2str(stepNum));
+    gts.addAttribute("t_init_init", fp2str(t_init_init_));
+    gts.addAttribute("t_final_final", fp2str(t_final_final_));
     std::string fmt = "%22.14E";
 
     /*
@@ -585,8 +595,7 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
      *  -> so far we have an index of one. However, if there are continuation runs in the
      *     file and we want to add more than one
      */
-    std::string ii = ZZCantera::int2str(solnNum);
-    soln.addAttribute("index", ii);
+    soln.addAttribute("index", int2str(solnNum));
 
     //  Add a time stamp
     ZZctml::addString(soln, "timeStamp", asctime(newtime));
@@ -601,8 +610,7 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
     
     //  Add the globalTimeStep XML element with the global time step number as an attribute
     ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
-    ii = ZZCantera::int2str(stepNum);
-    gts.addAttribute("index", ii);
+    gts.addAttribute("index", int2str(globalTimeStepNumber_));
     const std::string fmt = "%22.14E";
 
     //  Add this time step's first delta T attempt
