@@ -27,10 +27,10 @@ DIFF_REQ="           True          "
 #
 #  CSV file to compare against
 #
-BLESSED_CSV_FILES="  FeS2_intResults_blessed.csv  "
-CSV_FILES="          FeS2_intResults_0_0.csv          "
-DIFF_CSV_NAMES="     diff_csv.txt        "
-DIFF_CSV_REQ="       True                     "
+BLESSED_CSV_FILES="  FeS2_intResults_blessed.csv  outputTable_blessed.csv"
+CSV_FILES="          FeS2_intResults_0_0.csv      outputTable.csv    "
+DIFF_CSV_NAMES="     diff_csv.txt                 diff_ocsv.txt "
+DIFF_CSV_REQ="       True                         True "
 #
 #  Extra files to be removed before the test starts
 #

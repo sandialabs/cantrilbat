@@ -124,7 +124,7 @@ public:
 		sih.print(3);
 	    }
 	}
-        return 0;
+        return 1;
     }
 
     //! Set the delta time for the interval
@@ -203,7 +203,7 @@ public:
      *  @param[out]          r                   Vector of residual outputs. r[0] is defined as the  rate of production
      *                                           of electrons from the surface.
      *
-     *  @return                                  Returns 0 if the evaluation was successful
+     *  @return                                  Returns 1 if the evaluation was successful
      */
     virtual int evalResidSS(const double t, const double* const x, double* const r) override {
         // set the metal and the electrolyte voltage
@@ -217,7 +217,7 @@ public:
         if (printLvl_) {
             writelogf("Electrode_ECurr: electronProd(voltage = %20.13g) = %20.13g\n", x[0], eProd);
         }
-        return 0;
+        return 1;
     }
 
     //! Set the delta time for the interval

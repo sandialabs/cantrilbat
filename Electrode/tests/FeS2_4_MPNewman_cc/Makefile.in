@@ -1,8 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#      Makefile for an electrode test problem using the runtest_Electrode test harness.
-#
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
@@ -13,10 +10,16 @@
 
 PROGRAM = FeS2_4_MPNewman_cc
 
-BLESSED_FILES = good_out.txt FeS2_intResults_blessed.csv soln_0_0_blessed.xml
+BLESSED_FILES = good_out.txt FeS2_intResults_blessed.csv soln_0_0_blessed.xml outputTable_blessed.csv
 
 DATA_FILES = FeS2_A.xml  FeS2_B.xml  FeS2_electrode.xml  LiKCl_Margules.xml  LiKCl_recipmoltenSalt.xml \
-            cathode.inp Li_Liquid.xml  metal_Li_LiCl_electrons.xml problem_setup.sh
+             cathode.inp Li_Liquid.xml  metal_Li_LiCl_electrons.xml problem_setup.sh
+
+TEST_RESULTS = outputTable.csv FeS2_intResults_0_0.csv out.txt soln_0_0.xml  FeS2_globalResults_0_0.csv 
+
+TEST_INTERMEDIATES = diff_csv.txt diff_ocsv.txt diff_out.txt err_out.txt diff_summary.txt diff_xml.txt
+
+TEST_FLAGS = runGood runBad runInProgress.txt
 
 OBJ = $(PROGRAM).o
 
@@ -29,38 +32,32 @@ PURIFY=@PURIFY@
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
 
-#
 # Bring in the Cantera includes through the .mak file
-#
 include $(CT_INCROOT)/cantera/Cantera.mak
-#
+
 # Utilsrc dependencies
-#
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-#
+
 # Set up the Cantera addition library
-#
 CTPADDS_DIR = ../../../ctpadds/src
 CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
 CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
-#
+
 # Set up the Electrode  directory
-#
 CTAPPLBASE_DIR = ../../src
 CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
 CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
-#
+
 #########################################################################
 # Set up the various local and global defines
 ########################################################################
-#
+
 LDEFINES = -DDEBUG 
 GDEFINES =
-#
+
 # Set up the global include directory macro
-#
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
 all: .dependsT $(PROGRAM)
@@ -68,33 +65,30 @@ all: .dependsT $(PROGRAM)
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
-
 CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 #
 ############################################################################
 # section to set up compiler rules
 ###########################################################################
-#
+
 # the C++ compiler
-#
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
 CXXLDR = $(CXX)
-#
-#
+
+
 # Both the C and C++ compiler predefines
-#
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
-#
+
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-#
+
 ############################################################################
 # section to set up depends
 ###########################################################################
-#
+
 DEPENDS = $(OBJ:.o=.d) 
 
 .cpp.d:
@@ -113,10 +107,7 @@ test:
 	@echo -n 'Checking need to run test ' $(PROGRAM) ': '
 	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
 
-#
-#  Took Makefile out of dependency for runGood because this is one of the longer running tests
-#
-runGood: $(PROGRAM) $(DATA)  $(BLESSED_FILES)
+runGood: $(PROGRAM) $(DATA) $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(PROGRAM)
 	../runtest_Electrode
 
@@ -124,8 +115,7 @@ rebaseline:
 	cp FeS2_intResults_0_0.csv FeS2_intResults_blessed.csv
 	cp out.txt good_out.txt
 	cp soln_0_0.xml soln_0_0_blessed.xml
-
-##############################################################################
+	cp outputTable.csv  outputTable_blessed.csv 
 
 $(OBJ): Makefile
 $(DEPENDS): Makefile
@@ -137,23 +127,27 @@ $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
+install:
+
+clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT
+	$(RM) ${PROG} $(TEST_FLAGS)
+
+dist_clean:
+	$(MAKE) clean_dist
+
+clean_test:
+	$(RM) $(TEST_FLAGS) $(TEST_RESULTS) $(TEST_INTERMEDIATES)
+
+clean_dist:
+	$(MAKE) clean
+	$(MAKE) clean_test
+
+clean_test_flags:
+	$(RM) $(TEST_FLAGS)
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
-
-clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT
-	$(RM) ${PROG} runGood runBad 
-
-dist_clean:
-	@MAKE@ clean
-	$(RM) diff_csv.txt diff_out.txt  diff_summary.txt   diff_xml.txt   err_out.txt  \
-	      FeS2_globalResults_0_0.csv   out.txt  soln_0_0.xml   FeS2_intResults_0_0.csv \
-	      outputTable.csv  
 
 

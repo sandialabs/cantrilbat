@@ -2692,6 +2692,8 @@ int  Electrode_DiffTALE::evalResidNJ(const double t, const double delta_t,
  *                      the jacobian (defaults to -1, which indicates that no variable is being
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
+ *
+ *  @return                1 for success
  */
 int Electrode_DiffTALE::integrateResid(const double t, const double delta_t,
 					 const double* const y, const double* const ySolnDot,

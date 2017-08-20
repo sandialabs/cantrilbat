@@ -362,7 +362,7 @@ void Electrode_SimpleDiff::updateState()
  *                      differenced or that the residual doesn't take this issue into account)
  * @param delta_x       Value of the delta used in the numerical differencing
  *
- * @return
+ * @return              0 for failure
  */
 int  Electrode_SimpleDiff::evalResidNJ(const double t, const double delta_t,
                                        const double* const y,

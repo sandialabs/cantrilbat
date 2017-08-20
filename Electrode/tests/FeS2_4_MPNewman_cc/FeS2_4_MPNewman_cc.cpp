@@ -198,7 +198,7 @@ int main(int argc, char **argv)
     fprintf(fp, "amps = %g  \n", amps);
     fprintf(fp, "deltaT = %g  \n", deltaTgoal);
     fprintf(fp, "\n");
-    fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts \n");
+    fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts ,     Amps \n");
 
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
@@ -215,7 +215,7 @@ int main(int argc, char **argv)
       double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
       coul  += amps * deltaT;
-      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E\n", Tfinal, coul, coul/3600. , volts);
+      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E , %12.6E \n", Tfinal, coul, coul/3600. , volts, amps);
 
     
       electrodeC->printElectrode();

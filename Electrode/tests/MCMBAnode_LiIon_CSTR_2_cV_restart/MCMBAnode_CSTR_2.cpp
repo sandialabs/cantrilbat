@@ -202,7 +202,7 @@ int main(int argc, char **argv)
     //electrodeA->setDeltaTSubcycle(0.01);
     ///electrodeA->detailedResidPrintFlag_ = 10;
     //electrodeA->enableExtraPrinting_ = 10;
-    Tfinal = electrodeA->getFinalTime();
+    Tfinal = electrodeA->timeFinal();
 
     remove("soln.xml");
   
