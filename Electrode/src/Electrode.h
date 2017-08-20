@@ -2410,8 +2410,8 @@ public:
      *  @param[out]          phaseMoles_tmp      Calculated vector of phase mole numbers (kmol)
      *  @param[out]          spMf_tmp            Calculated vector of species mole fractions
      */
-    void updatePhaseNumbersTmp(const std::vector<double>& spMoles_tmp,
-                               std::vector<double>& phaseMoles_tmp, std::vector<double>& spMf_tmp) const;
+    //void updatePhaseNumbersTmp(const std::vector<double>& spMoles_tmp,
+    //                           std::vector<double>& phaseMoles_tmp, std::vector<double>& spMf_tmp) const;
 
     //-----------------------------------------------------------------------------------------------------------------
     // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------------------------

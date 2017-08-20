@@ -20,7 +20,7 @@
 #include "Electrode_CSTR.h"
 #include "Electrode_CSTR_MCMBAnode.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
-#include "Electrode_SuccessiveSubstitution.h"
+//#include "Electrode_SuccessiveSubstitution.h"
 #include "Electrode_RadialDiffRegions.h"
 
 #include "RSD_OCVmodel.h"
@@ -239,7 +239,8 @@ Electrode* Electrode_Factory::newElectrodeObject(std::string model)
         ee = new    Electrode_CSTR_LiCoO2Cathode();
         break;
     case          SUCCESSIVE_SUBSTITUTION_ET:
-        ee = new    Electrode_SuccessiveSubstitution();
+        //ee = new    Electrode_SuccessiveSubstitution();
+        ee = 0 ;
         break;
     case          MP_RXNEXTENT_FES2_ET:
         ee = new    Electrode_MP_RxnExtent_FeS2();

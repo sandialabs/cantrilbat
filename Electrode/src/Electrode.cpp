@@ -2095,6 +2095,7 @@ void Electrode::updateState_Phase(size_t iph)
     }
 }
 //==================================================================================================================================
+/*
 void Electrode::updatePhaseNumbersTmp(const std::vector<double>& spMoles_tmp, std::vector<double>& phaseMoles_tmp,
         std::vector<double>& spMf_tmp) const
 {
@@ -2119,10 +2120,10 @@ void Electrode::updatePhaseNumbersTmp(const std::vector<double>& spMoles_tmp, st
         }
     }
 }
+*/
 //==================================================================================================================================
-// Calculates the change in the surface area of all external and internal interfaces within the electrode
 /*
- *  (virtual)
+ *  Calculates the change in the surface area of all external and internal interfaces within the electrode
  *  variables to be potentially altered
  *   surfaceAreaRS_[];
  *   isExternalSurface[]
