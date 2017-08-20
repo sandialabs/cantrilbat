@@ -45,7 +45,7 @@ static void indent(int sp) {
     for (int i = 0; i < sp; i++) printf(" ");
 }
 //===================================================================================================================================
-Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode * elect, double baseRelDelta) :
+Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode* elect, double baseRelDelta) :
     Electrode_Jacobian(elect),
     base_RelDelta(baseRelDelta)
 {
@@ -77,10 +77,6 @@ Electrode_FD_Jacobian::~Electrode_FD_Jacobian()
 {
 }
 //===================================================================================================================================
-//
-//  This creates a full interaction matrix by default
-// centerpoint is DOFs in DOFS order (Electrode.h
-//
 void Electrode_FD_Jacobian::default_setup(std::vector<double>& centerpoint)
 {
     // Sources
@@ -130,6 +126,17 @@ void Electrode_FD_Jacobian::default_setup(std::vector<double>& centerpoint)
     }
     jac_Delta.resize(sz);
     calc_dof_Atol(centerpoint);
+}
+//===================================================================================================================================
+void Electrode_FD_Jacobian::setIntegrationTolerances(double rtol, double atol)
+{
+    rtolIntegration_ = rtol;
+    atolIntegration_ = atol;
+}
+//===================================================================================================================================
+double Electrode_FD_Jacobian::rtolIntegration() const
+{
+    return rtolIntegration_;
 }
 //===================================================================================================================================
 void Electrode_FD_Jacobian::default_dofs_fill(std::vector<double>& centerpoint)
@@ -353,9 +360,6 @@ void Electrode_FD_Jacobian::compute_oneSided_jacobian(const std::vector<double> 
 void Electrode_FD_Jacobian::store_base_calculation(const std::vector<double>& centerpoint, const double dt,
 					const std::vector<double>& speciesSources, double const enthalpySrc)
 {
-
-
-
 
 }
 //===================================================================================================================================
@@ -593,7 +597,6 @@ void Electrode_FD_Jacobian::calc_Perturbations(const std::vector<double>& center
 //===================================================================================================================================
 int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double>& dof_values, double dt, bool base)
 {
-    double  GlobalRtolSrcTerm = 1.0E-3;
     Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS;
     Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR;
     if (!base) {
@@ -606,7 +609,7 @@ int Electrode_FD_Jacobian::run_electrode_integration(const std::vector<double>& 
     electrode->setFinalStateFromInit();
     electrode->setElectrolyteMoleNumbers(&dof_values[SPECIES], true);
 
-    int numSubs = electrode->integrate(dt, GlobalRtolSrcTerm, fieldInterpolationType, subIntegrationType);
+    int numSubs = electrode->integrate(dt, rtolIntegration_, fieldInterpolationType, subIntegrationType);
     
     return numSubs;
 }

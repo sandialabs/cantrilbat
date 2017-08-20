@@ -61,6 +61,19 @@ public:
      *  @param[out]   centerpoint            Value of the dofs
      */
     virtual void default_setup(std::vector<double>& centerpoint);
+
+    //! Set the integration tolerances for the actual integration
+    /*!
+     *  @param[in]           rtol                Relative tolerance 
+     *  @param[in]           atol                absolute tolerance 
+     */
+    void setIntegrationTolerances(double rtol, double atol);
+
+    //!  Returns the relative tolerance in the integration
+    /*!
+     *  @return                                  returns the relative tolerance
+     */
+    double rtolIntegration() const;
  
     //!  Create a vector of DOFS that is used in the jacobian calculation
     /*!
@@ -198,6 +211,12 @@ protected:
 
     //! Atols used on the last external jacobian delta calculation
     std::vector<double> jac_dof_Atol;
+
+    //! Rtol tolerances for the integration
+    double rtolIntegration_;
+
+    //! Atol tolerances for the integration
+    double atolIntegration_;
 };
 //==================================================================================================================================
 } // end of namespace
