@@ -1863,27 +1863,19 @@ double Electrode_Integrator::calc_ydotNLS_final()
     return c1;
 }
 //==================================================================================================================================
-//  Calculate the norm of the difference between the predicted answer and the final converged answer
-//  for the current time step
-/*
- *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
- *   ALl norms returned from this routine should be compared to the nomial value of 1 to test satisfaction.
- *   Therefore, they are scaled by rtolNLS_.
- *
- *  @return    Returns the norm of the difference. Normally this is the L0 norm of the difference
- */
 double Electrode_Integrator::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS)
 {
-    double pnorm = l0norm_PC_NLS(soln_predict_, yvalNLS, neq_, atolNLS_, rtolNLS_);
-
+    double pnorm     = l0norm_PC_NLS(soln_predict_,         yvalNLS, neq_, atolNLS_, rtolNLS_);
     double pnorm_dot = l0norm_PC_NLS(soln_predict_fromDot_, yvalNLS, neq_, atolNLS_, rtolNLS_);
-
     if (pnorm_dot < pnorm) {
        pnorm = pnorm_dot;
+    } else {
+       // Have to redo this again, in order to assign the errorLocalNLS_[] back to the first way to solution prediction method
+       pnorm         = l0norm_PC_NLS(soln_predict_,         yvalNLS, neq_, atolNLS_, rtolNLS_);
     }
     return pnorm;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // On a completed local step, accumulate local errors into the global error vectors for the global time step
 /*
  */
@@ -1893,7 +1885,7 @@ void Electrode_Integrator::accumulateLocalErrorToGlobalErrorOnCompletedStep()
         errorGlobalNLS_[k] += errorLocalNLS_[k];
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 // When the norm is high this routine decides what to do with the step
 /*
  *  @param  pnorm  Norm of the step
@@ -2095,30 +2087,25 @@ int Electrode_Integrator::check_nonlinResidConditions()
     return 0;
 }
 //==================================================================================================================================
-// Report the number of state variables and their relative integration errors during the
-// current global integration step
-/*
- *   Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
- *                                  would mean the error in the value is 1 part in 1000.
- *
- *  @param[out] numSV               Returns the number of state variables
- *  @param[out] errorVector         Returns a vector of errors in the state variables for the global step
- *                                  Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
- *                                  would mean the error in the value is 1 part in 1000.
- *  @return     Returns the large value of the errors in the errorVector.
- */
-double Electrode_Integrator::reportStateVariableIntegrationError(int& numSV, double* const errorVector) const
+double Electrode_Integrator::reportStateVariableIntegrationError(int& maxSV, double* const errorVector) const
 {
-    numSV = neq_;
-    double vmax = 0.0;
+    maxSV = 0;
+    double vmax = errorGlobalNLS_[0];
     if (errorVector) {
-        for (size_t k = 0; k < (size_t) neq_; k++) {
+        errorVector[0] = errorGlobalNLS_[0];
+        for (size_t k = 1; k < neq_; k++) {
             errorVector[k] = errorGlobalNLS_[k];
-            vmax = MAX(vmax, errorVector[k]);
+            if (errorVector[k] > vmax) {
+                maxSV = k;
+                vmax = errorVector[k];
+            }
         }
     } else {
-        for (size_t k = 0; k < (size_t) neq_; k++) {
-            vmax = MAX(vmax, errorGlobalNLS_[k]);
+        for (size_t k = 1; k < neq_; ++k) {
+            if (errorGlobalNLS_[k] > vmax) {
+                maxSV = k;
+                vmax = errorGlobalNLS_[k];
+            }
         }
     }
     return vmax;

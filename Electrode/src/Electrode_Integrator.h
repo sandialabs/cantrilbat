@@ -495,26 +495,24 @@ public:
      */
     virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
-    //!  Calculate the change in the state of the system when integrating from T_initial_initial_  to t_final_final_
+    //! Calculate the change in the state of the system when integrating from T_initial_initial_  to t_final_final_
     /*!
      *  All information is kept internal within this routine. This may be done continuously and the solution is not updated.
      *
      *  Note the tolerance parameters refere to the nonlinear solves within the calculation
      *  They do not refer to time step parameters.
      *
-     *  @param deltaT        DeltaT for the integration step.
-     *  @param GlobalRtolSrcTerm Relative tolerance for the source term vector calcualted from
-     *                       this routine.
-     *                       Defaults to 1.0E-3
-     *  @param fieldInterpolationType Type of interpolation of field variables defaults to T_FINAL_CONST_FIS,
-     *  @param subIntegrationType     Type of subintegration. Defaults to BASE_TIMEINTEGRATION_SIR.
-     *                                In this integration, the program determines its own strategy
-     *                                for the time step.
+     *  @param[in]           deltaT              DeltaT for the integration step.
+     *  @param[in]           globalRtolSrcTerm   Relative tolerance for the source term vector calculated from this routine.
+     *                                           Defaults to 1.0E-3
+     *  @param[in]           fieldInterpolationType Type of interpolation of field variables defaults to T_FINAL_CONST_FIS,
+     *  @param[in]           subIntegrationType     Type of subintegration. Defaults to BASE_TIMEINTEGRATION_SIR.
+     *                                              In this integration, the program determines its own strategy for the time step.
      *
-     *  @return Returns the number of subcycle steps it took to complete the full step.
-     *          Failures to complete the integration due to time truncation error issues return a -1.
-     *          Failures due to invalid function calculation attempts return a -2.
-     *          Failures due to invalid arguments return a -3.
+     *  @return                                  Returns the number of subcycle steps it took to complete the full step.
+     *                                           Failures to complete the integration due to time truncation error issue a return of -1.
+     *                                           Failures due to invalid function calculation attempts return a -2.
+     *                                           Failures due to invalid arguments return a -3.
      */
     virtual int integrate(double deltaT, double  GlobalRtolSrcTerm = 1.0E-3,
                           Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
@@ -538,8 +536,7 @@ public:
     /*!
      *      -> determine the largest mole fraction in a phase
      *      -> determine if a surface phase can have reactions turned on
-     *      -> do stuff that affects the equation system that will be solved at the
-     *         current step.
+     *      -> do stuff that affects the equation system that will be solved at the current step.
      */
     virtual void prepareProblemStatement();
 
@@ -635,13 +632,16 @@ public:
      *   Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
      *                                  would mean the error in the value is 1 part in 1000.
      *
-     *  @param[out] numSV               Returns the number of state variables
-     *  @param[out] errorVector         Returns a vector of errors in the state variables for the global step
-     *                                  Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
-     *                                  would mean the error in the value is 1 part in 1000.
-     *  @return     Returns the large value of the errors in the errorVector.
+     *  @param[out]          maxSV               Returns the ID of the state variable with the maximum error.
+     *
+     *  @param[out]          errorVector         Returns a vector of errors in the state variables for the global step
+     *                                           Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
+     *                                           would mean the error in the value is 1 part in 1000.
+     *                                           Defaults to 0, which means that no vector is filled in.
+     *
+     *  @return                                  Returns the large value of the errors in the errorVector.
      */
-    double reportStateVariableIntegrationError(int& numSV, double* const errorVector) const;
+    double reportStateVariableIntegrationError(int& maxSV, double* const errorVector = nullptr) const;
 
 
     //---------------------------------------------------------------------------------------------
@@ -1215,7 +1215,7 @@ protected:
 
     //! Absolute tolerance for nonlinear residual associated with time integration
     /*!
-     *  length: neq_  
+     *  Length: neq_  
      *  Units:  Units of the individual components of the residual equations.
      *  Value depends on the units of the residual equations. This is determined from the Jacobian of the problem by default
      *  multiplied by acceptable delta_yvals.
@@ -1230,7 +1230,7 @@ protected:
 
     //! Vector of absolute tolerances for the nonlinear solution values for the problem
     /*!
-     *  length: ResidJacEval::neq_  
+     *  Length: ResidJacEval::neq_  
      *  Units:  Value of the solution components
      *  These have units particular to the value of the solution compoent
      */
@@ -1315,7 +1315,7 @@ protected:
     //! Vector of normalized error values at the current global time step
     //! multiplied by rtolNLS_. Thus a 10^-3 value would indicate the error is 1 part in 1000.
     /*!
-     *  This is the accumulated error for an unknown over multiple sub time steps for the global m time step
+     *  This is the accumulated error for an unknown over multiple sub time steps for the global time step
      *  Length: ResidJacEval::neq_  
      *  values at tGlob_m
      */
