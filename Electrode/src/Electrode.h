@@ -847,12 +847,17 @@ public:
     // ------------------------------------ CARRY OUT INTEGRATION OF EQUATIONS -----------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    //! Get the final state time
+    //! Returns the global time step number
     /*!
-     *  @deprecated
-     *  @return                                  Returns the time used in the _final_ state.
+     *  @return                                  Returns the storred global time step number
      */
-    double getFinalTime() const;
+    int globalTimeStepNumber() const;
+
+    //! Sets the global time step number
+    /*!
+     *  @param[in]           timestep            Time step number
+     */ 
+    void setGlobalTimeStepNumber(int timestep);
 
     //! Returns the initial intermediate time
     /*!

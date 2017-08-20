@@ -1968,11 +1968,6 @@ void Electrode::setState_EStateBase(const EState& es)
     Electrode::setFinalFinalStateFromFinal();
 }
 //==================================================================================================================================
-double Electrode::getFinalTime() const
-{
-    return tfinal_;
-}
-//==================================================================================================================================
 // Update all mole numbers in the object from the mole numbers in the spMoles_final_[] vector
 /*
  *  We use the field spMoles_final_[] to set the field phaseMoles_final_[].
@@ -4251,6 +4246,16 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
 	}
 	deltaTsubcycle_init_next_ = 1.0E300;
     }
+}
+//==================================================================================================================================
+int Electrode::globalTimeStepNumber() const
+{
+    return globalTimeStepNumber_;
+}
+//==================================================================================================================================
+void Electrode::setGlobalTimeStepNumber(int timestep)
+{
+    globalTimeStepNumber_ = timestep;
 }
 //==================================================================================================================================
 double Electrode::timeInit() const

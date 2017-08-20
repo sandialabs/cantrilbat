@@ -238,7 +238,7 @@ int main(int argc, char **argv)
     XML_Node *xGTSI = electrodeC->selectGlobalTimeStepIncrement(xSavedSoln, 1);
 
     electrodeC->loadGlobalTimeStepTFinalState(xGTSI);
-    Tfinal = electrodeC->getFinalTime();
+    Tfinal = electrodeC->timeFinal();
 
     electrodeC->printElectrode();
     electrodeC->setPrintLevel(4);
