@@ -320,7 +320,7 @@ public:
 
     //! Copy Constructor
     /*!
-     *  @param right Object to be copied
+     *  @param[in]           right               Object to be copied
      */
     Electrode(const Electrode& right);
 
@@ -334,7 +334,7 @@ public:
 
     //! Duplicator function
     /*!
-     *  Duplicate the current electrode object, returning a base electrode pointer
+     *  Duplicate the current Electrode object, returning a base Electrode pointer
      *
      *  @return                                   Returns a duplicate of the current object as a base class pointer
      */
@@ -344,303 +344,313 @@ public:
     /*!
      *  These numbers are used in printouts to identify an electrode amongst a number of electrodes
      *
-     *  @param[in]            domainNum           Domain number (usually 0-anode, 1-separator, 2-cathode)
-     *  @param[in]            cellNum             Cell number -> element number within the material domain
+     *  @param[in]            domainNum          Domain number (usually 0-anode, 1-separator, 2-cathode)
+     *  @param[in]            cellNum            Cell number -> element number within the material domain
      */
     void setID(int domainNum, int cellNum);
 
     //! Return the type of electrode
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.
-     *  Note, this does not indicate whether the electrode is being used as
-     *  an anode or a cathode.
+     *  Note, this does not indicate whether the electrode is being used as an anode or a cathode.
      *
-     *  @return Returns an enum type, called   Electrode_Types_Enum
+     *  @return                                  Returns an enum type, called   Electrode_Types_Enum
      */
     virtual Electrode_Types_Enum electrodeType() const;
 
-    //! Add additional Keylines for child electrode objects, and then read them in
+    //! Add additional keylines for child electrode objects, and then read them in
     /*!
-     *   (virtual function from Electrode)
-     *   (overload virtual function - replaces parent members)
+     *  (virtual function from Electrode)
+     *  (overload virtual function - replaces parent members)
      *
-     *   This function will replace the ELECTRODE_KEY_INPUT structure with an expanded
-     *   child member structure containing the extra information.
+     *  This function will replace the ELECTRODE_KEY_INPUT structure with an expanded
+     *  child member structure containing the extra information needed to initialize child Electrode objects.
      *
-     *   If the command file has been read before, it will then reparse the command file
-     *   storring the new information in the ELECTRODE_KEY_INPUT structure.
+     *  If the command file has been read before, it will then reparse the command file
+     *  storring the new information in a child ELECTRODE_KEY_INPUT structure, which contains expanded fields.
      *
-     *    @param ei  Handle to the ELECTRODE_KEY_INPUT base pointer. This handle may change
-     *               as the child class of  ELECTRODE_KEY_INPUT gets malloced.
+     *  @param[in]            ei                 Handle (i.e, pointer to the pointer) to the ELECTRODE_KEY_INPUT base pointer. 
+     *                                           This handle may change as the child class of ELECTRODE_KEY_INPUT gets malloced.
      *
-     *    @return  0 successful but no change in ei
-     *             1 Successful and ei has changed
-     *            -1 unsuccessful fatal error of some kind.
+     *  @return                                  0 successful but no change in ei
+     *                                           1 Successful and ei has changed
+     *                                          -1 unsuccessful fatal error of some kind.
      */
     virtual int electrode_input_child(ELECTRODE_KEY_INPUT** ei);
 
-    //!  Setup the electrode for first time use
+    //! Setup the electrode for first time use
     /*!
-     * (virtual from Electrode  - onion Out)
+     *  (virtual from Electrode  - onion Out)
      *
-     *    This is one of the most important routines. It sets up the electrode's internal structures
-     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
-     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
-     *    object and the initial state of that object.
-     *    The routine works like an onion Out initialization. The parent object is initialized before the
-     *    child. This means the child object first calls the parent, before it does its own initializations.
+     *  This is one of the most important routines. It sets up the Electrode object's internal structures.
+     *  After the call to this routine, the electrode should be internally ready to be integrated and reacted.
+     *  However, usually the initial conditions still have to be applied to it using the routine, setInitialConditions().
      *
-     *    There are some virtual member functions that won't work until this routine is called.
-     *    That's because the data structures won't be set up for base and child Electrode objects until this is called.
+     *  It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
+     *  object. Note, the initial state of that object is also specified in the ELECTRODE_KEY_INPUT object,
+     *  so  ELECTRODE_KEY_INPUT object is also supplied to the setInitialConditions() function.
+     *  The routine works like an "onion Out" initialization. The parent object is initialized before the
+     *  child. This means the child object first calls the parent, before it does its own initializations,
+     *  perhaps overriding the parent initializations.
+     *
+     *  Virtual member functions may not work until this routine is called.
+     *  That's because the data structures won't be set up for base and child Electrode objects until this is called.
      *
      *  @param[in]           ei                  BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
-     *                                           for the child electrode object.
+     *                                           type of ELECTRODE_KEY_INPUT for the child Electrode object it is
+     *                                           initializing.
      *
      *  @return                                  Returns zero if successful, and -1 if not successful.
      */
     virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei);
 
-    //!  Set the electrode initial conditions from the input file.
+    //! Set the electrode initial conditions from the input file.
     /*!
-     *   (virtual from Electrode)
+     *  (This is a serial virtual function or an overload function)
      *
-     *   (This is a serial virtual function or an overload function)
+     *  This is one of the most important routines. It sets up the initial conditions of the electrode
+     *  from the input file. The internal structures of the Electrode object itself has been set up via a call to
+     *  the virtual function, electrode_model_create().
+     *  After the call to this routine, the electrode should be ready to be queried, integrated, and reacted.
+     *  It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup and initial state
+     *  of the Electrode object from an ascii input file.
      *
-     *    This is one of the most important routines. It sets up the initial conditions of the electrode
-     *    from the input file. The electrode itself has been set up from a call to electrode_model_create().
-     *    After the call to this routine, the electrode should be internally ready to be integrated and reacted.
-     *    It takes its input from an ELECTRODE_KEY_INPUT object which specifies the setup of the electrode
-     *    object and the initial state of that object.
+     *  The routine works like an onion-out initialization. The parent object is initialized before the
+     *  child. This means the child object first calls the parent, before it does its own initializations,
+     *  perhaps overriding the parent initializations.
      *
-     *    The routine works like an onion initialization. The parent object is initialized before the
-     *    child. This means the child object first calls the parent, before it does its own initializations.
-     *
-     *  @param[in]           ei                  ELECTRODE_KEY_INPUT pointer object
+     *  @param[in]           ei                  BASE ELECTRODE_KEY_INPUT pointer object. Note, it must have the correct child class
+     *                                           type of ELECTRODE_KEY_INPUT for the child Electrode object it is
+     *                                           initializing.
      *
      *  @return                                  Returns zero if successful, and -1 if not successful.
      */
     virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
 
-    //! Create an object that saves the electrode state and can print out an XML solution to file
+    //! Create an object that saves the electrode state and can print out an XML solution to a file
     /*!
      *  The pointer to the malloced object is saved in the internal variable eState_final_ .
-     *  Because there is an object, the state of the electrode will be saved at each step.
-     *  @param[in]           force               Force the construction of a new object (false)
+     *  The code checks to see if there is a malloced object in order to decide whether the state of the electrode
+     *  will be saved at each step to an XML tree.
+     *  The routines, Electrode::writeSolutionTimeIncrement() and Electrode::writeRestartFile(), write the XML tree
+     *  to output files.
+     *
+     *  @param[in]           force               Force the construction of a new object. Defaults to false.
+     *
      *  @return                                  Returns zero if successful, and -1 if not successful.
      */
     virtual int electrode_stateSave_create(bool force = false); 
 
     //! Set the sizes of the electrode from the input parameters
     /*!
-     *  We resize all of the information within the electrode from the input parameters
+     *  We resize all of the information within the electrode from the input parameters. Here we use the gross volume
+     *  of the electrode, as expressed in terms of area and thickness to calculate the gross volume. "Gross" here
+     *  means that it includes the electrolyte and the solid electrode material combined.
      *
-     * @param electrodeArea       Area of the electrode
-     * @param electrodeThickness  Width of the electrode
-     * @param porosity            Volume of the electrolyte phase and other non-electrode phases.
+     *  @param[in]           electrodeArea       Gross Area of the electrode, this
+     *                                              Units:  m2
+     *  @param[in]           electrodeThickness  Width of the electrode
+     *                                              Units: m
+     *  @param[in]           porosity            Fractional volume of the electrolyte phase and other non-electrode phases
+     *                                           that are not part of the electrode SolidVolume calculation.
+     *                                              Units: unitless
      */
     virtual void setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity);
 
 protected:
     //! Resize the solid phase and electrolyte mole numbers within the object
     /*!
-     *  (virtual from Electrode)
      *  This routine uses particleDiameter_ , particleNumberToFollow_, and porosity_ to recalculate
      *  all the mole numbers in the electrode. This is done by rescaling all of the numbers.
      *  At the end of the process, the total volume of the electrode object is
      *
-     *    grossVol = SolidVol() / ( 1.0 - porosity_)
+     *       grossVol = SolidVol() / ( 1.0 - porosity_)
      *
      *  where the SolidVol() is equal to
      *
-     *   SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
-     *
+     *       SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
      */
     virtual void resizeMoleNumbersToGeometry();
 
-public:
-    //! Resize the electrolyte mole numbers so that it consistent with the porosity
-    /*!
-     *  This routine resizes the electrolyte mole numbers within the object to be consistent
-     *  with the porosity. This has the effect of changing the total volume of the
-     *  object.
-     *
-     *  @param porosityReset   If positive, this resets the porosity within the electrode
-     *                         to the given value.
-     */
-// Uncalled
-    void resizeSolutionNumbersToPorosity(double porosityReset = -1.0);
-
-    //! resize the surface areas according to the input geometry.
+protected:
+    //! Resize the surface areas according to the input geometry.
     /*!
      *  We resize the surface areas of the Reacting Surfaces to a value which is
-     *  equal to the particule exterior surface area multiplied by the number of particles.
-     *
-     *  Note we can't do anything better in this routine because we do not know the specifics
-     *  of the particles.
+     *  equal to the per-particle exterior surface area multiplied by the number of particles.
      */
-//Can protect
     void resizeSurfaceAreasToGeometry();
 
-protected:
     //! Calculate a new particle number to comply with the overall number of moles of particles
     /*!
-     *   We change the particleNumbertoFollow_ field to comply with the number of moles and the particle diameter.
-     *   Use the routine SolidVol() to calculate the total volume of electrode.
+     *   We change the particleNumbertoFollow_ field to comply with the number of moles in the electrode and
+     *   the current morphology of the electrode, e.g., the particle diameter.
+     *   within we use the routine SolidVol() to calculate the total volume of electrode, and then use
+     *   a linear relation to calculate  particleNumbertoFollow_.
      */
     void resizeParticleNumbersToMoleNumbers();
 
 public:
-    //! Returns a pointer to the current outer reacting surface object
+    //! Returns a pointer to the ReactingSurDomain object for the current surface identified as the "outer surface"
     /*!
-     *  We currently assume that the first Active reacting surface is the outer surface
+     *  We currently assume that the first active reacting surface is the outer surface
      *
-     *  @return Returns a pointer to first active reacting surface
+     *  @return                                  Returns a pointer to a ReactingSurDomain object
      */
     ZZCantera::ReactingSurDomain* currOuterReactingSurface();
 
-    //! Returns a changeable ReactingSurDomain object for a particular surface
+    //! Returns a changeable ReactingSurDomain object for a single Electrode surface
     /*!
      *  Each identified surface in an electrode object can have reactions associated with it. This
-     *  routine returns the ReactingSurDomain object associated with the surface id.
+     *  routine returns the associated ReactingSurDomain object
      *
-     *  @param[in]           iSurf               Index number of the surface 
+     *  @param[in]           iSurf               Electrode surface index for the surface 
      *
      *  @return                                  Returns a pointer to a ReactingSurDomain object.
-     *                                           If the surface doesn't have reactions associated with it,
-     *                                           a null is returned.
+     *                                           If the surface doesn't have reactions associated with it, a null is returned.
      */
     ZZCantera::ReactingSurDomain* reactingSurface(size_t iSurf);
 
-    //! Set the temperature and pressure of the electrode
+    //! Set the temperature and pressure of the electrode's t_final state
     /*!
-     *   Depends on Serial Virtual Functions that must be used after electrode_model_create()
+     *  This will call the setState functions for all objects within the Electrode object to set the temperature and pressure.
      *
-     * @param temperature    Temperature (Kelvin)
-     * @param pressure       Pressure (Pa)
+     *  @param[in]           temperature         Temperature (Kelvin)
+     *  @param[in]           pressure            Pressure (Pa)
      */
     void setState_TP(double temperature, double pressure);
 
-    //! return the current temperature
+    //! Return the current temperature
     /*!
-     *  @return                                          Returns the temperature, Kelvin
+     *  @return                                  Returns the temperature
+     *                                             Units: Kelvin
      */
     double temperature() const;
 
-    //! Return the current pressure
+    //! Return the pressure
     /*!
-     *  @return                                           Returns the pressure  units = Pa
+     *  @return                                  Returns the pressure 
+     *                                             Units: Pa
      */
     double pressure() const;
 
-    //! Return the current porosity
+    //! Return the porosity
     /*!
-     *     Note that this object doesn't keep track of multiple non-electrode phases. Thus porosity here refers to the
-     *     volume fraction of all phases which aren't part of the Electrode object.
+     *  The porosity is defined as the fraction of the total volume which is not part of the solid material of the electrode.
      *
-     *  @return                                           Returns the porosity
+     *  Note that this object doesn't keep track of multiple non-electrode phases. Thus porosity here refers to the
+     *  volume fraction of all phases which aren't part of the Electrode object.
+     *
+     *  @return                                  Returns the porosity
      */
     double porosity() const;
 
     //
     // --------------------------------------  QUERY VOLUMES -----------------------------------------------------------
-    //
+    //                            All queries are carried out at the t_final_ state
 
-    //!    Return the total volume of solid material
+    //! Return the total volume of solid material
     /*!
-     *  (virtual from Electrode.h)
-     *       This is the main routine for calculating the solid volume.
-     *       We leave out the solnPhase_ volume from the calculation
-     *   @return                                       Returns the electrode solid volume    units = m**3
+     *  This is the main routine for calculating the solid volume. The solid volume is the volume of all material
+     *  that is not defined as being in the electrolyte phase and the metal electron phase.
+     * 
+     *  @return                                  Returns the electrode solid volume
+     *                                             Units: m**3
      */
     virtual double SolidVol() const;
 
     //! Return the total volume in the electrode
     /*!
-     *  (virtual from Electrode.h)
+     *  This returns the value in the _final_ state
      *
-     *   This returns the value in the _final_ state
+     *  @param[in]           ignoreErrors        Boolean indicating that errors are to be ignored (defaults to false)
      *
-     *   @param[in]           ignoreErrors        Boolean indicating that errors are to be ignored (defaults to false)
-     *
-     *   @return                                  total volume of the electrode, electolyte and solid (m**3)
+     *  @return                                  total volume of the electrode, electolyte and solid
+     *                                             Units: m**3
      */
     virtual double TotalVol(bool ignoreErrors = false) const;
 
-    //!  Returns the total moles in the electrode phases of the electrode
+    //! Returns the total moles in the electrode phases of the electrode
     /*!
-     *  @return                                         total moles of solid phase (kmol)
+     *  @return                                  Total moles of the solid phase 
+     *                                              Units: kmol
      */
     virtual double SolidTotalMoles() const;
 
     //! Return a vector of the phase volumes for all phases in the electrode
     /*!
-     *  Note the vector is over surface phases as well. Currently, all surface phases have zero volume.
-     *  length = m_NumTotPhases
-     *  units = m**3
-     *  @deprecated
+     *  Note the vector is over surface phases as well. Currently, all surface phases have zero volume,
+     *  but this may change in the future.
      *
      *  @param[out]           phaseVols           Vector of phase volumes
+     *                                               Length: PhaseList::m_NumTotPhases
+     *                                               Indexing: PhaseList global phase indexing
+     *                                               Units:  m**3
+     *
+     *  @deprecated          (not sure this is used in applications, just the total volume is needed)
      */
     virtual void getPhaseVol(double* const phaseVols) const;
-
 
     //
     // --------------------------------------  QUERY HEAT CAPACITY  -----------------------------------------------------
     //
 
-    //!  Returns the total Heat Capacity of the Material in the Solid Electrode at constant volume
+    //! Returns the total Heat Capacity of the material in the solid electrode at constant volume conditions
     /*!
-     *  This is an extensive quantity.
-     *
-     *  @return                                           Returns the extensive heat capacity Joule K-1
+     *  @return                                  Returns the extensive heat capacity 
+     *                                             Units: Joule K-1
      */
     virtual double SolidHeatCapacityCV() const;
 
     //! Returns the total extrinsic enthalpy of the material in the solid electrode at the current time
     /*!
-     *  @return Joule
+     *  @return                                  Returns the total extrinsic Enthalpy of solid material
+     *                                              Units: Joule
      */
     virtual double SolidEnthalpy() const;
 
     //-------------------------------------------------------------------------------------------------------------------
     // --------------------------------------------- SURFACE AREAS ------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------
+
     //! Return the number of surfaces in the Electrode object
     /*!
      *  The number of surfaces may differ from the number of surface kinetics objects now.
      *  All references to surfaces within the Electrode loop over the number of surfaces,
      *  with an array determining there is an Electrode kinetics object located at that surface.
      *
-     *   @return                          Returns the number of surfaces
+     *  @return                           Returns the number of surfaces in the Electrode object = numSurfaces_
      */
     size_t nSurfaces() const;
 
-    //! Return the number of reactions in a reacting surface domain given by the index
+    //! Return the number of reactions in a reacting surface domain given by the surface index
     /*!
-     *   @param[in]        isk            Index of the reacting surface domain to query
+     *  @param[in]         isk            Electrode surface index of the reacting surface domain
      *
-     *   @return                          Returns the number of reactions
+     *  @return                           Returns the number of reactions defined in the InterfaceKinetics object
+     *                                    on that surface
      */
-    size_t nReactions(size_t isk) const ;
+    size_t nReactions(size_t isk) const;
 
     //! Return a vector of surface phase areas.
     /*!
-     *  Returns a vector of surface areas for surfaces defined in the electrode object.
+     *  Returns a vector of surface areas for surfaces defined in the Electrode object.
      *
-     *  @param[in]           surfArea            vector of surface areas.
-     *                                             units = m2
-     *                                             length = number of surfaces defined in the Electrode
+     *  @param[out]          surfArea            Vector of surface areas.
+     *                                              Length: Number of surfaces defined in the Electrode = numSurfaces_ 
+     *                                              Indexing:  Electrode surface index
+     *                                              Units = m2
      */
     void getSurfaceAreas(double* const surfArea) const;
 
     //-------------------------------------------------------------------------------------------------------------------
     // ----------------------------------- QUERY AND SET VOLTAGES -------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------
+
     //! This sets the metal and solution voltage
     /*!
-     *  This sets the metal and the electrolyte voltages
+     *  This sets the metal and the electrolyte voltages for the electrode.
      *  This assumes that there are only two voltages in the system.
-     *   The voltage of the interface is defined as VOLTS = phiMetal - phiElectrolyte
+     *  Note: the voltage of the interface is defined as VOLTS = phiMetal - phiElectrolyte
      *
      *  @param[in]    phiMetal                   Potential of the metal
      *  @param[in]    phiElectrolyte             Potential of the electrolyte
@@ -753,27 +763,35 @@ protected:
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    //     -- These are now called "ProductionRate"  or SourceTerms values
+    //     -- These are now called "ProductionRate"  or SourceTerms values to keep nomenclature straight
 public:
+
     //! Calculate the instantaneous time derivative of the species vector as determined by all source terms
+    //! at the current _final_ conditions
     /*!
      *  This is the rate of change in the moles of species defined in the electrode  at t_final.
      *  This calculation does not necessarily use an interval of time to calculate anything.
      *
-     *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
-     *                     electrode. (kmol s-1)
+     *  @param[out]          spMoleDot           Species instantaneous production rates from the electrode. 
+     *                                              Length: PhaseList::m_NumTotSpecies
+     *                                              Indexing: Phaselist global species index
+     *                                              Units: kmol/s
+     *  @todo make it const
      */
     virtual void speciesProductionRates(double* const spMoleDot);
 
-    //!  Returns the current and the net production rates of all species in the electrode object
-    //!  at the current conditions from one surface kinetics object
+    //! Returns the instantaneous current and the net production rates of all species in the electrode object
+    //! at the current _final_ conditions from one InterfacialKinetics object
     /*!
-     * @param[in]   isk              Surface index to get the net production rates from
-     * @param[in]   net              Species net production rates [kmol/m^2/s]. Return the species
+     *  @param[in]           isk                 Surface index to get the net production rates from
+     *  @param[out]          net                 Species net production rates
+     *                                              Length: PhaseList::m_NumTotSpecies
+     *                                              Indexing: Phaselist global species index
+     *                                              Units: kmol/s
      *
-     *   @return                     Returns the current columb sec-1 m-2
+     *  @return                                  Returns the current (amps/ m2)
      */
-    double getNetSurfaceProductionRatesCurrent(const size_t isk, double* const net) const;
+    virtual double getNetSurfaceProductionRatesCurrent(const size_t isk, double* const net) const;
 
     //! Get the net production rates of all species in the electrode object
     //! at the current conditions from one surface kinetics object
@@ -782,6 +800,7 @@ public:
      *
      * @param isk   Surface index to get the net production rates from
      * @param net   Species net production rates [kmol/m^2/s]. Return the species    
+     *  @todo make it const
      */
     void getNetSurfaceProductionRates(const size_t isk, double* const net) const;
 
@@ -792,6 +811,7 @@ public:
      *
      *  @param[in]          isk                  Surface ID to get the fluxes from.
      *  @param[out]         phaseMassFlux        Returns the mass fluxes of the phases
+     *  @todo make it const
      */
     void getPhaseMassFlux(const size_t isk, double* const phaseMassFlux);
 
@@ -802,6 +822,7 @@ public:
      *
      *  @param[in]          isk                  Surface ID to get the fluxes from.
      *  @param[out]         phaseMoleFlux        Returns the vector of mole fluxes of the phases (kmol/m2/s)
+     *  @todo make it const
      */
     void getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux);
     
@@ -812,6 +833,7 @@ public:
      *   @param[in] speciesProductionRates  Input species production rates (kmol sec-1)
      *
      *   @param[out] phaseMoleFlux          Vector of phase production rates (kmol sec-1)
+     *   @todo make it const
      */
     void getPhaseProductionRates(const double* const speciesProductionRates, double* const phaseMoleFlux) const;
 
@@ -821,6 +843,7 @@ public:
      *   @param[in]          isk                 Index of the ReactingSurDomain
      *
      *   @return                                 Returns the thermal energy overpotential term ( units = J / s)                     
+     *  @todo make it const
      */
     virtual double thermalEnergySourceTerm_overpotential(size_t isk);
 
@@ -831,6 +854,7 @@ public:
      *   @param[in]          isk                 Surface index         
      *
      *   @return                                 Returns the themal energy source term  (units J / s)
+     *  @todo make it const
      */
     virtual double thermalEnergySourceTerm_reversibleEntropy(size_t isk);
 
@@ -1027,19 +1051,27 @@ public:
     // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION -------------------------------------
     //------------------------------------------------------------------------------------------------------------------
 
+    //! Report the number of subcycles taken in the last integration
+    /*!
+     *  @return                                  Returns the number of subcycles taken in the last integration.
+     */ 
+    int numSubcycles() const;
+
     //! Report the number of state variables and their relative integration errors during the
     //! current global integration step
     /*!
-     *   Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
+     *  Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
      *                                  would mean the error in the value is 1 part in 1000.
      *
      *  @param[out] numSV               Returns the number of state variables
      *  @param[out] errorVector         Returns a vector of errors in the state variables for the global step
      *                                  Note rtol doesn't factor into this immediately. Therefore, a value or 1E-3
      *                                  would mean the error in the value is 1 part in 1000.
-     *  @return     Returns the largest value of the errors in the errorVector.
+     *                                  Defaults to nullptr in which case nothing is returned.
+     *
+     *  @return                         Returns the largest value of the errors in the errorVector.
      */
-    double reportStateVariableIntegrationError(int& numSV, double* const errorVector) const;
+    virtual double reportStateVariableIntegrationError(int& numSV, double* const errorVector = nullptr) const;
 
 
     //! Report the time limit
@@ -1176,7 +1208,7 @@ public:
      *
      *   @return                                  Returns the current columb sec-1 = amps
      */
-    double integratedLocalCurrent() const;
+    virtual double integratedLocalCurrent() const;
 
     //!  Returns the net production rates of all species in the electrode object over the last integration step
     /*!
@@ -1196,17 +1228,18 @@ public:
      */
     double integratedCurrent() const;
 
-    //! Returns the integrated moles transfered for each phase in the electrode object over the time step
+    //! Returns the integrated moles transfered for each phase in the Electrode object over the current global time step
     /*!
      *  (virtual from Electrode.h)
      *
-     *  @param  phaseMolesTransfered vector of moles transfered (length = number of total
-     *            phases in the electrode object)
-     *            units = kmol
+     *  @param[out]          phaseMolesTransfered   Vector of moles transfered (length = number of total
+     *                                                 Length: PhaseList::nNumTotPhases
+     *                                                 Indexing: PhaseList global phase index
+     *                                                 Units: kmol
      */
     virtual void getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered);
 
-    //! Returns the integrated thermal energy source term (Joules)
+    //! Returns the integrated thermal energy source term (Joules) over the current global time step
     /*!
      *  Returns the heat release that has occurred during the global time step. 
      *
@@ -2843,9 +2876,11 @@ public:
      */
     int choiceDeltaTsubcycle_init_;
 
+protected:
     //! Number of subcyles taken on the last integration
     size_t numIntegrationSubCycles_final_final_;
 
+public:
     //! Boolean indicating whether we should be doing thermal property calculations during updateState() calculations.
     /*!
      *   This is public and can be changed externally
@@ -3118,172 +3153,200 @@ protected:
     // ---------------   SURFACE AREAS -----------------------------------------
 
     //! Number of external interfacial areas
+    /*!
+     *   @deprecate  This is always equal to one, and doesn't have a real purpose. Concept seems to be
+     *               covered by isExternalSurface_[] anyway.
+     */
     size_t numExternalInterfacialSurfaces_;
 
     //! True if the surface is an external surface, false otherwise
     /*!
-     *  Dimensioned numSurfaces_
+     *  An external surface has the electrolyte on one of its sides.
+     *
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
      */
     std::vector<bool> isExternalSurface_;
 
-    //! Vector of the surface area for each Reacting Surface
-    //! in the electrode.
+    //! Vector of the surface area for each Reacting Surface in the electrode, init state
     /*!
      *  Each surface is assumed to have a surface area. The surface area is a
      *  constitutive function  of the composition (i.e., State of Charge) of the electrode.
      *  In most constitutive models only one external reacting surface will be present at
-     *  any one time.  This vector is over internal and external surfaces.
+     *  any one time.  This vector is over all internal and external surfaces of the electrode
      *
-     *  length = number of surfaces that may be present: numSurfaces_
-     *  units m**2
-     *
-     *  This is the initial value at each time step
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
+     *  Units:     m**2
      */
     std::vector<double> surfaceAreaRS_init_;
 
-    //! Vector of the surface area for each Reacting Surface in the electrode.
+    //! Vector of the surface area for each Reacting Surface in the electrode, final state
     /*!
      *  Each surface is assumed to have a surface area. The surface area is a
      *  constitutive function  of the composition (i.e., State of Charge) of the electrode.
      *  In most constitutive models only one external reacting surface will be present at
      *  any one time.  This vector is over internal and external surfaces.
      *
-     *  length = number of surfaces that may be present: numSurfaces_
-     *  units m**2
-     *
-     *  This is the final value at each time step
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
+     *  Units:     m**2
      */
     std::vector<double> surfaceAreaRS_final_;
 
-    //! Vector of the surface area for each Reacting Surface in the electrode.
+    //! Vector of the surface area for each Reacting Surface in the electrode, init_init state
     /*!
      *  Each surface is assumed to have a surface area. The surface area is a
      *  constitutive function  of the composition (i.e., State of Charge) of the electrode.
      *  In most constitutive models only one external reacting surface will be present at
-     *  any one time.  This vector is over internal and external surfaces.
+     *  any one time.  This vector is over all internal and external surfaces of the electrode.
      *
-     *  length = number of surfaces that may be present: numSurfaces_
-     *  units m**2
-     *
-     *  This is the initial value at the start of the global time step
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
+     *  Units:     m**2
      */
     std::vector<double> surfaceAreaRS_init_init_;
 
-    //! Vector of the surface area for each Reacting Surface in the electrode.
+    //! Vector of the surface area for each Reacting Surface in the electrode, _final_final_ state
     /*!
      *  Each surface is assumed to have a surface area. The surface area is a
      *  constitutive function  of the composition (i.e., State of Charge) of the electrode.
      *  In most constitutive models only one external reacting surface will be present at
-     *  any one time.  This vector is over internal and external surfaces.
+     *  any one time.  This vector is over all internal and external surfaces of the electrode
      *
-     *  length = number of surfaces that may be present: numSurfaces_
-     *  units m**2
-     *
-     *  This is the final global value at each time step
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
+     *  Units:     m**2
      */
-    std::vector<double>  surfaceAreaRS_final_final_;
+    std::vector<double> surfaceAreaRS_final_final_;
 
     //! Internal array containing the net production rate per area for each reacting surface
     /*!
-     *   This is in the PhaseList indexing scheme
-     *
+     *  This is in the PhaseList indexing scheme
      *  The column is the reacting surface index, while the row is the species PhaseList index
-     *
      *  The dimensioning is m_NumTotSpecies by numSurfaces_.
+     *
+     *  Length: (PhaseList::m_NumTotSpecies , numSurfaces_)
      */
     Array2D spNetProdPerArea_List_;
 
-    //! Internal vector containing the net production rate over the global integration period
-    //! of all species in the electrode object.
+    //! Internal vector containing the net production rate over the global integration period of all species in the electrode object
     /*!
      *  This vector will have nonzero entries for the electrolyte phase and the electron
-     *  phase even if the moles for these phases are not allowed to change within the object
-     *  itself.
+     *  phase even if the moles for these phases are not allowed to change within the object itself. These represent true
+     *  production rates for these species.
      *
-     *   units kmols
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units:  kmols
      */
     std::vector<double> spMoleIntegratedSourceTerm_;
 
-    //! Internal vector containing the net production rate over last intermediate step
-    //! of all species in the electrode object.
+    //! Internal vector containing the net production rate over last intermediate step of all species in the electrode object.
     /*!
      *  This vector will have nonzero entries for the electrolyte phase and the electron
-     *  phase even if the moles for these phases are not allowed to change within the object
-     *  itself.
+     *  phase even if the moles for these phases are not allowed to change within the object itself. They represent true 
+     *  production rates for these species.
      *
-     *   units kmols
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: kmols
      */
     std::vector<double> spMoleIntegratedSourceTermLast_;
 
     //! Vector of molar enthapies of the species, init_init state
     /*!
-     *   Length is number of species in PhaseList, units are J /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     std::vector<double> enthalpyMolar_init_init_;
 
     //! Vector of molar enthapies of the species, init state
     /*!
-     *   Length is number of species in PhaseList, units are J /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     std::vector<double> enthalpyMolar_init_;
 
     //! Vector of molar enthapies of the species, final state
     /*!
-     *   Length is number of species in PhaseList, units are J /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     mutable std::vector<double> enthalpyMolar_final_;
 
     //! Vector of molar enthapies of the species, final_final state
     /*!
-     *   Length is number of species in PhaseList, units are J /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     std::vector<double> enthalpyMolar_final_final_;
 
     //! Vector of molar entropies of the species, init_init state
     /*!
-     *   Length is number of species in PhaseList, units are J /K /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol/K
      */
     std::vector<double> entropyMolar_init_init_;
 
     //! Vector of molar entropies of the species, init state
     /*!
-     *   Length is number of species in PhaseList, units are J /K /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol/K
      */
     std::vector<double> entropyMolar_init_;
 
     //! Vector of molar entropies of the species, final state
     /*!
-     *   Length is number of species in PhaseList, units are J /K /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol/K
      */
     std::vector<double> entropyMolar_final_;
 
     //! Vector of molar entropies of the species, final_final state
     /*!
-     *   Length is number of species in PhaseList, units are J /K /kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol/K
      */
     std::vector<double> entropyMolar_final_final_;
 
     //! Vector of chemical potentials of species, init_init state
     /*!
-     *   Length is number of species in PhaseList, units are J/kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     std::vector<double> chempotMolar_init_init_;
 
     //! Vector of chemical potentials of species, init state
     /*!
-     *   Length is number of species in PhaseList, units are J/kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     std::vector<double> chempotMolar_init_;
 
     //! Vector of chemical potentials of species, final state
     /*!
-     *   Length is number of species in PhaseList, units are J/kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     std::vector<double> chempotMolar_final_;
 
     //! Vector of chemical potentials of species, final_final state
     /*!
-     *   Length is number of species in PhaseList, units are J/kmol.
+     *   Length: PhaseList::m_NumTotSpecies
+     *   Indexing: PhaseList global species index
+     *   Units: J/kmol
      */
     std::vector<double> chempotMolar_final_final_;
 
@@ -3291,9 +3354,9 @@ protected:
     /*!
      *  This is calculated by the function, accumulateSrcTermsOnCompletedStep()
      *  within the Electrode_Integrator  object. It accumulates integratedThermalEnergySourceTermLast_
-     *  over all substeps to produce a global time step result
+     *  over all substeps to produce a global time step result.
      *
-     *  units = Joules
+     *  Units:  Joules
      */
     double integratedThermalEnergySourceTerm_;
 

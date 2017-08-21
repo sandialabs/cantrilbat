@@ -576,7 +576,6 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
     for (size_t i = 0; i <  numIntegratedSrc_; i++) {
         atol_IntegratedSrc_global_[i] = 1.0E-14 * sm;
     }
-
     return numDofs;
 }
 //==================================================================================================================================
@@ -777,8 +776,10 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     rtolNLS_      = GlobalRtolSrcTerm;
     rtolResidNLS_ = GlobalRtolSrcTerm * 1.0E-2;
 
-    //  Set the absolute tolerance vector for the nonlinear solver, both the residual and the solution tolerances
-    //  We control both because we have had trouble making sure that the equations are solved to a sufficient accuracy.
+    //  Set the absolute tolerance vector for the nonlinear solver, both the residual and the solution tolerances.
+    //    -  atolNLS_[]
+    //    -  atolResidNLS_[]
+    //    We control both because we have had trouble making sure that the equations are solved to a sufficient accuracy.
     setResidAtolNLS();
     
     //  Zero vectors that are accumulated over local time step to represent global time step quantities,
@@ -2069,10 +2070,6 @@ int  Electrode_Integrator::residEval_BaseChecks()
     return 1;
 }
 //==================================================================================================================================
-//     Print details about the satisfaction of the residual
-/*
- *  (virtual from Electrode_Integrator)
- */
 void  Electrode_Integrator::printResid_ResidSatisfaction()
 {
 }

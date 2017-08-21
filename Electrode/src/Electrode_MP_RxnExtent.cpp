@@ -2009,7 +2009,7 @@ void Electrode_MP_RxnExtent::setNLSGlobalSrcTermTolerances(double rtolResid)
     rtol_IntegratedSrc_global_ = rtolResid;
 }
 //==================================================================================================================================
-void  Electrode_MP_RxnExtent::setResidAtolNLS()
+void Electrode_MP_RxnExtent::setResidAtolNLS()
 {
     double deltaT = t_final_final_ - t_init_init_;
     deltaT = std::max(deltaT, 1.0E-3);
@@ -2018,23 +2018,19 @@ void  Electrode_MP_RxnExtent::setResidAtolNLS()
      *  residual has the same units as soln.
      */
     atolNLS_[0] = deltaT * 1.0E-6;
-
-
     /*
      *  We don't care about differences that are 1E-6 less than the global time constant.
      *  residual has the same units as soln.
      */
     atolResidNLS_[0] = deltaT * 1.0E-6;
-
     /*
      *  The residual for the relative extent has units of relative extent, which is ~1 quantity. Therefore, set
      *  it to 3 or 4 times the roundoff error, which is the usual treatment.
      */
     atolNLS_[1] = 1.0E-12;
     atolResidNLS_[1] = 1.0E-12;
-
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Predict the solution
 /*
  * Ok at this point we have a time step deltalimiTsubcycle_
@@ -2064,7 +2060,7 @@ int  Electrode_MP_RxnExtent::predictSoln()
     /*
      * Copy initial to final
      */
-    copy(surfaceAreaRS_init_.begin(), surfaceAreaRS_init_.end(), surfaceAreaRS_final_.begin());
+    std::copy(surfaceAreaRS_init_.begin(), surfaceAreaRS_init_.end(), surfaceAreaRS_final_.begin());
 
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
@@ -2963,25 +2959,6 @@ int Electrode_MP_RxnExtent::integrateResid(const double t, const double delta_t,
     return info;
 }
 //====================================================================================================================
-double Electrode_MP_RxnExtent::l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
-                                       const std::vector<double>& atolVec, const double rtol) const
-{
-    double max0 = 0.0;
-    double denom, diff, ee;
-
-    for (int k = 0; k < num; k++) {
-
-        diff = fabs(v1[k] - v2[k]);
-        denom = rtol * std::max(fabs(v1[k]), fabs(v2[k]));
-        denom = std::max(denom, atolVec[k]);
-        ee = diff / denom;
-        if (ee > max0) {
-            max0 = ee;
-        }
-    }
-    return max0;
-}
-//====================================================================================================================
 void Electrode_MP_RxnExtent::checkRegion(int regionID) const
 {
     if (onRegionBoundary_final_ >= 0) {
@@ -3229,13 +3206,16 @@ bool Electrode_MP_RxnExtent::changeSolnForBirthDeaths()
  */
 double Electrode_MP_RxnExtent::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
 {
-    //double atolVal =  1.0E-8;
+    // @todo We are resetting atolNLS_ outside of  setResidAtolNLS(). Don't know why now.
+    //       Explore getting rid of this code.
+    //       This means that nonlinear solver is being solved more accurately than time stepping.
+    //       This may be a feature or it may be extraneous. However, don't have time to check it out.
     atolNLS_.resize(2);
 
     atolNLS_[0] = 0.01 * (t_final_final_ - t_init_init_);
     atolNLS_[0] = fmax(atolNLS_[0], 1.0E-6);
     atolNLS_[1] = 1.0E-8;
-    double pnorm = l0normM(soln_predict_, yval, 2, atolNLS_, rtolNLS_);
+    double pnorm = l0norm_PC_NLS(soln_predict_, yval, 2, atolNLS_, rtolNLS_);
     return pnorm;
 }
 //====================================================================================================================

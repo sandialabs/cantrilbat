@@ -461,19 +461,19 @@ public:
     // ----------------------- SPECIFY AND OBTAIN PROBLEM PARAMETERS -------------------------------
     // ---------------------------------------------------------------------------------------------
 
+protected:
     //! Setup the vectors for handling the error control on source terms
     /*!
      *  This routine is called at setup time.
-     *
-     *  The default behavior is to designate the entire vector, spMoleIntegratedSourceTerm_,
+     *  The default behavior is to designate the entire vector, spMoleIntegratedSourceTerm_, 
      *  as the source term whose error will be controlled.
-     *
      *  This routine is responsible for calculating numIntegratedSrc_.
      *
-     *  @return Returns the number of source terms whose error will be controlled.
+     *  @return                                  Returns the number of source terms whose error will be controlled.
      */
     virtual int setupIntegratedSourceTermErrorControl();
 
+public:
     // -----------------------------------------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATION OF EQUATIONS-------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
@@ -518,6 +518,7 @@ public:
                           Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
                           Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR) override;
 
+protected:
     //! Calculate the largest mole fraction in each of the phases
     /*!
      *  We use this to determine the equation system
@@ -571,6 +572,7 @@ public:
      */
     virtual int predictSolnDot();
 
+public:
     //! Extract the ROP of the multiple reaction fronts from Cantera within this routine
     /*!
      *  (virtual function from Electrode_Integrator)
@@ -623,7 +625,6 @@ public:
      */
     virtual int check_nonlinResidConditions();
 
-
     // ----------------------------------------  ERROR ANALYSIS OF THE INTEGRATION ------------------------------------
 
     //! Report the number of state variables and their relative integration errors during the
@@ -641,7 +642,7 @@ public:
      *
      *  @return                                  Returns the large value of the errors in the errorVector.
      */
-    double reportStateVariableIntegrationError(int& maxSV, double* const errorVector = nullptr) const;
+    virtual double reportStateVariableIntegrationError(int& maxSV, double* const errorVector = nullptr) const override;
 
 
     //---------------------------------------------------------------------------------------------

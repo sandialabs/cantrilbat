@@ -1,5 +1,5 @@
-/*
- * $Id: electrodeCell_main.cpp 589 2013-04-05 20:07:05Z hkmoffa $
+/**
+ *  @file electrodeCell_main.cpp
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -19,7 +19,7 @@
 
 #include "Electrode_input.h"
 #include "Electrode.h"
-#include "Electrode_SuccessiveSubstitution.h"
+#include "Electrode_Factory.h"
 #include "Electrode_Equilibrium.h"
 #include "electrodeCell_prep.h"
 #include "electrodeCell_kin.h"
@@ -228,17 +228,13 @@ int mpequil_equilibrate(ZZCantera::Electrode *electrode, int estimateInit, int p
 int main(int argc, char **argv)
 {
   int i;
-  FILE *inputFP = stdin;
-  ZZCantera::Electrode *electrodeA = new ZZCantera::Electrode_SuccessiveSubstitution();
-  ZZCantera::Electrode *electrodeC = new ZZCantera::Electrode_SuccessiveSubstitution();
-  ELECTRODE_KEY_INPUT *electrodeA_input = new ELECTRODE_KEY_INPUT();
-  ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
+  FILE* inputFP = stdin;
 
   int retn;
   //bool doCathode = false;
-  string commandFileNet = "cell.inp";
-  string commandFileA = "electrodeAnode.inp";
-  string commandFileC = "electrodeCathode.inp";
+  std::string commandFileNet = "cell.inp";
+  std::string commandFileA = "electrodeAnode.inp";
+  std::string commandFileC = "electrodeCathode.inp";
   // printed usage
 
   ZZVCSnonideal::vcs_timing_print_lvl = 0;
@@ -304,58 +300,101 @@ int main(int argc, char **argv)
       exit(-1);
     }
 
+    // ------------------------------------------------------------------------------------
 
     commandFileA = CellO.anodeElectrodeFileName_;
 
-    /**	
-     * Initialize a block input structure for the command file
-     */
+    // Initialize a block input structure for the command file
     BEInput::BlockEntry *cfA = new BEInput::BlockEntry("command_file");
 
-    /*	
-     * Go get the problem description from the input file
-     */
+    //  Go get the name of the Electrode model first, then delete the stub reader
+    ELECTRODE_KEY_INPUT *electrodeA_input = new ELECTRODE_KEY_INPUT();
     retn = electrodeA_input->electrode_input(commandFileA, cfA);
-
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);
     }
+    std::string aen = electrodeA_input->electrodeModelName;
+    delete electrodeA_input;
 
+    //  Use the ElectrodeModelName value as input to the electrode factory to create the electrode
+    ZZCantera::Electrode* electrodeA = newElectrodeObject(aen);
+    if (!electrodeA) {
+        throw ZuzaxError("electrodeCell_main()", "newElectrodeObject failed for model");
+    }
+    electrodeA_input = newElectrodeKeyInputObject(aen);
+    if (!electrodeA_input) {
+        throw ZuzaxError("electrodeCell_main()", "newElectrodeKeyInputObject() failed for model %s", aen.c_str());
+    }
+    
+    //  Parse the complete child input file
+    retn = electrodeA_input->electrode_input_child(commandFileA, cfA);
+    if (retn == -1) {
+        throw ZuzaxError("electrodeCell_main()", "electrode_input_child() method failed on input file %s", commandFileA.c_str());
+    }
+    delete cfA;
+
+    // Now create the innards of the Electrode object
     retn = electrodeA->electrode_model_create(electrodeA_input);
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);
     }
 
-    // electrode_model_init(electrodeA, electrodeA_input, cfA);
+    // Read in the initial conditions
+    retn = electrodeA->setInitialConditions(electrodeA_input);
+    if (retn == -1) {
+        throw ZuzaxError("electrodeCell_main()", "Electrode::setInitialConditions() for anode failed");
+    }
 
-
-    delete cfA;
-
+    // ------------------------------------------------------------------------------------
 
     commandFileC = CellO.cathodeElectrodeFileName_;
-
-    /**	
-     * Ini	tialize a block input structure for the command file
-     */
+    
+    // Initialize a block input structure for the command file
     BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
-
-    /*	
-     * Go get the problem description from the input file
-     */
+    ELECTRODE_KEY_INPUT *electrodeC_input = new ELECTRODE_KEY_INPUT();
     retn = electrodeC_input->electrode_input(commandFileC, cfC);
-
     if (retn == -1) {
       printf("exiting with error\n");
       exit(-1);
     }
+    /*
+     *  Use the ElectrodeModelName value as input to the electrode factory to create the electrode
+     */
+    std::string en = electrodeC_input->electrodeModelName;
+    delete electrodeC_input;
+    ZZCantera::Electrode* electrodeC = newElectrodeObject(en);
+    electrodeC_input = newElectrodeKeyInputObject(en);
+    if (!electrodeC_input) {
+        throw ZuzaxError("electrodeCell_main()", "newElectrodeKeyInputObject() failed for model %s", en.c_str());
+    }
 
+    /*
+     *  Parse the complete child input file
+     */
+    retn = electrodeC_input->electrode_input_child(commandFileC, cfC);
+    if (retn == -1) {
+        throw ZuzaxError("electrodeCell_main()", "electrode_input_child() method failed while reading file, %s",
+                         commandFileC.c_str());
+    }
+
+    // Now construct the Electrode object's innards based on the input file
     retn = electrodeC->electrode_model_create(electrodeC_input);
+    if (retn == -1) {
+        throw ZuzaxError("electrodeCell_main()::electrode_model_create()", 
+                         "Error initializing the cathode electrode object");
+    }
 
-    // electrode_model_init(electrodeC, electrodeC_input, cfC);
-
+    // Now read and implement the initial conditions
+    retn = electrodeC->setInitialConditions(electrodeC_input);
+    if (retn == -1) {
+        throw ZuzaxError("electrodeCell_main()", "Electrode::setInitialConditions() for cathode failed");
+    }
     delete cfC;
+
+    // ---------------------------------------------------------------------------------------------------------------
+
     /*
      * prep the input
      */

@@ -639,19 +639,6 @@ public:
      */
     virtual void accumulateSrcTermsOnCompletedStep(bool remove = false) override;
 
-    //! Calculate the l0 norm difference of two vectors
-    /*!
-     *  @param[in]           v1                  First vector
-     *  @param[in]           v2                  second vector
-     *  @param[in]           num                 number to check
-     *  @param[in]           atolVec             Vector of abs tolerances
-     *  @param[in]           rtol                Relative tolerance
-     *
-     *  @return                                  Returns the relative difference between the two vectors
-     */
-    double l0normM(const std::vector<double>& v1, const std::vector<double>& v2, int num,
-                   const std::vector<double>& atolVec, const double rtol) const;
-
     //!  Check the region
     /*!
      *  @param[in]           regionID            ID of the region

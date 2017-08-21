@@ -20,6 +20,7 @@
 #include "cantera/numerics/RootFind.h"
 #include "cantera/numerics/solveProb.h"
 #include "cantera/kinetics/ExtraGlobalRxn.h"
+#include "cantera/base/vec_functions.h"
 #include "ApplBase_print.h"
 
 
@@ -118,8 +119,6 @@ Electrode::Electrode() :
                 surfaceAreaRS_init_init_(0),
                 surfaceAreaRS_final_final_(0),
                 spNetProdPerArea_List_(0, 0),
-                spMoleIntegratedSourceTerm_(0),
-                spMoleIntegratedSourceTermLast_(0),
 		enthalpyMolar_init_init_(0),
 		enthalpyMolar_init_(0),
 		enthalpyMolar_final_(0),
@@ -240,8 +239,6 @@ Electrode::Electrode(const Electrode& right) :
                 surfaceAreaRS_init_init_(0),
                 surfaceAreaRS_final_final_(0),
                 spNetProdPerArea_List_(0, 0),
-                spMoleIntegratedSourceTerm_(0),
-                spMoleIntegratedSourceTermLast_(0),
 		enthalpyMolar_init_init_(0),
 		enthalpyMolar_init_(0),
 		enthalpyMolar_final_(0),
@@ -1606,6 +1603,7 @@ void Electrode::resizeMoleNumbersToGeometry()
  *  @param porosityReset   If positive, this resets the porosity within the electrode
  *                         to the given value.
  */
+/*
 void Electrode::resizeSolutionNumbersToPorosity(double porosityReset)
 {
     if (porosityReset > 0.0) {
@@ -1628,6 +1626,7 @@ void Electrode::resizeSolutionNumbersToPorosity(double porosityReset)
     updateState_Phase(solnPhase_);
 
 }
+*/
 //====================================================================================================================
 //    Resize the surface areas according to the input geometry.
 /*
@@ -2786,7 +2785,7 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode::getIntegratedSpeciesProductionRates(double* const net) const
 {
     if (pendingIntegratedStep_ != 1) {
@@ -2801,7 +2800,7 @@ void Electrode::getIntegratedSpeciesProductionRates(double* const net) const
         net[k] = invDelT * spMoleIntegratedSourceTerm_[k];
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Returns the current and the net production rates per unit surface area of surface isk
 /*
  *    columb sec-1 m-2
@@ -2814,18 +2813,18 @@ double Electrode::getNetSurfaceProductionRatesCurrent(const size_t isk, double* 
     // coulomb / kmol
     return Eprod * Faraday;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Return the global species index of the electron in the Electrode object
 size_t Electrode::kSpecElectron() const
 {
     return kElectron_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode::getIntegratedProductionRatesCurrent(double* const net) const
 {
     if (pendingIntegratedStep_ != 1) {
         double* netOne = &deltaG_[0];
-        std::fill_n(net, m_NumTotSpecies, 0.);
+        zeroD(m_NumTotSpecies, net);
         for (size_t isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
@@ -4053,6 +4052,11 @@ int Electrode::phasePop(size_t iphaseTarget, double* const Xmf_stable, double de
     return retn;
 }
 //====================================================================================================================
+int Electrode::numSubcycles() const
+{
+    return numIntegrationSubCycles_final_final_;
+}
+//====================================================================================================================
 double Electrode::reportStateVariableIntegrationError(int& numSV, double* const errorVector) const
 {
     numSV = 0;
@@ -4227,8 +4231,8 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
 	Electrode::setInitStateFromFinal(true);
     }
 
-    std::fill(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), 0.0);
-    std::fill(spMoleIntegratedSourceTermLast_.begin(), spMoleIntegratedSourceTermLast_.end(), 0.0);
+    zeroD(m_NumTotSpecies, spMoleIntegratedSourceTerm_.data());
+    zeroD(m_NumTotSpecies, spMoleIntegratedSourceTermLast_.data());
     integratedThermalEnergySourceTerm_ = 0.0;
     integratedThermalEnergySourceTermLast_ = 0.0;
     integratedThermalEnergySourceTerm_overpotential_ = 0.0;
@@ -4873,30 +4877,23 @@ double Electrode::integrateConstantCurrent(double& current, double& deltaT, doub
     printLvl_ = oldP;
     return xbest;
 }
-//====================================================================================================================
-// Report the integrated source term for the electrode over an interval in time.
+//==================================================================================================================================
 /*
- *  This is the net change in the moles of species defined in the electrode over that
- *  interval of time. The conditions at the end of the interval are used to carry
- *  out the integrations.
- *
- *  @param spMoleDelta The end result in terms of the change in moles of species in the
- *                     electrode.
- *
- *  @return Tfinal    Final time to integrate to.
+ *  Report the integrated source term for the electrode over an interval in time.
+ *  This is the net change in the moles of species defined in the electrode over that interval of time.
+ *  The number of subcycles is returned, as well.
  */
 size_t Electrode::integratedSpeciesSourceTerm(double* const spMoleDelta)
 {
+#ifdef DEBUG_MODE
     if (tfinal_ == tinit_) {
         throw Electrode_Error(" Electrode::integratedSpeciesSourceTerm()", "tfinal == tinit");
     }
-    /*
-     *  We may do more here to ensure that the last integration is implicit
-     */
-    std::copy(spMoleIntegratedSourceTerm_.begin(), spMoleIntegratedSourceTerm_.end(), spMoleDelta);
+#endif
+    Zuzax::copyD(m_NumTotSpecies, spMoleDelta, spMoleIntegratedSourceTerm_.data());
     return numIntegrationSubCycles_final_final_;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Calculate the instantaneous time derivative of the species vector as determined by all source terms
 /*
  *  This is the rate of change in the moles of species defined in the electrode  at t_final.
