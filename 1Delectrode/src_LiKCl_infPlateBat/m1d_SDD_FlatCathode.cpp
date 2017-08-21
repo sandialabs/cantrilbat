@@ -3,7 +3,10 @@
  */
 
 /*
- *  $Id: m1d_SDD_FlatCathode.cpp 550 2013-03-01 20:53:19Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #include "m1d_SDD_FlatCathode.h"
@@ -12,8 +15,15 @@
 
 #include "m1d_ProblemStatementCell.h"
 
+#include "cantera/base/ctexceptions.h"
+
 #include "Electrode.h"
-#include "Electrode_SuccessiveSubstitution.h"
+#include "Electrode_Factory.h"
+#include <cantera/transport.h>      // transport properties
+#include <cantera/thermo.h>      // transport properties
+#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+
+
 
 #include  <string>
 
@@ -28,6 +38,13 @@ extern m1d::ProblemStatementCell  PSinput;
 #define ZZCantera Cantera 
 #endif
 #endif
+using namespace std;
+#ifdef useZuzaxNamespace
+using namespace Zuzax;
+#else
+using namespace Cantera;
+#endif
+
 
 //=====================================================================================================================
 namespace m1d
@@ -36,23 +53,20 @@ namespace m1d
 SDD_FlatCathode::SDD_FlatCathode(DomainLayout *dl_ptr, int pos) :
     SDD_Mixed(dl_ptr), 
     m_position(pos),
-    ElectrodeC_(0), 
+    ElectrodeC_(nullptr), 
     voltageVarBCType_(0), 
     icurrCathodeSpecified_(0.0)
 {
+/*
   ElectrodeC_ = new ZZCantera::Electrode_SuccessiveSubstitution();
 
   ZZCantera::ELECTRODE_KEY_INPUT *electrodeC_input = new ZZCantera::ELECTRODE_KEY_INPUT();
 
   std::string commandFileC = "cathode.inp";
-  /**
-   * Initialize a block input structure for the command file
-   */
+   // Initialize a block input structure for the command file
   BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
 
-  /*
-   * Go get the problem description from the input file
-   */
+   // Go get the problem description from the input file
   electrodeC_input->printLvl_ = 5;
   int retn = electrodeC_input->electrode_input(commandFileC, cfC);
 
@@ -75,12 +89,54 @@ SDD_FlatCathode::SDD_FlatCathode(DomainLayout *dl_ptr, int pos) :
 
   voltageVarBCType_ = PSinput.cathodeBCType_;
   icurrCathodeSpecified_ = - PSinput.icurrDischargeSpecified_ * 1.0E4;
+*/
+
+    size_t iph = (PSinput.PhaseList_)->globalPhaseIndex(PSinput.electrolytePhase_);
+    if (iph == npos) {
+        //throw ZuzaxError("SDD_FlatCathode::SDD_FlatCathode", "Can't find the phase in the phase list: " + PSinput.electrolytePhase_);
+        throw Zuzax::ZuzaxError("SDD_FlatCathode::SDD_FlatCathode", "Can't find the phase in the phase list: " );
+    }
+    thermo_t_double* ionicLiquid_ = & (PSinput.PhaseList_)->thermo(iph);
+    ionicLiquidIFN_ = dynamic_cast<ZZCantera::IonsFromNeutralVPSSTP *>( ionicLiquid_->duplMyselfAsThermoPhase() );
+    ionicLiquid_ = (ThermoPhase*) ionicLiquidIFN_;
+
+    ELECTRODE_KEY_INPUT *ci = PSinput.cathode_input_;
+    ElectrodeC_ = newElectrodeObject(ci->electrodeModelName);
+    if (!ElectrodeC_) {
+        throw  m1d_Error("SDD_FlatCathode::SDD_FlatCathode", "Electrode factory method failed");
+    }
+    ELECTRODE_KEY_INPUT *ci_new = newElectrodeKeyInputObject(ci->electrodeModelName);
+    std::string commandFile = ci->commandFile_;
+    BEInput::BlockEntry *cfC = new BEInput::BlockEntry("command_file");
+
+    
+    //  Parse the complete child input file
+    int retn = ci_new->electrode_input_child(commandFile, cfC);
+    if (retn == -1) {
+        throw  m1d_Error("SDD_FlatCathode::SDD_FlatCathode", "Electrode input child method failed");
+    }
+    /*
+     * Switch the pointers around so that the child input file is returned.
+     * Delete the original pointer.
+     */
+    delete ci;
+    PSinput.cathode_input_ = ci_new;
+
+    retn = ElectrodeC_->electrode_model_create(PSinput.cathode_input_);
+    if (retn == -1) {
+        throw  m1d_Error("SDD_FlatCathode::SDD_FlatCathode", "Electrode model create method failed");
+    }
+    retn = ElectrodeC_->setInitialConditions(PSinput.cathode_input_);
+    if (retn == -1) {
+        throw  m1d_Error("SDD_FlatCathode::SDD_FlatCathode", "setInitialConditions method failed");
+    }
 
 
- 
+
+  voltageVarBCType_ = PSinput.cathodeBCType_;
+  icurrCathodeSpecified_ = - PSinput.icurrDischargeSpecified_ * 1.0E4;
 
   safeDelete(cfC);
-  safeDelete(electrodeC_input);
 }
 //=====================================================================================================================
 SDD_FlatCathode::SDD_FlatCathode(const SDD_FlatCathode &r) :
@@ -107,8 +163,7 @@ SDD_FlatCathode::operator=(const SDD_FlatCathode &r)
   m_position = r.m_position;
 
   delete ElectrodeC_;
-  ElectrodeC_ =
-      new ZZCantera::Electrode_SuccessiveSubstitution((const ZZCantera::Electrode_SuccessiveSubstitution&)*r.ElectrodeC_);
+  ElectrodeC_ = (r.ElectrodeC_)->duplMyselfAsElectrode();
 
   voltageVarBCType_ = r.voltageVarBCType_;
   icurrCathodeSpecified_ = r.icurrCathodeSpecified_;

@@ -99,16 +99,14 @@ BDD_porousElectrode::ReadModelDescriptions()
 	eki = psc_ptr->cathode_input_;
     } 
     if (electrodeType_ > 1) {
-	throw  m1d_Error("BDD_porousElectrode::ReadModelDescription()",
-                         "unhandled");
+	throw  m1d_Error("BDD_porousElectrode::ReadModelDescription()", "unhandled");
     }
     /*
      *  Use the ElectrodeModelName value as input to the electrode factory to create the electrode
      */
     Electrode_  = newElectrodeObject(eki->electrodeModelName);
     if (!Electrode_) {
-        throw  m1d_Error("BDD_porousElectrode::ReadModelDescriptions()",
-                         "newElectrodeObject failed");
+        throw  m1d_Error("BDD_porousElectrode::ReadModelDescriptions()", "newElectrodeObject failed");
     }
     ELECTRODE_KEY_INPUT* eki_new = newElectrodeKeyInputObject(eki->electrodeModelName);
     string commandFile = eki->commandFile_;
@@ -138,13 +136,11 @@ BDD_porousElectrode::ReadModelDescriptions()
     if (electrodeType_ == 0) { 
 	retn = Electrode_->electrode_model_create(PSCinput_ptr->anode_input_);
 	if (retn == -1) {
-	    throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()",
-			       "Error initializing the anode electrode object");
+	    throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()", "Error initializing the anode electrode object");
 	}
 	retn = Electrode_->setInitialConditions(PSCinput_ptr->anode_input_);
 	if (retn == -1) {
-	    throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()",
-			       "Electrode::setInitialConditions() for anode failed");
+	    throw CanteraError("BDD_porousElectrode::ReadModelDescriptions()", "Electrode::setInitialConditions() for anode failed");
 	}
     } else if (electrodeType_ == 1) {
 	retn = Electrode_->electrode_model_create(PSCinput_ptr->cathode_input_);

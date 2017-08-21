@@ -7,6 +7,12 @@
 
 #include "m1d_SDD_Mixed.h"
 
+#include <cantera/transport.h>      // transport properties
+#include <cantera/thermo.h>      // transport properties
+#include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
+#include "Electrode.h"
+
+
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -82,8 +88,7 @@ public:
    * @return  Returns a pointer to the object that will calculate the residual
    *          efficiently
    */
-  virtual SurDomain1D *
-  mallocDomain1D();
+  virtual SurDomain1D* mallocDomain1D();
 
   //! top or bottom of the domain
   /*!
@@ -114,6 +119,11 @@ public:
    *   Note, this is only relevant when voltageVarBCType_ = 1
    */
   double icurrCathodeSpecified_;
+
+  //! Pointer to the thermo object for the molten salt
+  /*!
+   */
+  ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
   //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
   friend class SurDomain_FlatFeS2Cathode;
