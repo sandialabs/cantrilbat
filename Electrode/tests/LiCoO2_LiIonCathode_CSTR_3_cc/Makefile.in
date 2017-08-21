@@ -145,7 +145,7 @@ test:
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
-	./runtest
+	../runtest_Electrode
 
 rebaseline:
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv

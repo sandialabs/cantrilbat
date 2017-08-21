@@ -198,7 +198,8 @@ int main(int argc, char **argv)
     fprintf(fp, "amps = %g  \n", amps);
     fprintf(fp, "deltaT = %g  \n", deltaTgoal);
     fprintf(fp, "\n");
-    fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts ,     Amps \n");
+    fprintf(fp, "  Tfinal      ,      Coul     ,       Ah   ,      Volts   ,        Amps ,     globalError ,  numSubcyles \n");
+    int maxSV;
 
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
@@ -214,8 +215,10 @@ int main(int argc, char **argv)
       electrodeC->getMoleNumSpecies(molNum);
       double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
+      double errGlob = electrodeC->reportStateVariableIntegrationError(maxSV);
+      int numSubcycles = electrodeC->numSubcycles();
       coul  += amps * deltaT;
-      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E , %12.6E \n", Tfinal, coul, coul/3600. , volts, amps);
+      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E , %12.6E , %10.2E , %5d \n", Tfinal, coul, coul/3600. , volts, amps , errGlob, numSubcycles );
 
     
       electrodeC->printElectrode();

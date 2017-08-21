@@ -159,8 +159,9 @@ int main(int argc, char **argv)
       printf("exiting with error\n");
       exit(-1);
     }
+    electrodeC->electrode_stateSave_create();
 
-    double deltaT = 0.1;
+
     double Tinitial = 0.0;
     double Tfinal = 0.0;
 
@@ -178,7 +179,7 @@ int main(int argc, char **argv)
 
 
     int nT = 50;
-    deltaT = 2.0E-2;
+    double deltaTgoal = 2.0E-2;
     electrodeC->printCSVLvl_ = 4;
 
     electrodeC->printElectrode();
@@ -189,6 +190,18 @@ int main(int argc, char **argv)
     //electrodeC->enableExtraPrinting_ = 10;
      double amps = -1.0E-1;
     //electrodeC->DO_NEW_METHOD_ = 1;
+
+    FILE * fp = fopen("outputTable.csv","w");
+    fprintf(fp, "Constant Current Curves \n");
+    fprintf(fp, "amps = %g  \n", amps);
+    fprintf(fp, "deltaT = %g  \n", deltaTgoal);
+    fprintf(fp, "\n");
+    fprintf(fp, "  Tfinal      ,      Coul     ,       Ah   ,      Volts   ,        Amps ,     globalError ,  numSubcyles \n");
+
+    double deltaT = deltaTgoal;
+    double volts;
+    double coul = 0.0;
+    int maxSV;
   
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
@@ -197,14 +210,25 @@ int main(int argc, char **argv)
       
       Tfinal = Tinitial + deltaT;
 
-      electrodeC->integrateConstantCurrent(amps, deltaT, 4.0, 2.5);
+      deltaT = deltaTgoal;
+
+      volts = electrodeC->integrateConstantCurrent(amps, deltaT, 4.0, 2.5);
+      Tfinal = Tinitial + deltaT;
+
 
       electrodeC->getMoleNumSpecies(molNum);
       double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);
+      double errGlob = electrodeC->reportStateVariableIntegrationError(maxSV);
+      int numSubcycles = electrodeC->numSubcycles();
+      coul  += amps * deltaT;
+
  
       cout << setw(15) << Tfinal << setw(15) << amps << endl;
+      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E , %12.6E , %10.2E , %5d \n", Tfinal, coul, coul/3600. , volts, amps , errGlob, numSubcycles );
+
       electrodeC->printElectrode();
+      electrodeC->writeSolutionTimeIncrement();
   
     }
 
