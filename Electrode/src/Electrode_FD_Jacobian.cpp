@@ -47,7 +47,9 @@ static void indent(int sp) {
 //===================================================================================================================================
 Electrode_FD_Jacobian::Electrode_FD_Jacobian(Electrode* elect, double baseRelDelta) :
     Electrode_Jacobian(elect),
-    base_RelDelta(baseRelDelta)
+    base_RelDelta(baseRelDelta),
+    rtolIntegration_(1.0E-3),
+    atolIntegration_(1.0E-12)
 {
 }
 //===================================================================================================================================
@@ -64,11 +66,14 @@ Electrode_FD_Jacobian& Electrode_FD_Jacobian::operator=(const Electrode_FD_Jacob
 	return *this;
     }
     Electrode_Jacobian::operator=(right);
+
     dofs_to_fd = right.dofs_to_fd;
     num_sources_using_dof = right.num_sources_using_dof;
     base_RelDelta = right.base_RelDelta;
     jac_Delta = right.jac_Delta;
     jac_dof_Atol = right.jac_dof_Atol;
+    rtolIntegration_ = right.rtolIntegration_;
+    atolIntegration_ = right.atolIntegration_;
 
     return *this;
 }
