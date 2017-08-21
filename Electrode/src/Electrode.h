@@ -1021,13 +1021,14 @@ public:
      *                            work efficiently and to avoid overflows, roundoff errors due to large reaction rate constants.
      *
      *  @param[in] phiMin         Minimum value of the voltage. Defaults to -100. This is an input.
+     *  @param[in]           rtolInt             Integration tolerance. Defaults to 1.0E-4.
      *
      *  @param[in] maxIntegrationSteps Max number of integration steps. defaults to 5000
      *
      *  @return                   Return the voltage used to obtain the requested current.
      */
     virtual double integrateConstantCurrent(double& current, double& deltaT, double phiMax = 100., 
-                                            double phiMin = -100., int maxIntegrationSteps = 5000);
+                                            double phiMin = -100., double rtolInt = 1.0E-4, int maxIntegrationSteps = 5000);
 
     //! Set the deltaT used for the subcycle time step
     /*!

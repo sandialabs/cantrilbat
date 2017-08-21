@@ -215,7 +215,6 @@ int main(int argc, char **argv)
       volts = electrodeC->integrateConstantCurrent(amps, deltaT, 4.0, 2.5);
       Tfinal = Tinitial + deltaT;
 
-
       electrodeC->getMoleNumSpecies(molNum);
       double net[12];
       double amps = electrodeC->getIntegratedProductionRatesCurrent(net);

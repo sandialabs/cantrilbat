@@ -49,7 +49,8 @@ public:
         m_ee(ee),
         m_deltaT(deltaT),
         printLvl_(0),
-        numStepsLast_(0)
+        numStepsLast_(0),
+        rtolInt_(1.0E-4)
     {
     }
     
@@ -91,9 +92,9 @@ public:
         }
         /*
          * Integrate the electrode for a certain time, m_deltaT,
-         *   The tolerance is set at 1.0E-4.
+         *   The tolerance is set at rtol_int_ = 1.0E-4 initially.
          */
-        numStepsLast_ = m_ee->integrate(m_deltaT, 1.0E-4);
+        numStepsLast_ = m_ee->integrate(m_deltaT, rtolInt_);
         /*
          *  Get the amps produced by the integration.
          */
@@ -149,6 +150,9 @@ public:
 private:
     //! Number of steps taken on last integration
     int numStepsLast_;
+public:
+    //! value of rtol used in the integration
+    double rtolInt_;
 };
 
 //==================================================================================================================================

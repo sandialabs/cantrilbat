@@ -180,9 +180,9 @@ int main(int argc, char **argv)
     fprintf(fp, "amps = %g  \n", ampsGoal);
     fprintf(fp, "deltaT = %g  \n", deltaT);
     fprintf(fp, "\n");
-    fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts \n");
+    fprintf(fp, "  Tfinal      ,      Coul     ,     Ah   , Volts   , amps ,   globalError , numSubcyles \n");
 
-  
+    int maxSV;  
     for (int itimes = 0; itimes < nT; itimes++) {
       Tinitial = Tfinal;
 
@@ -190,13 +190,16 @@ int main(int argc, char **argv)
       double amps = ampsGoal;
       deltaT = deltaTgoal;
 
-      double volts =  electrodeA->integrateConstantCurrent(amps, deltaT, 1.0, -1.0);
+      double volts = electrodeA->integrateConstantCurrent(amps, deltaT, 1.0, -1.0, 1.0E-4);
       Tfinal = Tinitial + deltaT;
 
       amps = electrodeA->getIntegratedProductionRatesCurrent(net);
+      double errGlob = electrodeA->reportStateVariableIntegrationError(maxSV);
+      int numSubcycles = electrodeA->numSubcycles();
+
       coul  += amps * deltaT;
  
-      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E\n", Tfinal, coul, coul/3600. , volts);
+      fprintf(fp, " %12.6E ,  %12.6E , %12.6E , %12.6E , %12.6E , %10.2E , %5d \n", Tfinal, coul, coul/3600. , volts, amps , errGlob, numSubcycles );
 
       electrodeA->printElectrode();
       electrodeA->writeSolutionTimeIncrement();

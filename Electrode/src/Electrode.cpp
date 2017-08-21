@@ -4669,11 +4669,12 @@ void Electrode::setFinalFinalStateFromFinal_Oin()
  *  @return Return the voltage used to obtain the current
  */
 double Electrode::integrateConstantCurrent(double& current, double& deltaT, double phiMax,
-                                           double phiMin, int maxIntegrationSteps)
+                                           double phiMin, double rtolInt, int maxIntegrationSteps)
 {
     int status;
     double currentNeeded = current;
     Electrode_ECurr ec(this, deltaT);
+    ec.rtolInt_ = rtolInt;
     //printf("current needed = %g\n", currentNeeded);
 
     /*
@@ -4715,7 +4716,7 @@ double Electrode::integrateConstantCurrent(double& current, double& deltaT, doub
     }
     Electrode_Integrator* eei = dynamic_cast<Electrode_Integrator*>(this);
   
-    int numSteps = integrate(deltaT, 1.0E-3,  T_FINAL_CONST_FIS, BASE_TIMEINTEGRATION_SIR);
+    int numSteps = integrate(deltaT, rtolInt,  T_FINAL_CONST_FIS, BASE_TIMEINTEGRATION_SIR);
     if (numSteps > maxIntegrationSteps) {
 	if (eei) {
 	    SubIntegrationHistory& sih = eei->timeHistory();
