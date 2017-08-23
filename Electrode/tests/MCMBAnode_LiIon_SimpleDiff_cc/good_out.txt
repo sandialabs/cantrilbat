@@ -37,6 +37,12 @@
             minimal : 1
             globalSteps : 2
             intermediateSteps : 3
+    Method for Electrode Capacity Calculation = (LIST) with default Default : 0 where:
+        LIST = 
+            Default : 0
+            Model : 1
+            Coeffs : 2
+            Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
     Number of Regions = (integer) with default 1 (REQUIRED LINE)
          => Number of Regions ====> numRegions = 1
@@ -282,10 +288,7 @@ oc[0] = -0.0230978
                            li_site                 0.000E+00
    ==============================================================================================
 Electrode_SimpleDiff::fixCapacityBalances_final() report:
-                         Before Rel moles = 1.13115e-19, After Rel moles = 1.88525e-20
-                         normalized diff  = 8.13367e-16                  = 1.35561e-16
-                        Before spMoles_final_[4] = 1.112560479358939E-04
-                        After  spMoles_final_[4] = 1.112560479358940E-04
+                         Before Rel moles = 0 no action 
      ===============================================================================================================================
      SubStepIntegrationHistory t_init =            0 to t_final =         0.01 nstepsReg = 232 numSpecialSteps = 0
             t_init     t_final      delta_t  solnType    t_requ numNonlin   solnErrDot wdotError  volts       srcElect       Current

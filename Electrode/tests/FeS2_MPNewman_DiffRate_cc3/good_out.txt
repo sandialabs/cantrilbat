@@ -6245,7 +6245,7 @@ main: Skipping Tinitial 85 to Tfinal 84.5 printout
       Electrode at time final =  8.5500000E+01
                    time init  =  8.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2087
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2088
    ==============================================================================================
           Voltage = 1.86012 volts
           Number of external surfaces = 1
@@ -6387,7 +6387,7 @@ main: Skipping Tinitial 90 to Tfinal 89.5 printout
       Electrode at time final =  9.0500000E+01
                    time init  =  9.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2187
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 2188
    ==============================================================================================
           Voltage = 1.85938 volts
           Number of external surfaces = 1
@@ -6531,7 +6531,7 @@ main: Skipping Tinitial 94.75 to Tfinal 94.5 printout
       Electrode at time final =  9.5250000E+01
                    time init  =  9.4750000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3327
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 3331
    ==============================================================================================
           Voltage = 1.85203 volts
           Number of external surfaces = 1
@@ -6673,7 +6673,7 @@ main: Skipping Tinitial 99.75 to Tfinal 99.25 printout
       Electrode at time final =  1.0025000E+02
                    time init  =  9.9750000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6391
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 6395
    ==============================================================================================
           Voltage = 1.73202 volts
           Number of external surfaces = 1
@@ -6815,7 +6815,7 @@ main: Skipping Tinitial 104.75 to Tfinal 104.25 printout
       Electrode at time final =  1.0525000E+02
                    time init  =  1.0475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9036
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 9040
    ==============================================================================================
           Voltage = 1.6102 volts
           Number of external surfaces = 1
@@ -6957,7 +6957,7 @@ main: Skipping Tinitial 109.75 to Tfinal 109.25 printout
       Electrode at time final =  1.1025000E+02
                    time init  =  1.0975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10718
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10730
    ==============================================================================================
           Voltage = 1.50698 volts
           Number of external surfaces = 1
@@ -7099,7 +7099,7 @@ main: Skipping Tinitial 114.75 to Tfinal 114.25 printout
       Electrode at time final =  1.1525000E+02
                    time init  =  1.1475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10788
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10821
    ==============================================================================================
           Voltage = 1.50698 volts
           Number of external surfaces = 1
@@ -7241,7 +7241,7 @@ main: Skipping Tinitial 119.75 to Tfinal 119.25 printout
       Electrode at time final =  1.2025000E+02
                    time init  =  1.1975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10874
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10912
    ==============================================================================================
           Voltage = 1.50698 volts
           Number of external surfaces = 1
@@ -7383,7 +7383,7 @@ main: Skipping Tinitial 124.75 to Tfinal 124.25 printout
       Electrode at time final =  1.2525000E+02
                    time init  =  1.2475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 10967
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11005
    ==============================================================================================
           Voltage = 1.50697 volts
           Number of external surfaces = 1
@@ -7525,7 +7525,7 @@ main: Skipping Tinitial 129.75 to Tfinal 129.25 printout
       Electrode at time final =  1.3025000E+02
                    time init  =  1.2975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11057
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11095
    ==============================================================================================
           Voltage = 1.50693 volts
           Number of external surfaces = 1
@@ -7667,7 +7667,7 @@ main: Skipping Tinitial 134.75 to Tfinal 134.25 printout
       Electrode at time final =  1.3525000E+02
                    time init  =  1.3475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11147
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11185
    ==============================================================================================
           Voltage = 1.50688 volts
           Number of external surfaces = 1
@@ -7809,7 +7809,7 @@ main: Skipping Tinitial 139.75 to Tfinal 139.25 printout
       Electrode at time final =  1.4025000E+02
                    time init  =  1.3975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11237
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11275
    ==============================================================================================
           Voltage = 1.50682 volts
           Number of external surfaces = 1
@@ -7951,7 +7951,7 @@ main: Skipping Tinitial 144.75 to Tfinal 144.25 printout
       Electrode at time final =  1.4525000E+02
                    time init  =  1.4475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11327
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11365
    ==============================================================================================
           Voltage = 1.50676 volts
           Number of external surfaces = 1
@@ -8093,7 +8093,7 @@ main: Skipping Tinitial 149.75 to Tfinal 149.25 printout
       Electrode at time final =  1.5025000E+02
                    time init  =  1.4975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11417
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11455
    ==============================================================================================
           Voltage = 1.5067 volts
           Number of external surfaces = 1
@@ -8235,7 +8235,7 @@ main: Skipping Tinitial 154.75 to Tfinal 154.25 printout
       Electrode at time final =  1.5525000E+02
                    time init  =  1.5475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11507
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11545
    ==============================================================================================
           Voltage = 1.50663 volts
           Number of external surfaces = 1
@@ -8377,7 +8377,7 @@ main: Skipping Tinitial 159.75 to Tfinal 159.25 printout
       Electrode at time final =  1.6025000E+02
                    time init  =  1.5975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11597
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11635
    ==============================================================================================
           Voltage = 1.50654 volts
           Number of external surfaces = 1
@@ -8519,7 +8519,7 @@ main: Skipping Tinitial 164.75 to Tfinal 164.25 printout
       Electrode at time final =  1.6525000E+02
                    time init  =  1.6475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11687
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11725
    ==============================================================================================
           Voltage = 1.50645 volts
           Number of external surfaces = 1
@@ -8661,7 +8661,7 @@ main: Skipping Tinitial 169.75 to Tfinal 169.25 printout
       Electrode at time final =  1.7025000E+02
                    time init  =  1.6975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11777
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11815
    ==============================================================================================
           Voltage = 1.50635 volts
           Number of external surfaces = 1
@@ -8803,7 +8803,7 @@ main: Skipping Tinitial 174.75 to Tfinal 174.25 printout
       Electrode at time final =  1.7525000E+02
                    time init  =  1.7475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11867
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11905
    ==============================================================================================
           Voltage = 1.50622 volts
           Number of external surfaces = 1
@@ -8945,7 +8945,7 @@ main: Skipping Tinitial 179.75 to Tfinal 179.25 printout
       Electrode at time final =  1.8025000E+02
                    time init  =  1.7975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 11965
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12003
    ==============================================================================================
           Voltage = 1.50608 volts
           Number of external surfaces = 1
@@ -9087,7 +9087,7 @@ main: Skipping Tinitial 184.75 to Tfinal 184.25 printout
       Electrode at time final =  1.8525000E+02
                    time init  =  1.8475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12075
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12113
    ==============================================================================================
           Voltage = 1.5059 volts
           Number of external surfaces = 1
@@ -9229,7 +9229,7 @@ main: Skipping Tinitial 189.75 to Tfinal 189.25 printout
       Electrode at time final =  1.9025000E+02
                    time init  =  1.8975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12185
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12223
    ==============================================================================================
           Voltage = 1.50568 volts
           Number of external surfaces = 1
@@ -9367,7 +9367,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9425000E+02
                    time init  =  1.9375000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12273
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12311
    ==============================================================================================
           Voltage = 1.50546 volts
           Number of external surfaces = 1
@@ -9491,7 +9491,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9475000E+02
                    time init  =  1.9425000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12284
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12322
    ==============================================================================================
           Voltage = 1.50543 volts
           Number of external surfaces = 1
@@ -9615,7 +9615,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9525000E+02
                    time init  =  1.9475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12295
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12333
    ==============================================================================================
           Voltage = 1.5054 volts
           Number of external surfaces = 1
@@ -9739,7 +9739,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9575000E+02
                    time init  =  1.9525000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12306
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12344
    ==============================================================================================
           Voltage = 1.50536 volts
           Number of external surfaces = 1
@@ -9863,7 +9863,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9625000E+02
                    time init  =  1.9575000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12317
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12355
    ==============================================================================================
           Voltage = 1.50533 volts
           Number of external surfaces = 1
@@ -9987,7 +9987,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9675000E+02
                    time init  =  1.9625000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12328
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12366
    ==============================================================================================
           Voltage = 1.50529 volts
           Number of external surfaces = 1
@@ -10111,7 +10111,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9725000E+02
                    time init  =  1.9675000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12339
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12377
    ==============================================================================================
           Voltage = 1.50525 volts
           Number of external surfaces = 1
@@ -10235,7 +10235,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9775000E+02
                    time init  =  1.9725000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12350
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12388
    ==============================================================================================
           Voltage = 1.50522 volts
           Number of external surfaces = 1
@@ -10359,7 +10359,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9825000E+02
                    time init  =  1.9775000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12361
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12399
    ==============================================================================================
           Voltage = 1.50518 volts
           Number of external surfaces = 1
@@ -10483,7 +10483,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9875000E+02
                    time init  =  1.9825000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12372
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12410
    ==============================================================================================
           Voltage = 1.50513 volts
           Number of external surfaces = 1
@@ -10607,7 +10607,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9925000E+02
                    time init  =  1.9875000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12383
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12421
    ==============================================================================================
           Voltage = 1.50509 volts
           Number of external surfaces = 1
@@ -10731,7 +10731,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9975000E+02
                    time init  =  1.9925000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12394
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12432
    ==============================================================================================
           Voltage = 1.50504 volts
           Number of external surfaces = 1
@@ -10856,7 +10856,7 @@ extra its
       Electrode at time final =  2.0025000E+02
                    time init  =  1.9975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12405
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12443
    ==============================================================================================
           Voltage = 1.505 volts
           Number of external surfaces = 1
@@ -10981,7 +10981,7 @@ oc[0] = 1.95274
       Electrode at time final =  0.0000000E+00
                    time init  =  0.0000000E+00                         deltaTglobal =  0.0000000E+00
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12405
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12443
    ==============================================================================================
           Voltage = 1.9 volts
           Number of external surfaces = 1
@@ -11107,7 +11107,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.0000000E-01
                    time init  =  0.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12528
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12566
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -11231,7 +11231,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0000000E+00
                    time init  =  5.0000000E-01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12550
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12588
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -11355,7 +11355,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.5000000E+00
                    time init  =  1.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12572
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12610
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -11479,7 +11479,7 @@ oc[0] = 1.95274
       Electrode at time final =  2.0000000E+00
                    time init  =  1.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12583
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12621
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -11603,7 +11603,7 @@ oc[0] = 1.95274
       Electrode at time final =  2.5000000E+00
                    time init  =  2.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12594
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12632
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -11727,7 +11727,7 @@ oc[0] = 1.95274
       Electrode at time final =  3.0000000E+00
                    time init  =  2.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12605
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12643
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -11851,7 +11851,7 @@ oc[0] = 1.95274
       Electrode at time final =  3.5000000E+00
                    time init  =  3.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12616
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12654
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -11975,7 +11975,7 @@ oc[0] = 1.95274
       Electrode at time final =  4.0000000E+00
                    time init  =  3.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12627
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12665
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12099,7 +12099,7 @@ oc[0] = 1.95274
       Electrode at time final =  4.5000000E+00
                    time init  =  4.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12638
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12676
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12223,7 +12223,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.0000000E+00
                    time init  =  4.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12649
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12687
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12347,7 +12347,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.5000000E+00
                    time init  =  5.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12660
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12698
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12471,7 +12471,7 @@ oc[0] = 1.95274
       Electrode at time final =  6.0000000E+00
                    time init  =  5.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12671
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12709
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12595,7 +12595,7 @@ oc[0] = 1.95274
       Electrode at time final =  6.5000000E+00
                    time init  =  6.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12682
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12720
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12719,7 +12719,7 @@ oc[0] = 1.95274
       Electrode at time final =  7.0000000E+00
                    time init  =  6.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12693
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12731
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12843,7 +12843,7 @@ oc[0] = 1.95274
       Electrode at time final =  7.5000000E+00
                    time init  =  7.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12704
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12742
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -12967,7 +12967,7 @@ oc[0] = 1.95274
       Electrode at time final =  8.0000000E+00
                    time init  =  7.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12715
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12753
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -13091,7 +13091,7 @@ oc[0] = 1.95274
       Electrode at time final =  8.5000000E+00
                    time init  =  8.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12726
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12764
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -13215,7 +13215,7 @@ oc[0] = 1.95274
       Electrode at time final =  9.0000000E+00
                    time init  =  8.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12737
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12775
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -13339,7 +13339,7 @@ oc[0] = 1.95274
       Electrode at time final =  9.5000000E+00
                    time init  =  9.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12748
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12786
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -13463,7 +13463,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0000000E+01
                    time init  =  9.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12759
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12797
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -13587,7 +13587,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0500000E+01
                    time init  =  1.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12770
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12808
    ==============================================================================================
           Voltage = 1.95153 volts
           Number of external surfaces = 1
@@ -13729,7 +13729,7 @@ main: Skipping Tinitial 15 to Tfinal 14.5 printout
       Electrode at time final =  1.5500000E+01
                    time init  =  1.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12879
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12917
    ==============================================================================================
           Voltage = 1.95117 volts
           Number of external surfaces = 1
@@ -13871,7 +13871,7 @@ main: Skipping Tinitial 20 to Tfinal 19.5 printout
       Electrode at time final =  2.0500000E+01
                    time init  =  2.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 12989
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13027
    ==============================================================================================
           Voltage = 1.95063 volts
           Number of external surfaces = 1
@@ -14013,7 +14013,7 @@ main: Skipping Tinitial 25 to Tfinal 24.5 printout
       Electrode at time final =  2.5500000E+01
                    time init  =  2.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13099
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13137
    ==============================================================================================
           Voltage = 1.95003 volts
           Number of external surfaces = 1
@@ -14155,7 +14155,7 @@ main: Skipping Tinitial 30 to Tfinal 29.5 printout
       Electrode at time final =  3.0500000E+01
                    time init  =  3.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13209
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13247
    ==============================================================================================
           Voltage = 1.94934 volts
           Number of external surfaces = 1
@@ -14297,7 +14297,7 @@ main: Skipping Tinitial 35 to Tfinal 34.5 printout
       Electrode at time final =  3.5500000E+01
                    time init  =  3.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13319
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13357
    ==============================================================================================
           Voltage = 1.94857 volts
           Number of external surfaces = 1
@@ -14439,7 +14439,7 @@ main: Skipping Tinitial 40 to Tfinal 39.5 printout
       Electrode at time final =  4.0500000E+01
                    time init  =  4.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13429
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13467
    ==============================================================================================
           Voltage = 1.94767 volts
           Number of external surfaces = 1
@@ -14581,7 +14581,7 @@ main: Skipping Tinitial 45 to Tfinal 44.5 printout
       Electrode at time final =  4.5500000E+01
                    time init  =  4.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13539
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13577
    ==============================================================================================
           Voltage = 1.94661 volts
           Number of external surfaces = 1
@@ -14723,7 +14723,7 @@ main: Skipping Tinitial 50 to Tfinal 49.5 printout
       Electrode at time final =  5.0500000E+01
                    time init  =  5.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13649
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13687
    ==============================================================================================
           Voltage = 1.94533 volts
           Number of external surfaces = 1
@@ -14865,7 +14865,7 @@ main: Skipping Tinitial 55 to Tfinal 54.5 printout
       Electrode at time final =  5.5500000E+01
                    time init  =  5.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13759
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13797
    ==============================================================================================
           Voltage = 1.94375 volts
           Number of external surfaces = 1
@@ -15007,7 +15007,7 @@ main: Skipping Tinitial 60 to Tfinal 59.5 printout
       Electrode at time final =  6.0500000E+01
                    time init  =  6.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13869
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13907
    ==============================================================================================
           Voltage = 1.94169 volts
           Number of external surfaces = 1
@@ -15149,7 +15149,7 @@ main: Skipping Tinitial 65 to Tfinal 64.5 printout
       Electrode at time final =  6.5500000E+01
                    time init  =  6.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 13979
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14017
    ==============================================================================================
           Voltage = 1.93885 volts
           Number of external surfaces = 1
@@ -15291,7 +15291,7 @@ main: Skipping Tinitial 70 to Tfinal 69.5 printout
       Electrode at time final =  7.0500000E+01
                    time init  =  7.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14089
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14127
    ==============================================================================================
           Voltage = 1.93449 volts
           Number of external surfaces = 1
@@ -15433,7 +15433,7 @@ main: Skipping Tinitial 75 to Tfinal 74.5 printout
       Electrode at time final =  7.5500000E+01
                    time init  =  7.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14199
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14237
    ==============================================================================================
           Voltage = 1.92619 volts
           Number of external surfaces = 1
@@ -15575,7 +15575,7 @@ main: Skipping Tinitial 80 to Tfinal 79.5 printout
       Electrode at time final =  8.0500000E+01
                    time init  =  8.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14370
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14408
    ==============================================================================================
           Voltage = 1.89179 volts
           Number of external surfaces = 1
@@ -15717,7 +15717,7 @@ main: Skipping Tinitial 85 to Tfinal 84.5 printout
       Electrode at time final =  8.5500000E+01
                    time init  =  8.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14782
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 14827
    ==============================================================================================
           Voltage = 1.85815 volts
           Number of external surfaces = 1
@@ -15859,7 +15859,7 @@ main: Skipping Tinitial 90 to Tfinal 89.5 printout
       Electrode at time final =  9.0500000E+01
                    time init  =  9.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15056
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15101
    ==============================================================================================
           Voltage = 1.85229 volts
           Number of external surfaces = 1
@@ -16001,7 +16001,7 @@ main: Skipping Tinitial 95 to Tfinal 94.5 printout
       Electrode at time final =  9.5500000E+01
                    time init  =  9.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15908
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 15973
    ==============================================================================================
           Voltage = 1.84771 volts
           Number of external surfaces = 1
@@ -16143,7 +16143,7 @@ main: Skipping Tinitial 100 to Tfinal 99.5 printout
       Electrode at time final =  1.0050000E+02
                    time init  =  1.0000000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18385
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 18449
    ==============================================================================================
           Voltage = 1.72525 volts
           Number of external surfaces = 1
@@ -16287,7 +16287,7 @@ main: Skipping Tinitial 104.75 to Tfinal 104.25 printout
       Electrode at time final =  1.0525000E+02
                    time init  =  1.0475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20168
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 20247
    ==============================================================================================
           Voltage = 1.60331 volts
           Number of external surfaces = 1
@@ -16430,7 +16430,7 @@ main: Skipping Tinitial 109.5 to Tfinal 109 printout
       Electrode at time final =  1.1000000E+02
                    time init  =  1.0950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21253
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21344
    ==============================================================================================
           Voltage = 1.5061 volts
           Number of external surfaces = 1
@@ -16572,7 +16572,7 @@ main: Skipping Tinitial 114.5 to Tfinal 114 printout
       Electrode at time final =  1.1500000E+02
                    time init  =  1.1450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21365
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21456
    ==============================================================================================
           Voltage = 1.5061 volts
           Number of external surfaces = 1
@@ -16714,7 +16714,7 @@ main: Skipping Tinitial 119.5 to Tfinal 119 printout
       Electrode at time final =  1.2000000E+02
                    time init  =  1.1950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21476
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21567
    ==============================================================================================
           Voltage = 1.5061 volts
           Number of external surfaces = 1
@@ -16856,7 +16856,7 @@ main: Skipping Tinitial 124.5 to Tfinal 124 printout
       Electrode at time final =  1.2500000E+02
                    time init  =  1.2450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21587
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21678
    ==============================================================================================
           Voltage = 1.50605 volts
           Number of external surfaces = 1
@@ -16998,7 +16998,7 @@ main: Skipping Tinitial 129.5 to Tfinal 129 printout
       Electrode at time final =  1.3000000E+02
                    time init  =  1.2950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21697
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21788
    ==============================================================================================
           Voltage = 1.50567 volts
           Number of external surfaces = 1
@@ -17140,7 +17140,7 @@ main: Skipping Tinitial 134.5 to Tfinal 134 printout
       Electrode at time final =  1.3500000E+02
                    time init  =  1.3450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21807
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21898
    ==============================================================================================
           Voltage = 1.50527 volts
           Number of external surfaces = 1
@@ -17282,7 +17282,7 @@ main: Skipping Tinitial 139.5 to Tfinal 139 printout
       Electrode at time final =  1.4000000E+02
                    time init  =  1.3950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 21917
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22008
    ==============================================================================================
           Voltage = 1.50483 volts
           Number of external surfaces = 1
@@ -17424,7 +17424,7 @@ main: Skipping Tinitial 144.5 to Tfinal 144 printout
       Electrode at time final =  1.4500000E+02
                    time init  =  1.4450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22027
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22118
    ==============================================================================================
           Voltage = 1.50435 volts
           Number of external surfaces = 1
@@ -17566,7 +17566,7 @@ main: Skipping Tinitial 149.5 to Tfinal 149 printout
       Electrode at time final =  1.5000000E+02
                    time init  =  1.4950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22137
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22228
    ==============================================================================================
           Voltage = 1.50382 volts
           Number of external surfaces = 1
@@ -17708,7 +17708,7 @@ main: Skipping Tinitial 154.5 to Tfinal 154 printout
       Electrode at time final =  1.5500000E+02
                    time init  =  1.5450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22247
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22338
    ==============================================================================================
           Voltage = 1.50324 volts
           Number of external surfaces = 1
@@ -17850,7 +17850,7 @@ main: Skipping Tinitial 159.5 to Tfinal 159 printout
       Electrode at time final =  1.6000000E+02
                    time init  =  1.5950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22357
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22448
    ==============================================================================================
           Voltage = 1.50259 volts
           Number of external surfaces = 1
@@ -17992,7 +17992,7 @@ main: Skipping Tinitial 164.5 to Tfinal 164 printout
       Electrode at time final =  1.6500000E+02
                    time init  =  1.6450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22467
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22558
    ==============================================================================================
           Voltage = 1.50186 volts
           Number of external surfaces = 1
@@ -18134,7 +18134,7 @@ main: Skipping Tinitial 169.5 to Tfinal 169 printout
       Electrode at time final =  1.7000000E+02
                    time init  =  1.6950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22577
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22668
    ==============================================================================================
           Voltage = 1.50103 volts
           Number of external surfaces = 1
@@ -18276,7 +18276,7 @@ main: Skipping Tinitial 174.5 to Tfinal 174 printout
       Electrode at time final =  1.7500000E+02
                    time init  =  1.7450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22687
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22778
    ==============================================================================================
           Voltage = 1.50007 volts
           Number of external surfaces = 1
@@ -18418,7 +18418,7 @@ main: Skipping Tinitial 179.5 to Tfinal 179 printout
       Electrode at time final =  1.8000000E+02
                    time init  =  1.7950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22797
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22888
    ==============================================================================================
           Voltage = 1.49895 volts
           Number of external surfaces = 1
@@ -18560,7 +18560,7 @@ main: Skipping Tinitial 184.5 to Tfinal 184 printout
       Electrode at time final =  1.8500000E+02
                    time init  =  1.8450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22907
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 22998
    ==============================================================================================
           Voltage = 1.4976 volts
           Number of external surfaces = 1
@@ -18702,7 +18702,7 @@ main: Skipping Tinitial 189.5 to Tfinal 189 printout
       Electrode at time final =  1.9000000E+02
                    time init  =  1.8950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23017
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23108
    ==============================================================================================
           Voltage = 1.49595 volts
           Number of external surfaces = 1
@@ -18840,7 +18840,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9400000E+02
                    time init  =  1.9350000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23105
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23196
    ==============================================================================================
           Voltage = 1.4943 volts
           Number of external surfaces = 1
@@ -18964,7 +18964,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9450000E+02
                    time init  =  1.9400000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23116
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23207
    ==============================================================================================
           Voltage = 1.49406 volts
           Number of external surfaces = 1
@@ -19088,7 +19088,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9500000E+02
                    time init  =  1.9450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23127
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23218
    ==============================================================================================
           Voltage = 1.49382 volts
           Number of external surfaces = 1
@@ -19212,7 +19212,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9550000E+02
                    time init  =  1.9500000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23138
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23229
    ==============================================================================================
           Voltage = 1.49358 volts
           Number of external surfaces = 1
@@ -19336,7 +19336,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9600000E+02
                    time init  =  1.9550000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23149
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23240
    ==============================================================================================
           Voltage = 1.49332 volts
           Number of external surfaces = 1
@@ -19460,7 +19460,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9650000E+02
                    time init  =  1.9600000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23160
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23251
    ==============================================================================================
           Voltage = 1.49306 volts
           Number of external surfaces = 1
@@ -19584,7 +19584,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9700000E+02
                    time init  =  1.9650000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23171
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23262
    ==============================================================================================
           Voltage = 1.49278 volts
           Number of external surfaces = 1
@@ -19708,7 +19708,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9750000E+02
                    time init  =  1.9700000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23182
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23273
    ==============================================================================================
           Voltage = 1.4925 volts
           Number of external surfaces = 1
@@ -19832,7 +19832,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9800000E+02
                    time init  =  1.9750000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23193
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23284
    ==============================================================================================
           Voltage = 1.49221 volts
           Number of external surfaces = 1
@@ -19956,7 +19956,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9850000E+02
                    time init  =  1.9800000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23204
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23295
    ==============================================================================================
           Voltage = 1.49191 volts
           Number of external surfaces = 1
@@ -20080,7 +20080,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9900000E+02
                    time init  =  1.9850000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23215
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23306
    ==============================================================================================
           Voltage = 1.4916 volts
           Number of external surfaces = 1
@@ -20204,7 +20204,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9950000E+02
                    time init  =  1.9900000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23226
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23317
    ==============================================================================================
           Voltage = 1.49128 volts
           Number of external surfaces = 1
@@ -20329,7 +20329,7 @@ extra its
       Electrode at time final =  2.0000000E+02
                    time init  =  1.9950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23237
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23328
    ==============================================================================================
           Voltage = 1.49094 volts
           Number of external surfaces = 1
@@ -20454,7 +20454,7 @@ oc[0] = 1.95274
       Electrode at time final =  0.0000000E+00
                    time init  =  0.0000000E+00                         deltaTglobal =  0.0000000E+00
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23237
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23328
    ==============================================================================================
           Voltage = 1.9 volts
           Number of external surfaces = 1
@@ -20580,7 +20580,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.0000000E-01
                    time init  =  0.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23350
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23441
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -20704,7 +20704,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0000000E+00
                    time init  =  5.0000000E-01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23372
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23463
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -20828,7 +20828,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.5000000E+00
                    time init  =  1.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23394
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23485
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -20952,7 +20952,7 @@ oc[0] = 1.95274
       Electrode at time final =  2.0000000E+00
                    time init  =  1.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23405
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23496
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21076,7 +21076,7 @@ oc[0] = 1.95274
       Electrode at time final =  2.5000000E+00
                    time init  =  2.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23417
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23508
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21200,7 +21200,7 @@ oc[0] = 1.95274
       Electrode at time final =  3.0000000E+00
                    time init  =  2.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23428
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23519
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21324,7 +21324,7 @@ oc[0] = 1.95274
       Electrode at time final =  3.5000000E+00
                    time init  =  3.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23440
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23531
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21448,7 +21448,7 @@ oc[0] = 1.95274
       Electrode at time final =  4.0000000E+00
                    time init  =  3.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23451
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23542
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21572,7 +21572,7 @@ oc[0] = 1.95274
       Electrode at time final =  4.5000000E+00
                    time init  =  4.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23463
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23554
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21696,7 +21696,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.0000000E+00
                    time init  =  4.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23474
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23565
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21820,7 +21820,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.5000000E+00
                    time init  =  5.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23486
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23577
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -21944,7 +21944,7 @@ oc[0] = 1.95274
       Electrode at time final =  6.0000000E+00
                    time init  =  5.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23497
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23588
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22068,7 +22068,7 @@ oc[0] = 1.95274
       Electrode at time final =  6.5000000E+00
                    time init  =  6.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23509
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23600
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22192,7 +22192,7 @@ oc[0] = 1.95274
       Electrode at time final =  7.0000000E+00
                    time init  =  6.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23520
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23611
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22316,7 +22316,7 @@ oc[0] = 1.95274
       Electrode at time final =  7.5000000E+00
                    time init  =  7.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23532
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23623
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22440,7 +22440,7 @@ oc[0] = 1.95274
       Electrode at time final =  8.0000000E+00
                    time init  =  7.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23543
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23634
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22564,7 +22564,7 @@ oc[0] = 1.95274
       Electrode at time final =  8.5000000E+00
                    time init  =  8.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23555
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23646
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22688,7 +22688,7 @@ oc[0] = 1.95274
       Electrode at time final =  9.0000000E+00
                    time init  =  8.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23566
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23657
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22812,7 +22812,7 @@ oc[0] = 1.95274
       Electrode at time final =  9.5000000E+00
                    time init  =  9.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23578
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23669
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -22936,7 +22936,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0000000E+01
                    time init  =  9.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23589
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23680
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -23060,7 +23060,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0500000E+01
                    time init  =  1.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23601
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23692
    ==============================================================================================
           Voltage = 1.94276 volts
           Number of external surfaces = 1
@@ -23202,7 +23202,7 @@ main: Skipping Tinitial 15 to Tfinal 14.5 printout
       Electrode at time final =  1.5500000E+01
                    time init  =  1.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23712
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23803
    ==============================================================================================
           Voltage = 1.93923 volts
           Number of external surfaces = 1
@@ -23344,7 +23344,7 @@ main: Skipping Tinitial 20 to Tfinal 19.5 printout
       Electrode at time final =  2.0500000E+01
                    time init  =  2.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23822
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23913
    ==============================================================================================
           Voltage = 1.93398 volts
           Number of external surfaces = 1
@@ -23486,7 +23486,7 @@ main: Skipping Tinitial 25 to Tfinal 24.5 printout
       Electrode at time final =  2.5500000E+01
                    time init  =  2.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 23934
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24025
    ==============================================================================================
           Voltage = 1.92816 volts
           Number of external surfaces = 1
@@ -23628,7 +23628,7 @@ main: Skipping Tinitial 30 to Tfinal 29.5 printout
       Electrode at time final =  3.0500000E+01
                    time init  =  3.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24049
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24140
    ==============================================================================================
           Voltage = 1.92167 volts
           Number of external surfaces = 1
@@ -23770,7 +23770,7 @@ main: Skipping Tinitial 35 to Tfinal 34.5 printout
       Electrode at time final =  3.5500000E+01
                    time init  =  3.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24159
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24250
    ==============================================================================================
           Voltage = 1.91437 volts
           Number of external surfaces = 1
@@ -23912,7 +23912,7 @@ main: Skipping Tinitial 40 to Tfinal 39.5 printout
       Electrode at time final =  4.0500000E+01
                    time init  =  4.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24269
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24360
    ==============================================================================================
           Voltage = 1.90608 volts
           Number of external surfaces = 1
@@ -24054,7 +24054,7 @@ main: Skipping Tinitial 45 to Tfinal 44.5 printout
       Electrode at time final =  4.5500000E+01
                    time init  =  4.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24379
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24470
    ==============================================================================================
           Voltage = 1.89657 volts
           Number of external surfaces = 1
@@ -24196,7 +24196,7 @@ main: Skipping Tinitial 50 to Tfinal 49.5 printout
       Electrode at time final =  5.0500000E+01
                    time init  =  5.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24498
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24589
    ==============================================================================================
           Voltage = 1.88552 volts
           Number of external surfaces = 1
@@ -24338,7 +24338,7 @@ main: Skipping Tinitial 55 to Tfinal 54.5 printout
       Electrode at time final =  5.5500000E+01
                    time init  =  5.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24618
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24709
    ==============================================================================================
           Voltage = 1.87243 volts
           Number of external surfaces = 1
@@ -24480,7 +24480,7 @@ main: Skipping Tinitial 60 to Tfinal 59.5 printout
       Electrode at time final =  6.0500000E+01
                    time init  =  6.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24733
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24824
    ==============================================================================================
           Voltage = 1.85658 volts
           Number of external surfaces = 1
@@ -24622,7 +24622,7 @@ main: Skipping Tinitial 65 to Tfinal 64.5 printout
       Electrode at time final =  6.5500000E+01
                    time init  =  6.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24853
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24944
    ==============================================================================================
           Voltage = 1.83665 volts
           Number of external surfaces = 1
@@ -24764,7 +24764,7 @@ main: Skipping Tinitial 70 to Tfinal 69.5 printout
       Electrode at time final =  7.0500000E+01
                    time init  =  7.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 24970
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25061
    ==============================================================================================
           Voltage = 1.81003 volts
           Number of external surfaces = 1
@@ -24906,7 +24906,7 @@ main: Skipping Tinitial 75 to Tfinal 74.5 printout
       Electrode at time final =  7.5500000E+01
                    time init  =  7.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25075
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25166
    ==============================================================================================
           Voltage = 1.7695 volts
           Number of external surfaces = 1
@@ -25048,7 +25048,7 @@ main: Skipping Tinitial 80 to Tfinal 79.5 printout
       Electrode at time final =  8.0500000E+01
                    time init  =  8.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25226
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 25317
    ==============================================================================================
           Voltage = 1.6682 volts
           Number of external surfaces = 1
@@ -25192,7 +25192,7 @@ main: Skipping Tinitial 84.75 to Tfinal 84.25 printout
       Electrode at time final =  8.5250000E+01
                    time init  =  8.4750000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26337
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26445
    ==============================================================================================
           Voltage = 1.8403 volts
           Number of external surfaces = 1
@@ -25334,7 +25334,7 @@ main: Skipping Tinitial 89.75 to Tfinal 89.25 printout
       Electrode at time final =  9.0250000E+01
                    time init  =  8.9750000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26593
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26701
    ==============================================================================================
           Voltage = 1.78976 volts
           Number of external surfaces = 1
@@ -25476,7 +25476,7 @@ main: Skipping Tinitial 94.75 to Tfinal 94.25 printout
       Electrode at time final =  9.5250000E+01
                    time init  =  9.4750000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 26970
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 27081
    ==============================================================================================
           Voltage = 1.61554 volts
           Number of external surfaces = 1
@@ -25620,7 +25620,7 @@ main: Skipping Tinitial 99.5 to Tfinal 99 printout
       Electrode at time final =  1.0000000E+02
                    time init  =  9.9500000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28196
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28332
    ==============================================================================================
           Voltage = 1.71338 volts
           Number of external surfaces = 1
@@ -25762,7 +25762,7 @@ main: Skipping Tinitial 104.5 to Tfinal 104 printout
       Electrode at time final =  1.0500000E+02
                    time init  =  1.0450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28675
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 28815
    ==============================================================================================
           Voltage = 1.52907 volts
           Number of external surfaces = 1
@@ -25904,7 +25904,7 @@ main: Skipping Tinitial 109.5 to Tfinal 109 printout
       Electrode at time final =  1.1000000E+02
                    time init  =  1.0950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29242
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29386
    ==============================================================================================
           Voltage = 1.49733 volts
           Number of external surfaces = 1
@@ -26046,7 +26046,7 @@ main: Skipping Tinitial 114.5 to Tfinal 114 printout
       Electrode at time final =  1.1500000E+02
                    time init  =  1.1450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29352
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29496
    ==============================================================================================
           Voltage = 1.49733 volts
           Number of external surfaces = 1
@@ -26188,7 +26188,7 @@ main: Skipping Tinitial 119.5 to Tfinal 119 printout
       Electrode at time final =  1.2000000E+02
                    time init  =  1.1950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29462
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29606
    ==============================================================================================
           Voltage = 1.49733 volts
           Number of external surfaces = 1
@@ -26330,7 +26330,7 @@ main: Skipping Tinitial 124.5 to Tfinal 124 printout
       Electrode at time final =  1.2500000E+02
                    time init  =  1.2450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29572
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29716
    ==============================================================================================
           Voltage = 1.49681 volts
           Number of external surfaces = 1
@@ -26472,7 +26472,7 @@ main: Skipping Tinitial 129.5 to Tfinal 129 printout
       Electrode at time final =  1.3000000E+02
                    time init  =  1.2950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29682
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29826
    ==============================================================================================
           Voltage = 1.49314 volts
           Number of external surfaces = 1
@@ -26614,7 +26614,7 @@ main: Skipping Tinitial 134.5 to Tfinal 134 printout
       Electrode at time final =  1.3500000E+02
                    time init  =  1.3450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29792
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29936
    ==============================================================================================
           Voltage = 1.48921 volts
           Number of external surfaces = 1
@@ -26756,7 +26756,7 @@ main: Skipping Tinitial 139.5 to Tfinal 139 printout
       Electrode at time final =  1.4000000E+02
                    time init  =  1.3950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 29903
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30047
    ==============================================================================================
           Voltage = 1.48495 volts
           Number of external surfaces = 1
@@ -26898,7 +26898,7 @@ main: Skipping Tinitial 144.5 to Tfinal 144 printout
       Electrode at time final =  1.4500000E+02
                    time init  =  1.4450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30020
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30164
    ==============================================================================================
           Voltage = 1.48035 volts
           Number of external surfaces = 1
@@ -27040,7 +27040,7 @@ main: Skipping Tinitial 149.5 to Tfinal 149 printout
       Electrode at time final =  1.5000000E+02
                    time init  =  1.4950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30131
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30275
    ==============================================================================================
           Voltage = 1.47534 volts
           Number of external surfaces = 1
@@ -27182,7 +27182,7 @@ main: Skipping Tinitial 154.5 to Tfinal 154 printout
       Electrode at time final =  1.5500000E+02
                    time init  =  1.5450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30241
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30385
    ==============================================================================================
           Voltage = 1.46986 volts
           Number of external surfaces = 1
@@ -27324,7 +27324,7 @@ main: Skipping Tinitial 159.5 to Tfinal 159 printout
       Electrode at time final =  1.6000000E+02
                    time init  =  1.5950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30351
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30495
    ==============================================================================================
           Voltage = 1.46384 volts
           Number of external surfaces = 1
@@ -27466,7 +27466,7 @@ main: Skipping Tinitial 164.5 to Tfinal 164 printout
       Electrode at time final =  1.6500000E+02
                    time init  =  1.6450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30461
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30605
    ==============================================================================================
           Voltage = 1.4572 volts
           Number of external surfaces = 1
@@ -27608,7 +27608,7 @@ main: Skipping Tinitial 169.5 to Tfinal 169 printout
       Electrode at time final =  1.7000000E+02
                    time init  =  1.6950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30571
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30715
    ==============================================================================================
           Voltage = 1.44981 volts
           Number of external surfaces = 1
@@ -27750,7 +27750,7 @@ main: Skipping Tinitial 174.5 to Tfinal 174 printout
       Electrode at time final =  1.7500000E+02
                    time init  =  1.7450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30682
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30826
    ==============================================================================================
           Voltage = 1.44152 volts
           Number of external surfaces = 1
@@ -27892,7 +27892,7 @@ main: Skipping Tinitial 179.5 to Tfinal 179 printout
       Electrode at time final =  1.8000000E+02
                    time init  =  1.7950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30802
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30946
    ==============================================================================================
           Voltage = 1.43213 volts
           Number of external surfaces = 1
@@ -28034,7 +28034,7 @@ main: Skipping Tinitial 184.5 to Tfinal 184 printout
       Electrode at time final =  1.8500000E+02
                    time init  =  1.8450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 30922
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31066
    ==============================================================================================
           Voltage = 1.42137 volts
           Number of external surfaces = 1
@@ -28176,7 +28176,7 @@ main: Skipping Tinitial 189.5 to Tfinal 189 printout
       Electrode at time final =  1.9000000E+02
                    time init  =  1.8950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31042
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31186
    ==============================================================================================
           Voltage = 1.40885 volts
           Number of external surfaces = 1
@@ -28314,7 +28314,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9400000E+02
                    time init  =  1.9350000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31138
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31282
    ==============================================================================================
           Voltage = 1.39714 volts
           Number of external surfaces = 1
@@ -28438,7 +28438,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9450000E+02
                    time init  =  1.9400000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31150
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31294
    ==============================================================================================
           Voltage = 1.39555 volts
           Number of external surfaces = 1
@@ -28562,7 +28562,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9500000E+02
                    time init  =  1.9450000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31162
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31306
    ==============================================================================================
           Voltage = 1.39393 volts
           Number of external surfaces = 1
@@ -28686,7 +28686,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9550000E+02
                    time init  =  1.9500000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31174
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31318
    ==============================================================================================
           Voltage = 1.39227 volts
           Number of external surfaces = 1
@@ -28810,7 +28810,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9600000E+02
                    time init  =  1.9550000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31186
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31330
    ==============================================================================================
           Voltage = 1.39058 volts
           Number of external surfaces = 1
@@ -28934,7 +28934,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9650000E+02
                    time init  =  1.9600000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31198
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31342
    ==============================================================================================
           Voltage = 1.38885 volts
           Number of external surfaces = 1
@@ -29058,7 +29058,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9700000E+02
                    time init  =  1.9650000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31210
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31354
    ==============================================================================================
           Voltage = 1.38708 volts
           Number of external surfaces = 1
@@ -29182,7 +29182,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9750000E+02
                    time init  =  1.9700000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31222
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31366
    ==============================================================================================
           Voltage = 1.38527 volts
           Number of external surfaces = 1
@@ -29306,7 +29306,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9800000E+02
                    time init  =  1.9750000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31234
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31378
    ==============================================================================================
           Voltage = 1.38342 volts
           Number of external surfaces = 1
@@ -29430,7 +29430,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9850000E+02
                    time init  =  1.9800000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31246
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31390
    ==============================================================================================
           Voltage = 1.38153 volts
           Number of external surfaces = 1
@@ -29554,7 +29554,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9900000E+02
                    time init  =  1.9850000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31258
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31402
    ==============================================================================================
           Voltage = 1.37959 volts
           Number of external surfaces = 1
@@ -29678,7 +29678,7 @@ main: Skipping Tinitial 193.5 to Tfinal 193 printout
       Electrode at time final =  1.9950000E+02
                    time init  =  1.9900000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31270
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31414
    ==============================================================================================
           Voltage = 1.3776 volts
           Number of external surfaces = 1
@@ -29803,7 +29803,7 @@ extra its
       Electrode at time final =  2.0000000E+02
                    time init  =  1.9950000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31282
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31426
    ==============================================================================================
           Voltage = 1.37556 volts
           Number of external surfaces = 1
@@ -29928,7 +29928,7 @@ oc[0] = 1.95274
       Electrode at time final =  0.0000000E+00
                    time init  =  0.0000000E+00                         deltaTglobal =  0.0000000E+00
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31282
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31426
    ==============================================================================================
           Voltage = 1.9 volts
           Number of external surfaces = 1
@@ -30054,7 +30054,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.0000000E-01
                    time init  =  0.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31359
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31503
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -30178,7 +30178,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0000000E+00
                    time init  =  5.0000000E-01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31373
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31517
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -30302,7 +30302,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.5000000E+00
                    time init  =  1.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31387
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31531
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -30426,7 +30426,7 @@ oc[0] = 1.95274
       Electrode at time final =  2.0000000E+00
                    time init  =  1.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31394
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31538
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -30550,7 +30550,7 @@ oc[0] = 1.95274
       Electrode at time final =  2.5000000E+00
                    time init  =  2.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31401
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31545
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -30674,7 +30674,7 @@ oc[0] = 1.95274
       Electrode at time final =  3.0000000E+00
                    time init  =  2.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31408
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31552
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -30798,7 +30798,7 @@ oc[0] = 1.95274
       Electrode at time final =  3.5000000E+00
                    time init  =  3.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31415
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31559
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -30922,7 +30922,7 @@ oc[0] = 1.95274
       Electrode at time final =  4.0000000E+00
                    time init  =  3.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31422
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31566
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31046,7 +31046,7 @@ oc[0] = 1.95274
       Electrode at time final =  4.5000000E+00
                    time init  =  4.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31429
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31573
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31170,7 +31170,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.0000000E+00
                    time init  =  4.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31436
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31580
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31294,7 +31294,7 @@ oc[0] = 1.95274
       Electrode at time final =  5.5000000E+00
                    time init  =  5.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31443
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31587
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31418,7 +31418,7 @@ oc[0] = 1.95274
       Electrode at time final =  6.0000000E+00
                    time init  =  5.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31450
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31594
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31542,7 +31542,7 @@ oc[0] = 1.95274
       Electrode at time final =  6.5000000E+00
                    time init  =  6.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31457
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31601
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31666,7 +31666,7 @@ oc[0] = 1.95274
       Electrode at time final =  7.0000000E+00
                    time init  =  6.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31464
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31608
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31790,7 +31790,7 @@ oc[0] = 1.95274
       Electrode at time final =  7.5000000E+00
                    time init  =  7.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31471
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31615
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -31914,7 +31914,7 @@ oc[0] = 1.95274
       Electrode at time final =  8.0000000E+00
                    time init  =  7.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31478
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31622
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -32038,7 +32038,7 @@ oc[0] = 1.95274
       Electrode at time final =  8.5000000E+00
                    time init  =  8.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31485
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31629
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -32162,7 +32162,7 @@ oc[0] = 1.95274
       Electrode at time final =  9.0000000E+00
                    time init  =  8.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31492
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31636
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -32286,7 +32286,7 @@ oc[0] = 1.95274
       Electrode at time final =  9.5000000E+00
                    time init  =  9.0000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31499
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31643
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -32410,7 +32410,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0000000E+01
                    time init  =  9.5000000E+00                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31506
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31650
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -32534,7 +32534,7 @@ oc[0] = 1.95274
       Electrode at time final =  1.0500000E+01
                    time init  =  1.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31513
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31657
    ==============================================================================================
           Voltage = 1.86287 volts
           Number of external surfaces = 1
@@ -32676,7 +32676,7 @@ main: Skipping Tinitial 15 to Tfinal 14.5 printout
       Electrode at time final =  1.5500000E+01
                    time init  =  1.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31618
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31762
    ==============================================================================================
           Voltage = 1.83696 volts
           Number of external surfaces = 1
@@ -32818,7 +32818,7 @@ main: Skipping Tinitial 20 to Tfinal 19.5 printout
       Electrode at time final =  2.0500000E+01
                    time init  =  2.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31728
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31872
    ==============================================================================================
           Voltage = 1.80436 volts
           Number of external surfaces = 1
@@ -32960,7 +32960,7 @@ main: Skipping Tinitial 25 to Tfinal 24.5 printout
       Electrode at time final =  2.5500000E+01
                    time init  =  2.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31838
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31982
    ==============================================================================================
           Voltage = 1.77476 volts
           Number of external surfaces = 1
@@ -33102,7 +33102,7 @@ main: Skipping Tinitial 30 to Tfinal 29.5 printout
       Electrode at time final =  3.0500000E+01
                    time init  =  3.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 31948
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32092
    ==============================================================================================
           Voltage = 1.74753 volts
           Number of external surfaces = 1
@@ -33244,7 +33244,7 @@ main: Skipping Tinitial 35 to Tfinal 34.5 printout
       Electrode at time final =  3.5500000E+01
                    time init  =  3.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32058
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32202
    ==============================================================================================
           Voltage = 1.72201 volts
           Number of external surfaces = 1
@@ -33386,7 +33386,7 @@ main: Skipping Tinitial 40 to Tfinal 39.5 printout
       Electrode at time final =  4.0500000E+01
                    time init  =  4.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32168
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32312
    ==============================================================================================
           Voltage = 1.69762 volts
           Number of external surfaces = 1
@@ -33528,7 +33528,7 @@ main: Skipping Tinitial 45 to Tfinal 44.5 printout
       Electrode at time final =  4.5500000E+01
                    time init  =  4.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32278
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32422
    ==============================================================================================
           Voltage = 1.6738 volts
           Number of external surfaces = 1
@@ -33670,7 +33670,7 @@ main: Skipping Tinitial 50 to Tfinal 49.5 printout
       Electrode at time final =  5.0500000E+01
                    time init  =  5.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32388
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32532
    ==============================================================================================
           Voltage = 1.65 volts
           Number of external surfaces = 1
@@ -33812,7 +33812,7 @@ main: Skipping Tinitial 55 to Tfinal 54.5 printout
       Electrode at time final =  5.5500000E+01
                    time init  =  5.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32498
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32642
    ==============================================================================================
           Voltage = 1.62558 volts
           Number of external surfaces = 1
@@ -33954,7 +33954,7 @@ main: Skipping Tinitial 60 to Tfinal 59.5 printout
       Electrode at time final =  6.0500000E+01
                    time init  =  6.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32602
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32746
    ==============================================================================================
           Voltage = 1.59968 volts
           Number of external surfaces = 1
@@ -34096,7 +34096,7 @@ main: Skipping Tinitial 65 to Tfinal 64.5 printout
       Electrode at time final =  6.5500000E+01
                    time init  =  6.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32702
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32846
    ==============================================================================================
           Voltage = 1.57095 volts
           Number of external surfaces = 1
@@ -34238,7 +34238,7 @@ main: Skipping Tinitial 70 to Tfinal 69.5 printout
       Electrode at time final =  7.0500000E+01
                    time init  =  7.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32802
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32946
    ==============================================================================================
           Voltage = 1.53671 volts
           Number of external surfaces = 1
@@ -34380,7 +34380,7 @@ main: Skipping Tinitial 75 to Tfinal 74.5 printout
       Electrode at time final =  7.5500000E+01
                    time init  =  7.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 32909
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33053
    ==============================================================================================
           Voltage = 1.48974 volts
           Number of external surfaces = 1
@@ -34522,7 +34522,7 @@ main: Skipping Tinitial 80 to Tfinal 79.5 printout
       Electrode at time final =  8.0500000E+01
                    time init  =  8.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33064
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33208
    ==============================================================================================
           Voltage = 1.38321 volts
           Number of external surfaces = 1
@@ -34664,7 +34664,7 @@ main: Skipping Tinitial 85 to Tfinal 84.5 printout
       Electrode at time final =  8.5500000E+01
                    time init  =  8.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33806
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 33962
    ==============================================================================================
           Voltage = 1.69481 volts
           Number of external surfaces = 1
@@ -34806,7 +34806,7 @@ main: Skipping Tinitial 90 to Tfinal 89.5 printout
       Electrode at time final =  9.0500000E+01
                    time init  =  9.0000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34058
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 34214
    ==============================================================================================
           Voltage = 1.54342 volts
           Number of external surfaces = 1
@@ -34948,7 +34948,7 @@ main: Skipping Tinitial 95 to Tfinal 94.5 printout
       Electrode at time final =  9.5500000E+01
                    time init  =  9.5000000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35283
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35453
    ==============================================================================================
           Voltage = 1.76276 volts
           Number of external surfaces = 1
@@ -35091,7 +35091,7 @@ main: Skipping Tinitial 99.75 to Tfinal 99.25 printout
       Electrode at time final =  1.0025000E+02
                    time init  =  9.9750000E+01                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35757
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 35928
    ==============================================================================================
           Voltage = 1.53057 volts
           Number of external surfaces = 1
@@ -35233,7 +35233,7 @@ main: Skipping Tinitial 104.75 to Tfinal 104.25 printout
       Electrode at time final =  1.0525000E+02
                    time init  =  1.0475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36144
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36317
    ==============================================================================================
           Voltage = 1.26007 volts
           Number of external surfaces = 1
@@ -35375,7 +35375,7 @@ main: Skipping Tinitial 109.75 to Tfinal 109.25 printout
       Electrode at time final =  1.1025000E+02
                    time init  =  1.0975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36708
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36887
    ==============================================================================================
           Voltage = 1.41744 volts
           Number of external surfaces = 1
@@ -35517,7 +35517,7 @@ main: Skipping Tinitial 114.75 to Tfinal 114.25 printout
       Electrode at time final =  1.1525000E+02
                    time init  =  1.1475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36818
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36997
    ==============================================================================================
           Voltage = 1.41744 volts
           Number of external surfaces = 1
@@ -35659,7 +35659,7 @@ main: Skipping Tinitial 119.75 to Tfinal 119.25 printout
       Electrode at time final =  1.2025000E+02
                    time init  =  1.1975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 36908
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37107
    ==============================================================================================
           Voltage = 1.41744 volts
           Number of external surfaces = 1
@@ -35801,7 +35801,7 @@ main: Skipping Tinitial 124.75 to Tfinal 124.25 printout
       Electrode at time final =  1.2525000E+02
                    time init  =  1.2475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37020
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37205
    ==============================================================================================
           Voltage = 1.41202 volts
           Number of external surfaces = 1
@@ -35943,7 +35943,7 @@ main: Skipping Tinitial 129.75 to Tfinal 129.25 printout
       Electrode at time final =  1.3025000E+02
                    time init  =  1.2975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37140
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37325
    ==============================================================================================
           Voltage = 1.3858 volts
           Number of external surfaces = 1
@@ -36085,7 +36085,7 @@ main: Skipping Tinitial 134.75 to Tfinal 134.25 printout
       Electrode at time final =  1.3525000E+02
                    time init  =  1.3475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37260
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37445
    ==============================================================================================
           Voltage = 1.36147 volts
           Number of external surfaces = 1
@@ -36227,7 +36227,7 @@ main: Skipping Tinitial 139.75 to Tfinal 139.25 printout
       Electrode at time final =  1.4025000E+02
                    time init  =  1.3975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37380
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37565
    ==============================================================================================
           Voltage = 1.33885 volts
           Number of external surfaces = 1
@@ -36369,7 +36369,7 @@ main: Skipping Tinitial 144.75 to Tfinal 144.25 printout
       Electrode at time final =  1.4525000E+02
                    time init  =  1.4475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37500
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37685
    ==============================================================================================
           Voltage = 1.31769 volts
           Number of external surfaces = 1
@@ -36511,7 +36511,7 @@ main: Skipping Tinitial 149.75 to Tfinal 149.25 printout
       Electrode at time final =  1.5025000E+02
                    time init  =  1.4975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37620
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37805
    ==============================================================================================
           Voltage = 1.29771 volts
           Number of external surfaces = 1
@@ -36653,7 +36653,7 @@ main: Skipping Tinitial 154.75 to Tfinal 154.25 printout
       Electrode at time final =  1.5525000E+02
                    time init  =  1.5475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37740
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37925
    ==============================================================================================
           Voltage = 1.27863 volts
           Number of external surfaces = 1
@@ -36795,7 +36795,7 @@ main: Skipping Tinitial 159.75 to Tfinal 159.25 printout
       Electrode at time final =  1.6025000E+02
                    time init  =  1.5975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37860
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38045
    ==============================================================================================
           Voltage = 1.2602 volts
           Number of external surfaces = 1
@@ -36937,7 +36937,7 @@ main: Skipping Tinitial 164.75 to Tfinal 164.25 printout
       Electrode at time final =  1.6525000E+02
                    time init  =  1.6475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 37980
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38165
    ==============================================================================================
           Voltage = 1.24221 volts
           Number of external surfaces = 1
@@ -37079,7 +37079,7 @@ main: Skipping Tinitial 169.75 to Tfinal 169.25 printout
       Electrode at time final =  1.7025000E+02
                    time init  =  1.6975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38100
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38285
    ==============================================================================================
           Voltage = 1.2244 volts
           Number of external surfaces = 1
@@ -37221,7 +37221,7 @@ main: Skipping Tinitial 174.75 to Tfinal 174.25 printout
       Electrode at time final =  1.7525000E+02
                    time init  =  1.7475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38220
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38405
    ==============================================================================================
           Voltage = 1.20656 volts
           Number of external surfaces = 1
@@ -37363,7 +37363,7 @@ main: Skipping Tinitial 179.75 to Tfinal 179.25 printout
       Electrode at time final =  1.8025000E+02
                    time init  =  1.7975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38340
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38525
    ==============================================================================================
           Voltage = 1.1884 volts
           Number of external surfaces = 1
@@ -37505,7 +37505,7 @@ main: Skipping Tinitial 184.75 to Tfinal 184.25 printout
       Electrode at time final =  1.8525000E+02
                    time init  =  1.8475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38460
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38645
    ==============================================================================================
           Voltage = 1.16961 volts
           Number of external surfaces = 1
@@ -37647,7 +37647,7 @@ main: Skipping Tinitial 189.75 to Tfinal 189.25 printout
       Electrode at time final =  1.9025000E+02
                    time init  =  1.8975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38580
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38765
    ==============================================================================================
           Voltage = 1.14972 volts
           Number of external surfaces = 1
@@ -37785,7 +37785,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9425000E+02
                    time init  =  1.9375000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38673
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38858
    ==============================================================================================
           Voltage = 1.13261 volts
           Number of external surfaces = 1
@@ -37909,7 +37909,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9475000E+02
                    time init  =  1.9425000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38684
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38869
    ==============================================================================================
           Voltage = 1.13036 volts
           Number of external surfaces = 1
@@ -38033,7 +38033,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9525000E+02
                    time init  =  1.9475000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38695
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38880
    ==============================================================================================
           Voltage = 1.1281 volts
           Number of external surfaces = 1
@@ -38157,7 +38157,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9575000E+02
                    time init  =  1.9525000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38706
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38891
    ==============================================================================================
           Voltage = 1.1258 volts
           Number of external surfaces = 1
@@ -38281,7 +38281,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9625000E+02
                    time init  =  1.9575000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38717
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38902
    ==============================================================================================
           Voltage = 1.12348 volts
           Number of external surfaces = 1
@@ -38405,7 +38405,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9675000E+02
                    time init  =  1.9625000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38728
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38913
    ==============================================================================================
           Voltage = 1.12112 volts
           Number of external surfaces = 1
@@ -38529,7 +38529,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9725000E+02
                    time init  =  1.9675000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38739
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38924
    ==============================================================================================
           Voltage = 1.11874 volts
           Number of external surfaces = 1
@@ -38653,7 +38653,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9775000E+02
                    time init  =  1.9725000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38750
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38935
    ==============================================================================================
           Voltage = 1.11631 volts
           Number of external surfaces = 1
@@ -38777,7 +38777,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9825000E+02
                    time init  =  1.9775000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38761
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38946
    ==============================================================================================
           Voltage = 1.11386 volts
           Number of external surfaces = 1
@@ -38901,7 +38901,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9875000E+02
                    time init  =  1.9825000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38772
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38957
    ==============================================================================================
           Voltage = 1.11136 volts
           Number of external surfaces = 1
@@ -39025,7 +39025,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9925000E+02
                    time init  =  1.9875000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38784
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38969
    ==============================================================================================
           Voltage = 1.10883 volts
           Number of external surfaces = 1
@@ -39149,7 +39149,7 @@ main: Skipping Tinitial 193.75 to Tfinal 193.25 printout
       Electrode at time final =  1.9975000E+02
                    time init  =  1.9925000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38794
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38979
    ==============================================================================================
           Voltage = 1.10625 volts
           Number of external surfaces = 1
@@ -39274,7 +39274,7 @@ extra its
       Electrode at time final =  2.0025000E+02
                    time init  =  1.9975000E+02                         deltaTglobal =  5.0000000E-01
 
-                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38804
+                ChemModel Type =   0 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 38989
    ==============================================================================================
           Voltage = 1.10362 volts
           Number of external surfaces = 1
