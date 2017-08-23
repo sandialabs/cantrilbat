@@ -164,8 +164,7 @@ public:
      * @param electrodeThickness  Width of the electrode
      * @param porosity        Volume of the electrolyte phase
      */
-    virtual void setElectrodeSizeParams(double electrodeArea, double electrodeThickness,
-                                        double porosity);
+    virtual void setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity) override;
 
 protected:
     //! Resize the solid phase and electrolyte mole numbers within the object
@@ -181,7 +180,7 @@ protected:
      *   SolidVol() =  particleNumberToFollow_  Pi *  particleDiameter_**3 / 6.0;
      *
      */
-    virtual void resizeMoleNumbersToGeometry();
+    virtual void resizeMoleNumbersToGeometry() override;
 
 public:
 
@@ -213,8 +212,7 @@ public:
     //! Value of the open circuit voltage for region xRegion at the final_ conditions.
     /*!
      *  This is the open circuit potential at the current _final_ conditions.
-     *  The value is dependent on the region input. The region input, currently is identified
-     *  with the surface reacting phase object.
+     *  The value is dependent on the region input. The region input, currently is identified with the surface reacting phase object.
      *  Therefore, this call is basically a wrapper around openCircuitVoltage(isk) which
      *  calculates the open circuit voltage for the isk reacting surface.
      *
@@ -330,7 +328,7 @@ public:
      *              ElectrodeSolidVolume_
      *
      */
-    virtual void updateState();
+    virtual void updateState() override;
 
     //!  Recalculate the surface areas of the surfaces for the final state
     /*!
@@ -351,7 +349,7 @@ public:
      *    Dependent StateVariables Calculated
      *          surfaceAreaRS_final_[]
      */
-    virtual void updateSurfaceAreas();
+    virtual void updateSurfaceAreas() override;
 
 protected:
     //! This is used to set the phase information that is implicit but not set by a restart or an initialization
@@ -445,7 +443,7 @@ public:
      *             yhighNLS_
      *             deltaBoundsMagnitudesNLS_
      */
-    virtual void initialPackSolver_nonlinFunction();
+    virtual void initialPackSolver_nonlinFunction() override;
 
     //! Pack the solution vector
     /*!
@@ -483,7 +481,7 @@ public:
      *    Source terms will have units associated with them.
      *    For example the integrated source term for electrons will have units of kmol
      */
-    virtual void predictorCorrectorGlobalSrcTermErrorVector();
+    virtual void predictorCorrectorGlobalSrcTermErrorVector() override;
 
     //!  Calculate the norm of the errors in the global source terms
     /*!
@@ -496,7 +494,7 @@ public:
      *   @return  Returns a single nondimensional number representing the normalized error
      *            for the calculation of the source term
      */
-    virtual double predictorCorrectorGlobalSrcTermErrorNorm();
+    virtual double predictorCorrectorGlobalSrcTermErrorNorm() override;
 
     //! Print table representing prediction vs. corrector information
     /*!
@@ -505,14 +503,14 @@ public:
      *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
      */
     virtual void predictorCorrectorPrint(const std::vector<double>& yval,
-                                         double pnormSrc, double pnormSoln) const;
+                                         double pnormSrc, double pnormSoln) const override;
 
     //! Possibly change the solution due to phase births and deaths.
     /*!
      *   (virtual from Electrode_Integrator)
      *  @return Returns a bool true if the step is acceptable, and false if it is unacceptable.
      */
-    virtual bool changeSolnForBirthDeaths();
+    virtual bool changeSolnForBirthDeaths() override;
 
     //! Possibly change the solution due to phase births and deaths after phase has been accepted.
     /*!
@@ -521,7 +519,7 @@ public:
      *  This routine is carried out after the step is deemed a success. Massaging of the solution
      *  must be carried out within strict tolerances.
      */
-    virtual void manageBirthDeathSuccessfulStep();
+    virtual void manageBirthDeathSuccessfulStep() override;
 
     //! Error check on the routine step
     /*!
@@ -529,7 +527,7 @@ public:
      *
      *   Error checks go here. All errors are fatal exits.
      */
-    virtual void check_final_state();
+    virtual void check_final_state() override;
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
@@ -538,7 +536,7 @@ public:
      *  Both the predicted solution values and the predicted integrated source terms are used
      *  in the time step control
      */
-    virtual void gatherIntegratedSrcPrediction();
+    virtual void gatherIntegratedSrcPrediction() override;
 
     // -----------------------------------------------------------------------------------------------------------------
     // ------------------------------------ CALCULATE INSTANTANEOUS RATES ----------------------------------------------
@@ -555,7 +553,7 @@ public:
      *  @param spMoleDot   The end result in terms of the rate of change in moles of species in the
      *                     electrode. (kmol s-1)
      */
-    virtual void speciesProductionRates(double* const spMoleDot);
+    virtual void speciesProductionRates(double* const spMoleDot) override;
 
     // -----------------------------------------------------------------------------------------------------------------------------
     // ----------------------------- CARRY OUT INTEGRATIONS ------------------------------------------------------------------------
@@ -609,7 +607,7 @@ public:
      *
      * @param setInitInit   Boolean indicating whether you should set the init_init state as well
      */
-    virtual void setInitStateFromFinal(bool setInitInit = false);
+    virtual void setInitStateFromFinal(bool setInitInit = false) override;
 
     //! Set the internal initial intermediate from the internal initial global state
     /*!
@@ -620,7 +618,7 @@ public:
      *
      * @param setFinal   Boolean indicating whether you should set the final as well
      */
-    virtual void setInitStateFromInitInit(bool setFinal = false);
+    virtual void setInitStateFromInitInit(bool setFinal = false) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!
@@ -630,7 +628,7 @@ public:
      *  routine as well.
      *
      */
-    virtual void setInitInitStateFromFinalFinal();
+    virtual void setInitInitStateFromFinalFinal() override;
 
     //! Set the internal final intermediate and from the internal init state
     /*!
@@ -639,7 +637,7 @@ public:
      *  Set the final state from the init state. This is commonly called during a failed time step
      *
      */
-    virtual void setFinalStateFromInit();
+    virtual void setFinalStateFromInit() override;
 
     //! Set the internal final global state from the internal final intermediate state
     /*!
@@ -647,7 +645,7 @@ public:
      *
      *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
      */
-    virtual void setFinalFinalStateFromFinal();
+    virtual void setFinalFinalStateFromFinal() override;
 
     //  Return a vector of delta y's for calculation of the numerical Jacobian
     /*
@@ -683,14 +681,14 @@ public:
      *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
      *                     This is a unitless quantity
      */
-    virtual void setNLSGlobalSrcTermTolerances(double rtolResid);
+    virtual void setNLSGlobalSrcTermTolerances(double rtolResid) override;
 
     //   Calculate the integrated source terms and do other items now that we have a completed time step
     /*
      *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step, and we are calculating post-processed quantities like source terms.
      */
-    virtual void calcSrcTermsOnCompletedStep();
+    virtual void calcSrcTermsOnCompletedStep() override;
 
 
     //! Determine the species with the largest mole fraction
@@ -759,9 +757,9 @@ public:
                             double* const resid,
                             const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
                             const int id_x = -1,
-                            const double delta_x = 0.0);
+                            const double delta_x = 0.0) override;
 
-    virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type evalType);
+    virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type evalType) override;
 
 
     void printElectrodeCapacityInfo(int pSrc, bool subTimeStep);
@@ -940,10 +938,10 @@ public:
      *
      *    Relative extent is the amount of reaction per mole of reactant. It extends across
      *    multiple plateaus. For graphite, it would correspond to the amount of Lithium per 6
-     *    moles of carbon.
+     *    moles of carbon, for example.
      *
-     *  In this implementation, the relative extent is not part of the solution vector. It is calculated
-     *  from the mole numbers and follows along with the solution.
+     *  In this implementation within Electrode_CSTR, the relative extent is not part of the solution vector. It is calculated
+     *  from the mole numbers and follows along with the solution as a tracking equation.
      */
     double RelativeExtentRxn_final_;
 
@@ -962,12 +960,15 @@ public:
      *  number of initial moles of zinc, i.e., it will be closely associated with the
      *  value of capacityInitial() / Faraday.
      *
-     *  units = kmol
+     *  Units: kmol
      */
     double RelativeExtentRxn_NormalizationFactor_;
 
 public:
     //! Boundaries of the regions in terms of the relative extent of reaction
+    /*!
+     *  Currently, there is some confusion as to whether this must be set or not.
+     */
     std::vector<double> RelativeExtentRxn_RegionBoundaries_;
 
 protected:
@@ -1011,7 +1012,6 @@ protected:
     //! Final region for the extent of reaction of the global step
     int xRegion_final_final_;
 
-
     //!  This Boolean is true when we are at a plateau boundary and the voltage is in between the
     //!  top value and the bottom value.
     int goNowhere_;
@@ -1024,7 +1024,6 @@ protected:
 
     //! Absolute tolerance for nonlinear residual
     double atolBaseResid_;
-
 
 
     // ----------------------------------------------------------------------------------------
@@ -1053,7 +1052,7 @@ protected:
      */
     double SrcDot_RxnExtent_final_;
 
-    //! List of the the volume phases in the PhaseList object  which are actually solid phases that are
+    //! List of the the volume phases in the PhaseList object which are actually solid phases that are
     //! part of the electrode. 
     /*!
      *  Right now, everything that is not the metal phase or the electrolyte phase is a solid phase.

@@ -52,7 +52,6 @@ ELECTRODE_CSTR_KEY_INPUT::~ELECTRODE_CSTR_KEY_INPUT()
 void ELECTRODE_CSTR_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* cf)
 {
     /*
-     * Obtain the number of cantera files to be read
      */
     LE_OneDbl* d1 = new LE_OneDbl("Boundary Resistance", &(boundaryResistance_), 0, "boundaryResistance");
     d1->set_default(0.0);
@@ -94,7 +93,6 @@ Electrode_CSTR::Electrode_CSTR() :
     goNowhere_(0),
     deltaT_RegionBoundaryCollision_(1.0E300),
     atolBaseResid_(1.0E-12),
-    DspMoles_final_(0),
     SrcDot_RxnExtent_final_(0.0),
     deltaSpMoles_(0),
     minPH_(npos)
@@ -121,7 +119,6 @@ Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
     goNowhere_(0),
     deltaT_RegionBoundaryCollision_(1.0E300),
     atolBaseResid_(1.0E-12),
-    DspMoles_final_(0),
     SrcDot_RxnExtent_final_(0.0),
 
     deltaSpMoles_(0),
@@ -182,33 +179,22 @@ Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
 
     return *this;
 }
-//======================================================================================================================
-/*
- *
- *  ELECTRODE_INPUT:destructor
- *
- * We need to manually free all of the arrays.
- */
+//==================================================================================================================================
 Electrode_CSTR::~Electrode_CSTR()
 {
-
 }
-//======================================================================================================================
+//==================================================================================================================================
 Electrode_Types_Enum Electrode_CSTR::electrodeType() const
 {
     return CSTR_ET;
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 int Electrode_CSTR::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
 {
-    /*
-     *  malloc an expanded child input
-     */
+    //   malloc an expanded child input
     ELECTRODE_CSTR_KEY_INPUT* ei_mp = new ELECTRODE_CSTR_KEY_INPUT();
-    /*
-     *  Find the command file
-     */
+    
+    //  Find the command file
     ELECTRODE_KEY_INPUT* ei = *(ei_ptr);
     string commandFile = ei->commandFile_;
     BlockEntry* cf = ei->lastBlockEntryPtr_;
@@ -228,10 +214,9 @@ int Electrode_CSTR::electrode_input_child(ELECTRODE_KEY_INPUT** ei_ptr)
     *ei_ptr = ei_mp;
     return 0;
 }
-//======================================================================================================================
+//==================================================================================================================================
 int Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
-
     int flag = Electrode_Integrator::electrode_model_create(eibase);
     if (flag != 0) {
         return flag;
@@ -245,7 +230,6 @@ int Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
         throw ZuzaxError(" Electrode_CSTR::electrode_model_create()",
                          " Expecting a child ELECTRODE_CSTR_KEY_INPUT object and didn't get it");
     }
-
     /*
      *  We determine two arrays here that are useful.
      *
@@ -639,6 +623,7 @@ double Electrode_CSTR::capacity(int platNum) const
     return capZeroDoD;
 }
 //==================================================================================================================================
+// returns Amp seconds = coulumbs
 double Electrode_CSTR::capacityRaw(int platNum) const
 {
     if (electrodeChemistryModelType_ == 2) {
@@ -658,10 +643,7 @@ double Electrode_CSTR::capacityRaw(int platNum) const
     return tmp;
 }
 //==================================================================================================================================
-// Amount of charge that the electrode that has available to be discharged
-/*
- *   We report the number in terms of Amp seconds = coulombs
- */
+// returns Amp seconds = coulumbs
 double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMin) const
 {
     if (electrodeChemistryModelType_ == 2) {
@@ -671,7 +653,10 @@ double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMi
     double capRaw = capacityRaw(platNum);
     double fac = capRaw / (RelativeExtentRxn_NormalizationFactor_ * Faraday);
 
-    int lastRegionBoundary = RelativeExtentRxn_RegionBoundaries_.size() - 1;
+    int lastRegionBoundary = MAX(1, static_cast<int>(RelativeExtentRxn_RegionBoundaries_.size()) - 1);
+    if (RelativeExtentRxn_RegionBoundaries_.size() == 0) {
+        lastRegionBoundary = 1; 
+    }
     double unExtractable = 0.0;
     if (RelativeExtentRxn_RegionBoundaries_.size() >= 2) {
         if (RelativeExtentRxn_RegionBoundaries_[lastRegionBoundary] < fac) {
@@ -687,8 +672,8 @@ double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMi
      */
     if (onRegionBoundary_final_ == lastRegionBoundary) {
         if (fabs(capLeft) > 1.0E-6 * RelativeExtentRxn_NormalizationFactor_) {
-            printf("Electrode_CSTR::capacityLeft() - Logic error maybe\n");
-            exit(-1);
+            throw Electrode_Error("Electrode_CSTR::capacityLeft()", 
+                                  "On the final boundary but still have capacity -> Logic error?");
         }
         capLeft = 0.0;
     }
@@ -698,7 +683,7 @@ double Electrode_CSTR::capacityLeft(int platNum, double voltsMax, double voltsMi
     }
     return capLeft * Faraday;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode_CSTR::capacityLeftRaw(int platNum) const
 {
     if (electrodeChemistryModelType_ == 2) {
@@ -706,7 +691,7 @@ double Electrode_CSTR::capacityLeftRaw(int platNum) const
     }
     double capLeft = 0.0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
-        if (iph == solnPhase_ || iph ==  metalPhase_) {
+        if (iph == solnPhase_ || iph == metalPhase_) {
             continue;
         }
         size_t kStart = m_PhaseSpeciesStartIndex[iph];
@@ -716,9 +701,8 @@ double Electrode_CSTR::capacityLeftRaw(int platNum) const
     }
     return capLeft * Faraday;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Set the relative current capacity discharged per Mole
-
 void Electrode_CSTR::setRelativeCapacityDischargedPerMole(double relDischargedPerMole, int platNum)
 {
     /*
@@ -726,30 +710,23 @@ void Electrode_CSTR::setRelativeCapacityDischargedPerMole(double relDischargedPe
      *  and has an upper and a lower limit.
      */
     if (RelativeExtentRxn_RegionBoundaries_.size() != 2) {
-        throw Electrode_Error("Electrode_CSTR::setRelativeCapacityDischargedPerMole",
-                              "confused");
+        throw Electrode_Error("Electrode_CSTR::setRelativeCapacityDischargedPerMole", "confused");
     }
-
-    double relExtentRxn =  RelativeExtentRxn_RegionBoundaries_[0] + relDischargedPerMole;
-
+    double relExtentRxn = RelativeExtentRxn_RegionBoundaries_[0] + relDischargedPerMole;
     if (platNum == 0 || platNum == -1) {
         setState_relativeExtentRxn(relExtentRxn);
     } else {
-        throw Electrode_Error("Electrode_CSTR::setRelativeCapacityDischargedPerMole",
-                              " wrong platNum");
+        throw Electrode_Error("Electrode_CSTR::setRelativeCapacityDischargedPerMole", "Wrong platNum");
     }
 }
-//====================================================================================================================
-//  Extract the ROP of the multiple reaction fronts from Cantera within this routine
+//==================================================================================================================================
 /*
  *  In this routine we calculate the rates of progress of reactions and species on all active reacting surfaces.
- *
  *        ROP_[jRxn]
  *        spNetProdPerArea_List_[isk][kIndexKin]
  */
 void Electrode_CSTR::extractInfo()
 {
-
     int maxNumRxns = RSD_List_[0]->nReactions();
     std::vector<double> netROP(maxNumRxns, 0.0);
     /*
@@ -789,23 +766,17 @@ void Electrode_CSTR::extractInfo()
         }
     }
 }
-//====================================================================================================================
-// Calculate the production rate of species in the electrode at the final time of the time step
-/*
- *   We take the ROP_inner_[] and ROP_outer_[] rates of progress, combine them with the surface area calculation,
- *   and the stoichiometric coefficients to calculate the DspMoles_final_[], which is production rate for
- *   all species in the electrode.
- */
+//==================================================================================================================================
 void Electrode_CSTR::updateSpeciesMoleChangeFinal()
 {
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(0);
     std::fill(DspMoles_final_.begin(), DspMoles_final_.end(), 0.0);
     double mult = (surfaceAreaRS_init_[0] + surfaceAreaRS_final_[0]) / 2.0;
-    for (size_t i = 0; i < m_NumVolSpecies; i++) {
+    for (size_t i = 0; i < m_NumTotSpecies; i++) {
         DspMoles_final_[i] += mult * spNetProdPerArea[i];
     }
 
-    // Also need to update DphMoles_final_ since it is used in the residual calculation.
+    // Also need to update DphMoles_final_, since it is used in the residual calculation.
     for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
         size_t iph = phaseIndexSolidPhases_[ph];
         double DphaseMoles = 0.0;
@@ -2049,10 +2020,9 @@ int Electrode_CSTR::GFCEO_evalResidNJ(const double tdummy, const double delta_t_
                                       double* const resid, const ResidEval_Type evalType,
                                       const int id_x, const double delta_x)
 {
-
     return 0;
 }
-//==================================================================================================================
+//==================================================================================================================================
 // Main internal routine to calculate the rate constant
 /*
  *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
@@ -2763,7 +2733,7 @@ void Electrode_CSTR::setNLSGlobalSrcTermTolerances(double rtolResid)
     }
     rtol_IntegratedSrc_global_ = rtolResid;
 }
-//======================================================================================================================
+//==================================================================================================================================
 double Electrode_CSTR::calcRelativeExtentRxn_final() const
 {
     double capInit = capacityRaw();
@@ -2771,9 +2741,7 @@ double Electrode_CSTR::calcRelativeExtentRxn_final() const
     double tmp = (capInit - capLeft) / (Faraday * RelativeExtentRxn_NormalizationFactor_);
     return tmp;
 }
-
-
-//====================================================================================================================
+//==================================================================================================================================
 } // End of ZZCantera namespace
 //----------------------------------------------------------------------------------------------------------------------------------
 
