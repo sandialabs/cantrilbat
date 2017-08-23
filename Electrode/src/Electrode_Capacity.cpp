@@ -282,8 +282,7 @@ double Electrode::calcRelativeExtentRxn_final() const
 void Electrode::resetCapacityDischargedToDate() 
 {
     if (pendingIntegratedStep_) {
-       throw Electrode_Error("Electrode::resetCapacityDischargedToDate() ERROR",
-                          "called during a pending integration step");
+       throw Electrode_Error("Electrode::resetCapacityDischargedToDate() ERROR", "called during a pending integration step");
     }
     electronKmolDischargedToDate_ = 0.0;
     depthOfDischargeStarting_ = depthOfDischarge();
@@ -370,7 +369,7 @@ void Electrode::setCapacityCoeffFromInput(const ELECTRODE_KEY_INPUT* const ei)
 	capZero = CapZeroDoDPhase[iph];
         for (size_t k = 0; k < nspPhase; k++) {
             size_t iGlobSpeciesIndex = kStart + k;
-            std::string sss = speciesName(iGlobSpeciesIndex);
+            //std::string sss = speciesName(iGlobSpeciesIndex);
 	    capacityLeftSpeciesCoeff_[iGlobSpeciesIndex] =  capLeft[k];
 	    capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = capZero[k];
 	    if (capLeft[k] != 0.0) {

@@ -463,6 +463,14 @@ public:
      */
     int xmlStateInfoLevel;
 
+    //!  Method for the capacity calculation
+    /*!
+     *       0 - none
+     *       1 - model
+     *       2,3 - coefficients
+     */
+    int methodCapacityCalc;
+
     //! Electrode Model Name
     /*!
      * This is used in the factory routine to instanteate the obejct

@@ -447,6 +447,9 @@ public:
      *  of the electrode, as expressed in terms of area and thickness to calculate the gross volume. "Gross" here
      *  means that it includes the electrolyte and the solid electrode material combined.
      *
+     *  This may be called outside of Electrode, and is the only public function to change the moles of existing
+     *  electrodes, other than setInitialConditions().
+     *
      *  @param[in]           electrodeArea       Gross Area of the electrode, this
      *                                              Units:  m2
      *  @param[in]           electrodeThickness  Width of the electrode
@@ -460,9 +463,12 @@ public:
 protected:
     //! Resize the solid phase and electrolyte mole numbers within the object
     /*!
+     *  This is called as part of other public functions, and is not a public function itself.
+     *  (onion out virtual function)
+     *
      *  This routine uses particleDiameter_ , particleNumberToFollow_, and porosity_ to recalculate
      *  all the mole numbers in the electrode. This is done by rescaling all of the numbers.
-     *  At the end of the process, the total volume of the electrode object is
+     *  At the end of the process, the total volume of the electrode object is the following:
      *
      *       grossVol = SolidVol() / ( 1.0 - porosity_)
      *
@@ -472,7 +478,6 @@ protected:
      */
     virtual void resizeMoleNumbersToGeometry();
 
-protected:
     //! Resize the surface areas according to the input geometry.
     /*!
      *  We resize the surface areas of the Reacting Surfaces to a value which is
@@ -482,6 +487,8 @@ protected:
 
     //! Calculate a new particle number to comply with the overall number of moles of particles
     /*!
+     *  This is called as part of other public functions, and is not a public function itself.
+     *
      *   We change the particleNumbertoFollow_ field to comply with the number of moles in the electrode and
      *   the current morphology of the electrode, e.g., the particle diameter.
      *   within we use the routine SolidVol() to calculate the total volume of electrode, and then use

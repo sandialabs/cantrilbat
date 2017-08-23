@@ -219,6 +219,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     PhaseNames(0),
     ElementNames(0),
     xmlStateInfoLevel(0),
+    methodCapacityCalc(0), 
     electrodeModelName(""),
     electrodeCapacityType(0),
     electrodeName(""),
@@ -255,6 +256,7 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     PhaseNames(0),
     ElementNames(0),
     xmlStateInfoLevel(0),
+    methodCapacityCalc(0),
     electrodeModelName(""),
     electrodeCapacityType(0),
     electrodeName(""),
@@ -381,6 +383,7 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
      }
 
      xmlStateInfoLevel                   = right.xmlStateInfoLevel;
+     methodCapacityCalc                  = right.methodCapacityCalc;
      electrodeModelName                  = right.electrodeModelName;
      electrodeCapacityType               = right.electrodeCapacityType;
      electrodeName                       = right.electrodeName;
@@ -746,6 +749,16 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass3(BlockEntry* cf)
     lepXML->set_default(0);
     cf->addLineEntry(lepXML);
 
+    /* ---------------------------------------------------------------------------
+     *  Method for Electrode Capacity Calculation  = PickList [ Default,  Model, Coeffs , Coefficients]
+     *                                                  (default = Default)
+     *                                                  (optional)
+     */
+    const char* cMethCap[4] = {"Default", "Model", "Coeffs" , "Coefficients"};
+    LE_PickList* lepMethCap = new LE_PickList("Method for Electrode Capacity Calculation", &(methodCapacityCalc),
+                                              cMethCap, 4, 0, "methodCapacityCalc");
+    lepMethCap->set_default(0);
+    cf->addLineEntry(lepMethCap);
 
     /*
      *  Set up the Bath Gas BG object to receive input

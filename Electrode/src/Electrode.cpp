@@ -1210,6 +1210,10 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
       electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
     }
 
+    if (ei->methodCapacityCalc == 2 || ei->methodCapacityCalc == 3) {
+        setCapacityCoeffFromInput(ei);
+    } else {
+
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
 
         if (PhaseNames_[iph] == "LiFeS_X_combo") {
@@ -1237,6 +1241,8 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  we expect from the model type.
      */
     size_t nRSD = RSD_List_.size();
+
+
     if (electrodeChemistryModelType_ == 1) {
         pmatch(PhaseNames_, 2, "Li13Si4(S)");
         pmatch(PhaseNames_, 3, "Li7Si3(S)");
@@ -1290,6 +1296,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             etype != MP_RXNEXTENT_LISI_ET ) {
 	    setCapacityCoeffFromInput(ei);
 	}
+    }
     }
 
     if (ei->RelativeCapacityDischargedPerMole != -1) {
@@ -1451,6 +1458,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 
     // Set the initial ZeroDoD capacity by calling the capacity() here.
     capacityInitialZeroDod_ = capacity();
+    resetCapacityDischargedToDate();
 
     Electrode::updateState();
     Electrode::updateSurfaceAreas();
@@ -1494,29 +1502,46 @@ int Electrode::electrode_stateSave_create(bool force)
 }
 //==================================================================================================================================
 // Set the sizes of the electrode from the input parameters
+// This may be called after the model is created.
+// Onion out routine (so we don't allow non-onion out virtual functions to call child objects)
 /*
  *  We resize all of the information within the electrode from the input parameters
- *
- * @param electrodeArea   Area of the electrode
- * @param electrodeThickness  Width of the electrode
- * @param porosity        Volume of the electrolyte phase and other non-electrode volume phases
+ *    electrodeArea   Area of the electrode
+ *    electrodeThickness  Width of the electrode
+ *    porosity        Volume of the electrolyte phase and other non-electrode volume phases
  */
 void Electrode::setElectrodeSizeParams(double electrodeArea, double electrodeThickness, double porosity)
 {
-
+    if (pendingIntegratedStep_) {
+        throw Electrode_Error("Electrode::setElectrodeSizeParams()", "called during a pending integration step");
+    }
     porosity_ = porosity;
     double grossVolume = electrodeArea * electrodeThickness;
     double partVol = 4.0 * Pi * Radius_exterior_final_ * Radius_exterior_final_ * Radius_exterior_final_ / 3.0;
     if (grossVolume > 0.0) {
         ElectrodeSolidVolume_ = (1.0 - porosity_) * grossVolume;
         particleNumberToFollow_ = ElectrodeSolidVolume_ / partVol;
+        // virtual function
         resizeMoleNumbersToGeometry();
+        // virtual function
         resizeSurfaceAreasToGeometry();
     } else {
         throw Electrode_Error("Electrode::setElectrodeSizeParams()", "current volume is zero or less");
     }
+    // reset the initial ZeroDoD capacity by calling the capacity() here.
+    capacityInitialZeroDod_ = Electrode::capacity();
+    Electrode::resetCapacityDischargedToDate();
+
+    updateState();
+    updateSurfaceAreas();
+
+    electrolytePseudoMoles_ = phaseMoles_final_[solnPhase_];
+    /*
+     *  Now transfer the final state to the init and init init states.
+     */
+    setInitStateFromFinal_Oin(true);
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Resize the solid phase and electrolyte mole numbers within the object
 /*
  *
@@ -1586,10 +1611,8 @@ void Electrode::resizeMoleNumbersToGeometry()
     double calcPor = (totalVol - currentSolidVol) / totalVol;
     if (fabs(calcPor - porosity_) > 1.0E-6) {
         throw Electrode_Error("Electrode::resizeMoleNumbersToGeometry() Error",
-                           "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
+                              "Couldn't set the porosity correctly: " + fp2str(calcPor) + " vs " + fp2str(porosity_));
     }
-    capacityInitialZeroDod_ = Electrode::capacity();
-    Electrode::resetCapacityDischargedToDate();
 }
 //====================================================================================================================
 //   Resize the electrolyte mole numbers so that it consistent with the porosity

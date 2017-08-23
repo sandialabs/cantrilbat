@@ -104,13 +104,13 @@ SDD_FlatAnode::SDD_FlatAnode(DomainLayout* dl_ptr, int pos) :
      * Delete the original pointer.
      */
     delete ai;
-    PSinput.cathode_input_ = ai_new;
+    PSinput.anode_input_ = ai_new;
 
     retn = ElectrodeA_->electrode_model_create(PSinput.anode_input_);
     if (retn == -1) {
         throw  m1d_Error("SDD_FlatCathode::SDD_FlatAnode", "Electrode model create method failed");
     }
-    retn = ElectrodeA_->setInitialConditions(PSinput.cathode_input_);
+    retn = ElectrodeA_->setInitialConditions(PSinput.anode_input_);
     if (retn == -1) {
         throw  m1d_Error("SDD_FlatCathode::SDD_FlatAnode", "setInitialConditions method failed");
     }

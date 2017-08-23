@@ -147,6 +147,19 @@ Particle Number to Follow = 2.0E8
 Electrode Porosity = 0.35
 !-----------------------------------------------------------------------------------------------------------
 !
+!  Method for Electrode Capacity Calculation  = PickList [ Default,  Model, Coeffs ]
+!                                                  (default = Default)
+!                                                  (optional)
+!      This is used to specify the method for the calculation of the capacity.
+!      A method for the capacity is needed. There are hardcoded options for certain chemistries.
+!      However, the fallback method is to read the linear coefficients in from the input file.
+!      The default is to try to match against certain Phase names to match against a model. If the
+!      match is not found, then use the coefficients. 
+!      This method overrides the defaults.
+!-----------------------------------------------------------------------------------------------------------
+! Method for Electrode Capacity Calculation = Default 
+!-----------------------------------------------------------------------------------------------------------
+!
 !  BLOCK:  Bath Specification for phases within the electrode object [optional] 
 !             [default -> the phase defaults for mole fraction is used, along with a mole number of zero
 !                         for the phase as a whole]
@@ -381,9 +394,9 @@ End block Open Circuit Potential Override for interface LiFe2S4_interface
 !  BLOCK -> Species Initial KMoles    (no default)  (optional)
 !
 !  We can specify the moles of species in this type of format.
-!  If present, it overrides the specification of moles in individual
-!  phases described above.
+!  If present, it overrides the specification of moles in individual phases described above.
 !
+!------------------------------------------------------------------------------------------------------------
 !  start block Species Initial KMoles
 !        FeS2_A(S) =  1.0
 !        FeS2_B(S) = 1.0
@@ -391,16 +404,17 @@ End block Open Circuit Potential Override for interface LiFe2S4_interface
 !        K+  = 0.2E-2
 !        Cl- = 0.5E-2
 !  end block Species Initial KMoles
-!-------------------------------------------------------------------------
+!------------------------------------------------------------------------------------------------------------
 !
-! Level of XML State Information Created = [none, minimum, globalSteps, 
-!                                           intermediateSteps]
+! Level of XML State Information Created = PickList = [none, minimum, globalSteps,  intermediateSteps]
+!                                          defaults = none
+!                                          (optional)
 !  
-!  Level of output created - defaults to none
+!  Level of XML output created  during the integrations. This defaults to none
 !
-!
+!-------------------------------------------------------------------------------------------------------------
 Level of XML State Information Created = none
-!------------------------------------------------------------------------
+!-------------------------------------------------------------------------------------------------------------
 !
 ! Capacity Discharged Per Initial Mole =  (dimensionless) (no default)  (optional)
 !
