@@ -152,6 +152,7 @@ rebaseline:
 ##############################################################################
 
 $(DEPENDS): Makefile
+$(OBJ_ALL): Makefile
 
 $(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
@@ -173,9 +174,6 @@ LiCoO2:	LiCoO2.o
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
@@ -192,12 +190,14 @@ clean:
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2 LiCoO2Thermo LiCoO2 .dependsT
 	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt $(TEST_FLAGS)
 
-test_clean:
-	$(RM) LiCoO2_intResults_0_0.csv  $(TEST_FLAGS)
-
 clean_test:
 	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
 
 clean_test_flags:
 	$(RM) $(TEST_FLAGS)
+
+
+clean_dist:
+	$(MAKE) clean_test
+	$(MAKE) clean
 
