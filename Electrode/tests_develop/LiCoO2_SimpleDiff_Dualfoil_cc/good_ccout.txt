@@ -38,6 +38,12 @@
             minimal : 1
             globalSteps : 2
             intermediateSteps : 3
+    Method for Electrode Capacity Calculation = (LIST) with default Default : 0 where:
+        LIST = 
+            Default : 0
+            Model : 1
+            Coeffs : 2
+            Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
     Number of Regions = (integer) with default 1 (REQUIRED LINE)
          => Number of Regions ====> numRegions = 1
