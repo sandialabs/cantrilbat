@@ -30,15 +30,14 @@ mpequil:
 	ln -s ../../src/mpequil .
 
 test: 
-	@gmake -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 testd: 
-	@gmake -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME)"_debug" ': '
-	@gmake -q -s  runGood_debug ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood_debug ; fi
-
+	@$(MAKE) -q -s  runGood_debug ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood_debug ; fi
 
 runGood: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
@@ -58,14 +57,14 @@ rebaseline:
 	if test -e dout.txt ; then cp dout.txt good_dout.txt ; fi
 
 clean:
-	@MAKE@ testclean
+	$(MAKE) testclean
 
 testclean:
 	rm -f out.txt err_out.txt  vcs_equilibrate_res.csv  diff_csv.txt  diff_out.txt err_dout.txt diff_dout.txt dout.txt\
 	      runGood runBad runInProgress.txt diff_summary.txt .*swp runGood_debug runGood_release
 
 distclean: 
-	@MAKE@ testclean
+	$(MAKE) testclean
 	rm -f mpequil
 
 

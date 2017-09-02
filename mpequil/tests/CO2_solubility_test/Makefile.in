@@ -120,21 +120,21 @@ $(OBJS): Makefile
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .dependsT
+	$(MAKE) .dependsT
 
 .dependsT: $(DEPENDS)
 	cat *.d > .depends
 	touch .dependsT
 
 test: 
-	@gmake -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 testd: 
-	@gmake -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME)"_debug" ': '
-	@gmake -q -s  runGood_debug ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood_debug ; fi
+	@$(MAKE) -q -s  runGood_debug ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood_debug ; fi
 
 
 runGood: $(BASE_PROGRAM) $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
