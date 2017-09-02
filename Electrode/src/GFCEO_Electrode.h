@@ -72,7 +72,7 @@ public:
     /*!
      *  @return                                        Returns the number of equations in the equation system
      */
-    virtual int nEquations() const;
+    virtual int nEquations() const override;
 
     //! Set the time integration object using a DAE_Solver child object
     /*!
@@ -80,40 +80,42 @@ public:
      */
     void set_DAE_Integrator(DAE_Solver* integDAE);
 
-   //! Constrain solution component k. 
+    //! Constrain solution component i. 
     /*!
+     *  (virtual from ResidEval)
+     *  Possible values for  'flag' are:
      *
-     *  @param[in]        k                 index of the unknown
-     *  @param[in]        flag              type of the constraint
-     *
-     *        Possible values for  'flag' are:
      *   - c_NONE       no constraint
      *   - c_GE_ZERO    >= 0
      *   - c_GT_ZERO    >  0
      *   - c_LE_ZERO    <= 0
      *   - c_LT_ZERO    <  0
+     *
+     *  @param[in]        i                 index of the unknown
+     *  @param[in]        flag              type of the constraint
      */
-    virtual void constrain(const int k, const int flag);
+    virtual void setConstraint(const int i, const int flag) override;
 
-    //! Value for the constraint condition for unknown k
+    //! Value for the constraint condition for unknown i
     /*!
-     *  @param[in]          k                  index of the unknown
+     *  (virtual from ResidEval)
+     *  @param[in]          i                  index of the unknown
      *
      *  @return                                returns the value of the constaint condition for soln component
      */
-    int constraint(const int k) const;
+    virtual int isConstraint(const int i) const override;
 
     //! Initialization function that sets the sizes in the object
     virtual void initSizes();
 
-    //! Specify that solution component k is purely algebraic 
+    //! Specify that solution component i is purely algebraic 
     /*!
-     *    That is, the derivative of this component does not appear in the residual function.
+     *  (virtual from ResidEval)
+     *  That is, the derivative of this component does not appear in the residual function.
      *
-     *  @param[in]       k                    Solution index
+     *  @param[in]       i                    Solution index
      */
-    virtual void setAlgebraic(const int k);
-
+    virtual void setAlgebraic(const int i) override;
 
     //! Evaluate the residual function at the current conditions
     /*!
@@ -138,9 +140,9 @@ public:
                             double* const resid,
                             const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
                             const int id_x = -1,
-                            const double delta_x = 0.0);
+                            const double delta_x = 0.0) override;
 
-   //! Evaluate the residual function at the current conditions
+    //! Evaluate the residual function at the current conditions
     /*!
      *  This is a wrapper around the evalResidNJ function, which should be used instead because 
      *  delta_t is not supplied in this interface.
@@ -155,8 +157,8 @@ public:
      *            1  Means a successful operation
      *           -0 or neg value Means an unsuccessful operation
      */
-    virtual int eval(const double t, const double* const y, const double* const ydot,
-                     double* const resid);
+    virtual int evalResid(const double t, const double* const y, const double* const ydot,
+                          double* const resid) override;
 
     //! Input the initial conditions for the problem
     /*!
@@ -170,8 +172,7 @@ public:
      *                              1  Means a successful operation
      *                             -0 or neg value Means an unsuccessful operation
      */
-    virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
-
+    virtual int getInitialConditionsWithDot(const double t0, double* const y, double* const ydot) override;
 
     //! Filter the solution predictions
     /*!
@@ -185,7 +186,7 @@ public:
      * @return              Return the norm of the amount of filtering
      */
     virtual double filterNewStep(const double t, const double* const ybase,
-                                     double* const step);
+                                     double* const step) override;
 
     //! Filter the solution predictions
     /*!
@@ -197,7 +198,7 @@ public:
      *
      * @return              Return the norm of the amount of filtering
      */
-    virtual double filterSolnPrediction(const double t, double* const y);
+    virtual double filterSolnPrediction(const double t, double* const y) override;
 
     //! Set a global value of the absolute tolerance
     /*!
@@ -221,7 +222,7 @@ public:
      *           -0 or neg value Means an unsuccessful operation
      */
     virtual int  evalTimeTrackingEqns(const double t, const double delta_t, const double* const y,
-                                      const double* const ydot);
+                                      const double* const ydot) override;
 
     //! Evaluate any stopping criteria other than a final time limit
     /*!
@@ -239,7 +240,7 @@ public:
     virtual bool evalStoppingCritera(const double t,
                                      const double delta_t,
                                      const double* const y,
-                                     const double* const ydot);
+                                     const double* const ydot) override;
 
     //! Return a vector of delta y's for calculation of the numerical Jacobian
     /*!
@@ -263,7 +264,7 @@ public:
                            const double* const y,
                            const double* const ydot,
                            double* const delta_y,
-                           const double* const solnWeights = 0);
+                           const double* const solnWeights = 0) override;
 
     //!  Returns a vector of column scale factors that can be used to column scale Jacobians.
     /*!
@@ -275,7 +276,7 @@ public:
      * @param yScales       Value of the column scales
      */
     virtual void calcSolnScales(const double t, const double* const y,
-                                const double* const y_old, double* const yScales);
+                                const double* const y_old, double* const yScales) override;
 
 
     //! This function may be used to create output at various points in the execution of an application.
@@ -294,7 +295,7 @@ public:
     virtual void user_out2(const int ifunc, const double t,
                            const double delta_t,
                            const double* const y,
-                           const double* const ydot);
+                           const double* const ydot) override;
 
     //! This function may be used to create output at various points in the execution of an application.
     /*!
@@ -305,7 +306,7 @@ public:
      * @param y             Solution vector (input, do not modify)
      * @param ydot          Rate of change of solution vector. (input)
      */
-    virtual void user_out(const int ifunc, const double t, const double* y, const double* ydot);
+    virtual void user_out(const int ifunc, const double t, const double* y, const double* ydot) override;
 
     //! Multiply the matrix by another matrix that leads to better conditioning
     /*!
@@ -328,7 +329,7 @@ public:
      *           -0 or neg value Means an unsuccessful operation
      */
     virtual int  matrixConditioning(double* const matrix, const int nrows,
-                                    double* const rhs);
+                                    double* const rhs) override;
 
     //! Calculate an analytical jacobian and the residual at the current time and values.
     /*!
@@ -348,7 +349,7 @@ public:
      */
     virtual int evalJacobian(const double t, const double delta_t, double cj,
                              const double* const y, const double* const ydot,
-                             GeneralMatrix& J, double* const resid);
+                             GeneralMatrix& J, double* const resid) override;
 
     //! Calculate an analytical jacobian and the residual at the current time and values.
     /*!
@@ -371,21 +372,31 @@ public:
                                const double* const y,
                                const double* const ydot,
                                double* const* jacobianColPts,
-                               double* const resid);
+                               double* const resid) override;
 
-     
     //!      Write out to a file or to standard output the current solution
     /*!
      *  @param[in]     ievent                  a description of the event that caused this function to be called.
+     *  @param[in]           doTimeDependentResid Boolean indicating that we are doing a time-dependent residual
+     *                                              ( in some types of problems we go back and forth)
      *  @param[in]     time                    Time
      *  @param[in]     deltaT                  Delta Time for the last time step
      *  @param[in]     time_step_num           time step number
      *  @param[in]     y                       Solution vector
      *  @param[out]    ydot                    Rate of change of solution vector.
-     * 
+     *  @param[in]           solveType           Type of the problem whose solution is to be printed out.
+     *                                           Note, this may differ from solveType_ variable which determines what residual
+     *                                           is to be solve for. We change the printout problem type here, potentially.
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           delta_t_np1         Suggested next delta t value (defaults to 0.0 if there isn't a
+     *                                           good guess for the next delta_t).
      */
-    virtual void writeSolution(int ievent, const double time, const double deltaT,  const int time_step_num,
-                               const double* const y, const double* const ydot);
+    virtual void writeSolution(int ievent, const bool doTimeDependentResid, const doublevalue time,
+                               const doublevalue deltaT,  const int time_step_num,
+                               const doublevalue* const y, const doublevalue* const ydot,
+                               const Solve_Type solveType = Solve_Type::TimeDependentAccurate_Solve,
+                               const double delta_t_np1 = 0.0) override;
+
 
 
     //! Change ownership of Electrode object to this object if it is not already

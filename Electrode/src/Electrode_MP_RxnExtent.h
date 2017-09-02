@@ -1182,7 +1182,7 @@ public:
      *                                           -  1  Means a successful operation
      *                                           -  0  Means an unsuccessful operation
      */
-    virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
+    virtual int getInitialConditionsWithDot(const double t0, double* const y, double* const ydot) override;
 
     //!  Return a vector of delta y's for calculation of the numerical Jacobian
     /*!

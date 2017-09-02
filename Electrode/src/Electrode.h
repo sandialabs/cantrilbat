@@ -1311,15 +1311,15 @@ public:
                          const int id_x = -1,
                          const double delta_x = 0.0) override;
 
-	//!  Fill in the initial conditions for the nonlinear problem
+	//! Fill in the initial conditions for the nonlinear problem
 	/*!
-	 *  @param[in]    t0           Initial time of the problem.
-	 *  @param[out]    y           Initial conditions of the solution unknowns
-	 *  @param[out]   ydot         Intial time derivatives of the solutions
+	 *  @param[in]       t0                  Initial time of the problem.
+	 *  @param[out]      y                   Initial conditions of the solution unknowns
+	 *  @param[out]      ydot                Intial time derivatives of the solutions
 	 *
-	 *  @return                                     Returns 1 if the problem is ok
+	 *  @return                              Returns 1 if the problem is ok
 	 */
-        virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
+        virtual int getInitialConditionsWithDot(const double t0, double* const y, double* const ydot) override;
 
 
         //! Return the number of equations in the equation system

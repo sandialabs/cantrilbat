@@ -3562,12 +3562,6 @@ void Electrode_MP_RxnExtent::setInitInitStateFromFinalFinal()
 
 }
 //====================================================================================================================
-//! Set the internal final global state from the internal final intermediate state
-/*!
- *  (virtual function from Electrode)
- *
- *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
- */
 void Electrode_MP_RxnExtent::setFinalFinalStateFromFinal()
 {
     Electrode_Integrator::setFinalFinalStateFromFinal_Oin();
@@ -3577,7 +3571,7 @@ void Electrode_MP_RxnExtent::setFinalFinalStateFromFinal()
     molarVolume_final_final_ = molarVolume_final_;
 }
 //==================================================================================================================================
-int Electrode_MP_RxnExtent::getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot)
+int Electrode_MP_RxnExtent::getInitialConditionsWithDot(const double t0, double* const ySoln, double* const ySolnDot)
 {
     for (size_t k = 0; k < neq_; k++) {
         ySoln[k] = 0.0;

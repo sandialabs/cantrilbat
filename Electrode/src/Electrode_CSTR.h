@@ -829,15 +829,15 @@ public:
     //! Fill in the initial conditions at the given time value
     /*!
      *  (Virtual from ResidJacEval.h)
-     * Values for both the solution and the value of ydot may be provided.
+     *  Values for both the solution and the value of ydot may be provided.
      *
-     * @param t0            Time                    (input)
-     * @param y             Solution vector (output)
-     * @param ydot          Rate of change of solution vector. (output)
+     *  @param[in]           t0                  Time   
+     *  @param[out]          y                   Solution vector (output)
+     *  @param[out]          ydot                Rate of change of solution vector. (output)
      *
-     * @return                                   Returns 1 if everything is ok. Error otherwise
+     *  @return                                  Returns 1 if everything is ok. Error otherwise
      */
-    virtual int getInitialConditions(const double t0, double* const y, double* const ydot) override;
+    virtual int getInitialConditionsWithDot(const double t0, double* const y, double* const ydot) override;
 
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
@@ -856,7 +856,6 @@ public:
      *  @return returns the relative extent of reaction (dimensionless).
      */
     virtual double calcRelativeExtentRxn_final() const override;
-
 
     //! Returns the capacity derivative wrt time in coulombs per second
     /*!

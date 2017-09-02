@@ -2319,7 +2319,7 @@ int Electrode_CSTR::evalResidNJ(const double tdummy, const double delta_t_dummy,
     return retn;
 }
 //==================================================================================================================================
-int Electrode_CSTR::getInitialConditions(const double t0, double* const ySoln, double* const ySolnDot)
+int Electrode_CSTR::getInitialConditionsWithDot(const double t0, double* const ySoln, double* const ySolnDot)
 {
     zeroD(neq_, ySoln);
     return 1;

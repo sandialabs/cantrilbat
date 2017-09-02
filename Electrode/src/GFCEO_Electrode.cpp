@@ -89,12 +89,12 @@ void GFCEO_Electrode::set_DAE_Integrator(DAE_Solver* integDAE)
     }
 }
 //===================================================================================================================================
-void GFCEO_Electrode::constrain(const int k, const int flag)
+void GFCEO_Electrode::setConstraint(const int k, const int flag)
 {
 // COMPLETE
 }
 //===================================================================================================================================
-int GFCEO_Electrode::constraint(const int k) const
+int GFCEO_Electrode::isConstraint(const int k) const
 {
     // COMPLETE
     return 0;
@@ -122,19 +122,18 @@ int GFCEO_Electrode::evalResidNJ(const double t, const double delta_t,
      return retn;
 }
 //===================================================================================================================================
-int GFCEO_Electrode::eval(const double t, const double* const y, const double* const ydot,
-			  double* const resid)
+int GFCEO_Electrode::evalResid(const double t, const double* const y, const double* const ydot,
+                               double* const resid)
 {
     return 0;
 }
 //===================================================================================================================================
-int GFCEO_Electrode::getInitialConditions(const double t0, double* const y, double* const ydot)
+int GFCEO_Electrode::getInitialConditionsWithDot(const double t0, double* const y, double* const ydot)
 {
     return 0;
 }
 //===================================================================================================================================
-double GFCEO_Electrode::filterNewStep(const double t, const double* const ybase,
-					  double* const step)
+double GFCEO_Electrode::filterNewStep(const double t, const double* const ybase, double* const step)
 {
     return 0;
 }
@@ -143,23 +142,19 @@ void GFCEO_Electrode::setAtol(double atol)
 {
 }
 //===================================================================================================================================
-int  GFCEO_Electrode::evalTimeTrackingEqns(const double t, const double delta_t, const double* const y,
-                                      const double* const ydot)
+int  GFCEO_Electrode::evalTimeTrackingEqns(const double t, const double delta_t, const double* const y, const double* const ydot)
 {
     return 0;
 }
 //===================================================================================================================================
- bool GFCEO_Electrode::evalStoppingCritera(const double t,
-                                     const double delta_t,
-                                     const double* const y,
-                                     const double* const ydot)
+bool GFCEO_Electrode::evalStoppingCritera(const double t, const double delta_t,
+                                          const double* const y, const double* const ydot)
 {
     return 0;
 }
 
 //===================================================================================================================================
-int GFCEO_Electrode::calcDeltaSolnVariables(const double t,
-                           const double* const y,
+int GFCEO_Electrode::calcDeltaSolnVariables(const double t, const double* const y,
                            const double* const ydot,
                            double* const delta_y,
                            const double* const solnWeights)
@@ -208,8 +203,9 @@ int GFCEO_Electrode::evalJacobianDP(const double t, const double delta_t, double
     return 0;
 }
 //===================================================================================================================================
-void GFCEO_Electrode::writeSolution(int ievent, const double time, const double deltaT,  const int time_step_num,
-				    const double* const y, const double* const ydot)
+void GFCEO_Electrode::writeSolution(int ievent, const bool doTimeDependentResid, const double time, const double deltaT, 
+                                    const int time_step_num, const double* const y, const double* const ydot,
+                                    const Solve_Type solveType, const double delta_t_np1)
 {
 
 }
