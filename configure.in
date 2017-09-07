@@ -914,7 +914,6 @@ AC_OUTPUT(Makefile \
           fitShomate/src/Makefile \
           mpequil/Makefile \
           mpequil/src/Makefile \
-          mpequil/tests/Makefile \
           mpequil/tests/CO2_solubility_test/Makefile \
           mpequil/tests/ex_gri/Makefile \
           mpequil/tests/multiPhase/Makefile \
