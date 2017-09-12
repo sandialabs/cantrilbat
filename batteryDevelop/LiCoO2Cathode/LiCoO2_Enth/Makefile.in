@@ -1,22 +1,9 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2012/02/22 20:41:16 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
-#
-# Copywrite 2004 Sandia Corporation. Under the terms of Contract
-# DE-AC04-94AL85000, there is a non-exclusive license for use of this
-# work by or on behalf of the U.S. Government. Export of this program
-# may require a license from the United States Government.
-#
 
 .SUFFIXES: .d
 
-PROGRAM =   LiCoO2Thermo
+PROGRAM = LiCoO2Thermo
 
 BLESSED_FILES = LiCoO2_blessed.out  LiCoO2Thermo_blessed.out
 
@@ -24,8 +11,6 @@ DATA = \
 ECsoln_ion.xml                        LiCoO2_Margules_1_1.xml     LiCoO2_Margules_1.xml     metal_Li_LiIon_electrons.xml\
 LiCoO2Cathode_electrode_extra.xml         LiCoO2_RedlichKister.xml \
 LiCoO2Cathode_electrode_M_extra.xml  LiCoO2Cathode_electrode.xml        Li_Metal.xml \
-
-
 
 OBJ = $(PROGRAM).o
 
@@ -39,7 +24,6 @@ PURIFY=@PURIFY@
 CT_INCROOT =  @ct_incroot@
 
 ABSTOP_DIR = @abs_top_builddir@
-
 
 #
 # Bring in the Cantera includes through the .mak file
@@ -79,7 +63,6 @@ GDEFINES =
 #
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(ELECTRODE_INC) -I$(UTILSRC_INC)  -I$(CTPADDS_INC)
 
-
 all: .dependsT LiCoO2 LiCoO2Thermo LiCoO2Thermo_M
 
 LDR = $(F77LDR)
@@ -88,10 +71,9 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
+OBJ_ALL = $(OBJ) LiCoO2.o LiCoO2Thermo_M.o
 
 OBJ_ANODE =  $(OBJ)
-
-OBJ_CANTERA_ADDONS =  
 
 ############################################################################
 # section to set up compiler rules
@@ -119,18 +101,10 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
 ############################################################################
 # section to set up depends
 ###########################################################################
-DEPENDS = $(OBJ_ANODE:.o=.d) 
-
-.f.d:
-	echo "$*.o: $*.f" > $*.d
+DEPENDS = $(OBJ_ALL:.o=.d) 
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
@@ -147,7 +121,7 @@ depends:
 	touch .dependsT
 
 test: 
-	  @gmake -s
+	@gmake
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
 	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
 
@@ -164,45 +138,35 @@ rebaseline:
 	cp  LiCoO2_CC_globalResults_0_0.csv  LiCoO2_CC_globalResults_blessed_0_0.csv 
 	cp LiCoO2_CC_intResults_0_0.csv LiCoO2_CC_intResults_blessed_0_0.csv
 
-##############################################################################
 
-$(OBJ_MPEQUIL): Makefile
+$(OBJ_ALL): Makefile
+
 $(DEPENDS): Makefile
 
 
-
-LiCoO2Thermo: LiCoO2Thermo.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+LiCoO2Thermo: LiCoO2Thermo.o  $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2Thermo LiCoO2Thermo.o  \
-	          $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-
-
-LiCoO2Thermo_M: LiCoO2Thermo_M.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+LiCoO2Thermo_M: LiCoO2Thermo_M.o $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2Thermo_M LiCoO2Thermo_M.o  \
-	          $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
 LiCoO2:	LiCoO2.o
 	 $(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o LiCoO2 LiCoO2.o \
-                  $(OBJ_CANTERA_ADDONS)  \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
+clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) LiCoO2 LiCoO2Thermo LiCoO2Thermo_M 
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
 
-
-clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) LiCoO2 LiCoO2Thermo LiCoO2Thermo_M 
 
