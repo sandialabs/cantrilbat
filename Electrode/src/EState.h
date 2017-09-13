@@ -187,9 +187,11 @@ public:
 
     //! Duplicator function for this class
     /*!
+     *  @param[in]           e                   Pointer to the Electrode object you want the new EState object to service
+     * 
      *  @return Returns a duplication of the current state as a pointer to the base class
      */
-    virtual EState* duplMyselfAsEState() const;
+    virtual EState* duplMyselfAsEState(Electrode* e = nullptr) const;
 
     //! Initialize the EState object based on an electrode Base class
     /*!

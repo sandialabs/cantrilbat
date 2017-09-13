@@ -84,6 +84,12 @@ Electrode_SurfaceRegion::operator=(const Electrode_SurfaceRegion& right)
     return *this;
 }
 //======================================================================================================================
+Electrode* Electrode_SurfaceRegion::duplMyselfAsElectrode() const
+{
+    Electrode_SurfaceRegion* dd = new Electrode_SurfaceRegion(*this);
+    return dd;
+}
+//======================================================================================================================
 Electrode_SurfaceRegion::~Electrode_SurfaceRegion()
 {
 }

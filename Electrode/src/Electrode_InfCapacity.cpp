@@ -16,82 +16,44 @@ namespace Cantera
 #endif
 {
 //======================================================================================================================
-/*
- *  ELECTRODE_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
 Electrode_InfCapacity::Electrode_InfCapacity() :
     Electrode()
 {
 
 }
-
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode_InfCapacity::Electrode_InfCapacity(const Electrode_InfCapacity& right) :
     Electrode()
 {
-    /*
-     * Call the assignment operator.
-     */
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
-
-//! Return the type of electrode
-/*!
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
 Electrode_Types_Enum  Electrode_InfCapacity::electrodeType() const
 {
     return INF_CAPACITY_ET;
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 Electrode_InfCapacity& Electrode_InfCapacity::operator=(const Electrode_InfCapacity& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
-
     Electrode::operator=(right);
 
-
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //======================================================================================================================
-/*
- *
- *  ELECTRODE_INPUT:destructor
- *
- * We need to manually free all of the arrays.
- */
 Electrode_InfCapacity::~Electrode_InfCapacity()
 {
 }
 //======================================================================================================================
-//  Setup the electrode
-/*
- * @param ei    ELECTRODE_KEY_INPUT pointer object
- */
-int
-Electrode_InfCapacity::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
+Electrode* Electrode_InfCapacity::duplMyselfAsElectrode() const
+{
+    Electrode_InfCapacity* dd = new Electrode_InfCapacity(*this);
+    return dd;
+}
+//======================================================================================================================
+int Electrode_InfCapacity::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 {
 
     Electrode::electrode_model_create(ei);
@@ -99,7 +61,6 @@ Electrode_InfCapacity::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     setPhaseExistenceForReactingSurfaces(true);
     return 0;
 }
-
 //===================================================================================================================
 //  Calculate the change in the state of the system when integrating from Tinitial to Tfinal
 /*
@@ -267,15 +228,6 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     return 1;
 }
 //====================================================================================================================
-// The internal state of the electrode must be kept for the initial and
-// final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
 void  Electrode_InfCapacity::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
    //bool resetToInitInit = false; 
@@ -289,15 +241,6 @@ void  Electrode_InfCapacity::resetStartingCondition(double Tinitial, bool doTest
     Electrode::resetStartingCondition(Tinitial);
 }
 //====================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (virtual function)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
 void Electrode_InfCapacity::setInitStateFromFinal(bool setInitInit)
 {
     Electrode::setInitStateFromFinal(setInitInit);
@@ -324,5 +267,5 @@ void Electrode_InfCapacity::getIntegratedPhaseMoleTransfer(double* const phaseMo
     }
 }
 //====================================================================================================================
-} // End of namespace
+}
 //--------------------------------------------------------------------------------------------------------------------

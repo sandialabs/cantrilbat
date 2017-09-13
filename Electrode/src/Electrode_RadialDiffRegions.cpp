@@ -254,12 +254,6 @@ void ELECTRODE_RadialDiffRegions_KEY_INPUT::post_input_child3(BEInput::BlockEntr
 {
 }
 //======================================================================================================================
-/*
- *  ELECTRODE_INPUT: constructor
- *
- *  We initialize the arrays in the structure to the appropriate sizes.
- *  And, we initialize all of the elements of the arrays to defaults.
- */
 Electrode_RadialDiffRegions::Electrode_RadialDiffRegions() :
     Electrode_Integrator(),
     numRadialRegions_(-1),
@@ -269,10 +263,6 @@ Electrode_RadialDiffRegions::Electrode_RadialDiffRegions() :
 
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode_RadialDiffRegions::Electrode_RadialDiffRegions(const Electrode_RadialDiffRegions& right) :
     Electrode_Integrator(),
     numRadialRegions_(-1),
@@ -285,10 +275,6 @@ Electrode_RadialDiffRegions::Electrode_RadialDiffRegions(const Electrode_RadialD
     operator=(right);
 }
 //======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
 Electrode_RadialDiffRegions&
 Electrode_RadialDiffRegions::operator=(const Electrode_RadialDiffRegions& right)
 {
@@ -323,18 +309,9 @@ Electrode_RadialDiffRegions::operator=(const Electrode_RadialDiffRegions& right)
     rRefPos_init_init_             = right.rRefPos_init_init_;
     fracNodePos_                   = right.fracNodePos_;
 
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //======================================================================================================================
-/*
- *
- * :destructor
- *
- * We need to manually free all of the arrays.
- */
 Electrode_RadialDiffRegions::~Electrode_RadialDiffRegions()
 {
    for (int i = 0; i < numRadialRegions_; i++) {
@@ -343,21 +320,19 @@ Electrode_RadialDiffRegions::~Electrode_RadialDiffRegions()
     }
 }
 //======================================================================================================================
-//    Return the type of electrode
-/*
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
+Electrode* Electrode_RadialDiffRegions::duplMyselfAsElectrode() const
+{
+    Electrode_RadialDiffRegions* dd = new Electrode_RadialDiffRegions(*this);
+    return dd;
+}
+//======================================================================================================================
 Electrode_Types_Enum Electrode_RadialDiffRegions::electrodeType() const
 {
     return RADIAL_DIFF_REGIONS_ET;
 }
 //======================================================================================================================
-int
-Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
+int Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
 {
-
     Electrode_Integrator::electrode_model_create(eibase);
 
     /*
@@ -366,7 +341,7 @@ Electrode_RadialDiffRegions::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
         throw Electrode_Error(" Electrode_RadiaDiffRegions::electrode_model_create()",
-                           " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
+                              " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
 
     /*
@@ -416,7 +391,7 @@ Electrode_RadialDiffRegions::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     ELECTRODE_RadialDiffRegions_KEY_INPUT* ei = dynamic_cast<ELECTRODE_RadialDiffRegions_KEY_INPUT*>(eibase);
     if (!ei) {
         throw Electrode_Error(" Electrode_RadialDiffRegions::electrode_model_create()",
-                           " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
+                              " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
 
     Electrode::setInitialConditions(ei);

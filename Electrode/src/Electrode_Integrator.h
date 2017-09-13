@@ -405,6 +405,15 @@ public:
      */
     Electrode_Integrator& operator=(const Electrode_Integrator& right);
 
+    //! Duplicator function
+    /*!
+     *  Duplicate the current Electrode object, returning a base Electrode pointer
+     *  Note, don't need this but just making sure duplicator works at this level.
+     *
+     *  @return                                   Returns a duplicate of the current object as a base class pointer
+     */
+    virtual Electrode* duplMyselfAsElectrode() const override;
+
     //!  Create the electrode model from the key input
     /*!
      *   (virtual from Electrode)

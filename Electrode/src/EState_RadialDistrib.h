@@ -65,9 +65,11 @@ public:
 
     //! Duplicator function for this class
     /*!
+     *  @param[in]           e                   Pointer to the Electrode object you want the new EState object to service
+     *
      *  @return                                  Returns a duplication of the current state as a pointer to the base class
      */
-    virtual EState* duplMyselfAsEState() const override;
+    virtual EState* duplMyselfAsEState(Electrode* e = nullptr) const override;
 
     //! Initialize the object based on an electrode Base class
     /*!
@@ -214,8 +216,6 @@ protected:
 
     //! Number of phases which have radial distributions of their species
     int numSPhases_;
-
-
 
 
     //! Node position of the mesh - final

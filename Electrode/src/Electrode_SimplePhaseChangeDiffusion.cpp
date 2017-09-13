@@ -88,23 +88,16 @@ Electrode_SimplePhaseChangeDiffusion::operator=(const Electrode_SimplePhaseChang
     return *this;
 }
 //======================================================================================================================
-/*
- *
- *  ELECTRODE_INPUT:destructor
- *
- * We need to manually free all of the arrays.
- */
 Electrode_SimplePhaseChangeDiffusion::~Electrode_SimplePhaseChangeDiffusion()
 {
 }
 //======================================================================================================================
-
-//! Return the type of electrode
-/*!
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
+Electrode* Electrode_SimplePhaseChangeDiffusion::duplMyselfAsElectrode() const
+{
+    Electrode_SimplePhaseChangeDiffusion* dd = new Electrode_SimplePhaseChangeDiffusion(*this);
+    return dd;
+}
+//======================================================================================================================
 Electrode_Types_Enum  Electrode_SimplePhaseChangeDiffusion::electrodeType() const
 {
     return SIMPLE_PHASE_CHANGE_DIFFUSION_ET;

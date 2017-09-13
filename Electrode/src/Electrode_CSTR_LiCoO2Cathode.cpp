@@ -61,7 +61,13 @@ Electrode_CSTR_LiCoO2Cathode::~Electrode_CSTR_LiCoO2Cathode()
 {
 }
 //==================================================================================================================================
-Electrode_Types_Enum  Electrode_CSTR_LiCoO2Cathode::electrodeType() const
+Electrode* Electrode_CSTR_LiCoO2Cathode::duplMyselfAsElectrode() const
+{
+    Electrode_CSTR_LiCoO2Cathode* dd = new Electrode_CSTR_LiCoO2Cathode(*this);
+    return dd;
+}
+//==================================================================================================================================
+Electrode_Types_Enum Electrode_CSTR_LiCoO2Cathode::electrodeType() const
 {
     return CSTR_LICO2_CATHODE_ET;
 }

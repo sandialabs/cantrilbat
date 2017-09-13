@@ -353,6 +353,7 @@ bool SubIntegrationHistory::operator!=(const SubIntegrationHistory& other) const
 //==================================================================================================================================
 Electrode_Integrator::Electrode_Integrator() :
     Electrode(),
+    ZZCantera::ResidJacEval(),
     deltaTsubcycleCalc_(0.0),
     rtolResidNLS_(1.0E-6),
     haveGood_solnDot_init_(false),
@@ -384,16 +385,19 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
     Electrode::operator=(right);
     ZZCantera::ResidJacEval::operator=(right);
 
-    neq_                                = right.neq_;
+    //neq_                                = right.neq_;
     deltaTsubcycleCalc_                 = right.deltaTsubcycleCalc_;
 
-    rtolResidNLS_                       = right.rtolResidNLS_;
     atolResidNLS_                       = right.atolResidNLS_;
+    rtolResidNLS_                       = right.rtolResidNLS_;
     atolNLS_                            = right.atolNLS_;
     rtolNLS_                            = right.rtolNLS_;
     ylowNLS_                            = right.ylowNLS_;
     yhighNLS_                           = right.yhighNLS_;
     yvalNLS_                            = right.yvalNLS_;
+    yvalNLS_init_                       = right.yvalNLS_init_;
+    yvalNLS_init_init_                  = right.yvalNLS_init_init_;
+    yvalNLS_final_final_                = right.yvalNLS_final_final_;
     ydotNLS_                            = right.ydotNLS_;
     errorLocalNLS_                      = right.errorLocalNLS_;
     errorGlobalNLS_                     = right.errorGlobalNLS_;
@@ -416,9 +420,9 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
     jacPtr_                             = new SquareMatrix(*right.jacPtr_);
 
     numIntegratedSrc_                   = right.numIntegratedSrc_;
-    IntegratedSrc_Errors_local_         = right.IntegratedSrc_Errors_local_;
     IntegratedSrc_Predicted             = right.IntegratedSrc_Predicted;
     IntegratedSrc_final_                = right.IntegratedSrc_final_;
+    IntegratedSrc_Errors_local_         = right.IntegratedSrc_Errors_local_;
     IntegratedSrc_Errors_globalStep_    = right.IntegratedSrc_Errors_globalStep_;
     rtol_IntegratedSrc_global_          = right.rtol_IntegratedSrc_global_;
     atol_IntegratedSrc_global_          = right.atol_IntegratedSrc_global_;
@@ -438,6 +442,12 @@ Electrode_Integrator::~Electrode_Integrator()
 {
     SAFE_DELETE(jacPtr_);
     SAFE_DELETE(pSolve_);
+}
+//==================================================================================================================================
+Electrode* Electrode_Integrator::duplMyselfAsElectrode() const 
+{
+    Electrode_Integrator* dd = new Electrode_Integrator(*this);
+    return dd;
 }
 //==================================================================================================================================
 int Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)

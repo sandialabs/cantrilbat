@@ -48,6 +48,12 @@ Electrode_CSTR_MCMBAnode& Electrode_CSTR_MCMBAnode::operator=(const Electrode_CS
     return *this;
 }
 //==================================================================================================================================
+Electrode* Electrode_CSTR_MCMBAnode::duplMyselfAsElectrode() const
+{
+    Electrode_CSTR_MCMBAnode* dd = new Electrode_CSTR_MCMBAnode(*this);
+    return dd;
+}
+//==================================================================================================================================
 Electrode_CSTR_MCMBAnode::~Electrode_CSTR_MCMBAnode()
 {
 }

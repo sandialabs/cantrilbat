@@ -253,6 +253,13 @@ Electrode_SimpleDiff::~Electrode_SimpleDiff()
 {
 }
 //======================================================================================================================
+Electrode* Electrode_SimpleDiff::duplMyselfAsElectrode() const
+{
+    Electrode_SimpleDiff* dd = new Electrode_SimpleDiff(*this);
+    return dd;
+}
+//======================================================================================================================
+
 //    Return the type of electrode
 /*
  *  Returns the enum type of the electrode. This is used in the factory routine.

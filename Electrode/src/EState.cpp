@@ -218,9 +218,12 @@ EState::~EState()
 {
 }
 //==================================================================================================================================
-EState* EState::duplMyselfAsEState() const
+EState* EState::duplMyselfAsEState(ZZCantera::Electrode* e) const
 {
     EState* es = new EState(*this);
+    if (e) {
+        es->eRef_ = e;
+    }
     return es;
 }
 //==================================================================================================================================

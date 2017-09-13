@@ -95,7 +95,8 @@ Electrode_CSTR::Electrode_CSTR() :
     atolBaseResid_(1.0E-12),
     SrcDot_RxnExtent_final_(0.0),
     deltaSpMoles_(0),
-    minPH_(npos)
+    minPH_(npos),
+    solidMoles_init_(0.0)
 {
 }
 //======================================================================================================================
@@ -120,21 +121,15 @@ Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
     deltaT_RegionBoundaryCollision_(1.0E300),
     atolBaseResid_(1.0E-12),
     SrcDot_RxnExtent_final_(0.0),
-
     deltaSpMoles_(0),
-    minPH_(npos)
+    minPH_(npos),
+    solidMoles_init_(0.0)
 {
-    /*
-     * Call the assignment operator.
-     */
-    *this = operator=(right);
+    operator=(right);
 }
 //======================================================================================================================
 Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
 {
-    /*
-     * Check for self assignment.
-     */
     if (this == &right) {
         return *this;
     }
@@ -159,12 +154,9 @@ Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
     goNowhere_                           = right.goNowhere_;
 
     deltaT_RegionBoundaryCollision_      = right.deltaT_RegionBoundaryCollision_;
-
     atolBaseResid_                       = right.atolBaseResid_;
-
     ROP_                                 = right.ROP_;
     DspMoles_final_                      = right.DspMoles_final_;
-
     SrcDot_RxnExtent_final_              = right.SrcDot_RxnExtent_final_;
 
     phaseIndexSolidPhases_               = right.phaseIndexSolidPhases_;
@@ -175,13 +167,20 @@ Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
     phaseMFBig_                          = right.phaseMFBig_;
     justDied_                            = right.justDied_;
     phaseMoles_final_lagged_             = right.phaseMoles_final_lagged_;
-    DphMoles_final_                      = right. DphMoles_final_;
+    DphMoles_final_                      = right.DphMoles_final_;
+    solidMoles_init_                     = right.solidMoles_init_;
 
     return *this;
 }
 //==================================================================================================================================
 Electrode_CSTR::~Electrode_CSTR()
 {
+}
+//==================================================================================================================================
+Electrode* Electrode_CSTR::duplMyselfAsElectrode() const
+{
+    Electrode_CSTR* dd = new Electrode_CSTR(*this);
+    return dd;
 }
 //==================================================================================================================================
 Electrode_Types_Enum Electrode_CSTR::electrodeType() const

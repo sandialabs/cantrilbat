@@ -54,6 +54,14 @@ public:
      *  @return                                  Returns a reference to the current object
      */
     Electrode_CSTR_MCMBAnode& operator=(const Electrode_CSTR_MCMBAnode& right);
+ 
+    //! Duplicator function
+    /*!
+     *  Duplicate the current Electrode object, returning a base Electrode pointer
+     *
+     *  @return                                   Returns a duplicate of the current object as a base class pointer
+     */
+    virtual Electrode* duplMyselfAsElectrode() const override;
 
     //! Return the type of electrode
     /*!

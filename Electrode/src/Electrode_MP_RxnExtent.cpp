@@ -360,6 +360,12 @@ Electrode_MP_RxnExtent::~Electrode_MP_RxnExtent()
     Li_liq_ = 0;
 }
 //==================================================================================================================================
+Electrode* Electrode_MP_RxnExtent::duplMyselfAsElectrode() const 
+{
+    Electrode_MP_RxnExtent* dd = new Electrode_MP_RxnExtent(*this);
+    return dd;
+}
+//==================================================================================================================================
 Electrode_Types_Enum  Electrode_MP_RxnExtent::electrodeType() const
 {
     return MP_RXNEXTENT_ET;

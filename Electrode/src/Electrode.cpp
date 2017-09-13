@@ -323,20 +323,30 @@ Electrode& Electrode::operator=(const Electrode& right)
      * We do a straight assignment operator on all of the
      * data. The vectors are copied.
      */
+    electrodeCapacityType_ = right.electrodeCapacityType_;
+    pendingIntegratedStep_ = right.pendingIntegratedStep_;
+    prob_type = right.prob_type;
+    numSurfaces_ = right.numSurfaces_;
+    followElectrolyteMoles_ = right.followElectrolyteMoles_;
+    electrolytePseudoMoles_ = right.electrolytePseudoMoles_;
+    externalFieldInterpolationType_ = right.externalFieldInterpolationType_;
+    t_init_init_ = right.t_init_init_;
+    t_final_final_ = right.t_final_final_;
 
     /*
      * Copy over the ReactingSurDomain list
      * The electrode object owns the ReactingSurDomain. 
      */
-    for (size_t i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < RSD_List_.size(); ++i) {
+        delete RSD_List_[i];
+    }
+    RSD_List_ = right.RSD_List_;  
+   
+    for (size_t i = 0; i < right.numSurfaces_; i++) {
         bool idHit = false;
         //if (right.m_rSurDomain == right.RSD_List_[i]) {
         //	idHit = true;
         //}
-        if (RSD_List_[i]) {
-            delete RSD_List_[i];
-            RSD_List_[i] = 0;
-        }
         if (right.RSD_List_[i]) {
             //
             //  Call the copy constructor for the copying operation.
@@ -351,7 +361,7 @@ Electrode& Electrode::operator=(const Electrode& right)
 	    for (size_t iph = 0; iph < RSD_List_[i]->nPhases(); ++iph) {
 		std::string ss = RSD_List_[i]->tpList_IDs_[iph];
 		bool notFound = true;
-		for (size_t jph = 0; jph <  nPhases(); jph++)  {
+		for (size_t jph = 0; jph < nPhases(); jph++) {
 		    ThermoPhase *tp = & thermo(jph);
 		    if (tp->id() == ss) {
 			notFound = false;
@@ -388,19 +398,11 @@ Electrode& Electrode::operator=(const Electrode& right)
             }
         }
     }
-    electrodeCapacityType_ = right.electrodeCapacityType_;
-    pendingIntegratedStep_ = right.pendingIntegratedStep_;
-    prob_type = right.prob_type;
-    numSurfaces_ = right.numSurfaces_;
-    followElectrolyteMoles_ = right.followElectrolyteMoles_;
-    electrolytePseudoMoles_ = right.electrolytePseudoMoles_;
-    externalFieldInterpolationType_ = right.externalFieldInterpolationType_;
-    t_init_init_ = right.t_init_init_;
-    t_final_final_ = right.t_final_final_;
     tinit_ = right.tinit_;
     tfinal_ = right.tfinal_;
     deltaTsubcycleMax_ = right.deltaTsubcycleMax_;
     deltaTsubcycle_init_init_ = right.deltaTsubcycle_init_init_;
+    deltaTsubcycle_ = right.deltaTsubcycle_;
     deltaTsubcycleNext_ = right.deltaTsubcycleNext_;
     deltaTsubcycle_init_next_ = right.deltaTsubcycle_init_next_;
     choiceDeltaTsubcycle_init_ = right.choiceDeltaTsubcycle_init_;
@@ -422,8 +424,14 @@ Electrode& Electrode::operator=(const Electrode& right)
     spMf_init_ = right.spMf_init_;
     spMf_init_init_ = right.spMf_init_init_;
     spMf_final_ = right.spMf_final_;
+    spMf_final_final_ = right.spMf_final_final_;
+    spMf_final_dot = right.spMf_final_dot;
     spElectroChemPot_ = right.spElectroChemPot_;
     phaseVoltages_ = right.phaseVoltages_;
+
+    //RSD_LIST_
+
+    numRxns_ = right.numRxns_;
     ActiveKineticsSurf_ = right.ActiveKineticsSurf_;
     phaseMoles_init_ = right.phaseMoles_init_;
     phaseMoles_init_init_ = right.phaseMoles_init_init_;
@@ -461,9 +469,11 @@ Electrode& Electrode::operator=(const Electrode& right)
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = right.integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
     electrodeName_ = right.electrodeName_;
     numExtraGlobalRxns = right.numExtraGlobalRxns;
+
     ZZCantera::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
     ZZCantera::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
     ZZCantera::deepStdVectorPointerCopy<OCV_Override_input>(right.OCVoverride_ptrList_, OCVoverride_ptrList_);
+
     metalPhase_ = right.metalPhase_;
     solnPhase_ = right.solnPhase_;
     kElectron_ = right.kElectron_;
@@ -536,28 +546,25 @@ Electrode& Electrode::operator=(const Electrode& right)
     }
 
     SAFE_DELETE(eState_save_);
-    eState_save_ = new EState();
+    if (right.eState_save_) {
+        eState_save_ = right.eState_save_->duplMyselfAsEState(this);
+    }
 
     baseNameSoln_ = right.baseNameSoln_;
 
     electrodeChemistryModelType_ = right.electrodeChemistryModelType_;
     electrodeDomainNumber_ = right.electrodeDomainNumber_;
     electrodeCellNumber_ = right.electrodeCellNumber_;
+    counterNumberIntegrations_ = 0;
+    counterNumberSubIntegrations_ = 0;
+    globalTimeStepNumber_ = right.globalTimeStepNumber_;
+    writeRestartFileOnSuccessfulStep_  = right.writeRestartFileOnSuccessfulStep_;
     printLvl_ = right.printLvl_;
     printXMLLvl_ = right.printXMLLvl_;
     printCSVLvl_ = right.printCSVLvl_;
     detailedResidPrintFlag_ = right.detailedResidPrintFlag_;
     enableExtraPrinting_ = right.enableExtraPrinting_;
-    counterNumberIntegrations_ = 0;
-    counterNumberSubIntegrations_ = 0;
-    globalTimeStepNumber_ = right.globalTimeStepNumber_;
-    writeRestartFileOnSuccessfulStep_  = right.writeRestartFileOnSuccessfulStep_;
 
-    eState_save_->initialize(this);
-
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //======================================================================================================================

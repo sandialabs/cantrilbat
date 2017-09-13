@@ -90,9 +90,12 @@ EState_RadialDistrib::~EState_RadialDistrib()
 {
 }
 //======================================================================================================================
-EState* EState_RadialDistrib::duplMyselfAsEState() const
+EState* EState_RadialDistrib::duplMyselfAsEState(Electrode* e) const
 {
     EState_RadialDistrib* es = new EState_RadialDistrib(*this);
+    if (e) {
+        es->eRef_ = e;
+    }
     return es;
 }
 //======================================================================================================================

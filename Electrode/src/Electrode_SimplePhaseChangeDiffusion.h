@@ -48,6 +48,14 @@ public:
      */
     Electrode_SimplePhaseChangeDiffusion& operator=(const Electrode_SimplePhaseChangeDiffusion& right);
 
+    //! Duplicator function
+    /*!
+     *  Duplicate the current Electrode object, returning a base Electrode pointer
+     *
+     *  @return                                   Returns a duplicate of the current object as a base class pointer
+     */
+    virtual Electrode* duplMyselfAsElectrode() const override;
+
     //! Return the type of electrode
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.

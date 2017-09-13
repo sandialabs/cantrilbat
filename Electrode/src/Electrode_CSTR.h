@@ -106,13 +106,21 @@ public:
      */
     Electrode_CSTR& operator=(const Electrode_CSTR& right);
 
+    //! Duplicator function
+    /*!
+     *  Duplicate the current Electrode object, returning a base Electrode pointer
+     *
+     *  @return                                   Returns a duplicate of the current object as a base class pointer
+     */
+    virtual Electrode* duplMyselfAsElectrode() const override;
+
     //! Return the type of electrode
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.
      *
      *  @return                                  Returns an enum type, called   Electrode_Types_Enum
      */
-    virtual Electrode_Types_Enum electrodeType() const;
+    virtual Electrode_Types_Enum electrodeType() const override;
 
     //! This function will extend the input options for the electrode to included child input
     //! and then return a child object of ELECTRODE_KEY_INPUT

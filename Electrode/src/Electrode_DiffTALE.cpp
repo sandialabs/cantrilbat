@@ -305,6 +305,12 @@ Electrode_DiffTALE::~Electrode_DiffTALE()
 {
 }
 //======================================================================================================================
+Electrode* Electrode_DiffTALE::duplMyselfAsElectrode() const
+{
+    Electrode_DiffTALE* dd = new Electrode_DiffTALE(*this);
+    return dd;
+}
+//======================================================================================================================
 //    Return the type of electrode
 /*
  *  Returns the enum type of the electrode. This is used in the factory routine.
