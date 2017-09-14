@@ -518,7 +518,7 @@ deltag_int (3./11. Li13Si4(S) -> 4/11 Li7Si3(S) + Li(i)) =   -4.842E+06
                 Total moles = 7.53982e-11
                 surface area (final) = 2.51327E-03 m2
                 surface area (init)  = 2.51327E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -618,7 +618,7 @@ Li13Si4(S) = 4.66883e-09,  Li7Si3() = 6.12322e-10
                 Total moles = 7.53982e-11
                 surface area (final) = 2.36089E-03 m2
                 surface area (init)  = 2.51327E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -718,7 +718,7 @@ Li13Si4(S) = 4.23806e-09,  Li7Si3() = 1.18669e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 2.21334E-03 m2
                 surface area (init)  = 2.36089E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -818,7 +818,7 @@ Li13Si4(S) = 3.83413e-09,  Li7Si3() = 1.72526e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 2.07037E-03 m2
                 surface area (init)  = 2.21334E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -918,7 +918,7 @@ Li13Si4(S) = 3.4556e-09,  Li7Si3() = 2.22997e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.93176E-03 m2
                 surface area (init)  = 2.07037E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1018,7 +1018,7 @@ Li13Si4(S) = 3.10116e-09,  Li7Si3() = 2.70255e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.79730E-03 m2
                 surface area (init)  = 1.93176E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1118,7 +1118,7 @@ Li13Si4(S) = 2.76964e-09,  Li7Si3() = 3.14458e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.66681E-03 m2
                 surface area (init)  = 1.79730E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1218,7 +1218,7 @@ Li13Si4(S) = 2.45999e-09,  Li7Si3() = 3.55745e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.54014E-03 m2
                 surface area (init)  = 1.66681E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1318,7 +1318,7 @@ Li13Si4(S) = 2.17127e-09,  Li7Si3() = 3.94241e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.41714E-03 m2
                 surface area (init)  = 1.54014E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1418,7 +1418,7 @@ Li13Si4(S) = 1.90262e-09,  Li7Si3() = 4.3006e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.29769E-03 m2
                 surface area (init)  = 1.41714E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1518,7 +1518,7 @@ Li13Si4(S) = 1.65331e-09,  Li7Si3() = 4.63302e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.18170E-03 m2
                 surface area (init)  = 1.29769E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1618,7 +1618,7 @@ Li13Si4(S) = 1.42266e-09,  Li7Si3() = 4.94055e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.06907E-03 m2
                 surface area (init)  = 1.18170E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1718,7 +1718,7 @@ Li13Si4(S) = 1.21009e-09,  Li7Si3() = 5.22398e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 9.59731E-04 m2
                 surface area (init)  = 1.06907E-03 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1818,7 +1818,7 @@ Li13Si4(S) = 1.0151e-09,  Li7Si3() = 5.48396e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 8.53644E-04 m2
                 surface area (init)  = 9.59731E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -1918,7 +1918,7 @@ Li13Si4(S) = 8.37268e-10,  Li7Si3() = 5.72108e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 7.50781E-04 m2
                 surface area (init)  = 8.53644E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2018,7 +2018,7 @@ Li13Si4(S) = 6.76253e-10,  Li7Si3() = 5.93576e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 6.51143E-04 m2
                 surface area (init)  = 7.50781E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2118,7 +2118,7 @@ Li13Si4(S) = 5.31814e-10,  Li7Si3() = 6.12835e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 5.54766E-04 m2
                 surface area (init)  = 6.51143E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2218,7 +2218,7 @@ Li13Si4(S) = 4.03812e-10,  Li7Si3() = 6.29902e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 4.61732E-04 m2
                 surface area (init)  = 5.54766E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2318,7 +2318,7 @@ Li13Si4(S) = 2.92237e-10,  Li7Si3() = 6.44778e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 3.72186E-04 m2
                 surface area (init)  = 4.61732E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2418,7 +2418,7 @@ Li13Si4(S) = 1.9725e-10,  Li7Si3() = 6.57443e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 2.86384E-04 m2
                 surface area (init)  = 3.72186E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2518,7 +2518,7 @@ Li13Si4(S) = 1.19256e-10,  Li7Si3() = 6.67843e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 2.04765E-04 m2
                 surface area (init)  = 2.86384E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2618,7 +2618,7 @@ Li13Si4(S) = 5.906e-11,  Li7Si3() = 6.75869e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 1.28174E-04 m2
                 surface area (init)  = 2.04765E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2718,7 +2718,7 @@ Li13Si4(S) = 1.82525e-11,  Li7Si3() = 6.8131e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 5.85894E-05 m2
                 surface area (init)  = 1.28174E-04 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2818,7 +2818,7 @@ Li13Si4(S) = 3.96894e-13,  Li7Si3() = 6.83691e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 4.56442E-06 m2
                 surface area (init)  = 5.85894E-05 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -2919,7 +2919,7 @@ Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 0.00000E+00 m2
                 surface area (init)  = 0.00000E+00 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -3019,7 +3019,7 @@ Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 0.00000E+00 m2
                 surface area (init)  = 0.00000E+00 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -3119,7 +3119,7 @@ Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 0.00000E+00 m2
                 surface area (init)  = 0.00000E+00 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -3219,7 +3219,7 @@ Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 0.00000E+00 m2
                 surface area (init)  = 0.00000E+00 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -3319,7 +3319,7 @@ Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 0.00000E+00 m2
                 surface area (init)  = 0.00000E+00 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -3419,7 +3419,7 @@ Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 0.00000E+00 m2
                 surface area (init)  = 0.00000E+00 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00
@@ -3519,7 +3519,7 @@ Li13Si4(S) = 0,  Li7Si3() = 6.83743e-09
                 Total moles = 7.53982e-11
                 surface area (final) = 0.00000E+00 m2
                 surface area (init)  = 0.00000E+00 m2
-                IsExternalSurface = 1
+                IsExternalSurface = 0
 
                 Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
                 lisi_internalsurf_site  1.000E+00  7.540E-11    7.540E-11   0.000E+00

@@ -379,27 +379,30 @@ public:
      */
     virtual void updateState() override;
 
-    //!  Recalculate the surface areas of the surfaces for the final state
+protected:
+    //! Recalculate the surface areas of the surfaces for the final state
     /*!
-     *    (virtual function from Electrode)
+     *  (virtual function from Electrode)
      *
-     *    We used the internal variable locationOfReactingSurface_ to determine the behavior.
-     *    A value of zero indicates that the surface 0 follows the reaction front as it goes from outer to inner as
-     *    a function of the % though the plateau.
-     *    A value of locationOfReactingSurface_ = 1 indicates that the surface 0 follows the exterior surface of the particle
+     *  We used the internal variable locationOfReactingSurface_ to determine the behavior.
+     *  A value of zero indicates that the surface 0 follows the reaction front as it goes from outer to inner as
+     *  a function of the % though the plateau.
+     *  A value of locationOfReactingSurface_ = 1 indicates that the surface 0 follows the exterior surface of the particle
      *
-     *    We also assume that the surface area is equal to the particle surface area multiplied by the numbers of particles.
+     *  We also assume that the surface area is equal to the particle surface area multiplied by the numbers of particles.
      *
      *
-     *    Dependent StateVariables Used
+     *  Dependent StateVariables Used
      *         Radius_exterior_final;
      *         particleNumberToFollow_
      *
-     *    Dependent StateVariables Calculated
+     *  Dependent StateVariables Calculated
+     *
      *          surfaceAreaRS_final_[]
      */
     virtual void updateSurfaceAreas() override;
 
+public:
     //!  Extract the ROP of the two reaction fronts from Cantera within this routine
     /*!
      *  In this routine we calculate the rates of progress from the two surfaces

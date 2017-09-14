@@ -354,7 +354,7 @@ public:
      *  Returns the enum type of the electrode. This is used in the factory routine.
      *  Note, this does not indicate whether the electrode is being used as an anode or a cathode.
      *
-     *  @return                                  Returns an enum type, called   Electrode_Types_Enum
+     *  @return                                  Returns an enum type called Electrode_Types_Enum
      */
     virtual Electrode_Types_Enum electrodeType() const;
 
@@ -1498,7 +1498,7 @@ public:
      *
      *  variables to be potentially altered
      *   surfaceAreaRS_[];
-     *   isExternalSurface[]
+     *   isExternalSurface_[]
      *   numExternalInterfacialSurfaces_;
      *
      *  @param[in]      deltaT                      DeltaT of the step (??)
@@ -1766,6 +1766,7 @@ public:
 //Can protect
     void updateState_OnionOut();
 
+protected:
     //!  Recalculate the surface areas of the surfaces for the final state
     /*!
      *    (virtual function from Electrode)
@@ -1781,7 +1782,6 @@ public:
      *    Dependent StateVariables Calculated
      *          surfaceAreaRS_final_[]
      */
-//Can protect
     virtual void updateSurfaceAreas();
 
 protected:
@@ -2916,7 +2916,7 @@ protected:
      *  This has units of m**3 / kmol.
      *  It has length equal to the total number of phases (vol and surf) in the mechanism.
      *  Here we assign 0 to the molar volume for surface phases. This is the actual
-     *  model used by Cantera.
+     *  model used by Zuzax.
      */
     std::vector<double> phaseMolarVolumes_;
 
@@ -2931,20 +2931,21 @@ protected:
 
     //! Partial molar volumes of all of the species 
     /*!
-     *  Length: global number of species in PhaseList species vector
-     *  Units: m**3 kmol-1
+     *  Length:   global number of species in PhaseList species vector
+     *  Indexing: PhaseList global species list
+     *  Units:    m**3 kmol-1
      */
     std::vector<double> VolPM_;
 
     //! Partial molar Heat Capacity at constant volume of all of the species
     /*!
-     *  Length: global number of species in PhaseList species vector
-     *  Units: Joules / Kelvin
+     *  Length:   global number of species in PhaseList species vector
+     *  Indexing: PhaseList global species list
+     *  Units:    Joules / Kelvin
      */
     mutable std::vector<double> CvPM_;
 
-    //! Number of moles of each species in each phase at the end of each
-    //! subcycle of the integration step
+    //! Number of moles of each species in each phase at the end of each subcycle of the integration step
     /*!
      *  INDEPENDENT STATE VARIABLE FOR THE ELECTRODE PROBLEM
      *   Number of moles of each species in each phase at the end of each
@@ -2987,9 +2988,9 @@ protected:
      *  This will only be updated when we are moving onto the next outside time step.
      *  this is true of all entities entitled "_init_init_"
      *
-     *    Length: global number of species in PhaseList species vector
-     *    Units: kmol
+     *    Length:   global number of species in PhaseList species vector
      *    Indexing: global species index of PhaseList
+     *    Units:    kmol
      */
     std::vector<double> spMoles_init_init_;
 
@@ -3063,44 +3064,51 @@ protected:
 // Deprecate? How often is this called that it is worth storing in memory rather than computing if needed?
     mutable std::vector<double> spElectroChemPot_;
 
-    //! Vector of phase voltages
+    //! Vector of phase electric potentials
     /*!
-     *  length = Number of total phases in PhaseList
-     *  indexing of PhaseList
+     *  This is kept synced with the _final_ state.
+     *
+     *  Length:   Number of total phases in PhaseList
+     *  Indexing: Global phase index of the PhaseList
+     *  Units:    volts
      */
     std::vector<double> phaseVoltages_;
 
-    //! Vector of ReactingSurface objects in the problem
+    //! Vector of ReactingSurDomain objects in the problem
     /*!
      *  This vector has a length equal to the number of surfaces in the problem.
      *  If a surface doesn't have kinetics associated with it, the position is set to null.
      *  Note, the electrode object does own the ReactingSurDomain's associated with it.
-     *  This means that it owns the interfacial kinetics object wich the ReactingSurDomain object
-     *  is a child object. The interfacial kinetics object points to the ThermoPhase objects
+     *  This means that it owns the InterfacialKinetics object which the ReactingSurDomain object
+     *  is a child object of. The InterfacialKinetics object points to the ThermoPhase objects
      *  which are owned by the PhaseList object, which the Electrode object is a child of.
      *
-     *     Length = number of surfaces that may be present: numSurfaces_
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
+     *  Units:     Pointer to the ReactingSurDomain object. It may be null for any particular surface.
      */
     std::vector<ReactingSurDomain*> RSD_List_;
 
-    //!  Vector of the number of reactions in a ReactingSurface object in the problem
+    //! Vector of the number of reactions in each ReactingSurDomain object
     /*!
-     *   This vector has length number of surfaces in the problem.
-     *   If a surface doesn't have kinetics associated with it, the position is set to 0.
+     *  This vector has length number of surfaces in the problem.
+     *  If a surface doesn't have kinetics associated with it, the position is set to 0.
      *
-     *   Length = number of surfaces that may be present: numSurfaces_
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
      */
     std::vector<size_t> numRxns_;
 
-    //!  Vector of booleans indicating whether a surface is currently kinetically active
+    //! Vector of booleans indicating whether a surface is currently kinetically active
     /*!
-     *   To be true, the surface must have an interfacial kinetics object, and the surface area must have a
-     *   nonzero positive value. Phase Mole numbers for one side of the interfacial reaction should also be present, so that it
-     *   should be theoretically possible for the surface reactions on the interface to be non-zero. 
+     *  To be true, the surface must have an interfacial kinetics object, and the surface area must have a
+     *  nonzero positive value. Phase Mole numbers for one side of the interfacial reaction should also be present, so that it
+     *  should be theoretically possible for the surface reactions on the interface to be non-zero. 
      *
-     *   This is used to trigger the calculation of the rates of progress of reactions that are on the surface.
+     *  This boolean vector is used to trigger the calculation of the rates of progress of reactions that are on the surface.
      *
-     *   Length: Number of surfaces that may be present: numSurfaces_
+     *  Length:    Number of surfaces that may be present: numSurfaces_
+     *  Indexing:  Electrode surface index
      */
     std::vector<int> ActiveKineticsSurf_;
 
@@ -3159,12 +3167,11 @@ protected:
      */
     std::vector<int> justDiedPhase_;
 
-    // ---------------   SURFACE AREAS -----------------------------------------
+    // -----------------------------------------------   SURFACE AREAS -----------------------------------------
 
-    //! Number of external interfacial areas
+    //! Number of external interfacial surfaces
     /*!
-     *   @deprecate  This is always equal to one, and doesn't have a real purpose. Concept seems to be
-     *               covered by isExternalSurface_[] anyway.
+     *   This is equal to the sum of isExternalSurface_[].
      */
     size_t numExternalInterfacialSurfaces_;
 
@@ -3329,9 +3336,9 @@ protected:
 
     //! Vector of chemical potentials of species, init_init state
     /*!
-     *   Length: PhaseList::m_NumTotSpecies
+     *   Length:   PhaseList::m_NumTotSpecies
      *   Indexing: PhaseList global species index
-     *   Units: J/kmol
+     *   Units:    J/kmol
      */
     std::vector<double> chempotMolar_init_init_;
 
@@ -3457,6 +3464,9 @@ protected:
     size_t solnPhase_;
 
     //! Global index within this object of the electron species
+    /*!
+     *  Indexing:  global species index within the PhaseList
+     */
     size_t kElectron_;
 
     //! Global index within each of the Reacting surface/ interfacial kinetics object for the electron species
@@ -3531,24 +3541,25 @@ protected:
     /*!
      *  This is the initial capacity of the electrode before any degradation
      *
-     *  units = kmol
+     *  Units: kmol
      */
     double capacityInitialZeroDod_;
 
     //! Starting depth of discharge in coulombs
     /*!
      *   Initial value of the depth of discharge
+     *   Units: coulombs
      */
     double depthOfDischargeStarting_;
 
-    //! Current going through the electrode
+    //! Current going through the electrode at the _final_ state.
     /*!
      * Note the following convention:
-     *      The current is positive for current going into the electrode
-     *      and then into the electrolyte. Thus, under normal battery operation
-     *      where the anode is negative and the cathode is positive, the
-     *      current is positive going into the anode and negative going
-     *      into the cathode.
+     *      The current is positive for current going into the electrode and then into the electrolyte.
+     *      Thus, under normal battery operation where the anode is negative and the cathode is positive, the
+     *      current is positive going into the anode and negative going into the cathode.
+     *
+     *  Units: amps = coulombs / s
      */
     double Icurrent_;
 
@@ -3564,30 +3575,30 @@ protected:
 
     //! Number of Particles to follow
     /*!
-     *   All the extrinsic properties of the object are multiplied by this value.
-     *   This is the number of particles that are in the electrode object
+     *  All the extrinsic properties of the object are multiplied by this value.
+     *  This is the number of particles that are in the electrode object
      */
     double particleNumberToFollow_;
 
-    //!  Radius of the exterior of the particle
+    //! Radius of the exterior of the particle
     /*!
      *  This is at the start of the global time step
      */
     double Radius_exterior_init_init_;
 
-    //!  Radius of the exterior of the particle
+    //! Radius of the exterior of the particle
     /*!
      *  This is at the start of the subgrid time step
      */
     double Radius_exterior_init_;
 
-    //!  Radius of the exterior of the particle
+    //! Radius of the exterior of the particle
     /*!
      *  This is at the end of the subgrid time step
      */
     double Radius_exterior_final_;
 
-    //!  Radius of the exterior of the particle
+    //! Radius of the exterior of the particle
     /*!
      *  This is at the end of the global time step
      */
@@ -3595,8 +3606,8 @@ protected:
 
     //! Porosity of the electrode
     /*!
-     *    This is the percentage of space that is occupied by the electrolyte. The electrode consists of
-     *    spherical particles within this electrolyte
+     *  This is the percentage of space that is occupied by the electrolyte. The electrode consists of
+     *  spherical particles within this electrolyte
      */
     double porosity_;
 
@@ -3635,7 +3646,7 @@ protected:
     //! Storage of the state of the system in terms of an XML data structure - final_final state
     XML_Node* xmlStateData_final_final_;
 
-    //!  Pointer to the object that is in charge of formulating the saved state and writing that state out to an XML object
+    //! Pointer to the object that is in charge of formulating the saved state and writing that state out to an XML object
     EState* eState_save_;
 
     //! Base name of the solution file, currently defaults to "soln"

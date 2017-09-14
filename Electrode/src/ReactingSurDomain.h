@@ -520,8 +520,8 @@ public:
 
     //! List of names that constitute the ThermoPhases needed for the kinetics object
     /*!
-     *    Currently this is needed to fix up the shallow pointer copy operation. 
-     *    The list is needed to carry out shallow pointer assignments when an Electrode object is copied.
+     *   Currently this is needed to fix up the shallow pointer copy operation. 
+     *   The list is needed to carry out shallow pointer assignments when an Electrode object is copied.
      */
     std::vector<std::string> tpList_IDs_;
 

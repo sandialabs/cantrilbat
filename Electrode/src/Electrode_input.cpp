@@ -508,8 +508,7 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
      *    (required)
      *    default = ""
      */
-    LE_OneStr* eName = new LE_OneStr("Electrode Name",  &(electrodeName),
-                                     15, 1, 0, "ElectrodeName");
+    LE_OneStr* eName = new LE_OneStr("Electrode Name",  &(electrodeName), 15, 1, 0, "ElectrodeName");
     cf->addLineEntry(eName);
 
     /* --------------------------------------------------------------
@@ -518,8 +517,7 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
      *    default = anode
      */
     const char* etype[2] = {"anode", "cathode"};
-    LE_PickList* leptype =
-        new LE_PickList("Electrode Type", &(electrodeCapacityType), etype, 2, 1, "ElectrodeType");
+    LE_PickList* leptype = new LE_PickList("Electrode Type", &(electrodeCapacityType), etype, 2, 1, "ElectrodeType");
     leptype->set_default(0);
     cf->addLineEntry(leptype);
 
@@ -563,14 +561,13 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
      * Configure the application Pressure
      */
     BE_UnitConversion* ucPres = new BE_UnitConversionPressure();
-    LE_OneDblUnits* b5 = new LE_OneDblUnits("Pressure", &(Pressure), 0,
-                                            "PO.Pressure", ucPres);
+    LE_OneDblUnits* b5 = new LE_OneDblUnits("Pressure", &(Pressure), 0, "PO.Pressure", ucPres);
     b5->set_default(OneAtm);
     b5->set_limits(1.E20, 0.0);
     cf->addLineEntry(b5);
 
     /* ------------------------------------------------------------------
-     * Maximum number of subGlobal time steps -
+     * Maximum number of subGlobal time steps = [int]
      *  
      *     defaults to 1000.
      */
@@ -608,8 +605,7 @@ void  ELECTRODE_KEY_INPUT::setup_input_pass2(BlockEntry* cf)
      *  Get the input deck for
      *  Cantera description of the model.
      */
-    LE_MultiCStr* s1 = new LE_MultiCStr("Cantera File Name", &(CanteraFileNames),
-                                        1, 1,  0, "CanteraFileNames");
+    LE_MultiCStr* s1 = new LE_MultiCStr("Cantera File Name", &(CanteraFileNames), 1, 1,  0, "CanteraFileNames");
     s1->set_default("gas.cti");
 
     /*

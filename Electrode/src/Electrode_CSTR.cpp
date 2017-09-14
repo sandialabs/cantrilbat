@@ -40,7 +40,8 @@ namespace Cantera
 //==================================================================================================================================
 ELECTRODE_CSTR_KEY_INPUT::ELECTRODE_CSTR_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
-    boundaryResistance_(0.0)
+    boundaryResistance_(0.0),
+    Radius_exterior_min_(1.0E-7)
 {
 }
 //==================================================================================================================================
@@ -51,11 +52,28 @@ ELECTRODE_CSTR_KEY_INPUT::~ELECTRODE_CSTR_KEY_INPUT()
 //==================================================================================================================================
 void ELECTRODE_CSTR_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* cf)
 {
-    /*
-     */
+    /* ----------------------------------------------------------------------------------
+     *  BoundaryResistance = [double] 
+     *   Units:  ohms
+     *  (optional)
+     *  default = 0.0
+     */ 
     LE_OneDbl* d1 = new LE_OneDbl("Boundary Resistance", &(boundaryResistance_), 0, "boundaryResistance");
     d1->set_default(0.0);
     cf->addLineEntry(d1);
+
+    /* ----------------------------------------------------------------------------------
+     *  Minimum Exterior Radius = [double]
+     *  Units: m
+     *  (optional)
+     *  default = 1.0E-7
+     *
+     *  Provides a minimum for the size of the reacting surface area
+     */ 
+    LE_OneDbl* dre = new LE_OneDbl("Minimum Exterior Radius", &(Radius_exterior_min_), 0, "minExteriorRadius");
+    dre->set_default(1.0E-7);
+    cf->addLineEntry(dre);
+   
     BaseEntry::set_SkipUnknownEntries(3);
 }
 //====================================================================================================================
@@ -96,34 +114,13 @@ Electrode_CSTR::Electrode_CSTR() :
     SrcDot_RxnExtent_final_(0.0),
     deltaSpMoles_(0),
     minPH_(npos),
-    solidMoles_init_(0.0)
+    solidMoles_init_(0.0),
+    Radius_exterior_min_(1.0E-7)
 {
 }
 //======================================================================================================================
 Electrode_CSTR::Electrode_CSTR(const Electrode_CSTR& right) :
-    Electrode_Integrator(),
-    electrodeType_(right.electrodeType_),
-    RelativeExtentRxn_init_(0.0),
-    RelativeExtentRxn_init_init_(0.0),
-    RelativeExtentRxn_final_(0.0),
-    RelativeExtentRxn_final_final_(0.0),
-    RelativeExtentRxn_NormalizationFactor_(1.0),
-    RelativeExtentRxn_RegionBoundaries_(0),
-    onRegionBoundary_init_(-1),
-    onRegionBoundary_final_(-1),
-    onRegionBoundary_init_init_(-1),
-    onRegionBoundary_final_final_(-1),
-    xRegion_init_(-1),
-    xRegion_init_init_(-1),
-    xRegion_final_(-1),
-    xRegion_final_final_(-1),
-    goNowhere_(0),
-    deltaT_RegionBoundaryCollision_(1.0E300),
-    atolBaseResid_(1.0E-12),
-    SrcDot_RxnExtent_final_(0.0),
-    deltaSpMoles_(0),
-    minPH_(npos),
-    solidMoles_init_(0.0)
+    Electrode_CSTR()
 {
     operator=(right);
 }
@@ -169,6 +166,7 @@ Electrode_CSTR& Electrode_CSTR::operator=(const Electrode_CSTR& right)
     phaseMoles_final_lagged_             = right.phaseMoles_final_lagged_;
     DphMoles_final_                      = right.DphMoles_final_;
     solidMoles_init_                     = right.solidMoles_init_;
+    Radius_exterior_min_                 = right.Radius_exterior_min_;
 
     return *this;
 }
@@ -286,6 +284,9 @@ int Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     xRegion_final_ = 0;
     xRegion_final_final_ = 0;
 
+    if (ei->Radius_exterior_min_ >= 0.0) {
+        Radius_exterior_min_ = ei->Radius_exterior_min_;
+    }
     return 0;
 }
 //======================================================================================================================
@@ -312,8 +313,8 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 
     ELECTRODE_CSTR_KEY_INPUT* ei = dynamic_cast<ELECTRODE_CSTR_KEY_INPUT*>(eibase);
     if (!ei) {
-        throw Electrode_Error(" Electrode_CSTR::electrode_model_create()",
-                              " Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
+        throw Electrode_Error("Electrode_CSTR::setInitialConditions()",
+                              "Expecting a child ELECTRODE_KEY_INPUT object and didn't get it");
     }
     flag = Electrode::setInitialConditions(ei);
     if (flag != 0) {
@@ -351,6 +352,7 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     //
     stateToPhaseFlagsReconciliation(false);
 
+    // Set init_init_ and init to the _final_ state
     setInitStateFromFinal(true);
     return 0;
 }
@@ -426,11 +428,11 @@ void Electrode_CSTR::updateState()
 {
     /*
      *  We rely on the base implementation to update most of the fields.
-     *  This includes calculation of Radius_exterior_final_
+     *  This includes the calculation of the variable, Radius_exterior_final_
      */
     Electrode::updateState();
     /*
-     *   We keep a record of the extent of reaction
+     *   We keep a record of the extent of reaction for the final state
      */
     RelativeExtentRxn_final_ = calcRelativeExtentRxn_final();
     /*
@@ -456,12 +458,15 @@ void Electrode_CSTR::updateState()
  *
  *    Dependent StateVariables Calculated
  *          surfaceAreaRS_final_[]
- *          Radius_internal_final_
  */
 void Electrode_CSTR::updateSurfaceAreas()
 {
-    double totalSA = 4. * Pi * Radius_exterior_final_ * Radius_exterior_final_ * particleNumberToFollow_;
-    surfaceAreaRS_final_[0] = totalSA;
+    double rr = std::max(Radius_exterior_final_, Radius_exterior_min_);
+    double totalSA = 4. * Pi * rr * rr * particleNumberToFollow_;
+
+    for (size_t isk = 0; isk < numSurfaces_; ++isk) {
+        surfaceAreaRS_final_[isk] = totalSA;
+    }
 }
 //==================================================================================================================================
 bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
@@ -556,7 +561,7 @@ double Electrode_CSTR::openCircuitVoltageSS_Region(int xRegion) const
 // Value of the open circuit voltage for region xRegion at the final_ conditions.
 /*
  *  This is the open circuit potential at the current _final_ conditions.
- *  The value is dependent on the region input. The region input, currently is identified
+ *  The value is dependent on the region input. The region input currently is identified
  *  with the surface reacting phase object.
  *  Therefore, this call is basically a wrapper around openCircuitVoltage(isk) which
  *  calculates the open circuit voltage for the isk reacting surface.

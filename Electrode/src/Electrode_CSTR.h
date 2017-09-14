@@ -74,14 +74,22 @@ public:
      *  default: 0.0  ohms
      */
     double boundaryResistance_;
+
+    //! Minimum particle radius for purposes of calculating the reaction surface area
+    /*!
+     *  Units:    meters
+     *  default:  1.0E-7 m
+     */
+    double Radius_exterior_min_;
 };
 //==================================================================================================================================
 
-//! Electrode_CSTR class is an electrode that models a particle as a CSTR
+//! Electrode_CSTR class is an electrode that models a solid electrode particle as a CSTR
 /*!
  *  The base class is close to being a CSTR. This class will have to ensure
- *  that there are no plateaus that create complicated morphologies. There
- *  will just be an interfacial reaction on the exterior of the particle.
+ *  that there are no plateaus that create complicated morphologies.
+ *
+ *  There will just be an interfacial reaction on the exterior of the particle.
  */
 class Electrode_CSTR : public Electrode_Integrator
 {
@@ -338,28 +346,29 @@ public:
      */
     virtual void updateState() override;
 
-    //!  Recalculate the surface areas of the surfaces for the final state
+protected:
+    //! Recalculate the surface areas of the surfaces for the final state
     /*!
-     *    (virtual function from Electrode)
+     *  (virtual function from Electrode)
      *
-     *    We used the internal variable locationOfReactingSurface_ to determine the behavior.
-     *    A value of zero indicates that the surface 0 follows the reaction front as it goes from outer to inner as
-     *    a function of the % though the plateau.
-     *    A value of locationOfReactingSurface_ = 1 indicates that the surface 0 follows the exterior surface of the particle
+     *  We used the internal variable locationOfReactingSurface_ to determine the behavior.
+     *  A value of zero indicates that the surface 0 follows the reaction front as it goes from outer to inner as
+     *  a function of the % though the plateau.
      *
-     *    We also assume that the surface area is equal to the particle surface area multiplied by the numbers of particles.
+     *  A value of locationOfReactingSurface_ = 1 indicates that the surface 0 follows the exterior surface of the particle
      *
+     *  We also assume that the surface area is equal to the particle surface area multiplied by the numbers of particles.
      *
-     *    Dependent StateVariables Used
+     *  Dependent StateVariables used:
+     *
      *         Radius_exterior_final;
      *         particleNumberToFollow_
      *
-     *    Dependent StateVariables Calculated
+     *  Dependent StateVariables calculated:
      *          surfaceAreaRS_final_[]
      */
     virtual void updateSurfaceAreas() override;
 
-protected:
     //! This is used to set the phase information that is implicit but not set by a restart or an initialization
     /*!
      *  (virtual function from Electrode)
@@ -1000,8 +1009,7 @@ protected:
      */
     int onRegionBoundary_init_init_;
 
-    //! This integer describes if the system is current on a Region boundary at the end of a global
-    //! integration step
+    //! This integer describes if the system is current on a Region boundary at the end of a global integration step
     /*!
      *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
      */
@@ -1041,15 +1049,16 @@ protected:
 
     //! Vector of the rates of progress of the surface reactions
     /*!
-     *  Length: largest value of maxNumRxns in a reacting surface class
-     *  Units:  kmol / m2 / s
+     *  Length:   largest value of maxNumRxns in a reacting surface class
+     *  Indexing: reaction index for the current ReactingSurface
+     *  Units:    kmol / m2 / s
      */
     std::vector<double> ROP_;
 
     //! Molar source rate for the species vector of all species in the electrode object
     //! for the final time during a time step
     /*!
-     *  units kmol s-1
+     *  Units:    kmol s-1
      */
     std::vector<double> DspMoles_final_;
 
@@ -1111,6 +1120,12 @@ protected:
      *  units are kmol
      */
     double solidMoles_init_;
+
+    //!  Minimum size of particle
+    /*!
+     *   This is used to calculate a minimum surface area for the particle
+     */
+    double Radius_exterior_min_;
 };
 //==================================================================================================================================
 }

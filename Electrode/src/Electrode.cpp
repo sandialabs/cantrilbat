@@ -113,7 +113,6 @@ Electrode::Electrode() :
                 phaseMoles_final_final_(0),
                 phaseMoles_dot_(0),
                 numExternalInterfacialSurfaces_(0),
-                isExternalSurface_(0),
                 surfaceAreaRS_init_(0),
                 surfaceAreaRS_final_(0),
                 surfaceAreaRS_init_init_(0),
@@ -233,7 +232,6 @@ Electrode::Electrode(const Electrode& right) :
                 phaseMoles_final_final_(0),
                 phaseMoles_dot_(0),
                 numExternalInterfacialSurfaces_(0),
-                isExternalSurface_(0),
                 surfaceAreaRS_init_(0),
                 surfaceAreaRS_final_(0),
                 surfaceAreaRS_init_init_(0),
@@ -695,8 +693,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     Electrode_Types_Enum seos = string_to_Electrode_Types_Enum(ei->electrodeModelName);
 
     if (ieos != seos) {
-        throw Electrode_Error(
-                " Electrode::electrode_model_create()",
+        throw Electrode_Error( " Electrode::electrode_model_create()",
                 "Electrode Object Type, " + Electrode_Types_Enum_to_string(ieos) + ", is different than requested type, "
                         + ei->electrodeModelName);
     }
@@ -722,15 +719,15 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
     // resize volume phase vectors
 
-    // Identify the number of surfaces with the number of surface phases for now
+    // Identify the number of surfaces with the number of surface phases for now.
     numSurfaces_ = m_NumSurPhases;
-    // resize surface phase vectors
+    // Resize surface phase vectors and identify all surfaces as being external surfaces unless told otherwise
     isExternalSurface_.resize(numSurfaces_, true);
     surfaceAreaRS_init_.resize(numSurfaces_, 0.0);
     surfaceAreaRS_final_.resize(numSurfaces_, 0.0);
     surfaceAreaRS_init_init_.resize(numSurfaces_, 0.0);
     surfaceAreaRS_final_final_.resize(numSurfaces_, 0.0);
-    RSD_List_.resize(numSurfaces_, 0);
+    RSD_List_.resize(numSurfaces_, nullptr);
     numRxns_.resize(numSurfaces_, static_cast<size_t>(0));
     ActiveKineticsSurf_.resize(numSurfaces_, 0);
     sphaseMolarAreas_.resize(numSurfaces_, 0.0);
@@ -792,25 +789,18 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      * Assign a reacting surface to each surface in the PhaseList object
      */
     for (size_t isurf = 0; isurf < numSurfaces_; isurf++) {
-        // Right now there is a correspondence between isph and isurf for the initial read in.
-        // However this may break in the future. Therefore, I've put in this logic for future expansion
-        int isph = isurf;
-        if (SurPhaseHasKinetics_[isph]) {
+        if (SurPhaseHasKinetics_[isurf]) {
             ReactingSurDomain* rsd = new ReactingSurDomain();
-            int ok = rsd->importFromPL(this, isph);
+            int ok = rsd->importFromPL(this, isurf);
             if (!ok) {
-                throw Electrode_Error("cttables main:", "rSurDomain returned an error");
+                throw Electrode_Error("Electrode::electrode_model_create()", "Error importing ReactingSurDomain %d", isurf);
             }
-            //
-            // Check to see if we have entered an OCVoverride for this species. If we have then
-            // modify the reacting surface
-            //
+
+            // Check to see if we have entered an OCVoverride for this species. If we have then modify the reacting surface
 	    ZZCantera::OCV_Override_input *ocv_ptr = ei->OCVoverride_ptrList[isurf];
             if (ocv_ptr->numTimes > 0) {
-
                rsd->addOCVoverride(ocv_ptr);
             }
-
             // if  OCVoverride_ptrList
             // We carry a list of pointers to ReactingSurDomain
             RSD_List_[isurf] = rsd;
@@ -820,11 +810,6 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     }
     ZZCantera::deepStdVectorPointerCopy<OCV_Override_input>(ei->OCVoverride_ptrList, OCVoverride_ptrList_);
     //OCVoverride_ptrList_ = ei->OCVoverride_ptrList;
-
-    /*
-     * Calculate the number of external interfacial surfaces
-     */
-    numExternalInterfacialSurfaces_ = 1;
 
     /*
      * Resize the species production vector for the electrode
@@ -847,8 +832,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     pressure_ = ei->Pressure;
     
     /*
-     *  Loop Over all phases in the PhaseList, adding these
-     *  formally to the Electrode object.
+     *  Loop over all phases in the PhaseList, adding these formally to the Electrode object.
      */
     size_t nspecies = 0;
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
@@ -856,24 +840,12 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         ThermoPhase* tphase = &(thermo(iph));
         size_t nSpecies = tphase->nSpecies();
 
-        // Find the name of the input block
-        std::string phaseBath = "Bath Specification for Phase ";
-        std::string phaseNm = tphase->name();
-        phaseBath += phaseNm;
-
-        /*
-         * Search the ReactingSurDomain to see if the current phase is in
-         * the object
-         */
-        std::string pname = tphase->id();
-
         size_t kstart = nspecies;
         nspecies += nSpecies;
 
         /*
          *  We copy the mole numbers and mole fraction information from the bath gas section of the input file
-         *  here. Note, the total quantitites of electrode material and electrolyte material may be overwritten
-         *  later.
+         *  here. Note, the total quantitites of electrode material and electrolyte material may be overwritten later.
 	 *  We only really need to populate the _final_ state. We will set all states equal to each other at the end 
 	 *  of this process.
          */
@@ -1070,6 +1042,33 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         }
     }
     deltaG_.resize(mR);
+
+    /*
+     *  Determine if a ReactingSurDomain is external by looking up whether it has the electrolyte phase as 
+     *  a reactant or product
+     */
+    for (size_t isk = 0; isk <  RSD_List_.size(); isk++) {
+        ReactingSurDomain* rsd = RSD_List_[isk];
+        if (rsd) {
+           bool found = false;
+           for (size_t ph = 0; ph < rsd->nPhases(); ++ph) {
+               size_t iph = rsd->kinOrder[ph];
+               if (iph == solnPhase_) {
+                   found = true;
+               } 
+           }
+           isExternalSurface_[isk] = found;
+        }
+    }
+    /*
+     * Calculate the number of external interfacial surfaces
+     */
+    numExternalInterfacialSurfaces_ = 0;
+    for (size_t isurf = 0; isurf < numSurfaces_; isurf++) {
+        if (isExternalSurface_[isurf]) {
+            numExternalInterfacialSurfaces_++;
+        }
+    }
 
     //
     // Process Extra global reactions
@@ -2389,12 +2388,12 @@ double Electrode::porosity() const
 double Electrode::SolidVol() const
 {
     double vol = 0.0;
-    for (size_t iph = 0; iph < m_NumVolPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumVolPhases; ++iph) {
         size_t kStart = m_PhaseSpeciesStartIndex[iph];
         ThermoPhase& tp = thermo(iph);
         size_t nspPhase = tp.nSpecies();
         if (iph != solnPhase_) {
-            for (size_t k = 0; k < nspPhase; k++) {
+            for (size_t k = 0; k < nspPhase; ++k) {
                 vol += spMoles_final_[kStart + k] * VolPM_[kStart + k];
             }
         }
@@ -2689,8 +2688,8 @@ void Electrode::updateState_OnionOut()
      */
     Radius_exterior_final_ = pow(vol * 3.0 / (4.0 * Pi), 0.3333333333333333);
 }
-//====================================================================================================================
-//  Recalcualte the surface areas of the surfaces for the final state
+//==================================================================================================================================
+//  Recalculate the surface areas of the surfaces for the final state
 /*
  * (virtual function from Electrode)
  *
@@ -2712,13 +2711,13 @@ void Electrode::updateSurfaceAreas()
      * Here we assume that the surface just creates species enough to fill the available surface sites
      */
     int i = 0;
-    for (size_t iph = m_NumVolPhases; iph < m_NumTotPhases; iph++, i++) {
+    for (size_t iph = m_NumVolPhases; iph < m_NumTotPhases; ++iph, ++i) {
         ThermoPhase* tphase = &(thermo(iph));
         sphaseMolarAreas_[i] = tphase->molarArea();
-        int kstart = m_PhaseSpeciesStartIndex[iph];
-        int nsp = m_PhaseSpeciesStartIndex[iph + 1] - kstart;
+        size_t kstart = m_PhaseSpeciesStartIndex[iph];
+        size_t nsp = m_PhaseSpeciesStartIndex[iph + 1] - kstart;
         phaseMoles_final_[iph] = surfaceAreaRS_final_[i] / sphaseMolarAreas_[i];
-        for (int k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; ++k) {
             spMoles_final_[k + kstart] = spMf_final_[k] * phaseMoles_final_[iph];
         }
     }
@@ -2775,19 +2774,17 @@ double Electrode::productStoichCoeff(const size_t isk, size_t kGlobal, size_t i)
     double rst = rsd->productStoichCoeff(krsd, i);
     return rst;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Get the net production rates of all species in the electrode object at the current conditions
 /*
  *  This routine assumes that the underlying objects have been updated
  */
 void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net) const
 {
-    std::fill_n(net, m_NumTotSpecies, 0.);
+    zeroD(m_NumTotSpecies, net);
     /*
-     *  This routine basically translates between species lists for the reacting surface
-     *  domain and the Electrode.
-     *  Later, when we have more than one reacting surface domain in the electrode object,
-     *  this will do a lot more
+     *  This routine basically translates between species lists for the reacting surface domain and the Electrode.
+     *  Later, when we have more than one reacting surface domain in the electrode object, this will do a lot more
      */
 
     /*
@@ -2798,7 +2795,6 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
          *  Get the species production rates for the reacting surface
          */
         const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
-
         /*
          *  loop over the phases in the reacting surface
          */
@@ -2806,10 +2802,9 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
         size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; kph++) {
             size_t jph = RSD_List_[isk]->kinOrder[kph];
-            size_t istart = m_PhaseSpeciesStartIndex[jph];
-            size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-            for (size_t k = 0; k < nsp; k++) {
-                net[istart + k] += rsSpeciesProductionRates[kIndexKin];
+            size_t kstart = m_PhaseSpeciesStartIndex[jph];
+            for (size_t k = 0; k < NumSpeciesList_[jph]; k++) {
+                net[kstart + k] += rsSpeciesProductionRates[kIndexKin];
                 kIndexKin++;
             }
         }
