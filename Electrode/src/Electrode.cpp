@@ -4182,7 +4182,7 @@ int Electrode::integrateResid(const double tfinal, const double deltaTsubcycle, 
  *
  *  We also assume that the final state is equal to the final_final state. If this is not the case then this is an error.
  */
-void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
+void Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     bool resetToInitInit = false;
     /*
@@ -4190,7 +4190,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
      * We have already advanced the time step to the new time.
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doResetAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doAdvancementAlways) {
         resetToInitInit = true;
     }
 
@@ -4256,9 +4256,11 @@ void Electrode::resetStartingCondition(double Tinitial, bool doResetAlways)
     // Major change: do a full state change function here eventually
     //
     if (resetToInitInit) {
-        //setInitStateFromInitInit();
+        setInitStateFromInitInit(true);
+        setFinalFinalStateFromFinal();
     } else {
-	Electrode::setInitStateFromFinal(true);
+	setInitStateFromFinal(true);
+        setFinalFinalStateFromFinal();
     }
 
     zeroD(m_NumTotSpecies, spMoleIntegratedSourceTerm_.data());

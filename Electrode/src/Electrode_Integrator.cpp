@@ -589,25 +589,16 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
     return numDofs;
 }
 //==================================================================================================================================
-//    The internal state of the electrode must be kept for the initial and final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
-void  Electrode_Integrator::resetStartingCondition(double Tinitial, bool doResetAlways)
+void Electrode_Integrator::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     bool resetToInitInit = false;
     /*
      * If the initial time is input, then the code doesn't advance. We clear stuff and redo the current global time step
      */
     double tbase = MAX(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doResetAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doAdvancementAlways) {
         resetToInitInit = true;
     }
-
-    
 
     /*
      *  Clear the time step histories for the base and current timeHistories.
@@ -615,7 +606,7 @@ void  Electrode_Integrator::resetStartingCondition(double Tinitial, bool doReset
     timeHistory_base_.clear();
     timeHistory_current_.clear();
     //  Call the base class function
-    Electrode::resetStartingCondition(Tinitial, doResetAlways);
+    Electrode::resetStartingCondition(Tinitial, doAdvancementAlways);
     /*
      *  Zero the global error vectors
      */

@@ -906,25 +906,17 @@ double Electrode_DiffTALE::SolidEnthalpy() const
     return enthalpy;
 }
 //====================================================================================================================
-//    The internal state of the electrode must be kept for the initial and final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
-void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doResetAlways)
+void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     bool resetToInitInit = false;
     /*
      * If the initial time is input, then the code doesn't advance
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doAdvancementAlways) {
         resetToInitInit = true;
     }
-    Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+    Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
 
     size_t iCell, i;
     size_t ntotal = numRCells_ * numKRSpecies_;

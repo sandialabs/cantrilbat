@@ -81,8 +81,8 @@ void EState_Identification::readIdentificationFromXML(const XML_Node& xmlEI)
     if (x->hasChild("electrodeDomainNumber")) {
         electrodeDomainNumber_ = ZZctml::getInteger(*x, "electrodeDomainNumber");
     }
-    if (x->hasChild("electrodeDomainNumber")) {
-     electrodeCellNumber_ = ZZctml::getInteger(*x, "electrodeDomainNumber");
+    if (x->hasChild("electrodeCellNumber")) {
+     electrodeCellNumber_ = ZZctml::getInteger(*x, "electrodeCellNumber");
     }
  
     if (x->hasChild("electrodeCapacityType")) {

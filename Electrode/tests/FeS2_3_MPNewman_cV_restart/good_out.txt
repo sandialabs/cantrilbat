@@ -1706,8 +1706,8 @@ oc[0] = 0
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   1.101E-05   Y  |  1.00E+00  9.668E-10 | 1   1.00E+00  1.101E-08   9.668E-13  9.668E-10|  1.101E-08  1.101E-08  9.668E-10
-	                       |                      |                                converged = 3  |            (  9.668E-13) 
+	*   1   7.190E-06   Y  |  1.00E+00  1.398E-10 | 1   1.00E+00  7.190E-09   1.398E-13  1.398E-10|  7.190E-09  7.190E-09  1.398E-10
+	                       |                      |                                converged = 3  |            (  1.398E-13) 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
@@ -1726,13 +1726,13 @@ oc[0] = 0
           Total Solid Moles =  3.1377E-05 kmol
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current =  7.36155E-10 amps
+          Current =  8.41320E-11 amps
           Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
-          Electron Src This int step   =   5.3787e-11 coulombs
-          Amps         This Period     =  7.36155e-10 coulombs sec-1
+          Electron Src This int step   =  6.14708e-12 coulombs
+          Amps         This Period     =   8.4132e-11 coulombs sec-1
 
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.96006e-05
@@ -1746,9 +1746,9 @@ oc[0] = 0
           OCV from (rsd)                                          1.6         Volts
           i_o                                                    -5.3022903E+05 coul/sec/m2
           nStoich                                                -1          
-          nu                                                      1.110223e-15 Volts
+          nu                                                      6.661338e-16 Volts
           beta                                                    0.5         beta
-          i_curr                                                  9.4187597E-09 coul/sec/m2
+          i_curr                                                  5.6512558E-09 coul/sec/m2
           Solid Phase Diffusion Model:                            NONE
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
@@ -1763,11 +1763,11 @@ oc[0] = 0
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
                 Molar Volume = 5.45858E-06 cm3 gmol-1
-                Current = 7.36155e-10 amps 
+                Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   5.575E-19
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   6.371E-20
      ============================================================================================
      ============================================================================================
           PHASE 1 LiKCl_electrolyte 
@@ -1776,7 +1776,7 @@ oc[0] = 0
                 Electric Potential = 0 volts
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                Li+                     3.000E-01  8.880E-06    8.880E-06   5.575E-19
+                Li+                     3.000E-01  8.880E-06    8.880E-06   6.371E-20
                 K+                      2.000E-01  5.920E-06    5.920E-06   0.000E+00
                 Cl-                     5.000E-01  1.480E-05    1.480E-05   0.000E+00
      ============================================================================================
@@ -1786,7 +1786,7 @@ oc[0] = 0
                 Molar Volume = 2.39300E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                FeS2_A(S)               1.000E+00  1.406E-05    1.406E-05   1.394E-19
+                FeS2_A(S)               1.000E+00  1.406E-05    1.406E-05   1.593E-20
      ============================================================================================
      ============================================================================================
           PHASE 3 FeS2_B(S) 
@@ -1794,7 +1794,7 @@ oc[0] = 0
                 Molar Volume = 2.39300E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                FeS2_B(S)               1.000E+00  1.406E-05    1.406E-05  -1.394E-19
+                FeS2_B(S)               1.000E+00  1.406E-05    1.406E-05  -1.593E-20
      ============================================================================================
      ============================================================================================
           PHASE 4 FeS2_surface 
@@ -1811,19 +1811,19 @@ oc[0] = 0
                 fes2_site               1.000E+00  6.758E-09    6.758E-09   0.000E+00
 
                            spName                  SourceRateLastStep (kmol/m2/s) 
-                           electron_Li_LiCl        3.036E-17
-                           Li+                     3.036E-17
+                           electron_Li_LiCl        3.469E-18
+                           Li+                     3.469E-18
                            K+                      0.000E+00
                            Cl-                     0.000E+00
-                           FeS2_A(S)               7.589E-18
-                           FeS2_B(S)              -7.589E-18
+                           FeS2_A(S)               8.674E-19
+                           FeS2_B(S)              -8.674E-19
                            fes2_site               0.000E+00
      ============================================================================================
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   9.888E-06   Y  |  1.00E+00  1.014E-10 | 1   1.00E+00  9.888E-09   1.014E-13  1.014E-10|  9.888E-09  9.888E-09  1.584E-09
+	*   1   1.121E-06   Y  |  1.00E+00  1.014E-10 | 1   1.00E+00  1.121E-09   1.014E-13  1.014E-10|  1.121E-09  1.121E-09  1.584E-09
 	                       |                      |                                converged = 3  |            (  1.014E-13) 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
@@ -1849,7 +1849,7 @@ oc[0] = 0
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
           Electron Src This int step   = -1.36004e-10 coulombs
-          Amps         This Period     = -7.50177e-10 coulombs sec-1
+          Amps         This Period     = -1.18486e-09 coulombs sec-1
 
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.96006e-05
@@ -1966,7 +1966,7 @@ oc[0] = 0
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
           Electron Src This int step   =   1.4587e-12 coulombs
-          Amps         This Period     =  3.71817e-09 coulombs sec-1
+          Amps         This Period     =  9.70482e-10 coulombs sec-1
 
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.96006e-05
@@ -2053,7 +2053,7 @@ oc[0] = 0
                            FeS2_B(S)              -8.674E-19
                            fes2_site               0.000E+00
      ============================================================================================
-            0.4    3.22332e-10
+            0.4     8.4132e-11
    ==============================================================================================
       Electrode at time final =  4.0000000E-01
                    time init  =  2.0000000E-01                         deltaTglobal =  2.0000000E-01
@@ -2070,13 +2070,13 @@ oc[0] = 0
           Total Solid Moles =  3.1377E-05 kmol
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current =  3.22332E-10 amps
+          Current =  8.41320E-11 amps
           Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
-          Electron Src This Period     =  6.44663e-11 coulombs
-          Amps         This Period     =  3.22332e-10 coulombs sec-1
+          Electron Src This Period     =  1.68264e-11 coulombs
+          Amps         This Period     =   8.4132e-11 coulombs sec-1
 
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.96006e-05
@@ -2106,11 +2106,11 @@ oc[0] = 0
           PHASE 0 metal_Li_LiCl_electrons 
                 Total moles = 0
                 Molar Volume = 5.45858E-06 cm3 gmol-1
-                Current = 3.22332e-10 amps 
+                Current = 8.4132e-11 amps 
                 Electric Potential = 1.6 volts
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   6.681E-19
+                electron_Li_LiCl        1.000E+00  0.000E+00    0.000E+00   1.744E-19
      ============================================================================================
      ============================================================================================
           PHASE 1 LiKCl_electrolyte 
@@ -2119,7 +2119,7 @@ oc[0] = 0
                 Electric Potential = 0 volts
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                Li+                     3.000E-01  8.880E-06    8.880E-06   6.681E-19
+                Li+                     3.000E-01  8.880E-06    8.880E-06   1.744E-19
                 K+                      2.000E-01  5.920E-06    5.920E-06   0.000E+00
                 Cl-                     5.000E-01  1.480E-05    1.480E-05   0.000E+00
      ============================================================================================
@@ -2129,7 +2129,7 @@ oc[0] = 0
                 Molar Volume = 2.39300E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                FeS2_A(S)               1.000E+00  1.569E-05    1.406E-05   1.670E-19
+                FeS2_A(S)               1.000E+00  1.569E-05    1.406E-05   4.360E-20
      ============================================================================================
      ============================================================================================
           PHASE 3 FeS2_B(S) 
@@ -2137,7 +2137,7 @@ oc[0] = 0
                 Molar Volume = 2.39300E+01 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                FeS2_B(S)               1.000E+00  1.569E-05    1.406E-05  -1.670E-19
+                FeS2_B(S)               1.000E+00  1.569E-05    1.406E-05  -4.360E-20
      ============================================================================================
      ============================================================================================
           PHASE 4 FeS2_surface 

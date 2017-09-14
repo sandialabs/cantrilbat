@@ -2332,13 +2332,13 @@ int Electrode_CSTR::getInitialConditionsWithDot(const double t0, double* const y
  *  Tinitial:  This is the New initial time. This time is compared against the "old" final time,
  *             to see if there is any problem.
  */
-void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways)
+void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     // If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
     // Then, we don't advance the time step.
     bool resetToInitInit = false;
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doTestsAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doAdvancementAlways) {
         resetToInitInit = true;
     }
     
@@ -2357,6 +2357,7 @@ void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways)
         onRegionBoundary_init_       = onRegionBoundary_final_final_;
 
         // Copy the final xml state into the init_init state
+        /*  -> this is already moved during the base call
         if (eState_save_) {
             SAFE_DELETE(xmlStateData_init_init_);
             xmlStateData_init_init_ =   xmlStateData_final_;
@@ -2365,6 +2366,7 @@ void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doTestsAlways)
             xmlStateData_final_ = nullptr;
             SAFE_DELETE(xmlStateData_final_final_);
         }
+        */
     }
 }
 //====================================================================================================================

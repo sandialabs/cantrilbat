@@ -768,17 +768,17 @@ Electrode_RadialRegion::initializeAsEvenDistribution()
  * @param Tinitial   This is the New initial time. This time is compared against the "old"
  *                   final time, to see if there is any problem.
  */
-void  Electrode_RadialRegion::resetStartingCondition(double Tinitial, bool doResetAlways)
+void  Electrode_RadialRegion::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     // bool resetToInitInit = false;
     /*
     * If the initial time is input, then the code doesn't advance
     */
     double tbase = MAX(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doAdvancementAlways) {
         //resetToInitInit = true;
     }
-    Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+    Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
 }
 //====================================================================================================================
 //! Take the state (i.e., the final state) within the Electrode_Model and push it down

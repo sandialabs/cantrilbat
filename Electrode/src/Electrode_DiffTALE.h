@@ -479,13 +479,13 @@ public:
      *
      *  @param[in]           Tinitial            This is the New initial time. This time is compared against the "old"
      *                                           final time, to see if there is any problem.
-     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *  @param[in]           doAdvancementAlways Always do the advancement, no matter what. Normally, Tinitial is checked against the 
      *                                           current t_init_init value. If they are the same, then we redo the time step.
      *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
      *                                           Defaults to false.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
+    virtual void resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
 
     //! Update the state of a single phase
     /*!

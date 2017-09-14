@@ -117,12 +117,12 @@ public:
      *                                           final time, to see if there is any problem. The two should be the same.
      *                                           If Tinitial is t_init_init, we redo the time step.
      *
-     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *  @param[in]           doAdvancementAlways Always do the advancement, no matter what. Normally, Tinitial is checked against the 
      *                                           current t_init_init value. If they are the same, then we redo the time step.
      *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
+    virtual void resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!

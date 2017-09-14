@@ -227,20 +227,20 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
     pendingIntegratedStep_ = 1;
     return 1;
 }
-//====================================================================================================================
-void  Electrode_InfCapacity::resetStartingCondition(double Tinitial, bool doTestsAlways)
+//==================================================================================================================================
+void  Electrode_InfCapacity::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
    //bool resetToInitInit = false; 
     /*
      * If the initial time is input, then the code doesn't advance
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doAdvancementAlways) {
         //resetToInitInit = true;
     }
-    Electrode::resetStartingCondition(Tinitial);
+    Electrode::resetStartingCondition(Tinitial, doAdvancementAlways);
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_InfCapacity::setInitStateFromFinal(bool setInitInit)
 {
     Electrode::setInitStateFromFinal(setInitInit);

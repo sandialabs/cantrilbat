@@ -929,12 +929,13 @@ public:
      *                                           final time, to see if there is any problem. The two should be the same.
      *                                           If Tinitial is t_init_init, we redo the time step.
      *
-     *  @param[in]           doResetAlways       Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *  @param[in]           doAdvancementAlways Always do the reset, no matter what. Normally, Tinitial is checked against the 
      *                                           current t_init_init value. If they are the same, then we redo the time step.
-     *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
+     *                                           However, if  doAdvancementAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
+     * @todo make this return the resetToInitInit boolean
      */
-    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false);
+    virtual void resetStartingCondition(double Tinitial, bool doAdvancementAlways = false);
 
     //! Revert the object's conditions to the initial conditions
     /*!
@@ -1456,8 +1457,8 @@ public:
      *
      *  Set the final state from the init state. This is commonly called during a failed time step
      */
-//Can protect
     virtual void setFinalStateFromInit();
+//Can protect
 
     //! Set the internal initial intermediate from the internal initial global state
     /*!
@@ -1468,8 +1469,8 @@ public:
      *
      * @param setFinal   Boolean indicating whether you should set the final as well
      */
-//Can protect
     virtual void setInitStateFromInitInit(bool setFinal = false);
+//Can protect
 
     //! Set the internal final global state from the internal final intermediate state
     /*!
@@ -1477,8 +1478,8 @@ public:
      *
      *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
      */
-//Can protect
     virtual void setFinalFinalStateFromFinal();
+//Can protect
 
     //! Set the internal final global state from the internal final intermediate state
     /*!
