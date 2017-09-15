@@ -5,6 +5,7 @@
 #include "EState.h"
 #include "Electrode.h"
 #include "Electrode_MP_RxnExtent.h"
+#include "Electrode_CSTR.h"
 #include "Electrode_Factory.h"
 #include "EState_XML.h"
 
@@ -493,13 +494,21 @@ void EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool d
 
     double capUsed = capacityInitial_ - capacityLeft_;
 
-    double relCapUsed = capUsed / electrodeMoles_;
+    double relCapUsed = 1.0;
+    if (electrodeMoles_ > 1.0E-200) {
+        relCapUsed = capUsed / electrodeMoles_;
+    } 
 
     const Electrode_MP_RxnExtent* emp = dynamic_cast<const Electrode_MP_RxnExtent*>(e);
     if (emp) {
         relativeElectronsDischargedPerMole_ = emp->RelativeExtentRxn_final_;
     } else {
-        relativeElectronsDischargedPerMole_ = relCapUsed;
+        const Electrode_CSTR* ecstr = dynamic_cast<const Electrode_CSTR*>(e);
+        if (ecstr) {
+            relativeElectronsDischargedPerMole_ = ecstr->RelativeExtentRxn_final_;
+        } else {
+            relativeElectronsDischargedPerMole_ = relCapUsed;
+        }
     }
 
     const Electrode_Integrator* ei = dynamic_cast<const Electrode_Integrator*>(e);
@@ -567,6 +576,11 @@ void EState::copyEState_toElectrode(ZZCantera::Electrode* const e) const
     Electrode_MP_RxnExtent* const emp = dynamic_cast<Electrode_MP_RxnExtent* const>(e);
     if (emp) {
         emp->RelativeExtentRxn_final_ = relativeElectronsDischargedPerMole_;
+    } else {
+        Electrode_CSTR* const ecstr = dynamic_cast<Electrode_CSTR* const>(e);
+        if (ecstr) {
+            ecstr->RelativeExtentRxn_final_ = relativeElectronsDischargedPerMole_;
+        }
     }
 }
 //=================================================================================================================================

@@ -536,7 +536,7 @@ protected:
      *  as a function of the initial mole number of active species in the electrode.
      *  Some objects don't support setting the initial conditions by this method.
      *
-     *  This translates directly into the value, e RelativeExtentRxn_ used in the MP_RxnExtent object; it's the same thing.
+     *  This translates directly into the value, RelativeExtentRxn_, used in the MP_RxnExtent object; it's the same thing.
      *
      *  There are no units for this, as
      */
