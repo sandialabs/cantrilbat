@@ -571,6 +571,7 @@ size_t Electrode_DiffTALE::nEquations_calc() const
 void Electrode_DiffTALE::init_sizes()
 {
     neq_ = nEquations_calc();
+    initSizes();
     size_t kspCell =  numKRSpecies_ *  numRCells_;
     size_t nPhCell = numSPhases_ * numRCells_;
 

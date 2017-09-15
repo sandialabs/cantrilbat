@@ -199,7 +199,8 @@ void
 Electrode_SimpleDiff::init_sizes()
 {
     int kspCell =  numKRSpecies_ *  numRCells_;
-
+    neq_ = kspCell;
+    initSizes();
     spMoles_KRsolid_Cell_final_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_init_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_final_final_.resize(kspCell, 0.0);

@@ -548,6 +548,7 @@ void
 Electrode_RadialRegion::init_sizes()
 {
     neq_ = nEquations_calc();
+    initSizes();
     size_t kspCell = numKRSpecies_ *  numRCells_;
     size_t kphCell = numSPhases_ * numRCells_;
 

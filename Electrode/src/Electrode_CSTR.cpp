@@ -252,7 +252,8 @@ int Electrode_CSTR::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     }
 
     /*
-     * Initialize the arrays in this object now that we know the number of equations
+     * This is where we first calculate the number of unknowns in the residual equation.
+     * Initialize the arrays in this object  that we know the number of equations
      */
     init_sizes();
 
@@ -360,6 +361,7 @@ int Electrode_CSTR::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 void Electrode_CSTR::init_sizes()
 {
     neq_ = nEquations_calc();
+    initSizes();
     DspMoles_final_.resize(m_NumTotSpecies, 0.0);
     int maxNumRxns = RSD_List_[0]->nReactions();
     ROP_.resize(maxNumRxns, 0.0);
@@ -1488,7 +1490,7 @@ void  Electrode_CSTR::initialPackSolver_nonlinFunction()
         exit(-1);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 size_t Electrode_CSTR::nEquations_calc() const
 {
     size_t neq = phaseIndexSolidPhases_.size();
@@ -1500,7 +1502,7 @@ size_t Electrode_CSTR::nEquations_calc() const
     }
     return neq;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //  Return a vector of delta y's for calculation of the numerical Jacobian
 /*
  *   There is a default algorithm provided.
@@ -2096,16 +2098,13 @@ void  Electrode_CSTR::setResidAtolNLS()
      *  limitation. However, they must be followed kinetically up to the level that they contribute
      *  electrons. So, we will set atolBaseResid_ to 1.0E-25 with possible additions later.
      */
-    double atolVal = solidMoles * atolBaseResid_;
+    double atolVal = solidMoles * atolBaseResid_ + 1.0E-30;
 
-    atolNLS_.clear();
-    atolNLS_.push_back(1.0E-50);
-    int index = 0;
-    index++;
+    atolNLS_[0] = 1.0E-50;
+    int index = 1;
 
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
-        // int iph = phaseIndexSolidPhases_[ph];
-        atolNLS_.push_back(atolVal);
+        atolNLS_[index] = atolVal;
         atolResidNLS_[index] = atolNLS_[index];
         index++;
     }
@@ -2116,20 +2115,15 @@ void  Electrode_CSTR::setResidAtolNLS()
             size_t iph = phaseIndexSolidPhases_[ph];
             //int isp = globalSpeciesIndex(iph,sp);
             if (sp != phaseMFBig_[iph]) {
-                atolNLS_.push_back(1.0E-14);
+                atolNLS_[index] = 1.0E-14;
                 atolResidNLS_[index] = atolNLS_[index];
                 index++;
             }
         }
 
     }
-    if (atolNLS_.size() !=  neq_) {
-        printf("ERROR\n");
-        exit(-1);
-    }
 
     determineBigMoleFractions();
-
 }
 //====================================================================================================================
 
@@ -2538,7 +2532,7 @@ void Electrode_CSTR::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::gatherIntegratedSrcPrediction()
 {
     extractInfo();
@@ -2548,67 +2542,58 @@ void Electrode_CSTR::gatherIntegratedSrcPrediction()
         IntegratedSrc_Predicted[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
     }
 }
-
-//====================================================================================================================
-//  Calculate the norm of the difference between the predicted answer and the final converged answer
-//  for the current time step
-/*
- *  (virtual from Electrode_Integrator)
- *
- *   The norm calculated by this routine is used to determine whether the time step is accurate enough.
- *
- *  @return    Returns the norm of the difference. Normally this is the L2 norm of the difference
- */
-double Electrode_CSTR::predictorCorrectorWeightedSolnNorm(const std::vector<double>& yval)
-{
-    double pnorm = l0norm_PC_NLS(soln_predict_, yval, neq_, atolNLS_, rtolNLS_);
-    return pnorm;
-}
-//====================================================================================================================
-void Electrode_CSTR::predictorCorrectorGlobalSrcTermErrorVector()
-{
-
-}
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const
 {
-    double atolVal =  1.0E-8;
-    double denom;
-    double tmp;
+    double atolVal = 1.0E-8;
+    double denom, tmp, diff1, diff2, sdiff;
     double RelativeExtentRxnPredict = soln_predict_[neq_];
     int onRegionPredict = soln_predict_[neq_ + 1];
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E\n",
-           counterNumberSubIntegrations_, tinit_, tfinal_);
-    printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E\n",
-           counterNumberIntegrations_, t_init_init_, t_final_final_);
+    printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E       deltaT = %12.5E\n",
+           counterNumberSubIntegrations_, tinit_, tfinal_, tfinal_ - tinit_);
+    printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E   deltaTGlob = %12.5E\n",
+           counterNumberIntegrations_, t_init_init_, t_final_final_, t_final_final_ - t_init_init_);
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
+    printf("             Initial |     Prediction   Prediction_Dot    Actual   |   SDifference   |    ATol   |"
+           "   Contrib  | RTOL = %g\n", rtolNLS_);
     printf("                               Initial       Prediction      Actual          Difference         Tol   Contrib      |\n");
     printf("onRegionPredict          |         %3d            %3d          %3d      |                                          |\n",
            onRegionBoundary_init_, onRegionPredict, onRegionBoundary_final_);
-    denom = MAX(fabs(yval[0]), fabs(soln_predict_[0]));
-    denom = MAX(denom, atolVal);
+
+    denom =  rtolNLS_ * MAX(fabs(yval[0]), fabs(soln_predict_[0]));
+    denom = MAX(denom, atolNLS_[0]);
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
-    printf("DeltaT                   | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
-           deltaTsubcycle_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolVal, tmp);
-    denom = MAX(fabs(RelativeExtentRxn_final_), fabs(RelativeExtentRxnPredict));
-    denom = MAX(denom, atolVal);
+    diff1 = yval[0] - soln_predict_[0];
+    diff2 = yval[0] - soln_predict_fromDot_[0];
+    sdiff = (fabs(diff2) < fabs(diff1)) ? diff2 : diff1;
+    printf(" DeltaT   |% 14.7E | % 14.7E % 14.7E % 14.7E | % 14.7E | % 10.3E | % 10.3E |\n",
+           deltaTsubcycleCalc_, soln_predict_[0], soln_predict_fromDot_[0], yval[0], sdiff, atolNLS_[0], tmp);
     tmp = fabs((RelativeExtentRxn_final_ - RelativeExtentRxnPredict)/ denom);
     printf("RelativeExtentRxn        | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
            RelativeExtentRxn_init_, RelativeExtentRxnPredict,  RelativeExtentRxn_final_,
            RelativeExtentRxn_final_ - RelativeExtentRxnPredict, atolVal, tmp);
-    printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf("                                                                                                        %10.3E\n",
+    for (int i = 1; i < (int) yval.size(); i++) {
+        denom = rtolNLS_ * MAX(fabs(yval[i]), fabs(soln_predict_[i]));
+        denom = MAX(denom, atolNLS_[i]);
+        diff1 = yval[i] - soln_predict_[i];
+        diff2 = yval[i] - soln_predict_fromDot_[i];
+        sdiff = (fabs(diff2) < fabs(diff1)) ? diff2 : diff1;
+        tmp = fabs((yval[i] - soln_predict_[i])/ denom);
+        printf(" soln %3d | % 14.7E | % 14.7E % 14.7E % 14.7E | % 14.7E | % 10.3E | % 10.3E | \n",
+               i, yvalNLS_init_[i], soln_predict_[i], soln_predict_fromDot_[i], yval[i], sdiff, atolNLS_[i], tmp);
+    }
+    printf(" -----------------------------------------------------------------------------------------------------"
+           "--------------\n");
+    printf("                                                                                        %10.3E\n",
            pnormSoln);
-
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode_CSTR::predictorCorrectorGlobalSrcTermErrorNorm()
 {
     return 0.0;
 }
-
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::check_final_state()
 {
     /*
@@ -2621,7 +2606,7 @@ void Electrode_CSTR::check_final_state()
     }
     setOnRegionBoundary();
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)
 {
     Electrode_Integrator::setInitStateFromFinal(setInitInit);

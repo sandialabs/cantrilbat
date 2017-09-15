@@ -1609,12 +1609,12 @@ void  Electrode_Integrator::extractInfo()
 //==================================================================================================================================
 void Electrode_Integrator::updateSpeciesMoleChangeFinal()
 {
-    throw Electrode_Error(" Electrode_Integrator::updateSpeciesMoleChangeFinal()",  "unimplemented");
+    throw Electrode_Error("Electrode_Integrator::updateSpeciesMoleChangeFinal()",  "unimplemented");
 }
 //==================================================================================================================================
 int Electrode_Integrator::calcResid(double* const resid, const ResidEval_Type evalType)
 {
-    throw Electrode_Error(" Electrode_Integrator::calcResid()",  "unimplemented");
+    throw Electrode_Error("Electrode_Integrator::calcResid()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================================
@@ -1622,19 +1622,19 @@ int Electrode_Integrator::GFCEO_evalResidNJ(const double t, const double delta_t
                                             double* const resid, const ResidEval_Type evalType,
                                             const int id_x, const double delta_x)
 {
-    throw Electrode_Error(" Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
+    throw Electrode_Error("Electrode_Integrator::GFCE_evalResidNJ()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================================
 int Electrode_Integrator::GFCEO_calcResid(double* const resid, const ResidEval_Type evalType)
 {
-    throw Electrode_Error(" Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
+    throw Electrode_Error("Electrode_Integrator::GFCE_calcResid()",  "unimplemented");
     return 0;
 }
 //==================================================================================================================================
 void Electrode_Integrator::gatherIntegratedSrcPrediction()
 {
-    throw Electrode_Error(" Electrode_Integrator::gatherIntegratedSrcPrediction()",  "unimplemented");
+    throw Electrode_Error("Electrode_Integrator::gatherIntegratedSrcPrediction()",  "unimplemented");
 }
 //==================================================================================================================================
 void Electrode_Integrator::calcSrcTermsOnCompletedStep()
@@ -1978,70 +1978,57 @@ double Electrode_Integrator::predictorCorrectorGlobalSrcTermErrorNorm()
 {
     return 0.0;
 }
-//====================================================================================================================
-// Print table representing prediction vs. corrector information
+//==================================================================================================================================
 /*
  *  @param yval           Vector of corrector values
  *  @param pnormSrc       Norm of the predictor-corrector comparison for the source vector.
  *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
  */
-void  Electrode_Integrator::predictorCorrectorPrint(const std::vector<double>& yval,
-        double pnormSrc, double pnormSoln) const
+void Electrode_Integrator::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const
 {
-    double denom;
-    double tmp;
+    double denom, tmp, diff1, diff2, sdiff;
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
     printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E       deltaT = %12.5E\n",
            counterNumberSubIntegrations_, tinit_, tfinal_, tfinal_ - tinit_);
     printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E   deltaTGlob = %12.5E\n",
            counterNumberIntegrations_, t_init_init_, t_final_final_, t_final_final_ - t_init_init_);
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf("             Initial      Prediction      Actual          Difference        ATol          Contrib  | RTOL = %g\n", rtolNLS_);
+    printf("             Initial |     Prediction   Prediction_Dot    Actual   |   SDifference   |    ATol   |"
+           "   Contrib  | RTOL = %g\n", rtolNLS_);
 
     denom =  rtolNLS_ * MAX(fabs(yval[0]), fabs(soln_predict_[0]));
     denom = MAX(denom, atolNLS_[0]);
     tmp = fabs((yval[0] - soln_predict_[0])/ denom);
-    printf(" DeltaT   |%14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
-           deltaTsubcycleCalc_, soln_predict_[0],  yval[0], yval[0] - soln_predict_[0], atolNLS_[0], tmp);
+    diff1 = yval[0] - soln_predict_[0];
+    diff2 = yval[0] - soln_predict_fromDot_[0];
+    sdiff = (fabs(diff2) < fabs(diff1)) ? diff2 : diff1;
+    printf(" DeltaT   |% 14.7E | % 14.7E % 14.7E % 14.7E | % 14.7E | % 10.3E | % 10.3E |\n",
+           deltaTsubcycleCalc_, soln_predict_[0], soln_predict_fromDot_[0], yval[0], sdiff, atolNLS_[0], tmp);
     for (int i = 1; i < (int) yval.size(); i++) {
         denom = rtolNLS_ * MAX(fabs(yval[i]), fabs(soln_predict_[i]));
         denom = MAX(denom, atolNLS_[i]);
+        diff1 = yval[i] - soln_predict_[i];
+        diff2 = yval[i] - soln_predict_fromDot_[i];
+        sdiff = (fabs(diff2) < fabs(diff1)) ? diff2 : diff1;
         tmp = fabs((yval[i] - soln_predict_[i])/ denom);
-        printf(" soln %3d |               %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
-               i, soln_predict_[i],  yval[i], yval[i] - soln_predict_[i], atolNLS_[i], tmp);
+        printf(" soln %3d | % 14.7E | % 14.7E % 14.7E % 14.7E | % 14.7E | % 10.3E | % 10.3E | \n",
+               i, yvalNLS_init_[i], soln_predict_[i], soln_predict_fromDot_[i], yval[i], sdiff, atolNLS_[i], tmp);
     }
-    printf(" -------------------------------------------------------------------------------------------------------------------\n");
+    printf(" -----------------------------------------------------------------------------------------------------"
+           "--------------\n");
     printf("                                                                                        %10.3E\n",
            pnormSoln);
 }
-//====================================================================================================================
-// Possibly change the solution due to phase births and deaths.
-/*
- *   (virtual from Electrode_Integrator)
- *
- */
+//==================================================================================================================================
 bool Electrode_Integrator::changeSolnForBirthDeaths()
 {
     return true;
 }
-//====================================================================================================================
-// Possibly change the solution due to phase births and deaths.
-/*
- *   (virtual from Electrode_Integrator)
- *
- *  This routine is carried out after the step is deemed a success. Massaging of the solution
- *  must be carried out within strict tolerances.
- */
+//==================================================================================================================================
 void Electrode_Integrator::manageBirthDeathSuccessfulStep()
 {
 }
-//====================================================================================================================
-//   Error check on the routine step
-/*
- *    (virtual from Electrode_Integrator)
- *
- *   Error checks go here. All errors are fatal exits.
- */
+//==================================================================================================================================
 void Electrode_Integrator::check_final_state()
 {
 #ifdef DEBUG_NEWMODELS
@@ -2049,23 +2036,11 @@ void Electrode_Integrator::check_final_state()
     checkCapacityBalances_final();
 #endif
 }
-//====================================================================================================================
-// Print a header for the residual printout
-/*
- *  (virtual from Eelctrode_Integrator)
- */
+//==================================================================================================================================
 void Electrode_Integrator::printResid_TimeHeader()
 {
 }
-//====================================================================================================================
-//   Check for problems with the residual
-/*
- *  (virtual from Electrode_Integrator)
- *
- *  Checks here will cause the current nonlinear solve to fail
- *
- *    @return Return a negative value if there is a fatal problem.
- */
+//==================================================================================================================================
 int  Electrode_Integrator::residEval_BaseChecks()
 {
     return 1;
@@ -2109,19 +2084,6 @@ double Electrode_Integrator::reportStateVariableIntegrationError(int& maxSV, dou
     return vmax;
 }
 //==================================================================================================================================
-//  Residual calculation for the solution of the Nonlinear integration problem
-/*
- * @param t             Time                    (input)
- * @param delta_t       The current value of the time step (input)
- * @param y             Solution vector (input, do not modify)
- * @param ydot          Rate of change of solution vector. (input, do not modify)
- * @param resid         Value of the residual that is computed (output)
- * @param evalType      Type of the residual being computed (defaults to Base_ResidEval)
- * @param id_x          Index of the variable that is being numerically differenced to find
- *                      the jacobian (defaults to -1, which indicates that no variable is being
- *                      differenced or that the residual doesn't take this issue into account)
- * @param delta_x       Value of the delta used in the numerical differencing
- */
 int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
                                       const double* const y, const double* const ySolnDot,
                                       double* const resid,
@@ -2130,7 +2092,8 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
 {
     int retn = 1;
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
-        printf("\t\t===============================================================================================================================\n");
+        printf("\t\t=========================================================================================================="
+               "=====================\n");
         printf("\t\t  EXTRA PRINTING FROM NONLINEAR RESIDUAL: ");
         if (evalType ==  ResidEval_Type::Base_ResidEval) {
             printf(" BASE RESIDUAL");
@@ -2160,10 +2123,8 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
     }
 
     if (evalType != ResidEval_Type::JacDelta_ResidEval && (evalType != ResidEval_Type::Base_LaggedSolutionComponents)) {
-        //    mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double *)DATA_PTR(phaseMoles_final_), m_NumTotPhases);
+        //mdp::mdp_copy_dbl_1(DATA_PTR(phaseMoles_final_lagged_),(const double *)DATA_PTR(phaseMoles_final_), m_NumTotPhases);
     }
-
-
     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {
         printResid_TimeHeader();
 
@@ -2175,7 +2136,7 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
     updateState();
 
     /*
-     *  Query Cantera for all of the rate information at the final state (and the initial state if we are doing higher order)
+     *  Query Zuzax for all of the rate information at the final state (and the initial state if we are doing higher order)
      */
     extractInfo();
 
@@ -2213,14 +2174,6 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
     return rr;
 }
 //==================================================================================================================================
-// Print conditions of the electrode for the current integration step to stdout
-/*
- *  @param pSrc          Print Source terms that have occurred during the step from the initial_initial
- *                       to the final_final time.
- *                       The default is to print out the source terms
- *  @param  subTimeStep  Print out conditions from the most recent subTimeStep and not the global
- *                       time step. The default is to print out the global values
- */
 void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
 {
     int iph;

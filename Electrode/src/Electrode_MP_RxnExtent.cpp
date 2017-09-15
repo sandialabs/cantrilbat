@@ -455,6 +455,7 @@ int Electrode_MP_RxnExtent::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
     developBaseE0();
 
     atolNLS_.resize(2, 1.0E-10);
+    initSizes();
 
     size_t maxRxns = 0;
     for (size_t is = 0; is < numRxns_.size(); is++) {

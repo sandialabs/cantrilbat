@@ -415,6 +415,8 @@ Electrode_RadialDiffRegions::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
 void
 Electrode_RadialDiffRegions::init_sizes()
 {
+    neq_ = nEquations();
+    initSizes();
 }
 //====================================================================================================================
 void

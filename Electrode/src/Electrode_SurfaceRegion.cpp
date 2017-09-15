@@ -129,8 +129,7 @@ size_t Electrode_SurfaceRegion::nEquations_calc() const
 void
 Electrode_SurfaceRegion::init_sizes()
 {
-
-
+    initSizes();
 }
 //====================================================================================================================
 void  Electrode_SurfaceRegion::resetStartingCondition(double Tinitial, bool doResetAlways)

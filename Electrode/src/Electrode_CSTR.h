@@ -470,36 +470,6 @@ public:
      */
     void packNonlinSolnVector(double* const y) const;
 
-    //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
-    /*!
-     *  (virtual from Electrode_Integrator)
-     *
-     *   The norm calculated by this routine is used to determine whether the time step is accurate enough. Two norms are taken,
-     *   one from the predictedSolution routine and the other from the solnDot prediction. The lesser of the deviation of the 
-     *   predictions from the final answer is used as the final error predictor 
-     *
-     *  @param[in]           yvalNLS             Converged final answer for the solution unknowns, yval, from the nonlinear solver for 
-     *                                           the current time step.
-     *
-     *  @return                                  Returns the norm of the difference. Normally this is the weighted L0 norm 
-     *                                           of the difference between predictor and the corrector.
-     *                                           The lesser of the deviation in the two norms is now taken as the answer.
-     */
-    virtual double predictorCorrectorWeightedSolnNorm(const std::vector<double>& yvalNLS) override;
-
-    //! Calculate the vector of predicted errors in the source terms that this integrator is responsible for
-    /*!
-     *  (virtual from Electrode_Integrator)
-     *
-     *    In the base implementation we assume that the there are just one source term, the electron
-     *    source term.
-     *    However, this will be wrong in almost all cases.
-     *    The number of source terms is unrelated to the number of unknowns in the nonlinear problem.
-     *    Source terms will have units associated with them.
-     *    For example the integrated source term for electrons will have units of kmol
-     */
-    virtual void predictorCorrectorGlobalSrcTermErrorVector() override;
-
     //!  Calculate the norm of the errors in the global source terms
     /*!
      *  (virtual from Electrode_Integrator)
@@ -519,8 +489,7 @@ public:
      *  @param pnormSrc       Norm of the predictor-corrector comparison for the source vector.
      *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
      */
-    virtual void predictorCorrectorPrint(const std::vector<double>& yval,
-                                         double pnormSrc, double pnormSoln) const override;
+    virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const override;
 
     //! Possibly change the solution due to phase births and deaths.
     /*!
