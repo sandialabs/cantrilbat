@@ -118,6 +118,7 @@ namespace Cantera
      * Set the number of equations in ResidJacEval. This will be used in the nonlinear solver
      */
     neq_ = 1;
+    initSizes();
   }
   //======================================================================================================================
   // Copy Constructor

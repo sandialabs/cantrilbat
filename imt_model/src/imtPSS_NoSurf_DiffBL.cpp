@@ -257,7 +257,7 @@ namespace Cantera
      *       v_a  and v_b and v_s
      */
     neq_ = 1 + 2 + nSpeciesA_ + nSpeciesB_;
-
+    initSizes();
 
     return 0;
   }
