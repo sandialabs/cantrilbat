@@ -1210,6 +1210,15 @@ public:
      */
     void setMaxNumberSubCycles(int maxN);
 
+    //! Set the Maximum number of subcycles time steps  per global time step before turning off error evaluators
+    /*!
+     *   This is the maximum number of subcycle time steps per global time step
+     *
+     *  @param[in]           maxN                Number of time step subcyles per global time step 
+     *                                           Default value is 1000
+     */
+   void setMaxNumberSubGlobalTimeSteps(int maxN);
+
     // ----------------------------------------------------------------------------------------------------------------
     // -------------------------------- DATA  -------------------------------------------------------------------------
     // ----------------------------------------------------------------------------------------------------------------

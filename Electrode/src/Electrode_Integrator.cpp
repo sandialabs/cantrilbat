@@ -2378,6 +2378,12 @@ void Electrode_Integrator::setMaxNumberSubCycles(int maxN)
     maxNumberSubCycles_ = maxN;
 }
 //==================================================================================================================================
+void Electrode_Integrator::setMaxNumberSubGlobalTimeSteps(int maxN)
+{   
+    // default number is 1000
+    maxNumberSubGlobalTimeSteps_ = maxN;
+}
+//==================================================================================================================================
 SubIntegrationHistory& Electrode_Integrator::timeHistory(bool returnBase)
 {
     if (returnBase) {

@@ -2548,18 +2548,19 @@ void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval, do
     double atolVal = 1.0E-8;
     double denom, tmp, diff1, diff2, sdiff;
     double RelativeExtentRxnPredict = soln_predict_[neq_];
+    double RelativeExtentRxnPredict_fromDot = soln_predict_fromDot_[neq_];
     int onRegionPredict = soln_predict_[neq_ + 1];
+    int onRegionPredict_fromDot = soln_predict_fromDot_[neq_ + 1];
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
     printf(" PREDICTOR_CORRECTOR  SubIntegrationCounter = %7d       t_init = %12.5E,       t_final = %12.5E       deltaT = %12.5E\n",
            counterNumberSubIntegrations_, tinit_, tfinal_, tfinal_ - tinit_);
     printf("                         IntegrationCounter = %7d  t_init_init = %12.5E, t_final_final = %12.5E   deltaTGlob = %12.5E\n",
            counterNumberIntegrations_, t_init_init_, t_final_final_, t_final_final_ - t_init_init_);
     printf(" -------------------------------------------------------------------------------------------------------------------\n");
-    printf("             Initial |     Prediction   Prediction_Dot    Actual   |   SDifference   |    ATol   |"
+    printf("                   Initial |     Prediction   Prediction_Dot    Actual    |  SDifference   |    ATol    |"
            "   Contrib  | RTOL = %g\n", rtolNLS_);
-    printf("                               Initial       Prediction      Actual          Difference         Tol   Contrib      |\n");
-    printf("onRegionPredict          |         %3d            %3d          %3d      |                                          |\n",
-           onRegionBoundary_init_, onRegionPredict, onRegionBoundary_final_);
+    printf(" onRegionPredict           |         %3d            %3d          %3d      |                                          |\n",
+           onRegionPredict , onRegionPredict_fromDot, onRegionBoundary_final_);
 
     denom =  rtolNLS_ * MAX(fabs(yval[0]), fabs(soln_predict_[0]));
     denom = MAX(denom, atolNLS_[0]);
@@ -2567,11 +2568,11 @@ void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval, do
     diff1 = yval[0] - soln_predict_[0];
     diff2 = yval[0] - soln_predict_fromDot_[0];
     sdiff = (fabs(diff2) < fabs(diff1)) ? diff2 : diff1;
-    printf(" DeltaT   |% 14.7E | % 14.7E % 14.7E % 14.7E | % 14.7E | % 10.3E | % 10.3E |\n",
+    printf(" DeltaT   | % 14.7E | % 14.7E % 14.7E % 14.7E | % 14.7E | % 10.3E | % 10.3E |\n",
            deltaTsubcycleCalc_, soln_predict_[0], soln_predict_fromDot_[0], yval[0], sdiff, atolNLS_[0], tmp);
     tmp = fabs((RelativeExtentRxn_final_ - RelativeExtentRxnPredict)/ denom);
-    printf("RelativeExtentRxn        | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
-           RelativeExtentRxn_init_, RelativeExtentRxnPredict,  RelativeExtentRxn_final_,
+    printf(" RelativeExtentRxn         | %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E | \n",
+           RelativeExtentRxnPredict, RelativeExtentRxnPredict_fromDot,  RelativeExtentRxn_final_,
            RelativeExtentRxn_final_ - RelativeExtentRxnPredict, atolVal, tmp);
     for (int i = 1; i < (int) yval.size(); i++) {
         denom = rtolNLS_ * MAX(fabs(yval[i]), fabs(soln_predict_[i]));
@@ -2585,7 +2586,7 @@ void Electrode_CSTR::predictorCorrectorPrint(const std::vector<double>& yval, do
     }
     printf(" -----------------------------------------------------------------------------------------------------"
            "--------------\n");
-    printf("                                                                                        %10.3E\n",
+    printf("                                                                                                          %10.3E\n",
            pnormSoln);
 }
 //==================================================================================================================================
