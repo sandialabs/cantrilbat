@@ -1936,16 +1936,6 @@ void Electrode::setTime(double time)
     t_final_final_ = t_init_init_;
 }
 //==================================================================================================================================
-// Sets the state of the Electrode object given an EState object
-/*
- *   (virtual function)
- *   This sets all of the states within the object to the same state.
- *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
- *
- *   @param[in]  es          const reference to the EState object.  Must be the correct EState object for the
- *                           current Electrode object, or else it will throw an error. However, there is an option to 
- *                           read EState objects with less information. 
- */
 void Electrode::setState_EState(const EState& es)
 {
     Electrode::setState_EStateBase(es);
@@ -1954,7 +1944,7 @@ void Electrode::setState_EState(const EState& es)
 void Electrode::setState_EStateBase(const EState& es)
 {
     if (pendingIntegratedStep_) {
-        throw Electrode_Error("Electrode::setState_EState()", "called when there is a pending step");
+        throw Electrode_Error("Electrode::setState_EStateBase()", "called when there is a pending step");
     }
     spMoles_final_                     = es.spMoles_;
     phaseVoltages_                     = es.phaseVoltages_;
@@ -2722,11 +2712,9 @@ void Electrode::updateSurfaceAreas()
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //   This is used to set the phase information that is implicit but not set by a restart or an initialization
 /*
- *  (virtual function from Electrode)
- *
  *  This is called immediately after the restart file's contents are loaded into the electrode object.
  *  We then call this function to calculate the internal flags. Then, we call updateState() to make sure
  *  all information about the state is self-consistent.
@@ -2736,14 +2724,10 @@ void Electrode::updateSurfaceAreas()
  */
 bool Electrode::stateToPhaseFlagsReconciliation(bool flagErrors)
 {
-    /*
-     *  We probably need to set the phase existance for Reacting Surfaces.
-     */
     setPhaseExistenceForReactingSurfaces(false);
     return false;
 }
-//====================================================================================================================
-//   Reactant stoichiometric coefficient
+//==================================================================================================================================
 /*
  * Get the reactant stoichiometric coefficient for the kth global species
  * in the ith reaction of the reacting surface domain with index isk.
@@ -2758,10 +2742,9 @@ double Electrode::reactantStoichCoeff(const size_t isk, size_t kGlobal, size_t i
     double rst = rsd->reactantStoichCoeff(krsd, i);
     return rst;
 }
-//====================================================================================================================
-//   Reactant stoichiometric coefficient
+//==================================================================================================================================
 /*
- * Get the reactant stoichiometric coefficient for the kth global species
+ * Get the product stoichiometric coefficient for the kth global species
  * in the ith reaction of the reacting surface domain with index isk.
  */
 double Electrode::productStoichCoeff(const size_t isk, size_t kGlobal, size_t i) const
@@ -5399,23 +5382,16 @@ double Electrode::getIntegratedSourceTerm(SOURCES sourceType)
   return result;
 }
 //====================================================================================================================
-// Set the phase existence flag in the electrode kinetics object so that kinetics
-// are calculated correctly
 /*
- *    Flags are set in the kinetics object to tell the kinetics object which phases
- *    have zero moles.  The zero mole indicator is taken from phaseMoles_final_[]. Therefore,
- *    the final state is queried.
- *    There is a special case. Phases that have a 1 in the justBornPhase_[] vector are allowed to
- *    be set to exist even if their phase moles are zero.
- *
  * @param assumeStableSingleSpeciesPhases Assume that single phases are stable. This
- *                         allows their production rates to be calculated
+ *                                        allows their production rates to be calculated
  */
 void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpeciesPhases)
 {
     for (size_t isk = 0; isk < numSurfaces_; isk++) {
         /*
-         *  Loop over phases, figuring out which phases have zero moles.
+         *  Loop over phases in each InterfacialKinetics object, figuring out which phases have zero moles. 
+         *  Tell the ReactingSurDomain object which phases have zero moles and exist and which don't exist.
          *  Volume phases exist if the initial or final mole numbers are greater than zero
          *  Surface phases exist if the initial or final surface areas are greater than zero.
          */

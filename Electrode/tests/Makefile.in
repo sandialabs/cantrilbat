@@ -5,46 +5,6 @@
 #
 ###############################################################
 
-.PHONY : multiPhase_test
-MCMBAnode_LiIon_CSTR_2_cV_test:
-	cd MCMBAnode_LiIon_CSTR_2_cV  &&           $(MAKE) $(TASK)
-
-.PHONY : LiCoO2_LiIonCathode_CSTR_thermal_test
-LiCoO2_LiIonCathode_CSTR_thermal_test:
-	cd LiCoO2_LiIonCathode_CSTR_thermal && $(MAKE) $(TASK)
-
-
-TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test LiCoO2_LiIonCathode_CSTR_thermal_test
-
-#
-# TASK Rules
-#
-
-alllink: TASK = all
-alllink: $(TEST_LIST)
-
-test:  TASK = test
-
-testd: TASK = testd
-testd: $(TEST_LIST)
-
-clean: TASK = clean
-
-rebaseline: TASK = rebaseline
-rebaseline: $(TEST_LIST)
-
-depends: TASK = depends
-depends: $(TEST_LIST)
-
-clean_test: TASK = clean_test
-clean_test: $(TEST_LIST)
-
-clean_dist: TASK = clean_dist
-clean_dist: $(TEST_LIST)
-
-clean_test_flags: TASK = clean_test_flags
-clean_test_flags: $(TEST_LIST)
-
 all:
 	$(MAKE) alllink
 	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE)
@@ -91,6 +51,47 @@ test: $(TEST_LIST)
 	cd UnitTests ;                                          $(MAKE) -s test
 	cd MCMB_Mao ; 						$(MAKE) -s test
 	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) -s test
+
+
+.PHONY : multiPhase_test
+MCMBAnode_LiIon_CSTR_2_cV_test:
+	cd MCMBAnode_LiIon_CSTR_2_cV  &&           $(MAKE) $(TASK)
+
+.PHONY : LiCoO2_LiIonCathode_CSTR_thermal_test
+LiCoO2_LiIonCathode_CSTR_thermal_test:
+	cd LiCoO2_LiIonCathode_CSTR_thermal && $(MAKE) $(TASK)
+
+
+TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test LiCoO2_LiIonCathode_CSTR_thermal_test
+
+#
+# TASK Rules
+#
+
+alllink: TASK = all
+alllink: $(TEST_LIST)
+
+test:  TASK = test
+
+testd: TASK = testd
+testd: $(TEST_LIST)
+
+clean: TASK = clean
+
+rebaseline: TASK = rebaseline
+rebaseline: $(TEST_LIST)
+
+depends: TASK = depends
+depends: $(TEST_LIST)
+
+clean_test: TASK = clean_test
+clean_test: $(TEST_LIST)
+
+clean_dist: TASK = clean_dist
+clean_dist: $(TEST_LIST)
+
+clean_test_flags: TASK = clean_test_flags
+clean_test_flags: $(TEST_LIST)
 
 
 clean: $(TEST_LIST)

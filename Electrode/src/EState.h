@@ -24,6 +24,7 @@ namespace Cantera
 {
 
 class Electrode;
+class Electrode_CSTR;
 class Electrode_Integrator;
 class XML_Node;
 class Electrode_Factory;
@@ -569,6 +570,7 @@ protected:
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
     friend class ZZCantera::Electrode;
+    friend class ZZCantera::Electrode_CSTR;
     friend class ZZCantera::Electrode_Integrator;
 };
 //==================================================================================================================================

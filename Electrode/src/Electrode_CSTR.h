@@ -389,6 +389,18 @@ protected:
     virtual bool stateToPhaseFlagsReconciliation(bool flagErrors) override;
 
 public:
+    //! Sets the state of the Electrode object given an EState object
+    /*!
+     *   (virtual function from Electrode)
+     *   This sets all of the states within the object to the same state.
+     *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+     *
+     *   @param[in]  es          const reference to the EState object.  Must be the correct EState object for the
+     *                           current Electrode object, or else it will throw an error. However, there is an option to 
+     *                           read EState objects with less information. 
+     */
+    virtual void setState_EState(const EState& es) override;
+
     //! Set the final state of the electrode using the relExtentRxn
     /*!
      *  (virtual from Electrode)

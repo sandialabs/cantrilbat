@@ -322,7 +322,12 @@ double Electrode::loadTimeState(const XML_Node& xTimeState)
 
     //  Then, set this Electrode's internal state from eState current values. 
     //  When we do this all init and final states are set to this state.
+//#define NEWWAY
+#ifdef  NEWWAY
+    setState_EState(*eState_save_); 
+#else
     eState_save_->setStateElectrode_fromEState(this);
+#endif 
     
     //  Set the time within the electrode object
     setTime(time);

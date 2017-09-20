@@ -1796,10 +1796,10 @@ protected:
      *  Extra information that may be needed in advance of a successful updateState() call that specifies all of the
      *  information in the state
      *
-     *  @param flagErrors If true any changes in the current flags caused by a mismatch between the state
-     *                    and the values of the flags will cause an error exit.
+     *  @param[in]           flagErrors          If true any changes in the current flags caused by a mismatch between the state
+     *                                           and the values of the flags will cause an error exit.
      *
-     *  @return  Returns whether there has been any discovered errors (currently ignored)
+     *  @return                                  Returns whether there has been any discovered errors (currently ignored)
      */
     virtual bool stateToPhaseFlagsReconciliation(bool flagErrors);
 

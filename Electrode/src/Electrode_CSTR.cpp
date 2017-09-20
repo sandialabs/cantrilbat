@@ -897,11 +897,69 @@ void Electrode_CSTR::speciesProductionRates(double* const spMoleDot)
         }
     }
 }
+//==================================================================================================================================
+void Electrode_CSTR::setState_EState(const EState& es)
+{
+    if (pendingIntegratedStep_) {
+        throw Electrode_Error("Electrode_CSTR::setState_EState()", "called when there is a pending step");
+    }
+    if (spMoles_final_.size() != es.spMoles_.size()) {
+        throw Electrode_Error("Electrode_CSTR::setState_EState()", 
+                              "Possible problem mismatch spMoles_final different sizes: %d %d\n",
+                              (int) spMoles_final_.size(), (int) es.spMoles_.size());
+    }
+    spMoles_final_                     = es.spMoles_;
+
+    if (phaseVoltages_.size() != es.phaseVoltages_.size()) {
+        throw Electrode_Error("Electrode_CSTR::setState_EState()", 
+                              "Possible problem mismatch phaseVoltages_ different sizes: %d %d\n",
+                              (int) phaseVoltages_.size(), (int) es.phaseVoltages_.size());
+    }
+    phaseVoltages_                     = es.phaseVoltages_;
+    temperature_                       = es.temperature_;
+    pressure_                          = es.pressure_;
+
+    electrodeChemistryModelType_       = es.electrodeChemistryModelType_;
+    electrodeDomainNumber_             = es.electrodeDomainNumber_;
+    electrodeCellNumber_               = es.electrodeCellNumber_;
+    particleNumberToFollow_            = es.particleNumberToFollow_;
+    // ElectrodeSolidVolume_  can be cross-calculated and checked
+    ElectrodeSolidVolume_              = es.electrodeSolidVolume_;
+    // es.grossVolume_ 
+    Radius_exterior_final_             = es.radiusExterior_;
+    surfaceAreaRS_final_               = es.surfaceAreaRS_;
+    // electrodeMoles_                    = es.electrodeMoles_;
+    electrodeCapacityType_             = es.electrodeCapacityType_;
+    //capacityLeft_                      = es.capacityLeft_; (no explicit storage of this object in Electrode object)
+    capacityInitialZeroDod_            = es.capacityInitial_;
+
+    // depthOfDischarge_                  = es.depthOfDischarge_; (no explicit storage of this object in Electrode object)
+    depthOfDischargeStarting_          = es.depthOfDischargeStarting_;
+    // relativeElectronsDischargedPerMole_
+    // relativeDepthOfDischarge_          = es.relativeDepthOfDischarge_ 
+    // capacityDischargedToDate_
+    electronKmolDischargedToDate_      = es.electronKmolDischargedToDate_;
+
+    deltaTsubcycle_init_next_          = es.deltaTsubcycle_init_next_;
+    deltaTsubcycle_init_init_          = es.deltaTsubcycle_init_next_;
+
+    // RelativeExtentRxn_final_ can be cross-calculated and checked
+    RelativeExtentRxn_final_ = es.relativeElectronsDischargedPerMole_;
+
+    // Calculate the porosity from the EState gross volume and solid volume
+    double grossVol = es.grossVolume_;
+    double currentSolidVol = es.electrodeSolidVolume_;
+    porosity_ = 1.0 - currentSolidVol / grossVol;
+
+    updateState();
+    stateToPhaseFlagsReconciliation(false);
+    setInitStateFromFinal(true);
+    setFinalFinalStateFromFinal();
+}
 //====================================================================================================================
 void Electrode_CSTR::setState_relativeExtentRxn(double relExtentRxn)
 {
-    throw Electrode_Error("Electrode_CSTR::setState_relativeExtentRxn()",
-                          "Base class called");
+    throw Electrode_Error("Electrode_CSTR::setState_relativeExtentRxn()", "Base class called");
 }
 //====================================================================================================================
 // Predict the solution
@@ -2122,14 +2180,11 @@ void  Electrode_CSTR::setResidAtolNLS()
         }
 
     }
-
     determineBigMoleFractions();
 }
-//====================================================================================================================
-
+//==================================================================================================================================
 void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 {
-
     double capacd = capacityDischarged();
     printf("          Capacity Discharged Since Start = %12.6g coulombs = %12.6g Ah\n", capacd, capacd / 3600.);
     double dod = depthOfDischarge();
