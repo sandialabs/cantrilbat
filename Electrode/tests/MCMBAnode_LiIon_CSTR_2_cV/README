@@ -1,0 +1,10 @@
+
+
+This option contains extra input to specify the capacity coefficients for the
+electrodes.
+
+It also contains reaction extent boundaries specifications.
+
+
+This provides the initial solution for the allied restart test
+Note the solutions are the same after the restart proving we have restart capabilities.

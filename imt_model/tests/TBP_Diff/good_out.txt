@@ -476,25 +476,25 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    6.0011E+01
+	   solve_nonlinear_problem(): Initial Residual Norm =    2.8094E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	   solve_nonlinear_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 60.0111, residTrial = 4.61878e-07
+	              resid0 = 2.8094, residTrial = 9.99041e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   4.6188E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.9502E-09  
+		   residErrorNorm():  Resulting full residual norm =   9.9904E-08
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 9.0106E-09  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    4.6188E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    9.9904E-08
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 4.61878e-07, residTrial = 3.87564e-10
+	              resid0 = 9.99041e-08, residTrial = 3.76456e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   3.8756E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 3.7512E-11  
+		   residErrorNorm():  Resulting full residual norm =   3.7646E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.6846E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
@@ -734,24 +734,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    8.6281E+01
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.7244E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 86.2809, residTrial = 1.42393e-07
+	              resid0 = 1.72443, residTrial = 2.8797e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.4239E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.1525E-10  
+		   residErrorNorm():  Resulting full residual norm =   2.8797E-08
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.1899E-09  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.4239E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    2.8797E-08
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.42393e-07, residTrial = 7.51566e-10
+	              resid0 = 2.8797e-08, residTrial = 7.47994e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   7.5157E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 9.4043E-11  
+		   residErrorNorm():  Resulting full residual norm =   7.4799E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.6280E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
@@ -914,24 +914,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    9.9798E+01
+	   solve_nonlinear_problem(): Initial Residual Norm =    2.2905E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 99.7978, residTrial = 1.83365e-07
+	              resid0 = 2.29046, residTrial = 9.50293e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.8337E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.5738E-10  
+		   residErrorNorm():  Resulting full residual norm =   9.5029E-08
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 8.0698E-09  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.8337E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    9.5029E-08
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.83365e-07, residTrial = 2.64859e-09
+	              resid0 = 9.50293e-08, residTrial = 2.64827e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   2.6486E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 5.6337E-10  
+		   residErrorNorm():  Resulting full residual norm =   2.6483E-09
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.0869E-09  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 2
@@ -1171,24 +1171,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.1046E+02
+	   solve_nonlinear_problem(): Initial Residual Norm =    2.8522E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 110.46, residTrial = 2.02936e-07
+	              resid0 = 2.85225, residTrial = 1.04085e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   2.0294E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.6220E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.0408E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 7.1945E-09  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    2.0294E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.0408E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 2.02936e-07, residTrial = 7.78125e-10
+	              resid0 = 1.04085e-07, residTrial = 7.75155e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   7.7813E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.3043E-10  
+		   residErrorNorm():  Resulting full residual norm =   7.7516E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 2.5333E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
@@ -1351,24 +1351,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.1918E+02
+	   solve_nonlinear_problem(): Initial Residual Norm =    3.4098E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 119.175, residTrial = 3.04644e-07
+	              resid0 = 3.40978, residTrial = 2.44801e-07
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   3.0464E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 5.0958E-10  
+		   residErrorNorm():  Resulting full residual norm =   2.4480E-07
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.4312E-08  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    3.0464E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    2.4480E-07
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 3.04644e-07, residTrial = 3.26055e-10
+	              resid0 = 2.44801e-07, residTrial = 3.21363e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   3.2606E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.1315E-10  
+		   residErrorNorm():  Resulting full residual norm =   3.2136E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.3878E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 3
@@ -1608,24 +1608,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    8.5054E+01
+	   solve_nonlinear_problem(): Initial Residual Norm =    2.6447E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 85.0538, residTrial = 1.45827e-07
+	              resid0 = 2.64469, residTrial = 7.77182e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.4583E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.3186E-10  
+		   residErrorNorm():  Resulting full residual norm =   7.7718E-08
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 3.9741E-09  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.4583E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    7.7718E-08
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.45827e-07, residTrial = 7.31391e-10
+	              resid0 = 7.77182e-08, residTrial = 7.30776e-10
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   7.3139E-10
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 2.2743E-10  
+		   residErrorNorm():  Resulting full residual norm =   7.3078E-10
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.2638E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
@@ -1788,24 +1788,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.3275E+02
+	   solve_nonlinear_problem(): Initial Residual Norm =    4.5123E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 132.752, residTrial = 1.93518e-07
+	              resid0 = 4.51227, residTrial = 3.79065e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.9352E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.9585E-10  
+		   residErrorNorm():  Resulting full residual norm =   3.7907E-08
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 1.7050E-09  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.9352E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    3.7907E-08
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.93518e-07, residTrial = 1.05339e-09
+	              resid0 = 3.79065e-08, residTrial = 1.05109e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   1.0534E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 8.4721E-11  
+		   residErrorNorm():  Resulting full residual norm =   1.0511E-09
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 4.3157E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 4
@@ -2045,24 +2045,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.3820E+02
+	   solve_nonlinear_problem(): Initial Residual Norm =    5.0573E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 138.202, residTrial = 1.89765e-07
+	              resid0 = 5.05734, residTrial = 1.54833e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.8976E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.8080E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.5483E-08
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 6.2609E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.8976E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.5483E-08
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.89765e-07, residTrial = 1.25914e-09
+	              resid0 = 1.54833e-08, residTrial = 1.25791e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   1.2591E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 6.9252E-11  
+		   residErrorNorm():  Resulting full residual norm =   1.2579E-09
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 8.4792E-10  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5
@@ -2225,24 +2225,24 @@ END BLOCK Boundary Condition Specification for Phase TBP_liquid
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 1:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.4301E+02
+	   solve_nonlinear_problem(): Initial Residual Norm =    5.5983E+00
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 143.007, residTrial = 1.92259e-07
+	              resid0 = 5.59834, residTrial = 1.54047e-08
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
 	   solve_nonlinear_problem(): Damped Newton successful (m=3) but minimum newton iterations not attained. Resolving ...
-		   residErrorNorm():  Resulting full residual norm =   1.9226E-07
-	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 2.7685E-10  
+		   residErrorNorm():  Resulting full residual norm =   1.5405E-08
+	   solve_nonlinear_problem(): Damped Newton iteration successful, estimate of the next solution update norm = 5.6664E-10  
 	=======================================================================================================================
 	solve_nonlinear_problem(): iteration 2:
 	   solve_nonlinear_problem(): Getting a new Jacobian
-	   solve_nonlinear_problem(): Initial Residual Norm =    1.9226E-07
+	   solve_nonlinear_problem(): Initial Residual Norm =    1.5405E-08
 	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
 	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.92259e-07, residTrial = 2.15021e-09
+	              resid0 = 1.54047e-08, residTrial = 2.14966e-09
 	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   residErrorNorm():  Resulting full residual norm =   2.1502E-09
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.1251E-10  
+		   residErrorNorm():  Resulting full residual norm =   2.1497E-09
+	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.4039E-09  
 	=======================================================================================================================
 		===============================================================================================================================
 		  EXTRA PRINTING FROM NONLINEAR RESIDUAL:  BASE RESIDUAL - SHOW SOLUTION DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 5

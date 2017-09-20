@@ -20,8 +20,7 @@ Electrode Type = anode
 !  Electrode Model Name = ["BaseType", "InfCapacity", "MP_RxnExtent",
 !                          "MultiPlateau_NoDiff", "SimpleDiff",
 !                          "SimplePhaseChangeDiffusion",  "CSTR_MCMBAnode" ,
-!                           "CSTR_LiCoO2Cathode", "CSTR", "SimpleDiff"]
-!
+                            "CSTR_LiCoO2Cathode", "CSTR", "SimpleDiff"]
 !             required = not now but later
 !             default = ""
 !
@@ -67,7 +66,7 @@ Particle Diameter = 20 microns
 !
 ! Particle Number to Follow - double [unitless] (default 1) (optional)
 !
-Particle Number to Follow = 2.0E8
+Particle Number to Follow = 2.0E8 
 !-------------------------------------------------------------------------
 !
 Electrode Porosity = 0.35
@@ -83,7 +82,7 @@ Level of XML State Information Created = intermediateSteps
 
 
 start block Bath Specification for Phase ECDMC_LiPF6
-   Phase Moles = 1.0E-7
+   Phase Moles = 1.0E-10
    start block Bath Species Mole Fraction
        Li+   = 0.08
        PF6-  = 0.08
@@ -92,12 +91,12 @@ start block Bath Specification for Phase ECDMC_LiPF6
 end block Bath Specification for Phase ECDMC_LiPF6
 
 start block Bath Specification for Phase MCMB_Interstitials_anode
-   Phase Moles = 1.0E-7
+   Phase Moles = 1.0E-10
    start block Bath Species Mole Fraction
        Li_C6-bulk = 0.8
        V_C6-bulk =  0.2
    End block Bath Species Mole Fraction
-  start block Capacity Left Coefficients
+   start block Capacity Left Coefficients
        Li_C6-bulk = 1.0
        V_C6-bulk =  0.0
    end block Capacity Left Coefficients
@@ -105,13 +104,17 @@ start block Bath Specification for Phase MCMB_Interstitials_anode
        Li_C6-bulk = 1.0
        V_C6-bulk =  1.0
    end block Capacity At Zero DoD Coefficients
-
 end block Bath Specification for Phase MCMB_Interstitials_anode
 
-start block Reaction Extent Limits
+start block Reaction Extent Limits 
    Reaction Extent Top Limit = 0.94
    Reaction Extent Bottom Limit = 0.10
 end block Reaction Extent Limits
+
+
+!
+! experimental section for specifying anode
+!
 
 
 

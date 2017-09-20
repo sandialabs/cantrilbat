@@ -5,149 +5,184 @@
 #
 ###############################################################
 
+.PHONY : multiPhase_test
+MCMBAnode_LiIon_CSTR_2_cV_test:
+	cd MCMBAnode_LiIon_CSTR_2_cV  &&           $(MAKE) $(TASK)
+
+.PHONY : LiCoO2_LiIonCathode_CSTR_thermal_test
+LiCoO2_LiIonCathode_CSTR_thermal_test:
+	cd LiCoO2_LiIonCathode_CSTR_thermal && $(MAKE) $(TASK)
+
+
+TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test LiCoO2_LiIonCathode_CSTR_thermal_test
+
+#
+# TASK Rules
+#
+
+alllink: TASK = all
+alllink: $(TEST_LIST)
+
+test:  TASK = test
+
+testd: TASK = testd
+testd: $(TEST_LIST)
+
+clean: TASK = clean
+
+rebaseline: TASK = rebaseline
+rebaseline: $(TEST_LIST)
+
+depends: TASK = depends
+depends: $(TEST_LIST)
+
+clean_test: TASK = clean_test
+clean_test: $(TEST_LIST)
+
+clean_dist: TASK = clean_dist
+clean_dist: $(TEST_LIST)
+
+clean_test_flags: TASK = clean_test_flags
+clean_test_flags: $(TEST_LIST)
+
 all:
-	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@
-	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@
-	cd FeS2_4_MPNewman_cc ;                                 @MAKE@
-	cd FeS2_4_cMPNewman_cc ;                                @MAKE@
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   @MAKE@
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      @MAKE@
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       @MAKE@ 
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       @MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    @MAKE@
-	cd MCMBAnode_LiIon_SimpleDiff_cV;                       @MAKE@
-	cd MCMBAnode_LiIon_SimpleDiff_2_cV;                     @MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_3_cV;			@MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_3_thermal;		@MAKE@ 
-	cd MCMBAnode_LiIon_SimpleDiff_cc;                   	@MAKE@ 
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@
-	cd LiSi_5_Anode_Integrate ;				@MAKE@
-	cd UnitTests ; 						@MAKE@
-	cd MCMB_Mao ; 						@MAKE@
+	$(MAKE) alllink
+	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE)
+	cd FeS2_4_MPNewman_cc ;                                 $(MAKE)
+	cd FeS2_4_cMPNewman_cc ;                                $(MAKE)
+	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE)
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE)
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE)
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE)
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE)
+	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) 
+	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) 
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE)
+	cd MCMBAnode_LiIon_SimpleDiff_cV;                       $(MAKE)
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;                     $(MAKE) 
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV;			$(MAKE) 
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE) 
+	cd MCMBAnode_LiIon_SimpleDiff_3_thermal;		$(MAKE) 
+	cd MCMBAnode_LiIon_SimpleDiff_cc;                   	$(MAKE) 
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE)
+	cd LiSi_5_Anode_Integrate ;				$(MAKE)
+	cd UnitTests ; 						$(MAKE)
+	cd MCMB_Mao ; 						$(MAKE)
 
-test:
-	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ -s test
-	cd FeS2_3_MPNewman_cV_restart; 				@MAKE@ -s test
-	cd FeS2_4_MPNewman_cc ; 				@MAKE@ -s test
-	cd FeS2_4_cMPNewman_cc ; 				@MAKE@ -s test
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			@MAKE@ -s test
-	cd MCMBAnode_LiIon_DiffTALE_cV;				@MAKE@ -s test
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	@MAKE@ -s test
-	cd MCMBAnode_LiIon_DiffTALE_2_cV; 			@MAKE@ -s test
-	cd MCMBAnode_LiIon_DiffTALE_3_cV; 			@MAKE@ -s test
-	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	@MAKE@ -s test
-	cd MCMBAnode_LiIon_SimpleDiff_cV; 			@MAKE@ -s test
-	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			@MAKE@ -s test
-	cd MCMBAnode_LiIon_SimpleDiff_3_cV; 			@MAKE@ -s test
-	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@  -s test
-	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		@MAKE@ -s test
-	cd MCMBAnode_LiIon_SimpleDiff_cc;                       @MAKE@ -s test
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@ -s test
-	cd LiSi_5_Anode_Integrate ;                             @MAKE@ -s test
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ -s test
-	cd UnitTests ;                                          @MAKE@ -s test
-	cd MCMB_Mao ; 						@MAKE@ -s test
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@ -s test
-
-
-clean:
-	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@  clean
-	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@  clean
-	cd FeS2_4_MPNewman_cc ;                                 @MAKE@  clean
-	cd FeS2_4_cMPNewman_cc ;                                @MAKE@  clean
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@  clean
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@ clean 
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@ clean
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   @MAKE@  clean
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      @MAKE@ clean
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@   clean
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       @MAKE@   clean
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_cV;                       @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			@MAKE@  clean
-	cd MCMBAnode_LiIon_SimpleDiff_3_cV;		        @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@  clean
-	cd MCMBAnode_LiIon_SimpleDiff_3_thermal;		@MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_cc;               	@MAKE@ clean
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@  clean
-	cd LiSi_5_Anode_Integrate ;                             @MAKE@ clean
-	cd UnitTests ;                                          @MAKE@ clean
-	cd MCMB_Mao ; 						@MAKE@ clean
-
-test_clean:
-	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ clean
-	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@ clean
-	cd FeS2_4_MPNewman_cc ;                                 @MAKE@ clean
-	cd FeS2_4_cMPNewman_cc ;                                @MAKE@ clean
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@ clean
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@ clean 
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@ clean
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   @MAKE@ clean
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      @MAKE@ clean
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@ clean
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       @MAKE@ clean
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_cV;                       @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			@MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_3_cV;		        @MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_3_thermal;		@MAKE@ clean
-	cd MCMBAnode_LiIon_SimpleDiff_cc;               	@MAKE@ clean
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ clean
-	cd LiSi_5_Anode_Integrate ;                             @MAKE@ clean
-	cd UnitTests ; 						@MAKE@ clean
-	cd MCMB_Mao ; 						@MAKE@ clean
-
-depends:
-	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ depends
-	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@ depends
-	cd FeS2_4_MPNewman_cc ;                                 @MAKE@ depends
-	cd FeS2_4_cMPNewman_cc ;                                @MAKE@ depends
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@ depends
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   @MAKE@ depends
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@ depends
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	@MAKE@ depends
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       @MAKE@ depends
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       @MAKE@ depends
-	cd MCMBAnode_LiIon_SimpleDiff_cV;			@MAKE@ depends
-	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    @MAKE@ depends
-	cd MCMBAnode_LiIon_SimpleDiff_2_cV;                     @MAKE@ depends
-	cd MCMBAnode_LiIon_SimpleDiff_3_cV;                     @MAKE@ depends
-	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@ depends
-	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		@MAKE@ depends
-	cd MCMBAnode_LiIon_SimpleDiff_cc;                       @MAKE@ depends
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@ depends
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ depends
-	cd LiSi_5_Anode_Integrate ;                             @MAKE@ depends
-	cd UnitTests ;                                          @MAKE@ depends
-	cd MCMB_Mao ; 						@MAKE@ depends
+test: $(TEST_LIST)
+	cd FeS2_3_MPNewman_cV_restart; 				$(MAKE) -s test
+	cd FeS2_4_MPNewman_cc ; 				$(MAKE) -s test
+	cd FeS2_4_cMPNewman_cc ; 				$(MAKE) -s test
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			$(MAKE) -s test
+	cd MCMBAnode_LiIon_DiffTALE_cV;				$(MAKE) -s test
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	$(MAKE) -s test
+	cd MCMBAnode_LiIon_DiffTALE_2_cV; 			$(MAKE) -s test
+	cd MCMBAnode_LiIon_DiffTALE_3_cV; 			$(MAKE) -s test
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	$(MAKE) -s test
+	cd MCMBAnode_LiIon_SimpleDiff_cV; 			$(MAKE) -s test
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			$(MAKE) -s test
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV; 			$(MAKE) -s test
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE)  -s test
+	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		$(MAKE) -s test
+	cd MCMBAnode_LiIon_SimpleDiff_cc;                       $(MAKE) -s test
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) -s test
+	cd LiSi_5_Anode_Integrate ;                             $(MAKE) -s test
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) -s test
+	cd UnitTests ;                                          $(MAKE) -s test
+	cd MCMB_Mao ; 						$(MAKE) -s test
+	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) -s test
 
 
-rebaseline:
-	cd LiCoO2_LiIonCathode_CSTR_thermal;                    @MAKE@ rebaseline
-	cd FeS2_3_MPNewman_cV_restart;                          @MAKE@ rebaseline
-	cd FeS2_4_MPNewman_cc ; 				@MAKE@ rebaseline
-	cd FeS2_4_cMPNewman_cc ;                                @MAKE@ rebaseline
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         @MAKE@ rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         @MAKE@ rebaseline
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;   	@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_3_cV; 			@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		@MAKE@ rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_cc;                       @MAKE@ rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       @MAKE@ rebaseline
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			@MAKE@ rebaseline
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       @MAKE@ rebaseline
-	cd LiSi_5_Anode_Integrate ;                             @MAKE@ rebaseline
-	cd MCMB_Mao ; 						@MAKE@ rebaseline
+clean: $(TEST_LIST)
+	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE)  clean
+	cd FeS2_4_MPNewman_cc ;                                 $(MAKE)  clean
+	cd FeS2_4_cMPNewman_cc ;                                $(MAKE)  clean
+	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE)  clean
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) clean 
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE)  clean
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE) clean
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE)   clean
+	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE)   clean
+	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_cV;                       $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			$(MAKE)  clean
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV;		        $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE)  clean
+	cd MCMBAnode_LiIon_SimpleDiff_3_thermal;		$(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_cc;               	$(MAKE) clean
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE)  clean
+	cd LiSi_5_Anode_Integrate ;                             $(MAKE) clean
+	cd UnitTests ;                                          $(MAKE) clean
+	cd MCMB_Mao ; 						$(MAKE) clean
+
+test_clean: $(TEST_LIST)
+	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE) clean
+	cd FeS2_4_MPNewman_cc ;                                 $(MAKE) clean
+	cd FeS2_4_cMPNewman_cc ;                                $(MAKE) clean
+	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) clean
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) clean 
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE) clean
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE) clean
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
+	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) clean
+	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_cV;                       $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			$(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV;		        $(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_3_thermal;		$(MAKE) clean
+	cd MCMBAnode_LiIon_SimpleDiff_cc;               	$(MAKE) clean
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) clean
+	cd LiSi_5_Anode_Integrate ;                             $(MAKE) clean
+	cd UnitTests ; 						$(MAKE) clean
+	cd MCMB_Mao ; 						$(MAKE) clean
+
+depends: $(TEST_LIST)
+	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE) depends
+	cd FeS2_4_MPNewman_cc ;                                 $(MAKE) depends
+	cd FeS2_4_cMPNewman_cc ;                                $(MAKE) depends
+	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) depends
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE) depends
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) depends
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	$(MAKE) depends
+	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) depends
+	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) depends
+	cd MCMBAnode_LiIon_SimpleDiff_cV;			$(MAKE) depends
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE) depends
+	cd MCMBAnode_LiIon_SimpleDiff_2_cV;                     $(MAKE) depends
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV;                     $(MAKE) depends
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE) depends
+	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		$(MAKE) depends
+	cd MCMBAnode_LiIon_SimpleDiff_cc;                       $(MAKE) depends
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) depends
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) depends
+	cd LiSi_5_Anode_Integrate ;                             $(MAKE) depends
+	cd UnitTests ;                                          $(MAKE) depends
+	cd MCMB_Mao ; 						$(MAKE) depends
+
+
+rebaseline: $(TEST_LIST)
+	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE) rebaseline
+	cd FeS2_4_MPNewman_cc ; 				$(MAKE) rebaseline
+	cd FeS2_4_cMPNewman_cc ;                                $(MAKE) rebaseline
+	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) rebaseline
+	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) rebaseline
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			$(MAKE) rebaseline
+	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	$(MAKE) rebaseline
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;   	$(MAKE) rebaseline
+	cd MCMBAnode_LiIon_SimpleDiff_3_cV; 			$(MAKE) rebaseline
+	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE) rebaseline
+	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		$(MAKE) rebaseline
+	cd MCMBAnode_LiIon_SimpleDiff_cc;                       $(MAKE) rebaseline
+	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) rebaseline
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) rebaseline
+	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) rebaseline
+	cd LiSi_5_Anode_Integrate ;                             $(MAKE) rebaseline
+	cd MCMB_Mao ; 						$(MAKE) rebaseline
 
 
 install:
