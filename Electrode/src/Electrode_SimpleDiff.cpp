@@ -509,11 +509,11 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* const eibase
 int Electrode_SimpleDiff::electrode_stateSave_create(bool force)
 {
     if (eState_save_) {
-         if (!force) {
-             return 0;
-         } else {
-             delete eState_save_;
-         }
+        if (!force) {
+            return 0;
+        } else {
+            delete eState_save_;
+        }
     }
     eState_save_ = new EState_RadialDistrib();
     int rr = eState_save_->initialize(this);
@@ -1371,8 +1371,8 @@ void Electrode_SimpleDiff::updateState()
             if (phaseMoles > 1.0E-200) {
                 for (size_t kSp = 0; kSp < nSpecies; kSp++) {
                     size_t iKRSpecies = kstart + kSp;
-                    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] =  
-                         spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] / phaseMoles;
+                    spMf_KRSpecies_Cell_final_[indexMidKRSpecies + iKRSpecies] =
+                        spMoles_KRsolid_Cell_final_[indexMidKRSpecies + iKRSpecies] / phaseMoles;
                 }
             } else {
                 for (size_t kSp = 0; kSp < nSpecies; kSp++) {
@@ -2371,19 +2371,19 @@ int Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
                 spMoles_KRsolid_Cell_final_[istart + kstart]      -= y[index + kSp];
                 if (y[index + kSp] < 0.0) {
                     if (y[index + kSp] / tot > -1.0E-14) {
-                      spMoles_KRsolid_Cell_final_[istart + kstart + kSp] = 0.0;
+                        spMoles_KRsolid_Cell_final_[istart + kstart + kSp] = 0.0;
                     } else {
-                      retn = 0; 
+                        retn = 0;
                     }
                 }
             }
             if (spMoles_KRsolid_Cell_final_[istart + kstart] < 0.0) {
                 if (spMoles_KRsolid_Cell_final_[istart + kstart] / tot > -1.0E-14) {
-                  spMoles_KRsolid_Cell_final_[istart + kstart] = 0.0;
+                    spMoles_KRsolid_Cell_final_[istart + kstart] = 0.0;
                 } else {
-                  retn = 0;
+                    retn = 0;
                 }
-            } 
+            }
             kstart += nsp;
             index += nsp;
         }
@@ -2900,8 +2900,8 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
     return 1;
 }
 //==================================================================================================================================
-double Electrode_SimpleDiff::boundsCheckAddn(const double t, const double* const ybase, const double* const step, 
-                                             const double dampIn) 
+double Electrode_SimpleDiff::boundsCheckAddn(const double t, const double* const ybase, const double* const step,
+                                             const double dampIn)
 {
     double dampOut = dampIn;
     int iter = 0;
@@ -2918,7 +2918,9 @@ double Electrode_SimpleDiff::boundsCheckAddn(const double t, const double* const
         } else {
             ok = true;
         }
-        if (iter >= 6) return 0.0;
+        if (iter >= 6) {
+            return 0.0;
+        }
     }
     return dampOut;
 }
@@ -3792,16 +3794,68 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_Overpotential_SingleStep()
     return q;
 }
 //==================================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (virtual function from Electrode.h)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
-void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
+void Electrode_SimpleDiff::setState_EState(const EState& esb)
+{
+    try {
+        const EState_RadialDistrib& es = dynamic_cast<const EState_RadialDistrib&>(esb);
+
+        spMoles_final_                     = es.spMoles_;
+        phaseVoltages_                     = es.phaseVoltages_;
+        temperature_                       = es.temperature_;
+        pressure_                          = es.pressure_;
+        electrodeChemistryModelType_       = es.electrodeChemistryModelType_;
+        electrodeDomainNumber_             = es.electrodeDomainNumber_;
+        electrodeCellNumber_               = es.electrodeCellNumber_;
+        particleNumberToFollow_            = es.particleNumberToFollow_;
+        ElectrodeSolidVolume_              = es.electrodeSolidVolume_;
+        // grossVolume_
+        Radius_exterior_final_             = es.radiusExterior_;
+        surfaceAreaRS_final_               = es.surfaceAreaRS_;
+        // electrodeMoles_
+        setCapacityType(electrodeCapacityType_);
+        // capacityLeft_ -> ok no explicit storage of this quantity in Electrode object
+        capacityInitialZeroDod_            = es.capacityInitial_;
+        // depthOfDischarge_  -> ok no explicit storage of this quantity in Electrode object
+        depthOfDischargeStarting_          = es.depthOfDischargeStarting_;
+        // relativeElectronsDischargedPerMole_
+        // relativeDeptOfDischarge_
+        // capacityDischargedToDate_
+        // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / ZZCantera::Faraday;
+        electronKmolDischargedToDate_      = es.electronKmolDischargedToDate_;
+
+        //for (size_t iph = 0; iph < e->m_NumTotPhases; iph++) {
+        //    e->updateState_Phase(iph);
+        // }
+
+        deltaTsubcycle_init_next_          = es.deltaTsubcycle_init_next_;
+        deltaTsubcycle_init_init_          = es.deltaTsubcycle_init_next_;
+
+        if (solnDot_final_.size() == es.solnDot_.size()) {
+            solnDot_final_ = es.solnDot_;
+            solnDot_init_ = es.solnDot_;
+            solnDot_init_init_ = es.solnDot_;
+        }
+
+
+        rnodePos_final_             =  es.rnodePos_;
+        cellBoundR_final_           =  es.cellBoundR_;
+        concTot_SPhase_Cell_final_  =  es.concTot_SPhase_Cell_;
+        concKRSpecies_Cell_final_   =  es.concKRSpecies_Cell_;
+        spMoles_KRsolid_Cell_final_ =  es.spMoles_KRsolid_Cell_;
+        /*
+         * Now we can do an update
+         */
+        updateState();
+        stateToPhaseFlagsReconciliation(false);
+        setInitStateFromFinal(true);
+        setFinalFinalStateFromFinal();
+    } catch (std::bad_cast) {
+        throw Electrode_Error("Electrode_SimpleDiff::setState_EState()",
+                              "Couln't cast to EState_RadialDistrib object");
+    }
+}
+//==================================================================================================================================
+void Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
 {
     /*
      * Call the parent object
@@ -3819,7 +3873,6 @@ void  Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
         partialMolarEnthKRSpecies_Cell_init_[i] = partialMolarEnthKRSpecies_Cell_final_[i];
         partialMolarEntropyKRSpecies_Cell_init_[i] = partialMolarEntropyKRSpecies_Cell_final_[i];
         chemPotKRSpecies_Cell_init_[i] = chemPotKRSpecies_Cell_final_[i];
-
     }
 
     size_t iTotal =  numSPhases_ * numRCells_;

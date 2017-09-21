@@ -265,7 +265,7 @@ protected:
      *  NOTE, I'm not sure that this direction of access is needed ATM.
      */
     //friend class ZZCantera::Electrode;
-    //friend class ZZCantera::Electrode_SimpleDiff;
+    friend class ZZCantera::Electrode_SimpleDiff;
 };
 //==================================================================================================================================
 }

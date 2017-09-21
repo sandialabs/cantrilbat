@@ -491,6 +491,19 @@ public:
     // -------------------------------  SetState Functions -------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
 
+    //! Sets the state of the Electrode object given an EState object
+    /*!
+     *   (virtual function from Electrode)
+     *   This sets all of the states within the object to the same state.
+     *   It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+     *
+     *   @param[in]  es          Const reference to the EState object. Must be an EState_RadialDistrib child
+     *                           or else it will throw an error. However, there is an option to 
+     *                           read EState objects with less information. 
+     */
+    virtual void setState_EState(const EState& es) override;
+
+
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
      *  (virtual function from Electrode.h)
