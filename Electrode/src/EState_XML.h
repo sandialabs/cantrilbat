@@ -49,6 +49,7 @@ struct Map_ESEnum_String {
         string_maps_created(false)
     {
     }
+
     //! boolean indicating that we have created the variable
     bool string_maps_created;
 
@@ -60,14 +61,15 @@ struct Map_ESEnum_String {
 };
 
 
+//==================================================================================================================================
 //! Singleton variable for this structure.
 /*!
  *   We use the prefix gMap to indicate that it is global
  */
 extern Map_ESEnum_String gMap_ESEnum_String;
 
-
-//! Enum to String routine for the enum EState_Type_Enum
+//==================================================================================================================================
+//! Enum to string routine for the enum, EState_Type_Enum
 /*!
  *  @param[in]  estype The model of the electrode state
  *
@@ -75,18 +77,19 @@ extern Map_ESEnum_String gMap_ESEnum_String;
  */
 std::string EState_Type_Enum_to_string(const ZZCantera::EState_Type_Enum& estype);
 
-//! String to Enum Routine for the enum EState_Type_Enum
+//==================================================================================================================================
+//! String to enum routine for the enum EState_Type_Enum
 /*!
- *  Matches are first made using case. Then, they are made by ignoring case
+ *  Matches are first made using case. Then, they are made by ignoring case.
  *
- *  @param       input_string
+ *  @param[in]               EState_type_string  Type of the EState object to 
  *
- *  @return      Returns the Enum type for the string
+ *  @return                                      Returns the EState_Type_Enum  enum type corresponding to the string
  */
 #ifdef useZuzaxNamespace
-Zuzax::EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_string);
+Zuzax::EState_Type_Enum string_to_EState_Type_Enum(const std::string& EState_type_string);
 #else
-Cantera::EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_string);
+Cantera::EState_Type_Enum string_to_EState_Type_Enum(const std::string& EState_type_string);
 #endif
 
 //==================================================================================================================================
@@ -102,7 +105,6 @@ class EState_Factory : public Zuzax::FactoryBase
 class EState_Factory : public Cantera::FactoryBase
 #endif
 {
-
 public:
 
     //! Static function that creates a static instance of the factory.
@@ -182,9 +184,9 @@ public:
 
     //! Assignment operator
     /*!
-     *   @param[in]      r   Object to be copied
+     *  @param[in]      r   Object to be copied
      *  
-     *   @return             Returns a reference to the current object
+     *  @return             Returns a reference to the current object
      */
     ETimeState& operator=(const ETimeState& r);
 
@@ -520,27 +522,29 @@ public:
 };
 //==================================================================================================================================
 
-//!  Create a new EState Object
+//! Create a new EState Object
 /*!
- * @param model   String to look up the model against
- * @param f       EState Factory instance to use in matching the string
+ *  @param[in]               modelEState         String identifying the EState object to be created
+ *  @param[in]               f                   EState Factory instance to use in matching the string and in creating the object
  *
- * @return             Returns a pointer to a new EState instance matching the   model string. Returns NULL if something went wrong.
- *                     Throws an exception if the string wasn't matched.
+ *  @return                                      Returns a pointer to a new EState instance matching the   model string. 
+ *                                               Returns NULL if something went wrong.
+ *                                               Throws an exception if the string wasn't matched.
  */
-ZZCantera::EState* newEStateObject(std::string model, EState_Factory* f = 0);
+ZZCantera::EState* newEStateObject(std::string modelEState, EState_Factory* f = 0);
 
 //==================================================================================================================================
-//!  Read an XML Electrode output file and create an XML tree structure
+//! Read an XML Electrode output file and create an XML tree structure
 /*!
- *    File doesn't throw on failure. Instead it returns a NULL pointer.
+ *  File doesn't throw on failure. Instead it returns a NULL pointer.
  *
- *    @param[in]         fileName            File name of XML file
- *    @param[in]         index               Index of the electrodeOutput node that is requested. The default is "1", which
- *                                           is the first index written.
+ *  @param[in]               fileName            File name of XML file
+ *  @param[in]               index               Index of the electrodeOutput node that is requested. The default is "1", which
+ *                                                 is the first index written.
  *
- *    @return          Returns the pointer to the XML tree. If the file can't be found or is the wrong type, a NULL pointer is
- *                     returned. The top XML_Node is set at the electrodeOutput node corresponding to the specified input index
+ *  @return                                      Returns the pointer to the XML tree. If the file can't be found or 
+ *                                               is the wrong type, a NULL pointer is returned. The top XML_Node is set 
+ *                                               at the electrodeOutput node corresponding to the specified input index
  */
 ZZCantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int index);
 
@@ -571,28 +575,17 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCanter
 								int printSteps = 0);
 
 //==================================================================================================================================
-//! Reads the "ElectrodeIdentification" node of an XMl file
+//!  Read an EState XMLfile from disk, malloc an EState object and set its state  using the conditions and time in the
+//!  last time step written within the file.
 /*!
- *  This routine looks under the current node for the XML node named   "ElectrodeIdentification". It then fills in the fields
- *  of the EState_ID_struct with the contents of that node.
- *
- *  @param[in]               xSoln               XML node containing the solution
- *  @param[in,out]           e_id                EState_ID_struct containing the structure to be filled in 
- *  @return                                      Returns true if successful
- */
-bool get_Estate_Identification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct & e_id);
-
-//==================================================================================================================================
-//!   Read an EState XMLfile returning the last time step and its corresponding time
-/*!
- *    @param[in]    XMLfileName     File name of the XML electrode solution object
+ *    @param[in]             XMLfileName         File name of the XML electrode solution object
  * 
- *    @param[out]   timeRead        corresponding time of the solution, read from the file
+ *    @param[out]            timeRead            Corresponding time of the solution, read from the file
  *
- *    @return                       Return a malloced EState object of the appropriate form
- *                                  with the state of the elctrode at t_final in that Estate object.
+ *    @return                                    Return a malloced EState object of the appropriate form
+ *                                               with the state of the electrode at t_final in that Estate object.
  */
-ZZCantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& timeRead);
+ZZCantera::EState* readEState_XMLFile_LastStep(const std::string& XMLfileName, double& timeRead);
 
 //==================================================================================================================================
 //!  Create an EState object and read a solution state into that object
@@ -609,7 +602,7 @@ ZZCantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double
  *                                         and relevant id information. This is malloced, and up to the calling
  *                                         program to free it.
  *
- *     @note Starting to look good -> I think this is the write way to do it
+ *     @note Starting to look good -> I think this is the correct way to do it
  */
 ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, const ZZCantera::EState_ID_struct & e_id);
 

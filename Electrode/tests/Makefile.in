@@ -1,19 +1,7 @@
 #/bin/sh
-###############################################################
-#  $Date: 2012/02/22 20:41:57 $
-#  $Revision: 1.45 $
-#
-###############################################################
 
 all:
 	$(MAKE) alllink
-	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE)
-	cd FeS2_4_MPNewman_cc ;                                 $(MAKE)
-	cd FeS2_4_cMPNewman_cc ;                                $(MAKE)
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE)
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE)
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE)
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE)
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE)
 	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) 
 	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) 
@@ -30,11 +18,6 @@ all:
 	cd MCMB_Mao ; 						$(MAKE)
 
 test: $(TEST_LIST)
-	cd FeS2_3_MPNewman_cV_restart; 				$(MAKE) -s test
-	cd FeS2_4_MPNewman_cc ; 				$(MAKE) -s test
-	cd FeS2_4_cMPNewman_cc ; 				$(MAKE) -s test
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			$(MAKE) -s test
-	cd MCMBAnode_LiIon_DiffTALE_cV;				$(MAKE) -s test
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	$(MAKE) -s test
 	cd MCMBAnode_LiIon_DiffTALE_2_cV; 			$(MAKE) -s test
 	cd MCMBAnode_LiIon_DiffTALE_3_cV; 			$(MAKE) -s test
@@ -45,7 +28,6 @@ test: $(TEST_LIST)
 	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE)  -s test
 	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		$(MAKE) -s test
 	cd MCMBAnode_LiIon_SimpleDiff_cc;                       $(MAKE) -s test
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) -s test
 	cd LiSi_5_Anode_Integrate ;                             $(MAKE) -s test
 	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) -s test
 	cd UnitTests ;                                          $(MAKE) -s test
@@ -53,16 +35,45 @@ test: $(TEST_LIST)
 	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) -s test
 
 
-.PHONY : multiPhase_test
+.PHONY : multiPhase_test LiCoO2_LiIonCathode_CSTR_thermal_test FeS2_3_MPNewman_cV_restart_test
+
 MCMBAnode_LiIon_CSTR_2_cV_test:
-	cd MCMBAnode_LiIon_CSTR_2_cV  &&           $(MAKE) $(TASK)
+	cd MCMBAnode_LiIon_CSTR_2_cV  &&                           $(MAKE) $(TASK)
 
-.PHONY : LiCoO2_LiIonCathode_CSTR_thermal_test
 LiCoO2_LiIonCathode_CSTR_thermal_test:
-	cd LiCoO2_LiIonCathode_CSTR_thermal && $(MAKE) $(TASK)
+	cd LiCoO2_LiIonCathode_CSTR_thermal &&                     $(MAKE) $(TASK)
 
+FeS2_3_MPNewman_cV_restart_test: 
+	cd FeS2_3_MPNewman_cV_restart  &&                          $(MAKE) $(TASK)   
 
-TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test LiCoO2_LiIonCathode_CSTR_thermal_test
+FeS2_4_MPNewman_cc_test:
+	cd FeS2_4_MPNewman_cc &&                                   $(MAKE) $(TASK)
+
+FeS2_4_cMPNewman_cc_test:
+	cd FeS2_4_cMPNewman_cc &&                                  $(MAKE) $(TASK)
+
+FeS2_MPNewman_DiffRate_cc3_test:
+	cd FeS2_MPNewman_DiffRate_cc3  &&                          $(MAKE) $(TASK)
+
+LiCoO2_LiIonCathode_CSTR_3_cc_test:
+	cd LiCoO2_LiIonCathode_CSTR_3_cc &&                        $(MAKE) $(TASK)
+
+MCMBAnode_LiIon_CSTR_2_cV_restart_test:
+	cd MCMBAnode_LiIon_CSTR_2_cV_restart &&                    $(MAKE) $(TASK)
+
+MCMBAnode_LiIon_DiffTALE_cV_test:
+	cd MCMBAnode_LiIon_DiffTALE_cV &&                          $(MAKE) $(TASK)
+
+TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test           \
+             LiCoO2_LiIonCathode_CSTR_thermal_test    \
+             FeS2_3_MPNewman_cV_restart_test          \
+             FeS2_4_MPNewman_cc_test                  \
+             FeS2_4_cMPNewman_cc                      \
+             FeS2_MPNewman_DiffRate_cc3_test          \
+             LiCoO2_LiIonCathode_CSTR_3_cc_test       \
+             MCMBAnode_LiIon_CSTR_2_cV_restart_test   \
+             MCMBAnode_LiIon_DiffTALE_cV_test
+
 
 #
 # TASK Rules
@@ -95,12 +106,6 @@ clean_test_flags: $(TEST_LIST)
 
 
 clean: $(TEST_LIST)
-	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE)  clean
-	cd FeS2_4_MPNewman_cc ;                                 $(MAKE)  clean
-	cd FeS2_4_cMPNewman_cc ;                                $(MAKE)  clean
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE)  clean
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) clean 
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE)  clean
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE) clean
 	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE)   clean
@@ -119,12 +124,6 @@ clean: $(TEST_LIST)
 	cd MCMB_Mao ; 						$(MAKE) clean
 
 test_clean: $(TEST_LIST)
-	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE) clean
-	cd FeS2_4_MPNewman_cc ;                                 $(MAKE) clean
-	cd FeS2_4_cMPNewman_cc ;                                $(MAKE) clean
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) clean
-	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) clean 
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE) clean
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE) clean
 	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
@@ -143,12 +142,6 @@ test_clean: $(TEST_LIST)
 	cd MCMB_Mao ; 						$(MAKE) clean
 
 depends: $(TEST_LIST)
-	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE) depends
-	cd FeS2_4_MPNewman_cc ;                                 $(MAKE) depends
-	cd FeS2_4_cMPNewman_cc ;                                $(MAKE) depends
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) depends
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE) depends
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) depends
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	$(MAKE) depends
 	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) depends
 	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) depends
@@ -167,11 +160,6 @@ depends: $(TEST_LIST)
 
 
 rebaseline: $(TEST_LIST)
-	cd FeS2_3_MPNewman_cV_restart;                          $(MAKE) rebaseline
-	cd FeS2_4_MPNewman_cc ; 				$(MAKE) rebaseline
-	cd FeS2_4_cMPNewman_cc ;                                $(MAKE) rebaseline
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) rebaseline
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			$(MAKE) rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	$(MAKE) rebaseline
 	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;   	$(MAKE) rebaseline

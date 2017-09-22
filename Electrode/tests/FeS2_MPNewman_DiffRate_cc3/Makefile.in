@@ -133,9 +133,9 @@ depends:
 	@ touch .dependsT
 
 test: 
-	@gmake -s all
+	@$(MAKE) -s all
 	@ggg=`pwd` ; echo -n 'Checking need to run test ' $$ggg ': '
-	@ggg=`pwd` ; gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@ggg=`pwd` ; $(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@ggg=`pwd` ; echo 'RUNNING TEST ' `basename $$ggg`

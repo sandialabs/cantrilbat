@@ -22,30 +22,30 @@ namespace Cantera
 {
 //==================================================================================================================================
 EState_Identification::EState_Identification() :
-    electrodeTypeString_(""),
-    EST_Type_(EST_UNKNOWN_TYPE),
-    EState_Type_String_("Unknown"),
-    EST_Version_(1),
-    electrodeChemistryModelType_(0),
-    electrodeDomainNumber_(0),
-    electrodeCellNumber_(0),
-    electrodeCapacityType_(CAPACITY_ANODE_ECT)
+    electrodeTypeString(""),
+    EST_Type(EST_UNKNOWN_TYPE),
+    EState_Type_String("Unknown"),
+    EST_Version(1),
+    electrodeChemistryModelType(0),
+    electrodeDomainNumber(0),
+    electrodeCellNumber(0),
+    electrodeCapacityType(CAPACITY_ANODE_ECT)
 {
 }
 //==================================================================================================================================
 ZZCantera::XML_Node* EState_Identification::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
-    ZZctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString_);
-    ZZctml::addInteger(*x, "EState_Type",         EST_Type_);
-    ZZctml::addNamedString(*x, "EState_Type_String", EState_Type_String_);
-    ZZctml::addInteger(*x, "fileVersionNumber",  EST_Version_);
-    ZZctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType_);
-    ZZctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber_);
-    ZZctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber_);
-    if (electrodeCapacityType_ == CAPACITY_ANODE_ECT) {
+    ZZctml::addNamedString(*x, "electrodeTypeString", electrodeTypeString);
+    ZZctml::addInteger(*x, "EState_Type",         EST_Type);
+    ZZctml::addNamedString(*x, "EState_Type_String", EState_Type_String);
+    ZZctml::addInteger(*x, "fileVersionNumber",  EST_Version);
+    ZZctml::addInteger(*x, "electrodeModelType",  electrodeChemistryModelType);
+    ZZctml::addInteger(*x, "electrodeDomainNumber",  electrodeDomainNumber);
+    ZZctml::addInteger(*x, "electrodeCellNumber",  electrodeCellNumber);
+    if (electrodeCapacityType == CAPACITY_ANODE_ECT) {
 	ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Anode");
-    } else if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
+    } else if (electrodeCapacityType == CAPACITY_CATHODE_ECT) {
 	ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Cathode");
     } else {
 	ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
@@ -66,43 +66,60 @@ void EState_Identification::readIdentificationFromXML(const XML_Node& xmlEI)
         }
     }
 
-    ZZctml::getNamedStringValue(*x, "electrodeTypeString", electrodeTypeString_ , typeSS);
-    EST_Type_ = (EState_Type_Enum)  ZZctml::getInteger(*x, "EState_Type");
+    ZZctml::getNamedStringValue(*x, "electrodeTypeString", electrodeTypeString , typeSS);
+
+    EST_Type = (EState_Type_Enum)  ZZctml::getInteger(*x, "EState_Type");
     if (x->hasChild("EState_Type_String")) {
-	ZZctml::getNamedStringValue(*x, "EState_Type_String", EState_Type_String_ , typeSS);
+	ZZctml::getNamedStringValue(*x, "EState_Type_String", EState_Type_String , typeSS);
     } else {
-        EState_Type_String_ = "EState_CSTR";
+        EState_Type_String = "EState_CSTR";
     }
+
     if (x->hasChild("fileVersionNumber")) {
-	EST_Version_ = ZZctml::getInteger(*x, "fileVersionNumber");
+	EST_Version = ZZctml::getInteger(*x, "fileVersionNumber");
+    } else {
+	EST_Version =  1;
+
     }
+
     if (x->hasChild("electrodeModelType")) {
-        electrodeChemistryModelType_ = ZZctml::getInteger(*x, "electrodeModelType");
+        electrodeChemistryModelType = ZZctml::getInteger(*x, "electrodeModelType");
+    } else {
+        electrodeChemistryModelType = 0;
     }
+
     if (x->hasChild("electrodeDomainNumber")) {
-        electrodeDomainNumber_ = ZZctml::getInteger(*x, "electrodeDomainNumber");
+        electrodeDomainNumber = ZZctml::getInteger(*x, "electrodeDomainNumber");
+    } else {
+        electrodeDomainNumber = 0;
     }
+
     if (x->hasChild("electrodeCellNumber")) {
-     electrodeCellNumber_ = ZZctml::getInteger(*x, "electrodeCellNumber");
+     electrodeCellNumber = ZZctml::getInteger(*x, "electrodeCellNumber");
+    } else {
+     electrodeCellNumber = 0;
     }
  
     if (x->hasChild("electrodeCapacityType")) {
 	ZZctml::getNamedStringValue(*x, "electrodeCapacityType", nn, typeSS);
 	if (nn == "Capacity_Anode") {
-	    electrodeCapacityType_ = CAPACITY_ANODE_ECT;
+	    electrodeCapacityType = CAPACITY_ANODE_ECT;
 	} else if (nn == "Capacity_Cathode") {
-	    electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
+	    electrodeCapacityType = CAPACITY_CATHODE_ECT;
 	} else if (nn == "Capacity_Other") {
-	    electrodeCapacityType_ = CAPACITY_OTHER_ECT;
+	    electrodeCapacityType = CAPACITY_OTHER_ECT;
 	}
+    } else {
+	electrodeCapacityType = CAPACITY_ANODE_ECT;
     }
   
 }
 //==================================================================================================================================
 //==================================================================================================================================
 //==================================================================================================================================
-EState::EState() :
+EState::EState(std::string EState_type_string) :
     eRef_(nullptr),
+    es_id_(),
     electrodeTypeString_(""),
     EST_lastFileRead_(EST_CSTR),
     EST_Version_lastFileRead_(1),
@@ -131,10 +148,12 @@ EState::EState() :
     electronKmolDischargedToDate_(0.0),
     deltaTsubcycle_init_next_(1.0E300)
 {
+    es_id_.EState_Type_String = EState_type_string;
 }
 //======================================================================================================================
 EState::EState(const EState& right) :
     eRef_(right.eRef_),
+    es_id_(right.es_id_),
     electrodeTypeString_(""),
     EST_lastFileRead_(EST_CSTR),
     EST_Version_lastFileRead_(1),
@@ -183,6 +202,7 @@ EState& EState::operator=(const EState& right)
     }
 
     eRef_                              = right.eRef_;
+    es_id_                             = right.es_id_;
     electrodeTypeString_               = right.electrodeTypeString_;
     EST_lastFileRead_                  = right.EST_lastFileRead_;
     EST_Version_lastFileRead_          = right.EST_Version_lastFileRead_;
@@ -231,6 +251,12 @@ EState* EState::duplMyselfAsEState(ZZCantera::Electrode* e) const
 int EState::initialize(const ZZCantera::Electrode* const e)
 {
     eRef_ = e;
+
+    es_id_.electrodeTypeString = Electrode_Types_Enum_to_string(e->electrodeType());
+    es_id_.electrodeChemistryModelType = e->electrodeChemistryModelType_;
+    es_id_.electrodeDomainNumber =  e->electrodeDomainNumber_;
+    es_id_.electrodeCellNumber = e->electrodeCellNumber_;
+
     electrodeTypeString_    = Electrode_Types_Enum_to_string(e->electrodeType());
     electrodeChemistryModelType_  = e->electrodeChemistryModelType_;
     electrodeDomainNumber_  = e->electrodeDomainNumber_;
@@ -410,14 +436,14 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
 void EState::readIdentificationFromStruct(const EState_ID_struct& es_ID)
 {
     // @todo do checking on compatible values
-    electrodeTypeString_ = es_ID.electrodeTypeString_;
+    electrodeTypeString_ = es_ID.electrodeTypeString;
     
-    EST_lastFileRead_ = es_ID.EST_Type_;
-    EST_Version_lastFileRead_ =  es_ID.EST_Version_;
-    electrodeCapacityType_ = es_ID.electrodeCapacityType_;
-    electrodeChemistryModelType_ = es_ID.electrodeChemistryModelType_; 
-    electrodeDomainNumber_ = es_ID.electrodeDomainNumber_;
-    electrodeCellNumber_ = es_ID.electrodeCellNumber_;
+    EST_lastFileRead_ = es_ID.EST_Type;
+    EST_Version_lastFileRead_ =  es_ID.EST_Version;
+    electrodeCapacityType_ = es_ID.electrodeCapacityType;
+    electrodeChemistryModelType_ = es_ID.electrodeChemistryModelType; 
+    electrodeDomainNumber_ = es_ID.electrodeDomainNumber;
+    electrodeCellNumber_ = es_ID.electrodeCellNumber;
 }
 //==================================================================================================================================
 void EState::readStateFromXML(const XML_Node& xmlEState)

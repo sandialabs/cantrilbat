@@ -30,8 +30,8 @@ namespace Cantera
 #endif
 {
 //======================================================================================================================
-EState_RadialDistrib::EState_RadialDistrib() :
-    EState(),
+EState_RadialDistrib::EState_RadialDistrib(std::string modelEState, std::string electrodeType) :
+    EState(modelEState),
     numRCells_(0),
     numKRSpecies_(0),
     numSPhases_(0),
@@ -43,19 +43,10 @@ EState_RadialDistrib::EState_RadialDistrib() :
     onRegionBoundary_(-1)
 {
     EST_fileToBeWritten_ = EST_RADIALDISTRIB;
-    electrodeTypeString_ = "SimpleDiff";
-}
-//======================================================================================================================
-EState_RadialDistrib::EState_RadialDistrib(std::string electrodeType) :
-    EState_RadialDistrib()
-{
-    EST_fileToBeWritten_ = EST_RADIALDISTRIB;
-    if (electrodeType == "SimpleDiff") {
-        electrodeTypeString_ = "SimpleDiff";
-    } else if  (electrodeType == "SimpleDiff") {
-        electrodeTypeString_ = "DiffTALE";
-    } else {
-         throw Electrode_Error("EState_RadialDistrib::EState_RadialDistrib()", "wrong electrode type");  
+    electrodeTypeString_ = electrodeType;
+    if (electrodeType != "SimpleDiff" && electrodeType != "DiffTALE") {
+        throw Electrode_Error("EState_RadialDistrib::EState_RadialDistrib",
+                              "This EState is only tested against the SimpleDiff and DiffTALE Electrode types");
     }
 }
 //======================================================================================================================

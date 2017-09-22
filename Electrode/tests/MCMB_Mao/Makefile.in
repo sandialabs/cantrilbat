@@ -117,7 +117,7 @@ depends:
 test: 
 	@MAKE@ -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)

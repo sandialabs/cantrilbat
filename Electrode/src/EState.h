@@ -30,7 +30,7 @@ class Electrode_Integrator;
 class XML_Node;
 class Electrode_Factory;
 
-//! Enum indicating the type of Electrode object output file that is written.
+//! Enum indicating the type of the EState object, an intermediate of Electrode containing the state information, that is written.
 enum EState_Type_Enum {
     EST_UNKNOWN_TYPE = -1,
     //! Electrode State file containing CSTR information for the explicit State of the electrode.
@@ -48,11 +48,13 @@ enum EState_Type_Enum {
     EST_RADIALDISTRIB
 };
 //==================================================================================================================================
-//!  Structure that holds the identification of the Electrode object
+//!  Structure that holds the identification of the EState-Electrode object
 /*!
  *   This structure contains the information about the type of electrode object and the file type for the EState object.
  *   It also contains the information about the domain number and cell number, which uniquely identifies the electrode
  *   object in a multi-cell simulation.
+ *
+ *   All member data are public. The only functions this struct has is a readXML routine and a write XML routine.
  */
 struct EState_Identification 
 {
@@ -71,54 +73,62 @@ struct EState_Identification
      */
     void readIdentificationFromXML(const XML_Node& xmlEI);
 
-    /*  ------------------------------------------- Data ----------------------------------------- */
+    /*  --------------------------------------------------------------- Data ----------------------------------------------------- */
 
-    //! Electrode Type String
+    //! Electrode Type String, used in the Electrode Factory routine.
     /*!
      *  This string is the one used in the Electrode Factory routines. It identifies the model
      *  used for the Electrode Object uniquely.
      */
-    std::string electrodeTypeString_;
+    std::string electrodeTypeString;
 
     //! enum type for the EState. This is used in the factory routine
-    enum ZZCantera::EState_Type_Enum  EST_Type_;
+    /*!
+     *  @deprecated This is a duplicate of the string, EState_Type_String. Use EState_Type_String
+     */
+    enum ZZCantera::EState_Type_Enum  EST_Type;
 
     //! String used to identify the EState type. This is used in the factory routine for the EState object.
     /*!
      *  Note this can be different than the electrodeTypeString_
      */
-    std::string EState_Type_String_;
+    std::string EState_Type_String;
 
-    //! Version number of the file
-    int EST_Version_;
+    //! Version number of the XML file
+    int EST_Version;
 
     //! Integer describing a version model number for a chemistry model
-    int electrodeChemistryModelType_;
+    int electrodeChemistryModelType;
     
     //! Domain number of the electrode (starts from 0 with the usual convention that 0 refers to anode and 2 refers to cathode)
-    int electrodeDomainNumber_;
+    int electrodeDomainNumber;
 
     //! Cell number of the electrode (unique within each domain)
-    int electrodeCellNumber_;
+    int electrodeCellNumber;
 
     //! Capacity type of the electrode. 
     /*!
-     *    There is a basic sign issue with capacity that differs between anodes and cathodes.
-     *    Capacity left goes does when an anodic electrode gives off an electron but increases for a cathode electrode
+     *  There is a basic sign issue with capacity that differs between anodes and cathodes.
+     *  Capacity left goes down when an anode electrode gives off an electron but increases for a cathode electrode.
      */
-    ZZCantera::Electrode_Capacity_Type_Enum  electrodeCapacityType_;
+    ZZCantera::Electrode_Capacity_Type_Enum  electrodeCapacityType;
 };
 
 //! Typedef for the EState_ID structure
 typedef struct EState_Identification EState_ID_struct;
 
 //==================================================================================================================================
+
 //! Base Class for the Electrode State class concept. We define the state of the electrode here
-//! which can be used to set the Electrode object classes and can be used to write out to an XML file.
+//! which can be used to set the state of the Electrode object classes and can be used to write out to an XML file.
 //! This is the main class involved with saves and restarts of the Electrode object.
 /*!
- *     This is a glue class that allows one to write out states of Electrode objects.
- *     There is a direct correspondence with members of this class with an XML_Node object that can be written out to a file.
+ *    This is a glue class that allows one to write out states of Electrode objects. The basic operation is to write the
+ *    state of the Electrode to this intermediate class. Then, the EState class or child classes write out the state in
+ *    XML format to a file. In the future, other formats for writing out the state can be made, if binary is to
+ *    be used (specifically thinking about CGNS or Exodus).
+ *
+ *     
  *
  *     The class also keeps track of the identification information for the electrode object.
  *     The identification information can be used as header information for the electrode object.
@@ -158,8 +168,7 @@ typedef struct EState_Identification EState_ID_struct;
  *
  *     The string variable electrodeTypeString_ contains the Factory method string for the
  *     instanteation of the Electrode object used to create the state information. This is
- *     different than the EST information because the file format services more than one
- *     Electrode object class.
+ *     different than the EST information because the file format services more than one Electrode object class.
  *
  */
 class EState
@@ -168,11 +177,14 @@ class EState
 public:
 
     //! Default constructor for the base object
-    EState();
+    /*!
+     *  @param[in]           EState_type_string  Type of the EState object. 
+     */
+    EState(std::string EState_type_string = "EState_CSTR" );
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     *  @param[in]           right               Object to be copied
      */
     EState(const EState& right);
 
@@ -197,9 +209,8 @@ public:
 
     //! Initialize the EState object based on an electrode Base class
     /*!
-     *   This call will initialize all of the arrays within this class.
-     *   All of the species and phase identification information is created and the class is
-     *   readied for use as a state maintainer.
+     *  This call will initialize all of the arrays within this class.
+     *  All of the species and phase identification information is created and the class is readied for use as a state maintainer.
      *
      *  @param[in]           e                   Pointer to the electrode base class
      *
@@ -397,6 +408,9 @@ protected:
     //! Constant reference to the Electrode object that this object refers to.
     const Electrode* eRef_;
 
+    //! EState_Identification structure for the current EState object
+    EState_Identification es_id_;
+
 public:
     //! Electrode Model
     /*!
@@ -410,7 +424,7 @@ protected:
     /*!
      *  In almost all cases this is equal to the value to be written.
      */
-    enum EState_Type_Enum  EST_lastFileRead_;
+    enum EState_Type_Enum EST_lastFileRead_;
 
     //! Version number of the file that was last read
     int EST_Version_lastFileRead_;

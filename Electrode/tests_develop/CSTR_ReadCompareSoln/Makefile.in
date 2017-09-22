@@ -29,7 +29,7 @@ TEST_RESULTS = out.txt
 
 TEST_FLAGS = runGood runBad runInProgress.txt
 
-OBJ = $(PROGRAM).o
+OBJ_READTEST = $(PROGRAM).o
 
 ##########################################################################
 #           Setup The Cantera Directory locations
@@ -80,12 +80,8 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
-
-OBJ_ANODE =  $(OBJ)
 OBJ_READ = readEState.o
-OBJ_READTEST = readEStateTest.o
-
-OBJ_CANTERA_ADDONS =  
+OBJ_ALL = $(OBJ_READ) $(OBJ_READTEST)
 
 ############################################################################
 # section to set up compiler rules
@@ -113,19 +109,10 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
-############################################################################
-# section to set up depends
-###########################################################################
-DEPENDS = $(OBJ_ANODE:.o=.d)  $(OBJ_READ:.o=.d) $(OBJ_READTEST:.o=.d)
+DEPENDS =  $(OBJ_READ:.o=.d) $(OBJ_READTEST:.o=.d)
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
-
 
 depends:
 	$(RM) $(DEPENDS)
@@ -135,9 +122,9 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@gmake -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
@@ -146,7 +133,6 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 rebaseline:
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv
 	cp out.txt good_out.txt
-
 
 $(OBJ_READTEST): Makefile
 $(OBJ_READ): Makefile
@@ -159,18 +145,17 @@ readEState:  $(OBJ_READ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-$(PROGRAM):  readEStateTest.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+$(PROGRAM):  $(OBJ_READTEST) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
-	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) readEStateTest.o \
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_READTEST) \
                   $(OBJ_CANTERA_ADDONS)  -lgtest \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-
 install:
 
 clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt  readEState
 	$(RM) ${PROG} $(TEST_FLAGS)
 
 clean_dist:

@@ -26,11 +26,11 @@ class Electrode_SimpleDiff;
 class Electrode_DiffTALE;
 
 //==================================================================================================================================
-//! Child Class for the EState class concept refering to SimpleDiff Electrode object.
+//! Child Class for the EState class for saving states associated with simple diffusion within a single domain
 /*!
- *    This class adds the inner_platNum and second_platNum records to the output file.
+ *  This class assumes that some of the PhaseList phases are radially distributed. It then saves the concentration of those
+ *  species in those phases as a function of the radial coordinate. The radial cell boundaries are also saved.
  *
- *   It's an example of how to write child classes for EState.
  */
 class EState_RadialDistrib : public EState
 {
@@ -38,13 +38,11 @@ class EState_RadialDistrib : public EState
 public:
 
     //! Default constructor for the base object
-    EState_RadialDistrib();
-
-    //! Default constructor for the base object
     /*!
+     *  @param[in]           modelEState         string model type for                
      *  @param[in]           electrodeType       Type of the electrode
      */
-    EState_RadialDistrib(std::string electrodeType);
+    EState_RadialDistrib(std::string modelEState = "EState_RadialDistrib", std::string electrodeType = "SimpleDiff");
 
     //! Copy Constructor
     /*!

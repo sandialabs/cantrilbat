@@ -1,59 +1,49 @@
 #/bin/sh
-###############################################################
-#  $Author: hkmoffa $
-#  $Date: 2011/02/02 02:29:07 $
-#  $Revision: 1.3 $
-#
-###############################################################
 
 all:
-	cd src;                       @MAKE@ -j 4
-	cd src_tests;		      @MAKE@
-	cd tests;                     @MAKE@ 
-	cd tests_develop;             @MAKE@ 
-#	cd examples;                  @MAKE@ 
+	cd src;                                       $(MAKE) -j 8
+	cd src_tests;		                      $(MAKE)
+	cd tests;                                     $(MAKE) 
+	cd tests_develop;                             $(MAKE) 
+	cd examples;                                  $(MAKE) 
 
 allsrc:
-	cd src;				@MAKE@
+	cd src;	                                      $(MAKE) -j 8
 
-debug:
-	cd src; make debug
-	cd src_tests; 			@MAKE@ debug
-	cd tests; make debug
 
 test:
-	cd src;			      @MAKE@ -j 4
-	cd src_tests;	 	      @MAKE@ -s test
-	cd tests;                     @MAKE@ -s test
-	cd tests_develop;             @MAKE@ -s test
+	cd src;			                      $(MAKE) -j 8
+	cd src_tests;	 	                      $(MAKE) -s test
+	cd tests;                                     $(MAKE) -s test
+	cd tests_develop;                             $(MAKE) -s test
 
 clean:
-	cd src;                      $(RM) .depends ; @MAKE@ clean
-	cd src_tests;                $(RM) .depends ; @MAKE@ clean
-	cd tests;                                     @MAKE@ clean
-	cd tests_develop;                             @MAKE@ clean
-#	cd examples;                                     @MAKE@ clean
+	cd src;                      $(RM) .depends ; $(MAKE) clean
+	cd src_tests;                $(RM) .depends ; $(MAKE) clean
+	cd tests;                                     $(MAKE) clean
+	cd tests_develop;                             $(MAKE) clean
+	cd examples;                                  $(MAKE) clean
 
 dist_clean:
-	cd src;			     $(RM) .depends ; @MAKE@ dist_clean
-	cd src_tests;		     $(RM) .depends ; @MAKE@ dist_clean
-	cd tests;                                     @MAKE@ clean
-	cd tests_develop;                             @MAKE@ clean
+	cd src;			     $(RM) .depends ; $(MAKE) dist_clean
+	cd src_tests;		     $(RM) .depends ; $(MAKE) dist_clean
+	cd tests;                                     $(MAKE) clean
+	cd tests_develop;                             $(MAKE) clean
+	cd examples;                                  $(MAKE) clean
 
 
 depends:
-	cd src; @MAKE@ depends
-	cd src_tests; @MAKE@ depends
-	cd tests; @MAKE@ depends
-	cd tests_develop; @MAKE@ depends
+	cd src;                                       $(MAKE) depends
+	cd src_tests;                                 $(MAKE) depends
+	cd tests;                                     $(MAKE) depends
+	cd tests_develop;                             $(MAKE) depends
+	cd examples;                                  $(MAKE) depends
 
 install:
-	cd src; @MAKE@ install
-	cd src_tests; @MAKE@ install
+	cd src;                                       $(MAKE) install
+	cd src_tests;                                 $(MAKE) install
 
 rebaseline:
-	cd tests; @MAKE@ rebaseline
-	cd tests_develop            @MAKE@ rebaseline
-
-# end of file
+	cd tests;                                     $(MAKE) rebaseline
+	cd tests_develop                              $(MAKE) rebaseline
 

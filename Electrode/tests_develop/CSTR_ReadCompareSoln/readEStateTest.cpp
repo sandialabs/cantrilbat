@@ -83,14 +83,14 @@ public:
 	if (es1) {
 	    delete es1;
 	}
-	es1 = readEStateFileLastStep("solnSaveA_0_0.xml", time1);
+	es1 = readEState_XMLFile_LastStep("solnSaveA_0_0.xml", time1);
 	if (!es1) {
 	    return false;
 	}
 	if (es2) {
 	    delete es2;
 	}
-	es2 = readEStateFileLastStep("solnSaveB_0_0.xml", time2);
+	es2 = readEState_XMLFile_LastStep("solnSaveB_0_0.xml", time2);
 	if (!es2) {
 	    return false;
 	}
@@ -196,16 +196,16 @@ int main(int argc, char **argv)
   NonlinearSolver::s_print_NumJac = true;
 
 
-  ZZCantera::XML_Node* xEout =  getElectrodeOutputFile("solnSaveA_0_0.xml", 1);
+  ZZCantera::XML_Node* xEout = getElectrodeOutputFile("solnSaveA_0_0.xml", 1);
   if (!xEout) {
       throw Electrode_Error("getElectrodeOutputFile", "Error");
   }
-  string file1 = "solnSaveA_0_0.xml";
-  string file2 = "solnSaveB_0_0.xml";
+  std::string file1 = "solnSaveA_0_0.xml";
+  std::string file2 = "solnSaveB_0_0.xml";
 
-  ZZCantera::EState* es1 =  readEStateFileLastStep("solnSaveA_0_0.xml", time1);
+  ZZCantera::EState* es1 = readEState_XMLFile_LastStep("solnSaveA_0_0.xml", time1);
 
-  ZZCantera::EState* es2 =  readEStateFileLastStep("solnSaveB_0_0.xml", time2);
+  ZZCantera::EState* es2 = readEState_XMLFile_LastStep("solnSaveB_0_0.xml", time2);
   bool includeHist = false;
   int printLvl = 5;
   int nDigits = 6;
@@ -218,17 +218,16 @@ int main(int argc, char **argv)
   delete es2;
   es2 = 0;
 
-
   if (!ok) {
       printf("WARNING files are different\n");
   }
 
 
   EState_ID_struct e_id;
-  get_Estate_Identification(*xEout , e_id);
+  e_id.readIdentificationFromXML(*xEout);
 
-  EState* es = newEStateObject(e_id.EState_Type_String_);
 
+  EState* es = newEStateObject(e_id.EState_Type_String);
   es->readIdentificationFromXML(*xEout); 
 
   int globalTimeStepNum = 0;

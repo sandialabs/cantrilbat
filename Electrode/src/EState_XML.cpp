@@ -24,7 +24,7 @@ using namespace Cantera;
 #endif
 
 using namespace std;
-
+//----------------------------------------------------------------------------------------------------------------------------------
 //! esmodel stands for Electrode source model. It will expand to encompass everything in this directory
 namespace esmodel
 {
@@ -42,7 +42,7 @@ static void create_string_maps()
         return;
     }
     std::map<ZZCantera::EState_Type_Enum, std::string>& estate_types_string = gMap_ESEnum_String.estate_types_string;
-    std::map<std::string , EState_Type_Enum>& string_estate_types= gMap_ESEnum_String.string_estate_types;
+    std::map<std::string , EState_Type_Enum>& string_estate_types = gMap_ESEnum_String.string_estate_types;
 
     gMap_ESEnum_String.string_maps_created = true;
     estate_types_string[EST_CSTR]                       =  "EState_CSTR";
@@ -72,8 +72,7 @@ ZZCantera::XML_Node* getElectrodeOutputFile(const std::string& fileName, int ind
     }
     XML_Node* xCTML = xSavedSoln->findByName("ctml");
     if (!xCTML) {
-	ESModel_Warning("esmodel::getElectrodeOutputFile()",
-		  "Could not find a node named ctml");
+	ESModel_Warning("esmodel::getElectrodeOutputFile()", "Could not find a node named ctml");
 	return xCTML;
     }
     /*
@@ -119,7 +118,7 @@ EState_Type_Enum string_to_EState_Type_Enum(const std::string& input_string)
     }
     return pos->second;
 }
-//====================================================================================================================
+//==================================================================================================================================
 
 EState_Factory* EState_Factory::s_factory = 0;
 
@@ -200,8 +199,8 @@ ETimeState::ETimeState(const ZZCantera::XML_Node& xTimeState, const ZZCantera::E
     time_(0.0),
     iOwnES_(true)
 {
-    cellNumber_ = e_id.electrodeCellNumber_;
-    domainNumber_ = e_id.electrodeDomainNumber_;
+    cellNumber_ = e_id.electrodeCellNumber;
+    domainNumber_ = e_id.electrodeDomainNumber;
     read_ETimeState_fromXML(xTimeState, e_id);
 }
 //==================================================================================================================================
@@ -263,19 +262,19 @@ void ETimeState::read_ETimeState_fromXML(const ZZCantera::XML_Node& xTimeState, 
 
     std::string ss = xTimeState["cellNumber"];
     cellNumber_ = atoi(ss.c_str());
-    if (cellNumber_ != e_id.electrodeCellNumber_) {
-	throw Electrode_Error( " ETimeState::read_ETimeState_fromXML",  "different cellNumbers");
+    if (cellNumber_ != e_id.electrodeCellNumber) {
+	throw Electrode_Error("ETimeState::read_ETimeState_fromXML",  "different cellNumbers");
     }
 
     ss = xTimeState["domain"];
     domainNumber_ = atoi(ss.c_str());
-    if (domainNumber_ !=  e_id.electrodeDomainNumber_) {
-	throw Electrode_Error( " ETimeState::read_ETimeState_fromXML",  "different domainNumbers");
+    if (domainNumber_ !=  e_id.electrodeDomainNumber) {
+	throw Electrode_Error("ETimeState::read_ETimeState_fromXML",  "different domainNumbers");
     }
 
     ss = xTimeState["type"];
     if (ss != "t_init" && ss != "t_final"  && ss != "t_intermediate") {
-	throw Electrode_Error( " ETimeState::read_ETimeState_fromXML",  "unknown type: " + ss);
+	throw Electrode_Error("ETimeState::read_ETimeState_fromXML",  "unknown type: " + ss);
     } 
     stateType_ = ss;
     timeIncrType_ = "global";
@@ -775,8 +774,6 @@ bool ElectrodeTimeEvolutionOutput::compareOtherTimeEvolutionSub(const ElectrodeT
 		}
 		hostZoneMatch[j] = k;
 
-	  
-
 		if (printLvl) {
 		    if (printLvl == 1) {
 			printf("    %lu    %E15.8   %E15.8 %lu %E15.8   %E15.8   ",
@@ -866,15 +863,15 @@ ZZCantera::EState* EState_Factory::newEStateObject(std::string model)
      */
     switch (ieos) {
     case EST_CSTR:
-	ee = new EState();
+	ee = new EState(model);
 	ee->electrodeTypeString_ = "CSTR";
 	break;
     case EST_CSTR_LiCoO2Cathode:
-	ee = new EState();
+	ee = new EState(model);
 	ee->electrodeTypeString_ = "CSTR_LiCoO2Cathode";
 	break;
     case EST_CSTR_MCMBAnode:
-        ee = new EState();
+        ee = new EState(model);
 	ee->electrodeTypeString_ = "CSTR_MCMBAnode";
 	break;
         break;
@@ -883,7 +880,7 @@ ZZCantera::EState* EState_Factory::newEStateObject(std::string model)
 			      "Unknown EState model: " + model);
 	break;
     case EST_RADIALDISTRIB:
-	ee = new EState_RadialDistrib();
+	ee = new EState_RadialDistrib(model);
 	break;
     default:
         throw Electrode_Error("EState_Factory::newEStateObject()",
@@ -973,52 +970,6 @@ ZZCantera::XML_Node* locateTimeLast_GlobalTimeStepIntervalFromXML(const ZZCanter
 
     return eStateX;
 }
-//====================================================================================================================================
-bool get_Estate_Identification(const ZZCantera::XML_Node& xSoln, ZZCantera::EState_ID_struct& e_id)
-{
-
-    bool retn = true;
-    std::string typeSS;
-
-    /*
-     *  Find the head XML node for the identification
-     */
-    const XML_Node* xID = xSoln.findByName("ElectrodeIdentification");
-    if (!xID) {
-        throw Electrode_Error("esmodel::get_Estate_Indentification",
-                              "could not find a node named ElectrodeIndentification");
-    }
-
-   
-    ZZctml::getNamedStringValue(*xID, "electrodeTypeString", e_id.electrodeTypeString_ , typeSS);
-
-    e_id.EST_Type_ = (enum EState_Type_Enum)  ZZctml::getInteger(*xID, "EState_Type");
-    e_id.EState_Type_String_ = EState_Type_Enum_to_string(e_id.EST_Type_ );
-
-  
-    ZZctml::getNamedStringValue(*xID,"electrodeTypeString", e_id.electrodeTypeString_ , typeSS);
-
-    if (xID->hasChild("fileVersionNumber")) {
-	e_id.EST_Version_ = ZZctml::getInteger(*xID, "fileVersionNumber");
-    }
-    if (e_id.EST_Version_ != 1) {
-        throw Electrode_Error(" EState::readIdentificationFromXML()",
-                           "read the wrong EState version type - new situation");
-    }
-    if (xID->hasChild("electrodeCapacityType")) {
-	e_id.electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ZZctml::getInteger(*xID, "electrodeCapacityType");
-    }
-    if (xID->hasChild("electrodeModelType")) {
-	e_id.electrodeChemistryModelType_ = ZZctml::getInteger(*xID, "electrodeModelType");
-    }
-    if (xID->hasChild("electrodeDomainNumber")) {
-	e_id.electrodeDomainNumber_ = ZZctml::getInteger(*xID, "electrodeDomainNumber");
-    }
-    if (xID->hasChild("electrodeCellNumber")) {
-	e_id.electrodeCellNumber_ = ZZctml::getInteger(*xID, "electrodeCellNumber");
-    }
-    return retn;
-}
 //==================================================================================================================================
 ZZCantera::EState* newEStateObject(std::string model, EState_Factory* f)
 {
@@ -1028,14 +979,11 @@ ZZCantera::EState* newEStateObject(std::string model, EState_Factory* f)
     return f->newEStateObject(model);
 }
 //==================================================================================================================================
-/*
- *  Read the last time step from an EState XML file and return the EState object
- */
-ZZCantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double& timeRead)
+ZZCantera::EState* readEState_XMLFile_LastStep(const std::string& XMLfileName, double& timeRead)
 {
     timeRead = 0.0;
     /*
-     *   Read the XML file name getting the first ElectrodeOutput XML tree.
+     *   Read in the XML file using the XMLfile name as input. getting the first ElectrodeOutput XML tree.
      *    -> that's what the 1 argument is. May do more with this in the future.
      */
     ZZCantera::XML_Node* xEout = getElectrodeOutputFile(XMLfileName, 1);
@@ -1047,11 +995,12 @@ ZZCantera::EState* readEStateFileLastStep(const std::string& XMLfileName, double
      *   Read the identification structure, putting that into e_id struct
      */
     EState_ID_struct e_id;
-    get_Estate_Identification(*xEout , e_id);
+    e_id.readIdentificationFromXML(*xEout);
+
     /*
      *   Malloc the appropriate type of EState object
      */
-    EState* es = newEStateObject(e_id.EState_Type_String_);
+    EState* es = newEStateObject(e_id.EState_Type_String);
     if (!es) {
 	return NULL;
     }
@@ -1099,7 +1048,7 @@ ZZCantera::EState* createEState_fromXML(const ZZCantera::XML_Node& xEState, cons
     /*
      *   Malloc the appropriate type of EState object
      */
-    EState* es = newEStateObject(e_id.EState_Type_String_);
+    EState* es = newEStateObject(e_id.EState_Type_String);
     if (!es) {
 	return NULL;
     }

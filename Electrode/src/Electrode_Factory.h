@@ -92,8 +92,6 @@ Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_str
 //==================================================================================================================================
 //! String to int routine for the OCV override model types
 /*!
- *  
- *
  *   @param[in]              input_string        The string representation for the  OCV override model.
  *
  *   @return                                     Returns the int type for the string.  Unknown models return a value of -1.
