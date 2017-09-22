@@ -2,11 +2,12 @@ Electrode::electrode_model_create
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = -0.023098
+oc[0] = -0.0230903
    ==============================================================================================
-      Electrode at time final = 0
-                   time init  = 0                         deltaTglobal = 0
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+      Electrode at time final_final =  0.00000E+00
+                   time init_init   =  0.00000E+00        deltaTglobal =  0.00000E+00
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 0
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -18,7 +19,7 @@ oc[0] = -0.023098
           Total Solid Moles =  1.3963E-04 kmol
           Molar Volume of Solid =  6.0000E+00 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current =  2.44815E+05 amps
+          Current =  2.44757E+05 amps
           Voltage (phiMetal - phiElectrolyte) =  1.50000E-02 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
@@ -37,7 +38,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 2.571E-05    1.754E-02    4.511E-07    3.500E-01 -1.50000E-02
      MCMB_Interstitials_anode    1.396E-04    6.000E-03    8.378E-07    6.500E-01             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -45,7 +46,7 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
+                Molar Volume = 5.45858E+02 cm3 gmol-1
                 Current = NA amps 
                 Electric Potential = 0
 
@@ -75,36 +76,36 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 3 anode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = -0.023098
+                 Open Circuit Voltage = -0.0230903
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
 
                            spName                  SourceRateLastStep (kmol/m2/s) 
-                           electron_Li_LiIon       1.010E-02
+                           electron_Li_LiIon       1.009E-02
                            ECDMC                   0.000E+00
-                           Li+                     1.010E-02
+                           Li+                     1.009E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -1.010E-02
-                           V_C6-bulk               1.010E-02
+                           Li_C6-bulk             -1.009E-02
+                           V_C6-bulk               1.009E-02
                            li_site                 0.000E+00
      ============================================================================================
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   2.414E-07   Y  |  1.00E+00  0.000E+00 | 1   1.00E+00  2.414E-10   0.000E+00  0.000E+00|  2.414E-10  2.414E-10  0.000E+00
+	*   1   4.006E-12   Y  |  1.00E+00  0.000E+00 | 1   1.00E+00  4.006E-15   0.000E+00  0.000E+00|  4.006E-15  4.006E-15  0.000E+00
 	                       |                      |                                converged = 3  |            (  0.000E+00) 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
-      Electrode at intermediate-step time final = 2.5e-08
-                   intermediate-step time init  = 0                deltaT = 2.5e-08
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
+      Electrode at intermediate-step time final =  2.50000E-08
+                   intermediate-step time init  =  0.00000E+00     deltaT =  2.50000E-08
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -116,12 +117,12 @@ oc[0] = -0.023098
           Total Solid Moles =  1.3963E-04 kmol
           Molar Volume of Solid =  6.0000E+00 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current =  2.44810E+05 amps
+          Current =  2.44753E+05 amps
           Voltage (phiMetal - phiElectrolyte) =  1.50000E-02 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
 
-          Capacity Discharged Since Start =   0.00612026 coulombs =  1.70007e-06 Ah
+          Capacity Discharged Since Start =   0.00611881 coulombs =  1.69967e-06 Ah
           Depth of Discharge (Current)    =       1347.2 coulombs
           Capacity Left                   =       9969.2 coulombs         Capacity at Zero DOD =      11316.4 coulombs
           RelativeExtentRxn_final              = 0.2
@@ -135,7 +136,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 2.571E-05    1.754E-02    4.511E-07    3.500E-01 -1.50000E-02
      MCMB_Interstitials_anode    1.396E-04    6.000E-03    8.378E-07    6.500E-01             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -143,12 +144,12 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
-                Current = 244810 amps 
+                Molar Volume = 5.45858E+02 cm3 gmol-1
+                Current = 244753 amps 
                 Electric Potential = 0
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00   6.343E-11
+                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00   6.342E-11
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -158,7 +159,7 @@ oc[0] = -0.023098
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 ECDMC                   8.400E-01  2.160E-05    2.160E-05   0.000E+00
-                Li+                     8.000E-02  2.057E-06    2.057E-06   6.343E-11
+                Li+                     8.000E-02  2.057E-06    2.057E-06   6.342E-11
                 PF6-                    8.000E-02  2.057E-06    2.057E-06   0.000E+00
      ============================================================================================
      ============================================================================================
@@ -167,35 +168,36 @@ oc[0] = -0.023098
                 Molar Volume = 6.00000E+00 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                Li_C6-bulk              8.000E-01  1.117E-04    1.117E-04  -6.343E-11
-                V_C6-bulk               2.000E-01  2.793E-05    2.793E-05   6.343E-11
+                Li_C6-bulk              8.000E-01  1.117E-04    1.117E-04  -6.342E-11
+                V_C6-bulk               2.000E-01  2.793E-05    2.793E-05   6.342E-11
      ============================================================================================
      ============================================================================================
           PHASE 3 anode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = -0.023097
+                 Open Circuit Voltage = -0.0230894
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
 
                            spName                  SourceRateLastStep (kmol/m2/s) 
-                           electron_Li_LiIon       1.010E-02
+                           electron_Li_LiIon       1.009E-02
                            ECDMC                   0.000E+00
-                           Li+                     1.010E-02
+                           Li+                     1.009E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -1.010E-02
-                           V_C6-bulk               1.010E-02
+                           Li_C6-bulk             -1.009E-02
+                           V_C6-bulk               1.009E-02
                            li_site                 0.000E+00
      ============================================================================================
-        2.5e-08         244810
+        2.5e-08         244753
    ==============================================================================================
-      Electrode at time final = 2.5e-08
-                   time init  = 0                         deltaTglobal = 2.5e-08
-                    Model Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+      Electrode at time final_final =  2.50000E-08
+                   time init_init   =  0.00000E+00        deltaTglobal =  2.50000E-08
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 1
    ==============================================================================================
 
           Number of external surfaces = 1
@@ -207,12 +209,12 @@ oc[0] = -0.023098
           Total Solid Moles =  1.3963E-04 kmol
           Molar Volume of Solid =  6.0000E+00 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
-          Current =  2.44810E+05 amps
+          Current =  2.44753E+05 amps
           Voltage (phiMetal - phiElectrolyte) =  1.50000E-02 volts
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
 
-          Capacity Discharged Since Start =   0.00612026 coulombs =  1.70007e-06 Ah
+          Capacity Discharged Since Start =   0.00611881 coulombs =  1.69967e-06 Ah
           Depth of Discharge (Current)    =       1347.2 coulombs
           Capacity Left                   =       9969.2 coulombs         Capacity at Zero DOD =      11316.4 coulombs
           RelativeExtentRxn_final_final         = 0.2
@@ -226,7 +228,7 @@ oc[0] = -0.023098
 
          PName                   MoleNum      molarVol     Volume       FractVol     Voltage   
      ============================================================================================
-     metal_Li_LiIon_electrons    0.000E+00    5.450E-01    0.000E+00    0.000E+00  0.00000E+00
+     metal_Li_LiIon_electrons    0.000E+00    5.459E-01    0.000E+00    0.000E+00  0.00000E+00
      ECDMC_LiPF6                 2.571E-05    1.754E-02    4.511E-07    3.500E-01 -1.50000E-02
      MCMB_Interstitials_anode    1.396E-04    6.000E-03    8.378E-07    6.500E-01             
      anode_surface               7.540E-09    0.000E+00    0.000E+00    0.000E+00             
@@ -234,12 +236,12 @@ oc[0] = -0.023098
      ============================================================================================
           PHASE 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Molar Volume = 5.45000E+02 cm3 gmol-1
-                Current = 244810 amps 
+                Molar Volume = 5.45858E+02 cm3 gmol-1
+                Current = 244753 amps 
                 Electric Potential = 0
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00   6.343E-11
+                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00   6.342E-11
      ============================================================================================
      ============================================================================================
           PHASE 1 ECDMC_LiPF6 
@@ -249,7 +251,7 @@ oc[0] = -0.023098
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 ECDMC                   8.400E-01  2.160E-05    2.160E-05   0.000E+00
-                Li+                     8.000E-02  2.057E-06    2.057E-06   6.343E-11
+                Li+                     8.000E-02  2.057E-06    2.057E-06   6.342E-11
                 PF6-                    8.000E-02  2.057E-06    2.057E-06   0.000E+00
      ============================================================================================
      ============================================================================================
@@ -258,27 +260,27 @@ oc[0] = -0.023098
                 Molar Volume = 6.00000E+00 cm3 gmol-1
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
-                Li_C6-bulk              8.000E-01  1.117E-04    1.117E-04  -6.343E-11
-                V_C6-bulk               2.000E-01  2.793E-05    2.793E-05   6.343E-11
+                Li_C6-bulk              8.000E-01  1.117E-04    1.117E-04  -6.342E-11
+                V_C6-bulk               2.000E-01  2.793E-05    2.793E-05   6.342E-11
      ============================================================================================
      ============================================================================================
           PHASE 3 anode_surface 
                 Total moles = 7.53982e-09
-                Molar Volume = 3.33333E+10 cm3 gmol-1
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                Molar Volume = 1.00000E+01 cm3 gmol-1    Molar Area = 3.33333E+08 cm2 gmol-1
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = -0.023097
+                 Open Circuit Voltage = -0.0230894
 
                 Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)
                 li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
 
                            spName                  SourceRateLastStep (kmol/m2/s) 
-                           electron_Li_LiIon       1.010E-02
+                           electron_Li_LiIon       1.009E-02
                            ECDMC                   0.000E+00
-                           Li+                     1.010E-02
+                           Li+                     1.009E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -1.010E-02
-                           V_C6-bulk               1.010E-02
+                           Li_C6-bulk             -1.009E-02
+                           V_C6-bulk               1.009E-02
                            li_site                 0.000E+00
      ============================================================================================

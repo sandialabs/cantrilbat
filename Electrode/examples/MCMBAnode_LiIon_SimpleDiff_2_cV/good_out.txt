@@ -1,22 +1,24 @@
 ********************************* START OF USAGE INFO FOR TOP BLOCK *********************************
     => timesProcessed = 1 multiContribIndex = 0 
+    Electrode Name = (string) with Token limits(15, 1)
+    Electrode Type = (LIST) with default anode : 0 (REQUIRED LINE) where:
+        LIST = 
+            anode : 0
+            cathode : 1
     Number of Cantera Files = (integer) with default 1
          => Number of Cantera Files ====> NumCanteraFiles = 4
     Electrode Model Name = (string) with Token limits(1, 1) (REQUIRED LINE)
+    Temperature = (double) with limits (0, 3000) with default 300
+         ====> Temperature = 298.15
+    Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
+	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
+    Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
+    Relative Local To Global Time Step Minimum = (double) with limits (0, 1) with default 0.001
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
          ====> CanteraFileNames =  MCMB_RedlichKister.xml
          ====> CanteraFileNames =  MCMBAnode_electrode.xml
-    Electrode Type = (LIST) with default cathode : 0 (REQUIRED LINE) where:
-        LIST = 
-            cathode : 0
-            anode : 1
-    Electrode Name = (string) with Token limits(15, 1)
-    Temperature = (double) with limits (0, 3000) with default 300
-         ====> Temperature = 298.15
-    Pressure = (double) [Units] with limits (0, 1e+20) with default 101325
-	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Particle Diameter = (double) [Units] with limits (0, 1) with default 1e-06 (REQUIRED LINE)
 	Units = Length Units (m cm mm um nm inches ft) (Default = m)
     Particle Number to Follow = (double) with limits (1, 1e+28) with default -1
@@ -35,9 +37,17 @@
             minimal : 1
             globalSteps : 2
             intermediateSteps : 3
+    Method for Electrode Capacity Calculation = (LIST) with default Default : 0 where:
+        LIST = 
+            Default : 0
+            Model : 1
+            Coeffs : 2
+            Coefficients : 3
     Capacity Discharged Per Initial Mole = (double) with default -1
-    Number of Regions = (integer) with default 1
+    Number of Regions = (integer) with default 1 (REQUIRED LINE)
+         => Number of Regions ====> numRegions = 1
     Solid Diffusion Model = (integer) with default 0
+    Diffusive Flux model = (integer) with default 0
     START BLOCK Bath Specification for Phase metal_Li_LiIon_electrons           (OPTIONAL BLOCK)
         Voltage = (double) with limits (1e+09, 0) with default 0
         Phase Moles = (double) with default 0
@@ -46,10 +56,10 @@
             electron_Li_LiIon = (double) with limits (0, 1) with default 0
         END BLOCK Bath Species Mole Fraction
         START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
-            electron_Li_LiIon = (double) with default 0 (REQUIRED LINE)
+            electron_Li_LiIon = (double) with default 0
         END BLOCK Capacity Left Coefficients
         START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
-            electron_Li_LiIon = (double) with default 0 (REQUIRED LINE)
+            electron_Li_LiIon = (double) with default 0
         END BLOCK Capacity At Zero DoD Coefficients
     END BLOCK Bath Specification for Phase metal_Li_LiIon_electrons
     START BLOCK Bath Specification for Phase ECDMC_LiPF6           (OPTIONAL BLOCK)
@@ -68,14 +78,14 @@
                  ====> PF6- = 0.08
         END BLOCK Bath Species Mole Fraction
         START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
-            ECDMC = (double) with default 0 (REQUIRED LINE)
-            Li+ = (double) with default 0 (REQUIRED LINE)
-            PF6- = (double) with default 0 (REQUIRED LINE)
+            ECDMC = (double) with default 0
+            Li+ = (double) with default 0
+            PF6- = (double) with default 0
         END BLOCK Capacity Left Coefficients
         START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
-            ECDMC = (double) with default 0 (REQUIRED LINE)
-            Li+ = (double) with default 0 (REQUIRED LINE)
-            PF6- = (double) with default 0 (REQUIRED LINE)
+            ECDMC = (double) with default 0
+            Li+ = (double) with default 0
+            PF6- = (double) with default 0
         END BLOCK Capacity At Zero DoD Coefficients
     END BLOCK Bath Specification for Phase ECDMC_LiPF6
     START BLOCK Bath Specification for Phase MCMB_Interstitials_anode           (OPTIONAL BLOCK)
@@ -92,12 +102,12 @@
                  ====> V_C6-bulk = 0.2
         END BLOCK Bath Species Mole Fraction
         START BLOCK Capacity Left Coefficients           (OPTIONAL BLOCK)
-            Li_C6-bulk = (double) with default 0 (REQUIRED LINE)
-            V_C6-bulk = (double) with default 0 (REQUIRED LINE)
+            Li_C6-bulk = (double) with default 0
+            V_C6-bulk = (double) with default 0
         END BLOCK Capacity Left Coefficients
         START BLOCK Capacity At Zero DoD Coefficients           (OPTIONAL BLOCK)
-            Li_C6-bulk = (double) with default 0 (REQUIRED LINE)
-            V_C6-bulk = (double) with default 0 (REQUIRED LINE)
+            Li_C6-bulk = (double) with default 0
+            V_C6-bulk = (double) with default 0
         END BLOCK Capacity At Zero DoD Coefficients
     END BLOCK Bath Specification for Phase MCMB_Interstitials_anode
     START BLOCK Bath Specification for Phase anode_surface           (OPTIONAL BLOCK)
@@ -105,6 +115,20 @@
             li_site = (double) with limits (0, 1) with default 0
         END BLOCK Bath Species Mole Fraction
     END BLOCK Bath Specification for Phase anode_surface
+    START BLOCK Open Circuit Potential Override for interface anode_surface           (OPTIONAL BLOCK)
+        Open Circuit Voltage Model = (string) with Token limits(10, 1) with default Constant (REQUIRED LINE)
+        Replaced Species = (string) with Token limits(1, 1) (REQUIRED LINE)
+        Identify Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+        Identify Full Cell Reaction for OCV Model = (integer) with default 0 (REQUIRED LINE)
+        Temperature Derivative = (LIST) with default zero : 0 (REQUIRED LINE) where:
+            LIST = 
+                zero : 0
+                species : 1
+                model : 2
+        Temperature for OCV = (double) with default 298.15
+        Open Circuit Voltage Temperature Derivative Model = (string) with Token limits(10, 0) with default Constant 0.0 (REQUIRED LINE)
+        Species identified as DoD Surrogate = (string) with Token limits(1, 1)
+    END BLOCK Open Circuit Potential Override for interface anode_surface
     START BLOCK Reaction Extent Limits           (OPTIONAL BLOCK)
         Reaction Extent Top Limit = (double) with default -1 (REQUIRED LINE)
         Reaction Extent Bottom Limit = (double) with default -1 (REQUIRED LINE)
@@ -119,6 +143,7 @@
         li_site = (double) with default 0
     END BLOCK Species Initial KMoles
     START BLOCK Extra Global Reaction           (OPTIONAL BLOCK)
+        Reacting Surface Domain Index = (integer) with limits (-2147483647, 2147483647) with default 0
         Special Species = (LIST) with default electron_Li_LiIon : 0 (REQUIRED LINE) where:
             LIST = 
                 electron_Li_LiIon : 0
@@ -135,9 +160,10 @@
     END BLOCK Extra Global Reaction
     START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
         => timesProcessed = 1 multiContribIndex = 0 
+        Index of the Region = (integer) with default 0
         Number of Cells in Region = (integer) with default 5
              => Number of Cells in Region ====> numRadialCellsRegions = 3
-        Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+        Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
              ====> phaseNames =  MCMB_Interstitials_anode
         Default Diffusion Coefficient = (double) with default 1e-12
              ====> defaultDiffusionCoefficient = 1e-09
@@ -146,331 +172,330 @@
     END BLOCK Radial Diffusion Region
     START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
         => timesProcessed = 0 multiContribIndex = 1 
+        Index of the Region = (integer) with default -2147483647
         Number of Cells in Region = (integer) with default -2147483647
-        Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
+        Phase Names within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
         Default Diffusion Coefficient = (double) with default 1e-12
         Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
         Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
     END BLOCK Radial Diffusion Region
 *********************************  END OF USAGE INFO FOR TOP BLOCK  *********************************
-START BLOCK Radial Diffusion Region           (REQUIRED BLOCKS  =  1)
-    => timesProcessed = 1 multiContribIndex = 0 
-    Number of Cells in Region = (integer) with default 5
-         => Number of Cells in Region ====> numRadialCellsRegions = 3
-    Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-         ====> phaseNames =  MCMB_Interstitials_anode
-    Default Diffusion Coefficient = (double) with default 1e-12
-         ====> defaultDiffusionCoefficient = 1e-09
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
-START BLOCK Radial Diffusion Region           (OPTIONAL BLOCK)
-    => timesProcessed = 0 multiContribIndex = 1 
-    Number of Cells in Region = (integer) with default -2147483647
-    Phase Name within Distributed region = (Cstring) with Token limits(10, 1) (REQUIRED LINES = 1)
-    Default Diffusion Coefficient = (double) with default 1e-12
-    Reaction Rate Constant Perturbations for Regions =  double_1 double_2                                      (OPTIONAL LINE)
-    Reaction Rate Constant Perturbations for Regions = (double_3 ... double_VecLength where VecLength = arbitrary)  with limits (1e-30, 1e+30) with default 1 (OPTIONAL LINE)
-END BLOCK Radial Diffusion Region
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
 Electrode::electrode_model_create 
 	WARNING: reset moles/masses based on 'Particle Number to Follow' keyword.
-oc[0] = -0.023098
-   ===============================================================
-      Electrode_SimpleDiff at time final =  0.00000E+00
-                              time init  =  0.00000E+00
-   ===============================================================
+oc[0] = -0.0230903
+   ==============================================================================================
+      Electrode_SimpleDiff at time final_final =  0.00000E+00
+                              time init_init   =  0.00000E+00                     deltaTglobal = 0
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 0
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 0
+   ==============================================================================================
           Voltage = 0.015 volts
-          Current = 244815 amps
+          Current = 244757 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
+          Porosity     =  3.500E-01
           Temperature = 298.15
           Pressure = 101325
-          Capacity Discharged = 0 coulombs = 0 Ah
-
+          Total Solid Moles =  1.3963E-04 kmol
+          Molar Volume of Solid =  6.0000E+00 cm3 gmol-1
+          Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          --------------------------------------------------------------------------------
-                  z      LatticeRadius
-          --------------------------------------------------------------------------------
-
-              0.0000E+00  3.9685E-06 
-              7.9370E-06  8.9685E-06 
-              1.0000E-05  1.0000E-05 
+          Capacity Discharged Since Start =            0 coulombs =            0 Ah
+          Depth of Discharge (Current)    =      2694.38 coulombs    Relative Depth of Discharge = 0.2         
+          Capacity Left                   =      10777.5 coulombs    Capacity at Zero DOD = 13471.9      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
                 Current = NA amps 
                 Electric Potential = 0
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00   0.000E+00
-     ===============================================================
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   0.000E+00
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
                 Electric Potential = -0.015
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                ECDMC                   8.400E-01  2.160E-05    2.160E-05   0.000E+00
-                Li+                     8.000E-02  2.057E-06    2.057E-06   0.000E+00
-                PF6-                    8.000E-02  2.057E-06    2.057E-06   0.000E+00
-     ===============================================================
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
+                PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000139626
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              8.000E-01  1.117E-04    1.117E-04   0.000E+00
-                V_C6-bulk               2.000E-01  2.793E-05    2.793E-05   0.000E+00
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li_C6-bulk              8.000E-01  8.000E-01  1.117E-04  1.117E-04   0.000E+00
+                V_C6-bulk               2.000E-01  2.000E-01  2.793E-05  2.793E-05   0.000E+00
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  6.9813E-06  6.9813E-06 |  1.7453E-06  1.7453E-06 |
+                   7.9370E-06 |  7.3597E-05  7.3597E-05 |  1.8399E-05  1.8399E-05 |
+                   1.0000E-05 |  3.1123E-05  3.1123E-05 |  7.7807E-06  7.7807E-06 |
 
-                  0.0000E+00 | 6.9813E-06 6.9813E-06 | 1.7453E-06 1.7453E-06 |
-                  7.9370E-06 | 7.3597E-05 7.3597E-05 | 1.8399E-05 1.8399E-05 |
-                  1.0000E-05 | 3.1123E-05 3.1123E-05 | 7.7807E-06 7.7807E-06 |
+              --------------------------------------------------------------------------------
+                    Phase Concentration (kmol /m3) (final and init)
+              --------------------------------------------------------------------------------
+                      z      | (f) MCMB_Intersti (i) | 
+              --------------------------------------------------------------------------------
+                   0.0000E+00 |  1.6667E+02  1.6667E+02 |
+                   7.9370E-06 |  1.6667E+02  1.6667E+02 |
+                   1.0000E-05 |  1.6667E+02  1.6667E+02 |
+
               --------------------------------------------------------------------------------
                    Species Concentrations (kmol /m3) (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  1.3333E+02  1.3333E+02 |  3.3333E+01  3.3333E+01 |
+                   7.9370E-06 |  1.3333E+02  1.3333E+02 |  3.3333E+01  3.3333E+01 |
+                   1.0000E-05 |  1.3333E+02  1.3333E+02 |  3.3333E+01  3.3333E+01 |
 
-                  0.0000E+00 | 1.3333E+02 1.3333E+02 | 3.3333E+01 3.3333E+01 |
-                  7.9370E-06 | 1.3333E+02 1.3333E+02 | 3.3333E+01 3.3333E+01 |
-                  1.0000E-05 | 1.3333E+02 1.3333E+02 | 3.3333E+01 3.3333E+01 |
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
+                   7.9370E-06 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
+                   1.0000E-05 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
 
-                  0.0000E+00 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-                  7.9370E-06 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-                  1.0000E-05 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-     ===============================================================
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = -0.023098
+                Open Circuit Voltage = -0.0230903
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       1.010E-02
+                           electron_Li_LiIon       1.009E-02
                            ECDMC                   0.000E+00
-                           Li+                     1.010E-02
+                           Li+                     1.009E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -1.010E-02
-                           V_C6-bulk               1.010E-02
+                           Li_C6-bulk             -1.009E-02
+                           V_C6-bulk               1.009E-02
                            li_site                 0.000E+00
-     ===============================================================
+   ==============================================================================================
 	solve_nonlinear_problem():
 
 	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
 	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   1.978E-08   Y  |  1.00E+00  2.153E-10 | 1   1.00E+00  2.343E-10   2.551E-12  2.153E-10|  2.343E-10  2.343E-10  2.153E-10
-	                       |                      |                                converged = 3  |            (  2.551E-12) 
+	*   1   6.528E-07   Y  |  1.00E+00  7.011E-12 | 1   1.00E+00  6.531E-10   7.014E-15  7.011E-12|  6.531E-10  6.531E-10  7.011E-12
+	                       |                      |                                converged = 3  |            (  7.014E-15) 
 	-----------------------------------------------------------------------------------------------------------------------------------
 	Nonlinear problem solved successfully in 1 its
-   ===============================================================
+   ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.50000E-08
-                              intermediate-step time init  =  0.00000E+00
-   ===============================================================
+                              intermediate-step time init  =  0.00000E+00               deltaT = 2.5e-08
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , SubIntegrationCounter = 1
+   ==============================================================================================
           Voltage = 0.015 volts
-          Current = 244799 amps
+          Current = 244741 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
+          Porosity     =  3.500E-01
           Temperature = 298.15
           Pressure = 101325
-          Capacity Discharged = 0.00611996 coulombs = 1.69999e-06 Ah
-
+          Total Solid Moles =  1.3963E-04 kmol
+          Molar Volume of Solid =  6.0000E+00 cm3 gmol-1
+          Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          --------------------------------------------------------------------------------
-                  z      LatticeRadius
-          --------------------------------------------------------------------------------
-
-              -3.2800E-29  3.9685E-06 
-              7.9370E-06  8.9685E-06 
-              1.0000E-05  1.0000E-05 
+          Capacity Discharged Since Start =   0.00611852 coulombs =  1.69959e-06 Ah
+          Depth of Discharge (Current)    =      2694.39 coulombs    Relative Depth of Discharge = 0.2         
+          Capacity Left                   =      10777.5 coulombs    Capacity at Zero DOD = 13471.9      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 244799 amps 
+                Current = 244741 amps 
                 Electric Potential = 0
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00   6.343E-11
-     ===============================================================
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   6.341E-11
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
                 Electric Potential = -0.015
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                ECDMC                   8.400E-01  2.160E-05    2.160E-05   0.000E+00
-                Li+                     8.000E-02  2.057E-06    2.057E-06   6.343E-11
-                PF6-                    8.000E-02  2.057E-06    2.057E-06   0.000E+00
-     ===============================================================
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   6.341E-11
+                PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000139626
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              8.000E-01  1.117E-04    1.117E-04  -6.343E-11
-                V_C6-bulk               2.000E-01  2.793E-05    2.793E-05   6.343E-11
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li_C6-bulk              8.000E-01  8.000E-01  1.117E-04  1.117E-04  -6.341E-11
+                V_C6-bulk               2.000E-01  2.000E-01  2.793E-05  2.793E-05   6.341E-11
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  6.9813E-06  6.9813E-06 |  1.7453E-06  1.7453E-06 |
+                   7.9370E-06 |  7.3597E-05  7.3597E-05 |  1.8399E-05  1.8399E-05 |
+                   1.0000E-05 |  3.1123E-05  3.1123E-05 |  7.7808E-06  7.7807E-06 |
 
-                  -3.2800E-29 | 6.9813E-06 6.9813E-06 | 1.7453E-06 1.7453E-06 |
-                  7.9370E-06 | 7.3597E-05 7.3597E-05 | 1.8399E-05 1.8399E-05 |
-                  1.0000E-05 | 3.1123E-05 3.1123E-05 | 7.7808E-06 7.7807E-06 |
+              --------------------------------------------------------------------------------
+                    Phase Concentration (kmol /m3) (final and init)
+              --------------------------------------------------------------------------------
+                      z      | (f) MCMB_Intersti (i) | 
+              --------------------------------------------------------------------------------
+                   0.0000E+00 |  1.6667E+02  1.6667E+02 |
+                   7.9370E-06 |  1.6667E+02  1.6667E+02 |
+                   1.0000E-05 |  1.6667E+02  1.6667E+02 |
+
               --------------------------------------------------------------------------------
                    Species Concentrations (kmol /m3) (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  1.3333E+02  1.3333E+02 |  3.3333E+01  3.3333E+01 |
+                   7.9370E-06 |  1.3333E+02  1.3333E+02 |  3.3333E+01  3.3333E+01 |
+                   1.0000E-05 |  1.3333E+02  1.3333E+02 |  3.3334E+01  3.3333E+01 |
 
-                  -3.2800E-29 | 1.3333E+02 1.3333E+02 | 3.3333E+01 3.3333E+01 |
-                  7.9370E-06 | 1.3333E+02 1.3333E+02 | 3.3333E+01 3.3333E+01 |
-                  1.0000E-05 | 1.3333E+02 1.3333E+02 | 3.3334E+01 3.3333E+01 |
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
+                   7.9370E-06 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
+                   1.0000E-05 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
 
-                  -3.2800E-29 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-                  7.9370E-06 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-                  1.0000E-05 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-     ===============================================================
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = -0.0230945
+                Open Circuit Voltage = -0.0230869
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       1.010E-02
+                           electron_Li_LiIon       1.009E-02
                            ECDMC                   0.000E+00
-                           Li+                     1.010E-02
+                           Li+                     1.009E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -1.010E-02
-                           V_C6-bulk               1.010E-02
+                           Li_C6-bulk             -1.009E-02
+                           V_C6-bulk               1.009E-02
                            li_site                 0.000E+00
-     ===============================================================
-        2.5e-08         244799
-   ===============================================================
-      Electrode_SimpleDiff at time final =  2.50000E-08
-                              time init  =  0.00000E+00
-   ===============================================================
+   ==============================================================================================
+        2.5e-08         244741
+   ==============================================================================================
+      Electrode_SimpleDiff at time final_final =  2.50000E-08
+                              time init_init   =  0.00000E+00                     deltaTglobal = 2.5e-08
+                ChemModel Type =   5 , DomainNumber =  0 , CellNumber =  0 , IntegrationCounter = 1
+                numIntegrationSubCycles = 1, SubIntegrationCounter = 1
+   ==============================================================================================
           Voltage = 0.015 volts
-          Current = 244799 amps
+          Current = 244741 amps
           Number of external surfaces = 1
           Solid Volume =  8.378E-07
           Total Volume =  1.289E-06
+          Porosity     =  3.500E-01
           Temperature = 298.15
           Pressure = 101325
-          Capacity Discharged = 0.00611996 coulombs = 1.69999e-06 Ah
-
+          Total Solid Moles =  1.3963E-04 kmol
+          Molar Volume of Solid =  6.0000E+00 cm3 gmol-1
+          Particle Number to Follow =  2.0000E+08
           followElectrolyteMoles = 0
           ElectrolytePseudoMoles = 2.57125e-05
-          --------------------------------------------------------------------------------
-                  z      LatticeRadius
-          --------------------------------------------------------------------------------
-
-              -3.2800E-29  3.9685E-06 
-              7.9370E-06  8.9685E-06 
-              1.0000E-05  1.0000E-05 
+          Capacity Discharged Since Start =   0.00611852 coulombs =  1.69959e-06 Ah
+          Depth of Discharge (Current)    =      2694.39 coulombs    Relative Depth of Discharge = 0.2         
+          Capacity Left                   =      10777.5 coulombs    Capacity at Zero DOD = 13471.9      coulombs
      ===============================================================
           Phase 0 metal_Li_LiIon_electrons 
                 Total moles = 0
-                Current = 244799 amps 
+                Current = 244741 amps 
                 Electric Potential = 0
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                electron_Li_LiIon       1.000E+00  0.000E+00    0.000E+00   6.343E-11
-     ===============================================================
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                electron_Li_LiIon       1.000E+00  1.000E+00  0.000E+00  0.000E+00   6.341E-11
      ===============================================================
           Phase 1 ECDMC_LiPF6 
                 Total moles = 2.57125e-05
                 Electric Potential = -0.015
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                ECDMC                   8.400E-01  2.160E-05    2.160E-05   0.000E+00
-                Li+                     8.000E-02  2.057E-06    2.057E-06   6.343E-11
-                PF6-                    8.000E-02  2.057E-06    2.057E-06   0.000E+00
-     ===============================================================
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                ECDMC                   8.400E-01  8.400E-01  2.160E-05  2.160E-05   0.000E+00
+                Li+                     8.000E-02  8.000E-02  2.057E-06  2.057E-06   6.341E-11
+                PF6-                    8.000E-02  8.000E-02  2.057E-06  2.057E-06   0.000E+00
      ===============================================================
           Phase 2 MCMB_Interstitials_anode 
                 Total moles = 0.000139626
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                Li_C6-bulk              8.000E-01  1.117E-04    1.117E-04  -6.343E-11
-                V_C6-bulk               2.000E-01  2.793E-05    2.793E-05   6.343E-11
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                Li_C6-bulk              8.000E-01  8.000E-01  1.117E-04  1.117E-04  -6.341E-11
+                V_C6-bulk               2.000E-01  2.000E-01  2.793E-05  2.793E-05   6.341E-11
               --------------------------------------------------------------------------------
                     Species Cell Moles (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  6.9813E-06  6.9813E-06 |  1.7453E-06  1.7453E-06 |
+                   7.9370E-06 |  7.3597E-05  7.3597E-05 |  1.8399E-05  1.8399E-05 |
+                   1.0000E-05 |  3.1123E-05  3.1123E-05 |  7.7808E-06  7.7807E-06 |
 
-                  -3.2800E-29 | 6.9813E-06 6.9813E-06 | 1.7453E-06 1.7453E-06 |
-                  7.9370E-06 | 7.3597E-05 7.3597E-05 | 1.8399E-05 1.8399E-05 |
-                  1.0000E-05 | 3.1123E-05 3.1123E-05 | 7.7808E-06 7.7807E-06 |
+              --------------------------------------------------------------------------------
+                    Phase Concentration (kmol /m3) (final and init)
+              --------------------------------------------------------------------------------
+                      z      | (f) MCMB_Intersti (i) | 
+              --------------------------------------------------------------------------------
+                   0.0000E+00 |  1.6667E+02  1.6667E+02 |
+                   7.9370E-06 |  1.6667E+02  1.6667E+02 |
+                   1.0000E-05 |  1.6667E+02  1.6667E+02 |
+
               --------------------------------------------------------------------------------
                    Species Concentrations (kmol /m3) (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  1.3333E+02  1.3333E+02 |  3.3333E+01  3.3333E+01 |
+                   7.9370E-06 |  1.3333E+02  1.3333E+02 |  3.3333E+01  3.3333E+01 |
+                   1.0000E-05 |  1.3333E+02  1.3333E+02 |  3.3334E+01  3.3333E+01 |
 
-                  -3.2800E-29 | 1.3333E+02 1.3333E+02 | 3.3333E+01 3.3333E+01 |
-                  7.9370E-06 | 1.3333E+02 1.3333E+02 | 3.3333E+01 3.3333E+01 |
-                  1.0000E-05 | 1.3333E+02 1.3333E+02 | 3.3334E+01 3.3333E+01 |
               --------------------------------------------------------------------------------
                    Mole Fractions (final and init)
               --------------------------------------------------------------------------------
                       z      | (f) Li_C6-bulk    (i) | (f) V_C6-bulk     (i) | 
               --------------------------------------------------------------------------------
+                   0.0000E+00 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
+                   7.9370E-06 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
+                   1.0000E-05 |  8.0000E-01  8.0000E-01 |  2.0000E-01  2.0000E-01 |
 
-                  -3.2800E-29 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-                  7.9370E-06 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-                  1.0000E-05 | 8.0000E-01 8.0000E-01 | 2.0000E-01 2.0000E-01 |
-     ===============================================================
      ===============================================================
           Phase 3 anode_surface 
                 Total moles = 7.53982e-09
-                surface area (final) = 0.251327
-                surface area (init)  = 0.251327
+                surface area (final) = 2.51327E-01 m2
+                surface area (init)  = 2.51327E-01 m2
                 IsExternalSurface = 1
-                 Open Circuit Voltage = -0.0230945
+                Open Circuit Voltage = -0.0230869
 
-                Name               MoleFrac_final  kMoles_final kMoles_init SrcTermLastStep(kMoles)
-                li_site                 1.000E+00  7.540E-09    7.540E-09   0.000E+00
+                Name               MoleFrac_final MoleFrac_init kMoles_final kMoles_init SrcTermLastStep(kMoles)
+                li_site                 1.000E+00  1.000E+00  7.540E-09  7.540E-09   0.000E+00
 
                            spName                  Source (kmol/m2/s) 
-                           electron_Li_LiIon       1.010E-02
+                           electron_Li_LiIon       1.009E-02
                            ECDMC                   0.000E+00
-                           Li+                     1.010E-02
+                           Li+                     1.009E-02
                            PF6-                    0.000E+00
-                           Li_C6-bulk             -1.010E-02
-                           V_C6-bulk               1.010E-02
+                           Li_C6-bulk             -1.009E-02
+                           V_C6-bulk               1.009E-02
                            li_site                 0.000E+00
-     ===============================================================
+   ==============================================================================================

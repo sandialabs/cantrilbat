@@ -25,8 +25,6 @@
 #include "Electrode_SimpleDiff.h"
 #include "Electrode_CSTR_MCMBAnode.h"
 #include "Electrode_RadialDiffRegions.h"  
-#include "ExtraGlobalRxn.h"
-#include "RxnMolChange.h"
 #include "BlockEntryGlobal.h"
 
 #include <stdio.h>
@@ -34,8 +32,8 @@
 #include <iomanip>
 
 using namespace std;
-using namespace Cantera;
-using namespace VCSnonideal;
+using namespace Zuzax;
+using namespace vcs_nonideal;
 
 // a lvl of one prints out the .csv file
 int mpequil_debug_print_lvl = 1;
@@ -64,8 +62,9 @@ int main(int argc, char **argv)
   bool printInputFormat = false; // print cmdfile.txt format
   // printed usage
 
-  VCSnonideal::vcs_timing_print_lvl = 0;
-  NonlinearSolver::s_TurnOffTiming = true;
+  prep_testrun();
+  //vcs_timing_print_lvl = 0;
+  //NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver::s_print_NumJac = true;
 
   /*
@@ -112,7 +111,7 @@ int main(int argc, char **argv)
 
   try {
   
-    Cantera::Electrode_CSTR_MCMBAnode *electrodeA  = new Cantera::Electrode_CSTR_MCMBAnode();
+    Electrode_CSTR_MCMBAnode *electrodeA  = new Electrode_CSTR_MCMBAnode();
 
     ELECTRODE_CSTR_KEY_INPUT *electrodeA_input = new ELECTRODE_CSTR_KEY_INPUT();
     
@@ -169,7 +168,7 @@ int main(int argc, char **argv)
 
     double pmv[10];
 
-    ThermoPhase *th = electrodeA->getPhase("MCMB_Interstitials_anode");
+    ThermoPhase *th = & electrodeA->thermo("MCMB_Interstitials_anode");
     th->getPartialMolarVolumes(pmv);
     
 
@@ -190,7 +189,7 @@ int main(int argc, char **argv)
       Tfinal = Tinitial + deltaT;
       electrodeA->integrate(deltaT, 1.0);
       electrodeA->getMoleNumSpecies(molNum);
-      doublereal net[12];
+      double net[12];
       double amps = electrodeA->getIntegratedProductionRatesCurrent(net);
  
       cout << setw(15) << Tfinal << setw(15) << amps << endl;
@@ -200,11 +199,11 @@ int main(int argc, char **argv)
     delete cfC;
     delete electrodeA_input;
     delete electrodeA;
-    Cantera::appdelete();
+    appdelete();
 
     return 0;
 
-  } catch (CanteraError) {
+  } catch (ZuzaxError) {
 
     showErrors();
     return -1;
