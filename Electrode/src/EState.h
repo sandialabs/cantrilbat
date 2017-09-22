@@ -216,7 +216,7 @@ public:
      *
      *  @return                                  Returns 0
      */
-    virtual int initialize(const ZZCantera::Electrode* const e);
+    virtual int initialize(const Electrode* const e);
 
     //! Returns a string representing the electrode type 
     /*!
@@ -295,7 +295,7 @@ public:
      *  @param[in]           doFinal             Copy the final quantities. Defaults to true
      *                                           If false it copies the init quantitites.
      */
-    virtual void copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal = true);
+    virtual void copyElectrode_intoState(const Electrode* const e, bool doFinal = true);
 
     //! Set the state of the Electrode from the state of this object
     /*!
@@ -315,7 +315,7 @@ public:
      *               setState_EState() function. Let's get rid of this one, and use the Electrode member
      *               function instead.
      */
-    virtual void setStateElectrode_fromEState(ZZCantera::Electrode* const e) const;
+    virtual void setStateElectrode_fromEState(Electrode* const e) const;
 
     //! Set the state of the Electrode Class from the state of the EState object
     /*!
@@ -330,7 +330,7 @@ public:
      *               setState_EState() function. Let's get rid of this one, and use the Electrode member
      *               function instead.
      */
-    void copyEState_toElectrode(ZZCantera::Electrode* const e) const;
+    void copyEState_toElectrode(Electrode* const e) const;
 
     //! Print a heading
     /*!

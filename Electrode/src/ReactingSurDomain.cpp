@@ -314,7 +314,7 @@ void ReactingSurDomain::limitROP(const doublevalue* const nMoles)
     }
 }
 //==================================================================================================================================
-const std::vector<double>& ReactingSurDomain::calcNetLimitedSurfaceProductionRateDensities(const double* const n)
+const std::vector<doublevalue>& ReactingSurDomain::calcNetLimitedSurfaceProductionRateDensities(const doublevalue* const n)
 {
     updateROP();
 

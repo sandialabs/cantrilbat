@@ -847,8 +847,10 @@ public:
      *  @param[in]           t                   Time                    (input)
      *  @param[in]           ybase               Solution vector (input, output)
      *  @param[in]           step                Proposed step in the solution that will be cropped
+     *  @param[in]           dampIn              Existing damping coefficient already applied
      *
-     *  @return                                  returns the damping coefficient needed for this problem
+     *  @return                                  Returns the damping coefficient needed for this problem. Will be less
+     *                                             than or equal to the input, dampIn
      */
     virtual doublevalue boundsCheckAddn(const doublevalue t, const doublevalue* const ybase, const doublevalue* const step, 
                                         const doublevalue dampIn) override;

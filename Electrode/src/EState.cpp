@@ -239,7 +239,7 @@ EState::~EState()
 {
 }
 //==================================================================================================================================
-EState* EState::duplMyselfAsEState(ZZCantera::Electrode* e) const
+EState* EState::duplMyselfAsEState(Electrode* e) const
 {
     EState* es = new EState(*this);
     if (e) {
@@ -487,7 +487,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
 }
 //==================================================================================================================================
 // Set the State of this object from the state of the Electrode object
-void EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal)
+void EState::copyElectrode_intoState(const Electrode* const e, bool doFinal)
 {
     eRef_                              = e;
     spMoles_                           = e->spMoles_final_;
@@ -548,7 +548,7 @@ void EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool d
 }
 //======================================================================================================================
 //Set the state of the Electrode from the state of this object -> both init and final and init_init and final_final
-void EState::setStateElectrode_fromEState(ZZCantera::Electrode* const e) const
+void EState::setStateElectrode_fromEState(Electrode* const e) const
 {
     EState::copyEState_toElectrode(e);
 
@@ -559,7 +559,7 @@ void EState::setStateElectrode_fromEState(ZZCantera::Electrode* const e) const
 //======================================================================================================================
 // Set the state of the Electrode Class from the state of the EState object
 //   @deprecated
-void EState::copyEState_toElectrode(ZZCantera::Electrode* const e) const
+void EState::copyEState_toElectrode(Electrode* const e) const
 {
     e->spMoles_final_                     = spMoles_;
     e->phaseVoltages_                     = phaseVoltages_;
@@ -954,6 +954,6 @@ double EState::electrodeMoles() const
     return electrodeMoles_;
 }
 //==================================================================================================================================
-} // End of ZZCantera namespace
+} 
 //----------------------------------------------------------------------------------------------------------------------------------
 

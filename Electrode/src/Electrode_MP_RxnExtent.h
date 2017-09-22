@@ -1,5 +1,5 @@
 /**
- *   @file Electrode_MP_ReactionExtent.h
+ *  @file Electrode_MP_RxnExtent.h
  */
 
 /*
@@ -25,7 +25,7 @@
  *-----------------------------------------------------------------------------
  */
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -70,8 +70,7 @@ public:
 
     //!  First pass through the child setup system
     /*!
-     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this
-     *    pass.
+     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this pass.
      *  @param cf    Pointer to the BlockEntry record
      */
     void setup_input_child1(BEInput::BlockEntry* cf);

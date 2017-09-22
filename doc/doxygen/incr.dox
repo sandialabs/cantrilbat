@@ -809,10 +809,8 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/ApplBase_print.h \
                          ../../Electrode/src/ApplBase_print.cpp \
                          ../../Electrode/src/Electrode_XMLWriter.cpp \
-                         ../../Electrode/src/EState.h \
-                         ../../Electrode/src/EState.cpp \
-                         ../../Electrode/src/EState_XML.h \
-                         ../../Electrode/src/EState_XML.cpp \
+                         ../../Electrode/src/EState.h  ../../Electrode/src/EState.cpp \
+                         ../../Electrode/src/EState_XML.h  ../../Electrode/src/EState_XML.cpp \
                          ../../Electrode/src/Electrode_Factory.h \
                          ../../Electrode/src/Electrode_Factory.cpp \
                          ../../Electrode/src/Electrode_Integrator.h \
@@ -845,10 +843,11 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_FuncCurrent.h \
                          ../../Electrode/src/Electrode_SurfaceRegion.h \
                          ../../Electrode/src/Electrode_SurfaceRegion.cpp \
-                         ../../Electrode/src/Electrode_SuccessiveSubstitution.h ../../Electrode/src/Electrode_SuccessiveSubstitution.cpp \
                          ../../Electrode/src/Electrode_Equilibrium.h ../../Electrode/src/Electrode_Equilibrium.cpp \
                          ../../Electrode/src/Electrode_RadialRegion.h  ../../Electrode/src/Electrode_RadialRegion.cpp \
-                         ../../1Delectrode/src/*.h ../../1Delectrode/src/*.cpp
+                         ../../1Delectrode/src/m1d_app.h  ../../1Delectrode/src/m1d_app.cpp \
+                         ../../1Delectrode/src \
+                         ../../1Delectrode/src/*.h ../../1Delectrode/src/*.cpp \
 
 
 
