@@ -2,9 +2,6 @@
 
 all:
 	$(MAKE) alllink
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE)
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) 
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) 
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE)
 	cd MCMBAnode_LiIon_SimpleDiff_cV;                       $(MAKE)
 	cd MCMBAnode_LiIon_SimpleDiff_2_cV;                     $(MAKE) 
@@ -18,9 +15,6 @@ all:
 	cd MCMB_Mao ; 						$(MAKE)
 
 test: $(TEST_LIST)
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	$(MAKE) -s test
-	cd MCMBAnode_LiIon_DiffTALE_2_cV; 			$(MAKE) -s test
-	cd MCMBAnode_LiIon_DiffTALE_3_cV; 			$(MAKE) -s test
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	$(MAKE) -s test
 	cd MCMBAnode_LiIon_SimpleDiff_cV; 			$(MAKE) -s test
 	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			$(MAKE) -s test
@@ -64,6 +58,19 @@ MCMBAnode_LiIon_CSTR_2_cV_restart_test:
 MCMBAnode_LiIon_DiffTALE_cV_test:
 	cd MCMBAnode_LiIon_DiffTALE_cV &&                          $(MAKE) $(TASK)
 
+MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC_test:
+	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC &&       $(MAKE) $(TASK)
+
+MCMBAnode_LiIon_DiffTALE_2_cV_test:
+	cd MCMBAnode_LiIon_DiffTALE_2_cV &&                        $(MAKE) $(TASK)
+
+MCMBAnode_LiIon_DiffTALE_3_cV_test:
+	cd MCMBAnode_LiIon_DiffTALE_3_cV &&                        $(MAKE) $(TASK)
+
+MCMBAnode_LiIon_SimpleDiff_cc_restart_test:
+	cd MCMBAnode_LiIon_SimpleDiff_cc_restart &&                $(MAKE) $(TASK)
+
+
 TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test           \
              LiCoO2_LiIonCathode_CSTR_thermal_test    \
              FeS2_3_MPNewman_cV_restart_test          \
@@ -72,7 +79,11 @@ TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test           \
              FeS2_MPNewman_DiffRate_cc3_test          \
              LiCoO2_LiIonCathode_CSTR_3_cc_test       \
              MCMBAnode_LiIon_CSTR_2_cV_restart_test   \
-             MCMBAnode_LiIon_DiffTALE_cV_test
+             MCMBAnode_LiIon_DiffTALE_cV_test         \
+    	     MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC \
+	     MCMBAnode_LiIon_DiffTALE_2_cV_test       \
+	     MCMBAnode_LiIon_DiffTALE_3_cV_test       \
+	     MCMBAnode_LiIon_SimpleDiff_cc_restart_test
 
 
 #
@@ -106,11 +117,7 @@ clean_test_flags: $(TEST_LIST)
 
 
 clean: $(TEST_LIST)
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE)  clean
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE) clean
 	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE)   clean
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE)   clean
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) clean
 	cd MCMBAnode_LiIon_SimpleDiff_cV;                       $(MAKE) clean
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE) clean
 	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			$(MAKE)  clean
@@ -124,11 +131,7 @@ clean: $(TEST_LIST)
 	cd MCMB_Mao ; 						$(MAKE) clean
 
 test_clean: $(TEST_LIST)
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart;                   $(MAKE) clean
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;      $(MAKE) clean
 	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) clean
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) clean
 	cd MCMBAnode_LiIon_SimpleDiff_cV;                       $(MAKE) clean
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE) clean
 	cd MCMBAnode_LiIon_SimpleDiff_2_cV; 			$(MAKE) clean
@@ -142,9 +145,6 @@ test_clean: $(TEST_LIST)
 	cd MCMB_Mao ; 						$(MAKE) clean
 
 depends: $(TEST_LIST)
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC; 	$(MAKE) depends
-	cd MCMBAnode_LiIon_DiffTALE_2_cV;                       $(MAKE) depends
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) depends
 	cd MCMBAnode_LiIon_SimpleDiff_cV;			$(MAKE) depends
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC;    $(MAKE) depends
 	cd MCMBAnode_LiIon_SimpleDiff_2_cV;                     $(MAKE) depends
@@ -160,14 +160,11 @@ depends: $(TEST_LIST)
 
 
 rebaseline: $(TEST_LIST)
-	cd MCMBAnode_LiIon_CSTR_2_cV_restart; 			$(MAKE) rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_cV_FastRxnToEquil_NVC; 	$(MAKE) rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC;   	$(MAKE) rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_3_cV; 			$(MAKE) rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_4_cV;			$(MAKE) rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_3_thermal; 		$(MAKE) rebaseline
 	cd MCMBAnode_LiIon_SimpleDiff_cc;                       $(MAKE) rebaseline
-	cd MCMBAnode_LiIon_DiffTALE_3_cV;                       $(MAKE) rebaseline
 	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) rebaseline
 	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) rebaseline
 	cd LiSi_5_Anode_Integrate ;                             $(MAKE) rebaseline

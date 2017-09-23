@@ -4166,16 +4166,65 @@ void Electrode_DiffTALE::initialPackSolver_nonlinFunction()
 	}
     }
 }
-//====================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (virtual function from Electrode.h)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
+//==================================================================================================================================
+void Electrode_DiffTALE::setState_EState(const EState& esb)
+{
+    try {
+        const EState_RadialDistrib& es = dynamic_cast<const EState_RadialDistrib&>(esb);
+
+        spMoles_final_                     = es.spMoles_;
+        phaseVoltages_                     = es.phaseVoltages_;
+        temperature_                       = es.temperature_;
+        pressure_                          = es.pressure_;
+        electrodeChemistryModelType_       = es.electrodeChemistryModelType_;
+        electrodeDomainNumber_             = es.electrodeDomainNumber_;
+        electrodeCellNumber_               = es.electrodeCellNumber_;
+        particleNumberToFollow_            = es.particleNumberToFollow_;
+        ElectrodeSolidVolume_              = es.electrodeSolidVolume_;
+        // grossVolume_
+        Radius_exterior_final_             = es.radiusExterior_;
+        surfaceAreaRS_final_               = es.surfaceAreaRS_;
+        // electrodeMoles_
+        setCapacityType(electrodeCapacityType_);
+        // capacityLeft_ -> ok no explicit storage of this quantity in Electrode object
+        capacityInitialZeroDod_            = es.capacityInitial_;
+        // depthOfDischarge_  -> ok no explicit storage of this quantity in Electrode object
+        depthOfDischargeStarting_          = es.depthOfDischargeStarting_;
+        // relativeElectronsDischargedPerMole_
+        // relativeDeptOfDischarge_
+        // capacityDischargedToDate_
+        // e->electronKmolDischargedToDate_      = capacityDischargedToDate_ / ZZCantera::Faraday;
+        electronKmolDischargedToDate_      = es.electronKmolDischargedToDate_;
+
+        //for (size_t iph = 0; iph < e->m_NumTotPhases; iph++) {
+        //    e->updateState_Phase(iph);
+        // }
+
+        deltaTsubcycle_init_next_          = es.deltaTsubcycle_init_next_;
+        deltaTsubcycle_init_init_          = es.deltaTsubcycle_init_next_;
+
+        if (solnDot_final_.size() == es.solnDot_.size()) {
+            solnDot_final_ = es.solnDot_;
+            solnDot_init_ = es.solnDot_;
+            solnDot_init_init_ = es.solnDot_;
+        }
+        rnodePos_final_             =  es.rnodePos_;
+        cellBoundR_final_           =  es.cellBoundR_;
+        concTot_SPhase_Cell_final_  =  es.concTot_SPhase_Cell_;
+        concKRSpecies_Cell_final_   =  es.concKRSpecies_Cell_;
+        spMoles_KRsolid_Cell_final_ =  es.spMoles_KRsolid_Cell_;
+        /*
+         * Now we can do an update
+         */
+        updateState();
+        stateToPhaseFlagsReconciliation(false);
+        setInitStateFromFinal(true);
+        setFinalFinalStateFromFinal();
+    } catch (std::bad_cast) {
+        throw Electrode_Error("Electrode_DiffTALE::setState_EState()", "Couln't cast to EState_RadialDistrib object");
+    }
+}
+//==================================================================================================================================
 void  Electrode_DiffTALE::setInitStateFromFinal(bool setInitInit)
 {
     /*

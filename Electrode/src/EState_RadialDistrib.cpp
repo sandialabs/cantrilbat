@@ -76,11 +76,11 @@ EState_RadialDistrib& EState_RadialDistrib::operator=(const EState_RadialDistrib
     onRegionBoundary_                      = right.onRegionBoundary_;
     return *this;
 }
-//======================================================================================================================
+//==================================================================================================================================
 EState_RadialDistrib::~EState_RadialDistrib()
 {
 }
-//======================================================================================================================
+//==================================================================================================================================
 EState* EState_RadialDistrib::duplMyselfAsEState(Electrode* e) const
 {
     EState_RadialDistrib* es = new EState_RadialDistrib(*this);
@@ -89,8 +89,8 @@ EState* EState_RadialDistrib::duplMyselfAsEState(Electrode* e) const
     }
     return es;
 }
-//======================================================================================================================
-int EState_RadialDistrib::initialize(const ZZCantera::Electrode* const ebase)
+//==================================================================================================================================
+int EState_RadialDistrib::initialize(const Electrode* const ebase)
 {
     EState::initialize(ebase);
 
@@ -122,7 +122,7 @@ int EState_RadialDistrib::initialize(const ZZCantera::Electrode* const ebase)
     }
     return 1;
 }
-//======================================================================================================================
+//==================================================================================================================================
 XML_Node* EState_RadialDistrib::writeIdentificationToXML() const
 {
     XML_Node* x = new XML_Node("ElectrodeIdentification");
@@ -144,7 +144,7 @@ XML_Node* EState_RadialDistrib::writeIdentificationToXML() const
 
     return x;
 }
-//======================================================================================================================
+//==================================================================================================================================
 XML_Node* EState_RadialDistrib::write_electrodeState_ToXML() const
 {
     XML_Node* x = EState::write_electrodeState_ToXML();
@@ -161,11 +161,7 @@ XML_Node* EState_RadialDistrib::write_electrodeState_ToXML() const
 
     return x;
 }
-//======================================================================================================================
-//  Read the state from the XML_Node  given by the argument
-/*
- *  @return pointer to the XML_Node tree
- */
+//==================================================================================================================================
 void EState_RadialDistrib::readStateFromXML(const XML_Node& xmlEState)
 {
     EState::readStateFromXML(xmlEState);

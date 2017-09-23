@@ -389,15 +389,27 @@ public:
 
     //! Print table representing prediction vs. corrector information
     /*!
-     *  @param yval           Vector of corrector values
-     *  @param pnormSrc       Norm of the predictor-corrector comparison for the source vector.
-     *  @param pnormSoln      Norm of the predictor-corrector comparison for the solution vector.
+     *  @param[in]           yval                Vector of corrector values
+     *  @param[in]           pnormSrc            Norm of the predictor-corrector comparison for the source vector.
+     *  @param[in]           pnormSoln           Norm of the predictor-corrector comparison for the solution vector.
      */
     virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const;
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
+
+    //! Sets the state of the Electrode object given an EState object
+    /*!
+     *  (virtual function from Electrode)
+     *  This sets all of the states within the object to the same state.
+     *  It is an error to call this function during a pending step where there can be a difference between t_init and t_final.
+     *
+     *  @param[in]           es                  Const reference to the EState object. Must be an EState_RadialDistrib child
+     *                                           or else it will throw an error. However, there is an option to 
+     *                                           read EState objects with less information. 
+     */
+    virtual void setState_EState(const EState& es) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
@@ -406,14 +418,13 @@ public:
      *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
      *  routine as well.
      *
-     * @param setInitInit   Boolean indicating whether you should set the init_init state as well
+     *  @param[in]           setInitInit         Boolean indicating whether you should set the init_init state as well
      */
     virtual void setInitStateFromFinal(bool setInitInit = false);
 
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!
      *  (virtual function from Electrude.h)
-     *
      *  Set the init and init_init state from the final_final state.
      */
     virtual void setInitInitStateFromFinalFinal();
@@ -421,7 +432,6 @@ public:
     //! Set the internal final intermediate state from the internal init state
     /*!
      *  (virtual function from Electrode)
-     *
      *  Set the final state from the init state. This is commonly called during a failed time step
      */
     virtual void setFinalStateFromInit();
@@ -429,7 +439,6 @@ public:
     //! Set the internal initial intermediate from the internal initial global state
     /*!
      *  (virtual function from Electrode.h)
-     *
      *  Set the intial state from the init init state. We also can set the final state from this
      *  routine as well.
      *

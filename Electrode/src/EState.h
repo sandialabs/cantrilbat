@@ -26,6 +26,7 @@ namespace Cantera
 class Electrode;
 class Electrode_CSTR;
 class Electrode_SimpleDiff;
+class Electrode_DiffTALE;
 class Electrode_Integrator;
 class XML_Node;
 class Electrode_Factory;
@@ -588,6 +589,7 @@ protected:
     friend class ZZCantera::Electrode_CSTR;
     friend class ZZCantera::Electrode_Integrator;
     friend class ZZCantera::Electrode_SimpleDiff;
+    friend class ZZCantera::Electrode_DiffTALE;
 };
 //==================================================================================================================================
 }

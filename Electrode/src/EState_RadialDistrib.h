@@ -1,6 +1,6 @@
 /**
  *  @file EState_RadialDistrib.h  Extension of the save file state for radially distributed
- *        electrode objects
+ *                                electrode objects
  */
 
 /*
@@ -91,10 +91,9 @@ public:
     /*!
      *  (virtual function)
      *
-     *  virtual function, because the base class is called from general code, allowing
-     *      the child classes to be invoked.
+     *  virtual function, because the base class is called from general code, allowing the child classes to be invoked.
      *
-     *  @return pointer to the XML_Node tree
+     *  @return                                  pointer to the XML_Node tree
      */
     virtual XML_Node* write_electrodeState_ToXML() const override;
 
@@ -264,6 +263,7 @@ protected:
      */
     //friend class ZZCantera::Electrode;
     friend class ZZCantera::Electrode_SimpleDiff;
+    friend class ZZCantera::Electrode_DiffTALE;
 };
 //==================================================================================================================================
 }

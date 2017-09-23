@@ -4716,7 +4716,7 @@ double Electrode::integrateConstantCurrent(double& current, double& deltaT, doub
     double deltaT_curr = deltaT;
     // Turn down printing for lower levels
     printLvl_ = std::max(0, printLvl_ - 3);
-    int printLvlLocal = oldP;
+    int printLvlLocal = printLvl_;
     if (printLvlLocal > 0) {
         rf.setPrintLvl(printLvlLocal);
         ec.printLvl_ = printLvlLocal;

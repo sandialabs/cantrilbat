@@ -1,0 +1,8 @@
+
+
+HKM
+
+This is a test with a fast reaction mechanism using a constant current approximation.
+
+It does 100 steps at a constant current with 5 amps requested. Everything is easy and the calculation completes swiftly.
+
