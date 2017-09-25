@@ -322,35 +322,6 @@ oc[0] = 4.17612
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =                  3.7
-Electrode_ECurr: Curr(voltage =                  3.7) =  -0.0005391915257559   nsteps = 14
-Electrode_ECurr: call integrate with voltage =              3.70037
-Electrode_ECurr: Curr(voltage =              3.70037) =   -0.000535323239784   nsteps = 14
-Electrode_ECurr: call integrate with voltage =              3.69537
-Electrode_ECurr: Curr(voltage =              3.69537) =  -0.0005900274273469   nsteps = 14
-Electrode_ECurr: call integrate with voltage =              3.68787
-Electrode_ECurr: Curr(voltage =              3.68787) =  -0.0006827407701666   nsteps = 14
-Electrode_ECurr: call integrate with voltage =              3.67662
-Electrode_ECurr: Curr(voltage =              3.67662) =  -0.0008498258488196   nsteps = 14
-Electrode_ECurr: call integrate with voltage =             3.659745
-Electrode_ECurr: Curr(voltage =             3.659745) =   -0.001180150038833   nsteps = 14
-Electrode_ECurr: call integrate with voltage =            3.6344325
-Electrode_ECurr: Curr(voltage =            3.6344325) =   -0.001931237917363   nsteps = 14
-Electrode_ECurr: call integrate with voltage =       3.631651669261
-Electrode_ECurr: Curr(voltage =       3.631651669261) =   -0.002038606793451   nsteps = 14
-Electrode_ECurr: call integrate with voltage =       3.632704203604
-Electrode_ECurr: Curr(voltage =       3.632704203604) =   -0.001997283484422   nsteps = 14
-Electrode_ECurr: call integrate with voltage =       3.632631370339
-Electrode_ECurr: Curr(voltage =       3.632631370339) =   -0.002000115807609   nsteps = 14
-Electrode_ECurr: call integrate with voltage =       3.632634505071
-Electrode_ECurr: Curr(voltage =       3.632634505071) =   -0.001999993822208   nsteps = 14
-Electrode_ECurr: call integrate with voltage =       3.632634337961
-Electrode_ECurr: Curr(voltage =       3.632634337961) =   -0.002000000324959   nsteps = 14
-Electrode_ECurr: call integrate with voltage =       3.632634346752
-Electrode_ECurr: Curr(voltage =       3.632634346752) =   -0.001999999982896   nsteps = 14
-Electrode_ECurr: call integrate with voltage =       3.632634346289
-Electrode_ECurr: Curr(voltage =       3.632634346289) =     -0.0020000000009   nsteps = 14
-RootFind success: convergence achieved
             0.1         -0.00214
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.00000E-01
@@ -461,23 +432,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632634346289
-Electrode_ECurr: Curr(voltage =       3.632634346289) =   -0.001999138265487   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632997609724
-Electrode_ECurr: Curr(voltage =       3.632997609724) =   -0.001985059269931   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632598019946
-Electrode_ECurr: Curr(voltage =       3.632598019946) =   -0.002000551643884   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632612997179
-Electrode_ECurr: Curr(voltage =       3.632612997179) =   -0.001999968791569   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632612153026
-Electrode_ECurr: Curr(voltage =       3.632612153026) =   -0.002000001638034   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632612197339
-Electrode_ECurr: Curr(voltage =       3.632612197339) =   -0.001999999913774   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632612195006
-Electrode_ECurr: Curr(voltage =       3.632612195006) =   -0.002000000004538   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632612195123
-Electrode_ECurr: Curr(voltage =       3.632612195123) =               -0.002   nsteps = 2
-RootFind success: convergence achieved
             0.2         -0.0022
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.00000E-01
@@ -588,23 +542,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632612195123
-Electrode_ECurr: Curr(voltage =       3.632612195123) =   -0.001999218975055   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632975456342
-Electrode_ECurr: Curr(voltage =       3.632975456342) =   -0.001985139768729   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632575869001
-Electrode_ECurr: Curr(voltage =       3.632575869001) =   -0.002000632374364   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632593037721
-Electrode_ECurr: Curr(voltage =       3.632593037721) =   -0.001999964238714   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632592070417
-Electrode_ECurr: Curr(voltage =       3.632592070417) =   -0.002000001876242   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632592121175
-Electrode_ECurr: Curr(voltage =       3.632592121175) =   -0.001999999901233   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632592118503
-Electrode_ECurr: Curr(voltage =       3.632592118503) =   -0.002000000005198   nsteps = 2
-Electrode_ECurr: call integrate with voltage =       3.632592118637
-Electrode_ECurr: Curr(voltage =       3.632592118637) =               -0.002   nsteps = 2
-RootFind success: convergence achieved
             0.3         -0.0022
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.00000E-01
@@ -715,23 +652,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632592118637
-Electrode_ECurr: Curr(voltage =       3.632592118637) =   -0.001999116898864   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632955377849
-Electrode_ECurr: Curr(voltage =       3.632955377849) =   -0.001985039510499   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632555792716
-Electrode_ECurr: Curr(voltage =       3.632555792716) =    -0.00200053011484   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632570186909
-Electrode_ECurr: Curr(voltage =       3.632570186909) =   -0.001999970006779   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632569375546
-Electrode_ECurr: Curr(voltage =       3.632569375546) =   -0.002000001574421   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632569418142
-Electrode_ECurr: Curr(voltage =       3.632569418142) =   -0.001999999917123   nsteps = 1
-Electrode_ECurr: call integrate with voltage =         3.6325694159
-Electrode_ECurr: Curr(voltage =         3.6325694159) =   -0.002000000004362   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632569416012
-Electrode_ECurr: Curr(voltage =       3.632569416012) =               -0.002   nsteps = 1
-RootFind success: convergence achieved
             0.4         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.00000E-01
@@ -842,23 +762,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632569416012
-Electrode_ECurr: Curr(voltage =       3.632569416012) =   -0.001999266216245   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632932672954
-Electrode_ECurr: Curr(voltage =       3.632932672954) =   -0.001985187862293   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632533090318
-Electrode_ECurr: Curr(voltage =       3.632533090318) =   -0.002000679529123   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632551540172
-Electrode_ECurr: Curr(voltage =       3.632551540172) =   -0.001999961581437   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632550500927
-Electrode_ECurr: Curr(voltage =       3.632550500927) =   -0.002000002015184   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632550555448
-Electrode_ECurr: Curr(voltage =       3.632550555448) =   -0.001999999893917   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632550552578
-Electrode_ECurr: Curr(voltage =       3.632550552578) =   -0.002000000005583   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632550552729
-Electrode_ECurr: Curr(voltage =       3.632550552729) =   -0.001999999999706   nsteps = 1
-RootFind success: convergence achieved
             0.5         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  5.00000E-01
@@ -969,23 +872,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632550552729
-Electrode_ECurr: Curr(voltage =       3.632550552729) =     -0.0019992695562   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632913807785
-Electrode_ECurr: Curr(voltage =       3.632913807785) =   -0.001985191249406   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632514227224
-Electrode_ECurr: Curr(voltage =       3.632514227224) =   -0.002000682864317   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632532767597
-Electrode_ECurr: Curr(voltage =       3.632532767597) =   -0.001999961393524   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632531723271
-Electrode_ECurr: Curr(voltage =       3.632531723271) =   -0.002000002025007   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632531778058
-Electrode_ECurr: Curr(voltage =       3.632531778058) =     -0.0019999998934   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632531775174
-Electrode_ECurr: Curr(voltage =       3.632531775174) =    -0.00200000000561   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632531775325
-Electrode_ECurr: Curr(voltage =       3.632531775325) =   -0.001999999999705   nsteps = 1
-RootFind success: convergence achieved
             0.6         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  6.00000E-01
@@ -1096,23 +982,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632531775325
-Electrode_ECurr: Curr(voltage =       3.632531775325) =   -0.001999272874729   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632895028503
-Electrode_ECurr: Curr(voltage =       3.632895028503) =    -0.00198519461492   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632495450008
-Electrode_ECurr: Curr(voltage =       3.632495450008) =   -0.002000686178102   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632514080319
-Electrode_ECurr: Curr(voltage =       3.632514080319) =   -0.001999961206823   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632513030943
-Electrode_ECurr: Curr(voltage =       3.632513030943) =   -0.002000002034766   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632513085994
-Electrode_ECurr: Curr(voltage =       3.632513085994) =   -0.001999999892886   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632513083096
-Electrode_ECurr: Curr(voltage =       3.632513083096) =   -0.002000000005637   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632513083249
-Electrode_ECurr: Curr(voltage =       3.632513083249) =   -0.001999999999703   nsteps = 1
-RootFind success: convergence achieved
             0.7         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  7.00000E-01
@@ -1223,23 +1092,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632513083249
-Electrode_ECurr: Curr(voltage =       3.632513083249) =   -0.001999276171689   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632876334557
-Electrode_ECurr: Curr(voltage =       3.632876334557) =   -0.001985197958697   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632476758118
-Electrode_ECurr: Curr(voltage =       3.632476758118) =   -0.002000689470335   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632495477782
-Electrode_ECurr: Curr(voltage =       3.632495477782) =   -0.001999961021343   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63249442339
-Electrode_ECurr: Curr(voltage =        3.63249442339) =   -0.002000002044461   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632494478703
-Electrode_ECurr: Curr(voltage =       3.632494478703) =   -0.001999999892376   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632494475791
-Electrode_ECurr: Curr(voltage =       3.632494475791) =   -0.002000000005664   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632494475944
-Electrode_ECurr: Curr(voltage =       3.632494475944) =   -0.001999999999702   nsteps = 1
-RootFind success: convergence achieved
             0.8         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  8.00000E-01
@@ -1350,23 +1202,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632494475944
-Electrode_ECurr: Curr(voltage =       3.632494475944) =   -0.001999279447228   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632857725392
-Electrode_ECurr: Curr(voltage =       3.632857725392) =   -0.001985201280885   nsteps = 1
-Electrode_ECurr: call integrate with voltage =          3.632458151
-Electrode_ECurr: Curr(voltage =          3.632458151) =   -0.002000692741165   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632476959436
-Electrode_ECurr: Curr(voltage =       3.632476959436) =   -0.001999960837074   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63247590006
-Electrode_ECurr: Curr(voltage =        3.63247590006) =   -0.002000002054093   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632475955634
-Electrode_ECurr: Curr(voltage =       3.632475955634) =   -0.001999999891869   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632475952708
-Electrode_ECurr: Curr(voltage =       3.632475952708) =   -0.002000000005691   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632475952862
-Electrode_ECurr: Curr(voltage =       3.632475952862) =     -0.0019999999997   nsteps = 1
-RootFind success: convergence achieved
             0.9         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  9.00000E-01
@@ -1477,23 +1312,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632475952862
-Electrode_ECurr: Curr(voltage =       3.632475952862) =   -0.001999282701496   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632839200457
-Electrode_ECurr: Curr(voltage =       3.632839200457) =   -0.001985204581634   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632439628103
-Electrode_ECurr: Curr(voltage =       3.632439628103) =    -0.00200069599074   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632458524733
-Electrode_ECurr: Curr(voltage =       3.632458524733) =    -0.00199996065401   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632457460406
-Electrode_ECurr: Curr(voltage =       3.632457460406) =   -0.002000002063661   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632457516239
-Electrode_ECurr: Curr(voltage =       3.632457516239) =   -0.001999999891365   nsteps = 1
-Electrode_ECurr: call integrate with voltage =         3.6324575133
-Electrode_ECurr: Curr(voltage =         3.6324575133) =   -0.002000000005717   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632457513454
-Electrode_ECurr: Curr(voltage =       3.632457513454) =   -0.001999999999699   nsteps = 1
-RootFind success: convergence achieved
               1         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.00000E+00
@@ -1604,23 +1422,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632457513454
-Electrode_ECurr: Curr(voltage =       3.632457513454) =   -0.001999285934638   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632820759206
-Electrode_ECurr: Curr(voltage =       3.632820759206) =   -0.001985207861093   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632421188879
-Electrode_ECurr: Curr(voltage =       3.632421188879) =   -0.002000699219206   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632440173131
-Electrode_ECurr: Curr(voltage =       3.632440173131) =    -0.00199996047214   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632439103885
-Electrode_ECurr: Curr(voltage =       3.632439103885) =   -0.002000002073166   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632439159975
-Electrode_ECurr: Curr(voltage =       3.632439159975) =   -0.001999999890864   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632439157022
-Electrode_ECurr: Curr(voltage =       3.632439157022) =   -0.002000000005744   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632439157178
-Electrode_ECurr: Curr(voltage =       3.632439157178) =   -0.001999999999698   nsteps = 1
-RootFind success: convergence achieved
             1.1         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.10000E+00
@@ -1731,23 +1532,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632439157178
-Electrode_ECurr: Curr(voltage =       3.632439157178) =     -0.0019992891468   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632802401093
-Electrode_ECurr: Curr(voltage =       3.632802401093) =   -0.001985211119407   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632402832786
-Electrode_ECurr: Curr(voltage =       3.632402832786) =    -0.00200070242671   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63242190409
-Electrode_ECurr: Curr(voltage =        3.63242190409) =   -0.001999960291457   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632420829958
-Electrode_ECurr: Curr(voltage =       3.632420829958) =   -0.002000002082609   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632420886303
-Electrode_ECurr: Curr(voltage =       3.632420886303) =   -0.001999999890367   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632420883337
-Electrode_ECurr: Curr(voltage =       3.632420883337) =    -0.00200000000577   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632420883493
-Electrode_ECurr: Curr(voltage =       3.632420883493) =   -0.001999999999696   nsteps = 1
-RootFind success: convergence achieved
             1.2         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.20000E+00
@@ -1858,23 +1642,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632420883493
-Electrode_ECurr: Curr(voltage =       3.632420883493) =   -0.001999292338128   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632784125581
-Electrode_ECurr: Curr(voltage =       3.632784125581) =   -0.001985214356722   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632384559284
-Electrode_ECurr: Curr(voltage =       3.632384559284) =   -0.002000705613395   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632403717074
-Electrode_ECurr: Curr(voltage =       3.632403717074) =   -0.001999960111953   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632402638087
-Electrode_ECurr: Curr(voltage =       3.632402638087) =   -0.002000002091991   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632402694687
-Electrode_ECurr: Curr(voltage =       3.632402694687) =   -0.001999999889874   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632402691707
-Electrode_ECurr: Curr(voltage =       3.632402691707) =   -0.002000000005796   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632402691864
-Electrode_ECurr: Curr(voltage =       3.632402691864) =   -0.001999999999695   nsteps = 1
-RootFind success: convergence achieved
             1.3         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.30000E+00
@@ -1985,23 +1752,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632402691864
-Electrode_ECurr: Curr(voltage =       3.632402691864) =   -0.001999295508765   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632765932133
-Electrode_ECurr: Curr(voltage =       3.632765932133) =   -0.001985217573183   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632366367837
-Electrode_ECurr: Curr(voltage =       3.632366367837) =   -0.002000708779405   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632385611552
-Electrode_ECurr: Curr(voltage =       3.632385611552) =   -0.001999959933619   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632384527743
-Electrode_ECurr: Curr(voltage =       3.632384527743) =    -0.00200000210131   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632384584594
-Electrode_ECurr: Curr(voltage =       3.632384584594) =   -0.001999999889383   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632384581601
-Electrode_ECurr: Curr(voltage =       3.632384581601) =   -0.002000000005822   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632384581759
-Electrode_ECurr: Curr(voltage =       3.632384581759) =   -0.001999999999694   nsteps = 1
-RootFind success: convergence achieved
             1.4         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.40000E+00
@@ -2112,23 +1862,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632384581759
-Electrode_ECurr: Curr(voltage =       3.632384581759) =   -0.001999298658852   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632747820217
-Electrode_ECurr: Curr(voltage =       3.632747820217) =   -0.001985220768933   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632348257913
-Electrode_ECurr: Curr(voltage =       3.632348257913) =   -0.002000711924883   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632367586996
-Electrode_ECurr: Curr(voltage =       3.632367586996) =   -0.001999959756447   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632366498394
-Electrode_ECurr: Curr(voltage =       3.632366498394) =   -0.002000002110569   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632366555496
-Electrode_ECurr: Curr(voltage =       3.632366555496) =   -0.001999999888895   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63236655249
-Electrode_ECurr: Curr(voltage =        3.63236655249) =   -0.002000000005848   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632366552648
-Electrode_ECurr: Curr(voltage =       3.632366552648) =   -0.001999999999692   nsteps = 1
-RootFind success: convergence achieved
             1.5         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.50000E+00
@@ -2239,23 +1972,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632366552648
-Electrode_ECurr: Curr(voltage =       3.632366552648) =   -0.001999301788533   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632729789304
-Electrode_ECurr: Curr(voltage =       3.632729789304) =   -0.001985223944116   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632330228983
-Electrode_ECurr: Curr(voltage =       3.632330228983) =    -0.00200071504997   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63234964288
-Electrode_ECurr: Curr(voltage =        3.63234964288) =   -0.001999959580429   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632348549518
-Electrode_ECurr: Curr(voltage =       3.632348549518) =   -0.002000002119767   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632348606869
-Electrode_ECurr: Curr(voltage =       3.632348606869) =   -0.001999999888411   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63234860385
-Electrode_ECurr: Curr(voltage =        3.63234860385) =   -0.002000000005873   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632348604009
-Electrode_ECurr: Curr(voltage =       3.632348604009) =   -0.001999999999691   nsteps = 1
-RootFind success: convergence achieved
             1.6         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.60000E+00
@@ -2366,23 +2082,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632348604009
-Electrode_ECurr: Curr(voltage =       3.632348604009) =   -0.001999304897946   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632711838869
-Electrode_ECurr: Curr(voltage =       3.632711838869) =   -0.001985227098871   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632312280522
-Electrode_ECurr: Curr(voltage =       3.632312280522) =   -0.002000718154807   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632331778683
-Electrode_ECurr: Curr(voltage =       3.632331778683) =   -0.001999959405558   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632330680592
-Electrode_ECurr: Curr(voltage =       3.632330680592) =   -0.002000002128905   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63233073819
-Electrode_ECurr: Curr(voltage =        3.63233073819) =    -0.00199999988793   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632330735158
-Electrode_ECurr: Curr(voltage =       3.632330735158) =   -0.002000000005898   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632330735318
-Electrode_ECurr: Curr(voltage =       3.632330735318) =    -0.00199999999969   nsteps = 1
-RootFind success: convergence achieved
             1.7         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.70000E+00
@@ -2493,23 +2192,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632330735318
-Electrode_ECurr: Curr(voltage =       3.632330735318) =   -0.001999307987233   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632693968391
-Electrode_ECurr: Curr(voltage =       3.632693968391) =   -0.001985230233341   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63229441201
-Electrode_ECurr: Curr(voltage =        3.63229441201) =   -0.002000721239532   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632313993889
-Electrode_ECurr: Curr(voltage =       3.632313993889) =   -0.001999959231824   nsteps = 1
-Electrode_ECurr: call integrate with voltage =         3.6323128911
-Electrode_ECurr: Curr(voltage =         3.6323128911) =   -0.002000002137983   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632312948943
-Electrode_ECurr: Curr(voltage =       3.632312948943) =   -0.001999999887452   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632312945898
-Electrode_ECurr: Curr(voltage =       3.632312945898) =   -0.002000000005923   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632312946058
-Electrode_ECurr: Curr(voltage =       3.632312946058) =   -0.001999999999688   nsteps = 1
-RootFind success: convergence achieved
             1.8         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.80000E+00
@@ -2620,23 +2302,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632312946058
-Electrode_ECurr: Curr(voltage =       3.632312946058) =    -0.00199931105653   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632676177353
-Electrode_ECurr: Curr(voltage =       3.632676177353) =   -0.001985233347664   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632276622929
-Electrode_ECurr: Curr(voltage =       3.632276622929) =   -0.002000724304284   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632296287983
-Electrode_ECurr: Curr(voltage =       3.632296287983) =   -0.001999959059221   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632295180526
-Electrode_ECurr: Curr(voltage =       3.632295180526) =   -0.002000002147002   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632295238613
-Electrode_ECurr: Curr(voltage =       3.632295238613) =   -0.001999999886977   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632295235555
-Electrode_ECurr: Curr(voltage =       3.632295235555) =   -0.002000000005948   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632295235716
-Electrode_ECurr: Curr(voltage =       3.632295235716) =   -0.001999999999687   nsteps = 1
-RootFind success: convergence achieved
             1.9         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  1.90000E+00
@@ -2747,23 +2412,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632295235716
-Electrode_ECurr: Curr(voltage =       3.632295235716) =   -0.001999314105976   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63265846524
-Electrode_ECurr: Curr(voltage =        3.63265846524) =   -0.001985236441979   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632258912764
-Electrode_ECurr: Curr(voltage =       3.632258912764) =   -0.002000727349201   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632278660455
-Electrode_ECurr: Curr(voltage =       3.632278660455) =   -0.001999958887741   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63227754836
-Electrode_ECurr: Curr(voltage =        3.63227754836) =   -0.002000002155962   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63227760669
-Electrode_ECurr: Curr(voltage =        3.63227760669) =   -0.001999999886505   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632277603619
-Electrode_ECurr: Curr(voltage =       3.632277603619) =   -0.002000000005973   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632277603781
-Electrode_ECurr: Curr(voltage =       3.632277603781) =   -0.001999999999686   nsteps = 1
-RootFind success: convergence achieved
               2         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.00000E+00
@@ -2874,23 +2522,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632277603781
-Electrode_ECurr: Curr(voltage =       3.632277603781) =   -0.001999317135707   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632640831541
-Electrode_ECurr: Curr(voltage =       3.632640831541) =   -0.001985239516422   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632241281005
-Electrode_ECurr: Curr(voltage =       3.632241281005) =   -0.002000730374418   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632261110799
-Electrode_ECurr: Curr(voltage =       3.632261110799) =   -0.001999958717375   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632259994096
-Electrode_ECurr: Curr(voltage =       3.632259994096) =   -0.002000002164864   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632260052666
-Electrode_ECurr: Curr(voltage =       3.632260052666) =   -0.001999999886036   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632260049583
-Electrode_ECurr: Curr(voltage =       3.632260049583) =   -0.002000000005998   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632260049745
-Electrode_ECurr: Curr(voltage =       3.632260049745) =   -0.001999999999684   nsteps = 1
-RootFind success: convergence achieved
             2.1         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.10000E+00
@@ -3001,23 +2632,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632260049745
-Electrode_ECurr: Curr(voltage =       3.632260049745) =   -0.001999320145858   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63262327575
-Electrode_ECurr: Curr(voltage =        3.63262327575) =   -0.001985242571131   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632223727145
-Electrode_ECurr: Curr(voltage =       3.632223727145) =   -0.002000733380071   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632243638509
-Electrode_ECurr: Curr(voltage =       3.632243638509) =   -0.001999958548116   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632242517229
-Electrode_ECurr: Curr(voltage =       3.632242517229) =   -0.002000002173707   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632242576039
-Electrode_ECurr: Curr(voltage =       3.632242576039) =   -0.001999999885571   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632242572943
-Electrode_ECurr: Curr(voltage =       3.632242572943) =   -0.002000000006023   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632242573106
-Electrode_ECurr: Curr(voltage =       3.632242573106) =   -0.001999999999683   nsteps = 1
-RootFind success: convergence achieved
             2.2         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.20000E+00
@@ -3128,23 +2742,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632242573106
-Electrode_ECurr: Curr(voltage =       3.632242573106) =   -0.001999323136564   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632605797363
-Electrode_ECurr: Curr(voltage =       3.632605797363) =    -0.00198524560624   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63220625068
-Electrode_ECurr: Curr(voltage =        3.63220625068) =   -0.002000736366295   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632226243088
-Electrode_ECurr: Curr(voltage =       3.632226243088) =   -0.001999958379956   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63222511726
-Electrode_ECurr: Curr(voltage =        3.63222511726) =   -0.002000002182492   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632225176308
-Electrode_ECurr: Curr(voltage =       3.632225176308) =   -0.001999999885108   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632225173199
-Electrode_ECurr: Curr(voltage =       3.632225173199) =   -0.002000000006047   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632225173363
-Electrode_ECurr: Curr(voltage =       3.632225173363) =   -0.001999999999682   nsteps = 1
-RootFind success: convergence achieved
             2.3         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.30000E+00
@@ -3255,23 +2852,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632225173363
-Electrode_ECurr: Curr(voltage =       3.632225173363) =   -0.001999326107959   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63258839588
-Electrode_ECurr: Curr(voltage =        3.63258839588) =   -0.001985248621885   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632188851111
-Electrode_ECurr: Curr(voltage =       3.632188851111) =   -0.002000739333222   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632208924038
-Electrode_ECurr: Curr(voltage =       3.632208924038) =   -0.001999958212888   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632207793692
-Electrode_ECurr: Curr(voltage =       3.632207793692) =   -0.002000002191221   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632207852975
-Electrode_ECurr: Curr(voltage =       3.632207852975) =   -0.001999999884649   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632207849855
-Electrode_ECurr: Curr(voltage =       3.632207849855) =   -0.002000000006071   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632207850019
-Electrode_ECurr: Curr(voltage =       3.632207850019) =    -0.00199999999968   nsteps = 1
-RootFind success: convergence achieved
             2.4         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.40000E+00
@@ -3382,23 +2962,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632207850019
-Electrode_ECurr: Curr(voltage =       3.632207850019) =   -0.001999329060173   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632571070804
-Electrode_ECurr: Curr(voltage =       3.632571070804) =   -0.001985251618199   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63217152794
-Electrode_ECurr: Curr(voltage =        3.63217152794) =   -0.002000742280985   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632191680866
-Electrode_ECurr: Curr(voltage =       3.632191680866) =   -0.001999958046904   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632190546031
-Electrode_ECurr: Curr(voltage =       3.632190546031) =   -0.002000002199892   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632190605549
-Electrode_ECurr: Curr(voltage =       3.632190605549) =   -0.001999999884192   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632190602416
-Electrode_ECurr: Curr(voltage =       3.632190602416) =   -0.002000000006095   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632190602581
-Electrode_ECurr: Curr(voltage =       3.632190602581) =   -0.001999999999679   nsteps = 1
-RootFind success: convergence achieved
             2.5         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.50000E+00
@@ -3509,23 +3072,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632190602581
-Electrode_ECurr: Curr(voltage =       3.632190602581) =    -0.00199933199334   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632553821641
-Electrode_ECurr: Curr(voltage =       3.632553821641) =   -0.001985254595313   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632154280675
-Electrode_ECurr: Curr(voltage =       3.632154280675) =   -0.002000745209715   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632174513083
-Electrode_ECurr: Curr(voltage =       3.632174513083) =   -0.001999957881997   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632173373788
-Electrode_ECurr: Curr(voltage =       3.632173373788) =   -0.002000002208507   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632173433539
-Electrode_ECurr: Curr(voltage =       3.632173433539) =   -0.001999999883738   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632173430394
-Electrode_ECurr: Curr(voltage =       3.632173430394) =   -0.002000000006119   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632173430559
-Electrode_ECurr: Curr(voltage =       3.632173430559) =   -0.001999999999678   nsteps = 1
-RootFind success: convergence achieved
             2.6         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.60000E+00
@@ -3636,23 +3182,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632173430559
-Electrode_ECurr: Curr(voltage =       3.632173430559) =    -0.00199933490759   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632536647903
-Electrode_ECurr: Curr(voltage =       3.632536647903) =    -0.00198525755336   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632137108825
-Electrode_ECurr: Curr(voltage =       3.632137108825) =   -0.002000748119544   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632157420202
-Electrode_ECurr: Curr(voltage =       3.632157420202) =   -0.001999957718159   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632156276476
-Electrode_ECurr: Curr(voltage =       3.632156276476) =   -0.002000002217066   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632156336459
-Electrode_ECurr: Curr(voltage =       3.632156336459) =   -0.001999999883288   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632156333302
-Electrode_ECurr: Curr(voltage =       3.632156333302) =   -0.002000000006143   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632156333468
-Electrode_ECurr: Curr(voltage =       3.632156333468) =   -0.001999999999677   nsteps = 1
-RootFind success: convergence achieved
             2.7         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.70000E+00
@@ -3763,23 +3292,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632156333468
-Electrode_ECurr: Curr(voltage =       3.632156333468) =   -0.001999337803052   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632519549101
-Electrode_ECurr: Curr(voltage =       3.632519549101) =    -0.00198526049247   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632120011904
-Electrode_ECurr: Curr(voltage =       3.632120011904) =     -0.0020007510106   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63214040174
-Electrode_ECurr: Curr(voltage =        3.63214040174) =   -0.001999957555382   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632139253612
-Electrode_ECurr: Curr(voltage =       3.632139253612) =   -0.002000002225569   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632139313825
-Electrode_ECurr: Curr(voltage =       3.632139313825) =    -0.00199999988284   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632139310656
-Electrode_ECurr: Curr(voltage =       3.632139310656) =   -0.002000000006166   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632139310822
-Electrode_ECurr: Curr(voltage =       3.632139310822) =   -0.001999999999676   nsteps = 1
-RootFind success: convergence achieved
             2.8         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.80000E+00
@@ -3890,23 +3402,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632139310822
-Electrode_ECurr: Curr(voltage =       3.632139310822) =   -0.001999340679855   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632502524754
-Electrode_ECurr: Curr(voltage =       3.632502524754) =   -0.001985263412772   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632102989429
-Electrode_ECurr: Curr(voltage =       3.632102989429) =   -0.002000753883012   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632123457218
-Electrode_ECurr: Curr(voltage =       3.632123457218) =   -0.001999957393661   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632122304717
-Electrode_ECurr: Curr(voltage =       3.632122304717) =   -0.002000002234016   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632122365158
-Electrode_ECurr: Curr(voltage =       3.632122365158) =   -0.001999999882395   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632122361976
-Electrode_ECurr: Curr(voltage =       3.632122361976) =    -0.00200000000619   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632122362144
-Electrode_ECurr: Curr(voltage =       3.632122362144) =   -0.001999999999674   nsteps = 1
-RootFind success: convergence achieved
             2.9         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  2.90000E+00
@@ -4017,23 +3512,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632122362144
-Electrode_ECurr: Curr(voltage =       3.632122362144) =   -0.001999343538126   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63248557438
-Electrode_ECurr: Curr(voltage =        3.63248557438) =   -0.001985266314396   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63208604092
-Electrode_ECurr: Curr(voltage =        3.63208604092) =   -0.002000756736907   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63210658616
-Electrode_ECurr: Curr(voltage =        3.63210658616) =   -0.001999957232986   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632105429313
-Electrode_ECurr: Curr(voltage =       3.632105429313) =   -0.002000002242409   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632105489981
-Electrode_ECurr: Curr(voltage =       3.632105489981) =   -0.001999999881953   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632105486787
-Electrode_ECurr: Curr(voltage =       3.632105486787) =   -0.002000000006213   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632105486955
-Electrode_ECurr: Curr(voltage =       3.632105486955) =   -0.001999999999673   nsteps = 1
-RootFind success: convergence achieved
               3         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.00000E+00
@@ -4144,23 +3622,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632105486955
-Electrode_ECurr: Curr(voltage =       3.632105486955) =   -0.001999346377993   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632468697504
-Electrode_ECurr: Curr(voltage =       3.632468697504) =   -0.001985269197468   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632069165901
-Electrode_ECurr: Curr(voltage =       3.632069165901) =   -0.002000759572413   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632089788091
-Electrode_ECurr: Curr(voltage =       3.632089788091) =   -0.001999957073351   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632088626927
-Electrode_ECurr: Curr(voltage =       3.632088626927) =   -0.002000002250747   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632088687821
-Electrode_ECurr: Curr(voltage =       3.632088687821) =   -0.001999999881514   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632088684615
-Electrode_ECurr: Curr(voltage =       3.632088684615) =   -0.002000000006236   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632088684784
-Electrode_ECurr: Curr(voltage =       3.632088684784) =   -0.001999999999672   nsteps = 1
-RootFind success: convergence achieved
             3.1         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.10000E+00
@@ -4271,23 +3732,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632088684784
-Electrode_ECurr: Curr(voltage =       3.632088684784) =   -0.001999349199581   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632451893652
-Electrode_ECurr: Curr(voltage =       3.632451893652) =   -0.001985272062116   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632052363897
-Electrode_ECurr: Curr(voltage =       3.632052363897) =   -0.002000762389654   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632073062542
-Electrode_ECurr: Curr(voltage =       3.632073062542) =    -0.00199995691475   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632071897089
-Electrode_ECurr: Curr(voltage =       3.632071897089) =   -0.002000002259032   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632071958207
-Electrode_ECurr: Curr(voltage =       3.632071958207) =   -0.001999999881078   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632071954989
-Electrode_ECurr: Curr(voltage =       3.632071954989) =   -0.002000000006259   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632071955159
-Electrode_ECurr: Curr(voltage =       3.632071955159) =    -0.00199999999967   nsteps = 1
-RootFind success: convergence achieved
             3.2         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.20000E+00
@@ -4398,23 +3842,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632071955159
-Electrode_ECurr: Curr(voltage =       3.632071955159) =   -0.001999352003016   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632435162354
-Electrode_ECurr: Curr(voltage =       3.632435162354) =   -0.001985274908466   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632035634439
-Electrode_ECurr: Curr(voltage =       3.632035634439) =   -0.002000765188757   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632056409047
-Electrode_ECurr: Curr(voltage =       3.632056409047) =   -0.001999956757173   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632055239332
-Electrode_ECurr: Curr(voltage =       3.632055239332) =   -0.002000002267262   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632055300673
-Electrode_ECurr: Curr(voltage =       3.632055300673) =   -0.001999999880645   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632055297444
-Electrode_ECurr: Curr(voltage =       3.632055297444) =   -0.002000000006282   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632055297614
-Electrode_ECurr: Curr(voltage =       3.632055297614) =   -0.001999999999669   nsteps = 1
-RootFind success: convergence achieved
             3.3         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.30000E+00
@@ -4525,23 +3952,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632055297614
-Electrode_ECurr: Curr(voltage =       3.632055297614) =    -0.00199935478842   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632418503143
-Electrode_ECurr: Curr(voltage =       3.632418503143) =   -0.001985277736642   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632018977061
-Electrode_ECurr: Curr(voltage =       3.632018977061) =   -0.002000767969844   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632039827141
-Electrode_ECurr: Curr(voltage =       3.632039827141) =   -0.001999956600616   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632038653193
-Electrode_ECurr: Curr(voltage =       3.632038653193) =   -0.002000002275439   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632038714755
-Electrode_ECurr: Curr(voltage =       3.632038714755) =   -0.001999999880214   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632038711514
-Electrode_ECurr: Curr(voltage =       3.632038711514) =   -0.002000000006304   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632038711685
-Electrode_ECurr: Curr(voltage =       3.632038711685) =   -0.001999999999668   nsteps = 1
-RootFind success: convergence achieved
             3.4         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.40000E+00
@@ -4652,23 +4062,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632038711685
-Electrode_ECurr: Curr(voltage =       3.632038711685) =   -0.001999357555918   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632401915556
-Electrode_ECurr: Curr(voltage =       3.632401915556) =   -0.001985280546768   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632002391297
-Electrode_ECurr: Curr(voltage =       3.632002391297) =   -0.002000770733039   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632023316366
-Electrode_ECurr: Curr(voltage =       3.632023316366) =    -0.00199995644507   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63202213821
-Electrode_ECurr: Curr(voltage =        3.63202213821) =   -0.002000002283562   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632022199992
-Electrode_ECurr: Curr(voltage =       3.632022199992) =   -0.001999999879786   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63202219674
-Electrode_ECurr: Curr(voltage =        3.63202219674) =   -0.002000000006327   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632022196911
-Electrode_ECurr: Curr(voltage =       3.632022196911) =   -0.001999999999667   nsteps = 1
-RootFind success: convergence achieved
             3.5         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.50000E+00
@@ -4779,23 +4172,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632022196911
-Electrode_ECurr: Curr(voltage =       3.632022196911) =   -0.001999360305632   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632385399131
-Electrode_ECurr: Curr(voltage =       3.632385399131) =   -0.001985283338968   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631985876689
-Electrode_ECurr: Curr(voltage =       3.631985876689) =   -0.002000773478464   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632006876262
-Electrode_ECurr: Curr(voltage =       3.632006876262) =   -0.001999956290528   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632005693928
-Electrode_ECurr: Curr(voltage =       3.632005693928) =   -0.002000002291634   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632005755928
-Electrode_ECurr: Curr(voltage =       3.632005755928) =   -0.001999999879361   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632005752664
-Electrode_ECurr: Curr(voltage =       3.632005752664) =   -0.002000000006349   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632005752836
-Electrode_ECurr: Curr(voltage =       3.632005752836) =   -0.001999999999666   nsteps = 1
-RootFind success: convergence achieved
             3.6         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.60000E+00
@@ -4906,23 +4282,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.632005752836
-Electrode_ECurr: Curr(voltage =       3.632005752836) =   -0.001999363037683   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632368953411
-Electrode_ECurr: Curr(voltage =       3.632368953411) =   -0.001985286113364   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631969432778
-Electrode_ECurr: Curr(voltage =       3.631969432778) =   -0.002000776206241   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631990506378
-Electrode_ECurr: Curr(voltage =       3.631990506378) =   -0.001999956136985   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63198931989
-Electrode_ECurr: Curr(voltage =        3.63198931989) =   -0.002000002299652   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631989382108
-Electrode_ECurr: Curr(voltage =       3.631989382108) =   -0.001999999878939   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631989378832
-Electrode_ECurr: Curr(voltage =       3.631989378832) =   -0.002000000006371   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631989379005
-Electrode_ECurr: Curr(voltage =       3.631989379005) =   -0.001999999999665   nsteps = 1
-RootFind success: convergence achieved
             3.7         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.70000E+00
@@ -5033,23 +4392,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631989379005
-Electrode_ECurr: Curr(voltage =       3.631989379005) =   -0.001999365752191   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632352577943
-Electrode_ECurr: Curr(voltage =       3.632352577943) =   -0.001985288870076   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631953059111
-Electrode_ECurr: Curr(voltage =       3.631953059111) =   -0.002000778916489   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63197420626
-Electrode_ECurr: Curr(voltage =        3.63197420626) =   -0.001999955984432   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631973015647
-Electrode_ECurr: Curr(voltage =       3.631973015647) =   -0.002000002307619   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63197307808
-Electrode_ECurr: Curr(voltage =        3.63197307808) =    -0.00199999987852   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631973074793
-Electrode_ECurr: Curr(voltage =       3.631973074793) =   -0.002000000006394   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631973074966
-Electrode_ECurr: Curr(voltage =       3.631973074966) =   -0.001999999999664   nsteps = 1
-RootFind success: convergence achieved
             3.8         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.80000E+00
@@ -5160,23 +4502,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631973074966
-Electrode_ECurr: Curr(voltage =       3.631973074966) =   -0.001999368449276   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632336272274
-Electrode_ECurr: Curr(voltage =       3.632336272274) =   -0.001985291609227   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631936755236
-Electrode_ECurr: Curr(voltage =       3.631936755236) =   -0.002000781609328   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631957975462
-Electrode_ECurr: Curr(voltage =       3.631957975462) =   -0.001999955832864   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63195678075
-Electrode_ECurr: Curr(voltage =        3.63195678075) =   -0.002000002315534   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631956843397
-Electrode_ECurr: Curr(voltage =       3.631956843397) =   -0.001999999878103   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631956840099
-Electrode_ECurr: Curr(voltage =       3.631956840099) =   -0.002000000006416   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631956840273
-Electrode_ECurr: Curr(voltage =       3.631956840273) =   -0.001999999999662   nsteps = 1
-RootFind success: convergence achieved
             3.9         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  3.90000E+00
@@ -5287,23 +4612,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631956840273
-Electrode_ECurr: Curr(voltage =       3.631956840273) =   -0.001999371129057   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632320035957
-Electrode_ECurr: Curr(voltage =       3.632320035957) =   -0.001985294330934   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631920520704
-Electrode_ECurr: Curr(voltage =       3.631920520704) =   -0.002000784284877   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631941813539
-Electrode_ECurr: Curr(voltage =       3.631941813539) =   -0.001999955682272   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631940614754
-Electrode_ECurr: Curr(voltage =       3.631940614754) =   -0.002000002323398   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631940677614
-Electrode_ECurr: Curr(voltage =       3.631940677614) =   -0.001999999877689   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631940674305
-Electrode_ECurr: Curr(voltage =       3.631940674305) =   -0.002000000006437   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631940674479
-Electrode_ECurr: Curr(voltage =       3.631940674479) =   -0.001999999999661   nsteps = 1
-RootFind success: convergence achieved
               4         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.00000E+00
@@ -5414,23 +4722,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631940674479
-Electrode_ECurr: Curr(voltage =       3.631940674479) =   -0.001999373791652   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632303868547
-Electrode_ECurr: Curr(voltage =       3.632303868547) =   -0.001985297035317   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631904355072
-Electrode_ECurr: Curr(voltage =       3.631904355072) =   -0.002000786943254   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631925720048
-Electrode_ECurr: Curr(voltage =       3.631925720048) =   -0.001999955532652   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631924517218
-Electrode_ECurr: Curr(voltage =       3.631924517218) =   -0.002000002331211   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631924580289
-Electrode_ECurr: Curr(voltage =       3.631924580289) =   -0.001999999877278   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631924576968
-Electrode_ECurr: Curr(voltage =       3.631924576968) =   -0.002000000006459   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631924577143
-Electrode_ECurr: Curr(voltage =       3.631924577143) =    -0.00199999999966   nsteps = 1
-RootFind success: convergence achieved
             4.1         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.10000E+00
@@ -5541,23 +4832,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631924577143
-Electrode_ECurr: Curr(voltage =       3.631924577143) =   -0.001999376437178   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632287769601
-Electrode_ECurr: Curr(voltage =       3.632287769601) =   -0.001985299722495   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631888257897
-Electrode_ECurr: Curr(voltage =       3.631888257897) =   -0.002000789584575   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631909694552
-Electrode_ECurr: Curr(voltage =       3.631909694552) =   -0.001999955383995   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631908487701
-Electrode_ECurr: Curr(voltage =       3.631908487701) =   -0.002000002338973   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631908550982
-Electrode_ECurr: Curr(voltage =       3.631908550982) =   -0.001999999876869   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631908547651
-Electrode_ECurr: Curr(voltage =       3.631908547651) =    -0.00200000000648   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631908547826
-Electrode_ECurr: Curr(voltage =       3.631908547826) =   -0.001999999999659   nsteps = 1
-RootFind success: convergence achieved
             4.2         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.20000E+00
@@ -5668,23 +4942,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631908547826
-Electrode_ECurr: Curr(voltage =       3.631908547826) =    -0.00199937906575   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632271738681
-Electrode_ECurr: Curr(voltage =       3.632271738681) =   -0.001985302392582   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631872228741
-Electrode_ECurr: Curr(voltage =       3.631872228741) =   -0.002000792208957   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631893736613
-Electrode_ECurr: Curr(voltage =       3.631893736613) =   -0.001999955236296   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631892525768
-Electrode_ECurr: Curr(voltage =       3.631892525768) =   -0.002000002346686   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631892589258
-Electrode_ECurr: Curr(voltage =       3.631892589258) =   -0.001999999876463   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631892585916
-Electrode_ECurr: Curr(voltage =       3.631892585916) =   -0.002000000006502   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631892586092
-Electrode_ECurr: Curr(voltage =       3.631892586092) =   -0.001999999999658   nsteps = 1
-RootFind success: convergence achieved
             4.3         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.30000E+00
@@ -5795,23 +5052,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631892586092
-Electrode_ECurr: Curr(voltage =       3.631892586092) =   -0.001999381677485   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63225577535
-Electrode_ECurr: Curr(voltage =        3.63225577535) =   -0.001985305045697   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631856267166
-Electrode_ECurr: Curr(voltage =       3.631856267166) =   -0.002000794816515   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631877845801
-Electrode_ECurr: Curr(voltage =       3.631877845801) =   -0.001999955089547   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631876630987
-Electrode_ECurr: Curr(voltage =       3.631876630987) =   -0.002000002354348   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631876694684
-Electrode_ECurr: Curr(voltage =       3.631876694684) =   -0.001999999876059   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631876691331
-Electrode_ECurr: Curr(voltage =       3.631876691331) =   -0.002000000006523   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631876691507
-Electrode_ECurr: Curr(voltage =       3.631876691507) =   -0.001999999999657   nsteps = 1
-RootFind success: convergence achieved
             4.4         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.40000E+00
@@ -5922,23 +5162,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631876691507
-Electrode_ECurr: Curr(voltage =       3.631876691507) =   -0.001999384272496   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632239879176
-Electrode_ECurr: Curr(voltage =       3.632239879176) =   -0.001985307681954   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63184037274
-Electrode_ECurr: Curr(voltage =        3.63184037274) =   -0.002000797407363   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631862021683
-Electrode_ECurr: Curr(voltage =       3.631862021683) =   -0.001999954943743   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631860802927
-Electrode_ECurr: Curr(voltage =       3.631860802927) =   -0.002000002361961   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631860866829
-Electrode_ECurr: Curr(voltage =       3.631860866829) =   -0.001999999875658   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631860863465
-Electrode_ECurr: Curr(voltage =       3.631860863465) =   -0.002000000006544   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631860863642
-Electrode_ECurr: Curr(voltage =       3.631860863642) =   -0.001999999999656   nsteps = 1
-RootFind success: convergence achieved
             4.5         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.50000E+00
@@ -6049,23 +5272,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631860863642
-Electrode_ECurr: Curr(voltage =       3.631860863642) =   -0.001999386850897   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632224049729
-Electrode_ECurr: Curr(voltage =       3.632224049729) =   -0.001985310301468   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631824545034
-Electrode_ECurr: Curr(voltage =       3.631824545034) =   -0.002000799981615   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631846263834
-Electrode_ECurr: Curr(voltage =       3.631846263834) =   -0.001999954798876   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63184504116
-Electrode_ECurr: Curr(voltage =        3.63184504116) =   -0.002000002369525   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631845105268
-Electrode_ECurr: Curr(voltage =       3.631845105268) =    -0.00199999987526   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631845101893
-Electrode_ECurr: Curr(voltage =       3.631845101893) =   -0.002000000006565   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63184510207
-Electrode_ECurr: Curr(voltage =        3.63184510207) =   -0.001999999999654   nsteps = 1
-RootFind success: convergence achieved
             4.6         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.60000E+00
@@ -6176,23 +5382,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =        3.63184510207
-Electrode_ECurr: Curr(voltage =        3.63184510207) =   -0.001999389412802   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632208286581
-Electrode_ECurr: Curr(voltage =       3.632208286581) =   -0.001985312904352   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631808783619
-Electrode_ECurr: Curr(voltage =       3.631808783619) =   -0.002000802539383   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63183057183
-Electrode_ECurr: Curr(voltage =        3.63183057183) =   -0.001999954654941   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631829345263
-Electrode_ECurr: Curr(voltage =       3.631829345263) =    -0.00200000237704   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631829409574
-Electrode_ECurr: Curr(voltage =       3.631829409574) =   -0.001999999874864   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631829406188
-Electrode_ECurr: Curr(voltage =       3.631829406188) =   -0.002000000006586   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631829406367
-Electrode_ECurr: Curr(voltage =       3.631829406367) =   -0.001999999999654   nsteps = 1
-RootFind success: convergence achieved
             4.7         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.70000E+00
@@ -6303,23 +5492,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631829406367
-Electrode_ECurr: Curr(voltage =       3.631829406367) =   -0.001999391958322   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632192589307
-Electrode_ECurr: Curr(voltage =       3.632192589307) =    -0.00198531549072   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631793088073
-Electrode_ECurr: Curr(voltage =       3.631793088073) =   -0.002000805080781   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631814945249
-Electrode_ECurr: Curr(voltage =       3.631814945249) =   -0.001999954511931   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631813714814
-Electrode_ECurr: Curr(voltage =       3.631813714814) =   -0.002000002384506   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631813779327
-Electrode_ECurr: Curr(voltage =       3.631813779327) =   -0.001999999874471   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631813775931
-Electrode_ECurr: Curr(voltage =       3.631813775931) =   -0.002000000006607   nsteps = 1
-Electrode_ECurr: call integrate with voltage =        3.63181377611
-Electrode_ECurr: Curr(voltage =        3.63181377611) =   -0.001999999999652   nsteps = 1
-RootFind success: convergence achieved
             4.8         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.80000E+00
@@ -6430,23 +5602,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =        3.63181377611
-Electrode_ECurr: Curr(voltage =        3.63181377611) =   -0.001999394487568   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632176957488
-Electrode_ECurr: Curr(voltage =       3.632176957488) =   -0.001985318060683   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631777457972
-Electrode_ECurr: Curr(voltage =       3.631777457972) =   -0.002000807605917   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631799383673
-Electrode_ECurr: Curr(voltage =       3.631799383673) =   -0.001999954369839   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631798149396
-Electrode_ECurr: Curr(voltage =       3.631798149396) =   -0.002000002391924   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631798214109
-Electrode_ECurr: Curr(voltage =       3.631798214109) =   -0.001999999874081   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631798210702
-Electrode_ECurr: Curr(voltage =       3.631798210702) =   -0.002000000006627   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631798210882
-Electrode_ECurr: Curr(voltage =       3.631798210882) =   -0.001999999999651   nsteps = 1
-RootFind success: convergence achieved
             4.9         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  4.90000E+00
@@ -6557,23 +5712,6 @@ RootFind success: convergence achieved
                            Li(S)                   0.000E+00
                            li_site                 0.000E+00
    ==============================================================================================
-Electrode_ECurr: call integrate with voltage =       3.631798210882
-Electrode_ECurr: Curr(voltage =       3.631798210882) =   -0.001999397000652   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.632161390703
-Electrode_ECurr: Curr(voltage =       3.632161390703) =   -0.001985320614352   nsteps = 1
-Electrode_ECurr: call integrate with voltage =         3.6317618929
-Electrode_ECurr: Curr(voltage =         3.6317618929) =   -0.002000810114905   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631783886686
-Electrode_ECurr: Curr(voltage =       3.631783886686) =    -0.00199995422866   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631782648591
-Electrode_ECurr: Curr(voltage =       3.631782648591) =   -0.002000002399295   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631782713504
-Electrode_ECurr: Curr(voltage =       3.631782713504) =   -0.001999999873692   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631782710087
-Electrode_ECurr: Curr(voltage =       3.631782710087) =   -0.002000000006648   nsteps = 1
-Electrode_ECurr: call integrate with voltage =       3.631782710266
-Electrode_ECurr: Curr(voltage =       3.631782710266) =    -0.00199999999965   nsteps = 1
-RootFind success: convergence achieved
               5         -0.0021
    ==============================================================================================
       Electrode_SimpleDiff at time final_final =  5.00000E+00

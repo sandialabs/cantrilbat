@@ -14,7 +14,14 @@ BLESSED_FILES = good_out.txt soln_0_0_blessed.xml \
                 MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv  
 
 DATA = anode.inp problem_setup.sh \
-ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  
+       ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  
+
+TEST_RESULTS = out.txt soln_0_0.xml MCMB_intResults_0_0.csv   MCMB_globalResults_0_0.csv
+
+TEST_INTERMEDIATES = diff_csv.txt diff_icsv.txt diff_gcsv.txt diff_out.txt capCheck_0.txt err_out.txt  \
+                     diff_summary.txt diff_xml.txt
+
+TEST_FLAGS = runGood runBad runInProgress.txt
 
 all: .depends $(PROGRAM)
 #
@@ -26,7 +33,7 @@ PURIFY=@PURIFY@
 #
 # These links are to Cantera's install space
 #
-CT_INCROOT =  @ct_incroot@
+CT_INCROOT = @ct_incroot@
 #
 # Bring in the Cantera includes through the .mak file
 #
@@ -37,9 +44,9 @@ include $(CT_INCROOT)/cantera/Cantera.mak
 UTILSRC_DIR = ../../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
-#
+
 # Set up the Cantera addition library
-#
+
 CTPADDS_DIR = ../../../ctpadds/src
 CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
 CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
@@ -49,16 +56,14 @@ CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
 CTAPPLBASE_DIR = ../../src
 CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
 CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
-#
+
 ###################################################################################################################
 #                    Set up the various local and global defines
 ##################################################################################################################
-#
+
 LDEFINES = -DDEBUG 
 GDEFINES =
-#
-# Set up the global include directory macro
-#
+
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 #
 ##################################################################################################################
@@ -68,7 +73,6 @@ INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -
 # the C++ compiler
 #
 CXX = @CXX@
-CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 CXXFLAGS = @CXXFLAGS@
 #
 # C compiler
@@ -78,11 +82,14 @@ CFLAGS = @CXXFLAGS@
 #
 # Both the C and C++ compiler predefines
 #
-CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
-#
+CCFLAGS = $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-#
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
 ##################################################################################################################
 #                        Section to Set Up Linking Rules
 ##################################################################################################################
@@ -90,27 +97,22 @@ CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES)
 CXXLDR = $(CXX)
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
-#
+
 OBJ = $(PROGRAM).o
 $(OBJ): Makefile
-#
+
 $(PROGRAM): $(OBJ) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ) \
 	          $(OBJ_CANTERA_ADDONS)  \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
-#
-#######################################################################################################################
-#                          SECTION TO SET UP DEPENDS RULES
-#######################################################################################################################
-#
-.cpp.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
 DEPENDS = $(OBJ:.o=.d) 
 
 $(DEPENDS): Makefile
+
+$(OBJ): Makefile
 
 depends:
 	$(RM) $(DEPENDS)
@@ -118,11 +120,7 @@ depends:
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
-#
-ifeq ($(wildcard .depends), .depends)
-include .depends
-endif
-#
+
 ########################################################################################################################
 #                        SECTION TO SET UP TEST RUNS
 ########################################################################################################################
@@ -135,29 +133,33 @@ test:
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	../runtest_Electrode
-#
+
 rebaseline:
 	cp out.txt                   good_out.txt
 	cp soln_0_0.xml              soln_0_0_blessed.xml
 	cp  MCMB_intResults_0_0.csv  MCMB_intResults_blessed_0_0.csv 
 	cp  MCMB_globalResults_0_0.csv MCMB_globalResults_blessed_0_0.csv 
-#
-##########################################################################################################################
-#          SECTION TO SET UP CLEAN RULES
-##########################################################################################################################
-#
+
+
 test_clean:
-	$(RM) runInProgress.txt runBad runGood \
-	      diff_out.txt diff_csv.txt err_out.txt soln_0_0.xml out.txt diff_gcsv.txt diff_icsv.txt \
-	      MCMB_intResults_0_0.csv     MCMB_globalResults_0_0.csv  
-#
+	$(RM) $(TEST_INTERMEDIATES) $(TEST_FLAGS) $(TEST_RESULTS)
+
+clean_test:
+	$(RM) $(TEST_INTERMEDIATES) $(TEST_FLAGS) $(TEST_RESULTS)
+
 clean:
-	$(RM) runInProgress.txt runBad runGood 
+	$(RM) $(TEST_FLAGS)
 	$(RM) *.o  .depends *.d *~  $(PROGRAM) 
-#
+
 dist_clean:
-	@MAKE@ test_clean
-	@MAKE@ clean
-#
-##########################################################################################################################
-#
+	$(MAKE)  clean_test
+	$(MAKE)  clean
+
+clean_dist:
+	$(MAKE)  clean_test
+	$(MAKE)  clean
+
+#######################################################################################################################
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
