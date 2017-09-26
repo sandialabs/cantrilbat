@@ -501,8 +501,10 @@ public:
      *                                           However, if  doAdvancementAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
      *                                           Defaults to false.
+     *
+     *  @return                                  Returns true if the time step is reset to t_init_init.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
+    virtual bool resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
 
     //! Calculate the change in the state of the system when integrating from T_initial_initial_  to t_final_final_
     /*!

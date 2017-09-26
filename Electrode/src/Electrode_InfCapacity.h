@@ -121,8 +121,10 @@ public:
      *                                           current t_init_init value. If they are the same, then we redo the time step.
      *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
+     *
+     *  @return                                  Returns true if the time step is reset to t_init_init.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
+    virtual bool resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!

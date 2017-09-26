@@ -85,13 +85,21 @@ public:
      *  This function advances the initial state to the final state that was calculated
      *  in the last integration step.
      *
-     * @param Tinitial   This is the New initial time. This time is compared against the "old"
+     *  @param Tinitial   This is the New initial time. This time is compared against the "old"
      *                   final time, to see if there is any problem.
+     *  @param[in]           doAdvancementAlways Always do the reset, no matter what. Normally, Tinitial is checked against the 
+     *                                           current t_init_init value. If they are the same, then we redo the time step.
+     *                                           However, if  doAdvancementAlways is true, we advance the solution unknowns to the 
+     *                                           final_final values produced in the last global step no matter what.
+     *
+     *  @return                                  Returns true if the time step is reset to t_init_init.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doTestsAlways = false) override;
-
+    virtual bool resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
 
     //! Return the number of equations in the equation system that is used to solve the ODE integration
+    /*!
+     *  @return                                  Returns the number of equations
+     */
     int nEquations() const;
 
 

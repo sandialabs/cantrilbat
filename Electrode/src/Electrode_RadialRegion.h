@@ -301,8 +301,10 @@ public:
      *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
      *                                           Defaults to false.
+     *
+     *  @return                                  Returns true if the time step is reset to t_init_init.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
+    virtual bool resetStartingCondition(double Tinitial, bool doResetAlways = false) override;
 
     //! Take the state (i.e., the final state) within the Electrode_Model and push it down
     //! to the ThermoPhase objects and propogate it to all other aspects of the final state

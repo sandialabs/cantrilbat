@@ -18,7 +18,7 @@
 
 PROGRAM = LiCoO2_Cathode_Radial_cc
 
-OBJ = $(PROGRAM).o
+OBJ_ANODE = $(PROGRAM).o
 
 DATA = ECsoln_ion.xml  LiCoO2Cathode_electrode_extra.xml   \
        LiCoO2_RedlichKister.xml  Li_Metal.xml  metal_Li_LiIon_electrons.xml  
@@ -90,7 +90,6 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
-OBJ_ANODE =  $(OBJ) 
 OBJ_ALL = LiCoO2.o  LiCoO2Thermo.o  LiCoO2_Cathode_Radial_cc.o $(OBJ_ANODE)
 
 ############################################################################
@@ -114,8 +113,6 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
@@ -127,8 +124,6 @@ DEPENDS = $(OBJ_ALL:.o=.d)
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 $(DEPENDS): $(PROGRAM).cpp Makefile
 
@@ -141,11 +136,11 @@ depends:
 	touch .dependsT
 
 test: 
-	@MAKE@ -s
+	$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
-runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	$(TOPDIR)/bin/runtest_Exec
 

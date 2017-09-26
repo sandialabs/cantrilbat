@@ -493,8 +493,10 @@ public:
      *                                           However, if  doResetAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
      *                                           Defaults to false.
+     *
+     *  @return                                  Returns true if the time step is reset to t_init_init.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
+    virtual bool resetStartingCondition(double Tinitial, bool doAdvancementAlways = false) override;
 
     //! Update the state of a single phase
     /*!

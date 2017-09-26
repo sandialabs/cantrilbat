@@ -906,18 +906,10 @@ double Electrode_DiffTALE::SolidEnthalpy() const
     }
     return enthalpy;
 }
-//====================================================================================================================
-void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
+//==================================================================================================================================
+bool Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
-    bool resetToInitInit = false;
-    /*
-     * If the initial time is input, then the code doesn't advance
-     */
-    double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doAdvancementAlways) {
-        resetToInitInit = true;
-    }
-    Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
+    bool resetToInitInit = Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
 
     size_t iCell, i;
     size_t ntotal = numRCells_ * numKRSpecies_;
@@ -949,8 +941,10 @@ void Electrode_DiffTALE::resetStartingCondition(double Tinitial, bool doAdvancem
     onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
     onRegionBoundary_init_      =  onRegionBoundary_final_final_;
     }
+
+    return resetToInitInit;
 }
-//================================================================================================================
+//==================================================================================================================================
 //  update the global phase numbers 
 /*
  *    This is for distributed phases

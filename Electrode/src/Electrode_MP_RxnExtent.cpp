@@ -3303,23 +3303,8 @@ double Electrode_MP_RxnExtent::predictorCorrectorGlobalSrcTermErrorNorm()
 {
     return 0.0;
 }
-
-
-
-
-
-//====================================================================================================================
-// The internal state of the electrode must be kept for the initial and
-// final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step. If the initial time is input, then the code doesn't advance
- *  or change anything.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
-void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTestsAlways)
+//==================================================================================================================================
+bool Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
     bool resetToInitInit = false;
     /*
@@ -3331,7 +3316,6 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
         resetToInitInit = true;
     }
 
-
     tbase = std::max(Tinitial, tbase);
     tbase = std::max(tbase, t_final_final_);
     if (!resetToInitInit) {
@@ -3341,8 +3325,11 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
 	}
     }
 
-    Electrode_Integrator::resetStartingCondition(Tinitial);
-
+    bool rr = Electrode_Integrator::resetStartingCondition(Tinitial);
+    if (rr != resetToInitInit) {
+        throw Electrode_Error("Electrode_MP_RxnExtent::resetStartingCondition()",
+                              "Inconsistent resetToInitInit value ");
+    }
 
     if (!resetToInitInit) {
 
@@ -3402,8 +3389,9 @@ void  Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTes
 	    xmlStateData_final_final_ = nullptr;
 	}
     }
+    return resetToInitInit;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Set the internal initial intermediate and initial global state from the internal final state
 /*
  *  (non-virtual function onionize in-first)

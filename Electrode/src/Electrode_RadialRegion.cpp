@@ -760,16 +760,8 @@ Electrode_RadialRegion::initializeAsEvenDistribution()
 
 
 }
-//====================================================================================================================
-//    The internal state of the electrode must be kept for the initial and final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
-void  Electrode_RadialRegion::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
+//==================================================================================================================================
+bool Electrode_RadialRegion::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     // bool resetToInitInit = false;
     /*
@@ -779,9 +771,11 @@ void  Electrode_RadialRegion::resetStartingCondition(double Tinitial, bool doAdv
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doAdvancementAlways) {
         //resetToInitInit = true;
     }
-    Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
+    bool resetToInitInit = Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
+
+    return resetToInitInit;
 }
-//====================================================================================================================
+//==================================================================================================================================
 //! Take the state (i.e., the final state) within the Electrode_Model and push it down
 //! to the ThermoPhase objects and propogate it to all other aspects of the final state
 /*!

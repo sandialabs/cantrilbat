@@ -404,28 +404,10 @@ void Electrode_SimplePhaseChangeDiffusion::check_final_OuterVol()
         }
     }
 }
-//====================================================================================================================
-//    The internal state of the electrode must be kept for the initial and
-//    final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
-void  Electrode_SimplePhaseChangeDiffusion::resetStartingCondition(double Tinitial, bool doTestsAlways)
+//==================================================================================================================================
+bool Electrode_SimplePhaseChangeDiffusion::resetStartingCondition(double Tinitial, bool doTestsAlways)
 {
-   bool resetToInitInit = false;
-    /*
-    * If the initial time is input, then the code doesn't advance
-    */
-    double tbase = MAX(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase)  && !doTestsAlways) {
-       resetToInitInit = true; 
-    }
-
-    Electrode::resetStartingCondition(Tinitial);
+    bool resetToInitInit = Electrode::resetStartingCondition(Tinitial);
 
     if (!resetToInitInit) {
     mf_internal_init_ =  mf_internal_final_;
@@ -446,9 +428,9 @@ void  Electrode_SimplePhaseChangeDiffusion::resetStartingCondition(double Tiniti
 
     CAP_init_ = CAP_final_;
     }
+    return resetToInitInit;
 }
-
-//================================================================================================
+//==================================================================================================================================
 void  Electrode_SimplePhaseChangeDiffusion::calcRate(double deltaTsubcycle)
 {
     double  C_tmp, dadd_f, dadd_i;

@@ -589,7 +589,7 @@ int Electrode_Integrator::setupIntegratedSourceTermErrorControl()
     return numDofs;
 }
 //==================================================================================================================================
-void Electrode_Integrator::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
+bool Electrode_Integrator::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     bool resetToInitInit = false;
     /*
@@ -606,7 +606,12 @@ void Electrode_Integrator::resetStartingCondition(double Tinitial, bool doAdvanc
     timeHistory_base_.clear();
     timeHistory_current_.clear();
     //  Call the base class function
-    Electrode::resetStartingCondition(Tinitial, doAdvancementAlways);
+    bool rr = Electrode::resetStartingCondition(Tinitial, doAdvancementAlways);
+    if (rr != resetToInitInit) {
+        throw Electrode_Error("Electrode_Integrator::resetStartingCondition()",
+                              "Inconsistent resetToInitInit value ");
+    }
+    
     /*
      *  Zero the global error vectors
      */
@@ -625,6 +630,7 @@ void Electrode_Integrator::resetStartingCondition(double Tinitial, bool doAdvanc
             yvalNLS_[i]           = yvalNLS_final_final_[i];
         }
     }
+    return resetToInitInit;
 }
 //==================================================================================================================================
 //  Calculate the change in the state of the system when integrating from T_initial_initial_

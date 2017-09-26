@@ -933,9 +933,10 @@ public:
      *                                           current t_init_init value. If they are the same, then we redo the time step.
      *                                           However, if  doAdvancementAlways is true, we advance the solution unknowns to the 
      *                                           final_final values produced in the last global step no matter what.
-     * @todo make this return the resetToInitInit boolean
+     *
+     *  @return                                  Returns true if the time step is reset to t_init_init.
      */
-    virtual void resetStartingCondition(double Tinitial, bool doAdvancementAlways = false);
+    virtual bool resetStartingCondition(double Tinitial, bool doAdvancementAlways = false);
 
     //! Revert the object's conditions to the initial conditions
     /*!
@@ -3737,6 +3738,11 @@ public:
     /*!
      *  If this is turned on to greater than zero, than a CSV file is printed with the values at each time step
      *  printed on a single line.
+     *
+     *           -  0  no printing
+     *           -  1  Global time step printing just before a time step advancement
+     *           -  2   Global time step printing whether or not time step is advanced
+     *           -  3  Global time step printing and intermediate step printing.
      */
     int printCSVLvl_;
 

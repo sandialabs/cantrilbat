@@ -1072,15 +1072,7 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
     return q;
 }
 //===========================================================================================================================================
-//    The internal state of the electrode must be kept for the initial and final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
-void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetAlways)
+bool Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
     bool resetToInitInit = false;
     /*
@@ -1089,10 +1081,13 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
     double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
         resetToInitInit = true;
-        return;
+        //return;
     }
 
-    Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+    bool rr = Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+    if (rr != resetToInitInit) {
+         throw Electrode_Error("Electrode_SimpleDiff::resetStartingCondition()", "Inconsistent resetToInitInit values");
+    }
 
     size_t iCell, i;
     size_t ntotal = numRCells_ * numKRSpecies_;
@@ -1140,18 +1135,9 @@ void Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetA
             setInitStateFromFinal(true);
         }
     }
+    return resetToInitInit;
 }
-//========================================================================================================================
-//  update the global phase numbers
-/*
- *     This is for distributed phases
- *    We don't calculate a mole fraction vector here. It doesn't make sense to do so.
- *    Instead we take the value of the exterior cell's mole fraction vector.
- *
- *  update phaseMoles_final_[]
- *
- * HKM -> Delete this ??
- */
+//==================================================================================================================================
 void Electrode_SimpleDiff::updateState_Phase(size_t iph)
 {
     size_t istart = m_PhaseSpeciesStartIndex[iph];

@@ -109,24 +109,21 @@ CC = @CC@
 CFLAGS = @CXXFLAGS@
 #
 # Both the C and C++ compiler predefines
-#
+
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
-#
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
 ############################################################################
 # section to set up depends
 ###########################################################################
+
 DEPENDS = $(OBJ_ALL:.o=.d) 
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 $(DEPENDS): $(PROGRAM).cpp  LiCoO2Thermo.cpp LiCoO2.cpp 
 
@@ -135,11 +132,11 @@ $(DEPENDS): $(PROGRAM).cpp  LiCoO2Thermo.cpp LiCoO2.cpp
 	touch .dependsT
 
 test: 
-	@@MAKE@ -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
-	@gmake -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  gmake -s runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
-runGood: $(PROGRAMS) $(DATA) Makefile $(BLESSED_FILES)
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
 	../../tests/runtest_Electrode
 
@@ -181,7 +178,7 @@ endif
 
 
 dist_clean:
-	@MAKE@ clean
+	$(MAKE) clean
 	$(RM) *.o  .depends *.d *~  $(PROGRAM)  LiCoO2Thermo LiCoO2 .dependsT
 	$(RM) ${PROG} anode_intSurf diff_csv.txt diff_out.txt diff_tout.txt err_out.txt
 	$(MAKE) clean_test

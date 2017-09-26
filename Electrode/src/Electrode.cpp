@@ -4150,17 +4150,15 @@ int Electrode::integrateResid(const double tfinal, const double deltaTsubcycle, 
     return 0;
 }
 //====================================================================================================================
-// The internal state of the electrode must be kept for the initial and final times of an integration step.
 /*
- *  This function advances the initial state to the final state that was calculated  in the last integration step. 
+ *  This function advances the initial state to the final state that was calculated in the last integration step
+ *  if given t_final_final.  
+ *  But, if the initial time is input, then the code doesn't advance or change anything. 
+ *  It reverts the code to the t_init_init condition wiping clean variables that are filled with the integration.
  *
- *  If the initial time is input, then the code doesn't advance
- *  or change anything. It reverts the code to the t_init_init condition wiping clean variables that are filled
- *  with the integration.
- *
- *  We also assume that the final state is equal to the final_final state. If this is not the case then this is an error.
+ *  It returns the value of resetToInitInit, which is true if the time step is to be redone.
  */
-void Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
+bool Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     bool resetToInitInit = false;
     /*
@@ -4204,6 +4202,12 @@ void Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
                            "tfinal_ " + fp2str(tfinal_) + " is not equal to t_final_final_ " + fp2str(t_final_final_) + 
                            " This condition is needed for some transfers.");
     }
+
+    // Location for writing out a completed step
+    if (!resetToInitInit) {
+        writeCSVData(3);
+    }
+
     /*
      * Set the new time to the new value, Tinitial, which is also equal to tfinal_ and t_final_final_
      */
@@ -4226,12 +4230,8 @@ void Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
 	}
     }
     pendingIntegratedStep_ = 0;
-    /*
-     *  Below is close to a  redo of Electrode::setInitInitStateFromFinalFinal()
-     *  Not sure if I should combine the two treatments.
-     */
     //
-    // Major change: do a full state change function here eventually
+    //  Do a full state change function here. We wipe out the previous step completely here
     //
     if (resetToInitInit) {
         setInitStateFromInitInit(true);
@@ -4261,6 +4261,7 @@ void Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
 	}
 	deltaTsubcycle_init_next_ = 1.0E300;
     }
+    return resetToInitInit;
 }
 //==================================================================================================================================
 int Electrode::globalTimeStepNumber() const
@@ -5724,15 +5725,21 @@ void Electrode::setDeltaTSubcycleMax(double deltaTsubcycle)
 //====================================================================================================================
 // Write out CSV tabular data on the integrations
 /*
- *  The idea is to print out tabular data about each intermediate run and about each
- *  global run
+ *  The idea is to print out tabular data about each intermediate run and about each global run
  *
  *  @param itype Type of the data
  *            - 0      Initialization information - overwrite file
  *            - 1      Normal intermediate information
  *            - 2      Normal global information at the end of a global time step
+ *            - 3      Normal global information at the end of a global time step - that is to be reset forwards
  *            - -1     Failed intermediate calculation, a failure from a nonlinear solver step
  *            - -2     Failed calculation from the predictor step - not necessarily significant.
+ *
+ *   printCSVLvl_ = 0 no printing
+ *   printCSVLvl_ = 1 Only global printing at the end of a time step that is advancing
+ *   printCSVLvl_  = 2 Only global printing at the end of a time step
+ *   printCSVLvl_  = 3 Intermediate and global printing at all times.
+ *     
  */
 void Electrode::writeCSVData(int itype)
 {
@@ -5750,7 +5757,7 @@ void Electrode::writeCSVData(int itype)
         ignoreErrors = true;
     }
 
-    if (itype == 0 || fpI == 0) {
+    if ((printCSVLvl_ >= 3) && (itype == 0 || fpI == 0)) {
         runNumber++;
         if (runNumber == 0) {
             intOutputName = (electrodeName_ + "_intResults_" + int2str(electrodeDomainNumber_) + "_"
@@ -5796,11 +5803,12 @@ void Electrode::writeCSVData(int itype)
         fclose(fpI);
     }
 
-    if (itype == 0 || fpG == 0) {
-        if (runNumber == 0) {
+    if ((printCSVLvl_ > 0) && (itype == 0 || fpG == 0)) {
+        if (globOutputName == "") {
             globOutputName = (electrodeName_ + "_globalResults_" + int2str(electrodeDomainNumber_) + "_"
                     + int2str(electrodeCellNumber_) + ".csv");
-        } else {
+        } 
+        if (runNumber != 0) {
             intOutputName = (electrodeName_ + "_globalResults_" + int2str(electrodeDomainNumber_) + "_"
                     + int2str(electrodeCellNumber_) + "_" + int2str(runNumber) + ".csv");
         }
@@ -5844,7 +5852,7 @@ void Electrode::writeCSVData(int itype)
         kstart = m_PhaseSpeciesStartIndex[metalPhase_];
     }
 
-    if (itype == 1 || itype == 2) {
+    if ((printCSVLvl_ >= 3) && (itype == 1 || itype == 2)) {
         fpI = fopen(intOutputName.c_str(), "a");
         fprintf(fpI, "  %12.5E ,  %12.5E ,", tinit_, tfinal_);
 
@@ -5910,7 +5918,7 @@ void Electrode::writeCSVData(int itype)
         fclose(fpI);
     }
 
-    if (itype == 2) {
+    if (((printCSVLvl_ >= 2) && (itype == 2)) || ((printCSVLvl_ >= 1) && (itype == 3)) ) {
         fpG = fopen(globOutputName.c_str(), "a");
         fprintf(fpG, "  %12.5E ,  %12.5E ,", t_init_init_, t_final_final_);
 

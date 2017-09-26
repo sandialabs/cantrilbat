@@ -132,17 +132,12 @@ Electrode_SurfaceRegion::init_sizes()
     initSizes();
 }
 //====================================================================================================================
-void  Electrode_SurfaceRegion::resetStartingCondition(double Tinitial, bool doResetAlways)
+bool Electrode_SurfaceRegion::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
-    //bool resetToInitInit = false;
-    /*
-    * If the initial time is input, then the code doesn't advance
-    */
-    double tbase = MAX(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
-       //resetToInitInit = true; 
-    }
-    Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+
+    bool resetToInitInit = Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+
+    return resetToInitInit;
 }
 //==================================================================================================================================
 void Electrode_SurfaceRegion::updateState()

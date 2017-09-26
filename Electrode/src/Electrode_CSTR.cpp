@@ -2386,7 +2386,7 @@ int Electrode_CSTR::getInitialConditionsWithDot(const double t0, double* const y
  *  Tinitial:  This is the New initial time. This time is compared against the "old" final time,
  *             to see if there is any problem.
  */
-void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
+bool Electrode_CSTR::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     // If the initial time input from the parameter list, Tinitial, is the same as the current initial time,
     // Then, we don't advance the time step.
@@ -2397,7 +2397,10 @@ void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doAdvancementA
     }
     
     // Call the base class resetStarting condition
-    Electrode_Integrator::resetStartingCondition(Tinitial);
+    bool rr = Electrode_Integrator::resetStartingCondition(Tinitial);
+    if (rr != resetToInitInit) {
+         throw Electrode_Error("Electrode_CSTR::resetStartingCondition()", "Inconsistent resetToInitInit values");
+    }
 
     // If we are redoing the calculation again, then don't do anything
     if (!resetToInitInit) {
@@ -2422,6 +2425,7 @@ void Electrode_CSTR::resetStartingCondition(double Tinitial, bool doAdvancementA
         }
         */
     }
+    return resetToInitInit;
 }
 //====================================================================================================================
 //  Check to see that the preceding step is a successful one

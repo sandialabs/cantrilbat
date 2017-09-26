@@ -424,56 +424,17 @@ Electrode_RadialDiffRegions::initializeAsEvenDistribution()
 {
 
 }
-//====================================================================================================================
-//    The internal state of the electrode must be kept for the initial and final times of an integration step.
-/*
- *  This function advances the initial state to the final state that was calculated
- *  in the last integration step.
- *
- * @param Tinitial   This is the New initial time. This time is compared against the "old"
- *                   final time, to see if there is any problem.
- */
-void  Electrode_RadialDiffRegions::resetStartingCondition(double Tinitial, bool doResetAlways)
+//==================================================================================================================================
+bool Electrode_RadialDiffRegions::resetStartingCondition(double Tinitial, bool doResetAlways)
 {
-   //bool resetToInitInit = false;
-    /*
-    * If the initial time is input, then the code doesn't advance
-    */
-    //double tbase = MAX(t_init_init_, 1.0E-50);
-    //if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
-    //    resetToInitInit = true;
-    //}
-    Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+    bool resetToInitInit = Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+    return resetToInitInit;
 }
-//====================================================================================================================
-//! Take the state (i.e., the final state) within the Electrode_Model and push it down
-//! to the ThermoPhase objects and propogate it to all other aspects of the final state
-/*!
- *  (virtual function from Electrode)
- *  This virtual function should be written so that child routines are not called by parent routines.
- *
- *  We take the values of spMoles_final_[] and propagate them down to the ThermoPhase
- *  objects in the electrode.
- *
- *  We also take the state of the electrode as described by the mole numbers and mole fractions
- *  and calculate the geometrical details involved with the model. This includes the radii and
- *  thicknesses of the regions and the existence of the annular regions with their associated boolean flags.
- *
- *  All of these properties are defined for the _final_ state.
- *
- *  Thus, this is the main routine that reconciles all of the state information within the object.
- *  At the end of this routine, all aspects of the final state are consistent with each other.
- *
- *  prerequisites: The object must have been already created.
- *
- *  Fundamental Variables:
- *       concKRSpecies_Cell_final_[]
- *
- */
+//==================================================================================================================================
 void Electrode_RadialDiffRegions::updateState()
 {
 }
-//================================================================================================
+//==================================================================================================================================
 /*
  * There is a small dependence on mf_external and mf_internal exhibited by this function
  */
