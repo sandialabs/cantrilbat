@@ -1,14 +1,14 @@
 #/bin/sh
 
+.PHONY : all
 all:
 	$(MAKE) alllink
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE)
-	cd LiSi_5_Anode_Integrate ;				$(MAKE)
-	cd UnitTests ; 						$(MAKE)
-	cd MCMB_Mao ; 						$(MAKE)
 
+.PHONY : alllink test testd clean clean_test clean_dist clean_test_flags rebaseline install depends
 
-.PHONY : multiPhase_test LiCoO2_LiIonCathode_CSTR_thermal_test FeS2_3_MPNewman_cV_restart_test
+.PHONY : multiPhase_test LiCoO2_LiIonCathode_CSTR_thermal_test FeS2_3_MPNewman_cV_restart_test \
+	LiSi_5_Anode_Integrate_test MCMBAnode_LiIon_CSTR_2_cV_test LiCoO2_LiIonCathode_CSTR_thermal_test \
+        FeS2_3_MPNewman_cV_restart_test FeS2_4_MPNewman_cc_test FeS2_4_cMPNewman_cc_test
 
 MCMBAnode_LiIon_CSTR_2_cV_test:
 	cd MCMBAnode_LiIon_CSTR_2_cV  &&                           $(MAKE) $(TASK)
@@ -70,6 +70,19 @@ MCMBAnode_LiIon_SimpleDiff_3_thermal_test:
 MCMBAnode_LiIon_SimpleDiff_cc_test:
 	cd MCMBAnode_LiIon_SimpleDiff_cc    &&             	$(MAKE)  $(TASK)
 
+LiCoO2_LiIonCathode_SimpleDiff_cV_test:
+	cd LiCoO2_LiIonCathode_SimpleDiff_cV &&			$(MAKE) $(TASK)
+
+LiSi_5_Anode_Integrate_test: 
+	cd LiSi_5_Anode_Integrate &&                            $(MAKE) $(TASK)
+
+UnitTests_test:
+	cd UnitTests &&						$(MAKE) $(TASK)
+
+MCMB_Mao_test:
+	cd MCMB_Mao &&                                          $(MAKE) $(TASK)
+
+
 
 # This list must apear before the TASK rules list
 TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test           \
@@ -92,6 +105,12 @@ TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test           \
              MCMBAnode_LiIon_SimpleDiff_4_cV_test \
              MCMBAnode_LiIon_SimpleDiff_3_thermal_test \
              MCMBAnode_LiIon_SimpleDiff_cc_test \
+             LiCoO2_LiIonCathode_SimpleDiff_cV_test \
+             LiSi_5_Anode_Integrate_test \
+             UnitTests_test \
+             MCMB_Mao_test \
+
+
 
 #
 # TASK Rules
@@ -102,11 +121,6 @@ alllink: $(TEST_LIST)
 
 test:  TASK = test
 test: $(TEST_LIST)
-	cd LiSi_5_Anode_Integrate ;                             $(MAKE) -s test
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) -s test
-	cd UnitTests ;                                          $(MAKE) -s test
-	cd MCMB_Mao ; 						$(MAKE) -s test
-	cd FeS2_MPNewman_DiffRate_cc3 ;                         $(MAKE) -s test
 
 
 testd: TASK = testd
@@ -125,35 +139,18 @@ clean_test_flags: $(TEST_LIST)
 
 clean: TASK = clean
 clean: $(TEST_LIST)
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE)   clean
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE)  clean
-	cd LiSi_5_Anode_Integrate ;                             $(MAKE) clean
-	cd UnitTests ;                                          $(MAKE) clean
-	cd MCMB_Mao ; 						$(MAKE) clean
 
 test_clean: TASK = clean_test
 test_clean: $(TEST_LIST)
-	cd MCMBAnode_LiIon_DiffTALE_cV;                         $(MAKE) clean
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) clean
-	cd LiSi_5_Anode_Integrate ;                             $(MAKE) clean
-	cd UnitTests ; 						$(MAKE) clean
-	cd MCMB_Mao ; 						$(MAKE) clean
 
 depends: TASK = depends
 depends: $(TEST_LIST)
 	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) depends
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) depends
-	cd LiSi_5_Anode_Integrate ;                             $(MAKE) depends
-	cd UnitTests ;                                          $(MAKE) depends
-	cd MCMB_Mao ; 						$(MAKE) depends
 
 
 rebaseline: TASK = rebaseline
 rebaseline: $(TEST_LIST)
-	cd LiCoO2_LiIonCathode_SimpleDiff_cV;			$(MAKE) rebaseline
 	cd LiCoO2_LiIonCathode_CSTR_3_cc;                       $(MAKE) rebaseline
-	cd LiSi_5_Anode_Integrate ;                             $(MAKE) rebaseline
-	cd MCMB_Mao ; 						$(MAKE) rebaseline
 
 install:
 

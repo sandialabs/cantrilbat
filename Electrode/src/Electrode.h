@@ -2100,7 +2100,7 @@ public:
 
     //! Calculate the polarization analysis
     /*!
-     *   Returns a structure containing the polarization analysis
+     *  Returns a structure containing the polarization analysis
      * 
      *  @param[out]          psrr                Results of the analysis for the electrode object during the current
      *                                           global time step.
