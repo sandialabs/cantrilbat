@@ -1,79 +1,85 @@
 #/bin/sh
 ###############################################################
 
+.PHONY : all
 all:
-	cd LiSi_1_Newman ;                                          $(MAKE)
-	cd MCMB_OCVOverride_ConstTemp ;                             $(MAKE)
-	cd LiCoO2_SimpleDiff_Dualfoil;				    $(MAKE)
-	cd LiCoO2_SimpleDiff_Dualfoil_cc ;                          $(MAKE)
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    $(MAKE)
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc; 		    $(MAKE)
-	cd CSTR_ReadCompareSoln ;				    $(MAKE)
-	cd RadialDistrib_ReadCompareSoln ;			    $(MAKE)
-	cd LiCoO2_SimpleDiff_Jac ;				    $(MAKE) 
-#	cd GFCEO_CSTR_LiCoO2_LiIonCathode_cV ;                      $(MAKE) all
+	$(MAKE) alllink
 
-test:
-#	cd LiSi_1_Newman ;     (not ready yet)                      $(MAKE) -s test
-	cd MCMB_OCVOverride_ConstTemp ;                             $(MAKE) -s test
-	cd LiCoO2_SimpleDiff_Dualfoil ;                             $(MAKE) -s test
-	cd LiCoO2_SimpleDiff_Dualfoil_cc ;                          $(MAKE) -s test
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    $(MAKE) -s test
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc; 		    $(MAKE) -s test
-	cd CSTR_ReadCompareSoln ;				    $(MAKE) -s test
-	cd RadialDistrib_ReadCompareSoln ;			    $(MAKE) -s test
-	cd LiCoO2_SimpleDiff_Jac ;				    $(MAKE) -s test
-#	cd GFCEO_CSTR_LiCoO2_LiIonCathode_cV ;                      $(MAKE) -s test
-
-rebaseline:
-	cd MCMB_OCVOverride_ConstTemp ;                             $(MAKE) rebaseline
-	cd LiCoO2_SimpleDiff_Dualfoil ;                             $(MAKE) rebaseline
-	cd LiCoO2_SimpleDiff_Dualfoil_cc ;                          $(MAKE) rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    $(MAKE) rebaseline
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc; 		    $(MAKE) rebaseline
-	cd CSTR_ReadCompareSoln ;				    $(MAKE) rebaseline
-	cd RadialDistrib_ReadCompareSoln ;			    $(MAKE) rebaseline
-	cd LiSi_1_Newman ;                                          $(MAKE) rebaseline
-	cd LiCoO2_SimpleDiff_Jac ;				    $(MAKE) rebaseline
-	cd GFCEO_CSTR_LiCoO2_LiIonCathode_cV ;                      $(MAKE) rebaseline
-
-clean:
-	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; $(MAKE) clean
-	cd MCMB_OCVOverride_ConstTemp ;                             $(MAKE) clean
-	cd LiCoO2_SimpleDiff_Dualfoil;				    $(MAKE) clean
-	cd LiCoO2_SimpleDiff_Dualfoil_cc ;                          $(MAKE) clean
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    $(MAKE) clean
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc; 		    $(MAKE) clean
-	cd CSTR_ReadCompareSoln ;				    $(MAKE) clean
-	cd RadialDistrib_ReadCompareSoln ;			    $(MAKE) clean
-	cd LiCoO2_SimpleDiff_Jac ;				    $(MAKE) clean
-	cd GFCEO_CSTR_LiCoO2_LiIonCathode_cV ;                      $(MAKE) clean
-
-clean_dist:
-	cd LiSi_1_Newman ;                                          /bin/rm -f .depends; $(MAKE) clean
-	cd MCMB_OCVOverride_ConstTemp ;                             $(MAKE) clean
-	cd LiCoO2_SimpleDiff_Dualfoil;                              $(MAKE) clean
-	cd LiCoO2_SimpleDiff_Dualfoil_cc ;                          $(MAKE) clean
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil;                     $(MAKE) clean
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc; 		    $(MAKE) clean
-	cd CSTR_ReadCompareSoln ;				    $(MAKE) clean
-	cd RadialDistrib_ReadCompareSoln ;			    $(MAKE) clean
-	cd LiCoO2_SimpleDiff_Jac ;				    $(MAKE) clean
-	cd GFCEO_CSTR_LiCoO2_LiIonCathode_cV ;                      $(MAKE) clean_dist
-
-depends:
-	cd LiSi_1_Newman ;                                          /bin/rm -rf .depends; $(MAKE) depends
-	cd MCMB_OCVOverride_ConstTemp ;                             $(MAKE) depends
-	cd LiCoO2_SimpleDiff_Dualfoil;				    $(MAKE) depends
-	cd LiCoO2_SimpleDiff_Dualfoil_cc ;                          $(MAKE) depends
-	cd  MCMBAnode_LiIon_SimpleDiff_Dualfoil; 		    $(MAKE) depends
-	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc; 		    $(MAKE) depends
-	cd CSTR_ReadCompareSoln ;				    $(MAKE) depends
-	cd RadialDistrib_ReadCompareSoln ;			    $(MAKE) depends
-	cd LiCoO2_SimpleDiff_Jac ;				    $(MAKE) depends
-	cd GFCEO_CSTR_LiCoO2_LiIonCathode_cV ;                      $(MAKE) depends
+.PHONY : alllink test testd clean clean_test clean_dist clean_test_flags rebaseline install depends
 
 
-install:
+LiSi_1_Newman_test: 
+	cd LiSi_1_Newman &&                                         $(MAKE) $(TASK)
 
+MCMB_OCVOverride_ConstTemp_test: 
+	cd MCMB_OCVOverride_ConstTemp &&                       $(MAKE) $(TASK)
+
+LiCoO2_SimpleDiff_Dualfoil_test: 
+	cd LiCoO2_SimpleDiff_Dualfoil &&                       $(MAKE) $(TASK)
+
+LiCoO2_SimpleDiff_Dualfoil_cc_test:
+	cd LiCoO2_SimpleDiff_Dualfoil_cc &&                       $(MAKE) $(TASK)
+
+MCMBAnode_LiIon_SimpleDiff_Dualfoil_test:
+	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil  &&                 $(MAKE) $(TASK)
+
+MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc_test:
+	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc    &&          $(MAKE) $(TASK)
+
+CSTR_ReadCompareSoln_test:
+	cd CSTR_ReadCompareSoln                       &&          $(MAKE) $(TASK)
+
+RadialDistrib_ReadCompareSoln_test:
+	cd RadialDistrib_ReadCompareSoln             &&          $(MAKE) $(TASK)
+
+LiCoO2_SimpleDiff_Jac_test:
+	cd LiCoO2_SimpleDiff_Jac                     &&          $(MAKE) $(TASK)
+
+TEST_LIST =                       \
+         MCMB_OCVOverride_ConstTemp_test              \
+         LiCoO2_SimpleDiff_Dualfoil_test              \
+         LiCoO2_SimpleDiff_Dualfoil_cc_test           \
+         MCMBAnode_LiIon_SimpleDiff_Dualfoil_test     \
+         MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc_test  \
+         CSTR_ReadCompareSoln_test                    \
+         RadialDistrib_ReadCompareSoln_test           \
+         LiCoO2_SimpleDiff_Jac_test                   \
+
+
+ALL_LIST = LiSi_1_Newman_test \
+           $(TEST_LIST)
+
+#
+# TASK Rules
+#
+
+alllink: TASK = all
+alllink: $(ALL_LIST)
+
+test:  TASK = test
+test:  $(TEST_LIST)
+
+testd: TASK = testd
+testd: $(TEST_LIST)
+
+clean_test: TASK = clean_test
+clean_test: $(ALL_LIST)
+
+clean_dist: TASK = clean_dist
+clean_dist: $(ALL_LIST)
+
+clean_test_flags: TASK = clean_test_flags
+clean_test_flags: $(TEST_LIST)
+
+clean: TASK = clean
+clean: $(ALL_LIST)
+
+test_clean: TASK = clean_test
+test_clean: $(TEST_LIST)
+
+depends: TASK = depends
+depends: $(ALL_LIST)
+
+rebaseline: TASK = rebaseline
+rebaseline: $(TEST_LIST)
 

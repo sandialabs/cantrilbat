@@ -127,7 +127,7 @@ depends:
 	cat *.d > .depends
 
 test: 
-	@MAKE@
+	$(MAKE)
 	./runtest
 
 rebaseline:

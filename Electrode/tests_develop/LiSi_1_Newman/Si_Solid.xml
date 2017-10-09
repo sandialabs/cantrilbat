@@ -10,7 +10,6 @@
     </elementArray>
     <speciesArray datasrc="#species_Si(S)"> Si(S) </speciesArray>
     <thermo model="StoichSubstance">
-      <density units="g/cm3"> 2.33 </density>
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
@@ -20,7 +19,7 @@
   <speciesData id="species_Si(S)">
 
     <!-- species Si(S)   -->
-    <! --      melting temperature = 1685 K -->
+    <!--      melting temperature = 1685 K -->
     <species name="Si(S)">
       <atomArray> Si:1  </atomArray>
       <standardState  model="constant_incompressible">
@@ -40,7 +39,6 @@
         </Shomate>
       </thermo>
 
-      <density units="g/cm3"> 2.33 </density>
     </species>
 
   </speciesData>
