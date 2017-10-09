@@ -1336,7 +1336,7 @@ public:
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    //! Calculate the residual associated with the phase pop problem
+    //! Calculate the residual associated with the Kinetic phase pop problem
     /*!
      *      (can be deprecated)
      *   @param[in]           iphaseTarget        target phase to check, index in PhaseList
@@ -1346,18 +1346,18 @@ public:
      *
      *   @return                                  Returns 1 if everything is ok
      */
-    int phasePopResid(size_t iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid);
+    int phasePopKinResid(size_t iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid);
 
     //! Run a phase pop calculation, determining if a phase is stable to come into existence
     /*!
      *        (can be deprecated)
      *      We call the nonlinear solver using a special residual
      *
-     *  @param[in]            iphaseTarget        target phase to check, index in PhaseList
-     *  @param[out]           Xmf_stable          Vector of mole fractions of the phase that is the most stable
-     *  @param[in]            deltaTsubcycle      deltaT subcycle current
+     *  @param[in]            iphaseTarget       Target phase to check. this is the global phase index in the PhaseList
+     *  @param[out]           Xmf_stable         Vector of mole fractions of the phase that is the most stable
+     *  @param[in]            deltaTsubcycle     deltaT subcycle current
      *
-     *  @return                                   Returns 1 if the phase will pop and 0 otherwise
+     *  @return                                  Returns 1 if the phase will pop and 0 otherwise
      */
     int phasePop(size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
 
@@ -3763,8 +3763,10 @@ private:
      *  This class calculates a problem based on the kinetic equations for a phase to pop into existence.
      *  This problem can be very nonlinear.
      *  The number of equations is equal to the number of species in the phase to be tested.
+     *
+     *  @todo Make this a separate class, which is a friend class of Electrode.
      */
-    class phasePop_Resid : public ZZCantera::ResidEval
+    class phasePop_KinResid : public ZZCantera::ResidEval
     {
     public:
 
@@ -3775,7 +3777,7 @@ private:
 	 *    @param[in]          Xmf_stable      Mole fractions of target phase that are thermodynamically stable.
 	 *    @param[in]          deltaTsubcycle  Current value of Delta T
 	 */
-        phasePop_Resid(Electrode* ee, size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
+        phasePop_KinResid(Electrode* ee, size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle);
 
 	//! Evalulate the steady state residual
 	/*!

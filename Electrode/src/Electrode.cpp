@@ -3803,8 +3803,7 @@ size_t Electrode::numExtraGlobalRxnPathways() const
     return numExtraGlobalRxns;
 }
 //==================================================================================================================================
-Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, size_t iphaseTarget, double* const Xmf_stable,
-        double deltaTsubcycle) :
+Electrode::phasePop_KinResid::phasePop_KinResid(Electrode* ee, size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle) :
     ResidEval(),
     ee_(ee),
     iphaseTarget_(iphaseTarget),
@@ -3813,13 +3812,13 @@ Electrode::phasePop_Resid::phasePop_Resid(Electrode* ee, size_t iphaseTarget, do
 {
 }
 //==================================================================================================================================
-int Electrode::phasePop_Resid::evalResidSS(const double t, const double* const y, double* const r)
+int Electrode::phasePop_KinResid::evalResidSS(const double t, const double* const y, double* const r)
 {
-    int retn = ee_->phasePopResid(iphaseTarget_, y, deltaTsubcycle_, r);
+    int retn = ee_->phasePopKinResid(iphaseTarget_, y, deltaTsubcycle_, r);
     return retn;
 }
 //==================================================================================================================================
-int Electrode::phasePop_Resid::getInitialConditions(const double t0, double* const y, double* const ydot)
+int Electrode::phasePop_KinResid::getInitialConditions(const double t0, double* const y, double* const ydot)
 {
     size_t ne = nEquations();
     for (size_t k = 0; k < ne; k++) {
@@ -3827,15 +3826,15 @@ int Electrode::phasePop_Resid::getInitialConditions(const double t0, double* con
     }
     return 1;
 }
-//===================================================================================================================
-int Electrode::phasePop_Resid::nEquations() const
+//==================================================================================================================================
+int Electrode::phasePop_KinResid::nEquations() const
 {
     ThermoPhase* tp = &(ee_->thermo(iphaseTarget_));
     int nsp = tp->nSpecies();
     return nsp;
 }
-//===================================================================================================================
-int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid)
+//==================================================================================================================================
+int Electrode::phasePopKinResid(size_t iphaseTarget, const double* const Xf_phase, double deltaTsubcycle, double* const resid)
 {
     size_t k;
     std::vector<double> spMoles_tmp(m_NumTotSpecies, 0.0);
@@ -3906,17 +3905,12 @@ int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, 
         }
     }
     /*
-     *  This routine basically translates between species lists for the reacting surface
-     *  domain and the Electrode.
-     *  Later, when we have more than one reacting surface domain in the electrode object,
-     *  this will do a lot more
+     *  This routine translates between species lists for the reacting surface domain and the Electrode.
+     *  Later, when we have more than one reacting surface domain in the electrode object, this will do a lot more
      */
-
     for (size_t isk = 0; isk < numSurfaces_; isk++) {
         // Loop over phases, figuring out which phases have zero moles.
-
         if (ActiveKineticsSurf_[isk]) {
-
             /*
              *  For each Reacting surface
              *
@@ -3930,7 +3924,7 @@ int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, 
              *  loop over the phases in the reacting surface
              *  Get the net production vector
              */
-            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
+            std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.0);
             size_t nphRS = RSD_List_[isk]->nPhases();
             size_t jph, kph;
             size_t kIndexKin = 0;
@@ -3945,7 +3939,9 @@ int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, 
                             if (nsp > 1) {
                                 size_t bornMultiSpecies = jph;
                                 if (iphaseTarget != bornMultiSpecies) {
-                                    throw Electrode_Error("", "two multispecies phases");
+                                    throw Electrode_Error("Electrode::phasePopKinResid", 
+                                                          "One multispecies phase, %d, is popping, while trying to pop phase %d ",
+                                                          bornMultiSpecies, iphaseTarget);
                                 }
                             }
                         }
@@ -3968,7 +3964,6 @@ int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, 
     /*
      *  Calculate the change in the moles of all of the species
      */
-
     for (size_t k = 0; k < m_NumTotSpecies; k++) {
         spMoles_tmp[k] = spMoles_init_[k];
         for (size_t isk = 0; isk < numSurfaces_; isk++) {
@@ -3989,6 +3984,8 @@ int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, 
         k = kp + kstartTarget;
         ptotal += spMoles_tmp[k];
     }
+    // If the total moles of the popping phase is negative, then return an error condition.
+    //  -> might want to chop off negative values instead, and only return an error if all production rates are negative.?!?
     if (ptotal <= 0.0) {
         return -1;
     }
@@ -4008,7 +4005,7 @@ int Electrode::phasePopResid(size_t iphaseTarget, const double* const Xf_phase, 
 
     return 0;
 }
-//===================================================================================================================
+//==================================================================================================================================
 int Electrode::phasePop(size_t iphaseTarget, double* const Xmf_stable, double deltaTsubcycle)
 {
     size_t k;
@@ -4043,16 +4040,20 @@ int Electrode::phasePop(size_t iphaseTarget, double* const Xmf_stable, double de
     /*
      * Load with an initial guess
      */
-    Electrode::phasePop_Resid* pSolve_Res = new phasePop_Resid(this, iphaseTarget, Xmf_stable, deltaTsubcycle);
+    Electrode::phasePop_KinResid* pSolve_Res = new phasePop_KinResid(this, iphaseTarget, Xmf_stable, deltaTsubcycle);
 
-    ZZCantera::solveProb* pSolve = new solveProb(pSolve_Res);
+    solveProb* pSolve = new solveProb(pSolve_Res);
     pSolve->m_ioflag = 10;
     pSolve->setAtolConst(1.0E-11);
     retn = pSolve->solve(solveProb::RESIDUAL, 1.0E-6, 1.0E-3);
     if (retn == 0) {
         pSolve->reportState(Xmf_stable);
         vector_fp resid(nspPhase);
-        phasePopResid(iphaseTarget, Xmf_stable, deltaTsubcycle, DATA_PTR(resid));
+        int retn2 = phasePopKinResid(iphaseTarget, Xmf_stable, deltaTsubcycle, resid.data());
+        if (retn2 < 0) {
+            throw ZuzaxError("Electrode::phasePop()",
+                             "Solver returned a solution, however, direct call to residual produced an error");
+        }
     }
 
     delete pSolve;

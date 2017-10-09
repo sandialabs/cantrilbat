@@ -621,7 +621,7 @@ bool Electrode_Integrator::resetStartingCondition(double Tinitial, bool doAdvanc
      *  Advance the solution to the state of the final_final values from the previous global step
      */
     if (!resetToInitInit) {
-        for (int i = 0; i < neqNLS; i++) {
+        for (int i = 0; i < neqNLS; ++i) {
             solnDot_init_init_[i] = solnDot_final_final_[i];
             solnDot_init_[i]      = solnDot_final_final_[i];
             solnDot_final_[i]     = solnDot_final_final_[i];
