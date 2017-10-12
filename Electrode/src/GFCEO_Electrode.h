@@ -270,13 +270,11 @@ public:
     /*!
      *  Default to yScales[] = 1.0
      *
-     * @param t             Time                    (input)
      * @param y             Solution vector (input, do not modify)
      * @param y_old         Old Solution vector (input, do not modify)
      * @param yScales       Value of the column scales
      */
-    virtual void calcSolnScales(const double t, const double* const y,
-                                const double* const y_old, double* const yScales) override;
+    virtual void calcSolnScales(const double* const y, const double* const y_old, double* const yScales) override;
 
 
     //! This function may be used to create output at various points in the execution of an application.
