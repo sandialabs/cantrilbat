@@ -95,24 +95,14 @@ void processCurrentVsPotTable(ZZCantera::RxnMolChange* rmc,
                               ZZCantera::DenseMatrix& kfwdPrime_Table,
                               ZZCantera::DenseMatrix& krevPrime_Table);
 
-void
-getGERKineticsTables(TemperatureTable& TT,
-                     ZZCantera::PhaseList* pl,
-                     ZZCantera::Kinetics& kin,
-                     ZZCantera::ExtraGlobalRxn& egr,
+void getGERKineticsTables(TemperatureTable& TT, ZZCantera::PhaseList* pl, ZZCantera::Kinetics& kin, ZZCantera::ExtraGlobalRxn& egr,
                      RxnTempTableStuff& rts);
 
-void printGERKineticsTable(ZZCantera::PhaseList* pl,
-                           int j,
-                           TemperatureTable& TT,
-                           ZZCantera::Kinetics& kin,
-                           ZZCantera::ExtraGlobalRxn& egr,
-                           ZZCantera::RxnMolChange* rmc,
+void printGERKineticsTable(ZZCantera::PhaseList* pl, int j, TemperatureTable& TT,
+                           ZZCantera::Kinetics& kin, ZZCantera::ExtraGlobalRxn& egr, ZZCantera::RxnMolChange* rmc,
                            RxnTempTableStuff& rts);
 
-void processGERCurrentVsPotTable(ZZCantera::RxnMolChange* rmc,
-                                 ZZCantera::PhaseList* pl,
-                                 int irxn,
+void processGERCurrentVsPotTable(ZZCantera::RxnMolChange* rmc, ZZCantera::PhaseList* pl, int irxn,
                                  TemperatureTable& TT,
                                  ZZCantera::Kinetics& kin,
                                  ZZCantera::ExtraGlobalRxn& egr,

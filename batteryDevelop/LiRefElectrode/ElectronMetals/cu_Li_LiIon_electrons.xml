@@ -25,10 +25,21 @@
    <speciesData id="species_electrode">
         
       <!-- species electron_Li_LiIon -->
-      <! --   temperature 250 K to 500 K K -->
+      <!--   temperature 250 K to 500 K K -->
       <species name="cu_electron_Li_LiIon">
        <atomArray> E:1.0  </atomArray>
        <charge> -1 </charge>
+       <standardState model="electronPhase">
+           <!--  
+                 Entropy and heat capacity set to electron phase within the copper metal.
+                 H298K(298K, 1bar) set to value needed to create ESS = 0.0 volts for Lithium Metal
+                 to Li+ within EDMC media value.
+            -->
+           <referenceInterface> Li_LiIon_298K </referenceInterface>
+           <pressureDependence model="none"/>
+           <density units="g/cm3"> 1. </density>
+       </standardState>
+
        <thermo>
        <Shomate Pref="1 atm" Tmax="1500.0" Tmin="250.0">
           <floatArray size="7">

@@ -2,12 +2,12 @@
 #
 #
 Number of Cantera Files = 1
-Cantera File Name = Li_Liquid.xml
+Cantera File Name = Li_Metal.xml
 #
 #
 !Debugging = true
-Bath Temperature = 300.
-Bath Pressure =  1 atm
+Bath Temperature = 298.15
+Bath Pressure =  1 bar
 Output Units = KJoule
 #
 !-----------------------------------------------------------------
@@ -52,14 +52,12 @@ START BLOCK Temperature Table Format
 END BLOCK Temperature Table Format
 
 
-
-
-start block Bath Specification for Phase Li(L)
-   Bath Species ID = Li(L)
+start block Bath Specification for Phase Li(S)
+   Bath Species ID = Li(S)
    start block Bath Species Mole Fraction
-       Li(L) = 1.0
+       Li(S) = 1.0
    End block Bath Species Mole Fraction
-end block Bath Specification for Phase Li(L)
+end block Bath Specification for Phase Li(S)
 
 
 # the above were empty lines

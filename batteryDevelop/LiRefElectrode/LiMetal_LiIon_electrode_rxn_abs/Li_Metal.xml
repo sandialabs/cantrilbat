@@ -1,4 +1,3 @@
-
 <?xml version="1.0"?>
 <ctml>
   <validate reactions="yes" species="yes"/>
@@ -10,7 +9,6 @@
     </elementArray>
     <speciesArray datasrc="#species_Li(S)"> Li(S) </speciesArray>
     <thermo model="StoichSubstance">
-      <density units="g/cm3"> 0.534 </density>
     </thermo>
     <transport model="None"/>
     <kinetics model="none"/>
@@ -23,8 +21,12 @@
     <!--      melting temperature = 453.69 K -->
     <species name="Li(S)">
       <atomArray> Li:1  </atomArray>
+      <standardState  model="constant_incompressible">
+         <density units="g/cm3"> 0.534 </density>
+      </standardState>
+
       <thermo>
-        <Shomate Pref="1 atm" Tmax="500.0" Tmin="250.0">
+        <Shomate Pref="1 bar" Tmax="500.0" Tmin="250.0">
           <floatArray size="7">
              169.552,
              -882.711,
@@ -36,7 +38,6 @@
           </floatArray>
         </Shomate>
       </thermo>
-      <density units="g/cm3"> 0.534 </density>
     </species>
 
   </speciesData>
