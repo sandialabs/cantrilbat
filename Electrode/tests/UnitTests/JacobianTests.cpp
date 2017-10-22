@@ -46,10 +46,10 @@ public:
 
   virtual ~MockElectrode() {}
 
-  virtual void setFinalStateFromInit() {}
-  virtual void updateState() {}
+  virtual void setFinalStateFromInit() override {}
+  virtual void updateState() override {}
 
-  virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial)
+  virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial) override
   {
     fake_electrolyte_mole_nums[0] = electrolyteMoleNum[0];
     fake_electrolyte_mole_nums[1] = electrolyteMoleNum[1];
@@ -58,15 +58,15 @@ public:
 
   virtual int integrate(double deltaT, double  GlobalRtolSrcTerm = 1.0E-3,
                         Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
-                        Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR)
+                        Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR) override
   {return 0;}
 
-  virtual size_t numSolnPhaseSpecies() const { return 3; }
+  virtual size_t numSolnPhaseSpecies() const override { return 3; }
 
-  virtual double integratedEnthalpySourceTerm()
+  virtual double integratedEnthalpySourceTerm() override
   { return temperature_; }
 
-  virtual void getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered)
+  virtual void getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered) override
   {
     phaseMolesTransfered[0] = temperature_ + 2*deltaVoltage_;
     for(int i=0; i<3; ++i)
@@ -75,7 +75,7 @@ public:
     }
   }
 
-  virtual size_t integratedSpeciesSourceTerm(double* const spMoleDelta)
+  virtual size_t integratedSpeciesSourceTerm(double* const spMoleDelta) override
   {
     spMoleDelta[0] = deltaVoltage_;
     spMoleDelta[1] = 2*fake_electrolyte_mole_nums[0];
@@ -84,19 +84,19 @@ public:
     return 1;
   }
   
-  virtual double getIntegratedSourceTerm(SOURCES sourceType)
+  virtual double getIntegratedSourceType(SOURCE_TYPES sourceType, size_t ksp) override
   {
     double result = 0.0;
     switch( sourceType )
     {
-    case ELECTROLYTE_PHASE_SOURCE:
+    case SOURCE_TYPES::ELECTROLYTE_PHASE_SOURCE:
       result = temperature_ + 2*deltaVoltage_;
       for(int i=0; i<3; ++i)
       {
         result += (i+3) * fake_electrolyte_mole_nums[i];
       }
       break;
-    case ENTHALPY_SOURCE:
+    case SOURCE_TYPES::ENTHALPY_SOURCE:
       result = integratedEnthalpySourceTerm();
       break;
     default:
@@ -106,7 +106,7 @@ public:
     return result;
   }
 
-  virtual void revertToInitialTime(bool) {};
+  virtual void revertToInitialTime(bool) override {};
 
 private:
   std::vector<double> fake_electrolyte_mole_nums;
@@ -117,8 +117,8 @@ class FDJacobianTest : public testing::Test
 {
 public:
   FDJacobianTest() :
-    temp_energy_pair(TEMPERATURE, ENTHALPY_SOURCE),
-    current_voltage_pair(SOLID_VOLTAGE, CURRENT_SOURCE),
+    temp_energy_pair(TEMPERATURE, ST_pair(SOURCE_TYPES::ENTHALPY_SOURCE)),
+    current_voltage_pair(SOLID_VOLTAGE, ST_pair(SOURCE_TYPES::CURRENT_SOURCE)),
     dt(0.1),
     zero(0.)
   {
@@ -132,13 +132,12 @@ public:
 
     for(int idx=0; idx < 3; ++idx)
     {
-      species_source_pairs.push_back( Electrode_Jacobian::DOF_SOURCE_PAIR((DOFS)(SPECIES+idx), (SOURCES)(SPECIES_SOURCE+idx)));
+      species_source_pairs.push_back( Electrode_Jacobian::DOF_SOURCE_PAIR((DOFS)(SPECIES+idx), ST_pair(SOURCE_TYPES::SPECIES_SOURCE, idx)) );
     }
 
     for(int idx=0; idx < MAX_DOF + 2; ++idx)
     {
-      electrolyte_phase_all_dofs.push_back(
-          Electrode_Jacobian::DOF_SOURCE_PAIR((DOFS)(idx), ELECTROLYTE_PHASE_SOURCE));
+      electrolyte_phase_all_dofs.push_back( Electrode_Jacobian::DOF_SOURCE_PAIR((DOFS)(idx), ST_pair(SOURCE_TYPES::ELECTROLYTE_PHASE_SOURCE)));
     }
 
     point.resize(7);
@@ -220,7 +219,7 @@ TEST_F(FDJacobianTest, SpeciesJacobians)
 //! Test the electrolyte phase source jacobian entries wrt each dof.
 TEST_F(FDJacobianTest, ElectrolytePhaseSource)
 {
-  Electrode_Jacobian::DOF_SOURCE_PAIR electrolyte_phase(SOLID_VOLTAGE, ELECTROLYTE_PHASE_SOURCE);
+  Electrode_Jacobian::DOF_SOURCE_PAIR electrolyte_phase(SOLID_VOLTAGE, ST_pair(SOURCE_TYPES::ELECTROLYTE_PHASE_SOURCE));
   fd_jacobian->add_entries_to_compute(electrolyte_phase_all_dofs);
   fd_jacobian->compute_jacobian(point, dt);
   // SOLID_VOLTAGE

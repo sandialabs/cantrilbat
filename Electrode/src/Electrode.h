@@ -62,21 +62,44 @@ namespace Cantera
 //==================================================================================================================================
 //!  The SOURCES enum lists the source terms that are supplied by the electrode object to the calling
 //!  routine.  This is currently only used in the Jacobian wrapper. However, it may be used more widely in the future later.
-enum SOURCES
+enum class SOURCE_TYPES
 {
-    //! Source of the current
+    //! Source of the current - production rate of electrons
+    /*!
+     *  Current is positive when current goes from electrode into electrolyte, i.e., when production rate of electrons is positive
+     *  Units: kmol
+     */
     CURRENT_SOURCE = 0,
+
     //! Molar source for net species production of the electrolyte phase
+    /*!
+     *  Units: kmol
+     */
     ELECTROLYTE_PHASE_SOURCE,
+
     //! Enthalpy source term
+    /*!
+     *  Units: Joules
+     */
     ENTHALPY_SOURCE,
+
     //! Individual species sources
+    /*!
+     *  Units: kmol
+     */
     SPECIES_SOURCE,
+
     //! Sources for volume
+    /*!
+     *  Source is positive when the electrode expands
+     *  Units: m^3
+     */
     VOLUME_SOURCE, 
+
     //! End of the Source list
     MAX_SOURCE
 };
+
 //==================================================================================================================================
 //!  The DOFS enum lists the independent degrees of freedom that the electrode object can handle. 
 //!  This is currently only used in the Jacobian wrapper. However, it may be used more widely in the future.
@@ -1184,9 +1207,9 @@ public:
 
     //! Irreversible thermal energy release during a single step
     /*!
-     *  (virtual from Electrode.h)
+     *  (virtual from Electrode)
      *
-     *     Energy released within the electrode during a local time step due to the overpotential
+     *  Energy released within the electrode during a local time step due to the overpotential
      *
      *  @return                                  Returns the irreversible energy released (joules)
      */
@@ -1194,53 +1217,57 @@ public:
 
     //! Get the integrated source term values for one of a set of sources
     /*!
-     *    @param[in]         sourceType          The enum source term value. Species indecises are 
-     *                                           designated by indexing on top of the base SPECIES_SOURCE
-     
-     *    @return                                Returns the source term
+     *  (virtual from Electrode)
+     *
+     *  @param[in]         sourceType            The enum SOURCE_TYPES value. 
+     *  @param[in]         ksp                   ThermoPhase species index for the solution phase, when necessary
+     *                                                 
+     *  @return                                  Returns the source term
      */
-    virtual double getIntegratedSourceTerm(SOURCES sourceType);
+    virtual double getIntegratedSourceType(SOURCE_TYPES sourceType, size_t ksp = npos);
 
-    //!  Returns the net production rates of all species in the electrode object over the last integration step
+    //! Returns the net production rates of all species in the electrode object over the last integration step
     /*!
-     *   We calculate a rate here by taking the total production amounts and then divide by the time step.
+     *  We calculate a rate here by taking the total production amounts and then divide by the time step.
      *
-     *   @param[out]      net                    Species net production rates [kmol/s]
+     *  @param[out]          net                 Species net production rates [kmol/s]
      *
-     *   @return                                 Returns the current, amps = columb sec-1
+     *  @return                                  Returns the current, amps = columb sec-1
      */
     double getIntegratedProductionRatesCurrent(double* const net) const;
 
-    //!  Returns the net current in the electrode object at the current conditions over the current last local time step
+    //! Returns the net current in the electrode object at the current conditions over the current last local time step
     /*!
-     *   Note we must have integrated a local time step previously.
+     *  (virtual from Electrode)
+     *
+     *  Note we must have integrated a local time step previously.
      *       (can protect)
      *
-     *   @return                                  Returns the current columb sec-1 = amps
+     *  @return                                 Returns the current columb sec-1 = amps
      */
     virtual double integratedLocalCurrent() const;
 
-    //!  Returns the net production rates of all species in the electrode object over the last integration step
+    //! Returns the net production rates of all species in the electrode object over the last integration step
     /*!
-     *   We calculate a rate here by taking the total production amounts and then
-     *   dividing by the time step to get a rate.
+     *  We calculate a rate here by taking the total production amounts and then
+     *  dividing by the time step to get a rate.
      *
-     *   @param[out]         net                 Species net production rates [kmol/s].
+     *  @param[out]         net                 Species net production rates [kmol/s].
      */
     void getIntegratedSpeciesProductionRates(double* const net) const;
 
-    //!  Returns the net current in the electrode object at the current conditions over the current global time step
+    //! Returns the net current in the electrode object at the current conditions over the current global time step
     /*!
-     *   Note we must have integrated a global time step previously.
+     *  Note we must have integrated a global time step previously.
      *       (can protect)
      *
-     *   @return                                 Returns the current columb sec-1 = amps
+     *  @return                                 Returns the current columb sec-1 = amps
      */
     double integratedCurrent() const;
 
     //! Returns the integrated moles transfered for each phase in the Electrode object over the current global time step
     /*!
-     *  (virtual from Electrode.h)
+     *  (virtual from Electrode)
      *
      *  @param[out]          phaseMolesTransfered   Vector of moles transfered (length = number of total
      *                                                 Length: PhaseList::nNumTotPhases
@@ -1305,8 +1332,7 @@ public:
 	 *
 	 *  @return             Returns 1 if the residual is ok.
          */
-        virtual int  evalResidNJ(const double t, const double delta_t,
-                         const double* const y,
+        virtual int  evalResidNJ(const double t, const double delta_t, const double* const y,
                          const double* const ydot,
                          double* const resid,
                          const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
@@ -3453,12 +3479,12 @@ public:
 protected:
     //! Phase ID of the metal
     /*!
-     *  this is the phase where the electron species exists.
-     *      This object doesn't have to have a positive mole number to be active
+     *  This is the phase where the electron species exists.
+     *  This object doesn't have to have a positive mole number to be active
      */
     size_t metalPhase_;
 
-    //! Phase ID of the electrolyte solution
+    //! Global Phase ID of the electrolyte solution
     /*!
      *  This is the phase where the product ions exist
      */
@@ -3466,7 +3492,7 @@ protected:
 
     //! Global index within this object of the electron species
     /*!
-     *  Indexing:  global species index within the PhaseList
+     *  Indexing:  kGlob = global species index within the PhaseList
      */
     size_t kElectron_;
 

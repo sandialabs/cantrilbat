@@ -20,6 +20,70 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
+
+//==================================================================================================================================
+//! Structure for holding the SOURCE_TYPES and subindex for specifying the pair
+struct ST_pair
+{
+    //! Constructor
+    /*!
+     *    @param[in]         st                  enum class specifying the SOURCE_TYPES
+     *    @param[in]         ksp                 Species index within the lyte thermoPhase class when needed
+     */
+    ST_pair(SOURCE_TYPES st = SOURCE_TYPES::MAX_SOURCE, size_t ksp = npos) :
+        sourceType(st),
+        subIndex(ksp)
+    {
+    };
+
+    //! Equality operator required for find
+    /*!
+     *  subIndex not pertinent if not SPECIES_SOURCE
+     *
+     *  @param[in]           alt                 Other ST_pair object to compare to
+     *  @return                                  Returns true if (*this == alt);
+     */
+    bool operator==(ST_pair alt) const {
+        if (sourceType != alt.sourceType) return false;
+        if (subIndex != alt.subIndex) {
+            if (sourceType == SOURCE_TYPES::SPECIES_SOURCE) return false;
+        }
+        return true;
+    }
+
+    //! Not equals operator required for maps
+    /*!
+     *  subIndex not pertinent if not SPECIES_SOURCE
+     *
+     *  @param[in]           alt                 Other ST_pair object to compare to
+     *  @return                                  Returns true if (*this != alt);
+     */
+    bool operator!=(ST_pair alt) const {
+        return ! (operator==(alt));
+    }
+
+    //! Less than operator required for maps
+    /*!
+     *  subIndex not pertinent if not SPECIES_SOURCE
+     *
+     *  @param[in]           alt                 Other ST_pair object to compare to
+     *  @return                                  Returns true if (*this < alt);
+     */
+    bool operator<(ST_pair alt) const {
+        if (sourceType < alt.sourceType) return true; 
+        if (subIndex < alt.subIndex) {
+            if (sourceType == alt.sourceType) return true;
+        } 
+        return false;
+    }
+
+    //! enum class specifying the SOURCE_TYPES
+    SOURCE_TYPES sourceType;
+
+    //!  Species index within the lyte thermoPhase class when needed
+    size_t subIndex;
+};
+
 //==================================================================================================================================
 //! Base class for computing Electrode object sensitivities
 /*!
@@ -41,12 +105,14 @@ class Electrode_Jacobian {
 
 public:
 
-  //! This pair definition marries an independent variable specified by a DOF enum with a source term specified by the SOURCES enum.
+  //! This pair definition marries an independent variable specified by a DOF enum with a source term specified
+  //! by the ST_pair structure, which is the SOURCE_TYPES enum and subIndex pair
   //! The two of them together signifies a Jacobian term (i.e., an entry in a 2D matrix). 
   /*!
-   *  The DOFS and SOURCES enum is defined in the Electrode.h file
+   *  The DOFS and SOURCE_TYPES enum is defined in the Electrode.h file, while the ST_pair structure is defined 
+   *  at the top of this file
    */
-  typedef std::pair<DOFS, SOURCES> DOF_SOURCE_PAIR;
+  typedef std::pair<DOFS, ST_pair> DOF_SOURCE_PAIR;
 
   //! Constructor
   /*!
@@ -97,26 +163,25 @@ public:
    *  Species mole fractions are specified starting at centerpoint[SPECIES] and should be in the order expected by
    *  electrode->setElectrolyteMoleNumbers.
    *
-   *    @param[in]           centerpoint         The current vector of values of the external variables to be used for the calculation
-   *    @param[in]           dt                  Delta T
-   *    @param[in,out]       dof_Deltas          Input deltas for the dofs, or output dofs.
-   *    @param[in]           useDefaultDeltas    Boolean indicating whether deltas are computed or input
+   *  @param[in]             centerpoint         The current vector of values of the external variables to be used for the calculation
+   *  @param[in]             dt                  Delta T
+   *  @param[in,out]         dof_Deltas          Input deltas for the dofs, or output dofs.
+   *  @param[in]             useDefaultDeltas    Boolean indicating whether deltas are computed or input
    */
   virtual void compute_jacobian(const std::vector<double>& centerpoint, const double dt,
                                 double* dof_Deltas = nullptr, bool useDefaultDeltas = true) = 0;
 
   //! Calculate a one sided jacobian and store it in the object
   /*!
-   *  @param[in]           centerpoint         External varialbes to be used for the calculation
-   *  @param[in]           dt                  Delta T
-   *  @param[in]           dof_Deltas          Input deltas for the dofs, or output dofs. Defaults to nullptr
-   *  @param[in]           useDefaultDeltas    Boolean indicating whether deltas are computed or input. Defaults to true.
-   *  @param[in]           baseAlreadyCalculated Boolean indicating whether the base calculation has already been done and storred
+   *  @param[in]             centerpoint         External varialbes to be used for the calculation
+   *  @param[in]             dt                  Delta T
+   *  @param[in]             dof_Deltas          Input deltas for the dofs, or output dofs. Defaults to nullptr
+   *  @param[in]             useDefaultDeltas    Boolean indicating whether deltas are computed or input. Defaults to true.
+   *  @param[in]             baseAlreadyCalculated Boolean indicating whether the base calculation has already been done and storred
    *                                             internally within the object.
    */
   virtual void compute_oneSided_jacobian(const std::vector<double>& centerpoint, const double dt, double* dof_Deltas = nullptr,
                                          bool useDefaultDeltas = true, bool baseAlreadyCalculated = false) = 0;
-
 
   //! Print the jacobian out as a table to stdout
   /*!
@@ -124,10 +189,9 @@ public:
    */
   virtual void print_jacobian(int indentSpaces = 0) const = 0;
 
-  /*!
-   * Return the partial derivative of the requested source term with respect to the requested dof,
-   * requested source and dof are specifed by dof_source_pair
-   *
+  //! Return the partial derivative of the requested source term with respect to the requested dof,
+  //! requested source and dof are specifed by dof_source_pair
+  /*! 
    *  @param[in]   dof_source_pair              DOF_SOURCE_PAIR pair representing the row and variable
    *
    *  @return                                   Return the jacobian value

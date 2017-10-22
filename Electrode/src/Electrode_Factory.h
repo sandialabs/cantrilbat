@@ -79,6 +79,16 @@ extern Map_ETEnum_String gMap_ETEnum_String;
 std::string Electrode_Types_Enum_to_string(const Electrode_Types_Enum& etype);
 
 //==================================================================================================================================
+//! Ostream overload operator for outputting Electrode_Types_Enum
+/*!
+ *  @param[in]               s                   Reference to the ostream
+ *  @param[in]               etype               Electrode_Types_Enum reference
+ *
+ *  @return                                      Returns the reference to the ostream
+ */
+std::ostream& operator<<(std::ostream& s, const Electrode_Types_Enum& etype);
+
+//==================================================================================================================================
 //! String to Enum Routine for the enum Electrode_Types_Enum
 /*!
  *  Matches are first made using case. Then, they are made by ignoring case

@@ -42,16 +42,10 @@ Electrode_Factory* Electrode_Factory::s_factory = 0;
 boost::mutex Electrode_Factory::electrode_mutex;
 #endif
 //====================================================================================================================
-
 // This is the definition for this global struct. 
 Map_ETEnum_String gMap_ETEnum_String;
 
 //====================================================================================================================
-//! Routine to create the maps used in the factory lookups
-/*!
- *  If you are adding an Electrode type:
- *      Add your Name and 
- */
 static void create_string_maps()
 {
     if (gMap_ETEnum_String.string_maps_created) {
@@ -95,12 +89,6 @@ static void create_string_maps()
 
 }
 //==================================================================================================================================
-// Enum to String routine for the enum Electrode_Types_Enum
-/*
- *  @param etype The model of the electrode
- *
- *  @return Returns the characteristic string for that Electrode Model
- */
 std::string Electrode_Types_Enum_to_string(const Electrode_Types_Enum& etype)
 {
     if (!gMap_ETEnum_String.string_maps_created) {
@@ -114,50 +102,45 @@ std::string Electrode_Types_Enum_to_string(const Electrode_Types_Enum& etype)
     }
     return pos->second;
 }
-//====================================================================================================================
-// String to Enum Routine for the enum Electrode_Types_Enum
-/*
- *  Matches are first made using case. Then, they are made by ignoring case
- *
- *  @param       input_string
- *
- *  @return      Returns the Enum type for the string
- */
+//==================================================================================================================================
+std::ostream& operator<<(std::ostream& s, const Electrode_Types_Enum& etype)
+{
+    s << Electrode_Types_Enum_to_string(etype);
+    return s;
+}
+//==================================================================================================================================
 Electrode_Types_Enum string_to_Electrode_Types_Enum(const std::string& input_string)
 {
     if (!gMap_ETEnum_String.string_maps_created) {
         create_string_maps();
     }
-    std::map<std::string , Electrode_Types_Enum>& string_electrode_types = gMap_ETEnum_String.string_electrode_types;
-
+    std::map<std::string, Electrode_Types_Enum>& string_electrode_types = gMap_ETEnum_String.string_electrode_types;
     std::map<std::string, Electrode_Types_Enum>::iterator pos = string_electrode_types.find(input_string);
-    if (pos == string_electrode_types.end())  {
-        std::string iii = ZZCantera::lowercase(input_string);
-        pos = string_electrode_types.find(iii);
+    if (pos == string_electrode_types.end()) {
+        pos = string_electrode_types.find(lowercase(input_string));
         if (pos == string_electrode_types.end())  {
             return UNKNOWN_ET;
         }
     }
     return pos->second;
 }
-//===================================================================================================================
+//==================================================================================================================================
 int stringName_RCD_OCVmodel_to_modelID(const std::string& input_string)
 {
     if (!gMap_ETEnum_String.string_maps_created) {
         create_string_maps();
     }
     std::map<std::string, int>& string_OCVmodel = gMap_ETEnum_String.string_OCVmodel;
-    std::map<std::string, int>::iterator pos    = string_OCVmodel.find(input_string);
-    if (pos == string_OCVmodel.end())  {
-        std::string iii = ZZCantera::lowercase(input_string);
-        pos = string_OCVmodel.find(iii);
+    std::map<std::string, int>::iterator pos = string_OCVmodel.find(input_string);
+    if (pos == string_OCVmodel.end()) {
+        pos = string_OCVmodel.find(lowercase(input_string));
         if (pos == string_OCVmodel.end())  {
             return -1;
         }
     }
     return pos->second;
 }
-//===================================================================================================================
+//==================================================================================================================================
 std::string modelID_to_stringName_RCD_OCVmodel(int modelID)
 {
     if (!gMap_ETEnum_String.string_maps_created) {
