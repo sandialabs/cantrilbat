@@ -20,6 +20,9 @@ LiCoO2_SimpleDiff_Dualfoil_test:
 LiCoO2_SimpleDiff_Dualfoil_cc_test:
 	cd LiCoO2_SimpleDiff_Dualfoil_cc &&                       $(MAKE) $(TASK)
 
+MCMBAnode_LiIon_SimpleDiff_cV_test:
+	cd MCMBAnode_LiIon_SimpleDiff_cV  &&                       $(MAKE) $(TASK)
+
 MCMBAnode_LiIon_SimpleDiff_Dualfoil_test:
 	cd MCMBAnode_LiIon_SimpleDiff_Dualfoil  &&                 $(MAKE) $(TASK)
 
@@ -39,6 +42,7 @@ TEST_LIST =                       \
          MCMB_OCVOverride_ConstTemp_test              \
          LiCoO2_SimpleDiff_Dualfoil_test              \
          LiCoO2_SimpleDiff_Dualfoil_cc_test           \
+         MCMBAnode_LiIon_SimpleDiff_cV_test           \
          MCMBAnode_LiIon_SimpleDiff_Dualfoil_test     \
          MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc_test  \
          CSTR_ReadCompareSoln_test                    \

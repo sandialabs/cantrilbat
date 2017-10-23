@@ -1,0 +1,153 @@
+#!/bin/sh
+#
+#
+# Copywrite 2004 Sandia Corporation. Under the terms of Contract
+# DE-AC04-94AL85000, there is a non-exclusive license for use of this
+# work by or on behalf of the U.S. Government. Export of this program
+# may require a license from the United States Government.
+#
+
+.SUFFIXES: .d
+
+PROGRAM = MCMBAnode_SimpleDiff
+
+DATA =  ECsoln_ion.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml 
+
+TEST_INTERMEDIATES =   diff_csv.txt    diff_gcsv.txt    diff_out.txt  err_out.txt  
+TEST_FLAGS = runGood runBad runInProgress.txt
+TEST_RESULTS = out.txt MCMB_intResults_0_0.csv MCMB_globalResults_0_0.csv soln_0.0.xml
+
+OBJ = $(PROGRAM).o
+
+##########################################################################
+#           Setup The Cantera Directory locations
+#########################################################################
+
+PURIFY=@PURIFY@
+
+# These links are to Cantera's install space
+CT_INCROOT =  @ct_incroot@
+
+#
+# Bring in the Cantera includes through the .mak file
+#
+include $(CT_INCROOT)/cantera/Cantera.mak
+#
+#
+UTILSRC_DIR = ../../../util_src/src
+UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
+UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
+#
+# Set up the Cantera addition library
+#
+CTPADDS_DIR = ../../../ctpadds/src
+CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
+CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
+#
+# Set up the Cantera Application Base directory
+#
+CTAPPLBASE_DIR = ../../src
+CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
+CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
+#
+#########################################################################
+# Set up the various local and global defines
+########################################################################
+LDEFINES = -DDEBUG 
+GDEFINES =
+#
+# Set up the global include directory macro
+#
+INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
+
+all: .depends $(PROGRAM)
+
+LDR = $(F77LDR)
+LDRFLAGS = $(F77LDRFLAGS)
+LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
+
+CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+
+OBJ_ANODE =  $(OBJ)
+
+
+############################################################################
+# section to set up compiler rules
+###########################################################################
+#
+# the C++ compiler
+#
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+LCXX_FLAGS = @LCXX_FLAGS@
+LCXX_END_LIBS = @LCXX_END_LIBS@
+CXXLDR = $(CXX)
+#
+# C compiler
+#
+CC = @CC@
+CFLAGS = @CXXFLAGS@
+#
+# Both the C and C++ compiler predefines
+#
+CCFLAGS = $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
+
+
+.cpp.o:
+	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
+
+DEPENDS = $(OBJ_ANODE:.o=.d) 
+
+
+.cpp.d:
+	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
+
+depends:
+	$(RM) $(DEPENDS)
+	$(MAKE) .depends
+
+.depends: $(DEPENDS)
+	cat *.d > .depends
+
+$(OBJ): Makefile
+
+$(DEPENDS): Makefile
+
+test: 
+	@$(MAKE) -s
+	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
+
+runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	@echo 'RUNNING TEST ' $(TESTNAME)
+	../../tests/runtest_Electrode
+
+rebaseline:
+	cp MCMB_intResults_0_0.csv     MCMB_intResults_blessed_0_0.csv
+	cp MCMB_globalResults_0_0.csv  MCMB_globalResults_blessed_0_0.csv
+	cp out.txt good_out.txt
+	cp soln_0_0.xml soln_0_0_blessed.xml
+
+
+$(PROGRAM): $(OBJ_ANODE) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+               $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
+	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o $(PROGRAM) $(OBJ_ANODE) \
+	          $(OBJ_CANTERA_ADDONS)  \
+                  $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
+                  $(LCXX_END_LIBS) 
+
+clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) $(TEST_FLAGS)
+
+clean_test: 
+	$(RM) $(TEST_FLAGS) $(TEST_INTERMEDIATES) $(TEST_RESULTS)
+
+clean_dist:
+	$(MAKE) clean
+	$(MAKE) clean_test
+
+
+ifeq ($(wildcard .depends), .depends)
+include .depends
+endif
+

@@ -877,18 +877,19 @@ AC_OUTPUT(Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
           Electrode/tests/UnitTests/Makefile \
           Electrode/tests_develop/CSTR_ReadCompareSoln/Makefile \
+          Electrode/tests_develop/GFCEO_CSTR_LiCoO2_LiIonCathode_cV/Makefile \
           Electrode/tests_develop/LiSi_1_Newman/Makefile \
+          Electrode/tests_develop/LiCoO2_Complex_LiIonCathode_SimpleDiff_cV/Makefile \
           Electrode/tests_develop/LiCoO2_SimpleDiff_Dualfoil/Makefile \
+          Electrode/tests_develop/LiCoO2_SimpleDiff_Dualfoil_cc/Makefile \
+          Electrode/tests_develop/LiCoO2_SimpleDiff_Jac/Makefile \
           Electrode/tests_develop/LiMn2O4_OCP/Makefile \
-          Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_OCV/Makefile \
+          Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_cV/Makefile \
           Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_Dualfoil/Makefile \
           Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_Dualfoil_cc/Makefile \
-          Electrode/tests_develop/LiCoO2_SimpleDiff_Dualfoil_cc/Makefile \
-          Electrode/tests_develop/LiCoO2_Complex_LiIonCathode_SimpleDiff_cV/Makefile \
+          Electrode/tests_develop/MCMBAnode_LiIon_SimpleDiff_OCV/Makefile \
           Electrode/tests_develop/MCMB_OCVOverride_ConstTemp/Makefile \
           Electrode/tests_develop/RadialDistrib_ReadCompareSoln/Makefile \
-          Electrode/tests_develop/LiCoO2_SimpleDiff_Jac/Makefile \
-          Electrode/tests_develop/GFCEO_CSTR_LiCoO2_LiIonCathode_cV/Makefile \
           electrodeCell/Makefile \
           electrodeCell/src/Makefile \
           epequil/Makefile \
