@@ -25,7 +25,7 @@
    <speciesData id="species_electrode">
         
       <!-- species electron_Li_LiIon -->
-      <! --   temperature 250 K to 500 K K -->
+      <!--   temperature 250 K to 500 K K -->
       <species name="electron_Li_LiIon">
        <atomArray> E:1.0  </atomArray>
        <charge> -1 </charge>

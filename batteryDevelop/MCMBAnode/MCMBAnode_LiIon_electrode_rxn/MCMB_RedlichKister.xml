@@ -1,4 +1,3 @@
-
 <?xml version="1.0"?>
 <ctml>
   <validate reactions="yes" species="yes"/>
@@ -73,6 +72,9 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+        <molarVolume units="m3/kmol"> 0.005024 </molarVolume>
+      </standardState>
     </species>
 
     <species name="V_C6-bulk">
@@ -85,6 +87,11 @@
            <cp0 units="J/kmol/K"> 0.0   </cp0>
         </const_cp>
       </thermo>
+      <standardState  model="constant_incompressible">
+        <!--   molar volume from Bernardi Newman -->
+        <molarVolume units="m3/kmol"> 0.007024 </molarVolume>
+      </standardState>
+
     </species>
 
 

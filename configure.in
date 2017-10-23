@@ -826,7 +826,6 @@ dnl
 AC_OUTPUT(Makefile \
           bin/runtest_Electrode \
           batteryDevelop/Makefile \
-          batteryDevelop/MCMBAnode/Makefile \
           batteryDevelop/MCMBAnode/MCMB_Mao/Makefile \
           batteryDevelop/LiCoO2Cathode//Makefile \
           batteryDevelop/LiCoO2Cathode/LiCoO2_Enth/Makefile \

@@ -5,39 +5,82 @@ for use of this work by or on behalf of the U.S. Government.
 Export of this program may require a license from the United
 States Government.
      ====================================================================================================
-      Bath Composition for Phase id, "anode_surface", with name, "anode_surface", with eosType, "Surface"
+      Bath Composition for Phase id, "MCMB_Interstitials_anode", with name, "MCMB_Interstitials_anode", with eosType, "UnknownPhaseType"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 700 Kelvin
         Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = li_site
+        Carrier Species (used in diff. calcs) = V_C6-bulk
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1         li_site          1.0000       3.000E-11       1.000E+00
+              1      Li_C6-bulk          0.1000       1.465E-02       3.426E-15
+              2       V_C6-bulk          0.9000       1.319E-01       7.486E-01
           ------------------------------------------------------------------------------
 
 =======================================================================================
-INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "anode_surface"
+INFORMATION TABLE FOR SPECIES "Li_C6-bulk" IN PHASE "MCMB_Interstitials_anode"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-        Electronic Charge = 0.00
-        Molecular Weight = 0 (set to 1E-20 for massF conversion) gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                  C6-bulk: 1      |              [UNAVAILABLE] 
+                                                 [UNAVAILABLE]  J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 79.941 gm/mol
+        Heat of formation (298.15K) = 37.597587 kcal/gmol
+        DeltaGf (298.15K) = -36771.044053 kcal/gmol
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 3.33333e+07 m2/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 3.33333e+07 m2/kmol
-        Volume Properties are from fixed surface site equation
-        Surface Site Density = 1.80664E+15 # per cm2 
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.005024 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.005024 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
+                Valid Range: 100 < T < 5000:
+                at T = 298.15 K, H  =   1.573083042000000E+08 J kmol-1
+                                S  =   0.000000000000000E+00 J kmol-1 K-1
+                                Cp =   0.000000000000000E+00 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
+---------------------------------------------------------------------------------------
+|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
+|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
+|-----------|----------------------------------------------------------|--------------|
+|    290.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    298.15 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    300.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    310.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    320.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    330.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    340.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    350.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+|    360.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
+---------------------------------------------------------------------------------------
+
+=======================================================================================
+INFORMATION TABLE FOR SPECIES "V_C6-bulk" IN PHASE "MCMB_Interstitials_anode"
+        Overall, this is the 2th species in mechanism
+        It is the 2th species in the phase
+        Elemental Composition:               ElementEntropy298
+                  C6-bulk: 1      |              [UNAVAILABLE] 
+                                                 [UNAVAILABLE]  J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 73 gm/mol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
+        DeltaGf (298.15K) = -36808.641640 kcal/gmol
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
+        Minimum Temperature = 100 K
+        Maximum Temperature = 5000 K
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.007024 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.007024 m3/kmol
+        Molar Volume formulation for eos type 0 is not known to cttables
+        CONSTANT_CP format:
+                Valid Range: 100 < T < 5000:
+                at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
+                                S  =   0.000000000000000E+00 J kmol-1 K-1
+                                Cp =   0.000000000000000E+00 J kmol-1 K-1
+---------------------------------------------------------------------------------------
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -61,35 +104,38 @@ INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "anode_surface"
         Carrier Species (used in diff. calcs) = electron_Li_LiIon
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1electron_Li_LiIon          1.0000       1.835E-03       1.000E+00
+              1electron_Li_LiIon          1.0000       1.832E-03       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
 INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_electrons"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  E: 1
-        Electronic Charge = -1.00
-        Molecular Weight = 0.000545 gm/mol
-        Heat of formation (298.15K) = 0.0001 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Elemental Composition:               ElementEntropy298
+                    E: 1      |                      0.000
+                   E-: -1      |                     -0.000
+                                                     0.000 J/gmol/K 
+        Electronic Charge = -1.000000
+        Molecular Weight = 0.000545858 gm/mol
+        Heat of formation (298.15K) = 0.000082 kcal/gmol
+        DeltaGf (298.15K) = -8.671958 kcal/gmol
+                Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
         Minimum Temperature = 250 K
         Maximum Temperature = 500 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 0.545 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 0.545 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.545858 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.545858 m3/kmol
         StoichSubstance constant density = 0.001 kg m-3 
-        species Molar Volume = 1.83486E+06 m**3 / kmol <- constant
+        species Molar Volume = 0.545858 m**3 / kmol <- constant
         Press dependence -> (U, S, V, and Cp are independent)
                          -> (H and G dependent): h(T) = u(T) + pv
         standard Concentration value =  unity
         SHOMATE Polynomial format: 2 zones
-               Low  temperature polynomials: 250 < T < 500: 
-                         169.552          -882.711          1977.438         -1487.312
-                       -1.609635         -31.24825          413.6466
-               High temperature polynomials: 500 < T < 500: 
-                         169.552          -882.711          1977.438         -1487.312
-                       -1.609635         -31.24825          413.6466
+               Low  temperature polynomials: 250 < T < 500:
+                 1.695520000000000E+02, -8.827110000000000E+02,  1.977438000000000E+03, -1.487312000000000E+03,
+                -1.609635000000000E+00, -3.124825000000000E+01,  4.136466000000000E+02
+               High temperature polynomials: 500 < T < 500:
+                 1.695520000000000E+02, -8.827110000000000E+02,  1.977438000000000E+03, -1.487312000000000E+03,
+                -1.609635000000000E+00, -3.124825000000000E+01,  4.136466000000000E+02
 ---------------------------------------------------------------------------------------
 |------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
@@ -97,7 +143,7 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_elect
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
 |    290.00 |    -0.0478         -2.0167         5.8448       6.7892   |      -2.0166 | 
-|    298.15 |     0.0000         -2.0727         5.8859       6.9518   |      -2.0726 | 
+|    298.15 |    -0.0000         -2.0727         5.8858       6.9518   |      -2.0726 | 
 |    300.00 |     0.0109         -2.0856         5.8953       6.9882   |      -2.0855 | 
 |    310.00 |     0.0701         -2.1564         5.9477       7.1824   |      -2.1563 | 
 |    320.00 |     0.1299         -2.2292         6.0035       7.3721   |      -2.2291 | 
@@ -124,64 +170,69 @@ INFORMATION TABLE FOR SPECIES "electron_Li_LiIon" IN PHASE "metal_Li_LiIon_elect
 INFORMATION TABLE FOR SPECIES "ECDMC" IN PHASE "ECDMC_LiPF6"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  H: 4
-                  C: 3
-                  O: 3
-        Electronic Charge = 0.00
+        Elemental Composition:               ElementEntropy298
+                    H: 4      |                    261.360
+                    C: 3      |                     17.220
+                    O: 3      |                    307.722
+                                                   586.302 J/gmol/K 
+        Electronic Charge = 0.000000
         Molecular Weight = 88.063 gm/mol
-        Heat of formation (298.15K) = -119.5030 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Heat of formation (298.15K) = -119.502868 kcal/gmol
+        DeltaGf (298.15K) = 25.488201 kcal/gmol
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 1.5 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 1.5 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 1.5 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 1.5 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =        -500000000 J kmol-1
-                                S  =            100000 J kmol-1 K-1
-                                Cp =                10 J kmol-1 K-1
+                Valid Range: 100 < T < 5000:
+                at T = 298.15 K, H  =  -5.000000000000000E+08 J kmol-1
+                                S  =   1.000000000000000E+05 J kmol-1 K-1
+                                Cp =   1.000000000000000E+01 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
-|    290.00 |    -0.0000         -6.9312         0.0024      23.9005   |    -126.4342 | 
-|    298.15 |     0.0000         -7.1260         0.0024      23.9006   |    -126.6290 | 
-|    300.00 |     0.0000         -7.1702         0.0024      23.9006   |    -126.6732 | 
-|    310.00 |     0.0000         -7.4092         0.0024      23.9007   |    -126.9122 | 
-|    320.00 |     0.0001         -7.6482         0.0024      23.9008   |    -127.1512 | 
-|    330.00 |     0.0001         -7.8872         0.0024      23.9008   |    -127.3902 | 
-|    340.00 |     0.0001         -8.1262         0.0024      23.9009   |    -127.6292 | 
-|    350.00 |     0.0001         -8.3652         0.0024      23.9010   |    -127.8682 | 
-|    360.00 |     0.0001         -8.6042         0.0024      23.9011   |    -128.1072 | 
+|    290.00 |    -0.0000         -6.9312         0.0024      23.9005   |    -126.4340 | 
+|    298.15 |     0.0000         -7.1260         0.0024      23.9006   |    -126.6288 | 
+|    300.00 |     0.0000         -7.1702         0.0024      23.9006   |    -126.6730 | 
+|    310.00 |     0.0000         -7.4092         0.0024      23.9007   |    -126.9120 | 
+|    320.00 |     0.0001         -7.6482         0.0024      23.9007   |    -127.1511 | 
+|    330.00 |     0.0001         -7.8872         0.0024      23.9008   |    -127.3901 | 
+|    340.00 |     0.0001         -8.1262         0.0024      23.9009   |    -127.6291 | 
+|    350.00 |     0.0001         -8.3652         0.0024      23.9010   |    -127.8681 | 
+|    360.00 |     0.0001         -8.6042         0.0024      23.9010   |    -128.1071 | 
 ---------------------------------------------------------------------------------------
 
 =======================================================================================
 INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
         Overall, this is the 2th species in mechanism
         It is the 2th species in the phase
-        Elemental Composition:
-                  Li: 1
-                  E: -1
-        Electronic Charge = 1.00
-        Molecular Weight = 6.94046 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Elemental Composition:               ElementEntropy298
+                   Li: 1      |                     29.085
+                    E: -1      |                     -0.000
+                   E-: 1      |                     -0.000
+                                                    29.085 J/gmol/K 
+        Electronic Charge = 1.000000
+        Molecular Weight = 6.94045 gm/mol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
+        DeltaGf (298.15K) = 8.671693 kcal/gmol
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 0 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 0 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 0 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
+                Valid Range: 100 < T < 5000:
+                at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
+                                S  =   0.000000000000000E+00 J kmol-1 K-1
+                                Cp =   0.000000000000000E+00 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -201,113 +252,79 @@ INFORMATION TABLE FOR SPECIES "Li+" IN PHASE "ECDMC_LiPF6"
 INFORMATION TABLE FOR SPECIES "PF6-" IN PHASE "ECDMC_LiPF6"
         Overall, this is the 3th species in mechanism
         It is the 3th species in the phase
-        Elemental Composition:
-                  P: 1
-                  F: 6
-                  E: 1
-        Electronic Charge = -1.00
+        Elemental Composition:               ElementEntropy298
+                    P: 1      |                     41.077
+                    F: 6      |                    608.367
+                    E: 1      |                      0.000
+                   E-: -1      |                     -0.000
+                                                   649.444 J/gmol/K 
+        Electronic Charge = -1.000000
         Molecular Weight = 144.965 gm/mol
-        Heat of formation (298.15K) = -119.5030 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Heat of formation (298.15K) = -119.502868 kcal/gmol
+        DeltaGf (298.15K) = 59.221361 kcal/gmol
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 1 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 1 m3/kmol
+        Partial    Molar Volume at (T,P) of (700,101325) = 1 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 1 m3/kmol
         Molar Volume formulation for eos type 0 is not known to cttables
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =        -500000000 J kmol-1
-                                S  =             50000 J kmol-1 K-1
-                                Cp =                10 J kmol-1 K-1
+                Valid Range: 100 < T < 5000:
+                at T = 298.15 K, H  =  -5.000000000000000E+08 J kmol-1
+                                S  =   5.000000000000000E+04 J kmol-1 K-1
+                                Cp =   1.000000000000000E+01 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
 |-----------|----------------------------------------------------------|--------------|
-|    290.00 |    -0.0000         -3.4656         0.0024      11.9502   |    -122.9686 | 
-|    298.15 |     0.0000         -3.5630         0.0024      11.9503   |    -123.0660 | 
-|    300.00 |     0.0000         -3.5851         0.0024      11.9503   |    -123.0881 | 
-|    310.00 |     0.0000         -3.7046         0.0024      11.9504   |    -123.2076 | 
-|    320.00 |     0.0001         -3.8241         0.0024      11.9505   |    -123.3271 | 
-|    330.00 |     0.0001         -3.9436         0.0024      11.9505   |    -123.4466 | 
-|    340.00 |     0.0001         -4.0631         0.0024      11.9506   |    -123.5661 | 
-|    350.00 |     0.0001         -4.1826         0.0024      11.9507   |    -123.6856 | 
-|    360.00 |     0.0001         -4.3021         0.0024      11.9508   |    -123.8051 | 
+|    290.00 |    -0.0000         -3.4656         0.0024      11.9502   |    -122.9685 | 
+|    298.15 |     0.0000         -3.5630         0.0024      11.9503   |    -123.0658 | 
+|    300.00 |     0.0000         -3.5851         0.0024      11.9503   |    -123.0880 | 
+|    310.00 |     0.0000         -3.7046         0.0024      11.9504   |    -123.2075 | 
+|    320.00 |     0.0001         -3.8241         0.0024      11.9505   |    -123.3270 | 
+|    330.00 |     0.0001         -3.9436         0.0024      11.9505   |    -123.4465 | 
+|    340.00 |     0.0001         -4.0631         0.0024      11.9506   |    -123.5660 | 
+|    350.00 |     0.0001         -4.1826         0.0024      11.9507   |    -123.6855 | 
+|    360.00 |     0.0001         -4.3021         0.0024      11.9507   |    -123.8050 | 
 ---------------------------------------------------------------------------------------
      ====================================================================================================
-      Bath Composition for Phase id, "MCMB_Interstitials_anode", with name, "MCMB_Interstitials_anode", with eosType, "UnknownPhaseType"
+      Bath Composition for Phase id, "anode_surface", with name, "anode_surface", with eosType, "Surface"
      
         Total pressure = 760 torr 
         Temperature (where needed) = 700 Kelvin
         Voltage (where needed) = 0 Volts
-        Carrier Species (used in diff. calcs) = V_C6-bulk
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+        Carrier Species (used in diff. calcs) = li_site
+          Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
           -----------------------------------------------------------------------------
-              1      Li_C6-bulk          0.1000       1.741E-06       3.426E-15
-              2       V_C6-bulk          0.9000       1.567E-05       7.486E-01
+              1         li_site          1.0000       3.000E-09       1.000E+00
           ------------------------------------------------------------------------------
 
 =======================================================================================
-INFORMATION TABLE FOR SPECIES "Li_C6-bulk" IN PHASE "MCMB_Interstitials_anode"
+INFORMATION TABLE FOR SPECIES "li_site" IN PHASE "anode_surface"
         Overall, this is the 1th species in mechanism
         It is the 1th species in the phase
-        Elemental Composition:
-                  Li: 1
-                  C6-bulk: 1
-        Electronic Charge = 0.00
-        Molecular Weight = 79.941 gm/mol
-        Heat of formation (298.15K) = 37.5976 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
+        Elemental Composition:               ElementEntropy298
+                                                     0.000 J/gmol/K 
+        Electronic Charge = 0.000000
+        Molecular Weight = 0 gm/mol
+        Heat of formation (298.15K) = 0.000000 kcal/gmol
+        DeltaGf (298.15K) = 0.000000 kcal/gmol
+                Phase and Species Reference Pressure = 1E+06 erg cm-2
         Minimum Temperature = 100 K
         Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
+        Partial    Molar Volume at (T,P) of (700,101325) = 0.01 m3/kmol
+        StandState Molar Volume at (T,P) of (700,101325) = 0.01 m3/kmol
+        Volume Properties are from fixed surface site equation
+        Surface Site Density = 1.80664E+15 # per cm2 
         CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =       157308304.2 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
+                Valid Range: 100 < T < 5000:
+                at T = 298.15 K, H  =   0.000000000000000E+00 J kmol-1
+                                S  =   0.000000000000000E+00 J kmol-1 K-1
+                                Cp =   0.000000000000000E+00 J kmol-1 K-1
 ---------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
----------------------------------------------------------------------------------------
-|     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
-|      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
-|-----------|----------------------------------------------------------|--------------|
-|    290.00 |    -0.0000         -0.0000         0.0000       0.0000   |      37.5976 | 
-|    298.15 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
-|    300.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
-|    310.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
-|    320.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
-|    330.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
-|    340.00 |    -0.0000         -0.0000         0.0000       0.0000   |      37.5976 | 
-|    350.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
-|    360.00 |     0.0000          0.0000         0.0000       0.0000   |      37.5976 | 
----------------------------------------------------------------------------------------
-
-=======================================================================================
-INFORMATION TABLE FOR SPECIES "V_C6-bulk" IN PHASE "MCMB_Interstitials_anode"
-        Overall, this is the 2th species in mechanism
-        It is the 2th species in the phase
-        Elemental Composition:
-                  C6-bulk: 1
-        Electronic Charge = 0.00
-        Molecular Weight = 73 gm/mol
-        Heat of formation (298.15K) = 0.0000 kcal/gmol
-        Phase and Species Reference Pressure = 1.01325E+06 erg cm-2
-        Minimum Temperature = 100 K
-        Maximum Temperature = 5000 K
-        Partial    Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
-        StandState Molar Volume at (T,P) of (360,101325) = 29.5406 m3/kmol
-        Molar Volume formulation for eos type 0 is not known to cttables
-        CONSTANT_CP format:
-                Valid Range: 100 < T < 5000: 
-                at T = 298.15 K, H  =                 0 J kmol-1
-                                S  =                 0 J kmol-1 K-1
-                                Cp =                 0 J kmol-1 K-1
----------------------------------------------------------------------------------------
-|------------ Thermo Functions for Reference Pressure    1.01e+06 erg cm-2------------|
+|------------ Thermo Functions for Reference Pressure       1e+06 erg cm-2------------|
 ---------------------------------------------------------------------------------------
 |     Temp  |   (H-H298)        (G-H298)            Cp         S       |    G_abs     |
 |      (K)  |  (kcal/mol)     (kcal/mol)     (cal/mol*K)    (cal/mol*K)|  (kcal/mole) |
@@ -325,22 +342,22 @@ INFORMATION TABLE FOR SPECIES "V_C6-bulk" IN PHASE "MCMB_Interstitials_anode"
 
 ================================================================================================================================
 
-INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
+INFORMATION TABLE FOR Reaction "0" IN PHASE "MCMB_Interstitials_anode"
 
         Li_C6-bulk <=>  V_C6-bulk + Li+  + electron_Li_LiIon
 
         There is one reactant: Li_C6-bulk 
-        There are 3 products: V_C6-bulk Li+ electron_Li_LiIon 
+        There are 3 products: Li+ V_C6-bulk electron_Li_LiIon 
         Reaction Type = Surface rxn
         Reaction is reversible
 
-        This reaction is charge transfer reaction, n = 1
+        This reaction is charge transfer reaction, nStoich = 1
         Electrochemical Beta = 0.5
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |metal_Li_LiIon_electrons|   3           1    0.000545 |            -1                 0 |
-               |         ECDMC_LiPF6|   3           1      6.9405 |             1                 0 |
                |MCMB_Interstitials_anode|   3           0      -6.941 |             0                 0 |
+               |metal_Li_LiIon_electrons|   3           1  0.00054586 |            -1                 0 |
+               |         ECDMC_LiPF6|   3           1      6.9405 |             1                 0 |
                |       anode_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------
 
@@ -365,9 +382,9 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
         ----------------------------------------------------------------------------------------------------
         Voltage Dependence for Rxn: Li_C6-bulk <=>  V_C6-bulk + Li+  + electron_Li_LiIon
 
-               ThermoPhase index pertaining to the solution = 1
-               ThermoPhase index pertaining to the metal = 0
-               Kinetic Species Index pertaining to the electrons = 0
+               ThermoPhase index pertaining to the solution = 2
+               ThermoPhase index pertaining to the metal = 1
+               Kinetic Species Index pertaining to the electrons = 2
                Input Electric Potential of the Metal = 0 Volts
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage = phi_Metal - phi_Soln  = 0 Volts
@@ -389,7 +406,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
                !      -0.6 |   7.63e-19      6.2e-15     -6.2e-15 |    7.36e-15    -5.98e-11     -5.98e-11 |
                !      -0.4 |      4e-18     1.18e-15    -1.18e-15 |    3.86e-14    -1.14e-11     -1.14e-11 |
                !      -0.2 |    2.1e-17     2.25e-16    -2.04e-16 |    2.03e-13    -2.17e-12     -1.97e-12 |
-               !  -0.05694 |   6.88e-17     6.88e-17    -3.08e-31 |    6.64e-13    -6.64e-13     -2.97e-27 |
+               !  -0.05694 |   6.88e-17     6.88e-17     -3.2e-31 |    6.64e-13    -6.64e-13     -3.09e-27 |
                !         0 |    1.1e-16     4.29e-17     6.74e-17 |    1.06e-12    -4.14e-13       6.5e-13 |
                !       0.2 |   5.79e-16     8.18e-18      5.7e-16 |    5.58e-12    -7.89e-14       5.5e-12 |
                !       0.4 |   3.04e-15     1.56e-18     3.03e-15 |    2.93e-11     -1.5e-14      2.93e-11 |
@@ -407,7 +424,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
                !      -0.6 |   7.36e-15    -5.98e-11    -5.98e-11 |         1  |
                !      -0.4 |   3.86e-14    -1.14e-11    -1.14e-11 |         1  |
                !      -0.2 |   2.03e-13    -2.17e-12    -1.97e-12 |         1  |
-               !  -0.05694 |   6.64e-13    -6.64e-13    -2.97e-27 |         1  |
+               !  -0.05694 |   6.64e-13    -6.64e-13    -3.09e-27 |         1  |
                !         0 |   1.06e-12    -4.14e-13      6.5e-13 |         1  |
                !       0.2 |   5.58e-12    -7.89e-14      5.5e-12 |         1  |
                !       0.4 |   2.93e-11     -1.5e-14     2.93e-11 |         1  |
@@ -425,8 +442,8 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
         Carrier Species (used in diff. calcs) = V_C6-bulk
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1      Li_C6-bulk          0.1000       1.741E-06       3.426E-15
-              2       V_C6-bulk          0.9000       1.567E-05       7.486E-01
+              1      Li_C6-bulk          0.1000       1.465E-02       3.426E-15
+              2       V_C6-bulk          0.9000       1.319E-01       7.486E-01
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "metal_Li_LiIon_electrons", with name, "metal_Li_LiIon_electrons", with eosType, "StoichSubstance"
@@ -437,7 +454,7 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
         Carrier Species (used in diff. calcs) = electron_Li_LiIon
           Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
           -----------------------------------------------------------------------------
-              1electron_Li_LiIon          1.0000       1.835E-03       1.000E+00
+              1electron_Li_LiIon          1.0000       1.832E-03       1.000E+00
           ------------------------------------------------------------------------------
      ====================================================================================================
       Bath Composition for Phase id, "ECDMC_LiPF6", with name, "ECDMC_LiPF6", with eosType, "UnknownPhaseType"
@@ -459,18 +476,18 @@ INFORMATION TABLE FOR Reaction "0" IN PHASE "metal_Li_LiIon_electrons"
         Temperature (where needed) = 700 Kelvin
         Voltage (where needed) = 0 Volts
         Carrier Species (used in diff. calcs) = li_site
-          Number       Name      Mole_fraction  Concentration (gmol/cm**3)   Activities
+          Number       Name      Mole_fraction  Concentration (gmol/cm**2)   Activities
           -----------------------------------------------------------------------------
-              1         li_site          1.0000       3.000E-11       1.000E+00
+              1         li_site          1.0000       3.000E-09       1.000E+00
           ------------------------------------------------------------------------------
 
 ==========================================================================================================================================
 
-INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiIon_electrons"
+INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "MCMB_Interstitials_anode"
 
-        electron_Li_LiIon + Li+ + V_C6-bulk = Li_C6-bulk
+        V_C6-bulk + electron_Li_LiIon + Li+ = Li_C6-bulk
 
-        There are 3 reactants: electron_Li_LiIon (1) Li+ (1) V_C6-bulk (1) 
+        There are 3 reactants: V_C6-bulk (1) electron_Li_LiIon (1) Li+ (1) 
         There is one product: Li_C6-bulk (1) 
         Reaction Type = Global Extra Rxn - not in mechanism
         Reaction is reversible
@@ -478,9 +495,9 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiI
         This reaction is a charge transfer reaction, n = 1
                --------------------------------------------------------------------------------------
                |              Phase | Dim Delta_Moles  Delta_Mass |Electron_Transfer Base_Potential |
-               |metal_Li_LiIon_electrons|   3          -1   -0.000545 |             1                 0 |
-               |         ECDMC_LiPF6|   3          -1     -6.9405 |            -1                 0 |
                |MCMB_Interstitials_anode|   3           0       6.941 |             0                 0 |
+               |metal_Li_LiIon_electrons|   3          -1 -0.00054586 |             1                 0 |
+               |         ECDMC_LiPF6|   3          -1     -6.9405 |            -1                 0 |
                |       anode_surface|   2           0           0 |             0                 0 |
                --------------------------------------------------------------------------------------
 
@@ -502,11 +519,11 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiI
 |  360.0 |  2.72E-29  1.23E-03     42.26 |      40.14     37.22     -8.09  |  8.24E-31  1.00E-01     47.91 |  2.64E-29  9.29E-04     42.08 |
 |------------------------------------------------------------------------------------------------------------------------------------------|
         ----------------------------------------------------------------------------------------------------
-        Voltage Dependence for Rxn: electron_Li_LiIon + Li+ + V_C6-bulk = Li_C6-bulk
+        Voltage Dependence for Rxn: V_C6-bulk + electron_Li_LiIon + Li+ = Li_C6-bulk
 
-               ThermoPhase index pertaining to the solution = 1
-               ThermoPhase index pertaining to the metal = 0
-               Kinetic Species Index for the electrons = 0
+               ThermoPhase index pertaining to the solution = 2
+               ThermoPhase index pertaining to the metal = 1
+               Kinetic Species Index for the electrons = 2
                Input Electric Potential of the Metal = 0 Volts
                Input Electric Potential of the Soln  = 0 Volts
                Input Voltage                         = 0 Volts
@@ -529,7 +546,7 @@ INFORMATION TABLE FOR Global Extra Reaction Reaction "-1" IN PHASE "metal_Li_LiI
                !      -0.6 | -5.9823e-11 -6.6363e-13         0.5 |  7.3617e-15 -6.6363e-13         0.5 | -5.9816e-11 |         1  |
                !      -0.4 |   -1.14e-11 -6.6363e-13         0.5 |  3.8632e-14 -6.6363e-13         0.5 | -1.1361e-11 |         1  |
                !      -0.2 | -2.1724e-12 -6.6363e-13         0.5 |  2.0273e-13 -6.6363e-13         0.5 | -1.9696e-12 |         1  |
-               !  -0.05694 | -6.6363e-13 -6.6363e-13         0.5 |  6.6363e-13 -6.6363e-13         0.5 | -2.9732e-27 |         1  |
+               !  -0.05694 | -6.6363e-13 -6.6363e-13         0.5 |  6.6363e-13 -6.6363e-13         0.5 | -3.0921e-27 |         1  |
                !         0 | -4.1397e-13 -6.6363e-13         0.5 |  1.0639e-12 -6.6363e-13         0.5 |  6.4989e-13 |         1  |
                !       0.2 | -7.8886e-14 -6.6363e-13         0.5 |  5.5828e-12 -6.6363e-13         0.5 |  5.5039e-12 |         1  |
                !       0.4 | -1.5032e-14 -6.6363e-13         0.5 |  2.9297e-11 -6.6363e-13         0.5 |  2.9282e-11 |         1  |
