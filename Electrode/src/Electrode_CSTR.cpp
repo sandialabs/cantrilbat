@@ -1712,7 +1712,11 @@ REDO:
             enableExtraPrinting_ = 1;
             detailedResidPrintFlag_  = 14;
             setPrintLevel(14);
+            if (useNLS_JAC) {
+            pSolveJAC_->setPrintLvl(14);
+            } else {
             pSolve_->setPrintLvl(14);
+           }
         }
 #endif
         if (deltaTsubcycleCalc_ > 1.2 * deltaTsubcycle_) {
@@ -1737,7 +1741,8 @@ REDO:
             size_t iph = phaseIndexSolidPhases_[ph];
             if (justDied_[iph] != justDiedPhase_[iph]) {
                 size_t index = 1 + ph;
-                std::vector<double>& ylow = pSolve_->vec_lowBoundsConstraint();
+                std::vector<double>& ylow = pSolve_ != 0 ? pSolve_->vec_lowBoundsConstraint() : pSolveJAC_->vec_lowBoundsConstraint();
+                //std::vector<double>& ylow = pSolve_->vec_lowBoundsConstraint();
                 if (justDied_[iph] == 1) {
 #ifdef DEBUG_ELECTRODE
                     if (enableExtraPrinting_ && detailedResidPrintFlag_ > 1) {

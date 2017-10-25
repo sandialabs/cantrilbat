@@ -60,10 +60,13 @@ int main(int argc, char **argv)
   string commandFileNet = "cell.inp";
 
   string commandFileA = "anode.inp";
+  prep_testrun();
 
   NonlinearSolver::s_TurnOffTiming = true;
+  NonlinearSolver_JAC::s_TurnOffTiming = true;
   // print the numerical jacobian
   NonlinearSolver::s_print_NumJac = true;
+  NonlinearSolver_JAC::s_print_NumJac = true;
 
   /*
    * Process the command line arguments
@@ -119,6 +122,8 @@ int main(int argc, char **argv)
     }
   
     Electrode_SimpleDiff *electrodeA  = new Electrode_SimpleDiff();
+    electrodeA->useNLS_JAC = true;
+       
     ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
 
     std::string commandFileA = "anode.inp";

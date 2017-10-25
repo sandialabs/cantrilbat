@@ -359,6 +359,8 @@ Electrode_Integrator::Electrode_Integrator() :
     haveGood_solnDot_init_(false),
     predictDotBetter_(false),
     pSolve_(nullptr),
+    pSolveJAC_(nullptr),
+    useNLS_JAC(false),
     jacPtr_(nullptr),
     numIntegratedSrc_(0),
     rtol_IntegratedSrc_global_(1.0E-4),
@@ -416,6 +418,10 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
     predictDotBetter_                   = right.predictDotBetter_;
     SAFE_DELETE(pSolve_);
     pSolve_                             = new NonlinearSolver(this);
+    SAFE_DELETE(pSolveJAC_);
+    pSolveJAC_                          = new NonlinearSolver_JAC(this);
+    useNLS_JAC                          = right.useNLS_JAC;
+
     SAFE_DELETE(jacPtr_);
     jacPtr_                             = new SquareMatrix(*right.jacPtr_);
 
@@ -442,6 +448,7 @@ Electrode_Integrator::~Electrode_Integrator()
 {
     SAFE_DELETE(jacPtr_);
     SAFE_DELETE(pSolve_);
+    SAFE_DELETE(pSolveJAC_);
 }
 //==================================================================================================================================
 Electrode* Electrode_Integrator::duplMyselfAsElectrode() const 
@@ -504,7 +511,7 @@ int Electrode_Integrator::create_solvers()
     size_t neqNLS = nEquations();
     neq_ = neqNLS;
 
-    if (pSolve_) {
+    if (pSolve_ || pSolveJAC_) {
         int m = nEquations();
         if (m != (int) yvalNLS_.size()) {
             printf("shouldn't be here\n");
@@ -551,7 +558,13 @@ int Electrode_Integrator::create_solvers()
 
     jacPtr_ = new SquareMatrix(neqNLS, 0.0);
 
-    pSolve_ = new NonlinearSolver(this);
+    if (useNLS_JAC) {
+        pSolve_ = 0;
+        pSolveJAC_ = new NonlinearSolver_JAC(this);
+    } else {
+        pSolve_ = new NonlinearSolver(this);
+        pSolveJAC_ = 0;
+    }
     return neqNLS;
 }
 //==================================================================================================================================
@@ -683,7 +696,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
     // Create the solvers and other vectors if we haven't already
     //  -> Note we haven't malloced the memory initially because we need to know the
     //     number of equations.
-    if (pSolve_ == 0) {
+    if (pSolve_ == 0 && pSolveJAC_ == 0) {
         size_t neqNLS = nEquations_calc();
         create_solvers();
         if (neqNLS != neq_) {
@@ -1062,13 +1075,13 @@ topConvergence:
             /*
              *  Set the tolerances on the solution variables
              */
-#ifdef DEBUG_NEWMODELS
-            pSolve_->setRtol(0.1 * rtolNLS_);
-            pSolve_->setAtol(DATA_PTR(atolNLS_));
-#else
-            pSolve_->setAtol(DATA_PTR(atolNLS_));
-            pSolve_->setRtol(0.1 * rtolNLS_);
-#endif
+            if (useNLS_JAC) {
+                pSolveJAC_->setAtol(DATA_PTR(atolNLS_));
+                pSolveJAC_->setRtol(0.1 * rtolNLS_);
+            } else {
+                pSolve_->setAtol(DATA_PTR(atolNLS_));
+                pSolve_->setRtol(0.1 * rtolNLS_);
+            }
             /*
              *  Set the tolerances on the residual evaluation of the nonlinear solver
              *    We set the relative tolerance of the residual to GlobalRtolElectronSrcTerm/ nsteps_est. This is the
@@ -1080,10 +1093,15 @@ topConvergence:
              *
              *    The residual tolerance is given by the minimum of the row weight sums and the user tolerances given below.
              */
-            pSolve_->setResidualTols(rtolResidNLS_,  &atolResidNLS_[0]);
-
-            pSolve_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
-            pSolve_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
+            if (useNLS_JAC) {
+                pSolveJAC_->setResidualTols(rtolResidNLS_,  &atolResidNLS_[0]);
+                pSolveJAC_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
+                pSolveJAC_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
+            } else {
+                pSolve_->setResidualTols(rtolResidNLS_,  &atolResidNLS_[0]);
+                pSolve_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
+                pSolve_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
+            }
 	 
             num_newt_its = 0;
 
@@ -1101,21 +1119,25 @@ topConvergence:
             }
 #endif
             //   How to turn on the jacobian printing if debugging
-#ifdef DEBUG_NEWMODELS
             //pSolve_->s_print_NumJac = 1;
             //loglevelInput = 10;
 	    //pSolve_->m_min_newt_its = 4;
-#endif
 #ifdef DEBUG_MODE
 	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
 		//	printf("WARNING deltaTubcycle_ = %g  iterSubCycle = %d countSub = %d\n", 
 		//     deltaTsubcycle_ , iterSubCycle, counterNumberIntegrations_ );
 	    }
 #endif
-
-            int nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
+            int nonlinearFlag;
+            if (useNLS_JAC) {
+                nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
 								 tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,
 								 numBacktracks, loglevelInput);
+            } else {
+                nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
+								 tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,
+								 numBacktracks, loglevelInput);
+            }
             if (nonlinearFlag < 0) {
                 if (printLvl_ > 2) {
                     printf("Electrode_Integrate::integrate(): Unsuccessful Nonlinear Solve flag = %d\n", nonlinearFlag);

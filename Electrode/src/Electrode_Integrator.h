@@ -17,6 +17,7 @@
 
 #include "Electrode.h"
 #include "cantera/numerics/ResidJacEval.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -1450,6 +1451,10 @@ protected:
      */
 #ifdef useZuzaxNamespace
     Zuzax::NonlinearSolver* pSolve_;
+    Zuzax::NonlinearSolver_JAC* pSolveJAC_ = nullptr;
+public:
+    bool useNLS_JAC = false;
+protected:
 #else
     Cantera::NonlinearSolver* pSolve_;
 #endif
