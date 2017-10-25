@@ -1462,6 +1462,9 @@ protected:
     //! Jacobian matrix
     SquareMatrix* jacPtr_;
 
+    //! Jacobian Manager
+    JacobianManager* jacMng_;
+
     //! Number of degrees of freedom in the integrated source terms that constitute the output
     size_t numIntegratedSrc_;
 

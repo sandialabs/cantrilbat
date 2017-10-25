@@ -362,6 +362,7 @@ Electrode_Integrator::Electrode_Integrator() :
     pSolveJAC_(nullptr),
     useNLS_JAC(false),
     jacPtr_(nullptr),
+    jacMng_(nullptr),
     numIntegratedSrc_(0),
     rtol_IntegratedSrc_global_(1.0E-4),
     maxNumberSubCycles_(50000),
@@ -423,7 +424,14 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
     useNLS_JAC                          = right.useNLS_JAC;
 
     SAFE_DELETE(jacPtr_);
-    jacPtr_                             = new SquareMatrix(*right.jacPtr_);
+    if (right.jacPtr_) {
+        jacPtr_                             = new SquareMatrix(*right.jacPtr_);
+    }
+    SAFE_DELETE(jacMng_);
+    if (right.jacMng_) {
+        jacMng_                             = new JacobianManager(*right.jacMng_);
+        jacMng_->reinstall_ptrs(this, jacPtr_, false);
+    }
 
     numIntegratedSrc_                   = right.numIntegratedSrc_;
     IntegratedSrc_Predicted             = right.IntegratedSrc_Predicted;
@@ -447,6 +455,7 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
 Electrode_Integrator::~Electrode_Integrator()
 {
     SAFE_DELETE(jacPtr_);
+    SAFE_DELETE(jacMng_);
     SAFE_DELETE(pSolve_);
     SAFE_DELETE(pSolveJAC_);
 }
@@ -560,6 +569,7 @@ int Electrode_Integrator::create_solvers()
 
     if (useNLS_JAC) {
         pSolve_ = 0;
+        jacMng_ = new JacobianManager(this, jacPtr_);
         pSolveJAC_ = new NonlinearSolver_JAC(this);
     } else {
         pSolve_ = new NonlinearSolver(this);
@@ -1131,7 +1141,7 @@ topConvergence:
             int nonlinearFlag;
             if (useNLS_JAC) {
                 nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
-								 tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,
+								 tfinal_, *jacMng_,  num_newt_its, num_linear_solves,
 								 numBacktracks, loglevelInput);
             } else {
                 nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
