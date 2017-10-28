@@ -321,7 +321,7 @@ XML_Node* EState::write_PhaseListID_ToXML() const
     }
     ZZctml::addNamedIntegerArray(*x, "phaseNumSpecies", eRef_->nPhases(), &iv[0]);
 
-    v.empty();
+    v.clear();
     for (size_t i = 0; i < eRef_->nGlobalSpecies(); ++i) {
         v.push_back(eRef_->speciesName(i));
     }
