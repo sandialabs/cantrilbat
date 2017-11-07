@@ -24,6 +24,8 @@ TEST_RESULTS = out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv so
 TEST_INTERMEDIATE_FILES = runInProgress.txt runBad runGood diff_out.txt diff_csv.txt err_out.txt  \
                           diff_summary.txt diff_xml.txt
 
+TEST_FLAGS = runGood runBad runInProgress.txt testTime.txt
+
 all: .dependsT $(PROGRAM)
 #
 ################################################################################################################
@@ -132,14 +134,25 @@ depends:
 #                        SECTION TO SET UP TEST RUNS
 ########################################################################################################################
 
-test: 
+test: testTime.txt
 	@$(MAKE) -s
 	@echo -n 'Checking need to run test ' $(TESTNAME) ': '
 	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s runGood ; fi
 
 runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TESTNAME)
-	../runtest_Electrode
+	if test -e runBad ; then \
+            if  test `date -r testTime.txt  +"%s"` -le `date -r runBad  +"%s"` ; then \
+               echo '        Bad test result dated, ' `date -r runBad` ', is current' \
+            ; else \
+               ../runtest_Electrode \
+            ; fi \
+        ; else \
+            ../runtest_Electrode \
+        ; fi
+
+testTime.txt:  $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
+	touch testTime.txt
 
 rebaseline:
 	cp out.txt                   good_out.txt
@@ -150,23 +163,19 @@ rebaseline:
 #          SECTION TO SET UP CLEAN RULES
 ##########################################################################################################################
 
-test_clean:
-	$(RM) $(TEST_INTERMEDIATE_FILES)
-	$(RM) $(TEST_RESULTS)
-
 clean_test:
 	$(RM) $(TEST_INTERMEDIATE_FILES)
 	$(RM) $(TEST_RESULTS)
+	$(RM) $(TEST_FLAGS)
 
 clean:
-	$(RM) $(TEST_INTERMEDIATE_FILES)
+	$(RM) $(TEST_INTERMEDIATE_FILES) $(TEST_FLAGS)
 	$(RM) *.o  .depends *.d *~  $(PROGRAM) .dependsT *breakpoints
 
-dist_clean:
+clean_dist:
 	$(MAKE) clean
 	$(MAKE) clean_test
 
-##########################################################################################################################
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
