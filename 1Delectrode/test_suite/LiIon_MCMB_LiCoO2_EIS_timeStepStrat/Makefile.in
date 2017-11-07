@@ -25,7 +25,7 @@ BulkDomain1D_1_blessed.dat  solution_blessed.xml        SurDomain1D_1_blessed.da
 
 INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp
 
-TEST_FLAGS = runGood runBad runInProgress.txt
+TEST_FLAGS = runGood runBad runInProgress.txt testTime.txt
 
 TEST_INTERMEDIATES = diff* err*  transport_log.xml 
 
@@ -50,14 +50,25 @@ $(RUNTEST): Makefile
 	ln -s $(BRUNTEST) .
 	touch $(RUNTEST)
 
-test:
+test: testTime.txt
 	@@MAKE@ -s all
 	@echo -n 'Checking need to run test $(TEST_NAME): '
 	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
 
 runGood: $(BPROGRAM) $(DATA) Makefile $(BLESSED_FILES) $(BRUNTEST) $(PROGRAM) $(INPUT_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
-	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; $(RUNTEST))
+	if test -e runBad ; then \
+            if  test `date -r testTime.txt  +"%s"` -le `date -r runBad  +"%s"` ; then \
+               echo '        Bad test result is current' \
+            ; else \
+	       ( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; $(RUNTEST)) \
+            ; fi \
+        ; else \
+	    ( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; $(RUNTEST)) \
+        ; fi
+
+testTime.txt: $(BPROGRAM) $(DATA) Makefile $(BLESSED_FILES) $(BRUNTEST) $(PROGRAM) $(INPUT_FILES)
+	touch testTime.txt
 
 rebaseline:
 	./rebaseline
