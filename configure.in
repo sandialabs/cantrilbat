@@ -875,6 +875,7 @@ AC_OUTPUT(Makefile \
           Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cc/Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV/Makefile \
           Electrode/tests/MCMBAnode_LiIon_CSTR_2_cV_restart/Makefile \
+          Electrode/tests/MCMBAnode_LiIon_SimpleDiff_cc_restart/Makefile \
           Electrode/tests/UnitTests/Makefile \
           Electrode/tests_develop/CSTR_ReadCompareSoln/Makefile \
           Electrode/tests_develop/GFCEO_CSTR_LiCoO2_LiIonCathode_cV/Makefile \
