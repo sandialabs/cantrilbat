@@ -1,13 +1,9 @@
 #h/bin/sh
 #
-# Installation from the CAB_3279 trunk
 #
 CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc493/Zzuzax_master_opt
 export CANTERA_INSTALL_DIR
 #
-#CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
-#CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_3279
-#CANTERA_ROOT=/home/hkmoffa/Cantera/gc/zuzax_absIonicEntropies
 CANTERA_ROOT=/home/hkmoffa/Cantera/gc/zuzax_master_opt
 export CANTERA_ROOT
 #
@@ -21,9 +17,6 @@ export PYTHON_DIR
 #
 export BUILD_WITH_F2C='n'
 #
-#
-#CANTERA_CONFIG_PREFIX=/home/hkmoffa/arch/linux
-#export CANTERA_CONFIG_PREFIX
 #
 SET_PYTHON_SITE_PACKAGE_TOPDIR=y
 export SET_PYTHON_SITE_PACKAGE_TOPDIR
@@ -41,7 +34,7 @@ export CXX
 #     -DDO_INIT_CALC
 #     -DMECH_MODEL
 #     -DDEBUG_INIT_CALCULATION
-CXXFLAGS="-std=c++11 -O -Wall -pedantic -Wformat -DDEBUG_MODE -DMECH_MODEL"
+CXXFLAGS="-std=c++11 -O3 -Wall -pedantic -Wformat -DDEBUG_MODE -DMECH_MODEL"
 export CXXFLAGS
 #
 #  Turn on and off MECH_MODEL here
@@ -56,12 +49,11 @@ export LCXX_END_LIBS
 # written in fortran. This is used to find the libraries
 # to link against
 #
-# F77='/sierra/Sntools/extras/compilers/gcc-4.4.4/bin/gfortran'
 F77='/sierra/sntools/SDK/compilers/gcc/4.9.3-RHEL6/bin/gfortran'
 export F77
 #
 #FFLAGS="-g -DDEBUG_HKM  -fno-second-underscore"
-FFLAGS="-O -fno-second-underscore"
+FFLAGS="-O3 -fno-second-underscore"
 export FFLAGS
 #
 # MPIHOME
@@ -100,11 +92,9 @@ export SUPERLUDIST_LIBRARY_NAMES=libsuperludist.a
 
 #export PARMETIS_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/ParMetis-3.1.1/lib
 export PARMETIS_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/ParMetis-4.0.3/lib
-
 export PARMETIS_LIBRARY_NAMES="libparmetis.a:libmetis.a"
 
-export Y12M_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc472/lib
-#export Y12M_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/lib
+export Y12M_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/lib
 export Y12M_LIBRARY_NAMES="liby12m.a"
 
 #  Not ready yet so have to fall back to existing dir

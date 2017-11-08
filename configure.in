@@ -187,10 +187,9 @@ then
 fi
 AC_SUBST(MP_MACHINEFILE_DEFAULT)
 
-
 #
 # ------------------------------------------------------------------------------------
-#                    Figure out if Cantera's debug mode is turned on
+#                    Figure out if Zuzax's DEBUG_MODE ifdef block is enabled
 # ------------------------------------------------------------------------------------
 #
 # Create a signal for the Makefile environment and the compilation environment.
@@ -198,29 +197,32 @@ AC_SUBST(MP_MACHINEFILE_DEFAULT)
 #   Right now we use a grep statement for a string. It works, though it probably
 #   isn't the most stable method.
 #
-CANTERA_config_FILE=${ct_prefix}/include/cantera/base/config.h
-# echo "CANTERA_config_FILE = " $CANTERA_config_FILE
+ZUZAX_config_FILE=${ct_prefix}/include/cantera/base/config.h
+# echo "ZUZAX_config_FILE = " $ZUZAX_config_FILE
 CA_CANTERA_DEBUG_MODE=0  
-if test -f $CANTERA_config_FILE
+Zuzax_Debug_Mode_Enabled=0
+if test -f $ZUZAX_config_FILE
 then
-  grep "#define DEBUG_MODE 1" $CANTERA_config_FILE
+  grep "#define DEBUG_MODE 1" $ZUZAX_config_FILE
   res=$?
   if test $res == 0
   then
     CA_CANTERA_DEBUG_MODE=1  
-    echo "Determined that Cantera has its DEBUG_MODE turned on "
+    Zuzax_Debug_Mode_Enabled=1  
+    echo "Determined that Zuzax has its DEBUG_MODE turned on "
   else
-   echo "Determined that Cantera has its DEBUG_MODE turned off "
+    echo "Determined that Zuzax has its DEBUG_MODE turned off "
   fi
 fi
 
-#  Create a Makefile substitution parameter that has a value of 1 if Cantera's
-#  debug rule is passed. The rule is called CA_CANTERA_DEBUG_MODE
+#  Create a Makefile substitution parameter that has a value of 1 if Zuzax's
+#  DEBUG_MODE ifdef block is enabled. The rule is called Zuzax_Debug_Mode_Enabled.
 AC_SUBST(CA_CANTERA_DEBUG_MODE)
+AC_SUBST(Zuzax_Debug_Mode_Enabled)
 
-#  Create a Cantera_Apps configCantrilbat.h define statement, named CANTERA_DEBUG_MODE,
-#  that has a value of 1 if Cantera's debug mode is turned on.
-AC_DEFINE_UNQUOTED(CANTERA_DEBUG_MODE, $CA_CANTERA_DEBUG_MODE)
+#  Create a Zuzax_Apps configCantrilbat.h define statement, named ZUZAX_DEBUG_MODE,
+#  that has a value of 1 if  Zuzax's DEBUG_MODE ifdef block is enabled.
+AC_DEFINE_UNQUOTED(ZUZAX_DEBUG_MODE, $Zuzax_Debug_Mode_Enabled)
 
 #
 # -----------------------------------------------------------------------------

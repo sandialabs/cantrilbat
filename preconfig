@@ -217,6 +217,10 @@ SHARED=${SHARED:="-shared"}
 #
 export CXX_DEPENDS_DFT="${CXX}  -MM"
 CXX_DEPENDS=${CXX_DEPENDS:=${CXX_DEPENDS_DFT}}
+#
+# DEBUG_MODE_ENABLED: Set to 'y' if DEBUG_MODE is enabled within Zuzax
+#
+DEBUG_MODE_ENABLED=${DEBUG_MODE_ENABLED:='y'}
 # 
 #-------------------------------------------------------------------
 #      Fortran compiler options
@@ -357,6 +361,7 @@ export DO_MPI
 export MPIHOME
 export MPI_REPLACE_ALL_COMPILERS
 export TRILINOS_INSTALL_DIR
+export DEBUG_MODE_ENABLED
 
 chmod +x ./configure 
 chmod +x ./config.guess

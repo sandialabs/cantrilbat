@@ -15,8 +15,8 @@
  * U.S. Government retains certain rights in this software.
  */
 
-#ifndef CANTERA_APPS_CONFIG_H
-#define CANTERA_APPS_CONFIG_H
+#ifndef ZUZAX_APPS_CONFIG_H
+#define ZUZAX_APPS_CONFIG_H
 
 /* Root location of the Cantera Install directory */
 #undef CANTERA_ROOT
@@ -58,7 +58,7 @@
 // with a native compiler
 #undef SOLARIS
 
-#undef CANTERA_DEBUG_MODE
+#undef ZUZAX_DEBUG_MODE
 
 //
 // Add a fortran string length to the argument list for all fortran char variables.
