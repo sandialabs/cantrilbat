@@ -14,6 +14,10 @@
 #include "Electrode.h"
 #include <fstream>
 
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(x)  if (x) { delete x;  x = nullptr;}
+#endif
+
 using namespace std;
 //-----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
@@ -59,7 +63,7 @@ void Electrode::specifySolutionFileLevel(int level, const char* const baseName)
 void Electrode::makeXML_TI_intermediate(bool addInitState)
 {
     std::string fmt = "%22.14E";
-    delete xmlTimeIncrementIntermediateData_;
+    SAFE_DELETE( xmlTimeIncrementIntermediateData_ );
     xmlTimeIncrementIntermediateData_ = new XML_Node("timeIncrement");
     xmlTimeIncrementIntermediateData_->addAttribute("type", "intermediate");
     if (addInitState) {
@@ -79,7 +83,6 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
     xmt->addChild(*xmlStateData_final_);
     xmlTimeIncrementIntermediateData_->mergeAsChild(*xmt);
 }
-
 //==================================================================================================================================
 // Creates a timeIncrement XML element to store the results for global steps of the Electrode solver
 /*
@@ -101,14 +104,14 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
  *    This XML Tree is storred in the variable  xmlTimeIncrementData_
  *
  *
- *  @param addInitState   Boolean that if true adds the initial state to the tree.
+ *  param addInitState   Boolean that if true adds the initial state to the tree.
  *                        The default is true.
  */
 void Electrode::startXML_TI_final(bool addInitState)
 {
     std::string fmt = "%22.14E";
     static int firstTime = 0;
-    delete xmlTimeIncrementData_;
+    SAFE_DELETE( xmlTimeIncrementData_ );
     xmlTimeIncrementData_ = new XML_Node("timeIncrement");
     xmlTimeIncrementData_->addAttribute("type", "global");
     if (firstTime > 0 && printXMLLvl_ <= 1) {
@@ -461,12 +464,12 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
     /*
      *  Add the globalTimeStep XML element with the global time step number as an attribute
      */
+    std::string fmt = "%22.14E";
     ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
     gts.addAttribute("index", int2str(globalTimeStepNumber_));
     gts.addAttribute("windex", int2str(stepNum));
-    gts.addAttribute("t_init_init", fp2str(t_init_init_));
-    gts.addAttribute("t_final_final", fp2str(t_final_final_));
-    std::string fmt = "%22.14E";
+    gts.addAttribute("t_init_init", fp2str(t_init_init_, fmt));
+    gts.addAttribute("t_final_final", fp2str(t_final_final_, fmt));
 
     /*
      *  Add the next time step's deltaT as a child XML element
@@ -614,9 +617,13 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
 #endif
     
     //  Add the globalTimeStep XML element with the global time step number as an attribute
-    ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
-    gts.addAttribute("index", int2str(globalTimeStepNumber_));
     const std::string fmt = "%22.14E";
+    ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
+
+    gts.addAttribute("index", int2str(globalTimeStepNumber_));
+    gts.addAttribute("windex", int2str(stepNum));
+    gts.addAttribute("t_init_init", fp2str(t_init_init_, fmt));
+    gts.addAttribute("t_final_final", fp2str(t_final_final_, fmt));
 
     //  Add this time step's first delta T attempt
     ZZctml::addFloat(gts, "deltaTime_init_init", deltaTsubcycle_init_init_);

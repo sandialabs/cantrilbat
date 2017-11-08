@@ -317,13 +317,13 @@ public:
     //! Create/Malloc an XML Node containing the ETimeInterval data contained in this object
     /*!
      *   @param[in]          index               Index to assign to the globalTimeStep. This defaults to -1 to indicate
-     *                                           that the storred index should be used. Global time steps start 
-     *                                           from the value 1 usually.
+     *                                           that the storred index should be used. Global time steps start from the value 1 usually.
+     *   @param[in]          windex              step number index written to the file
      *
      *   @return                                 Returns the malloced XML_Node with name globalTimeStep containing the 
      *                                           information in this object. The calling program is responsible for freeing this.
      */
-    ZZCantera::XML_Node* write_ETimeInterval_ToXML(int index = -1) const;
+    ZZCantera::XML_Node* write_ETimeInterval_ToXML(int index, int windex) const;
 
     //! Read the time interval object from an XML file
     /*!
@@ -396,6 +396,7 @@ public:
 
     //! The  delta T to be used on the first subintegration on the this global step
     double deltaTime_init_init_;
+
 };
 
 //==================================================================================================================================

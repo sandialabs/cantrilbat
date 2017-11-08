@@ -475,6 +475,7 @@ bool Electrode_CSTR::stateToPhaseFlagsReconciliation(bool flagErrors)
 {
     double tol = 1.0E-6;
     int onRegionBoundary_final = -1;
+    RelativeExtentRxn_final_ = calcRelativeExtentRxn_final();
 
     bool retn = Electrode::stateToPhaseFlagsReconciliation(flagErrors);
     int sz = (int) RelativeExtentRxn_RegionBoundaries_.size();

@@ -415,14 +415,23 @@ ETimeInterval& ETimeInterval::operator=(const ETimeInterval& right)
  *   @return   Returns the malloced XML_Node with name globalTimeStep containing the information in this
  *             object. The calling program is responsible for freeing this.
  */
-ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index) const
+ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index, int windex ) const
 {
      int ii = index_;
      if (index >= 0) {
         ii = index;
      } 
+
+     std::string fmt = "%22.14E";
+
      XML_Node* xtg = new XML_Node("globalTimeStep");
      xtg->addAttribute("index", int2str(ii));
+     xtg->addAttribute("windex", int2str(1));
+     double t_init_init = startingTime();
+     xtg->addAttribute("t_init_init", fp2str(t_init_init, fmt));
+     double t_final_final = endingTime();
+     xtg->addAttribute("t_final_final", fp2str(t_final_final, fmt));
+
      ZZctml::addFloat(*xtg, "deltaTime_init_next", deltaTime_init_next_);
      ZZctml::addFloat(*xtg, "deltaTime_init_init", deltaTime_init_init_);
      ZZctml::addInteger(*xtg,"numIntegrationSubCycles", numIntegrationSubCycles_);
@@ -604,7 +613,7 @@ ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionO
     for (size_t k = 0; k < etiList_.size(); ++k) {
 	ETimeInterval* eti = etiList_[k];
 	int timeIndex =  eti->index_;
-	XML_Node* xETI = eti->write_ETimeInterval_ToXML(timeIndex);
+	XML_Node* xETI = eti->write_ETimeInterval_ToXML(timeIndex, windex);
 	xEO->addChildToTree(xETI);
     }
     return xEO;
