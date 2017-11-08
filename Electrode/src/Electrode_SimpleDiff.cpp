@@ -1689,7 +1689,7 @@ double Electrode_SimpleDiff::fixMoleBalance_final_init()
                 fclose(fp);
             }
 #endif
-            if (fabs(diff) > 1.0E-4 * stm) {
+            if (fabs(diff) > 1.0E-1 * stm) {
                 fatalError = true;
             }
 
@@ -2436,6 +2436,7 @@ void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
             spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
         }
     } else {
+        updateState();
         extractInfo();
         updateSpeciesMoleChangeFinal();
         for (size_t isp = 0; isp < m_NumTotSpecies; isp++) {
@@ -3026,6 +3027,7 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type ev
         /*
          *  Calculate the area of the outer cell which conserves constant functions under mesh movement wrt the Reynolds transport theorum
          */
+
         double cellBoundR_star2 = (cellBoundR_init_[iCell] * cellBoundR_init_[iCell]
                                    + cellBoundR_final_[iCell] * cellBoundR_init_[iCell] + cellBoundR_final_[iCell] * cellBoundR_final_[iCell])/3.0;
         double areaR_star = 4.0 * Pi * cellBoundR_star2 * particleNumberToFollow_;
@@ -3096,8 +3098,14 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type ev
                     size_t iKRSpecies = kstart + kSp;
                     resid[cIndexPhStart + iKRSpecies] -= DspMoles_final_[iStart + kSp];
                     resid[cIndexPhStart + kstart]     -= DspMoles_final_[iStart + kSp];
+#ifdef DEBUG_MODE
+                    checkFinite(DspMoles_final_[iStart + kSp]);
+#endif
                 }
                 resid[cIndexPhStart + kstart]         -= DspMoles_final_[iStart + 0];
+#ifdef DEBUG_MODE
+                    checkFinite(DspMoles_final_[iStart + 0]);
+#endif
 
                 kstart += nSpecies;
             }

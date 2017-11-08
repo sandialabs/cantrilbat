@@ -1103,12 +1103,13 @@ topConvergence:
              *
              *    The residual tolerance is given by the minimum of the row weight sums and the user tolerances given below.
              */
+            double extraR = 1.0E-2;
             if (useNLS_JAC) {
-                pSolveJAC_->setResidualTols(rtolResidNLS_,  &atolResidNLS_[0]);
+                pSolveJAC_->setResidualTols(extraR * rtolResidNLS_,  &atolResidNLS_[0]);
                 pSolveJAC_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
                 pSolveJAC_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
             } else {
-                pSolve_->setResidualTols(rtolResidNLS_,  &atolResidNLS_[0]);
+                pSolve_->setResidualTols(extraR * rtolResidNLS_,  &atolResidNLS_[0]);
                 pSolve_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
                 pSolve_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
             }
