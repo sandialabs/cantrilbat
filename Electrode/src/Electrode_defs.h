@@ -246,7 +246,7 @@ enum Polarization_Loss_Enum {
     //! Loss through solid phase diffusion within the electrode material
     SOLID_DIFF_CONC_LOSS_PL,
 
-    //! concentration polarization  from mixed ionic conduction through solid film, i.e., SEI.
+    //! Concentration polarization  from mixed ionic conduction through solid film, i.e., SEI.
     CONC_LOSS_SOLID_FILM_PL,
 
     //! voltage drop from mixed ionic conduction through solid film, i.e., SEI.
