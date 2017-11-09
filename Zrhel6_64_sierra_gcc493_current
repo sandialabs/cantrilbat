@@ -5,11 +5,6 @@
 CANTERA_INSTALL_DIR=/home/hkmoffa/arch/linux64_gcc493/Zzuzax_master_dbg
 export CANTERA_INSTALL_DIR
 #
-<<<<<<< HEAD
-#CANTERA_ROOT=/home/hkmoffa/Cantera/gc/cantera_trunk_stable
-#CANTERA_ROOT=/home/hkmoffa/Cantera/gc/zuzax_absIonicEntropies
-=======
->>>>>>> Cleaned up setup files.
 CANTERA_ROOT=/home/hkmoffa/Cantera/gc/zuzax_master
 export CANTERA_ROOT
 #
