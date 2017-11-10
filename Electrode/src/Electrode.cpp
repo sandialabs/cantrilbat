@@ -4375,8 +4375,8 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
     Radius_exterior_init_ = Radius_exterior_final_;
     Radius_exterior_final_final_ = Radius_exterior_final_;
 
+    SAFE_DELETE(xmlStateData_init_);
     if (xmlStateData_final_) {
-        SAFE_DELETE(xmlStateData_init_);
         xmlStateData_init_ = new XML_Node(*xmlStateData_final_);
         SAFE_DELETE(xmlStateData_final_final_);
         xmlStateData_final_final_ = new XML_Node(*xmlStateData_final_);
@@ -4386,8 +4386,8 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
         }
     }
 
+    SAFE_DELETE(xmlExternalData_init_);
     if (xmlExternalData_final_) {
-        SAFE_DELETE(xmlExternalData_init_);
         xmlStateData_init_ = new XML_Node(*xmlExternalData_final_);
         SAFE_DELETE(xmlExternalData_final_final_);
         xmlExternalData_final_final_ = new XML_Node(*xmlExternalData_final_);
@@ -4462,17 +4462,17 @@ void Electrode::setInitInitStateFromFinalFinal()
     Radius_exterior_init_init_ = Radius_exterior_final_final_;
     Radius_exterior_init_ = Radius_exterior_final_final_;
 
+    SAFE_DELETE(xmlStateData_init_);
+    SAFE_DELETE(xmlStateData_init_init_);
     if (xmlStateData_final_final_) {
-        SAFE_DELETE(xmlStateData_init_);
         xmlStateData_init_ = new XML_Node(*xmlStateData_final_final_);
-        SAFE_DELETE(xmlStateData_init_init_);
         xmlStateData_init_init_ = new XML_Node(*xmlStateData_final_final_);
     }
 
+    SAFE_DELETE(xmlExternalData_init_);
+    SAFE_DELETE(xmlExternalData_init_init_);
     if (xmlExternalData_final_final_) {
-        SAFE_DELETE(xmlExternalData_init_);
         xmlStateData_init_ = new XML_Node(*xmlExternalData_final_final_);
-        SAFE_DELETE(xmlExternalData_init_init_);
         xmlExternalData_init_init_ = new XML_Node(*xmlExternalData_final_final_);
     }
 
@@ -4532,12 +4532,12 @@ void Electrode::setFinalStateFromInit_Oin()
     // Reset the particle size
     Radius_exterior_final_ = Radius_exterior_init_;
 
+    SAFE_DELETE(xmlStateData_final_);
     if (xmlStateData_init_) {
-        SAFE_DELETE(xmlStateData_final_);
         xmlStateData_final_ = new XML_Node(*xmlStateData_init_);
     }
+    SAFE_DELETE(xmlExternalData_final_);
     if (xmlExternalData_init_) {
-        SAFE_DELETE(xmlExternalData_final_);
         xmlExternalData_final_ = new XML_Node(*xmlExternalData_init_);
     }
     tfinal_ = tinit_;
@@ -4603,16 +4603,16 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
         Radius_exterior_final_ = Radius_exterior_init_init_;
     }
     // Copy XML data structures
+    SAFE_DELETE(xmlStateData_init_);
     if (xmlStateData_init_init_) {
-        SAFE_DELETE(xmlStateData_init_);
         xmlStateData_init_ = new XML_Node(*xmlStateData_init_init_);
         if (setFinal) {
             SAFE_DELETE(xmlStateData_final_);
             xmlStateData_final_ = new XML_Node(*xmlStateData_init_init_);
         }
     }
+    SAFE_DELETE(xmlExternalData_init_);
     if (xmlExternalData_init_init_) {
-        SAFE_DELETE(xmlExternalData_init_);
         xmlStateData_init_ = new XML_Node(*xmlExternalData_init_init_);
         if (setFinal) {
             SAFE_DELETE(xmlExternalData_final_);

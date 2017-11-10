@@ -214,13 +214,11 @@ protected:
     //! Number of phases which have radial distributions of their species
     int numSPhases_;
 
-
     //! Node position of the mesh - final
     std::vector<double> rnodePos_;  
 
     //! Vector of cell boundaries
     std::vector<double> cellBoundR_;
-
  
     //! Total concentration of each of the solid phases that are distributed - global init state
     /*!
@@ -243,17 +241,11 @@ protected:
      */
     std::vector<double> spMoles_KRsolid_Cell_;
 
-    //! Mole fraction of the solid phase species that are distributed = final state
-    /*!
-     *
-     */
-    //std::vector<double> spMf_KRSpecies_Cell_;
-
     //! This integer describes if the system is current on a Region boundary at the end of a subgrid
     //! integration step
     /*!
      *   We define a region boundary here iff all cells are on that boundary
-     *  If it isn't, we set it to -1. If it is, we set it to the region boundary index
+     *   If it isn't, we set it to -1. If it is, we set it to the region boundary index
      */
     int onRegionBoundary_;
 
