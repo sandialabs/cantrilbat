@@ -333,14 +333,13 @@ XML_Node* EState::write_PhaseListID_ToXML() const
 // Write the electrodeState to an XML_Node tree
 XML_Node* EState::write_electrodeState_ToXML() const
 {
-    int nsp, np;
     XML_Node* x = new XML_Node("electrodeState");
 
-    nsp = spMoles_.size();
-    ZZctml::addNamedFloatArray(*x, "spMoles", nsp, DATA_PTR(spMoles_), "kmol");
+    size_t nsp = spMoles_.size();
+    ZZctml::addNamedFloatArray(*x, "spMoles", nsp, spMoles_.data(), "kmol");
 
-    np = phaseVoltages_.size();
-    ZZctml::addNamedFloatArray(*x, "phaseVoltages", np, DATA_PTR(phaseVoltages_), "volt");
+    size_t np = phaseVoltages_.size();
+    ZZctml::addNamedFloatArray(*x, "phaseVoltages", np, phaseVoltages_.data(), "volt");
 
     ZZctml::addFloat(*x, "temperature",  temperature_, "Kelvin");
     ZZctml::addFloat(*x, "pressure",  pressure_, "Pa");
@@ -364,7 +363,7 @@ XML_Node* EState::write_electrodeState_ToXML() const
     ZZctml::addFloat(*x, "capacityDischargedToDate", capacityDischargedToDate_, "coulomb");
     ZZctml::addFloat(*x, "deltaTsubcycle_init_next", deltaTsubcycle_init_next_, "s");
     
-    int neq = solnDot_.size();
+    size_t neq = solnDot_.size();
     if (neq > 0) {
         ZZctml::addNamedFloatArray(*x, "solnDot", neq, solnDot_.data(), "");
     } 

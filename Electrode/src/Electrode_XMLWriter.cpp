@@ -57,8 +57,7 @@ void Electrode::specifySolutionFileLevel(int level, const char* const baseName)
  *
  *    This XML Tree is storred in the variable  xmlTimeIncrementIntermediateData_
  *
- *  @param addInitState   Boolean that if true adds the initial state to the tree.
- *                        The default is true.
+ *  @param addInitState   Boolean that if true adds the initial state to the tree. The default is true.
  */
 void Electrode::makeXML_TI_intermediate(bool addInitState)
 {
@@ -72,7 +71,9 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
         xmi->addAttribute("domain", electrodeDomainNumber_);
         xmi->addAttribute("cellNumber", electrodeCellNumber_);
         xmi->addChild("time", tinit_, fmt);
+        // Make a copy of xmlStateData_init_ and store in xmi
         xmi->addChild(*xmlStateData_init_);
+        // xmi is not copied instead it is merged in as a child
         xmlTimeIncrementIntermediateData_->mergeAsChild(*xmi);
     }
     XML_Node* xmt = new XML_Node("timeState");
@@ -80,7 +81,9 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
     xmt->addAttribute("domain", electrodeDomainNumber_);
     xmt->addAttribute("cellNumber", electrodeCellNumber_);
     xmt->addChild("time", tfinal_, fmt);
+    // Make a copy of xmlStateData_final_ and store in xmt
     xmt->addChild(*xmlStateData_final_);
+    // xmt is not copied instead it is merged in as a child
     xmlTimeIncrementIntermediateData_->mergeAsChild(*xmt);
 }
 //==================================================================================================================================
@@ -151,6 +154,9 @@ void Electrode::startXML_TI_final(bool addInitState)
  */
 void Electrode::addtoXML_TI_final(bool notDone)
 {
+    if (!xmlTimeIncrementData_) {
+        throw Electrode_Error(" Electrode::addtoXML_TI_final()", "Trying to add on to xmlTimeIncrementData_ when it is null");
+    }
     std::string fmt = "%22.14E";
     // leave out t_intermediate records for some print levels
     if (notDone) {
@@ -167,8 +173,8 @@ void Electrode::addtoXML_TI_final(bool notDone)
     xmt->addAttribute("domain", electrodeDomainNumber_);
     xmt->addAttribute("cellNumber", electrodeCellNumber_);
     xmt->addChild("time", tfinal_, fmt);
+    // Make a copy of xmlStateData_final_ and add to xmt as a child
     xmt->addChild(*xmlStateData_final_);
-
     xmlTimeIncrementData_->mergeAsChild(*xmt);
 }
 //===================================================================================================================================

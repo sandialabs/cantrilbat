@@ -1486,7 +1486,7 @@ otherFailureType:
             eState_save_->copyElectrode_intoState(this, true);
             SAFE_DELETE(xmlStateData_final_);
             xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
-            makeXML_TI_intermediate();
+            //makeXML_TI_intermediate();
             addtoXML_TI_final(notDone);
         }
 
