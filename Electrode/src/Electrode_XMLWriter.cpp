@@ -74,7 +74,7 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
         // Make a copy of xmlStateData_init_ and store in xmi
         xmi->addChild(*xmlStateData_init_);
         // xmi is not copied instead it is merged in as a child
-        xmlTimeIncrementIntermediateData_->mergeAsChild(*xmi);
+        xmlTimeIncrementIntermediateData_->addChildToTree(xmi);
     }
     XML_Node* xmt = new XML_Node("timeState");
     xmt->addAttribute("type", "t_intermediate");
@@ -84,7 +84,7 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
     // Make a copy of xmlStateData_final_ and store in xmt
     xmt->addChild(*xmlStateData_final_);
     // xmt is not copied instead it is merged in as a child
-    xmlTimeIncrementIntermediateData_->mergeAsChild(*xmt);
+    xmlTimeIncrementIntermediateData_->addChildToTree(xmt);
 }
 //==================================================================================================================================
 // Creates a timeIncrement XML element to store the results for global steps of the Electrode solver
@@ -112,7 +112,7 @@ void Electrode::makeXML_TI_intermediate(bool addInitState)
  */
 void Electrode::startXML_TI_final(bool addInitState)
 {
-    std::string fmt = "%22.14E";
+    const std::string fmt = "%22.14E";
     static int firstTime = 0;
     SAFE_DELETE( xmlTimeIncrementData_ );
     xmlTimeIncrementData_ = new XML_Node("timeIncrement");
@@ -127,7 +127,7 @@ void Electrode::startXML_TI_final(bool addInitState)
         xmi->addAttribute("cellNumber", electrodeCellNumber_);
         xmi->addChild("time", tinit_, fmt);
         xmi->addChild(*xmlStateData_init_);
-        xmlTimeIncrementData_->mergeAsChild(*xmi);
+        xmlTimeIncrementData_->addChildToTree(xmi);
     }
 }
 //===================================================================================================================================
@@ -154,10 +154,10 @@ void Electrode::startXML_TI_final(bool addInitState)
  */
 void Electrode::addtoXML_TI_final(bool notDone)
 {
+    const std::string fmt = "%22.14E";
     if (!xmlTimeIncrementData_) {
         throw Electrode_Error(" Electrode::addtoXML_TI_final()", "Trying to add on to xmlTimeIncrementData_ when it is null");
     }
-    std::string fmt = "%22.14E";
     // leave out t_intermediate records for some print levels
     if (notDone) {
         if (printXMLLvl_ == 1 || printXMLLvl_ == 2) {
@@ -175,13 +175,13 @@ void Electrode::addtoXML_TI_final(bool notDone)
     xmt->addChild("time", tfinal_, fmt);
     // Make a copy of xmlStateData_final_ and add to xmt as a child
     xmt->addChild(*xmlStateData_final_);
-    xmlTimeIncrementData_->mergeAsChild(*xmt);
+    xmlTimeIncrementData_->addChildToTree(xmt);
 }
 //===================================================================================================================================
 //  Returns true if the step was successful and false otherwise
 bool Electrode::writeTimeStateFinal_toXML(XML_Node& bb)
 {
-    std::string fmt = "%22.14E";
+    const std::string fmt = "%22.14E";
     
     // There may be situations when we haven't created the state data. When that happens we will create the
     // the state data right here. This currently occurs for writing out initial conditions.
@@ -464,13 +464,13 @@ void Electrode::writeSolutionTimeIncrement(bool startNewRecord, bool reset, int 
         ZZctml::addString(soln, "timeStamp", asctime(newtime));
 	//  Add an identification XML element
 	XML_Node* xmlID = eState_save_->writeIdentificationToXML();
-	soln.mergeAsChild(*xmlID);
+	soln.addChildToTree(xmlID);
     }
 
     /*
      *  Add the globalTimeStep XML element with the global time step number as an attribute
      */
-    std::string fmt = "%22.14E";
+    const std::string fmt = "%22.14E";
     ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
     gts.addAttribute("index", int2str(globalTimeStepNumber_));
     gts.addAttribute("windex", int2str(stepNum));

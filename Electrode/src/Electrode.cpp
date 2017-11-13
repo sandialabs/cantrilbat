@@ -161,7 +161,7 @@ Electrode::Electrode() :
     Radius_exterior_final_final_(5.0E-7),
     porosity_(0.0),
     molarAtol_(1.0E-16),
-    xmlTimeIncrementData_(nullptr),
+    xmlTimeIncrementData_(0),
     xmlTimeIncrementIntermediateData_(nullptr),
     xmlExternalData_init_init_(nullptr),
     xmlExternalData_init_(nullptr),

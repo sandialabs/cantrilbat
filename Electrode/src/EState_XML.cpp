@@ -348,7 +348,6 @@ ETimeInterval::ETimeInterval() :
      intervalType_("global"),
      index_(-1),
      numIntegrationSubCycles_(1),
-     etsList_(0),
      deltaTime_init_next_(1.0E-8),
      deltaTime_init_init_(1.0E-8)
 {
@@ -360,6 +359,7 @@ ETimeInterval::~ETimeInterval()
         ETimeState* ets = etsList_[k];
         if (ets) {
            delete ets;
+           etsList_[k] = 0;
         } 
      }
 }
@@ -371,16 +371,20 @@ ETimeInterval::ETimeInterval(const ZZCantera::XML_Node& xTimeInterval, const ZZC
 }
 //==================================================================================================================================
 ETimeInterval::ETimeInterval(const ETimeInterval& right) :
-     intervalType_(right.intervalType_),
-     index_(right.index_),
-     numIntegrationSubCycles_(right.numIntegrationSubCycles_),
-     deltaTime_init_next_(right.deltaTime_init_next_),
-     deltaTime_init_init_(right.deltaTime_init_init_)
+    intervalType_(right.intervalType_),
+    index_(right.index_),
+    numIntegrationSubCycles_(right.numIntegrationSubCycles_),
+    deltaTime_init_next_(right.deltaTime_init_next_),
+    deltaTime_init_init_(right.deltaTime_init_init_)
 {
-     etsList_.resize(numIntegrationSubCycles_+1, 0);
-     for (size_t k = 0; k < (size_t) (numIntegrationSubCycles_+1); ++k) {
-         etsList_[k] = new ETimeState(*(right.etsList_[k]));
-     }
+    etsList_.resize( right.etsList_.size(), 0);
+    for (size_t k = 0; k < etsList_.size(); ++k) {
+        if (right.etsList_[k]) {
+            etsList_[k] = new ETimeState( *(right.etsList_[k]) );
+        } else {
+            etsList_[k] = nullptr;
+        }
+    }  
 }
 //==================================================================================================================================
 ETimeInterval& ETimeInterval::operator=(const ETimeInterval& right)
@@ -417,14 +421,14 @@ ETimeInterval& ETimeInterval::operator=(const ETimeInterval& right)
  */
 ZZCantera::XML_Node* ETimeInterval::write_ETimeInterval_ToXML(int index, int windex ) const
 {
+     const std::string fmt = "%22.14E";
      int ii = index_;
      if (index >= 0) {
         ii = index;
      } 
 
-     std::string fmt = "%22.14E";
-
      XML_Node* xtg = new XML_Node("globalTimeStep");
+
      xtg->addAttribute("index", int2str(ii));
      xtg->addAttribute("windex", int2str(1));
      double t_init_init = startingTime();
@@ -459,7 +463,7 @@ void ETimeInterval::read_ETimeInterval_fromXML(const ZZCantera::XML_Node& xTimeI
     deltaTime_init_init_ = ZZctml::getFloat(xTimeInterval, "deltaTime_init_init");
     const XML_Node* xTimeIncr = xTimeInterval.findByName("timeIncrement");
     std::vector<XML_Node*> xStatesList = xTimeIncr->getChildren("timeState");
-    size_t num =  xStatesList.size();
+    size_t num = xStatesList.size();
     etsList_.resize(num, 0);
     for (size_t k = 0; k < num; ++k) {
 	XML_Node* xState = xStatesList[k];
@@ -568,6 +572,7 @@ ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput() :
     index_(1),
     timeStamp_(""),
     e_ID_(),
+    numGlobalTimeIntervals_(0),
     etiList_(0)
 {
 }
@@ -576,6 +581,7 @@ ElectrodeTimeEvolutionOutput::~ElectrodeTimeEvolutionOutput()
 {
     for (size_t k = 0; k < etiList_.size(); ++k) {
 	delete etiList_[k];
+        etiList_[k] = 0;
     }
 }
 //==================================================================================================================================
@@ -583,6 +589,7 @@ ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const ZZCantera::XML_
     index_(1),
     timeStamp_(""),
     e_ID_(),
+    numGlobalTimeIntervals_(0),
     etiList_(0)
 {
      read_ElectrodeTimeEvolutionOutput_fromXML(xElectrodeOutput);
@@ -591,12 +598,38 @@ ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const ZZCantera::XML_
 ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const ElectrodeTimeEvolutionOutput& right) :
     index_(right.index_),
     timeStamp_(right.timeStamp_),
-    e_ID_(right.e_ID_)
+    e_ID_(right.e_ID_),
+    numGlobalTimeIntervals_(right.numGlobalTimeIntervals_)
 {
     etiList_.resize(right.etiList_.size(), 0);
     for (size_t k = 0; k < etiList_.size(); ++k) {
-	etiList_[k] = new ETimeInterval(*(right.etiList_[k]));
+        if (right.etiList_[k] != 0) {
+	    etiList_[k] = new ETimeInterval(*(right.etiList_[k]));
+        }
     }
+}
+//==================================================================================================================================
+ElectrodeTimeEvolutionOutput& ElectrodeTimeEvolutionOutput::operator=(const ElectrodeTimeEvolutionOutput& right)
+{
+    if (this == &right) return *this;
+
+    index_ = right.index_;
+    timeStamp_ = right.timeStamp_;
+    e_ID_ = right.e_ID_;
+    numGlobalTimeIntervals_ = right.numGlobalTimeIntervals_;
+
+    for (size_t k = 0; k < etiList_.size(); ++k) {
+	delete etiList_[k];
+        etiList_[k] = 0;
+    }
+    etiList_.resize(right.etiList_.size(), 0);
+    for (size_t k = 0; k < etiList_.size(); ++k) {
+        if (! right.etiList_[k] ) {
+            etiList_[k] = new ETimeInterval( *(right.etiList_[k]) );
+        }
+    }
+
+    return *this;
 }
 //==================================================================================================================================
 ZZCantera::XML_Node* ElectrodeTimeEvolutionOutput::write_ElectrodeTimeEvolutionOutput_ToXML(int index) const

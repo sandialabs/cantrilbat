@@ -153,7 +153,7 @@ private:
 //==================================================================================================================================
 //!  Class representing an EState time state object
 /*!
- *   This represents the information conatined in the "timeState" XML element. Basically, we can translate beteen the XML
+ *   This represents the information conatined in the "timeState" XML element. Basically, we can translate between the XML
  *   representation and this class' contents.
  */
 class ETimeState {
@@ -425,17 +425,25 @@ public:
 
     //! Copy Constructor
     /*!
-     *   @param[in]   right Object to be copied
+     *  @param[in]           right               Object to be copied
      */
     ElectrodeTimeEvolutionOutput(const ElectrodeTimeEvolutionOutput& right);
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
+    ElectrodeTimeEvolutionOutput& operator=(const ElectrodeTimeEvolutionOutput& right);
+
     //! Create/Malloc an XML Node containing the ETimeInterval data contained in this object
     /*!
-     *   @param[in]          index               Index to assign to electrodeOutput record. This defaults to -1 to indicate
+     *  @param[in]          index                Index to assign to electrodeOutput record. This defaults to -1 to indicate
      *                                           that the storred record index should be used. record indices start from the 
      *                                           value 1 usually.
      *
-     *   @return                                 Returns the malloced XML_Node with name electrodeOutput containing the 
+     *  @return                                  Returns the malloced XML_Node with name electrodeOutput containing the 
      *                                           information in this object. The calling program is responsible for freeing this.
      */
     ZZCantera::XML_Node* write_ElectrodeTimeEvolutionOutput_ToXML(int index = -1) const;
@@ -502,6 +510,8 @@ public:
      *  @return                                  Returns the number of moles in the electrode initially (kmol)
      */
     double electrodeInitialMoles() const;
+
+    // ------------------------------------------------------------ D A T A --------------------------------------------------------
 
     //! Storred value of the electrodeOutput index
     int index_;

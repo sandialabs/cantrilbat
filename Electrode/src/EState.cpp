@@ -201,7 +201,10 @@ EState& EState::operator=(const EState& right)
         return *this;
     }
 
+    // We do a shallow copy of the pointer to the Electrode object here. In the duplicator, we will overwrite this 
+    // if given the correct Electrode pointer to point to.
     eRef_                              = right.eRef_;
+
     es_id_                             = right.es_id_;
     electrodeTypeString_               = right.electrodeTypeString_;
     EST_lastFileRead_                  = right.EST_lastFileRead_;

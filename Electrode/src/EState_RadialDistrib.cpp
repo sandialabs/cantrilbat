@@ -35,11 +35,6 @@ EState_RadialDistrib::EState_RadialDistrib(std::string modelEState, std::string 
     numRCells_(0),
     numKRSpecies_(0),
     numSPhases_(0),
-    rnodePos_(0),
-    cellBoundR_(0),
-    concTot_SPhase_Cell_(0),
-    concKRSpecies_Cell_(0),
-    spMoles_KRsolid_Cell_(0),
     onRegionBoundary_(-1)
 {
     EST_fileToBeWritten_ = EST_RADIALDISTRIB;

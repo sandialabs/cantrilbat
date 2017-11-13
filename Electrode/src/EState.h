@@ -119,7 +119,6 @@ struct EState_Identification
 typedef struct EState_Identification EState_ID_struct;
 
 //==================================================================================================================================
-
 //! Base Class for the Electrode State class concept. We define the state of the electrode here
 //! which can be used to set the state of the Electrode object classes and can be used to write out to an XML file.
 //! This is the main class involved with saves and restarts of the Electrode object.
