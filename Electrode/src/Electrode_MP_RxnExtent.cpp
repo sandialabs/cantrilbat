@@ -3312,7 +3312,7 @@ bool Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTest
      * Then, we don't advance the time step.
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doTestsAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doTestsAlways) {
         resetToInitInit = true;
     }
 

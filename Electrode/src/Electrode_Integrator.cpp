@@ -618,7 +618,7 @@ bool Electrode_Integrator::resetStartingCondition(double Tinitial, bool doAdvanc
     /*
      * If the initial time is input, then the code doesn't advance. We clear stuff and redo the current global time step
      */
-    double tbase = MAX(t_init_init_, 1.0E-50);
+    double tbase = std::max(t_init_init_, 1.0E-50);
     if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doAdvancementAlways) {
         resetToInitInit = true;
     }
