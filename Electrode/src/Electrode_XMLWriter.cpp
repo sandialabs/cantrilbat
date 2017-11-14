@@ -126,7 +126,11 @@ void Electrode::startXML_TI_final(bool addInitState)
         xmi->addAttribute("domain", electrodeDomainNumber_);
         xmi->addAttribute("cellNumber", electrodeCellNumber_);
         xmi->addChild("time", tinit_, fmt);
-        xmi->addChild(*xmlStateData_init_);
+        if (xmlStateData_init_) {
+            xmi->addChild(*xmlStateData_init_);
+        } else {
+             throw Electrode_Error("Electrode::startXML_TI_final()", "xmlStateData_init_ is zero");
+        } 
         xmlTimeIncrementData_->addChildToTree(xmi);
     }
 }

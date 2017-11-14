@@ -333,7 +333,7 @@ XML_Node* EState::write_PhaseListID_ToXML() const
     return x;
 }
 //==================================================================================================================================
-// Write the electrodeState to an XML_Node tree
+// Write the electrodeState record to an XML_Node tree
 XML_Node* EState::write_electrodeState_ToXML() const
 {
     XML_Node* x = new XML_Node("electrodeState");
