@@ -407,6 +407,13 @@ public:
      */
     virtual void calcSrcTermsOnCompletedStep() override;
 
+    //! Determine the species with the largest mole fraction
+    /*!
+     *    Fill in the array phaseMFBig_[iph] for all phases in the Electrode.
+     *    This is currently called once at the start of the problem, from setResidAtolNLS()
+     */
+    void determineBigMoleFractions();
+
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
      *  (virtual from Electrode_Integrator)
@@ -1005,7 +1012,6 @@ protected:
 
     //! Vector of solid species defined on the grid of the spherical particle
     /*!
-     *
      *   The inner loop is over the number of species that are defined to have radially dependent
      *   distributions, numKRSpecies;
      *   final_final state value
@@ -1049,7 +1055,7 @@ protected:
 
     //! Phase indeces of the solid phases comprising the species that are radially distributed
     /*!
-     *  The phase index value is the index within the Electrode object
+     *  The phase index value is the index within the Electrode object's PhaseList
      *  
      *  iPh = phaseIndeciseKRsolidPhases_[distribPhIndex];
      *
@@ -1086,6 +1092,15 @@ protected:
      *  Length: numSPhases_
      */
     std::vector<std::string> KRsolid_phaseNames_;
+
+    //! Big Mole Fractions within each cell within each distributed phaes
+    /*!
+     *
+     *   Usage: phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + iJRPh]
+     *   Length: numRCells_ * numSPhases_
+     *   units: unitless
+     */
+    std::vector<size_t> phaseMFBig_SPhase_Cell_;
 
     //! Phase indeces of the solid phases comprising the species that are not radially distributed
     /*!

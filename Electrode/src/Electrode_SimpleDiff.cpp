@@ -52,9 +52,6 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
     spMoles_KRsolid_Cell_final_final_(0),
     spMoles_KRsolid_Cell_init_init_(0),
 
-    KRsolid_speciesList_(0),
-    KRsolid_speciesNames_(0),
-    KRsolid_phaseNames_(0),
     numNonSPhases_(0),
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
@@ -105,9 +102,6 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     spMoles_KRsolid_Cell_init_(0),
     spMoles_KRsolid_Cell_final_final_(0),
     spMoles_KRsolid_Cell_init_init_(0),
-    KRsolid_speciesList_(0),
-    KRsolid_speciesNames_(0),
-    KRsolid_phaseNames_(0),
     numNonSPhases_(0),
     volPP_Cell_final_(0),
     fracVolNodePos_(0),
@@ -179,6 +173,8 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     numSpeciesInKRSolidPhases_          = right.numSpeciesInKRSolidPhases_;
     kstartKRSolidPhases_                = right.kstartKRSolidPhases_;
     KRsolid_phaseNames_                 = right.KRsolid_phaseNames_;
+    phaseMFBig_SPhase_Cell_             = right.phaseMFBig_SPhase_Cell_;
+
     phaseIndeciseNonKRsolidPhases_      = right.phaseIndeciseNonKRsolidPhases_;
     numNonSPhases_                      = right.numNonSPhases_;
     concTot_SPhase_Cell_final_final_    = right.concTot_SPhase_Cell_final_final_;
@@ -343,6 +339,8 @@ int Electrode_SimpleDiff::electrode_model_create(ELECTRODE_KEY_INPUT* eibase)
         KRsolid_phaseNames_[iPh] = phase_name(phaseIndeciseKRsolidPhases_[iPh]);
     }
 
+    phaseMFBig_SPhase_Cell_.resize(numRCells_ * numSPhases_, 0);
+
     /*
      *  Construct the inverse mapping between regular phase indeces and distributed phases
      */
@@ -499,7 +497,7 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* const eibase
     setInitStateFromFinal(true);
 
     if (eState_save_) {
-        delete xmlStateData_final_;
+        SAFE_DELETE( xmlStateData_final_ );
         eState_save_->copyElectrode_intoState(this);
         xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
     }
@@ -566,6 +564,9 @@ void Electrode_SimpleDiff::init_sizes()
     initSizes();
     size_t kspCell =  numKRSpecies_ *  numRCells_;
     size_t nPhCell = numSPhases_ * numRCells_;
+
+    phaseMFBig_SPhase_Cell_.resize(nPhCell , 0);
+
 
     spMoles_KRsolid_Cell_final_.resize(kspCell, 0.0);
     spMoles_KRsolid_Cell_init_.resize(kspCell, 0.0);
@@ -1072,19 +1073,19 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
     return q;
 }
 //===========================================================================================================================================
-bool Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doResetAlways)
+bool Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
     bool resetToInitInit = false;
     /*
      * If the initial time is input, then the code doesn't advance
      */
     double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-9 * tbase) && !doResetAlways) {
+    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doAdvancementAlways) {
         resetToInitInit = true;
         //return;
     }
 
-    bool rr = Electrode_Integrator::resetStartingCondition(Tinitial, doResetAlways);
+    bool rr = Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
     if (rr != resetToInitInit) {
          throw Electrode_Error("Electrode_SimpleDiff::resetStartingCondition()", "Inconsistent resetToInitInit values");
     }
@@ -2885,6 +2886,49 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
                "============================\n");
     }
     return 1;
+}
+//==================================================================================================================================
+static size_t determineBigMF(const double* const mfVec, size_t nspPhase)
+{
+    size_t k, bigK = 0;
+    double bigMF = mfVec[0];
+    for (k = 1; k < nspPhase; ++k) {
+        if (mfVec[k] > bigMF) {
+            bigMF = mfVec[k];
+            bigK = k;
+        }
+    }
+    return bigK;
+}
+//==================================================================================================================================
+void Electrode_SimpleDiff::determineBigMoleFractions()
+{
+    static bool firstTime = true;
+    static size_t iCell, jRPh, indexMidKRSpecies, kstart, nspPhase, oldK, bigK;
+    const double* mfVec;
+    if (firstTime) { 
+        for (iCell = 0; iCell < numRCells_; ++iCell) {
+            for (jRPh = 0; jRPh < numSPhases_; ++jRPh) {
+                phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh] = 0;
+            }
+        }
+        firstTime = false;
+    }
+ 
+    for (iCell = 0; iCell < numRCells_; iCell++) {
+        indexMidKRSpecies = iCell * numKRSpecies_;
+        kstart = 0;
+        for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
+            nspPhase = thermoSPhase_List_[jRPh]->nSpecies();
+            mfVec = &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart];
+            oldK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh];
+            bigK = determineBigMF(mfVec, nspPhase);
+            if (mfVec[bigK] > 1.4 * mfVec[oldK]) {
+                phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh] = bigK;
+            }
+            kstart += nspPhase;
+        }
+    }
 }
 //==================================================================================================================================
 double Electrode_SimpleDiff::boundsCheckAddn(const double t, const double* const ybase, const double* const step,
