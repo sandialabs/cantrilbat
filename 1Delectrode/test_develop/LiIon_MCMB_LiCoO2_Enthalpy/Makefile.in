@@ -42,7 +42,10 @@ CT_INCROOT =  @ct_incroot@
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
 
-all: 
+all: $(PROGRAM)
+
+$(PROGRAM): $(PROGRAM_ORIGIN)
+	ln -s $(PROGRAM_ORIGIN) $(PROGRAM)
 
 depends:
 	$(RM) $(DEPENDS)
@@ -52,9 +55,9 @@ depends:
 	touch .depends
 
 test:
-	@@MAKE@ -s
+	@$(MAKE) -s
 	@echo -n 'Checking need to run test $(TEST_NAME): '
-	@@MAKE@ -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  @MAKE@ -s  runGood ; fi
+	@$(MAKE) -q -s  runGood ; ss=$$? ; if test $$ss = "0" ; then echo '   NOT NEEDED' ; else  $(MAKE) -s  runGood ; fi
 
 runGood: $(PROGRAM_ORIGIN) $(DATA) $(BLESSED_FILES)
 	@echo 'RUNNING TEST ' $(TEST_NAME)
@@ -82,7 +85,18 @@ test_clean:
               solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat $(PROGRAM) \
 	      diff* err_out.txt out.txt outa.txt
 
+clean_test:
+	$(RM) SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
+              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat $(PROGRAM) \
+	      diff* err_out.txt out.txt outa.txt
+
 # Get the system back to its pristine unbuilt condition
 dist_clean:
-	@MAKE@ test_clean
+	$(MAKE) clean_test
+
+clean_dist:
+	$(MAKE) clean_test
+
+
+
 
