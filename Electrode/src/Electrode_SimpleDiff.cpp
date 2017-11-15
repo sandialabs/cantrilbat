@@ -1905,6 +1905,7 @@ void Electrode_SimpleDiff::check_final_state()
     }
 }
 //========================================================================================================================
+// hkm -> good bigK  -> sets the 0th flux to be the sum of the other fluxes
 /*
  *  1/29/14  Confirmed that this routine makes no assumption that cell boundaries are halfway between nodes
  */
@@ -2054,7 +2055,6 @@ int Electrode_SimpleDiff::predictSolnResid()
      */
     for (iCell = 0; iCell < numRCells_; iCell++) {
         rnodePos_final_[iCell] = rnodePos_init_[iCell];
-
         if (iCell == numRCells_ - 1) {
             cellBoundR_init[iCell]   = rnodePos_init_[iCell];
         } else {
@@ -2323,6 +2323,7 @@ void Electrode_SimpleDiff::check_yvalNLS_init(bool doOthers)
     }
 }
 //====================================================================================================================
+// hkm -> bigK good
 /*
  * unpack the solution vector
  * --------------------------------------------------------------------------------------------------------------
@@ -2352,21 +2353,28 @@ int Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
             nsp = numSpeciesInKRSolidPhases_[jRPh];
             phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh] = y[index];
             double tot = std::max(fabs(phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh]), 1.0E-23);
-            spMoles_KRsolid_Cell_final_[istart + kstart]           = y[index];
-            for (size_t kSp = 1; kSp < nsp; kSp++) {
-                spMoles_KRsolid_Cell_final_[istart + kstart + kSp] = y[index + kSp];
-                spMoles_KRsolid_Cell_final_[istart + kstart]      -= y[index + kSp];
-                if (y[index + kSp] < 0.0) {
-                    if (y[index + kSp] / tot > -1.0E-14) {
-                        spMoles_KRsolid_Cell_final_[istart + kstart + kSp] = 0.0;
-                    } else {
-                        retn = 0;
+
+            size_t bigK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh];
+            bigK = 0;  // OVERRIDE INITIALLY
+            spMoles_KRsolid_Cell_final_[istart + kstart + bigK]  = y[index];
+            size_t ik = 0;
+            for (size_t kSp = 0; kSp < nsp; kSp++) {
+                if (kSp != bigK) {
+                    ik++;
+                    spMoles_KRsolid_Cell_final_[istart + kstart + kSp]   = y[index + ik];
+                    spMoles_KRsolid_Cell_final_[istart + kstart + bigK] -= y[index + ik];
+                    if (y[index + ik] < 0.0) {
+                        if (y[index + ik] / tot > -1.0E-14) {
+                            spMoles_KRsolid_Cell_final_[istart + kstart + kSp] = 0.0;
+                        } else {
+                            retn = 0;
+                        }
                     }
                 }
             }
-            if (spMoles_KRsolid_Cell_final_[istart + kstart] < 0.0) {
-                if (spMoles_KRsolid_Cell_final_[istart + kstart] / tot > -1.0E-14) {
-                    spMoles_KRsolid_Cell_final_[istart + kstart] = 0.0;
+            if (spMoles_KRsolid_Cell_final_[istart + kstart + bigK] < 0.0) {
+                if (spMoles_KRsolid_Cell_final_[istart + kstart + bigK] / tot > -1.0E-14) {
+                    spMoles_KRsolid_Cell_final_[istart + kstart + bigK] = 0.0;
                 } else {
                     retn = 0;
                 }
@@ -2378,6 +2386,7 @@ int Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
     return retn;
 }
 //==================================================================================================================================
+// hkm - bigK ok -> OVERRIDE
 /*
  * --------------------------------------------------------------------------------------------------------------
  *         Residual (Time)                                     deltaSubcycleCalc_                   0
@@ -2393,22 +2402,26 @@ int Electrode_SimpleDiff::unpackNonlinSolnVector(const double* const y)
 */
 void Electrode_SimpleDiff::packNonlinSolnVector(double* const y) const
 {
+    size_t iCell, kstart, jRPh, kSp, ik, nsp, bigK;
     size_t index = 0;
     /*
      *  Set up the detaTsubcycle variable
      */
     y[0] = deltaTsubcycleCalc_;
     index++;
-    size_t kstart, jRPh, iKRSpecies;
-    for (size_t iCell = 0; iCell < numRCells_; iCell++) {
+    for (iCell = 0; iCell < numRCells_; iCell++) {
         kstart = 0;
-
         for (jRPh = 0; jRPh < numSPhases_; jRPh++) {
-            size_t nsp = numSpeciesInKRSolidPhases_[jRPh];
+            bigK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh];
+            bigK = 0; // OVERRIDE
+            nsp = numSpeciesInKRSolidPhases_[jRPh];
             y[index] = phaseMoles_KRsolid_Cell_final_[iCell * numSPhases_ + jRPh];
-            for (size_t kSp = 1; kSp < nsp; kSp++) {
-                iKRSpecies = kstart + kSp;
-                y[index + kSp] = spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+            ik = 0;
+            for (kSp = 0; kSp < nsp; kSp++) {
+                if (kSp != bigK) {
+                    ik++;
+                    y[index + ik] = spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + kstart + kSp];
+                }
             }
             kstart += nsp;
             index += nsp;
@@ -2495,8 +2508,8 @@ void Electrode_SimpleDiff::predictorCorrectorGlobalSrcTermErrorVector()
 
 }
 //==================================================================================================================================
-void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc,
-                                                   double pnormSoln) const
+// hkm bigK ok
+void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const
 {
     double atolVal =  1.0E-8;
     double denom;
@@ -2546,26 +2559,33 @@ void Electrode_SimpleDiff::predictorCorrectorPrint(const std::vector<double>& yv
                    phaseMoles_SPhase_Cell_final_val - bestPredict,
                    atolNLS_[index], tmp / rtolNLS_);
 
-            for (size_t kSp = 1; kSp < nsp; kSp++) {
-                ///int iKRSpecies = kstart + kSp;
-                double spMoles_KRsolid_Cell_final_val = yval[index + kSp];
-                double spMoles_KRsolid_Cell_final_predict = soln_predict_[index + kSp];
-                double spMoles_KRsolid_Cell_final_predictDot = soln_predict_fromDot_[index + kSp];
-                bestPredict = spMoles_KRsolid_Cell_final_predict;
-                if (fabs(spMoles_KRsolid_Cell_final_predictDot - spMoles_KRsolid_Cell_final_val) <
-                        fabs(bestPredict -spMoles_KRsolid_Cell_final_val)) {
-                    bestPredict = spMoles_KRsolid_Cell_final_predictDot;
-                }
+            size_t bigK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh];
+            bigK = 0;  // OVERRIDE
 
-                tmp = esmodel::relv(bestPredict, spMoles_KRsolid_Cell_final_val, atolNLS_[index + kSp]/rtolNLS_);
-                printf("spMolesKRSpeci  %3d %3d  | %14.7E %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
+            size_t ik = 0;
+            for (size_t kSp = 0; kSp < nsp; kSp++) {
+                ///int iKRSpecies = kstart + kSp;
+                if (kSp != bigK) {
+                    ik++;
+                    double spMoles_KRsolid_Cell_final_val = yval[index + ik];
+                    double spMoles_KRsolid_Cell_final_predict = soln_predict_[index + ik];
+                    double spMoles_KRsolid_Cell_final_predictDot = soln_predict_fromDot_[index + ik];
+                    bestPredict = spMoles_KRsolid_Cell_final_predict;
+                    if (fabs(spMoles_KRsolid_Cell_final_predictDot - spMoles_KRsolid_Cell_final_val) <
+                            fabs(bestPredict -spMoles_KRsolid_Cell_final_val)) {
+                        bestPredict = spMoles_KRsolid_Cell_final_predictDot;
+                    }
+
+                    tmp = esmodel::relv(bestPredict, spMoles_KRsolid_Cell_final_val, atolNLS_[index + ik]/rtolNLS_);
+                    printf("spMolesKRSpeci  %3d %3d  | %14.7E %14.7E %14.7E %14.7E | %14.7E | %10.3E | %10.3E |\n",
                        static_cast<int>(iCell), static_cast<int>(kSp),
                        spMoles_KRsolid_Cell_init_[iCell * numKRSpecies_ + kSp],
                        spMoles_KRsolid_Cell_final_predict,
                        spMoles_KRsolid_Cell_final_predictDot,
                        spMoles_KRsolid_Cell_final_val,
                        spMoles_KRsolid_Cell_final_val - bestPredict,
-                       atolNLS_[index + kSp], tmp / rtolNLS_);
+                       atolNLS_[index + ik], tmp / rtolNLS_);
+                }
             }
             kstart += nsp;
             index += nsp;
@@ -2608,6 +2628,7 @@ void Electrode_SimpleDiff::setNLSGlobalSrcTermTolerances(double rtolResid)
     rtol_IntegratedSrc_global_ = rtolResid;
 }
 //==================================================================================================================
+// hkm bigK ok
 //   Set the Residual absolute error tolerances
 /*
  *  (virtual from Electrode_Integrator)
@@ -2660,10 +2681,8 @@ void  Electrode_SimpleDiff::setResidAtolNLS()
             cellVol = volPP_Cell_final_[iCell] * particleNumberToFollow_;
             // Absolute tolerance is in terms of kmol within each cell (1.0E-12 kmolInEachCell)
             atolSpecies = cellVol * phaseConc * atolMF;
-            atolNLS_[cIndexPhStart] = atolSpecies;
-            atolResidNLS_[cIndexPhStart] = atolSpecies;
 
-            for (kSp = 1; kSp < nSpecies; kSp++) {
+            for (kSp = 0; kSp < nSpecies; kSp++) {
                 atolNLS_[cIndexPhStart + kSp] = atolSpecies;
                 atolResidNLS_[cIndexPhStart + kSp] = atolSpecies;
             }
@@ -2901,6 +2920,7 @@ static size_t determineBigMF(const double* const mfVec, size_t nspPhase)
     return bigK;
 }
 //==================================================================================================================================
+// hkm -> bigK good
 void Electrode_SimpleDiff::determineBigMoleFractions()
 {
     static bool firstTime = true;
@@ -2923,13 +2943,69 @@ void Electrode_SimpleDiff::determineBigMoleFractions()
             mfVec = &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart];
             oldK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh];
             bigK = determineBigMF(mfVec, nspPhase);
-            if (mfVec[bigK] > 1.4 * mfVec[oldK]) {
+            if (mfVec[bigK] > 1.4 * mfVec[oldK])  {
+                // temp move to stop changes
+                bigK = 0;
                 phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh] = bigK;
+                changeBigMF(iCell, jRPh, oldK, bigK);
             }
             kstart += nspPhase;
         }
     }
 }
+//==================================================================================================================================
+//! Changes a solution component kernal consisting of a phase value and nsp -1 species values,
+//! when the big mole fraction id is changed 
+/*!
+ *
+ */
+static void changeSolnVec_fromBigMF_change(double* const solnDot, size_t oldK, size_t bigK, size_t nsp, double* const vals)
+{
+    size_t ik, kSp;
+    vals[oldK] = solnDot[0];
+    ik = 0;
+    for (kSp = 0; kSp < nsp; ++kSp) {
+        if (kSp != oldK) {
+            ik++;
+            vals[oldK] -= solnDot[ik];
+            vals[kSp]   = solnDot[ik];
+        }
+    }
+    ik = 0;
+    for (kSp = 0; kSp < nsp; ++kSp) {
+        if (kSp != bigK) {
+            ik++;
+            solnDot[ik] = vals[kSp];
+        }
+    }
+}
+//==================================================================================================================================
+void Electrode_SimpleDiff::changeBigMF(size_t iCell, size_t jRPh_c, size_t oldK, size_t bigK)
+{
+    /*
+     *  Change solution components
+     *       solnDot
+     */
+    size_t indexStart =  iCell * numKRSpecies_  + 1;
+    for (size_t jRPh = 0; jRPh < jRPh_c ; jRPh++) {
+        indexStart += numSpeciesInKRSolidPhases_[jRPh]; 
+    }
+    size_t nspPhase = numSpeciesInKRSolidPhases_[jRPh_c];
+
+    // template for calculation of solution components
+ 
+    changeSolnVec_fromBigMF_change( &solnDot_init_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+    changeSolnVec_fromBigMF_change( &solnDot_init_init_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+    changeSolnVec_fromBigMF_change( &solnDot_final_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+    changeSolnVec_fromBigMF_change( &solnDot_final_final_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+
+    changeSolnVec_fromBigMF_change( &yvalNLS_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+    changeSolnVec_fromBigMF_change( &yvalNLS_init_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+    changeSolnVec_fromBigMF_change( &yvalNLS_init_init_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+    changeSolnVec_fromBigMF_change( &yvalNLS_final_final_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+
+    changeSolnVec_fromBigMF_change( &soln_predict_fromDot_[indexStart], oldK, bigK, nspPhase, DspMoles_final_.data());
+} 
 //==================================================================================================================================
 double Electrode_SimpleDiff::boundsCheckAddn(const double t, const double* const ybase, const double* const step,
                                              const double dampIn)
@@ -3084,12 +3160,15 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type ev
         if (iCell < (numRCells_-1)) {
             diffusiveFluxRCB(fluxRCB, iCell, true);
         }
-
+        /*
+         *  Loop over the distributed phases
+         */
         for (jPh = 0; jPh < numSPhases_; jPh++) {
             iPh = phaseIndeciseKRsolidPhases_[jPh];
             ThermoPhase* th = & thermo(iPh);
             size_t nSpecies = th->nSpecies();
-
+            size_t bigK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jPh];
+            bigK = 0;
             /*
              *  Residual for the total moles of the phase in the cell
              */
@@ -3108,21 +3187,25 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type ev
              *  Residual for the species in the phase
              *   -  Skip the first species
              */
-            for (size_t kSp = 1; kSp < nSpecies; kSp++) {
-                size_t iKRSpecies = kstart + kSp;
-                /*
-                 * Diffusive flux at the outer boundary for each species
-                 */
-                if (iCell < (numRCells_ - 1)) {
-                    resid[cIndexPhStart + iKRSpecies]                += fluxRCB[iKRSpecies] * areaR_star;
-                    resid[cIndexPhStart + iKRSpecies + numEqnsCell_] -= fluxRCB[iKRSpecies] * areaR_star;
+           
+            size_t iKRSpecies = kstart;
+            for (size_t kSp = 0; kSp < nSpecies; kSp++) {
+                if (kSp != bigK) {
+                    iKRSpecies++;
+                    /*
+                     * Diffusive flux at the outer boundary for each species
+                     */
+                    if (iCell < (numRCells_ - 1)) {
+                        resid[cIndexPhStart + iKRSpecies]                += fluxRCB[kSp] * areaR_star;
+                        resid[cIndexPhStart + iKRSpecies + numEqnsCell_] -= fluxRCB[kSp] * areaR_star;
+                    }
+                    /*
+                     *  Change in the total amount of moles of species within phase jPh
+                     */
+                    old_stuff = spMoles_KRsolid_Cell_init_[iCell*numKRSpecies_ + kstart + kSp];
+                    new_stuff = spMoles_KRsolid_Cell_final_[iCell*numKRSpecies_ + kstart + kSp];
+                    resid[cIndexPhStart + iKRSpecies] += (new_stuff - old_stuff) / deltaTsubcycleCalc_;
                 }
-                /*
-                 *  Change in the total amount of moles of phase jPh
-                 */
-                old_stuff = spMoles_KRsolid_Cell_init_[iCell*numKRSpecies_ + iKRSpecies];
-                new_stuff = spMoles_KRsolid_Cell_final_[iCell*numKRSpecies_ + iKRSpecies];
-                resid[cIndexPhStart + iKRSpecies] += (new_stuff - old_stuff) / deltaTsubcycleCalc_;
             }
 
             // end of phase loop
@@ -3133,24 +3216,28 @@ int Electrode_SimpleDiff::calcResid(double* const resid, const ResidEval_Type ev
             //  Do the exterior reaction
             kstart = 0;
             for (jPh = 0; jPh < numSPhases_; jPh++) {
+                size_t bigK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jPh];
+                bigK = 0;
                 iPh = phaseIndeciseKRsolidPhases_[jPh];
                 size_t iStart = globalSpeciesIndex(iPh, 0);
                 ThermoPhase* th = & thermo(iPh);
                 size_t nSpecies = th->nSpecies();
                 //  Calculate the molar change in species due to the surface reaction.
-                for (size_t kSp = 1; kSp < nSpecies; kSp++) {
-                    size_t iKRSpecies = kstart + kSp;
-                    resid[cIndexPhStart + iKRSpecies] -= DspMoles_final_[iStart + kSp];
-                    resid[cIndexPhStart + kstart]     -= DspMoles_final_[iStart + kSp];
+                size_t ik = 0;
+                for (size_t kSp = 0; kSp < nSpecies; kSp++) {
+                    if (kSp != bigK) {
+                        ik++;
+                        resid[cIndexPhStart + kstart + ik] -= DspMoles_final_[iStart + kSp];
+                        resid[cIndexPhStart + kstart]      -= DspMoles_final_[iStart + kSp];
 #ifdef DEBUG_MODE
-                    checkFinite(DspMoles_final_[iStart + kSp]);
+                        checkFinite(DspMoles_final_[iStart + kSp]);
 #endif
+                    }
                 }
-                resid[cIndexPhStart + kstart]         -= DspMoles_final_[iStart + 0];
+                resid[cIndexPhStart + kstart]         -= DspMoles_final_[iStart + bigK];
 #ifdef DEBUG_MODE
-                    checkFinite(DspMoles_final_[iStart + 0]);
+                checkFinite(DspMoles_final_[iStart + 0]);
 #endif
-
                 kstart += nSpecies;
             }
         }
@@ -3189,6 +3276,7 @@ static void drawline(int sp, int ll)
     printf("\n");
 }
 //====================================================================================================================
+// hkm -> bigK -> will fail in complicated sits
 void Electrode_SimpleDiff::showResidual(int indentSpaces, const double* const residual)
 {
 
@@ -3216,14 +3304,21 @@ void Electrode_SimpleDiff::showResidual(int indentSpaces, const double* const re
                      &phaseMoles_KRsolid_Cell_final_[0], numEqnsCell_, iEqn, errorField, &atolResidNLS_[1], res);
 
         numFields = numKRSpecies_;
-        for (size_t kSp = 1; kSp < nSpecies; kSp++) {
-            size_t iKRSpecies = kstart + kSp;
-            title = "Residual for total cell species moles of " + th->speciesName(kSp);
-            iEqn = iKRSpecies;
-            showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numFields, iKRSpecies,
-                         &spMoles_KRsolid_Cell_init_[0],
-                         &spMoles_KRsolid_Cell_final_[0], numEqnsCell_, iEqn, errorField, &atolResidNLS_[1], res);
-
+        size_t iCell = 0;
+        size_t bigK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jPh];
+        bigK = 0; // override
+  
+        size_t ik = 0;
+        for (size_t kSp = 0; kSp < nSpecies; kSp++) {
+            if (kSp != bigK) {
+               ik++;
+               size_t iKRSpecies = kstart + kSp;
+               title = "Residual for total cell species moles of " + th->speciesName(kSp);
+               iEqn = kstart + ik;
+               showOneResid(title, indentSpaces, &rnodePos_final_[0], numRCells_, numFields, iKRSpecies,
+                            &spMoles_KRsolid_Cell_init_[0],
+                           &spMoles_KRsolid_Cell_final_[0], numEqnsCell_, iEqn, errorField, &atolResidNLS_[1], res);
+            }
         }
         kstart += nSpecies;
     }
@@ -3567,13 +3662,18 @@ void Electrode_SimpleDiff::initialPackSolver_nonlinFunction()
             // phase fronts within the radial direction.
             ylowNLS_[index] = (-0.0001 * yvalNLS_[index]);
             yhighNLS_[index] = 1.0E3 * yvalNLS_[index];
-
-            for (size_t kSp = 1; kSp < nsp; kSp++) {
-                iKRSpecies = kstart + kSp;
-                yvalNLS_[index + kSp] = spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
-                ylowNLS_[index + kSp]  = 0.0;
-                yhighNLS_[index + kSp] = 1.0E3 * yvalNLS_[index];
-                deltaBoundsMagnitudesNLS_[index + kSp] = 1000. * atolVal;
+            size_t bigK = phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh];
+            bigK = 0; // OVERRIDE
+            size_t ik = 0;
+            for (size_t kSp = 0; kSp < nsp; kSp++) {
+                if (bigK != kSp) { 
+                    ik++;
+                    iKRSpecies = kstart + kSp;
+                    yvalNLS_[index + ik] = spMoles_KRsolid_Cell_final_[iCell * numKRSpecies_ + iKRSpecies];
+                    ylowNLS_[index + ik]  = 0.0;
+                    yhighNLS_[index + ik] = 1.0E3 * yvalNLS_[index];
+                    deltaBoundsMagnitudesNLS_[index + ik] = 1000. * atolVal;
+                }
             }
             kstart += nsp;
             index += nsp;

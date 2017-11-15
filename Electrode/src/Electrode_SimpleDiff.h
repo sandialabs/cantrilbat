@@ -412,8 +412,25 @@ public:
      *    Fill in the array phaseMFBig_[iph] for all phases in the Electrode.
      *    This is currently called once at the start of the problem, from setResidAtolNLS()
      */
-    void determineBigMoleFractions();
+    virtual void determineBigMoleFractions() override;
 
+private:    
+
+    //! Carry out work that needs to be done when the solution components are changed
+    /*!
+     *  Solution components that must be modified when the special species changes:
+     *
+     *    solnDot_init_
+     *
+     *  @param[in]           iCell               Value of the cell that is changing
+     *  @param[in]           jRPh                Value of the distributed phase that is being changed
+     *  @param[in]           oldK                Old value of the special species
+     *  @param[in]           bigK                New value of the special species
+     */
+    void changeBigMF(size_t iCell, size_t jRPh, size_t oldK, size_t bigK);
+
+
+public:
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
      *  (virtual from Electrode_Integrator)
@@ -1415,7 +1432,8 @@ protected:
     /*!
      *   This is a quantity over all species in the PhaseList object
      *
-     *   Length: m_NumTotSpecies
+     *   Length: m_NumTotSpecies in PhaseList
+     *   Indexing:  kGlob (indexing of species in the PhaseList)
      *   Units:  kmol sec-1;
      */
     std::vector<double> DspMoles_final_;
