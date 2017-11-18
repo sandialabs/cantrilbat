@@ -72,6 +72,17 @@ Particle Number to Follow = 2.0E8
 Electrode Porosity = 0.35
 !-------------------------------------------------------------------------
 !
+!   Extra Rtol Accuracy for Nonlinear Solve - double (default 1.0) (not-required)
+!
+!          Usually the nonlinear solve is only solved to the level of the time step truncation error.
+!          However, you can add additional rtol accuracy to the nonlinear solver (both on the
+!          residual tolerance and on the solution delta tolerance) by setting a multiplicative constant
+!          below 1.0 (1.0E-3 works well).
+!
+!-----------------------------------------------------------------------------------------------------------
+Extra Rtol Accuracy for Nonlinear Solve = 1.0E-3
+!-----------------------------------------------------------------------------------------------------------
+!
 ! Level of XML State Information Created = [none, minimum, globalSteps, intermediateSteps]
 !
 !  Level of output created - defaults to none
