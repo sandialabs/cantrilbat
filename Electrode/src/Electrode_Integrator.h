@@ -1526,6 +1526,13 @@ protected:
 public:
     //! relative minimum time step ratio
     double relativeLocalToGlobalTimeStepMinimum_;
+
+    //! Extra Rtol Accuracy for Nonlinear Solve 
+    /*!
+     *  Defaults to 1.0
+     */
+    double extraRtolNonlinearSolver_;
+
 };
 //==================================================================================================================================
 }

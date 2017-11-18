@@ -102,6 +102,17 @@ Maximum number of Subglobal time steps = 1000
 Relative Local To Global Time Step Minimum = 1.0E-3
 !-----------------------------------------------------------------------------------------------------------
 !
+!   Extra Rtol Accuracy for Nonlinear Solve - double (default 1.0) (not-required)
+!
+!          Usually the nonlinear solve is only solved to the level of the time step truncation error.
+!          However, you can add additional rtol accuracy to the nonlinear solver (both on the
+!          residual tolerance and on the solution delta tolerance) by setting a multiplicative constant
+!          below 1.0 (1.0E-3 works well).
+!
+!-----------------------------------------------------------------------------------------------------------
+Extra Rtol Accuracy for Nonlinear Solve = 1.0
+!-----------------------------------------------------------------------------------------------------------
+!
 !    Particle Diameter - double [Length_unit] (default = 1.0E-6 m) (optional)
 !
 !-----------------------------------------------------------------------------------------------------------

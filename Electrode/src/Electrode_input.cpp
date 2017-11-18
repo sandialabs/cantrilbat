@@ -237,7 +237,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(int printLvl) :
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
     maxNumberSubGlobalTimeSteps(1000),
-    relativeLocalToGlobalTimeStepMinimum(1.0E-3)
+    relativeLocalToGlobalTimeStepMinimum(1.0E-3),
+    extraRtolNonlinearSolver(1.0)
 {
     m_EGRList.resize(1, nullptr);
     m_EGRList[0] = new EGRInput();
@@ -274,7 +275,8 @@ ELECTRODE_KEY_INPUT::ELECTRODE_KEY_INPUT(const ELECTRODE_KEY_INPUT &right) :
     nTotElements(0),
     RelativeCapacityDischargedPerMole(-1.0),
     maxNumberSubGlobalTimeSteps(1000),
-    relativeLocalToGlobalTimeStepMinimum(1.0E-3)
+    relativeLocalToGlobalTimeStepMinimum(1.0E-3),
+    extraRtolNonlinearSolver(1.0)
 {   
     ELECTRODE_KEY_INPUT::operator=(right);
 }
@@ -407,9 +409,9 @@ ELECTRODE_KEY_INPUT&  ELECTRODE_KEY_INPUT::operator=(const ELECTRODE_KEY_INPUT& 
 
      RelativeCapacityDischargedPerMole   = right.RelativeCapacityDischargedPerMole;
 
-
      maxNumberSubGlobalTimeSteps         = right.maxNumberSubGlobalTimeSteps;
      relativeLocalToGlobalTimeStepMinimum = right.relativeLocalToGlobalTimeStepMinimum;
+     extraRtolNonlinearSolver = right.extraRtolNonlinearSolver;
    
      return *this;
 }
@@ -591,6 +593,20 @@ void ELECTRODE_KEY_INPUT::setup_input_pass1(BlockEntry* cf)
     rl1->set_default(1.0E-3);
     rl1->set_limits(1.0, 0.0);
     cf->addLineEntry(rl1);
+
+    /* --------------------------------------------------------------
+     *   Extra Rtol Accuracy for Nonlinear Solve - double (default 1.0) (not-required)
+     *
+     *     Usually the nonlinear solve is only solved to the level of the time step truncation error.
+     *     However, you can add additional rtol accuracy to the nonlinear solver (both on the
+     *     residual tolerance and on the solution delta tolerance) by setting a multiplicative constant
+     *     below 1.0 (1.0E-3 works well).
+     */
+    LE_OneDbl* rl2 = new LE_OneDbl("Extra Rtol Accuracy for Nonlinear Solve", &(extraRtolNonlinearSolver), 
+                                  0, "extraRtolNonlinearSolver");
+    rl2->set_default(1.0);
+    rl2->set_limits(5.0, 1.0E-8);
+    cf->addLineEntry(rl2);
 
 }
 //========================================================================================================================

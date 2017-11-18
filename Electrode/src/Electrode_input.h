@@ -586,6 +586,13 @@ public:
 
     //! relative minimum time step ratio
     double relativeLocalToGlobalTimeStepMinimum;
+
+    //! Extra Rtol Accuracy for Nonlinear Solve 
+    /*!
+     *  Defaults to 1.0
+     */
+    double extraRtolNonlinearSolver;
+
 };
 //===================================================================================================================================
 //! Utility class to store the reaction index and reaction multiplier for an entry in formulating a global reaction

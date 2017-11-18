@@ -2186,7 +2186,6 @@ void  Electrode_CSTR::setResidAtolNLS()
         }
 
     }
-    determineBigMoleFractions();
 }
 //==================================================================================================================================
 void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)

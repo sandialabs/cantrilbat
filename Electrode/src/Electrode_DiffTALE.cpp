@@ -2640,7 +2640,6 @@ void  Electrode_DiffTALE::setResidAtolNLS()
         exit(-1);
     }
 
-    determineBigMoleFractions();
 }
 //=================================================================================================================================
 //   Evaluate the residual function

@@ -369,7 +369,8 @@ Electrode_Integrator::Electrode_Integrator() :
     maxNumberSubGlobalTimeSteps_(1000),
     IntegratedSrc_normError_local_(0.0),
     IntegratedSrc_normError_global_(0.0),
-    relativeLocalToGlobalTimeStepMinimum_(1.0E-3)
+    relativeLocalToGlobalTimeStepMinimum_(1.0E-3),
+    extraRtolNonlinearSolver_(1.0)
 {
 }
 //==================================================================================================================================
@@ -449,6 +450,7 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
     timeHistory_current_                = right.timeHistory_current_;
 
     relativeLocalToGlobalTimeStepMinimum_ = right.relativeLocalToGlobalTimeStepMinimum_;
+    extraRtolNonlinearSolver_           = right.extraRtolNonlinearSolver_;
     return *this;
 }
 //==================================================================================================================================
@@ -475,6 +477,8 @@ int Electrode_Integrator::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     // Gather the input parameters for time stepping that were located in the Electrode input deck
     //
     relativeLocalToGlobalTimeStepMinimum_ = ei->relativeLocalToGlobalTimeStepMinimum;
+    extraRtolNonlinearSolver_             = ei->extraRtolNonlinearSolver;
+
     maxNumberSubGlobalTimeSteps_ = ei->maxNumberSubGlobalTimeSteps;
 
     return 0;
@@ -1087,10 +1091,10 @@ topConvergence:
              */
             if (useNLS_JAC) {
                 pSolveJAC_->setAtol(DATA_PTR(atolNLS_));
-                pSolveJAC_->setRtol(0.1 * rtolNLS_);
+                pSolveJAC_->setRtol(0.1 *  extraRtolNonlinearSolver_ * rtolNLS_);
             } else {
                 pSolve_->setAtol(DATA_PTR(atolNLS_));
-                pSolve_->setRtol(0.1 * rtolNLS_);
+                pSolve_->setRtol(0.1 * extraRtolNonlinearSolver_ * rtolNLS_);
             }
             /*
              *  Set the tolerances on the residual evaluation of the nonlinear solver
@@ -1105,11 +1109,11 @@ topConvergence:
              */
             double extraR = 1.0E-2;
             if (useNLS_JAC) {
-                pSolveJAC_->setResidualTols(extraR * rtolResidNLS_,  &atolResidNLS_[0]);
+                pSolveJAC_->setResidualTols(extraR * extraRtolNonlinearSolver_ * rtolResidNLS_,  &atolResidNLS_[0]);
                 pSolveJAC_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
                 pSolveJAC_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
             } else {
-                pSolve_->setResidualTols(extraR * rtolResidNLS_,  &atolResidNLS_[0]);
+                pSolve_->setResidualTols(extraR * extraRtolNonlinearSolver_ * rtolResidNLS_,  &atolResidNLS_[0]);
                 pSolve_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
                 pSolve_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
             }
