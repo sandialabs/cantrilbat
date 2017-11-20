@@ -14,6 +14,7 @@
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
     Relative Local To Global Time Step Minimum = (double) with limits (0, 1) with default 0.001
+    Extra Rtol Accuracy for Nonlinear Solve = (double) with limits (1e-08, 5) with default 1
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 5)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
