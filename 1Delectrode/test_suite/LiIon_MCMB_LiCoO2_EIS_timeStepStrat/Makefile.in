@@ -19,7 +19,7 @@ BRUNTEST = @top_builddir@/1Delectrode/test_suite/$(RUNTEST)
 DATA =  ECsoln_ion.xml  LiCoO2Cathode_electrode.xml  LiCoO2_Margules_1.xml  Li_Metal.xml MCMBAnode_electrode.xml \
         MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  MgO.xml  BC.xml
 
-BLESSED_FILES = \
+BLESSED_FILES = good_out.txt \
 BulkDomain1D_0_blessed.dat  BulkDomain1D_2_blessed.dat  SurDomain1D_0_blessed.dat  SurDomain1D_2_blessed.dat  timeDep_IV_blessed.dat \
 BulkDomain1D_1_blessed.dat  solution_blessed.xml        SurDomain1D_1_blessed.dat  SurDomain1D_3_blessed.dat
 
