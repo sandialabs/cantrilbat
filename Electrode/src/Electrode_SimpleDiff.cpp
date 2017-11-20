@@ -2944,6 +2944,11 @@ void Electrode_SimpleDiff::determineBigMoleFractions()
             if (mfVec[bigK] > 1.4 * mfVec[oldK])  {
                 // temp move to stop changes
                 // bigK = 0;
+                if (printLvl_ > 2) {
+                     printf("Electrode_SimpleDiff()::determineBigMoleFractions():: Change of Big MF from species"
+                            " %d to species %d in cell %d\n",
+                            static_cast<int>(oldK), static_cast<int>(bigK), static_cast<int>(iCell));
+                }
                 phaseMFBig_SPhase_Cell_[numSPhases_ * iCell + jRPh] = bigK;
                 changeBigMF(iCell, jRPh, oldK, bigK);
             }
