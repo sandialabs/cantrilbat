@@ -589,17 +589,6 @@ public:
 
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
-     *  (non-virtual function onionize in-first)
-     *
-     *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
-     *  routine as well.
-     *
-     * @param setInitInit   Boolean indicating whether you should set the init_init state as well
-     */
-    void setInitStateFromFinal_Oin(bool setInitInit = false);
-
-    //! Set the internal initial intermediate and initial global state from the internal final state
-    /*!
      *  (virtual function)
      *
      *  Set the intial state and the final_final from the final state. We also can set the init_init state from this

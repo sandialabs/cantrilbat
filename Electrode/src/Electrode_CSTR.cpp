@@ -2672,7 +2672,7 @@ void Electrode_CSTR::check_final_state()
     setOnRegionBoundary();
 }
 //==================================================================================================================================
-void Electrode_CSTR::setInitStateFromFinal_Oin(bool setInitInit)
+void Electrode_CSTR::setInitStateFromFinal(bool setInitInit)
 {
     Electrode_Integrator::setInitStateFromFinal(setInitInit);
 
@@ -2732,17 +2732,15 @@ void Electrode_CSTR::setInitInitStateFromFinalFinal()
  *  Set the final state from the init state. This is commonly called during a failed time step
  *
  */
-void  Electrode_CSTR::setFinalStateFromInit()
+void Electrode_CSTR::setFinalStateFromInit()
 {
-    Electrode_Integrator::setFinalStateFromInit_Oin();
+    Electrode_Integrator::setFinalStateFromInit();
     /*
      * Do stuff not done in base class
      */
     RelativeExtentRxn_final_ = RelativeExtentRxn_init_;
     xRegion_final_ = xRegion_init_;
     onRegionBoundary_final_ = onRegionBoundary_init_;
-
-
     /*
      *  If this object becomes a parent, then we will have to create a setFinalStateFromInit_Oin() to avoid
      *  calling this routine.
@@ -2758,25 +2756,11 @@ void  Electrode_CSTR::setFinalStateFromInit()
  */
 void Electrode_CSTR::setFinalFinalStateFromFinal()
 {
-    Electrode_Integrator::setFinalFinalStateFromFinal_Oin();
+    Electrode_Integrator::setFinalFinalStateFromFinal();
 
     RelativeExtentRxn_final_final_ = RelativeExtentRxn_final_;
     xRegion_final_final_           = xRegion_final_;
     onRegionBoundary_final_final_  = onRegionBoundary_final_;
-}
-//====================================================================================================================
-//   Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (virtual function)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
-void Electrode_CSTR::setInitStateFromFinal(bool setInitInit)
-{
-    setInitStateFromFinal_Oin(setInitInit);
 }
 //==================================================================================================================
 void Electrode_CSTR::setNLSGlobalSrcTermTolerances(double rtolResid)

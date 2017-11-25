@@ -795,15 +795,10 @@ int Electrode_MP_RxnExtent::setInitialConditions(ELECTRODE_KEY_INPUT* eibase)
     Radius_internal_final_final_ = Radius_internal_final_;
     Radius_internal_init_init_ = Radius_internal_final_;
     Radius_internal_init_ = Radius_internal_final_;
-
-
     /*
      *  Set the initial state and the init_init state from the final state.
      */
-    setInitStateFromFinal_Oin(true);
-
-
-
+    setInitStateFromFinal(true);
     return 0;
 }
 //====================================================================================================================
@@ -3392,16 +3387,7 @@ bool Electrode_MP_RxnExtent::resetStartingCondition(double Tinitial, bool doTest
     return resetToInitInit;
 }
 //==================================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (non-virtual function onionize in-first)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
-void Electrode_MP_RxnExtent::setInitStateFromFinal_Oin(bool setInitInit)
+void Electrode_MP_RxnExtent::setInitStateFromFinal(bool setInitInit)
 {
     /*
      * Call the parent object
@@ -3435,20 +3421,6 @@ void Electrode_MP_RxnExtent::setInitStateFromFinal_Oin(bool setInitInit)
     }
 }
 //====================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (virtual function)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
-void Electrode_MP_RxnExtent::setInitStateFromFinal(bool setInitInit)
-{
-    setInitStateFromFinal_Oin(setInitInit);
-}
-//====================================================================================================================
 // Set the internal final intermediate and from the internal init state
 /*
  *  (virtual function from Electrode)
@@ -3458,7 +3430,7 @@ void Electrode_MP_RxnExtent::setInitStateFromFinal(bool setInitInit)
  */
 void  Electrode_MP_RxnExtent::setFinalStateFromInit()
 {
-    Electrode_Integrator::setFinalStateFromInit_Oin();
+    Electrode_Integrator::setFinalStateFromInit();
     /*
      * Do stuff not done in base class
      */
@@ -3559,7 +3531,7 @@ void Electrode_MP_RxnExtent::setInitInitStateFromFinalFinal()
 //====================================================================================================================
 void Electrode_MP_RxnExtent::setFinalFinalStateFromFinal()
 {
-    Electrode_Integrator::setFinalFinalStateFromFinal_Oin();
+    Electrode_Integrator::setFinalFinalStateFromFinal();
     RelativeExtentRxn_final_final_ = RelativeExtentRxn_final_;
     xRegion_final_final_ = xRegion_final_;
     Radius_internal_final_final_ = Radius_internal_final_;

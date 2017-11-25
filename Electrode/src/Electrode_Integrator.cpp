@@ -1758,18 +1758,6 @@ void Electrode_Integrator::setInitInitStateFromFinalFinal()
 	yvalNLS_[i]           = yvalNLS_final_final_[i];
     }
 }
-//==================================================================================================================================
-// Set the internal final intermediate and from the internal init state
-/*
- *  (non-virtual function)  -> function should onionize in-first.
- *
- *  Set the final state from the init state. This is commonly called during a failed time step
- *
- */
-void Electrode_Integrator::setFinalStateFromInit_Oin()
-{
-    Electrode::setFinalStateFromInit_Oin();
-}
 //==================================================================================================================
 // Set the internal final intermediate and from the internal init state
 /*
@@ -1780,7 +1768,7 @@ void Electrode_Integrator::setFinalStateFromInit_Oin()
  */
 void Electrode_Integrator::setFinalStateFromInit()
 {
-    Electrode_Integrator::setFinalStateFromInit_Oin();
+    Electrode::setFinalStateFromInit();
     int neqNLS = nEquations();
     if (solnDot_init_.empty()) {
 	create_solvers();

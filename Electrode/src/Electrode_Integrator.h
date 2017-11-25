@@ -1082,7 +1082,7 @@ public:
      *
      * @param setInitInit   Boolean indicating whether you should set the init_init state as well
      */
-    virtual void setInitStateFromFinal(bool setInitInit = false);
+    virtual void setInitStateFromFinal(bool setInitInit = false) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!
@@ -1092,16 +1092,7 @@ public:
      *  routine as well.
      *
      */
-    virtual void setInitInitStateFromFinalFinal();
-
-    //! Set the internal final intermediate and from the internal init state
-    /*!
-     *  (non-virtual function)  -> function should onionize in-first.
-     *
-     *  Set the final state from the init state. This is commonly called during a failed time step
-     *
-     */
-    virtual void setFinalStateFromInit_Oin();
+    virtual void setInitInitStateFromFinalFinal() override;
 
     //! Set the internal final intermediate and from the internal init state
     /*!
@@ -1110,7 +1101,7 @@ public:
      *  Set the final state from the init state. This is commonly called during a failed time step
      *
      */
-    virtual void setFinalStateFromInit();
+    virtual void setFinalStateFromInit() override;
 
     //! Set the internal initial intermediate from the internal initial global state
     /*!
@@ -1121,7 +1112,7 @@ public:
      *
      * @param setFinal   Boolean indicating whether you should set the final as well
      */
-    virtual void setInitStateFromInitInit(bool setFinal = false);
+    virtual void setInitStateFromInitInit(bool setFinal = false) override;
 
     //! Set the internal final global state from the internal final intermediate state
     /*!
@@ -1129,7 +1120,7 @@ public:
      *
      *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
      */
-    virtual void setFinalFinalStateFromFinal();
+    virtual void setFinalFinalStateFromFinal() override;
 
     // ---------------------------------------------------------------------------------------------
     // ------------------------------ PRINT ROUTINES -----------------------------------------------------------------------

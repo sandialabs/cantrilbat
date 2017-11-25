@@ -1484,7 +1484,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
     /*
      *  Now transfer the final state to the init and init init states.
      */
-    Electrode::setInitStateFromFinal_Oin(true);
+    Electrode::setInitStateFromFinal(true);
 
     return 0;
 }
@@ -1547,7 +1547,7 @@ void Electrode::setElectrodeSizeParams(double electrodeArea, double electrodeThi
     /*
      *  Now transfer the final state to the init and init init states.
      */
-    setInitStateFromFinal_Oin(true);
+    Electrode::setInitStateFromFinal(true);
 }
 //==================================================================================================================================
 // Resize the solid phase and electrolyte mole numbers within the object
@@ -4302,16 +4302,7 @@ double Electrode::timeFinalFinal() const
     return t_final_final_;
 }
 //==================================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (non-virtual function)  -> function should onionize in-first.
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
-void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
+void Electrode::setInitStateFromFinal(bool setInitInit)
 {
     // reset surface quantities
     for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
@@ -4402,20 +4393,6 @@ void Electrode::setInitStateFromFinal_Oin(bool setInitInit)
     if (setInitInit) {
         t_init_init_ = tfinal_;
     }
-}
-//====================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (virtual function)
- *
- *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well
- */
-void Electrode::setInitStateFromFinal(bool setInitInit)
-{
-    setInitStateFromFinal_Oin(setInitInit);
 }
 //====================================================================================================================
 //! Set the internal initial intermediate and initial global state from the internal final_final state
@@ -4511,7 +4488,7 @@ void Electrode::revertToInitialTime(bool revertToInitInit)
  *  Set the final state from the init state.
  *
  */
-void Electrode::setFinalStateFromInit_Oin()
+void Electrode::setFinalStateFromInit()
 {
     // reset surface quantities
     for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
@@ -4541,11 +4518,6 @@ void Electrode::setFinalStateFromInit_Oin()
         xmlExternalData_final_ = new XML_Node(*xmlExternalData_init_);
     }
     tfinal_ = tinit_;
-}
-//====================================================================================================================
-void Electrode::setFinalStateFromInit()
-{
-    setFinalStateFromInit_Oin();
 }
 //====================================================================================================================
 //    Set the internal initial intermediatefrom the internal initial global state
@@ -4626,25 +4598,14 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
     }
 }
 //====================================================================================================================
-// Set the internal final global state from the internal final intermediate state
-/*
- *  (virtual function from Electrode)
- *
- *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
- */
-void Electrode::setFinalFinalStateFromFinal()
-{
-    Electrode::setFinalFinalStateFromFinal_Oin();
-}
-//====================================================================================================================
 //   Set the internal final global state from the internal final intermediate state
 /*
- *  (non-virtual function from Electrode)
+ *  (virtual function from Electrode)
  *
  *  Set the final_final state from the final state. This is commonly called at the end of successful base integration.
  *  This is an onionize in function
  */
-void Electrode::setFinalFinalStateFromFinal_Oin()
+void Electrode::setFinalFinalStateFromFinal()
 {
     for (size_t i = 0; i < numSurfaces_; i++) {
         surfaceAreaRS_final_final_[i] = surfaceAreaRS_final_[i];

@@ -1434,17 +1434,6 @@ public:
      */
     virtual void setState_relativeExtentRxn(double relativeExtentRxn);
 
-  private:
-    //! Set the internal initial intermediate and initial global state from the internal final state
-    /*!
-     *  (non-virtual function)  -> function should onionize in-first.
-     *
-     *  Set the intial state and the final_final from the final state. We also can set the init_init state from this
-     *  routine as well.
-     *
-     * @param setInitInit   Boolean indicating whether you should set the init_init state as 
-     */
-    void setInitStateFromFinal_Oin(bool setInitInit = false);
 
   public:
     //! Set the internal initial intermediate and initial global state from the internal final state
@@ -1468,15 +1457,6 @@ public:
      */
 //Can protect
     virtual void setInitInitStateFromFinalFinal();
-
-    //! Set the internal final intermediate and from the internal init state
-    /*!
-     *  (non-virtual function)  -> function should onionize in-first.
-     *
-     *  Set the final state from the init state. This is commonly called during a failed time step
-     */
-//Can protect
-    void setFinalStateFromInit_Oin();
 
     //! Set the internal final intermediate state from the internal init state
     /*!
@@ -1506,17 +1486,7 @@ public:
      *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
      */
     virtual void setFinalFinalStateFromFinal();
-//Can protect
 
-    //! Set the internal final global state from the internal final intermediate state
-    /*!
-     *  (non-virtual function from Electrode)
-     *
-     *  Set the final_final state from the final state. This is commonly called at the end of successful base integration.
-     *  This is an onionize in function
-     */
-//Can protect
-    void setFinalFinalStateFromFinal_Oin();
 
     //! Calculates the change in the surface area of all external and internal interfaces within the electrode
     /*!
@@ -3870,7 +3840,7 @@ private:
      *                                           correct.
      *  @param[in]           doFinal             Copy the final state. Defaults to true. (if false, use init quantities)
      */
-    friend void ZZCantera::EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal = true);
+    friend void ZZCantera::EState::copyElectrode_intoState(const ZZCantera::Electrode* const e, bool doFinal);
 
     //! make the equilibrium class a friend
     friend class ZZCantera::Electrode_Equilibrium;
