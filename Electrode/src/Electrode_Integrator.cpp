@@ -29,6 +29,10 @@
 #define MIN(x,y) (( (x) < (y) ) ? (x) : (y))
 #endif
 
+#define DEBUG_RESTART_1
+#define DEBUG_RESTART_2
+#define DEBUG_RESTART_3
+
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -828,10 +832,16 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
 
     //  Save the Electrode state into an XML state object
     if (eState_save_) {
+#ifdef DEBUG_RESTART_1
         eState_save_->copyElectrode_intoState(this, false);
+#ifdef DEBUG_RESTART_2
         SAFE_DELETE(xmlStateData_init_);
         xmlStateData_init_ = eState_save_->write_electrodeState_ToXML();
+#ifdef DEBUG_RESTART_3
         startXML_TI_final();
+#endif
+#endif
+#endif
     }
     
     // *****************************************************************************************************************
@@ -1487,11 +1497,17 @@ otherFailureType:
          *  Save the state of the Electrode object into the XML final spot
          */
         if (eState_save_) {
+#ifdef DEBUG_RESTART_1
             eState_save_->copyElectrode_intoState(this, true);
+#ifdef DEBUG_RESTART_2
             SAFE_DELETE(xmlStateData_final_);
             xmlStateData_final_ = eState_save_->write_electrodeState_ToXML();
+#ifdef DEBUG_RESTART_3
             //makeXML_TI_intermediate();
             addtoXML_TI_final(notDone);
+#endif
+#endif
+#endif
         }
 
         //-------------------------------- End of Subcycle ---------------------------------------------------------------
