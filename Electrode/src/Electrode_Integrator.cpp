@@ -32,6 +32,7 @@
 #define DEBUG_RESTART_1
 #define DEBUG_RESTART_2
 #define DEBUG_RESTART_3
+#define DEBUG_CHECK_XML
 
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
@@ -836,13 +837,13 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         if (xmlStateData_final_) {
             bool retn = check_XML_valid(xmlStateData_final_);
             if (!retn) {
-                throw Electrode_Errror("Electrode_Integrate() 1", "xmlStateData_final_ corrupted");
+                throw Electrode_Error("Electrode_Integrate() 1", "xmlStateData_final_ corrupted");
             }
         }
         if (xmlStateData_init_) {
             bool retn = check_XML_valid(xmlStateData_init_);
             if (!retn) {
-                throw Electrode_Errror("Electrode_Integrate() 1", "xmlStateData_init_ corrupted");
+                throw Electrode_Error("Electrode_Integrate() 1", "xmlStateData_init_ corrupted");
             }
         }
 #endif
@@ -860,13 +861,13 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         if (xmlStateData_final_) {
             bool retn = check_XML_valid(xmlStateData_final_);
             if (!retn) {
-                throw Electrode_Errror("Electrode_Integrate() 2", "xmlStateData_final_ corrupted");
+                throw Electrode_Error("Electrode_Integrate() 2", "xmlStateData_final_ corrupted");
             }
         }
         if (xmlStateData_init_) {
             bool retn = check_XML_valid(xmlStateData_init_);
             if (!retn) {
-                throw Electrode_Errror("Electrode_Integrate() 2", "xmlStateData_init_ corrupted");
+                throw Electrode_Error("Electrode_Integrate() 2", "xmlStateData_init_ corrupted");
             }
         }
 #endif
@@ -1529,13 +1530,13 @@ otherFailureType:
             if (xmlStateData_final_) {
                 bool retn = check_XML_valid(xmlStateData_final_);
                 if (!retn) {
-                    throw Electrode_Errror("Electrode_Integrate() 3", "xmlStateData_final_ corrupted");
+                    throw Electrode_Error("Electrode_Integrate() 3", "xmlStateData_final_ corrupted");
                 }
             }
             if (xmlStateData_init_) {
                 bool retn = check_XML_valid(xmlStateData_init_);
                 if (!retn) {
-                    throw Electrode_Errror("Electrode_Integrate() 3", "xmlStateData_init_ corrupted");
+                    throw Electrode_Error("Electrode_Integrate() 3", "xmlStateData_init_ corrupted");
                 }
             }
 #endif
@@ -1554,13 +1555,13 @@ otherFailureType:
             if (xmlStateData_final_) {
                 bool retn = check_XML_valid(xmlStateData_final_);
                 if (!retn) {
-                    throw Electrode_Errror("Electrode_Integrate() 4", "xmlStateData_final_ corrupted");
+                    throw Electrode_Error("Electrode_Integrate() 4", "xmlStateData_final_ corrupted");
                 }
             }
             if (xmlStateData_init_) {
                 bool retn = check_XML_valid(xmlStateData_init_);
                 if (!retn) {
-                    throw Electrode_Errror("Electrode_Integrate() 4", "xmlStateData_init_ corrupted");
+                    throw Electrode_Error("Electrode_Integrate() 4", "xmlStateData_init_ corrupted");
                 }
             }
 #endif

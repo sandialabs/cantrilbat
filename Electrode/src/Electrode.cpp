@@ -29,6 +29,8 @@
 #define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = nullptr ; }
 #endif
 
+#define DEBUG_CHECK_XML
+
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -4168,6 +4170,12 @@ int Electrode::integrateResid(const double tfinal, const double deltaTsubcycle, 
  */
 bool Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
+#ifdef DEBUG_CHECK_XML
+    bool retn = check_XML();
+    if (! retn) {
+        throw Electrode_Error("Electrode::resetStartingCondition()", "Electrode XML are corrupted");
+    }
+#endif
     bool resetToInitInit = false;
     /*
      * If this routine is called with Tinitial = t_init_init_, then we should return without doing anything
@@ -4262,13 +4270,19 @@ bool Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
      *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps
      *  because we want jacobian calculations to mainly use the same time step history, so that the answers are
      *  comparible irrespective of the time step truncation error.
-     */;
+     */
     if (!resetToInitInit) {
         if (deltaTsubcycle_init_next_ < 1.0E299) {
             deltaTsubcycle_init_init_ = deltaTsubcycle_init_next_;
         }
         deltaTsubcycle_init_next_ = 1.0E300;
     }
+#ifdef DEBUG_CHECK_XML
+    retn = check_XML();
+    if (! retn) {
+        throw Electrode_Error("Electrode::resetStartingCondition()", "Electrode XML are corrupted");
+    }
+#endif
     return resetToInitInit;
 }
 //==================================================================================================================================
@@ -4475,10 +4489,19 @@ void Electrode::revertToInitialTime(bool revertToInitInit)
         // need this to reset t_final_final_
         setFinalFinalStateFromFinal();
         pendingIntegratedStep_ = 0;
+        zeroD(m_NumTotSpecies, spMoleIntegratedSourceTerm_.data());
+        integratedThermalEnergySourceTerm_ = 0.0;
+        integratedThermalEnergySourceTerm_overpotential_ = 0.0;
+        integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
     } else {
         setFinalStateFromInit();
         setFinalFinalStateFromFinal();
     }
+
+    zeroD(m_NumTotSpecies, spMoleIntegratedSourceTermLast_.data());
+    integratedThermalEnergySourceTermLast_ = 0.0;
+    integratedThermalEnergySourceTerm_overpotential_Last_ = 0.0;
+    integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
 }
 //====================================================================================================================
 // Set the internal final intermediate from the internal init state
@@ -5942,6 +5965,49 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpG, " \n");
         fclose(fpG);
     }
+}
+//==================================================================================================================================
+bool Electrode::check_XML()
+{
+    if (xmlStateData_final_) {
+        bool retn = check_XML_valid(xmlStateData_final_);
+        if (!retn) {
+            throw Electrode_Error("Electrode::check_XML()", "xmlStateData_final_ corrupted");
+        }
+    }
+    if (xmlStateData_init_) {
+        bool retn = check_XML_valid(xmlStateData_init_);
+        if (!retn) {
+            throw Electrode_Error("Electrode::check_XML()", "xmlStateData_init_ corrupted");
+        }
+   }
+   if (xmlStateData_init_init_) {
+        bool retn = check_XML_valid(xmlStateData_init_init_);
+        if (!retn) {
+            throw Electrode_Error("Electrode::check_XML()", "xmlStateData_init_init_ corrupted");
+        }
+   }
+   if (xmlStateData_final_final_) {
+        bool retn = check_XML_valid(xmlStateData_final_final_);
+        if (!retn) {
+            throw Electrode_Error("Electrode::check_XML()", "xmlStateData_final_final_ corrupted");
+        }
+    }
+    if (xmlTimeIncrementData_) {
+        bool retn = check_XML_valid(xmlTimeIncrementData_);
+        if (!retn) {
+            throw Electrode_Error("Electrode::check_XML()", "xmlTimeIncrementData_");
+        }
+    }
+    if (xmlTimeIncrementIntermediateData_) {
+        bool retn = check_XML_valid(xmlTimeIncrementIntermediateData_);
+        if (!retn) {
+            throw Electrode_Error("Electrode::check_XML()", "xmlTimeIncrementIntermediateData_");
+        }
+    }
+
+
+    return true;
 }
 //==================================================================================================================================
 }// End of namespace

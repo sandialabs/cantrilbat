@@ -2743,6 +2743,10 @@ public:
      */
     double loadTimeState(const XML_Node& xTimeState);
 
+
+    bool check_XML();
+
+
     //------------------------------------------------------- D A T A --------------------------------------------------
 
 protected:
