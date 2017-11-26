@@ -832,6 +832,20 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
 
     //  Save the Electrode state into an XML state object
     if (eState_save_) {
+#ifdef DEBUG_CHECK_XML
+        if (xmlStateData_final_) {
+            bool retn = check_XML_valid(xmlStateData_final_);
+            if (!retn) {
+                throw Electrode_Errror("Electrode_Integrate() 1", "xmlStateData_final_ corrupted");
+            }
+        }
+        if (xmlStateData_init_) {
+            bool retn = check_XML_valid(xmlStateData_init_);
+            if (!retn) {
+                throw Electrode_Errror("Electrode_Integrate() 1", "xmlStateData_init_ corrupted");
+            }
+        }
+#endif
 #ifdef DEBUG_RESTART_1
         eState_save_->copyElectrode_intoState(this, false);
 #ifdef DEBUG_RESTART_2
@@ -841,6 +855,20 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
         startXML_TI_final();
 #endif
 #endif
+#endif
+#ifdef DEBUG_CHECK_XML
+        if (xmlStateData_final_) {
+            bool retn = check_XML_valid(xmlStateData_final_);
+            if (!retn) {
+                throw Electrode_Errror("Electrode_Integrate() 2", "xmlStateData_final_ corrupted");
+            }
+        }
+        if (xmlStateData_init_) {
+            bool retn = check_XML_valid(xmlStateData_init_);
+            if (!retn) {
+                throw Electrode_Errror("Electrode_Integrate() 2", "xmlStateData_init_ corrupted");
+            }
+        }
 #endif
     }
     
@@ -1497,6 +1525,20 @@ otherFailureType:
          *  Save the state of the Electrode object into the XML final spot
          */
         if (eState_save_) {
+#ifdef DEBUG_CHECK_XML
+            if (xmlStateData_final_) {
+                bool retn = check_XML_valid(xmlStateData_final_);
+                if (!retn) {
+                    throw Electrode_Errror("Electrode_Integrate() 3", "xmlStateData_final_ corrupted");
+                }
+            }
+            if (xmlStateData_init_) {
+                bool retn = check_XML_valid(xmlStateData_init_);
+                if (!retn) {
+                    throw Electrode_Errror("Electrode_Integrate() 3", "xmlStateData_init_ corrupted");
+                }
+            }
+#endif
 #ifdef DEBUG_RESTART_1
             eState_save_->copyElectrode_intoState(this, true);
 #ifdef DEBUG_RESTART_2
@@ -1507,6 +1549,20 @@ otherFailureType:
             addtoXML_TI_final(notDone);
 #endif
 #endif
+#endif
+#ifdef DEBUG_CHECK_XML
+            if (xmlStateData_final_) {
+                bool retn = check_XML_valid(xmlStateData_final_);
+                if (!retn) {
+                    throw Electrode_Errror("Electrode_Integrate() 4", "xmlStateData_final_ corrupted");
+                }
+            }
+            if (xmlStateData_init_) {
+                bool retn = check_XML_valid(xmlStateData_init_);
+                if (!retn) {
+                    throw Electrode_Errror("Electrode_Integrate() 4", "xmlStateData_init_ corrupted");
+                }
+            }
 #endif
         }
 
