@@ -2411,12 +2411,14 @@ bool Electrode_CSTR::resetStartingCondition(double Tinitial, bool doAdvancementA
     if (!resetToInitInit) {
 
         // Copy The final extent of reaction to the beginning extent
+        /*
         RelativeExtentRxn_init_init_ = RelativeExtentRxn_final_final_;
         RelativeExtentRxn_init_      = RelativeExtentRxn_final_final_;
         xRegion_init_init_ = xRegion_final_final_;
         xRegion_init_      = xRegion_final_final_;
         onRegionBoundary_init_init_  = onRegionBoundary_final_final_;
         onRegionBoundary_init_       = onRegionBoundary_final_final_;
+        */
 
         // Copy the final xml state into the init_init state
         /*  -> this is already moved during the base call
@@ -2748,12 +2750,6 @@ void Electrode_CSTR::setFinalStateFromInit()
     updateState();
 }
 //====================================================================================================================
-//! Set the internal final global state from the internal final intermediate state
-/*!
- *  (virtual function from Electrode)
- *
- *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
- */
 void Electrode_CSTR::setFinalFinalStateFromFinal()
 {
     Electrode_Integrator::setFinalFinalStateFromFinal();
