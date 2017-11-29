@@ -172,6 +172,8 @@ Files+=`echo "$readCleanFiles"`
 #  value for this variable.  
 #  
 #MP_MACHINEFILE=${MP_MACHINEFILE:=@mpi_machinefile@}
+MPIHOME=@MPIHOME@
+export PATH=${MPIHOME}/bin:$PATH
 MPIRUN=mpirun
 MPIOPTS=""
 NP=${NUMBER_PROCESSORS:=1}
