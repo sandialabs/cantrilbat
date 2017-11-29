@@ -531,7 +531,7 @@ protected:
     double electrodeMoles_;
 
     //! Capacity type of the electrode.
-    Electrode_Capacity_Type_Enum  electrodeCapacityType_;
+    Electrode_Capacity_Type_Enum electrodeCapacityType_;
 
     //! Total capacity left in the battery (coulombs)
     double capacityLeft_;

@@ -1075,24 +1075,13 @@ double Electrode_SimpleDiff::thermalEnergySourceTerm_EnthalpyFormulation(size_t 
 //===========================================================================================================================================
 bool Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doAdvancementAlways)
 {
-    bool resetToInitInit = false;
-    /*
-     * If the initial time is input, then the code doesn't advance
-     */
-    double tbase = std::max(t_init_init_, 1.0E-50);
-    if (fabs(Tinitial - t_init_init_) < (1.0E-13 * tbase) && !doAdvancementAlways) {
-        resetToInitInit = true;
-        //return;
-    }
 
-    bool rr = Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
-    if (rr != resetToInitInit) {
-         throw Electrode_Error("Electrode_SimpleDiff::resetStartingCondition()", "Inconsistent resetToInitInit values");
-    }
+    bool resetToInitInit = Electrode_Integrator::resetStartingCondition(Tinitial, doAdvancementAlways);
 
-    size_t iCell, i;
-    size_t ntotal = numRCells_ * numKRSpecies_;
+    //size_t iCell, i;
+    //size_t ntotal = numRCells_ * numKRSpecies_;
     if (!resetToInitInit) {
+        /*
         for (i = 0; i < ntotal; ++i) {
             spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
             spMoles_KRsolid_Cell_init_[i]      = spMoles_KRsolid_Cell_final_final_[i];
@@ -1102,15 +1091,17 @@ bool Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doAdvanc
             spMf_KRSpecies_Cell_init_init_[i]  = spMf_KRSpecies_Cell_final_final_[i];
             actCoeff_Cell_init_[i]             = actCoeff_Cell_final_[i];
         }
+        */
 
-        size_t iTotal = numSPhases_ * numRCells_;
-        for (i = 0; i < iTotal; ++i) {
-            concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
-            concTot_SPhase_Cell_init_[i]      = concTot_SPhase_Cell_final_[i];
-            phaseMoles_KRsolid_Cell_init_[i] =  phaseMoles_KRsolid_Cell_final_final_[i];
-            phaseMoles_KRsolid_Cell_init_init_[i] = phaseMoles_KRsolid_Cell_final_final_[i];
-        }
+        //size_t iTotal = numSPhases_ * numRCells_;
+        //for (i = 0; i < iTotal; ++i) {
+            //concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
+            //concTot_SPhase_Cell_init_[i]      = concTot_SPhase_Cell_final_[i];
+            //phaseMoles_KRsolid_Cell_init_[i] =  phaseMoles_KRsolid_Cell_final_final_[i];
+            //phaseMoles_KRsolid_Cell_init_init_[i] = phaseMoles_KRsolid_Cell_final_final_[i];
+       // }
 
+        /*
         for (iCell = 0; iCell < numRCells_; ++iCell) {
             rnodePos_init_init_[iCell]    = rnodePos_final_final_[iCell];
             rnodePos_init_[iCell]         = rnodePos_final_final_[iCell];
@@ -1119,10 +1110,12 @@ bool Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doAdvanc
             cellBoundR_init_init_[iCell]  = cellBoundR_final_final_[iCell];
             cellBoundL_init_init_[iCell]  = cellBoundL_final_final_[iCell];
         }
+        */
 
-        onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
-        onRegionBoundary_init_      =  onRegionBoundary_final_final_;
+        //onRegionBoundary_init_init_ =  onRegionBoundary_final_final_;
+        //onRegionBoundary_init_      =  onRegionBoundary_final_final_;
 
+        /*
         bool fff = checkCapacityBalances_final();
         if (fff) {
             fixCapacityBalances_final();
@@ -1130,11 +1123,9 @@ bool Electrode_SimpleDiff::resetStartingCondition(double Tinitial, bool doAdvanc
             if (!fff) {
                 throw Electrode_Error("", "unrecoverable error");
             }
-            /*
-             * reset all of the other states
-             */
             setInitStateFromFinal(true);
         }
+        */
     }
     return resetToInitInit;
 }
@@ -4039,6 +4030,8 @@ void Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
         cellBoundL_init_[iCell]  = cellBoundL_final_[iCell];
     }
 
+    onRegionBoundary_init_ = onRegionBoundary_final_final_;
+
     /*
      *  Now transfer that to other states
      */
@@ -4060,6 +4053,7 @@ void Electrode_SimpleDiff::setInitStateFromFinal(bool setInitInit)
             cellBoundR_init_init_[iCell]  = cellBoundR_final_[iCell];
             cellBoundL_init_init_[iCell]  = cellBoundL_final_[iCell];
         }
+        onRegionBoundary_init_init_ = onRegionBoundary_final_final_;
     }
 }
 //==================================================================================================================================
@@ -4175,6 +4169,7 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
         cellBoundR_init_[iCell]  = cellBoundR_init_init_[iCell];
         cellBoundL_init_[iCell]  = cellBoundL_init_init_[iCell];
     }
+    onRegionBoundary_init_ = onRegionBoundary_init_init_;
 
     if (setFinal) {
         for (i = 0; i < ntotal; ++i) {
@@ -4191,6 +4186,7 @@ void Electrode_SimpleDiff::setInitStateFromInitInit(bool setFinal)
             cellBoundR_final_[iCell]  = cellBoundR_init_init_[iCell];
             cellBoundL_final_[iCell]  = cellBoundL_init_init_[iCell];
         }
+        onRegionBoundary_final_ = onRegionBoundary_init_init_;
     }
 }
 //====================================================================================================================
@@ -4227,6 +4223,7 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
         cellBoundR_final_final_[iCell]  = cellBoundR_final_[iCell];
         cellBoundL_final_final_[iCell]  = cellBoundL_final_[iCell];
     }
+    onRegionBoundary_final_final_ = onRegionBoundary_final_;
 }
 //==================================================================================================================================
 double  Electrode_SimpleDiff::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)

@@ -572,8 +572,7 @@ ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput() :
     index_(1),
     timeStamp_(""),
     e_ID_(),
-    numGlobalTimeIntervals_(0),
-    etiList_(0)
+    numGlobalTimeIntervals_(0)
 {
 }
 //==================================================================================================================================
@@ -589,8 +588,7 @@ ElectrodeTimeEvolutionOutput::ElectrodeTimeEvolutionOutput(const ZZCantera::XML_
     index_(1),
     timeStamp_(""),
     e_ID_(),
-    numGlobalTimeIntervals_(0),
-    etiList_(0)
+    numGlobalTimeIntervals_(0)
 {
      read_ElectrodeTimeEvolutionOutput_fromXML(xElectrodeOutput);
 }
