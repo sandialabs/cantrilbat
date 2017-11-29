@@ -2744,7 +2744,7 @@ public:
     double loadTimeState(const XML_Node& xTimeState);
 
 
-    bool check_XML();
+    bool check_XML(const std::string& shead = "");
 
 
     //------------------------------------------------------- D A T A --------------------------------------------------

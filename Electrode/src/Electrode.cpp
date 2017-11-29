@@ -5967,45 +5967,63 @@ void Electrode::writeCSVData(int itype)
     }
 }
 //==================================================================================================================================
-bool Electrode::check_XML()
+bool Electrode::check_XML(const std::string & shead)
 {
+    static int PP = 0;
+    bool retnA = true, retn = true;
+    if (PP) {
+        writelogf("Electrode XML test: %s  : dn = %d cn = %d ptr = %x :", shead.c_str(), electrodeDomainNumber_,
+                  electrodeCellNumber_, this);
+    }
     if (xmlStateData_final_) {
-        bool retn = check_XML_valid(xmlStateData_final_);
+        retn = check_XML_valid(xmlStateData_final_);
         if (!retn) {
             throw Electrode_Error("Electrode::check_XML()", "xmlStateData_final_ corrupted");
         }
+        retnA = retnA && retn;
     }
     if (xmlStateData_init_) {
-        bool retn = check_XML_valid(xmlStateData_init_);
+        retn = check_XML_valid(xmlStateData_init_);
         if (!retn) {
             throw Electrode_Error("Electrode::check_XML()", "xmlStateData_init_ corrupted");
         }
+        retnA = retnA && retn;
    }
    if (xmlStateData_init_init_) {
-        bool retn = check_XML_valid(xmlStateData_init_init_);
+        retn = check_XML_valid(xmlStateData_init_init_);
         if (!retn) {
             throw Electrode_Error("Electrode::check_XML()", "xmlStateData_init_init_ corrupted");
         }
+        retnA = retnA && retn;
    }
    if (xmlStateData_final_final_) {
-        bool retn = check_XML_valid(xmlStateData_final_final_);
+        retn = check_XML_valid(xmlStateData_final_final_);
         if (!retn) {
             throw Electrode_Error("Electrode::check_XML()", "xmlStateData_final_final_ corrupted");
         }
+        retnA = retnA && retn;
     }
     if (xmlTimeIncrementData_) {
-        bool retn = check_XML_valid(xmlTimeIncrementData_);
+        retn = check_XML_valid(xmlTimeIncrementData_);
         if (!retn) {
             throw Electrode_Error("Electrode::check_XML()", "xmlTimeIncrementData_");
         }
+        retnA = retnA && retn;
     }
     if (xmlTimeIncrementIntermediateData_) {
-        bool retn = check_XML_valid(xmlTimeIncrementIntermediateData_);
+        retn = check_XML_valid(xmlTimeIncrementIntermediateData_);
         if (!retn) {
             throw Electrode_Error("Electrode::check_XML()", "xmlTimeIncrementIntermediateData_");
         }
+        retnA = retnA && retn;
     }
-
+    if (PP) {
+        if (retnA) {
+           writelogf(" PASSED\n");
+        } else {
+           writelogf(" FAILED\n");
+        }
+    }
 
     return true;
 }
