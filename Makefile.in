@@ -57,7 +57,7 @@ allback:
 	cd cttables;                      $(MAKE)
 	cd epequil;                       $(MAKE)
 	cd mpequil;                       $(MAKE)
-	cd 1Delectrode;                   $(MAKE)
+	cd 1Delectrode;                   $(MAKE) allback
 	cd Electrode;                     $(MAKE)
 	cd ctpadds;                       $(MAKE)
 	cd util_src;                      $(MAKE)
