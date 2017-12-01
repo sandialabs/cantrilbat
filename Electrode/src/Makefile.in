@@ -1,8 +1,5 @@
 #
 #  Makefile.in: 
-#     Makefile for vcsc
-#
-# $Id: Makefile.in,v 1.24 2012/02/08 16:08:16 hkmoffa Exp $
 #
 .SUFFIXES: .d
 
@@ -20,22 +17,21 @@ MPI_INC = -I$(MPIHOME)/include
 MPI_LIB = -L/usr/local/mpich/lib -lmpich -lpmpich
 #
 # These links are to Zuzax's install space
-CT_INCROOT =  @ct_incroot@
+ZZ_INCROOT =  @ct_incroot@
 #
 # Bring in the Zuzax includes through the .mak file
 #
-include $(CT_INCROOT)/cantera/Cantera.mak
+include $(ZZ_INCROOT)/cantera/Zuzax.mak
 
-CT_TRANSPORT_LIBDEP=$(CANTERA_LIBDIR)/libtransport.a
 
 # The directory where Zuzax include files may be found.
-CANTERA_INCROOT=@ct_incroot@
+ZUZAX_INCROOT=@ct_incroot@
 
 PURIFY=@PURIFY@
 
 # Find the Build root for Zuzax 
 #
-CANTERA_BUILD_ROOT=@ctb_root@
+ZUZAX_BUILD_ROOT=@ctb_root@
 #
 CTPADDSSRC_DIR=../../ctpadds/src
 
@@ -44,7 +40,7 @@ UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 
 
-F2C_INC=$(CANTERA_INCROOT)/cantera
+F2C_INC=$(ZUZAX_INCROOT)/cantera
 #
 # Set up the various local and global defines
 #
@@ -72,36 +68,26 @@ CXXFLAGS = @CXXFLAGS@
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
 CXXLDR = $(CXX)
-#
+
 # C compiler
-#
-CC = @CC@
 CFLAGS = @CXXFLAGS@
-#
+
 # Both the C and C++ compiler predefines
-#
-CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
-#
+CCFLAGS = $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 
 all: .depends libElectrode.a
 
 allsrc: .depends libElectrode.a
 
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -I$(F2C_INC) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-
-# 
-# These classes compile against the Zuzax kernel format
-#
 
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 
-CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
+CCFLAGS = $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
 OBJ_CTAPPLBASE =  ReactingSurDomain.o RSD_OCVmodel.o \
@@ -162,14 +148,14 @@ libElectrode.a: $(OBJ_CTAPPLBASE)
 
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	$(MAKE) .depends
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
 
 test:
-	@MAKE@ -s all
-	cd .. ; @MAKE@ test
+	$(MAKE) -s all
+	cd .. ; $(MAKE) test
 
 ###########################################################################
 #          INSTALL RULES
@@ -184,7 +170,6 @@ install:
 	$(INSTALL_TSC)  libElectrode.a @cta_libdir@
 
 
-#cp   $(HDR_CTAPPLBASE) @cta_incdir@
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
@@ -194,15 +179,11 @@ clean:
                    fort.* *%  core *.trace tmp* *.d
 	$(RM) ${PROG}  .depends
 
-dist_clean:
-	@MAKE@ clean
+clean_dist:
+	$(MAKE) clean
 	@for iFile in $(HDR_CTAPPLBASE) ; do               \
            echo "/bin/rm -f @cta_incdir@/$${iFile}" ;     \
            /bin/rm -f @cta_incdir@/$${iFile}        ;     \
 	done
 	/bin/rm -f @cta_libdir@/libElectrode.a
-		
-
-
-
 
