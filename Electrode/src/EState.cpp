@@ -557,6 +557,7 @@ void EState::setStateElectrode_fromEState(Electrode* const e) const
     e->stateToPhaseFlagsReconciliation(false);
     e->updateState();
     e->setInitStateFromFinal(true);
+    e->setFinalFinalStateFromFinal();
 }
 //======================================================================================================================
 // Set the state of the Electrode Class from the state of the EState object

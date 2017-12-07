@@ -1487,6 +1487,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
      *  Now transfer the final state to the init and init init states.
      */
     Electrode::setInitStateFromFinal(true);
+    Electrode::setFinalFinalStateFromFinal();
 
     return 0;
 }
@@ -1550,6 +1551,7 @@ void Electrode::setElectrodeSizeParams(double electrodeArea, double electrodeThi
      *  Now transfer the final state to the init and init init states.
      */
     Electrode::setInitStateFromFinal(true);
+    Electrode::setFinalFinalStateFromFinal();
 }
 //==================================================================================================================================
 // Resize the solid phase and electrolyte mole numbers within the object
@@ -1984,9 +1986,8 @@ void Electrode::setState_EStateBase(const EState& es)
     // Update the _final_ state locally. Calculate phase moles and phase mole fractions
     Electrode::updateState();
 
-    // Set the _init_ and _init_init_ states from the final state
+    // Set the _init_ and _init_init_ and final_final states from the final state
     Electrode::setInitStateFromFinal(true);
-    // Set the _final_final_ state
     Electrode::setFinalFinalStateFromFinal();
 }
 //==================================================================================================================================

@@ -1211,7 +1211,15 @@ public:
      *  @param[in]           maxN                Number of time step subcyles per global time step 
      *                                           Default value is 1000
      */
-   void setMaxNumberSubGlobalTimeSteps(int maxN);
+    void setMaxNumberSubGlobalTimeSteps(int maxN);
+
+    //! Set the boolean which indicates what initial guess to use
+    /*!
+     *  @param[in]           dotBetter           If true, use the solnDot's to predict the next time step
+     */
+    void setPredictDotBetter(bool dotBetter) {
+        predictDotBetter_ = dotBetter;
+    } 
 
     // ----------------------------------------------------------------------------------------------------------------
     // -------------------------------- DATA  -------------------------------------------------------------------------

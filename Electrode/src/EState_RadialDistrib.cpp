@@ -239,6 +239,7 @@ void EState_RadialDistrib::setStateElectrode_SimpleDiff_fromEState(ZZCantera::El
     emp->updateState();
     emp->stateToPhaseFlagsReconciliation(false);
     emp->setInitStateFromFinal(true);
+    emp->setFinalFinalStateFromFinal();
 }
 //======================================================================================================================
 //    Set the state of the Electrode from the state of this object
@@ -258,6 +259,7 @@ void EState_RadialDistrib::setStateElectrode_DiffTALE_fromEState(ZZCantera::Elec
     emp->updateState();
     emp->stateToPhaseFlagsReconciliation(false);
     emp->setInitStateFromFinal(true);
+    emp->setFinalFinalStateFromFinal();
 }
 //======================================================================================================================
 //    Set the state of the Electrode from the state of this object

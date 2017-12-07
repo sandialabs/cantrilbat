@@ -495,6 +495,7 @@ int Electrode_SimpleDiff::setInitialConditions(ELECTRODE_KEY_INPUT* const eibase
 
     //  Set the initial state and the init_init state from the final state.
     setInitStateFromFinal(true);
+    setFinalFinalStateFromFinal();
 
     if (eState_save_) {
         SAFE_DELETE( xmlStateData_final_ );
@@ -760,8 +761,8 @@ void Electrode_SimpleDiff::initializeAsEvenDistribution()
     }
 
     //  Now transfer that to other states
-    setFinalFinalStateFromFinal();
     setInitStateFromFinal(true);
+    setFinalFinalStateFromFinal();
 }
 //==================================================================================================================================
 double Electrode_SimpleDiff::SolidVol() const
