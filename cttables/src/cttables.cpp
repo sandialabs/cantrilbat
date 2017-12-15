@@ -14,7 +14,7 @@
 #include "cttables_kin.h"
 
 #include "BlockEntryGlobal.h"
-#include "cantera/base/clockWC.h"
+#include "cantera/base/accurateClock.h"
 #include "cantera/base/PrintCtrl.h"
 
 // Kinetics includes
@@ -155,7 +155,7 @@ void dnt(const int i)
     }
 }
 //==================================================================================================================================
-void print_map(const map<string,double>& m, const string& prefix)
+void print_map(const std::map<std::string,double>& m, const std::string& prefix)
 {
     if (prefix.size() > 0) {
         cout << prefix;
@@ -195,7 +195,7 @@ void printThermoPhaseSpeciesTable(ThermoPhase* g_ptr,
      *  this is defined in the constituents.h file, and is
      *  inherited by Mixture through BaseMix
      */
-    string sName = g_ptr->speciesName(k);
+    std::string sName = g_ptr->speciesName(k);
     int tableWidth = 72;
     if (haveSpeciesTransportProps) {
         tableWidth += 30;
@@ -1048,19 +1048,19 @@ void printUsage()
 int main(int argc, char** argv)
 {
     FILE* inputFP = stdin;
-    string xmlfile;
+    std::string xmlfile;
     int i;
     bool haveSpeciesTransportProps = false;
     bool skipTransport = false;
     bool printInputFormat = false;
-    clockWC tt;
-    string commandFile = "cttables.inp";
+    zuzaxUtil::accurateClock tt;
+    std::string commandFile = "cttables.inp";
     ZZCantera::Kinetics* gKinetics = 0;
     // look for command-line options
     if (argc > 1) {
-        string tok;
+        std::string tok;
         for (int j = 1; j < argc; j++) {
-            tok = string(argv[j]);
+            tok = std::string(argv[j]);
             if (tok[0] == '-') {
                 int nopt = static_cast<int>(tok.size());
                 for (int n = 1; n < nopt; n++) {
@@ -1073,7 +1073,7 @@ int main(int argc, char** argv)
                     } else if (tok[n] == 'd') {
                         int lvl = 0;
                         if (j < (argc - 1)) {
-                            string tokla = string(argv[j+1]);
+                            std::string tokla = std::string(argv[j+1]);
                             if (strlen(tokla.c_str()) > 0) {
                                 lvl = atoi(tokla.c_str());
                                 n = nopt - 1;
@@ -1176,7 +1176,7 @@ int main(int argc, char** argv)
          */
 
         for (i = 0; i < IOO.NumberCanteraFiles; i++) {
-            string jjj = IOO.CanteraFileNames[i];
+            std::string jjj = IOO.CanteraFileNames[i];
             //if (!strcmp(PO.CanteraFileNames[i], "gas.xml")) {
             //printf("we are here\n");
             //}

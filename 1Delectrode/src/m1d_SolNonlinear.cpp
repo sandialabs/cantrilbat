@@ -13,7 +13,7 @@
 
 #include "m1d_Comm.h"
 #include "m1d_SolNonlinear.h"
-#include "cantera/base/clockWC.h"
+#include "cantera/base/accurateClock.h"
 #include "cantera/base/utilities.h"
 #include "mdp_allo.h"
 #include "cantera/base/stringUtils.h"
@@ -1708,7 +1708,7 @@ SolNonlinear::solve_nonlinear_problem(Zuzax::Solve_Type solnType,
                                       int& num_linear_solves,
                                       int& num_backtracks)
 {
-    ZZCantera::clockWC t0;
+    zuzaxUtil::accurateClock t0;
     if (solnType == Zuzax::Solve_Type::SteadyState_Solve) {
         doTimeDependentResid_ = false;
     } else {

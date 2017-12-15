@@ -15,7 +15,6 @@
 
 #include "m1d_Comm.h"
 #include "m1d_SolNonlinear_CurrentSolve.h"
-#include "cantera/base/clockWC.h"
 #include "mdp_allo.h"
 
 #include "Epetra_Vector.h"
