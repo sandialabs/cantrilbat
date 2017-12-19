@@ -971,7 +971,9 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_suite/DualfoilComparison/Makefile \
           1Delectrode/test_suite/DualfoilComparison/dualfoil_run/Makefile \
           1Delectrode/test_suite/CAEBAT_restart_cycle/Makefile \
+          1Delectrode/test_suite/CAEBAT_restart_cycle/run \
           1Delectrode/test_suite/CAEBAT_restart_cycle_altTemp/Makefile \
+          1Delectrode/test_suite/CAEBAT_restart_cycle_altTemp/run \
           util_src/src/Makefile \
           util_src/tests/Makefile \
           util_src/tests/basicMultiBlock/Makefile \
@@ -982,6 +984,8 @@ AC_OUTPUT(Makefile \
 chmod +x  bin/runtest_Electrode
 chmod +x  1Delectrode/test_suite/runtest
 chmod +x  Electrode/tests/runtest_Electrode
+chmod +x  1Delectrode/test_suite/CAEBAT_restart_cycle/run
+chmod +x  1Delectrode/test_suite/CAEBAT_restart_cycle_altTemp/run
 #
 # -----------------------------------------------------------------------------
 #          END

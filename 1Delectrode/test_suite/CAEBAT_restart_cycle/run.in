@@ -20,7 +20,7 @@ fi
 #
 # Specify the MPI environment
 #
-MPIRUN=mpirun
+MPIRUN=@MPIHOME@/bin/mpirun
 MPIOPTS=""
 NP=1
 #
