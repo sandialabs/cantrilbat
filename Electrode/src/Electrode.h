@@ -1127,6 +1127,13 @@ public:
      */
     virtual bool compareLocalInterval(const Electrode* const eGuest, int nDigits);
 
+    //! Set the molar value that we care about tracking
+    /*!
+     *  @param[in]           molarAtol           Molar atol value
+     *                                           Units: kmol
+     */
+    void setMolarAtol(double molarAtol);
+
     //------------------------------------------------------------------------------------------------------------------
     // ---------------------------- INTEGRATED SOURCE TERM QUERIES -----------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -3613,6 +3620,10 @@ protected:
     double porosity_;
 
     //! Molar value of atol
+    /*!
+     *  This value is the kmol value of moles that we care about following.
+     *  Units: kmol
+     */
     double molarAtol_;
 
 protected:

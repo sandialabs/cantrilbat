@@ -162,7 +162,7 @@ Electrode::Electrode() :
     Radius_exterior_final_(5.0E-7),
     Radius_exterior_final_final_(5.0E-7),
     porosity_(0.0),
-    molarAtol_(1.0E-16),
+    molarAtol_(1.0E-12),
     xmlTimeIncrementData_(0),
     xmlTimeIncrementIntermediateData_(nullptr),
     xmlExternalData_init_init_(nullptr),
@@ -281,7 +281,7 @@ Electrode::Electrode(const Electrode& right) :
     Radius_exterior_final_(5.0E-7),
     Radius_exterior_final_final_(5.0E-7),
     porosity_(0.0),
-    molarAtol_(1.0E-16),
+    molarAtol_(1.0E-12),
     xmlTimeIncrementData_(nullptr),
     xmlTimeIncrementIntermediateData_(nullptr),
     xmlExternalData_init_init_(0),
@@ -4086,6 +4086,11 @@ double Electrode::reportTimeLimit(int allowedSubSteps, double allowedErrorStateV
 {
     throw Electrode_Error("Electrode::reportTimeLimit()", "Base Class Called");
     return 0.0;
+}
+//==================================================================================================================================
+void Electrode::setMolarAtol(double molarAtol)
+{
+    molarAtol_ = molarAtol;
 }
 //==================================================================================================================================
 bool Electrode::compareLocalInterval(const Electrode* const eGuest, int nDigits)

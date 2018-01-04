@@ -110,7 +110,7 @@ Electrode_CSTR::Electrode_CSTR() :
     xRegion_final_final_(-1),
     goNowhere_(0),
     deltaT_RegionBoundaryCollision_(1.0E300),
-    atolBaseResid_(1.0E-12),
+    atolBaseResid_(1.0E-8),
     SrcDot_RxnExtent_final_(0.0),
     deltaSpMoles_(0),
     minPH_(npos),
@@ -1483,7 +1483,7 @@ void  Electrode_CSTR::initialPackSolver_nonlinFunction()
      *  Note, from experience we cannot follow within the equil solver the phases with mole number that
      *  are additively insignificant compared to the total number of moles. This is a basic
      *  limitation. However, they must be followed kinetically up to the level that they contribute
-     *  electrons. So, we will set atolBaseResid_ to 1.0E-12 with possible additions later.
+     *  electrons. So, we will set atolBaseResid_ to 1.0E-8 with possible additions later.
      */
     //
     // Pick a solidMoles value that is representative of the average number of moles in the nonlinear solution
@@ -1494,7 +1494,7 @@ void  Electrode_CSTR::initialPackSolver_nonlinFunction()
     solidMoles = std::max(solidMoles,RelativeExtentRxn_NormalizationFactor_);
     solidMoles = std::max(solidMoles, 1.0E-10);
 
-    double atolVal = solidMoles * atolBaseResid_;
+    double atolVal = solidMoles * atolBaseResid_ + 1.0E-14;
 
     /*
      * Add the unknowns for each phase moles
@@ -2160,16 +2160,17 @@ void  Electrode_CSTR::setResidAtolNLS()
      *  Note, from experience we cannot follow within the equil solver the phases with mole number that
      *  are additively insignificant compared to the total number of moles. This is a basic
      *  limitation. However, they must be followed kinetically up to the level that they contribute
-     *  electrons. So, we will set atolBaseResid_ to 1.0E-25 with possible additions later.
+     *  electrons. So, we will set atolBaseResid_ to 1.0E-8 with possible additions later.
      */
-    double atolVal = solidMoles * atolBaseResid_ + 1.0E-30;
+    double atolVal = molarAtol_ + 1.0E-16;
+    double atolValRes = solidMoles * atolBaseResid_  + 1.0E-16;
 
     atolNLS_[0] = 1.0E-50;
     int index = 1;
 
     for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
         atolNLS_[index] = atolVal;
-        atolResidNLS_[index] = atolNLS_[index];
+        atolResidNLS_[index] = atolValRes;
         index++;
     }
 
@@ -2492,10 +2493,10 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
      *  Note, from experience we cannot follow within the equil solver the phases with mole number that
      *  are additively insignificant compared to the total number of moles. This is a basic
      *  limitation. However, they must be followed kinetically up to the level that they contribute
-     *  electrons. So, we will set atolBaseResid_ to 1.0E-25 with possible additions later.
+     *  electrons. So, we will set atolBaseResid_ to 1.0E-8 with possible additions later.
      */
     double solidMoles = SolidTotalMoles();
-    double atolVal = solidMoles * atolBaseResid_;
+    double atolVal = solidMoles * atolBaseResid_ + 1.0E-14;
 
     bool stepAcceptable = true;
 
