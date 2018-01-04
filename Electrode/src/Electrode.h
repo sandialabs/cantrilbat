@@ -2749,9 +2749,10 @@ public:
      *  @return                                       Returns the time storred in the TimeState XML element
      */
     double loadTimeState(const XML_Node& xTimeState);
-
-
+#ifdef DEBUG_CHECK_XML
+    // Note must be compiled with DEBUG_MODE in Zuzax
     bool check_XML(const std::string& shead = "");
+#endif
 
 
     //------------------------------------------------------- D A T A --------------------------------------------------
