@@ -159,6 +159,7 @@ int main(int argc, char **argv)
     double Tfinal = 0.0;
 
     electrodeA->setVoltages(0.0, -0.2);
+    electrodeA->setPrintLevel(4);
     double molNum[10];
 
     electrodeA->setPhaseExistenceForReactingSurfaces(true);

@@ -1932,6 +1932,14 @@ public:
      */
     static int s_printLvl_DEBUG_SPECIAL;
 
+    //! toggle switch for printing from solver
+    /*!
+     *  0 No printing (default)
+     *   1 printing is turned on 
+     *  #  turns on more printing from solver
+     */
+    static int s_printLvl_SOLVER;
+
     /********************************************************************************************************************
      *  OPEN CIRCUIT VOLTAGE
      *******************************************************************************************************************/

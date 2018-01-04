@@ -43,6 +43,9 @@ int Electrode::s_printLvl_PREDICTOR_CORRECTOR = 1;
 // by default special debug printing is turned off
 int Electrode::s_printLvl_DEBUG_SPECIAL = 0;
 
+// By default, printing from solver is turned off
+int Electrode::s_printLvl_SOLVER = 0;
+
 //==================================================================================================================================
 //
 //  We read the first character to determine boolean values

@@ -1071,7 +1071,11 @@ topConvergence:
             num_newt_its = 0;
             int num_linear_solves = 0;
             int numBacktracks = 0;
-            int loglevelInput = MAX(0, printLvl_ - 2);
+            int solverPrintLvl = 0;
+            if (s_printLvl_SOLVER) {
+                solverPrintLvl = MAX(0, printLvl_ - 2);
+                solverPrintLvl = MAX(solverPrintLvl, s_printLvl_SOLVER - 1);
+            }
 
             /*
              *  formulate the nonlinear solver problem to be solved.
@@ -1153,11 +1157,11 @@ topConvergence:
 #ifdef DEBUG_HKM_1DELECTRODE
             if (electrodeCellNumber_ == 0) {
                 if (counterNumberIntegrations_ == 40) {
-                    loglevelInput = 10;
+                    solverPrintLvl = 10;
                     detailedResidPrintFlag_ = 10;
                     enableExtraPrinting_ = 1;
                 } else {
-                    loglevelInput = 0;
+                    solverPrintLvl = 0;
                     detailedResidPrintFlag_ = 0;
                     enableExtraPrinting_ = 0;
                 }
@@ -1165,7 +1169,7 @@ topConvergence:
 #endif
             //   How to turn on the jacobian printing if debugging
             //pSolve_->s_print_NumJac = 1;
-            //loglevelInput = 10;
+            //solverPrintLvl = 10;
 	    //pSolve_->m_min_newt_its = 4;
 #ifdef DEBUG_MODE
 	    if (s_printLvl_DEBUG_SPECIAL && deltaTsubcycle_ < 0.04) {
@@ -1177,11 +1181,11 @@ topConvergence:
             if (useNLS_JAC) {
                 nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
 								 tfinal_, *jacMng_,  num_newt_its, num_linear_solves,
-								 numBacktracks, loglevelInput);
+								 numBacktracks, solverPrintLvl);
             } else {
                 nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
 								 tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,
-								 numBacktracks, loglevelInput);
+								 numBacktracks, solverPrintLvl);
             }
             if (nonlinearFlag < 0) {
                 if (printLvl_ > 2) {
