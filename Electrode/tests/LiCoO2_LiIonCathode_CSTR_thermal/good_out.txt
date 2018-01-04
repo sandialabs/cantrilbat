@@ -1322,56 +1322,6 @@ oc[0] = 3.98922
                            CoO2                   -4.394E-09
                            li_site                 0.000E+00
      ============================================================================================
-	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-		Unk            m_ewt              y                dyVector            ResN
-		    0         2.00000000e-08     2.00000000e-04     2.000000e-10      0.00000000e+00 
-		    1         1.94060238e-09     1.94060236e-05     1.940602e-11      0.00000000e+00 
-		    2         3.99999989e-05     3.99999989e-01     4.000000e-07      0.00000000e+00 
-		Current Matrix and Residual:
-		    I,J |       0           1           2     |   Residual  
-		        --------------------------------------|  -----------
-		      0 |  1.0000E+00  0.0000E+00  0.0000E+00 |   0.0000E+00
-		      1 |  0.0000E+00  1.0000E+00 -8.4703E-15 |   0.0000E+00
-		      2 |  5.7176E-05  1.9451E-04  1.0000E+00 |   0.0000E+00
-		        ----------------------------------------------------
-	   solve_nonlinear_problem(): Calculate the base residual
-		   ------------------------------------------------------------------------------------------
-		   residErrorNorm():  Initial norm of the residual =   0.0000E+00
-		        Printout of Largest Contributors to norm:
-		        I       |Resid/ResWt|     UnsclRes          ResWt    |  y_curr
-		     ----------------------------------------------------------------------------------------
-		        0       0.0000e+00       0.0000e+00       2.0000e-11 |   2.0000e-04
-		        1       0.0000e+00       0.0000e+00       1.9406e-12 |   1.9406e-05
-		        2       0.0000e+00       0.0000e+00       4.0000e-08 |   4.0000e-01
-		   ------------------------------------------------------------------------------------------
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
-		   ------------------------------------------------------------------------------------------
-		   solnErrorNorm(): Initial Undamped Newton Step of the iteration = 0.0000E+00 
-		        Printout of Largest Contributors:                     (damp = 1)
-		        I   weightdeltaY/sqtN|     deltaY    ysolnOld     ysolnNew   Soln_Weights
-		     ----------------------------------------------------------------------------------------
-		        0   0.0000e+00       |  -0.0000e+00   2.0000e-04   2.0000e-04   2.0000e-08
-		        1   0.0000e+00       |  -0.0000e+00   1.9406e-05   1.9406e-05   1.9406e-09
-		        2   0.0000e+00       |  -0.0000e+00   4.0000e-01   4.0000e-01   4.0000e-05
-		   ------------------------------------------------------------------------------------------
-	   solve_nonlinear_problem(): Initialize the trust region size as the length of the Cauchy Vector times 1.000000
-	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 0, residTrial = 0
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   ------------------------------------------------------------------------------------------
-		   residErrorNorm():   Resulting full residual norm =   0.0000E+00
-		        Printout of Largest Contributors to norm:
-		        I       |Resid/ResWt|     UnsclRes          ResWt    |  y_curr
-		     ----------------------------------------------------------------------------------------
-		        0       0.0000e+00       0.0000e+00       2.0000e-11 |   2.0000e-04
-		        1       0.0000e+00       0.0000e+00       1.9406e-12 |   1.9406e-05
-		        2       0.0000e+00       0.0000e+00       4.0000e-08 |   4.0000e-01
-		   ------------------------------------------------------------------------------------------
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 0.0000E+00  
-	=======================================================================================================================
-	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode at intermediate-step time final =  2.00000E-04
                    intermediate-step time init  =  0.00000E+00     deltaT =  2.00000E-04
@@ -1569,55 +1519,6 @@ current2 = -0.106542 amps
  q_enth2   = 0.0460341
  diff  =  q_enth -  q_over  - q_entrop = 0
  diff2 =  q_enth2 - q_over  - q_entrop = 0
-	=======================================================================================================================
-	solve_nonlinear_problem(): iteration 1:
-	   solve_nonlinear_problem(): Getting a new Jacobian
-		Unk            m_ewt              y                dyVector            ResN
-		    0         2.00000000e-08     2.00000000e-04     2.000000e-10      0.00000000e+00 
-		    1         1.94060238e-09     1.94060236e-05     1.940602e-11     -3.38813179e-21 
-		    2         3.99999977e-05     3.99999977e-01     4.000000e-07      5.55111512e-17 
-		Current Matrix and Residual:
-		    I,J |       0           1           2     |   Residual  
-		        --------------------------------------|  -----------
-		      0 |  1.0000E+00  0.0000E+00  0.0000E+00 |   0.0000E+00
-		      1 |  0.0000E+00  1.0000E+00  0.0000E+00 |  -3.3881E-21
-		      2 |  5.6899E-05  1.8879E-04  1.0000E+00 |   5.5511E-17
-		        ----------------------------------------------------
-	   solve_nonlinear_problem(): Calculate the base residual
-		   ------------------------------------------------------------------------------------------
-		   residErrorNorm():  Initial norm of the residual =   1.2877E-09
-		        Printout of Largest Contributors to norm:
-		        I       |Resid/ResWt|     UnsclRes          ResWt    |  y_curr
-		     ----------------------------------------------------------------------------------------
-		        1       1.7459e-09      -3.3881e-21       1.9406e-12 |   1.9406e-05
-		        2       1.3878e-09       5.5511e-17       4.0000e-08 |   4.0000e-01
-		        0       0.0000e+00       0.0000e+00       2.0000e-11 |   2.0000e-04
-		   ------------------------------------------------------------------------------------------
-	   solve_nonlinear_problem(): Calculate the Newton direction via a Newton solve
-		   ------------------------------------------------------------------------------------------
-		   solnErrorNorm(): Initial Undamped Newton Step of the iteration = 1.2877E-12 
-		        Printout of Largest Contributors:                     (damp = 1)
-		        I   weightdeltaY/sqtN|     deltaY    ysolnOld     ysolnNew   Soln_Weights
-		     ----------------------------------------------------------------------------------------
-		        1   1.0080e-12       |   3.3881e-21   1.9406e-05   1.9406e-05   1.9406e-09
-		        2   8.0123e-13       |  -5.5511e-17   4.0000e-01   4.0000e-01   4.0000e-05
-		        0   0.0000e+00       |   0.0000e+00   2.0000e-04   2.0000e-04   2.0000e-08
-		   ------------------------------------------------------------------------------------------
-	  dampStep(): Current trial step and damping coefficient accepted because residTrial test step < 1:
-	              resid0 = 1.28765e-09, residTrial = 1.28765e-09
-	  dampStep(): current trial step accepted retnTrial = 3, its = 1, damp = 1
-		   ------------------------------------------------------------------------------------------
-		   residErrorNorm():   Resulting full residual norm =   1.0080E-09
-		        Printout of Largest Contributors to norm:
-		        I       |Resid/ResWt|     UnsclRes          ResWt    |  y_curr
-		     ----------------------------------------------------------------------------------------
-		        1       1.7459e-09       3.3881e-21       1.9406e-12 |   1.9406e-05
-		        0       0.0000e+00       0.0000e+00       2.0000e-11 |   2.0000e-04
-		        2       0.0000e+00       0.0000e+00       4.0000e-08 |   4.0000e-01
-		   ------------------------------------------------------------------------------------------
-	   solve_nonlinear_problem(): Damped Newton iteration successful, nonlin converged, final estimate of the next solution update norm = 1.2877E-12  
-	=======================================================================================================================
-	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode at intermediate-step time final =  4.00000E-04
                    intermediate-step time init  =  2.00000E-04     deltaT =  2.00000E-04

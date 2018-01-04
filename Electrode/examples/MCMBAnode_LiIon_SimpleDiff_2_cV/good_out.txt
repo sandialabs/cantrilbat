@@ -14,6 +14,7 @@
 	Units = Pressure Units (Pa, torr, atm) (Default = Pa)
     Maximum number of Subglobal time steps = (integer) with limits (1, 10000) with default 1000
     Relative Local To Global Time Step Minimum = (double) with limits (0, 1) with default 0.001
+    Extra Rtol Accuracy for Nonlinear Solve = (double) with limits (1e-08, 5) with default 1
     Cantera File Name = (Cstring) with Token limits(1, 1) with default gas.cti (REQUIRED LINES = 4)
          ====> CanteraFileNames =  metal_Li_LiIon_electrons.xml
          ====> CanteraFileNames =  ECsoln_ion.xml
@@ -287,14 +288,6 @@ oc[0] = -0.0230903
                            V_C6-bulk               1.009E-02
                            li_site                 0.000E+00
    ==============================================================================================
-	solve_nonlinear_problem():
-
-	 Wt  Iter Resid NewJac |  Fbound  ResidBound  | DampIts Fdamp  DS_Step1   DS_Step2ResidLag |  DS_Damp    DS_Newton  ResidFull
-	------------------------------------------------------------------------------------------------------------------------------------
-	*   1   6.528E-07   Y  |  1.00E+00  7.011E-12 | 1   1.00E+00  6.531E-10   7.014E-15  7.011E-12|  6.531E-10  6.531E-10  7.011E-12
-	                       |                      |                                converged = 3  |            (  7.014E-15) 
-	-----------------------------------------------------------------------------------------------------------------------------------
-	Nonlinear problem solved successfully in 1 its
    ==============================================================================================
       Electrode_SimpleDiff at intermediate-step time final =  2.50000E-08
                               intermediate-step time init  =  0.00000E+00               deltaT = 2.5e-08
