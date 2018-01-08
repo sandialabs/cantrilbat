@@ -175,6 +175,7 @@ public:
    */
   void
   updateElectrolyteOld(const double* const solnElectrolyte);
+
   void
   updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
 

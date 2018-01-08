@@ -40,7 +40,7 @@ using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
-//=====================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
@@ -111,18 +111,18 @@ infPorousLiKCl_FeS2Cathode_dom1D::infPorousLiKCl_FeS2Cathode_dom1D(const infPoro
   jFlux_trCurr_(0), icurrElectrode_trCurr_(0.0), electrodeSpeciesProdRates_(0), icurrInterface_Curr_(0.0),
   phaseMoleFlux_(0), solnMoleFluxInterface_Curr_(0.0), icurrElectrode_CBL_(0), icurrElectrode_CBR_(0),
   icurrElectrolyte_CBL_(0), icurrElectrolyte_CBR_(0), deltaV_Cell_(0), Ess_Cell_(0), overpotential_Cell_(0),
-  icurrRxn_Cell_(0), LiFlux_Cell_(0), 
+  icurrRxn_Cell_(0),
+  LiFlux_Cell_(0), 
   solnTemp(0)
 {
   infPorousLiKCl_FeS2Cathode_dom1D::operator=(r);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 infPorousLiKCl_FeS2Cathode_dom1D::~infPorousLiKCl_FeS2Cathode_dom1D()
 {
 }
-//=====================================================================================================================
-infPorousLiKCl_FeS2Cathode_dom1D &
-infPorousLiKCl_FeS2Cathode_dom1D::operator=(const infPorousLiKCl_FeS2Cathode_dom1D &r)
+//==================================================================================================================================
+infPorousLiKCl_FeS2Cathode_dom1D& infPorousLiKCl_FeS2Cathode_dom1D::operator=(const infPorousLiKCl_FeS2Cathode_dom1D &r)
 {
   if (this == &r) {
     return *this;
@@ -186,19 +186,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::operator=(const infPorousLiKCl_FeS2Cathode_dom
 
   return *this;
 }
-//=====================================================================================================================
-// Prepare all of the indices for fast calculation of the residual
-/*
- *  Ok, at this point, we will have figured out the number of equations
- *  to be calculated at each node point. The object NodalVars will have
- *  been fully formed.
- *
- *  We use this to figure out what local node numbers/ cell numbers are
- *  needed and to set up indices for their efficient calling.
- *
- *  Child objects of this one will normally call this routine in a
- *  recursive fashion.
- */
+//==================================================================================================================================
 void
 infPorousLiKCl_FeS2Cathode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
@@ -496,8 +484,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::advanceTimeBaseline(const bool doTimeDependent
         }
     }
 }
-
-//=====================================================================================================================
+//==================================================================================================================================
 // Basic function to calculate the residual for the domain.
 /*
  *  This class is used just for volumetric domains with an electrolyte.
@@ -1124,7 +1111,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::residEval(Epetra_Vector &res,
   }
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 infPorousLiKCl_FeS2Cathode_dom1D::calcElectrode()
 {
@@ -1161,7 +1148,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::calcElectrode()
   }
 
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const double* const solnElectrolyte_Curr, int type)
 {
@@ -1171,11 +1158,10 @@ infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop1Old(const double* const solnEl
   updateElectrolyteOld(solnElectrolyte_Curr);
   updateElectrode();
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const double* const solnElectrolyte_CurrL,
-                                                   const double* const solnElectrolyte_CurrR,
-                                                   int type)
+                                                   const double* const solnElectrolyte_CurrR, int type)
 {
   for (int i = 0; i < BDD_ptr_->NumEquationsPerNode; i++) {
     solnTemp[i] = 0.5 * (solnElectrolyte_CurrL[i] + solnElectrolyte_CurrR[i]);
@@ -1188,14 +1174,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::SetupThermoShop2Old(const double* const solnEl
   updateElectrolyteOld(&solnTemp[0]);
   updateElectrode();
 }
-//=====================================================================================================================
-// Function updates the ThermoPhase object for the electrolyte
-// given the solution vector
-/*
- *   Routine will update the molten salt ThermoPhase object with the current state of the electrolyte
- *
- * @param solnElectrolyte
- */
+//==================================================================================================================================
 void
 infPorousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const double* const solnElectrolyte_Curr)
 {
@@ -1223,7 +1202,7 @@ infPorousLiKCl_FeS2Cathode_dom1D::updateElectrolyteOld(const double* const solnE
   // Calculate the total concentration of the electrolyte kmol m-3.
   concTot_Curr_ = ionicLiquid_->molarDensity();
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 infPorousLiKCl_FeS2Cathode_dom1D::updateElectrode()
 {
@@ -1264,11 +1243,10 @@ infPorousLiKCl_FeS2Cathode_dom1D::getMFElectrolyte_solnOld(const double * const 
   mfElectrolyte_Thermo_Curr_[1] = (mf1) * 0.5 / tmp;
   mfElectrolyte_Thermo_Curr_[2] = 0.5;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 infPorousLiKCl_FeS2Cathode_dom1D::SetupTranShop(const double xdel, const int type)
 {
-
   /*
    * Determine diffusion velocities
    */

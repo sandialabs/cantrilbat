@@ -124,7 +124,6 @@ enum DOFS
     MAX_DOF 
 };
 
-
 //===================================================================================================================================
 //! Structure for commumicating polarization results
 /*!
@@ -140,7 +139,6 @@ enum DOFS
  */
 struct PolarizationSurfRxnResults {
 
-    //!  
     //!  Index of the reacting surface within the Electrode that the summary is for
     size_t isurf = npos;
 
@@ -1254,10 +1252,10 @@ public:
      */
     virtual double integratedLocalCurrent() const;
 
-    //! Returns the net production rates of all species in the electrode object over the last integration step
+    //! Returns the net production rates of all species in the electrode object over the last global time step
     /*!
-     *  We calculate a rate here by taking the total production amounts and then
-     *  dividing by the time step to get a rate.
+     *  We calculate a rate here by taking the total production amounts added up over intermediate integration steps 
+     *  and then dividing by the time step to get a rate.
      *
      *  @param[out]         net                 Species net production rates [kmol/s].
      */
@@ -2111,12 +2109,12 @@ public:
 
     //! Calculate the polarization analysis
     /*!
-     *  Returns a structure containing the polarization analysis
+     *  Returns a vector of structures containing the polarization analysis
      * 
      *  @param[out]          psrr                Results of the analysis for the electrode object during the current
      *                                           global time step.
      *
-     *  @return                                  Returns the total current
+     *  @return                                  Returns the total current 
      */
     double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psrr);
 
@@ -3267,7 +3265,7 @@ protected:
     /*!
      *  This vector will have nonzero entries for the electrolyte phase and the electron
      *  phase even if the moles for these phases are not allowed to change within the object itself. These represent true
-     *  production rates for these species.
+     *  production rates for these species over the global time step.
      *
      *   Length: PhaseList::m_NumTotSpecies
      *   Indexing: PhaseList global species index

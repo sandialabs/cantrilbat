@@ -1,9 +1,6 @@
 /**
  * @file m1d_BDD_porousLiKCl.h
  */
-/*
- *   $Id: m1d_BDD_porousLiKCl.h 504 2013-01-07 22:32:48Z hkmoffa $
- */
 
 #ifndef M1D_BDD_POROUSLIKCL_H_
 #define M1D_BDD_POROUSLIKCL_H_
@@ -16,13 +13,10 @@
 #include <cantera/thermo/IonsFromNeutralVPSSTP.h>  // ion properties
 #include <cantera/thermo/StoichSubstance.h>  // separator
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
-//==================================================================
-//==================================================================
-//==================================================================
-
+//==================================================================================================================================
 //! This class consists of multiple species diffusing in a time
 //! dependent manner.  There is a net flow and a net electric current.
 /*!
@@ -57,8 +51,7 @@ public:
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  BDD_porousLiKCl &
-  operator=(const BDD_porousLiKCl &r);
+  BDD_porousLiKCl& operator=(const BDD_porousLiKCl &r);
 
   //! Read in the possible models for each domain
   /*!
@@ -68,8 +61,7 @@ public:
    *
    *   We loop over volume and then surface domains.
    */
-  virtual void
-  ReadModelDescriptions();
+  virtual void ReadModelDescriptions();
 
   //! Determine the list of Equations and Variables
   /*!
@@ -77,8 +69,7 @@ public:
    *    - VariableNameList
    *    - EquationNameList
    */
-  virtual void
-  SetEquationsVariablesList();
+  virtual void SetEquationsVariablesList();
 
   //! Malloc and Return the object that will calculate the residual efficiently
   /*!
@@ -107,7 +98,7 @@ public:
   ZZCantera::IonsFromNeutralVPSSTP *ionicLiquidIFN_;
 
 };
-
+//==================================================================================================================================
 }
-
-#endif /* M1D_BULKDOMAINTYPES_H_ */
+//----------------------------------------------------------------------------------------------------------------------------------
+#endif

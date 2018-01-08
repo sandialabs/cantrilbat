@@ -2,10 +2,6 @@
  * @file m1d_BDD_porousElectrode.h
  */
 
-/*
- *   $Id: m1d_BDD_porousElectrode.h 5 2012-02-23 21:34:18Z hkmoffa $
- */
-
 #ifndef M1D_BDD_POROUSELECTRODE_H_
 #define M1D_BDD_POROUSELECTRODE_H_
 
@@ -16,6 +12,7 @@
 #include "Electrode.h"
 #include "Electrode_input.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
 #else
@@ -26,9 +23,10 @@ namespace Cantera
   class Transport;
   class ThermoPhase;
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
+//==================================================================================================================================
 //! This class consists of multiple species diffusing in a time
 //! dependent manner.  There is a net flow and a net electric current.
 /*!
@@ -50,8 +48,7 @@ public:
   BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType, std::string domainFunctionName = "", std::string domainName = "");
 
   //! Destructor
-  virtual
-  ~BDD_porousElectrode(); 
+  virtual ~BDD_porousElectrode(); 
 
   //! Copy Constructor
   /*!
@@ -64,8 +61,7 @@ public:
    * @param r    Object to be copied
    * @return     Returns a changeable reference to the current object
    */
-  BDD_porousElectrode &
-  operator=(const BDD_porousElectrode &r);
+  BDD_porousElectrode& operator=(const BDD_porousElectrode &r);
 
   //! Read in the possible models for each domain
   /*!
@@ -75,8 +71,7 @@ public:
    *
    *   We loop over volume and then surface domains.
    */
-  virtual void
-  ReadModelDescriptions();
+  virtual void ReadModelDescriptions();
 
   //! Determine the list of Equations and Variables
   /*!
@@ -84,15 +79,13 @@ public:
    *    - VariableNameList
    *    - EquationNameList
    */
-  virtual void
-  SetEquationsVariablesList();
+  virtual void SetEquationsVariablesList();
 
   //! This is done after the equations are set up
   /*!
    *  We loop over volume and then surface domains here.
    */
-  virtual void
-  DetermineConstitutiveModels();
+  virtual void DetermineConstitutiveModels();
 
 
   //! Malloc and Return the object that will calculate the residual efficiently
@@ -108,7 +101,7 @@ public:
 
   //! Pointer to the electrode object
   /*!
-   * We own the electrode object.
+   *  We own the electrode object.
    */
   ZZCantera::Electrode* Electrode_;
 
@@ -127,7 +120,7 @@ public:
   int electrodeType_;
 
 };
-//=====================================================================================================================
+//==================================================================================================================================
 }
-//=====================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif 

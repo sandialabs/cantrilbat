@@ -85,7 +85,8 @@ export LAPACK_LIBRARY_NAMES=liblapack_linux64-gcc493.a
 #  Location of the Umfpack library
 #
 export UMFPACK_LIBRARY_DIR=/home/hkmoffa/arch/linux64_gcc493/UMFPACK-5.4/lib
-export UMFPACK_LIBRARY_NAMES="libumfpack.a:libamd.a"
+export UMFPACK_LIBRARY_NAMES="libumfpack_dbg.a:libamd_dbg.a"
+#export UMFPACK_LIBRARY_NAMES="libumfpack.a:libamd.a"
 #
 #  Location of the superludist library
 #

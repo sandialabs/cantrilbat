@@ -1,8 +1,6 @@
 /*
  * m1d_infPorousLiKCl_FeS2Cathode_dom1D.h
  *
- *  Created on: May 19, 2009
- *      Author: hkmoffa
  */
 
 #ifndef M1D_INFPOROUSLIKCL_FES2CATHODE_DOM1D_H_
@@ -26,32 +24,30 @@
 #include "Electrode.h"
 #include "m1d_BDT_infPorCathode_LiKCl.h"
 
-//=====================================================================================================================
-namespace Cantera
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace Zuzax
 {
 class Electrode;
 }
-//=====================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 class LocalNodeIndices;
-//=====================================================================================================================
+//==================================================================================================================================
 //! Class for solving residuals for bulk domains
 /*!
- * There is a 1 to 1 mapping between the local control volume indexing and
- * the Local Consecutive Ordering indexing
+ * There is a 1 to 1 mapping between the local control volume indexing and the Local Consecutive Ordering indexing
  *
  * There is a 1 to 1 mapping between the global control volume indexing
  * and the Global node number indexing that is given by a single offset.
  */
 class infPorousLiKCl_FeS2Cathode_dom1D : public porousElectrode_dom1D
 {
-
 public:
 
     //! Constructor
     /*!
-     * @param bdd   Contains the bulk domain description.
+     *  @param bdd   Contains the bulk domain description.
      */
     infPorousLiKCl_FeS2Cathode_dom1D(m1d::BDT_infPorCathode_LiKCl* bdd_cathode_ptr);
 
@@ -62,16 +58,14 @@ public:
   infPorousLiKCl_FeS2Cathode_dom1D(const infPorousLiKCl_FeS2Cathode_dom1D &r);
 
   //! Destructor
-  virtual
-  ~infPorousLiKCl_FeS2Cathode_dom1D();
+  virtual ~infPorousLiKCl_FeS2Cathode_dom1D();
 
   //! Assignment operator
   /*!
    * @param r      Object to be copied into the current object
    * @return       Returns a changeable reference to the current object
    */
-  infPorousLiKCl_FeS2Cathode_dom1D &
-  operator=(const infPorousLiKCl_FeS2Cathode_dom1D &r);
+  infPorousLiKCl_FeS2Cathode_dom1D& operator=(const infPorousLiKCl_FeS2Cathode_dom1D &r);
 
   //! Prepare all of the indices for fast calculation of the residual
   /*!
@@ -537,7 +531,7 @@ protected:
 
   //! soln Phase mole fluxes from the electrode reactions
   /*!
-   *  units = kmol /m2 sec
+   *  Units = kmol /m2 sec
    */
   double solnMoleFluxInterface_Curr_;
 
@@ -562,13 +556,11 @@ protected:
   std::vector<double> solnTemp;
 
 private:
-  void
-  err(const char *msg);
-
-public:
+  void err(const char *msg);
 
 };
-//=====================================================================================================================
+//==================================================================================================================================
 }
-//=====================================================================================================================
-#endif // M1D_POROUSLIKCL_FES2CATHODE_DOM1D_H_
+//----------------------------------------------------------------------------------------------------------------------------------
+#endif 
+

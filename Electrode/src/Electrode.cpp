@@ -2777,7 +2777,7 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
      */
 
     /*
-     *  For each Reacting surface
+     *  For each reacting surface
      */
     if (ActiveKineticsSurf_[isk]) {
         /*
@@ -2785,7 +2785,7 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
          */
         const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
         /*
-         *  loop over the phases in the reacting surface
+         *  Loop over the phases in the reacting surface
          */
         size_t nphRS = RSD_List_[isk]->nPhases();
         size_t kIndexKin = 0;
@@ -2800,6 +2800,7 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
     }
 }
 //==================================================================================================================================
+// Global time step
 void Electrode::getIntegratedSpeciesProductionRates(double* const net) const
 {
     if (pendingIntegratedStep_ != 1) {
@@ -3622,7 +3623,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
     // Whatever path we take, the volts taken must be the same.
     double volts = voltage();
 
-    // Create a PolarizationSurfResults record for each active surface in the problem
+    // Create a PolarizationSurfResults record for each reaction on each active surface in the problem
     /*
      *  We will only look at the exit conditions. Then, we'll normalize by the total current over the interval
      *  The base class doesn't have many polarization modes accessible
@@ -3644,11 +3645,13 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                 eok = rsd->getExchangeCurrentDensityFormulation(iRxn, nStoich, OCV, io, overPotential, beta, resistance);
                 double ocvSurfRxn = OCV;
                 double ocvSurfRxn_local = ocvSurfRxn;
+                // If this reaction has an electron as a product or reactant, it can be described by an exchange current density formulation,
+                // so create a record
                 if (eok) {
                     if (nStoich != 0.0) {
                         double icurrPerArea = rsd->calcCurrentDensity(overPotential, nStoich, OCV, beta, temperature_, resistance);
 
-                        // Create a record
+                        // Create a psr record 
                         psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, iSurf, iRxn);
                         PolarizationSurfRxnResults& psr = psr_list.back();
                         psr.icurrSurf = 0.0;
@@ -5040,7 +5043,7 @@ double Electrode::thermalEnergySourceTerm_reversibleEntropy(size_t isk)
     }
     return q;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Reversible Entropy term leading to  heat generation
 /*
  *
@@ -5105,7 +5108,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
     }
     return q;
 }
-//==============================================================================================================
+//==================================================================================================================================
 double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
 {
     double q = 0.0;
@@ -5155,7 +5158,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
     }
     return q;
 }
-//==============================================================================================================
+//==================================================================================================================================
 /*
  *   sdot h_k delta_t
  */
@@ -5187,7 +5190,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
     }
     return q;
 }
-//==============================================================================================================
+//==================================================================================================================================
 // This is called at the end of a single step.
 /*
  *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
@@ -5200,7 +5203,7 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
         ThermoPhase& tp = thermo(iph);
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
-        for (size_t ik = 0; ik < nsp; ik++) {
+        for (size_t ik = 0; ik < nsp; ++ik) {
             size_t  k = istart + ik;
             double deltaNS = temperature_ * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
@@ -5212,7 +5215,7 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
     }
     return q_alt;
 }
-//==============================================================================================================
+//==================================================================================================================================
 // This is called at the end of a single step.
 /*
  *    we assume here that the change in moles can be represented by the set of ROP of the surface reactions
@@ -5376,7 +5379,7 @@ double Electrode::getIntegratedSourceType(SOURCE_TYPES sourceType, size_t ksp)
     }
     return result;
 }
-//====================================================================================================================
+//==================================================================================================================================
 /*
  * @param assumeStableSingleSpeciesPhases Assume that single phases are stable. This
  *                                        allows their production rates to be calculated
