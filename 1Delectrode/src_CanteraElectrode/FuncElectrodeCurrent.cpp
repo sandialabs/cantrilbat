@@ -134,9 +134,9 @@ int CurrentFunc::evalResidSS(const double t, const double* const x, double* cons
         printf("CurrentFunc(time = %10g): Curr(voltage = %20.13g) = %20.13g\n", m_time_curr, x[0], amps);
 #ifdef WRITE_IV_ITER
         fprintf(ivResultFile_, "%20.13g \t%20.13g \t%20.13g\n",m_time_curr, amps, x[0]);
-#endif //WRITE_IV_ITER
+#endif
     }
-    return 0;
+    return ZZ_RESIDEVAL_SUCCESS;
 }
 //==================================================================================================================================
 void  CurrentFunc::set_deltaT(double deltaT)
