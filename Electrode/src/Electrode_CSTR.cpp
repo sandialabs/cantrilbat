@@ -2564,6 +2564,15 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
 //====================================================================================================================
 void  Electrode_CSTR::manageBirthDeathSuccessfulStep()
 {
+#ifdef DEBUG_MODE
+   size_t ph, iph;
+   for (ph = 0; ph < phaseIndexSolidPhases_.size(); ++ph) {
+      iph = phaseIndexSolidPhases_[ph];
+      if (justDiedPhase_[iph]) {
+          //printf("we are here\n"); -> it works
+      } 
+   }
+#endif
 }
 //==================================================================================================================
 //   Calculate the integrated source terms and do other items now that we have a completed time step

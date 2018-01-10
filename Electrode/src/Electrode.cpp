@@ -99,10 +99,6 @@ Electrode::Electrode() :
     sphaseMolarAreas_(0),
     VolPM_(0),
     CvPM_(0),
-    spMoles_final_(0),
-    spMoles_final_final_(0),
-    spMoles_init_(0),
-    spMoles_init_init_(0),
     spMoles_dot_(0),
     spMoles_predict_(0),
     spMf_init_(0),
@@ -218,10 +214,6 @@ Electrode::Electrode(const Electrode& right) :
     sphaseMolarAreas_(0),
     VolPM_(0),
     CvPM_(0),
-    spMoles_final_(0),
-    spMoles_final_final_(0),
-    spMoles_init_(0),
-    spMoles_init_init_(0),
     spMoles_dot_(0),
     spMoles_predict_(0),
     spMf_init_(0),
@@ -5954,11 +5946,11 @@ void Electrode::writeCSVData(int itype)
         cap = capacity();
         fprintf(fpG, "   %12.5E ,", cap);
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             fprintf(fpG, " %12.5E           ,", spMoles_final_[k]);
         }
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             fprintf(fpG, " %12.5E            ,", spMoleIntegratedSourceTerm_[k]);
         }
 

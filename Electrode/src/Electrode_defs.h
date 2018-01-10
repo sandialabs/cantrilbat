@@ -257,10 +257,10 @@ enum Polarization_Loss_Enum {
 };
 
 //==================================================================================================================================
-//! structure to store the type and amount of voltage loss computed for a polarization loss
+//! Structure to store the type and amount of voltage loss computed for a polarization loss
 /*!
- *  The types are identified by the enum Pliarization_Loss_Enum variable
- *  I haven't worked out the signs on anything yet!
+ *  The types are identified by the enum Polarization_Loss_Enum variable.
+ *  The signs are always positive for a loss in power of the resulting electron produced by a battery in discharge.
  */
 struct VoltPolPhenom
 {

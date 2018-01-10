@@ -3159,26 +3159,28 @@ protected:
      */
     std::vector<double> phaseMoles_dot_;
 
-    //! Boolean vector to indicate phases that are just coming into existence during an intermediate step
+    //!  Boolean vector to indicate phases that are just coming into existence during an intermediate step
     /*!
      *   This is a vector that is pertinent for intermediate time steps.
      *   A phase will be just Born when it is coming into existence at that particular intermediate time step.
      *
-     *   length = number of total phases
+     *   Length: number of total phases in the PhaseList
+     *   Indexing: global phase index in PhaseList
      *   value = 0 or 1
      */
     std::vector<int> justBornPhase_;
 
-    //! Boolean vector to indicate phases that are just dying during an intermediate step
+    //!  Boolean vector to indicate phases that are just dying during an intermediate step
     /*!
      *   This is a vector that is pertinent for intermediate time steps.
      *   A phase will be just Died when it goes out of existence at that
      *   particular intermediate time step.
      *
-     *  Note this vector may have an effect on the algorithm.
+     *   Note this vector may have an effect on the algorithm.
      *
-     *  Length = number of total phases
-     *  value = 0 or 1 
+     *   Length: number of total phases in the PhaseList
+     *   Indexing: global phase index in PhaseList
+     *   value = 0 or 1 
      */
     std::vector<int> justDiedPhase_;
 
@@ -3759,7 +3761,7 @@ public:
      *
      *           -  0  no printing
      *           -  1  Global time step printing just before a time step advancement
-     *           -  2   Global time step printing whether or not time step is advanced
+     *           -  2  Global time step printing whether or not time step is advanced
      *           -  3  Global time step printing and intermediate step printing.
      */
     int printCSVLvl_;
