@@ -3172,9 +3172,8 @@ protected:
 
     //!  Boolean vector to indicate phases that are just dying during an intermediate step
     /*!
-     *   This is a vector that is pertinent for intermediate time steps.
-     *   A phase will be just Died when it goes out of existence at that
-     *   particular intermediate time step.
+     *   This is a vector that is pertinent for intermediate time steps. 
+     *   A phase will be just died when it goes out of existence at that particular intermediate time step.
      *
      *   Note this vector may have an effect on the algorithm.
      *
@@ -3698,10 +3697,11 @@ public:
     //! Cell number within the domain
     int electrodeCellNumber_;
 
-    //! Number of integrations (successful or failed) carried out by this object
+    //! Number of times the integrator was called for a global time step
     /*!
      *  This number can be used to identify every unique global integration that the object undergoes.
-     *  Note, because jacobians may be calculated, this does not correspond to the global time step number
+     *  Note, because jacobians may be calculated, this does not correspond to the global time step number.
+     *  In constructing the Jacobian, the integrator is called multiple times within each global time step.
      */
     int counterNumberIntegrations_;
 

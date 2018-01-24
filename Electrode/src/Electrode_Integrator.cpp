@@ -410,8 +410,6 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
 
     deltaBoundsMagnitudesNLS_           = right.deltaBoundsMagnitudesNLS_;
 
-    phaseJustDied_                      = right.phaseJustDied_;
-    phaseJustBorn_                      = right.phaseJustBorn_;
     soln_predict_                       = right.soln_predict_;
     haveGood_solnDot_init_              = right.haveGood_solnDot_init_;
     solnDot_init_                       = right.solnDot_init_;
@@ -546,23 +544,20 @@ int Electrode_Integrator::create_solvers()
     errorLocalNLS_.resize(neqNLS, 0.0);
     errorGlobalNLS_.resize(neqNLS, 0.0);
 
+    // Set all absolute tolerances to a default of 1.0E-12. We will do better when we know what each unknown is
     atolNLS_.resize(neqNLS, 1.0E-12);
+    // Set all absolute tolerances to a default of 1.0E-12. We will do better when we know what each unknown is
     atolResidNLS_.resize(neqNLS, 1.0E-12);
     deltaBoundsMagnitudesNLS_.resize(neqNLS, 1.0E300);
 
-    phaseJustDied_.resize(m_NumTotPhases, 0);
-    phaseJustBorn_.resize(m_NumTotPhases, 0);
-
     // Add a couple of extra doubles, to the predictor, because some objects store extra info in those slots
     soln_predict_.resize(neqNLS + 2, 0.0);
-   
+    soln_predict_fromDot_.resize(neqNLS + 2, 0.0);
 
     solnDot_init_.resize(neqNLS, 0.0);
     solnDot_final_.resize(neqNLS, 0.0);
     solnDot_init_init_.resize(neqNLS, 0.0);
     solnDot_final_final_.resize(neqNLS, 0.0);
-    soln_predict_fromDot_.resize(neqNLS + 2, 0.0);
-
 
     IntegratedSrc_Predicted.resize(numIntegratedSrc_, 0.0);
     IntegratedSrc_final_.resize(numIntegratedSrc_, 0.0);
@@ -988,8 +983,8 @@ topConvergence:
             /*
              *   Zero needed counters
              */
-            std::fill(phaseJustDied_.begin(), phaseJustDied_.end(), 0);
-            std::fill(phaseJustBorn_.begin(), phaseJustBorn_.end(), 0);
+            std::fill(justDiedPhase_.begin(), justDiedPhase_.end(), 0);
+            std::fill(justBornPhase_.begin(), justBornPhase_.end(), 0);
             /*
              *  Ok at this point we have a time step deltaTsubcycle_ and initial conditions consisting of 
              *  phaseMoles_init_ and spMF_init_. We now calculate predicted solution components from these conditions.
@@ -1685,7 +1680,7 @@ int Electrode_Integrator::predictSolnDot()
 {
     int info = 1;
     soln_predict_fromDot_[0] = deltaTsubcycleCalc_;
-    for (int i = 1; i < (int) yvalNLS_.size(); i++) {
+    for (size_t i = 1; i < yvalNLS_.size(); i++) {
 	soln_predict_fromDot_[i] = yvalNLS_init_[i] + deltaTsubcycleCalc_ * solnDot_init_[i];
     }
     // We only use the prediction if the predictSolnDot method is deemed the best predictor!
@@ -2200,9 +2195,6 @@ int Electrode_Integrator::evalResidNJ(const double t, const double delta_t,
         }
         printf(" DomainNumber = %2d , CellNumber = %2d , IntegrationCounter = %d\n",
                electrodeDomainNumber_, electrodeCellNumber_, counterNumberIntegrations_);
-    }
-    if ((evalType != ResidEval_Type::JacDelta_ResidEval)) {
-        std::fill(phaseJustDied_.begin(), phaseJustDied_.end(), 0);
     }
     /*
      *  UNPACK THE SOLUTION VECTOR

@@ -957,24 +957,19 @@ void Electrode_CSTR::setState_EState(const EState& es)
     setInitStateFromFinal(true);
     setFinalFinalStateFromFinal();
 }
-//====================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::setState_relativeExtentRxn(double relExtentRxn)
 {
     throw Electrode_Error("Electrode_CSTR::setState_relativeExtentRxn()", "Base class called");
 }
-//====================================================================================================================
-// Predict the solution
+//==================================================================================================================================
 /*
- * Ok at this point we have a time step deltalimiTsubcycle_
- * and initial conditions consisting of phaseMoles_init_ and spMF_init_.
- * We now calculate predicted solution components from these conditions.
- *
+ * Ok at this point we have a time step, deltaTsubcycle_, and initial conditions consisting of
+ * phaseMoles_init_ and spMF_init_.  We now calculate predicted solution components from these conditions.
  */
-int  Electrode_CSTR::predictSoln()
+int Electrode_CSTR::predictSoln()
 {
-
-    double vleft, vright;
-    double vtop, vbot;
+    double vleft, vright, vtop, vbot;
 
     // predict that the calculated deltaT is equal to the input deltaT
     deltaTsubcycleCalc_ = deltaTsubcycle_;
@@ -1149,7 +1144,7 @@ int  Electrode_CSTR::predictSoln()
             for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
                 hasAPos = 0;
                 hasANeg = 0;
-                int iph = phaseIndexSolidPhases_[ph];
+                size_t iph = phaseIndexSolidPhases_[ph];
                 justDiedPhase_[iph] = 0;
                 DTmin = 1.0E+300;
                 for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
@@ -1222,6 +1217,7 @@ int  Electrode_CSTR::predictSoln()
             //
             //  Here we calculate justDiedPhase_[] vector
             //
+            size_t iphDie = npos;
             if (minDT < 1.15 * deltaTsubcycleCalc_) {
                 for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
                     hasAPos = 0;
@@ -1246,6 +1242,7 @@ int  Electrode_CSTR::predictSoln()
                         DT = DTmin;
                         if (DT < minDT + 0.1 *minDT) {
                             justDiedPhase_[iph] = 1;
+                            iphDie = iph;
                         }
                     }
                 }
@@ -1260,6 +1257,7 @@ int  Electrode_CSTR::predictSoln()
                     if (onRegionBoundary_final_ >= 0) {
                         if (fabs(deltaT_RegionBoundaryCollision_ - deltaTsubcycleCalc_) >  0.01 * deltaTsubcycleCalc_) {
                             onRegionBoundary_final_  = -1;
+                            justDiedPhase_[iphDie] = 0;
                         }
                     }
                 }
@@ -1323,6 +1321,71 @@ int  Electrode_CSTR::predictSoln()
     packNonlinSolnVector(DATA_PTR(soln_predict_));
 
     return 1;
+}
+//==================================================================================================================================
+int Electrode_CSTR::predictSolnDot()
+{
+    size_t i, ph;
+    int its;
+    int info = 1;
+    size_t lowDie = npos;
+    bool allOk;
+    double dtc_dot = deltaTsubcycle_;
+    int onRegionBoundary_final = -1;
+    for (its = 0; its < 4; its++) {
+        allOk = true;
+        soln_predict_fromDot_[0] = dtc_dot;
+        for (i = 1; i < yvalNLS_.size(); i++) {
+            if (i != lowDie) {
+                soln_predict_fromDot_[i] = yvalNLS_init_[i] + dtc_dot * solnDot_init_[i];
+            }
+        }
+        for (ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+            //iph = phaseIndexSolidPhases_[ph];
+            i = 1 + ph; 
+            if ((soln_predict_fromDot_[i]) < 0.0 && (yvalNLS_init_[i] > 1.0E-30)) {
+               dtc_dot = std::min(dtc_dot, (soln_predict_fromDot_[i] - yvalNLS_init_[i] / solnDot_init_[i] - 1.0E-30));
+               soln_predict_fromDot_[i] = 0.0;
+               if (SrcDot_RxnExtent_final_ > 0.0) {
+                   onRegionBoundary_final = xRegion_init_ + 1;
+               } else {
+                   onRegionBoundary_final = xRegion_init_;
+               }
+               allOk = false;
+               lowDie = i;
+            }
+        }
+        if (dtc_dot <= 0.0) {
+            dtc_dot = deltaTsubcycle_;
+            predictDotBetter_ = false;
+            break;
+        }
+        if (allOk) {
+            break;
+        }
+    }
+    soln_predict_fromDot_[neq_ + 1] = onRegionBoundary_final;
+    if (its >= 4) {
+         predictDotBetter_ = false;
+    }
+
+    // We only use the prediction if the predictSolnDot method is deemed the best predictor!
+    if (predictDotBetter_) {
+        // HKM -> This can happen if the prediction is bad. It must be checked.
+        info = unpackNonlinSolnVector(&soln_predict_fromDot_[0]);
+        if (info != 1) {
+            predictDotBetter_ = false;
+            // Go back to the previous soln_predict_[] created from the previous estimation method to get an initial solution.
+            info = unpackNonlinSolnVector(&soln_predict_[0]);
+            if (info != 1) {
+                return -1;
+            }
+        }
+        updateState();
+        extractInfo();
+        updateSpeciesMoleChangeFinal();
+    }
+    return info;
 }
 //==================================================================================================================================
 /*
@@ -1944,8 +2007,8 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type evalType
                         // We don't want to signal that the phase is dead, until the actual solution uknown is three orders
                         // of magnitude lower that the initial value and the deltaT for its death is close to the deltaT
                         // of the step -> previously without these limitations we had false positives.
-                        if (minDTpossible < 1.2 * deltaTsubcycleCalc_ &&  minDTpossible < 1.2 * minDT) {
-                            if (phaseMoles_final_[iph] < 1.0E-6 * phaseMoles_init_[iph] || phaseMoles_init_[iph] < 1.0E-22) {
+                        if (minDTpossible < 1.2 * deltaTsubcycleCalc_) {
+                            if (phaseMoles_final_[iph] < 1.0E-3 * phaseMoles_init_[iph] || phaseMoles_init_[iph] < 1.0E-14) {
                                 justDied_[iph] = 1;
                             }
                         }
@@ -1995,8 +2058,15 @@ int Electrode_CSTR::calcResid(double* const resid, const ResidEval_Type evalType
     } else {
         if (onRegionBoundary_final_ >= 0) {
             resid[0] = deltaTsubcycleCalc_ - deltax * RelativeExtentRxn_NormalizationFactor_ / SrcDot_RxnExtent_final_;
+            if (minPH_ != npos) {
+               double pL =  phaseMoles_init_[minPH_] + deltaTsubcycleCalc_ * DphMoles_final_[minPH_];
+               if (fabs(pL) < 1.0E-1 * phaseMoles_init_[minPH_]) {
+                   justDiedPhase_[minPH_] = 1;
+               }
+            }
         } else if (minPH_ != npos) {
             resid[0] = deltaTsubcycleCalc_ + phaseMoles_init_[minPH_] / DphMoles_final_[minPH_];
+            justDiedPhase_[minPH_] = 1;
         } else {
             resid[0] = deltaTsubcycleCalc_ - deltaTsubcycle_;
         }
@@ -2134,27 +2204,20 @@ int Electrode_CSTR::GFCEO_calcResid(double* const resid, const ResidEval_Type ev
     }
     return 1;
 }
-//==================================================================================================================
-//   Set the Residual absolute error tolerances
+//==================================================================================================================================
 /*
- *  (virtual from Electrode_Integrator)
- *
  *   Set the absolute error tolerances for the residuals for the nonlinear solvers. This is called at the top
  *   of the integrator() routine.
  *
- *   Calculates residAtolNLS_[]
- *   Calculates atolNLS_[]
+ *   Calculates residAtolNLS_[] =  nonlinear tolerances for residual conververgence
+ *   Calculates atolNLS_[]      =  nonlinear tolerances for unknown convergence , time step truncation error abs tols
  */
-void  Electrode_CSTR::setResidAtolNLS()
+void Electrode_CSTR::setResidAtolNLS()
 {
+    size_t ph, k, iph;
     double deltaT = t_final_final_ - t_init_init_;
-    deltaT = MAX(deltaT, 1.0E-3);
+    deltaT = MAX(deltaT, 1.0E-5);
     double solidMoles = SolidTotalMoles();
-    /*
-     *  We don't care about differences that are 1E-6 less than the global time constant.
-     *  residual has the same units as soln.
-     */
-    atolResidNLS_[0] = deltaT * 1.0E-6;
     /*
      *  Calculate the atolVal that will be used in the calculation of phase moles.
      *  Note, from experience we cannot follow within the equil solver the phases with mole number that
@@ -2165,31 +2228,34 @@ void  Electrode_CSTR::setResidAtolNLS()
     double atolVal = molarAtol_ + 1.0E-16;
     double atolValRes = solidMoles * atolBaseResid_  + 1.0E-16;
 
-    atolNLS_[0] = 1.0E-50;
+    // Set the tolerance for the deltaT calculation high. We don't care about its accuracy.
+    atolNLS_[0] = std::max(1.0E-6, deltaT * 0.1);
+    /*
+     *  We don't care about differences that are 1E-7 less than the global time constant.
+     *  residual has the same units as soln.
+     */
+    atolResidNLS_[0] = deltaT * 1.0E-7;
     int index = 1;
 
-    for (int ph = 0; ph < (int) phaseIndexSolidPhases_.size(); ph++) {
+    for (ph = 0; ph < phaseIndexSolidPhases_.size(); ++ph) {
         atolNLS_[index] = atolVal;
         atolResidNLS_[index] = atolValRes;
         index++;
     }
 
-    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
-
-        for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
-            size_t iph = phaseIndexSolidPhases_[ph];
-            //int isp = globalSpeciesIndex(iph,sp);
-            if (sp != phaseMFBig_[iph]) {
+    for (ph = 0; ph < phaseIndexSolidPhases_.size(); ++ph) {
+        for (k = 0; k < numSpecInSolidPhases_[ph]; ++k) {
+            iph = phaseIndexSolidPhases_[ph];
+            if (k != phaseMFBig_[iph]) {
                 atolNLS_[index] = 1.0E-14;
                 atolResidNLS_[index] = atolNLS_[index];
-                index++;
+                ++index;
             }
         }
-
     }
 }
 //==================================================================================================================================
-void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
+void Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
 {
     double capacd = capacityDischarged();
     printf("          Capacity Discharged Since Start = %12.6g coulombs = %12.6g Ah\n", capacd, capacd / 3600.);
@@ -2236,11 +2302,8 @@ void  Electrode_CSTR::printElectrodeCapacityInfo(int pSrc, bool subTimeStep)
     printf("                                                = %g coulombs\n", tmp);
     printf("          RelativeExtentRxn_bd[0]               = %g\n",     RelativeExtentRxn_RegionBoundaries_[0]);
     printf("          RelativeExtentRxn_bd[1]               = %g\n",    RelativeExtentRxn_RegionBoundaries_[1]);
-
-
-
 }
-//===================================================================================================================
+//==================================================================================================================================
 void Electrode_CSTR::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
 {
     size_t isph = npos;
@@ -2352,7 +2415,7 @@ void Electrode_CSTR::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
     printf("     ============================================================================================\n");
     delete [] netROP;
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Evaluate the residual function
 /*
  * @param t             Time                    (input)
@@ -2407,46 +2470,17 @@ bool Electrode_CSTR::resetStartingCondition(double Tinitial, bool doAdvancementA
     if (rr != resetToInitInit) {
          throw Electrode_Error("Electrode_CSTR::resetStartingCondition()", "Inconsistent resetToInitInit values");
     }
-
-    // If we are redoing the calculation again, then don't do anything
-    if (!resetToInitInit) {
-
-        // Copy The final extent of reaction to the beginning extent
-        /*
-        RelativeExtentRxn_init_init_ = RelativeExtentRxn_final_final_;
-        RelativeExtentRxn_init_      = RelativeExtentRxn_final_final_;
-        xRegion_init_init_ = xRegion_final_final_;
-        xRegion_init_      = xRegion_final_final_;
-        onRegionBoundary_init_init_  = onRegionBoundary_final_final_;
-        onRegionBoundary_init_       = onRegionBoundary_final_final_;
-        */
-
-        // Copy the final xml state into the init_init state
-        /*  -> this is already moved during the base call
-        if (eState_save_) {
-            SAFE_DELETE(xmlStateData_init_init_);
-            xmlStateData_init_init_ =   xmlStateData_final_;
-            SAFE_DELETE(xmlStateData_init_);
-            xmlStateData_init_ = new XML_Node(*xmlStateData_final_);
-            xmlStateData_final_ = nullptr;
-            SAFE_DELETE(xmlStateData_final_final_);
-        }
-        */
-    }
     return resetToInitInit;
 }
-//====================================================================================================================
-//  Check to see that the preceding step is a successful one
+//==================================================================================================================================
 /*
  *  We check to see if the preceding step is a successful one.
  *  Returns a bool true if the step is acceptable, and false if it is unacceptable.
  */
 bool  Electrode_CSTR::checkSubIntegrationStepAcceptable() const
 {
-    //
     // If we have solved the alternate problem where we find the time for phase death, then we expect to be at the
     // phase death condition. This is a valid throw I think.
-    //
     if (onRegionBoundary_final_ >= 0) {
         if (fabs(RelativeExtentRxn_final_  - RelativeExtentRxn_RegionBoundaries_[onRegionBoundary_final_]) > 1.0E-5) {
             throw Electrode_Error("Electrode_CSTR::integrate() ERROR: cell " + int2str(electrodeCellNumber_) +
@@ -2468,13 +2502,7 @@ bool  Electrode_CSTR::checkSubIntegrationStepAcceptable() const
     }
     return true;
 }
-//====================================================================================================================
-// Possibly change the solution due to phase births and deaths.
-/*
- *   (virtual from Electrode_Integrator)
- *
- *  @return  Returns true if the solution step is good. It returns false if there is a problem.
- */
+//==================================================================================================================================
 bool Electrode_CSTR::changeSolnForBirthDeaths()
 {
     if (onRegionBoundary_final_ >= 0) {
@@ -2561,14 +2589,28 @@ bool Electrode_CSTR::changeSolnForBirthDeaths()
     }
     return stepAcceptable;
 }
-//====================================================================================================================
-void  Electrode_CSTR::manageBirthDeathSuccessfulStep()
+//==================================================================================================================================
+void Electrode_CSTR::manageBirthDeathSuccessfulStep()
 {
-#ifdef DEBUG_MODE
+#ifdef  DEBUG_ELECTRODE_DEATH
+   static double deltaTsubcycleMin = 1.0E300;
+   if (deltaTsubcycleMin > deltaTsubcycleCalc_) {
+       deltaTsubcycleMin = deltaTsubcycleCalc_;
+   }
    size_t ph, iph;
    for (ph = 0; ph < phaseIndexSolidPhases_.size(); ++ph) {
       iph = phaseIndexSolidPhases_[ph];
-      if (justDiedPhase_[iph]) {
+      if (justDiedPhase_[iph] || minPH_ == iph) {
+          time_AtDeath = tfinal_;
+          deltaT_intermed_AtDeath = deltaTsubcycleCalc_;
+          deltaT_intermed_min_AtDeath = deltaTsubcycleCalc_;
+          phaseMoles_Init_AtDeath = phaseMoles_init_[iph];
+          atol_AtDeath = atolNLS_[ph + 1];
+          counterNumberSubIntegrations_atDeath = counterNumberSubIntegrations_;
+
+
+          printf(" Death of phase %d at time %g, deltaT = %g\n",
+                 (int) iph, time_AtDeath,  deltaT_intermed_AtDeath);
           //printf("we are here\n"); -> it works
       } 
    }

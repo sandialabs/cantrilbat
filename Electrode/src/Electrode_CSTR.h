@@ -33,6 +33,7 @@ namespace Cantera
 //! Definition for a cathode type of electrode
 #define ELECTRODETYPE_CATHODE 1
 
+#define DEBUG_ELECTRODE_DEATH 1
 
 //==================================================================================================================================
 //! Extra input for the CSTR Model
@@ -415,19 +416,34 @@ public:
      */
     virtual void setState_relativeExtentRxn(double relativeExtentRxn) override;
 
+protected:
     //! Predict the solution
     /*!
      *  Ok at this point we have a time step deltalimiTsubcycle_
      *  and initial conditions consisting of phaseMoles_init_ and spMF_init_.
      *  We now calculate predicted solution components from these conditions.
      *
-     * @return                                   Returns the success of the operation
+     *  @return                                  Returns the success of the operation
      *                                             1  A predicted solution is achieved
      *                                             2  A predicted solution with a multispecies phase pop is acheived
      *                                             0  A predicted solution is not achieved, but go ahead anyway
      *                                            -1  The predictor suggests that the time step be reduced and a retry occur.
      */
     virtual int predictSoln() override;
+
+    //! Predict the solution at t_final_ from the derivative of the solution at the current time t_init_
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *  Predicts the solution at the final time from the current derivative of the solution at the initial time.
+     *  This override handles the cases where a phase is estimated to disappear. 
+     *
+     *  @return                                  Returns the success of the operation
+     *                                           -  1  A predicted solution is achieved
+     *                                           -  2  A predicted solution with a multispecies phase pop is acheived
+     *                                           -  0  A predicted solution is not achieved, but go ahead anyway
+     *                                           - -1  The predictor suggests that the time step be reduced and a retry occur.
+     */
+    virtual int predictSolnDot() override;
 
     //! Unpack the solution vector on return from the time stepper
     /*!
@@ -1098,6 +1114,23 @@ protected:
      *   This is used to calculate a minimum surface area for the particle
      */
     double Radius_exterior_min_;
+
+#ifdef DEBUG_ELECTRODE_DEATH
+public:
+    double time_AtDeath;
+
+    double deltaT_intermed_AtDeath;
+
+    double deltaT_intermed_min_AtDeath;
+
+
+    double phaseMoles_Init_AtDeath;
+
+    double atol_AtDeath;
+
+    size_t  counterNumberSubIntegrations_atDeath;
+
+#endif
 };
 //==================================================================================================================================
 }

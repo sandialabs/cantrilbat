@@ -1353,22 +1353,6 @@ protected:
      */
     std::vector<double> deltaBoundsMagnitudesNLS_;
 
-    //! Boolean vector indicating a phase just died on this subgrid time integration step
-    /*!
-     *  Length:   m_NumTotPhases
-     *  Units:    boolean 
-     *  Values are reset to 0 at the start of every local subgrid time step
-     */
-    std::vector<int> phaseJustDied_;
-
-    //! Boolean vector indicating a phase just was born on this subgrid time integration step
-    /*!
-     *  Length = m_NumTotPhases
-     *  Units = boolean 
-     *  Values are reset to 0 at the start of every local subgrid time step
-     */
-    std::vector<int> phaseJustBorn_;
-
     //! Vector of predicted solutions for the t_n given values at t_n-1 and previous
     /*!
      *  We use the equation system to come up with predictions. This approximation doesn't use solnDot to produce a guess.
