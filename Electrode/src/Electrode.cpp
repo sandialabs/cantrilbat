@@ -5689,12 +5689,6 @@ void Electrode::setPrintLevel(int printLvl)
     printLvl_ = printLvl;
 }
 //====================================================================================================================
-//   Set the deltaT used for the subcycle step
-/*
- *  The default setting for this is infinite. If it's infinite then deltaTSubcycle is set to the
- *  deltaT of the integration step. However, there are many times where a smaller natural delta T is
- *  required to solve the equation system
- */
 void Electrode::setDeltaTSubcycle(double deltaTsubcycle)
 {
     deltaTsubcycleNext_ = deltaTsubcycle;
@@ -5712,7 +5706,6 @@ void Electrode::setDeltaTSubcycleMax(double deltaTsubcycle)
     deltaTsubcycleMax_ = deltaTsubcycle;
 }
 //====================================================================================================================
-// Write out CSV tabular data on the integrations
 /*
  *  The idea is to print out tabular data about each intermediate run and about each global run
  *
@@ -5728,7 +5721,6 @@ void Electrode::setDeltaTSubcycleMax(double deltaTsubcycle)
  *   printCSVLvl_ = 1 Only global printing at the end of a time step that is advancing
  *   printCSVLvl_  = 2 Only global printing at the end of a time step
  *   printCSVLvl_  = 3 Intermediate and global printing at all times.
- *
  */
 void Electrode::writeCSVData(int itype)
 {

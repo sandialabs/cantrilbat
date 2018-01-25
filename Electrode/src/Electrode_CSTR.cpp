@@ -41,7 +41,7 @@ namespace Cantera
 ELECTRODE_CSTR_KEY_INPUT::ELECTRODE_CSTR_KEY_INPUT(int printLvl) :
     ELECTRODE_KEY_INPUT(printLvl),
     boundaryResistance_(0.0),
-    Radius_exterior_min_(1.0E-7)
+    Radius_exterior_min_(1.0E-6)
 {
 }
 //==================================================================================================================================
@@ -71,7 +71,7 @@ void ELECTRODE_CSTR_KEY_INPUT::setup_input_child1(BEInput::BlockEntry* cf)
      *  Provides a minimum for the size of the reacting surface area
      */ 
     LE_OneDbl* dre = new LE_OneDbl("Minimum Exterior Radius", &(Radius_exterior_min_), 0, "minExteriorRadius");
-    dre->set_default(1.0E-7);
+    dre->set_default(1.0E-6);
     cf->addLineEntry(dre);
    
     BaseEntry::set_SkipUnknownEntries(3);
@@ -115,7 +115,7 @@ Electrode_CSTR::Electrode_CSTR() :
     deltaSpMoles_(0),
     minPH_(npos),
     solidMoles_init_(0.0),
-    Radius_exterior_min_(1.0E-7)
+    Radius_exterior_min_(1.0E-6)
 {
 }
 //======================================================================================================================
@@ -990,7 +990,6 @@ int Electrode_CSTR::predictSoln()
         std::copy(spMoles_init_.begin(), spMoles_init_.end(), spMoles_final_.begin());
         std::copy(phaseMoles_init_.begin(), phaseMoles_init_.end(), phaseMoles_final_.begin());
         std::copy(surfaceAreaRS_init_.begin(), surfaceAreaRS_init_.end(), surfaceAreaRS_final_.begin());
-        deltaTsubcycleCalc_ = deltaTsubcycle_;
         solidMoles_init_ = SolidTotalMoles();
 
         std::vector<double> deltaSpMoles(m_NumTotSpecies, 0.0);
@@ -999,10 +998,11 @@ int Electrode_CSTR::predictSoln()
          * Get the top and bottom voltages
          */
         int nRegions = RelativeExtentRxn_RegionBoundaries_.size() - 1;
-        onRegionBoundary_final_ = onRegionBoundary_init_;
 
 
         for (int itsP = 0; itsP < 2; itsP++) {
+            deltaTsubcycleCalc_ = deltaTsubcycle_;
+            onRegionBoundary_final_ = onRegionBoundary_init_;
             /* ---------------------------------------------------------------------------------------
              *                                Update the Internal State of ThermoPhase Objects
              * --------------------------------------------------------------------------------------- */
@@ -1197,7 +1197,10 @@ int Electrode_CSTR::predictSoln()
                     deltaT_RegionBoundaryCollision_ = deltax * RelativeExtentRxn_NormalizationFactor_ / SrcDot_RxnExtent_final_;
                     onRegionBoundary_final_ = xRegion_init_ + 1;
                     deltaTsubcycleCalc_ = deltaT_RegionBoundaryCollision_;
-                    RelativeExtentRxn_final_  = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
+                    RelativeExtentRxn_final_ = RelativeExtentRxn_RegionBoundaries_[xRegion_init_ + 1];
+                    if (minDT < 1.3 *  deltaTsubcycleCalc_) {
+                        justDiedPhase_[minPH_] = 1;
+                    }
 
                 } else  if ((SrcDot_RxnExtent_final_ < -1.0E-200) &&
                             (RelativeExtentRxn_final_ < RelativeExtentRxn_RegionBoundaries_[xRegion_init_])) {
@@ -1207,7 +1210,10 @@ int Electrode_CSTR::predictSoln()
                     deltaT_RegionBoundaryCollision_ = deltax * RelativeExtentRxn_NormalizationFactor_ / SrcDot_RxnExtent_final_;
                     onRegionBoundary_final_ = xRegion_init_;
                     deltaTsubcycleCalc_ = deltaT_RegionBoundaryCollision_;
-                    RelativeExtentRxn_final_  = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
+                    RelativeExtentRxn_final_ = RelativeExtentRxn_RegionBoundaries_[xRegion_init_];
+                    if (minDT < 1.3 *  deltaTsubcycleCalc_) {
+                        justDiedPhase_[minPH_] = 1;
+                    }
                 }
             }
 
@@ -1215,34 +1221,37 @@ int Electrode_CSTR::predictSoln()
              *                         Figure out what phases are going to die, now that we have a deltaTsubcycleCalc_
              * --------------------------------------------------------------------------------------- */
             //
-            //  Here we calculate justDiedPhase_[] vector
+            //  Here we calculate further modifications to the justDiedPhase_[] vector
             //
-            size_t iphDie = npos;
-            if (minDT < 1.15 * deltaTsubcycleCalc_) {
+            //  Only do this section if it is predicted that a phase comes close to death
+            if (minDT < 1.1 * deltaTsubcycleCalc_) {
                 for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
                     hasAPos = 0;
                     hasANeg = 0;
                     DTmin = 1.0E+300;
-                    int iph = phaseIndexSolidPhases_[ph];
+                    size_t iph = phaseIndexSolidPhases_[ph];
                     for (size_t sp = 0; sp < numSpecInSolidPhases_[ph]; sp++) {
                         size_t isp = globalSpeciesIndex(iph, sp);
                         deltaSpMoles_[isp] = DspMoles_final_[isp] * deltaTsubcycleCalc_;
                         tmp = spMoles_init_[isp] + DspMoles_final_[isp] * deltaTsubcycleCalc_;
                         if (spMoles_init_[isp] > 0.0) {
-                            if (tmp <= 1.0E-40) {
-                                hasANeg = 1;
+                            if (DspMoles_final_[isp] < 0.0) {
                                 DT = - spMoles_init_[isp] / DspMoles_final_[isp];
                                 DTmin = MIN(DT, DTmin);
-                            } else if (tmp > 0.0) {
+                                if (DT < 1.1 * deltaTsubcycleCalc_) {
+                                    hasANeg = 1;
+                                } else if (tmp > 0.0) {
+                                    hasAPos = 1;
+                                }
+                             } else {
                                 hasAPos = 1;
-                            }
+                             }
                         }
                     }
                     if (hasANeg && (!hasAPos)) {
                         DT = DTmin;
-                        if (DT < minDT + 0.1 *minDT) {
+                        if (DT < 1.1 * deltaTsubcycleCalc_) {
                             justDiedPhase_[iph] = 1;
-                            iphDie = iph;
                         }
                     }
                 }
@@ -1257,11 +1266,20 @@ int Electrode_CSTR::predictSoln()
                     if (onRegionBoundary_final_ >= 0) {
                         if (fabs(deltaT_RegionBoundaryCollision_ - deltaTsubcycleCalc_) >  0.01 * deltaTsubcycleCalc_) {
                             onRegionBoundary_final_  = -1;
-                            justDiedPhase_[iphDie] = 0;
                         }
                     }
                 }
             }
+
+#ifdef DEBUG_MODE
+            if (onRegionBoundary_final_ > 0) {
+                if (minPH_ != npos) {
+                if (justDiedPhase_[minPH_] == 0) {
+                   // printf("We are here\n");
+                }
+                }
+            }
+#endif
 
             /* ---------------------------------------------------------------------------------------
              *                        Predict Soln
@@ -2207,7 +2225,7 @@ int Electrode_CSTR::GFCEO_calcResid(double* const resid, const ResidEval_Type ev
 //==================================================================================================================================
 /*
  *   Set the absolute error tolerances for the residuals for the nonlinear solvers. This is called at the top
- *   of the integrator() routine.
+ *   of the integrator() routine. Equations have units of total moles.
  *
  *   Calculates residAtolNLS_[] =  nonlinear tolerances for residual conververgence
  *   Calculates atolNLS_[]      =  nonlinear tolerances for unknown convergence , time step truncation error abs tols
@@ -2225,8 +2243,8 @@ void Electrode_CSTR::setResidAtolNLS()
      *  limitation. However, they must be followed kinetically up to the level that they contribute
      *  electrons. So, we will set atolBaseResid_ to 1.0E-8 with possible additions later.
      */
-    double atolVal = molarAtol_ + 1.0E-16;
-    double atolValRes = solidMoles * atolBaseResid_  + 1.0E-16;
+    double atolVal = molarAtol_ + 1.0E-15;
+    double atolValRes = std::min(solidMoles * atolBaseResid_  + 1.0E-15, atolVal);
 
     // Set the tolerance for the deltaT calculation high. We don't care about its accuracy.
     atolNLS_[0] = std::max(1.0E-6, deltaT * 0.1);
@@ -2247,8 +2265,8 @@ void Electrode_CSTR::setResidAtolNLS()
         for (k = 0; k < numSpecInSolidPhases_[ph]; ++k) {
             iph = phaseIndexSolidPhases_[ph];
             if (k != phaseMFBig_[iph]) {
-                atolNLS_[index] = 1.0E-14;
-                atolResidNLS_[index] = atolNLS_[index];
+                atolNLS_[index] = 1.0E-12;
+                atolResidNLS_[index] = atolNLS_[index] * 0.01;
                 ++index;
             }
         }
