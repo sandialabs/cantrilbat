@@ -1755,6 +1755,9 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
+    if (doPolarizationAnalysis_) {
+        
+    }
 }
 //==================================================================================================================================
 void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
@@ -1775,6 +1778,9 @@ void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
             integratedThermalEnergySourceTerm_overpotential_ += integratedThermalEnergySourceTerm_overpotential_Last_;
             integratedThermalEnergySourceTerm_reversibleEntropy_ += integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 	}
+        if (doPolarizationAnalysis_) {
+
+        }
     }
 }
 //==================================================================================================================================

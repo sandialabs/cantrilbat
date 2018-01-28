@@ -92,6 +92,7 @@ Electrode::Electrode() :
     choiceDeltaTsubcycle_init_(0),
     numIntegrationSubCycles_final_final_(1),
     doThermalPropertyCalculations_(false),
+    doPolarizationAnalysis_(false),
     temperature_(298.15),
     pressure_(1.0E5),
     ElectrodeSolidVolume_(0.0),
@@ -207,6 +208,7 @@ Electrode::Electrode(const Electrode& right) :
     choiceDeltaTsubcycle_init_(0),
     numIntegrationSubCycles_final_final_(1),
     doThermalPropertyCalculations_(false),
+    doPolarizationAnalysis_(false),
     temperature_(298.15),
     pressure_(1.0E5),
     ElectrodeSolidVolume_(0.0),
@@ -402,6 +404,7 @@ Electrode& Electrode::operator=(const Electrode& right)
     choiceDeltaTsubcycle_init_ = right.choiceDeltaTsubcycle_init_;
     numIntegrationSubCycles_final_final_ = right.numIntegrationSubCycles_final_final_;
     doThermalPropertyCalculations_ = right.doThermalPropertyCalculations_;
+    doPolarizationAnalysis_ = right.doPolarizationAnalysis_;
     temperature_ = right.temperature_;
     pressure_ = right.pressure_;
     ElectrodeSolidVolume_ = right.ElectrodeSolidVolume_;
@@ -2876,7 +2879,7 @@ double Electrode::integratedCurrent() const
     // coulomb / kmol
     return Eprod * Faraday;
 }
-//====================================================================================================================
+//==================================================================================================================================
 double Electrode::integratedLocalCurrent() const
 {
     if (pendingIntegratedStep_ != 1) {
@@ -3605,6 +3608,9 @@ size_t Electrode::numSolnPhaseSpecies() const
     return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
 //==================================================================================================================================
+/*
+ *
+ */
 double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list)
 {
     // Don't compare to reference electrode
@@ -3612,7 +3618,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
 
     psr_list.clear();
 
-    // Whatever path we take, the volts taken must be the same.
+    // Whatever path we take, the volts taken through this electrode must be the same.
     double volts = voltage();
 
     // Create a PolarizationSurfResults record for each reaction on each active surface in the problem
@@ -3624,8 +3630,9 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
         if (ActiveKineticsSurf_[iSurf]) {
             ReactingSurDomain* rsd = RSD_List_[iSurf];
 
-            // Calculate the non mixture averaged OCV of the surface. This is the OCV at which no electrons are produced
+            // Calculate the non-mixture averaged OCV of the surface. This is the OCV at which no electrons are produced
             // given the current state of the bulk phases next to it and given the current surface adsorbate state.
+            // -> This is also assuming no changes in the surface adsorbate layer.
             double ocvSurf = openCircuitVoltage(iSurf, comparedToReferenceElectrode);
 
             size_t nr = rsd->nReactions();
@@ -3638,12 +3645,12 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                 double ocvSurfRxn = OCV;
                 double ocvSurfRxn_local = ocvSurfRxn;
                 // If this reaction has an electron as a product or reactant, it can be described by an exchange current density formulation,
-                // so create a record
+                // So, create a record
                 if (eok) {
                     if (nStoich != 0.0) {
                         double icurrPerArea = rsd->calcCurrentDensity(overPotential, nStoich, OCV, beta, temperature_, resistance);
 
-                        // Create a psr record 
+                        // Create a psr record for the current reaction on the current surface
                         psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, iSurf, iRxn);
                         PolarizationSurfRxnResults& psr = psr_list.back();
                         psr.icurrSurf = 0.0;

@@ -191,6 +191,7 @@ enum Electrode_Exterior_Field_Interpolation_Scheme_Enum {
 };
 
 //==================================================================================================================================
+
 //! Base structure for storing the external state of the electrode at a particular time
 /*!
  *  There will be external states for the t_init_init and t_final_final times.
@@ -213,7 +214,9 @@ public:
     //! Pressure of the electrode (Pascals)
     double Pressure_;
 };
+
 //==================================================================================================================================
+
 //! The enum catalogs all of the types of polarization loss mechanisms that can occur within batteries that cantrilbat/aria 
 //! can catalog
 /*!
@@ -257,6 +260,7 @@ enum Polarization_Loss_Enum {
 };
 
 //==================================================================================================================================
+
 //! Structure to store the type and amount of voltage loss computed for a polarization loss
 /*!
  *  The types are identified by the enum Polarization_Loss_Enum variable.
@@ -286,6 +290,7 @@ struct VoltPolPhenom
 /*!    @}                       */
 
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 
 #endif
 

@@ -2109,7 +2109,7 @@ public:
 
     //! Calculate the polarization analysis
     /*!
-     *  Returns a vector of structures containing the polarization analysis
+     *  Returns a vector of structures containing the polarization analysis for this electrode
      * 
      *  @param[out]          psrr                Results of the analysis for the electrode object during the current
      *                                           global time step.
@@ -2910,6 +2910,13 @@ public:
      *   This is public and can be changed externally
      */
     bool doThermalPropertyCalculations_;
+
+public:
+    //! Boolean indicating whether we should be doing polarization analysis
+    /*!
+     *   This is public and can be changed externally
+     */
+    bool doPolarizationAnalysis_;
 
 protected:
 
