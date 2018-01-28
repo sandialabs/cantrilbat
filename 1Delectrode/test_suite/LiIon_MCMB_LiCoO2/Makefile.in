@@ -59,7 +59,7 @@ runGood: $(PROGRAM_ORIGIN) $(DATA) Makefile $(BLESSED_FILES)
 	( export XMLSOLNDIFF=../../src_test/xmlSolnDiff ; ../runtest)
 
 rebaseline:
-	./rebaseline
+	./rebaseline.sh
 
 install:
 

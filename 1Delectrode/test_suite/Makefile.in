@@ -134,19 +134,19 @@ test_bat:
 
 rebaseline:
 	cd LiKCl_PorousBat_SPCD_MPNewman;         	./rebaseline
-	cd LiIon_MCMB_LiCoO2;	                	./rebaseline
-	cd LiIon_MCMB_LiCoO2_2;	               		./rebaseline
-	cd LiIon_MCMB_LiCoO2_Diff2;	        	./rebaseline
-	cd LiIon_MCMB_LiCoO2_Diff3;	         	./rebaseline
+	cd LiIon_MCMB_LiCoO2;	                	$(MAKE) rebaseline
+	cd LiIon_MCMB_LiCoO2_2;	               		$(MAKE) rebaseline
+	cd LiIon_MCMB_LiCoO2_Diff2;	        	$(MAKE) rebaseline
+	cd LiIon_MCMB_LiCoO2_Diff3;	         	$(MAKE) rebaseline
 	cd LiIon_MCMB_LiCoO2_Diff2_restart;		./rebaseline
 	cd LiIon_MCMB_LiCoO2_Diff2_heatSource;          ./rebaseline
-	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		./rebaseline
+	cd  LiIon_MCMB_LiCoO2_DiffTALE2;		$(MAKE) rebaseline
 	cd CAEBAT_restart_cycle;		  	./rebaseline
 	cd CAEBAT_restart_cycle_altTemp;	  	./rebaseline
 	cd LiIon_MCMB_LiCoO2_collectors;		./rebaseline
 	cd DualfoilComparison ;				./rebaseline
 	cd LiIon_MCMB_LiCoO2_EIS_timeStepStrat;         ./rebaseline
-	cd LiIon_MCMB_LiCoO2_Enthalpy;		        ./rebaseline
+	cd LiIon_MCMB_LiCoO2_Enthalpy;		        $(MAKE) rebaseline
 	cd LiIon_MCMB_LiCoO2_inerts;			./rebaseline
 
 #
