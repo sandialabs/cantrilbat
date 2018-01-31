@@ -26,6 +26,7 @@
 
 #include "Electrode_Exception.h"
 #include "Electrode_input.h"
+#include "Electrode_Polarization.h"
 
 #include <string>
 #include <vector>
@@ -124,79 +125,6 @@ enum DOFS
     MAX_DOF 
 };
 
-//===================================================================================================================================
-//! Structure for commumicating polarization results
-/*!
- *  Structure is for one reaction on one surface only. On many electrodes there will only be one surface active at a time.
- *  and there may be multiple reactions on each surface producing electrons. However, the only way to distinguish 
- *  the results is to differentiate by reaction. This is the only way to get the actual value of the overpotential for a reaction.
- *
- *  Production Development:
- *  I can imagine there will be loops on a particular surface where electrons are created and then destroyed by separate reactions.
- *  The net result will be a surface reactions which change speciation in the bulk or adsorbate phases.
- *  Pre-production of these loops to eliminate these net-zero electron production cases should occur. I can delay development
- *  of this code until the situation occurs in practice.
- */
-struct PolarizationSurfRxnResults {
-
-    //!  Index of the reacting surface within the Electrode that the summary is for
-    size_t isurf = npos;
-
-    //! Index of the surface reaction on that surface
-    /*!
-     *  Reaction index that is producing electrons
-     */
-    size_t iRxnIndex = npos;
-
-    //!  Total current through the surface that is using this particular reaction on this surface
-    /*!
-     *   Units: amps
-     */
-    double icurrSurf = 0.0;
-
-    //! Vector of physical-based voltage losses
-    std::vector<VoltPolPhenom> voltsPol_list;
-
-    //! Value of the open circuit voltage for the surface reaction index
-    double ocvSurfRxn = 0.0;
-
-    //! Value of the open circuit voltage for the surface (assuming adsorbate coverage is at pseudo-equilibrium)
-    double ocvSurf = 0.0;
-
-    //! Value of the voltage for the electrode through which the electrons go through
-    double VoltageElectrode = 0.0;
-
-    //! Value for the total voltage drops accounted for by the voltsPol_List
-    /*!
-     *  We'll be post-processing this structure to add in voltage drops
-     */
-    double VoltageTotal = 0.0;
-
-    //! Domain number of the electrode object
-    /*!
-     *  This number refers to the domain number within 1DElectrode.
-     */
-    int electrodeDomainNumber_ = 0;
-
-    //! Cell number within the domain
-    int electrodeCellNumber_ = 0;
-
-    //! Default constructor
-    /*!
-     *   @param[in]          electrodeDomainNumber  Domain number
-     *   @param[in]          electrodeCellNumber  cell number
-     *   @param[in]          surfIndex           Surface index. Defaults to npos
-     *   @param[in]          rxnIndex            Reaction index on the surface. Defaults to npos
-     */
-    PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, size_t surfIndex = npos, size_t rxnIndex = npos) :
-        isurf(surfIndex),
-        iRxnIndex(rxnIndex),
-        electrodeDomainNumber_(electrodeDomainNumber),
-        electrodeCellNumber_(electrodeCellNumber)
-    {
-    }
-
-};
 
 //==================================================================================================================================
 
@@ -2109,6 +2037,7 @@ public:
 
     //! Calculate the polarization analysis
     /*!
+     *  (virtual from Electrode.h)
      *  Returns a vector of structures containing the polarization analysis for this electrode
      * 
      *  @param[out]          psrr                Results of the analysis for the electrode object during the current
@@ -2116,7 +2045,13 @@ public:
      *
      *  @return                                  Returns the total current 
      */
-    double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psrr);
+    virtual double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psrr);
+
+    //! Sum up the polarization analysis calcs into a global time step result
+    /*
+     *  (virtual from Electrode.h)
+     */
+    virtual void integratedPolarizationCalc();
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  --------------------------------------------------------
@@ -3445,6 +3380,12 @@ protected:
      *  units = Joules
      */
     double integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
+
+    //! List of polarization losses from the last subintegration time step
+    std::vector<struct PolarizationSurfRxnResults> polarSrc_list_Last_;
+
+    //! Global list of polarization losses.
+    std::vector<struct PolarizationSurfRxnResults> polarSrc_list_;
 
     //! Name of the electrode to be used in printouts
     std::string electrodeName_;

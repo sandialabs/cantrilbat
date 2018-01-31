@@ -1756,7 +1756,13 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
     if (doPolarizationAnalysis_) {
-        
+        polarSrc_list_Last_.clear();
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
+        if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
+            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()",
+                                  " error in accounting for electrons");
+        }
     }
 }
 //==================================================================================================================================
@@ -1779,7 +1785,7 @@ void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
             integratedThermalEnergySourceTerm_reversibleEntropy_ += integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 	}
         if (doPolarizationAnalysis_) {
-
+              integratedPolarizationCalc();
         }
     }
 }

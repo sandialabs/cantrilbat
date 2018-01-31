@@ -3730,6 +3730,27 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
     return intCurrentTotal;
 }
 //==================================================================================================================================
+void Electrode::integratedPolarizationCalc()
+{
+    size_t i, j;
+    bool found;
+    for (i = 0; i <  polarSrc_list_Last_.size(); ++i) {
+        struct PolarizationSurfRxnResults& psLast = polarSrc_list_Last_[i];
+        found = false;
+        for (j = 0; j <  polarSrc_list_.size(); ++i) {
+            struct PolarizationSurfRxnResults& ps = polarSrc_list_[j];
+            if ((psLast.isurf == ps.isurf) && (psLast.iRxnIndex == ps.iRxnIndex) ) {
+                ps.addSubStep(psLast);
+                found = true;
+            }
+        }
+        if (!found) {
+            polarSrc_list_.push_back(psLast);
+        }
+    }
+
+}
+//==================================================================================================================================
 // Return the number of extra print tables
 int Electrode::getNumPrintTables() const
 {

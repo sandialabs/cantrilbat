@@ -39,8 +39,11 @@ namespace Cantera
 enum Polarization_Loss_Enum {
     UNKNOWN_PL = -1,
 
+    //! Surface OCV
+    SURFACE_OCV_PL = 0,
+
     //! Voltage loss through a surface overpotential term
-    SURFACE_OVERPOTENTIAL_PL = 0,
+    SURFACE_OVERPOTENTIAL_PL,
 
     //! Voltage loss through a concentration gradient in the electrolyte
     CONC_LOSS_LYTE_PL,
@@ -147,6 +150,7 @@ struct PolarizationSurfRxnResults {
      *  We'll be post-processing this structure to add in voltage drops
      */
     double VoltageTotal = 0.0;
+
     //! Domain number of the electrode object
     /*!
      *  This number refers to the domain number within 1DElectrode.

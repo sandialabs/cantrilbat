@@ -1392,8 +1392,71 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      *  At any time step we can obtain the average extent of reaction, and find the open circuit voltage based
      *  on that number. 
      */
+
+    /*
+     *  Identify 6 points in the domain. 
+     *          ACA -> anode-collector to anode point.
+     *                 We will obtain the voltage of the solid-phase here
+     *
+     *          AS  -> anode-separator interface. We will obtain the electric potential of the electrolyte at this point.
+     *                 We obtain the instantaneous mole fractions here
+     *
+     *          SC  -> separator-cathode interface.  We will obtain the electric potential of the electrolyte at this point.
+     *                 We obtain the instantaneous mole fractions here
+     *
+     *          CCC -> cathode-collector to cathode point.
+     *                 We will obtain the voltage of the solid-phase here
+     *
+     *          Anode_Voltage -> this is the voltage at the anode terminal , It may be different than the ACA point, due to losses in 
+     *                           the anode collector itself.
+     *
+     *          Cathode_Voltage -> this is the voltage at the cathode terminal, It may be different than the CCC point, due to losses in 
+     *                           the anode collector itself.
+     *
+     *          S  -> Middle of the separator with average electrolyte conditions. v_S = (AS + SC) / 2
+     */
+
+    // Calculation of the OCV
+
+    /*
+     *  Calculate an average value of the electrolyte concentration homogenized over all parts of the battery.
+     *   (or assume a value based on input conditions).
+     *   -> Call this condition "S".
+     */
+
+    /*
+     *  Calculation of the average value of the anode concentrations
+     *     -> Take an electrode object that is representative of the entire anode and calculate a homogeneous half-cell OCV
+     *        We can do this based on having an eletrode object and having a definition of "S".
+     */
      
-    
+    /*
+     *   Loop over the Anode Electrodes.
+     *        All loops over the anode electrodes will sum up to the current i through the battery.
+     *        For each Electrode:
+     *             We have V_EE_solid and V_EE_lyte.
+     *             Identify deltaV_solid = V_EE_solid - V_ACA
+     *                      deltaV_lyte_aa = V_AS - V_EE_lyte.
+     *             Fill out polarization losses from these terms.
+     * 
+     *
+     *   Loop over the Cathode Electrodes.
+     *        All loops over the anode electrodes will sum up to the current i through the battery.
+     *        For each Electrode:
+     *             We have V_EE_solid and V_EE_lyte.
+     *             Identify deltaV_solid = V_CCC - V_EE_solid
+     *                      deltaV_lyte_aa = V_EE_lyte - V_CS.
+     *             Fill out polarization losses from these terms.
+     *
+     *   Calculate polarization losses through the separator.
+     *
+     *   Do an average over all anodes to get an average result -> probabably separate by plateau!
+     *
+     *   Do an average over all cathodes to get an average result -> probably separatete by plateau for special processing
+     *
+     *   Create output results as a 0-D global result.
+     *
+     */
 
 
 }
