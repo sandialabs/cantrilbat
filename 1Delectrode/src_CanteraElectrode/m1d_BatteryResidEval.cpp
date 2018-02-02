@@ -1855,7 +1855,7 @@ BatteryResidEval::reportCathodeVoltage() const
     }
 #endif
     // might have to update the SurDomain.
-    double phi =  c_ptr->phiCathode_;
+    double phi =  c_ptr->phiCathodeCC_;
 
     return phi;
 } 
