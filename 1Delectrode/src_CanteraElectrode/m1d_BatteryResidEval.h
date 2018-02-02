@@ -451,7 +451,7 @@ public:
 
     //! Get a solution parameter 
     /*!
-     *  @param paramName   String identifying the parameter to be set
+     *  @param paramName   String identifying the parameter to be retrieved
      *  @param paramVal    Vector of parameters returned
      *
      *  @return returns the number of parameters returned.
@@ -490,7 +490,7 @@ public:
     /*!
      *  Note the anode voltage is set to zero. So this function will return the voltage of the battery.
      *
-     *  @return    Returns the cathode voltage (volts)
+     *  @return                                  Returns the cathode voltage (volts)
      */
     virtual double reportCathodeVoltage() const;
 
@@ -498,7 +498,7 @@ public:
     /*!
      *  Note the anode current should be exactly equal to the cathode current
      *
-     *  @return    Returns the cathode current (amp)
+     *  @return                                  Returns the cathode current (amp)
      */
     virtual double reportCathodeCurrent() const;
 
@@ -524,7 +524,7 @@ public:
     void gatherCapacityStatistics();
 
 
-    // ---------------------------        MEMBER DATA ----------------------------------------------------------------------------
+    // ------------------------------        MEMBER DATA ----------------------------------------------------------------------------
 
     //! Boolean indicating whether to calculate Heat Source Time tracking terms and output file
     int doHeatSourceTracking_;

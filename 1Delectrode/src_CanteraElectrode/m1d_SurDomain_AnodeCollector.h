@@ -13,7 +13,7 @@
 
 #include "m1d_SurDomain1D.h"
 
-//======================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 // Forward declarations
@@ -21,7 +21,7 @@ class NodalVars;
 class LocalNodeIndices;
 class BulkDomainDescription;
 
-//=====================================================================================================================
+//==================================================================================================================================
 //! Specification of a set of boundary conditions on the top of the Cu2S surface
 /*!
  *
@@ -96,7 +96,7 @@ public:
 
     //!  Get the voltages for the metal and solution
     /*!
-     * @param solnElectrolyte  solution at the current node
+     *  @param solnElectrolyte  solution at the current node
      */
     void
     getVoltages(const double* const solnElectrolyte);
@@ -204,11 +204,18 @@ public:
     //! Thickness of the copper anode current collector
     double CCThickness_;
 
+    //! Extra anode resistance put onto the whole battery
+    /*!
+     *  This is not on a per area basis.
+     *
+     *  Units: ohms
+     */
+    double extraAnodeResistance_;
+
+    //! Temperature of the collector (Kelvin)
     double TempCollector_;
-
 };
-
-//==================================================================================
-} /* End of namespace */
-//==================================================================================
-#endif /* M1D_SURDOMAIN1D_H_ */
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------
+#endif

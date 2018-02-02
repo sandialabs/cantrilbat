@@ -121,29 +121,24 @@ public:
      */
     virtual BulkDomain1D* mallocDomain1D();
 
-    // --------------------------------------------------------------------------------------------
-    //                       DATA
-    // --------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------- D A T A ---------------------------------------------------------
 protected:
     //! ID of this bulk domain.
     /*!
-     *  This is a unique ID of the bulk domain. It is used as an index to look up
-     *  stuff in the DomainLayout object.
+     *  This is a unique ID of the bulk domain. It is used as an index to look up stuff in the DomainLayout object.
      */
     int IDBulkDomain;
 
 public:
     //! First global node number of this bulk domain
     /*!
-     *  There is an implicit assumption that all global nodes in this domain are
-     *  contiguously numbered
+     *  There is an implicit assumption that all global nodes in this domain are contiguously numbered
      */
     int FirstGbNode;
 
     //! Last global node number of this bulk domain
     /*!
-     *  There is an implicit assumption that all global nodes in this domain are
-     *  contiguously numbered
+     *  There is an implicit assumption that all global nodes in this domain are contiguously numbered
      */
     int LastGbNode;
 

@@ -92,9 +92,9 @@ public:
               const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
               const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
 
-    //!  Get the voltages for the metal and solution
+    //!  Get the voltages for the metal and solution at the cathode to cathode-collector boundaries
     /*!
-     * @param solnElectrolyte  solution at the current node
+     *   @param[out]         solnElectrolyte     Solution at the current node
      */
     void
     getVoltages(const double* const solnElectrolyte);
@@ -186,28 +186,36 @@ protected:
     //! for the porous anode-electrolyte bulk region
     BulkDomainDescription* bedd_;
 
-    //! voltage of the electrolyte
+    //! Voltage of the electrolyte at the cathode - cathode collector boundary
     double phiElectrolyte_;
 public:
-    //! voltage of the electrode
+    //! Voltage of the electrode at the cathode - cathode collector boundary
     double phiCathode_;
 
+    //! Voltage of the battery terminal, i.e., at the cathode -collector - load boundary. This is the reported
+    //! voltage for the battery.
     double phiCathodeCC_;
 
+    //! Voltage across the load of the battery terminals.
     double phiLoad_;
 
-    //! current at the collector
+    //! Areal Current at the collector
+    /*!
+     *  For a normally discharging battery, this value is positive. Note there is no mechanism for loss within the current
+     *  collector. So, the amps coming out of the cathode is the same as the amps coming out of the current collector.
+     *
+     *  Units:  amps/m2
+     */
     double icurrCollector_;
 
     //! Thickness of the aluminum cathode current collector
     /*!
-     *  Units = meters
+     *  Units:  meters
      */
     double CCThickness_;
 
     //! Extra cathode resistance put onto the whole battery
     /*!
-     *  Effective resitance =
      *
      *  Units = ohms
      */
@@ -215,6 +223,7 @@ public:
 
     double heatTransferCoeff;
 
+    //! Temperature of the cathode current collector
     double TempCollector;
 
 };

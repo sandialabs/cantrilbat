@@ -175,7 +175,7 @@ public:
    */
   void updateGlobalPositions(const Epetra_Vector* const Xpos_LcNode_p);
 
-  //------------------------------------------------------------ D A T A ------------------------------------------------------
+  //------------------------------------------------------------ D A T A -----------------------------------------------------------
 
   //! Communications object
   Epetra_Comm *Comm_ptr_;
@@ -219,12 +219,16 @@ public:
   //! Total Number of Local Equations owned by each processor
   /*!
    *  Length: number of processors.
+   *  Index:  index of the processor
+   *  Value:  Number of local equations owned by the processor
    */
   std::vector<int> NumOwnedLcEqns_Proc;
 
   //! Number of equations at each global node
   /*!
-   *  Length: number of processors.
+   *  Length:   Number of global nodes
+   *  Index:    Global node number
+   *  Value:    number of equations assigned to that global node
    */
   std::vector<int> NumEqns_GbNode;
 
@@ -288,12 +292,13 @@ public:
    */
   Epetra_BlockMap *GbBlockNodeEqnstoOwnedLcBlockNodeEqnsRowMap;
 
-  //! Global Vector of nodal variable descriptions.
+  //! Global Vector of pointers to NodalVars object for each node, which contain the nodal variable descriptions.
   /*!
-   * NodalVars object contains a complete description of the variables at
-   * a global node. 
+   *  NodalVars object contains a complete description of the variables at a global node. 
    *
-   * length = number of global nodes. Note this is repeated for all processors.
+   *  Length:   Number of global nodes. Note this is repeated for all processors.
+   *  Index:    Global node number
+   *  value:    pointer to the NodalVars structure for that node
    */
   std::vector<NodalVars*> NodalVars_GbNode;
 
@@ -318,17 +323,13 @@ public:
   //! Vector containing the entire solution on all processors.
   Epetra_Vector* SolnDotAll;
 
-  //! Domain Layout object
+  //! Pointer to the Domain Layout object
   /*!
    *  This is a shallow pointer
    */
   DomainLayout* DL_ptr_;
 };
 //==================================================================================================================================
-//=====================================================================================
-//! Each processor contains a pointer to one global instance of this class.
-//extern GlobalIndices *GI_ptr;
-//=====================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 #endif

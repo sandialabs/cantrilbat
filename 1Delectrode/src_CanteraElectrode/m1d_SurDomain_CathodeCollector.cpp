@@ -390,23 +390,6 @@ void SurDomain_CathodeCollector::getVoltages(const double* const solnElectrolyte
     phiCathode_ = solnElectrolyte[indexVS + 1];
 }
 //==================================================================================================================================
-// Base class for writing the solution on the domain to a logfile.
-/*
- *
- * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
- * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
- * @param soln_ptr             Pointer to the solution vector
- * @param solnDot_ptr          Pointer to the time derivative of the solution vector
- * @param solnOld_ptr          Pointer to the solution vector at the old time step
- * @param residInternal _ptr   Pointer to the current value of the residual just calculated
- *                             by a special call to the residEval()
- * @param t                    time
- * @param rdelta_t             The inverse of the value of delta_t
- * @param indentSpaces         Indentation that all output should have as a starter
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same log information as proc 0. If
- *                             false, the loginfo will only exist on proc 0.
- */
 void SurDomain_CathodeCollector::showSolution(const Epetra_Vector* soln_GlAll_ptr,
                                               const Epetra_Vector* solnDot_GlAll_ptr,
                                               const Epetra_Vector* soln_ptr, const Epetra_Vector* solnDot_ptr,
@@ -499,7 +482,7 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
                                              const Epetra_Vector *solnDot_ptr,
                                              const Epetra_Vector *solnOld_ptr,
                                              struct globalHeatBalVals& dVals)
- {
+{
 
      globalHeatBalValsBat* dValsBat_ptr = dynamic_cast< globalHeatBalValsBat *>(& dVals);
      // 
@@ -517,8 +500,6 @@ SurDomain_CathodeCollector::eval_HeatBalance(const int ifunc,
      // get the offset of the temperature
      //
      size_t ieqnTemp = NodalVarPtr->Offset_VarType[Temperature];
-     
-
      /*
       * get the offsets for the BulkDomain and the surface domain.
       */

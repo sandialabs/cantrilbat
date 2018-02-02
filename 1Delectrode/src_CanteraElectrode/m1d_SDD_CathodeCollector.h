@@ -112,15 +112,15 @@ public:
   //! Specified voltage at the cathode and sometimes at the cathode current collector
   double voltageCathodeSpecified_;
 
-  //!  Thickness of the anode current collector
+  //!  Thickness of the cathode current collector
   double cathodeCCThickness_;
 
   //! Extra resistance attached to the entire battery that is still included in heat buildup
   /*!
    *    Note this is not cross section based. This is for the entire battery. Therefore, the
-   *    cross section must be multiplied in
+   *    cross section must be multiplied in.
    *
-   *    units ohms
+   *    Units: ohms
    */
   double extraResistanceCathode_;
 

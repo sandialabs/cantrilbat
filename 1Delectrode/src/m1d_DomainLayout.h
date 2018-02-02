@@ -252,9 +252,10 @@ public:
     //! Vector of bulk domain Descriptions
     std::vector<BulkDomainDescription*> BulkDomainDesc_global;
 
-    //! Vector of bulk domains in the problem
+    //! Vector of Pointers to the bulk domain objects in the problem
     /*!
-     *   The index is from right to left within the domain
+     *  Length: number of bulk domains
+     *  Index:  Global domain number
      */
     std::vector<BulkDomain1D*> BulkDomain1D_List;
 
@@ -267,9 +268,10 @@ public:
      */
     std::vector<SurDomain1D*> SurDomain1D_List;
 
-    //! Starting global node for the bulk domain regions
+    //! Vector of Starting global node index values for each of the bulk domain regions
     /*!
-     *    Length = number of bulk domains
+     *  Length: number of bulk domains
+     *  Index:  Global domain number
      */
     std::vector<int> StartGBNode_Domain;
 

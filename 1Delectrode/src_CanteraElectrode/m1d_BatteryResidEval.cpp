@@ -1,7 +1,7 @@
 /**
- *  @file m1d_ProblemResidEval.cpp
- *
- **/
+ *  @file m1d_BatteryResidEval.cpp 
+ *     definitions for the particular functions involved with calculating and analysing 1D battery problems
+ */
 
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -26,16 +26,22 @@
 #include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_SurfDomainDescription.h"
 
-using namespace std;
+#include "m1d_NodalVars.h"
 
+using namespace std;
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
 #else
 using namespace Cantera;
 #endif
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
+//==================================================================================================================================
+//! boolean indicating that the polarization index calculations are current
+bool polIndecisesCurrent = false;
+
 //==================================================================================================================================
 static void
 drawline(int sp, int ll)
@@ -559,7 +565,7 @@ BatteryResidEval::user_out(const int ievent,
 			   const Epetra_Vector_Ghosted * const ydot_n_ptr)
 {
     ProblemResidEval::user_out(ievent, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
-    
+    doPolarizationAnalysis_ = true; 
     if (doPolarizationAnalysis_) {
 
         doPolarizationAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
@@ -1363,9 +1369,14 @@ void BatteryResidEval::doHeatAnalysis(const int ifunc, const double t, const dou
     
 }
 //==================================================================================================================================
-void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted &y,
+void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted &soln,
 	                                      const Epetra_Vector_Ghosted * const solnDot_ptr)
 {
+    // Global index for the electrode voltage at the anode - anode collector interface.
+    static size_t gindex_VoltageSolid_ACA = npos;
+    static size_t gindex_Voltage_AS = npos;
+    static size_t gindex_Voltage_SC = npos;
+    static size_t gindex_VoltageSolid_CCC = npos;
     /*
      *  In this analysis we will assume the following about the domains:
      *          domain 0 is  anode
@@ -1458,14 +1469,89 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      *
      */
 
+     // Identify the ACA point
+
+     // Assume it is located at the left of the first domain
+     if (polIndecisesCurrent == false) {
+         polIndecisesCurrent = true;
+         DomainLayout &DL = *DL_ptr_;
+         BulkDomain1D *d_anode = DL.BulkDomain1D_List[0];
+         //porousFlow_dom1D* p_anode = dynamic_cast<porousFlow_dom1D*>(d_anode);
+
+         // Get the pointer to the Bulk domain descriptor
+         m1d::BulkDomainDescription* bdd_anode_ptr = d_anode->BDD_ptr_;
+
+         // Pointer to the LocalNodeIndices object for the domain
+         LocalNodeIndices* lni = d_anode->LI_ptr_;
+
+         // Pointer to the global 
+         GlobalIndices* gi_ptr = lni->GI_ptr_;
+
+         // Get the index of the  first global node in the anode domain
+         int fgn = bdd_anode_ptr->FirstGbNode;
+
+         // get the NodalVars structure pertaining to that global node
+         NodalVars* node = gi_ptr->NodalVars_GbNode[fgn];
+
+         // Loop up the stating equation index for that global node
+         int index_EqnStart = node->EqnStart_GbEqnIndex;
+
+         // Look up the offset for the voltage unknown
+         size_t vs = node->Offset_VarType[Voltage];
+         if (vs == npos) {
+             throw m1d_Error("", "error");
+         }
+
+         // Check to see that there are two voltages at that node and select the second one for the solid voltage
+         size_t num = node->Number_VarType[Voltage];
+         if (num != 2) {
+             throw m1d_Error("", "error");
+         }
+         gindex_VoltageSolid_ACA = index_EqnStart + vs + 1;
+
+         BulkDomain1D *d_separator = DL.BulkDomain1D_List[1];
+         //porousFlow_dom1D* p_separator = dynamic_cast<porousFlow_dom1D*>(d_separator);
+         m1d::BulkDomainDescription* bdd_separator_ptr = d_separator->BDD_ptr_;
+         //LocalNodeIndices* lni_separator = d_separator->LI_ptr_;
+         int gn_AS = bdd_separator_ptr->FirstGbNode;
+         NodalVars* node_AS = gi_ptr->NodalVars_GbNode[gn_AS];
+         int index_EqnStart_AS = node_AS->EqnStart_GbEqnIndex;
+         vs = node_AS->Offset_VarType[Voltage];
+         gindex_Voltage_AS = index_EqnStart_AS + vs;
+
+         // calculate SC
+         int gn_SC = bdd_separator_ptr->LastGbNode;
+         NodalVars* node_SC = gi_ptr->NodalVars_GbNode[gn_SC];
+         int index_EqnStart_SC = node_SC->EqnStart_GbEqnIndex;
+         vs = node_SC->Offset_VarType[Voltage];
+         gindex_Voltage_SC = index_EqnStart_SC + vs;
+
+          BulkDomain1D *d_cathode = DL.BulkDomain1D_List[2];
+          m1d::BulkDomainDescription* bdd_cathode_ptr = d_cathode->BDD_ptr_;
+          int gn_CCC = bdd_cathode_ptr->LastGbNode;
+          NodalVars* node_CCC = gi_ptr->NodalVars_GbNode[gn_CCC];
+          int index_EqnStart_CCC = node_CCC->EqnStart_GbEqnIndex;
+          vs = node_CCC->Offset_VarType[Voltage];
+          gindex_VoltageSolid_CCC = index_EqnStart_CCC + vs + 1;
+
+
+     }
+
+     double vSolid_AC =  soln[gindex_VoltageSolid_ACA];
+     double vLyte_AS =  soln[gindex_Voltage_AS];
+     double vLyte_SC =  soln[gindex_Voltage_SC];
+     double vSolid_CCC =  soln[gindex_VoltageSolid_CCC];
+   
+
+     double vCathode = reportCathodeVoltage();
+
+     double vAnode = 0.0;
+
 
 }
 //==================================================================================================================================
 void
-BatteryResidEval::doSpeciesAnalysis(const int ifunc,
-				    const double t,
-				    const double deltaT,
-				    const Epetra_Vector_Ghosted &y,
+BatteryResidEval::doSpeciesAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted &y,
 				    const Epetra_Vector_Ghosted * const solnDot_ptr)
 {
     int iLip = 1;
@@ -1592,17 +1678,14 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc,
     double oldS =  elemLi_Solid_Old_Dom[0] + elemLi_Solid_Old_Dom[2];
     double startS= elemLi_Solid_Start_Dom[0] + elemLi_Solid_Start_Dom[2];
     delta = newS - startS;
-    printf("Total Solid:   Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
-	   newS, startS,  delta);
+    printf("Total Solid:   Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n", newS, startS,  delta);
     delta =  newS - oldS;
-    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n",
-	   newS, oldS, delta);
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n", newS, oldS, delta);
     //
     // Total Balance of Lithium
     //
     delta = elem_li_new_total - elem_Start_Total[iLip];
-    printf("Total Li:      Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n",
-	   elem_li_new_total, elem_Start_Total[iLip], delta);
+    printf("Total Li:      Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n", elem_li_new_total, elem_Start_Total[iLip], delta);
     delta = elem_li_new_total - elem_li_old_total;
     printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n",
 	   elem_li_new_total, elem_li_old_total, delta);
@@ -1760,11 +1843,17 @@ BatteryResidEval::changeCathodeVoltageBC(int BC_Type, double value, BoundaryCond
 }
 //================================================================================================================================
 double
-BatteryResidEval::reportCathodeVoltage() const {
+BatteryResidEval::reportCathodeVoltage() const
+{
     DomainLayout &DL = *DL_ptr_;
     // we want the last surface, but be careful when we go to double tap batteries
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     SurDomain_CathodeCollector *c_ptr = dynamic_cast<SurDomain_CathodeCollector *>(d_ptr);
+#ifdef DEBUG_MODE
+    if (!c_ptr) {
+        throw m1d_Error("BatteryResidEval::reportCathodeVoltage()", "SurDomain_CathodeCollector failed");
+    }
+#endif
     // might have to update the SurDomain.
     double phi =  c_ptr->phiCathode_;
 

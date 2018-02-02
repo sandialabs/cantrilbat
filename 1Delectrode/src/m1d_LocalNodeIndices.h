@@ -3,6 +3,13 @@
  *
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
+
 #ifndef M1D_LOCALNODEINDICES_H
 #define M1D_LOCALNODEINDICES_H
 
@@ -520,8 +527,7 @@ public:
 
     //! Initial Position of the nodes
     /*!
-     *   Initial position of the nodes. There may be displacements that alter the
-     *   position
+     *   Initial position of the nodes. There may be displacements that alter the  position
      */
     std::vector<double> X0pos_LcNode;
 
@@ -539,13 +545,14 @@ public:
      */
     Epetra_Vector* Xpos_LcOwnedNode_p;
 
-    //! Vector of nodal variables descriptors.
+    //! Vector of Pointers to the nodal variables descriptors.
     /*!
-     * NodalVars object contains a complete description of the variables at
-     * a local node. These are shallow copies. The actual objects are held by
-     * the GlobalIndices object.
+     *  NodalVars object contains a complete description of the variables at
+     *  a local node. These are shallow copies. The actual objects are held by the GlobalIndices object.
      *
-     * length = number of local nodes identified on the current processor.
+     *  Length:   Number of local nodes identified on the current processor (owned and ghost)
+     *  Index:    Local node number
+     *  Value:    Pointer to the global NodalVars structure for the node
      */
     std::vector<NodalVars*> NodalVars_LcNode;
 

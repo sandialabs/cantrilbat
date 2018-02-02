@@ -52,7 +52,7 @@ public:
     {
     }
 
-    //! empty destructor
+    //! Empty destructor
     virtual ~globalHeatBalVals()
     {
     }
@@ -622,14 +622,10 @@ public:
 
     // ------------------------------------------------  DATA ---------------------------------------------------------------
 
-    //! Number of equations associated with this domain,
-    //! whether it be a bulk or surface domain
+    //! Number of equations associated with this domain, whether it be a bulk or surface domain
     int NumDomainEqns;
 
     //! Identifying tag for the domain
-    /*!
-     *
-     */
     std::string m_id;
 
     //! The type of coordinate system that is used
@@ -640,8 +636,8 @@ public:
 
     //! CrossSectional Area of the domain
     /*!
-     *     This get's copied to the object from the problem statement.
-     *     The default is 1 m**2
+     *  This get's copied to the object from the problem statement.
+     *  The default is 1 m**2
      */
     double crossSectionalArea_;
 

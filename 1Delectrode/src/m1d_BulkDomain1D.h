@@ -511,7 +511,7 @@ public:
      *  They are also useful for the specification of global balances, when Dirichlet conditions are set
      *  on some variables. Then, we seek the specification of fluxes which preserve global conservation laws.
      *
-     *  Length = number of equations defined on this domain
+     *  Length: number of equations defined on this domain
      */
     std::vector<double> TotalFluxLeftBound_LastResid_NE;
 
@@ -523,24 +523,6 @@ public:
      *  Length = number of equations defined on this domain
      */
     std::vector<double> TotalFluxRightBound_LastResid_NE;
-
-    //! Value of the variable as seen from the left side of domain from the last residual calculation
-    /*!
-     *  This is a temporary variable that holds the  left side variable value
-     *  at the left boundary during the last residual calculation
-     *
-     *  Length = number of equations defined on this domain
-     */
-    //std::vector<double> VarVectorLeftBound_LastResid_NE;
-
-    //! Value of the variable as seen from the right side of domain from the last residual calculation
-    /*!
-     *  This is a temporary variable that holds the right side variable value
-     *  at the right boundary during the last residual calculation
-     *
-     *  Length = number of equations defined on this domain
-     */
-    //std::vector<double> VarVectorRightBound_LastResid_NE;
 
     //! Value of Residual contributions at the left side of the domain from this domain only
     /*!

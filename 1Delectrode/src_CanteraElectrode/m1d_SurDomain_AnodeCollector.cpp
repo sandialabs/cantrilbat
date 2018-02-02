@@ -3,10 +3,6 @@
  *  object to calculate the  surface domains in the Cu2S problem
  */
 
-/*
- *  $Id: m1d_SurDomain_AnodeCollector.cpp 5 2012-02-23 21:34:18Z hkmoffa $
- */
-
 #include "m1d_SurDomain_AnodeCollector.h"
 
 #include "m1d_NodalVars.h"
@@ -33,8 +29,7 @@ static void drawline0(stream0& ss, int sp, int ll)
     }
     ss.print0("\n");
 }
-
-//=====================================================================================================================
+//==================================================================================================================================
 SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription& sdd, int problemType) :
     SurBC_Dirichlet(sdd),
     bedd_(0),
@@ -42,7 +37,8 @@ SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription& sdd, i
     phiAnode_(0.0),
     phiAnodeCC_(0.0),
     icurrCollector_(0.0),
-    CCThickness_(0.0)
+    CCThickness_(0.0),
+    extraAnodeResistance_(0.0)
 {
     //! Determine bedd_
     //       use SurfDomainDescription &SDD_;
@@ -57,7 +53,7 @@ SurDomain_AnodeCollector::SurDomain_AnodeCollector(SurfDomainDescription& sdd, i
     const SDD_AnodeCollector* sdta_ptr = dynamic_cast<const SDD_AnodeCollector*>(&SDD_);
     CCThickness_ = sdta_ptr->anodeCCThickness_;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 SurDomain_AnodeCollector::SurDomain_AnodeCollector(const SurDomain_AnodeCollector& r) :
     SurBC_Dirichlet(r.SDD_), 
     bedd_(0),
@@ -65,20 +61,16 @@ SurDomain_AnodeCollector::SurDomain_AnodeCollector(const SurDomain_AnodeCollecto
     phiAnode_(0.0),
     phiAnodeCC_(0.0),
     icurrCollector_(0.0),
-    CCThickness_(0.0)
+    CCThickness_(0.0),
+    extraAnodeResistance_(0.0)
 {
     operator=(r);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 SurDomain_AnodeCollector::~SurDomain_AnodeCollector()
 {
 }
-//=====================================================================================================================
-// Assignment operator
-/*
- * @param r      Object to be copied into the current object
- * @return       Returns a changeable reference to the current object
- */
+//==================================================================================================================================
 SurDomain_AnodeCollector&
 SurDomain_AnodeCollector::operator=(const SurDomain_AnodeCollector& r)
 {
@@ -95,18 +87,11 @@ SurDomain_AnodeCollector::operator=(const SurDomain_AnodeCollector& r)
     phiAnodeCC_ = r.phiAnodeCC_;
     icurrCollector_ = r.icurrCollector_;
     CCThickness_ =r.CCThickness_;
+    extraAnodeResistance_ = r.extraAnodeResistance_;
 
     return *this;
 }
-//=====================================================================================================================
-// Prepare all of the indices for fast calculation of the residual
-/*
- *  Here we collect all of the information necessary to
- *  speedily implement SpecFlag_NE and Value_NE within the
- *  residual calculation.
- *  We transfer the information from SDD_Dirichlet structure to
- * this structure for quick processing.
- */
+//==================================================================================================================================
 void
 SurDomain_AnodeCollector::domain_prep(LocalNodeIndices* li_ptr)
 {
@@ -125,18 +110,6 @@ SurDomain_AnodeCollector::domain_prep(LocalNodeIndices* li_ptr)
     }
 }
 //==================================================================================================================================
-// Basic function to calculate the residual for the domain.
-/*
- *  We calculate the additions and/or replacement of the
- *  residual here for the equations that this Dirichlet condition
- *  is responsible for.
- *
- * @param res           Output vector containing the residual
- * @param doTimeDependentResid  boolean indicating whether the time
- *                         dependent residual is requested
- * @param soln         Solution vector at which the residual should be
- *                     evaluated
- */
 void
 SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
                                     const bool doTimeDependentResid,
@@ -294,9 +267,8 @@ SurDomain_AnodeCollector::residEval(Epetra_Vector& res,
      */
     BulkDomain1D* bd = bedd_->BulkDomainPtr_;
     icurrCollector_ = bd->DiffFluxLeftBound_LastResid_NE[EQ_Current_offset_ED];
-
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 SurDomain_AnodeCollector::getVoltages(const double* const solnElectrolyte)
 {
@@ -304,24 +276,7 @@ SurDomain_AnodeCollector::getVoltages(const double* const solnElectrolyte)
     phiElectrolyte_ = solnElectrolyte[indexVS];
     phiAnode_ = solnElectrolyte[indexVS + 1];
 }
-//=====================================================================================================================
-// Base class for writing the solution on the domain to a logfile.
-/*
- *
- * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
- * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
- * @param soln_ptr             Pointer to the solution vector
- * @param solnDot_ptr          Pointer to the time derivative of the solution vector
- * @param solnOld_ptr          Pointer to the solution vector at the old time step
- * @param residInternal _ptr   Pointer to the current value of the residual just calculated
- *                             by a special call to the residEval()
- * @param t                    time
- * @param rdelta_t             The inverse of the value of delta_t
- * @param indentSpaces         Indentation that all output should have as a starter
- * @param duplicateOnAllProcs  If this is true, all processors will include
- *                             the same log information as proc 0. If
- *                             false, the loginfo will only exist on proc 0.
- */
+//==================================================================================================================================
 void SurDomain_AnodeCollector::showSolution(const Epetra_Vector* soln_GlAll_ptr, const Epetra_Vector* solnDot_GlAll_ptr,
                                             const Epetra_Vector* soln_ptr, const Epetra_Vector* solnDot_ptr,
                                             const Epetra_Vector* solnOld_ptr, const Epetra_Vector_Owned* residInternal_ptr, 
@@ -331,7 +286,7 @@ void SurDomain_AnodeCollector::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     int locGbNode = SDD_.LocGbNode;
     // int mypid = LI_ptr_->Comm_ptr_->MyPID();
     bool doWrite = (NumOwnedNodes > 0) || duplicateOnAllProcs;
-    string indent = "";
+    std::string indent = "";
     for (int i = 0; i < indentSpaces; i++) {
         indent += " ";
     }
@@ -343,7 +298,7 @@ void SurDomain_AnodeCollector::showSolution(const Epetra_Vector* soln_GlAll_ptr,
     //std::vector<VarType> &variableNameList = SDD_.VariableNameList;
     std::vector<VarType>& variableNameListNode = nv->VariableNameList_EqnNum;
     int numVar = nv->NumEquations;
-    string sss = id();
+    std::string sss = id();
     BulkDomain1D* bd = bedd_->BulkDomainPtr_;
     int offsetBD = NodalVarPtr->OffsetIndex_BulkDomainEqnStart_BDN[0];
     int EQ_Current_offset_BD = offsetBD + bedd_->EquationIndexStart_EqName[Current_Conservation];
@@ -364,7 +319,7 @@ void SurDomain_AnodeCollector::showSolution(const Epetra_Vector* soln_GlAll_ptr,
         int jDir = 0;
         for (int k = 0; k < numVar; k++) {
             VarType& vt = variableNameListNode[k];
-            string name = vt.VariableName(20);
+            std::string name = vt.VariableName(20);
             double sval = (*soln_GlAll_ptr)[eqnStart + k];
             ss.print0("%s   %-20s   %-10.4E ", ind, name.c_str(), sval);
 	    if (SpecFlag_NE[k] != 0) {
@@ -532,19 +487,6 @@ SurDomain_AnodeCollector::eval_HeatBalance(const int ifunc,
 
  }
 //==================================================================================================================================
-// Generate the initial conditions
-/*
- *   For surface Dirichlet conditions, we impose the t = 0- condition.
- *
- * @param doTimeDependentResid    Boolean indicating whether we should
- *                                formulate the time dependent residual
- * @param soln                    Solution vector. This is the input to
- *                                the residual calculation.
- * @param solnDot                 Solution vector. This is the input to
- *                                the residual calculation.
- * @param t                       Time
- * @param delta_t                 delta_t for the initial time step
- */
 void
 SurDomain_AnodeCollector::initialConditions(const bool doTimeDependentResid, Epetra_Vector* const soln_ptr,
                                             Epetra_Vector* const solnDot, const double t, const double delta_t)
@@ -613,14 +555,14 @@ SurDomain_AnodeCollector::saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Ve
 
     for (size_t k = 0; k < numVar; k++) {
         double sval = (*soln_GLALL_ptr)[eqnStart + k];
-        string nm = nv->VariableName(k);
+        std::string nm = nv->VariableName(k);
         VarType vv = nv->VariableNameList_EqnNum[k];
-        string type = VarType::VarMainName(vv.VariableType);
+        std::string type = VarType::VarMainName(vv.VariableType);
         ZZctml::addFloat(inlt, nm, sval, "", "", ZZCantera::Undef, ZZCantera::Undef);
     }
     std::string nm = "Volts(AnodeCCVoltage)";
     ZZctml::addFloat(inlt, nm, phiAnodeCC_, "", "", ZZCantera::Undef, ZZCantera::Undef);
 }
-//=====================================================================================================================
-} /* End of Namespace */
+//==================================================================================================================================
+} 
 //----------------------------------------------------------------------------------------------------------------------------------
