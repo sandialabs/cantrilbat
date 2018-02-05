@@ -9,7 +9,6 @@
  * may require a license from the United States Government.
  */
 
-
 #include "Electrode_Polarization.h"
 #include "Electrode_Exception.h"
 
@@ -72,6 +71,17 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
     }
 
 }
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector)
+{
+    double voltsS  = phiCurrentCollector - phiMetal;
+
+    
+
+
+}
+
+
 //==================================================================================================================================
 
 } 

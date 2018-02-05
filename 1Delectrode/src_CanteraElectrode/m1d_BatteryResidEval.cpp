@@ -1534,7 +1534,6 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
           vs = node_CCC->Offset_VarType[Voltage];
           gindex_VoltageSolid_CCC = index_EqnStart_CCC + vs + 1;
 
-
      }
 
      double vSolid_AC =  soln[gindex_VoltageSolid_ACA];
@@ -1546,6 +1545,12 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      double vCathode = reportCathodeVoltage();
 
      double vAnode = 0.0;
+
+     // Loop over the domains gathering the information
+
+
+     // Loop over the anode, filling in the missing pieces that are part of the anode
+     
 
 
 }
@@ -1855,11 +1860,10 @@ BatteryResidEval::reportCathodeVoltage() const
     }
 #endif
     // might have to update the SurDomain.
-    double phi =  c_ptr->phiCathodeCC_;
-
+    double phi = c_ptr->phiCathodeCC_;
     return phi;
 } 
-//====================================================================================================================
+//==================================================================================================================================
 double
 BatteryResidEval::reportCathodeCurrent() const {
     DomainLayout &DL = *DL_ptr_;

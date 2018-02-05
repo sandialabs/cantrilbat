@@ -2,11 +2,13 @@
  *  @file m1d_SolNonlinear_CurrentSolve.h
  *   Rootfinder that wraps around the current solve
  */
+
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
  * retains certain rights in this software. See file License.txt for licensing information.
  */
+
 #ifndef M1D_SOLGLOBALNONLINEAR_CURRENTSOLVE_H
 #define M1D_SOLGLOBALNONLINEAR_CURRENTSOLVE_H
 
@@ -298,12 +300,6 @@ public:
 
     //! Value of the derivative of the cathode voltage
     double cathodeVoltageDot_;
-
-    //! Boundary condition function
-    //BoundaryCondition * BC_TimeDep_;
-
-    //! Time dependency function
-    //TimeDepFunctionPtr TimeDep_;
 
     //! Minimum Value of the cathode voltage to be attempted at the current step
     double cathodeVoltageMin_;

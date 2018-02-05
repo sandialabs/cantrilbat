@@ -2,6 +2,12 @@
  * @file m1d_porousFlow_dom1D.h
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
 
 #ifndef M1D_POROUSFLOW_DOM1D_H_
 #define M1D_POROUSFLOW_DOM1D_H_
@@ -22,16 +28,15 @@ namespace Cantera
 {
 class Transport;
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 class LocalNodeIndices;
 class cellTmps;
 class ExtraPhase;
 
-//======================================================================================================================
-//! This is derived class  provides the function
-//! evaluation for a porous electrode.
+//==================================================================================================================================
+//! This is derived class  provides the function evaluation for a porous electrode.
 /*!
  * The porous electrolyte domain is characterized by a
  * current conservation equation and several species
@@ -398,14 +403,15 @@ protected:
     //!  Partial molar Enthalpy of the electrolyte species at the Curr point with Phi enhancement
     /*!
      *   Vector of partial molar enthalpy  (KRSpecies)
-     *   Units of Joules/(kmol)
+     * 
+     *   Units:   Joules / kmol
      */
     std::vector<double> EnthalpyPM_lyte_Curr_;
     std::vector<double> EnthalpyPhiPM_lyte_Curr_;
 
     //! Value of the molar Enthalpy of the electrolyte at the current location
     /*!
-     *  Units are Joules/kmol
+     *  Units:  Joules / kmol
      */
     double EnthalpyMolar_lyte_Curr_;
  
@@ -427,8 +433,8 @@ protected:
      *  Therefore, the source term is integrated in the axial direction and it is
      *  integrated wrt to the time interval.
      *
-     *  Length = number of local cells
-     *  units = Joules / m2
+     *  Length:  number of local cells
+     *  Units:   Joules / m2
      */
     mutable std::vector<double> qSource_Cell_accumul_;
 
@@ -438,8 +444,8 @@ protected:
      *  Therefore, the source term is integrated in the axial direction and it is
      *  integrated wrt to the time interval.
      *
-     *  Length = number of local cells
-     *  units = Joules / m2
+     *  Length:  number of local cells
+     *  Units:   Joules / m2
      */
     std::vector<double> jouleHeat_lyte_Cell_curr_;
 
@@ -568,5 +574,5 @@ protected:
 };
 //==================================================================================================================================
 }
-//==================================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif

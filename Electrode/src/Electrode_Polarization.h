@@ -143,7 +143,13 @@ struct PolarizationSurfRxnResults {
     double ocvSurf = 0.0;
 
     //! Value of the voltage for the electrode through which the electrons go through
+    /*!
+     *  This is phiMetal - phiSoln
+     */
     double VoltageElectrode = 0.0;
+
+    //! Electric potential of the metal at the electrode
+    double phiMetal = 0.0;
 
     //! Value for the total voltage drops accounted for by the voltsPol_List
     /*!
@@ -168,6 +174,8 @@ struct PolarizationSurfRxnResults {
      *   @param[in]          rxnIndex            Reaction index on the surface. Defaults to npos
      */
     PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, size_t surfIndex = npos, size_t rxnIndex = npos); 
+
+    void addSolidPol(double phiCurrentCollector);
 
     void addSubStep(struct PolarizationSurfRxnResults& sub);
 

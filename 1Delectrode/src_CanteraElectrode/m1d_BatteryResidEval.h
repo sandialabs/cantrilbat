@@ -474,29 +474,32 @@ public:
     reportCathodeVoltageBC(double time, int &BC_Type, double &value, BoundaryCondition * &BC_TimeDep,
                            TimeDepFunctionPtr &TimeDep) const;
 
-    //!   Change the boundary condition applied to the cathode voltage equation
+    //! Change the boundary condition applied to the cathode voltage equation
     /*!
-     *   @param[in] BC_Type     Type of the boundary condition
-     *   @param[in] value       Value of the Dirichlet condition or flux - default 0.0
-     *   @param[in] BC_TimeDep  BoundaryCondition Pointers for time dependent BC for BC_Type = 3,4,5
-     *                          Defaults to a NULL pointer.
-     *   @param[in] TimeDep     Function pointer to a function that returns a double given a single parameter (the time).
-     *                          Defaults to a NULL pointer.
+     *  @param[in]           BC_Type             Type of the boundary condition
+     *  @param[in]           value               Value of the Dirichlet condition or flux - default 0.0
+     *  @param[in]           BC_TimeDep          BoundaryCondition Pointers for time dependent BC for BC_Type = 3,4,5
+     *                                             Defaults to a NULL pointer.
+     *  @param[in]           TimeDep             Function pointer to a function that returns a double given a single parameter (the time).
+     *                                             Defaults to a NULL pointer.
      */
     void
     changeCathodeVoltageBC(int BC_Type, double value, BoundaryCondition * BC_TimeDep = 0, TimeDepFunctionPtr TimeDep = 0);
 
     //! Report the cathode voltage
     /*!
+     *  (virtual from BatteryResidEval)
      *  Note the anode voltage is set to zero. So this function will return the voltage of the battery.
      *
      *  @return                                  Returns the cathode voltage (volts)
      */
     virtual double reportCathodeVoltage() const;
 
-    //! Report the cathode current
+    //! Report the cathode current assuming an area of the battery.
     /*!
+     *  (virtual from BatteryResidEval)
      *  Note the anode current should be exactly equal to the cathode current
+     *  The current will be positive for the normal operation of the battery.
      *
      *  @return                                  Returns the cathode current (amp)
      */
@@ -504,8 +507,8 @@ public:
 
     //! Get the max value of the sub grid time step number from the last residual calculation
     /*!
-     *   @return   Returns the max subgrid time step number from all of the electrodes. Special steps
-     *             aren't counted in this number.
+     *  @return                                  Returns the max subgrid time step number from all of the electrodes. Special steps
+     *                                           aren't counted in this number.
      */
     int getMaxSubGridTimeSteps() const;
 
@@ -524,7 +527,7 @@ public:
     void gatherCapacityStatistics();
 
 
-    // ------------------------------        MEMBER DATA ----------------------------------------------------------------------------
+    // ------------------------------------------------- MEMBER DATA ----------------------------------------------------------------
 
     //! Boolean indicating whether to calculate Heat Source Time tracking terms and output file
     int doHeatSourceTracking_;
@@ -664,7 +667,7 @@ public:
     /*!
      *   timeLeft = capacityLeft / current
      *
-     *   units = seconds
+     *  Units:   seconds
      */
     double timeLeft_;
 
@@ -685,6 +688,7 @@ public:
 
     //! Quick determination of the open circuit voltage of the cathode
     double ocvCathode_;
+
 public:
     //!  If true, the residual equations have a pressure equation and we have Darcy's equation for velocity
     /*!
@@ -698,10 +702,8 @@ public:
     //! If true we have a separate equation for the gas in the container.
     int hasGasResevoir_;
 };
-
-// *****************************************************************
-//  end of m1d namespace
+//==================================================================================================================================
 }
-// ******************************************************************
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
+

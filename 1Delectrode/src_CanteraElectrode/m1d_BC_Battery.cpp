@@ -12,6 +12,13 @@
  * exp_BoundaryCondition.h
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
+
 
 #include "cantera/base/ct_defs.h" 
 #include "cantera/base/ctexceptions.h"
@@ -146,8 +153,8 @@ BC_cathodeCCLoad& BC_cathodeCCLoad::operator=(const BC_cathodeCCLoad& right)
      return *this;
    }
    BoundaryCondition::operator=(right);
-   cathodeCC_volts_=right.cathodeCC_volts_;
-   thickness_=right.thickness_;
+   cathodeCC_volts_ = right.cathodeCC_volts_;
+   thickness_ = right.thickness_;
    extraResistance_ = right.extraResistance_;
    electrodeCrossSectionalArea_ = right.electrodeCrossSectionalArea_;
    resistanceLoad_ = right.resistanceLoad_;
