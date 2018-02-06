@@ -75,12 +75,16 @@ enum Polarization_Loss_Enum {
     //! Other loss mechanisms not yet identified
     OTHER_PL
 };
-//==================================================================================================================================
 
+//==================================================================================================================================
 //! Structure to store the type and amount of voltage loss computed for a polarization loss
 /*!
  *  The types are identified by the enum Polarization_Loss_Enum variable.
- *  The signs are always positive for a loss in power of the resulting electron produced by a battery in discharge.
+ *  The signs are always negative for a loss in power of the resulting electron produced by a battery in discharge, except for
+ *  the OCV term. For the OCV term the cathode side is (phi_metal - phi_soln),  while the anode side is the negative of the
+ *  cathode, (phi_soln - phi_metal).
+ *
+ *  Signs will be positive for charging polarization losses . 
  */
 struct VoltPolPhenom
 {
@@ -88,20 +92,48 @@ struct VoltPolPhenom
     /*!
      *  @param[in]           pltype              Polarization type enum
      *  @param[in]           volts               volt drop
+     *  @param[in]           region              Number of the region, to identify the region.
      */
-    VoltPolPhenom(enum Polarization_Loss_Enum pltype = UNKNOWN_PL, double volts = 0.0) :
+    VoltPolPhenom(enum Polarization_Loss_Enum pltype, int region, double volts) :
         ipolType(pltype),
+        regionID(region),
         voltageDrop(volts)
     {
     }
 
     //! Enum identifying the effect that we are cataloging
-    enum Polarization_Loss_Enum  ipolType;
+    enum Polarization_Loss_Enum ipolType;
 
-    //! Drop in voltage due to effect
-    double                       voltageDrop;
+    //! Region where the phenomena occurred
+    /*!
+     *  -1  -  unspecified
+     *   0  -  anode
+     *   1  -  separator
+     *   2  -  cathode
+     *   3  -  anode current collector
+     *   4  -  cathode current collector
+     */
+    int regionID;
+
+    //! Drop in voltage due to effect.
+    /*!
+     *  When indicating an effect, this will be the V_cathodeSide - V_anode_side. 
+     *  Therefore, when you add up all of the effects from Cathode to anode, you will get V_cathode - V_anode.
+     *
+     *  Thus, all polarization effects will be a negative voltage for polarization losses in normal operation.
+ 
+     *  When indicating OCV, this will be the voltage of the electrode (phiMetal - phiSoln) for the Cathode.
+     *  It will be entered as - (phiMetal - phiSoln) for the anode.
+     *  When the two halfcells are added together, OCV = V_Cathode - V_anode = voltageDrop_Cathode + voltageDrop_anode.
+     *
+     *  Therefore the following relation will hold for battery discharge
+     *        phi_Cathode - phi_Anode = OCV - sum(polarizationLosses)  = sum (voltageDrop_i)
+     *  The following will hold for battery charging direction
+     *        phi_Cathode - phi_Anode = OCV + sum(polarizationLosses)  = sum (voltageDrop_i)
+     * 
+     */
+    double voltageDrop;
 };
-
 
 //===================================================================================================================================
 //! Structure for commumicating polarization results
@@ -144,16 +176,22 @@ struct PolarizationSurfRxnResults {
 
     //! Value of the voltage for the electrode through which the electrons go through
     /*!
-     *  This is phiMetal - phiSoln
+     *  This is phiMetal - phiSoln always no matter if it is the anode or the cathode
      */
     double VoltageElectrode = 0.0;
 
     //! Electric potential of the metal at the electrode
+    /*!
+     *  Need to know the absolute electric potentials in order to interpret the results.
+     *
+     *  phiSoln = phiMetal - VoltageElectrode
+     */
     double phiMetal = 0.0;
 
     //! Value for the total voltage drops accounted for by the voltsPol_List
     /*!
      *  We'll be post-processing this structure to add in voltage drops
+     *  The voltages are processed from cathode to the anode.
      */
     double VoltageTotal = 0.0;
 
@@ -175,7 +213,14 @@ struct PolarizationSurfRxnResults {
      */
     PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, size_t surfIndex = npos, size_t rxnIndex = npos); 
 
-    void addSolidPol(double phiCurrentCollector);
+    //! Add the polarization losses due to the electrical conduction through the Electrode's solid portion to the current collector
+    /*!
+     *  @param[in]           phiCurrentCollector Electric potential of the current collector
+     *  @param[in]           region              Region of the solid condition. Two possibilities
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     */
+    void addSolidPol(double phiCurrentCollector, int region);
 
     void addSubStep(struct PolarizationSurfRxnResults& sub);
 

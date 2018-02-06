@@ -72,16 +72,20 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
 
 }
 //==================================================================================================================================
-void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector)
+void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int region)
 {
-    double voltsS  = phiCurrentCollector - phiMetal;
-
-    
-
-
+    double voltsS;
+    if (region == 0) {
+        voltsS  = phiCurrentCollector - phiMetal;
+    } else if (region == 2) {
+        voltsS  = phiMetal - phiCurrentCollector;
+    }
+    VoltPolPhenom ess(ELECTRICAL_CONDUCTION_LOSS_PL, region, voltsS) ;
+    voltsPol_list.push_back(ess);
+ 
+    // Adjust the total voltage from cathode to anode    
+    VoltageTotal -= voltsS;
 }
-
-
 //==================================================================================================================================
 
 } 

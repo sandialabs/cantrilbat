@@ -1549,6 +1549,7 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      // Loop over the domains gathering the information
 
 
+
      // Loop over the anode, filling in the missing pieces that are part of the anode
      
 
@@ -1557,7 +1558,7 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
 //==================================================================================================================================
 void
 BatteryResidEval::doSpeciesAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted &y,
-				    const Epetra_Vector_Ghosted * const solnDot_ptr)
+				    const Epetra_Vector_Ghosted* const solnDot_ptr)
 {
     int iLip = 1;
     static std::vector<double> elem_Start_Total(30, 0.0);

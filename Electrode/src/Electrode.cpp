@@ -3613,6 +3613,12 @@ size_t Electrode::numSolnPhaseSpecies() const
  */
 double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list)
 {
+    // Decide if electrode is in the anode or the cathode by its capacity type
+    int region = 0;
+    if (capacityType() == CAPACITY_CATHODE_ECT) {
+        region = 2;
+    }
+
     // Don't compare to reference electrode
     const bool comparedToReferenceElectrode = false;
 
@@ -3638,27 +3644,32 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
             size_t nr = rsd->nReactions();
 
             bool eok;
-            doublevalue nStoich, OCV, io, overPotential, beta, resistance;
+            doublevalue nStoich, OCV, io, overPotential, beta, resistancePerArea;
             size_t numErxn = 0;
             for (size_t iRxn = 0; iRxn < nr; iRxn++) {
-                eok = rsd->getExchangeCurrentDensityFormulation(iRxn, nStoich, OCV, io, overPotential, beta, resistance);
+                eok = rsd->getExchangeCurrentDensityFormulation(iRxn, nStoich, OCV, io, overPotential, beta, resistancePerArea);
                 double ocvSurfRxn = OCV;
                 double ocvSurfRxn_local = ocvSurfRxn;
                 // If this reaction has an electron as a product or reactant, it can be described by an exchange current density formulation,
                 // So, create a record
                 if (eok) {
                     if (nStoich != 0.0) {
-                        double icurrPerArea = rsd->calcCurrentDensity(overPotential, nStoich, OCV, beta, temperature_, resistance);
+                        // The current is positive for an anode under discharge, and negative for a cathode under discharge
+                        // The overPotential, num = E_electrode - (phi_Metal - phi_Lyte), is positive for anode under discharge,
+                        //  and negative for cathode under discharge.
+                        double icurrPerArea = rsd->calcCurrentDensity(overPotential, nStoich, OCV, beta, temperature_, resistancePerArea);
 
                         // Create a psr record for the current reaction on the current surface
                         psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, iSurf, iRxn);
                         PolarizationSurfRxnResults& psr = psr_list.back();
-                        psr.icurrSurf = 0.0;
                         numErxn++;
-                        if (resistance != 0.0) {
-                            VoltPolPhenom vpp;
-
-                            double voltsRes = psr.icurrSurf * resistance;
+                        VoltPolPhenom vpp(SURFACE_OCV_PL, region, OCV);
+                        if (region == 0) {
+                            vpp.voltageDrop = -OCV; 
+                        }
+                        psr.voltsPol_list.push_back(vpp);
+                        if (resistancePerArea != 0.0) {
+                            double voltsRes = icurrPerArea * resistancePerArea;
                             vpp.ipolType = RESISTANCE_FILM_PL;
                             vpp.voltageDrop = voltsRes;
                             psr.voltsPol_list.push_back(vpp);
@@ -3666,16 +3677,24 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                             overPotential -= voltsRes;
                         }
 
-                        VoltPolPhenom vpp;
                         vpp.ipolType = SURFACE_OVERPOTENTIAL_PL;
                         vpp.voltageDrop = overPotential;
+                        if (region == 0) {
+                            vpp.voltageDrop = -overPotential; 
+                        }
                         psr.voltsPol_list.push_back(vpp);
 
                         psr.VoltageElectrode = volts;
                         psr.VoltageTotal = volts;
+                        if (region == 0) {
+                            psr.VoltageTotal = -volts;
+                        }
                         psr.ocvSurf = ocvSurf;
                         psr.ocvSurfRxn = ocvSurfRxn_local;
                         psr.icurrSurf = 0.5 * (surfaceAreaRS_final_final_[iSurf] + surfaceAreaRS_init_init_[iSurf]) * icurrPerArea;
+                        if (region == 2) {
+                            psr.icurrSurf = - psr.icurrSurf;
+                        }
                     }
                 }
             }
