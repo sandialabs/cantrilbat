@@ -1,12 +1,5 @@
+#!/bin/sh
 #
-#
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.15 2010/07/12 20:20:40 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -77,30 +70,17 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-#
 ############################################################################
 # section to set up depends
 ###########################################################################
-#
-DEPENDS = $(OBJ_MPEQUIL:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
 
-.f.d:
-	echo "$*.o: $*.f" > $*.d
+DEPENDS = $(OBJ_MPEQUIL:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
-
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 depends:
 	$(RM) $(DEPENDS)
@@ -108,8 +88,6 @@ depends:
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
-
-##############################################################################
 
 mpequil: $(OBJ_MPEQUIL) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
          $(CANTERA_CORE_LIBS_DEP)
@@ -126,6 +104,7 @@ clean:
 	$(RM) ${PROG} 
 
 install:
+	$(MAKE) all
 	@INSTALL@ -d @cta_bindir@
 	@INSTALL@ -c mpequil @cta_bindir@
 

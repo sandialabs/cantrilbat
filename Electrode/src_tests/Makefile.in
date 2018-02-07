@@ -110,6 +110,7 @@ clean:
 	$(RM) $(OBJS) *.o $(PROGRAM) $(DEPENDS) .depends  .dependsT
 
 install:
+	$(MAKE) all
 	@INSTALL@ -c $(PROGRAM) @cta_bindir@
 
 ifeq ($(wildcard .depends), .depends)

@@ -162,6 +162,7 @@ test:
 ###########################################################################
 
 install:
+	$(MAKE) all
 	@INSTALL@ -d @cta_incdir@
 	@INSTALL@ -d @cta_libdir@
 	@for iFile in $(HDR_CTAPPLBASE) ; do               \

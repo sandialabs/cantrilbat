@@ -8,31 +8,31 @@
 build_python=@BUILD_PYTHON@
 
 all:
-	cd src; @MAKE@
-	cd tests; @MAKE@
-	cd failures; @MAKE@
+	cd src; $(MAKE)
+	cd tests; $(MAKE)
+	cd failures; $(MAKE)
 
 allsrc:
-	cd src; @MAKE@
+	cd src; $(MAKE)
 
 test:
-	cd tests; @MAKE@ -s test
+	cd tests; $(MAKE) -s test
 
 testd:
-	cd tests; @MAKE@ -s testd
+	cd tests; $(MAKE) -s testd
 
 clean:
-	cd src; $(RM) .depends ; @MAKE@ clean
-	cd tests;  @MAKE@ clean
-	cd failures;  @MAKE@ clean
+	cd src; $(RM) .depends ; $(MAKE) clean
+	cd tests;  $(MAKE) clean
+	cd failures;  $(MAKE) clean
 
 depends:
-	cd src; @MAKE@ depends
-	cd tests; @MAKE@ depends
-	cd failures; @MAKE@ depends
+	cd src; $(MAKE) depends
+	cd tests; $(MAKE) depends
+	cd failures; $(MAKE) depends
 
 install:
-	cd src; @MAKE@ install
+	cd src; $(MAKE) install
 
 # end of file
 
