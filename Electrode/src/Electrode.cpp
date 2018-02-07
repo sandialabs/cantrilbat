@@ -189,118 +189,7 @@ Electrode::Electrode() :
 }
 //======================================================================================================================
 Electrode::Electrode(const Electrode& right) :
-    PhaseList(),
-    electrodeCapacityType_(CAPACITY_ANODE_ECT),
-    pendingIntegratedStep_(0),
-    prob_type(TP),
-    numSurfaces_(0),
-    followElectrolyteMoles_(0),
-    electrolytePseudoMoles_(1.0),
-    externalFieldInterpolationType_(T_FINAL_CONST_FIS),
-    t_init_init_(0.0),
-    t_final_final_(0.0),
-    tinit_(0.0),
-    tfinal_(0.0),
-    deltaTsubcycleMax_(1.0E300),
-    deltaTsubcycle_init_init_(1.0E300),
-    deltaTsubcycleNext_(1.0E300),
-    deltaTsubcycle_init_next_(1.0E300),
-    choiceDeltaTsubcycle_init_(0),
-    numIntegrationSubCycles_final_final_(1),
-    doThermalPropertyCalculations_(false),
-    doPolarizationAnalysis_(false),
-    temperature_(298.15),
-    pressure_(1.0E5),
-    ElectrodeSolidVolume_(0.0),
-    phaseMolarVolumes_(0),
-    sphaseMolarAreas_(0),
-    VolPM_(0),
-    CvPM_(0),
-    spMoles_dot_(0),
-    spMoles_predict_(0),
-    spMf_init_(0),
-    spMf_init_init_(0),
-    spMf_final_(0),
-    spElectroChemPot_(0),
-    phaseVoltages_(0),
-    RSD_List_(0),
-    phaseMoles_init_(0),
-    phaseMoles_init_init_(0),
-    phaseMoles_final_(0),
-    phaseMoles_final_final_(0),
-    phaseMoles_dot_(0),
-    numExternalInterfacialSurfaces_(0),
-    surfaceAreaRS_init_(0),
-    surfaceAreaRS_final_(0),
-    surfaceAreaRS_init_init_(0),
-    surfaceAreaRS_final_final_(0),
-    spNetProdPerArea_List_(0, 0),
-    enthalpyMolar_init_init_(0),
-    enthalpyMolar_init_(0),
-    enthalpyMolar_final_(0),
-    enthalpyMolar_final_final_(0),
-    entropyMolar_init_init_(0),
-    entropyMolar_init_(0),
-    entropyMolar_final_(0),
-    entropyMolar_final_final_(0),
-    chempotMolar_init_init_(0),
-    chempotMolar_init_(0),
-    chempotMolar_final_(0),
-    chempotMolar_final_final_(0),
-    integratedThermalEnergySourceTerm_(0.0),
-    integratedThermalEnergySourceTermLast_(0.0),
-    integratedThermalEnergySourceTerm_overpotential_(0.0),
-    integratedThermalEnergySourceTerm_overpotential_Last_(0.0),
-    integratedThermalEnergySourceTerm_reversibleEntropy_(0.0),
-    integratedThermalEnergySourceTerm_reversibleEntropy_Last_(0.0),
-    electrodeName_("Electrode"),
-    numExtraGlobalRxns(0),
-    m_egr(0),
-    m_rmcEGR(0),
-    OCVoverride_ptrList_(0),
-    metalPhase_(npos),
-    solnPhase_(npos),
-    kElectron_(npos),
-    deltaVoltage_(0.0),
-    electronKmolDischargedToDate_(0.0),
-    capacityLeftSpeciesCoeff_(0),
-    capacityZeroDoDSpeciesCoeff_(0),
-    capacityInitialZeroDod_(0.0),
-    depthOfDischargeStarting_(0.0),
-    Icurrent_(0.0),
-    deltaG_(0),
-    inputParticleDiameter_(1.0E-6),
-    particleNumberToFollow_(-1.0),
-    Radius_exterior_init_init_(5.0E-7),
-    Radius_exterior_init_(5.0E-7),
-    Radius_exterior_final_(5.0E-7),
-    Radius_exterior_final_final_(5.0E-7),
-    porosity_(0.0),
-    molarAtol_(1.0E-12),
-    xmlTimeIncrementData_(nullptr),
-    xmlTimeIncrementIntermediateData_(nullptr),
-    xmlExternalData_init_init_(0),
-    xmlExternalData_init_(0),
-    xmlExternalData_final_(0),
-    xmlExternalData_final_final_(0),
-    xmlStateData_init_init_(0),
-    xmlStateData_init_(0),
-    xmlStateData_final_(0),
-    xmlStateData_final_final_(0),
-    eState_save_(nullptr),
-    baseNameSoln_("soln"),
-    electrodeChemistryModelType_(0),
-    electrodeDomainNumber_(0),
-    electrodeCellNumber_(0),
-    counterNumberIntegrations_(0),
-    counterNumberSubIntegrations_(0),
-    globalTimeStepNumber_(1),
-    writeRestartFileOnSuccessfulStep_(0),
-    printLvl_(4),
-    printXMLLvl_(0),
-    printCSVLvl_(0),
-    detailedResidPrintFlag_(0),
-    enableExtraPrinting_(false)
+    Electrode()
 {
     operator=(right);
 }
@@ -463,10 +352,11 @@ Electrode& Electrode::operator=(const Electrode& right)
     integratedThermalEnergySourceTerm_overpotential_ = right.integratedThermalEnergySourceTerm_overpotential_;
     integratedThermalEnergySourceTerm_overpotential_Last_ = right.integratedThermalEnergySourceTerm_overpotential_Last_;
     integratedThermalEnergySourceTerm_reversibleEntropy_ = right.integratedThermalEnergySourceTerm_reversibleEntropy_;
-    integratedThermalEnergySourceTerm_reversibleEntropy_Last_ =
-        right.integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
+    integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = right.integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
     electrodeName_ = right.electrodeName_;
     numExtraGlobalRxns = right.numExtraGlobalRxns;
+    polarSrc_list_Last_ = right.polarSrc_list_Last_;
+    polarSrc_list_ = right.polarSrc_list_;
 
     ZZCantera::deepStdVectorPointerCopy<ExtraGlobalRxn>(right.m_egr, m_egr);
     ZZCantera::deepStdVectorPointerCopy<RxnMolChange>(right.m_rmcEGR, m_rmcEGR);
@@ -3691,7 +3581,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         }
                         psr.ocvSurf = ocvSurf;
                         psr.ocvSurfRxn = ocvSurfRxn_local;
-                        psr.icurrSurf = 0.5 * (surfaceAreaRS_final_final_[iSurf] + surfaceAreaRS_init_init_[iSurf]) * icurrPerArea;
+                        psr.icurrSurf = 0.5 * (surfaceAreaRS_final_[iSurf] + surfaceAreaRS_init_[iSurf]) * icurrPerArea;
                         if (region == 2) {
                             psr.icurrSurf = - psr.icurrSurf;
                         }

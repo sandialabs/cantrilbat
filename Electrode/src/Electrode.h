@@ -3381,12 +3381,6 @@ protected:
      */
     double integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 
-    //! List of polarization losses from the last subintegration time step
-    std::vector<struct PolarizationSurfRxnResults> polarSrc_list_Last_;
-
-    //! Global list of polarization losses.
-    std::vector<struct PolarizationSurfRxnResults> polarSrc_list_;
-
     //! Name of the electrode to be used in printouts
     std::string electrodeName_;
 
@@ -3394,6 +3388,12 @@ protected:
     size_t numExtraGlobalRxns;
 
 public:
+    //! List of polarization losses from the last subintegration time step
+    std::vector<struct PolarizationSurfRxnResults> polarSrc_list_Last_;
+
+    //! Global list of polarization losses.
+    std::vector<struct PolarizationSurfRxnResults> polarSrc_list_;
+
     //! Pointer vector of ExtraGlobalRxn objects
     /*!
      *       Extra global reactions are described by this object
