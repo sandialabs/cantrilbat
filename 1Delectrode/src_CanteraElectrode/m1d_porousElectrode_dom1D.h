@@ -239,6 +239,15 @@ public:
     //! Calculate the porosity
     virtual double calcPorosity(size_t iCell);
 
+    //! Add terms to the polarization analysis
+    /*!
+     *  @param[in]         phiCurrentCollector   Value of the Electric potential in the solid current collector
+     *  @param[in]         region                Region of the analysis:
+     *                                                0 = anode
+     *                                                2 = cathode
+     */
+    virtual void doPolarizationAdditions(double phiCurrentCollector, int region);
+
     // -------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------   DATA   ----------------------------------------------------------------
     // -------------------------------------------------------------------------------------------------------------------

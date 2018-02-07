@@ -1548,10 +1548,19 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
 
      // Loop over the domains gathering the information
 
+     
+
 
 
      // Loop over the anode, filling in the missing pieces that are part of the anode
      
+     
+      // for each electrode in the anode
+
+
+
+       //       void addSolidPol(double phiCurrentCollector, int region);
+
 
 
 }

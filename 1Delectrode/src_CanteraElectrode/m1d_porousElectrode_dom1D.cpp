@@ -358,6 +358,23 @@ double porousElectrode_dom1D::calcPorosity(size_t iCell)
    return p; 
 }
 //=====================================================================================================================
+void porousElectrode_dom1D::doPolarizationAdditions(double phiCurrentCollector, int region)
+{
+    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+         Electrode* ee = Electrode_Cell_[iCell];
+         if (ee->doPolarizationAnalysis_) {
+            double icurr =  ee->polarizationAnalysisSurf(ee->polarSrc_list_Last_);
+
+            for (size_t n = 0; n < ee->polarSrc_list_Last_.size(); ++n) {
+                PolarizationSurfRxnResults& psr = ee->polarSrc_list_Last_[n];
+                psr.addSolidPol(phiCurrentCollector, region);
+            }
+
+         }
+    }
+
+}
+//=====================================================================================================================
 } //namespace m1d
 //=====================================================================================================================
 
