@@ -2,10 +2,6 @@
 #  Makefile.in: 
 #     Makefile for mpequil
 #
-# $Id: Makefile.in,v 1.29 2011/10/21 15:50:17 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite (2005) Sandia Corporation. Under the terms of 
 # Contract DE-AC04-94AL85000 with Sandia Corporation, the
@@ -69,9 +65,6 @@ ATOFCHECKER_EXE=atofChecker$(EXE_EXT)
 
 all:  $(CTTABLES_EXE) $(ATOFCHECKER_EXE) .depends
 
-clean:
-	$(RM) *.o  *.d .depends cttables ${PROG}  *~
-
 ############################################################################
 # section to set up compiler rules
 ###########################################################################
@@ -104,17 +97,7 @@ CCFLAGS =  $(LDEFINES) $(INCLUDE_DIRS)
 .cpp.o: 
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-############################################################################
-# section to set up depends
-###########################################################################
 DEPENDS = $(OBJ_CTTABLES:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
-
-.f.d:
-	echo "$*.o: $*.f" > $*.d
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
@@ -132,7 +115,6 @@ $(OBJ_CTTABLES) $(OBJ_CANTERA_ADDONS): Makefile
 
 $(DEPENDS): Makefile
 
-##############################################################################
 BUILD_WITH_CTF2C=@build_with_f2c@
 ifeq ($(BUILD_WITH_CTF2C), 1)
 LIBF2C=
@@ -152,13 +134,14 @@ $(ATOFCHECKER_EXE): atofChecker.o  $(CANTERA_CORE_LIBS_DEP)
                   $(CANTERA_TOTAL_LIBS) \
                   $(LIBF2C) $(LCXX_END_LIBS) 
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
 
 install:
+	$(MAKE) all
 	@INSTALL@ -d @cta_bindir@
 	@INSTALL@ -c $(CTTABLES_EXE) @cta_bindir@
+
+clean:
+	$(RM) *.o  *.d .depends cttables ${PROG}  *~
 
 
 ifeq ($(wildcard .depends), .depends)
