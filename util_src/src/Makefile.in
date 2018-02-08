@@ -126,7 +126,7 @@ LCXX_FLAGS =  @CXXFLAGS@
 #  Description of make all
 ####################################################################
 
-all: $(LIBP) .depends
+all:  .depends $(LIBP)
 ifeq ($(do_immediate_install),1)
 	@INSTALL@ -d $(INCDIR)
 	(for lh in $(INCFILES) ; do \
@@ -152,6 +152,7 @@ $(DEPENDS): Makefile
 test:
 
 install:
+	$(MAKE) all
 	@INSTALL@ -d $(INCDIR)
 	(for lh in $(INCFILES) ; do \
           $(INSTALL_TSC) "$${lh}" $(INCDIR) ; \
@@ -186,8 +187,4 @@ TAGS:
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
-####################################################################
-#    The End
-####################################################################
 

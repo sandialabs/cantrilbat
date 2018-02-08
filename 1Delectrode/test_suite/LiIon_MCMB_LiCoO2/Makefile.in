@@ -22,10 +22,11 @@ BLESSED_FILES = BulkDomain1D_0_blessed.dat  BulkDomain1D_2_blessed.dat  SurDomai
 
 INPUT_FILES = anode.inp  cathode.inp  LiIon_PorousBat.inp
 
-TEST_INTERMEDIATES =  out.txt  diff_IV.txt diff_*  transport_log.xml
+TEST_INTERMEDIATES =  out.txt  diff_IV.txt diff_*  transport_log.xml err_out.txt
 
-TEST_RESULTS = SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  timeDep_IV.dat \
-              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat 
+TEST_RESULTS = SurDomain1D_0.dat SurDomain1D_1.dat SurDomain1D_2.dat  SurDomain1D_3.dat timeDep_IV.dat \
+              solution.xml BulkDomain1D_0.dat  BulkDomain1D_1.dat  BulkDomain1D_2.dat   Capacity_Starting.dat \
+              solution_multiBulk.dat  
 
 TEST_FLAGS =  runGood runBad runInProgress.txt
 
@@ -45,7 +46,10 @@ CT_INCROOT =  @ct_incroot@
 #
 include $(CT_INCROOT)/cantera/Cantera.mak
 
-all: 
+all: $(PROGRAM)
+
+$(PROGRAM)
+	ln -s $(PROGRAM_ORIGIN) .
 
 depends:
 
