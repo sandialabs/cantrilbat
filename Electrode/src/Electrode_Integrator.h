@@ -25,7 +25,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-class NonlinearSolver;
+//class NonlinearSolver;
 class SquareMatrix;
 //==================================================================================================================================
 //! This class stores an overall summary of one time step taken in the integrator
@@ -1433,13 +1433,14 @@ protected:
      *  We use Zuzax' nonlinear solver to relax the equations
      */
 #ifdef useZuzaxNamespace
-    Zuzax::NonlinearSolver* pSolve_;
+    //Zuzax::NonlinearSolver* pSolve_;
     Zuzax::NonlinearSolver_JAC* pSolveJAC_ = nullptr;
 public:
     bool useNLS_JAC = false;
 protected:
 #else
-    Cantera::NonlinearSolver* pSolve_;
+    //Cantera::NonlinearSolver* pSolve_;
+    Cantera::NonlinearSolver_JAC* pSolveJAC_ = nullptr;
 #endif
 
     //! Jacobian matrix
