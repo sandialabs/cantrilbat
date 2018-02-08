@@ -48,7 +48,7 @@ include $(CT_INCROOT)/cantera/Cantera.mak
 
 all: $(PROGRAM)
 
-$(PROGRAM)
+$(PROGRAM):
 	ln -s $(PROGRAM_ORIGIN) .
 
 depends:
