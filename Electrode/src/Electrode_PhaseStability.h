@@ -238,7 +238,7 @@ protected:
     std::vector<double> yval_;
 
     SquareMatrix* jac_;
-    ZZCantera::NonlinearSolver* pSolve_;
+    ZZCantera::NonlinearSolver_Jac* pSolve_;
 
     std::vector<double> phaseMoles_final_Orig_;
     int printLvl_;

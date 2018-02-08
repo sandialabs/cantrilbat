@@ -130,7 +130,7 @@ Electrode_PhaseStability& Electrode_PhaseStability::operator=(const Electrode_Ph
     SAFE_DELETE(jac_);
     jac_ = new SquareMatrix(*right.jac_);
     SAFE_DELETE(pSolve_);
-    pSolve_ = new NonlinearSolver(*right.pSolve_);
+    pSolve_ = new NonlinearSolver_JAC(*right.pSolve_);
 
     phaseMoles_final_Orig_ = right.phaseMoles_final_Orig_;
     printLvl_  = right.printLvl_;
@@ -220,7 +220,7 @@ void Electrode_PhaseStability::setup(const std::vector<int>& phasePopIndexList)
 
     jac_ = new SquareMatrix(neq_, 0.0);
     m_resid = new calcPhaseStabFunc_ResidJacEval(this);
-    pSolve_ = new NonlinearSolver(m_resid);
+    pSolve_ = new NonlinearSolver_JAC(m_resid);
     pSolve_->setAtol(DATA_PTR(atol_));
     pSolve_->setRtol(1.0E-5);
     pSolve_->setBoundsConstraints(&ylow_[0], &yhigh_[0]);
