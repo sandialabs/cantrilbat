@@ -1,18 +1,9 @@
-#
-#
-#  Makefile.in: 
-#     Makefile for electrodeCell
-#
-# $Id: Makefile.in,v 1.15 2010/03/31 21:20:39 hkmoffa Exp $
-#
-#
-#  Build electrodeCell through the CANTERA_INSTALL directories.
+#!/bin/sh
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
 # work by or on behalf of the U.S. Government. Export of this program
 # may require a license from the United States Government.
-#
 
 .SUFFIXES: .d
 
@@ -25,36 +16,27 @@ PURIFY=@PURIFY@
 # These links are to Cantera's install space
 CT_INCROOT =  @ct_incroot@
 
-#
 # Bring in the Cantera includes through the .mak file
-#
 include $(CT_INCROOT)/cantera/Cantera.mak
 
 UTILSRC_DIR = ../../util_src/src
 UTILSRC_DEP = $(UTILSRC_DIR)/libutil_src.a
 UTILSRC     = -L$(UTILSRC_DIR) -lutil_src
 
-#
 # Set up the Cantera addition library
-#
 CTPADDS_DIR = ../../ctpadds/src
 CTPADDS_DEP = $(CTPADDS_DIR)/libctpadds.a
 CTPADDS_LIB = -L$(CTPADDS_DIR) -lctpadds
-#
+
 # Set up the Cantera Application Base directory
-#
 CTAPPLBASE_DIR = ../../Electrode/src
 CTAPPLBASE_DEP =   $(CTAPPLBASE_DIR)/libElectrode.a
 CTAPPLBASE_LIB = -L$(CTAPPLBASE_DIR) -lElectrode
-#
-#########################################################################
-# Set up the various local and global defines
-########################################################################
+
 LDEFINES = -DDEBUG 
 GDEFINES =
-#
+
 # Set up the global include directory macro
-#
 INCLUDE_DIRS = $(CANTERA_TOTAL_INCLUDES) -I$(CTAPPLBASE_DIR) -I$(UTILSRC_DIR)  -I$(CTPADDS_DIR) 
 
 all: .depends electrodeCell
@@ -67,57 +49,30 @@ LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
 
 CCFLAGS =   $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
-
-OBJ_MPEQUIL= electrodeCell_main.o  \
-              electrodeCell_prep.o cell_input.o electrodeCell_kin.o \
+OBJ_MPEQUIL= electrodeCell_main.o electrodeCell_prep.o cell_input.o electrodeCell_kin.o \
                electrodeCell_findI.o
 
-OBJ_CANTERA_ADDONS =  
-
-############################################################################
-# section to set up compiler rules
-###########################################################################
-#
 # the C++ compiler
-#
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 LCXX_FLAGS = @LCXX_FLAGS@
 LCXX_END_LIBS = @LCXX_END_LIBS@
 CXXLDR = $(CXX)
-#
+
 # C compiler
-#
 CC = @CC@
 CFLAGS = @CXXFLAGS@
-#
+
 # Both the C and C++ compiler predefines
-#
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
-#
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
+
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
 
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
-
-
-############################################################################
-# section to set up depends
-###########################################################################
-DEPENDS = $(OBJ_MPEQUIL:.o=.d) $(OBJ_CANTERA_ADDONS:.o=.d)
-
-.f.d:
-	echo "$*.o: $*.f" > $*.d
+DEPENDS = $(OBJ_MPEQUIL:.o=.d) 
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
-
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 depends:
 	$(RM) $(DEPENDS)
@@ -127,34 +82,26 @@ depends:
 	cat *.d > .depends
 
 test:
-	cd .. ; @MAKE@ test
-
-##############################################################################
+	cd .. ; $(MAKE) test
 
 $(OBJ_MPEQUIL): Makefile
 $(DEPENDS): Makefile
 
-electrodeCell: $(OBJ_MPEQUIL) $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
+electrodeCell: $(OBJ_MPEQUIL)  $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(CTAPPLBASE_DEP)
 	$(PURIFY) $(CXXLDR) $(LCXX_FLAGS) -o electrodeCell $(OBJ_MPEQUIL) \
-	          $(OBJ_CANTERA_ADDONS)  \
                   $(CTAPPLBASE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
-
 install:
+	$(MAKE) all
 	@INSTALL@ -d @cta_bindir@
 	@INSTALL@ -c electrodeCell @cta_bindir@
+
+clean:
+	$(RM) *.o  .depends *.d *~  electrodeCell
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
-
-
-clean:
-	$(RM) *.o  .depends *.d *~  electrodeCell
 
