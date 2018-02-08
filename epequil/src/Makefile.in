@@ -1,12 +1,4 @@
-#
-#
-#  Makefile.in: 
-#     Makefile for epequil
-#
-# $Id: Makefile.in,v 1.10 2010/07/12 18:27:20 hkmoffa Exp $
-#
-#
-#  Build epequil through the CANTERA_INSTALL directories.
+#!/bin/sh
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -45,7 +37,6 @@ all: .dependsT epequil
 
 allsrc: .dependsT epequil
 
-
 LDR = $(F77LDR)
 LDRFLAGS = $(F77LDRFLAGS)
 LDRFLAGS_DEBUG = -g -y $(FFLAGS_BSD)
@@ -57,9 +48,6 @@ OBJ_EPEQUIL= epequil_main.o epequil_input.o epequil_prep.o
 
 OBJ_CANTERA_ADDONS =  importAllPhases.o IdealSolidSolnPhase.o
 
-############################################################################
-# section to set up compiler rules
-###########################################################################
 #
 # the C++ compiler
 #
@@ -91,8 +79,6 @@ DEPENDS = epequil_main.d epequil_input.d epequil_prep.d \
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
 
-.c.d:
-	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.c > $*.d
 
 depends:
 	$(RM) $(DEPENDS)
@@ -102,7 +88,6 @@ depends:
 	cat $(DEPENDS) > .depends
 	touch .dependsT
 
-##############################################################################
 BUILD_WITH_CTF2C=@build_with_f2c@
 ifeq ($(BUILD_WITH_CTF2C), 1)
 LIBF2C= -lctf2c
@@ -113,18 +98,13 @@ epequil: $(OBJ_EPEQUIL) $(OBJ_CANTERA_ADDONS) $(CANTERA_CORE_LIBS_DEP) $(UTILSRC
 	          $(OBJ_CANTERA_ADDONS) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
-
 clean:
 	$(RM) *.o *.d .depends .dependsT epequil *.~
 
-
 install:
+	$(MAKE) all
 	@INSTALL@ -d @cta_bindir@
 	@INSTALL@ -c epequil @cta_bindir@
-
-#############################################################################
-#          DEPENDS RULES
-##############################################################################
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
