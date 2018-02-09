@@ -15,9 +15,9 @@ clean:
 	cd Al_electrode_rxn; ./cleanup
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
-	cd NaCl_solid_test; ./cleanup
-	cd HMW_NaCl_sp_test; ./cleanup
-	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd NaCl_solid_test;                                   $(MAKE) -s clean
+	cd HMW_NaCl_sp_test;                                  $(MAKE) -s clean
+	cd HMW_NaKCl_EQ3_test;                                $(MAKE) -s clean
 	cd Li_LiCl_electrode_rxn ;                            $(MAKE) -s clean
 	cd LiSi_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
@@ -50,9 +50,9 @@ test:
 	cd Al_electrode_rxn; ./runtest
 	cd Zn_electrode_rxn; ./runtest
 	cd KCl_solid_test; ./runtest
-	cd NaCl_solid_test; ./runtest
-	cd HMW_NaCl_sp_test; ./runtest
-	cd HMW_NaKCl_EQ3_test; ./runtest
+	cd NaCl_solid_test;                                   $(MAKE) -s test
+	cd HMW_NaCl_sp_test;                                  $(MAKE) -s test
+	cd HMW_NaKCl_EQ3_test;                                $(MAKE) -s test
 	cd Li_LiCl_electrode_rxn ;                            $(MAKE) -s test
 	cd LiSi_LiCl_electrode_rxn; ./runtest
 	cd LiSi_0_LiCl_electrode_rxn; ./runtest
@@ -81,9 +81,9 @@ rebaseline:
 	cd Al_electrode_rxn; ./rebaseline
 	cd Zn_electrode_rxn; ./rebaseline
 	cd KCl_solid_test; ./rebaseline
-	cd NaCl_solid_test; ./rebaseline
-	cd HMW_NaCl_sp_test; ./rebaseline
-	cd HMW_NaKCl_EQ3_test; ./rebaseline
+	cd NaCl_solid_test;                                   $(MAKE) rebaseline
+	cd HMW_NaCl_sp_test;                                  $(MAKE) rebaseline
+	cd HMW_NaKCl_EQ3_test;                                $(MAKE) rebaseline
 	cd Li_LiCl_electrode_rxn ;                            $(MAKE) rebaseline
 	cd LiSi_LiCl_electrode_rxn; ./rebaseline
 	cd LiSi_0_LiCl_electrode_rxn; ./rebaseline
@@ -113,9 +113,9 @@ clean_dist:
 	cd Al_electrode_rxn; ./cleanup
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
-	cd NaCl_solid_test; ./cleanup
-	cd HMW_NaCl_sp_test; ./cleanup
-	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd NaCl_solid_test;                                    $(MAKE) -s clean_dist
+	cd HMW_NaCl_sp_test;                                   $(MAKE) -s clean_dist
+	cd HMW_NaKCl_EQ3_test;                                 $(MAKE) -s clean_dist
 	cd Li_LiCl_electrode_rxn ;                             $(MAKE) -s clean_dist
 	cd LiSi_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
@@ -144,9 +144,9 @@ clean_test:
 	cd Al_electrode_rxn; ./cleanup
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
-	cd NaCl_solid_test; ./cleanup
-	cd HMW_NaCl_sp_test; ./cleanup
-	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd NaCl_solid_test;                                    $(MAKE) -s clean_test
+	cd HMW_NaCl_sp_test;                                   $(MAKE) -s clean_test
+	cd HMW_NaKCl_EQ3_test;                                 $(MAKE) -s clean_test
 	cd Li_LiCl_electrode_rxn ;                             $(MAKE) -s clean_test
 	cd LiSi_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
@@ -175,9 +175,9 @@ clean_test_flags:
 	cd Al_electrode_rxn; ./cleanup
 	cd Zn_electrode_rxn; ./cleanup
 	cd KCl_solid_test; ./cleanup
-	cd NaCl_solid_test; ./cleanup
-	cd HMW_NaCl_sp_test; ./cleanup
-	cd HMW_NaKCl_EQ3_test; ./cleanup
+	cd NaCl_solid_test;                                    $(MAKE) -s clean_test_flags
+	cd HMW_NaCl_sp_test;                                   $(MAKE) -s clean_test_flags
+	cd HMW_NaKCl_EQ3_test;                                 $(MAKE) -s clean_test_flags
 	cd Li_LiCl_electrode_rxn ;                             $(MAKE) -s clean_test_flags
 	cd LiSi_LiCl_electrode_rxn; ./cleanup
 	cd LiSi_0_LiCl_electrode_rxn; ./cleanup
