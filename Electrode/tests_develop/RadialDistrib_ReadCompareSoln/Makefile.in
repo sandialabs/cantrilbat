@@ -1,12 +1,5 @@
 #!/bin/sh
 #
-#  Makefile.in: 
-#     Makefile for mpequil
-#
-# $Id: Makefile.in,v 1.1 2011/12/01 21:40:53 hkmoffa Exp $
-#
-#
-#  Build mpequil through the CANTERA_INSTALL directories.
 #
 # Copywrite 2004 Sandia Corporation. Under the terms of Contract
 # DE-AC04-94AL85000, there is a non-exclusive license for use of this
@@ -23,8 +16,14 @@ BLESSED_FILES = good_out.txt
 
 DATA =   solnSaveA_0_0.xml  solnSaveB_0_0.xml
 
+TEST_RESULTS = out.txt
+
+TEST_INTERMEDIATES = err_out.txt diff_out.txt diff_csv.txt
+
+TEST_FLAGS = runGood runBad runInProgress.txt
 
 OBJ = $(PROGRAM).o
+
 
 ##########################################################################
 #           Setup The Cantera Directory locations
@@ -37,7 +36,6 @@ CT_INCROOT =  @ct_incroot@
 
 #
 # Bring in the Cantera includes through the .mak file
-#
 include $(CT_INCROOT)/cantera/Cantera.mak
 
 UTILSRC_DIR = ../../../util_src/src
@@ -97,15 +95,10 @@ CFLAGS = @CXXFLAGS@
 # Both the C and C++ compiler predefines
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
-#
 
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-#
-############################################################################
-# section to set up depends
-###########################################################################
-#
+
 DEPENDS = $(OBJ:.o=.d) 
 
 .cpp.d:
@@ -131,11 +124,8 @@ rebaseline:
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv
 	cp out.txt good_out.txt
 
-##############################################################################
-
 $(OBJ): Makefile
 $(DEPENDS): Makefile
-
 
 $(PROGRAM):  readEStateTest.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                $(CANTERA_CORE_LIBS_DEP) $(CTPADDS_DEP) $(ELECTRODE_DEP)
@@ -144,26 +134,23 @@ $(PROGRAM):  readEStateTest.o $(OBJ_CANTERA_ADDONS) $(UTILSRC_DEP) \
                   $(ELECTRODE_LIB) $(CTPADDS_LIB) $(UTILSRC) $(CANTERA_TOTAL_LIBS) \
                   $(LCXX_END_LIBS) 
 
+clean:
+	$(RM) *.o  .depends *.d *~  $(PROGRAM) $(TEST_FLAGS) $(TEST_INTERMEDIATES)
 
-#############################################################################
-#          INSTALL RULES
-##############################################################################
+clean_test:
+	$(RM) $(TEST_RESULTS) $(TEST_FLAGS) $(TEST_INTERMEDIATES)
+
+dist_clean:
+	$(MAKE) clean
+	$(MAKE) clean_test
+
+clean_dist:
+	$(MAKE) clean
+	$(MAKE_ clean_test
+
 
 ifeq ($(wildcard .depends), .depends)
 include .depends
 endif
-
-
-clean:
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) diff_out.txt diff_csv.txt err_out.txt 
-	$(RM) ${PROG} runInProgress.txt runBad runGood
-
-dist_clean:
-	$(MAKE) clean
-	$(RM) Makefile out.txt
-
-
-
-
 
 

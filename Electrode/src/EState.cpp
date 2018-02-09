@@ -356,7 +356,15 @@ XML_Node* EState::write_electrodeState_ToXML() const
     int ns = surfaceAreaRS_.size();
     ZZctml::addNamedFloatArray(*x, "surfaceAreaRS", ns, DATA_PTR(surfaceAreaRS_), "m2");
     ZZctml::addFloat(*x, "electrodeMoles", electrodeMoles_, "kmol");
-    ZZctml::addInteger(*x, "electrodeCapacityType", (int) electrodeCapacityType_);
+
+    if (electrodeCapacityType_ == CAPACITY_ANODE_ECT) {
+        ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Anode");
+    } else if (electrodeCapacityType_ == CAPACITY_CATHODE_ECT) {
+        ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Cathode");
+    } else {
+        ZZctml::addNamedString(*x, "electrodeCapacityType", "Capacity_Other");
+    }
+
     ZZctml::addFloat(*x, "capacityLeft", capacityLeft_, "coulomb");
     ZZctml::addFloat(*x, "capacityInitial", capacityInitial_, "coulomb");
     ZZctml::addFloat(*x, "depthOfDischarge", depthOfDischarge_, "coulomb");
@@ -409,7 +417,14 @@ void EState::readIdentificationFromXML(const XML_Node& xmlEI)
 	EST_Version_lastFileRead_ = ZZctml::getInteger(*x, "fileVersionNumber");
     }
     if (x->hasChild("electrodeCapacityType")) {
-	electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ZZctml::getInteger(*x, "electrodeCapacityType");
+        ZZctml::getNamedStringValue(*x, "electrodeCapacityType", nn, typeSS);
+        if (nn == "Capacity_Anode") {
+            electrodeCapacityType_ = CAPACITY_ANODE_ECT;
+        } else if (nn == "Capacity_Cathode") {
+            electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
+        } else if (nn == "Capacity_Other") {
+            electrodeCapacityType_ = CAPACITY_OTHER_ECT;
+        }
     }
     if (x->hasChild("electrodeModelType")) {
 	electrodeChemistryModelType_ = ZZctml::getInteger(*x, "electrodeModelType");
@@ -455,6 +470,7 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
 	throw Electrode_Error(" EState::readStateFromXML",
 			      " Name of the xml node should have been electrodeState. Instead it was " + nodeName);
     }
+    std::string nn, typeSS = "";
     ZZctml::getFloatArray(xmlEState, spMoles_, true, "", "spMoles");
     ZZctml::getFloatArray(xmlEState, phaseVoltages_, true, "volts", "phaseVoltages");
     temperature_ = ZZctml::getFloat(xmlEState, "temperature", "toSI");
@@ -468,7 +484,14 @@ void EState::readStateFromXML(const XML_Node& xmlEState)
     radiusExterior_ = ZZctml::getFloat(xmlEState, "radiusExterior", "toSI");
     ZZctml::getFloatArray(xmlEState, surfaceAreaRS_, true, "m2", "surfaceAreaRS");
     electrodeMoles_ = ZZctml::getFloat(xmlEState, "electrodeMoles", "toSI");
-    electrodeCapacityType_ = (ZZCantera::Electrode_Capacity_Type_Enum) ZZctml::getInteger(xmlEState, "electrodeCapacityType");
+    ZZctml::getNamedStringValue(xmlEState, "electrodeCapacityType", nn, typeSS);
+    if (nn == "Capacity_Anode") {
+        electrodeCapacityType_ = CAPACITY_ANODE_ECT;
+    } else if (nn == "Capacity_Cathode") {
+        electrodeCapacityType_ = CAPACITY_CATHODE_ECT;
+    } else if (nn == "Capacity_Other") {
+        electrodeCapacityType_ = CAPACITY_OTHER_ECT;
+    }
     capacityLeft_ = ZZctml::getFloat(xmlEState, "capacityLeft", "toSI");
     capacityInitial_ = ZZctml::getFloat(xmlEState, "capacityInitial", "toSI");
     depthOfDischarge_ = ZZctml::getFloat(xmlEState, "depthOfDischarge", "toSI");
