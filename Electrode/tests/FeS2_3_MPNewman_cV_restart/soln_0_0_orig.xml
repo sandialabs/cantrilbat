@@ -33,7 +33,7 @@
               7.990285621229197E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 6.240942279204399E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 4.612870380281513E+03 </depthOfDischarge>
@@ -69,7 +69,7 @@
               5.840934222465342E-04,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 6.105269620960825E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 4.748543038525087E+03 </depthOfDischarge>
@@ -105,7 +105,7 @@
               2.051868183527241E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.985213320461877E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 4.868599339024035E+03 </depthOfDischarge>
@@ -141,7 +141,7 @@
               1.764380410369177E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.872087945159526E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 4.981724714326385E+03 </depthOfDischarge>
@@ -177,7 +177,7 @@
               1.491210692067492E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.772811771372149E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.081000888113762E+03 </depthOfDischarge>
@@ -213,7 +213,7 @@
               1.360929620746780E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.728486221567444E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.125326437918467E+03 </depthOfDischarge>
@@ -249,7 +249,7 @@
               1.243928944003391E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.690443720255822E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.163368939230089E+03 </depthOfDischarge>
@@ -285,7 +285,7 @@
               1.143450164129071E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.659166501972121E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.194646157513790E+03 </depthOfDischarge>
@@ -321,7 +321,7 @@
               1.097513085521658E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.645311796251573E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.208500863234339E+03 </depthOfDischarge>
@@ -357,7 +357,7 @@
               1.039581240404482E-01,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.628249359802168E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.225563299683743E+03 </depthOfDischarge>
@@ -393,7 +393,7 @@
               9.918857392051408E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.614553242590584E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.239259416895327E+03 </depthOfDischarge>
@@ -429,7 +429,7 @@
               9.535213170521288E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.603772417348778E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.250040242137134E+03 </depthOfDischarge>
@@ -465,7 +465,7 @@
               9.232751198259527E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.595424083574745E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.258388575911166E+03 </depthOfDischarge>
@@ -501,7 +501,7 @@
               8.998242101539115E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.589044578242223E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.264768081243688E+03 </depthOfDischarge>
@@ -537,7 +537,7 @@
               8.818851801250348E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.584220542653884E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.269592116832027E+03 </depthOfDischarge>
@@ -573,7 +573,7 @@
               8.637897705028560E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.579403579757296E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.274409079728615E+03 </depthOfDischarge>
@@ -609,7 +609,7 @@
               8.517659790726315E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.576230594158573E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.277582065327339E+03 </depthOfDischarge>
@@ -645,7 +645,7 @@
               8.438535092484044E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.574155432303626E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.279657227182285E+03 </depthOfDischarge>
@@ -681,7 +681,7 @@
               8.386830826385719E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.572804506617533E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.281008152868379E+03 </depthOfDischarge>
@@ -717,7 +717,7 @@
               8.343912923815482E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.571686044893147E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.282126614592765E+03 </depthOfDischarge>
@@ -753,7 +753,7 @@
               8.320249267469582E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.571070586510782E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.282742072975129E+03 </depthOfDischarge>
@@ -789,7 +789,7 @@
               8.313455791971075E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570894059533684E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.282918599952228E+03 </depthOfDischarge>
@@ -825,7 +825,7 @@
               8.306481808629010E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570712919207137E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283099740278774E+03 </depthOfDischarge>
@@ -861,7 +861,7 @@
               8.300302377361780E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570552492904004E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283260166581907E+03 </depthOfDischarge>
@@ -897,7 +897,7 @@
               8.295759884845723E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570434654668871E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283378004817040E+03 </depthOfDischarge>
@@ -933,7 +933,7 @@
               8.294535558113275E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570402882301513E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283409777184398E+03 </depthOfDischarge>
@@ -969,7 +969,7 @@
               8.293377794493877E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570372839585722E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283439819900190E+03 </depthOfDischarge>
@@ -1005,7 +1005,7 @@
               8.292453838467261E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570348866180610E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283463793305301E+03 </depthOfDischarge>
@@ -1041,7 +1041,7 @@
               8.291856341452147E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570333366426669E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283479293059242E+03 </depthOfDischarge>
@@ -1077,7 +1077,7 @@
               8.291555546839051E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570325568148734E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283487091337178E+03 </depthOfDischarge>
@@ -1113,7 +1113,7 @@
               8.291441919168142E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570322626306363E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283490033179548E+03 </depthOfDischarge>
@@ -1149,7 +1149,7 @@
               8.291410718602504E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321819817083E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283490839668828E+03 </depthOfDischarge>
@@ -1185,7 +1185,7 @@
               8.291404647714652E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321662628734E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283490996857177E+03 </depthOfDischarge>
@@ -1221,7 +1221,7 @@
               8.291403824248957E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321640999968E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491018485944E+03 </depthOfDischarge>
@@ -1257,7 +1257,7 @@
               8.291403746580155E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638855080E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020630831E+03 </depthOfDischarge>
@@ -1293,7 +1293,7 @@
               8.291403741367548E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638687890E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020798021E+03 </depthOfDischarge>
@@ -1329,7 +1329,7 @@
               8.291403741096377E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638675087E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020810824E+03 </depthOfDischarge>
@@ -1365,7 +1365,7 @@
               8.291403741082842E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673771E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812140E+03 </depthOfDischarge>
@@ -1401,7 +1401,7 @@
               8.291403741081839E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673719E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812192E+03 </depthOfDischarge>
@@ -1444,7 +1444,7 @@
               8.291403741081839E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673719E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812192E+03 </depthOfDischarge>
@@ -1480,7 +1480,7 @@
               8.291403741081793E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673771E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812140E+03 </depthOfDischarge>
@@ -1516,7 +1516,7 @@
               8.291403741081771E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638674069E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020811843E+03 </depthOfDischarge>
@@ -1552,7 +1552,7 @@
               8.291403741081839E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638674071E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020811841E+03 </depthOfDischarge>
@@ -1595,7 +1595,7 @@
               8.291403741081839E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638674070E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020811842E+03 </depthOfDischarge>
@@ -1631,7 +1631,7 @@
               8.291403741081839E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638674080E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020811832E+03 </depthOfDischarge>
@@ -1667,7 +1667,7 @@
               8.291403741081793E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638674105E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020811806E+03 </depthOfDischarge>
@@ -1710,7 +1710,7 @@
               8.291403741081793E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638674106E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020811805E+03 </depthOfDischarge>
@@ -1746,7 +1746,7 @@
               8.291403741081864E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673853E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812058E+03 </depthOfDischarge>
@@ -1789,7 +1789,7 @@
               8.291403741081864E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673853E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812058E+03 </depthOfDischarge>
@@ -1825,7 +1825,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673600E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812311E+03 </depthOfDischarge>
@@ -1868,7 +1868,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673601E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812310E+03 </depthOfDischarge>
@@ -1904,7 +1904,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673348E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812563E+03 </depthOfDischarge>
@@ -1947,7 +1947,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673348E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812563E+03 </depthOfDischarge>
@@ -1983,7 +1983,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673096E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812816E+03 </depthOfDischarge>
@@ -2026,7 +2026,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638673096E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020812815E+03 </depthOfDischarge>
@@ -2062,7 +2062,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672844E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813068E+03 </depthOfDischarge>
@@ -2105,7 +2105,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672844E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813068E+03 </depthOfDischarge>
@@ -2141,7 +2141,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672591E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813321E+03 </depthOfDischarge>
@@ -2184,7 +2184,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672592E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813320E+03 </depthOfDischarge>
@@ -2220,7 +2220,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672339E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813573E+03 </depthOfDischarge>
@@ -2263,7 +2263,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672339E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813573E+03 </depthOfDischarge>
@@ -2299,7 +2299,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672086E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813825E+03 </depthOfDischarge>
@@ -2342,7 +2342,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638672087E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020813824E+03 </depthOfDischarge>
@@ -2378,7 +2378,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671834E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814077E+03 </depthOfDischarge>
@@ -2421,7 +2421,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671834E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814077E+03 </depthOfDischarge>
@@ -2457,7 +2457,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671581E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814330E+03 </depthOfDischarge>
@@ -2500,7 +2500,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671582E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814329E+03 </depthOfDischarge>
@@ -2536,7 +2536,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671329E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814582E+03 </depthOfDischarge>
@@ -2579,7 +2579,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671329E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814582E+03 </depthOfDischarge>
@@ -2615,7 +2615,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671076E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814835E+03 </depthOfDischarge>
@@ -2658,7 +2658,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638671077E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020814834E+03 </depthOfDischarge>
@@ -2694,7 +2694,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670825E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815087E+03 </depthOfDischarge>
@@ -2737,7 +2737,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670825E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815087E+03 </depthOfDischarge>
@@ -2773,7 +2773,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670572E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815340E+03 </depthOfDischarge>
@@ -2816,7 +2816,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670573E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815339E+03 </depthOfDischarge>
@@ -2852,7 +2852,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670320E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815592E+03 </depthOfDischarge>
@@ -2895,7 +2895,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670320E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815592E+03 </depthOfDischarge>
@@ -2931,7 +2931,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670067E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815844E+03 </depthOfDischarge>
@@ -2974,7 +2974,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638670068E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020815844E+03 </depthOfDischarge>
@@ -3010,7 +3010,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669815E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816096E+03 </depthOfDischarge>
@@ -3053,7 +3053,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669815E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816096E+03 </depthOfDischarge>
@@ -3089,7 +3089,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669562E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816349E+03 </depthOfDischarge>
@@ -3132,7 +3132,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669563E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816348E+03 </depthOfDischarge>
@@ -3168,7 +3168,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669310E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816601E+03 </depthOfDischarge>
@@ -3211,7 +3211,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669310E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816601E+03 </depthOfDischarge>
@@ -3247,7 +3247,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669057E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816854E+03 </depthOfDischarge>
@@ -3290,7 +3290,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638669058E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020816853E+03 </depthOfDischarge>
@@ -3326,7 +3326,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668805E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817106E+03 </depthOfDischarge>
@@ -3369,7 +3369,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668805E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817106E+03 </depthOfDischarge>
@@ -3405,7 +3405,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668553E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817359E+03 </depthOfDischarge>
@@ -3448,7 +3448,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668554E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817358E+03 </depthOfDischarge>
@@ -3484,7 +3484,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668301E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817611E+03 </depthOfDischarge>
@@ -3527,7 +3527,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668301E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817611E+03 </depthOfDischarge>
@@ -3563,7 +3563,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668048E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817864E+03 </depthOfDischarge>
@@ -3606,7 +3606,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638668049E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020817863E+03 </depthOfDischarge>
@@ -3642,7 +3642,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667796E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818115E+03 </depthOfDischarge>
@@ -3685,7 +3685,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667796E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818115E+03 </depthOfDischarge>
@@ -3721,7 +3721,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667543E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818368E+03 </depthOfDischarge>
@@ -3764,7 +3764,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667544E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818367E+03 </depthOfDischarge>
@@ -3800,7 +3800,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667291E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818620E+03 </depthOfDischarge>
@@ -3843,7 +3843,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667291E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818620E+03 </depthOfDischarge>
@@ -3879,7 +3879,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667038E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818873E+03 </depthOfDischarge>
@@ -3922,7 +3922,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638667039E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020818872E+03 </depthOfDischarge>
@@ -3958,7 +3958,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666786E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819125E+03 </depthOfDischarge>
@@ -4001,7 +4001,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666787E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819124E+03 </depthOfDischarge>
@@ -4037,7 +4037,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666534E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819377E+03 </depthOfDischarge>
@@ -4080,7 +4080,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666534E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819377E+03 </depthOfDischarge>
@@ -4116,7 +4116,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666282E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819630E+03 </depthOfDischarge>
@@ -4159,7 +4159,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666283E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819629E+03 </depthOfDischarge>
@@ -4195,7 +4195,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666030E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819882E+03 </depthOfDischarge>
@@ -4238,7 +4238,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638666030E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020819882E+03 </depthOfDischarge>
@@ -4274,7 +4274,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665777E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820135E+03 </depthOfDischarge>
@@ -4317,7 +4317,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665778E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820134E+03 </depthOfDischarge>
@@ -4353,7 +4353,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665525E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820386E+03 </depthOfDischarge>
@@ -4396,7 +4396,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665525E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820386E+03 </depthOfDischarge>
@@ -4432,7 +4432,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665272E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820639E+03 </depthOfDischarge>
@@ -4475,7 +4475,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665273E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820638E+03 </depthOfDischarge>
@@ -4511,7 +4511,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665020E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820891E+03 </depthOfDischarge>
@@ -4554,7 +4554,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638665020E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020820891E+03 </depthOfDischarge>
@@ -4590,7 +4590,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664767E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821144E+03 </depthOfDischarge>
@@ -4633,7 +4633,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664768E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821143E+03 </depthOfDischarge>
@@ -4669,7 +4669,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664515E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821396E+03 </depthOfDischarge>
@@ -4712,7 +4712,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664515E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821396E+03 </depthOfDischarge>
@@ -4748,7 +4748,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664263E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821649E+03 </depthOfDischarge>
@@ -4791,7 +4791,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664263E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821648E+03 </depthOfDischarge>
@@ -4827,7 +4827,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664011E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821901E+03 </depthOfDischarge>
@@ -4870,7 +4870,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638664011E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020821901E+03 </depthOfDischarge>
@@ -4906,7 +4906,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663758E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822154E+03 </depthOfDischarge>
@@ -4949,7 +4949,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663759E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822153E+03 </depthOfDischarge>
@@ -4985,7 +4985,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663506E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822406E+03 </depthOfDischarge>
@@ -5028,7 +5028,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663506E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822406E+03 </depthOfDischarge>
@@ -5064,7 +5064,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663253E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822658E+03 </depthOfDischarge>
@@ -5107,7 +5107,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663254E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822657E+03 </depthOfDischarge>
@@ -5143,7 +5143,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663001E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822910E+03 </depthOfDischarge>
@@ -5186,7 +5186,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638663001E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020822910E+03 </depthOfDischarge>
@@ -5222,7 +5222,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638662748E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020823163E+03 </depthOfDischarge>
@@ -5265,7 +5265,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638662749E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020823162E+03 </depthOfDischarge>
@@ -5301,7 +5301,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638662496E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020823415E+03 </depthOfDischarge>
@@ -5344,7 +5344,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638662496E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020823415E+03 </depthOfDischarge>
@@ -5380,7 +5380,7 @@
               8.291403741081886E-02,   2.336373688986137E-01,   2.513274122871834E-01
             </surfaceAreaRS>
             <electrodeMoles units="kmol" vtype="float"> 2.812295903645966E-05 </electrodeMoles>
-            <electrodeCapacityType vtype="integer"> 0 </electrodeCapacityType>
+            <electrodeCapacityType vtype="string"> Capacity_Cathode </electrodeCapacityType>
             <capacityLeft units="coulomb" vtype="float"> 5.570321638662243E+03 </capacityLeft>
             <capacityInitial units="coulomb" vtype="float"> 1.085381265948591E+04 </capacityInitial>
             <depthOfDischarge units="coulomb" vtype="float"> 5.283491020823668E+03 </depthOfDischarge>

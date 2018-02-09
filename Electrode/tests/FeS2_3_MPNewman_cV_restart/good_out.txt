@@ -1611,7 +1611,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -4.40392E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -1719,7 +1719,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -1828,7 +1828,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current = -1.24095E-09 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -1937,7 +1937,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2047,7 +2047,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2155,7 +2155,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  1.38818E-09 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2264,7 +2264,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2374,7 +2374,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.52230E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2482,7 +2482,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2592,7 +2592,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2700,7 +2700,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2810,7 +2810,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -2918,7 +2918,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3028,7 +3028,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3136,7 +3136,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3246,7 +3246,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3354,7 +3354,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3464,7 +3464,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3572,7 +3572,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3682,7 +3682,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3790,7 +3790,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -3900,7 +3900,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4008,7 +4008,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4118,7 +4118,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4226,7 +4226,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4336,7 +4336,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4444,7 +4444,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4554,7 +4554,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4662,7 +4662,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4772,7 +4772,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4880,7 +4880,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -4990,7 +4990,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5098,7 +5098,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5208,7 +5208,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5316,7 +5316,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5426,7 +5426,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5534,7 +5534,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5644,7 +5644,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5752,7 +5752,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5862,7 +5862,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -5970,7 +5970,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6080,7 +6080,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6188,7 +6188,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6298,7 +6298,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6406,7 +6406,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6516,7 +6516,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6624,7 +6624,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6734,7 +6734,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6842,7 +6842,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -6952,7 +6952,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7060,7 +7060,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7170,7 +7170,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7278,7 +7278,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7388,7 +7388,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7496,7 +7496,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7606,7 +7606,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7714,7 +7714,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7824,7 +7824,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -7932,7 +7932,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8042,7 +8042,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8150,7 +8150,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8260,7 +8260,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8368,7 +8368,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8478,7 +8478,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8586,7 +8586,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8696,7 +8696,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8804,7 +8804,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -8914,7 +8914,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9022,7 +9022,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9132,7 +9132,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9240,7 +9240,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9350,7 +9350,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9458,7 +9458,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9568,7 +9568,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9676,7 +9676,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9786,7 +9786,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -9894,7 +9894,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10004,7 +10004,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10112,7 +10112,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10222,7 +10222,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10330,7 +10330,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10440,7 +10440,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10548,7 +10548,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10658,7 +10658,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10766,7 +10766,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10876,7 +10876,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -10984,7 +10984,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11094,7 +11094,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11202,7 +11202,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11312,7 +11312,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11420,7 +11420,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11530,7 +11530,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11638,7 +11638,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11748,7 +11748,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11856,7 +11856,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -11966,7 +11966,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12074,7 +12074,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12184,7 +12184,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12292,7 +12292,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12402,7 +12402,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  8.41320E-11 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12510,7 +12510,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12620,7 +12620,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12728,7 +12728,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
@@ -12838,7 +12838,7 @@ oc[0] = 0
           Molar Volume of Solid =  2.6700E+01 cm3 gmol-1
           Particle Number to Follow =  2.0000E+08
           Current =  7.36155E-10 amps
-          Capacity Discharged (total)  =     -5894.78 coulombs =     -1.63744 Ah
+          Capacity Discharged (total)  =      5894.78 coulombs =      1.63744 Ah
           Depth of Discharge           =      5894.78 coulombs
           Capacity Left                =      6214.79 coulombs  
           Capacity at Zero DOD         =      12109.6 coulombs
