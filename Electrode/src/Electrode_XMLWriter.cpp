@@ -15,6 +15,7 @@
 #include <fstream>
 
 #ifndef SAFE_DELETE
+//! Delete the pointer contents and set the pointer to zero
 #define SAFE_DELETE(x)  if (x) { delete x;  x = nullptr;}
 #endif
 
@@ -606,29 +607,29 @@ void Electrode::writeRestartFile(int stepNum, int solnNum, const std::string& na
     //  Start a new root XML element and put the top elements in
     ZZCantera::XML_Node root("--");
     ZZCantera::XML_Node& ct = root.addChild("ctml");
-    ZZCantera::XML_Node& soln = ct.addChild("electrodeOutput");
+    ZZCantera::XML_Node& xsoln = ct.addChild("electrodeOutput");
 
     /*
      *  Add the integer attribute, index, to the electrodeOutput element.
      *  -> so far we have an index of one. However, if there are continuation runs in the
      *     file and we want to add more than one
      */
-    soln.addAttribute("index", int2str(solnNum));
+    xsoln.addAttribute("index", int2str(solnNum));
 
     //  Add a time stamp
-    ZZctml::addString(soln, "timeStamp", asctime(newtime));
+    ZZctml::addString(xsoln, "timeStamp", asctime(newtime));
 
    //   Add an identification XML element
 #ifdef DEBUG_MODE
    XML_Node* xID = eState_save_->writeIdentificationToXML();
-   soln.addChildToTree(xID);
+   xsoln.addChildToTree(xID);
 #else
-   soln.addChildToTree(eState_save_->writeIdentificationToXML());
+   xsoln.addChildToTree(eState_save_->writeIdentificationToXML());
 #endif
     
     //  Add the globalTimeStep XML element with the global time step number as an attribute
     const std::string fmt = "%22.14E";
-    ZZCantera::XML_Node& gts = soln.addChild("globalTimeStep");
+    ZZCantera::XML_Node& gts = xsoln.addChild("globalTimeStep");
 
     gts.addAttribute("index", int2str(globalTimeStepNumber_));
     gts.addAttribute("windex", int2str(stepNum));

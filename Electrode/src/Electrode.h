@@ -2554,7 +2554,7 @@ public:
      */
     void writeSolutionTimeIncrement( bool startNewRecord = false, bool reset = false, int stepNumOverride = -1);
 
-    //! Write a restart file -> file with the last global time step written out to it
+    //! Write a restart file, the file with the last global time step written out to it
     /*!
      *    Wrap the Time increment XML element with a solution XML element and then write it out to an output file
      *    The XML file has the following layout:
@@ -2581,16 +2581,15 @@ public:
      *  takes care to first eliminate any existing to backspace over the last
      *  \verbatim </electrodeOutput> and </ctml> entries before writing the new <timeIncrement> XML  \endverbatim element.
      *
-     *  @param[in]           startNewRecord      If this is true, then a new electrodeOutput record is started, bumping up the 
-     *                                           index value. Defaults to false.
-     *  @param[in]           reset               If this is true, then the current file is truncated, and a new file is written
-     *                                           from scratch with an index of 1. Defaults to false. 
+     *  @param[in]           stepNum             This is used to write the windex XML field.
+     *                                             Defaults to -1, which means it writes out a "-1" for that field.
      *
-     *  @param[in]           stepNum             This may be used to override the global step number.
-     *                                             Defaults to -1, which means to use
+     *  @param[in]           solnNum             Global solution number. (There can be more than one global time dependent solution in a file.
+     *                                           However, normally, there is only one and the index starts at 1.
+     *                                             Defaults to 1.
      * 
-     *  @param[in]           restartFile         True if we are writing a restartFile, single off file . 
-     *                                             Defaults to false
+     *  @param[in]           nameAddition        Addition to the basename to add to the name of the file to be written.
+     *                                             Defaults to ""
      */
     void writeRestartFile(int stepNum, int solnNum = 1, const std::string& nameAddition = "");
 

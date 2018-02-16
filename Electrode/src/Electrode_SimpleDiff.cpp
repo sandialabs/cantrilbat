@@ -23,6 +23,7 @@ using namespace TKInput;
 #define SAFE_DELETE(x)  if ((x)) { delete (x) ; x = nullptr ; }
 #endif
 
+//! Value of 1/3
 static const double ONE_THIRD = 1.0 / 3.0;
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace

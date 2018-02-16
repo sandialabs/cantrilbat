@@ -123,7 +123,6 @@ int main(int argc, char **argv)
     }
   
     Electrode_SimpleDiff *electrodeA  = new Electrode_SimpleDiff();
-    electrodeA->useNLS_JAC = true;
        
     ELECTRODE_RadialDiffRegions_KEY_INPUT *electrodeA_input = new ELECTRODE_RadialDiffRegions_KEY_INPUT();
 

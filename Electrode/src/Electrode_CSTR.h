@@ -1117,17 +1117,22 @@ protected:
 
 #ifdef DEBUG_ELECTRODE_DEATH
 public:
+    //! Solution time at which the Electrode's moles goes to zero (sec)
     double time_AtDeath;
 
+    //! Value of the deltaTsubcycle when the electrode is set to zero
     double deltaT_intermed_AtDeath;
 
+    //! Value of the deltaTsubcycle when the electrode is set to zero
     double deltaT_intermed_min_AtDeath;
 
-
+    //! Value of the phaseMoles just before it is set to zero at death
     double phaseMoles_Init_AtDeath;
 
+    //! Atol Tolerance of the phaseMoles just before it is set to zero at death
     double atol_AtDeath;
 
+    //! Subcycle counter at the time Electode is set to dead
     size_t  counterNumberSubIntegrations_atDeath;
 
 #endif
