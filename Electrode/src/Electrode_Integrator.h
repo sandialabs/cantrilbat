@@ -1428,18 +1428,13 @@ protected:
      */
     bool predictDotBetter_;
 
+#ifdef useZuzaxNamespace
     //! Pointer to the nonlinear solver
     /*!
      *  We use Zuzax' nonlinear solver to relax the equations
      */
-#ifdef useZuzaxNamespace
-    //Zuzax::NonlinearSolver* pSolve_;
     Zuzax::NonlinearSolver_JAC* pSolveJAC_ = nullptr;
-public:
-    bool useNLS_JAC = false;
-protected:
 #else
-    //Cantera::NonlinearSolver* pSolve_;
     Cantera::NonlinearSolver_JAC* pSolveJAC_ = nullptr;
 #endif
 

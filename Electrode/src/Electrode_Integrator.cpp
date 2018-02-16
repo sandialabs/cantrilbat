@@ -361,7 +361,6 @@ Electrode_Integrator::Electrode_Integrator() :
     haveGood_solnDot_init_(false),
     predictDotBetter_(false),
     pSolveJAC_(nullptr),
-    useNLS_JAC(false),
     jacPtr_(nullptr),
     jacMng_(nullptr),
     numIntegratedSrc_(0),
@@ -420,7 +419,6 @@ Electrode_Integrator& Electrode_Integrator::operator=(const Electrode_Integrator
    // pSolve_                             = new NonlinearSolver(this);
     SAFE_DELETE(pSolveJAC_);
     pSolveJAC_                          = new NonlinearSolver_JAC(this);
-    useNLS_JAC                          = right.useNLS_JAC;
 
     SAFE_DELETE(jacPtr_);
     if (right.jacPtr_) {
@@ -1110,7 +1108,6 @@ topConvergence:
             /*
              *  Set the tolerances on the solution variables
              */
-           // if (useNLS_JAC) {
            pSolveJAC_->setAtol(DATA_PTR(atolNLS_));
            pSolveJAC_->setRtol(0.1 *  extraRtolNonlinearSolver_ * rtolNLS_);
            // } else {
@@ -1129,7 +1126,6 @@ topConvergence:
              *    The residual tolerance is given by the minimum of the row weight sums and the user tolerances given below.
              */
             double extraR = 1.0E-2;
-           // if (useNLS_JAC) {
            pSolveJAC_->setResidualTols(extraR * extraRtolNonlinearSolver_ * rtolResidNLS_,  &atolResidNLS_[0]);
            pSolveJAC_->setBoundsConstraints(&ylowNLS_[0], &yhighNLS_[0]);
            pSolveJAC_->setDeltaBoundsMagnitudes(DATA_PTR(deltaBoundsMagnitudesNLS_));
@@ -1165,15 +1161,9 @@ topConvergence:
 	    }
 #endif
             int nonlinearFlag;
-            //if (useNLS_JAC) {
-                nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
-								 tfinal_, *jacMng_,  num_newt_its, num_linear_solves,
-								 numBacktracks, solverPrintLvl);
-          //  } else {
-          //       nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
-	  //							 tfinal_, *jacPtr_,  num_newt_its, num_linear_solves,
-          //							 numBacktracks, solverPrintLvl);
-          //   }
+            nonlinearFlag = pSolveJAC_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], 0.0,
+			                                        tfinal_, *jacMng_,  num_newt_its, num_linear_solves,
+						                numBacktracks, solverPrintLvl);
             if (nonlinearFlag < 0) {
                 if (printLvl_ > 2) {
                     printf("Electrode_Integrate::integrate(): Unsuccessful Nonlinear Solve flag = %d\n", nonlinearFlag);
