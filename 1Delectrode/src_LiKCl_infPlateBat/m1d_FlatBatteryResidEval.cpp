@@ -227,30 +227,34 @@ namespace m1d
     Comm_ptr->Barrier();
   }
 //================================================================================================================================
+void 
+FlatBatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t,
+                                             const double deltaT, const Epetra_Vector_Ghosted &soln,
+                                             const Epetra_Vector_Ghosted * const solnDot_ptr)
+{
+}
+//================================================================================================================================
 double
-FlatBatteryResidEval::reportCathodeVoltage() const {
+FlatBatteryResidEval::reportCathodeVoltage() const
+{
     DomainLayout &DL = *DL_ptr_;
     // we want the last surface, but be careful when we go to double tap batteries
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     SurDomain_FlatFeS2Cathode* c_ptr = dynamic_cast<SurDomain_FlatFeS2Cathode*>(d_ptr);
     // might have to update the SurDomain.
     double phi =  c_ptr->phiCathode_;
-    
     return phi;
 } 
-//====================================================================================================================
+//==================================================================================================================================
 double
-FlatBatteryResidEval::reportCathodeCurrent() const {
+FlatBatteryResidEval::reportCathodeCurrent() const
+{
     DomainLayout &DL = *DL_ptr_;
-  
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     SurDomain_FlatFeS2Cathode* c_ptr = dynamic_cast<SurDomain_FlatFeS2Cathode*>(d_ptr);
     double icurr = c_ptr->icurrCollector_;
     return icurr;
 }
-
-
-//====================================================================================================================
-//=====================================================================================================================
-} // end of m1d namespace
-//=====================================================================================================================
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------

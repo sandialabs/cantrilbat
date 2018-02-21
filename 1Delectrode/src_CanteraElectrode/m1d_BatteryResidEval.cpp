@@ -88,7 +88,10 @@ BatteryResidEval::BatteryResidEval(double atol) :
     ocvAnode_(0.0),
     ocvCathode_(0.0),
     hasPressureEquation_(false),
-    hasGasResevoir_(false)
+    hasGasResevoir_(false),
+    Anode_BDI_(0),
+    Separator_BDI_(1),
+    Cathode_BDI_(2)
 {
      doHeatSourceTracking_ = PSCinput_ptr->doHeatSourceTracking_;
      doPolarizationAnalysis_ = PSCinput_ptr->doPolarizationAnalysis_;
@@ -106,31 +109,16 @@ BatteryResidEval::BatteryResidEval(double atol) :
      }
 }
 //================================================================================================================================
-// Destructor
-/*
- *
- */
 BatteryResidEval::~BatteryResidEval()
 {
 }
 //================================================================================================================================
-//! Default copy constructor
-/*!
- *
- * @param r  Object to be copied
- */
 BatteryResidEval::BatteryResidEval(const BatteryResidEval &r) :
     ProblemResidEval(r.m_atolDefault)
 {
     *this = r;
 }
 //==================================================================================================================================
-// Assignment operator
-/*
- *
- * @param r  Object to be copied
- * @return   Returns a copy of the current problem
- */
 BatteryResidEval &
 BatteryResidEval::operator=(const BatteryResidEval &r)
 {
@@ -168,6 +156,9 @@ BatteryResidEval::operator=(const BatteryResidEval &r)
     ocvCathode_                          = r.ocvCathode_;
     hasPressureEquation_                 = r.hasPressureEquation_;
     hasGasResevoir_                      = r.hasGasResevoir_;
+    Anode_BDI_                           = r.Anode_BDI_;
+    Separator_BDI_                       = r.Separator_BDI_;
+    Cathode_BDI_                         = r.Cathode_BDI_;
 
     return *this;
 }
@@ -192,25 +183,6 @@ BatteryResidEval::residSetupTmps()
     }
 }
 //==================================================================================================================================
-// Set the underlying state of the system from the solution vector
-/*
- *   Note this is an important routine for the speed of the solution.
- *   It would be great if we could supply just exactly what is changing here.
- *   This routine is always called at the beginning of the residual evaluation process.
- *
- *   This is a natural place to put any precalculations of nodal quantities that
- *   may be needed by the residual before its calculation.
- *
- *   Also, this routine is called with rdelta_t = 0. This implies that a step isn't being taken. However, the
- *   the initial conditions must be propagated.
- *
- * @param doTimeDependentResid
- * @param soln
- * @param solnDot
- * @param t
- * @param delta_t
- * @param t_old
- */
 void
 BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, 
 				       const Epetra_Vector_Ghosted *solnDot,
@@ -220,8 +192,7 @@ BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Ep
     if (doTimeDependentResid) {
 	if (delta_t > 0.0) {
 	    if (fabs(t - (t_old + delta_t)) > 0.001 * delta_t) {
-		throw CanteraError("BatteryResidEval::setStateFromSolution",
-				   "case of t != (t_old + delta_t) not handled yet");
+		throw m1d_Error("BatteryResidEval::setStateFromSolution", "case of t != (t_old + delta_t) not handled yet");
 	    }
 	}
     }
@@ -248,28 +219,9 @@ BatteryResidEval::setStateFromSolution(const bool doTimeDependentResid, const Ep
 
 }
 //==================================================================================================================================
-
-// Calculate the initial conditions
-/*
- *   This calls the parent class initialConditions method to loop over the volume and surface domains.
- *   Then the method tried to better estimate the electrolyte potential.
- *
- * @param doTimeDependentResid    Boolean indicating whether we should
- *                                formulate the time dependent residual
- * @param soln                    Solution vector. This is the input to
- *                                the residual calculation.
- * @param solnDot                 Solution vector. This is the input to
- *                                the residual calculation.
- * @param t                       Time
- * @param delta_t                 delta_t for the initial time step
- */
 void
-BatteryResidEval::initialConditions(const bool doTimeDependentResid,
-				    Epetra_Vector_Ghosted *soln,
-				    Epetra_Vector_Ghosted *solnDot,
-				    double &t,
-				    double &delta_t,
-				    double &delta_t_np1)
+BatteryResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln,
+				    Epetra_Vector_Ghosted *solnDot, double &t, double &delta_t, double &delta_t_np1)
 {
     //
     //   We obtain the cross-sectional area from the cathode. 
@@ -284,9 +236,9 @@ BatteryResidEval::initialConditions(const bool doTimeDependentResid,
     //  improveInitialConditions(soln);
     //
 }
-//====================================================================================================================
-//! Improve upon initial conditions by computing first order potential losses, equilibrium reaction voltages, etc.
-/*!
+//==================================================================================================================================
+// Improve upon initial conditions by computing first order potential losses, equilibrium reaction voltages, etc.
+/* 
  * Not currently finished
  */
 void
@@ -413,20 +365,6 @@ BatteryResidEval::improveInitialConditions(Epetra_Vector_Ghosted *soln_ptr)
 }
 
 //==================================================================================================================================
-// Calculate a residual vector
-/*
- *   The basic algorithm is to loop over the volume domains.
- *   Then, we loop over the surface domains
- *
- * @param res                     residual output
- * @param doTimeDependentResid    Boolean indicating whether the time dependent residual is requested
- * @param soln                    Pointer to the solution vector. This is the input to the residual calculation.
- * @param solnDot                 Pointer to the solution Dot vector. This is the input to the residual calculation.
- * @param t                       current time
- * @param rdelta_t                delta t inverse
- * @param residType               Residual type
- * @param solveType               Solve type
- */
 void
 BatteryResidEval::residEval(Epetra_Vector_Owned* const & res,
                             const bool doTimeDependentResid,
@@ -1509,13 +1447,19 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
          }
          gindex_VoltageSolid_ACA = index_EqnStart + vs + 1;
 
-         BulkDomain1D *d_separator = DL.BulkDomain1D_List[1];
+ 
+         BulkDomain1D *d_separator = nullptr; 
+         m1d::BulkDomainDescription* bdd_separator_ptr = nullptr;
+         int index_EqnStart_AS = -1;
+         if (Separator_BDI_ != npos) {
+            d_separator = DL.BulkDomain1D_List[Separator_BDI_];
+            bdd_separator_ptr = d_separator->BDD_ptr_;
+         }
          //porousFlow_dom1D* p_separator = dynamic_cast<porousFlow_dom1D*>(d_separator);
-         m1d::BulkDomainDescription* bdd_separator_ptr = d_separator->BDD_ptr_;
          //LocalNodeIndices* lni_separator = d_separator->LI_ptr_;
          int gn_AS = bdd_separator_ptr->FirstGbNode;
          NodalVars* node_AS = gi_ptr->NodalVars_GbNode[gn_AS];
-         int index_EqnStart_AS = node_AS->EqnStart_GbEqnIndex;
+         index_EqnStart_AS = node_AS->EqnStart_GbEqnIndex;
          vs = node_AS->Offset_VarType[Voltage];
          gindex_Voltage_AS = index_EqnStart_AS + vs;
 
@@ -1702,8 +1646,7 @@ BatteryResidEval::doSpeciesAnalysis(const int ifunc, const double t, const doubl
     delta = elem_li_new_total - elem_Start_Total[iLip];
     printf("Total Li:      Curr = % 12.5E   Start =  % 12.5E  Delta = % 12.5E\n", elem_li_new_total, elem_Start_Total[iLip], delta);
     delta = elem_li_new_total - elem_li_old_total;
-    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n",
-	   elem_li_new_total, elem_li_old_total, delta);
+    printf("               Curr = % 12.5E   Old   =  % 12.5E  Delta = % 12.5E\n\n", elem_li_new_total, elem_li_old_total, delta);
     printf("\n");
 
     drawline(0, 132);

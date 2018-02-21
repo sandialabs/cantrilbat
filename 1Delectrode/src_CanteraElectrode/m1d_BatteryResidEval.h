@@ -421,6 +421,8 @@ public:
 
     //! Do an analysis of the polarization losses at the current global time step
     /*!
+     *  (virtual from BatteryResidEval) 
+     *
      *  Part of the analysis is that we have to find the global extent of reaction of the anode and cathode in order to
      *  find a global open circuit potential.
      *
@@ -431,20 +433,31 @@ public:
      *  @param[in]           y                   Current value of the solution vectors
      *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
      */
-    void doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
-                                const Epetra_Vector_Ghosted* const solnDot_ptr);
+    virtual void 
+    doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+                           const Epetra_Vector_Ghosted* const solnDot_ptr);
 
-
+    //! Carries out a species element balance over all of the domains
+    /*!
+     *  This prints out the total element balance of Lithium over all domains.
+     *
+     *  @param[in]           ifunc               0 Initial call to the function, done whenever the time stepper is entered
+     *                                           1 Called after every successful time step.
+     *  @param[in]           t                   Current time
+     *  @param[in]           deltaT              Current value of deltaT
+     *  @param[in]           y                   Current value of the solution vectors
+     *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
+     */
     void doSpeciesAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
                            const Epetra_Vector_Ghosted* const solnDot_ptr);
     
     //! Set a solution parameter 
     /*!
-     *  @param paramName   String identifying the parameter to be set
-     *  @param paramVal    Single double value of the parameter to be set
+     *  @param[in]           paramName           String identifying the parameter to be set
+     *  @param[in]           paramVal            Single double value of the parameter to be set
      *
-     *  @return returns the number of parameters set by the command, zero or a positive number.
-     *          Returns a negative number if the parameter is unknown
+     *  @return                                  Returns the number of parameters set by the command, zero or a positive number.
+     *                                           Returns a negative number if the parameter is unknown
      */
     virtual int
     setSolutionParam(std::string paramName, double paramVal);
@@ -701,6 +714,16 @@ public:
 
     //! If true we have a separate equation for the gas in the container.
     int hasGasResevoir_;
+
+    //! Anode Bulk Domain Index
+    size_t Anode_BDI_;
+
+    //! Separator Bulk Domain Index
+    size_t Separator_BDI_;
+
+    //! Cathode Bulk Domain Index
+    size_t Cathode_BDI_;
+
 };
 //==================================================================================================================================
 }

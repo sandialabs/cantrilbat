@@ -811,10 +811,8 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_XMLWriter.cpp \
                          ../../Electrode/src/EState.h  ../../Electrode/src/EState.cpp \
                          ../../Electrode/src/EState_XML.h  ../../Electrode/src/EState_XML.cpp \
-                         ../../Electrode/src/Electrode_Factory.h \
-                         ../../Electrode/src/Electrode_Factory.cpp \
-                         ../../Electrode/src/Electrode_Integrator.h \
-                         ../../Electrode/src/Electrode_Integrator.cpp \
+                         ../../Electrode/src/Electrode_Factory.h  ../../Electrode/src/Electrode_Factory.cpp \
+                         ../../Electrode/src/Electrode_Integrator.h ../../Electrode/src/Electrode_Integrator.cpp \
                          ../../Electrode/src/Electrode_input.h \
                          ../../Electrode/src/Electrode_input.cpp \
                          ../../Electrode/src/Electrode_CSTR.h \
@@ -847,7 +845,8 @@ INPUT                  = ../../util_src/src \
                          ../../Electrode/src/Electrode_RadialRegion.h  ../../Electrode/src/Electrode_RadialRegion.cpp \
                          ../../1Delectrode/src/m1d_app.h  ../../1Delectrode/src/m1d_app.cpp \
                          ../../1Delectrode/src \
-                         ../../1Delectrode/src/*.h ../../1Delectrode/src/*.cpp \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BatteryResidEval.h \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BatteryResidEval.cpp \
 
 
 

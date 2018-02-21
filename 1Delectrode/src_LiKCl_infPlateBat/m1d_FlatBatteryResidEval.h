@@ -127,6 +127,24 @@ public:
     void write_IV(const int ievent, const bool doTimeDependentResid, const double time_current, const double delta_t_n, int istep,
                   const Epetra_Vector_Ghosted &y_n, const Epetra_Vector_Ghosted * const ydot_n_ptr);
 
+    //! Do an analysis of the polarization losses at the current global time step
+    /*!
+     *  (virtual from BatteryResidEval) 
+     *
+     *  Part of the analysis is that we have to find the global extent of reaction of the anode and cathode in order to
+     *  find a global open circuit potential.
+     *
+     *  @param[in]           ifunc               0 Initial call to the function, done whenever the time stepper is entered
+     *                                           1 Called after every successful time step.
+     *  @param[in]           t                   Current time
+     *  @param[in]           deltaT              Current value of deltaT
+     *  @param[in]           y                   Current value of the solution vectors
+     *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
+     */
+    virtual void 
+    doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+                           const Epetra_Vector_Ghosted* const solnDot_ptr) override;
+
     //! Report the cathode voltage
     /*!
      *  Note the anode voltage is set to zero. So this function will return the voltage of the battery.
