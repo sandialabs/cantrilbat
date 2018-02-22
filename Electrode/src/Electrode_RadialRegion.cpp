@@ -1608,66 +1608,6 @@ void  Electrode_RadialRegion::setInitStateFromInitInit(bool setFinal)
 
 }
 //====================================================================================================================
-// Set the internal initial intermediate and initial global state from the internal final state
-/*
- *  (virtual function from Electrode)
- *
- *  Set the intial state from the final state. We also can set the init_init state from this
- *  routine as well.
- *
- * @param setInitInit   Boolean indicating whether you should set the init_init state as well. When
- *                      we do this we set the final state as well.
- */
-void  Electrode_RadialRegion::setInitStateFromFinalFinal(bool setInitInit)
-{
-    int i;
-    int kspCell =  numKRSpecies_ *  numRCells_;
-    int kphCell = numSPhases_ * numRCells_;
-
-    radiusLeft_init_ = radiusLeft_final_final_;
-
-    for (i = 0; i <  numRCells_; i++) {
-        cellBoundR_init_[i] =  cellBoundR_final_final_[i];
-        rnodePos_init_[i] = rnodePos_final_final_[i];
-        rRefPos_init_[i] = rRefPos_final_final_[i];
-        molarVolume_refLat_Cell_init_[i] = molarVolume_refLat_Cell_final_final_[i];
-    }
-
-    for (i = 0; i < kspCell; i++) {
-        spMoles_KRsolid_Cell_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
-        spMf_KRsolid_Cell_init_[i] = spMf_KRsolid_Cell_final_final_[i];
-        concKRSpecies_Cell_init_[i] = concKRSpecies_Cell_final_final_[i];
-        partialMolarVolKRSpecies_Cell_init_[i] = partialMolarVolKRSpecies_Cell_final_final_[i];
-    }
-    for (i = 0; i < kphCell; i++) {
-        concTot_SPhase_Cell_init_[i] = concTot_SPhase_Cell_final_final_[i];
-    }
-
-
-    if (setInitInit) {
-
-        radiusLeft_init_init_ = radiusLeft_final_final_;
-
-        for (i = 0; i <  numRCells_; i++) {
-            cellBoundR_init_init_[i] =  cellBoundR_final_final_[i];
-            rnodePos_init_init_[i] = rnodePos_final_final_[i];
-            rRefPos_init_init_[i] = rRefPos_final_final_[i];
-            molarVolume_refLat_Cell_init_init_[i] = molarVolume_refLat_Cell_final_final_[i];
-        }
-        for (i = 0; i < kspCell; i++) {
-            spMoles_KRsolid_Cell_init_init_[i] = spMoles_KRsolid_Cell_final_final_[i];
-            spMf_KRsolid_Cell_init_init_[i] = spMf_KRsolid_Cell_final_final_[i];
-            concKRSpecies_Cell_init_init_[i] = concKRSpecies_Cell_final_final_[i];
-            partialMolarVolKRSpecies_Cell_init_init_[i] = partialMolarVolKRSpecies_Cell_final_final_[i];
-        }
-        for (i = 0; i < kphCell; i++) {
-            concTot_SPhase_Cell_init_init_[i] = concTot_SPhase_Cell_final_final_[i];
-        }
-    }
-
-    Electrode_RadialRegion::setFinalStateFromInit();
-}
-//====================================================================================================================
 // Set the internal final global state from the internal final intermediate state
 /*
  *  (virtual function from Electrode)

@@ -26,35 +26,45 @@ class ELECTRODE_RadialRegion_KEY_INPUT : public ELECTRODE_KEY_INPUT
 public:
 
     //! Constructor
+    /*!
+     *  @param[in]           printLvl            Level of printing. Defaults to 0.
+     */
     ELECTRODE_RadialRegion_KEY_INPUT(int printLvl = 0);
 
     //! Destructor
     virtual ~ELECTRODE_RadialRegion_KEY_INPUT();
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               Object to be copied
+     */
     ELECTRODE_RadialRegion_KEY_INPUT(const ELECTRODE_RadialRegion_KEY_INPUT& right);
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *
+     *  @return                                  Returns the current object
+     */
     ELECTRODE_RadialRegion_KEY_INPUT& operator=(const ELECTRODE_RadialRegion_KEY_INPUT& right);
 
-    //!  First pass through the child setup system
+    //! First pass through the child setup system
     /*!
-     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this
-     *    pass.
-     *  @param cf    Pointer to the BlockEntry record
+     *  Typically we will fill in all vectors that depend on the value of numRegions_ in this  pass.
+     *
+     *  @param[in]           cf                  Pointer to the BlockEntry record
      */
     void setup_input_child1(BEInput::BlockEntry* cf);
 
     //!  Second pass through the child setup system
     /*!
-     *    Typically we will fill in all vectors that depend on the value of numRegions_ in this
-     *    pass.
-     *  @param cf    Pointer to the BlockEntry record
+     *  Typically we will fill in all vectors that depend on the value of numRegions_ in this  pass.
+     *
+     *  @param[in]           cf                  Pointer to the BlockEntry record
      */
     void setup_input_child2(BEInput::BlockEntry* cf);
 
     //! Index of the region in the model
-    /*!
-     * 
-     */
     int indexRegion_;
 
     //! Number of radial cells in the region
@@ -113,13 +123,13 @@ public:
      */
     double defaultDiffusionCoeff_;
 };
-
+//==================================================================================================================================
 class Electrode_RadialDiffRegions;
 
 //! This class is a derived class used to model phase-change or intercalating electrodes
 /*!
  *  The class is an intermediary, support class. It's main purpose is to house the member data
- *  needed to handle the disretization of one region in the radial direction.
+ *  needed to handle the discretization of one region in the radial direction.
  *  Diffusion of material through the region is allowed.
  *  The regions can expand and contract through surface reactions.
  *  The surface reactions all occur on interfacial kinetics objects.
@@ -152,13 +162,15 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     *  @param right Object to be copied
      */
     Electrode_RadialRegion(const Electrode_RadialRegion& right);
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
      */
     Electrode_RadialRegion& operator=(const Electrode_RadialRegion& right);
 
@@ -166,28 +178,28 @@ public:
     /*!
      *  Returns the enum type of the electrode. This is used in the factory routine.
      *
-     *  @return Returns an enum type, called   Electrode_Types_Enum
+     *  @return                                  Returns an enum type, called   Electrode_Types_Enum
      */
     virtual Electrode_Types_Enum electrodeType() const;
 
-    //!  Setup the electrode using the ELECTRODE_KEY_INPUT object that is read from an input file
+    //! Setup the electrode using the ELECTRODE_KEY_INPUT object that is read from an input file
     /*!
-     *   (virtual from Electrode)
-     *   @param[in]          ei                  ELECTRODE_KEY_INPUT pointer object
+     *  (virtual from Electrode)
+     *  @param[in]          ei                  ELECTRODE_KEY_INPUT pointer object
      *
-     *   @return                                 Returns 0 if successful, -1 if not.
+     *  @return                                 Returns 0 if successful, -1 if not.
      */
     virtual int electrode_model_create(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Specify initial conditions from an input file
     /*!
-     *    @param ei pointer to a parent Structure containing the input file. The structure will be dynamically
-     *              cast to a type  ELECTRODE_RadialRegion_KEY_INPUT type within the program.
-     *              It is a fatal error not to be able to do the dynamic cast.
+     *  @param[in]           ei                  pointer to a parent Structure containing the input file. The structure will be dynamically
+     *                                           cast to a type  ELECTRODE_RadialRegion_KEY_INPUT type within the program.
+     *                                           It is a fatal error not to be able to do the dynamic cast.
      *
-     *    @param  Return flag. Returns a zero if everything is ok. Anything else is a fatal error.
+     *  @return                                  Returns a zero if everything is ok. Anything else is a fatal error.
      */
-    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei);
+    virtual int setInitialConditions(ELECTRODE_KEY_INPUT* ei) override;
 
     //! Calculate the number of equations that will be solved during the nonlinear solver step.
     /*!
@@ -208,12 +220,37 @@ public:
      */
     void initializeAsEvenDistribution();
 
-
-    //! Get all of the reaction rates and parameters from Cantera
+    //! Get all of the reaction rates and parameters from Zuzax
+    /*!
+     *  @param[out]          justBornMultiSpecies  Vector of phase index values for phases which have just popped into existence
+     */
     void extractInfoJustBorn(std::vector<size_t>& justBornMultiSpecies);
 
-    int calcResid(double* const resid,  const ResidEval_Type evalType);
-
+    //! Calculate the residual
+    //! Main routine to calculate the residual
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  Format of the residual equations
+     *                                                             Unknown
+     * --------------------------------------------------------------------------------------------------------------
+     *         Residual (Time)                                     deltaT
+     *
+     *         Loop over cells
+     *
+     *           Residual (Reference/lattice Position)            rRefPos_final_[iCell];
+     *           Residual (Mesh Position)
+     *           Residual (Concentration _ k=0)
+     *             . . .
+     *           Residual (Concentration _ k=Ns-1)
+     *  --------------------------------------------------------------------------------------------------------------
+     *  @param[in]            resid               Pointer to the residual vector to be calculated
+     *  @param[in]            evalType            Type of the residual evalation. This is an ResidEval_Type variable
+     *
+     *  @return                                  Returns a value of 1 if everything went well
+     *                                           Returns negative numbers to indicate types of failures
+     */
+    virtual int calcResid(double* const resid, const ResidEval_Type evalType) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final state
     /*!
@@ -224,7 +261,7 @@ public:
      *
      * @param setInitInit   Boolean indicating whether you should set the init_init state as well
      */
-    virtual void setInitStateFromFinal(bool setInitInit = false);
+    virtual void setInitStateFromFinal(bool setInitInit = false) override;
 
     //! Set the internal final intermediate state from the internal init state
     /*!
@@ -232,7 +269,7 @@ public:
      *
      *  Set the final state from the init state. This is commonly called during a failed time step
      */
-    virtual void setFinalStateFromInit();
+    virtual void setFinalStateFromInit() override;
 
     //! Set the internal initial intermediate from the internal initial global state
     /*!
@@ -243,20 +280,7 @@ public:
      *
      * @param setFinal   Boolean indicating whether you should set the final as well
      */
-    virtual void setInitStateFromInitInit(bool setFinal = false);
-
-
-    //! Set the internal initial intermediate and initial global state from the internal final state
-    /*!
-     *  (virtual function from Electrode)
-     *
-     *  Set the intial state from the final state. We also can set the init_init state from this
-     *  routine as well.
-     *
-     * @param setInitInit   Boolean indicating whether you should set the init_init state as well. When
-     *                      we do this we set the final state as well.
-     */
-    virtual void setInitStateFromFinalFinal(bool setInitInit = false);
+    virtual void setInitStateFromInitInit(bool setFinal = false) override;
 
     //! Set the internal final global state from the internal final intermediate state
     /*!
@@ -264,7 +288,7 @@ public:
      *
      *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
      */
-    virtual void setFinalFinalStateFromFinal();
+    virtual void setFinalFinalStateFromFinal() override;
 
     //! Print conditions of the electrode for the current integration step to stdout
     /*!
@@ -348,8 +372,7 @@ public:
      *  @param radialMesh   Returned mesh
      */
     void radialGridGenerate(int numPoints, double radiusInner, double radiusOuter,
-                            double geomFactor,
-                            std::vector<double>& radialMesh) const;
+                            double geomFactor, std::vector<double>& radialMesh) const;
 
     // ---------------------------------- D A T A ---------------------------------------------------------------------
 protected:
@@ -769,7 +792,7 @@ protected:
      */
     std::vector<double> actCoeff_Cell_final_;
 
-
+    //! Pointer to the description of the rings of RadialRegions and surface interfaces that make up the spherical problem.
     Electrode_RadialDiffRegions* ee_;
 };
 //==================================================================================================================================

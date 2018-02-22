@@ -150,6 +150,15 @@ struct VoltPolPhenom
  */
 struct PolarizationSurfRxnResults {
 
+    //! Domain number of the electrode object
+    /*!
+     *  This number refers to the domain number within 1DElectrode.
+     */
+    int electrodeDomainNumber_ = 0;
+
+    //! Cell number within the domain
+    int electrodeCellNumber_ = 0;
+
     //!  Index of the reacting surface within the Electrode that the summary is for
     size_t isurf = npos;
 
@@ -159,9 +168,9 @@ struct PolarizationSurfRxnResults {
      */
     size_t iRxnIndex = npos;
 
-    //!  Total current through the surface that is using this particular reaction on this surface
+    //! Total current through the surface that is using this particular reaction on this surface
     /*!
-     *   Units: amps
+     *  Units: amps
      */
     double icurrSurf = 0.0;
 
@@ -173,6 +182,13 @@ struct PolarizationSurfRxnResults {
 
     //! Value of the open circuit voltage for the surface (assuming adsorbate coverage is at pseudo-equilibrium)
     double ocvSurf = 0.0;
+
+    //! Adjustments to the ocvSurfRxn are made when we identify physical phenomena associated with the
+    //! change in the OCV, such as electrolyte concentration polarization or solid state diffusion polarization.
+    /*!
+     *  We keep track of the adjusted OCV here.
+     */ 
+    double ocvSurfRxnAdj = 0.0;
 
     //! Value of the voltage for the electrode through which the electrons go through
     /*!
@@ -188,28 +204,27 @@ struct PolarizationSurfRxnResults {
      */
     double phiMetal = 0.0;
 
+    //! value of the electric potential that is associated with the middle of the domain.
+    /*!
+     *  This is one end of the comparison voltage.
+     */
+    double phi_lyteSpoint = 0.0;
+
     //! Value for the total voltage drops accounted for by the voltsPol_List
     /*!
      *  We'll be post-processing this structure to add in voltage drops
      *  The voltages are processed from cathode to the anode.
+     *  When fully formed the following condition holds:
+     *         VoltageTotal = phi_Anode - phi_lyteSpoint
      */
     double VoltageTotal = 0.0;
 
-    //! Domain number of the electrode object
-    /*!
-     *  This number refers to the domain number within 1DElectrode.
-     */
-    int electrodeDomainNumber_ = 0;
-
-    //! Cell number within the domain
-    int electrodeCellNumber_ = 0;
-
     //! Default constructor
     /*!
-     *   @param[in]          electrodeDomainNumber  Domain number
-     *   @param[in]          electrodeCellNumber  cell number
-     *   @param[in]          surfIndex           Surface index. Defaults to npos
-     *   @param[in]          rxnIndex            Reaction index on the surface. Defaults to npos
+     *  @param[in]           electrodeDomainNumber  Domain number
+     *  @param[in]           electrodeCellNumber  cell number
+     *  @param[in]           surfIndex           Surface index. Defaults to npos
+     *  @param[in]           rxnIndex            Reaction index on the surface. Defaults to npos
      */
     PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, size_t surfIndex = npos, size_t rxnIndex = npos); 
 
@@ -222,6 +237,12 @@ struct PolarizationSurfRxnResults {
      */
     void addSolidPol(double phiCurrentCollector, int region);
 
+    //! Add one  PolarizationSurfRxnResults struct into another one
+    /*!
+     *  Here, I've made the current additive. This has to be checked for compatibility.
+     *
+     *  @param[in]           sub                 Struct to be added into the current struct
+     */
     void addSubStep(struct PolarizationSurfRxnResults& sub);
 
 };

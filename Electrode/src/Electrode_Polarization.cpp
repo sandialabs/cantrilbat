@@ -24,12 +24,11 @@ namespace Cantera
 //==================================================================================================================================
 PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, 
                                                        size_t surfIndex, size_t rxnIndex) :
-    isurf(surfIndex),
-    iRxnIndex(rxnIndex),
     electrodeDomainNumber_(electrodeDomainNumber),
-    electrodeCellNumber_(electrodeCellNumber)
+    electrodeCellNumber_(electrodeCellNumber),
+    isurf(surfIndex),
+    iRxnIndex(rxnIndex)
 {
-
 }
 //==================================================================================================================================
 void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& sub)
@@ -53,7 +52,7 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
         same = false;
     }
 
-    //! Right now it seems the best idea is to replace the polarization list with last polarization list ?!?
+    // Right now it seems the best idea is to replace the polarization list with last polarization list ?!?
     /*
      *  We may want to try an averaging procedure based on currents
      */
@@ -87,7 +86,5 @@ void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int reg
     VoltageTotal -= voltsS;
 }
 //==================================================================================================================================
-
 } 
 //----------------------------------------------------------------------------------------------------------------------------------
-
