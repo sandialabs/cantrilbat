@@ -24,7 +24,7 @@ namespace Zuzax
 namespace Cantera
 #endif 
 {
-//====================================================================================================================
+//==================================================================================================================================
 Electrode_Equilibrium::Electrode_Equilibrium(Electrode* elect) :
     ee_(elect),
     m_mp(0),
@@ -35,19 +35,16 @@ Electrode_Equilibrium::Electrode_Equilibrium(Electrode* elect) :
         printLvl_ = std::max(0, printLvl_ - 3);
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 Electrode_Equilibrium::Electrode_Equilibrium(const Electrode_Equilibrium& right) :
     ee_(right.ee_),
     m_mp(0),
     LiFixed_(0),
     printLvl_(0)
 {
-    /*
-     * Call the assignment operator.
-     */
     operator=(right);
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Destructor
 Electrode_Equilibrium::~Electrode_Equilibrium()
 {
@@ -56,7 +53,7 @@ Electrode_Equilibrium::~Electrode_Equilibrium()
     delete LiFixed_;
     LiFixed_ = 0;
 }
-//======================================================================================================================
+//==================================================================================================================================
 Electrode_Equilibrium& Electrode_Equilibrium::operator=(const Electrode_Equilibrium& right)
 {
     if (this == &right) {
@@ -81,12 +78,9 @@ Electrode_Equilibrium& Electrode_Equilibrium::operator=(const Electrode_Equilibr
 
     printLvl_ = right.printLvl_;
 
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
-//======================================================================================================================
+//==================================================================================================================================
 int Electrode_Equilibrium::setupEquilibriumProblem()
 {
     if (m_mp) {

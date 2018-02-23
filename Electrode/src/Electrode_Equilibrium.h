@@ -54,28 +54,41 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param right Object to be copied
+     *  @param[in]           right               Object to be copied
      */
     Electrode_Equilibrium(const Electrode_Equilibrium& right);
 
     //! Assignment operator
     /*!
-     *  @param right object to be copied
+     *  @param[in]           right               Object to be copied
+     *
+     *  @return                                  Returns a reference to the object being copied
      */
     Electrode_Equilibrium& operator=(const Electrode_Equilibrium& right);
 
+    //! Set up the equilibrium problem
+    /*!
+     *   Sets up an MP_EquilStatic object with the PhaseList information from the electrode object
+     *
+     *  @return                                  Returns 0
+     */
     int setupEquilibriumProblem();
 
-    //int setupEquilibriumProblem_LiRefElectrode();
 
+    //! Add a Li ion bath capability
+    /*!
+     *  Adds a fixed chemical potential Li phase to the MP_EquilStatic object created by setupEquilibriumProblem().
+     *  Using this approach, we can establish a bath phase of Li ions at a particular voltage.
+     *
+     *  @return                                  Returns 0
+     */
     int addLiIonPlusElectronBathPhase();
 
-    // !   Set the state of the captive ThermoPhase objects and the MultiPhase object from the current
-    //  !  final state of this Electrode
+    //! Set the state of the captive ThermoPhase objects and the MultiPhase object from the current
+    //! final state of this Electrode
     void update_MP();
 
-    //! Set the state of the electrode object, from this current
-    //! MultiPhase object
+    //! Set the state of the electrode object, from this current MultiPhase object
     void uploadMP();
 
     //! Predict the stability of a single phase that is currently zeroed.
@@ -83,24 +96,24 @@ public:
      *  This routine fills in an estimate for the solution. It assumes that there is a reference
      *  electrode
      *
-     *  @param iphase     Phase id in the list of phases
-     *  @param funcStab   value of the stability function calculated by this routine
+     *  @param[in] iphase     Phase id in the list of phases
+     *  @param[in] funcStab   value of the stability function calculated by this routine
      *
-     * @return   Return 1 if the phases are stable and 0 if they are not
+     *  @return   Return 1 if the phases are stable and 0 if they are not
      */
     int predictStabilitySinglePhase(int iphase, double& funcStab);
 
     //! Returns the mole fractions of a phase just calculated within the routine.
     /*!
      *
-     *   @param iphase      Phase id in the list of phases within the electrode object
-     *   @param moleFractions
+     *  @param[in]           iphase      Phase id in the list of phases within the electrode object
+     *  @param[in]           moleFractions
      */
     void getPhaseMoleFractions(int iphase, double* const moleFractions);
 
     //! Return a complete multiphase object representing equilibrium for the electrode
     /*!
-     * @return returns a multiphase object
+     *  @return                                  Returns a multiphase object
      */
     MP_EquilStatic* MultiPhase_Obj();
 

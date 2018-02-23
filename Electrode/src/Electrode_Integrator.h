@@ -526,7 +526,7 @@ public:
      *                                           Failures due to invalid function calculation attempts return a -2.
      *                                           Failures due to invalid arguments return a -3.
      */
-    virtual int integrate(double deltaT, double  GlobalRtolSrcTerm = 1.0E-3,
+    virtual int integrate(double deltaT, double  globalRtolSrcTerm = 1.0E-3,
                           Electrode_Exterior_Field_Interpolation_Scheme_Enum fieldInterpolationType = T_FINAL_CONST_FIS,
                           Subgrid_Integration_RunType_Enum subIntegrationType = BASE_TIMEINTEGRATION_SIR) override;
 
