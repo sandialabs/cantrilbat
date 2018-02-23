@@ -21,9 +21,10 @@
 #include "cantera/base/Array.h"
 #include <vector>
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d {
 
+//==================================================================================================================================
 class globalHeatBalValsBat : public globalHeatBalVals
 {
 public:
@@ -104,7 +105,16 @@ public:
         elem_Solid_Old.resize(10, 0.0);
     }
 
+    //! Extrinsic total initial enthalpy - initial
+    /*!
+     *  Units:  Joules
+     */
     double totalEnthalpyInit;
+
+    //! Extrinsic total initial enthalpy - final
+    /*!
+     *  Units:  Joules
+     */
     double totalEnthalpyFinal;
 
     double currentRight;
@@ -135,19 +145,17 @@ public:
     std::vector<double> species_jFluxRight;
     std::vector<double> species_jFluxLeft;
 
-
 };
-
+//==================================================================================================================================
 //!  Residual for 1D cell battery evaluations
 /*!
- *     We add in a lot of specific functionality for batteries here.
- *     We tailor the output to print out battery related information.
+ *   We add in a lot of specific functionality for batteries here.
+ *   We tailor the output to print out battery related information.
  */
 class BatteryResidEval: public ProblemResidEval
 {
 
 public:
-
     //! Default constructor
     /*!
      *
@@ -156,9 +164,6 @@ public:
     BatteryResidEval(double atol = 1.0e-13);
 
     //! Destructor
-    /*!
-     *
-     */
     virtual ~BatteryResidEval();
 
     //! Default copy constructor
@@ -174,8 +179,7 @@ public:
      * @param r  Object to be copied
      * @return   Returns a copy of the current problem
      */
-    BatteryResidEval &
-    operator=(const BatteryResidEval&r);
+    BatteryResidEval& operator=(const BatteryResidEval&r);
 
     void residSetupTmps();
 
