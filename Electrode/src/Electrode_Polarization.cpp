@@ -71,19 +71,74 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
 
 }
 //==================================================================================================================================
-void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int region)
+// add contribution for solid electronic conduction through the electrode's solid
+void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int region, bool dischargeDir)
 {
     double voltsS;
+    bool anodeDischargeDir = true;
     if (region == 0) {
-        voltsS  = phiCurrentCollector - phiMetal;
+       if (!dischargeDir) anodeDischargeDir = false;
     } else if (region == 2) {
+       if (dischargeDir) anodeDischargeDir = false;
+    }
+    if (anodeDischargeDir) {
+        voltsS  = phiCurrentCollector - phiMetal;
+    } else {
         voltsS  = phiMetal - phiCurrentCollector;
     }
-    VoltPolPhenom ess(ELECTRICAL_CONDUCTION_LOSS_PL, region, voltsS) ;
-    voltsPol_list.push_back(ess);
+    VoltPolPhenom ess(ELECTRICAL_CONDUCTION_LOSS_PL, region, voltsS);
+    bool found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == ELECTRICAL_CONDUCTION_LOSS_PL) {
+            found = true;
+            vp = ess;
+        }
+    }
+    if (! found) {
+        voltsPol_list.push_back(ess);
+    }
  
     // Adjust the total voltage from cathode to anode    
-    VoltageTotal -= voltsS;
+    if (dischargeDir) {
+        VoltageTotal -= voltsS;
+    } else {
+        VoltageTotal += voltsS;
+    }
+}
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addSolidCCPol(double phiTerminal, double phiCurrentCollector, int region, bool dischargeDir)
+{
+    double voltsS;
+    bool anodeDischargeDir = true;
+    if (region == 0) {
+       if (!dischargeDir) anodeDischargeDir = false;
+    } else if (region == 2) {
+       if (dischargeDir) anodeDischargeDir = false;
+    }
+    if (anodeDischargeDir) {
+        voltsS  = phiTerminal - phiCurrentCollector;
+    } else {
+        voltsS  = phiCurrentCollector - phiTerminal;
+    }
+    VoltPolPhenom ess(ELECT_COND_COLLECTORS_LOSS_PL, region, voltsS);
+    bool found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == ELECT_COND_COLLECTORS_LOSS_PL) {
+            found = true;
+            vp = ess;
+        }
+    }
+    if (! found) {
+        voltsPol_list.push_back(ess);
+    }
+ 
+    // Adjust the total voltage from cathode to anode    
+    if (dischargeDir) {
+        VoltageTotal -= voltsS;
+    } else {
+        VoltageTotal += voltsS;
+    }
+
 }
 //==================================================================================================================================
 } 

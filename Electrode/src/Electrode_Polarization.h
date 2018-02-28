@@ -230,12 +230,17 @@ struct PolarizationSurfRxnResults {
 
     //! Add the polarization losses due to the electrical conduction through the Electrode's solid portion to the current collector
     /*!
+     *  This gets added to the Electrode object's records.
+     *
      *  @param[in]           phiCurrentCollector Electric potential of the current collector
      *  @param[in]           region              Region of the solid condition. Two possibilities
      *                                               - 0  anode
      *                                               - 2  cathode
      */
-    void addSolidPol(double phiCurrentCollector, int region);
+    void addSolidPol(double phiCurrentCollector, int region, bool dischargeDir);
+
+    void addSolidCCPol(double phiTerminal, double phiCurrentCollector, int region, bool dischargeDir);
+
 
     //! Add one  PolarizationSurfRxnResults struct into another one
     /*!
