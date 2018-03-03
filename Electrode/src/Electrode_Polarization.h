@@ -21,6 +21,8 @@
 #include "cantera/base/ct_defs.h"
 
 
+
+
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -29,6 +31,7 @@ namespace Cantera
 #endif
 {
 
+class Electrode;
 //==================================================================================================================================
 
 //! The enum catalogs all of the types of polarization loss mechanisms that can occur within batteries that cantrilbat/aria 
@@ -159,6 +162,9 @@ struct PolarizationSurfRxnResults {
     //! Cell number within the domain
     int electrodeCellNumber_ = 0;
 
+    //! Shallow pointer to the Electrode object
+    Electrode* ee;
+
     //!  Index of the reacting surface within the Electrode that the summary is for
     size_t isurf = npos;
 
@@ -239,10 +245,62 @@ struct PolarizationSurfRxnResults {
      */
     void addSolidPol(double phiCurrentCollector, int region, bool dischargeDir);
 
+    //! Add the polarization losses due to the electrical conduction through the Electrode Current Collector
+    //! to the Electrode terminal
+    /*!
+     *  This gets added to the Electrode object's records.
+     *
+     *  @param[in]           phiTerminal         Electric potential at the terminal of the battery.
+     *  @param[in]           phiCurrentCollector Electric potential of the current collector - electrode interface
+     *  @param[in]           region              Region of the solid condition. Two possibilities
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     *  @param[in]           discharngeDir       Discharge direction:
+     *                                               True if discharging battery
+     *                                               False if charging the battery
+     */
     void addSolidCCPol(double phiTerminal, double phiCurrentCollector, int region, bool dischargeDir);
 
+    //! Add the polarization losses due to the ionic conduction through the electrolyte from the electrode
+    //! to the edge of the electrode - separator material interface.
+    /*!
+     *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
+     *  VOLT_LOSS_LYTE_PL.
+     *
+     *  @param[in]           phiLyteElectrode    Electric potential of the electrolyte at the electrode position.
+     *  @param[in]           phiLyteBoundary     Electric potential of the electrolyte at the electrode material - separator
+     *                                           material boundary.
+     *  @param[in]           region              Region of the solid condition. Two possibilities
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     *  @param[in]           discharngeDir       Discharge direction:
+     *                                               True if discharging battery
+     *                                               False if charging the battery
+     */
+    void addLyteCondPol(double phiLyteElectrode, double phiLyteBoundary, int region, bool dischargeDir);
 
-    //! Add one  PolarizationSurfRxnResults struct into another one
+     //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
+     //! to the edge of the electrode - separator material interface.
+     /*!
+      *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
+      *  VOLT_LOSS_LYTE_PL.
+      *
+      *  @param[in]           mf_Lyte_Electrode   pointer to the mole fractions of the electrolyte at the electrode object
+      *  @param[in]           mf_Lyte_Electrode     pointer to the mole fractions of the electrolyte at the electrode object
+      *                                            e electrode material - separator
+      *                                           material boundary.
+      *  @param[in]           region              Region of the solid condition. Two possibilities
+      *                                               - 0  anode
+      *                                               - 2  cathode
+      *  @param[in]           discharngeDir       Discharge direction:
+      *                                               True if discharging battery
+      *                                               False if charging the battery
+      */
+     void addLyteConcPol(double* mf_Lyte_Electrode, double* mf_Lyte_Separator, int region, bool dischargeDir);
+
+
+
+    //! Add one PolarizationSurfRxnResults struct into another one
     /*!
      *  Here, I've made the current additive. This has to be checked for compatibility.
      *

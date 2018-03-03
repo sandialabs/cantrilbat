@@ -604,7 +604,7 @@ void  Electrode_SimplePhaseChangeDiffusion::calcRate(double deltaTsubcycle)
  */
 void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& justBornMultiSpecies)
 {
-
+    size_t isk;
     size_t bornMultiSpecies = npos;
     double fwdROP[5], revROP[5], netROP[5];
 
@@ -613,7 +613,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
      * Loop over surface phases, filling in the phase existence fields within the
      * kinetics operator
      */
-    for (size_t isk = 0; isk < numSurfaces_; isk++) {
+    for (isk = 0; isk < numSurfaces_; ++isk) {
         /*
          *  Loop over phases, figuring out which phases have zero moles.
          *  Volume phases exist if the initial or final mole numbers are greater than zero
@@ -623,7 +623,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
             ReactingSurDomain* rsd = RSD_List_[isk];
             size_t nph = rsd->nPhases();
             for (size_t jph = 0; jph < nph; jph++) {
-                size_t iph = rsd->kinOrder[jph];
+                size_t iph = rsd->globalPhaseIndex_fromKP(jph);
                 if (iph == (size_t) metalPhase_) {
                     continue;
                 }
@@ -659,7 +659,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
     }
 
 
-    for (size_t isk = 0; isk < numSurfaces_; isk++) {
+    for (isk = 0; isk < numSurfaces_; isk++) {
         // Loop over phases, figuring out which phases have zero moles.
 
         if (ActiveKineticsSurf_[isk]) {

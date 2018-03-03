@@ -1597,8 +1597,7 @@ public:
     //! Returns the index of a phase in the ReactionSurfaceDomain object
     //! given the index of that phase in the PhaseList object
     /*!
-     *  
-     * @param[in]       isk                    Surface phase index, used to look up the ReactingSurfaceDomain object
+     * @param[in]       isk                    Surface phase index, used to look up the ReactingSurfDomain object
      * @param[in]       PLph                   index of the phase in the PhaseList object, which is also the
      *                                         Electrode_Model object.
      *
@@ -1888,7 +1887,7 @@ public:
      */
     virtual double openCircuitVoltageSSRxn(size_t isk, size_t iReaction = npos) const;
 
-    //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain, current conditions based on a single reaction
+    //! Returns the equilibrium OCV for the selected ReactingSurDomain, current conditions based on a single reaction
     /*!
      *   When there is more than a single reaction, pick open circuit potential for a reaction that is
      *   closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
@@ -1935,7 +1934,7 @@ public:
      */
     virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false);
 
-    //! Returns the vector of OCV's for all reactions on the selected ReactingSurfaceDomain for the
+    //! Returns the vector of OCV's for all reactions on the selected ReactingSurDomain for the
     //! current conditions.
     /*!
      *   The reference electrode idea is under construction. It's hard to generalize. What it means
@@ -2017,15 +2016,16 @@ public:
 
     //! Return the global index of the phase corresponding to the currently active metal
     /*!
-     *   The phase may then be retrived by a thermo(index) call.
+     *   The phase may then be retrieved by a thermo(index) call.
      *
      *  @return                              Returns the index of the metal phase in the PhaseList
      */
     size_t metalPhaseIndex() const;
 
-    //! Return the index of the phase corresponding to the soln
+    //! Return the index of the phase corresponding to the electrolyte solution within the PhaseList
+    //! comprising the Electrode object
     /*!
-     *   @return                             Returns the index of thesolution phase within the %PhaseList 
+     *   @return                             Returns the index of the solution phase within the %PhaseList
      */
     size_t solnPhaseIndex() const;
 
@@ -3410,7 +3410,7 @@ protected:
      */
     size_t metalPhase_;
 
-    //! Global Phase ID of the electrolyte solution
+    //! Global Phase ID of the electrolyte solution within the PhaseList that comprises the Electrode object
     /*!
      *  This is the phase where the product ions exist
      */

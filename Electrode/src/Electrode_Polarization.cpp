@@ -12,7 +12,9 @@
 #include "Electrode_Polarization.h"
 #include "Electrode_Exception.h"
 
-#include <cstdio>
+#include "Electrode.h"
+
+#include <cmath>
 
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
@@ -26,6 +28,7 @@ PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber
                                                        size_t surfIndex, size_t rxnIndex) :
     electrodeDomainNumber_(electrodeDomainNumber),
     electrodeCellNumber_(electrodeCellNumber),
+	ee(nullptr),
     isurf(surfIndex),
     iRxnIndex(rxnIndex)
 {
@@ -138,6 +141,124 @@ void PolarizationSurfRxnResults::addSolidCCPol(double phiTerminal, double phiCur
     } else {
         VoltageTotal += voltsS;
     }
+
+}
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addLyteCondPol(double phiLyteElectrode, double phiLyteBoundary, int region, bool dischargeDir)
+{
+    double voltsS;
+    bool anodeDischargeDir = true;
+    if (region == 0) {
+       if (!dischargeDir) anodeDischargeDir = false;
+    } else if (region == 2) {
+       if (dischargeDir) anodeDischargeDir = false;
+    }
+    if (anodeDischargeDir) {
+        voltsS  = phiLyteElectrode - phiLyteBoundary;
+    } else {
+        voltsS  = phiLyteBoundary - phiLyteElectrode;
+    }
+    VoltPolPhenom ess(VOLT_LOSS_LYTE_PL, region, voltsS);
+    bool found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == VOLT_LOSS_LYTE_PL) {
+            found = true;
+            vp = ess;
+        }
+    }
+    if (! found) {
+        voltsPol_list.push_back(ess);
+    }
+
+    // Adjust the total voltage from cathode to anode
+    if (dischargeDir) {
+        VoltageTotal -= voltsS;
+    } else {
+        VoltageTotal += voltsS;
+    }
+
+}
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorMid,
+		                                        int region, bool dischargeDir)
+{
+    bool anodeDischargeDir = true;
+    if (region == 0) {
+       if (!dischargeDir) anodeDischargeDir = false;
+    } else if (region == 2) {
+       if (dischargeDir) anodeDischargeDir = false;
+    }
+    double signADD = 1.0;
+    if (!anodeDischargeDir) {
+        signADD = -1.0;
+    }
+
+    // Fetch the ReactingSurDomain object for the current
+    ReactingSurDomain* rsd = ee->reactingSurface(isurf);
+
+    // Fetch the number of stoichiometric electrons for the current reaction
+    doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex);
+
+    // extract temperatures
+    double T_Electrode =  state_Lyte_Electrode[0];
+    double T_Separator =  state_Lyte_SeparatorMid[0];
+
+    size_t numKinSpecies = rsd->nKinSpecies();
+    std::vector<double> netStoichVec(numKinSpecies);
+
+    // Get the phase number of the electrolyte within the Electrode object
+    size_t lytePN = ee->solnPhaseIndex();
+    size_t nspLyte = ee->numSolnPhaseSpecies();
+
+    // First calculate the activities at the electrode object
+
+    /*  get the ThermoPhase for Lyte */
+    thermo_t& tpLyte = ee->thermo(lytePN);
+
+    /*  Set the state to that at the electrode object */
+    tpLyte.restoreState(3+nspLyte, state_Lyte_Electrode);
+
+    std::vector<double> actElectrode(nspLyte);
+    tpLyte.getActivities(actElectrode.data());
+
+    tpLyte.restoreState(3+nspLyte, state_Lyte_SeparatorMid);
+
+    std::vector<double> actSeparator(nspLyte);
+    tpLyte.getActivities(actSeparator.data());
+
+    // Get the vector of stoichiometric coefficients
+
+    rsd->getNetStoichCoeffVector(iRxnIndex, netStoichVec.data());
+
+    size_t lyte_KinP = rsd->solnPhaseIndex();
+    size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
+
+    double pLoss = 0.0;
+    for (size_t k = 0; k < nspLyte; ++k) {
+        double sc = netStoichVec[kinStart + k];
+        if (sc != 0.0) {
+            double deltaV = GasConstant * T_Electrode * log(actElectrode[k]) - GasConstant * T_Separator * log(actSeparator[k]);
+            deltaV *= signADD * sc /(Faraday * nStoich);
+            pLoss += deltaV;
+        }
+    }
+
+    // Keep track of the adjustments in the effective OCV.
+    ocvSurfRxnAdj += pLoss;
+
+    VoltPolPhenom ess(CONC_LOSS_LYTE_PL, region, pLoss);
+    bool found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == CONC_LOSS_LYTE_PL) {
+            found = true;
+            vp = ess;
+        }
+    }
+    if (! found) {
+        voltsPol_list.push_back(ess);
+    }
+
+
 
 }
 //==================================================================================================================================

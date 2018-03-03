@@ -70,14 +70,14 @@ public:
     /*!
      *  Currently, this is not fully implemented. If called it will  throw an exception.
      *
-     *  @param           right                Reference to %Kinetics object to be copied into the current one.
+     *  @param[in]       right                Reference to %Kinetics object to be copied into the current one.
      */
     ReactingSurDomain(const ReactingSurDomain& right);
 
     //! Assignment operator
     /*!
      *
-     *  @param           right                Reference to %Kinetics object to be copied into the current one.
+     *  @param[in]       right                Reference to %Kinetics object to be copied into the current one.
      *
      *  @return                               Returns a reference to the current object
      */
@@ -95,7 +95,7 @@ public:
      *   opportunity to associate the new Kinetics duplicate with a different set of ThermoPhase objects.
      *   This means that we provide a vector of ThermoPhase pointers as input to this routine.
      *
-     *   @param         tpVector              Vector of shallow pointers to ThermoPhase objects. This is the
+     *   @param[in]     tpVector              Vector of shallow pointers to ThermoPhase objects. This is the
      *                                        m_thermo vector within this object.
      *
      *   @return                              Returns a pointer to the duplicate object.
@@ -140,13 +140,21 @@ public:
 
     //! Routine to be called after all reactions have been defined for the object.
     /*!
-     *    This routine initializes vectors based on the number of reactions.
+     *  This routine initializes vectors based on the number of reactions.
      */
     virtual void finalize() override;
 
+    //! Returns the global phase index of the phase in the PhaseList given the index in the Kinetics object
+    /*!
+     *  @param[in]           iphKin              Phase index within the kinetics object
+     *
+     *  @return                                  Returns the global phase index in the PhaseList
+     */
+    size_t globalPhaseIndex_fromKP(size_t iphKin) const;
+
     //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
     /*!
-     *   This routine calls thet getNetProductionRate function and then returns a reference to the result.
+     *  This routine calls thet getNetProductionRate() function and then returns a reference to the result.
      *
      *  @return                               Vector of length m_kk containing the species net
      *                                        production rates (kmol s-1 m-2)
@@ -464,12 +472,10 @@ public:
     //   -----------------------------------   DATA --------------------------------------------------------------------------
     //
 
-    //! Mapping between the phase order in the InterfaceKinetics object
-    //! and the overall order in the PhaseList object
+    //! Mapping between the phase order in the InterfaceKinetics object and the overall order in the PhaseList object
     /*!
      *  Note in the phase list object, surface phases are listed last.
-     *  Length is the number of phases in the interface kinetics object
-     *  value is the id of the phase in the PhaseList object.
+     *  Length is the number of phases in the interface kinetics object value is the id of the phase in the PhaseList object.
      *
      *   kinOrder[kph] = iph;
      *        kph = phase index in the InterfaceKinetics object

@@ -579,6 +579,11 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
     }
 }
 //==================================================================================================================================
+size_t ReactingSurDomain::globalPhaseIndex_fromKP(size_t iphKin) const
+{
+    return kinOrder[iphKin];
+}
+//==================================================================================================================================
 // An an override for the OCV
 void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
 {
