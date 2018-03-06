@@ -1550,10 +1550,10 @@ public:
      */
     double speciesChemPotential(size_t globalSpeciesIndex) const;
 
-    //! Get mole fractions of all species in the phase object
+    //! Get mole fractions of all species in the underlying PhaseList object
     /*!
-     *   @param x  Vector of mole fractions. Index is the same as PhaseList's global species index
-     *             Length = number of species in PhaseList
+     *   @param[out]         x                   Vector of mole fractions. Index is the same as PhaseList's global species index
+     *                                             Length = number of species in PhaseList
      */
     void getMoleFractions(double* const x) const;
 

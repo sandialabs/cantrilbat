@@ -127,7 +127,7 @@ struct VoltPolPhenom
  
      *  When indicating OCV, this will be the voltage of the electrode (phiMetal - phiSoln) for the Cathode.
      *  It will be entered as - (phiMetal - phiSoln) for the anode.
-     *  When the two halfcells are added together, OCV = V_Cathode - V_anode = voltageDrop_Cathode + voltageDrop_anode.
+     *  When the two half-cells are added together, OCV = V_Cathode - V_anode = voltageDrop_Cathode + voltageDrop_anode.
      *
      *  Therefore the following relation will hold for battery discharge
      *        phi_Cathode - phi_Anode = OCV - sum(polarizationLosses)  = sum (voltageDrop_i)
@@ -139,7 +139,7 @@ struct VoltPolPhenom
 };
 
 //===================================================================================================================================
-//! Structure for commumicating polarization results
+//! Structure for communicating polarization results
 /*!
  *  Structure is for one reaction on one surface only. On many electrodes there will only be one surface active at a time.
  *  and there may be multiple reactions on each surface producing electrons. However, the only way to distinguish 
@@ -166,13 +166,13 @@ struct PolarizationSurfRxnResults {
     Electrode* ee;
 
     //!  Index of the reacting surface within the Electrode that the summary is for
-    size_t isurf = npos;
+    size_t isurf_ = npos;
 
     //! Index of the surface reaction on that surface
     /*!
      *  Reaction index that is producing electrons
      */
-    size_t iRxnIndex = npos;
+    size_t iRxnIndex_ = npos;
 
     //! Total current through the surface that is using this particular reaction on this surface
     /*!
@@ -255,7 +255,7 @@ struct PolarizationSurfRxnResults {
      *  @param[in]           region              Region of the solid condition. Two possibilities
      *                                               - 0  anode
      *                                               - 2  cathode
-     *  @param[in]           discharngeDir       Discharge direction:
+     *  @param[in]           dischargeDir        Discharge direction:
      *                                               True if discharging battery
      *                                               False if charging the battery
      */
@@ -279,26 +279,43 @@ struct PolarizationSurfRxnResults {
      */
     void addLyteCondPol(double phiLyteElectrode, double phiLyteBoundary, int region, bool dischargeDir);
 
-     //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
-     //! to the edge of the electrode - separator material interface.
-     /*!
-      *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
-      *  VOLT_LOSS_LYTE_PL.
-      *
-      *  @param[in]           mf_Lyte_Electrode   pointer to the mole fractions of the electrolyte at the electrode object
-      *  @param[in]           mf_Lyte_Electrode     pointer to the mole fractions of the electrolyte at the electrode object
-      *                                            e electrode material - separator
-      *                                           material boundary.
-      *  @param[in]           region              Region of the solid condition. Two possibilities
-      *                                               - 0  anode
-      *                                               - 2  cathode
-      *  @param[in]           discharngeDir       Discharge direction:
-      *                                               True if discharging battery
-      *                                               False if charging the battery
-      */
-     void addLyteConcPol(double* mf_Lyte_Electrode, double* mf_Lyte_Separator, int region, bool dischargeDir);
+    //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
+    //! to the edge of the electrode - separator material interface.
+    /*!
+     *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
+     *  VOLT_LOSS_LYTE_PL.
+     *
+     *  @param[in]           mf_Lyte_Electrode   Pointer to the mole fractions of the electrolyte at the Electrode object
+     *  @param[in]           mf_Lyte_Separator   Pointer to the mole fractions of the electrolyte at the Electrode object
+     *                                            e electrode material - separator
+     *                                           material boundary.
+     *  @param[in]           region              Region of the solid condition. Two possibilities
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     *  @param[in]           discharngeDir       Discharge direction:
+     *                                               True if discharging battery
+     *                                               False if charging the battery
+     */
+    void addLyteConcPol(double* mf_Lyte_Electrode, double* mf_Lyte_Separator, int region, bool dischargeDir);
 
-
+    //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
+    //! to the edge of the electrode - separator material interface.
+    /*!
+     *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
+     *  SOLID_DIFF_CONC_LOSS_PL.
+     *
+     *  @param[in]           mf_Lyte_Electrode   pointer to the mole fractions of the electrolyte at the electrode object
+     *  @param[in]           mf_Lyte_Electrode   pointer to the mole fractions of the electrolyte at the electrode object
+     *                                            e electrode material - separator
+     *                                           material boundary.
+     *  @param[in]           region              Region of the solid condition. Two possibilities
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     *  @param[in]           discharngeDir       Discharge direction:
+     *                                               True if discharging battery
+     *                                               False if charging the battery
+     */
+    void addSolidElectrodeConcPol(double* mf_OuterSurf_Electrode, double* mf_Average_Electrode, int region, bool dischargeDir);
 
     //! Add one PolarizationSurfRxnResults struct into another one
     /*!

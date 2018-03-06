@@ -197,7 +197,7 @@ int main(int argc, char **argv)
 
     return 0;
 
-  } catch (CanteraError) {
+  } catch (CanteraError& ce) {
 
     showErrors();
     return -1;

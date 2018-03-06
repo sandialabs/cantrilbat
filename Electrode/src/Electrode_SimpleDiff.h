@@ -640,8 +640,8 @@ public:
 
     //!  Set the state of the ThermoPhases to the exterior surface
     /*!
-     *      We can set the ThermoPhases using the common temperature and pressure and the mole fraction
-     *      to the exterior cell.
+     *   We can set the ThermoPhases using the common temperature and pressure and the mole fraction
+     *   to the exterior cell.
      */
     void setState_exteriorSurface();
 
@@ -922,7 +922,6 @@ public:
      */
     virtual int calcResid(double* const resid, const ResidEval_Type evalType) override;
 
-
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions
     /*!
      *  (virtual from Electrode)
@@ -944,7 +943,7 @@ public:
     /*!
      *  (virtual from Electrode)
      *  This routine creates a mixture averaged condition of the electrode (eliminating any diffusion process)
-     *  before calculating the OCV. The result is the same as  openCircuitVoltage() in the base class.
+     *  before calculating the OCV. The result is the same as openCircuitVoltage() in the base class.
      *
      *  @param[in]     isk                           Reacting surface domain id
      *  @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  

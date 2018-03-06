@@ -900,7 +900,7 @@ void Electrode_SimpleDiff::setState_exteriorSurface()
 {
     size_t indexMidKRSpecies = (numRCells_ - 1) * numKRSpecies_;
     size_t kstart = 0;
-    for (size_t jRPh = 0; jRPh < numSPhases_; jRPh++) {
+    for (size_t jRPh = 0; jRPh < numSPhases_; ++jRPh) {
         ThermoPhase* th = thermoSPhase_List_[jRPh];
         size_t nSpecies = th->nSpecies();
         th->setState_TPX(temperature_, pressure_, &spMf_KRSpecies_Cell_final_[indexMidKRSpecies + kstart]);
@@ -4228,7 +4228,7 @@ void Electrode_SimpleDiff::setFinalFinalStateFromFinal()
     onRegionBoundary_final_final_ = onRegionBoundary_final_;
 }
 //==================================================================================================================================
-double  Electrode_SimpleDiff::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)
+double Electrode_SimpleDiff::openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode)
 {
     /*
      *  Load the conditions of the last cell into the ThermoPhase object
@@ -4246,18 +4246,22 @@ double  Electrode_SimpleDiff::openCircuitVoltage(size_t isk, bool comparedToRefe
     return val;
 }
 //==================================================================================================================================
-double  Electrode_SimpleDiff::openCircuitVoltage_MixtureAveraged(size_t isk, bool compareToReferenceElectrode)
+double Electrode_SimpleDiff::openCircuitVoltage_MixtureAveraged(size_t isk, bool compareToReferenceElectrode)
 {
+    size_t jRPh, iPh;
+    double* spMf_ptr;
+    thermo_t_double* tp;
     /*
-     *  Load the conditions of the Averaged values into the ThermoPhase object
+     *  Load the conditions of the mixture-averaged values into the ThermoPhase object
+     *  These are kept in the base class.
      */
-    for (size_t jRPh = 0; jRPh < numSPhases_; jRPh++) {
-        size_t iPh = phaseIndeciseKRsolidPhases_[jRPh];
-        ThermoPhase* tp = thermoSPhase_List_[jRPh];
-        double* spMf_ptr = &spMf_final_[m_PhaseSpeciesStartIndex[iPh]];
+    for (jRPh = 0; jRPh < numSPhases_; ++jRPh) {
+        iPh = phaseIndeciseKRsolidPhases_[jRPh];
+        tp = thermoSPhase_List_[jRPh];
+        spMf_ptr = &spMf_final_[m_PhaseSpeciesStartIndex[iPh]];
         tp->setState_TPX(temperature_, pressure_, spMf_ptr);
     }
-    double val = Electrode::openCircuitVoltage_MixtureAveraged(isk, compareToReferenceElectrode);
+    double val = Electrode::openCircuitVoltage(isk, compareToReferenceElectrode);
     return val;
 }
 //===================================================================================================================================

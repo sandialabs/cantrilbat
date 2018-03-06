@@ -28,9 +28,9 @@ PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber
                                                        size_t surfIndex, size_t rxnIndex) :
     electrodeDomainNumber_(electrodeDomainNumber),
     electrodeCellNumber_(electrodeCellNumber),
-	ee(nullptr),
-    isurf(surfIndex),
-    iRxnIndex(rxnIndex)
+    ee(nullptr),
+    isurf_(surfIndex),
+    iRxnIndex_(rxnIndex)
 {
 }
 //==================================================================================================================================
@@ -180,7 +180,7 @@ void PolarizationSurfRxnResults::addLyteCondPol(double phiLyteElectrode, double 
 }
 //==================================================================================================================================
 void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorMid,
-		                                        int region, bool dischargeDir)
+                                                int region, bool dischargeDir)
 {
     bool anodeDischargeDir = true;
     if (region == 0) {
@@ -193,11 +193,13 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
         signADD = -1.0;
     }
 
+
+
     // Fetch the ReactingSurDomain object for the current
-    ReactingSurDomain* rsd = ee->reactingSurface(isurf);
+    ReactingSurDomain* rsd = ee->reactingSurface(isurf_);
 
     // Fetch the number of stoichiometric electrons for the current reaction
-    doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex);
+    doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex_);
 
     // extract temperatures
     double T_Electrode =  state_Lyte_Electrode[0];
@@ -228,7 +230,7 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
 
     // Get the vector of stoichiometric coefficients
 
-    rsd->getNetStoichCoeffVector(iRxnIndex, netStoichVec.data());
+    rsd->getNetStoichCoeffVector(iRxnIndex_, netStoichVec.data());
 
     size_t lyte_KinP = rsd->solnPhaseIndex();
     size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
@@ -259,6 +261,59 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
     }
 
 
+
+}
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_Electrode, double* mf_Average_Electrode,
+                                                          int region, bool dischargeDir)
+{
+
+    Electrode_Types_Enum eT = ee->electrodeType();
+    if (eT != SIMPLE_DIFF_ET) {
+        return;
+    }
+
+    double signADD = 1.0;
+    if (!dischargeDir) {
+        signADD = -1.0;
+    }
+
+    // Fetch the ReactingSurDomain object for the current
+    //ReactingSurDomain* rsd = ee->reactingSurface(isurf_);
+
+    // Fetch the number of stoichiometric electrons for the current reaction
+    //doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex_);
+    //size_t numKinSpecies = rsd->nKinSpecies();
+
+    // Get the phase number of the electrolyte within the Electrode object
+    //size_t lytePN = ee->solnPhaseIndex();
+    //size_t nspLyte = ee->numSolnPhaseSpecies();
+    //size_t lyte_KinP = rsd->solnPhaseIndex();
+    //size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
+
+    double ocv_mixAvg = ee->openCircuitVoltage_MixtureAveraged(isurf_);
+
+    double ocv_diff = ee->openCircuitVoltage(isurf_);
+
+    double pLoss = 0.0;
+    double deltaV = ocv_diff - ocv_mixAvg;
+    deltaV *= signADD;
+    pLoss += deltaV;
+
+    // Keep track of the adjustments in the effective OCV.
+    ocvSurfRxnAdj += deltaV;
+
+    VoltPolPhenom ess(SOLID_DIFF_CONC_LOSS_PL, region, pLoss);
+    bool found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == SOLID_DIFF_CONC_LOSS_PL) {
+            found = true;
+            vp = ess;
+        }
+    }
+    if (! found) {
+        voltsPol_list.push_back(ess);
+    }
 
 }
 //==================================================================================================================================

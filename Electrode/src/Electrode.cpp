@@ -2181,13 +2181,13 @@ double Electrode::speciesChemPotential(size_t iGlobalSpIndex) const
 {
     // DANGER -> Check to see this is updated
 
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; ++iph) {
         ThermoPhase* tphase = &(thermo(iph));
         size_t kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getChemPotentials(&(spElectroChemPot_[kStart]));
     }
     double tmp = spElectroChemPot_[iGlobalSpIndex];
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; ++iph) {
         ThermoPhase* tphase = &(thermo(iph));
         size_t kStart = m_PhaseSpeciesStartIndex[iph];
         tphase->getElectrochemPotentials(&(spElectroChemPot_[kStart]));
@@ -3648,7 +3648,7 @@ void Electrode::integratedPolarizationCalc()
         found = false;
         for (j = 0; j <  polarSrc_list_.size(); ++i) {
             struct PolarizationSurfRxnResults& ps = polarSrc_list_[j];
-            if ((psLast.isurf == ps.isurf) && (psLast.iRxnIndex == ps.iRxnIndex) ) {
+            if ((psLast.isurf_ == ps.isurf_) && (psLast.iRxnIndex_ == ps.iRxnIndex_) ) {
                 ps.addSubStep(psLast);
                 found = true;
             }
