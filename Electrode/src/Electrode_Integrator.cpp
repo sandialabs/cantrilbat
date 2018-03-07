@@ -2392,7 +2392,7 @@ void Electrode_Integrator::printElectrodePhase(size_t iph, int pSrc, bool subTim
         int nphRS = RSD_List_[isph]->nPhases();
         int kIndexKin = 0;
         for (int kph = 0; kph < nphRS; kph++) {
-            int jph = RSD_List_[isph]->kinOrder[kph];
+            int jph = RSD_List_[isph]->kinOrder_[kph];
             int istart = m_PhaseSpeciesStartIndex[jph];
             int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
             for (int k = 0; k < nsp; k++) {

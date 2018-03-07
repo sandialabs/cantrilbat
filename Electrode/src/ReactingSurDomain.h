@@ -144,6 +144,12 @@ public:
      */
     virtual void finalize() override;
 
+    //
+    //------------------------------------------------------------------------------------------------------------------------------
+    //! @name               Conversion of Phase and Species Indecise Between PhaseList and Kinetics Objects
+    //------------------------------------------------------------------------------------------------------------------------------
+    //@{
+
     //! Returns the global phase index of the phase in the PhaseList given the index in the Kinetics object
     /*!
      *  @param[in]           iphKin              Phase index within the kinetics object
@@ -151,6 +157,8 @@ public:
      *  @return                                  Returns the global phase index in the PhaseList
      */
     size_t globalPhaseIndex_fromKP(size_t iphKin) const;
+
+    //@}
 
     //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
     /*!
@@ -481,7 +489,7 @@ public:
      *        kph = phase index in the InterfaceKinetics object
      *        iph = phase index in the PhaseList object
      */
-    std::vector<size_t> kinOrder;
+    std::vector<size_t> kinOrder_;
 
     //! Vector of the indexes of each phase in the ReactionSurfaceDomain object
     //! given the index within the PhaseList object

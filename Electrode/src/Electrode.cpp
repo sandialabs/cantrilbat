@@ -942,7 +942,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         if (rsd) {
             bool found = false;
             for (size_t ph = 0; ph < rsd->nPhases(); ++ph) {
-                size_t iph = rsd->kinOrder[ph];
+                size_t iph = rsd->kinOrder_[ph];
                 if (iph == solnPhase_) {
                     found = true;
                 }
@@ -2675,7 +2675,7 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
         size_t nphRS = RSD_List_[isk]->nPhases();
         size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; kph++) {
-            size_t jph = RSD_List_[isk]->kinOrder[kph];
+            size_t jph = RSD_List_[isk]->kinOrder_[kph];
             size_t kstart = m_PhaseSpeciesStartIndex[jph];
             for (size_t k = 0; k < NumSpeciesList_[jph]; k++) {
                 net[kstart + k] += rsSpeciesProductionRates[kIndexKin];
@@ -2814,7 +2814,7 @@ void Electrode::getPhaseMassFlux(const size_t isk, double* const phaseMassFlux)
         size_t nphRS = RSD_List_[isk]->nPhases();
         size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; kph++) {
-            size_t jph = RSD_List_[isk]->kinOrder[kph];
+            size_t jph = RSD_List_[isk]->kinOrder_[kph];
             ThermoPhase& tp = thermo(jph);
             size_t istart = m_PhaseSpeciesStartIndex[jph];
             size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
@@ -2843,7 +2843,7 @@ void Electrode::getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux)
         size_t nphRS = RSD_List_[isk]->nPhases();
         size_t kIndexKin = 0;
         for (size_t RSph = 0; RSph < nphRS; RSph++) {
-            size_t PLph = RSD_List_[isk]->kinOrder[RSph];
+            size_t PLph = RSD_List_[isk]->kinOrder_[RSph];
             size_t istart = m_PhaseSpeciesStartIndex[PLph];
             size_t nsp = m_PhaseSpeciesStartIndex[PLph + 1] - istart;
             for (size_t k = 0; k < nsp; k++) {
@@ -3812,7 +3812,7 @@ int Electrode::phasePopKinResid(size_t iphaseTarget, const double* const Xf_phas
             ReactingSurDomain* rsd = RSD_List_[isk];
             size_t nph = rsd->nPhases();
             for (size_t jph = 0; jph < nph; jph++) {
-                size_t iph = rsd->kinOrder[jph];
+                size_t iph = rsd->kinOrder_[jph];
                 if (iph == metalPhase_) {
                     continue;
                 }
@@ -3871,7 +3871,7 @@ int Electrode::phasePopKinResid(size_t iphaseTarget, const double* const Xf_phas
             size_t jph, kph;
             size_t kIndexKin = 0;
             for (kph = 0; kph < nphRS; kph++) {
-                jph = RSD_List_[isk]->kinOrder[kph];
+                jph = RSD_List_[isk]->kinOrder_[kph];
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
                 for (size_t k = 0; k < nsp; k++) {
@@ -4876,7 +4876,7 @@ void Electrode::speciesProductionRates(double* const spMoleDot)
             size_t nphRS = RSD_List_[isk]->nPhases();
             int kIndexKin = 0;
             for (size_t kph = 0; kph < nphRS; kph++) {
-                size_t jph = RSD_List_[isk]->kinOrder[kph];
+                size_t jph = RSD_List_[isk]->kinOrder_[kph];
                 int istart = m_PhaseSpeciesStartIndex[jph];
                 int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
                 for (int k = 0; k < nsp; k++) {
@@ -5326,7 +5326,7 @@ void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpec
             ReactingSurDomain* rsd = RSD_List_[isk];
             size_t nph = rsd->nPhases();
             for (size_t jph = 0; jph < nph; jph++) {
-                size_t iph = rsd->kinOrder[jph];
+                size_t iph = rsd->kinOrder_[jph];
                 if (iph == metalPhase_) {
                     continue;
                 }
@@ -5589,7 +5589,7 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
             size_t nphRS = RSD_List_[isurf]->nPhases();
             size_t kIndexKin = 0;
             for (size_t kph = 0; kph < nphRS; kph++) {
-                size_t jph = RSD_List_[isurf]->kinOrder[kph];
+                size_t jph = RSD_List_[isurf]->kinOrder_[kph];
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
                 for (size_t k = 0; k < nsp; k++) {

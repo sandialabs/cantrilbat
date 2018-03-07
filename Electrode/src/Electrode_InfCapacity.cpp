@@ -157,7 +157,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
             size_t jph, kph;
             size_t kIndexKin = 0;
             for (kph = 0; kph < nphRS; kph++) {
-                jph = RSD_List_[isk]->kinOrder[kph];
+                jph = RSD_List_[isk]->kinOrder_[kph];
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
                 for (size_t k = 0; k < nsp; k++) {

@@ -30,7 +30,6 @@ namespace Cantera
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain() :
     ElectrodeKinetics(),
-    kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
     KintoPLSpeciesIndex_(0),
@@ -62,7 +61,6 @@ ReactingSurDomain::ReactingSurDomain() :
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     ElectrodeKinetics(),
-    kinOrder(0),
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
     KintoPLSpeciesIndex_(0),
@@ -95,7 +93,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
 //==================================================================================================================================
 ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     ElectrodeKinetics(),
-    kinOrder(pl->nPhases(), npos),
+    kinOrder_(pl->nPhases(), npos),
     PLtoKinPhaseIndex_(pl->nPhases(), npos),
     PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
     KintoPLSpeciesIndex_(0),
@@ -150,7 +148,7 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     //
     ElectrodeKinetics::operator=(right);
 
-    kinOrder        = right.kinOrder;
+    kinOrder_       = right.kinOrder_;
     PLtoKinPhaseIndex_ = right.PLtoKinPhaseIndex_;
     PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
     KintoPLSpeciesIndex_ = right.KintoPLSpeciesIndex_;
@@ -231,6 +229,11 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
     ReactingSurDomain* rsd = new ReactingSurDomain(*this);
     rsd->assignShallowPointers(tpVector);
     return dynamic_cast<Kinetics*>(rsd);
+}
+//==================================================================================================================================
+size_t ReactingSurDomain::globalPhaseIndex_fromKP(size_t iphKin) const
+{
+    return kinOrder_[iphKin];
 }
 //==================================================================================================================================
 // Returns a reference to the calculated production rates of species
@@ -479,7 +482,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          */
         std::vector<thermo_t_double*> tpList;
         tpList_IDs_.clear();
-        kinOrder.resize(nPhasesFound, npos);
+        kinOrder_.resize(nPhasesFound, npos);
 
         iphaseKin_ = iskin + pl->nVolPhases();
         m_DoSurfKinetics = true;
@@ -507,7 +510,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          *  Create a mapping between the ReactingSurfPhase to the PhaseList phase
          */
         size_t nKinPhases = nPhases();
-        kinOrder.resize(nKinPhases, npos);
+        kinOrder_.resize(nKinPhases, npos);
         PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
         PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
 	KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
@@ -527,7 +530,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
             if (jph == npos) {
                 throw ZuzaxError("ReactingSurDomain::importFromPL()", "phase not found");
             }
-            kinOrder[kph] = jph;
+            kinOrder_[kph] = jph;
             PLtoKinPhaseIndex_[jph] = kph;
 
             size_t PLkstart = pl->globalSpeciesIndex(jph, 0);
@@ -577,11 +580,6 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         throw ZuzaxError("ReactingSurDomain::importFromPL()", "error encountered");
         return false;
     }
-}
-//==================================================================================================================================
-size_t ReactingSurDomain::globalPhaseIndex_fromKP(size_t iphKin) const
-{
-    return kinOrder[iphKin];
 }
 //==================================================================================================================================
 // An an override for the OCV
