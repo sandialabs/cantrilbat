@@ -25,9 +25,15 @@
 namespace m1d {
 
 //==================================================================================================================================
+//! Class that specializes the global heat balance for batteries
+/*!
+ *  This is filled up on a domain basis.
+ *   
+ */
 class globalHeatBalValsBat : public globalHeatBalVals
 {
 public:
+    //! Default constructor
     globalHeatBalValsBat() :
     globalHeatBalVals(),
       totalEnthalpyInit(0.0),
@@ -46,11 +52,13 @@ public:
 	  
       }
     
-    ~globalHeatBalValsBat()
+    //! Destructor
+    virtual ~globalHeatBalValsBat()
     {
     }
 
 
+    //! Zero all of the values within the structure
     virtual void zero()
     {
 	globalHeatBalVals::zero();
@@ -89,6 +97,10 @@ public:
 
     }
 
+    //! Resize all of the variables associated with the Electrolyte
+    /*!
+     *  @param[in]           nsp                 Number of species in the electrolyte
+     */
     virtual void sizeLyte(size_t nsp)
     {
 	species_Lyte_New_Total.resize(nsp, 0.0);
@@ -117,7 +129,18 @@ public:
      */
     double totalEnthalpyFinal;
 
+    //! Current leaving the domain on the right.
+    /*!
+     *  This is filled in only for the cathode domain ATM
+     *  Units: amps / m2  (area is the cross-sectional aria of the battery)
+     */
     double currentRight;
+
+    //! Current leaving the domain on the left.
+    /*!
+     *  This is filled in only for the anode domain ATM
+     *  Units: amps / m2  (area is the cross-sectional aria of the battery)
+     */
     double currentLeft;
 
     double JHelecRight;
@@ -126,6 +149,7 @@ public:
     double phiSolid;
     double phiLyte;
 
+    //! Value of the joule heat term
     double jouleHeat_lyte;
     double enthalpyIVfluxRight;
     double enthalpyIVfluxLeft;

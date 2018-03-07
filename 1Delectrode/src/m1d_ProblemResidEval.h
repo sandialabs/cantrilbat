@@ -660,7 +660,7 @@ public:
      *  @param[in]           solnWeights         Vector of solution weights used in creating normalized error values.
      *                                           Defaults to 0, indicating none is available.
      */
-    virtual void calcDeltaSolnVariables(const double t, const Epetra_Vector_Ghosted& soln,
+    virtual void calcDeltaSolnVariables(double t, const Epetra_Vector_Ghosted& soln,
                                         const Epetra_Vector_Ghosted* const solnDot_ptr, Epetra_Vector_Ghosted& deltaSoln,
                                         const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
                                         const Epetra_Vector_Ghosted* const solnWeights = nullptr);

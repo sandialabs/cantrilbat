@@ -1848,9 +1848,9 @@ int ProblemResidEval::GbEqnToLcEqn(const int gbEqn) const
     return -1;
 }
 //==================================================================================================================================
-void ProblemResidEval::calcDeltaSolnVariables(const double t, const Epetra_Vector& soln, const Epetra_Vector* solnDot_ptr,
-                                              Epetra_Vector& deltaSoln, const Solve_Type solveType,
-                                              const Epetra_Vector* solnWeights)
+void ProblemResidEval::calcDeltaSolnVariables(double t, const Epetra_Vector_Ghosted& soln, const Epetra_Vector_Ghosted* solnDot_ptr,
+                                              Epetra_Vector_Ghosted& deltaSoln, const Zuzax::Solve_Type solveType,
+                                              const Epetra_Vector_Ghosted* solnWeights)
 {
     DomainLayout& DL = *DL_ptr_;
     for (size_t iDom = 0; iDom < (size_t) DL.NumBulkDomains; iDom++) {
