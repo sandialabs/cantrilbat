@@ -158,6 +158,44 @@ public:
      */
     size_t globalPhaseIndex_fromKP(size_t iphKin) const;
 
+    //! Returns the global phase index within the PhaseList corresponding to the phase which owns the kinetic object
+    /*!
+     *  @return                                  Returns the index within PhaseList that owns the Kinetics object
+     */
+    size_t globalReactionPhaseIndex() const {
+        return m_iphGlobKin;
+    }
+
+    //! Returns the kinetics phase index of the phase given the global index in the PhaseList
+    /*!
+     *  If not present returns npos
+     *  @param[in]           iphGlob             Global phase index within the Phaselist object
+     *
+     *  @return                                  Returns the kinetics phase index or npos if not present
+     */
+    size_t kineticsPhaseIndex_fromPLP(size_t iphGlob) const;
+
+    //! Returns the offset from the start of the PhaseList species vector for the argument Kinetics phase index
+    /*!
+     *  @param[in]           iphKin              Phase index within the Kinetics object
+     *
+     *  @return                                  Returns the offset within a PhaseList species vector from the start of the species
+     *                                           belonging to the Kinetics phase listed in the parameter
+     */
+    size_t globalSpeciesStart_fromKP(size_t iphKin) const;
+
+    //! Returns the offset from the start of the Kinetics object species vector for the species in the argument Phaselist phase index
+    /*!
+     *  Phases which aren't in the Kinetics object will return an npos value.
+     *
+     *  @param[in]           iphGlob             Phase index within the PhaseList object
+     *
+     *  @return                                  Returns the offset within a Kinetics species vector from the start of the species
+     *                                           belonging to the PhaseList phase listed in the parameter. 
+     *                                           If that phase doesn't exist, this returns npos.
+     */
+    size_t kineticsSpeciesStart_fromPLP(size_t iphGlob) const;
+
     //@}
 
     //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
@@ -506,6 +544,22 @@ public:
      */
     std::vector<size_t> PLtoKinPhaseIndex_;
 
+    //! Index mapping kinetics species start index to the PhaseList species start index.
+    /*!
+     *  Value is the offset index for that kinetics phase within the species PhaseList vector
+     *  Length:  nPhases in kinetics object 
+     */
+    std::vector<size_t> KinToPL_SpeciesStartIndex_;
+
+    //! Index mapping phaselist species start index to the kinetics species start index.
+    /*!
+     *  Value is the offset index for that Phaselist phase within the species Kinetics vector
+     *  Length:  nPhases in PhaseList object 
+     *
+     *  Phases which are missing in the kinetics object have a npos value in their entry
+     */
+    std::vector<size_t> PLToKin_SpeciesStartIndex_;
+
     //! Vector of the indexes of each species in the ReactionSurfaceDomain object
     //! given the index within the PhaseList object
     /*!
@@ -528,9 +582,9 @@ public:
      */
     std::vector<size_t> KintoPLSpeciesIndex_;
 
-    //! Global phase Index of the phase in the PhaseList object that has the kinetics
+    //! Global phase index of the phase in the PhaseList object that has the kinetics
     //! object for this reacting surface.
-    size_t iphaseKin_;
+    size_t m_iphGlobKin;
 
     //! List of names that constitute the ThermoPhases needed for the kinetics object
     /*!

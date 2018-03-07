@@ -33,7 +33,7 @@ ReactingSurDomain::ReactingSurDomain() :
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
     KintoPLSpeciesIndex_(0),
-    iphaseKin_(npos),
+    m_iphGlobKin(npos),
     tpList_IDs_(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
@@ -64,7 +64,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     PLtoKinPhaseIndex_(0),
     PLtoKinSpeciesIndex_(0),
     KintoPLSpeciesIndex_(0),
-    iphaseKin_(npos),
+    m_iphGlobKin(npos),
     tpList_IDs_(0),
     m_DoSurfKinetics(false),
     speciesProductionRates_(0),
@@ -97,7 +97,7 @@ ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     PLtoKinPhaseIndex_(pl->nPhases(), npos),
     PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
     KintoPLSpeciesIndex_(0),
-    iphaseKin_(iskin + pl->nVolPhases()),
+    m_iphGlobKin(iskin + pl->nVolPhases()),
     m_DoSurfKinetics(true),
     speciesProductionRates_(0),
     limitedROP_(0),
@@ -126,13 +126,6 @@ ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     }
 }
 //==================================================================================================================================
-// Assignment operator
-/*
- *  This is NOT a virtual function.
- *
- * @param right    Reference to %Kinetics object to be copied into the
- *                 current one.
- */
 ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
 {
     /*
@@ -152,7 +145,7 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     PLtoKinPhaseIndex_ = right.PLtoKinPhaseIndex_;
     PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
     KintoPLSpeciesIndex_ = right.KintoPLSpeciesIndex_;
-    iphaseKin_      = right.iphaseKin_;
+    m_iphGlobKin         = right.m_iphGlobKin;
     tpList_IDs_     = right.tpList_IDs_;
     m_DoSurfKinetics = right.m_DoSurfKinetics;
     speciesProductionRates_ = right.speciesProductionRates_;
@@ -234,6 +227,23 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
 size_t ReactingSurDomain::globalPhaseIndex_fromKP(size_t iphKin) const
 {
     return kinOrder_[iphKin];
+}
+//==================================================================================================================================
+size_t ReactingSurDomain::kineticsPhaseIndex_fromPLP(size_t iphGlob) const
+{
+    // This sometimes returns npos, which is the correct response
+    return PLtoKinPhaseIndex_[iphGlob];
+}
+//==================================================================================================================================
+size_t ReactingSurDomain::globalSpeciesStart_fromKP(size_t iphKin) const
+{
+    return KinToPL_SpeciesStartIndex_[iphKin];
+}
+//==================================================================================================================================
+size_t ReactingSurDomain::kineticsSpeciesStart_fromPLP(size_t iphGlob) const
+{
+    // This sometimes returns npos, which is the correct response
+    return PLToKin_SpeciesStartIndex_[iphGlob];
 }
 //==================================================================================================================================
 // Returns a reference to the calculated production rates of species
@@ -484,7 +494,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         tpList_IDs_.clear();
         kinOrder_.resize(nPhasesFound, npos);
 
-        iphaseKin_ = iskin + pl->nVolPhases();
+        m_iphGlobKin = iskin + pl->nVolPhases();
         m_DoSurfKinetics = true;
 
         
@@ -511,38 +521,46 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          */
         size_t nKinPhases = nPhases();
         kinOrder_.resize(nKinPhases, npos);
-        PLtoKinPhaseIndex_.resize(pl->nPhases(), npos);
-        PLtoKinSpeciesIndex_.resize(pl->nSpecies(), npos);
+        KinToPL_SpeciesStartIndex_.resize(nKinPhases, npos);
 	KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
+        PLtoKinPhaseIndex_.resize(m_pl->nPhases(), npos);
+        PLtoKinSpeciesIndex_.resize(m_pl->nSpecies(), npos);
+        PLToKin_SpeciesStartIndex_.resize(m_pl->nPhases(), npos);
+
+        for (size_t iph = 0; iph < m_pl->nPhases(); ++iph) {
+           PLToKin_SpeciesStartIndex_[iph] = npos;
+        }
 
         for (size_t kph = 0; kph < nKinPhases; kph++) {
             thermo_t_double& tt = thermo(kph);
             std::string kname = tt.id();
-            size_t jph = npos;
+            size_t jphPL = npos;
             for (size_t iph = 0; iph < pl->nPhases(); iph++) {
                 ThermoPhase& pp = pl->thermo(iph);
                 std::string iname = pp.id();
                 if (iname == kname) {
-                    jph = iph;
+                    jphPL = iph;
                     break;
                 }
             }
-            if (jph == npos) {
-                throw ZuzaxError("ReactingSurDomain::importFromPL()", "phase not found");
+            if (jphPL == npos) {
+                throw ZuzaxError("ReactingSurDomain::importFromPL()", "phase not found in the PhaseList object");
             }
-            kinOrder_[kph] = jph;
-            PLtoKinPhaseIndex_[jph] = kph;
+            kinOrder_[kph] = jphPL;
+            PLtoKinPhaseIndex_[jphPL] = kph;
 
-            size_t PLkstart = pl->globalSpeciesIndex(jph, 0);
+            size_t PLkstart = pl->globalSpeciesIndex(jphPL, 0);
             size_t nspPhase = tt.nSpecies();
             for (size_t k = 0; k < nspPhase; k++) {
                 if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
                     throw ZuzaxError("ReactingSurDomain::importFromPL()",
-                                       "Indexing error found while initializing  PLtoKinSpeciesIndex_");
+                                     "Indexing error found while initializing  PLtoKinSpeciesIndex_");
                 }
                 PLtoKinSpeciesIndex_[k + PLkstart] = m_start[kph] + k;
 		KintoPLSpeciesIndex_[m_start[kph] + k] = k + PLkstart;
             }
+            KinToPL_SpeciesStartIndex_[kph] = PLkstart;
+            PLToKin_SpeciesStartIndex_[jphPL] = m_start[kph];
         }
 
         /*
