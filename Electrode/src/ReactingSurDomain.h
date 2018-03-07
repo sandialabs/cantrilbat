@@ -513,7 +513,6 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd);
 
-
     //
     //   -----------------------------------   DATA --------------------------------------------------------------------------
     //
@@ -572,6 +571,7 @@ public:
      *
      *  A value of npos in this slot means that the species doesn't participate in the
      *  current ReactingSurDomain object
+     *  @deprecated
      */
     std::vector<size_t> PLtoKinSpeciesIndex_;
 
@@ -579,6 +579,7 @@ public:
     /*!
      *   Length is the number of species in the kinetics species list
      *   Length:   m_NumKinSpecies;
+     *  @deprecated
      */
     std::vector<size_t> KintoPLSpeciesIndex_;
 
