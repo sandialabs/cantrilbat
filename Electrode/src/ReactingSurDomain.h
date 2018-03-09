@@ -102,35 +102,42 @@ public:
      */
     virtual Kinetics* duplMyselfAsKinetics(const std::vector<thermo_t*>& tpVector) const override;
 
-    //!  Import all the phases from a PhaseList and initialize the surface kinetics for this object
+    //!  Imports and initializes the surface kinetics for a kinetics object given a PhaseList object that is already set up
     /*!
      *   This routine initializes a ReactingSurDomain object and its underlying interfacial kinetics
      *   given a PhaseList object. It uses the XML data written into the PhaseList object to go find
-     *   and initialize the surface kinetics. On input the surface phase containing the kinetics
-     *   must be identified via the parameter list. It then reads the XML data for the surface
-     *   phase. It then finds the ThermoPhase objects within the PhaseList associated with the
-     *   surface kinetics.
+     *   and initialize the surface kinetics. On input the surface phase containing the surface kinetics
+     *   must be identified via the parameter list. It then reads the XML data for the surface phase.
+     *   It then finds the ThermoPhase objects within the PhaseList associated with the surface kinetics.
      *
      *   The routine finds all of the ThermoPhase objects that are part of the Kinetics object by
-     *   querying the XML node phaseArray. It then finds these ThermoPhase objects within the PhaseList
+     *   querying the XML node, phaseArray. It then finds these ThermoPhase objects within the PhaseList
      *   objects to see if the kinetics object can be successfully formulated.
      *   It then creates the kinetics object by calling Zuzax's importPhase() routine.
      *   
-     *   Then other initializations are carried out such as formulating the kinetics species list
+     *   Then, other initializations are carried out such as formulating the kinetics species list
      *   and its indexing into the Phaselist species list.
      *
-     *   Right now it is an error for there not to be a kinetics mechanism.
+     *   Right now it is an error for there not to be a kinetics mechanism associated with the argument surface phase.
      *
      *   @param[in]     pl                         Fully formed pointer to the PhaseList object that will be associated
      *                                             with this object.
      *
-     *   @param[in]     iskin                      The index of the surface phase within the PhaseList that has the 
-     *                                             surface kinetics associated with it.
+     *   @param[in]     iphSurKin                  The surface phase index of the surface phase within the PhaseList that has the 
+     *                                             surface kinetics associated with it. 
      *
      *   @return                                   Returns true upon proper instanteation of the kinetics. Returns false
      *                                             if there was a problem.
      */
-    bool importFromPL(ZZCantera::PhaseList* const pl, size_t iskin);
+    bool importFromPL(ZZCantera::PhaseList* const pl, size_t iphSurKin);
+
+    //! Redo the initialization
+    /*!
+     *  This redoes the index initializations between the kinetics object and the PhaseList object.
+     *  This must be called if the PhaseList class has added or subtracted phases,
+     *  or if a ThermoPhase class has added or subtracted species.
+     */
+    virtual void reinitializeIndexing();
 
     //! Routine to be called after all species and phases have been defined for the object
     /*!
@@ -531,7 +538,7 @@ public:
     //! Vector of the indexes of each phase in the ReactionSurfaceDomain object
     //! given the index within the PhaseList object
     /*!
-     *       jph = PLtoKinPhaseIndex_[iph];
+     *       jph = PLToKin_PhaseIndex_[iph];
      *
      *          iph refers to the index of the phase in the Electrode_Model object 
      *          jph refers to the index of the phase in the heterogeneous kinetics object
@@ -541,7 +548,7 @@ public:
      *  A value of -1 or npos in this slot means that the phase doesn't participate in the
      *  current ReactingSurDomain object
      */
-    std::vector<size_t> PLtoKinPhaseIndex_;
+    std::vector<size_t> PLToKin_PhaseIndex_;
 
     //! Index mapping kinetics species start index to the PhaseList species start index.
     /*!
@@ -663,6 +670,20 @@ public:
      *  This object doesn't own this. However, it uses this heavily. It is a shallow pointer.
      */
     ZZCantera::PhaseList* m_pl;
+
+    //! This is true if the PhaseList and the KinSpecies list are exactly the same thing
+    /*!
+     *  This has advantages in terms of the speed for posting results for source terms
+     */
+    bool m_OneToOne;
+
+    //! This is true if the KinSpecies list is contiguous within the PhaseList list
+    /*!
+     *  This will be true if the phases within the Kinetics object are ordered in the same as in 
+     *  the PhaseList object. There may be additional phases in the PhaseList object in the beginning or the end of the object.
+     *  However, the kinetic species vector may be considered to be a subset of the PhaseList vector.
+     */
+    bool m_IsContiguous;
 
     //!  Pointer to an OCV_Override_input object which is used to override the thermodynamics of an electrode
     //!  reaction given input

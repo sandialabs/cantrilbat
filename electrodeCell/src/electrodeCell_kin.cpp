@@ -1635,13 +1635,13 @@ double processGERCurrent(ZZCantera::RxnMolChange *rmc,
   std::vector<double> deltaSSG;
   deltaSSG.resize(nr, 0.0);
   size_t iphMetal = electrode->metalPhaseIndex();
-  size_t RSphMetal = iK->PLtoKinPhaseIndex_[iphMetal];
+  size_t RSphMetal = iK->PLToKin_PhaseIndex_[iphMetal];
   //int RSphMetal = electrode->CurrReactingSurfacePhaseIndex(iphMetal);
   double phi0Metal = electrode->phaseElectricPotential(iphMetal);
   double nStoichElectrons = - rmc->m_phaseChargeChange[RSphMetal];
 
   size_t iphSoln = electrode->solnPhaseIndex();
-  size_t jphSoln =  iK->PLtoKinPhaseIndex_[iphSoln];
+  size_t jphSoln =  iK->PLToKin_PhaseIndex_[iphSoln];
   //int jphSoln = electrode->CurrReactingSurfacePhaseIndex(iphSoln);
   ThermoPhase& tpJSoln = kin.thermo(jphSoln);
   double phi0Soln = tpJSoln.electricPotential();

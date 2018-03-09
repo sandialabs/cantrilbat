@@ -842,7 +842,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
             }
         }
         if (iph != metalPhase_) {
-            size_t jph = rsd->PLtoKinPhaseIndex_[iph];
+            size_t jph = rsd->PLToKin_PhaseIndex_[iph];
             if (jph != npos) {
                 for (size_t i = 0; i < nr; i++) {
                     RxnMolChange* rmc = rmcV[i];
@@ -896,9 +896,9 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                         }
                     }
                     if (iph != metalPhase_) {
-                        size_t jph = rsd->PLtoKinPhaseIndex_[iph];
+                        size_t jph = rsd->PLToKin_PhaseIndex_[iph];
                         if (jph != npos) {
-                            for (size_t i = 0; i < nr; i++) {
+                            for (size_t i = 0; i < nr; ++i) {
                                 RxnMolChange* rmc = rmcV[i];
                                 if (rmc->m_phaseChargeChange[jph] != 0) {
                                     if (rmc->m_phaseDims[jph] == 3) {
@@ -2225,23 +2225,13 @@ double Electrode::moleNumSpecies(size_t globalSpeciesIndex) const
     return spMoles_final_[globalSpeciesIndex];
 }
 //==================================================================================================================================
-// Returns the index of a phase in the ReactionSurfaceDomain object
-// given the index of that phase in the PhaseList object
-/*
- * @param PLph index of the phase in the PhaseList object, which is also the
- *             Electrode_Model object.
- *
- *  @return  Returns the index of the phase in the current ReactingSurDomain
- *           object. A value of -1 in this slot means that the phase doesn't
- *           participate in the  current ReactingSurDomain object
- */
-size_t Electrode::ReactingSurfacePhaseIndex(size_t isk, size_t PLph) const
+size_t Electrode::ReactingSurfacePhaseIndex(size_t isk, size_t iphGlob) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
     if (!rsd) {
         throw Electrode_Error("ReactingSurfacePhaseIndex", "Reacting surface not found");
     }
-    return (int) rsd->PLtoKinPhaseIndex_[PLph];
+    return rsd->PLToKin_PhaseIndex_[iphGlob];
 }
 //==================================================================================================================================
 void Electrode::setState_TP(double temperature, double pressure)
@@ -2956,7 +2946,7 @@ double Electrode::openCircuitVoltageSSRxn(size_t isk, size_t iReaction) const
     size_t length = rsd->rmcVector.size();
     double ERxn = 0.0;
 
-    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    size_t metalPhaseRS = rsd->PLToKin_PhaseIndex_[metalPhase_];
     if (metalPhaseRS != npos) {
         RxnMolChange* rmc = rsd->rmcVector[rxnIndex];
         /*
@@ -3020,7 +3010,7 @@ double Electrode::openCircuitVoltageRxn(size_t isk, size_t iReaction, bool compa
     size_t nR = rsd->nReactions();
     double ERxn = 0.0; // store open circuit voltage here
 
-    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    size_t metalPhaseRS = rsd->PLToKin_PhaseIndex_[metalPhase_];
     if (metalPhaseRS != npos) {
 
         RxnMolChange* rmc = rsd->rmcVector[rxnIndex];
@@ -3078,7 +3068,7 @@ void Electrode::getOpenCircuitVoltages(size_t isk, double* Erxn, bool comparedTo
     }
     // find number of reactions
     size_t nr = rsd->rmcVector.size();
-    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    size_t metalPhaseRS = rsd->PLToKin_PhaseIndex_[metalPhase_];
     if (metalPhaseRS != npos) {
         RxnMolChange* rmc;
         double nStoichElectrons;
@@ -3167,7 +3157,7 @@ startOver:
     }
 
     // If we don't have a metal phase, we don't know how to do the calculation (lazy I think)
-    size_t metalPhaseRS = rsd->PLtoKinPhaseIndex_[metalPhase_];
+    size_t metalPhaseRS = rsd->PLToKin_PhaseIndex_[metalPhase_];
     if (metalPhaseRS == npos) {
         return 0.0;
     }

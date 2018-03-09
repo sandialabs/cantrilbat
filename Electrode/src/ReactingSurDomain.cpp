@@ -30,21 +30,17 @@ namespace Cantera
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain() :
     ElectrodeKinetics(),
-    PLtoKinPhaseIndex_(0),
-    PLtoKinSpeciesIndex_(0),
-    KintoPLSpeciesIndex_(0),
     m_iphGlobKin(npos),
     tpList_IDs_(0),
     m_DoSurfKinetics(false),
-    speciesProductionRates_(0),
     limitedROP_(0),
-    speciesCreationRates_(0),
-    speciesDestructionRates_(0),
     deltaGRxn_Before_(0),
     deltaGRxnOCV_Before_(0),
     deltaHRxn_Before_(0),
-    m_pl(0),
-    ocv_ptr_(0),
+    m_pl(nullptr),
+    m_OneToOne(false),
+    m_IsContiguous(false),
+    ocv_ptr_(nullptr),
     OCVmodel_(0),
     kReplacedSpeciesRS_(npos),
     m_Enthalpies_rspec(0),
@@ -61,21 +57,17 @@ ReactingSurDomain::ReactingSurDomain() :
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     ElectrodeKinetics(),
-    PLtoKinPhaseIndex_(0),
-    PLtoKinSpeciesIndex_(0),
-    KintoPLSpeciesIndex_(0),
     m_iphGlobKin(npos),
     tpList_IDs_(0),
     m_DoSurfKinetics(false),
-    speciesProductionRates_(0),
     limitedROP_(0),
-    speciesCreationRates_(0),
-    speciesDestructionRates_(0),
     deltaGRxn_Before_(0),
     deltaGRxnOCV_Before_(0),
     deltaHRxn_Before_(0),
-    m_pl(0),
-    ocv_ptr_(0),
+    m_pl(nullptr),
+    m_OneToOne(false),
+    m_IsContiguous(false),
+    ocv_ptr_(nullptr),
     OCVmodel_(0),
     kReplacedSpeciesRS_(npos),
     m_Enthalpies_rspec(0),
@@ -94,20 +86,19 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
 ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     ElectrodeKinetics(),
     kinOrder_(pl->nPhases(), npos),
-    PLtoKinPhaseIndex_(pl->nPhases(), npos),
+    PLToKin_PhaseIndex_(pl->nPhases(), npos),
     PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
     KintoPLSpeciesIndex_(0),
     m_iphGlobKin(iskin + pl->nVolPhases()),
     m_DoSurfKinetics(true),
-    speciesProductionRates_(0),
     limitedROP_(0),
-    speciesCreationRates_(0),
-    speciesDestructionRates_(0),
     deltaGRxn_Before_(0),
     deltaGRxnOCV_Before_(0),
     deltaHRxn_Before_(0),
     m_pl(pl),
-    ocv_ptr_(0),
+    m_OneToOne(false),
+    m_IsContiguous(false),
+    ocv_ptr_(nullptr),
     OCVmodel_(0),
     kReplacedSpeciesRS_(npos),
     m_Enthalpies_rspec(0),
@@ -142,7 +133,7 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     ElectrodeKinetics::operator=(right);
 
     kinOrder_       = right.kinOrder_;
-    PLtoKinPhaseIndex_ = right.PLtoKinPhaseIndex_;
+    PLToKin_PhaseIndex_ = right.PLToKin_PhaseIndex_;
     PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
     KintoPLSpeciesIndex_ = right.KintoPLSpeciesIndex_;
     m_iphGlobKin         = right.m_iphGlobKin;
@@ -163,6 +154,8 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     //
     m_pl            = right.m_pl;
 
+    m_OneToOne = right.m_OneToOne;
+    m_IsContiguous = right.m_IsContiguous;
 
     if (right.ocv_ptr_) {
 	delete ocv_ptr_;
@@ -232,7 +225,7 @@ size_t ReactingSurDomain::globalPhaseIndex_fromKP(size_t iphKin) const
 size_t ReactingSurDomain::kineticsPhaseIndex_fromPLP(size_t iphGlob) const
 {
     // This sometimes returns npos, which is the correct response
-    return PLtoKinPhaseIndex_[iphGlob];
+    return PLToKin_PhaseIndex_[iphGlob];
 }
 //==================================================================================================================================
 size_t ReactingSurDomain::globalSpeciesStart_fromKP(size_t iphKin) const
@@ -246,17 +239,9 @@ size_t ReactingSurDomain::kineticsSpeciesStart_fromPLP(size_t iphGlob) const
     return PLToKin_SpeciesStartIndex_[iphGlob];
 }
 //==================================================================================================================================
-// Returns a reference to the calculated production rates of species
-/*
- *   This routine calls thet getNetProductionRate function
- *   and then returns a reference to the result.
- *
- * @return Vector of length m_NumKinSpecies containing the species net (kmol s-1 m-2)
- *         production rates
- */
 const std::vector<doublevalue>& ReactingSurDomain::calcNetSurfaceProductionRateDensities()
 {
-    getNetProductionRates(&speciesProductionRates_[0]);
+    getNetProductionRates(speciesProductionRates_.data());
     return speciesProductionRates_;
 }
 //==================================================================================================================================
@@ -330,12 +315,8 @@ void ReactingSurDomain::limitROP(const doublevalue* const nMoles)
 const std::vector<doublevalue>& ReactingSurDomain::calcNetLimitedSurfaceProductionRateDensities(const doublevalue* const n)
 {
     updateROP();
-
-    //
     limitROP(n);
-
     getNetProductionRatesFromROP(&m_ropnet[0], &limitedNetProductionRates_[0]);
-
     return limitedNetProductionRates_;
 }
 //==================================================================================================================================
@@ -345,29 +326,15 @@ const std::vector<double>& ReactingSurDomain::calcNetSurfaceROP()
     return m_ropnet;
 }
 //==================================================================================================================================
-//    Returns a reference to the calculated creation rates of species
-/*
- *   This routine calls thet getCreationRate function
- *   and then returns a reference to the result.
- *
- * @return Vector of length m_NumKinSpecies containing the species creation rates (kmol s-1 m-2)
- */
 const std::vector<double>& ReactingSurDomain::calcSurfaceCreationRateDensities()
 {
-    getCreationRates(&speciesCreationRates_[0]);
+    getCreationRates(speciesCreationRates_.data());
     return speciesCreationRates_;
 }
 //==================================================================================================================================
-// Returns a reference to the calculated destruction rates of species
-/*
- *   This routine calls thet getDestructionRate function
- *   and then returns a reference to the result.
- *
- * @return Vector of length m_NumKinSpecies containing the species destruction rates (kmol s-1 m-2)
- */
 const std::vector<double>& ReactingSurDomain::calcSurfaceDestructionRateDensities()
 {
-    getDestructionRates(&speciesDestructionRates_[0]);
+    getDestructionRates(speciesDestructionRates_.data());
     return speciesDestructionRates_;
 }
 //==================================================================================================================================
@@ -516,76 +483,9 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
             throw ZuzaxError("ReactingSurDomain::importFromPL()", "importKinetics() returned an error");
         }
 
-        /*
-         *  Create a mapping between the ReactingSurfPhase to the PhaseList phase
-         */
-        size_t nKinPhases = nPhases();
-        kinOrder_.resize(nKinPhases, npos);
-        KinToPL_SpeciesStartIndex_.resize(nKinPhases, npos);
-	KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
-        PLtoKinPhaseIndex_.resize(m_pl->nPhases(), npos);
-        PLtoKinSpeciesIndex_.resize(m_pl->nSpecies(), npos);
-        PLToKin_SpeciesStartIndex_.resize(m_pl->nPhases(), npos);
+        // Create mappings between PhaseList and the Kinetics Object
+        reinitializeIndexing();
 
-        for (size_t iph = 0; iph < m_pl->nPhases(); ++iph) {
-           PLToKin_SpeciesStartIndex_[iph] = npos;
-        }
-
-        for (size_t kph = 0; kph < nKinPhases; kph++) {
-            thermo_t_double& tt = thermo(kph);
-            std::string kname = tt.id();
-            size_t jphPL = npos;
-            for (size_t iph = 0; iph < pl->nPhases(); iph++) {
-                ThermoPhase& pp = pl->thermo(iph);
-                std::string iname = pp.id();
-                if (iname == kname) {
-                    jphPL = iph;
-                    break;
-                }
-            }
-            if (jphPL == npos) {
-                throw ZuzaxError("ReactingSurDomain::importFromPL()", "phase not found in the PhaseList object");
-            }
-            kinOrder_[kph] = jphPL;
-            PLtoKinPhaseIndex_[jphPL] = kph;
-
-            size_t PLkstart = pl->globalSpeciesIndex(jphPL, 0);
-            size_t nspPhase = tt.nSpecies();
-            for (size_t k = 0; k < nspPhase; k++) {
-                if (PLtoKinSpeciesIndex_[k + PLkstart] != npos) {
-                    throw ZuzaxError("ReactingSurDomain::importFromPL()",
-                                     "Indexing error found while initializing  PLtoKinSpeciesIndex_");
-                }
-                PLtoKinSpeciesIndex_[k + PLkstart] = m_start[kph] + k;
-		KintoPLSpeciesIndex_[m_start[kph] + k] = k + PLkstart;
-            }
-            KinToPL_SpeciesStartIndex_[kph] = PLkstart;
-            PLToKin_SpeciesStartIndex_[jphPL] = m_start[kph];
-        }
-
-        /*
-         * Resize the arrays based on kinetic species number
-         */
-        speciesProductionRates_.resize(m_NumKinSpecies, 0.0);
-        speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
-        speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
-
-	m_Enthalpies_rspec.resize(m_NumKinSpecies, 0.0);
-	m_Entropies_rspec.resize(m_NumKinSpecies, 0.0);
-	m_GibbsOCV_rspec.resize(m_NumKinSpecies, 0.0);
-
-        /*
-         * Resize the arrays based on the number of reactions
-         */ 
-        deltaGRxn_Before_.resize(m_ii, 0.0);
-	deltaHRxn_Before_.resize(m_ii, 0.0);
-	deltaSRxn_Before_.resize(m_ii, 0.0);
-	limitedROP_.resize(m_ii, 0.0);
-
-        //
-        //  Identify the electron phase
-        //
-        identifyMetalPhase();
 
         return true;
 
@@ -597,6 +497,104 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         showErrors(std::cout);
         throw ZuzaxError("ReactingSurDomain::importFromPL()", "error encountered");
         return false;
+    }
+}
+//==================================================================================================================================
+void ReactingSurDomain::reinitializeIndexing()
+{
+    if (!m_pl) {
+         throw ZuzaxError("ReactingSurDomain::reinitializeIndexing()",
+                          "Must set the PhaseList pointer first before calling this routine");
+    }
+
+    /*
+     *  Create a mapping between the ElectrodeKinetics to the PhaseList object
+     */
+    size_t nKinPhases = nPhases();
+    kinOrder_.resize(nKinPhases, npos);
+    KinToPL_SpeciesStartIndex_.resize(nKinPhases, npos);
+    PLToKin_PhaseIndex_.resize(m_pl->nPhases(), npos);
+    PLToKin_SpeciesStartIndex_.resize(m_pl->nPhases(), npos);
+    KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
+    PLtoKinSpeciesIndex_.resize(m_pl->nSpecies(), npos);
+    for (size_t iph = 0; iph < m_pl->nPhases(); ++iph) {
+        PLToKin_PhaseIndex_[iph] = npos;
+        PLToKin_SpeciesStartIndex_[iph] = npos;
+    }
+    for (size_t kph = 0; kph < nKinPhases; ++kph) {
+        thermo_t_double& tt = thermo(kph);
+        std::string kname = tt.id();
+        size_t nspPhase = tt.nSpecies();
+        phaseID kID = tt.phaseIdentifier();
+        size_t jphPL = npos;
+        for (size_t iph = 0; iph < m_pl->nPhases(); ++iph) {
+            thermo_t_double& pp = m_pl->thermo(iph);
+            std::string iname = pp.id();
+            phaseID iID = pp.phaseIdentifier();
+            if (iID == kID) {
+                jphPL = iph;
+                break;
+            }
+        }
+        if (jphPL == npos) {
+            throw ZuzaxError("ReactingSurDomain::reinitialeIndexing()", "phase not found");
+        }
+        kinOrder_[kph] = jphPL;
+        PLToKin_PhaseIndex_[jphPL] = kph;
+
+        size_t kstartPL = m_pl->globalSpeciesIndex(jphPL, 0);
+        KinToPL_SpeciesStartIndex_[kph] = kstartPL;
+        PLToKin_SpeciesStartIndex_[jphPL] = m_start[kph];
+        for (size_t k = 0; k < nspPhase; ++k) {
+            if (PLtoKinSpeciesIndex_[kstartPL + k] != npos) {
+                throw ZuzaxError("ReactingSurDomain::importFromPL()",
+                                 "Indexing error found while initializing  PLtoKinSpeciesIndex_");
+            }
+            PLtoKinSpeciesIndex_[kstartPL + k] = m_start[kph] + k;
+	    KintoPLSpeciesIndex_[m_start[kph] + k] = kstartPL + k;
+        }
+    }
+    /*
+     * Resize the arrays based on kinetic species number
+     */
+    speciesProductionRates_.resize(m_NumKinSpecies, 0.0);
+    speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
+    speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
+
+    m_Enthalpies_rspec.resize(m_NumKinSpecies, 0.0);
+    m_Entropies_rspec.resize(m_NumKinSpecies, 0.0);
+    m_GibbsOCV_rspec.resize(m_NumKinSpecies, 0.0);
+
+    /*
+     * Resize the arrays based on the number of reactions
+     */
+    deltaGRxn_Before_.resize(m_ii, 0.0);
+    deltaHRxn_Before_.resize(m_ii, 0.0);
+    deltaSRxn_Before_.resize(m_ii, 0.0);
+    limitedROP_.resize(m_ii, 0.0);
+
+    //
+    //  Identify the electron phase
+    //
+    identifyMetalPhase();
+
+    //
+    // Determine if there is any better ordering to be had
+    //
+    m_OneToOne = true;
+    m_IsContiguous = true;
+    if (nKinPhases != m_pl->nPhases()) {
+        m_OneToOne = false;
+    }
+    if (nKinPhases > 0) {
+        size_t jphPL = kinOrder_[0];
+        for (size_t kph = 1; kph < nKinPhases; ++kph) {
+            if (kinOrder_[kph] != jphPL + 1) {
+                m_OneToOne = false;
+                m_IsContiguous = false;
+            }
+            jphPL++;
+        }
     }
 }
 //==================================================================================================================================

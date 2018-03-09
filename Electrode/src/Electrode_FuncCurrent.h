@@ -183,7 +183,7 @@ public:
         printLvl_(0),
         electronSpeciesIndex_(npos) 
     {
-        ikMetalPhase_ = rsd->PLtoKinPhaseIndex_[metalPhase];
+        ikMetalPhase_ = rsd->PLToKin_PhaseIndex_[metalPhase];
         int nsp = rsd->nTotalSpecies();
         spNet.resize(nsp, 0.0);
         electronSpeciesIndex_ = rsd->kineticsSpeciesIndex(0, ikMetalPhase_);
