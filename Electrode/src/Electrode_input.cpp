@@ -460,7 +460,7 @@ ELECTRODE_KEY_INPUT::~ELECTRODE_KEY_INPUT()
 void ELECTRODE_KEY_INPUT::InitForInput(const ZZCantera::PhaseList* const pl)
 {
     nTotPhases  = pl->nPhases();
-    nTotSpecies = pl->nSpecies();
+    nTotSpecies = pl->nGlobalSpecies();
     nTotElements = pl->nElements();
 
     MoleNumber.resize(nTotSpecies, 0.0);

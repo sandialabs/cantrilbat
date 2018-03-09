@@ -2609,29 +2609,21 @@ bool Electrode::stateToPhaseFlagsReconciliation(bool flagErrors)
     return false;
 }
 //==================================================================================================================================
-/*
- * Get the reactant stoichiometric coefficient for the kth global species
- * in the ith reaction of the reacting surface domain with index isk.
- */
-double Electrode::reactantStoichCoeff(const size_t isk, size_t kGlobal, size_t i) const
+double Electrode::reactantStoichCoeff(const size_t isk, size_t kGlob, size_t iRxn) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
-    size_t krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
+    size_t krsd = rsd->PLToKin_SpeciesIndex_[kGlob];
     if (krsd == npos) {
         return 0.0;
     }
-    double rst = rsd->reactantStoichCoeff(krsd, i);
+    double rst = rsd->reactantStoichCoeff(krsd, iRxn);
     return rst;
 }
 //==================================================================================================================================
-/*
- * Get the product stoichiometric coefficient for the kth global species
- * in the ith reaction of the reacting surface domain with index isk.
- */
 double Electrode::productStoichCoeff(const size_t isk, size_t kGlobal, size_t i) const
 {
     ReactingSurDomain* rsd = RSD_List_[isk];
-    size_t krsd = rsd->PLtoKinSpeciesIndex_[kGlobal];
+    size_t krsd = rsd->PLToKin_SpeciesIndex_[kGlobal];
     if (krsd == npos) {
         return 0.0;
     }

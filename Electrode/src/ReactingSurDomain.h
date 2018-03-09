@@ -566,29 +566,29 @@ public:
      */
     std::vector<size_t> PLToKin_SpeciesStartIndex_;
 
-    //! Vector of the indexes of each species in the ReactionSurfaceDomain object
-    //! given the index within the PhaseList object
+    //! Vector of the indexes of each species in the ReactionSurDomain object given the index within the PhaseList object
     /*!
-     *       jsp = PLtoKinSpeciesIndex_[isp];
+     *       ksp = PLToKin_SpeciesIndex_[kGlob];
      *
-     *          isp refers to the index of the species in the PhaseList object
-     *          jsp refers to the index of the species in the heterogeneous kinetics object
+     *          kGlob refers to the index of the global species in the PhaseList object
+     *          ksp refers to the index of the species in the heterogeneous kinetics object
      *
-     *  Length = number of species in the PhaseList object
+     *  Length:   m_pl->m_NumTotSpecies =  number of species in the PhaseList object
+     *  Indexing: kGlob  = global species indexing within PhaseList
      *
      *  A value of npos in this slot means that the species doesn't participate in the
-     *  current ReactingSurDomain object
-     *  @deprecated
+     *  current ReactingSurDomain kinetics object
      */
-    std::vector<size_t> PLtoKinSpeciesIndex_;
+    std::vector<size_t> PLToKin_SpeciesIndex_;
 
-    //! Index mapping kinetics species index to the PhaseList species index.
+    //! Index mapping kinetics species index to the PhaseList global species index.
     /*!
-     *   Length is the number of species in the kinetics species list
-     *   Length:   m_NumKinSpecies;
-     *  @deprecated
+     *   Length:    m_NumKinSpecies = number of species in the kinetics species list
+     *   Indexing:  kinetic species indexing
+     *
+     *       kGlob = KinToPl_SpeciesIndex_[ksp];
      */
-    std::vector<size_t> KintoPLSpeciesIndex_;
+    std::vector<size_t> KinToPL_SpeciesIndex_;
 
     //! Global phase index of the phase in the PhaseList object that has the kinetics
     //! object for this reacting surface.
@@ -615,17 +615,6 @@ public:
      */
     std::vector<double> speciesProductionRates_;
 
-    //! Vector of Limited Rates of Progress of the reactions
-    /*!
-     *  Length is the number of reactions, n_ii. The units are kmol m-2 s-1.
-     */
-    std::vector<double> limitedROP_;
-
-    //! Vector of Limited Rates of Progress of the species production rates
-    /*!
-     *  Length is the number of species. The units are kmol m-2 s-1.
-     */
-    std::vector<double> limitedNetProductionRates_;
 
     //! Vector that will expose the species creation rates for this kinetics object
     /*!
@@ -650,7 +639,7 @@ public:
      *
      *  Length:   m_ii = Number of reactions
      *  Units:    Joules kmol-1
-     *  Indexing: Reacting indexing
+     *  Indexing: Reaction number
      */
     std::vector<double> deltaGRxn_Before_;
 
@@ -660,7 +649,7 @@ public:
      *
      *  Length:   m_ii = Number of reactions
      *  Units:    Joules kmol-1
-     *  Indexing: Reacting indexing
+     *  Indexing: Reaction number
      */
     std::vector<double> deltaGRxnOCV_Before_;
 
@@ -670,7 +659,7 @@ public:
      *
      *  Length:   m_ii = Number of reactions
      *  Units:    Joules kmol-1
-     *  Indexing: Reacting indexing
+     *  Indexing: Reaction number
      */
     std::vector<double> deltaHRxn_Before_;
 
@@ -680,7 +669,7 @@ public:
      *
      *  Length:   m_ii = Number of reactions
      *  Units:    Joules kmol-1
-     *  Indexing: Reacting indexing
+     *  Indexing: Reaction number
      */
     std::vector<double> deltaSRxn_Before_;
 
@@ -703,6 +692,20 @@ public:
      *  However, the kinetic species vector may be considered to be a subset of the PhaseList vector.
      */
     bool m_IsContiguous;
+
+    // -----------------------------------------------------------------------------------------------------------------------------
+
+    //! Vector of Limited Rates of Progress of the reactions
+    /*!
+     *  Length is the number of reactions, n_ii. The units are kmol m-2 s-1.
+     */
+    std::vector<double> limitedROP_;
+
+    //! Vector of Limited Rates of Progress of the species production rates
+    /*!
+     *  Length is the number of species. The units are kmol m-2 s-1.
+     */
+    std::vector<double> limitedNetProductionRates_;
 
     //!  Pointer to an OCV_Override_input object which is used to override the thermodynamics of an electrode
     //!  reaction given input
@@ -737,7 +740,7 @@ public:
 
     //!  Vector of the entropies for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
     /*!
-     *   We keep a vector of enthalpies here over all reaction species. This vector gets modified from its
+     *   We keep a vector of entropies here over all kinetics species. This vector gets modified from its
      *   strictly thermodynamic origin when an OCV override is done.
      */
     std::vector<double> m_Entropies_rspec;

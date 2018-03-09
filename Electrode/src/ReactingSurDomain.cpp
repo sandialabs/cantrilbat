@@ -31,24 +31,13 @@ namespace Cantera
 ReactingSurDomain::ReactingSurDomain() :
     ElectrodeKinetics(),
     m_iphGlobKin(npos),
-    tpList_IDs_(0),
     m_DoSurfKinetics(false),
-    limitedROP_(0),
-    deltaGRxn_Before_(0),
-    deltaGRxnOCV_Before_(0),
-    deltaHRxn_Before_(0),
     m_pl(nullptr),
     m_OneToOne(false),
     m_IsContiguous(false),
     ocv_ptr_(nullptr),
-    OCVmodel_(0),
+    OCVmodel_(nullptr),
     kReplacedSpeciesRS_(npos),
-    m_Enthalpies_rspec(0),
-    m_Enthalpies_Before_rspec(0),
-    m_Entropies_rspec(0),
-    m_Entropies_Before_rspec(0),
-    m_GibbsOCV_rspec(0),
-    m_Gibbs_Before_rspec(0),
     deltaG_species_(0.0),
     deltaS_species_(0.0),
     deltaH_species_(0.0)
@@ -58,24 +47,13 @@ ReactingSurDomain::ReactingSurDomain() :
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     ElectrodeKinetics(),
     m_iphGlobKin(npos),
-    tpList_IDs_(0),
     m_DoSurfKinetics(false),
-    limitedROP_(0),
-    deltaGRxn_Before_(0),
-    deltaGRxnOCV_Before_(0),
-    deltaHRxn_Before_(0),
     m_pl(nullptr),
     m_OneToOne(false),
     m_IsContiguous(false),
     ocv_ptr_(nullptr),
-    OCVmodel_(0),
+    OCVmodel_(nullptr),
     kReplacedSpeciesRS_(npos),
-    m_Enthalpies_rspec(0),
-    m_Enthalpies_Before_rspec(0),
-    m_Entropies_rspec(0),
-    m_Entropies_Before_rspec(0),
-    m_GibbsOCV_rspec(0),
-    m_Gibbs_Before_rspec(0),
     deltaG_species_(0.0),
     deltaS_species_(0.0),
     deltaH_species_(0.0)
@@ -87,26 +65,15 @@ ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     ElectrodeKinetics(),
     KinToPL_PhaseIndex_(pl->nPhases(), npos),
     PLToKin_PhaseIndex_(pl->nPhases(), npos),
-    PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
-    KintoPLSpeciesIndex_(0),
+    PLToKin_SpeciesIndex_(pl->nGlobalSpecies(), npos),
     m_iphGlobKin(iskin + pl->nVolPhases()),
     m_DoSurfKinetics(true),
-    limitedROP_(0),
-    deltaGRxn_Before_(0),
-    deltaGRxnOCV_Before_(0),
-    deltaHRxn_Before_(0),
     m_pl(pl),
     m_OneToOne(false),
     m_IsContiguous(false),
     ocv_ptr_(nullptr),
-    OCVmodel_(0),
+    OCVmodel_(nullptr),
     kReplacedSpeciesRS_(npos),
-    m_Enthalpies_rspec(0),
-    m_Enthalpies_Before_rspec(0),
-    m_Entropies_rspec(0),
-    m_Entropies_Before_rspec(0),
-    m_GibbsOCV_rspec(0),
-    m_Gibbs_Before_rspec(0),
     deltaG_species_(0.0),
     deltaS_species_(0.0),
     deltaH_species_(0.0)
@@ -134,8 +101,8 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
 
     KinToPL_PhaseIndex_ = right.KinToPL_PhaseIndex_;
     PLToKin_PhaseIndex_ = right.PLToKin_PhaseIndex_;
-    PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
-    KintoPLSpeciesIndex_ = right.KintoPLSpeciesIndex_;
+    PLToKin_SpeciesIndex_ = right.PLToKin_SpeciesIndex_;
+    KinToPL_SpeciesIndex_ = right.KinToPL_SpeciesIndex_;
     m_iphGlobKin         = right.m_iphGlobKin;
     tpList_IDs_     = right.tpList_IDs_;
     m_DoSurfKinetics = right.m_DoSurfKinetics;
@@ -424,7 +391,7 @@ void ReactingSurDomain::init()
     speciesProductionRates_.resize(m_NumKinSpecies, 0.0);
     speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
     speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
-    KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
+    KinToPL_SpeciesIndex_.resize(m_NumKinSpecies, npos);
     limitedNetProductionRates_.resize(m_NumKinSpecies, 0.0);
 }
 //==================================================================================================================================
@@ -515,8 +482,8 @@ void ReactingSurDomain::reinitializeIndexing()
     KinToPL_SpeciesStartIndex_.resize(nKinPhases, npos);
     PLToKin_PhaseIndex_.resize(m_pl->nPhases(), npos);
     PLToKin_SpeciesStartIndex_.resize(m_pl->nPhases(), npos);
-    KintoPLSpeciesIndex_.resize(m_NumKinSpecies, npos);
-    PLtoKinSpeciesIndex_.resize(m_pl->nSpecies(), npos);
+    KinToPL_SpeciesIndex_.resize(m_NumKinSpecies, npos);
+    PLToKin_SpeciesIndex_.resize(m_pl->nSpecies(), npos);
     for (size_t iph = 0; iph < m_pl->nPhases(); ++iph) {
         PLToKin_PhaseIndex_[iph] = npos;
         PLToKin_SpeciesStartIndex_[iph] = npos;
@@ -546,12 +513,12 @@ void ReactingSurDomain::reinitializeIndexing()
         KinToPL_SpeciesStartIndex_[kph] = kstartPL;
         PLToKin_SpeciesStartIndex_[jphPL] = m_start[kph];
         for (size_t k = 0; k < nspPhase; ++k) {
-            if (PLtoKinSpeciesIndex_[kstartPL + k] != npos) {
+            if (PLToKin_SpeciesIndex_[kstartPL + k] != npos) {
                 throw ZuzaxError("ReactingSurDomain::importFromPL()",
                                  "Indexing error found while initializing  PLtoKinSpeciesIndex_");
             }
-            PLtoKinSpeciesIndex_[kstartPL + k] = m_start[kph] + k;
-	    KintoPLSpeciesIndex_[m_start[kph] + k] = kstartPL + k;
+            PLToKin_SpeciesIndex_[kstartPL + k] = m_start[kph] + k;
+	    KinToPL_SpeciesIndex_[m_start[kph] + k] = kstartPL + k;
         }
     }
     /*
@@ -636,7 +603,7 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     //
     OCVmodel_->setup_RelExtent(tp, kspec);
 
-    kReplacedSpeciesRS_  = PLtoKinSpeciesIndex_[ocv_ptr_->replacedGlobalSpeciesID];
+    kReplacedSpeciesRS_  = PLToKin_SpeciesIndex_[ocv_ptr_->replacedGlobalSpeciesID];
 }
 //====================================================================================================================
 void ReactingSurDomain::deriveEffectiveChemPot()
