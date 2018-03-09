@@ -4400,11 +4400,11 @@ void Electrode_SimpleDiff::printElectrodePhase(size_t iph, int pSrc, bool subTim
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
         size_t nphRS = RSD_List_[isph]->nPhases();
         size_t kIndexKin = 0;
-        for (size_t kph = 0; kph < nphRS; kph++) {
-            size_t jph = RSD_List_[isph]->kinOrder_[kph];
+        for (size_t kph = 0; kph < nphRS; ++kph) {
+            size_t jph = RSD_List_[isph]->KinToPL_PhaseIndex_[kph];
             size_t istart = m_PhaseSpeciesStartIndex[jph];
             size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-            for (size_t k = 0; k < nsp; k++) {
+            for (size_t k = 0; k < nsp; ++k) {
                 spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                 kIndexKin++;
             }

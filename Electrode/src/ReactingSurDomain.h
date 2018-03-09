@@ -526,14 +526,14 @@ public:
 
     //! Mapping between the phase order in the InterfaceKinetics object and the overall order in the PhaseList object
     /*!
-     *  Note in the phase list object, surface phases are listed last.
-     *  Length is the number of phases in the interface kinetics object value is the id of the phase in the PhaseList object.
+     *  Note in the phase list object, surface phases are listed after volume phases, and edge phases are listed last.
+     *  Length is the number of phases in the InterfaceKinetics object. Value is the index of the phase in the PhaseList object.
      *
-     *   kinOrder[kph] = iph;
+     *  KinToPL_PhaseIndex_[kph] = iph;
      *        kph = phase index in the InterfaceKinetics object
      *        iph = phase index in the PhaseList object
      */
-    std::vector<size_t> kinOrder_;
+    std::vector<size_t> KinToPL_PhaseIndex_;
 
     //! Vector of the indexes of each phase in the ReactionSurfaceDomain object
     //! given the index within the PhaseList object
@@ -594,7 +594,7 @@ public:
     //! object for this reacting surface.
     size_t m_iphGlobKin;
 
-    //! List of names that constitute the ThermoPhases needed for the kinetics object
+    //! List of id()s that constitute the ThermoPhases needed for the kinetics object
     /*!
      *   Currently this is needed to fix up the shallow pointer copy operation. 
      *   The list is needed to carry out shallow pointer assignments when an Electrode object is copied.
@@ -609,7 +609,9 @@ public:
 
     //! Vector that will expose the species production rates for this kinetics object
     /*!
-     *  Length is the number of species in the kinetics vector. The units are kmol m-2 s-1.
+     *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
+     *  Units:    kmol m-2 s-1.
+     *  Indexing: Kinetics species indexing
      */
     std::vector<double> speciesProductionRates_;
 
@@ -627,13 +629,17 @@ public:
 
     //! Vector that will expose the species creation rates for this kinetics object
     /*!
-     *  Length is the number of species in the kinetics vector
+     *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
+     *  Units:    kmol m-2 s-1.
+     *  Indexing: Kinetics species indexing
      */
     std::vector<double> speciesCreationRates_;
 
     //! Vector that will expose the species destruction rates for this kinetics object
     /*!
-     *  Length is the number of species in the kinetics vector
+     *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
+     *  Units:    kmol m-2 s-1.
+     *  Indexing: Kinetics species indexing
      */
     std::vector<double> speciesDestructionRates_;
 
@@ -641,27 +647,40 @@ public:
     /*!
      *  This is used to store the DeltaG of reaction before modification due to OCV override.
      *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
+     *
+     *  Length:   m_ii = Number of reactions
+     *  Units:    Joules kmol-1
+     *  Indexing: Reacting indexing
      */
     std::vector<double> deltaGRxn_Before_;
 
     //! Internal Vector of deltaG of reaction for all reactions (without the electrolyte mixing entropy term)
     /*!
      *  This is used to store the DeltaG of reaction before modification due to OCV override.
-     *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
+     *
+     *  Length:   m_ii = Number of reactions
+     *  Units:    Joules kmol-1
+     *  Indexing: Reacting indexing
      */
     std::vector<double> deltaGRxnOCV_Before_;
 
     //! Internal Vector of deltaH of reaction for all reactions
     /*!
      *  This is used to store the DeltaH of reaction before modification due to OCV override.
-     *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1.
+     *
+     *  Length:   m_ii = Number of reactions
+     *  Units:    Joules kmol-1
+     *  Indexing: Reacting indexing
      */
     std::vector<double> deltaHRxn_Before_;
 
     //! Internal Vector of deltaS of reaction for all reactions
     /*!
      *  This is used to store the DeltaS of reaction before modification due to OCV override.
-     *  The length is equal to nreactions(), m_ii. The units are Joules kmol-1 K-1.
+     *
+     *  Length:   m_ii = Number of reactions
+     *  Units:    Joules kmol-1
+     *  Indexing: Reacting indexing
      */
     std::vector<double> deltaSRxn_Before_;
 

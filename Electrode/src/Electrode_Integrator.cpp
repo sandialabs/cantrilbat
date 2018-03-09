@@ -2389,13 +2389,13 @@ void Electrode_Integrator::printElectrodePhase(size_t iph, int pSrc, bool subTim
 
         double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
-        int nphRS = RSD_List_[isph]->nPhases();
-        int kIndexKin = 0;
-        for (int kph = 0; kph < nphRS; kph++) {
-            int jph = RSD_List_[isph]->kinOrder_[kph];
-            int istart = m_PhaseSpeciesStartIndex[jph];
-            int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-            for (int k = 0; k < nsp; k++) {
+        size_t nphRS = RSD_List_[isph]->nPhases();
+        size_t kIndexKin = 0;
+        for (size_t kph = 0; kph < nphRS; kph++) {
+            size_t jph = RSD_List_[isph]->KinToPL_PhaseIndex_[kph];
+            size_t istart = m_PhaseSpeciesStartIndex[jph];
+            size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
+            for (size_t k = 0; k < nsp; ++k) {
                 spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                 kIndexKin++;
             }

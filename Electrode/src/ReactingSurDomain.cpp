@@ -85,7 +85,7 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
 //==================================================================================================================================
 ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     ElectrodeKinetics(),
-    kinOrder_(pl->nPhases(), npos),
+    KinToPL_PhaseIndex_(pl->nPhases(), npos),
     PLToKin_PhaseIndex_(pl->nPhases(), npos),
     PLtoKinSpeciesIndex_(pl->nSpecies(), npos),
     KintoPLSpeciesIndex_(0),
@@ -132,7 +132,7 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     //
     ElectrodeKinetics::operator=(right);
 
-    kinOrder_       = right.kinOrder_;
+    KinToPL_PhaseIndex_ = right.KinToPL_PhaseIndex_;
     PLToKin_PhaseIndex_ = right.PLToKin_PhaseIndex_;
     PLtoKinSpeciesIndex_ = right.PLtoKinSpeciesIndex_;
     KintoPLSpeciesIndex_ = right.KintoPLSpeciesIndex_;
@@ -219,7 +219,7 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
 //==================================================================================================================================
 size_t ReactingSurDomain::globalPhaseIndex_fromKP(size_t iphKin) const
 {
-    return kinOrder_[iphKin];
+    return KinToPL_PhaseIndex_[iphKin];
 }
 //==================================================================================================================================
 size_t ReactingSurDomain::kineticsPhaseIndex_fromPLP(size_t iphGlob) const
@@ -459,7 +459,7 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          */
         std::vector<thermo_t_double*> tpList;
         tpList_IDs_.clear();
-        kinOrder_.resize(nPhasesFound, npos);
+        KinToPL_PhaseIndex_.resize(nPhasesFound, npos);
 
         m_iphGlobKin = iskin + pl->nVolPhases();
         m_DoSurfKinetics = true;
@@ -511,7 +511,7 @@ void ReactingSurDomain::reinitializeIndexing()
      *  Create a mapping between the ElectrodeKinetics to the PhaseList object
      */
     size_t nKinPhases = nPhases();
-    kinOrder_.resize(nKinPhases, npos);
+    KinToPL_PhaseIndex_.resize(nKinPhases, npos);
     KinToPL_SpeciesStartIndex_.resize(nKinPhases, npos);
     PLToKin_PhaseIndex_.resize(m_pl->nPhases(), npos);
     PLToKin_SpeciesStartIndex_.resize(m_pl->nPhases(), npos);
@@ -539,7 +539,7 @@ void ReactingSurDomain::reinitializeIndexing()
         if (jphPL == npos) {
             throw ZuzaxError("ReactingSurDomain::reinitialeIndexing()", "phase not found");
         }
-        kinOrder_[kph] = jphPL;
+        KinToPL_PhaseIndex_[kph] = jphPL;
         PLToKin_PhaseIndex_[jphPL] = kph;
 
         size_t kstartPL = m_pl->globalSpeciesIndex(jphPL, 0);
@@ -587,9 +587,9 @@ void ReactingSurDomain::reinitializeIndexing()
         m_OneToOne = false;
     }
     if (nKinPhases > 0) {
-        size_t jphPL = kinOrder_[0];
+        size_t jphPL = KinToPL_PhaseIndex_[0];
         for (size_t kph = 1; kph < nKinPhases; ++kph) {
-            if (kinOrder_[kph] != jphPL + 1) {
+            if (KinToPL_PhaseIndex_[kph] != jphPL + 1) {
                 m_OneToOne = false;
                 m_IsContiguous = false;
             }
