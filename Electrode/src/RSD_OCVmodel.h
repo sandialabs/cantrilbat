@@ -276,7 +276,7 @@ public:
      *   is given with respect to the reference electrode.
      *
      *     : 0  :   The OCV is given using a deltaG value based on treating all of the participating species as having
-     *              just their standard state thermo values. This actually works out as bing the OCV for the full-cell
+     *              just their standard state thermo values. This actually works out as being the OCV for the full-cell
      *              reaction in most clases.
      *                    example:   actual cathode reaction    Li+   + e-  + CoO2     ->  LiCoO2
      *                          reference electrode anode rxn    Li(m)                 -> Li+ + e-

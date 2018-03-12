@@ -113,7 +113,6 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     speciesDestructionRates_ = right.speciesDestructionRates_;
 
     deltaGRxn_Before_ = right.deltaGRxn_Before_;
-    deltaGRxnOCV_Before_ = right.deltaGRxnOCV_Before_;
     deltaHRxn_Before_ = right.deltaHRxn_Before_;
     deltaSRxn_Before_ = right.deltaSRxn_Before_;
     //
@@ -140,11 +139,13 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
 
     kReplacedSpeciesRS_ = right.kReplacedSpeciesRS_;
 
+    m_GibbsOCV_rspec = right.m_GibbsOCV_rspec;
+    deltaGRxnOCV_Before_ = right.deltaGRxnOCV_Before_;
+
     m_Enthalpies_rspec = right.m_Enthalpies_rspec;
     m_Enthalpies_Before_rspec = right.m_Enthalpies_Before_rspec;
     m_Entropies_rspec = right.m_Entropies_rspec;
     m_Entropies_Before_rspec = right.m_Entropies_Before_rspec;
-    m_GibbsOCV_rspec = right.m_GibbsOCV_rspec;
     m_Gibbs_Before_rspec = right.m_Gibbs_Before_rspec;
 
     deltaG_species_ = right.deltaG_species_;
@@ -690,10 +691,9 @@ void ReactingSurDomain::deriveEffectiveChemPot()
     //
     double deltaG_Exp_delta = (phiRxnExp - phiRxnOrig) * Faraday * nStoichElectrons;
     //
-    //
     //   
-    double fstoich =  reactantStoichCoeff( kReplacedSpeciesRS_,  ocv_ptr_->rxnID_deltaS);
-    double rstoich =  productStoichCoeff( kReplacedSpeciesRS_, ocv_ptr_->rxnID_deltaS);
+    double fstoich = reactantStoichCoeff( kReplacedSpeciesRS_, ocv_ptr_->rxnID_deltaS);
+    double rstoich = productStoichCoeff( kReplacedSpeciesRS_, ocv_ptr_->rxnID_deltaS);
     double nstoich = rstoich - fstoich;
     deltaG_species_ = deltaG_Exp_delta / nstoich;
     //
@@ -767,7 +767,6 @@ void ReactingSurDomain::deriveEffectiveThermo()
 	exit(-1);
     }
 #endif
-    //
     //
     //
     //  Get the reaction delta based on the mixed G and G_SS values accummulated above
@@ -910,36 +909,34 @@ void ReactingSurDomain::updateMu0()
 //         ( works for MCMB )
 void ReactingSurDomain::getDeltaGibbs(doublevalue* const deltaG)
 {
-     /*
-      * Get the chemical potentials of the species in the all of the phases used in the 
-      * kinetics mechanism -> We store them in the vector m_mu[]. which later can get modified for OCV override
-      * issues.
-      */
-     for (size_t n = 0; n < nPhases(); n++) {
-         m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
-     }
+    /*
+     * Get the chemical potentials of the species in the all of the phases used in the 
+     * kinetics mechanism -> We store them in the vector m_mu[]. which later can get modified for OCV override
+     * issues.
+     */
+    for (size_t n = 0; n < nPhases(); n++) {
+        m_thermo[n]->getChemPotentials(DATA_PTR(m_mu) + m_start[n]);
+    }
 
-     //  If have an open circuit potential override situation, do extra work
-     if (ocv_ptr_) {
-	 //deriveEffectiveChemPot();
-	 deriveEffectiveThermo();
-     }
-
+    //  If have an open circuit potential override situation, do extra work
+    if (ocv_ptr_) {
+        //deriveEffectiveChemPot();
+         deriveEffectiveThermo();
+    }
     //
-    // Use the stoichiometric manager to find deltaG for each
-    // reaction.
+    // Use the stoichiometric manager to find deltaG for each reaction.
     //
-    getReactionDelta(DATA_PTR(m_mu), DATA_PTR(m_deltaG));
-    if (deltaG != 0 && (DATA_PTR(m_deltaG) != deltaG)) {
+    getReactionDelta(DATA_PTR(m_mu), deltaGRxn_.data());
+    if (deltaG != nullptr && (deltaGRxn_.data() != deltaG)) {
 	for (size_t j = 0; j < m_ii; ++j) {
-	    deltaG[j] = m_deltaG[j];
+	    deltaG[j] = deltaGRxn_[j];
 	}
     }
 }
 //==================================================================================================================================
 void ReactingSurDomain::getDeltaGibbs_Before(doublevalue* const deltaG)
 {
-    for (size_t n = 0; n < nPhases(); n++) {
+    for (size_t n = 0; n < nPhases(); ++n) {
          m_thermo[n]->getChemPotentials(DATA_PTR(m_Gibbs_Before_rspec) + m_start[n]);
     }
     if (deltaG) {
@@ -981,13 +978,13 @@ void ReactingSurDomain::getDeltaElectrochemPotentials(doublevalue* const deltaM)
      /*
       * Use the stoichiometric manager to find deltaM for each reaction.
       */
-     getReactionDelta(DATA_PTR(m_ElectroChemMu), m_deltaM.data());
+     getReactionDelta(DATA_PTR(m_ElectroChemMu), deltaMRxn_.data());
      //
      // If we've input nullptr for deltaM, we're finished because we are using internal storage for deltaM
      //
-     if (deltaM != nullptr && (DATA_PTR(m_deltaM) != deltaM)) {
+     if (deltaM != nullptr && (deltaMRxn_.data() != deltaM)) {
         for (size_t irxn = 0; irxn < m_ii; ++irxn) {
-            deltaM[irxn] = m_deltaM[irxn];
+            deltaM[irxn] = deltaMRxn_[irxn];
         }
      }
 }
@@ -1142,13 +1139,13 @@ void ReactingSurDomain::getDeltaSSGibbs(doublevalue* const deltaGSS)
     /*
      * Use the stoichiometric manager to find deltaG for each reaction.
      */
-    getReactionDelta(DATA_PTR(m_mu0), m_deltaG0.data());
+    getReactionDelta(DATA_PTR(m_mu0), deltaG0Rxn_.data());
     /*
      *  If we input deltaGSS = 0, then we are done. We are using internal storage for this value
      */
-    if (deltaGSS != 0 && (DATA_PTR(m_deltaG0) != deltaGSS)) {
+    if (deltaGSS != 0 && (deltaG0Rxn_.data() != deltaGSS)) {
         for (size_t j = 0; j < m_ii; ++j) {
-            deltaGSS[j] = m_deltaG0[j];
+            deltaGSS[j] = deltaG0Rxn_[j];
         }
     }
 }

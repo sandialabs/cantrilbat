@@ -532,6 +532,9 @@ public:
      *  KinToPL_PhaseIndex_[kph] = iph;
      *        kph = phase index in the InterfaceKinetics object
      *        iph = phase index in the PhaseList object
+     *
+     *  Length:   Number of phases in the Kinetics object 
+     *  Indexing: iphKin =  index of the kinetics phase within the Kinetics object
      */
     std::vector<size_t> KinToPL_PhaseIndex_;
 
@@ -543,26 +546,32 @@ public:
      *          iph refers to the index of the phase in the Electrode_Model object 
      *          jph refers to the index of the phase in the heterogeneous kinetics object
      *
-     *  Length = number of phases in the PhaseList
      *
      *  A value of -1 or npos in this slot means that the phase doesn't participate in the
      *  current ReactingSurDomain object
+     *
+     *  Length:   m_NumTotPhases =  number of phases in the PhaseList object 
+     *  Indexing: iphGlob = global phase indexing within the PhaseList object
      */
     std::vector<size_t> PLToKin_PhaseIndex_;
 
     //! Index mapping kinetics species start index to the PhaseList species start index.
     /*!
      *  Value is the offset index for that kinetics phase within the species PhaseList vector
-     *  Length:  nPhases in kinetics object 
+     *
+     *  Length:   Number of phases in the Kinetics object 
+     *  Indexing: iphKin =  index of the kinetics phase within the Kinetics object
      */
     std::vector<size_t> KinToPL_SpeciesStartIndex_;
 
     //! Index mapping phaselist species start index to the kinetics species start index.
     /*!
      *  Value is the offset index for that Phaselist phase within the species Kinetics vector
-     *  Length:  nPhases in PhaseList object 
      *
      *  Phases which are missing in the kinetics object have a npos value in their entry
+     *
+     *  Length:   m_NumTotPhases =  number of phases in the PhaseList object 
+     *  Indexing: iphGlob = global phase indexing within the PhaseList object
      */
     std::vector<size_t> PLToKin_SpeciesStartIndex_;
 
@@ -573,20 +582,21 @@ public:
      *          kGlob refers to the index of the global species in the PhaseList object
      *          ksp refers to the index of the species in the heterogeneous kinetics object
      *
-     *  Length:   m_pl->m_NumTotSpecies =  number of species in the PhaseList object
-     *  Indexing: kGlob  = global species indexing within PhaseList
      *
      *  A value of npos in this slot means that the species doesn't participate in the
      *  current ReactingSurDomain kinetics object
+     *
+     *  Length:   m_pl->m_NumTotSpecies =  number of species in the PhaseList object
+     *  Indexing: kGlob  = global species indexing within the PhaseList object
      */
     std::vector<size_t> PLToKin_SpeciesIndex_;
 
     //! Index mapping kinetics species index to the PhaseList global species index.
     /*!
-     *   Length:    m_NumKinSpecies = number of species in the kinetics species list
-     *   Indexing:  kinetic species indexing
+     *   kGlob = KinToPl_SpeciesIndex_[ksp];
      *
-     *       kGlob = KinToPl_SpeciesIndex_[ksp];
+     *   Length:    m_NumKinSpecies = number of species in the kinetics species list
+     *   Indexing:  kKin = kinetic species indexing
      */
     std::vector<size_t> KinToPL_SpeciesIndex_;
 
@@ -611,16 +621,15 @@ public:
     /*!
      *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
      *  Units:    kmol m-2 s-1.
-     *  Indexing: Kinetics species indexing
+     *  Indexing: kKin = Kinetics species indexing
      */
     std::vector<double> speciesProductionRates_;
-
 
     //! Vector that will expose the species creation rates for this kinetics object
     /*!
      *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
      *  Units:    kmol m-2 s-1.
-     *  Indexing: Kinetics species indexing
+     *  Indexing: kKin = Kinetics species indexing
      */
     std::vector<double> speciesCreationRates_;
 
@@ -628,7 +637,7 @@ public:
     /*!
      *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
      *  Units:    kmol m-2 s-1.
-     *  Indexing: Kinetics species indexing
+     *  Indexing: kKin = Kinetics species indexing
      */
     std::vector<double> speciesDestructionRates_;
 
@@ -642,16 +651,6 @@ public:
      *  Indexing: Reaction number
      */
     std::vector<double> deltaGRxn_Before_;
-
-    //! Internal Vector of deltaG of reaction for all reactions (without the electrolyte mixing entropy term)
-    /*!
-     *  This is used to store the DeltaG of reaction before modification due to OCV override.
-     *
-     *  Length:   m_ii = Number of reactions
-     *  Units:    Joules kmol-1
-     *  Indexing: Reaction number
-     */
-    std::vector<double> deltaGRxnOCV_Before_;
 
     //! Internal Vector of deltaH of reaction for all reactions
     /*!
@@ -694,6 +693,8 @@ public:
     bool m_IsContiguous;
 
     // -----------------------------------------------------------------------------------------------------------------------------
+    //           DATA for the limiting ROP model
+    // -----------------------------------------------------------------------------------------------------------------------------
 
     //! Vector of Limited Rates of Progress of the reactions
     /*!
@@ -706,6 +707,10 @@ public:
      *  Length is the number of species. The units are kmol m-2 s-1.
      */
     std::vector<double> limitedNetProductionRates_;
+
+    // -----------------------------------------------------------------------------------------------------------------------------
+    //           DATA FOR THE OCV override mode
+    // -----------------------------------------------------------------------------------------------------------------------------
 
     //!  Pointer to an OCV_Override_input object which is used to override the thermodynamics of an electrode
     //!  reaction given input
@@ -724,10 +729,39 @@ public:
     //!  determined open circuit voltage expression. If there is none, then this value is npos.
     size_t kReplacedSpeciesRS_;
 
+    //!  Vector of the chemical potential for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
+    /*!
+     *   We keep a vector of Gibbs energy here over all kinetics species. This vector gets modified from its
+     *   strictly thermodynamic origin when an OCV override is done, so that the measured OCVoverride may be matched.
+     *   This is a specified combination of regular chemical potentials and standard state chemical potential depending 
+     *   on the OCV_Format value.
+     *
+     *   Length:   m_NumKinSpecies
+     *   Units:    Joules/kmol
+     *   Indexing: kKin = kinetic species index
+     */
+    std::vector<double> m_GibbsOCV_rspec;
+
+    //! Internal Vector of deltaG of reaction for all reactions (without the electrolyte mixing entropy term)
+    /*!
+     *  This is used to store the DeltaG of reaction before modification due to OCV override. Note this isn't
+     *  deltaG, necessarily because it is missing the electorlyte mixing entropy Term. ther exact formulation depends
+     *  on OCV format.
+     *
+     *  Length:   m_ii = Number of reactions
+     *  Units:    Joules kmol-1
+     *  Indexing: Reaction number
+     */
+    std::vector<double> deltaGRxnOCV_Before_;
+
     //!  Vector of the enthalpies for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
     /*!
      *   We keep a vector of enthalpies here over all reaction species. This vector gets modified from its
      *   strictly thermodynamic origin when an OCV override is done.
+     *
+     *   Length: m_NumKinSpecies
+     *   Units:  Joules/kmol
+     *   Indexing: kinetic species index
      */
     std::vector<double> m_Enthalpies_rspec;
 
@@ -735,6 +769,10 @@ public:
     /*!
      *   We keep a vector of enthalpies here over all reaction species. This vector does not get modified from its
      *   strictly thermodynamic origin when an OCV override is done.
+     *
+     *   Length: m_NumKinSpecies
+     *   Units:  Joules/kmol
+     *   Indexing: kinetic species index
      */
     std::vector<double> m_Enthalpies_Before_rspec;
 
@@ -742,6 +780,10 @@ public:
     /*!
      *   We keep a vector of entropies here over all kinetics species. This vector gets modified from its
      *   strictly thermodynamic origin when an OCV override is done.
+     *
+     *   Length: m_NumKinSpecies
+     *   Units:  Joules/kmol/K
+     *   Indexing: kinetic species index
      */
     std::vector<double> m_Entropies_rspec;
 
@@ -749,33 +791,55 @@ public:
     /*!
      *   We keep a vector of enthalpies here over all reaction species. This vector does not get modified from its
      *   strictly thermodynamic origin when an OCV override is done.
+     *
+     *   Length: m_NumKinSpecies
+     *   Units:  Joules/kmol/K
+     *   Indexing: kinetic species index
      */
     std::vector<double> m_Entropies_Before_rspec;
-
-    //!  Vector of the chemical potential for all species in all phases that participate in the reaction mechanism, modified for OCVoverride
-    /*!
-     *   We keep a vector of gibbs energy here over all reaction species. This vector gets modified from its
-     *   strictly thermodynamic origin when an OCV override is done.
-     */
-    std::vector<double> m_GibbsOCV_rspec;
 
     //!  Vector of the chemical potential for all species in all phases that participate in the reaction mechanism
     /*!
      *   We keep a vector of gibbs energy here over all reaction species. This vector does not get modified from its
      *   strictly thermodynamic origin when an OCV override is done.
+     *
+     *   Length:   m_NumKinSpecies
+     *   Units:    Joules/kmol
+     *   Indexing: kKin = kinetic species index
      */
     std::vector<double> m_Gibbs_Before_rspec;
 
     //!  Value of deltaG, i.e., the change in the chemical potential, for the particular species that gets modified  
     //!  due to the OCV override 
+    /*!
+     *   This is the delta value of G at the T and P of solution to generate the correct G value as measured
+     *   from data.  This deltaG value is added to the G value of the particular species.
+     *
+     *   Kinetics species index kReplacedSpeciesRS_
+     *   Units:  Joules/kmol
+     */
     double deltaG_species_;
 
     //!  Value of deltaS, i.e., the change in the entropy, for the particular species that gets modified  
     //!  due to the OCV override 
+    /*!
+     *   This is the delta value of S at the T and P of solution to generate the correct dGdT value as measured
+     *   from data.  This deltaS value is added to the S value of the particular species.
+     *
+     *   Kinetics species index kReplacedSpeciesRS_
+     *   Units:  Joules/kmol/K
+     */
     double deltaS_species_;
 
     //!  Value of deltaH, i.e., the change in the enthalpy, for the particular species that gets modified  
     //!  due to the OCV override 
+    /*!
+     *   This is the value of deltaH at the T and P of solution to generate the correct deltaG value to match
+     *   experimental data. This deltaH value is added to the H value of the particular species.
+     *
+     *   Kinetics species index kReplacedSpeciesRS_
+     *   Units:  Joules/kmol
+     */
     double deltaH_species_;
 
 protected:
