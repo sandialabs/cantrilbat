@@ -33,6 +33,7 @@ namespace Cantera
 //! Definition for a cathode type of electrode
 #define ELECTRODETYPE_CATHODE 1
 
+//! Debugging additions for adding output for analysing zeroing of phases within an Electrode
 #define DEBUG_ELECTRODE_DEATH 1
 
 //==================================================================================================================================

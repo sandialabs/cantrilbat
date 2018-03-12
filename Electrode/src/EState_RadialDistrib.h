@@ -71,15 +71,15 @@ public:
 
     //! Initialize the object based on an electrode Base class
     /*!
-     *   This call will initialize all of the arrays within this class.
-     *   All of the species and phase identification information is created and the class is
-     *   readied for use as a state maintainer.
+     *  This call will initialize all of the arrays within this class.
+     *  All of the species and phase identification information is created and the class is
+     *  readied for use as a state maintainer.
      *
      *  @param[in]           e                   Pointer to the electrode base class
      *
      *  @return                                  Returns 0
      */
-    virtual int initialize(const ZZCantera::Electrode* const e) override;
+    virtual int initialize(const Electrode* const e) override;
 
     //! Create an indentification XML_Node element for this Electrode EState object
     /*!

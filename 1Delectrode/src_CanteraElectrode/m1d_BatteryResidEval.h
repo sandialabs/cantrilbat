@@ -28,7 +28,9 @@ namespace m1d {
 //! Class that specializes the global heat balance for batteries
 /*!
  *  This is filled up on a domain basis.
- *   
+ *  It inherits from globalHeatBalVals to add terms due to batteries.
+ *
+ *  This heat balance class is used for both volume domains and surface domains.
  */
 class globalHeatBalValsBat : public globalHeatBalVals
 {
@@ -74,8 +76,8 @@ public:
         enthalpyIVfluxRight = 0.0;
         enthalpyIVfluxLeft = 0.0;
         sourceTermExtra = 0.0;
-	size_t nsp =  species_Lyte_New_Total.size();
-	for (size_t k = 0; k < nsp; k++) {
+	size_t nsp = species_Lyte_New_Total.size();
+	for (size_t k = 0; k < nsp; ++k) {
 	    species_Lyte_New_Total[k] = 0.0;
 	    species_Lyte_Old_Total[k] = 0.0;
 	    species_Lyte_Src_Total[k] = 0.0;
@@ -88,7 +90,7 @@ public:
         elem_Solid_New.resize(10, 0.0);
         elem_Lyte_Old.resize(10, 0.0);
         elem_Solid_Old.resize(10, 0.0);
-	for (size_t k = 0; k < 10; k++) {
+	for (size_t k = 0; k < 10; ++k) {
             elem_Lyte_New[k] = 0.0;
             elem_Solid_New[k] = 0.0;
             elem_Lyte_Old[k] = 0.0;
@@ -97,7 +99,7 @@ public:
 
     }
 
-    //! Resize all of the variables associated with the Electrolyte
+    //! Resize all of the variables associated with the Electrolyte according to the argument value
     /*!
      *  @param[in]           nsp                 Number of species in the electrolyte
      */
@@ -116,6 +118,8 @@ public:
         elem_Lyte_Old.resize(10, 0.0);
         elem_Solid_Old.resize(10, 0.0);
     }
+
+    // ---------------------------------------------- D A T A -------------------------------------------------------------
 
     //! Extrinsic total initial enthalpy - initial
     /*!
@@ -143,10 +147,38 @@ public:
      */
     double currentLeft;
 
+    //! Value of the flux of electrons multiplied by the enthalpyPhi of the electrons at the rhs of domain
+    /*!
+     *  EnthalpyPhi = H_elec(T,P) + z_elec F Phi  -> units:  Joule / kmol
+     *  flux = - icurr / F                        -> units:  kmol / sec /m2
+     *
+     *  Used:   For volume domains
+     *  Units:  Joule / sec / m2
+     */
     double JHelecRight;
+
+    //! Value of the flux of electrons multiplied by the enthalpyPhi of the electrons at the lhs of domain
+    /*!
+     *  EnthalpyPhi = H_elec(T,P) + z_elec F Phi  -> units:  Joule / kmol
+     *  flux = - icurr / F                        -> units:  kmol / sec /m2
+     *
+     *  Used:   For volume domains
+     *  Units:  Joule / sec / m2
+     */
     double JHelecLeft;
 
+    //! Value of the electric potential in the solid electrode
+    /*!
+     *  Used:   For surface domains
+     *  Units:  volts
+     */
     double phiSolid;
+
+    //! Value of the electric potential in the electrolyte
+    /*!
+     *  Used:   For surface domains
+     *  Units:  volts
+     */
     double phiLyte;
 
     //! Value of the joule heat term

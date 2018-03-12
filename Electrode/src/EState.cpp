@@ -251,7 +251,7 @@ EState* EState::duplMyselfAsEState(Electrode* e) const
     return es;
 }
 //==================================================================================================================================
-int EState::initialize(const ZZCantera::Electrode* const e)
+int EState::initialize(const Electrode* const e)
 {
     eRef_ = e;
 
