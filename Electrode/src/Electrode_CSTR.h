@@ -757,17 +757,50 @@ public:
      */
     virtual int calcResid(double* const resid, const ResidEval_Type evalType) override;
 
-    virtual int GFCEO_evalResidNJ(const double t, const double delta_t,
-                            const double* const y,
-                            const double* const ydot,
-                            double* const resid,
-                            const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
-                            const int id_x = -1,
-                            const double delta_x = 0.0) override;
 
+    //! Evaluate the residual for the Globally Fully Coupled Electrode Object equation set
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  @param[in]           tfinal              Time                    (input)
+     *  @param[in]           delta_t             The current value of the time step (input)
+     *  @param[in]           y                   Solution vector (input, do not modify)
+     *  @param[in]           ySolnDot            Rate of change of solution vector. (input, do not modify)
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *  @param[in]           id_x                Index of the variable that is being numerically differenced to find
+     *                                           the jacobian (defaults to -1, which indicates that no variable is being
+     *                                           differenced or that the residual doesn't take this issue into account)
+     *  @param[in]           delta_x             Value of the delta used in the numerical differencing
+     *
+     *
+     *  @return                                  Returns an integer that gets fed back  to the
+     *                                           nonlinear solver. Anything other than a 1 causes an immediate failure
+     *                                           of the nonlinear solver to occur.
+     */
+    virtual int GFCEO_evalResidNJ(const double tfinal, const double delta_t, const double* const y,
+                                  const double* const ySolnDot, double* const resid,
+                                  const ResidEval_Type evalType = ResidEval_Type::Base_ResidEval,
+                                  const int id_x = -1, const double delta_x = 0.0) override;
+
+    //! Evaluate the residual for the Globally Fully Coupled Electrode Object equation set
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
+     *  @param[out]          resid               Value of the residual that is computed (output)
+     *  @param[in]           evalType            Type of the residual being computed (defaults to Base_ResidEval)
+     *
+     *  @return                                  Returns an integer that gets fed back  to the
+     *                                           nonlinear solver. Anything other than a 1 causes an immediate failure
+     *                                           of the nonlinear solver to occur.
+     */
     virtual int GFCEO_calcResid(double* const resid, const ResidEval_Type evalType) override;
 
-
+    //! Print information to stdout about the current capacity
+    /*!
+     *  @param[in]           pSrc                (unused)
+     *  @param[in]           subTimeStep        bool. If true, printout is for a subcycle time step
+     */
     void printElectrodeCapacityInfo(int pSrc, bool subTimeStep);
 
     //! Print condition of a phase in the electrode

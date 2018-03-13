@@ -785,6 +785,7 @@ public:
 
     //! Evaluate the residual function for the "Globally Fully Coupled Electrode Object" formulation
     /*!
+     *  (virtual from Electrode_Integrator)
      *
      * @param t             Time                    (input)
      * @param delta_t       The current value of the time step (input)
@@ -810,6 +811,8 @@ public:
 
     //! Calculate the residual for the Electrode object for the Global problem
     /*!
+     *  (virtual from Electrode_Integrator)
+     *
      *  @param[out]          resid               Value of the residual
      *  @param[in]           evalType            ResidEval_Type_Enum type
      *

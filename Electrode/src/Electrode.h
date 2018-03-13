@@ -3656,13 +3656,20 @@ public:
      */
     int globalTimeStepNumber_;
 
-    //! Boolean indicating to write a restart file after each successful step
+    //! Int indicating to write a restart file after each successful step
     /*!
-     *   If greater than 1, it will write a restart file with a different name at every time step
-     *   defaults to 0
+     *   If equal to 1, it will write a restart file with the same name at every time step
+     *   If greater than 1, it will write a restart file with a different name at every time step.
+     *   Defaults to 0.
      */
     int writeRestartFileOnSuccessfulStep_;
 
+    //! Int indicating to write a global file containing the Electrode solution at every global time step
+    /*!
+     *   If greater than 0, it will write a global file with a different name at every time step.
+     *   Defaults to 0.
+     */
+    int writeGlobalSolnFileOnSuccessfulStep_;
 
     //! Amount of printing to be carried out by the object
     /*!

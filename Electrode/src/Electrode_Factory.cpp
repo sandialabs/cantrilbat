@@ -46,6 +46,7 @@ boost::mutex Electrode_Factory::electrode_mutex;
 Map_ETEnum_String gMap_ETEnum_String;
 
 //====================================================================================================================
+//! Create the string maps
 static void create_string_maps()
 {
     if (gMap_ETEnum_String.string_maps_created) {

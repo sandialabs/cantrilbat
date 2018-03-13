@@ -26,7 +26,6 @@ GFCEO_Electrode::GFCEO_Electrode(Electrode_Integrator* ee, double atol, int iOwn
    iOwnObject_(iOwn),
    integDAE_(nullptr)
 {
-
 }
 //===================================================================================================================================
 GFCEO_Electrode::~GFCEO_Electrode()

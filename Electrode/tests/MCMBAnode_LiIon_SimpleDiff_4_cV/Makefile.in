@@ -16,10 +16,10 @@ BLESSED_FILES = good_out.txt soln_0_0_blessed.xml \
 DATA = anode.inp problem_setup.sh \
        ECsoln_ion.xml  Li_Metal.xml  MCMBAnode_electrode.xml  MCMB_RedlichKister.xml  metal_Li_LiIon_electrons.xml  
 
-TEST_RESULTS = out.txt soln_0_0.xml MCMB_intResults_0_0.csv   MCMB_globalResults_0_0.csv
+TEST_RESULTS = out.txt soln_0_0.xml MCMB_intResults_0_0.csv   MCMB_globalResults_0_0.csv ls soln_Restart_1_0_0.xml
 
 TEST_INTERMEDIATES = diff_csv.txt diff_icsv.txt diff_gcsv.txt diff_out.txt capCheck_0.txt err_out.txt  \
-                     diff_summary.txt diff_xml.txt
+                     diff_summary.txt diff_xml.txt diff_s43r_xml.txt
 
 TEST_FLAGS = runGood runBad runInProgress.txt
 
@@ -143,13 +143,15 @@ rebaseline:
 
 test_clean:
 	$(RM) $(TEST_INTERMEDIATES) $(TEST_FLAGS) $(TEST_RESULTS)
+	$(RM) soln_Restart_*0.xml
 
 clean_test:
-	$(RM) $(TEST_INTERMEDIATES) $(TEST_FLAGS) $(TEST_RESULTS)
+	$(RM) $(TEST_INTERMEDIATES) $(TEST_FLAGS) $(TEST_RESULTS) 
+	$(RM) soln_Restart_*0.xml
 
 clean:
 	$(RM) $(TEST_FLAGS)
-	$(RM) *.o  .depends *.d *~  $(PROGRAM) 
+	$(RM) *.o  .depends *.d *~  $(PROGRAM)  $(TEST_FLAGS)
 
 dist_clean:
 	$(MAKE)  clean_test

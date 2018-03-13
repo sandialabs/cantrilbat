@@ -14,9 +14,9 @@ PROGRAM=MCMBAnode_SimpleDiff_4
 PROGRAM_OPTS=''
 #
 #  
-SOLUTION_BLESSED_XML="   soln_0_0_blessed.xml "
-SOLUTION_XML="           soln_0_0.xml         "
-SOLUTION_XML_DIFFNAME="  diff_xml.txt         "
+SOLUTION_BLESSED_XML="   soln_0_0_blessed.xml soln_Restart_43_0_0_blessed.xml "
+SOLUTION_XML="           soln_0_0.xml         soln_Restart_43_0_0.xml "
+SOLUTION_XML_DIFFNAME="  diff_xml.txt         diff_s43r_xml.txt "
 #
 #   Text files to compare against
 #
@@ -27,11 +27,11 @@ DIFF_REQ="           True          "
 #
 #  CSV file to compare against
 #
-BLESSED_CSV_FILES="  MCMB_globalResults_blessed_0_0.csv  MCMB_intResults_blessed_0_0.csv   "
-CSV_FILES="          MCMB_globalResults_0_0.csv  MCMB_intResults_0_0.csv        "
-DIFF_CSV_NAMES="     diff_gcsv.txt                diff_icsv.txt    "
-DIFF_CSV_REQ="       True                         True"
+BLESSED_CSV_FILES="  MCMB_globalResults_blessed_0_0.csv     "
+CSV_FILES="          MCMB_globalResults_0_0.csv         "
+DIFF_CSV_NAMES="     diff_gcsv.txt                    "
+DIFF_CSV_REQ="       True                         "
 #
 #  Extra files to be removed before the test starts
 #
-EXTRA_WHACKED_FILES=''
+EXTRA_WHACKED_FILES='  diff_s43r_xml.txt '

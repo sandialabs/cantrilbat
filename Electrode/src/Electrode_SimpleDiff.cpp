@@ -2898,6 +2898,13 @@ int Electrode_SimpleDiff::integrateResid(const double t, const double delta_t,
     return 1;
 }
 //==================================================================================================================================
+//! Determine the largest mole fraction in a phase
+/*!
+ *  @param[in]                mfVec              Pointer to the mole fraction vector
+ *  @param[in]                nspPhase           Number of species in the phase
+ *
+ *  @return                                      Returns the index of the species with the largest mole fraction
+ */
 static size_t determineBigMF(const double* const mfVec, size_t nspPhase)
 {
     size_t k, bigK = 0;
@@ -2911,7 +2918,6 @@ static size_t determineBigMF(const double* const mfVec, size_t nspPhase)
     return bigK;
 }
 //==================================================================================================================================
-// hkm -> bigK good
 void Electrode_SimpleDiff::determineBigMoleFractions()
 {
     static bool firstTime = true;
@@ -2953,7 +2959,17 @@ void Electrode_SimpleDiff::determineBigMoleFractions()
 //! Changes a solution component kernal consisting of a phase value and nsp -1 species values,
 //! when the big mole fraction id is changed 
 /*!
+ *  We reassemble the solnDot vector to be consistent with the change in bigMF:
  *
+ *    solnDot[0]          ->   solnDot[0] is unchanged
+ *    solnDot[oldK]       ->   solnDot[0] - sum_j=(1,N-1) (solnDot[j]   <- we recalculate solnDot[oldK] from the previous vector
+ *    solnDot[l]          ->   solnDot[m] -> The BigK position is dropped from the list
+ *  
+ *  @param[in, out]          solnDot             Solution derivative vector
+ *  @param[in]               oldK                Old value of the big mole fraction index
+ *  @param[in]               bigK                new value of the big mole fraction index
+ *  @param[in]               nsp                 Number of species
+ *  @param[in]               vals                Workspace vector of length nsp
  */
 static void changeSolnVec_fromBigMF_change(double* const solnDot, size_t oldK, size_t bigK, size_t nsp, double* const vals)
 {

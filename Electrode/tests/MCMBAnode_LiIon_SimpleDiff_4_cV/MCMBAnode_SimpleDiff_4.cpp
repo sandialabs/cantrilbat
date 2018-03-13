@@ -166,7 +166,7 @@ int main(int argc, char **argv)
     printf("oc[0] = %g\n", oc);
     int nT = 30;
     deltaT = 1.0E-3;
-    electrodeA->printCSVLvl_ = 3;
+    electrodeA->printCSVLvl_ = 4;
 
 
     double pmv[10];
@@ -177,6 +177,10 @@ int main(int argc, char **argv)
 
     electrodeA->setDeltaTSubcycle(2.5E-4);
     electrodeA->printElectrode();
+
+    electrodeA->writeRestartFileOnSuccessfulStep_ = 2;
+    electrodeA->writeGlobalSolnFileOnSuccessfulStep_ = 1;
+
 
     remove("soln.xml");
 
@@ -197,8 +201,11 @@ int main(int argc, char **argv)
  
       cout << setw(15) << Tfinal << setw(15) << amps << numSubIntegrations << endl;
       electrodeA->printElectrode();
-      electrodeA->writeSolutionTimeIncrement();
+      // electrodeA->writeSolutionTimeIncrement();
     }
+    Tinitial = Tfinal;
+    electrodeA->resetStartingCondition(Tinitial);
+
     delete cfC;
     delete electrodeA_input;
     delete electrodeA;

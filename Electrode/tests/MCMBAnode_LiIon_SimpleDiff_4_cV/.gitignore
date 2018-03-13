@@ -27,3 +27,5 @@ soln.xml_0_0.xml
 soln_0_0.xml
 *breakpoints
 capCheck_0.txt
+soln_Restart_*0.xml
+diff_s43r_xml.txt

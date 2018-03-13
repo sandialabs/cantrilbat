@@ -69,4 +69,49 @@ GFCEO -> To solve these systems, we can fall back on the general DAE solution me
          Zuzax using the DAE_Solver class
 
 
+HANDLING ZEROING PHASES:
+
+Previously I had an extra equation representing the calculate deltaT. I can't maintain this when
+coupling everything together, so I need a different solution.
+
+The solution is to use the sundials solve for a root solution using the following equation system:
+
+First Equation:
+     dn / dt = sum_j( src_j ) = src^T
+
+     
+    n d X_i / dt  = src_i - X_i ( src^T)
+
+    for i = 1, ..., N-1
+
+ 
+    Note: the i = 0 mole fraction equation is left out, or sum_j X_j = 1 is substituted for that equation.
+     (I like the "left out option".
+
+  
+This has the advantage that the X_i is exactly correct when n goes through the origin.
+This should be stable for n positive and negative. We need to ensure the bounded-ness of X_i for i = 0, ... N-1.
+
+Also from the get-go, we need to ensure that the special species is the species with the largest 
+mole fraction. It always occurs that the scheme breaks down when this isn't taken into account.
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
 

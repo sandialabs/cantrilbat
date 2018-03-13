@@ -2181,41 +2181,73 @@ int Electrode_CSTR::GFCEO_evalResidNJ(const double tdummy, const double delta_t_
     return 0;
 }
 //==================================================================================================================================
-// Main internal routine to calculate the rate constant
 /*
- *  This routine calculates the functional at the current stepsize, deltaTsubcycle_.
- *  A new stepsize, deltaTsubcycleCalc_, is calculated within this routine for changes
- *  in topology.
- *
- *  This routine calcules yval_retn, which is the calculated value of the residual for the
- *  nonlinear function
- *
- *   resid[i] = y[i] - yval_retn[i]
- *
  *  The formulation of the solution vector is as follows. The solution vector will consist of the following form
  *
  *     y =   phaseMoles_final[iph]    for iph = phaseIndexSolidPhases[0]
  *           phaseMoles_final[iph]    for iph = phaseIndexSolidPhases[1]
  *           . . .
  *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[0]
- *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[0]
- *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[0]
+ *           Xmol[k = spBig]          for iph = phaseIndexSolidPhases[0]
  *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[0]
  *           ...
  *           Xmol[k = 0]              for iph = phaseIndexSolidPhases[1]
+ *           Xmol[k = spBig]          for iph = phaseIndexSolidPhases[1]
  *           Xmol[k = nSpecies()-1]   for iph = phaseIndexSolidPhases[1]
  *
- *    @param yval_retn calculated return vector whose form is described above
+ *         where spBig is the special species for the phase 0 and 1. This is the biggest species in the 
+ *         phase and is only changed periodically when necessary.
  *
+ *    The equation for the species total moles is equal to:
  *
- *  @return  1 Means a good calculation that produces a valid result
- *           0 Bad calculation that means that the current nonlinear iteration should be terminated
+ *          residual[i] =    d phaseMoles[iph] / dt - sum_k( src_k )   (sum over all the source terms for species in the phase)
+ *    
+ *    This equation has no bounds on the phaseMoles. It can go negative.
+ *
+ *          The mole fractions for species are determined from
+ *
+ *          X_i = Xmol[k = i]
+ *          X_spBig = 1 - sum_k' (X_i)      where sum_k' is a sum over all species other than spBig
+ *
+ *    The equation for the special species is given by a fake solution: (where Xmol_SpBig isn't fed into the residual other
+ *    than the top: 
+ *
+ *        Resid =   Xmol_spBig  - (1 -  sum_k' (X_i));
+ *
+ *    The equation for the regular mole fraction for species k is given by
+ *
+ *        resid[i] = n_t d(X_k)/dt - src_k   + X_k (  sum_j( src_j ) )
+ *
+ *    This is expected to be well behaved as n_t goes through zero.
+ *
+ *   REASONING:
+ *
+ *       We need the mole fraction vector to be full, because the unknown structure will extend outside of the Electrode object.
+ *       When we change the spBig id for a phase, we can't expect to propagate the change in solution unknowns outside of
+ *       the Electrode object, so we need a slot for each mole fraction.
+ *       Also, we will create a bounds on Xmol going negative for each unknown. having the extra equation will let us set
+ *       a bounds on  X_spBig from going negative.
+ *   
+ *       This formulation works well when the phase moles goes negative. At least it works fairly well. When n_t = 0,
+ *       we have the following
+ *
+ *          X_k (  sum_j( src_j ) ) = src_k 
+ *
+ *       This looks to be well behaved and stable as n_t goes through 0. If any X_k goes negative that means that the total n_t
+ *       doesn't go through 0, which is the expected  behavior.
+ *
+ *       An additional consideration is to set a scaling factor for the total moles, n_t, so that all residuals appear to be
+ *       units of concentrations c_t = n_t / V_t , where V_t is the scaling factor representative of the initial volume.
+ *       Using this principle, the equations have the same scaling when the domain is discretized into smaller volumes.
+ *       
+ *        
+ *
  */
 int Electrode_CSTR::GFCEO_calcResid(double* const resid, const ResidEval_Type evalType)
 {
     size_t index = 0;
     // This has to be scaled
-    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ph++) {
+    for (size_t ph = 0; ph < phaseIndexSolidPhases_.size(); ++ph) {
         size_t iph = phaseIndexSolidPhases_[ph];
         resid[index] = phaseMoles_dot_[iph] - DphMoles_final_[iph];
         index++;

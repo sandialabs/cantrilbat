@@ -180,6 +180,7 @@ Electrode::Electrode() :
     counterNumberSubIntegrations_(0),
     globalTimeStepNumber_(1),
     writeRestartFileOnSuccessfulStep_(0),
+    writeGlobalSolnFileOnSuccessfulStep_(0),
     printLvl_(4),
     printXMLLvl_(0),
     printCSVLvl_(0),
@@ -447,6 +448,7 @@ Electrode& Electrode::operator=(const Electrode& right)
     counterNumberSubIntegrations_ = 0;
     globalTimeStepNumber_ = right.globalTimeStepNumber_;
     writeRestartFileOnSuccessfulStep_  = right.writeRestartFileOnSuccessfulStep_;
+    writeGlobalSolnFileOnSuccessfulStep_ = right.writeGlobalSolnFileOnSuccessfulStep_;
     printLvl_ = right.printLvl_;
     printXMLLvl_ = right.printXMLLvl_;
     printCSVLvl_ = right.printCSVLvl_;
@@ -4117,6 +4119,12 @@ bool Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
                     writeRestartFile(globalTimeStepNumber_);
                 }
             }
+            if (writeGlobalSolnFileOnSuccessfulStep_ > 0) {
+                bool startNewRecord = false;
+                bool reset = false;
+                int stepNumOverride = -1;
+                writeSolutionTimeIncrement(startNewRecord, reset, stepNumOverride);
+            }
             globalTimeStepNumber_++;
         }
     }
@@ -5638,8 +5646,9 @@ void Electrode::setDeltaTSubcycleMax(double deltaTsubcycle)
  *
  *   printCSVLvl_ = 0 no printing
  *   printCSVLvl_ = 1 Only global printing at the end of a time step that is advancing
- *   printCSVLvl_  = 2 Only global printing at the end of a time step
+ *   printCSVLvl_  = 2 Only global printing at the end of a time step, whether it is advancing or not
  *   printCSVLvl_  = 3 Intermediate and global printing at all times.
+ *   printCSVLvl_  = 4 Only global printing at the end of a time step, only if it is advancing
  */
 void Electrode::writeCSVData(int itype)
 {
@@ -5657,7 +5666,7 @@ void Electrode::writeCSVData(int itype)
         ignoreErrors = true;
     }
 
-    if ((printCSVLvl_ >= 3) && (itype == 0 || fpI == 0)) {
+    if ((printCSVLvl_ != 4) &&(printCSVLvl_ >= 3) && (itype == 0 || fpI == 0)) {
         runNumber++;
         if (runNumber == 0) {
             intOutputName = (electrodeName_ + "_intResults_" + int2str(electrodeDomainNumber_) + "_"
@@ -5752,7 +5761,7 @@ void Electrode::writeCSVData(int itype)
         kstart = m_PhaseSpeciesStartIndex[metalPhase_];
     }
 
-    if ((printCSVLvl_ >= 3) && (itype == 1 || itype == 2)) {
+    if ((printCSVLvl_ != 4) && (printCSVLvl_ >= 3) && (itype == 1 || itype == 2)) {
         fpI = fopen(intOutputName.c_str(), "a");
         fprintf(fpI, "  %12.5E ,  %12.5E ,", tinit_, tfinal_);
 
@@ -5818,7 +5827,19 @@ void Electrode::writeCSVData(int itype)
         fclose(fpI);
     }
 
+    bool doGlobal = false;
     if (((printCSVLvl_ >= 2) && (itype == 2)) || ((printCSVLvl_ >= 1) && (itype == 3))) {
+        doGlobal = true;
+    }
+    if (printCSVLvl_ == 4) {
+        if (itype == 2) {
+            doGlobal = false;
+        } else if (itype == 3) {
+            doGlobal = true;
+        }
+    }
+
+    if (doGlobal) {
         fpG = fopen(globOutputName.c_str(), "a");
         fprintf(fpG, "  %12.5E ,  %12.5E ,", t_init_init_, t_final_final_);
 
