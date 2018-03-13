@@ -181,9 +181,30 @@ public:
      */
     double phiLyte;
 
-    //! Value of the joule heat term
+    //! Value of the joule heat term for the domain
+    //! Source of joule heating in the electrolyte during the current time step for the domain
+    /*!
+     *  This is the heat generated due to joule heating in the electrolyte in in the domain per time for the current time step
+     *  Therefore, the source term is integrated in the axial direction and it is integrated wrt to the time interval.
+     *
+     *  Units:   Joules / m2
+     */
     double jouleHeat_lyte;
+
+    //! Value of heat flux carried by the current-voltage combination out the RHS of domain, i.e., the cathode current collector
+    /*!
+     *  This is essentially i * V
+     *
+     *  Units = (amps / m2 ) ( V ) = (amps / m2 ) ( Joule / coul ) = Joule / sec / m2
+     */ 
     double enthalpyIVfluxRight;
+
+    //! Value of heat flux carried by the current-voltage combination out the LHS of domain, i.e., the anode current collector
+    /*!
+     *  This is essentially i * V
+     *
+     *  Units = (amps / m2 ) ( V ) = (amps / m2 ) ( Joule / coul ) = Joule / sec / m2
+     */ 
     double enthalpyIVfluxLeft;
 
     double sourceTermExtra;

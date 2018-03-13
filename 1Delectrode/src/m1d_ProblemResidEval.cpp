@@ -1263,7 +1263,7 @@ static void sprint_line(char* buf, const char* const st, const int num)
  */
 void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependentResid, const double t,
                                       const double delta_t, const Epetra_Vector_Ghosted& y_n,
-                                      const Epetra_Vector_Ghosted* const ydot_n, const Solve_Type solveType,
+                                      const Epetra_Vector_Ghosted* const ydot_n, const Zuzax::Solve_Type solveType,
                                       const double delta_t_np1)
 {
 
@@ -1356,7 +1356,7 @@ void ProblemResidEval::showProblemSolution(const int ievent, bool doTimeDependen
 //==================================================================================================================================
 void ProblemResidEval::writeTecplot(const int ievent, std::string baseFileName, bool doTimeDependentResid, const double t,
                                const double delta_t, const Epetra_Vector_Ghosted& y_n, const Epetra_Vector_Ghosted* const ydot_n,
-                               const Solve_Type solveType, const double delta_t_np1)
+                               const Zuzax::Solve_Type solveType, const double delta_t_np1)
 {
     // Get a local copy of the domain layout
     DomainLayout& DL = *DL_ptr_;
@@ -1620,7 +1620,7 @@ void ProblemResidEval::showSolutionIntVector(std::string& solnVecName, const dou
 void ProblemResidEval::writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current,
                                 const double delta_t_n, int istep, const Epetra_Vector_Ghosted& y_n,
                                 const Epetra_Vector_Ghosted* const ydot_n_ptr,
-                                const Solve_Type solveType, const double delta_t_np1)
+                                const Zuzax::Solve_Type solveType, const double delta_t_np1)
 {
     //
     // HKM -> Could gather solnAll, i.e., the entire solution on proc 0,  here

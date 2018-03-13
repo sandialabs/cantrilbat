@@ -791,8 +791,8 @@ public:
      *
      */
     virtual void showProblemSolution(const int ievent, bool doTimeDependentResid, const double t,
-                                     const double delta_t, const Epetra_Vector_Owned& y_n,
-                                     const Epetra_Vector_Owned* const ydot_n,
+                                     const double delta_t, const Epetra_Vector_Ghosted& y_n,
+                                     const Epetra_Vector_Ghosted* const ydot_n,
                                      const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
                                      const double delta_t_np1 = 0.0);
 
