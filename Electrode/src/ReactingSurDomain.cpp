@@ -468,6 +468,11 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
     }
 }
 //==================================================================================================================================
+void ReactingSurDomain::reassignPhaseList(PhaseList* pl_ptr)
+{
+    m_pl = pl_ptr;
+}
+//==================================================================================================================================
 void ReactingSurDomain::reinitializeIndexing()
 {
     if (!m_pl) {

@@ -242,7 +242,7 @@ Electrode& Electrode::operator=(const Electrode& right)
             // NOTE: we must fix up shallow pointers in the new ReactingSurDomain object
             //       so that everything points into this object.
             //
-            RSD_List_[i]->m_pl = this;
+            RSD_List_[i]->reassignPhaseList(this);
             std::vector<ThermoPhase*> tpList(0);
             for (size_t iph = 0; iph < RSD_List_[i]->nPhases(); ++iph) {
                 std::string ss = RSD_List_[i]->tpList_IDs_[iph];

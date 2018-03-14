@@ -47,6 +47,8 @@ struct OCV_Override_input;
  *      The standard state thermodynamic functions for the delta of reactions are not overridden. They 
  *      still refer to the unchanged thermodynamics values.
  *
+ *      todo: Working on splitting this class into 2. The first one will be located in Zuzax/kinetics: ElectrodeKinetics_into_PL
+ *
  *      todo: This class is missing some obvious member functions, that are probably carried out manually within the Electrode
  *            object
  */
@@ -131,6 +133,15 @@ public:
      */
     bool importFromPL(ZZCantera::PhaseList* const pl, size_t iphSurKin);
 
+    //! Reassign the internal PhaseList point to a new PhaseList object
+    /*!
+     *  This is used in the copy constructor.
+     *  Right now, we reassign the PhaseList without much checking. However, we should add more checking.
+     *
+     *  @param[in]           pl_ptr              New PhaseList pointer. 
+     */
+    void reassignPhaseList(PhaseList* pl_ptr);
+
     //! Redo the initialization
     /*!
      *  This redoes the index initializations between the kinetics object and the PhaseList object.
@@ -138,6 +149,14 @@ public:
      *  or if a ThermoPhase class has added or subtracted species.
      */
     virtual void reinitializeIndexing();
+
+    //! Returns a reference to the PhaseList object
+    /*!
+     *  @return                                  Returns a reference to the PhaseList object
+     */
+    const PhaseList& pl() {
+       return *m_pl;
+    }
 
     //! Routine to be called after all species and phases have been defined for the object
     /*!
@@ -489,7 +508,6 @@ public:
      * @param[out]     deltaH              Output vector of ss deltaH's for reactions Length: m_ii.
      */
     virtual void getDeltaSSEnthalpy(doublevalue* const deltaH) override;
-
     
     //! Return the vector of values for the change in the standard state entropies for each reaction.  These values don't
     //! depend upon the concentration of the solution.
@@ -672,6 +690,7 @@ public:
      */
     std::vector<double> deltaSRxn_Before_;
 
+protected:
     //! Pointer to the PhaseList object that contains the ThermoPhase objects.
     /*!
      *  This object doesn't own this. However, it uses this heavily. It is a shallow pointer.
@@ -691,6 +710,8 @@ public:
      *  However, the kinetic species vector may be considered to be a subset of the PhaseList vector.
      */
     bool m_IsContiguous;
+
+public:
 
     // -----------------------------------------------------------------------------------------------------------------------------
     //           DATA for the limiting ROP model
