@@ -158,6 +158,7 @@ public:
        return *m_pl;
     }
 
+protected:
     //! Routine to be called after all species and phases have been defined for the object
     /*!
      *  This initializes based on number of species
@@ -176,6 +177,7 @@ public:
     //------------------------------------------------------------------------------------------------------------------------------
     //@{
 
+public:
     //! Returns the global phase index of the phase in the PhaseList given the index in the Kinetics object
     /*!
      *  @param[in]           iphKin              Phase index within the kinetics object
@@ -618,16 +620,10 @@ public:
      */
     std::vector<size_t> KinToPL_SpeciesIndex_;
 
+protected:
     //! Global phase index of the phase in the PhaseList object that has the kinetics
     //! object for this reacting surface.
     size_t m_iphGlobKin;
-
-    //! List of id()s that constitute the ThermoPhases needed for the kinetics object
-    /*!
-     *   Currently this is needed to fix up the shallow pointer copy operation. 
-     *   The list is needed to carry out shallow pointer assignments when an Electrode object is copied.
-     */
-    std::vector<std::string> tpList_IDs_;
 
     //! If there is a surface kinetics mechanism associated with this object, this is true. 
     /*!
@@ -690,7 +686,6 @@ public:
      */
     std::vector<double> deltaSRxn_Before_;
 
-protected:
     //! Pointer to the PhaseList object that contains the ThermoPhase objects.
     /*!
      *  This object doesn't own this. However, it uses this heavily. It is a shallow pointer.

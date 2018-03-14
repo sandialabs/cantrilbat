@@ -104,7 +104,6 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     PLToKin_SpeciesIndex_ = right.PLToKin_SpeciesIndex_;
     KinToPL_SpeciesIndex_ = right.KinToPL_SpeciesIndex_;
     m_iphGlobKin         = right.m_iphGlobKin;
-    tpList_IDs_     = right.tpList_IDs_;
     m_DoSurfKinetics = right.m_DoSurfKinetics;
     speciesProductionRates_ = right.speciesProductionRates_;
     limitedROP_     = right.limitedROP_;
@@ -426,22 +425,18 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          * Resize the internal list of pointers and get a pointer to the vacant ThermoPhase pointer
          */
         std::vector<thermo_t_double*> tpList;
-        tpList_IDs_.clear();
         KinToPL_PhaseIndex_.resize(nPhasesFound, npos);
 
         m_iphGlobKin = iskin + pl->nVolPhases();
         m_DoSurfKinetics = true;
-
         
-        for (size_t iph = 0; iph < nPhasesFound; iph++) {
+        for (size_t iph = 0; iph < nPhasesFound; ++iph) {
             thermo_t_double* tp =  &( m_pl->thermo(iph) );
             tpList.push_back(tp);
-            tpList_IDs_.push_back(tp->id());
         }
 
         /*
-         * Fill in the kinetics object k, by querying the
-         * const XML_Node tree located at xmlPhase. The source terms and
+         * Fill in the kinetics object by querying the const XML_Node tree located at xmlPhase. The source terms and
          * eventually the source term vector will be constructed
          * from the list of ThermoPhases in the vector, tpList
          */

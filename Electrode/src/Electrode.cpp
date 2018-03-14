@@ -223,8 +223,8 @@ Electrode& Electrode::operator=(const Electrode& right)
      * Copy over the ReactingSurDomain list
      * The electrode object owns the ReactingSurDomain.
      */
-    for (size_t i = 0; i < RSD_List_.size(); ++i) {
-        delete RSD_List_[i];
+    for (size_t iSurf = 0; iSurf < RSD_List_.size(); ++iSurf) {
+        delete RSD_List_[iSurf];
     }
     RSD_List_ = right.RSD_List_;
 
@@ -243,12 +243,12 @@ Electrode& Electrode::operator=(const Electrode& right)
             //       so that everything points into this object.
             //
             RSD_List_[i]->reassignPhaseList(this);
-            std::vector<ThermoPhase*> tpList(0);
+            std::vector<thermo_t_double*> tpList(0);
             for (size_t iph = 0; iph < RSD_List_[i]->nPhases(); ++iph) {
-                std::string ss = RSD_List_[i]->tpList_IDs_[iph];
+                std::string ss = RSD_List_[i]->thermo(iph).id();
                 bool notFound = true;
-                for (size_t jph = 0; jph < nPhases(); jph++) {
-                    ThermoPhase* tp = & thermo(jph);
+                for (size_t jph = 0; jph < nPhases(); ++jph) {
+                    thermo_t_double* tp = & thermo(jph);
                     if (tp->id() == ss) {
                         notFound = false;
                         tpList.push_back(tp);
