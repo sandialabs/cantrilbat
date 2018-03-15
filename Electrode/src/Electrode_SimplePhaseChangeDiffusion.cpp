@@ -683,7 +683,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
             size_t jph, kph;
             size_t kIndexKin = 0;
             for (kph = 0; kph < nphRS; ++kph) {
-                jph = RSD_List_[isk]->KinToPL_PhaseIndex_[kph];
+                jph = RSD_List_[isk]->globalPhaseIndex_fromKP(kph);
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
                 for (size_t k = 0; k < nsp; k++) {
@@ -916,7 +916,7 @@ restartStep:
                 ReactingSurDomain* rsd = RSD_List_[isk];
                 size_t nph = rsd->nPhases();
                 for (size_t jph = 0; jph < nph; ++jph) {
-                    size_t iph = rsd->KinToPL_PhaseIndex_[jph];
+                    size_t iph = rsd->globalPhaseIndex_fromKP(jph);
                     if (iph == metalPhase_) {
                         continue;
                     }
@@ -976,7 +976,7 @@ restartStep:
                 int jph, kph;
                 int kIndexKin = 0;
                 for (kph = 0; kph < nphRS; ++kph) {
-                    jph = RSD_List_[isk]->KinToPL_PhaseIndex_[kph];
+                    jph = RSD_List_[isk]->globalPhaseIndex_fromKP(kph);
                     int istart = m_PhaseSpeciesStartIndex[jph];
                     int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
                     for (int k = 0; k < nsp; ++k) {
@@ -1079,7 +1079,7 @@ restartStep:
         int jph, kph;
         int kIndexKin = 0;
         for (kph = 0; kph < nphRS; kph++) {
-            jph = RSD_List_[surfIndexOuterSurface_]->KinToPL_PhaseIndex_[kph];
+            jph = RSD_List_[surfIndexOuterSurface_]->globalPhaseIndex_fromKP(kph);
             int istart = m_PhaseSpeciesStartIndex[jph];
             int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
             for (int k = 0; k < nsp; k++) {
@@ -1104,7 +1104,7 @@ restartStep:
         nphRS = RSD_List_[surfIndexInnerSurface_]->nPhases();
         kIndexKin = 0;
         for (kph = 0; kph < nphRS; kph++) {
-            jph = RSD_List_[surfIndexInnerSurface_]->KinToPL_PhaseIndex_[kph];
+            jph = RSD_List_[surfIndexInnerSurface_]->globalPhaseIndex_fromKP(kph);
             int istart = m_PhaseSpeciesStartIndex[jph];
             int nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
             for (int k = 0; k < nsp; k++) {
@@ -1359,7 +1359,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(size_t iph, int p
         size_t nphRS = RSD_List_[isph]->nPhases();
         size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; ++kph) {
-            size_t jph = RSD_List_[isph]->KinToPL_PhaseIndex_[kph];
+            size_t jph = RSD_List_[isph]->globalPhaseIndex_fromKP(kph);
             size_t istart = m_PhaseSpeciesStartIndex[jph];
             size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
             for (size_t k = 0; k < nsp; ++k) {

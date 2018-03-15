@@ -1425,7 +1425,7 @@ void Electrode_MP_RxnExtent::extractInfo()
     size_t jph, kph;
     size_t kIndexKin = 0;
     for (kph = 0; kph < nphRS; ++kph) {
-        jph = rsd->KinToPL_PhaseIndex_[kph];
+        jph = rsd->globalPhaseIndex_fromKP(kph);
         size_t istart = m_PhaseSpeciesStartIndex[jph];
         size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
         for (size_t k = 0; k < nsp; k++) {
@@ -4467,7 +4467,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(size_t iph, int pSrc, bool subT
             size_t nphRS = RSD_List_[isurf]->nPhases();
             size_t kIndexKin = 0;
             for (size_t kph = 0; kph < nphRS; ++kph) {
-                size_t jph = RSD_List_[isurf]->KinToPL_PhaseIndex_[kph];
+                size_t jph = RSD_List_[isurf]->globalPhaseIndex_fromKP(kph);
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
                 if (goNowhere_) {

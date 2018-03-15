@@ -224,6 +224,23 @@ public:
      */
     size_t kineticsSpeciesStart_fromPLP(size_t iphGlob) const;
 
+    //! Returns the Kinetics species index given the global species index within the PhaseList object
+    /*!
+     *  @param[in]           kGlob               Species index within the the PhaseList object
+     *
+     *  @return                                  Returns the kinetics species index within the Kinetics object.
+     *                                           Note, this may return npos if the phase isn't in the Kinetics object.
+     */
+    size_t kineticsSpeciesIndex_fromPLSpeciesIndex(size_t kGlob) const;
+
+    //! Returns the global species index given the Kinetic species index
+    /*!
+     *  @param[in]           kKin               Species index within the Kinetics object
+     *
+     *  @return                                  Returns the global species index within the PhaseList object.
+     */
+    size_t globSpeciesIndex_fromKinSpeciesIndex(size_t kKin) const;
+
     //@}
 
     //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
@@ -543,6 +560,7 @@ public:
     //
     //   -----------------------------------   DATA --------------------------------------------------------------------------
     //
+protected:
 
     //! Mapping between the phase order in the InterfaceKinetics object and the overall order in the PhaseList object
     /*!
@@ -620,7 +638,6 @@ public:
      */
     std::vector<size_t> KinToPL_SpeciesIndex_;
 
-protected:
     //! Global phase index of the phase in the PhaseList object that has the kinetics
     //! object for this reacting surface.
     size_t m_iphGlobKin;

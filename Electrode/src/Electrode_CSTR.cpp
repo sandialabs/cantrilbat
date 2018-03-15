@@ -887,7 +887,7 @@ void Electrode_CSTR::speciesProductionRates(double* const spMoleDot)
             size_t jph, kph;
             size_t kIndexKin = 0;
             for (kph = 0; kph < nphRS; ++kph) {
-                jph = RSD_List_[isk]->KinToPL_PhaseIndex_[kph];
+                jph = RSD_List_[isk]->globalPhaseIndex_fromKP(kph);
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
                 for (size_t k = 0; k < nsp; k++) {
@@ -2445,7 +2445,7 @@ void Electrode_CSTR::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
                 size_t nphRS = RSD_List_[isph]->nPhases();
                 size_t kIndexKin = 0;
                 for (size_t kph = 0; kph < nphRS; ++kph) {
-                    size_t jph = RSD_List_[isph]->KinToPL_PhaseIndex_[kph];
+                    size_t jph = RSD_List_[isph]->globalPhaseIndex_fromKP(kph);
                     size_t istart = m_PhaseSpeciesStartIndex[jph];
                     size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
                     for (size_t k = 0; k < nsp; k++) {

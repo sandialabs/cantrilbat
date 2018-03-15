@@ -206,6 +206,18 @@ size_t ReactingSurDomain::kineticsSpeciesStart_fromPLP(size_t iphGlob) const
     return PLToKin_SpeciesStartIndex_[iphGlob];
 }
 //==================================================================================================================================
+size_t ReactingSurDomain::kineticsSpeciesIndex_fromPLSpeciesIndex(size_t kGlob) const
+{
+    // This sometimes returns npos, which is the correct response
+    return PLToKin_SpeciesIndex_[kGlob];
+}
+//==================================================================================================================================
+size_t ReactingSurDomain::globSpeciesIndex_fromKinSpeciesIndex(size_t kKin) const
+{
+    // This sometimes returns npos, which is the correct response
+    return KinToPL_SpeciesIndex_[kKin];
+}
+//==================================================================================================================================
 const std::vector<doublevalue>& ReactingSurDomain::calcNetSurfaceProductionRateDensities()
 {
     getNetProductionRates(speciesProductionRates_.data());
