@@ -43,8 +43,14 @@ namespace m1d
 bool polIndecisesCurrent = false;
 
 //==================================================================================================================================
-static void
-drawline(int sp, int ll)
+//! Draw a line on the Zuzax log file
+/*!
+ *  No flushing is carried out.
+ *
+ *  @param[in]              sp                   Number of indent characters
+ *  @param[in]              ll                   Number "-" characters in the line
+ */
+static void drawline(int sp, int ll)
 {
     for (int i = 0; i < sp; i++) {
         ZZCantera::writelog(" ");

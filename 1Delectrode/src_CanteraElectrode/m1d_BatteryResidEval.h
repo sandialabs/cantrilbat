@@ -283,46 +283,46 @@ public:
     setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, const Epetra_Vector_Ghosted *solnDot,
                          const double t, const double delta_t, const double t_old);
 
-
     //! Calculate the initial conditions
     /*!
-     *   This calls the parent class initialConditions method to loop over the volume and surface domains.
-     *   Then the method tried to better estimate the electrolyte potential.
+     *  (virtual from ProblemResidEval)
      *
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Solution vector. This is the input to
-     *                                the residual calculation.
-     * @param solnDot                 Solution vector. This is the input to
-     *                                the residual calculation.
-     * @param t                       Time
-     * @param delta_t                 delta_t for the initial time step
+     *  This calls the parent class initialConditions method to loop over the volume and surface domains.
+     *  Then the method tried to better estimate the electrolyte potential.
+     *
+     *  @param[in]           doTimeDependentResid  Boolean indicating whether we should formulate the time dependent residual
+     *  @param[in]           soln                Solution vector. This is the input to  the residual calculation.
+     *  @param[in]           solnDot             Solution vector. This is the input to the residual calculation.
+     *  @param[in]           t                   Time
+     *  @param[in]           delta_t             delta_t for the initial time step
      */
-    void
+    virtual void
     initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln, Epetra_Vector_Ghosted *solnDot, double &t,
-                      double &delta_t, double& delta_t_np1);
+                      double &delta_t, double& delta_t_np1) override;
 
     //! Make an attempt to improve the initial guess for the electrolyte voltage  based on the boundary conditions
-    void
-    improveInitialConditions(Epetra_Vector_Ghosted *soln);
-
-
-    //! Calculate a residual vector
     /*!
-     *   The basic algorithm is to loop over the volume domains.
-     *   Then, we loop over the surface domains
+     *  @param[in, out]      soln                Pointer to the solution vector. This is the input to the residual calculation.
+     */
+    void improveInitialConditions(Epetra_Vector_Ghosted * const soln);
+
+    //! Calculate a residual vector, given a solution vector at a new time and delta t 
+    /*!
+     *  (virtual from ProblemResidEval)
      *
-     * @param res                     residual output
-     * @param doTimeDependentResid    Boolean indicating whether the time
-     *                                dependent residual is requested
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Pointer to the solution vector. This is the input to the residual calculation.
-     * @param solnDot                 Pointer to the solution Dot vector. This is the input to the residual calculation.
-     * @param t                       current time
-     * @param rdelta_t                delta t inverse
-     * @param residType               Residual type
-     * @param solveType               Solve type
+     *  This is the main routine to calculate a solution vector.
+     *  The basic algorithm is to loop over the volume domains. Then, we loop over the surface domains.
+     *
+     *  @param[out]          res                 Residual output
+     *  @param[in]           doTimeDependentResid   Boolean indicating whether the time dependent residual is requested
+     *  @param[in]           soln                Pointer to the solution vector. This is the input to the residual calculation.
+     *  @param[in]           solnDot             Pointer to the solution Dot vector. This is the input to the residual calculation.
+     *  @param[in]           t                   current time
+     *  @param[in]           rdelta_t            delta t inverse
+     *  @param[in]           residType           Residual type
+     *                                                Defaults to a a base residual evaluation
+     *  @param[in]           solveType           Solve type . 
+     *                                                Defaults to a time dependent solve
      */
     virtual void
     residEval(Epetra_Vector* const &  res,
@@ -337,20 +337,21 @@ public:
     //! Write the solution to either the screen or to a log file
     /*!
      *  This is a general output utility to Cantera's logfile.
-     *  It's not hooked into the IO algorithm at all. It should be
-     *  conditionally called depending on the whims of the user.
+     *  It's not hooked into the IO algorithm at all. It should be conditionally called depending on the whims of the user.
      *
-     * @param ievent  Type of the event. The following form is used:
-     *             0 Initial conditions
-     *             1 Completion of a successful intermediate step.
-     *             2 Final successful conditions.
-     *             3 Intermediate nonlinear step
-     *            -1 unsuccessful step
-     * @param doTimeDependentResid   Do the time dependent residual calculation
-     * @param t                      Current time
-     * @param delta_t                delta t
-     * @param y_n    Current value of the solution vector
-     * @param ydot_n  Current value of the derivative of the solution vector
+     *  @param[in]           ievent              Type of the event. The following form is used:
+     *                                             - 0 Initial conditions
+     *                                             - 1 Completion of a successful intermediate step.
+     *                                             - 2 Final successful conditions.
+     *                                             - 3 Intermediate nonlinear step
+     *                                             - -1 unsuccessful step
+     *  @param[in]           doTimeDependentResid   Do the time dependent residual calculation
+     *  @param[in]           t                   Current time
+     *  @param[in]           delta_t             delta t
+     *  @param[in]           y_n                 Current value of the solution vector
+     *  @param[in]           ydot_n              Current value of the derivative of the solution vector
+     *  @param[in]           solveType           Solve type
+     *  @param[in]           delta_t_np1         delta_t for the next step
      */
     virtual void
     showProblemSolution(const int ievent,
@@ -393,33 +394,30 @@ public:
                   const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve, 
 	          const double delta_t_np1 = 0.0) override;
 
-    //! This function may be used to create output at various points in the
-    //! execution of an application.
+    //! This function may be used to create output at various points in the execution of an application.
     /*!
-     *   These functions are not affected by the print controls of the nonlinear solver
-     *   and the time stepper.
+     *  These functions are not affected by the print controls of the nonlinear solver  and the time stepper.
      *
-     *      ievent is a description of the event that caused this
-     *      function to be called.
+     *  ievent is a description of the event that caused this function to be called.
      *
-     *      @param ievent  Event that's causing this routine to be called.
-     *                     =  0 Initial conditions for a calculation
-     *                     =  1 Completion of a successful intermediate time step.
-     *                     =  2 Completion of a successful Final time or final calculation.
-     *                     =  3 Completion of a successful Intermediate nonlinear step
-     *                     =  4 Write out current and voltage to timeDep_IV.dat
-     *                     = -1 unsuccessful time step that converged, but failed otherwise
-     *                     = -2 unsuccessful nonlinear step.
+     *  @param[in]           ievent              Event that's causing this routine to be called.
+     *                                              =  0 Initial conditions for a calculation
+     *                                              =  1 Completion of a successful intermediate time step.
+     *                                              =  2 Completion of a successful Final time or final calculation.
+     *                                              =  3 Completion of a successful Intermediate nonlinear step
+     *                                              =  4 Write out current and voltage to timeDep_IV.dat
+     *                                              = -1 unsuccessful time step that converged, but failed otherwise
+     *                                              = -2 unsuccessful nonlinear step.
      *
-     *      @param time_current      Current time
-     *      @param delta_t_n         Current value of delta_t
-     *      @param istep             Current step number
-     *      @param y_n               Current value of the solution vector
-     *      @param ydot_n_ptr        Current value of the time deriv of the solution vector
+     *  @param[in]           time_current        Current time
+     *  @param[in]           delta_t_n           Current value of delta_t
+     *  @param[in]           istep               Current step number
+     *  @param[in]           y_n                 Current value of the solution vector
+     *  @param[in]           ydot_n_ptr          Current value of the time deriv of the solution vector
      */
     virtual void
     user_out(const int ievent, const double time_current, const double delta_t_n, const int istep, const Epetra_Vector_Ghosted &y_n,
-             const Epetra_Vector_Ghosted * const ydot_n_ptr);
+             const Epetra_Vector_Ghosted* const ydot_n_ptr);
 
     //! Write a tecplot file consisting of the voltage and current as a function of time
     /*!
@@ -553,15 +551,15 @@ public:
     virtual int
     getSolutionParam(std::string paramName, double * const paramVal);
 
-    //!   Report on the boundary condition applied to the cathode voltage equation
+    //! Report on the boundary condition applied to the cathode voltage equation
     /*!
      *
-     *   @param[in]  time        Current time for evaluating time dependent BC
-     *   @param[out] BC_Type     Type of the boundary condition
-     *   @param[out] value       Value of the dirichlet condition or flux - default 0.0
-     *   @param[out] BC_TimeDep  BoundaryCondition Pointers for time dependent BC for BC_Tppe = 3,4,5
+     *  @param[in]  time        Current time for evaluating time dependent BC
+     *  @param[out] BC_Type     Type of the boundary condition
+     *  @param[out] value       Value of the dirichlet condition or flux - default 0.0
+     *  @param[out] BC_TimeDep  BoundaryCondition Pointers for time dependent BC for BC_Tppe = 3,4,5
      *                            (default 0)
-     *   @param[out] TimeDep     Function pointer to a function that returns a double given a single parameter (the time).
+     *  @param[out] TimeDep     Function pointer to a function that returns a double given a single parameter (the time).
      *                           Defaults to a NULL pointer.
      */
     void
@@ -616,10 +614,8 @@ public:
     //! individual cells for the anode and cathode
     /*!
      *   The following variables are calculated by this routine
-     *
      */
     void gatherCapacityStatistics();
-
 
     // ------------------------------------------------- MEMBER DATA ----------------------------------------------------------------
 
