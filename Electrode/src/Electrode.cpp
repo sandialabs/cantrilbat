@@ -261,8 +261,8 @@ Electrode& Electrode::operator=(const Electrode& right)
             }
             RSD_List_[i]->assignShallowPointers(tpList);
 
-            if (RSD_List_[i]->OCVmodel_) {
-                RSD_OCVmodel* mm = RSD_List_[i]->OCVmodel_;
+            if (RSD_List_[i]->OCVmodel()) {
+                RSD_OCVmodel* mm = RSD_List_[i]->OCVmodel();
                 std::string ss = (mm->solidPhasePtr())->id();
                 bool notFound = true;
                 for (size_t jph = 0; jph <  nPhases(); jph++)  {

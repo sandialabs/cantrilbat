@@ -619,6 +619,11 @@ void ReactingSurDomain::addOCVoverride(OCV_Override_input *ocv_ptr)
     kReplacedSpeciesRS_  = PLToKin_SpeciesIndex_[ocv_ptr_->replacedGlobalSpeciesID];
 }
 //====================================================================================================================
+RSD_OCVmodel* ReactingSurDomain::OCVmodel()
+{
+    return OCVmodel_;
+}
+//====================================================================================================================
 void ReactingSurDomain::deriveEffectiveChemPot()
 {
     /*

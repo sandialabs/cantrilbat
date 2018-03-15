@@ -385,6 +385,14 @@ public:
      */
     void addOCVoverride(OCV_Override_input *ocv_ptr);
 
+    //! Return a pointer to the OCV model override
+    /*!
+     *  @return                                  Returns a pointer to the RSD_OCVmodel object.
+     *                                           If none has been provided, return the nullptr.
+     */
+    RSD_OCVmodel* OCVmodel();
+    
+protected:
     //! Calculate the effective chemical potential of the replaced species
     /*!
      *  We calculate the effects of the OCV override on the storred thermodynamics of the species
@@ -420,6 +428,7 @@ public:
      */
     void deriveEffectiveThermo();
 
+public:
     //!  Get the vector of deltaG values for all reactions defined in the kinetics object
     /*!
      *   (Virtual from Kinetics)
@@ -479,9 +488,11 @@ public:
     //! This gets the deltaG for each reaction in the mechanism, but using the standard state
     //! chemical potential for the electrolyte.
     /*!
-     *          @param  deltaG_special  DeltaG for each reaction using standard state chemical
-     *                                  potentials for the electrolyte. 
-     *                     length = nReactions(), J/kmol
+     *  @param[in]           deltaG_special      DeltaG for each reaction using standard state chemical
+     *                                           potentials for the electrolyte, only.  All other phases
+     *                                           use the whole chemical potential.
+     *                                             Length: nReactions()
+     *                                             Units:  J/kmol
      */
     void getDeltaGibbs_electrolyteSS(doublevalue* const deltaG_special);
 
@@ -507,19 +518,18 @@ public:
      */
     void getDeltaEntropy_Before(doublevalue* const deltaS);
 
-    //!  Return the vector of values for the reaction standard state gibbs free energy change.  These values don't depend upon
-    //!  the concentration of the solution.
+    //! Return the vector of values for the reaction standard state gibbs free energy change.  These values don't depend upon
+    //! the concentration of the solution.
     /*!   
      *  (virtual from Kinetics.h)
      *  units = J kmol-1
      *
-     * @param[out]      deltaG            Output vector of ss deltaG's for reactions Length: m_ii.
+     *  @param[out]      deltaG            Output vector of ss deltaG's for reactions Length: m_ii.
      */
     virtual void getDeltaSSGibbs(doublevalue* const deltaG) override;
 
-    //!  Return the vector of values for the change in the standard
-    //! state enthalpies of reaction.  These values don't depend
-    //! upon the concentration of the solution.
+    //! Return the vector of values for the change in the standard
+    //! state enthalpies of reaction.  These values don't depend upon the concentration of the solution.
     /*!
      *  (virtual from Kinetics.h)
      *  units = J kmol-1
@@ -534,26 +544,26 @@ public:
      *  (virtual from Kinetics.h)
      *  units = J kmol-1 Kelvin-1
      *
-     *     @param[out]    deltaS           Output vector of ss deltaS's for reactions Length: m_ii.
+     *  @param[out]    deltaS           Output vector of ss deltaS's for reactions Length: m_ii.
      */
     virtual void getDeltaSSEntropy(doublevalue* const deltaS) override;
 
-    //!  Get the OCV thermodynamic functions offsets for the species that is replaced when carrying out
-    //!  an OCV override step
+    //! Get the OCV thermodynamic functions offsets for the species that is replaced when carrying out
+    //! an OCV override step
     /*!
-     *      @param[out]   deltaG_species   Change in the value of chemical potential
-     *      @param[out]   deltaH_species   Change in the value of the enthalpy
-     *      @param[out]   deltaS_species   Change in the value of the entropy
+     *  @param[out]   deltaG_species   Change in the value of chemical potential
+     *  @param[out]   deltaH_species   Change in the value of the enthalpy
+     *  @param[out]   deltaS_species   Change in the value of the entropy
      */
     void getOCVThermoOffsets_ReplacedSpecies(double& deltaG_species, double& deltaH_species, double& deltaS_species);
 
-public:
     //! Declare a printing routine as a friend to this class
     /*!
-     *   @param[in]        s              Reference to the ostream that will be used for the printing
-     *   @param[in]        rsd            Reference to the ReactingSurDomain whose values will be printed
+     *  @param[in]           s                   Reference to the ostream that will be used for the printing
+     *  @param[in]           rsd                 Reference to the ReactingSurDomain whose values will be printed
      *
-     *   @return                          Returns a reference to the input ostream, as required for chaining these commands together.
+     *  @return                                  Returns a reference to the input ostream, as required for chaining 
+     *                                           these commands together.
      */
     friend std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd);
 
@@ -723,7 +733,6 @@ protected:
      */
     bool m_IsContiguous;
 
-public:
 
     // -----------------------------------------------------------------------------------------------------------------------------
     //           DATA for the limiting ROP model
@@ -874,8 +883,6 @@ public:
      *   Units:  Joules/kmol
      */
     double deltaH_species_;
-
-protected:
 
     friend class RSD_OCVmodel;
 };
