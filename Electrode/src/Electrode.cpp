@@ -2652,7 +2652,8 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
         /*
          *  Get the species production rates for the reacting surface
          */
-        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
+
         /*
          *  Loop over the phases in the reacting surface
          */
@@ -2780,26 +2781,22 @@ double Electrode::integratedLocalCurrent() const
     // returns coulomb / sec
     return Eprod * Faraday;
 }
-//====================================================================================================================
-//  Returns the current and the net production rates of the phases in kg/m2/s from a single surface
+//==================================================================================================================================
 /*
  *  Returns the net production rates of all phases from reactions on a single surface
- *
- *  @param isk Surface ID to get the fluxes from.
- *  @param phaseMassFlux  Returns the mass fluxes of the phases
  */
 void Electrode::getPhaseMassFlux(const size_t isk, double* const phaseMassFlux)
 {
     std::fill_n(phaseMassFlux, m_NumTotPhases, 0.);
 
     if (ActiveKineticsSurf_[isk]) {
-        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
 
         size_t nphRS = RSD_List_[isk]->nPhases();
         size_t kIndexKin = 0;
         for (size_t kph = 0; kph < nphRS; ++kph) {
             size_t iphGlob = RSD_List_[isk]->globalPhaseIndex_fromKP(kph);
-            ThermoPhase& tp = thermo(iphGlob);
+            thermo_t_double& tp = thermo(iphGlob);
             size_t istart = m_PhaseSpeciesStartIndex[iphGlob];
             size_t nsp = m_PhaseSpeciesStartIndex[iphGlob + 1] - istart;
             for (size_t k = 0; k < nsp; k++) {
@@ -2811,19 +2808,15 @@ void Electrode::getPhaseMassFlux(const size_t isk, double* const phaseMassFlux)
         }
     }
 }
-//================================================================================================
-//  Returns the current and the net production rates of the phases in kmol/m2/s from a single surface
+//==================================================================================================================================
 /*
  *  Returns the net production rates of all phases from reactions on a single surface
- *
- *  @param isk Surface ID to get the fluxes from.
- *  @param phaseMassFlux  Returns the mass fluxes of the phases
  */
 void Electrode::getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux)
 {
     std::fill_n(phaseMoleFlux, m_NumTotPhases, 0.);
     if (ActiveKineticsSurf_[isk]) {
-        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
         size_t nphRS = RSD_List_[isk]->nPhases();
         size_t kIndexKin = 0;
         for (size_t RSph = 0; RSph < nphRS; ++RSph) {
@@ -2838,7 +2831,7 @@ void Electrode::getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux)
         }
     }
 }
-//================================================================================================
+//==================================================================================================================================
 void Electrode::getPhaseProductionRates(const double* const speciesProductionRates,
                                         double* const phaseProductionRates) const
 {
@@ -3840,11 +3833,9 @@ int Electrode::phasePopKinResid(size_t iphaseTarget, const double* const Xf_phas
         if (ActiveKineticsSurf_[isk]) {
             /*
              *  For each Reacting surface
-             *
              *  Get the species production rates for the reacting surface
              */
-            //    m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
-            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
 
             double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
             /*
@@ -4857,8 +4848,7 @@ void Electrode::speciesProductionRates(double* const spMoleDot)
              *      (  m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
              *  Get the species production rates for the reacting surface
              */
-            // TODO: Check this logic for end of region conditions and goNowhere issues
-            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
 
             /*
              *  loop over the phases in the reacting surface
@@ -4878,7 +4868,7 @@ void Electrode::speciesProductionRates(double* const spMoleDot)
         }
     }
 }
-//====================================================================================================================
+//==================================================================================================================================
 //! Report the enthalpy source term for the electrode over an interval in time
 /*!
  * FIX!
@@ -5572,7 +5562,7 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
     }
     if (printLvl_ >= 4) {
         if (iph >= m_NumVolPhases) {
-            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
+            const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->veckin_NetProductionRates();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
@@ -5583,7 +5573,7 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
                 size_t jph = RSD_List_[isurf]->globalPhaseIndex_fromKP(kph);
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-                for (size_t k = 0; k < nsp; k++) {
+                for (size_t k = 0; k < nsp; ++k) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                     kIndexKin++;
                 }

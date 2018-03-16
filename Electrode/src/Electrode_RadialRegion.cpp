@@ -1736,7 +1736,7 @@ void Electrode_RadialRegion::printElectrodePhase(size_t iph, int pSrc, bool subT
         }
     }
     if (iph >= m_NumVolPhases) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
+        const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->veckin_NetProductionRates();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);

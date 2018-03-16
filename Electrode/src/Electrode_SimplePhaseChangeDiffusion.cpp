@@ -670,7 +670,7 @@ void  Electrode_SimplePhaseChangeDiffusion::extractInfo(std::vector<size_t>& jus
              *  Get the species production rates for the reacting surface
              */
             //    m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
             RSD_List_[isk]->getNetRatesOfProgress(netROP);
 
             double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
@@ -963,8 +963,7 @@ restartStep:
                  *  Get the species production rates for the reacting surface
                  */
                 //    m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
-                const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
-
+                const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
 
                 double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
                 /*
@@ -1071,7 +1070,7 @@ restartStep:
         spMf_final_[kStart] = mf_external_final_;
         spMf_final_[kStart+1] = 1.0 - mf_external_final_;
         tphase->setState_TPX(temperature_, pressure_, &spMf_final_[kStart]);
-        const vector<double>& rsSpeciesProductionRatesO = RSD_List_[surfIndexOuterSurface_]->calcNetSurfaceProductionRateDensities();
+        const vector<double>& rsSpeciesProductionRatesO = RSD_List_[surfIndexOuterSurface_]->veckin_NetProductionRates();
         RSD_List_[surfIndexOuterSurface_]->getNetRatesOfProgress(netROP);
         double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(surfIndexOuterSurface_);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
@@ -1097,7 +1096,7 @@ restartStep:
         spMf_final_[kStart] = mf_internal_final_;
         spMf_final_[kStart+1] = 1.0 - mf_internal_final_;
         tphase->setState_TPX(temperature_, pressure_, &spMf_final_[kStart]);
-        const vector<double>& rsSpeciesProductionRatesI = RSD_List_[surfIndexInnerSurface_]->calcNetSurfaceProductionRateDensities();
+        const vector<double>& rsSpeciesProductionRatesI = RSD_List_[surfIndexInnerSurface_]->veckin_NetProductionRates();
         RSD_List_[surfIndexInnerSurface_]->getNetRatesOfProgress(netROP);
         spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(surfIndexInnerSurface_);
         std::fill_n(spNetProdPerArea, m_NumTotSpecies, 0.);
@@ -1351,7 +1350,7 @@ void Electrode_SimplePhaseChangeDiffusion::printElectrodePhase(size_t iph, int p
         }
     }
     if (iph >= m_NumVolPhases) {
-        const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
+        const vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->veckin_NetProductionRates();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);

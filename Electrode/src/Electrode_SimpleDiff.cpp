@@ -4409,7 +4409,7 @@ void Electrode_SimpleDiff::printElectrodePhase(size_t iph, int pSrc, bool subTim
         }
     }
     if (iph >= m_NumVolPhases) {
-        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->calcNetSurfaceProductionRateDensities();
+        const std::vector<double>& rsSpeciesProductionRates = RSD_List_[isph]->veckin_NetProductionRates();
         RSD_List_[isph]->getNetRatesOfProgress(netROP);
 
         double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isph);

@@ -207,7 +207,6 @@ int main(int argc, char **argv)
 
 	 rsd->getDeltaGibbs(dg);
 	 double ocv = dg[1] / Faraday / nstoic;
-         double dg0 = dg[0] - GasConstant * Temp * std::log(xMoleFractionLip);
 	 double ocvE = dg[0] / Faraday / nstoic;
 
          rsd->getDeltaEnthalpy(dh);
@@ -302,7 +301,6 @@ int main(int argc, char **argv)
 
      double icurD = rsd->getCurrentDensityRxn();
 
-     const std::vector<double>& netRate = rsd->calcNetSurfaceProductionRateDensities();
      double netROP[10];
      rsd->getNetRatesOfProgress(netROP);
      

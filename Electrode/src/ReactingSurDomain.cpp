@@ -29,12 +29,8 @@ namespace Cantera
 {
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain() :
-    ElectrodeKinetics(),
-    m_iphGlobKin(npos),
+    ElectrodeKinetics_intoPL(),
     m_DoSurfKinetics(false),
-    m_pl(nullptr),
-    m_OneToOne(false),
-    m_IsContiguous(false),
     ocv_ptr_(nullptr),
     OCVmodel_(nullptr),
     kReplacedSpeciesRS_(npos),
@@ -45,12 +41,8 @@ ReactingSurDomain::ReactingSurDomain() :
 }
 //====================================================================================================================
 ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
-    ElectrodeKinetics(),
-    m_iphGlobKin(npos),
+    ElectrodeKinetics_intoPL(),
     m_DoSurfKinetics(false),
-    m_pl(nullptr),
-    m_OneToOne(false),
-    m_IsContiguous(false),
     ocv_ptr_(nullptr),
     OCVmodel_(nullptr),
     kReplacedSpeciesRS_(npos),
@@ -62,15 +54,8 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
 }
 //==================================================================================================================================
 ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
-    ElectrodeKinetics(),
-    KinToPL_PhaseIndex_(pl->nPhases(), npos),
-    PLToKin_PhaseIndex_(pl->nPhases(), npos),
-    PLToKin_SpeciesIndex_(pl->nGlobalSpecies(), npos),
-    m_iphGlobKin(iskin + pl->nVolPhases()),
+    ElectrodeKinetics_intoPL(pl, iskin),
     m_DoSurfKinetics(true),
-    m_pl(pl),
-    m_OneToOne(false),
-    m_IsContiguous(false),
     ocv_ptr_(nullptr),
     OCVmodel_(nullptr),
     kReplacedSpeciesRS_(npos),
@@ -97,30 +82,15 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     //          underlying ThermoPhase classes in place. They must be fixed up at the Electrode
     //          object level where we copy the ThermoPhase classes.
     //
-    ElectrodeKinetics::operator=(right);
+    ElectrodeKinetics_intoPL::operator=(right);
 
-    KinToPL_PhaseIndex_ = right.KinToPL_PhaseIndex_;
-    PLToKin_PhaseIndex_ = right.PLToKin_PhaseIndex_;
-    PLToKin_SpeciesIndex_ = right.PLToKin_SpeciesIndex_;
-    KinToPL_SpeciesIndex_ = right.KinToPL_SpeciesIndex_;
-    m_iphGlobKin         = right.m_iphGlobKin;
     m_DoSurfKinetics = right.m_DoSurfKinetics;
-    speciesProductionRates_ = right.speciesProductionRates_;
     limitedROP_     = right.limitedROP_;
     limitedNetProductionRates_ = right.limitedNetProductionRates_;
-    speciesCreationRates_ = right.speciesCreationRates_;
-    speciesDestructionRates_ = right.speciesDestructionRates_;
 
     deltaGRxn_Before_ = right.deltaGRxn_Before_;
     deltaHRxn_Before_ = right.deltaHRxn_Before_;
     deltaSRxn_Before_ = right.deltaSRxn_Before_;
-    //
-    // Beware -  Shallow copy of m_pl pointer
-    //
-    m_pl            = right.m_pl;
-
-    m_OneToOne = right.m_OneToOne;
-    m_IsContiguous = right.m_IsContiguous;
 
     if (right.ocv_ptr_) {
 	delete ocv_ptr_;
@@ -154,12 +124,6 @@ ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
     return *this;
 }
 //==================================================================================================================================
-/*
- * Destructor for the ReactingSurDomain object.
- *
- * We must decide whether this object owns its own xml tree
- * structure.
- */
 ReactingSurDomain::~ReactingSurDomain()
 {
 }
@@ -182,46 +146,6 @@ Kinetics* ReactingSurDomain::duplMyselfAsKinetics(const std::vector<thermo_t*>& 
     ReactingSurDomain* rsd = new ReactingSurDomain(*this);
     rsd->assignShallowPointers(tpVector);
     return dynamic_cast<Kinetics*>(rsd);
-}
-//==================================================================================================================================
-size_t ReactingSurDomain::globalPhaseIndex_fromKP(size_t iphKin) const
-{
-    return KinToPL_PhaseIndex_[iphKin];
-}
-//==================================================================================================================================
-size_t ReactingSurDomain::kineticsPhaseIndex_fromPLP(size_t iphGlob) const
-{
-    // This sometimes returns npos, which is the correct response
-    return PLToKin_PhaseIndex_[iphGlob];
-}
-//==================================================================================================================================
-size_t ReactingSurDomain::globalSpeciesStart_fromKP(size_t iphKin) const
-{
-    return KinToPL_SpeciesStartIndex_[iphKin];
-}
-//==================================================================================================================================
-size_t ReactingSurDomain::kineticsSpeciesStart_fromPLP(size_t iphGlob) const
-{
-    // This sometimes returns npos, which is the correct response
-    return PLToKin_SpeciesStartIndex_[iphGlob];
-}
-//==================================================================================================================================
-size_t ReactingSurDomain::kineticsSpeciesIndex_fromPLSpeciesIndex(size_t kGlob) const
-{
-    // This sometimes returns npos, which is the correct response
-    return PLToKin_SpeciesIndex_[kGlob];
-}
-//==================================================================================================================================
-size_t ReactingSurDomain::globSpeciesIndex_fromKinSpeciesIndex(size_t kKin) const
-{
-    // This sometimes returns npos, which is the correct response
-    return KinToPL_SpeciesIndex_[kKin];
-}
-//==================================================================================================================================
-const std::vector<doublevalue>& ReactingSurDomain::calcNetSurfaceProductionRateDensities()
-{
-    getNetProductionRates(speciesProductionRates_.data());
-    return speciesProductionRates_;
 }
 //==================================================================================================================================
 void ReactingSurDomain::limitROP(const doublevalue* const nMoles)

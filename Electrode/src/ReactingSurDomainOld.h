@@ -245,12 +245,14 @@ public:
 
     //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
     /*!
-     *  This routine calls thet getNetProductionRate() function and then returns a reference to the result.
+     *  This routine calls thet getNetProductionRate function and then returns a reference to the internally storred result.
      *
-     *  @return                               Vector of length m_kk containing the species net
-     *                                        production rates (kmol s-1 m-2)
+     *  @return                                  Vector of length m_NumKinSpecies containing the net species production rates
+     *                                             Length:   m_NumKinSpecies = number of kinetics speies
+     *                                             Units:    kmol m-2 s-1
+     *                                             Indexing: Kinetics species indexing within the Electrode object
      */
-    const std::vector<doublevalue>& calcNetSurfaceProductionRateDensities();
+    const std::vector<doublevalue>& veckin_NetProductionRates();
 
     //! Returns a reference to the calculated limited production rates of species from this interfacial Kinetics class
     /*!

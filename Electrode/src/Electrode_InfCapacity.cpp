@@ -144,8 +144,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
              *  Get the species production rates for the reacting surface
              */
             //    m_rSurDomain->getNetProductionRates(&RSSpeciesProductionRates_[0]);
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->calcNetSurfaceProductionRateDensities();
-
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isk]->veckin_NetProductionRates();
 
             double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(isk);
             /*
@@ -160,7 +159,7 @@ int Electrode_InfCapacity::integrate(double deltaT, double  GlobalRtolSrcTerm,
                 jph = RSD_List_[isk]->globalPhaseIndex_fromKP(kph);
                 size_t istart = m_PhaseSpeciesStartIndex[jph];
                 size_t nsp = m_PhaseSpeciesStartIndex[jph+1] - istart;
-                for (size_t k = 0; k < nsp; k++) {
+                for (size_t k = 0; k < nsp; ++k) {
                     spNetProdPerArea[istart + k] += rsSpeciesProductionRates[kIndexKin];
                     if (rsSpeciesProductionRates[kIndexKin] > 0.0) {
                         if ((phaseMoles_init_[jph] <= 0.0) && (jph != metalPhase_)) {

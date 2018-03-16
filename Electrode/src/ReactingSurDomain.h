@@ -12,7 +12,7 @@
 #ifndef REACTINGSURDOMAIN_H
 #define REACTINGSURDOMAIN_H
 
-#include "cantera/kinetics/ElectrodeKinetics.h"
+#include "cantera/kinetics/ElectrodeKinetics_intoPL.h"
 #include "cantera/multiphase/PhaseList.h"
 
 #include "RSD_OCVmodel.h"
@@ -52,7 +52,7 @@ struct OCV_Override_input;
  *      todo: This class is missing some obvious member functions, that are probably carried out manually within the Electrode
  *            object
  */
-class ReactingSurDomain : public ZZCantera::ElectrodeKinetics
+class ReactingSurDomain : public ZZCantera::ElectrodeKinetics_intoPL
 {
 public:
 
@@ -90,6 +90,8 @@ public:
 
     //!  Duplication routine for objects which inherit from Kinetics
     /*!
+     *   (virtual from Kinetics)
+     *
      *   This virtual routine can be used to duplicate %Kinetics objects
      *   inherited from %Kinetics even if the application only has a pointer to %Kinetics to work with.
      *
@@ -150,13 +152,6 @@ public:
      */
     virtual void reinitializeIndexing();
 
-    //! Returns a reference to the PhaseList object
-    /*!
-     *  @return                                  Returns a reference to the PhaseList object
-     */
-    const PhaseList& pl() {
-       return *m_pl;
-    }
 
 protected:
     //! Routine to be called after all species and phases have been defined for the object
@@ -178,79 +173,9 @@ protected:
     //@{
 
 public:
-    //! Returns the global phase index of the phase in the PhaseList given the index in the Kinetics object
-    /*!
-     *  @param[in]           iphKin              Phase index within the kinetics object
-     *
-     *  @return                                  Returns the global phase index in the PhaseList
-     */
-    size_t globalPhaseIndex_fromKP(size_t iphKin) const;
 
-    //! Returns the global phase index within the PhaseList corresponding to the phase which owns the kinetic object
-    /*!
-     *  @return                                  Returns the index within PhaseList that owns the Kinetics object
-     */
-    size_t globalReactionPhaseIndex() const {
-        return m_iphGlobKin;
-    }
-
-    //! Returns the kinetics phase index of the phase given the global index in the PhaseList
-    /*!
-     *  If not present returns npos
-     *  @param[in]           iphGlob             Global phase index within the Phaselist object
-     *
-     *  @return                                  Returns the kinetics phase index or npos if not present
-     */
-    size_t kineticsPhaseIndex_fromPLP(size_t iphGlob) const;
-
-    //! Returns the offset from the start of the PhaseList species vector for the argument Kinetics phase index
-    /*!
-     *  @param[in]           iphKin              Phase index within the Kinetics object
-     *
-     *  @return                                  Returns the offset within a PhaseList species vector from the start of the species
-     *                                           belonging to the Kinetics phase listed in the parameter
-     */
-    size_t globalSpeciesStart_fromKP(size_t iphKin) const;
-
-    //! Returns the offset from the start of the Kinetics object species vector for the species in the argument Phaselist phase index
-    /*!
-     *  Phases which aren't in the Kinetics object will return an npos value.
-     *
-     *  @param[in]           iphGlob             Phase index within the PhaseList object
-     *
-     *  @return                                  Returns the offset within a Kinetics species vector from the start of the species
-     *                                           belonging to the PhaseList phase listed in the parameter. 
-     *                                           If that phase doesn't exist, this returns npos.
-     */
-    size_t kineticsSpeciesStart_fromPLP(size_t iphGlob) const;
-
-    //! Returns the Kinetics species index given the global species index within the PhaseList object
-    /*!
-     *  @param[in]           kGlob               Species index within the the PhaseList object
-     *
-     *  @return                                  Returns the kinetics species index within the Kinetics object.
-     *                                           Note, this may return npos if the phase isn't in the Kinetics object.
-     */
-    size_t kineticsSpeciesIndex_fromPLSpeciesIndex(size_t kGlob) const;
-
-    //! Returns the global species index given the Kinetic species index
-    /*!
-     *  @param[in]           kKin               Species index within the Kinetics object
-     *
-     *  @return                                  Returns the global species index within the PhaseList object.
-     */
-    size_t globSpeciesIndex_fromKinSpeciesIndex(size_t kKin) const;
 
     //@}
-
-    //! Returns a reference to the calculated production rates of species from this interfacial Kinetics class
-    /*!
-     *  This routine calls thet getNetProductionRate() function and then returns a reference to the result.
-     *
-     *  @return                               Vector of length m_kk containing the species net
-     *                                        production rates (kmol s-1 m-2)
-     */
-    const std::vector<doublevalue>& calcNetSurfaceProductionRateDensities();
 
     //! Returns a reference to the calculated limited production rates of species from this interfacial Kinetics class
     /*!
@@ -572,115 +497,11 @@ public:
     //
 protected:
 
-    //! Mapping between the phase order in the InterfaceKinetics object and the overall order in the PhaseList object
-    /*!
-     *  Note in the phase list object, surface phases are listed after volume phases, and edge phases are listed last.
-     *  Length is the number of phases in the InterfaceKinetics object. Value is the index of the phase in the PhaseList object.
-     *
-     *  KinToPL_PhaseIndex_[kph] = iph;
-     *        kph = phase index in the InterfaceKinetics object
-     *        iph = phase index in the PhaseList object
-     *
-     *  Length:   Number of phases in the Kinetics object 
-     *  Indexing: iphKin =  index of the kinetics phase within the Kinetics object
-     */
-    std::vector<size_t> KinToPL_PhaseIndex_;
-
-    //! Vector of the indexes of each phase in the ReactionSurfaceDomain object
-    //! given the index within the PhaseList object
-    /*!
-     *       jph = PLToKin_PhaseIndex_[iph];
-     *
-     *          iph refers to the index of the phase in the Electrode_Model object 
-     *          jph refers to the index of the phase in the heterogeneous kinetics object
-     *
-     *
-     *  A value of -1 or npos in this slot means that the phase doesn't participate in the
-     *  current ReactingSurDomain object
-     *
-     *  Length:   m_NumTotPhases =  number of phases in the PhaseList object 
-     *  Indexing: iphGlob = global phase indexing within the PhaseList object
-     */
-    std::vector<size_t> PLToKin_PhaseIndex_;
-
-    //! Index mapping kinetics species start index to the PhaseList species start index.
-    /*!
-     *  Value is the offset index for that kinetics phase within the species PhaseList vector
-     *
-     *  Length:   Number of phases in the Kinetics object 
-     *  Indexing: iphKin =  index of the kinetics phase within the Kinetics object
-     */
-    std::vector<size_t> KinToPL_SpeciesStartIndex_;
-
-    //! Index mapping phaselist species start index to the kinetics species start index.
-    /*!
-     *  Value is the offset index for that Phaselist phase within the species Kinetics vector
-     *
-     *  Phases which are missing in the kinetics object have a npos value in their entry
-     *
-     *  Length:   m_NumTotPhases =  number of phases in the PhaseList object 
-     *  Indexing: iphGlob = global phase indexing within the PhaseList object
-     */
-    std::vector<size_t> PLToKin_SpeciesStartIndex_;
-
-    //! Vector of the indexes of each species in the ReactionSurDomain object given the index within the PhaseList object
-    /*!
-     *       ksp = PLToKin_SpeciesIndex_[kGlob];
-     *
-     *          kGlob refers to the index of the global species in the PhaseList object
-     *          ksp refers to the index of the species in the heterogeneous kinetics object
-     *
-     *
-     *  A value of npos in this slot means that the species doesn't participate in the
-     *  current ReactingSurDomain kinetics object
-     *
-     *  Length:   m_pl->m_NumTotSpecies =  number of species in the PhaseList object
-     *  Indexing: kGlob  = global species indexing within the PhaseList object
-     */
-    std::vector<size_t> PLToKin_SpeciesIndex_;
-
-    //! Index mapping kinetics species index to the PhaseList global species index.
-    /*!
-     *   kGlob = KinToPl_SpeciesIndex_[ksp];
-     *
-     *   Length:    m_NumKinSpecies = number of species in the kinetics species list
-     *   Indexing:  kKin = kinetic species indexing
-     */
-    std::vector<size_t> KinToPL_SpeciesIndex_;
-
-    //! Global phase index of the phase in the PhaseList object that has the kinetics
-    //! object for this reacting surface.
-    size_t m_iphGlobKin;
-
     //! If there is a surface kinetics mechanism associated with this object, this is true. 
     /*!
      *   The index of the surface phase is kept in the variable, iphaseKin_ 
      */
     bool m_DoSurfKinetics;
-
-    //! Vector that will expose the species production rates for this kinetics object
-    /*!
-     *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
-     *  Units:    kmol m-2 s-1.
-     *  Indexing: kKin = Kinetics species indexing
-     */
-    std::vector<double> speciesProductionRates_;
-
-    //! Vector that will expose the species creation rates for this kinetics object
-    /*!
-     *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
-     *  Units:    kmol m-2 s-1.
-     *  Indexing: kKin = Kinetics species indexing
-     */
-    std::vector<double> speciesCreationRates_;
-
-    //! Vector that will expose the species destruction rates for this kinetics object
-    /*!
-     *  Length:   m_NumKinSpecies = Number of species in the kinetics vector
-     *  Units:    kmol m-2 s-1.
-     *  Indexing: kKin = Kinetics species indexing
-     */
-    std::vector<double> speciesDestructionRates_;
 
     //! Internal Vector of deltaG of reaction for all reactions
     /*!
@@ -712,26 +533,6 @@ protected:
      *  Indexing: Reaction number
      */
     std::vector<double> deltaSRxn_Before_;
-
-    //! Pointer to the PhaseList object that contains the ThermoPhase objects.
-    /*!
-     *  This object doesn't own this. However, it uses this heavily. It is a shallow pointer.
-     */
-    ZZCantera::PhaseList* m_pl;
-
-    //! This is true if the PhaseList and the KinSpecies list are exactly the same thing
-    /*!
-     *  This has advantages in terms of the speed for posting results for source terms
-     */
-    bool m_OneToOne;
-
-    //! This is true if the KinSpecies list is contiguous within the PhaseList list
-    /*!
-     *  This will be true if the phases within the Kinetics object are ordered in the same as in 
-     *  the PhaseList object. There may be additional phases in the PhaseList object in the beginning or the end of the object.
-     *  However, the kinetic species vector may be considered to be a subset of the PhaseList vector.
-     */
-    bool m_IsContiguous;
 
 
     // -----------------------------------------------------------------------------------------------------------------------------

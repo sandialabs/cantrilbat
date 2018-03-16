@@ -218,7 +218,7 @@ size_t ReactingSurDomainOld::globSpeciesIndex_fromKinSpeciesIndex(size_t kKin) c
     return KinToPL_SpeciesIndex_[kKin];
 }
 //==================================================================================================================================
-const std::vector<doublevalue>& ReactingSurDomainOld::calcNetSurfaceProductionRateDensities()
+const std::vector<doublevalue>& ReactingSurDomainOld::veckin_NetProductionRates()
 {
     getNetProductionRates(speciesProductionRates_.data());
     return speciesProductionRates_;

@@ -1397,7 +1397,7 @@ void Electrode_MP_RxnExtent::extractInfo()
      *
      *  Get the species production rates for the reacting surface
      */
-    const std::vector<double>& rsSpeciesProductionRates = rsd->calcNetSurfaceProductionRateDensities();
+    const std::vector<double>& rsSpeciesProductionRates = rsd->veckin_NetProductionRates();
 
     double* spNetProdPerArea = spNetProdPerArea_List_.ptrColumn(indexOfReactingSurface_);
 
@@ -4459,7 +4459,7 @@ void Electrode_MP_RxnExtent::printElectrodePhase(size_t iph, int pSrc, bool subT
     }
     if (pSrc) {
         if (iph >= m_NumVolPhases) {
-            const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->calcNetSurfaceProductionRateDensities();
+            const vector<double>& rsSpeciesProductionRates = RSD_List_[isurf]->veckin_NetProductionRates();
             RSD_List_[isurf]->getNetRatesOfProgress(netROP);
 
             double* spNetProdPerArea = (double*) spNetProdPerArea_List_.ptrColumn(isurf);
