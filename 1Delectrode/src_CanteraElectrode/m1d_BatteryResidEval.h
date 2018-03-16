@@ -471,31 +471,50 @@ public:
 			     const double delta_t_np1);
     
     //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
-    //! to be time dependent
+    //! to be time dependent, at the end of every successful time step
     /*!
-     *   Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
-     *   It can be used to track supplemental quantities in the calculation, especially if they need to be
-     *   integrated in time.
+     *  (virtual from ProblemResidEval) 
      *
-     *   An example of this may be total flux quantites that are dumped into a phase.
+     *  Equations in this system are evaluated using the time discretization scheme of the nonlinear solver.
+     *  It can be used to track supplemental quantities in the calculation, especially if they need to be
+     *  integrated in time.
      *
-     *   This routine is called at the beginning of the time stepping, in order to set up any initializations,
-     *   and it is called after every successful time step, once.
+     *  An example of this may be total flux quantites that are dumped into a phase.
      *
-     *   This is used to calculate the heat source terms in a battery
+     *  This routine is called at the beginning of the time stepping, in order to set up any initializations,
+     *  and it is called after every successful time step, once and only once.
      *
-     * @param ifunc   0 Initial call to the function, done whenever the time stepper is entered
-     *                1 Called after every successful time step.
-     * @param t       Current time
-     * @param deltaT  Current value of deltaT
-     * @param y       Current value of the solution vectors
-     * @param ydot    Current value of time derivative of the solution vectors.
+     *  This is used to calculate the heat source terms in a battery.
+     *
+     *  @param[in]           ifunc               Identity of the type of call to the routine:
+     *                                            - 0 Initial call to the function, done whenever the time stepper is entered
+     *                                            - 1 Called after every successful time step.
+     *  @param[in]           t                   Current time
+     *  @param[in]           deltaT              Current value of deltaT
+     *  @param[in]           soln                Current value of the solution vectors
+     *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
      */
     virtual void
-    evalTimeTrackingEqns(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
-			 const Epetra_Vector_Ghosted* const ydot);
+    evalTimeTrackingEqns(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& soln,
+			 const Epetra_Vector_Ghosted* const solnDot_ptr) override;
 
-    void doHeatAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+    //! Carries out a balance on EnthalpyPhi over the domains covered by the simulation
+    /*!
+     *  We define EnthalpyPhi as the enthalpy function with additions from the potential energy due to charged ions in an
+     *  electric potential.
+     *
+     *  This prints out the total EnthalpyPhi balance over all domains. We can make this more general
+     *  in the future. But for now, this works as a proof of strict conservation of EnthalpyPhi up to round-off-error.
+     *
+     *  @param[in]           ifunc               Identity of the type of call to the routine:
+     *                                            - 0 Initial call to the function, done whenever the time stepper is entered
+     *                                            - 1 Called after every successful time step.
+     *  @param[in]           t                   Current time
+     *  @param[in]           deltaT              Current value of deltaT
+     *  @param[in]           soln                Current value of the solution vectors
+     *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
+     */
+    void doHeatAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& soln,
 	                const Epetra_Vector_Ghosted* const solnDot_ptr);
 
     //! Do an analysis of the polarization losses at the current global time step
@@ -509,16 +528,17 @@ public:
      *                                           1 Called after every successful time step.
      *  @param[in]           t                   Current time
      *  @param[in]           deltaT              Current value of deltaT
-     *  @param[in]           y                   Current value of the solution vectors
+     *  @param[in]           soln                Current value of the solution vectors
      *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
      */
     virtual void 
-    doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& y,
+    doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& soln,
                            const Epetra_Vector_Ghosted* const solnDot_ptr);
 
     //! Carries out a species element balance over all of the domains
     /*!
-     *  This prints out the total element balance of Lithium over all domains.
+     *  This prints out the total element balance of Lithium over all domains, atm. We can make this more general
+     *  in the future. But for now, this works as a proof of strict conservation up to round-off-error.
      *
      *  @param[in]           ifunc               0 Initial call to the function, done whenever the time stepper is entered
      *                                           1 Called after every successful time step.
@@ -532,6 +552,8 @@ public:
     
     //! Set a solution parameter 
     /*!
+     *  (virtual from ProblemResidEval)
+     *
      *  @param[in]           paramName           String identifying the parameter to be set
      *  @param[in]           paramVal            Single double value of the parameter to be set
      *
@@ -539,17 +561,19 @@ public:
      *                                           Returns a negative number if the parameter is unknown
      */
     virtual int
-    setSolutionParam(std::string paramName, double paramVal);
+    setSolutionParam(std::string paramName, double paramVal) override;
 
     //! Get a solution parameter 
     /*!
-     *  @param paramName   String identifying the parameter to be retrieved
-     *  @param paramVal    Vector of parameters returned
+     *  (virtual from ProblemResidEval)
      *
-     *  @return returns the number of parameters returned.
+     *  @param[in]           paramName           String identifying the parameter to be retrieved
+     *  @param[in]           paramVal            Vector of parameters returned
+     *
+     *  @return                                  Returns the number of parameters returned.
      */
     virtual int
-    getSolutionParam(std::string paramName, double * const paramVal);
+    getSolutionParam(std::string paramName, double* const paramVal) override;
 
     //! Report on the boundary condition applied to the cathode voltage equation
     /*!

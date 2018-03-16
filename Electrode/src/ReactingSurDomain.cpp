@@ -424,10 +424,10 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         //  Store the PhaseList as a shallow pointer within the object
         //
         m_pl = pl;
-   
 
         if (iskin == npos || iskin >= pl->nSurPhases()) {
-           throw Electrode_Error("ReactingSurDomain::importFromPL()", "index of surface reaction not within bounds");
+           throw Electrode_Error("ReactingSurDomain::importFromPL()", "index of surface reaction, %d, not within bounds", 
+                                 (int) iskin);
         }
         XML_Node* kinXMLPhase = &( pl->surPhaseXMLNode(iskin));
     
@@ -437,7 +437,6 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
          * Resize the internal list of pointers and get a pointer to the vacant ThermoPhase pointer
          */
         std::vector<thermo_t_double*> tpList;
-        KinToPL_PhaseIndex_.resize(nPhasesFound, npos);
 
         m_iphGlobKin = iskin + pl->nVolPhases();
         m_DoSurfKinetics = true;
@@ -460,7 +459,6 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
 
         // Create mappings between PhaseList and the Kinetics Object
         reinitializeIndexing();
-
 
         return true;
 
@@ -486,7 +484,6 @@ void ReactingSurDomain::reinitializeIndexing()
          throw ZuzaxError("ReactingSurDomain::reinitializeIndexing()",
                           "Must set the PhaseList pointer first before calling this routine");
     }
-
     /*
      *  Create a mapping between the ElectrodeKinetics to the PhaseList object
      */
