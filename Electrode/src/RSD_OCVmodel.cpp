@@ -13,7 +13,7 @@
 
 #include "cantera/thermo/ThermoPhase.h"
 
-
+#include "ReactingSurDomainOld.h"
 #include "mdp_stringUtils.h"
 #include "BI_InputError.h"
 #include "tok_input_util.h"
@@ -116,6 +116,12 @@ RSD_OCVmodel* RSD_OCVmodel::duplMyselfAsOCVmodel(ThermoPhase *solidPhase) const
 	pp->assignShallowPointers(solidPhase);
     }
     return pp;    
+}
+//===============================================================================================================================
+void RSD_OCVmodel::initialize(ReactingSurDomainOld* rsdO_ptr, const OCV_Override_input& OCVinput)
+{
+    ReactingSurDomain* rsd_ptr = (ReactingSurDomain*) rsdO_ptr;
+    initialize(rsd_ptr, OCVinput);
 }
 //===============================================================================================================================
 void RSD_OCVmodel::initialize(ReactingSurDomain * rsd_ptr, const OCV_Override_input& OCVinput)

@@ -90,7 +90,7 @@ INSTALL_TSC = @abs_top_builddir@/bin/install_tsc
 CCFLAGS = $(LDEFINES) $(INCLUDE_DIRS) $(GDEFINES)
 
 
-OBJ_CTAPPLBASE =  ReactingSurDomain.o RSD_OCVmodel.o \
+OBJ_CTAPPLBASE =  ReactingSurDomain.o ReactingSurDomainOld.o RSD_OCVmodel.o \
                   Electrode.o Electrode_input.o ApplBase_print.o Electrode_Polarization.o \
 	          Electrode_SimplePhaseChangeDiffusion.o Electrode_Exception.o  \
                   Electrode_InfCapacity.o Electrode_MP_RxnExtent.o Electrode_Factory.o \
@@ -102,7 +102,7 @@ OBJ_CTAPPLBASE =  ReactingSurDomain.o RSD_OCVmodel.o \
                   Electrode_MP_RxnExtent_FeS2.o Electrode_FD_Jacobian.o EState_XML.o \
                   GFCEO_Electrode.o
 
-HDR_CTAPPLBASE =   ReactingSurDomain.h RSD_OCVmodel.h \
+HDR_CTAPPLBASE =   ReactingSurDomain.h ReactingSurDomainOld.h RSD_OCVmodel.h \
                   Electrode.h Electrode_input.h ApplBase_print.h Electrode_defs.h Electrode_Polarization.h \
 	          Electrode_SimplePhaseChangeDiffusion.h  Electrode_Exception.h \
                   Electrode_InfCapacity.h Electrode_MP_RxnExtent.h Electrode_Factory.h \

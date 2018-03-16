@@ -33,6 +33,7 @@ namespace Cantera
 
 class ThermoPhase;
 class ReactingSurDomain;
+class ReactingSurDomainOld;
 //==================================================================================================================================
 
 //! OCV Model ID for an Anode that can be used to set an arbitrary OCV using a member function.
@@ -169,7 +170,16 @@ class RSD_OCVmodel
      *                                          This means that they are mutual friends.
      *  @param[in]            OCVinput          Reference to the structure containing the input for this override
      */
-    virtual void initialize(ReactingSurDomain * const rsd_ptr, const OCV_Override_input& OCVinput);
+    virtual void initialize(ReactingSurDomain* const rsd_ptr, const OCV_Override_input& OCVinput);
+
+    //! Initialize the OCV override model with input from the OCV_Override_input structure
+    /*!
+     *  @param[in]            rsd_ptr           Owning ReactingSurDomain object. We need this because some of the calculations
+     *                                          for this object are carried out by the ReactingSurDomain object.
+     *                                          This means that they are mutual friends.
+     *  @param[in]            OCVinput          Reference to the structure containing the input for this override
+     */
+    virtual void initialize(ReactingSurDomainOld* const rsd_ptr, const OCV_Override_input& OCVinput);
 
     //!  Assign the shallow pointer ThermoPhase object for the solidPhase
     /*!
