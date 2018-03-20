@@ -14,7 +14,7 @@
 
 #include "Electrode_Integrator.h"
 
-#include "cantera/numerics/NonlinearSolver.h"
+//#include "cantera/numerics/NonlinearSolver.h"
 
 /*
  *-----------------------------------------------------------------------------

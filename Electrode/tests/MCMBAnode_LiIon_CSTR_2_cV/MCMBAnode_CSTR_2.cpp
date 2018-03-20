@@ -12,7 +12,7 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "cantera/numerics/RootFind.h"
-#include "cantera/numerics/NonlinearSolver.h"
+//#include "cantera/numerics/NonlinearSolver.h"
 
 #include "Electrode_input.h"
 #include "Electrode_CSTR_MCMBAnode.h"
@@ -56,8 +56,8 @@ int main(int argc, char **argv)
   string commandFileA = "anode.inp";
   // printed usage
 
-  NonlinearSolver::s_TurnOffTiming = true;
-  NonlinearSolver::s_print_NumJac = true;
+  NonlinearSolver_JAC::s_TurnOffTiming = true;
+  NonlinearSolver_JAC::s_print_NumJac = true;
 
   /*
    * Process the command line arguments

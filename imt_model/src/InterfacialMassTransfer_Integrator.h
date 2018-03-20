@@ -22,7 +22,7 @@ namespace Cantera
 #endif 
 {
 
-  class NonlinearSolver;
+  class NonlinearSolver_JAC;
   class SquareMatrix;
 
 
@@ -652,7 +652,7 @@ namespace Cantera
     std::vector<double> soln_predict_;
 
     //! Pointer to the nonlinear solver
-    NonlinearSolver * pSolve_;
+    NonlinearSolver_JAC * pSolve_;
 
     //! Jacobian matrix
     SquareMatrix * jacPtr_;

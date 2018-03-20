@@ -11,7 +11,7 @@
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/RootFind.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 
 #include "Electrode_input.h"
 #include "Electrode.h"
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
   string commandFileC = "electrodeCathode.inp";
   // printed usage
 
-  ZZCantera::NonlinearSolver::s_TurnOffTiming = true;
+  ZZCantera::NonlinearSolver_JAC::s_TurnOffTiming = true;
 
 
   /*

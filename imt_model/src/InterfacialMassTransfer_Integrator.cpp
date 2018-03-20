@@ -13,7 +13,7 @@
 
 #include "InterfacialMassTransfer_Integrator.h"
 #include "cantera/integrators.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 
 #ifdef useZuzaxNamespace
 using namespace Zuzax;
@@ -192,7 +192,7 @@ namespace Cantera
 
    
     SAFE_DELETE(pSolve_);
-    pSolve_                             = new NonlinearSolver(this);
+    pSolve_                             = new NonlinearSolver_JAC(this);
     SAFE_DELETE(jacPtr_);
     jacPtr_                             = new SquareMatrix(*right.jacPtr_);
 
@@ -297,7 +297,7 @@ namespace Cantera
     soln_predict_.resize(neq, 0.0);
     jacPtr_ = new SquareMatrix(neq, neq);
 
-    pSolve_ = new NonlinearSolver(this);
+    pSolve_ = new NonlinearSolver_JAC(this);
     return neqNL;
   }
   //===================================================================================================================
@@ -650,7 +650,7 @@ namespace Cantera
 	//	enableExtraPrinting_ = 3;
         //detailedResidPrintFlag_ = 10;
 	//loglevelInput = 15;
-        pSolve_->m_min_newt_its = 2;
+        pSolve_->setMinNewtIts(2);
 #endif
 	int nonlinearFlag = pSolve_->solve_nonlinear_problem(solnType, &yvalNLS_[0], &ydotNLS_[0], CJ,
 							     time_curr, *jacPtr_,  num_newt_its, num_linear_solves,  numBacktracks, loglevelInput);

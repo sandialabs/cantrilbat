@@ -11,7 +11,7 @@
 #include "cantera/thermo/MolalityVPSSTP.h"
 
 #include "cantera/equil/vcs_prob.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 
 
 
@@ -55,12 +55,9 @@ void printUsage() {
 int main(int argc, char **argv)
 {
  
-
-
-
   ZZVCSnonideal::vcs_timing_print_lvl = 0;
-  NonlinearSolver::s_TurnOffTiming = true;
-  NonlinearSolver::s_print_NumJac = true;
+  NonlinearSolver_JAC::s_TurnOffTiming = true;
+  NonlinearSolver_JAC::s_print_NumJac = true;
 
   /*
    * Process the command line arguments

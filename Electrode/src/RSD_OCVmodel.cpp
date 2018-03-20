@@ -13,7 +13,7 @@
 
 #include "cantera/thermo/ThermoPhase.h"
 
-#include "ReactingSurDomainOld.h"
+//#include "ReactingSurDomainOld.h"
 #include "mdp_stringUtils.h"
 #include "BI_InputError.h"
 #include "tok_input_util.h"

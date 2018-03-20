@@ -8,7 +8,7 @@
  * may require a license from the United States Government.
  */
 
-#include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 #include "cantera/equilibrium.h"
 #include "Electrode_Factory.h"
 #include "importPL.h"
@@ -48,9 +48,8 @@ int main(int argc, char **argv)
   string commandFileA = "anode.inp";
   // printed usage
 
-  //VCSnonideal::vcs_timing_print_lvl = 0;
-  NonlinearSolver::s_TurnOffTiming = true;
-  NonlinearSolver::s_print_NumJac = true;
+  NonlinearSolver_JAC::s_TurnOffTiming = true;
+  NonlinearSolver_JAC::s_print_NumJac = true;
 
 
   ZZCantera::XML_Node* xEout =  getElectrodeOutputFile("solnSave_0_0.xml", 1);

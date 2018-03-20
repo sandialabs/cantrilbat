@@ -17,7 +17,7 @@
 #include "cantera/equil/vcs_VolPhase.h"
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 
 #include "Electrode_input.h"
 #include "Electrode_SimpleDiff.h"
@@ -60,9 +60,8 @@ int main(int argc, char **argv)
   bool printInputFormat = false; // print cmdfile.txt format
   // printed usage
 
-  //VCSnonideal::vcs_timing_print_lvl = 0;
-  NonlinearSolver::s_TurnOffTiming = true;
-  NonlinearSolver::s_print_NumJac = true;
+  NonlinearSolver_JAC::s_TurnOffTiming = true;
+  NonlinearSolver_JAC::s_print_NumJac = true;
 
   /*
    * Process the command line arguments

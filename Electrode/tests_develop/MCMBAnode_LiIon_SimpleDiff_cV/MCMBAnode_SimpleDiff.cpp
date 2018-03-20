@@ -16,7 +16,7 @@
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/RootFind.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 
 #include "Electrode_RadialDiffRegions.h"
 
@@ -62,10 +62,8 @@ int main(int argc, char **argv)
   string commandFileA = "anode.inp";
   prep_testrun();
 
-  NonlinearSolver::s_TurnOffTiming = true;
   NonlinearSolver_JAC::s_TurnOffTiming = true;
   // print the numerical jacobian
-  NonlinearSolver::s_print_NumJac = true;
   NonlinearSolver_JAC::s_print_NumJac = true;
   JacobianManager::s_print_Jac = true;
 
