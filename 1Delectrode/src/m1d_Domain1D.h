@@ -231,7 +231,7 @@ public:
 
     //! Evaluate the macroscopic heat balance on the domain given a converged solution of the problem
     /*!
-    *  (virtual from Domain1D)
+     *  (virtual from Domain1D)
      *  Calculations are done on a per m2 basis. So, the basic units are Joules / m2.
      *
      *  @param[in]             ifunc               situation function parameter, input from doHeatAnalysis()
@@ -354,6 +354,7 @@ public:
     //! Base class for saving the solution on the domain in an xml node.
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in,out]         oNode               Reference to the XML_Node
      *  @param[in]             soln_GlAll_ptr      Pointer to the Global-All solution vector
      *  @param[in]             solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector

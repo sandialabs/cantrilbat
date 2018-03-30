@@ -75,21 +75,24 @@ public:
 
     //! Prepare all of the indices for fast calculation of the residual
     /*!
+     *  (virtual from Domain1D)
+     *
      *  Ok, at this point, we will have figured out the number of equations
-     *  to be calculated at each node point. The object NodalVars will have
-     *  been fully formed.
+     *  to be calculated at each node point. The object NodalVars will have been fully formed.
      *
-     *  We use this to figure out what local node numbers/ cell numbers are
-     *  needed and to set up indices for their efficient calling.
+     *  We use domain_prep() to figure out what the local node and cell numbers are and what equations correspond to what unknown.
      *
-     *  Child objects of this one will normally call this routine in a
-     *  recursive fashion.
+     *  Child objects of domain_prep() will normally call parent classes in a recursive fashion.
+     *
+     *  @param[in]             li_ptr              Pointer to the LocalNodeIndices Structure that contains information
+     *                                             about how the mesh is layed out within this domain and other domains in the problem
      */
-    virtual void
-    domain_prep(LocalNodeIndices* li_ptr);
+    virtual void domain_prep(LocalNodeIndices* const li_ptr) override;
 
     //! Function that gets called at end the start of every time step
     /*!
+     *  (virtual from Domain1D)
+     *
      *  This function provides a hook for a residual that gets called whenever a
      *  time step has been accepted and we are about to move on to the next time step.
      *  The call is made with the current time as the time
@@ -98,18 +101,17 @@ public:
      *  After this call interrogation of the previous time step's results will not be
      *  valid.
      *
-     *   @param  doTimeDependentResid  This is true if we are solving a time dependent
-     *                                 problem.
-     *   @param  soln_ptr              Solution value at the current time
-     *   @param  solnDot_ptr           derivative of the solution at the current time.
-     *   @param  solnOld_ptr           Solution value at the old time step, n-1
-     *   @param  t                     current time to be accepted, n
-     *   @param  t_old                 previous time step value
+     *   @param[in]          doTimeDependentResid  This is true if we are solving a time dependent problem.
+     *   @param[in]          soln_ptr             Solution value at the current time
+     *   @param[in]          solnDot_ptr          Derivative of the solution at the current time.
+     *   @param[in]          solnOld_ptr          Solution value at the old time step, n-1
+     *   @param[in]          t                    Current time to be accepted, n
+     *   @param[in]          t_old                previous time step value
      */
     virtual void
     advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
                         const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
-                        const double t, const double t_old);
+                        const double t, const double t_old) override;
 
 
     //! Revert the domain object's conditions to the conditions at the start of the global time step
@@ -118,8 +120,7 @@ public:
      *
      *  Virtual from m1d_domain.h
      */
-    virtual void
-    revertToInitialGlobalTime();
+    virtual void revertToInitialGlobalTime();
 
 
     //! Basic function to calculate the residual for the domain.
@@ -148,36 +149,63 @@ public:
               const double t,
               const double rdelta_t,
               const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
-              const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
+              const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
 
- 
-  virtual void
-  eval_PostSoln(
-            const bool doTimeDependentResid,
-            const Epetra_Vector *soln_ptr,
-            const Epetra_Vector *solnDot_ptr,
-            const Epetra_Vector *solnOld_ptr,
-            const double t,
-            const double rdelta_t);
+
+    virtual void
+    eval_PostSoln(
+        const bool doTimeDependentResid,
+        const Epetra_Vector* soln_ptr,
+        const Epetra_Vector* solnDot_ptr,
+        const Epetra_Vector* solnOld_ptr,
+        const double t,
+        const double rdelta_t) override;
 
 
-    //!Evalulate quantities to determine the global heat balance
+    //! Evaluate the macroscopic heat balance on the domain given a converged solution of the problem
+    /*!
+     *  (virtual from Domain1D)
+     *  Calculations are done on a per m2 basis. So, the basic units are Joules / m2.
+     *
+     *  @param[in]             ifunc               situation function parameter, input from doHeatAnalysis()
+     *  @param[in]             t                   time
+     *  @param[in]             deltaT              deltaT for the just-finished time step
+     *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+     *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+     *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in,out]         dVals               Reference to the globalHeatBalVals structure that will contain the results
+     *                                             of the macroscopic heat balance calculation
+     */
     virtual void eval_HeatBalance(const int ifunc,
-				  const double t,
-				  const double deltaT,
-				  const Epetra_Vector *soln_ptr,
-				  const Epetra_Vector *solnDot_ptr,
-				  const Epetra_Vector *solnOld_ptr,
-				  struct globalHeatBalVals& dVals);
+                                  const double t,
+                                  const double deltaT,
+                                  const Epetra_Vector* soln_ptr,
+                                  const Epetra_Vector* solnDot_ptr,
+                                  const Epetra_Vector* solnOld_ptr,
+                                  struct globalHeatBalVals& dVals) override;
 
+    //! Evalualte the macroscopic Species balance equations on a domain given a converged solution of the problem
+    /*!
+     *  (virtual from Domain1D)
+     *  Calculations are done on a per m2 basis. So, the basic units are kmol/ m2.
+     *
+     *  @param[in]             ifunc               situation function parameter, input from doHeatAnalysis()
+     *  @param[in]             t                   time
+     *  @param[in]             deltaT              deltaT for the just-finished time step
+     *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+     *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+     *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in,out]         dVals               Reference to the globalHeatBalVals structure that will contain the results
+     *                                             of the macroscopic heat balance and species balance calculations
+     */
     virtual void eval_SpeciesElemBalance(const int ifunc,
-					 const double t,
-					 const double deltaT,
-					 const Epetra_Vector *soln_ptr,
-					 const Epetra_Vector *solnDot_ptr,
-					 const Epetra_Vector *solnOld_ptr,
-					 class globalHeatBalVals& dVals);
+                                         const double t,
+                                         const double deltaT,
+                                         const Epetra_Vector* soln_ptr,
+                                         const Epetra_Vector* solnDot_ptr,
+                                         const Epetra_Vector* solnOld_ptr,
+                                         class globalHeatBalVals& dVals) override;
 
     //! Utility function to calculate quantities before the main residual routine.
     /*!
@@ -281,26 +309,22 @@ public:
     //virtual void
     //getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
 
-    double getCellHeatCapacity(const m1d::NodalVars* const nv, const double*const solnElectrolyte);
+    double getCellHeatCapacity(const m1d::NodalVars* const nv, const double* const solnElectrolyte);
 
-    //! Base class for saving the solution on the domain in an xml node.
+    //! Child class for saving the solution on the domain in an xml node.
     /*!
+     *  (virtual from Domain1D)
      *
-     * @param oNode                Reference to the XML_Node
-     * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
-     * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
-     * @param t                    time
-     *
-     * @param duplicateOnAllProcs  If this is true, all processors will include
-     *                             the same XML_Node information as proc 0. If
-     *                             false, the xml_node info will only exist on proc 0.
+     *  @param[in,out]         oNode               Reference to the XML_Node
+     *  @param[in]             soln_GlAll_ptr      Pointer to the Global-All solution vector
+     *  @param[in]             solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector
+     *  @param[in]             t                   time
+     *  @param[in]             duplicateOnAllProcs If this is true, all processors will include the same XML_Node information
+     *                                             as proc 0. If false, the xml_node info will only exist on proc 0.
+     *                                             Defaults to false.
      */
-    virtual void
-    saveDomain(ZZCantera::XML_Node& oNode,
-               const Epetra_Vector* soln_GlAll_ptr,
-               const Epetra_Vector* solnDot_GlAll_ptr,
-               const double t,
-               bool duplicateOnAllProcs = false);
+    virtual void saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr,
+                            const Epetra_Vector* const solnDot_GlAll_ptr, const double t, bool duplicateOnAllProcs = false) override;
 
     //! Base Class for reading the solution from the saved file
     /*!
@@ -327,8 +351,8 @@ public:
      */
     virtual void
     readDomain(const ZZCantera::XML_Node& domainNode,
-	       Epetra_Vector* const soln_GlAll_ptr,
-	       Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
+               Epetra_Vector* const soln_GlAll_ptr,
+               Epetra_Vector* const solnDot_GlAll_ptr, double globalTimeRead);
 
     //! Method for writing the header for the surface domain to a tecplot file.
     /*!
@@ -346,8 +370,8 @@ public:
      *
      */
     virtual void writeSolutionTecplot(const Epetra_Vector* soln_GlAll_ptr,
-                              const Epetra_Vector* solnDot_GlAll_ptr,
-                              const double t);
+                                      const Epetra_Vector* solnDot_GlAll_ptr,
+                                      const double t);
 
     //! Base class for writing the solution on the domain to a logfile.
     /*!
@@ -378,34 +402,35 @@ public:
                  int indentSpaces,
                  bool duplicateOnAllProcs = false);
 
-  //! Set the underlying state of the system from the solution vector
-  /*!
-   *   Note this is an important routine for the speed of the solution.
-   *   It would be great if we could supply just exactly what is changing here.
-   *   This routine is always called at the beginning of the residual evaluation process.
-   *
-   *   This is a natural place to put any precalculations of nodal quantities that
-   *   may be needed by the residual before its calculation.
-   *
-   *   Also, this routine is called with delta_t = 0. This implies that a step isn't being taken. However, the
-   *   the initial conditions must be propagated.
-   *
-   *   Note, in general t may not be equal to t_old + delta_t. If this is the case, then the solution is
-   *   interpolated across the time interval and then the solution applied.
-   *
-   *   If doTimeDependentResid then delta_t > 0. 
-   *   If !doTimeDependentResid then usually delta_t = 0 but not necessarily
-   *
-   * @param doTimeDependentResid
-   * @param soln
-   * @param solnDot
-   * @param t
-   * @param delta_t delta t. If zero then delta_t equals 0.
-   * @param t_old
-   */
-  virtual void
-  setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, const Epetra_Vector_Ghosted *solnDot,
-                       const double t, const double delta_t, const double t_old);
+    //! Set the underlying state of the system from the solution vector
+    /*!
+     *   Note this is an important routine for the speed of the solution.
+     *   It would be great if we could supply just exactly what is changing here.
+     *   This routine is always called at the beginning of the residual evaluation process.
+     *
+     *   This is a natural place to put any precalculations of nodal quantities that
+     *   may be needed by the residual before its calculation.
+     *
+     *   Also, this routine is called with delta_t = 0. This implies that a step isn't being taken. However, the
+     *   the initial conditions must be propagated.
+     *
+     *   Note, in general t may not be equal to t_old + delta_t. If this is the case, then the solution is
+     *   interpolated across the time interval and then the solution applied.
+     *
+     *   If doTimeDependentResid then delta_t > 0.
+     *   If !doTimeDependentResid then usually delta_t = 0 but not necessarily
+     *
+     * @param doTimeDependentResid
+     * @param soln
+     * @param solnDot
+     * @param t
+     * @param delta_t delta t. If zero then delta_t equals 0.
+     * @param t_old
+     */
+    virtual void
+    setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted* soln,
+                         const Epetra_Vector_Ghosted* solnDot,
+                         const double t, const double delta_t, const double t_old);
 
 
     //! Generate the initial conditions. We start with the soluion vector and we need additional information
@@ -560,7 +585,7 @@ public:
      *                   If positive or zero, each plateau is treated as a separate entity.
      */
     virtual double capacityDischargedPA(int platNum = -1) const;
- 
+
     //! Amount of charge that the electrode that has available to be discharged per cross-sectional area
     /*!
      *  We report the number in terms of Amp seconds = coulombs. This accounts for loss mechanisms.
@@ -611,26 +636,26 @@ public:
     /*!
      *  Currently this is defined as the open circuit potential on the outside electrode.
      *
-     *   @return return the open circuit potential 
+     *   @return return the open circuit potential
      */
     virtual double openCircuitPotentialQuick() const;
 
     //! Calculates and returns an estimate of the effective resistance of the layer
     /*!
      *  (virtual from porousFlow_dom1D)
-     *  
+     *
      *   resistance = ((potCathodic - potAnodic) - voltOCV) / current
      *
      *  @param potAnodic potential in the anodic direction. If the anode, this returns the potential of the
      *                   solid in the anode next to the anode current collector.
      *  @param potCathodic potential in the cathode direction. If the anode, this returns the potential of the
      *                   electrolyte in the anode next to the separator.
-     *  @param voltOCV  OCV calculated in a quick manner. 
-     *  @param current  current 
-     *  
+     *  @param voltOCV  OCV calculated in a quick manner.
+     *  @param current  current
+     *
      *  @return returns the effective resistance of the layer
      */
-    virtual double effResistanceLayer(double &potAnodic, double  &potCathodic, double &voltOCV, double &current);
+    virtual double effResistanceLayer(double& potAnodic, double&  potCathodic, double& voltOCV, double& current);
 
     // -----------------------------------------------------------------------------------------------
     //                                 DATA

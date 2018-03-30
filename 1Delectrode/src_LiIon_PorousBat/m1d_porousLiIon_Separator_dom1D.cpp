@@ -2385,8 +2385,8 @@ porousLiIon_Separator_dom1D::SetupTranShop(const double xdel, const int type)
  */
 void
 porousLiIon_Separator_dom1D::saveDomain(ZZCantera::XML_Node& oNode,
-                                    const Epetra_Vector* soln_GLALL_ptr,
-                                    const Epetra_Vector* solnDot_GLALL_ptr,
+                                    const Epetra_Vector* const soln_GLALL_ptr,
+                                    const Epetra_Vector* const solnDot_GLALL_ptr,
                                     const double t,
                                     bool duplicateOnAllProcs)
 {

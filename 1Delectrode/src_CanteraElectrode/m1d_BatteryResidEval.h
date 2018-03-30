@@ -219,7 +219,19 @@ public:
     std::vector<double> species_Lyte_Src_Total;
     std::vector<double> species_convRight;
     std::vector<double> species_convLeft;
+
+    //! Vector of electrolyte species diffusion fluxes at the right side of the domain
+    /*!
+     *  Length:  Number of species in lyte
+     *  Units:   kmol/s/m2
+     */
     std::vector<double> species_jFluxRight;
+
+    //! Vector of electrolyte species diffusion fluxes at the left side of the domain
+    /*!
+     *  Length:  Number of species in lyte
+     *  Units:   kmol/s/m2
+     */
     std::vector<double> species_jFluxLeft;
 
 };

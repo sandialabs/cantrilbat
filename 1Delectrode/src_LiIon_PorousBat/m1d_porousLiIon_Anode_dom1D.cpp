@@ -2294,7 +2294,7 @@ porousLiIon_Anode_dom1D::eval_HeatBalance(const int ifunc,
     }
 }
 //==================================================================================================================================
-// Evaluate species and element balances
+// Evaluate the species and element balances on the domain
 void
 porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 						 const double t,
@@ -2304,9 +2304,9 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 						 const Epetra_Vector *solnOld_ptr,
 						 class globalHeatBalVals& dVals)
 {
-    NodalVars* nodeCent = 0;
-    NodalVars* nodeLeft = 0;
-    NodalVars* nodeRight = 0;
+    NodalVars* nodeCent = nullptr;
+    NodalVars* nodeLeft = nullptr;
+    NodalVars* nodeRight = nullptr;
     globalHeatBalValsBat* dValsB_ptr = dynamic_cast<globalHeatBalValsBat*>(&dVals);
     int indexCent_EqnStart, indexLeft_EqnStart, indexRight_EqnStart;
     const Epetra_Vector& soln = *soln_ptr;

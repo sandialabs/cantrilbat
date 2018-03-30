@@ -842,7 +842,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
     double poisson = 0.2; 
     // US Patent http://www.google.com/patents/US6242129
 
-    double Thermal_Expansion = 4.5e-6/1.80; // of solid material, not of matrix, and conversion of F to C
+    //double Thermal_Expansion = 4.5e-6/1.80; // of solid material, not of matrix, and conversion of F to C
     //	  double G = 3*BulkMod*(1-2*poisson)/(2*(1+poisson));
     double Eyoung=3*BulkMod*(1.0 - 2*poisson);
 
@@ -1527,7 +1527,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 #ifdef MECH_MODEL
 	if (solidMechanicsProbType_ > 0) {
 	    // use the average temp of the center and right nodes. 
-	    valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
+	    //valCellTmps& valTmps = valCellTmpsVect_Cell_[iCell];
 	    double thick_lc_now = -9e9;
 	    double gross_vol_now = -9e9;
 	    if(iCell == 0) {
@@ -1675,7 +1675,7 @@ porousLiIon_Cathode_dom1D::residEval(Epetra_Vector& res,
 	    cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
 	    NodeTmps& nodeTmpsCenter = cTmps.NodeTmpsCenter_;
 	    NodalVars* nodeCent = cTmps.nvCent_;
-	    NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
+	    //NodeTmps& nodeTmpsLeft   = cTmps.NodeTmpsLeft_;
 	    nodeTmpsCenter.Offset_Displacement_Axial = nodeCent->indexBulkDomainVar0((size_t) Displacement_Axial);
 	    indexCent_EqnStart = nodeTmpsCenter.index_EqnStart;
 	      

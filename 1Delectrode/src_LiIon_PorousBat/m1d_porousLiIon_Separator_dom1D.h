@@ -77,18 +77,20 @@ public:
 
     //! Prepare all of the indices for fast calculation of the residual
     /*!
+     *  (virtual from Domain1D)
+     *
      *  Ok, at this point, we will have figured out the number of equations
-     *  to be calculated at each node point. The object NodalVars will have
-     *  been fully formed.
+     *  to be calculated at each node point. The object NodalVars will have been fully formed.
      *
      *  We use this to figure out what local node numbers/ cell numbers are
      *  needed and to set up indices for their efficient calling.
      *
-     *  Child objects of this one will normally call this routine in a
-     *  recursive fashion.
+     *  Child objects of domain_prep() will normally call parent classes in a recursive fashion.
+     *
+     *  @param[in]             li_ptr              Pointer to the LocalNodeIndices Structure that contains information
+     *                                             about how the mesh is layed out within this domain and other domains in the problem
      */
-    virtual void
-    domain_prep(LocalNodeIndices* li_ptr);
+    virtual void domain_prep(LocalNodeIndices* const li_ptr) override;
 
     //! Function that gets called at end the start of every time step
     /*!
@@ -149,6 +151,20 @@ public:
 		  const double t,
 		  const double rdelta_t) override;
 
+    //! Evaluate the macroscopic heat balance on the domain given a converged solution of the problem
+    /*!
+     *  (virtual from Domain1D)
+     *  Calculations are done on a per m2 basis. So, the basic units are Joules / m2.
+     *
+     *  @param[in]             ifunc               situation function parameter, input from doHeatAnalysis()
+     *  @param[in]             t                   time
+     *  @param[in]             deltaT              deltaT for the just-finished time step
+     *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+     *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+     *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in,out]         dVals               Reference to the globalHeatBalVals structure that will contain the results
+     *                                             of the macroscopic heat balance calculation
+     */
     virtual void
     eval_HeatBalance(const int ifunc,
 	             const double t,
@@ -156,16 +172,30 @@ public:
 		     const Epetra_Vector *soln_ptr,
 		     const Epetra_Vector *solnDot_ptr,
 		     const Epetra_Vector *solnOld_ptr,
-		     struct globalHeatBalVals& dVals);
+		     struct globalHeatBalVals& dVals) override;
 
-    void
+    //! Evalualte the macroscopic Species balance equations on a domain given a converged solution of the problem
+    /*!
+     *  (virtual from Domain1D)
+     *  Calculations are done on a per m2 basis. So, the basic units are kmol/ m2.
+     *
+     *  @param[in]             ifunc               situation function parameter, input from doHeatAnalysis()
+     *  @param[in]             t                   time
+     *  @param[in]             deltaT              deltaT for the just-finished time step
+     *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+     *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+     *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in,out]         dVals               Reference to the globalHeatBalVals structure that will contain the results
+     *                                             of the macroscopic heat balance and species balance calculations
+     */
+    virtual void
     eval_SpeciesElemBalance(const int ifunc,
 		            const double t,
 		            const double deltaT,
 	                    const Epetra_Vector *soln_ptr,
 	                    const Epetra_Vector *solnDot_ptr,
 	                    const Epetra_Vector *solnOld_ptr,
-		            class globalHeatBalVals& dVals);
+		            class globalHeatBalVals& dVals) override;
 
     //! Utility function to calculate quantities before the main residual routine.
     /*!
@@ -253,25 +283,21 @@ public:
     double
     getCellHeatCapacity(const NodalVars* const nv, const double* const solnElectrolyte);
 
-    //! Base class for saving the solution on the domain in an xml node.
+    //! Child class for saving the solution on the domain in an xml node.
     /*!
+     *  (virtual from Domain1D)
      *
-     * @param oNode                Reference to the XML_Node
-     * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
-     * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
-     * @param t                    time
-     *
-     * @param duplicateOnAllProcs  If this is true, all processors will include
-     *                             the same XML_Node information as proc 0. If
-     *                             false, the xml_node info will only exist on proc 0.
+     *  @param[in,out]         oNode               Reference to the XML_Node
+     *  @param[in]             soln_GlAll_ptr      Pointer to the Global-All solution vector
+     *  @param[in]             solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector
+     *  @param[in]             t                   time
+     *  @param[in]             duplicateOnAllProcs If this is true, all processors will include the same XML_Node information
+     *                                             as proc 0. If false, the xml_node info will only exist on proc 0.
+     *                                             Defaults to false.
      */
     virtual void
-    saveDomain(ZZCantera::XML_Node& oNode,
-               const Epetra_Vector* soln_GlAll_ptr,
-               const Epetra_Vector* solnDot_GlAll_ptr,
-               const double t,
-               bool duplicateOnAllProcs = false) override;
-
+    saveDomain(ZZCantera::XML_Node& oNode, const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+               const double t, bool duplicateOnAllProcs = false) override;
 
     //! Generate the initial conditions
     /*!

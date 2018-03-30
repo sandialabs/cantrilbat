@@ -515,7 +515,7 @@ BatteryResidEval::user_out(const int ievent,
         doPolarizationAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
 
     }
-    
+    // When heat source tracking is turned on and the enthalpy equation is used, we do a full tracking of species and enthalpy 
     if (energyEquationProbType_ == 3 && doHeatSourceTracking_) {
 
         doSpeciesAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
