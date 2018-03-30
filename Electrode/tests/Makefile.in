@@ -122,11 +122,8 @@ alllink: $(TEST_LIST)
 test:  TASK = test
 test: $(TEST_LIST)
 
-
 testd: TASK = testd
 testd: $(TEST_LIST)
-
-
 
 clean_test: TASK = clean_test
 clean_test: $(TEST_LIST)

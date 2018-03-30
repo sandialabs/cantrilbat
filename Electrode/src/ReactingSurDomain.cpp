@@ -63,10 +63,6 @@ ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     deltaS_species_(0.0),
     deltaH_species_(0.0)
 {
-    bool ok = importFromPL(pl, iskin);
-    if (!ok) {
-	throw Electrode_Error("ReactingSurDomain::ReactingSurDomain()", "import from Phase list failed");
-    }
 }
 //==================================================================================================================================
 ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
