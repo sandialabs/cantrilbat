@@ -156,7 +156,7 @@ public:
 protected:
     //! Routine to be called after all species and phases have been defined for the object
     /*!
-     *  This initializes based on number of species
+     *  This initializes based on the number of phases and species
      */
     virtual void init() override;
 
@@ -190,8 +190,8 @@ public:
      *                                                 Length: global number of species in PhaseList
      *                                                 Units: kmol (scaled)
      *
-     *  @return                               Vector of length m_kk containing the species net
-     *                                        production rates (kmol s-1 m-2)
+     *  @return                               const feference to an internal vector  of length m_NumKinSpecies containing the species net
+     *                                        production rates per surface area (kmol m-2 s-1)
      */
     const std::vector<doublevalue>& calcNetLimitedSurfaceProductionRateDensities(const doublevalue* const nMoles);
 
@@ -541,13 +541,17 @@ protected:
 
     //! Vector of Limited Rates of Progress of the reactions
     /*!
-     *  Length is the number of reactions, n_ii. The units are kmol m-2 s-1.
+     *  Length:   m_ii = Number of reactions
+     *  Units:    kmol m-2 s-1
+     *  Indexing: Reaction number
      */
     std::vector<double> limitedROP_;
 
     //! Vector of Limited Rates of Progress of the species production rates
     /*!
-     *  Length is the number of species. The units are kmol m-2 s-1.
+     *  Length:   m_NumKinSpecies = Number of species in the kinetics mechanism
+     *  Units:    kmol m-2 s-1
+     *  Indexing: Kinetics species index
      */
     std::vector<double> limitedNetProductionRates_;
 

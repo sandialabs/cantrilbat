@@ -313,17 +313,13 @@ std::ostream& operator<<(std::ostream& s, ReactingSurDomain& rsd)
 //==================================================================================================================================
 void ReactingSurDomain::init()
 {
-    ElectrodeKinetics::init();
+    ElectrodeKinetics_intoPL::init();
     m_Enthalpies_rspec.resize(m_NumKinSpecies, 0.0);
     m_Entropies_rspec.resize(m_NumKinSpecies, 0.0);
     m_GibbsOCV_rspec.resize(m_NumKinSpecies, 0.0);
     m_Enthalpies_Before_rspec.resize(m_NumKinSpecies, 0.0);
     m_Entropies_Before_rspec.resize(m_NumKinSpecies, 0.0);
     m_Gibbs_Before_rspec.resize(m_NumKinSpecies, 0.0);
-    speciesProductionRates_.resize(m_NumKinSpecies, 0.0);
-    speciesCreationRates_.resize(m_NumKinSpecies, 0.0);
-    speciesDestructionRates_.resize(m_NumKinSpecies, 0.0);
-    KinToPL_SpeciesIndex_.resize(m_NumKinSpecies, npos);
     limitedNetProductionRates_.resize(m_NumKinSpecies, 0.0);
 }
 //==================================================================================================================================
