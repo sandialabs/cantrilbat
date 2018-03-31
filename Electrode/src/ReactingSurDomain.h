@@ -52,7 +52,7 @@ struct OCV_Override_input;
  *      todo: This class is missing some obvious member functions, that are probably carried out manually within the Electrode
  *            object
  */
-class ReactingSurDomain : public ZZCantera::ElectrodeKinetics_intoPL
+class ReactingSurDomain : public ElectrodeKinetics_intoPL
 {
 public:
 
@@ -66,7 +66,7 @@ public:
      *                                       multiple surfaces each with its own associated interfacial kinetics object, 
      *                                       that this object will be inherited from. 
      */
-    ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin);
+    ReactingSurDomain(PhaseList* pl, size_t iskin);
 
     //! Copy Constructor for the %Kinetics object.
     /*!
@@ -133,7 +133,7 @@ public:
      *   @return                                   Returns true upon proper instanteation of the kinetics. Returns false
      *                                             if there was a problem.
      */
-    bool importFromPL(ZZCantera::PhaseList* const pl, size_t iphSurKin);
+    bool importFromPL(PhaseList* const pl, size_t iphSurKin);
 
     //! Reassign the internal PhaseList point to a new PhaseList object
     /*!
