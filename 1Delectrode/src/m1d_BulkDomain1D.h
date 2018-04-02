@@ -27,19 +27,14 @@ class NodalVars;
 //==================================================================================================================================
 //! Base class for solving residuals for bulk domains
 /*!
- * There is a 1 to 1 mapping between the local control volume indexing and
- * the Local Consecutive Ordering indexing
+ *  There is a 1 to 1 mapping between the local control volume indexing and the Local Consecutive Ordering indexing
  *
- * There is a 1 to 1 mapping between the global control volume indexing
- * and the Global node number indexing that is given by a single offset.
- *
- *
+ *  There is a 1 to 1 mapping between the global control volume indexing and the Global node number 
+ *  indexing that is given by a single offset. 
  */
 class BulkDomain1D : public Domain1D
 {
-
 public:
-
     //! Constructor
     /*!
      *  @param[in]           bdd_ptr             Contains the bulk domain description.
@@ -57,6 +52,8 @@ public:
 
     //! Assignment operator
     /*!
+     *  (virtual from Domain1D)
+     *
      *  @param[in]           r                   Object to be copied into the current object
      *  @return                                  Returns a changeable reference to the current object
      */
@@ -65,6 +62,7 @@ public:
     //! Returns the identifying tag for the domain
     /*!
      *  (virtual from Domain1D)
+     *
      *  @return                                    Returns the string name for the domain
      */
     virtual std::string id() const override;
@@ -72,6 +70,7 @@ public:
     //! Prepare all of the indices for fast calculation of the residual
     /*!
      *  (virtual from Domain1D)
+     *
      *  Ok, at this point, we will have figured out the number of equations
      *  to be calculated at each node point. The object NodalVars will have been fully formed.
      *
@@ -88,9 +87,10 @@ public:
     //! the specification of the problem.
     /*!
      *  (virtual from Domain1D)
+     *
      *  The basic algorithm is to loop over the volume domains. Then, we loop over the surface domains
-     *   Within the domains, we use the virtual function structure to go from general to the more
-     *   specific direction (i.e., parent to child calling).
+     *  Within the domains, we use the virtual function structure to go from general to the more
+     *  specific direction (i.e., parent to child calling).
      *
      *  @param[in]            doTimeDependentResid Boolean indicating whether we should formulate the time dependent residual
      *  @param[out]           soln                Solution vector. This is the input to the residual calculation.
@@ -105,6 +105,7 @@ public:
     //! Evaluate a vector of delta quantities to use when evaluating the Jacobian by numerical differencing
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           t                   Time
      *  @param[in]           soln                Solution vector. This is the input to the algorithm for picking a delta value
      *  @param[in]           solnDot_ptr         Pointer to the time-derivative of the solution vector
@@ -123,6 +124,7 @@ public:
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           soln                Solution vector. This is a constant the residual calculation.
      *  @param[out]          atolVector          Reference for the atol vector to fill up
@@ -135,6 +137,7 @@ public:
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           soln                Solution vector. This is a constant the residual calculation.
      *  @param[in]           solnDot             Current solutionDot vector.
@@ -148,6 +151,7 @@ public:
     //! Evaluates the atol vector used in the delta damping process.
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                Current solution vector.
@@ -162,6 +166,7 @@ public:
     //! Evaluates the atol vector used in the delta damping process for the DAE problem
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                Current solution vector.
@@ -177,6 +182,7 @@ public:
     //! Base class for saving the solution on the domain in an xml node.
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in,out]         oNode               Reference to the XML_Node
      *  @param[in]             soln_GlAll_ptr      Pointer to the Global-All solution vector
      *  @param[in]             solnDot_GlAll_ptr   Pointer to the time derivative of the Global-All solution vector
@@ -192,7 +198,7 @@ public:
     //! Base Class for reading the solution from the saved file
     /*!
      *  This class assumes that the XML_Node is the domain node in the example below.
-     * @verbatim
+     *  @verbatim
      *  <simulation id="0">
      *    <time type="time" units="s" vtype="float"> 0.000000000000000E+00 </time>
      *    <delta_t type="time" units="s" vtype="float"> 1.000000000000000E-08 </delta_t>
@@ -222,6 +228,7 @@ public:
     //! Fill the vector isAlgebraic with the values from the DomainDescription
     /*!
      *  (virtual from BulkDomain1D)
+     *
      *  @param[in]           isAlgebraic         Epetra_IntVector to be filled with the IsAlgebraic values
      */
     virtual void fillIsAlgebraic(Epetra_IntVector& isAlgebraic);
@@ -229,6 +236,7 @@ public:
     //!  Fill the vector isArithmeticScaled with the values from the DomainDescription
     /*!
      *  (virtual from BulkDomain1D)
+     *
      *  @param[in]           isArithmeticScaled  Epetra_IntVector to be filled with the IsArithmeticScaled values
      */
     virtual void fillIsArithmeticScaled(Epetra_IntVector& isArithmeticScaled);
@@ -243,6 +251,7 @@ public:
     //! Method for writing the solution on the surface domain to a tecplot file.
     /*!
      *  (virtual from Domain1D)
+     *
      *  Only proc0 will write tecplot files.Therefore, we must be sure to always use a Epetra_Vector_GlAll solution type.
      *
      *  @param[in]           soln_GlAll_ptr      Pointer to the Global-All solution vector
@@ -278,6 +287,7 @@ public:
     //! Base class for writing a solution vector, not the solution, on the domain to a logfile.
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           solnVecName         String name of the solution vector
      *  @param[in]           solnVector_GlAll_ptr Pointer to the Global-All solution vector
      *  @param[in]           solnVector_ptr       Pointer to the solution vector
@@ -296,6 +306,7 @@ public:
     //! Base class for writing an int solution vector, not the solution, on the domain to a logfile.
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           solnVecName         String name of the solution vector
      *  @param[in]           solnIntVector_GlAll_ptr Pointer to the Global-All solution vector
      *  @param[in]           solnIntVector_ptr   Pointer to the solution vector
@@ -313,6 +324,8 @@ public:
 
     //! Class for writing the solution on the domain to a logfile.
     /*!
+     *  (virtual from Domain1D)
+     *
      *  @param[in]           soln_GlAll_ptr      Pointer to the Global-All solution vector
      *  @param[in]           solnDot_GlAll_ptr   Pointer to the Global-All solution dot vector
      *  @param[in]           soln_ptr            Pointer to the solution vector
@@ -335,6 +348,7 @@ public:
     //! Get parameters specified by text strings
     /*!
      *  (virtual from Domain1D)
+     *
      *   @param[in]          paramID             String name for the item to be requested
      *   @param[out]         paramVal            Vector of information returned.
      *
@@ -346,6 +360,7 @@ public:
     //! Get vectors of solution quantities requested by text strings
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           requestID           String name for the item to be requested
      *  @param[in]           requestType         Type of the request
      *                                             0    solution variable
@@ -361,42 +376,44 @@ public:
 
     //! Get the local value of the stress, from the solution vector,  or a reference value if not part of the solution.
     /*!
+     *  (virtual from Domain1D)
+     *
      *  QUESTION: Stress is a tensor, I assume that this is the [0,0] component ?!?
      *
-     *  @param[in]            nv                  NodalVars value for the current point
-     *  @param[in]            solutionPoint       Solution at the current node
+     *  param[in]            nv                  NodalVars value for the current point
+     *  param[in]            solnNode            Solution at the current node
      *
-     *  @return               return the local value of the stress
+     *  return               return the local value of the stress
      */
-    //double getPointStress(const NodalVars * const nv, const double* const solutionPoint) const;
+    //double getPointStress(const NodalVars * const nv, const double* const solnNode) const;
 
     //! Get the local value of the temperature at a node or control volume interface given the local solution vector at that point
     /*!
-     *   This function checks to see if the temperature is part of the solution vector. 
-     *   If it is not, it returns the TemperatureReference_ value. If it is, it looks up the index into 
-     *   the solution vector and then returns  the value.
+     *  This function checks to see if the temperature is part of the solution vector. 
+     *  If it is not, it returns the TemperatureReference_ value. If it is, it looks up the index into 
+     *  the solution vector and then returns  the value.
      *
      *  @param[in]           nv                  Pointer to the NodalVars class for the current node
-     *  @param[in]           solutionPoint       Pointer to the start of the solution for the current node
+     *  @param[in]           solnNode            Pointer to the start of the solution for the current node
      *
      *  @return                                  Returns the temperature in Kelvin
      */
-    double getPointTemperature(const NodalVars* const nv, const double* const solutionPoint) const;
+    double getPointTemperature(const NodalVars* const nv, const double* const solnNode) const;
 
     //! Get the local value of the total pressure at a node or control volume interface
     //! given the local solution vector at that point
     /*!
-     *   This function checks to see if the pressure is part of the solution
-     *   vector. If it is not, it returns the PressureReference_ value. If
-     *   it is, it looks up the index into the solution vector and then returns
-     *   the value of the total pressure based on the local condition
+     *  This function checks to see if the pressure is part of the solution
+     *  vector. If it is not, it returns the PressureReference_ value. If
+     *  it is, it looks up the index into the solution vector and then returns
+     *  the value of the total pressure based on the local condition
      *
      *  @param[in]           nv                  Pointer to the NodalVars class for the current node
-     *  @param[in]           solutionPoint       Pointer to the start of the solution for the current node
+     *  @param[in]           solnNode            Pointer to the start of the solution for the current node
      *
      *  @return                                  Returns the total pressure in Pascals
      */
-    double getPointPressure(const NodalVars* const nv, const double* const solutionPoint) const;
+    double getPointPressure(const NodalVars* const nv, const double* const solnNode) const;
 
     // --------------------------------------- D A T A ----------------------------------------------------------------
 
@@ -434,13 +451,13 @@ public:
 
     //! If true there is an external node on the left within this bulk domain on this processor.
     /*!
-     *       This means that this processors nodes' left  boundary ends in the middle of this domain
+     *  This means that this processors nodes' left  boundary ends in the middle of this domain
      */
     bool ExternalNodeOnLeft_;
 
     //! If true there is an external node on the right within this bulk domain on this processor.
     /*!
-     *       This means that this processors nodes' right boundary ends in the middle of this domain
+     *  This means that this processors nodes' right boundary ends in the middle of this domain
      */
     bool ExternalNodeOnRight_;
 
@@ -452,26 +469,26 @@ public:
 
     //! Index of the left node that corresponds to the current cell number
     /*!
-     * This is the index of the local node that is to the left of the current
-     * cell. Note, if this cell is the first cell in the bulk domain, then this
-     * is set to -1, even if there is a node to the left from another domain.
+     *  This is the index of the local node that is to the left of the current
+     *  cell. Note, if this cell is the first cell in the bulk domain, then this
+     *  is set to -1, even if there is a node to the left from another domain.
      */
     std::vector<int> Index_LeftLcNode_LCO;
 
     //! Index of the right node that corresponds to the current cell number
     /*!
-     * This is the index of the local node that is to the right of the current
-     * cell. Note, if this cell is the last cell in the bulk domain, then this
-     * is set to -1, even if there is a node to the right from another domain.
+     *  This is the index of the local node that is to the right of the current
+     *  cell. Note, if this cell is the last cell in the bulk domain, then this
+     *  is set to -1, even if there is a node to the right from another domain.
      */
     std::vector<int> Index_RightLcNode_LCO;
 
-    //!  boolean indicating whether displacements are part of the solution vector
+    //! boolean indicating whether displacements are part of the solution vector
     /*!
-     *   If displacements are part of the solution vector the position of nodes
-     *   is given by Xpos = X0pos + d.
-     *   If displacements are not part of the solution vector, the position of nodes
-     *   is given by Xpos = X0pos
+     *  If displacements are part of the solution vector the position of nodes
+     *  is given by Xpos = X0pos + d.
+     *  If displacements are not part of the solution vector, the position of nodes
+     *  is given by Xpos = X0pos
      */
     bool MeshInSolnVector;
 
@@ -486,7 +503,7 @@ public:
      *  They are also useful for the specification of global balances, when Dirichlet conditions are set
      *  on some variables. Then, we seek the specification of fluxes which preserve global conservation laws.
      *
-     *  Length = number of equations defined on this domain
+     *  Length:    number of equations defined on this domain
      */
     std::vector<double> DiffFluxLeftBound_LastResid_NE;
 
@@ -495,7 +512,7 @@ public:
      *  This is a temporary variable that holds the diffusive flux calculated
      *  at the right boundary during the last residual calculation
      *
-     *  Length = number of equations defined on this domain
+     *  Length:    number of equations defined on this domain
      */
     std::vector<double> DiffFluxRightBound_LastResid_NE;
 

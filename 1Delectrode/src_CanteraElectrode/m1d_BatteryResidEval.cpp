@@ -524,8 +524,13 @@ BatteryResidEval::user_out(const int ievent,
     }
 }
 //==================================================================================================================================
-static void
-sprint_line(char * buf, const char * const st, const int num)
+//! print an appended line into a buffer
+/*!
+ *  @param[in, out]          buf                 Buffer to append the line to
+ *  @param[in]               st                  string to write the line
+ *  @param[in]               num                 Number of times to write
+ */
+static void sprint_line(char * buf, const char * const st, const int num)
 {
     int n = strlen(buf);
     buf += n;
@@ -1486,15 +1491,16 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
 
      }
 
-     double vSolid_AC =  soln[gindex_VoltageSolid_ACA];
-     double vLyte_AS =  soln[gindex_Voltage_AS];
-     double vLyte_SC =  soln[gindex_Voltage_SC];
-     double vSolid_CCC =  soln[gindex_VoltageSolid_CCC];
+     //double vSolid_AC =  soln[gindex_VoltageSolid_ACA];
+     //double vLyte_AS =  soln[gindex_Voltage_AS];
+     //double vLyte_SC =  soln[gindex_Voltage_SC];
+     //double vSolid_CCC =  soln[gindex_VoltageSolid_CCC];
    
 
-     double vCathode = reportCathodeVoltage();
+     //double vCathode = reportCathodeVoltage();
+     reportCathodeVoltage();
 
-     double vAnode = 0.0;
+     //double vAnode = 0.0;
 
      // Loop over the domains gathering the information
 

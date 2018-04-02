@@ -207,12 +207,10 @@ BDD_porousFlow::SetEquationsVariablesList()
     BatteryResidEval* batRes = static_cast<BatteryResidEval*>(pb);
 
     if (!pb) {
-	throw m1d_Error("BDD_porousFlow::setEquationsVariablesList()",
-			"ProblemResidEval not set yet");
+	throw m1d_Error("BDD_porousFlow::setEquationsVariablesList()", "ProblemResidEval not set yet");
     }
     if (!batRes) {
-	throw m1d_Error("BDD_porousFlow::setEquationsVariablesList()",
-			"problem isn't a battery problem");
+	throw m1d_Error("BDD_porousFlow::setEquationsVariablesList()", "problem isn't a battery problem");
     }
     /*
      *  Clear the list. We may have set the list previously
@@ -354,19 +352,13 @@ BDD_porousFlow::SetEquationsVariablesList()
     }
 #endif
 }
-//=====================================================================================================================
-// Malloc and Return the object that will calculate the residual efficiently
-/*
- *
- * @return  Returns a pointer to the object that will calculate the residual efficiently
- */
-BulkDomain1D *
-BDD_porousFlow::mallocDomain1D()
+//==================================================================================================================================
+BulkDomain1D* BDD_porousFlow::mallocDomain1D()
 {
   BulkDomainPtr_ = new porousFlow_dom1D(this);
   return BulkDomainPtr_;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void
 BDD_porousFlow::DetermineConstitutiveModels()
 {
@@ -379,6 +371,6 @@ BDD_porousFlow::DetermineConstitutiveModels()
   int loglvl = 0;
   trans_ = ZZCantera::newDefaultTransportMgr(ionicLiquid_, loglvl);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 } /* End of Namespace */
-//=====================================================================================================================
+//==================================================================================================================================

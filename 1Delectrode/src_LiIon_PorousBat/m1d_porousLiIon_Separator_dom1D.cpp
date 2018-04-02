@@ -2249,18 +2249,18 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     }
     thermalCond_Curr_ = 2.0 / tmp;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Function updates the ThermoPhase object for the electrolyte given the solution vector
 void
 porousLiIon_Separator_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
 {
     /*
-     * Get the temperature: Check to see if the temperature is in the solution vector.
-     *   If it is not, then use the reference temperature
+     *  Get the temperature: Check to see if the temperature is in the solution vector.
+     *  If it is not, then use the reference temperature
      */
     temp_Curr_ = getPointTemperature(nv, solnElectrolyte_Curr);  
     /*
-     * Get the pressure
+     *  Get the pressure
      */
     pres_Curr_ = PressureReference_;
     /*
@@ -2268,7 +2268,7 @@ porousLiIon_Separator_dom1D::updateElectrolyte(const NodalVars* const nv, const 
      */
     getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
     /*
-     *  assemble electrolyte potential into phiElectrolyte_Curr_
+     *  Assemble electrolyte potential into phiElectrolyte_Curr_
      */
     getVoltages(nv, solnElectrolyte_Curr);
     /*
@@ -2277,7 +2277,7 @@ porousLiIon_Separator_dom1D::updateElectrolyte(const NodalVars* const nv, const 
     ionicLiquid_->setState_TPX(temp_Curr_, pres_Curr_, &mfElectrolyte_Thermo_Curr_[0]);
     ionicLiquid_->setElectricPotential(phiElectrolyte_Curr_);
     //
-    // Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
+    //  Calculate the total concentration of the electrolyte kmol m-3 and store into concTot_Curr_
     //
     concTot_Curr_ = ionicLiquid_->molarDensity();
 }

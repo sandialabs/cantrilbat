@@ -395,13 +395,15 @@ public:
     //! Method for writing the header for the surface domain to a tecplot file.
     /*!
      *  (virtual from Domain1D)
-     * Only proc0 will write tecplot files.
+     *
+     *  Only proc0 will write tecplot files.
      */
     virtual void writeSolutionTecplotHeader();
 
     //! Method for writing the solution on the surface domain to a tecplot file.
     /*!
      *  (virtual from Domain1D)
+     *
      *  Only proc0 will write tecplot files.
      *
      *  @param[in]           soln_GlAll_ptr      Pointer to the Global-All solution vector
@@ -455,6 +457,7 @@ public:
     //! Base class for writing an int solution vector, not the solution, on the domain to a logfile.
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           solnVecName         String name of the solution vector
      *  @param[in]           solnIntVector_GlAll_ptr Pointer to the Global-All solution vector
      *  @param[in]           solnIntVector_ptr   Pointer to the solution vector
@@ -473,6 +476,7 @@ public:
     //! Get solution parameters specified by text strings
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           paramID             String name for the item to be requested
      *  @param[out]          paramVal            Vector of information returned.
      *
@@ -565,6 +569,7 @@ public:
     //!  Fill the vector atolVector with the values from the DomainDescription for abs tol
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           soln                Solution vector. This is a constant the residual calculation.
      *  @param[out]          atolVector          Reference for the atol vector to fill up
@@ -589,6 +594,7 @@ public:
     //! Evaluates the atol vector used in the delta damping process.
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                Current solution vector.
@@ -603,6 +609,7 @@ public:
     //! Evaluates the atol vector used in the delta damping process for the DAE problem
     /*!
      *  (virtual from Domain1D)
+     *
      *  @param[in]           atolDefault         Default atol value
      *  @param[in]           relcoeff            Relative constant to multiply all terms by
      *  @param[in]           soln                Current solution vector.

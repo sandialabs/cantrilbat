@@ -334,40 +334,39 @@ porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 double porousFlow_dom1D::heatSourceLastStep() const
 {
     double q = 0.0;
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
 	q +=  qSource_Cell_curr_[iCell];
     }
     return q;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 double porousFlow_dom1D::heatSourceAccumulated() const
 {
     double q = 0.0;
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
 	q += qSource_Cell_accumul_[iCell];
     }
     return q;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 void porousFlow_dom1D::heatSourceZeroAccumulated() const
 {
-    for (int iCell = 0; iCell < NumLcCells; iCell++) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
 	qSource_Cell_accumul_[iCell] = 0.0;
     }
 }
-//=====================================================================================================================
-void
-porousFlow_dom1D::residSetupTmps()
+//==================================================================================================================================
+void porousFlow_dom1D::residSetupTmps()
 {
     size_t index_CentLcNode;
 
-    NodalVars *nodeCent = 0;
-    NodalVars *nodeLeft = 0;
-    NodalVars *nodeRight = 0;
+    NodalVars *nodeCent = nullptr;
+    NodalVars *nodeLeft = nullptr;
+    NodalVars *nodeRight = nullptr;
 
-    size_t  indexCent_EqnStart;
-    size_t  indexLeft_EqnStart;
-    size_t  indexRight_EqnStart;
+    size_t indexCent_EqnStart;
+    size_t indexLeft_EqnStart;
+    size_t indexRight_EqnStart;
 
     int  index_LeftLcNode;
     int  index_RightLcNode;
@@ -724,37 +723,19 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
 
     } // iCell
 }
-//====================================================================================================================
-// Function that gets called at end the start of every time step
-/*
- *  This function provides a hook for a residual that gets called whenever a
- *  time step has been accepted and we are about to move on to the next time step.
- *  The call is made with the current time as the time
- *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
- *
- *  After this call interrogation of the previous time step's results will not be
- *  valid.
- *
- *   @param  doTimeDependentResid  This is true if we are solving a time dependent
- *                                 problem.
- *   @param  soln_ptr              Solution value at the current time
- *   @param  solnDot_ptr           derivative of the solution at the current time.
- *   @param  solnOld_ptr           Solution value at the old time step, n-1
- *   @param  t                     current time to be accepted, n
- *   @param  t_old                 previous time step value
- */
+//==================================================================================================================================
 void
-porousFlow_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
-                                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+porousFlow_dom1D::advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
+                                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* const solnOld_ptr,
                                       const double t, const double t_old)
 {
 }
-//========================================================================================================================
+//==================================================================================================================================
 void
 porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
-                                             const Epetra_Vector* soln_ptr,
-                                             const Epetra_Vector* solnDot_ptr,
-                                             const Epetra_Vector* solnOld_ptr,
+                                             const Epetra_Vector* const soln_ptr,
+                                             const Epetra_Vector* const solnDot_ptr,
+                                             const Epetra_Vector* const solnOld_ptr,
                                              const double t,
                                              const double rdelta_t,
                                              const Zuzax::ResidEval_Type residType,
@@ -822,44 +803,42 @@ porousFlow_dom1D::residEval_PreCalc(const bool doTimeDependentResid,
 }
 //===================================================================================================================================
 //  Setup shop at a particular point in the domain, calculating intermediate quantites
-//  and updating Cantera's objects
+//  and updating Zuzax's objects
 /*
  *  
  *  All member data with the suffix, _Curr_, are updated by this function.
- *
- * @param soln_Curr  Current value of the solution vector at the current node
  */
 void
-porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const soln_Curr)
+porousFlow_dom1D::SetupThermoShop1(const NodalVars* const nv, const double* const solnNode_Curr)
 {
     if (porosityEquationProbType_  &  Porosity_EqnType_Status::CalculatedOutOfEqnSystem) {
 	double vfo = volumeFractionOther(cIndex_cc_);
 	porosity_Cell_[cIndex_cc_] = 1.0 - vfo;
     }
     porosity_Curr_ = porosity_Cell_[cIndex_cc_];
-    updateElectrolyte(nv, soln_Curr);
+    updateElectrolyte(nv, solnNode_Curr);
 }
 //===================================================================================================================================
 void
-porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const double* const solnNode_Curr)
 {
     /*
      * Get the temperature: Check to see if the temperature is in the solution vector.
      *   If it is not, then use the reference temperature
      */
-    temp_Curr_ = getPointTemperature(nv, solnElectrolyte_Curr);  
+    temp_Curr_ = getPointTemperature(nv, solnNode_Curr);
     /*
      * Get the pressure
      */
-    pres_Curr_ = getPointPressure(nv, solnElectrolyte_Curr);
+    pres_Curr_ = getPointPressure(nv, solnNode_Curr);
     /*
      *  Assemble electrolyte mole fractions into mfElectrolyte_Thermo_Curr_[]
      */
-    getMFElectrolyte_soln(nv, solnElectrolyte_Curr);
+    getMFElectrolyte_soln(nv, solnNode_Curr);
     /*
      *  assemble electrolyte potential into phiElectrolyte_Curr_
      */
-    getVoltages(nv, solnElectrolyte_Curr);
+    getVoltages(nv, solnNode_Curr);
     /*
      *  Set the ThermoPhase states
      */
@@ -872,18 +851,18 @@ porousFlow_dom1D::updateElectrolyte(const NodalVars* const nv, const double* con
 }
 //=====================================================================================================================
 void
-porousFlow_dom1D::getVoltages(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+porousFlow_dom1D::getVoltages(const NodalVars* const nv, const double* const solnNode_Curr)
 {
     size_t indexVS = nv->indexBulkDomainVar0(Voltage);
-    phiElectrolyte_Curr_ = solnElectrolyte_Curr[indexVS];
+    phiElectrolyte_Curr_ = solnNode_Curr[indexVS];
 }
 //=====================================================================================================================
 void
-porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte_Curr)
+porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnNode_Curr)
 {
     size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
     for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
-	mfElectrolyte_Soln_Curr_[k] = solnElectrolyte_Curr[indexMF + k];
+	mfElectrolyte_Soln_Curr_[k] = solnNode_Curr[indexMF + k];
     }
     calcMFElectrolyte_Thermo(&mfElectrolyte_Soln_Curr_[0], &mfElectrolyte_Thermo_Curr_[0]);
 }
@@ -955,7 +934,6 @@ double porousFlow_dom1D::effResistanceLayer(double &potAnodic, double &potCathod
 }
 //==================================================================================================================================
 // Calculate the thermal conductivity of the porous matrix at the current cell.
-
 double
 porousFlow_dom1D::thermalCondCalc_PorMatrix()
 {

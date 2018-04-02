@@ -2515,7 +2515,7 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 	    // Return to the center node
 	    //
 	    SetupThermoShop1(nodeCent, &(soln[indexCent_EqnStart]));
-	    for (size_t k = 0; k < (size_t) nsp_; k++) {
+	    for (size_t k = 0; k < (size_t) nsp_; ++k) {
 		elem_Lyte_New_Cell(k, iCell) = porosity_Curr_ * concTot_Curr_ * xdelCell * mfElectrolyte_Soln_Curr_[k];
 		elem_Lyte_Old_Cell(k, iCell) = (porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell] *
 						xdelCell  * mfElectrolyte_Soln_old[k]);
@@ -2532,7 +2532,7 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
             elem_Solid_Old[iLip_] += elem_Solid_Old_Cell_(eIndex, iCell);
 
 
-	    for (size_t k = 0; k < (size_t) nsp_; k++) {
+	    for (size_t k = 0; k < (size_t) nsp_; ++k) {
 		species_Lyte_New_Curr[k] = porosity_Curr_ * concTot_Curr_* xdelCell  * mfElectrolyte_Soln_Curr_[k];
 		species_Lyte_Old_Curr[k] = (porosity_Cell_old_[iCell] * concTot_Cell_old_[iCell]* xdelCell  * 
 					    mfElectrolyte_Soln_old[k]);
@@ -2557,7 +2557,7 @@ porousLiIon_Anode_dom1D::eval_SpeciesElemBalance(const int ifunc,
 	    if (doPrint) {
 		if (itimes == 0) {
 		    resid = 0.0;
-		    for (size_t k = 0 ; k <  (size_t) nsp_; k++) {
+		    for (size_t k = 0 ; k <  (size_t) nsp_; ++k) {
 			double deltanSp = species_Lyte_New_Curr[k] - species_Lyte_Old_Curr[k];
 			double convSpRight = convRight[k];
 			double convSpLeft = convLeft[k];

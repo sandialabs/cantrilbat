@@ -356,51 +356,48 @@ public:
 
     //! Method for writing the header for the surface domain to a tecplot file.
     /*!
-     * Only proc0 will write tecplot files.
-     */
-    virtual void writeSolutionTecplotHeader();
-
-    // Method for writing the solution on the surface domain to a tecplot file.
-    /*
-     * Only proc0 will write tecplot files.
+     *  (virtual from Domain1D)
      *
-     * @param soln__GLALL_ptr      Pointer to the Global-All solution vector
-     * @param solnDot_ptr          Pointer to the time derivative of the Global-All solution vector
-     * @param t                    time
-     *
+     *  Only proc0 will write tecplot files.
      */
-    virtual void writeSolutionTecplot(const Epetra_Vector* soln_GlAll_ptr,
-                                      const Epetra_Vector* solnDot_GlAll_ptr,
-                                      const double t);
+    virtual void writeSolutionTecplotHeader() override;
 
-    //! Base class for writing the solution on the domain to a logfile.
+    //! Method for writing the solution on the surface domain to a tecplot file.
     /*!
+     *  (virtual from Domain1D)
      *
-     * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
-     * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
-     * @param soln_ptr             Pointer to the solution vector
-     * @param solnDot_ptr          Pointer to the time derivative of the solution vector
-     * @param solnOld_ptr          Pointer to the solution vector at the old time step
-     * @param residInternal _ptr   Pointer to the current value of the residual just calculated
-     *                             by a special call to the residEval()
-     * @param t                    time
-     * @param rdelta_t             The inverse of the value of delta_t
-     * @param indentSpaces         Indentation that all output should have as a starter
-     * @param duplicateOnAllProcs  If this is true, all processors will include
-     *                             the same log information as proc 0. If
-     *                             false, the loginfo will only exist on proc 0.
+     *  Only proc0 will write tecplot files.
+     *
+     *  @param[in]           soln__GLALL_ptr     Pointer to the Global-All solution vector
+     *  @param[in]           solnDot_ptr         Pointer to the time derivative of the Global-All solution vector
+     *  @param[in]           t                   time
+     */
+    virtual void writeSolutionTecplot(const Epetra_Vector* const soln_GlAll_ptr,
+                                      const Epetra_Vector* const solnDot_GlAll_ptr,
+                                      const double t) override;
+
+    //! Child class for writing the solution on the domain to a logfile.
+    /*!
+     *  (virtual from Domain1D)
+     *
+     *  @param[in]           soln_GlAll_ptr      Pointer to the Global-All solution vector
+     *  @param[in]           solnDot_GlAll_ptr   Pointer to the Global-All solution dot vector
+     *  @param[in]           soln_ptr            Pointer to the solution vector
+     *  @param[in]           solnDot_ptr         Pointer to the time-derivative of the solution vector
+     *  @param[in]           solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in]           residInternal_ptr   Pointer to the current value of the residual just calculated
+     *                                           by a special call to the residEval()
+     *  @param[in]           t                   time
+     *  @param[in]           rdelta_t            The inverse of the value of delta_t
+     *  @param[in]           indentSpaces        Indentation that all output should have as a starter
+     *  @param[in]           duplicateOnAllProcs If this is true, all processors will include the same log information as proc 0. If
+     *                                           false, the loginfo will only exist on proc 0.
      */
     virtual void
-    showSolution(const Epetra_Vector* soln_GlAll_ptr,
-                 const Epetra_Vector* solnDot_GlAll_ptr,
-                 const Epetra_Vector* soln_ptr,
-                 const Epetra_Vector* solnDot_ptr,
-                 const Epetra_Vector* solnOld_ptr,
-                 const Epetra_Vector_Owned* residInternal_ptr,
-                 const double t,
-                 const double rdelta_t,
-                 int indentSpaces,
-                 bool duplicateOnAllProcs = false);
+    showSolution(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+                 const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
+                 const Epetra_Vector* const solnOld_ptr, const Epetra_Vector_Owned* const residInternal_ptr,
+                 const double t, const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs = false) override;
 
     //! Set the underlying state of the system from the solution vector
     /*!

@@ -207,17 +207,82 @@ public:
      */ 
     double enthalpyIVfluxLeft;
 
+    //! Extra heat source due to joule heating for example
+    /*!
+     *  Units:   Joules / sec / m2
+     */
     double sourceTermExtra;
 
+    //! Vector of element kmoles per area within the electrolyte for a domain at the end of a global time step
+    /*!
+     *  Units:    kmol m-2
+     *  Length:   set to 10, number of different elements
+     *  Indexing: Element index within the global element index
+     */
     std::vector<double> elem_Lyte_New;
+
+    //! Vector of element kmoles per area within the solid electrode material for a domain at the end of a global time step
+    /*!
+     *  Units:    kmol m-2
+     *  Length:   set to 10, number of different elements
+     *  Indexing: Element index within the global element index
+     */
     std::vector<double> elem_Solid_New;
+
+    //! Vector of element kmoles per area within the electrolyte for a domain at the start of a global time step
+    /*!
+     *  Units:    kmol m-2
+     *  Length:   set to 10, number of different elements
+     *  Indexing: Element index within the global element index
+     */
     std::vector<double> elem_Lyte_Old;
+
+    //! Vector of element kmoles per area within the solid electrode material for a domain at the end of a global time step
+    /*!
+     *  Units:    kmol m-2
+     *  Length:   set to 10, number of different elements
+     *  Indexing: Element index within the global element index
+     */
     std::vector<double> elem_Solid_Old;
 
+    //! Vector of species kmoles per area within the electrolyte for a domain at the end of a global time step
+    /*!
+     *  Units:    kmol m-2
+     *  Length:   nsp_: number of species in the electrolyte
+     *  Indexing: species index within the electrolyte
+     */
     std::vector<double> species_Lyte_New_Total;
+
+    //! Vector of species kmoles per area within the electrolyte for a domain at the beginning of a global time step
+    /*!
+     *  Units:    kmol m-2
+     *  Length:   nsp_: number of species in the electrolyte
+     *  Indexing: species index within the electrolyte
+     */
     std::vector<double> species_Lyte_Old_Total;
+
+    //! Vector of species production rates in kmoles per area within the electrolyte for a domain during a global time step
+    /*!
+     *  Units:    kmol m-2
+     *  Length:   nsp_: number of species in the electrolyte
+     *  Indexing: species index within the electrolyte
+     */
     std::vector<double> species_Lyte_Src_Total;
+
+    //! Molar flux of species at the right side of the current domain due to convection
+    /*!
+     *  Units:    kmol m-2 s-1
+     *  Length:   nsp_: number of species in the electrolyte
+     *  Indexing: species index within the electrolyte
+     */
     std::vector<double> species_convRight;
+
+    //! Molar flux of species at the left side of the current domain due to convection
+    /*!
+     *  Units:    kmol m-2 s-1
+     *  Length:   nsp_: number of species in the electrolyte
+     *  Indexing: species index within the electrolyte
+     */
     std::vector<double> species_convLeft;
 
     //! Vector of electrolyte species diffusion fluxes at the right side of the domain
@@ -257,42 +322,49 @@ public:
 
     //! Default copy constructor
     /*!
-     *
-     * @param r  Object to be copied
+     *  @param[in]           r                   Object to be copied
      */
     BatteryResidEval(const BatteryResidEval &r);
 
     //! Assignment operator
     /*!
+     *  @param[in]           r                   Object to be copied
      *
-     * @param r  Object to be copied
-     * @return   Returns a copy of the current problem
+     *  @return                                  Returns a copy of the current problem
      */
     BatteryResidEval& operator=(const BatteryResidEval&r);
 
-    void residSetupTmps();
+    //! Loop over all of the volume domains calling the domain-level residSetupTmps() routine
+    /*!
+     *  (virtual from BatteryResidEval)
+     *
+     *  This routine calculates the index temporary variables for each cell in the domain. It only needs to be called
+     *  once for a given problem and cell setup. It doesn't calculate or store information for variables or for
+     *  node locations.
+     */
+    virtual void residSetupTmps();
 
     //! Set the underlying state of the system from the solution vector
     /*!
-     *   Note this is an important routine for the speed of the solution.
-     *   It would be great if we could supply just exactly what is changing here.
-     *   This routine is always called at the beginning of the residual evaluation process.
+     *  (virtual from ProblemResidEval)
      *
-     *   This is a natural place to put any precalculations of nodal quantities that
-     *   may be needed by the residual before its calculation.
+     *  Note this is an important routine for the speed of the solution.
+     *  It would be great if we could supply just exactly what is changing here.
+     *  This routine is always called at the beginning of the residual evaluation process.
      *
-     *   Also, this routine is called with rdelta_t = 0. This implies that a step isn't being taken. However, the
-     *   the initial conditions must be propagated.
+     *  This is a natural place to put any precalculations of nodal quantities that
+     *  may be needed by the residual before its calculation.
      *
-     * @param doTimeDependentResid
-     * @param soln
-     * @param solnDot
-     * @param t                    This is not necessarily equal to t_old + delta_t, but can be anywhere between the two values
-     *                   
-     * @param delta_t If zero then delta_t equals 0.
+     *  @param[in]           doTimeDependentResid  If true then we are doing a time step. If false then we are not doing a time step
+     *  @param[in]           soln                  Solution values
+     *  @param[in]           solnDot               Solution derivative values
+     *  @param[in]           t                     Time to apply the changes. Time can be between delta_t+t_old and t_old
+     *  @param[in]           delta_t               Global time step number
+     *  @param[in]           t_old                 Old time step value
      */
     virtual void
-    setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted *soln, const Epetra_Vector_Ghosted *solnDot,
+    setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted * const soln,
+                         const Epetra_Vector_Ghosted * const solnDot,
                          const double t, const double delta_t, const double t_old);
 
     //! Calculate the initial conditions
@@ -303,14 +375,15 @@ public:
      *  Then the method tried to better estimate the electrolyte potential.
      *
      *  @param[in]           doTimeDependentResid  Boolean indicating whether we should formulate the time dependent residual
-     *  @param[in]           soln                Solution vector. This is the input to  the residual calculation.
-     *  @param[in]           solnDot             Solution vector. This is the input to the residual calculation.
-     *  @param[in]           t                   Time
-     *  @param[in]           delta_t             delta_t for the initial time step
+     *  @param[out]          soln                  Solution vector. This is the input to the residual calculation.
+     *  @param[out]          solnDot               Solution vector time derivative. This is the input to the residual calculation.
+     *  @param[in]           t                     Current time
+     *  @param[in]           delta_t               Delta_t for the current time step
+     *  @param[in]           delta_t_np1           Delta_t_np1 for the next step. This may come from a saved solution.
      */
     virtual void
-    initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln, Epetra_Vector_Ghosted *solnDot, double &t,
-                      double &delta_t, double& delta_t_np1) override;
+    initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted * const soln, Epetra_Vector_Ghosted * const solnDot,
+                      double &t, double &delta_t, double& delta_t_np1) override;
 
     //! Make an attempt to improve the initial guess for the electrolyte voltage  based on the boundary conditions
     /*!
@@ -375,30 +448,31 @@ public:
 			const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve,
 			const double delta_t_np1 = 0.0) override;
     
-
     //! Write out to a file or to standard output the current solution
     /*!
-     *   These functions are affected by the print controls of the nonlinear solver
-     *   and the time stepper.
+     *  (virtual from ProblemResidEval)
      *
-     *      ievent is a description of the event that caused this
-     *      function to be called.
+     *  These functions are affected by the print controls of the nonlinear solver and the time stepper.
      *
-     *      @param ievent  Event that's causing this routine to be called.
-     *                     =  0 Initial conditions for a calculation
-     *                     =  1 Completion of a successful intermediate time step.
-     *                     =  2 Completion of a successful Final time or final calculation.
-     *                     =  3 Completion of a successful Intermediate nonlinear step
-     *                     = -1 unsuccessful time step that converged, but failed otherwise
-     *                     = -2 unsuccessful nonlinear step.
-     *      @param doTimeDependentResid  true if solving a time dependent problem
-     *      @param time_current      Current time
-     *      @param delta_t_n         Current value of delta_t
-     *      @param istep             Current step number
-     *      @param soln_n               Current value of the solution vector
-     *      @param solnDot_n_ptr            Current value of the time deriv of the solution vector
-     *      @param delta_t_np1       Suggested next delta t value (defaults to 0.0 if there isn't a
-     *                               good guess for the next delta_t).
+     *  ievent is a description of the event that caused this function to be called.
+     *
+     *  @param[in]           ievent              Event that's causing this routine to be called.
+     *                                            =  0 Initial conditions for a calculation
+     *                                            =  1 Completion of a successful intermediate time step.
+     *                                            =  2 Completion of a successful Final time or final calculation.
+     *                                            =  3 Completion of a successful Intermediate nonlinear step
+     *                                            = -1 unsuccessful time step that converged, but failed otherwise
+     *                                            = -2 unsuccessful nonlinear step.
+     *  @param[in]    doTimeDependentResid       true if solving a time dependent problem
+     *  @param[in]           time_current        Current time
+     *  @param[in]           delta_t_n           Current value of delta_t
+     *  @param[in]           istep               Current step number
+     *  @param[in]           soln_n              Current value of the solution vector
+     *  @param[in]           solnDot_n_ptr       Current value of the time deriv of the solution vector
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           delta_t_np1         Suggested next delta t value (defaults to 0.0 if there isn't a
+     *                                           good guess for the next delta_t).
      */
     virtual void
     writeSolution(const int ievent, const bool doTimeDependentResid, const double time_current, const double delta_t_n,
@@ -433,7 +507,7 @@ public:
 
     //! Write a tecplot file consisting of the voltage and current as a function of time
     /*!
-     *      @param ievent  Event that's causing this routine to be called.
+     *  @param[in]           ievent              Event that's causing this routine to be called.
      *                     =  0 Initial conditions for a calculation
      *                     =  1 Completion of a successful intermediate time step.
      *                     =  2 Completion of a successful Final time or final calculation.
@@ -455,32 +529,59 @@ public:
 
     //! Write a global tecplot file that includes variables which span all of the bulk domains
     /*!
+     *  (virtual from BatteryResidEval1D) 
+     *
      *   (Note, this may be replaced with a tecplot substitute that we are working on
      *
-     *   @param ievent
-     *
+     *  @param[in]           ievent              Event that's causing this routine to be called.
+     *                                               =  0 Initial conditions for a calculation
+     *                                               =  1 Completion of a successful intermediate time step.
+     *                                               =  2 Completion of a successful Final time or final calculation.
+     *                                               =  3 Completion of a successful Intermediate nonlinear step
+     *                                               =  4 Write out current and voltage to timeDep_IV.dat
+     *                                               = -1 unsuccessful time step that converged, but failed otherwise
+     *                                               = -2 unsuccessful nonlinear step.
+     *  @param[in]           doTimeDependentResid  true if solving a time dependent problem
+     *  @param[in]           time_current      Current time
+     *  @param[in]           delta_t_n         Current value of delta_t
+     *  @param[in]           istep             Current step number
+     *  @param[in]           y_n               Current value of the solution vector
+     *  @param[in]           ydot_n_ptr        Current value of the time deriv of the solution vector
+     *  @param[in]           solveType           Solve type
+     *  @param[in]           delta_t_np1         delta_t for the next step
      */
     virtual void
-    writeGlobalTecplot(const int ievent,
-		       const bool doTimeDependentResid,
-		       const double time_current,
-		       const double delta_t_n,
-		       int istep,
-		       const Epetra_Vector_Ghosted &y_n,
-		       const Epetra_Vector_Ghosted * const ydot_n_ptr,
-		       const Zuzax::Solve_Type solveType, 
-		       const double delta_t_np1);
+    writeGlobalTecplot(const int ievent, const bool doTimeDependentResid,
+		       const double time_current, const double delta_t_n, int istep,
+		       const Epetra_Vector_Ghosted &y_n, const Epetra_Vector_Ghosted * const ydot_n_ptr,
+		       const Zuzax::Solve_Type solveType, const double delta_t_np1);
 
+
+    //! Write out the header for Tecplot solution files
+    /*!
+     *  (virtual from ProblemResidEval)
+     *
+     *  @param[in]           ievent              Type of the event. The following form is used:
+     *                                              0  Initial conditions
+     *                                              1  Completion of a successful intermediate step.
+     *                                              2  Final successful conditions.
+     *                                              3  Intermediate nonlinear step
+     *                                             -1  unsuccessful step
+     *  @param[in]         doTimeDependentResid  Do the time dependent residual calculation
+     *  @param[in]           t                   Current time
+     *  @param[in]           delta_t_n           Current time step value
+     *  @param[in]           istep               Current value of the global time step number
+     *  @param[in]           y_n                 Current value of the solution vector
+     *  @param[in]           ydot_n_ptr          Current value of the derivative of the solution vector
+     *  @param[in]           solveType           Type of the problem being solved expressed as a  Solve_Type_Enum. 
+     *                                           Defaults to TimeDependentAccurate_Solve
+     *  @param[in]           delta_t_np1         Value of the next time step. Defaults to 0.0, if not available.
+     */
     virtual void
-    writeGlobalTecplotHeader(const int ievent,
-			     const bool doTimeDependentResid,
-			     const double time_current,
-			     const double delta_t_n,
-			     int istep,
-			     const Epetra_Vector_Ghosted &y_n,
-			     const Epetra_Vector_Ghosted * const ydot_n_ptr,
-			     const Zuzax::Solve_Type solveType, 
-			     const double delta_t_np1);
+    writeGlobalTecplotHeader(const int ievent, const bool doTimeDependentResid,
+			     const double t, const double delta_t_n, int istep,
+			     const Epetra_Vector_Ghosted &y_n, const Epetra_Vector_Ghosted * const ydot_n_ptr,
+			     const Zuzax::Solve_Type solveType, const double delta_t_np1);
     
     //! Evaluate a supplemental set of equations that are not part of the solution vector, but are considered
     //! to be time dependent, at the end of every successful time step
@@ -640,10 +741,25 @@ public:
      */
     int getMaxSubGridTimeSteps() const;
 
+    //! Calculate the total integrated heat source from the last step
+    /*!
+     *  This is integrated in the axial direction and within the last time interval.
+     *
+     *  @return                                  Returns the heat source per unit area from the last step
+     *                                           Units:  Joules / m2
+     */
     double heatSourceLastStep() const;
 
+    //! Calculate the total integrated heat source from the last global step
+    /*!
+     *  This is integrated in the axial direction and within the last global time interval.
+     *
+     *  @return                                  Returns the heat source per unit area from the last global step
+     *                                           Units:  Joules / m2
+     */
     double heatSourceAccumulated() const;
 
+    //! Zero the cell heat source terms within all of the domains
     void heatSourceZeroAccumulated() const;
 
     //! Here we gather statistics about the current state of the battery by summing up all of the 
@@ -685,7 +801,7 @@ public:
     int cathodeType_;
 
  protected:
-    //! 
+    //! Input value for the maximum number of subgrid time steps within a single global time step
     int maxSubGridTimeSteps_;
 
     //! Heat generation term for the battery sandwidge at the time step t_n

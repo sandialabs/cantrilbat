@@ -54,19 +54,18 @@ public:
 
     //! Constructor
     /*!
-     * @param bdd   Contains the bulk domain description.
+     *  @param[in]           bdt_cathode_ptr     Contains the bulk domain description.
      */
     porousLiIon_Cathode_dom1D(BDD_porCathode_LiIon* bdt_cathode_ptr);
 
     //! Copy constructor
     /*!
-     * @param r      Object to be copied into the current object
+     *  @param[in]           r                   Object to be copied into the current object
      */
     porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_dom1D& r);
 
     //! Destructor
-    virtual
-    ~porousLiIon_Cathode_dom1D();
+    virtual ~porousLiIon_Cathode_dom1D();
 
     //! Assignment operator
     /*!
@@ -372,34 +371,28 @@ public:
                               const Epetra_Vector* solnDot_GlAll_ptr,
                               const double t);
 
-    //! Base class for writing the solution on the domain to a logfile.
+    //! Child class for writing the solution on the domain to a logfile.
     /*!
+     *  (virtual from Domain1D)
      *
-     * @param soln_GlALL_ptr       Pointer to the Global-All solution vector
-     * @param solnDot_GlALL_ptr    Pointer to the Global-All solution dot vector
-     * @param soln_ptr             Pointer to the solution vector
-     * @param solnDot_ptr          Pointer to the time derivative of the solution vector
-     * @param solnOld_ptr          Pointer to the solution vector at the old time step
-     * @param residInternal _ptr   Pointer to the current value of the residual just calculated
-     *                             by a special call to the residEval()
-     * @param t                    time
-     * @param rdelta_t             The inverse of the value of delta_t
-     * @param indentSpaces         Indentation that all output should have as a starter
-     * @param duplicateOnAllProcs  If this is true, all processors will include
-     *                             the same log information as proc 0. If
-     *                             false, the loginfo will only exist on proc 0.
+     *  @param[in]           soln_GlAll_ptr      Pointer to the Global-All solution vector
+     *  @param[in]           solnDot_GlAll_ptr   Pointer to the Global-All solution dot vector
+     *  @param[in]           soln_ptr            Pointer to the solution vector
+     *  @param[in]           solnDot_ptr         Pointer to the time-derivative of the solution vector
+     *  @param[in]           solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in]           residInternal_ptr   Pointer to the current value of the residual just calculated
+     *                                           by a special call to the residEval()
+     *  @param[in]           t                   time
+     *  @param[in]           rdelta_t            The inverse of the value of delta_t
+     *  @param[in]           indentSpaces        Indentation that all output should have as a starter
+     *  @param[in]           duplicateOnAllProcs If this is true, all processors will include the same log information as proc 0. If
+     *                                           false, the loginfo will only exist on proc 0.
      */
     virtual void
-    showSolution(const Epetra_Vector* soln_GlAll_ptr,
-                 const Epetra_Vector* solnDot_GlAll_ptr,
-                 const Epetra_Vector* soln_ptr,
-                 const Epetra_Vector* solnDot_ptr,
-                 const Epetra_Vector* solnOld_ptr,
-                 const Epetra_Vector_Owned* residInternal_ptr,
-                 const double t,
-                 const double rdelta_t,
-                 int indentSpaces,
-                 bool duplicateOnAllProcs = false);
+    showSolution(const Epetra_Vector* const soln_GlAll_ptr, const Epetra_Vector* const solnDot_GlAll_ptr,
+                 const Epetra_Vector* const soln_ptr, const Epetra_Vector* const solnDot_ptr,
+                 const Epetra_Vector* const solnOld_ptr, const Epetra_Vector_Owned* const residInternal_ptr,
+                 const double t, const double rdelta_t, int indentSpaces, bool duplicateOnAllProcs = false) override;
 
   //! Set the underlying state of the system from the solution vector
   /*!

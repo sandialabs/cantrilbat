@@ -38,16 +38,13 @@ class ExtraPhase;
 //==================================================================================================================================
 //! This is derived class  provides the function evaluation for a porous electrode.
 /*!
- * The porous electrolyte domain is characterized by a
- * current conservation equation and several species
- * conservation equations describing the electrolyte.
- * A porosity/tortuosity is also associated with the domain.
+ *  The porous electrolyte domain is characterized by a current conservation equation and several species
+ *  conservation equations describing the electrolyte. A porosity/tortuosity is also associated with the domain.
  *
- * There is a 1 to 1 mapping between the local control volume indexing and
- * the Local Consecutive Ordering indexing
+ *  There is a 1 to 1 mapping between the local control volume indexing and the Local Consecutive Ordering indexing
  *
- * There is a 1 to 1 mapping between the global control volume indexing
- * and the Global node number indexing that is given by a single offset.
+ *  There is a 1 to 1 mapping between the global control volume indexing and the Global node number indexing
+ *  that is given by a single offset.
  */
 class porousFlow_dom1D : public BulkDomain1D
 {
@@ -56,13 +53,13 @@ public:
 
     //! Constructor
     /*!
-     * @param bdd   Contains the bulk domain description.
+     *  @param[in]           bdd_pf_ptr          Contains the bulk domain description.
      */
     porousFlow_dom1D(m1d::BDD_porousFlow* bdd_pf_ptr);
 
     //! Copy constructor
     /*!
-     * @param r      Object to be copied into the current object
+     *  @param[in]           r                   Object to be copied into the current object
      */
     porousFlow_dom1D(const porousFlow_dom1D& r);
 
@@ -71,8 +68,8 @@ public:
 
     //! Assignment operator
     /*!
-     * @param r      Object to be copied into the current object
-     * @return       Returns a changeable reference to the current object
+     *  @param[in]           r                   Object to be copied into the current object
+     *  @return                                  Returns a changeable reference to the current object
      */
     porousFlow_dom1D& operator=(const porousFlow_dom1D& r);
 
@@ -85,8 +82,7 @@ public:
      *  We use this to figure out what local node numbers/ cell numbers are
      *  needed and to set up indices for their efficient calling.
      *
-     *  Child objects of this one will normally call this routine in a
-     *  recursive fashion.
+     *  Child objects of this one will normally call this routine in a recursive fashion.
      */
     virtual void domain_prep(LocalNodeIndices* li_ptr);
 
@@ -97,21 +93,19 @@ public:
      *  The call is made with the current time as the time
      *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
      *
-     *  After this call interrogation of the previous time step's results will not be
-     *  valid.
+     *  After this call interrogation of the previous time step's results will not be valid.
      *
-     *   @param  doTimeDependentResid  This is true if we are solving a time dependent
-     *                                 problem.
-     *   @param  soln_ptr              Solution value at the current time
-     *   @param  solnDot_ptr           derivative of the solution at the current time.
-     *   @param  solnOld_ptr           Solution value at the old time step, n-1
-     *   @param  t                     current time to be accepted, n
-     *   @param  t_old                 previous time step value
+     *  @param[in]           doTimeDependentResid  This is true if we are solving a time dependent problem.
+     *  @param[in]           soln_ptr            Solution value at the current time
+     *  @param[in]           solnDot_ptr         derivative of the solution at the current time.
+     *  @param[in]           solnOld_ptr         Solution value at the old time step, n-1
+     *  @param[in]           t                   current time to be accepted, n
+     *  @param[in]           t_old               previous time step value
      */
     virtual void
-    advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
-                        const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
-                        const double t, const double t_old);
+    advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
+                        const Epetra_Vector* solnDot_ptr, const Epetra_Vector* const solnOld_ptr,
+                        const double t, const double t_old) override;
 
 
     virtual void residEval_PreCalc(const bool doTimeDependentResid,
@@ -137,8 +131,8 @@ public:
     /*!
      *  This function calculates the values at the cell center
      *
-     * @param nv Nodal Values for the current node
-     * @param solnElectrolyte
+     *  @param nv Nodal Values for the current node
+     *  @param solnElectrolyte
      */
     virtual void updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
 
@@ -411,18 +405,17 @@ protected:
 
     //! Value of the molar Enthalpy of the electrolyte at the current location
     /*!
-     *  Units:  Joules / kmol
+     *  Units:    Joules / kmol
      */
     double EnthalpyMolar_lyte_Curr_;
  
     //! Source of heat during the current time step
     /*!
      *  qSource is the heat generated in each cell per time for the current time step.
-     *  Therefore, the source term is integrated in the axial direction and it is
-     *  integrated wrt to the time interval.
+     *  Therefore, the source term is integrated in the axial direction and it is integrated wrt to the time interval.
      *
-     *  Length = number of local cells
-     *  units = Joules / m2
+     *  Length:   number of local cells
+     *  Units:    Joules / m2
      */
     mutable std::vector<double> qSource_Cell_curr_;
 
@@ -430,11 +423,10 @@ protected:
     /*!
      *  qSource is the heat generated in each cell per time and accumulated over
      *  the time steps that make up the current interval.
-     *  Therefore, the source term is integrated in the axial direction and it is
-     *  integrated wrt to the time interval.
+     *  Therefore, the source term is integrated in the axial direction and it is integrated wrt to the time interval.
      *
-     *  Length:  number of local cells
-     *  Units:   Joules / m2
+     *  Length:   number of local cells
+     *  Units:    Joules / m2
      */
     mutable std::vector<double> qSource_Cell_accumul_;
 
