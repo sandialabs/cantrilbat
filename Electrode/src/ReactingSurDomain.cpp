@@ -53,8 +53,8 @@ ReactingSurDomain::ReactingSurDomain(const ReactingSurDomain& right) :
     operator=(right);
 }
 //==================================================================================================================================
-ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
-    ElectrodeKinetics_intoPL(pl, iskin),
+ReactingSurDomain::ReactingSurDomain(PhaseList* pl, size_t iskin) :
+    ElectrodeKinetics_intoPL(),
     m_DoSurfKinetics(true),
     ocv_ptr_(nullptr),
     OCVmodel_(nullptr),
@@ -63,6 +63,10 @@ ReactingSurDomain::ReactingSurDomain(ZZCantera::PhaseList* pl, size_t iskin) :
     deltaS_species_(0.0),
     deltaH_species_(0.0)
 {
+    bool ok = importFromPL(pl, iskin);
+    if (!ok) {
+        throw ZuzaxError("ReactingSurDomain::importFromPL", "initialization error");
+    }
 }
 //==================================================================================================================================
 ReactingSurDomain& ReactingSurDomain::operator=(const ReactingSurDomain& right)
@@ -333,7 +337,7 @@ void ReactingSurDomain::finalize()
     limitedROP_.resize(m_ii, 0.0);
 }
 //==================================================================================================================================
-bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iskin)
+bool ReactingSurDomain::importFromPL(PhaseList* const pl, size_t iskin)
 {
     try {
         //
@@ -387,6 +391,15 @@ bool ReactingSurDomain::importFromPL(ZZCantera::PhaseList* const pl, size_t iski
         throw ZuzaxError("ReactingSurDomain::importFromPL()", "error encountered");
         return false;
     }
+}
+//==================================================================================================================================
+bool ReactingSurDomain::importKineticsInit(const XML_Node& owningPhase, std::vector<thermo_t_double*> tpList) 
+{
+    bool ok = importKinetics(owningPhase, tpList, this);
+    if (!ok) {
+        throw ZuzaxError("ReactingSurDomain::importKineticsInit()", "importKinetics() returned an error");
+    }
+    return true; 
 }
 //==================================================================================================================================
 void ReactingSurDomain::reassignPhaseList(PhaseList* pl_ptr)

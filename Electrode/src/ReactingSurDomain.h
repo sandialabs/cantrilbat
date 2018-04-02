@@ -135,6 +135,18 @@ public:
      */
     bool importFromPL(PhaseList* const pl, size_t iphSurKin);
 
+    //! Import kinetics into an empty kinetics object
+    /*!
+     *  (virtual from Kinetics)
+     *
+     *  @param[in]           owningPhase         Reference to the XML_Node phase representing the Surface phase
+     *  @param[in]           tpList              Vector of ThermoPhases that comprise the kinetics mechanism.
+     *
+     *  @return                                  Returns ok if the Kinetics object is instantiated successively
+     */
+    virtual bool importKineticsInit(const XML_Node& owningPhase, std::vector<thermo_t_double*> tpList) override;
+
+
     //! Reassign the internal PhaseList point to a new PhaseList object
     /*!
      *  This is used in the copy constructor.
