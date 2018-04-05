@@ -74,7 +74,6 @@ valCellTmps& valCellTmps::operator=(const valCellTmps &r)
     }
     AxialVeloc = r.AxialVeloc;
     Temperature = r.Temperature;
-
     return *this;
 }
 //==================================================================================================================================

@@ -1,5 +1,6 @@
 /**
- *  @file  m1d_porousLiKCl_dom1D.h
+ *  @file  m1d_valCellTmps_porousFlow.h  Base class for the structure that holds the values of variables at the cell level.
+ *         
  *
  */
 
@@ -10,8 +11,8 @@
  * See file License.txt for licensing information.
  */
 
-#ifndef M1D_VALTMPS_POROUSFLOW_H
-#define M1D_VALTMPS_POROUSFLOW_H
+#ifndef M1D_VALCELLTMPS_POROUSFLOW_H
+#define M1D_VALCELLTMPS_POROUSFLOW_H
 
 #include "m1d_porousFlow_dom1D.h"
 
@@ -33,8 +34,8 @@ namespace m1d
 /*!
  *  This is used for simplifying the calculation of cell level quantities.
  */
-struct Value_CellRL {
-
+struct Value_CellRL 
+{
     //! Default constructor
     /*!
      *  @param[in]           val                 Value of the quantity. Defaults to 0.
@@ -57,9 +58,9 @@ struct Value_CellRL {
     //! Fill the values of the current structure given the values of the structure at the cell to the left
     /*!
      *  @param[in]           valCellLeft         corresponding structure from the left cell
-     *  @param[in]           newRightVal         New value at the right cell
+     *  @param[in]           newRightVal         New value at the right cell to the current cell
      */
-    void fillNextRight(const Value_CellRL &valCellLeft, double newVal);
+    void fillNextRight(const Value_CellRL &valCellLeft, double newRightVal);
 
     //! Value of the property at the cell
     double center;
@@ -74,11 +75,13 @@ struct Value_CellRL {
 //==================================================================================================================================
 //! Intermediate bookkeeping information for loops over cells
 /*!
- *    If we are on a left boundary, there will be no Left Node. Instead, the left and center node
- *    are really the same point.  In that case NodeLeft_ will be a duplicate of NodeCenter_.
- *    And, the nodeLeft member value will be set to zero.
+ *  These values depend on the solution variables.
+ *  They must be recalculated whenever the solution changes.
  *
- *    An analogous treatment of right boundaries where there is no right node is also done. 
+ *  This class consists of public data only, which can be directly accessed.
+ *
+ *  If the left node doesn't exist then the left node value will be equal to the center value
+ *  If the right node doesn't exist then the right node value will be equal to the center value
  */
 class valCellTmps
 {
@@ -99,6 +102,7 @@ public:
     //! Assignment operator
     /*!
      *  @param[in]           r                   Object to be copied
+     *
      *  @return                                  Returns a reference to the object being copied
      */
     valCellTmps& operator=(const valCellTmps &r);

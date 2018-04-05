@@ -1,5 +1,5 @@
 /**
- * @file m1d_porousFlow_dom1D.cpp
+ * @file m1d_porousFlow_dom1D.cpp  Definitions for the porous flow residual calculator
  */
 /*
  * Copywrite 2013 Sandia Corporation. Under the terms of Contract
@@ -15,13 +15,6 @@
 
 #include "m1d_CanteraElectrodeGlobals.h"
 #include "m1d_ProblemStatementCell.h"
-
-//! Global Problem input structure
-/*!
- *   This contains the input data for the problem.
- *   We've made it a global structure, as there is one and only one instance of the structure
- */
-extern m1d::ProblemStatementCell PSinput;
 #include "m1d_exception.h"
 
 
@@ -32,10 +25,19 @@ using namespace Zuzax;
 using namespace Cantera;
 #endif
 
+//==================================================================================================================================
+//! Global Problem input structure
+/*!
+ *   This contains the input data for the problem.
+ *   We've made it a global structure, as there is one and only one instance of the structure
+ */
+extern m1d::ProblemStatementCell PSinput;
+
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
- 
-//=====================================================================================================================
+
+//==================================================================================================================================
 porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow* bdd_pf_ptr) :
     BulkDomain1D(bdd_pf_ptr),
     BDT_ptr_(bdd_pf_ptr),
@@ -121,8 +123,7 @@ porousFlow_dom1D::~porousFlow_dom1D()
 {
 }
 //=====================================================================================================================
-porousFlow_dom1D &
-porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
+porousFlow_dom1D& porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
 {
     if (this == &r) {
       return *this;
@@ -194,20 +195,7 @@ porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
     return *this;
 }
 //=====================================================================================================================
-  // Prepare all of the indices for fast calculation of the residual
-  /*
-   *  Ok, at this point, we will have figured out the number of equations
-   *  to be calculated at each node point. The object NodalVars will have
-   *  been fully formed.
-   *
-   *  We use this to figure out what local node numbers/ cell numbers are
-   *  needed and to set up indices for their efficient calling.
-   *
-   *  Child objects of this one will normally call this routine in a
-   *  recursive fashion.
-   */
-void
-porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
+void porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
 {
     /*
      * First call the parent domain prep to get the node information

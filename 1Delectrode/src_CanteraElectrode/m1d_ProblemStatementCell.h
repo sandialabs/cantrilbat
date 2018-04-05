@@ -1,5 +1,5 @@
-/*
- * $Id: m1d_ProblemStatementCell.h 593 2013-05-13 21:25:47Z hkmoffa $
+/**
+ * @file m1d_ProblemStatementCell.h 593 2013-05-13 21:25:47Z hkmoffa $
  */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract

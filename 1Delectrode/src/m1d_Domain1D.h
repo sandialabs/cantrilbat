@@ -315,6 +315,7 @@ public:
     //! Function that gets called at end the start of every time step
     /*!
      *  (virtual from Domain1D)
+     *
      *  This function provides a hook for a residual that gets called whenever a
      *  time step has been accepted and we are about to move on to the next time step.
      *  The call is made with the current time as the time

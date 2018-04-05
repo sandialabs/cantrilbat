@@ -1,5 +1,5 @@
 /**
- * @file m1d_porousFlow_dom1D.h
+ * @file m1d_porousFlow_dom1D.h base class for calculating residuals within a porous flow domain
  */
 
 /*
@@ -36,7 +36,7 @@ class cellTmps;
 class ExtraPhase;
 
 //==================================================================================================================================
-//! This is derived class  provides the function evaluation for a porous electrode.
+//! This is derived class provides the function evaluation for a porous electrode.
 /*!
  *  The porous electrolyte domain is characterized by a current conservation equation and several species
  *  conservation equations describing the electrolyte. A porosity/tortuosity is also associated with the domain.
@@ -50,7 +50,6 @@ class porousFlow_dom1D : public BulkDomain1D
 {
 
 public:
-
     //! Constructor
     /*!
      *  @param[in]           bdd_pf_ptr          Contains the bulk domain description.
@@ -69,31 +68,41 @@ public:
     //! Assignment operator
     /*!
      *  @param[in]           r                   Object to be copied into the current object
+     *
      *  @return                                  Returns a changeable reference to the current object
      */
     porousFlow_dom1D& operator=(const porousFlow_dom1D& r);
 
     //! Prepare all of the indices for fast calculation of the residual
     /*!
+     *  (virtual from Domain1D)
+     *
      *  Ok, at this point, we will have figured out the number of equations
-     *  to be calculated at each node point. The object NodalVars will have
-     *  been fully formed.
+     *  to be calculated at each node point. The object NodalVars will have  been fully formed.
      *
      *  We use this to figure out what local node numbers/ cell numbers are
      *  needed and to set up indices for their efficient calling.
      *
      *  Child objects of this one will normally call this routine in a recursive fashion.
+     *
+     *  @param[in]           li_ptr              Pointer to the LocalNodeIndices object
      */
-    virtual void domain_prep(LocalNodeIndices* li_ptr);
+    virtual void domain_prep(LocalNodeIndices* li_ptr) override;
 
     //! Function that gets called at end the start of every time step
     /*!
+     *  (virtual from domain1d)
+     *
      *  This function provides a hook for a residual that gets called whenever a
      *  time step has been accepted and we are about to move on to the next time step.
-     *  The call is made with the current time as the time
-     *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
+     *  The call is made with the current time as the time that is accepted.
+     *  The old time may be obtained from t and rdelta_t_accepted.
      *
      *  After this call interrogation of the previous time step's results will not be valid.
+     *
+     *  Note, when t is equal to t_old, soln_ptr should equal solnOld_ptr values. However,
+     *  solnDot_ptr values may not be zero.
+     *
      *
      *  @param[in]           doTimeDependentResid  This is true if we are solving a time dependent problem.
      *  @param[in]           soln_ptr            Solution value at the current time
@@ -107,38 +116,94 @@ public:
                         const Epetra_Vector* solnDot_ptr, const Epetra_Vector* const solnOld_ptr,
                         const double t, const double t_old) override;
 
-
-    virtual void residEval_PreCalc(const bool doTimeDependentResid,
-                      const Epetra_Vector* soln_ptr,
-                      const Epetra_Vector* solnDot_ptr,
-                      const Epetra_Vector* solnOld_ptr,
-                      const double t,
-                      const double rdelta_t,
-                      const Zuzax::ResidEval_Type residType,
-                      const Zuzax::Solve_Type solveType);
-
-    //!  Setup shop at a particular nodal point in the domain, calculating intermediate quantites
-    //!  and updating Cantera's objects
+    //! Utility function to calculate quantities before the main residual routine.
     /*!
+     *  (virtual from Domain1D)
+     *
+     *  This is used for a loop over nodes in the domain. All calculated quantities must be internally storred within the
+     *  domain structure. Currently this is called during the residual evalultion of the problem.
+     *
+     *  @param[in]             doTimeDependentResid  Boolean indicating whether the time dependent residual is requested
+     *  @param[in]             soln_ptr            Solution vector at which the residual should be evaluated
+     *  @param[in]             solnDot_ptr         Solution dot vector at which the residual should be evaluated.
+     *  @param[in]             solnOld_ptr         Pointer to the solution vector at the old time step
+     *  @param[in]             t                   time
+     *  @param[in]             rdelta_t            inverse of delta_t
+     *  @param[in]             residType           Type of evaluation of the residual. Uses the ResidEval_Type_Enum type.
+     *                                             Defaults to Base_ResidEval
+     *  @param[in]             solveType           Type of solution Type. Uses the Solve_Type_Enum  type.
+     *                                             Defaults to  TimeDependentAccurate_Solve
+     */
+    virtual void residEval_PreCalc(const bool doTimeDependentResid, const Epetra_Vector* const soln_ptr,
+                      const Epetra_Vector* const solnDot_ptr, const Epetra_Vector* const solnOld_ptr,
+                      const double t, const double rdelta_t,
+                      const Zuzax::ResidEval_Type residType, const Zuzax::Solve_Type solveType) override;
+
+    //! Setup shop at a particular nodal point in the domain, calculating intermediate quantites and updating Zuzax's objects
+    /*!
+     *  (virtual porousFlow_dom1D)
+     *
      *  All member data with the suffix, _Curr_, are updated by this function.
      *
-     * @param nv         NodalVars structure for the current node
-     * @param soln_Curr  Current value of the solution vector
+     *  Calculated quantities:
+     *             porosity_Cell_[cIndex_cc_]
+     *             porosity_Curr_ 
+     *  Called functions:
+     *             updateElectrolyte()
+     *
+     *  @param[in]           nv                  NodalVars structure for the current node
+     *  @param[in]           solnNode_Curr       Pointer to the start solution vector at the current node
      */
-    virtual void SetupThermoShop1(const NodalVars* const nv, const double* const soln_Curr);
+    virtual void SetupThermoShop1(const NodalVars* const nv, const double* const solnNode_Curr);
 
     //! Function updates the ThermoPhase object for the electrolyte given the solution vector
     /*!
-     *  This function calculates the values at the cell center
+     *  (virtual porousFlow_dom1D)
      *
-     *  @param nv Nodal Values for the current node
-     *  @param solnElectrolyte
+     *  This function calculates the values at the node
+     *
+     *  Calculated quantities:
+     *              temp_Curr_
+     *              pres_Curr_
+     *              concTot_Curr_
+     *  Called functions:
+     *              getMFElectrolyte_soln()
+     *              getVoltages()
+     *  Sets the ThermoPhase state of the electrolyte, ionicLiquid_, to the node value.
+     *
+     *  @param[in]           nv                  Nodal Values for the current node
+     *  @param[in]           solnNode_Curr       Pointer to the start solution vector at the current node
      */
-    virtual void updateElectrolyte(const NodalVars* const nv, const double* const solnElectrolyte);
+    virtual void updateElectrolyte(const NodalVars* const nv, const double* const solnNode_Curr);
 
-    virtual void getVoltages(const NodalVars* const nv, const double* const solnElectrolyte);
+    //! Function extracts the voltages
+    /*!
+     *  (virtual porousFlow_dom1D)
+     *
+     *  This function extracts the voltage values at the node.
+     *
+     *  Calculated quantities:
+     *              phiElectrolyte_Curr_
+     *
+     *  @param[in]           nv                  Nodal Values for the current node
+     *  @param[in]           solnNode_Curr       Pointer to the start solution vector at the current node
+     */
+    virtual void getVoltages(const NodalVars* const nv, const double* const solnNode_Curr);
 
-    virtual void getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnElectrolyte);
+    //! Function extracts the mole fractions of the electrolyte species
+    /*!
+     *  (virtual porousFlow_dom1D)
+     *
+     *  This function extracts the mole fractions of the electrolyte species
+     *
+     *  Calculated quantities:
+     *              mfElectrolyte_Soln_Curr_[k]
+     *              mfElectrolyte_Thermo_Curr_[k]
+     *
+     *  @param[in]           nv                  Nodal Values for the current node
+     *  @param[in]           solnNode_Curr       Pointer to the start solution vector at the current node
+     */
+    virtual void getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnNode_Curr);
 
     //! Calculate a thermodynamically acceptable mole fraction vector from the current raw mole
     //! fraction vector
@@ -151,13 +216,40 @@ public:
      *
      *  Note, this routine is really meant for phases with charged species in them. It works
      *  for neutral phases, but is inefficient.
+     *
+     *  @param[in]           mf                  Input mole fractions
+     *                                              Length: m_kk = number of species in electrolyte phase)
+     *  @param[out]          mf_Thermo           Output mole fractions
+     *                                              Length: m_kk = number of species in electrolyte phase)
      */
     void calcMFElectrolyte_Thermo(const double* const mf, double* const mf_Thermo) const;
 
+    //! Calculate the heat source
+    /*!
+     *  (virtual from porousFlow_dom1D)
+     *
+     *  Sums up all of the quantities in qSource_Cell_curr_[iCell] and returns the result.
+     *
+     *  @return                                  Returns the sum of the heat sources within the domain
+     *                                              Units: Joules / m2
+     */
     virtual double heatSourceLastStep() const;
 
+    //! Calculate the accumulated heat source from all previous steps (Joules /m2)
+    /*!
+     *  (virtual from porousFlow_dom1D)
+     *   
+     *  Sums up all of the quantities in qSource_Cell_accumul_[iCell] and returns the result.
+     *
+     *  @return                                  Returns the sum of the heat sources within the domain
+     *                                             Units: Joules / m2
+     */
     virtual double heatSourceAccumulated() const;
 
+    //! Zero the accumulated heat source terms
+    /*!
+     *  (virtual from porousFlow_dom1D)
+     */
     virtual void heatSourceZeroAccumulated() const;
 
     //! Set up tmps for quick calculation of residuals
@@ -165,53 +257,70 @@ public:
 
     //! Calculates and returns an estimate of the effective areal resistance of the layer
     /*!
-     *   (virtual in porous_flow_dom1D)
+     *  (virtual in porous_flow_dom1D)
      *
      *   resistance = ((potCathodic - potAnodic) - voltOCV) / current
      *
-     *  @param potAnodic potential in the anodic direction. If the anode, this returns the potential of the
-     *                   solid in the anode next to the anode current collector.
-     *  @param potCathodic potential in the cathode direction. If the anode, this returns the potential of the
-     *                   electrolyte in the anode next to the separator.
-     *  @param voltOCV  OCV calculated in a quick manner.
-     *  @param current   Returns the total current going through the domain ( amps m-2)
+     *  @param[in]            potAnodic          potential in the anodic direction. If the anode, this returns the potential of the
+     *                                           solid in the anode next to the anode current collector.
+     *  @param[in]            potCathodic        potential in the cathode direction. If the anode, this returns the potential of the
+     *                                           electrolyte in the anode next to the separator.
+     *  @param[in]            voltOCV            OCV calculated in a quick manner.
+     *  @param[in]            current            Returns the total current going through the domain ( amps m-2)
      *
-     *  @return returns the effective resistance of the layer (ohm m2)
+     *  @return                                  returns the effective resistance of the layer (ohm m2)
      */
     virtual double effResistanceLayer(double& potAnodic, double&  potCathodic, double& voltOCV, double& current);
 
     //! Generate the initial conditions
     /*!
-     *   The basic algorithm is to loop over the volume domains.
-     *   Then, we loop over the surface domains
+     *  (virtual from Domain1D)
      *
-     * @param doTimeDependentResid    Boolean indicating whether we should
-     *                                formulate the time dependent residual
-     * @param soln                    Solution vector. This is the input to
-     *                                the residual calculation.
-     * @param solnDot                 Solution vector. This is the input to
-     *                                the residual calculation.
-     * @param t                       Time
-     * @param delta_t                 delta_t for the initial time step
+     *  The basic algorithm is to loop over the volume domains. Then, we loop over the surface domains
+     *
+     *  @param[in]        doTimeDependentResid   Boolean indicating whether we should
+     *                                           formulate the time dependent residual
+     *  @param[in]        soln                   Solution vector. This is the input to the residual calculation.
+     *  @param[in]        solnDot                Solution vector. This is the input to the residual calculation.
+     *  @param[in]        t                      Time
+     *  @param[in]        delta_t                Time step to be used in the initial time step
      */
     virtual void initialConditions(const bool doTimeDependentResid, Epetra_Vector* soln, Epetra_Vector* solnDot,
-                      const double t, const double delta_t);
+                                   const double t, const double delta_t) override;
 
     //! Calculate the thermal conductivity of the porous matrix at the current cell.
+    /*!
+     *  (virtual in porous_flow_dom1D)
+     *
+     *  Currently it is hardwired to return 0.5 watts m-1 K-1, a number characteristic of water.
+     *
+     *  @return                                   Returns the thermal conductivity of the effective porous media
+     *                                              Units = watts m-1 K-1
+     */
     virtual double thermalCondCalc_PorMatrix();
 
     //! Volume fraction of other components than the Electrode object and the electrolyte phase
     /*!
-     *   Calculates the volume fraction at a given cell.
+     *  (virtual in porous_flow_dom1D)
      *
-     *   @param[in]       iCell       Cell number
+     *  Calculates the volume fraction of phases other than the electrolyte and the electrode at a given cell
+     *  Sums up the phase volumeFraction_Phases_Cell_[] function.
      *
-     *   @return                      Returns the volume fraction 
+     *  @param[in]           iCell               Cell number
+     *
+     *  @return                                  Returns the volume fraction 
      */
     virtual double volumeFractionOther(size_t iCell);
 
+    //! Calculate the porosity
+    /*!
+     *  (virtual in porous_flow_dom1D)
+     *
+     *  @param[in]           Cell               Cell number
+     *
+     *  @return                                 Returns the porosity
+     */
     virtual double calcPorosity(size_t iCell);
-
 
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------   DATA   --------------------------------------------------------------------------
