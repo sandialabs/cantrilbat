@@ -847,7 +847,16 @@ INPUT                  = ../../util_src/src \
                          ../../1Delectrode/src \
                          ../../1Delectrode/src_CanteraElectrode/m1d_BatteryResidEval.h \
                          ../../1Delectrode/src_CanteraElectrode/m1d_BatteryResidEval.cpp \
-
+                         ../../1Delectrode/src_CanteraElectrode/m1d_cellTmps_PorousFlow.h \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_cellTmps_PorousFlow.cpp \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_valCellTmps_porousFlow.h \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_valCellTmps_porousFlow.cpp \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BDD_porousFlow.h  \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BDD_porousFlow.cpp  \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BDD_porousElectrode.h \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BDD_porousElectrode.cpp \
+                         ../../1Delectrode/src_CanteraElectrode/BEulerInt_Battery.h    \
+                         ../../1Delectrode/src_CanteraElectrode/BEulerInt_Battery.cpp    \
 
 
 # This tag can be used to specify the character encoding of the source files

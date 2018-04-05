@@ -1,9 +1,14 @@
 /*
- * m1d_porousLiKCl_dom1D.h
+ * @file m1d_cellTmps_PorousFlow.h Definitions for a base class that handle loops over cells.
  *
- *  Created on: May 19, 2009
- *      Author: hkmoffa
  */
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
+
 
 #ifndef M1D_CELLTMPS_POROUSFLOW_H
 #define M1D_CELLTMPS_POROUSFLOW_H
@@ -26,7 +31,8 @@ namespace m1d
 //==================================================================================================================================
 //! Intermediate bookkeeping information for nodes based on loops over cells
 /*!
- *  This is a non-virtual class, where all data is public
+ *  This is a non-virtual class, where all data is public.
+ *  Once the mesh is created and not changed, the data in this object stays constant
  */
 class NodeTmps
 {
@@ -37,11 +43,21 @@ public:
      */
     NodeTmps();
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               Object to be copied
+     */
     NodeTmps(const NodeTmps &right);
 
     //! non-virtual Destructor
     ~NodeTmps();
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               Object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     NodeTmps &operator=(const NodeTmps &right);
     
     //!  Pointer to the NodalVars struct 
@@ -68,17 +84,23 @@ public:
     //! Offset of the pressure equation wrt the start of the nodal solution vector
     size_t Offset_Pressure;
 
+    //! Offset of the axial solid stress equation
     size_t Offset_Solid_Stress_Axial;
 
     //!  Offset of Residual for the current conservation equation
     size_t RO_Current_Conservation;
 
-    //! Offset of Residual for the electrolyte total mass/mole continuity equation from the start of the 
-    //! residual vector for that node
+    //! Offset of Residual for the electrolyte total mass/mole continuity equation 
+    //! from the start of the residual vector for that node
     size_t RO_Electrolyte_Continuity;
 
+    //! Offset of the residual for the species equation from the start of the residual vector for that node
     size_t RO_Species_Eqn_Offset;
+
+    //! Offset of the residual for the Mole fraction sum equals 1 residual vector for that node
     size_t RO_MFSum_offset;
+
+    //! Offset of the charge balance residual equation from the start of the resid vector for that node
     size_t RO_ChargeBal_offset;
 
     //!  Offset of Residual for the Enthalpy Conservation equation
@@ -89,7 +111,7 @@ public:
 //==================================================================================================================================
 //! Intermediate bookkeeping information for loops over cells
 /*!
- *    If we are on a left boundary, there will be no Left Node. Instead, the left and center node
+ *    If we are on a left boundary, there will be no left node. Instead, the left and center node
  *    are really collocated.  In that case NodeLeft_ will be a duplicate of NodeCenter_.
  *    And, nodeLeft member value will be set to zero.
  *
@@ -98,29 +120,64 @@ public:
 class cellTmps
 {
 public:
+    //! Constructor
     cellTmps();
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           r                   Object to be copied
+     */
     cellTmps(const cellTmps &r);
 
+    //! Virtual destructor
     virtual ~cellTmps();
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           r                   Object to be copied
+     *
+     *  @return                                  Returns a reference to the current object
+     */
     cellTmps& operator=(const cellTmps &r);
 
+    //! Pointer to the NodalVars structure to the left of the current cell
+    /*!
+     *  If there isn't one, then the value is nullptr
+     */
     NodalVars* nvLeft_;
+
+    //! Pointer to the NodalVars structure for the node in the center of the current node
     NodalVars* nvCent_;
+
+    //! Pointer to the NodalVars structure to the left of the current cell
+    /*!
+     *  If there isn't one, then the value is nullptr
+     */
     NodalVars* nvRight_;
 
+    //! NodeTmps structure for the node to the left of the current cell
     NodeTmps NodeTmpsLeft_;
+
+    //! NodeTmps structure for the node in the center of the current cell
     NodeTmps NodeTmpsCenter_;
+
+    //! NodeTmps structure for the node to the right of the current cell
     NodeTmps NodeTmpsRight_;
 
     //! Distance from the center node to the left node
     double xdelL_; 
 
-    double xdelR_; // Distance from the center node to the right node
-    double xdelCell_; // cell width - right boundary minus the left boundary.
-    double xCellBoundaryL_; //cell boundary left
-    double xCellBoundaryR_; //cell boundary right
+    //! Distance from the center node to the right node
+    double xdelR_; 
+
+    //! Cell width - right boundary minus the left boundary
+    double xdelCell_; 
+
+    //! Location of the left cell boundary
+    double xCellBoundaryL_; 
+
+    //! Location of the right cell boundary
+    double xCellBoundaryR_; 
 };
 //==================================================================================================================================
 }

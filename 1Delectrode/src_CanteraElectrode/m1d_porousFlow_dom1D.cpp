@@ -425,7 +425,7 @@ void porousFlow_dom1D::residSetupTmps()
             /*
              *  We assign node object to zero.
              */
-            nodeLeft = 0;
+            nodeLeft = nullptr;
             /*
              *  If there is no left node, we assign the left solution index to the center solution index
              */
@@ -476,7 +476,7 @@ void porousFlow_dom1D::residSetupTmps()
          */
         index_RightLcNode = Index_RightLcNode_LCO[iCell];
         if (index_RightLcNode < 0) {
-            nodeRight = 0;
+            nodeRight = nullptr;
             /*
              *  If there is no right node, we assign the right solution index to the center solution index
              */

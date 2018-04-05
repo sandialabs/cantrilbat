@@ -1,9 +1,15 @@
-/*
- * m1d_porousLiKCl_dom1D.h
- *
- *  Created on: May 19, 2009
- *      Author: hkmoffa
+/**
+ *  @file m1d_cellTmps_PorousFlow.cpp
+ *       Declarations for a base class that handle loops over cells.
  */
+
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
+ * retains certain rights in this software.
+ * See file License.txt for licensing information.
+ */
+
 #include "m1d_defs.h"
 #include "m1d_cellTmps_PorousFlow.h"
 
@@ -11,7 +17,7 @@ namespace m1d
 {
 //=====================================================================================================================
 NodeTmps::NodeTmps() :
-    nv(0),
+    nv(nullptr),
     index_EqnStart(npos),
     Offset_Displacement_Axial(npos),
     Offset_Velocity_Axial(npos),
@@ -78,9 +84,9 @@ NodeTmps& NodeTmps::operator=(const NodeTmps &r)
 }
 //=====================================================================================================================
 cellTmps::cellTmps() :
-    nvLeft_(0),
-    nvCent_(0),
-    nvRight_(0),
+    nvLeft_(nullptr),
+    nvCent_(nullptr),
+    nvRight_(nullptr),
     NodeTmpsLeft_(),
     NodeTmpsCenter_(),
     NodeTmpsRight_(),
