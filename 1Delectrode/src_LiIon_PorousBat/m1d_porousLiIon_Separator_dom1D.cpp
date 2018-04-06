@@ -57,7 +57,7 @@ drawline0(int sp, int ll)
 //==================================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDD_porSeparator_LiIon* bdd_sep_ptr) :
     porousFlow_dom1D(bdd_sep_ptr),
-    BDT_sep_ptr_(bdd_sep_ptr),
+    BDD_sep_ptr_(bdd_sep_ptr),
     nph_(0), nsp_(0),
     concTot_Cell_(0), 
     concTot_Cell_old_(0), 
@@ -74,8 +74,8 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDD_porSeparator_LiIon*
     solnTemp(0)
 {
 
-    //BDT_ptr_ = dynamic_cast<BDT_porSeparator_LiIon*>(&BDD_);
-    if (!BDT_sep_ptr_) {
+    //BDD_ptr_ = dynamic_cast<BDD_porSeparator_LiIon*>(&BDD_);
+    if (!BDD_sep_ptr_) {
         throw m1d_Error("porousLiIon_Separator_dom1D", "confused");
     }
     nsp_ = ionicLiquid_->nSpecies();
@@ -98,12 +98,14 @@ porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(BDD_porSeparator_LiIon*
 }
 //==================================================================================================================================
 porousLiIon_Separator_dom1D::porousLiIon_Separator_dom1D(const porousLiIon_Separator_dom1D& r) :
-    porousFlow_dom1D(r.BDT_sep_ptr_),
-    BDT_sep_ptr_(r.BDT_sep_ptr_),
-    nph_(0), nsp_(0),
+    porousFlow_dom1D(r.BDD_sep_ptr_),
+    BDD_sep_ptr_(r.BDD_sep_ptr_),
+    nph_(0), 
+    nsp_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
     Fleft_cc_(0.0),
-    Fright_cc_(0.0), Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
+    Fright_cc_(0.0), 
+    Vleft_cc_(0.0), Vcent_cc_(0.0), Vright_cc_(0.0), 
     t_final_(0.0), t_init_(0.0), Xleft_cc_(0), Xcent_cc_(0), Xright_cc_(0),
     spCharge_(0),
     gradT_trCurr_(0.0), gradV_trCurr_(0), gradX_trCurr_(0), Vdiff_trCurr_(0), jFlux_trCurr_(0),
@@ -129,7 +131,7 @@ porousLiIon_Separator_dom1D::operator=(const porousLiIon_Separator_dom1D& r)
     // Call the parent assignment operator
     porousFlow_dom1D::operator=(r);
 
-    BDT_sep_ptr_                          = r.BDT_sep_ptr_;
+    BDD_sep_ptr_                          = r.BDD_sep_ptr_;
     ionicLiquid_                          = r.ionicLiquid_;
     nph_                                  = r.nph_;
     nsp_                                  = r.nsp_;
@@ -183,7 +185,7 @@ porousLiIon_Separator_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousFlow_dom1D::domain_prep(li_ptr);
 
-    double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+    double domainThickness = BDD_ptr_->Xpos_end - BDD_ptr_->Xpos_start;
     double porosity = -1.0;
     double grossVolumeSeparator = PSCinput_ptr->separatorArea_ * domainThickness;
     double volumeInert = 0.0;
@@ -817,8 +819,8 @@ porousLiIon_Separator_dom1D::residEval(Epetra_Vector& res,
     /*
      * Species continuity Equation
      */
-    for (int k = 0; k < nsp_; k++) {
-      if ((k != (int) BDT_sep_ptr_->iMFS_index_) && (k != iPF6m_)) {
+    for (size_t k = 0; k < (size_t) nsp_; ++k) {
+      if ((k != BDD_sep_ptr_->iMFS_index_) && (k != (size_t) iPF6m_)) {
 	res[indexCent_EqnStart + nodeTmpsCenter.RO_Species_Eqn_Offset + k] += (fluxXright[k] - fluxXleft[k]);
       }
     }
@@ -2174,7 +2176,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop1Extra(const NodalVars* const nv,
     //
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
     EnthalpyMolar_lyte_Curr_ = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
@@ -2202,8 +2204,8 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     size_t indexMFL = nvL->indexBulkDomainVar0(MoleFraction_Species);
     size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);
 
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
-        mfElectrolyte_Soln_Curr_[k] = 0.5 * (solnElectrolyte_CurrL[indexMFL+k] +solnElectrolyte_CurrR[indexMFR+k]);
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
+        mfElectrolyte_Soln_Curr_[k] = 0.5 * (solnElectrolyte_CurrL[indexMFL+k] + solnElectrolyte_CurrR[indexMFR+k]);
     }
 
     calcMFElectrolyte_Thermo(&mfElectrolyte_Soln_Curr_[0], &mfElectrolyte_Thermo_Curr_[0]); 
@@ -2232,7 +2234,7 @@ porousLiIon_Separator_dom1D::SetupThermoShop2(const NodalVars* const nvL, const 
     // Calculate the EnthalpyPhi values at the CV interface and store these in  EnthalpyPhiPM_lyte_Curr_[]
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
     EnthalpyMolar_lyte_Curr_ = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
@@ -3102,7 +3104,7 @@ porousLiIon_Separator_dom1D::initialConditions(const bool doTimeDependentResid,
         /*
          * Get initial mole fractions from PSinput
          */
-	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 	    soln[indexCent_EqnStart + iVar_Species + k] = PSinput.electrolyteMoleFracs_[k];
 	}
 	//

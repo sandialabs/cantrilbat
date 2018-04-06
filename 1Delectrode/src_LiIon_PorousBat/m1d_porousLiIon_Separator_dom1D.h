@@ -444,10 +444,10 @@ public:
 protected:
     //! Pointer to the appropriate DomainDescription with the fullest extent
     /*!
-     *  Note, we use the hidden variable strategy here. BDT_ptr_ name is used for all derived classes of
+     *  Note, we use the hidden variable strategy here. BDD_ptr_ name is used for all derived classes of
      *  DomainDescription
      */
-    BDD_porSeparator_LiIon* BDT_sep_ptr_;
+    BDD_porSeparator_LiIon* BDD_sep_ptr_;
 
     //! Number of phases solved
     int nph_;

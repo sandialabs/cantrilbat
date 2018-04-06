@@ -40,7 +40,7 @@ namespace m1d
 //==================================================================================================================================
 porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow* bdd_pf_ptr) :
     BulkDomain1D(bdd_pf_ptr),
-    BDT_ptr_(bdd_pf_ptr),
+    BDD_ptr_(bdd_pf_ptr),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     Temp_Cell_old_(0),
@@ -67,27 +67,27 @@ porousFlow_dom1D::porousFlow_dom1D(BDD_porousFlow* bdd_pf_ptr) :
     solidSkeleton_(0),
     Porosity_prob_type_(0)
 {
-    //BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
-    ionicLiquid_ = BDT_ptr_->ionicLiquid_;
-    trans_ = BDT_ptr_->trans_;
-    solidSkeleton_ = BDT_ptr_->solidSkeleton_;
+    //BDD_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
+    ionicLiquid_ = BDD_ptr_->ionicLiquid_;
+    trans_ = BDD_ptr_->trans_;
+    solidSkeleton_ = BDD_ptr_->solidSkeleton_;
 
     energyEquationProbType_ = PSinput.Energy_equation_prob_type_;
     solidMechanicsProbType_ = PSinput.Solid_Mechanics_prob_type_;
 
-    size_t sz = BDT_ptr_->ExtraPhaseList_.size();
+    size_t sz = BDD_ptr_->ExtraPhaseList_.size();
     ExtraPhaseList_.resize(sz);
     for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
-        ExtraPhaseList_[i] = new ExtraPhase(*(BDT_ptr_->ExtraPhaseList_[i]));
+        ExtraPhaseList_[i] = new ExtraPhase(*(BDD_ptr_->ExtraPhaseList_[i]));
     }
-    Porosity_prob_type_        = BDT_ptr_->Porosity_prob_type_;
-    porosityEquationProbType_  = BDT_ptr_->porosityEquationProbType_;
+    Porosity_prob_type_        = BDD_ptr_->Porosity_prob_type_;
+    porosityEquationProbType_  = BDD_ptr_->porosityEquationProbType_;
     crossSectionalArea_ = PSinput.crossSectionalArea_;
 }
 //=====================================================================================================================
 porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
-    BulkDomain1D(r.BDT_ptr_),
-    BDT_ptr_(r.BDT_ptr_),
+    BulkDomain1D(r.BDD_ptr_),
+    BDD_ptr_(r.BDD_ptr_),
     porosity_Cell_(0),
     porosity_Cell_old_(0),
     Temp_Cell_old_(0),
@@ -115,7 +115,7 @@ porousFlow_dom1D::porousFlow_dom1D(const porousFlow_dom1D &r) :
     ExtraPhaseList_(0),
     Porosity_prob_type_(0)
 {
-    //BDT_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
+    //BDD_ptr_ = static_cast<BDD_porousFlow*>(&BDD_);
     porousFlow_dom1D::operator=(r);
 }
 //=====================================================================================================================
@@ -131,7 +131,7 @@ porousFlow_dom1D& porousFlow_dom1D::operator=(const porousFlow_dom1D &r)
     // Call the parent assignment operator
     BulkDomain1D::operator=(r);
 
-    BDT_ptr_                  = r.BDT_ptr_;
+    BDD_ptr_                  = r.BDD_ptr_;
     CpMolar_lyte_Cell_        = r.CpMolar_lyte_Cell_;
     CpMolar_solid_Cell_       = r.CpMolar_solid_Cell_;
     CpMolar_total_Cell_       = r.CpMolar_total_Cell_;
@@ -202,7 +202,7 @@ void porousFlow_dom1D::domain_prep(LocalNodeIndices *li_ptr)
      */
     BulkDomain1D::domain_prep(li_ptr);
 
-    double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+    double domainThickness = BDD_ptr_->Xpos_end - BDD_ptr_->Xpos_start;
     double porosity = -1.0;
     double volumeSeparator = PSCinput_ptr->separatorArea_ * domainThickness;
     double volumeInert = 0.0;
@@ -679,7 +679,7 @@ porousFlow_dom1D::initialConditions(const bool doTimeDependentResid,
         int offS = 0;
 	//double mv = 0.0;
 	double porosity = 1.0;	
-	//double domainThickness = BDT_ptr_->Xpos_end - BDT_ptr_->Xpos_start;
+	//double domainThickness = BDD_ptr_->Xpos_end - BDD_ptr_->Xpos_start;
         if (solidSkeleton_) {
 	    offS = 1;
 	    solidSkeleton_->setState_TP(temp_Curr_, pres_Curr_);
@@ -849,7 +849,7 @@ void
 porousFlow_dom1D::getMFElectrolyte_soln(const NodalVars* const nv, const double* const solnNode_Curr)
 {
     size_t indexMF = nv->indexBulkDomainVar0(MoleFraction_Species);
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 	mfElectrolyte_Soln_Curr_[k] = solnNode_Curr[indexMF + k];
     }
     calcMFElectrolyte_Thermo(&mfElectrolyte_Soln_Curr_[0], &mfElectrolyte_Thermo_Curr_[0]);
@@ -866,7 +866,7 @@ void porousFlow_dom1D::calcMFElectrolyte_Thermo(const double* const mf, double* 
     double sum, z;  
     double posSum = 0.0;
     double negSum = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 	mf_Thermo[k] = std::max(mf[k], 0.0);
         z = ionicLiquid_->charge(k);
 	if (z > 0.0) {
@@ -877,13 +877,13 @@ void porousFlow_dom1D::calcMFElectrolyte_Thermo(const double* const mf, double* 
     }
     if (posSum > 0.0 || negSum > 0.0) {	
 	if (negSum <= 0.0) {
-	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 		if (z > 0.0) {
 		    mf_Thermo[k] = 0.0;
 		}
 	    }
 	} else if (posSum <= 0.0) {
-	    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 		if (z < 0.0) {
 		    mf_Thermo[k] = 0.0;
 		}
@@ -893,7 +893,7 @@ void porousFlow_dom1D::calcMFElectrolyte_Thermo(const double* const mf, double* 
 		sum = 0.5 * (posSum + negSum);
 		double pratio = sum / posSum;
 		double nratio = sum / negSum;
-		for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+		for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 		    z = ionicLiquid_->charge(k);
 		    if (z > 0.0) {
 			mf_Thermo[k] *= pratio;
@@ -905,11 +905,11 @@ void porousFlow_dom1D::calcMFElectrolyte_Thermo(const double* const mf, double* 
 	}
     }
     sum = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 	sum += mf_Thermo[k];
     }
     if (sum != 1.0) {
-	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 	    mf_Thermo[k] /= sum;
 	}
     }
@@ -963,7 +963,7 @@ double porousFlow_dom1D::volumeFractionOther(size_t iCell)
 //
 double porousFlow_dom1D::calcPorosity(size_t iCell) 
 {
-   cellTmps& cTmps          = cellTmpsVect_Cell_[iCell];
+   cellTmps& cTmps = cellTmpsVect_Cell_[iCell];
    double xdelCell = cTmps.xdelCell_;
    double p = 1.0;
    for (size_t jPhase = 0; jPhase < numExtraCondensedPhases_; ++jPhase) {

@@ -67,7 +67,7 @@ drawline0(int sp, int ll)
 //===================================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDD_porAnode_LiIon* bdd_anode_ptr) :
     porousElectrode_dom1D(bdd_anode_ptr),
-    BDT_anode_ptr_(bdd_anode_ptr),
+    BDD_anode_ptr_(bdd_anode_ptr),
     nph_(0), nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
     concTot_Cell_(0), concTot_Cell_old_(0),
@@ -98,23 +98,23 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDD_porAnode_LiIon* bdd_anode_p
     solnTemp(0)
 {
 
-    //BDT_ptr_ = static_cast<BDD_porAnode_LiIon*>(&bdd);
-    //BDT_porAnode_LiIon* fa = dynamic_cast<BDD_porAnode_LiIon*>(&bdd);
-    if (!BDT_ptr_) {
+    //BDD_ptr_ = static_cast<BDD_porAnode_LiIon*>(&bdd);
+    //BDD_porAnode_LiIon* fa = dynamic_cast<BDD_porAnode_LiIon*>(&bdd);
+    if (!BDD_ptr_) {
         throw m1d_Error("confused", "confused");
     }
     /*
-     * This is a shallow pointer copy. The BDT object owns the ionicLiquid_ object
+     * This is a shallow pointer copy. The BDD object owns the ionicLiquid_ object
      */
-    ionicLiquid_ = BDT_ptr_->ionicLiquid_;
+    ionicLiquid_ = BDD_ptr_->ionicLiquid_;
     /*
-     *  This is a shallow pointer copy. The BDT object owns the transport object
+     *  This is a shallow pointer copy. The BDD object owns the transport object
      */
-    trans_ = BDT_ptr_->trans_;
+    trans_ = BDD_ptr_->trans_;
     /*
-     *  This is a shallow pointer copy. The BDT object owns the Electrode object
+     *  This is a shallow pointer copy. The BDD object owns the Electrode object
      */
-    nsp_ = BDT_ptr_->nSpeciesElectrolyte_;
+    nsp_ = BDD_ptr_->nSpeciesElectrolyte_;
     nph_ = 1;
 
     iECDMC_ = ionicLiquid_->speciesIndex("ECDMC");
@@ -135,11 +135,12 @@ porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(BDD_porAnode_LiIon* bdd_anode_p
 }
 //==================================================================================================================================
 porousLiIon_Anode_dom1D::porousLiIon_Anode_dom1D(const porousLiIon_Anode_dom1D& r) :
-    porousElectrode_dom1D(r.BDT_anode_ptr_),
-    BDT_anode_ptr_(r.BDT_anode_ptr_),
+    porousElectrode_dom1D(r.BDD_anode_ptr_),
+    BDD_anode_ptr_(r.BDD_anode_ptr_),
     nph_(0), nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0), 
-    concTot_Cell_(0), concTot_Cell_old_(0),
+    concTot_Cell_(0),
+    concTot_Cell_old_(0),
     capacityDischargedPA_Cell_(0),
     depthOfDischargePA_Cell_(0),
     capacityLeftPA_Cell_(0),
@@ -183,7 +184,7 @@ porousLiIon_Anode_dom1D::operator=(const porousLiIon_Anode_dom1D& r)
     // Call the parent assignment operator
     porousElectrode_dom1D::operator=(r);
 
-    BDT_anode_ptr_ = r.BDT_anode_ptr_;
+    BDD_anode_ptr_ = r.BDD_anode_ptr_;
     nph_ = r.nph_;
     nsp_ = r.nsp_;
     icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
@@ -267,12 +268,12 @@ porousLiIon_Anode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      */
     porousElectrode_dom1D::domain_prep(li_ptr);
 
-    //BDT_porAnode_LiIon* BDD_LiSi_Anode = dynamic_cast<BDT_porAnode_LiIon*>(&(BDD_));
-    if (!BDT_anode_ptr_) {
-        throw CanteraError(" porousLiIon_Anode_dom1D::domain_prep()", "bad dynamic cast ");
+    //BDD_porAnode_LiIon* BDD_LiSi_Anode = dynamic_cast<BDD_porAnode_LiIon*>(&(BDD_));
+    if (!BDD_anode_ptr_) {
+        throw ZuzaxError(" porousLiIon_Anode_dom1D::domain_prep()", "bad dynamic cast ");
     }
 
-    ZZCantera::Electrode* ee = BDT_anode_ptr_->Electrode_;
+    ZZCantera::Electrode* ee = BDD_anode_ptr_->Electrode_;
     nSpeciesElectrode_ = ee->nSpecies();
     nSurfsElectrode_ = ee->nSurfaces();
 
@@ -2771,7 +2772,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv,
     //
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
     EnthalpyMolar_lyte_Curr_ = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
@@ -2806,7 +2807,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
     size_t indexMFL = nvL->indexBulkDomainVar0(MoleFraction_Species);
     size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);
 
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         mfElectrolyte_Soln_Curr_[k] = 0.5 * (solnElectrolyte_CurrL[indexMFL+k] +solnElectrolyte_CurrR[indexMFR+k]);
     }
     calcMFElectrolyte_Thermo(&mfElectrolyte_Soln_Curr_[0], &mfElectrolyte_Thermo_Curr_[0]); 
@@ -2844,7 +2845,7 @@ porousLiIon_Anode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const doub
 
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
     EnthalpyMolar_lyte_Curr_ = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
@@ -4426,7 +4427,7 @@ porousLiIon_Anode_dom1D::initialConditions(const bool doTimeDependentResid,  Epe
         /*
          * Get initial mole fractions from PSinput
          */
-	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 	    soln[indexCent_EqnStart + iVar_Species + k] = PSinput.electrolyteMoleFracs_[k];
 	}
 

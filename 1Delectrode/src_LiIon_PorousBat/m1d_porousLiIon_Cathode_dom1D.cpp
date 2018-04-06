@@ -62,9 +62,9 @@ drawline0(int sp, int ll)
     sprint0("\n");
 }
 //==================================================================================================================================
-porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDD_porCathode_LiIon* bdt_cathode_ptr) :
-    porousElectrode_dom1D(bdt_cathode_ptr),
-    BDT_cathode_ptr_(bdt_cathode_ptr), 
+porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDD_porCathode_LiIon* bdd_cathode_ptr) :
+    porousElectrode_dom1D(bdd_cathode_ptr),
+    BDD_cathode_ptr_(bdd_cathode_ptr), 
     nph_(0),
     nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
@@ -116,8 +116,8 @@ porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(BDD_porCathode_LiIon* bdt_c
 }
 //==================================================================================================================================
 porousLiIon_Cathode_dom1D::porousLiIon_Cathode_dom1D(const porousLiIon_Cathode_dom1D& r) :
-    porousElectrode_dom1D(r.BDT_cathode_ptr_),
-    BDT_cathode_ptr_(r.BDT_cathode_ptr_), 
+    porousElectrode_dom1D(r.BDD_cathode_ptr_),
+    BDD_cathode_ptr_(r.BDD_cathode_ptr_), 
     nph_(0), nsp_(0),
     icurrInterfacePerSurfaceArea_Cell_(0),
     concTot_Cell_(0),
@@ -165,7 +165,7 @@ porousLiIon_Cathode_dom1D::operator=(const porousLiIon_Cathode_dom1D& r)
     // Call the parent assignment operator
     porousElectrode_dom1D::operator=(r);
 
-    BDT_ptr_ = r.BDT_ptr_;
+    BDD_ptr_ = r.BDD_ptr_;
     nph_ = r.nph_;
     nsp_ = r.nsp_;
     icurrInterfacePerSurfaceArea_Cell_ = r.icurrInterfacePerSurfaceArea_Cell_;
@@ -251,7 +251,7 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
     porousElectrode_dom1D::domain_prep(li_ptr);
 
     //BDD_porCathode_LiIon* BDD_FeS2_Cathode = dynamic_cast<BDD_porCathode_LiIon*>(&(BDD_));
-    if (!BDT_cathode_ptr_) {
+    if (!BDD_cathode_ptr_) {
         throw CanteraError(" porousLiIon_Cathode_dom1D::domain_prep()", "bad dynamic cast ");
     }
 
@@ -260,7 +260,7 @@ porousLiIon_Cathode_dom1D::domain_prep(LocalNodeIndices* li_ptr)
      *  for the cathode. We will use this to figure out the number of Electrode species and the number of
      *  Electrode surfaces.
      */
-    ZZCantera::Electrode* ee = BDT_cathode_ptr_->Electrode_;
+    ZZCantera::Electrode* ee = BDD_cathode_ptr_->Electrode_;
     nSpeciesElectrode_ = ee->nSpecies();
     nSurfsElectrode_ = ee->nSurfaces();
 
@@ -2811,7 +2811,7 @@ porousLiIon_Cathode_dom1D::SetupThermoShop1Extra(const NodalVars* const nv,
     //
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
     EnthalpyMolar_lyte_Curr_ = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
@@ -2835,7 +2835,7 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
     size_t indexMFR = nvR->indexBulkDomainVar0(MoleFraction_Species);
 
   
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         mfElectrolyte_Soln_Curr_[k] = 0.5 * (solnElectrolyte_CurrL[indexMFL+k] +solnElectrolyte_CurrR[indexMFR+k]);
     }
     calcMFElectrolyte_Thermo(&mfElectrolyte_Soln_Curr_[0], &mfElectrolyte_Thermo_Curr_[0]); 
@@ -2869,7 +2869,7 @@ porousLiIon_Cathode_dom1D::SetupThermoShop2(const NodalVars* const nvL, const do
 
     ionicLiquid_->getPartialMolarEnthalpies(&EnthalpyPM_lyte_Curr_[0]);
     EnthalpyMolar_lyte_Curr_ = 0.0;
-    for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+    for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
         double z = ionicLiquid_->charge(k);
         EnthalpyPhiPM_lyte_Curr_[k] = EnthalpyPM_lyte_Curr_[k] + Faraday * z * phiElectrolyte_Curr_;
 	EnthalpyMolar_lyte_Curr_ += mfElectrolyte_Soln_Curr_[k] * EnthalpyPM_lyte_Curr_[k];
@@ -4429,7 +4429,7 @@ porousLiIon_Cathode_dom1D::initialConditions(const bool doTimeDependentResid, Ep
         /*
          * Get initial mole fractions from PSinput
          */
-	for (size_t k = 0; k < BDT_ptr_->nSpeciesElectrolyte_; ++k) {
+	for (size_t k = 0; k < BDD_ptr_->nSpeciesElectrolyte_; ++k) {
 	    soln[indexCent_EqnStart + iVar_Species + k] = PSinput.electrolyteMoleFracs_[k];
 	}
 	//

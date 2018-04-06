@@ -661,7 +661,7 @@ public:
 protected:
 
     //! Pointer to the BDD object that is most derived
-    BDD_porAnode_LiIon* BDT_anode_ptr_;
+    BDD_porAnode_LiIon* BDD_anode_ptr_;
 
     //! Number of phases solved
     int nph_;
