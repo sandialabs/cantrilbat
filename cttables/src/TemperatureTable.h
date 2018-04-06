@@ -10,9 +10,9 @@
 
 #ifndef TEMPERATURE_TABLE_H
 #define  TEMPERATURE_TABLE_H
-#include "sortAlgorithms.h"
 #include "mdp_allo.h"
 #include <vector>
+#include <algorithm>
 using std::vector;
 
 /***********************************************************************/
@@ -72,8 +72,8 @@ public:
 	NPoints += numAdded;
       }
  
-      sort_dbl_1(T, NPoints);
-
+      //sort_dbl_1(T, NPoints);
+      std::sort(&T[0], &T[NPoints]);
     
   }
   /***********************************************************************/

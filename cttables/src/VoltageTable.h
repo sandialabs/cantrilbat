@@ -10,10 +10,11 @@
 
 #ifndef VOLTAGE_TABLE_H
 #define VOLTAGE_TABLE_H
-#include "sortAlgorithms.h"
+//#include "sortAlgorithms.h"
 #include "mdp_allo.h"
 #include <vector>
 #include <cstdio>
+#include <algorithm>
 using std::vector;
 
 /***********************************************************************/
@@ -89,7 +90,8 @@ public:
       V[NPoints] = 0.0;
       NPoints++;
     }
-    sort_dbl_1(&V[0], NPoints);
+    //sort_dbl_1(&V[0], NPoints);
+    std::sort(&V[0], &V[NPoints]);
 
   }
   //====================================================================================================================
@@ -117,7 +119,8 @@ public:
     Ezero = ezero;
     V.push_back(Ezero);
     NPoints++;
-    sort_dbl_1(&V[0], NPoints);
+    //sort_dbl_1(&V[0], NPoints);
+    std::sort(&V[0], &V[NPoints]);
   }
   //====================================================================================================================
   void AddEeq(double eeq) {
@@ -138,7 +141,8 @@ public:
     IncludeEeq = true;
     V.push_back(Eeq);
     NPoints++;
-    sort_dbl_1(&V[0], NPoints);
+    //sort_dbl_1(&V[0], NPoints);
+    std::sort(&V[0], &V[NPoints]);
   }
   //====================================================================================================================
   int findPoint(const double Vval) {
@@ -165,7 +169,8 @@ public:
     V.resize(NPoints +1);
     V[NPoints] = Vval;
     NPoints++;
-    sort_dbl_1(&V[0], NPoints);
+    //sort_dbl_1(&V[0], NPoints);
+    std::sort(&V[0], &V[NPoints]);
   }
   //====================================================================================================================
   /*
