@@ -1,5 +1,5 @@
 /**
- * @file m1d_porousFlow_dom1D.h base class for calculating residuals within a porous flow domain
+ * @file m1d_porousFlow_dom1D.h Base class for calculating residuals within a porous flow domain
  */
 
 /*

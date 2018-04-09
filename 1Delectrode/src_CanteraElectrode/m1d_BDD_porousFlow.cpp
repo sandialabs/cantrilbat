@@ -1,5 +1,5 @@
 /**
- * @file m1d_BDT_porAnode_LiKCl.cpp
+ * @file m1d_BDD_porousFlow.cpp  Definitions for the Bulk Domain description class that describes porous flow
  */
 
 /*
@@ -27,16 +27,16 @@ using namespace Zuzax;
 using namespace Cantera;
 #endif
 
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 
-//====================================================================================================================
+//==================================================================================================================================
 BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
     BulkDomainDescription(dl_ptr, domainFunctionName, domainName),
-    ionicLiquid_(0),
-    trans_(0),
-    solidSkeleton_(0),
+    ionicLiquid_(nullptr),
+    trans_(nullptr),
+    solidSkeleton_(nullptr),
     nSpeciesElectrolyte_(npos),
     iMFS_index_(npos),
     iCN_index_(npos),
@@ -45,12 +45,12 @@ BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr, std::string domainFunctionN
     IsAlgebraic_NE.resize(7,0);
     IsArithmeticScaled_NE.resize(7,0);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
     BulkDomainDescription(r.DL_ptr_), 
-    ionicLiquid_(0), 
-    trans_(0),
-    solidSkeleton_(0),
+    ionicLiquid_(nullptr), 
+    trans_(nullptr),
+    solidSkeleton_(nullptr),
     nSpeciesElectrolyte_(npos),
     iMFS_index_(npos),
     iCN_index_(npos),
@@ -61,9 +61,6 @@ BDD_porousFlow::BDD_porousFlow(const BDD_porousFlow &r) :
 //===================================================================================================================================
 BDD_porousFlow::~BDD_porousFlow()
 {
-    /*
-     * Delete objects that we own
-     */
     safeDelete(ionicLiquid_);
     safeDelete(trans_);
     safeDelete(solidSkeleton_);
@@ -103,18 +100,16 @@ BDD_porousFlow::operator=(const BDD_porousFlow &r)
 
     return *this;
 }
-
 //==================================================================================================================================
-void
-BDD_porousFlow::ReadModelDescriptions()
+void BDD_porousFlow::ReadModelDescriptions()
 {
     /*
      * Store a copy of the electrolyte ThermoPhase object
      */
     int iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->electrolytePhase_);
     if (iph < 0) {
-	throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
-			   "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
+	throw m1d_Error("BDD_porousFlow::ReadModelDescriptions()",
+	                "Can't find the phase in the phase list: " + PSCinput_ptr->electrolytePhase_);
     }
     ThermoPhase* tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
     ionicLiquid_ = tmpPhase->duplMyselfAsThermoPhase();
@@ -125,13 +120,13 @@ BDD_porousFlow::ReadModelDescriptions()
     if (IDBulkDomain == 1) {
 	iph = (PSCinput_ptr->PhaseList_)->globalPhaseIndex(PSCinput_ptr->separatorPhase_);
 	if (iph < 0) {
-	    throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
-			       "Can't find the phase in the phase list: " + PSCinput_ptr->separatorPhase_);
+	    throw m1d_Error("BDD_porousFlow::ReadModelDescriptions()",
+		            "Can't find the phase in the phase list: " + PSCinput_ptr->separatorPhase_);
 	}
 	tmpPhase = & (PSCinput_ptr->PhaseList_)->thermo(iph);
 	if (!tmpPhase) {
-	    throw CanteraError("BDD_porousFlow::ReadModelDescriptions()",
-			       "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
+	    throw m1d_Error("BDD_porousFlow::ReadModelDescriptions()",
+		            "Can't find the ThermoPhase in the phase list: " + PSCinput_ptr->separatorPhase_);
 	}
 	solidSkeleton_ = tmpPhase->duplMyselfAsThermoPhase();
 	double thickness = Xpos_end -Xpos_start;
@@ -192,12 +187,7 @@ BDD_porousFlow::ReadModelDescriptions()
 
 }
 //==================================================================================================================================
-//  Make list of the equations and variables
-/*
- *  We also set the ordering here
- */
-void
-BDD_porousFlow::SetEquationsVariablesList()
+void BDD_porousFlow::SetEquationsVariablesList()
 {
     int eqnIndex = 0;
     //
@@ -290,7 +280,7 @@ BDD_porousFlow::SetEquationsVariablesList()
 	    }
 	}
 	if (iCN_index_ == npos) {
-	    throw CanteraError("sep", "no negative charge species");
+	    throw m1d_Error("sep", "no negative charge species");
 	}
     }
     
@@ -359,16 +349,15 @@ BulkDomain1D* BDD_porousFlow::mallocDomain1D()
   return BulkDomainPtr_;
 }
 //==================================================================================================================================
-void
-BDD_porousFlow::DetermineConstitutiveModels()
+void BDD_porousFlow::DetermineConstitutiveModels()
 {
+  /*
+   *  Create and store a pointer to the Transport Manager for the liquid phase
+   */
+  int loglvl = 0;
   if (!trans_) {
      delete trans_;
   }
-  /*
-   *  Create and Store a pointer to the Transport Manager
-   */
-  int loglvl = 0;
   trans_ = ZZCantera::newDefaultTransportMgr(ionicLiquid_, loglvl);
 }
 //==================================================================================================================================

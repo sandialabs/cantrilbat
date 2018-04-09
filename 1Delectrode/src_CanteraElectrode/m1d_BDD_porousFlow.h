@@ -1,5 +1,5 @@
 /**
- * @file m1d_BDD_porousFlow.h
+ * @file m1d_BDD_porousFlow.h  Bulk Domain Description of the porous Flow domain
  */
 
 
@@ -18,11 +18,13 @@ namespace Cantera
   class Transport;
   class ThermoPhase;
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
+
 class ExtraPhase;
 
+//==================================================================================================================================
 //! This class consists of multiple species diffusing in a time
 //! dependent manner.  There is a net flow and a net electric current.
 /*!
@@ -34,12 +36,16 @@ public:
 
     //! Constructor
     /*!
-     * This constructor constructs the bulk domain description from a DomainLayout object.
+     *  This constructor constructs the bulk domain description from a DomainLayout object.
      *
-     * In the constructor, we have typically been laying out what the unknowns are
-     * and what the equations are, that are solved within the domain.
+     *  In the constructor, we have typically been laying out what the unknowns are
+     *  and what the equations are, that are solved within the domain.
      *
-     * @param dl_ptr   Pointer to the domain layout object
+     *  @param[in]           dl_ptr              Pointer to the domain layout object
+     *  @param[in]           domainFunctionName  Domain function name
+     *                                             Defaults to ""
+     *  @param[in]           domainName          Domain name.
+     *                                             Defaults to ""
      */
     BDD_porousFlow(DomainLayout *dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
 
@@ -48,47 +54,54 @@ public:
 
     //! Copy Constructor
     /*!
-     * @param r Object to be copied
+     *  @param[in]           r                   Object to be copied
      */
     BDD_porousFlow(const BDD_porousFlow &r);
 
     //! Assignment operator
     /*!
-     * @param r    Object to be copied
-     * @return     Returns a changeable reference to the current object
+     *  @param[in]           r                   Object to be copied
+     *  @return                                  Returns a changeable reference to the current object
      */
     BDD_porousFlow &operator=(const BDD_porousFlow &r);
 
     //! Read in the possible models for each domain
     /*!
+     *  (virtual from DomainDescription)
+     *
      *  This procedure is done before the Equations anv variable list are set up.
      *  Needed information about what is possible is input here.
      *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
-     *
-     *   We loop over volume and then surface domains.
      */
-    virtual void ReadModelDescriptions();
+    virtual void ReadModelDescriptions() override;
 
     //! Determine the list of Equations and Variables
     /*!
+     *  (virtual from DomainDescription)
+     *
      *  This routine is responsible for setting the variables:
      *    - VariableNameList
      *    - EquationNameList
      */
-    virtual void SetEquationsVariablesList();
+    virtual void SetEquationsVariablesList() override;
 
 
     //! Malloc and Return the object that will calculate the residual efficiently
     /*!
-     * @return  Returns a pointer to the object that will calculate the residual efficiently
+     *  (virtual from DomainDescription)
+     *
+     *  @return                                  Returns a pointer to the object that will calculate the residual efficiently
      */
-    virtual BulkDomain1D *mallocDomain1D();
+    virtual BulkDomain1D *mallocDomain1D() override;
 
-    //! This is done after the equations are set up
+    //! Determine the necessary constitutive models.
     /*!
+     *  (virtual from DomainDescription)
+     *
+     *  This is done after the equations are set up.
      *  We loop over volume and then surface domains here.
      */
-    virtual void DetermineConstitutiveModels();
+    virtual void DetermineConstitutiveModels() override;
 
     // --------------------------------------------------------------------------------------------
     //            DATA
@@ -138,5 +151,5 @@ public:
 };
 //=====================================================================================================================
 }
-//=====================================================================================================================
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif 

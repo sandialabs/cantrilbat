@@ -1,9 +1,15 @@
 /**
- * @file m1d_BDT_porAnode_LiKCl.cpp
+ * @file m1d_BDD_porousElectrode.cpp Definitions for the Bulk Domain Description class that handles flow
+ *                                   in porous media containing an electrode.
  */
+
 /*
- *  $Id: m1d_BDD_porousElectrode.cpp 552 2013-03-01 21:25:03Z hkmoffa $
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
+
 #include "m1d_defs.h"
 #include "m1d_BDD_porousElectrode.h"
 #include "m1d_porousElectrode_dom1D.h"
@@ -12,9 +18,7 @@
 #include "Electrode_Factory.h"
 
 #include "m1d_DomainLayout.h"
-
 #include "m1d_BatteryResidEval.h"
-
 #include "m1d_exception.h"
 
 using namespace std;
@@ -24,9 +28,10 @@ using namespace Zuzax;
 using namespace Cantera;
 #endif
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-//====================================================================================================================
+//==================================================================================================================================
 BDD_porousElectrode::BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType,
 					 std::string domainFunctionName, std::string domainName) :
   BDD_porousFlow(dl_ptr, domainFunctionName, domainName),

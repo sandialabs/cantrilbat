@@ -41,7 +41,7 @@ CT_LIB = @ct_libdir@
 useZuzaxNamespace = 1
 do_immediate_install = 0
 #
-# Bring in the Cantera includes through the .mak file
+# Bring in the Zuzax includes through the .mak file
 #
 #include $(CT_INCROOT)/cantera/Cantera.mak
 #

@@ -21,12 +21,14 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
+
 //forward declarations
 class SurfDomainDescription;
 class SurDomain1D;
 class BulkDomain1D;
 class GlobalIndices;
 class DomainLayout;
+
 //==================================================================================================================================
 //! This is a light weight base class that describes a surface or bulk domain using global indexing, which will be the same for
 //! all processors.
@@ -37,7 +39,6 @@ class DomainDescription
 {
 
 public:
-
     //! Constructor
     /*!
      *  Functional names of domain may be used to define objects that may be mapped to input file parameters
@@ -69,6 +70,7 @@ public:
     //! Read in the possible models for each domain
     /*!
      *  (virtual from DomainDescription)
+     *
      *  This procedure is done before the Equations anv variable list are set up.
      *  Needed information about what is possible is input here.
      *  We read the Cantera ThermoPhase and transport object into DomainDescriptions here.
@@ -80,6 +82,7 @@ public:
     //! Determine the list of Equations and Variables
     /*!
      *  (virtual from DomainDescription)
+     *
      *  This routine is responsible for setting the variables:
      *    - VariableNameList
      *    - EquationNameList
@@ -89,6 +92,7 @@ public:
     //! Set the equation descriptions. Determine connectivity with surroundings.
     /*!
      *  (virtual from DomainDescription)
+     *
      *  This routine is responsible for setting the variables:
      *    - NumEquationsPerNode
      *    - EquationIndexStart_EqName
@@ -96,17 +100,19 @@ public:
      */
     virtual void SetEquationDescription();
 
-    //! This is done after the equations are set up
+    //! Finish setting up the Constitutive Models specific to this class
     /*!
      *  (virtual from DomainDescription)
-     *  We loop over volume and then surface domains here.
+     *
+     *  For example, we may instantiate ThermoPhase or Transport classes here
      */
     virtual void DetermineConstitutiveModels();
 
     //! Reorder the variables and equations on this domain
     /*!
      *  (virtual from DomainDescription)
-     *  this is a necessary step for the nodal vars step
+     *
+     *  This is a necessary step for the nodal vars step.
      */
     virtual void ReorderVariablesEquations();
 
