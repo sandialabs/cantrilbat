@@ -46,7 +46,6 @@
             </excessEntropy>
           </binaryNeutralSpeciesParameters>
        </activityCoefficients> 
-       <density units="kg/m3"> 1.0E3 </density>
     </thermo>
     <kinetics model="none"/>
     <state>
