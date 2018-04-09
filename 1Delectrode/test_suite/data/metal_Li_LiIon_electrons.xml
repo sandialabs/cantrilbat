@@ -4,7 +4,7 @@
     
    <!-- phase metal_Li_LiIon_electrons    -->
    <phase dim="3" id="metal_Li_LiIon_electrons">
-     <elementArray datasrc="elements.xml"> E </elementArray>
+     <elementArray> E </elementArray>
      <speciesArray datasrc="#species_electrode"> electron_Li_LiIon </speciesArray>
      <thermo model="StoichSubstance"/>
      <transport model="None"/>

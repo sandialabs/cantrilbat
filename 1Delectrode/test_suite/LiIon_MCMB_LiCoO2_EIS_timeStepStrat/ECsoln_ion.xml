@@ -9,7 +9,7 @@
          from ThermoPhase that will handle the thermodynamics.
       -->
     <thermo model="MolarityIonicVPSSTP" />
-    <elementArray datasrc="elements.xml"> H  C O  Li P F </elementArray>
+    <elementArray> H  C O  Li P F </elementArray>
     <speciesArray datasrc="#species_soln">
           ECDMC  Li+ PF6-
     </speciesArray>

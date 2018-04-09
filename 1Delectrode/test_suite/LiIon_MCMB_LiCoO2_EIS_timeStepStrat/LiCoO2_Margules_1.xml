@@ -5,7 +5,7 @@
                    
 
   <phase dim="3" id="LiCoO2_Margules_1">
-    <elementArray datasrc="elements.xml">
+    <elementArray>
        Li Co  O
     </elementArray>
     <speciesArray datasrc="#species_LiCoO2"> 
@@ -22,7 +22,6 @@
             </excessEntropy>
           </binaryNeutralSpeciesParameters>
        </activityCoefficients> 
-       <density units="kg/m3"> 1.0 </density>
     </thermo>
     <kinetics model="none"/>
     <state>

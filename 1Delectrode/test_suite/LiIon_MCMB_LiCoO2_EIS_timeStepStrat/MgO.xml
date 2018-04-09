@@ -3,7 +3,7 @@
   <validate reactions="yes" species="yes"/>
  <!-- phase MgO(S)    -->
   <phase dim="3" id="MgO(S)">
-    <elementArray datasrc="elements.xml">
+    <elementArray>
       Mg O
     </elementArray>
     <speciesArray datasrc="#species_MgO(S)"> MgO(S) </speciesArray>

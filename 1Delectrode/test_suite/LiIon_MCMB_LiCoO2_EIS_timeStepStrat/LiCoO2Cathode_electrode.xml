@@ -5,7 +5,7 @@
                    
   <!-- phase li_liquid_surface   -->
   <phase dim="2" id="cathode_surface">
-    <elementArray datasrc="elements.xml"> Li E </elementArray>
+    <elementArray> Li E </elementArray>
     <speciesArray datasrc="#species_Li_electrode"> li_site </speciesArray>
   
     <state>
