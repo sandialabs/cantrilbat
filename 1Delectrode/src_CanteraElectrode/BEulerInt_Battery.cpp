@@ -2,7 +2,6 @@
  *  @file BEulerInt_Battery.cpp
  *
  */
-
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -23,6 +22,7 @@ using namespace Zuzax;
 using namespace Cantera;
 #endif
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler
 {
 //==================================================================================================================================
@@ -241,11 +241,6 @@ int BEulerInt_Battery::calcConsistentInitialDerivs_Inner()
     return 0;
 }
 //====================================================================================================================
-//  Check to see that the predicted solution satisfies proper requirements.
-/*
- *       @return Returns a negative number if the step is inappropriate. Then the stepsize is reduced
- *               and the method is checked again.
- */
 int BEulerInt_Battery::check_predicted_soln(m1d::Epetra_Vector_Ghosted& y_n, m1d::Epetra_Vector_Ghosted& ydot_n,
                                             double CJ, double time_n)
 {
@@ -254,6 +249,6 @@ int BEulerInt_Battery::check_predicted_soln(m1d::Epetra_Vector_Ghosted& y_n, m1d
 
     return 0;
 }
-//====================================================================================================================
-} // End of beuler namespace
-//====================================================================================================================
+//==================================================================================================================================
+} 
+//----------------------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 /**
- *  @file BEulerInt_Battery.h
+ *  @file BEulerInt_Battery.h Integrator for battery applications
  */
-
 
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
@@ -9,16 +8,18 @@
  * retains certain rights in this software.
  * See file License.txt for licensing information.
  */
-#ifndef CT_BEULERINT_BATTERY_H
-#define CT_BEULERINT_BATTERY_H
+#ifndef ZZ_BEULERINT_BATTERY_H
+#define ZZ_BEULERINT_BATTERY_H
 
 #include "m1d_BEulerInt.h"
 #include "m1d_SurDomain1D.h"
+
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 class BoundaryCondition;
 }
+
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace beuler
 {
@@ -32,28 +33,25 @@ class BEulerInt_Battery : public beuler::BEulerInt
 
 public:
 
-    //!The default constructor doesn't take an argument.
+    //! The default constructor doesn't take an argument.
     /*!
-     *  Default settings: epetra jacobian, no user-supplied
-     *  Jacobian function, Newton iteration.
-     *  */
+     *  Default settings: epetra jacobian, no user-supplied Jacobian function, Newton iteration.
+     */
     BEulerInt_Battery();
 
     //! Copy constructor
     /*!
-     *
-     * @param r  Object to be copied
+     *  @param[in]           r                   Object to be copied
      */
     BEulerInt_Battery(const BEulerInt_Battery& r);
 
     //! Virtual destructor
-    virtual
-    ~BEulerInt_Battery();
+    virtual ~BEulerInt_Battery();
 
     //! Assignment operator
     /*!
-     *  @param r  Object to be copied
-     *  @return  Returns the current object
+     *  @param[in]           r                   Object to be copied
+     *  @return                                  Returns the current object
      */
     BEulerInt_Battery& operator=(const BEulerInt_Battery& r);
 
@@ -91,8 +89,13 @@ public:
      */
     int calcConsistentInitialDerivs_Inner();
 
-    //!  Check to see that the predicted solution satisfies proper requirements.
+    //! Check to see that the predicted solution satisfies proper requirements.
     /*!
+     *  @param[in]           y_n                 Ghosted Solution vector
+     *  @param[in]           ydot_n              Ghosted SolutionDot vector
+     *  @param[in]           CJ                  coefficent of ydot for time derivative
+     *  @param[in]           time_n              current value of the time
+     *
      *  @return                                  Returns a negative number if the step is inappropriate.
      *                                           Then the stepsize is reduced and the method is checked again.
      */
