@@ -1,9 +1,6 @@
 /**
  *  @file  m1d_valCellTmps_porousFlow.h  Base class for the structure that holds the values of variables at the cell level.
- *         
- *
  */
-
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government

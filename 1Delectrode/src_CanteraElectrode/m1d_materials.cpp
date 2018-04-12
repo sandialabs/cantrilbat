@@ -1,3 +1,6 @@
+/**
+ *  @file m1d_materials.cpp   Definitions for miscellaneous functions which provide material properties
+ */
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government

@@ -3,6 +3,13 @@
  *  object to calculate the  surface domains in the Cu2S problem
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
+
 #include "m1d_SurDomain_AnodeCollector.h"
 
 #include "m1d_NodalVars.h"

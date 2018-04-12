@@ -2,9 +2,7 @@
  * @file m1d_BDD_porousLiKCl.cpp
  */
 
-/*
- *  $Id: m1d_BDD_porousLiKCl.cpp 359 2012-08-16 23:34:13Z hkmoffa $
- */
+
 
 #include "m1d_BDD_porousLiKCl.h"
 
