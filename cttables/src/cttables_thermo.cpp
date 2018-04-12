@@ -122,7 +122,7 @@ void printThermoCoeffSpecies(ThermoPhase* g_ptr, int k)
         break;
 
     case CONSTANT_CP:
-    case SIMPLE:
+    //case SIMPLE:  -> SIMPLE now is the same as CONSTANT_CP
         dnt(1); printf("CONSTANT_CP format:\n");
         dnt(2); printf(" Valid Range: %g < T < %g:\n", minTemp, maxTemp);
         dnt(2); printf(" at T = %5g K, H  = % 23.15E J kmol-1\n", c[0], c[1]);
