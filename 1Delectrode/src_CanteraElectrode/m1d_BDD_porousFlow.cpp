@@ -30,7 +30,6 @@ using namespace Cantera;
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
 //==================================================================================================================================
 BDD_porousFlow::BDD_porousFlow(DomainLayout *dl_ptr, std::string domainFunctionName, std::string domainName) :
     BulkDomainDescription(dl_ptr, domainFunctionName, domainName),

@@ -23,7 +23,7 @@ namespace m1d
 DomainDescription::DomainDescription(DomainLayout* dl_ptr, std::string domainFunctionName, std::string domainName) :
     NumEquationsPerNode(0),
     IsArithmeticScaled_NE(0),
-    DomainName(domainName),
+    DomainName_(domainName),
     DomainFunctionName_(domainFunctionName),
     DL_ptr_(dl_ptr),
     SolutionBehavior_printLvl_(0),
@@ -52,7 +52,7 @@ DomainDescription::~DomainDescription()
 //==================================================================================================================================
 DomainDescription::DomainDescription(const DomainDescription& r) :
     NumEquationsPerNode(0),
-    DomainName(""),
+    DomainName_(""),
     DomainFunctionName_(""),
     DL_ptr_(0)
 {
@@ -73,7 +73,7 @@ DomainDescription::operator=(const DomainDescription& r)
     VariableIndexStart_VarName = r.VariableIndexStart_VarName;
     IsAlgebraic_NE = r.IsAlgebraic_NE;
     IsArithmeticScaled_NE = r.IsArithmeticScaled_NE;
-    DomainName = r.DomainName;
+    DomainName_ = r.DomainName_;
     DomainFunctionName_ = r.DomainFunctionName_;
     DL_ptr_ = r.DL_ptr_;
     SolutionBehavior_printLvl_ = r.SolutionBehavior_printLvl_;

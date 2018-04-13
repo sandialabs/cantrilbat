@@ -86,19 +86,21 @@ $(PROGRAM_REMOTE): $(PROGRAM)
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	$(MAKE) .depends
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
+
+$(DEPENDS):  Makefile
+
+$(OBJS):  Makefile
+
 
 # Do the test -> For the windows vc++ environment, we have to skip checking on
 #                whether the program is uptodate, because we don't utilize make
 #                in that environment to build programs.
 test:
-ifeq ($(os_is_win), 1)
-else
-	@MAKE@ $(PROGRAM)
-endif
+	$(MAKE) $(PROGRAM)
 	./runtest
 
 clean:

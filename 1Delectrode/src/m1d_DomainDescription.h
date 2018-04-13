@@ -180,7 +180,7 @@ public:
     std::vector<int> IsArithmeticScaled_NE;
 
     //! Name of the domain.
-    std::string DomainName;
+    std::string DomainName_;
 
     //! Functional name of the domain
     std::string DomainFunctionName_;

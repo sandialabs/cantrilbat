@@ -1420,7 +1420,9 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
 
      // Identify the ACA point
 
-     // Assume it is located at the left of the first domain
+     // Assume it is located at the left node of the first domain
+     //   -> For Aria we can do an average over the side set representing the anode current collector 
+     //   -> and the anode electrode block
      if (polIndecisesCurrent == false) {
          polIndecisesCurrent = true;
          DomainLayout &DL = *DL_ptr_;
@@ -1433,25 +1435,25 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
          // Pointer to the LocalNodeIndices object for the domain
          LocalNodeIndices* lni = d_anode->LI_ptr_;
 
-         // Pointer to the global 
+         // Pointer to the global indecises
          GlobalIndices* gi_ptr = lni->GI_ptr_;
 
-         // Get the index of the  first global node in the anode domain
+         // Get the index of the first global node in the anode domain
          int fgn = bdd_anode_ptr->FirstGbNode;
 
-         // get the NodalVars structure pertaining to that global node
+         // Get the NodalVars structure pertaining to the first global node in the anode domain
          NodalVars* node = gi_ptr->NodalVars_GbNode[fgn];
 
-         // Loop up the stating equation index for that global node
+         // Look up the starting equation index for that global node
          int index_EqnStart = node->EqnStart_GbEqnIndex;
 
-         // Look up the offset for the voltage unknown
+         // Look up the offset for the voltage unknowns at that node. Check for error
          size_t vs = node->Offset_VarType[Voltage];
          if (vs == npos) {
              throw m1d_Error("", "error");
          }
 
-         // Check to see that there are two voltages at that node and select the second one for the solid voltage
+         // Check to see that there are two voltages at that node and select the second one as the solid voltage
          size_t num = node->Number_VarType[Voltage];
          if (num != 2) {
              throw m1d_Error("", "error");
@@ -1491,10 +1493,10 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
 
      }
 
-     //double vSolid_AC =  soln[gindex_VoltageSolid_ACA];
-     //double vLyte_AS =  soln[gindex_Voltage_AS];
-     //double vLyte_SC =  soln[gindex_Voltage_SC];
-     //double vSolid_CCC =  soln[gindex_VoltageSolid_CCC];
+     double vSolid_AC =  soln[gindex_VoltageSolid_ACA];
+     double vLyte_AS =  soln[gindex_Voltage_AS];
+     double vLyte_SC =  soln[gindex_Voltage_SC];
+     double vSolid_CCC =  soln[gindex_VoltageSolid_CCC];
    
 
      //double vCathode = reportCathodeVoltage();
@@ -1511,7 +1513,7 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      // Loop over the anode, filling in the missing pieces that are part of the anode
      
      
-      // for each electrode in the anode
+      // For each electrode in the anode
 
 
 

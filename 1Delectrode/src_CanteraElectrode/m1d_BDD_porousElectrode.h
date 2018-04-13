@@ -1,14 +1,12 @@
 /**
  * @file m1d_BDD_porousElectrode.h
  */
-
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
  * work by or on behalf of the U.S. Government. Export of this program
  * may require a license from the United States Government.
  */
-
 
 #ifndef M1D_BDD_POROUSELECTRODE_H_
 #define M1D_BDD_POROUSELECTRODE_H_
@@ -46,12 +44,17 @@ public:
 
   //! Constructor
   /*!
-   * This constructor constructs the bulk domain from a MultiPhase object.
+   *  This constructor constructs the bulk domain from a MultiPhase object.
    *
-   * In the constructor, we have typically been laying out what the unknowns are
-   * and what the equations are, that are solved within the domain.
+   *  In the constructor, we have typically been laying out what the unknowns are
+   *  and what the equations are, that are solved within the domain.
    *
-   * @param dl_ptr   Pointer to the domain layout object
+   *  @param[in]             dl_ptr              Pointer to the domain layout object
+   *  @param[in]             electrodeType       Type of electrode
+   *  @param[in]             domainFunctionName  Name of the domain function
+   *                                               Default = ""
+   *  @param[in]             domainName          Name of the domain 
+   *                                               Default = ""
    */
   BDD_porousElectrode(DomainLayout *dl_ptr, int electrodeType, std::string domainFunctionName = "", std::string domainName = "");
 

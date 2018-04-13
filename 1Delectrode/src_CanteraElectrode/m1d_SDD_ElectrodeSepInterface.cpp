@@ -31,9 +31,9 @@ SDD_ElectrodeSepInterface::SDD_ElectrodeSepInterface(DomainLayout *dl_ptr, const
 }
 //==================================================================================================================================
 SDD_ElectrodeSepInterface::SDD_ElectrodeSepInterface(const SDD_ElectrodeSepInterface &r) :
-    SDD_Mixed(r.DL_ptr_, r.DomainName)
+    SDD_Mixed(r.DL_ptr_, r.DomainName_)
 {
-  *this = r;
+    operator=(r);
 }
 //==================================================================================================================================
 SDD_ElectrodeSepInterface::~SDD_ElectrodeSepInterface()

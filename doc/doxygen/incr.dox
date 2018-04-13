@@ -857,6 +857,15 @@ INPUT                  = ../../util_src/src \
                          ../../1Delectrode/src_CanteraElectrode/m1d_BDD_porousElectrode.cpp \
                          ../../1Delectrode/src_CanteraElectrode/BEulerInt_Battery.h    \
                          ../../1Delectrode/src_CanteraElectrode/BEulerInt_Battery.cpp    \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_CanteraElectrodeGlobals.h     \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_SDD_AnodeCollector.h  \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_SDD_AnodeCollector.cpp  \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_SDD_CathodeCollector.h  \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_SDD_CathodeCollector.cpp  \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_SDD_ElectrodeSepInterface.h   \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_SDD_ElectrodeSepInterface.cpp \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BC_Battery.h  \
+                         ../../1Delectrode/src_CanteraElectrode/m1d_BC_Battery.cpp  \
 
 
 # This tag can be used to specify the character encoding of the source files
