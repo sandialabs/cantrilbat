@@ -3,7 +3,7 @@
 all:
 
 clean:
-	cd silaneMech; ./cleanup
+	cd silaneMech;                                        $(MAKE) clean
 	cd fixedChemPot;                                      $(MAKE) clean
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
@@ -38,7 +38,7 @@ depends:
 install:
 
 test:
-	cd silaneMech; ./runtest
+	cd silaneMech;                                        $(MAKE) -s test
 	cd fixedChemPot;                                      $(MAKE) -s test
 	cd heliumAir; ./runtest
 	cd issPhase; ./runtest
@@ -69,7 +69,7 @@ test:
 	cd NewmanFeS2Electrode_rxn;                           $(MAKE) -s test
 
 rebaseline:
-	cd silaneMech; ./rebaseline
+	cd silaneMech;                                        $(MAKE) rebaseline
 	cd fixedChemPot;                                      $(MAKE) rebaseline
 	cd heliumAir; ./rebaseline
 	cd issPhase; ./rebaseline
@@ -101,7 +101,7 @@ rebaseline:
 
 
 clean_dist:
-	cd silaneMech; ./cleanup
+	cd silaneMech;                                        $(MAKE) clean_dist
 	cd fixedChemPot;                                      $(MAKE) clean_dist
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
@@ -132,7 +132,7 @@ clean_dist:
 	cd NewmanFeS2Electrode_rxn;                            $(MAKE) -s clean_dist
 
 clean_test:
-	cd silaneMech; ./cleanup
+	cd silaneMech;                                         $(MAKE) -s clean_test
 	cd fixedChemPot;                                       $(MAKE) clean_test
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
@@ -163,8 +163,8 @@ clean_test:
 	cd NewmanFeS2Electrode_rxn;                            $(MAKE) -s clean_test
 
 clean_test_flags:
-	cd silaneMech; ./cleanup
-	cd fixedChemPot;                                       $(MAKE) clean_test_flags
+	cd silaneMech;                                         $(MAKE) -s clean_test_flags
+	cd fixedChemPot;                                       $(MAKE) -s clean_test_flags
 	cd heliumAir; ./cleanup
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup

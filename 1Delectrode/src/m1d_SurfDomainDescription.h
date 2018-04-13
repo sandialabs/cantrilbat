@@ -115,6 +115,7 @@ public:
     //! Set the equation description
     /*!
      *  (virtual from DomainDescription)
+     *
      *  This routine is responsible for setting the variables:
      *    - NumEquationsPerNode
      *    - VariableNameList
