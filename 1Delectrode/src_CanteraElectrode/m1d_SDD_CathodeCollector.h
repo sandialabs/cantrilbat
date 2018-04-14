@@ -188,6 +188,7 @@ public:
 
   //! Cathode Collector Temperature
   /*!
+   *  This is the temperatue to be used in temperature boundary conditions, not necessarily the actual temperature
    *  Units = Kelvin
    */
   double cathodeTempRef_;

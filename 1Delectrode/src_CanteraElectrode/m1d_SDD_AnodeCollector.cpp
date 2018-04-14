@@ -30,12 +30,11 @@ SDD_AnodeCollector::SDD_AnodeCollector(DomainLayout *dl_ptr, int pos, const std:
      *
      * This object will set an anode voltage of zero on that equation.
      */
-    voltageVarBCType_ = PSCinput_ptr->anodeBCType_;
-    anodeTempBCType_ = PSCinput_ptr->anodeTempBCType_;
-    anodeTempCollector_ = PSCinput_ptr->anodeTempRef_;
-    anodeHeatTranCoeff_ =  PSCinput_ptr->anodeHeatTranCoeff_;
-    anodeCCThickness_ = PSCinput_ptr->anodeCCThickness_;
-
+    voltageVarBCType_    = PSCinput_ptr->anodeBCType_;
+    anodeTempBCType_     = PSCinput_ptr->anodeTempBCType_;
+    anodeTempRef_        = PSCinput_ptr->anodeTempRef_;
+    anodeHeatTranCoeff_  = PSCinput_ptr->anodeHeatTranCoeff_;
+    anodeCCThickness_    = PSCinput_ptr->anodeCCThickness_;
 }
 //=====================================================================================================================
 SDD_AnodeCollector::SDD_AnodeCollector(const SDD_AnodeCollector &r) :
@@ -56,10 +55,11 @@ SDD_AnodeCollector::operator=(const SDD_AnodeCollector &r)
 	return *this;
     }
     SDD_Mixed::operator=(r);
+
     m_position = r.m_position;
     voltageVarBCType_   = r.voltageVarBCType_;
     anodeTempBCType_    = r.anodeTempBCType_;
-    anodeTempCollector_ = r.anodeTempCollector_;
+    anodeTempRef_       = r.anodeTempRef_;
     anodeHeatTranCoeff_ = r.anodeHeatTranCoeff_;
     anodeCCThickness_   = r.anodeCCThickness_;
 
@@ -161,15 +161,14 @@ SDD_AnodeCollector::SetEquationDescription()
    }
 
 }
-//=====================================================================================================================
-SurDomain1D *
-SDD_AnodeCollector::mallocDomain1D()
+//==================================================================================================================================
+SurDomain1D* SDD_AnodeCollector::mallocDomain1D()
 {
   SurDomain_AnodeCollector * s1d = new SurDomain_AnodeCollector(*this, 1);
   SurDomain1DPtr_ = s1d;
   return s1d;
 }
-//=====================================================================================================================
-} /* End of Namespace */
-//=====================================================================================================================
+//==================================================================================================================================
+}
+//----------------------------------------------------------------------------------------------------------------------------------
 

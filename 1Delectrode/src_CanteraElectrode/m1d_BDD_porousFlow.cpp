@@ -1,7 +1,6 @@
 /**
  * @file m1d_BDD_porousFlow.cpp  Definitions for the Bulk Domain description class that describes porous flow
  */
-
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
