@@ -13,6 +13,8 @@
 
 #include "m1d_SDD_Mixed.h"
 
+#include "m1d_SurDomain_CathodeCollector.h"
+
 //----------------------------------------------------------------------------------------------------------------------------------
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -50,7 +52,7 @@ public:
    *  @param[in]             domainName          Name of the surface domain
    *                                                 Default = ""
    */
-  SDD_CathodeCollector(DomainLayout *dl_ptr, int position, const char *domainName = "");
+  SDD_CathodeCollector(DomainLayout *dl_ptr, int position, const std::string& domainName = "");
 
   //! Destructor
   virtual ~SDD_CathodeCollector();
@@ -64,6 +66,7 @@ public:
   //! Assignment operator
   /*!
    *  @param[in]             r                   Object to be copied
+   *
    *  @return                                    Returns a changeable reference to the current object
    */
   SDD_CathodeCollector& operator=(const SDD_CathodeCollector &r);
@@ -172,24 +175,34 @@ public:
    */
   double VoltageLoad_;
 
-  //!  Type of the temperature boundary condition
+  //! Type of the temperature boundary condition to be applied at the cathode current collector
   /*!
    *  There are three possibilities
-   *     0 set the cathode temperature to a constant
-   *     1 set the flux to a constant
-   *    10 Set a Robin boundary condition - heatflux = h ( T - T_cath)
+   *     - 0   Set the cathode current collector temperature to a constant
+   *     - 1   Set the heat flux to a constant
+   *     - 10  Set a Robin boundary condition - heatflux = h ( T - T_cath)
    *
    *  -> This is read in from the input file
    */
   int cathodeTempBCType_;
-  double cathodeTempCollector_;
-  double cathodeHeatTranCoeff_;
 
+  //! Cathode Collector Temperature
+  /*!
+   *  Units = Kelvin
+   */
+  double cathodeTempRef_;
+
+  //! Cathode heat transfer coefficient per cross sectional area
+  /*!
+   *   Units:   Watts m-2 K-1
+   */
+  double cathodeHeatTranCoeff_;
 
   //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
   friend class SurDomain_CathodeCollector;
 };
-
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
+#endif
 
-#endif /*  */

@@ -1,5 +1,5 @@
 /**
- * @file m1d_SD_CathodeCollector.cpp
+ * @file m1d_SDD_CathodeCollector.cpp
  *    Definitions for the Cathode Collector Surface Domain region
  */
 
@@ -11,22 +11,17 @@
  */
 
 #include "m1d_SDD_CathodeCollector.h"
-#include "m1d_SurDomain_CathodeCollector.h"
-#include "m1d_exception.h"
 
 #include "m1d_ProblemStatementCell.h"
 #include "m1d_BC_Battery.h"
 #include "m1d_CanteraElectrodeGlobals.h"
 
-#include "m1d_BDD_porousElectrode.h"
-
-
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
 //==================================================================================================================================
-SDD_CathodeCollector::SDD_CathodeCollector(DomainLayout* dl_ptr, int pos, const char* domainName) :
-    SDD_Mixed(dl_ptr,domainName),
+SDD_CathodeCollector::SDD_CathodeCollector(DomainLayout* dl_ptr, int pos, const std::string& domainName) :
+    SDD_Mixed(dl_ptr, domainName),
     m_position(pos),
     voltageVarBCType_(0),
     icurrCathodeSpecified_(0.0),
@@ -34,18 +29,23 @@ SDD_CathodeCollector::SDD_CathodeCollector(DomainLayout* dl_ptr, int pos, const 
     cathodeCCThickness_(0.0),
     extraResistanceCathode_(0.0),
     ResistanceLoad_(0.0),
-    VoltageLoad_(0.0)
+    VoltageLoad_(0.0),
+    cathodeTempBCType_(1),
+    cathodeTempRef_(298.15),
+    cathodeHeatTranCoeff_(0.0)
 {
-
-    voltageVarBCType_ = PSCinput_ptr->cathodeBCType_;
+    /*
+     * Grab the values input from the user
+     */
+    voltageVarBCType_      = PSCinput_ptr->cathodeBCType_;
     icurrCathodeSpecified_ = PSCinput_ptr->icurrDischargeSpecified_;
-
-    cathodeCCThickness_ = PSCinput_ptr->cathodeCCThickness_;
-    extraResistanceCathode_ = PSCinput_ptr->extraCathodeResistance_;
-    cathodeTempBCType_ = PSCinput_ptr->cathodeTempBCType_;
-    ResistanceLoad_ = PSCinput_ptr->ResistanceLoad_;
-    VoltageLoad_ = PSCinput_ptr->VoltageLoad_;
-
+    cathodeCCThickness_    = PSCinput_ptr->cathodeCCThickness_;
+    extraResistanceCathode_= PSCinput_ptr->extraCathodeResistance_;
+    ResistanceLoad_        = PSCinput_ptr->ResistanceLoad_;
+    VoltageLoad_           = PSCinput_ptr->VoltageLoad_;
+    cathodeTempBCType_     = PSCinput_ptr->cathodeTempBCType_;
+    cathodeTempRef_        = PSCinput_ptr->cathodeTempRef_;
+    cathodeHeatTranCoeff_  = PSCinput_ptr->cathodeHeatTranCoeff_;
     /*
      *  Add an equation for this surface domain
      *    For the cathode we will install a boundary condition on it of either a constant voltage or a constant current.
@@ -59,9 +59,12 @@ SDD_CathodeCollector::SDD_CathodeCollector(const SDD_CathodeCollector& r) :
     icurrCathodeSpecified_(0.0),
     voltageCathodeSpecified_(1.9),
     cathodeCCThickness_(0.0),
-    extraResistanceCathode_(0.0) ,
-    ResistanceLoad_(0.0) ,
-    VoltageLoad_(0.0)
+    extraResistanceCathode_(0.0),
+    ResistanceLoad_(0.0),
+    VoltageLoad_(0.0),
+    cathodeTempBCType_(1),
+    cathodeTempRef_(298.15),
+    cathodeHeatTranCoeff_(0.0)
 {
     *this = r;
 }
@@ -86,6 +89,9 @@ SDD_CathodeCollector::operator=(const SDD_CathodeCollector& r)
     extraResistanceCathode_ = r.extraResistanceCathode_;
     ResistanceLoad_ = r.ResistanceLoad_;
     VoltageLoad_ = r.VoltageLoad_;
+    cathodeTempBCType_ = r.cathodeTempBCType_;
+    cathodeTempRef_ = r.cathodeTempRef_;
+    cathodeHeatTranCoeff_ = r.cathodeHeatTranCoeff_;
 
     return *this;
 }

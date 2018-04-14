@@ -19,7 +19,7 @@
 namespace m1d
 {
 //=====================================================================================================================
-SDD_AnodeCollector::SDD_AnodeCollector(DomainLayout *dl_ptr, int pos, const char *domainName) :
+SDD_AnodeCollector::SDD_AnodeCollector(DomainLayout *dl_ptr, int pos, const std::string& domainName) :
     SDD_Mixed(dl_ptr,domainName),
     m_position(pos)
 {

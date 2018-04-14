@@ -21,8 +21,8 @@
 namespace m1d
 {
 //==================================================================================================================================
-SurfDomainDescription::SurfDomainDescription(DomainLayout* dl_ptr, std::string domainFunctionName,
-                                             std::string domainName) :
+SurfDomainDescription::SurfDomainDescription(DomainLayout* dl_ptr, const std::string &domainFunctionName,
+                                             const std::string& domainName) :
     DomainDescription(dl_ptr,domainName),
     IDSurfDomain(-1), LocGbNode(-1),
     LeftDomain(0),

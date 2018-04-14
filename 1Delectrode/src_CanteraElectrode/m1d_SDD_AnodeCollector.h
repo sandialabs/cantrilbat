@@ -33,15 +33,15 @@ public:
 
   //! Constructor
   /*!
-   *   We construct the object but don't actually specify any Dirichlet conditions.
-   *   Later we can add dirichlet conditions into the object.
+   *  We construct the object but don't actually specify any Dirichlet conditions.
+   *  Later we can add dirichlet conditions into the object.
    *
-   * In the constructor, we have typically been laying out what the unknowns are
-   * and what the equations are, that are solved within the domain.
+   *  In the constructor, we have typically been laying out what the unknowns are
+   *  and what the equations are, that are solved within the domain.
    *
-   * @param dl_ptr  Domain Layout object that owns this description.
+   *  @param dl_ptr  Domain Layout object that owns this description.
    */
-  SDD_AnodeCollector(DomainLayout *dl_ptr, int position, const char *domainName = "");
+  SDD_AnodeCollector(DomainLayout *dl_ptr, int position, const std::string& domainName = "");
 
   //! Destructor
   virtual ~SDD_AnodeCollector();

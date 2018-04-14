@@ -51,7 +51,7 @@ public:
      *  @param[in]           domainFunctionName  Functional name of domain. Defaults to "".
      *  @param[in]           domainName          name of domain. Defaults to "".
      */
-    SurfDomainDescription(DomainLayout* dl_ptr, std::string domainFunctionName = "", std::string domainName = "");
+    SurfDomainDescription(DomainLayout* dl_ptr, const std::string& domainFunctionName = "", const std::string& domainName = "");
 
     //! Copy Constructor
     /*!
