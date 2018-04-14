@@ -283,7 +283,7 @@ struct PolarizationSurfRxnResults {
     //! to the edge of the electrode - separator material interface.
     /*!
      *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
-     *  VOLT_LOSS_LYTE_PL.
+     *  CONC_LOSS_LYTE_PL.
      *
      *  @param[in]           mf_Lyte_Electrode   Pointer to the mole fractions of the electrolyte at the Electrode object
      *  @param[in]           mf_Lyte_Separator   Pointer to the mole fractions of the electrolyte at the Electrode object
