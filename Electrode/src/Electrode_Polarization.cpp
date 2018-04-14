@@ -24,15 +24,19 @@ namespace Cantera
 #endif
 {
 //==================================================================================================================================
-PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, 
+PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber,  Electrode* ee,
                                                        size_t surfIndex, size_t rxnIndex) :
     electrodeDomainNumber_(electrodeDomainNumber),
     electrodeCellNumber_(electrodeCellNumber),
-    ee(nullptr),
+    ee_(ee),
     isurf_(surfIndex),
     iRxnIndex_(rxnIndex)
 {
+    ocvSurfRxn = ee_->openCircuitVoltageRxn(isurf_, iRxnIndex_);
+    ocvSurf = ocvSurfRxn;
+    VoltageTotal = ocvSurfRxn;
 }
+
 //==================================================================================================================================
 void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& sub)
 {
@@ -179,7 +183,42 @@ void PolarizationSurfRxnResults::addLyteCondPol(double phiLyteElectrode, double 
 
 }
 //==================================================================================================================================
-void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorMid,
+void PolarizationSurfRxnResults::addLyteCondPol_Sep(double phiLyteBoundary, double phiLyte_Spoint, int region, bool dischargeDir)
+{
+    double voltsS;
+    bool anodeDischargeDir = true;
+    if (region == 0) {
+       if (!dischargeDir) anodeDischargeDir = false;
+    } else if (region == 2) {
+       if (dischargeDir) anodeDischargeDir = false;
+    }
+    if (anodeDischargeDir) {
+        voltsS  = phiLyteBoundary - phiLyte_Spoint;
+    } else {
+        voltsS  = phiLyte_Spoint - phiLyteBoundary;
+    }
+    VoltPolPhenom ess(VOLT_LOSS_LYTE_SEP_PL, region, voltsS);
+    bool found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == VOLT_LOSS_LYTE_SEP_PL) {
+            found = true;
+            vp = ess;
+        }
+    }
+    if (! found) {
+        voltsPol_list.push_back(ess);
+    }
+
+    // Adjust the total voltage from cathode to anode
+    if (dischargeDir) {
+        VoltageTotal -= voltsS;
+    } else {
+        VoltageTotal += voltsS;
+    }
+
+}
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorBdry,
                                                 int region, bool dischargeDir)
 {
     bool anodeDischargeDir = true;
@@ -196,26 +235,26 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
 
 
     // Fetch the ReactingSurDomain object for the current
-    ReactingSurDomain* rsd = ee->reactingSurface(isurf_);
+    ReactingSurDomain* rsd = ee_->reactingSurface(isurf_);
 
     // Fetch the number of stoichiometric electrons for the current reaction
     doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex_);
 
     // extract temperatures
     double T_Electrode =  state_Lyte_Electrode[0];
-    double T_Separator =  state_Lyte_SeparatorMid[0];
+    double T_Separator =  state_Lyte_SeparatorBdry[0];
 
     size_t numKinSpecies = rsd->nKinSpecies();
     std::vector<double> netStoichVec(numKinSpecies);
 
     // Get the phase number of the electrolyte within the Electrode object
-    size_t lytePN = ee->solnPhaseIndex();
-    size_t nspLyte = ee->numSolnPhaseSpecies();
+    size_t lytePN = ee_->solnPhaseIndex();
+    size_t nspLyte = ee_->numSolnPhaseSpecies();
 
     // First calculate the activities at the electrode object
 
     /*  get the ThermoPhase for Lyte */
-    thermo_t& tpLyte = ee->thermo(lytePN);
+    thermo_t& tpLyte = ee_->thermo(lytePN);
 
     /*  Set the state to that at the electrode object */
     tpLyte.restoreState(3+nspLyte, state_Lyte_Electrode);
@@ -223,7 +262,7 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
     std::vector<double> actElectrode(nspLyte);
     tpLyte.getActivities(actElectrode.data());
 
-    tpLyte.restoreState(3+nspLyte, state_Lyte_SeparatorMid);
+    tpLyte.restoreState(3+nspLyte, state_Lyte_SeparatorBdry);
 
     std::vector<double> actSeparator(nspLyte);
     tpLyte.getActivities(actSeparator.data());
@@ -259,8 +298,99 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
     if (! found) {
         voltsPol_list.push_back(ess);
     }
+ 
+    // Adjust the total voltage from cathode to anode    
+    if (dischargeDir) {
+        VoltageTotal -= pLoss;
+    } else {
+        VoltageTotal += pLoss;
+    }
+}
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, double* state_Lyte_SepMid, 
+                                                    int region, bool dischargeDir)
+{
+    bool anodeDischargeDir = true;
+    if (region == 0) {
+       if (!dischargeDir) anodeDischargeDir = false;
+    } else if (region == 2) {
+       if (dischargeDir) anodeDischargeDir = false;
+    }
+    double signADD = 1.0;
+    if (!anodeDischargeDir) {
+        signADD = -1.0;
+    }
 
+    // Fetch the ReactingSurDomain object for the current
+    ReactingSurDomain* rsd = ee_->reactingSurface(isurf_);
 
+    // Fetch the number of stoichiometric electrons for the current reaction
+    doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex_);
+
+    // extract temperatures
+    double T_SepBdry = state_Lyte_SepBdry[0];
+    double T_SepMid  = state_Lyte_SepMid[0];
+
+    size_t numKinSpecies = rsd->nKinSpecies();
+    std::vector<double> netStoichVec(numKinSpecies);
+
+    // Get the phase number of the electrolyte within the Electrode object
+    size_t lytePN = ee_->solnPhaseIndex();
+    size_t nspLyte = ee_->numSolnPhaseSpecies();
+
+    // First calculate the activities at the electrode object
+
+    /*  get the ThermoPhase for Lyte */
+    thermo_t& tpLyte = ee_->thermo(lytePN);
+
+    /*  Set the state to that at the electrode object */
+    tpLyte.restoreState(3+nspLyte, state_Lyte_SepBdry);
+
+    std::vector<double> actSepBdry(nspLyte);
+    tpLyte.getActivities(actSepBdry.data());
+
+    tpLyte.restoreState(3+nspLyte, state_Lyte_SepMid);
+    std::vector<double> actSepMid(nspLyte);
+    tpLyte.getActivities(actSepMid.data());
+
+    // Get the vector of stoichiometric coefficients
+
+    rsd->getNetStoichCoeffVector(iRxnIndex_, netStoichVec.data());
+
+    size_t lyte_KinP = rsd->solnPhaseIndex();
+    size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
+
+    double pLoss = 0.0;
+    for (size_t k = 0; k < nspLyte; ++k) {
+        double sc = netStoichVec[kinStart + k];
+        if (sc != 0.0) {
+            double deltaV = GasConstant * T_SepBdry * log(actSepBdry[k]) - GasConstant * T_SepMid * log(actSepMid[k]);
+            deltaV *= signADD * sc /(Faraday * nStoich);
+            pLoss += deltaV;
+        }
+    }
+
+    // Keep track of the adjustments in the effective OCV.
+    ocvSurfRxnAdj += pLoss;
+
+    VoltPolPhenom ess(CONC_LOSS_LYTE_SEP_PL, region, pLoss);
+    bool found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == CONC_LOSS_LYTE_SEP_PL) {
+            found = true;
+            vp = ess;
+        }
+    }
+    if (! found) {
+        voltsPol_list.push_back(ess);
+    }
+ 
+    // Adjust the total voltage from cathode to anode    
+    if (dischargeDir) {
+        VoltageTotal -= pLoss;
+    } else {
+        VoltageTotal += pLoss;
+    }
 
 }
 //==================================================================================================================================
@@ -268,7 +398,7 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_E
                                                           int region, bool dischargeDir)
 {
 
-    Electrode_Types_Enum eT = ee->electrodeType();
+    Electrode_Types_Enum eT = ee_->electrodeType();
     if (eT != SIMPLE_DIFF_ET) {
         return;
     }
@@ -291,9 +421,9 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_E
     //size_t lyte_KinP = rsd->solnPhaseIndex();
     //size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
 
-    double ocv_mixAvg = ee->openCircuitVoltage_MixtureAveraged(isurf_);
+    double ocv_mixAvg = ee_->openCircuitVoltage_MixtureAveraged(isurf_);
 
-    double ocv_diff = ee->openCircuitVoltage(isurf_);
+    double ocv_diff = ee_->openCircuitVoltage(isurf_);
 
     double pLoss = 0.0;
     double deltaV = ocv_diff - ocv_mixAvg;
@@ -315,7 +445,42 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_E
         voltsPol_list.push_back(ess);
     }
 
+    // Adjust the total voltage from cathode to anode    
+    if (dischargeDir) {
+        VoltageTotal -= pLoss;
+    } else {
+        VoltageTotal += pLoss;
+    }
 }
+//==================================================================================================================================
+bool PolarizationSurfRxnResults::checkConsistency(const double gvoltageTotal)
+{
+    bool res = true;
+    if (fabs( gvoltageTotal - VoltageTotal) > 1.0E-5) {
+        printf("PolarizationSurfRxnResults:: Error record has total voltage drop of %g instread of %g",
+               VoltageTotal,  gvoltageTotal);
+        res = false;
+    }
+    /*
+     *  Sum up all of the records and see that it is equal to VoltageTotal
+     */
+
+    double vv = 0.0;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        vv += vp.voltageDrop;
+    }
+
+    if (fabs( vv  - VoltageTotal) > 1.0E-5) {
+        printf("PolarizationSurfRxnResults:: Error record has total voltage drop of %g but contributions sum to %g",
+               VoltageTotal,  vv);
+        res = false;
+    }
+
+
+
+    return res; 
+}
+
 //==================================================================================================================================
 } 
 //----------------------------------------------------------------------------------------------------------------------------------

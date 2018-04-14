@@ -51,6 +51,12 @@ enum Polarization_Loss_Enum {
     //! Voltage loss through a concentration gradient in the electrolyte
     CONC_LOSS_LYTE_PL,
 
+    //! Voltage loss through voltage drop - electrolyte within the separator
+    VOLT_LOSS_LYTE_SEP_PL,
+
+    //! Voltage loss through a concentration gradient in the electrolyte within the separator
+    CONC_LOSS_LYTE_SEP_PL,
+
     //! Voltage loss through voltage drop - electrolyte
     VOLT_LOSS_LYTE_PL,
 
@@ -163,7 +169,7 @@ struct PolarizationSurfRxnResults {
     int electrodeCellNumber_ = 0;
 
     //! Shallow pointer to the Electrode object
-    Electrode* ee;
+    Electrode* ee_;
 
     //!  Index of the reacting surface within the Electrode that the summary is for
     size_t isurf_ = npos;
@@ -210,7 +216,7 @@ struct PolarizationSurfRxnResults {
      */
     double phiMetal = 0.0;
 
-    //! value of the electric potential that is associated with the middle of the domain.
+    //! Value of the electric potential that is associated with the middle of the domain.
     /*!
      *  This is one end of the comparison voltage.
      */
@@ -229,10 +235,12 @@ struct PolarizationSurfRxnResults {
     /*!
      *  @param[in]           electrodeDomainNumber  Domain number
      *  @param[in]           electrodeCellNumber  cell number
+     *  @param[in]           ee                  Pointer to the electrode object
      *  @param[in]           surfIndex           Surface index. Defaults to npos
      *  @param[in]           rxnIndex            Reaction index on the surface. Defaults to npos
      */
-    PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, size_t surfIndex = npos, size_t rxnIndex = npos); 
+    PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, Electrode* ee, size_t surfIndex = npos, 
+                               size_t rxnIndex = npos); 
 
     //! Add the polarization losses due to the electrical conduction through the Electrode's solid portion to the current collector
     /*!
@@ -279,16 +287,16 @@ struct PolarizationSurfRxnResults {
      */
     void addLyteCondPol(double phiLyteElectrode, double phiLyteBoundary, int region, bool dischargeDir);
 
-    //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
+    //! Add the polarization losses due to the ionic conduction through the electrolyte from the electrode
     //! to the edge of the electrode - separator material interface.
     /*!
      *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
-     *  CONC_LOSS_LYTE_PL.
+     *  VOLT_LOSS_LYTE_PL.
      *
-     *  @param[in]           mf_Lyte_Electrode   Pointer to the mole fractions of the electrolyte at the Electrode object
-     *  @param[in]           mf_Lyte_Separator   Pointer to the mole fractions of the electrolyte at the Electrode object
-     *                                            e electrode material - separator
+     *  @param[in]           phiLyteElectrode    Electric potential of the electrolyte at the electrode position.
+     *  @param[in]           phiLyteBoundary     Electric potential of the electrolyte at the electrode material - separator
      *                                           material boundary.
+     *  @param[in]           phiLyte_Spoint      Electric potential of the electrolyte at middle of the separator
      *  @param[in]           region              Region of the solid condition. Two possibilities
      *                                               - 0  anode
      *                                               - 2  cathode
@@ -296,7 +304,44 @@ struct PolarizationSurfRxnResults {
      *                                               True if discharging battery
      *                                               False if charging the battery
      */
-    void addLyteConcPol(double* mf_Lyte_Electrode, double* mf_Lyte_Separator, int region, bool dischargeDir);
+    void addLyteCondPol_Sep(double phiLyteBoundary, double phiLyte_Spoint, int region, bool dischargeDir);
+
+    //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
+    //! to the edge of the electrode - separator material interface.
+    /*!
+     *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
+     *  CONC_LOSS_LYTE_PL.
+     *
+     *  @param[in]         state_Lyte_Electrode   Pointer to the state vector of the electrolyte at the Electrode object
+     *  @param[in]     state_Lyte_SeparatorBdry   Pointer to the state vector of the electrolyte at the electrode 
+     *                                           material - separator material boundary.
+     *  @param[in]           region              Region of the solid condition. Two possibilities:
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     *  @param[in]           discharngeDir       Discharge direction:
+     *                                               True if discharging battery
+     *                                               False if charging the battery
+     */
+    void addLyteConcPol(double* state_Lyte_Electrode, double* state_Lyte_SeparatorBdry, int region, bool dischargeDir);
+
+    //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
+    //! to the edge of the electrode - separator material interface.
+    /*!
+     *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
+     *  CONC_LOSS_LYTE_PL.
+     *
+     *  @param[in]     state_Lyte_SeparatorBdry  Pointer to the state vector of the electrolyte at the electrode
+     *                                            material - separator  material boundary.
+     *  @param[in]     state_Lyte_SeparatorMid   Pointer to the state vector f the electrolyte at the
+     *                                            separator midpoint 
+     *  @param[in]           region              Region of the solid condition. Two possibilities
+     *                                               - 0  anode
+     *                                               - 2  cathode
+     *  @param[in]           discharngeDir       Discharge direction:
+     *                                               True if discharging battery
+     *                                               False if charging the battery
+     */
+    void addLyteConcPol_Sep(double* mf_Lyte_SeparatorBdry, double* mf_Lyte_SeparatorMid, int region, bool dischargeDir);
 
     //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
     //! to the edge of the electrode - separator material interface.
@@ -324,6 +369,15 @@ struct PolarizationSurfRxnResults {
      *  @param[in]           sub                 Struct to be added into the current struct
      */
     void addSubStep(struct PolarizationSurfRxnResults& sub);
+
+    
+    //! Once we have calculated all of the voltage losses, all records should have the same value of VoltageTotal
+    /*!
+     *  @param[in]            gvoltageTotal      Input voltage that this record will be checked against.
+     *
+     *  @return                                  true if the record is consistent
+     */
+    bool checkConsistency(const double gvoltageTotal);
 
 };
 //===================================================================================================================================

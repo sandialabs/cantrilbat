@@ -3528,7 +3528,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         double icurrPerArea = rsd->calcCurrentDensity(overPotential, nStoich, OCV, beta, temperature_, resistancePerArea);
 
                         // Create a psr record for the current reaction on the current surface
-                        psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, iSurf, iRxn);
+                        psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, this, iSurf, iRxn);
                         PolarizationSurfRxnResults& psr = psr_list.back();
                         numErxn++;
                         VoltPolPhenom vpp(SURFACE_OCV_PL, region, OCV);
