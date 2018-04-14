@@ -74,7 +74,7 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
 
 }
 //==================================================================================================================================
-// add contribution for solid electronic conduction through the electrode's solid
+// Add contribution for solid electronic conduction through the electrode's solid
 void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int region, bool dischargeDir)
 {
     double voltsS;

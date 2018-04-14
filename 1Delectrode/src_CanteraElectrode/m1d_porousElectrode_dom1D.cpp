@@ -374,6 +374,7 @@ void porousElectrode_dom1D::doPolarizationAdditions(double phiCurrentCollector, 
             (void) ee->polarizationAnalysisSurf(ee->polarSrc_list_Last_);
             for (size_t n = 0; n < ee->polarSrc_list_Last_.size(); ++n) {
                 PolarizationSurfRxnResults& psr = ee->polarSrc_list_Last_[n];
+                // Add contribution for addition of electrode's solid-phase conduction 
                 psr.addSolidPol(phiCurrentCollector, region, dischargeDir);
             }
 

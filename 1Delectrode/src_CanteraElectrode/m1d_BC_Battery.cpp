@@ -11,7 +11,6 @@
  * abstract class.  Methods for the base class are all in
  * exp_BoundaryCondition.h
  */
-
 /*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government
@@ -19,16 +18,14 @@
  * See file License.txt for licensing information.
  */
 
-
 #include "cantera/base/ct_defs.h" 
 #include "cantera/base/ctexceptions.h"
 #include "m1d_BC_Battery.h" 
 #include "m1d_materials.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d {
-
 //=====================================================================================================================
-
 BC_anodeCC::BC_anodeCC(double thickness, double anodeCC_volts) :
         BoundaryCondition(),
         anodeCC_volts_(anodeCC_volts),
@@ -66,17 +63,17 @@ double BC_anodeCC::valueAtTime(double time, double voltsAnode, int interval) con
     double val = (voltsAnode - anodeCC_volts_) / denom;
     return val; 
 }
-//=====================================================================================================================
-//=====================================================================================================================
-//=====================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
+//==================================================================================================================================
 
-BC_cathodeCC::BC_cathodeCC(double thickness, double extraResistance, double electrodeCrossSectionalArea,
-                           double cathodeCC_volts) :
+BC_cathodeCC::BC_cathodeCC(double thickness, double extraWireResistance, double electrodeWireCrossSectionalArea,
+                           double cathodeCC_phi) :
         BoundaryCondition(),
-        cathodeCC_volts_(cathodeCC_volts),
+        cathodeCC_phi_(cathodeCC_phi),
         thickness_(thickness),
-        extraResistance_(extraResistance),
-        electrodeCrossSectionalArea_(electrodeCrossSectionalArea)
+        extraWireResistance_(extraWireResistance),
+        electrodeWireCrossSectionalArea_(electrodeWireCrossSectionalArea)
 {
 }
 //=====================================================================================================================
@@ -86,10 +83,10 @@ BC_cathodeCC::~BC_cathodeCC()
 //=====================================================================================================================
 BC_cathodeCC::BC_cathodeCC(const BC_cathodeCC& right) :
    BoundaryCondition(right),
-   cathodeCC_volts_(right.cathodeCC_volts_),
+   cathodeCC_phi_(right.cathodeCC_phi_),
    thickness_(right.thickness_),
-   extraResistance_(right.extraResistance_),
-   electrodeCrossSectionalArea_(right.electrodeCrossSectionalArea_)
+   extraWireResistance_(right.extraWireResistance_),
+   electrodeWireCrossSectionalArea_(right.electrodeWireCrossSectionalArea_)
 {
 }
 //=====================================================================================================================
@@ -99,10 +96,10 @@ BC_cathodeCC& BC_cathodeCC::operator=(const BC_cathodeCC& right)
      return *this;
    }
    BoundaryCondition::operator=(right);
-   cathodeCC_volts_=right.cathodeCC_volts_;
+   cathodeCC_phi_=right.cathodeCC_phi_;
    thickness_=right.thickness_;
-   extraResistance_ = right.extraResistance_;
-   electrodeCrossSectionalArea_ = right.electrodeCrossSectionalArea_;
+   extraWireResistance_ = right.extraWireResistance_;
+   electrodeWireCrossSectionalArea_ = right.electrodeWireCrossSectionalArea_;
 
    return *this;
 }
@@ -110,9 +107,9 @@ BC_cathodeCC& BC_cathodeCC::operator=(const BC_cathodeCC& right)
 double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval) const
 {
     double resistivity = resistivity_aluminum(298.);
-    double denom = resistivity * thickness_ + extraResistance_ * electrodeCrossSectionalArea_;
+    double denom = resistivity * thickness_ + extraWireResistance_ * electrodeWireCrossSectionalArea_;
     denom = std::max(denom, 1.0E-11);
-    double val = (voltsCathode - cathodeCC_volts_) / denom;
+    double val = (voltsCathode - cathodeCC_phi_) / denom;
     //  returns the current on a cross-sectional basis
     //  units = amps / m2
     return val;

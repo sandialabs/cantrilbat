@@ -29,23 +29,23 @@
 namespace m1d {
 
 //==================================================================================================================================
-//! The BoundaryCondition class provides a single scalar dependent  variable as a function a single independent variable,
+//! The BoundaryCondition class provides a single scalar dependent variable as a function a single independent variable,
 //! which is suitable for either spatial or temporal boundary conditions.
 /*!
  *  This is an abstract base class.  Subclasses provide specific relationships between the dependent variable 
  *  and the independent variable.
  *
- *  This class can handle two situations. 
+ *  This class can handle two situations:
+ *
  *            One is where the independent variable is time, and we can have step jumps in values
  *            of the dependent variable at specified intervals in time.
  *            For this situation, use the member function value().
  *
- *
  *            Second is where the independent variable is another variable (mostly position, but could be something else)
  *            other than time. Or, the independent variable is the full solution vector at one node.
-*             The relationship can have a time component as well, where the relationships
+ *            The relationship can have a time component as well, where the relationships
  *            change as a function of time, using intervals as well so that jumps can occur here as well.
- *            For this situation use the membmer function valueAtTime() and valueAtTime_full()
+ *            For this situation use the member function valueAtTime() and valueAtTime_full()
  *
  *
  *  Boundary conditions representing fluxes are always added into the residual equations.
@@ -53,6 +53,9 @@ namespace m1d {
  *  the conserved quantity as positive. What this works out to is that the boundary conditions
  *  representing the flux out of the domain is added to this residual.
  *  This is true no matter if we are on the X = 0 side of the domain or the X = +TOP side of the domain.
+ *
+ *  A key idea here is the interval. This is where step discontinuities may occur in the function form of the
+ *  boundary condition. 
  *
  *  \todo Write the interval step logic into the base class. Make all classes conform to one set of logic.
  * 
@@ -66,7 +69,7 @@ public:
     //! Destructor.
     virtual ~BoundaryCondition();
 
-    //!  Copy Constructor.
+    //! Copy Constructor.
     /*!
      *  @param[in]           right               Object to be copied
      */
@@ -97,9 +100,9 @@ public:
      *  values, where ti is a time where there is a step jump in the dependent variable value.
      *  (virtual from BoundaryCondition)
      *
-     *  @param[in]           indVar              Independentvariable
+     *  @param[in]           indVar              Independent variable
      *  @param[in]           interval            If greater than zero, then checking is done on the interval specified.
-     *                                           Also ties wrt to the independent variable are satisfied by goint to the interval
+     *                                           Also, ties wrt to the independent variable are satisfied by going to the interval
      *                                           specified by this value.
      *                                           Defaults to a value of -1.
      *
@@ -274,19 +277,20 @@ public:
 
     // --------------------------------------------------------- D A T A ----------------------------------------------
 protected:
-    //! title or name of boundary condition
+
+    //! Title or name of boundary condition
     std::string title_;
 
-    //! lower limit of the independent variable for which BC applies
+    //! Lower limit of the independent variable for which BC applies
     double lowerLim_;
 
-    //! upper limit of the independent variable for which BC applies
+    //! Upper limit of the independent variable for which BC applies
     double upperLim_;
 
-    //! units string for the independent variable
+    //! Units string for the independent variable
     std::string indepUnits_;
 
-    //! units string for the dependent variable
+    //! Units string for the dependent variable
     std::string depenUnits_;
 
     //! Vector of independent variable values at which the dependent variable may change value

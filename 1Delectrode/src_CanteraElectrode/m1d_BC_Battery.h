@@ -19,66 +19,177 @@
 
 namespace m1d {
 //==================================================================================================================================
-//!  Boundary condition to apply to the current equation that takes into
-//!  account of the resistance of the current collector
+//! Boundary condition to apply to the current equation that takes into account of the resistance of the current collector
+/*!
+ *  Boundary condition that is applied on the anode current collector to take into account of the voltage loss in the anode
+ *  current collector.
+ *
+ *  The valueAtTime() function returns the current flux exiting the domain from the anode wire as a function of the voltage at the
+ *  anode current collector - anode material block interface.
+ *
+ *  To set up the boundary condition the thickness of the anode collector is needed along with specification of the electric
+ *  potential at the anode, which is normally set to 0. Currently, the resistivity of the anode current collector is 
+ *  fixed via a call to the copper resistivity function.
+ *
+ *  This boundary condition can be used whenever a function for the current flux boundary condition is needed.
+ *  This is used as a Robin boundary condition where the current flux expression is needed as a function of the electric potential
+ *  at the acc-anode boundary.
+ */
 class BC_anodeCC: public BoundaryCondition
 {
-
 public:
 
-    BC_anodeCC(double thickness, double anodeCC_volts);
+    //! Constructor
+    /*!
+     *  @param[in]           thickness           Thickness of the current collector in the region where the 
+     *                                           anode current collector has the same cross-sectional area as the battery.
+     *
+     *  @param[in]           anodeCC_volts       Value of the electric potential at the anode wire.
+     *                                             Defaults to 0.0;
+     */
+    BC_anodeCC(double thickness, double anodeCC_volts = 0.0);
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     BC_anodeCC(const BC_anodeCC& right);
 
+    //! Destructor
     virtual ~BC_anodeCC();
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     BC_anodeCC& operator=(const BC_anodeCC& right);
 
+    //! Returns the current density exiting the anode (i dot n_ext), which is nominally negative for the discharge cycle of a battery
+    /*!
+     *  @param[in]           time                Current time
+     *  @param[in]           voltsAnode          Electric potential at the anode current collector - anode material block interface
+     *  @param[in]           interval            unused.
+     *
+     *  @return                                  Returns the current density leaving the anode current collector into the anode wire
+     *                                             Units:  Amps / m^2
+     */
     virtual double valueAtTime(double time, double voltsAnode, int interval) const override;
 
 protected:
 
+    //! Value of the electric potential at the anode wire.
+    /*!
+     *    Units:   volts 
+     */
     double anodeCC_volts_;
 
+    //! Thickness of the current collector in the region where the acc has the same cross-sectional area.
+    /*!
+     *    Units:  m
+     */
     double thickness_;
 };
+
 //==================================================================================================================================
-//!  Boundary condition to apply to the current equation that takes into
-//!  account of the resistance of the current collector
+//! Boundary condition to apply to the current equation that takes into
+//! account of the resistance of the current collector
+/*!
+ *  Boundary condition that is applied on the cathode current collector to take into account of the voltage loss in the cathode
+ *  current collector. The dependent variable is the electric potential at the cathode - cathode current collector boundary.
+ *  The potential at the cathode current collector wire is considered fixed, and input as an initial condition.
+ *
+ *  The valueAtTime() function returns the current flux exiting the domain from the cathode wire as a function of the voltage at the
+ *  cathode current collector - cathode material block interface.
+ *
+ *  To set up the boundary condition the thickness of the cathode collector is needed along with specification of the electric
+ *  potential at the anode, which is normally set to 0. Currently, the resistivity of the anode current collector is 
+ *  fixed via a call to the aluminum resistivity function.
+ *
+ *  This boundary condition can be used whenever a function for the current flux at the boundary in terms of the voltages are needed.
+ *  This is used as a Robin boundary condition where the current flux expression is needed as a function of the electric potential
+ *  at the ccc-cathode boundary.
+ */
 class BC_cathodeCC: public BoundaryCondition
 {
 
 public:
 
-    BC_cathodeCC(double thickness, double extraResistance, double electrodeCrossSectionalArea,
-                 double cathodeCC_volts);
+    //! Constructor
+    /*!
+     *  @param[in]           thickness           Thickness of the current collector in the region where the 
+     *                                           anode current collector has the same cross-sectional area as the battery.
+     *  @param[in]       extraWireResistance     Extra resistance when the cathode collector is considered to be a wire
+     *  @param[in] electrodeWireCrossSectionalArea  Cross-sectional area of the wire when the cathode collector is considered to 
+     *                                              be a wire with different area than the battery
+     *
+     *  @param[in]           cathodeCC_phi      Value of the electric potential at the cathode wire.
+     *                                                There is no default
+     */
+    BC_cathodeCC(double thickness, double extraWireResistance, double electrodeWireCrossSectionalArea,
+                 double cathodeCC_phi);
 
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     BC_cathodeCC(const BC_cathodeCC& right);
 
+    //! Destructor
     virtual ~BC_cathodeCC();
 
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     BC_cathodeCC& operator=(const BC_cathodeCC& right);
     
-    //! Returns the current on a cross-sectional basis
+    //! Returns the current density on a cross-sectional basis exiting the battery from the current collector wire
     /*!
-     *  @return  units = amps / m2
+     *  @param[in]           time                Value of the time
+     *  @param[in]           voltsCathode        electric potential at the cathode - cathode current collector
+     *  @param[in]           interval            Value of the time interval (unused here)
+     *
+     *  @return                                  Current exiting the battery from the cathode
+     *                                             units = amps / m2
      */
     virtual double valueAtTime(double time, double voltsCathode, int interval) const override;
 
 protected:
 
-    double cathodeCC_volts_;
+    //! Electric potential at the cathode current collector wire
+    /*!
+     *  This is considered as a fixed initial input
+     *   Units: volts
+     */
+    double cathodeCC_phi_;
 
+    //! Thickness of the current collector in the region where the ccc has the same cross-sectional area.
+    //! as the battery
+    /*!
+     *    Units:  m
+     */
     double thickness_;
 
     //! Extra resistance attached to the battery (ohms)
-    double extraResistance_;
-
-    //! Cross sectional area of domain
     /*!
-     *  (m2)
+     *  This reistance is applied when the cathode current collector is considered a wire
+     *    Units = Ohms
      */
-    double electrodeCrossSectionalArea_;
+    double extraWireResistance_;
+
+    //! Cross sectional area of the cathode wire when it is considered a wire and not an extension of the battery
+    /*!
+     *    Units: (m2)
+     */
+    double electrodeWireCrossSectionalArea_;
 };
 
 //==================================================================================================================================

@@ -99,6 +99,10 @@ SDD_AnodeCollector::SetEquationDescription()
 	*/
        addDirichletCondition(e1, v1, 0.0);
    } else {
+       /*
+        *  If we have defined a finite thickness to the anode current collector, we need to define a 
+        *  Robin condition for the current/voltage at the domain boundary. 
+        */
        if (anodeCCThickness_ > 0.0) {
 
 	   BoundaryCondition* BC_timeDep = new BC_anodeCC(anodeCCThickness_ , 0.0);
