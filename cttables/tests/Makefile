@@ -5,7 +5,7 @@ all:
 clean:
 	cd silaneMech;                                        $(MAKE) clean
 	cd fixedChemPot;                                      $(MAKE) clean
-	cd heliumAir; ./cleanup
+	cd heliumAir;                                         $(MAKE) clean
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
 	cd hacaSurf;                                          $(MAKE) clean
@@ -40,7 +40,7 @@ install:
 test:
 	cd silaneMech;                                        $(MAKE) -s test
 	cd fixedChemPot;                                      $(MAKE) -s test
-	cd heliumAir; ./runtest
+	cd heliumAir;                                         $(MAKE) -s test
 	cd issPhase; ./runtest
 	cd DHphase; ./runtest
 	cd hacaSurf;                                          $(MAKE) -s test
@@ -71,7 +71,7 @@ test:
 rebaseline:
 	cd silaneMech;                                        $(MAKE) rebaseline
 	cd fixedChemPot;                                      $(MAKE) rebaseline
-	cd heliumAir; ./rebaseline
+	cd heliumAir;                                         $(MAKE) rebaseline
 	cd issPhase; ./rebaseline
 	cd DHphase; ./rebaseline
 	cd hacaSurf;                                          $(MAKE) rebaseline
@@ -103,7 +103,7 @@ rebaseline:
 clean_dist:
 	cd silaneMech;                                        $(MAKE) clean_dist
 	cd fixedChemPot;                                      $(MAKE) clean_dist
-	cd heliumAir; ./cleanup
+	cd heliumAir;                                         $(MAKE) clean_dist
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
 	cd hacaSurf;                                          $(MAKE) clean_dist
@@ -134,7 +134,7 @@ clean_dist:
 clean_test:
 	cd silaneMech;                                         $(MAKE) -s clean_test
 	cd fixedChemPot;                                       $(MAKE) clean_test
-	cd heliumAir; ./cleanup
+	cd heliumAir;                                          $(MAKE) clean_test
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
 	cd hacaSurf;                                           $(MAKE) clean_test
@@ -165,7 +165,7 @@ clean_test:
 clean_test_flags:
 	cd silaneMech;                                         $(MAKE) -s clean_test_flags
 	cd fixedChemPot;                                       $(MAKE) -s clean_test_flags
-	cd heliumAir; ./cleanup
+	cd heliumAir;                                          $(MAKE) -s clean_test_flags
 	cd issPhase; ./cleanup
 	cd DHphase; ./cleanup
 	cd hacaSurf;                                           $(MAKE) clean_test_flags
