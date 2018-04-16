@@ -302,9 +302,14 @@ public:
     //! Total number of elements
     int nTotElements_;
 
-    //!
 
+    //! Vector of species names
+    /*!
+     *   This is a malloced vector of char*
+     *     Length: nTotSpecies_
+     */
     char** SpeciesNames_;
+
     char** PhaseNames_;
     char** ElementNames_;
 
@@ -330,7 +335,10 @@ public:
     //! Turn on or off Heat Source Tracking
     int doHeatSourceTracking_;
 
-    //! Turn on or off Heat Source Tracking
+    //! Turn on or off Polarization analysis at the end of every global step
+    /*!
+     *   Default = off
+     */
     int doPolarizationAnalysis_;
 
     //! Turn on or off Resistance Tracking
@@ -393,8 +401,6 @@ public:
 
     //! Vector of extra phases
     std::vector<ExtraPhase*> ExtraPhaseList_;
-
-
 };
 //==================================================================================================================================
 }

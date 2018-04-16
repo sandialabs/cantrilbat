@@ -105,9 +105,9 @@ ProblemStatementCell::ProblemStatementCell() :
     nTotPhases_(0), 
     nTotSpecies_(0), 
     nTotElements_(0),
-    SpeciesNames_(0),
-    PhaseNames_(0),
-    ElementNames_(0),
+    SpeciesNames_(nullptr),
+    PhaseNames_(nullptr),
+    ElementNames_(nullptr),
     initDefaultNumCVsAnode_(10),
     initDefaultNumCVsCathode_(10),
     initDefaultNumCVsSeparator_(10),
@@ -122,8 +122,7 @@ ProblemStatementCell::ProblemStatementCell() :
     cathodeHeatTranCoeff_(1000.),
     Pressure_formulation_prob_type_(0),
     artificialCompressibilityInvAtm_(0.0),
-    numExtraPhases_(0),
-    ExtraPhaseList_(0)
+    numExtraPhases_(0)
 {
     PhaseList_ = new ZZCantera::PhaseList();
 
@@ -134,34 +133,25 @@ ProblemStatementCell::ProblemStatementCell() :
 ProblemStatementCell::~ProblemStatementCell()
 {
     if (CanteraFileNames) {
-        for (int i = 0; CanteraFileNames[i] != 0; i++) {
+        for (int i = 0; CanteraFileNames[i] != 0; ++i) {
             mdpUtil::mdp_safe_free((void**) &(CanteraFileNames[i]));
         }
         mdpUtil::mdp_safe_free((void**) &(CanteraFileNames));
     }
 
-    if (PhaseList_) {
-        delete PhaseList_;
-        PhaseList_ = 0;
-    }
-
-    if (anode_input_) {
-        delete anode_input_;
-        anode_input_ = 0;
-    }
-
-    if (cathode_input_) {
-        delete cathode_input_;
-        cathode_input_ = 0;
-    }
-    if (BC_TimeDep_) {
-        delete BC_TimeDep_;
-        BC_TimeDep_ = 0;
-    }
+    safeDelete(PhaseList_);
+    safeDelete(anode_input_);
+    safeDelete(cathode_input_);
+    safeDelete(BC_TimeDep_);
 
     for (size_t i = 0; i < ExtraPhaseList_.size(); ++i) {
         delete ExtraPhaseList_[i];
     }
+
+    safeDelete(SpeciesNames_);
+    safeDelete(PhaseNames_);
+    safeDelete(ElementNames_);
+
 }
 //==================================================================================================================================
 void
@@ -483,17 +473,14 @@ ProblemStatementCell::setup_input_pass3(BlockEntry* cf)
 
     reqd = 0;
     int construct = 1;
-    BE_MoleComp* mf1 = new BE_MoleComp("Electrolyte Mole Fractions",
-                                       &electrolyteMoleFracs_, reqd,
-                                       SpeciesNames_, nTotSpecies_,
-                                       construct, "electrolyteMoleFracs_",
-                                       cf);
+    BE_MoleComp* mf1 = new BE_MoleComp("Electrolyte Mole Fractions", &electrolyteMoleFracs_, reqd, SpeciesNames_, nTotSpecies_,
+                                       construct, "electrolyteMoleFracs_", cf);
     mf1->generateDefLE();
     cf->addSubBlock(mf1);
 
-    for (int i = 0; i < nTotSpecies_; i++)
-        std::cout << "Species name " << i
-                  << " is " << SpeciesNames_[i] << std::endl;
+    for (int i = 0; i < nTotSpecies_; i++) {
+        std::cout << "Species name " << i << " is " << SpeciesNames_[i] << std::endl;
+    }
 
     /* ------------------------------------------------------------------------
     * Name of Anode Input file
@@ -1092,7 +1079,7 @@ ProblemStatementCell::InitForInput()
         strncpy(PhaseNames_[iphase], id.c_str(), MPEQUIL_MAX_NAME_LEN);
         int nspecies = tPhase->nSpecies();
         for (int k = 0; k < nspecies; k++) {
-            string sname = tPhase->speciesName(k);
+            std::string sname = tPhase->speciesName(k);
             strncpy(SpeciesNames_[kT], sname.c_str(), MPEQUIL_MAX_NAME_LEN);
             kT++;
         }
