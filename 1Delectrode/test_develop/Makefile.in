@@ -1,15 +1,10 @@
 #/bin/sh
-###############################################################
-#  $Author: hkmoffa $
-#  $Date: 2011/12/21 23:20:06 $
-#  $Revision: 1.13 $
-#
-###############################################################
 
 #
 #  (gnu make: The shell command evaluates the shell command and sets the variable equal to its output)
 #  
 all:
+	cd LiIon_MCMB_PolarAnal_First  ;               $(MAKE) 
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               $(MAKE) 
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               $(MAKE) 
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               $(MAKE) 
@@ -17,6 +12,7 @@ all:
 	cd LiIon_MCMB_LiCoO2_mechThird ;               $(MAKE) 
 
 test:
+	cd LiIon_MCMB_PolarAnal_First  ;               $(MAKE) test
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               $(MAKE) test
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               $(MAKE) test
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               $(MAKE) test
@@ -24,6 +20,7 @@ test:
 	# cd LiIon_MCMB_LiCoO2_mechThird ;               $(MAKE) test
 
 clean:
+	cd LiIon_MCMB_PolarAnal_First  ;               $(MAKE) clean
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               $(MAKE) clean
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               $(MAKE) clean
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               $(MAKE) clean
@@ -31,6 +28,7 @@ clean:
 	cd LiIon_MCMB_LiCoO2_mechThird ;               $(MAKE) clean
 
 clean_test:
+	cd LiIon_MCMB_PolarAnal_First  ;               $(MAKE) clean_test
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               $(MAKE) test_clean
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               $(MAKE) test_clean
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               $(MAKE) test_clean
@@ -38,6 +36,7 @@ clean_test:
 	cd LiIon_MCMB_LiCoO2_mechThird ;               $(MAKE) test_clean
 
 clean_dist:
+	cd LiIon_MCMB_PolarAnal_First  ;               $(MAKE) clean_dist
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               $(MAKE) dist_clean
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               $(MAKE) dist_clean
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               $(MAKE) dist_clean
@@ -45,6 +44,7 @@ clean_dist:
 	cd LiIon_MCMB_LiCoO2_mechThird ;               $(MAKE) dist_clean
 
 test_bat:
+	cd LiIon_MCMB_PolarAnal_First  ;               $(MAKE) test
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               $(MAKE) test
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               $(MAKE) test
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               $(MAKE) test
@@ -52,6 +52,7 @@ test_bat:
 	cd LiIon_MCMB_LiCoO2_mechThird ;               $(MAKE) test
 
 rebaseline:
+	cd LiIon_MCMB_PolarAnal_First  ;               ./rebaseline
 	cd LiIon_MCMB_LiCoO2_Enthalpy  ;               ./rebaseline
 	cd LiIon_MCMB_LiCoO2_enthFirst ;               ./rebaseline
 	cd LiIon_MCMB_LiCoO2_mechFirst ;               ./rebaseline

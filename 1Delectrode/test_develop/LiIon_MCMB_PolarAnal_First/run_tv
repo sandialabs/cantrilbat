@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+#
+#
+#
+mpirun -tv -machinefile $MP_MACHINEFILE -np 1 LiIon_PorousBat LiIon_PorousBat.inp 
+

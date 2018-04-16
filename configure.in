@@ -954,6 +954,7 @@ AC_OUTPUT(Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_noChange/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_noChange2/Makefile \
           1Delectrode/test_develop/LiIon_MCMB_LiCoO2_tempFirst/Makefile \
+          1Delectrode/test_develop/LiIon_MCMB_PolarAnal_First/Makefile \
           1Delectrode/test_suite/Makefile \
           1Delectrode/test_suite/runtest \
           1Delectrode/test_suite/LiKCl_PorousBat_SPCD_MPNewman/Makefile \
