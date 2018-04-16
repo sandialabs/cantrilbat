@@ -1,5 +1,5 @@
 /**
- * @file SDD_ElectrodeSepInterface.cpp
+ * @file m1d_SDD_ElectrodeSepInterface.cpp
  * Implementation of an interface between anode-separator or cathode-separator
  * (see class \link m1d::SDD_ElectrodeSepInterface SDD_ElectrodeSepInterface\endlink).
  */
@@ -25,7 +25,7 @@
 namespace m1d
 {
 //==================================================================================================================================
-SDD_ElectrodeSepInterface::SDD_ElectrodeSepInterface(DomainLayout *dl_ptr, const char *domainName) :
+SDD_ElectrodeSepInterface::SDD_ElectrodeSepInterface(DomainLayout *dl_ptr, const std::string& domainName) :
     SDD_Mixed(dl_ptr, domainName)
 {
 }

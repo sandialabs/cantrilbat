@@ -116,11 +116,12 @@ double BC_cathodeCC::valueAtTime(double time, double voltsCathode, int interval)
 }
 //=====================================================================================================================
 //=====================================================================================================================
+//=====================================================================================================================
 
 BC_cathodeCCLoad::BC_cathodeCCLoad(double thickness, double extraResistance, double electrodeCrossSectionalArea,
-				   double cathodeCC_volts, double resistanceLoad, double voltageLoad) :
+				   double cathodeCC_phi, double resistanceLoad, double voltageLoad) :
         BoundaryCondition(),
-        cathodeCC_volts_(cathodeCC_volts),
+    //    cathodeCC_phi_(cathodeCC_phi),
         thickness_(thickness),
         extraResistance_(extraResistance),
         electrodeCrossSectionalArea_(electrodeCrossSectionalArea),
@@ -135,7 +136,7 @@ BC_cathodeCCLoad::~BC_cathodeCCLoad()
 //=====================================================================================================================
 BC_cathodeCCLoad::BC_cathodeCCLoad(const BC_cathodeCCLoad& right) :
    BoundaryCondition(right),
-   cathodeCC_volts_(right.cathodeCC_volts_),
+   //cathodeCC_phi_(right.cathodeCC_phi_),
    thickness_(right.thickness_),
    extraResistance_(right.extraResistance_),
    electrodeCrossSectionalArea_(right.electrodeCrossSectionalArea_),
@@ -150,7 +151,7 @@ BC_cathodeCCLoad& BC_cathodeCCLoad::operator=(const BC_cathodeCCLoad& right)
      return *this;
    }
    BoundaryCondition::operator=(right);
-   cathodeCC_volts_ = right.cathodeCC_volts_;
+  // cathodeCC_phi_ = right.cathodeCC_phi_;
    thickness_ = right.thickness_;
    extraResistance_ = right.extraResistance_;
    electrodeCrossSectionalArea_ = right.electrodeCrossSectionalArea_;
@@ -160,16 +161,17 @@ BC_cathodeCCLoad& BC_cathodeCCLoad::operator=(const BC_cathodeCCLoad& right)
    return *this;
 }
 //=====================================================================================================================
-double BC_cathodeCCLoad::valueAtTime(double time, double voltsCathode, int interval) const
+double BC_cathodeCCLoad::valueAtTime(double time, double phiCathode, int interval) const
 {
     double resistivity = resistivity_aluminum(298.);
     double denom = resistivity * thickness_ + (extraResistance_ + resistanceLoad_) * electrodeCrossSectionalArea_;
     denom = std::max(denom, 1.0E-11);
-    double val = (voltsCathode - voltageLoad_) / denom;
-    //  returns the current on a cross-sectional basis
+    double val = (phiCathode - voltageLoad_) / denom;
+    //  returns the current entering the battery at the cathode on a cross-sectional basis
     //  units = amps / m2
     return val;
 }
+//=====================================================================================================================
 //=====================================================================================================================
 //=====================================================================================================================
 BC_heatTransfer::BC_heatTransfer(double tranCoeff, double tempRef, double electrodeCrossSectionalArea) :

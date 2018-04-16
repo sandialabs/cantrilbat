@@ -1,7 +1,6 @@
 /**
- * file m1d_BoundaryCondition.h
- * 
- * Header for class BoundaryCondition and subclasses.
+ * file m1d_m1d_BC_Battery.h
+ * Header for class BoundaryCondition and subclasses associated with batteries
  */
 
 /*
@@ -11,13 +10,14 @@
  * may require a license from the United States Government.
  */
 
-
 #ifndef M1D_BC_BATTERY_H
 #define M1D_BC_BATTERY_H
 
 #include "m1d_BoundaryCondition.h"
 
-namespace m1d {
+//----------------------------------------------------------------------------------------------------------------------------------
+namespace m1d
+{
 //==================================================================================================================================
 //! Boundary condition to apply to the current equation that takes into account of the resistance of the current collector
 /*!
@@ -191,46 +191,102 @@ protected:
      */
     double electrodeWireCrossSectionalArea_;
 };
-
 //==================================================================================================================================
 //!  Boundary condition to apply to the current equation that takes into
 //!  account of the resistance of the current collector
+/*!
+ *   Mixed boundary condition that is used to represent a battery under a load.
+ */
 class BC_cathodeCCLoad: public BoundaryCondition
 {
 
 public:
 
-    BC_cathodeCCLoad(double thickness, double extraResistance, double electrodeCrossSectionalArea,
-		     double cathodeCC_volts, double resistanceLoad, double voltageLoad);
+    //! Constructor
+    /*!
+     *  @param[in]           thickness           Thickness of the current collector in the region where the 
+     *                                           anode current collector has the same cross-sectional area as the battery.
+     *  @param[in]       extraWireResistance     Extra resistance when the cathode collector is considered to be a wire
+     *  @param[in] electrodeCrossSectionalArea   Cross-sectional area of the battery
+     *                                             Units: m2
+     *
+     *  @param[in]           cathodeCC_phi       Value of the electric potential at the cathode wire.
+     *                                               NOT USED -> NOT NEEDED
+     *                                                There is no default
+     *  @param[in]           resistanceLoad      Resistance of the load that is in series with the terminals of the battery
+     *                                             Units: ohms
+     *  @param[in]           voltageLoad         Voltage of the load that is in series with the terminals of the battery
+     *                                             Units: ohms                                         
+     */
+    BC_cathodeCCLoad(double thickness, double extraWireResistance, double electrodeCrossSectionalArea,
+		     double cathodeCC_phi, double resistanceLoad, double voltageLoad);
+
+    //! Copy constructor
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     BC_cathodeCCLoad(const BC_cathodeCCLoad& right);
+
+
+    //! Virtual destructor
     virtual ~BC_cathodeCCLoad();
+
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     BC_cathodeCCLoad& operator=(const BC_cathodeCCLoad& right);
     
-    //! Returns the current on a cross-sectional basis
+    //! Returns the current density at the cathode current collector on a cross-sectional of the battery basis
+    //! given the value of the electric potential at the cathode - cathode current collector interface
     /*!
-     *  @return  units = amps / m2
+     *  @param[in]           time                Current value of the time
+     *  @param[in]           phiCathode          electric potential at the current - current collector interface
+     *  @param[in]           interval            Interval in the time coordinate.
+     *
+     *  @return                                  Current density flowing out of cathode current collector
+     *                                             Units:  amps / m2
      */
-    virtual double valueAtTime(double time, double voltsCathode, int interval) const override;
+    virtual double valueAtTime(double time, double phiCathode, int interval) const override;
 
 protected:
 
-    double cathodeCC_volts_;
-
+    //! Thickness of the current collector in the region where the ccc has the same cross-sectional area.
+    //! as the battery
+    /*!
+     *    Units:  m
+     */
     double thickness_;
 
-    //! Extra resistance attached to the battery (ohms)
+    //! Extra resistance attached to the battery 
+    /*!
+     *  Units: ohms
+     */
     double extraResistance_;
 
     //! Cross sectional area of domain
     /*!
-     *  (m2)
+     *  Units:  m2
      */
     double electrodeCrossSectionalArea_;
 
+    //! Resistance of the load
+    /*!
+     *   Units:  ohms
+     */
     double resistanceLoad_;
+
+ 
+    //! Voltage drop of the load
+    /*!
+     *   Units:  volts
+     */
     double voltageLoad_;
 };
-
 //==================================================================================================================================
 
 //!  Boundary condition to apply  a heat transfer flux formulation
@@ -241,6 +297,13 @@ public:
     BC_heatTransfer(double tranCoeff, double TempRef, double electrodeCrossSectionalArea);
     BC_heatTransfer(const BC_heatTransfer &r);
     virtual ~BC_heatTransfer();
+
+    //! Assignment operator
+    /*!
+     *  @param[in]           right               object to be copied
+     *
+     *  @return                                  returns a reference to the current object
+     */
     BC_heatTransfer& operator=(const BC_heatTransfer& r);
 
     //! Returns the heat transfered out of the domain
@@ -266,7 +329,6 @@ protected:
      */
     double electrodeCrossSectionalArea_;
 };
-
 //==================================================================================================================================
 } 
 //----------------------------------------------------------------------------------------------------------------------------------

@@ -9,7 +9,6 @@
  * may require a license from the United States Government.
  */
 
-
 #ifndef M1D_SDD_ANODECOLLECTOR_H_
 #define M1D_SDD_ANODECOLLECTOR_H_
 
@@ -22,7 +21,6 @@ class ELECTRODE_MODEL;
 //----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
 //==================================================================================================================================
 //! This class specifies that all equations are handled by a simple Dirichlet condition
 /*!
@@ -128,7 +126,7 @@ public:
   //! Make the SurDomain1D class a friend so that it can access all of the stuff in this class
   friend class SurDomain_AnodeCollector;
 };
-
+//==================================================================================================================================
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif /*  */

@@ -1,5 +1,5 @@
 /**
- * @file SDD_ElectrodeSepInterface.h
+ * @file m1d_SDD_ElectrodeSepInterface.h
  * Definition of an interface between anode-separator or cathode-separator
  * (see class \link m1d::SDD_ElectrodeSepInterface SDD_ElectrodeSepInterface\endlink).
  */
@@ -16,9 +16,10 @@
 
 #include "m1d_SDD_Mixed.h"
 
+//----------------------------------------------------------------------------------------------------------------------------------
 namespace m1d
 {
-
+//==================================================================================================================================
 //! This class specifies that all equations are handled
 //! by a simple Dirichlet condition or simple flux conditions of the third type
 /*!
@@ -38,9 +39,9 @@ public:
    *
    *
    *  @param[in]             dl_ptr              Domain Layout object that owns this description.
-   *  @param[in]             domainName          C-String containing the name of the domain 
+   *  @param[in]             domainName          String containing the name of the domain 
    */
-  SDD_ElectrodeSepInterface(DomainLayout *dl_ptr, const char *domainName = "");
+  SDD_ElectrodeSepInterface(DomainLayout *dl_ptr, const std::string& domainName = "");
 
   //! Destructor
   virtual
@@ -48,23 +49,24 @@ public:
 
   //! Copy Constructor
   /*!
-   * @param r Object to be copied
+   *  @param[in]             r                   Object to be copied
    */
   SDD_ElectrodeSepInterface(const SDD_ElectrodeSepInterface &r);
 
   //! Assignment operator
   /*!
    *  @param[in]             r                   Object to be copied
+   *
    *  @return                                    Returns a changeable reference to the current object
    */
-  SDD_ElectrodeSepInterface &
-  operator=(const SDD_ElectrodeSepInterface &r);
+  SDD_ElectrodeSepInterface& operator=(const SDD_ElectrodeSepInterface &r);
 
   // --------------------------------------------------------------------------------------------------------------
   //                                   DATA
   // --------------------------------------------------------------------------------------------------------------
 
 };
-
+//==================================================================================================================================
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 #endif
