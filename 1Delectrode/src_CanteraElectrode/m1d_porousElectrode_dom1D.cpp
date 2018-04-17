@@ -68,7 +68,7 @@ porousElectrode_dom1D::porousElectrode_dom1D(const porousElectrode_dom1D &r) :
 {
     operator=(r);
 }
-//=====================================================================================================================
+//==================================================================================================================================
 porousElectrode_dom1D::~porousElectrode_dom1D()
 {
     for (size_t iCell = 0; iCell < Electrode_Cell_.size(); iCell++) {
@@ -76,7 +76,7 @@ porousElectrode_dom1D::~porousElectrode_dom1D()
 	Electrode_Cell_[iCell] = 0;
     }
 }
-//=====================================================================================================================
+//==================================================================================================================================
 porousElectrode_dom1D &
 porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
 {
@@ -108,7 +108,7 @@ porousElectrode_dom1D::operator=(const porousElectrode_dom1D &r)
     
     return *this;
 }
-//=====================================================================================================================
+//==================================================================================================================================
 // Prepare all of the indices for fast calculation of the residual
 /*
  *  Ok, at this point, we will have figured out the number of equations
@@ -156,17 +156,21 @@ porousElectrode_dom1D::domain_prep(LocalNodeIndices *li_ptr)
      *  information to create electrode objects here.
      */
 }
-//====================================================================================================================
-//  An electrode object must be created and initialized for every cell in the domain
-/*
- * Create electrode objects for every cell. Correct the volume and number of moles of 
- * active material within each of these electrode objects to correspond to the discretized volume.
- */
+//==================================================================================================================================
+enum Zuzax::Electrode_Capacity_Type_Enum porousElectrode_dom1D::capacityType() const
+{
+    Electrode* ee = Electrode_Cell_[0];
+    if (!ee) {
+       throw m1d_Error("porousElectrode_dom1D::capacityType() Error", "Electrodes haven't been instantiated yet");
+    }
+    return ee->capacityType();
+}
+//==================================================================================================================================
 void
 porousElectrode_dom1D::instantiateElectrodeCells() 
 {
 }
-//====================================================================================================================
+//==================================================================================================================================
 // Function that gets called at end the start of every time step
 /*
  *  This function provides a hook for a residual that gets called whenever a
@@ -365,7 +369,16 @@ double porousElectrode_dom1D::calcPorosity(size_t iCell)
    return p; 
 }
 //==================================================================================================================================
-void porousElectrode_dom1D::doPolarizationAdditions(double phiCurrentCollector, int region)
+void porousElectrode_dom1D::initPolarizationAnalysis()
+{
+    for (int iCell = 0; iCell < NumLcCells; ++iCell) {
+         Electrode* ee = Electrode_Cell_[iCell];
+         ee->doPolarizationAnalysis_ = true;
+    }
+}
+//==================================================================================================================================
+void porousElectrode_dom1D::doPolarizationAnalysis(double phi_CC_Wire, double ph_CC_Elect, 
+                                                   double phi_Elect_Sep, double phi_SepMid,  int region)
 {
     bool dischargeDir = true;
     for (int iCell = 0; iCell < NumLcCells; ++iCell) {
@@ -375,7 +388,7 @@ void porousElectrode_dom1D::doPolarizationAdditions(double phiCurrentCollector, 
             for (size_t n = 0; n < ee->polarSrc_list_Last_.size(); ++n) {
                 PolarizationSurfRxnResults& psr = ee->polarSrc_list_Last_[n];
                 // Add contribution for addition of electrode's solid-phase conduction 
-                psr.addSolidPol(phiCurrentCollector, region, dischargeDir);
+                psr.addSolidPol(phi_CC_Wire, region, dischargeDir);
             }
 
          }

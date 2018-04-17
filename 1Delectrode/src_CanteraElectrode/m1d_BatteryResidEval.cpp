@@ -1418,6 +1418,7 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      *
      */
 
+     DomainLayout &DL = *DL_ptr_;
      // Identify the ACA point
 
      // Assume it is located at the left node of the first domain
@@ -1425,7 +1426,6 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      //   -> and the anode electrode block
      if (polIndecisesCurrent == false) {
          polIndecisesCurrent = true;
-         DomainLayout &DL = *DL_ptr_;
          BulkDomain1D *d_anode = DL.BulkDomain1D_List[0];
          //porousFlow_dom1D* p_anode = dynamic_cast<porousFlow_dom1D*>(d_anode);
 
@@ -1493,18 +1493,40 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
 
      }
 
-     double vSolid_AC =  soln[gindex_VoltageSolid_ACA];
-     double vLyte_AS =  soln[gindex_Voltage_AS];
-     double vLyte_SC =  soln[gindex_Voltage_SC];
-     double vSolid_CCC =  soln[gindex_VoltageSolid_CCC];
+     // Voltage at the Anode collector - Anode interface
+     double phi_Wire_ACC = 0.0;
+     double phiSolid_ACC_Elect = soln[gindex_VoltageSolid_ACA];
+     double phiLyte_Anode_Sep = soln[gindex_Voltage_AS];
+     double phiLyte_Sep_Cathode = soln[gindex_Voltage_SC];
+     double phiSolid_Elect_CCC = soln[gindex_VoltageSolid_CCC];
+
+     double phiLyte_SepMid =  (phiLyte_Anode_Sep + phiLyte_Sep_Cathode) / 2.0;
    
 
-     //double vCathode = reportCathodeVoltage();
-     reportCathodeVoltage();
+     double phi_CCC_Wire = reportCathodeVoltage();
 
-     //double vAnode = 0.0;
 
      // Loop over the domains gathering the information
+
+     for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+        porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+        if (p_ptr) {
+            Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
+            if (capType == CAPACITY_ANODE_ECT) {
+               printf("this is an anode\n");
+               p_ptr->doPolarizationAnalysis(phi_Wire_ACC, phiSolid_ACC_Elect, phiLyte_Anode_Sep, phiLyte_SepMid, 0);
+
+            }
+            if (capType == CAPACITY_CATHODE_ECT) {
+               printf("this is a cathode\n");
+               p_ptr->doPolarizationAnalysis(phi_CCC_Wire, phiSolid_Elect_CCC, phiLyte_Sep_Cathode, phiLyte_SepMid, 0);
+            }
+  
+        }
+     }
+
+     
 
      
 
@@ -1832,11 +1854,12 @@ BatteryResidEval::reportCathodeVoltage() const
 } 
 //==================================================================================================================================
 double
-BatteryResidEval::reportCathodeCurrent() const {
+BatteryResidEval::reportCathodeCurrentDensity() const {
     DomainLayout &DL = *DL_ptr_;
     // we want the last surface, but be careful when we go to double tap batteries
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     SurDomain_CathodeCollector *c_ptr = dynamic_cast<SurDomain_CathodeCollector *>(d_ptr);
+    // The current is in units of amps / m2
     double icurr = c_ptr->icurrCollector_;
     return icurr;
 }
@@ -1878,7 +1901,7 @@ void BatteryResidEval::gatherCapacityStatistics()
     capacityLeftPAEff_ = std::min(capacityLeftAnodePA_, capacityLeftCathodePA_);
 
 
-    double icurr = reportCathodeCurrent();
+    double icurr = reportCathodeCurrentDensity();
 
     double timeToDischargeWhole = 1.0E10;
 

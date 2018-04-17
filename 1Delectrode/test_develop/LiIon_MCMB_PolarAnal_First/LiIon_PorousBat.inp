@@ -297,5 +297,15 @@ Time Stepper Print Level = 6
 Nonlinear Solver Log Level = 3
 !--------------------------------------------------------------------------
 !
+!     Polarization Analysis - int (optional) (default = 0)
+!
+!   0 = Do not do any heat source tracking
+!   1 = Calculate the polarization losses at each time step,
+!        print them out, and have them available for external communication
+!
+!---------------------------------------------------------------------------------------------------------
+Polarization Analysis = 1
+!---------------------------------------------------------------------------------------------------------
+!
 
 

@@ -234,7 +234,7 @@ SolNonlinear_CurrentSolve::transform_cc_to_cv(const Epetra_Vector_Ghosted* const
     cathodeVoltageOld_ = m_func->reportCathodeVoltage();
 
     // Go get the current value of the cathode current
-    currentActual_ = m_func->reportCathodeCurrent();
+    currentActual_ = m_func->reportCathodeCurrentDensity();
 
     DomainLayout& DL = * (m_func->DL_ptr_);
     // want last surface, but be careful when we go to double tap batteries
@@ -299,7 +299,7 @@ SolNonlinear_CurrentSolve::transform_cv_to_cc(const Epetra_Vector_Ghosted* const
     }
 
     // go get the current value of the cathode current
-    currentActual_ = m_func->reportCathodeCurrent();
+    currentActual_ = m_func->reportCathodeCurrentDensity();
 
     // Go get the current value of the cathode voltage and use that as the initial value of the voltage boundary condition
     double cathodeVoltage = batResid->reportCathodeVoltage();

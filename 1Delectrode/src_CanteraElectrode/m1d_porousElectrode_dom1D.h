@@ -15,8 +15,9 @@
 #include "m1d_porousFlow_dom1D.h"
 #include "m1d_BDD_porousElectrode.h"
 #include "cantera/base/Array.h"
+#include "Electrode_defs.h"
 
-//#include <cantera/transport.h>    
+//#include <cantera/transport.h>
 
 #ifdef useZuzaxNamespace
 namespace Zuzax
@@ -24,7 +25,7 @@ namespace Zuzax
 namespace Cantera
 #endif
 {
-  class Electrode;
+class Electrode;
 }
 
 namespace m1d
@@ -36,8 +37,8 @@ class BDD_porousElectrode;
 //! This is derived class  provides the function
 //! evaluation for a porous electrode.
 /*!
- * The porous electrolyte domain is characterized by a 
- * current conservation equation and several species 
+ * The porous electrolyte domain is characterized by a
+ * current conservation equation and several species
  * conservation equations describing the electrolyte.
  * A porosity/tortuosity is also associated with the domain.
  *
@@ -57,88 +58,102 @@ public:
      * @param bdd   Contains the bulk domain description.
      */
     porousElectrode_dom1D(BDD_porousElectrode* bdd_pe_ptr_);
-    
-  //! Copy constructor
-  /*!
-   * @param r      Object to be copied into the current object
-   */
-  porousElectrode_dom1D(const porousElectrode_dom1D &r);
 
-  //! Destructor
-  virtual  ~porousElectrode_dom1D();
+    //! Copy constructor
+    /*!
+     * @param r      Object to be copied into the current object
+     */
+    porousElectrode_dom1D(const porousElectrode_dom1D& r);
 
-  //! Assignment operator
-  /*!
-   * @param r      Object to be copied into the current object
-   * @return       Returns a changeable reference to the current object
-   */
-  porousElectrode_dom1D& operator=(const porousElectrode_dom1D&r);
+    //! Destructor
+    virtual  ~porousElectrode_dom1D();
 
-  //! Prepare all of the indices for fast calculation of the residual
-  /*!
-   *  Ok, at this point, we will have figured out the number of equations
-   *  to be calculated at each node point. The object NodalVars will have
-   *  been fully formed.
-   *
-   *  We use this to figure out what local node numbers/ cell numbers are
-   *  needed and to set up indices for their efficient calling.
-   *
-   *  Child objects of this one will normally call this routine in a
-   *  recursive fashion.
-   */
-  virtual void domain_prep(LocalNodeIndices *li_ptr);
+    //! Assignment operator
+    /*!
+     * @param r      Object to be copied into the current object
+     * @return       Returns a changeable reference to the current object
+     */
+    porousElectrode_dom1D& operator=(const porousElectrode_dom1D& r);
 
+    //! Prepare all of the indices for fast calculation of the residual
+    /*!
+     *  Ok, at this point, we will have figured out the number of equations
+     *  to be calculated at each node point. The object NodalVars will have
+     *  been fully formed.
+     *
+     *  We use this to figure out what local node numbers/ cell numbers are
+     *  needed and to set up indices for their efficient calling.
+     *
+     *  Child objects of this one will normally call this routine in a  recursive fashion.
+     *
+     *  @param[in]             li_ptr              Pointer to the LocalNodeIndices object for this domain and processor.
+     */
+    virtual void domain_prep(LocalNodeIndices* li_ptr) override;
 
-  //!  An electrode object must be created and initialized for every cell in the domain
-  /*!
-   *      Create electrode objects for every cell by calling the electrode factory. Other related
-   *      quantities are also initialized such as the porosity within the cell, the solid composition
-   *      which is storred in the electrode object, and the cell size. The electrode cross sectional
-   *      area of the cell is calculated.
-   *
-   *      Correct the volume and number of moles of  active material within each of these electrode 
-   *      objects to correspond to the discretized volume.
-   *
-   *      This object is built and initialized according to the cathode.inp or anode.inp input files.
-   *      They will be later changed to different initial conditions when we set the initial conditions.
-   *
-   *      Values filled in:
-   *
-   *              porosity_Cell_[iCell]   Initial porosity of the cell
-   *              Electrode_Cell_[iCell]  Pointer to the electrode object which is initialized
-   *                                      within this routine.
-   *              xdelCell_Cell_[iCell]   Thickness of the cell
-   */
-  virtual void instantiateElectrodeCells();
+    //! Returns the capacity type of the electrode
+    /*!
+     *  The Electrode_Capacity_type_Enum enum is defined in the file Electrode_defs.h. There are three types:
+     *     CAPACITY_ANODE_ECT
+     *     CAPACITY_CATHODE_ECT
+     *     CAPACITY_OTHER_ECT
+     *  This routine will query the first electrode's capacity type to determine the capacity type for all of the
+     *  electrodes within the domain
+     *
+     *  @return                                  Returns whether the electrode capacity calculation is designated an
+     *                                           anode or a cathode type within the domain
+     */
+    enum Zuzax::Electrode_Capacity_Type_Enum capacityType() const;
 
-  //! Return the  Maximum number of normal electrode subgrid integration steps taken in the last base residual
-  /*!
-   *   (birth and deaths of phases aren't counted)
-   */
-  virtual int getMaxSubGridTimeSteps() const;
+    //!  An electrode object must be created and initialized for every cell in the domain
+    /*!
+     *      Create electrode objects for every cell by calling the electrode factory. Other related
+     *      quantities are also initialized such as the porosity within the cell, the solid composition
+     *      which is storred in the electrode object, and the cell size. The electrode cross sectional
+     *      area of the cell is calculated.
+     *
+     *      Correct the volume and number of moles of  active material within each of these electrode
+     *      objects to correspond to the discretized volume.
+     *
+     *      This object is built and initialized according to the cathode.inp or anode.inp input files.
+     *      They will be later changed to different initial conditions when we set the initial conditions.
+     *
+     *      Values filled in:
+     *
+     *              porosity_Cell_[iCell]   Initial porosity of the cell
+     *              Electrode_Cell_[iCell]  Pointer to the electrode object which is initialized
+     *                                      within this routine.
+     *              xdelCell_Cell_[iCell]   Thickness of the cell
+     */
+    virtual void instantiateElectrodeCells();
 
-  //! Function that gets called at end the start of every time step
-  /*!
-   *  This function provides a hook for a residual that gets called whenever a
-   *  time step has been accepted and we are about to move on to the next time step.
-   *  The call is made with the current time as the time
-   *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
-   *
-   *  After this call interrogation of the previous time step's results will not be
-   *  valid.
-   *
-   *   @param  doTimeDependentResid  This is true if we are solving a time dependent
-   *                                 problem.
-   *   @param  soln_ptr              Solution value at the current time
-   *   @param  solnDot_ptr           derivative of the solution at the current time.
-   *   @param  solnOld_ptr           Solution value at the old time step, n-1
-   *   @param  t                     current time to be accepted, n
-   *   @param  t_old                 previous time step value
-   */
-  virtual void
-  advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
-                      const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
-                      const double t, const double t_old);
+    //! Return the  Maximum number of normal electrode subgrid integration steps taken in the last base residual
+    /*!
+     *   (birth and deaths of phases aren't counted)
+     */
+    virtual int getMaxSubGridTimeSteps() const;
+
+    //! Function that gets called at end the start of every time step
+    /*!
+     *  This function provides a hook for a residual that gets called whenever a
+     *  time step has been accepted and we are about to move on to the next time step.
+     *  The call is made with the current time as the time
+     *  that is accepted. The old time may be obtained from t and rdelta_t_accepted.
+     *
+     *  After this call interrogation of the previous time step's results will not be
+     *  valid.
+     *
+     *   @param  doTimeDependentResid  This is true if we are solving a time dependent
+     *                                 problem.
+     *   @param  soln_ptr              Solution value at the current time
+     *   @param  solnDot_ptr           derivative of the solution at the current time.
+     *   @param  solnOld_ptr           Solution value at the old time step, n-1
+     *   @param  t                     current time to be accepted, n
+     *   @param  t_old                 previous time step value
+     */
+    virtual void
+    advanceTimeBaseline(const bool doTimeDependentResid, const Epetra_Vector* soln_ptr,
+                        const Epetra_Vector* solnDot_ptr, const Epetra_Vector* solnOld_ptr,
+                        const double t, const double t_old);
 
 
     //! Returns the total capacity of the electrode in Amp seconds per cross-sectional area
@@ -188,7 +203,7 @@ public:
      *                   If positive or zero, each plateau is treated as a separate entity.
      */
     virtual double capacityDischargedPA(int platNum = -1) const;
- 
+
     //! Amount of charge that the electrode that has available to be discharged per cross-sectional area
     /*!
      *  We report the number in terms of Amp seconds = coulombs. This accounts for loss mechanisms.
@@ -239,21 +254,43 @@ public:
     /*!
      *  Currently this is defined as the open circuit potential on the outside electrode.
      *
-     *   @return return the open circuit potential 
-     */ 
+     *   @return return the open circuit potential
+     */
     virtual double openCircuitPotentialQuick() const;
 
     //! Calculate the porosity
+    /*!
+     *  @param[in]           iCell               Cell number
+     *
+     *  @return                                  Returns the current porosity within the cell
+     */
     virtual double calcPorosity(size_t iCell);
+
+    //! turn on and initialize polarization analysis
+    /*!
+     *  (virtual from porousElectrode_dom1D)
+     *
+     */
+    virtual void initPolarizationAnalysis();
 
     //! Add terms to the polarization analysis
     /*!
-     *  @param[in]         phiCurrentCollector   Value of the Electric potential in the solid current collector
+     *  (virtual from porousElectrode_dom1D)
+     *
+     *  @param[in]         phi_CC_Wire           Value of the Electric potential in the solid current collector
+     *  @param[in]         phi_CC_Elect          Value of the Electric potential in the solid at the 
+     *                                             current collector - Electrode interface
+     *  @param[in]         phi_Elect_Sep         Value of the electric potential in the electrolyte at the 
+     *                                             Electrode - Seperator interface
+     *  @param[in]         phi_SepMid           Value of the electric potential in the electrolyte at the 
+     *                                             middle of the separator
      *  @param[in]         region                Region of the analysis:
      *                                                0 = anode
      *                                                2 = cathode
      */
-    virtual void doPolarizationAdditions(double phiCurrentCollector, int region);
+    virtual void doPolarizationAnalysis(double phi_CC_Wire, double phi_CC_Elect, double phi_Elect_Sep, 
+                                        double phi_SepMid,  int region);
+
 
     // -------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------   DATA   ----------------------------------------------------------------
@@ -262,7 +299,7 @@ protected:
 
     //! Pointer to the Most Derived Domain Description
     BDD_porousElectrode* BDD_PE_ptr_;
-    
+
     //! Electrode Cell data for the anode/cathode cells
     /*!
      *  Length is the number of owned Cells on the processor
@@ -367,4 +404,4 @@ protected:
 //======================================================================================================================
 }
 //======================================================================================================================
-#endif 
+#endif

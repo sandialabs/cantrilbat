@@ -222,13 +222,16 @@ public:
      */
     int methodForSoln_;
 
-    //! This is the actual value of the current needed at the current time
+    //! This is the actual value of the current density needed at the current time
     /*!
      *  units: amps / m2
      */
     double currentNeeded_;
 
-    //!
+    //! Actual current density
+    /*!
+     *  units: amps / m2
+     */
     double currentActual_;
 
     //! Value of the cathode voltage at the last time step

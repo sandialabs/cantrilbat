@@ -225,6 +225,7 @@ public:
      */
     double extraCathodeResistance_;
 
+    //! Heat transfer coefficient
     double heatTransferCoeff;
 
     //! Temperature of the cathode current collector

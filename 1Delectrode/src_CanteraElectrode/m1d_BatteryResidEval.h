@@ -365,7 +365,7 @@ public:
     virtual void
     setStateFromSolution(const bool doTimeDependentResid, const Epetra_Vector_Ghosted * const soln,
                          const Epetra_Vector_Ghosted * const solnDot,
-                         const double t, const double delta_t, const double t_old);
+                         const double t, const double delta_t, const double t_old) override;
 
     //! Calculate the initial conditions
     /*!
@@ -417,7 +417,7 @@ public:
 	      const double t,
 	      const double rdelta_t,
 	      const Zuzax::ResidEval_Type residType = Zuzax::ResidEval_Type::Base_ResidEval,
-	      const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve);
+	      const Zuzax::Solve_Type solveType = Zuzax::Solve_Type::TimeDependentAccurate_Solve) override;
 
     //! Write the solution to either the screen or to a log file
     /*!
@@ -503,10 +503,12 @@ public:
      */
     virtual void
     user_out(const int ievent, const double time_current, const double delta_t_n, const int istep, const Epetra_Vector_Ghosted &y_n,
-             const Epetra_Vector_Ghosted* const ydot_n_ptr);
+             const Epetra_Vector_Ghosted* const ydot_n_ptr) override;
 
     //! Write a tecplot file consisting of the voltage and current as a function of time
     /*!
+     *  (virtual from BatteryResidEval)
+     *
      *  @param[in]           ievent              Event that's causing this routine to be called.
      *                     =  0 Initial conditions for a calculation
      *                     =  1 Completion of a successful intermediate time step.
@@ -529,7 +531,7 @@ public:
 
     //! Write a global tecplot file that includes variables which span all of the bulk domains
     /*!
-     *  (virtual from BatteryResidEval1D) 
+     *  (virtual from BatteryResidEval) 
      *
      *   (Note, this may be replaced with a tecplot substitute that we are working on
      *
@@ -556,10 +558,9 @@ public:
 		       const Epetra_Vector_Ghosted &y_n, const Epetra_Vector_Ghosted * const ydot_n_ptr,
 		       const Zuzax::Solve_Type solveType, const double delta_t_np1);
 
-
     //! Write out the header for Tecplot solution files
     /*!
-     *  (virtual from ProblemResidEval)
+     *  (virtual from BatteryResidEval)
      *
      *  @param[in]           ievent              Type of the event. The following form is used:
      *                                              0  Initial conditions
@@ -632,8 +633,6 @@ public:
 
     //! Do an analysis of the polarization losses at the current global time step
     /*!
-     *  (virtual from BatteryResidEval) 
-     *
      *  Part of the analysis is that we have to find the global extent of reaction of the anode and cathode in order to
      *  find a global open circuit potential.
      *
@@ -644,7 +643,7 @@ public:
      *  @param[in]           soln                Current value of the solution vectors
      *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
      */
-    virtual void 
+    void 
     doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& soln,
                            const Epetra_Vector_Ghosted* const solnDot_ptr);
 
@@ -715,24 +714,25 @@ public:
     void
     changeCathodeVoltageBC(int BC_Type, double value, BoundaryCondition * BC_TimeDep = 0, TimeDepFunctionPtr TimeDep = 0);
 
-    //! Report the cathode voltage
+    //! Report the cathode voltage 
     /*!
-     *  (virtual from BatteryResidEval)
+     *  This is the electric potential at the cathode current collector - wire interface.
      *  Note the anode voltage is set to zero. So this function will return the voltage of the battery.
      *
      *  @return                                  Returns the cathode voltage (volts)
      */
-    virtual double reportCathodeVoltage() const;
+    double reportCathodeVoltage() const;
 
-    //! Report the cathode current assuming an area of the battery.
+    //! Report the cathode current density 
     /*!
-     *  (virtual from BatteryResidEval)
-     *  Note the anode current should be exactly equal to the cathode current
-     *  The current will be positive for the normal operation of the battery.
+     *  Note the anode current density should be exactly equal to the cathode current density.
+     *  The current density will be positive for the normal operation of the battery.
+     *  The current density will be per cross-sectional area. 
+     *  To get the cathode current, multiply by the cross-sectional area of the battery.
      *
-     *  @return                                  Returns the cathode current (amp)
+     *  @return                                  Returns the cathode current density (amp/m2)
      */
-    virtual double reportCathodeCurrent() const;
+    double reportCathodeCurrentDensity() const;
 
     //! Get the max value of the sub grid time step number from the last residual calculation
     /*!

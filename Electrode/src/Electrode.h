@@ -2250,10 +2250,15 @@ public:
 
     //! Returns the capacity type of the electrode
     /*!
+     *  The Electrode_Capacity_type_Enum enum is defined in the file Electrode_defs.h. There are three types:
+     *     CAPACITY_ANODE_ECT
+     *     CAPACITY_CATHODE_ECT
+     *     CAPACITY_OTHER_ECT
+     *
      *  @return                                  Returns whether the electrode capacity calculation is designated an
      *                                           anode or a cathode type
      */
-    Electrode_Capacity_Type_Enum  capacityType() const;
+    Electrode_Capacity_Type_Enum capacityType() const;
 
     //! Sets the capacity type of the electrode
     /*!
