@@ -714,7 +714,7 @@ int  Electrode_Integrator::integrate(double deltaT, double  GlobalRtolSrcTerm,
 
     /*
      *  When we call this routine successfully we have an integration for the current step pending
-     *  Tempory data now exist for t_final_
+     *  Temporary data now exist for t_final_, and there may be one or more local time steps taken.
      */
     pendingIntegratedStep_ = 1;
 
@@ -1726,7 +1726,7 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
      *       An alternative would be to redo the residual calculation. However, here we assume that
      *       the residual calculation has been done and the results are in _final_
      */
-    for (size_t i = 0; i < m_NumTotSpecies; i++) {
+    for (size_t i = 0; i < m_NumTotSpecies; ++i) {
         spMoleIntegratedSourceTermLast_[i] = spMoles_final_[i] - spMoles_init_[i];
     }
     if (doThermalPropertyCalculations_) {
@@ -1738,12 +1738,12 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
     if (doPolarizationAnalysis_) {
-        polarSrc_list_Last_.clear();
+        // Create the polarization records for the current time step
         double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        // Do an additional check to see that the current is fully accounted for
         double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
         if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
-            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()",
-                                  " error in accounting for electrons");
+            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
         }
     }
 }

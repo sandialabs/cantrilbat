@@ -533,6 +533,8 @@ public:
 protected:
     //! Calculate the largest mole fraction in each of the phases
     /*!
+     *  (virtual from Electrode_Integrator)
+     *
      *  We use this to determine the equation system
      */
     virtual void determineBigMoleFractions();

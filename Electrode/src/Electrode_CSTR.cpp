@@ -5,6 +5,14 @@
  *     (see \ref electrode_mgr and class \link Zuzax::Electrode_CSTR Electrode_CSTR\endlink).
  */
 
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
+ */
+
+
 #include "Electrode_CSTR.h"
 
 #include "LE_OneDbl.h"
@@ -2698,6 +2706,15 @@ void Electrode_CSTR::calcSrcTermsOnCompletedStep()
          */
         integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
+    }
+    if (doPolarizationAnalysis_) {
+        // Create the polarization records for the current time step
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        // Do an additional check to see that the current is fully accounted for
+        double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
+        if (fabs(icurrAccount - icurrLast) < 1.0E-10) {
+            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
+        }
     }
 }
 //==================================================================================================================================

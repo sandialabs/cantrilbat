@@ -3073,25 +3073,16 @@ void Electrode_MP_RxnExtent::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
-}
-//==================================================================================================================
-//   Accumulate src terms and other results from the local step into the global holding bins.
-/*
- *  Accumulate source terms on completion of a step. At this point we have solved the nonlinear problem
- *  for the current step and we have satisfied all accuracy requirements.
- *  The step is good. We now accumulate the results before going on to a new local step.
- */
-void Electrode_MP_RxnExtent::accumulateSrcTermsOnCompletedStep(bool remove)
-{
-    if (remove) {
-        for (size_t i = 0; i < m_NumTotSpecies; i++) {
-            spMoleIntegratedSourceTerm_[i] -= spMoleIntegratedSourceTermLast_[i];
-        }
-    } else {
-        for (size_t i = 0; i < m_NumTotSpecies; i++) {
-            spMoleIntegratedSourceTerm_[i] += spMoleIntegratedSourceTermLast_[i];
+    if (doPolarizationAnalysis_) {
+        // Create the polarization records for the current time step
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        // Do an additional check to see that the current is fully accounted for
+        double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
+        if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
+            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
         }
     }
+
 }
 //==================================================================================================================
 //! Check to see that the preceding step is a successful one

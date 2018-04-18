@@ -1708,7 +1708,7 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
         setFinalFinalStateFromFinal();
     }
 }
-//================================================================================================
+//==================================================================================================================================
 // Set the mole numbers in a single phase
 /*
  *  We set the mole numbers of a single phase separately from
@@ -2053,8 +2053,7 @@ double Electrode::updateElectrolytePseudoMoles()
      *   We also save the value of   electrolytePseudoMoles_  here.
      */
     if (pendingIntegratedStep_) {
-        throw Electrode_Error(" Electrode::updateElectrolytePseudoMoles()",
-                              " call is illegal when there is a pending step");
+        throw Electrode_Error(" Electrode::updateElectrolytePseudoMoles()", " call is illegal when there is a pending step");
     }
     int origFEM = followElectrolyteMoles_;
     followElectrolyteMoles_ = 1;
@@ -2674,8 +2673,7 @@ void Electrode::getNetSurfaceProductionRates(const size_t isk, double* const net
 void Electrode::getIntegratedSpeciesProductionRates(double* const net) const
 {
     if (pendingIntegratedStep_ != 1) {
-        throw Electrode_Error("Electrode::integratedSpeciesProductionRates()",
-                              "No integration step has been carried out");
+        throw Electrode_Error("Electrode::integratedSpeciesProductionRates()", "No integration step has been carried out");
     }
     double invDelT = 1.0;
     if (t_final_final_ > t_init_init_) {
@@ -2736,7 +2734,7 @@ double Electrode::integratedCurrent() const
         for (size_t isk = 0; isk < numSurfaces_; isk++) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
-                for (size_t k = 0; k < m_NumTotSpecies; k++) {
+                for (size_t k = 0; k < m_NumTotSpecies; ++k) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }
             }
@@ -2760,10 +2758,10 @@ double Electrode::integratedLocalCurrent() const
     if (pendingIntegratedStep_ != 1) {
         std::vector<double> net(m_NumTotSpecies, 0.0);
         double* netOne = &deltaG_[0];
-        for (size_t isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; ++isk) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
-                for (size_t k = 0; k < m_NumTotSpecies; k++) {
+                for (size_t k = 0; k < m_NumTotSpecies; ++k) {
                     net[k] += netOne[k] * surfaceAreaRS_final_[isk];
                 }
             }
@@ -2835,19 +2833,19 @@ void Electrode::getPhaseMoleFlux(const size_t isk, double* const phaseMoleFlux)
 void Electrode::getPhaseProductionRates(const double* const speciesProductionRates,
                                         double* const phaseProductionRates) const
 {
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; ++iph) {
         phaseProductionRates[iph] = 0.0;
         ThermoPhase& tp = thermo(iph);
         //string pname = tp.id();
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
-        for (size_t ik = 0; ik < nsp; ik++) {
+        for (size_t ik = 0; ik < nsp; ++ik) {
             size_t k = istart + ik;
             phaseProductionRates[iph] += speciesProductionRates[k];
         }
     }
 }
-//================================================================================================
+//==================================================================================================================================
 void Electrode::getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfered)
 {
     if (!pendingIntegratedStep_) {
@@ -3477,7 +3475,8 @@ size_t Electrode::numSolnPhaseSpecies() const
 }
 //==================================================================================================================================
 /*
- *
+ *  This routine is carried out at the end of every local time step, to create records of what electrons went through
+ *  which reactions within the step
  */
 double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list)
 {
@@ -3490,6 +3489,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
     // Don't compare to reference electrode
     const bool comparedToReferenceElectrode = false;
 
+    // Clear the incoming record list. It will be filled up again.
     psr_list.clear();
 
     // Whatever path we take, the volts taken through this electrode must be the same.
@@ -3500,7 +3500,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
      *  We will only look at the exit conditions. Then, we'll normalize by the total current over the interval
      *  The base class doesn't have many polarization modes accessible
      */
-    for (size_t iSurf = 0; iSurf < numSurfaces_; iSurf++) {
+    for (size_t iSurf = 0; iSurf < numSurfaces_; ++iSurf) {
         if (ActiveKineticsSurf_[iSurf]) {
             ReactingSurDomain* rsd = RSD_List_[iSurf];
 
@@ -3591,7 +3591,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
             double icurrSum = 0.0;
             size_t iRecMax = 0;
             double iRmax = 0.0;
-            for (size_t iRec = 0; iRec < psr_list.size(); iRec++) {
+            for (size_t iRec = 0; iRec < psr_list.size(); ++iRec) {
                 PolarizationSurfRxnResults& psr = psr_list[iRec];
                 icurrSum += psr.icurrSurf;
                 if (fabs(psr.icurrSurf) > iRmax) {
@@ -3599,12 +3599,16 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                     iRmax = fabs(psr.icurrSurf);
                 }
             }
+            // These should add up. Let's throw an error to see whenever they don't. Maybe we'll change this later.
+            if (fabs(icurrSum - intCurrentTotal) < 1.0E-10 * (fabs(icurrSum) +  fabs(intCurrentTotal) + 1.0E-50)) {
+               throw Electrode_Error("Electrode::polarizationAnalysSurf()", "Currents don't add up");
+            }
             if (fabs(icurrSum) < 1.0E-100) {
                 PolarizationSurfRxnResults& psr = psr_list[iRecMax];
                 psr.icurrSurf += (intCurrentTotal - icurrSum);
             } else {
                 double factor = intCurrentTotal / icurrSum;
-                for (size_t iRec = 0; iRec < psr_list.size(); iRec++) {
+                for (size_t iRec = 0; iRec < psr_list.size(); ++iRec) {
                     PolarizationSurfRxnResults& psr = psr_list[iRec];
                     psr.icurrSurf *= factor;
                 }
@@ -3635,7 +3639,6 @@ void Electrode::integratedPolarizationCalc()
             polarSrc_list_.push_back(psLast);
         }
     }
-
 }
 //==================================================================================================================================
 // Return the number of extra print tables
@@ -3663,7 +3666,7 @@ void Electrode::setRelativeCapacityDischargedPerMole(double relDischargedPerMole
         throw Electrode_Error(" Electrode::setRelativeCapacityDischargedPerMole()", "platNum not -1");
     }
     if (pendingIntegratedStep_) {
-        throw Electrode_Error(" Electrode::setRelativeCapacityDischargedPerMole()", "pending step");
+        throw Electrode_Error("Electrode::setRelativeCapacityDischargedPerMole()", "pending step");
     }
     throw Electrode_Error(" Electrode::setRelativeCapacityDischargedPerMole()", "not implemented");
 }

@@ -677,44 +677,47 @@ public:
     //! Set the base tolerances for the nonlinear solver within the integrator
     /*!
      *   The tolerances are based on controlling the integrated electron source term
-     *   for the electrode over the integration interval.  The integrated source term
-     *   has units of kmol.
+     *   for the electrode over the integration interval.  The integrated source term has units of kmol.
      *
      *   Because the electron is only one molar quantity within a bunch of molar quantities,
      *   this requirement will entail that we control the source terms of all species within the
      *   electrode to the tolerance requirements of the electron source term.
      *
-     *   @param rtolResid  Relative tolerance allowed for the electron source term over the interval.
-     *                     This is a unitless quantity
+     *  @param[in]           rtolResid           Relative tolerance allowed for the electron source term over the interval.
+     *                                           This is a unitless quantity
      */
     virtual void setNLSGlobalSrcTermTolerances(double rtolResid) override;
 
-    //   Calculate the integrated source terms and do other items now that we have a completed time step
-    /*
+    //! Calculate the integrated source terms and do other items now that we have a completed time step
+    /*!
+     *  (virtual from Electrode_Integrator)
+     *
      *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step, and we are calculating post-processed quantities like source terms.
      */
     virtual void calcSrcTermsOnCompletedStep() override;
 
-
     //! Determine the species with the largest mole fraction
     /*!
-     *    Fill in the array phaseMFBig_[iph] for all phases in the Electrode.
-     *    This is currently called once at the start of the problem, from setResidAtolNLS()
+     *  (virtual from Electrode_Integrator)
+     *
+     *  Fill in the array phaseMFBig_[iph] for all phases in the Electrode.
+     *  This is currently called once at the start of the problem, from setResidAtolNLS()
      */
-    void determineBigMoleFractions();
+    virtual void determineBigMoleFractions() override;
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    //!  Residual calculation for the solution of the Nonlinear time-integration problem
+    //! Residual calculation for the solution of the Nonlinear time-integration problem
     /*!
-     *    (virtual from Electrode)
-     *    Given tfinal and delta_t, and given y and ydot which are estimates of the solution
-     *    and solution derivative at tfinal, this function calculates the residual equations.
-     *    It is the residual function used in the nonlinear solver that relaxes the equations at each time step.
+     *  (virtual from Electrode)
      *
-     *    This is typically called from evalResidNJ(), which is called directly from the
-     *    nonlinear solver. However, we expose this routine so that the residual can be queried given all of the inputs.
+     *  Given tfinal and delta_t, and given y and ydot which are estimates of the solution
+     *  and solution derivative at tfinal, this function calculates the residual equations.
+     *  It is the residual function used in the nonlinear solver that relaxes the equations at each time step.
+     *
+     *  This is typically called from evalResidNJ(), which is called directly from the
+     *  nonlinear solver. However, we expose this routine so that the residual can be queried given all of the inputs.
      *
      *  @param[in]           tfinal              Time                    (input)
      *  @param[in]           delta_t             The current value of the time step (input)
@@ -738,6 +741,7 @@ public:
     //! Calculate the residual
     /*!
      *  (virtual function from Electrode_Integrator)
+     *
      *  This is the main routine for calculating the residual for the time step. All preliminary calculations have been
      *  carried out, and we are ready to assemble the residual vector.
      *
@@ -756,7 +760,6 @@ public:
      *                                           Returns negative numbers to indicate types of failures
      */
     virtual int calcResid(double* const resid, const ResidEval_Type evalType) override;
-
 
     //! Evaluate the residual for the Globally Fully Coupled Electrode Object equation set
     /*!

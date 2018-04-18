@@ -1,5 +1,12 @@
 /**
- * @file Electrode_SimpleDiff.cpp
+ * @file Electrode_SimpleDiff.cpp  Definitions for Electrode object with radial solid diffusion
+ */
+
+/*
+ * Copywrite 2004 Sandia Corporation. Under the terms of Contract
+ * DE-AC04-94AL85000, there is a non-exclusive license for use of this
+ * work by or on behalf of the U.S. Government. Export of this program
+ * may require a license from the United States Government.
  */
 
 #include <stdio.h>
@@ -86,10 +93,6 @@ Electrode_SimpleDiff::Electrode_SimpleDiff() :
 {
 }
 //======================================================================================================================
-// Copy Constructor
-/*
- * @param right Object to be copied
- */
 Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     Electrode_Integrator(),
 
@@ -134,16 +137,9 @@ Electrode_SimpleDiff::Electrode_SimpleDiff(const Electrode_SimpleDiff& right) :
     atolBaseResid_(1.0E-12),
     goNowhere_(0)
 {
-    /*
-     * Call the assignment operator.
-     */
     operator=(right);
 }
-//======================================================================================================================
-// Assignment operator
-/*
- *  @param right object to be copied
- */
+//==================================================================================================================================
 Electrode_SimpleDiff&
 Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
 {
@@ -239,13 +235,9 @@ Electrode_SimpleDiff::operator=(const Electrode_SimpleDiff& right)
     atolBaseResid_                      = right.atolBaseResid_;
     goNowhere_                          = right.goNowhere_;
 
-    /*
-     * Return the reference to the current object
-     */
     return *this;
 }
 //======================================================================================================================
-//   destructor
 Electrode_SimpleDiff::~Electrode_SimpleDiff()
 {
 }
@@ -256,13 +248,6 @@ Electrode* Electrode_SimpleDiff::duplMyselfAsElectrode() const
     return dd;
 }
 //======================================================================================================================
-
-//    Return the type of electrode
-/*
- *  Returns the enum type of the electrode. This is used in the factory routine.
- *
- *  @return Returns an enum type, called   Electrode_Types_Enum
- */
 Electrode_Types_Enum Electrode_SimpleDiff::electrodeType() const
 {
     return SIMPLE_DIFF_ET;
@@ -2455,6 +2440,15 @@ void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTermLast_ = thermalEnergySourceTerm_EnthalpyFormulation_SingleStep();
         integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
+    }
+    if (doPolarizationAnalysis_) {
+        // Create the polarization records for the current time step
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        // Do an additional check to see that the current is fully accounted for
+        double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
+        if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
+            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
+        }
     }
 }
 //==================================================================================================================================

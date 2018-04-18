@@ -1169,17 +1169,6 @@ public:
      */
     double getIntegratedProductionRatesCurrent(double* const net) const;
 
-    //! Returns the net current in the electrode object at the current conditions over the current last local time step
-    /*!
-     *  (virtual from Electrode)
-     *
-     *  Note we must have integrated a local time step previously.
-     *       (can protect)
-     *
-     *  @return                                 Returns the current columb sec-1 = amps
-     */
-    virtual double integratedLocalCurrent() const;
-
     //! Returns the net production rates of all species in the electrode object over the last global time step
     /*!
      *  We calculate a rate here by taking the total production amounts added up over intermediate integration steps 
@@ -1189,14 +1178,34 @@ public:
      */
     void getIntegratedSpeciesProductionRates(double* const net) const;
 
+protected:
     //! Returns the net current in the electrode object at the current conditions over the current global time step
     /*!
-     *  Note we must have integrated a global time step previously.
-     *       (can protect)
+     *  If there is a pending global time step taken, Then the net electron production is divided by the combined time
+     *  interval to produce the net current.
+     *
+     *  If there is no pending global time interval, then the instaneous electron production rate is calculated and
+     *  returned as the net current.
+     *
+     *  @return                                 Returns the current in coloumbs sec-1 = amps
+     */
+    double integratedCurrent() const;
+
+    //! Returns the net current in the electrode object at the current conditions over the current last local time step
+    /*!
+     *  (virtual from Electrode)
+     *
+     *  If there is a pending global time step taken, Then the electron production in the last local time step is
+     *  divided by the last time interval to produce the local current.
+     *
+     *  If there is no pending global time interval, then the instaneous electron production rate is calculated and
+     *  returned as the local current.
      *
      *  @return                                 Returns the current columb sec-1 = amps
      */
-    double integratedCurrent() const;
+    virtual double integratedLocalCurrent() const;
+
+public:
 
     //! Returns the integrated moles transfered for each phase in the Electrode object over the current global time step
     /*!
@@ -2049,7 +2058,7 @@ public:
 
     //! Sum up the polarization analysis calcs into a global time step result
     /*
-     *  (virtual from Electrode.h)
+     *  (virtual from Electrode)
      */
     virtual void integratedPolarizationCalc();
 
@@ -2703,9 +2712,13 @@ protected:
      */
     Electrode_Capacity_Type_Enum electrodeCapacityType_;
 
-    //! Boolean, true if there is a pending integration step
+    //! Boolean, true if there is a pending series of one or more local integration steps 
     /*!
      *  We keep track of whether there is a pending integration step with this variable
+     *  When this is true, we have an integration for the current globaltime step pending.
+     *  Temporary data now exist for t_final_, and there may be one or more local time steps taken.
+     *   This is turned on at the start of Electrode_Integrator::integrate()
+     *   This is turned off when Electrode::resetStartingCondition() is called to accept the current time step.
      */
     int pendingIntegratedStep_;
 
@@ -2843,7 +2856,7 @@ public:
 public:
     //! Boolean indicating whether we should be doing polarization analysis
     /*!
-     *   This is public and can be changed externally
+     *   This is public and can be changed externally. We can turn this on in test problems.
      */
     bool doPolarizationAnalysis_;
 
@@ -3386,6 +3399,10 @@ public:
     std::vector<struct PolarizationSurfRxnResults> polarSrc_list_Last_;
 
     //! Global list of polarization losses.
+    /*!
+     *  This list will contain all nonzero contributions over the current global step. 
+     *  It will be zeroed before the start of the next global step, or a redo of the current step
+     */
     std::vector<struct PolarizationSurfRxnResults> polarSrc_list_;
 
     //! Pointer vector of ExtraGlobalRxn objects

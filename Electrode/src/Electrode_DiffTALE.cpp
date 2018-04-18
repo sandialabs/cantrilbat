@@ -2346,11 +2346,6 @@ void Electrode_DiffTALE::packNonlinSolnVector(double* const y) const
     }
 }
 //==================================================================================================================================
-//   Calculate the integrated source terms and do other items now that we have a completed time step
-/*
- *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
- *  for the current step, and we are calculating post-processed quantities like source terms.
- */
 void Electrode_DiffTALE::calcSrcTermsOnCompletedStep()
 {
     bool doOneWay = false;
@@ -2375,6 +2370,16 @@ void Electrode_DiffTALE::calcSrcTermsOnCompletedStep()
         integratedThermalEnergySourceTerm_overpotential_Last_ = thermalEnergySourceTerm_Overpotential_SingleStep();
         integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = thermalEnergySourceTerm_ReversibleEntropy_SingleStep();
     }
+    if (doPolarizationAnalysis_) {
+        // Create the polarization records for the current time step
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        // Do an additional check to see that the current is fully accounted for
+        double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
+        if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
+            throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
+        }
+    }
+
 }
 //==================================================================================================================================
 //  Gather the predicted solution values and the predicted integrated source terms

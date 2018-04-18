@@ -345,7 +345,7 @@ public:
      *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step, and we are calculating post-processed quantities like source terms.
      */
-    virtual void calcSrcTermsOnCompletedStep();
+    virtual void calcSrcTermsOnCompletedStep() override;
 
     //!  Gather the predicted solution values and the predicted integrated source terms
     /*!
@@ -354,7 +354,7 @@ public:
      *  Both the predicted solution values and the predicted integrated source terms are used
      *  in the time step control
      */
-    virtual void gatherIntegratedSrcPrediction();
+    virtual void gatherIntegratedSrcPrediction() override;
 
     //!  Calculate the norm of the difference between the predicted answer and the final converged answer for the current time step
     /*!
@@ -384,7 +384,7 @@ public:
      *    Source terms will have units associated with them.
      *    For example the integrated source term for electrons will have units of kmol
      */
-    virtual void predictorCorrectorGlobalSrcTermErrorVector();
+    virtual void predictorCorrectorGlobalSrcTermErrorVector() override;
 
 
     //! Print table representing prediction vs. corrector information
@@ -393,7 +393,7 @@ public:
      *  @param[in]           pnormSrc            Norm of the predictor-corrector comparison for the source vector.
      *  @param[in]           pnormSoln           Norm of the predictor-corrector comparison for the solution vector.
      */
-    virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const;
+    virtual void predictorCorrectorPrint(const std::vector<double>& yval, double pnormSrc, double pnormSoln) const override;
 
     //------------------------------------------------------------------------------------------------------------------
     // -------------------------------  SetState Functions -------------------------------------------------------
@@ -420,21 +420,21 @@ public:
      *
      *  @param[in]           setInitInit         Boolean indicating whether you should set the init_init state as well
      */
-    virtual void setInitStateFromFinal(bool setInitInit = false);
+    virtual void setInitStateFromFinal(bool setInitInit = false) override;
 
     //! Set the internal initial intermediate and initial global state from the internal final_final state
     /*!
      *  (virtual function from Electrude.h)
      *  Set the init and init_init state from the final_final state.
      */
-    virtual void setInitInitStateFromFinalFinal();
+    virtual void setInitInitStateFromFinalFinal() override;
 
     //! Set the internal final intermediate state from the internal init state
     /*!
      *  (virtual function from Electrode)
      *  Set the final state from the init state. This is commonly called during a failed time step
      */
-    virtual void setFinalStateFromInit();
+    virtual void setFinalStateFromInit() override;
 
     //! Set the internal initial intermediate from the internal initial global state
     /*!
@@ -446,7 +446,7 @@ public:
      *
      * @param setFinal   Boolean indicating whether you should set the final as well
      */
-    virtual void setInitStateFromInitInit(bool setFinal = false);
+    virtual void setInitStateFromInitInit(bool setFinal = false) override;
 
     //! Set the internal final global state from the internal final intermediate state
     /*!
@@ -454,7 +454,7 @@ public:
      *
      *  Set the final_final state from the final state. This is commonly called at the end of successful base integration
      */
-    virtual void setFinalFinalStateFromFinal();
+    virtual void setFinalFinalStateFromFinal() override;
 
     //--------------------------------------------------------------------------------------------------
     // -----------------------  STATE and PRINTING FUNCTIONS ----------------------------------------
@@ -500,6 +500,8 @@ public:
 
     //! Update the state of a single phase
     /*!
+     *  (virtual from Electrode_DiffTALE)
+     *
      *  @param[in]           iph                 Index of the phase within the %PhaseList object
      */
     virtual void updateState_Phase(size_t iph);
@@ -536,7 +538,7 @@ public:
      *  prerequisites: The object must have been already created.
      *
      */
-    virtual void updateState();
+    virtual void updateState() override;
 
     //! check total moles of stuff against geometry of particle
     /*!
@@ -554,7 +556,7 @@ public:
     void checkMoles_final_init() const;
 
     //! do another check
-    virtual void check_final_state();
+    virtual void check_final_state() override;
 
     //!  Calculate the diffusive flux of all distributed species at the right cell boundary of cell iCell.
     /*!

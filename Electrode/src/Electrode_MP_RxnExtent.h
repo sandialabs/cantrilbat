@@ -634,24 +634,14 @@ public:
 
     //!  Calculate the integrated source terms and do other items now that we have a completed time step
     /*!
+     *  (virtual from Electrode_Integrator)
+     *
      *  Calculate source terms on completion of a step. At this point we have solved the nonlinear problem
      *  for the current step, and we are calculating post-processed quantities like source terms.
      */
     virtual void calcSrcTermsOnCompletedStep() override;
 
-
-    //! Accumulate src terms and other results from the local step into the global holding bins.
-    /*!
-     *  Accumulate source terms on completion of a step. At this point we have solved the nonlinear problem
-     *  for the current step and we have satisfied all accuracy requirements.
-     *  The step is good. We now accumulate the results before going on to a new local step.
-     *
-     *  @param[in]           remove              If true we remove the current increment to the source term
-     *                                           Defaults to false;
-     */
-    virtual void accumulateSrcTermsOnCompletedStep(bool remove = false) override;
-
-    //!  Check the region
+    //! Check the region
     /*!
      *  @param[in]           regionID            ID of the region
      */

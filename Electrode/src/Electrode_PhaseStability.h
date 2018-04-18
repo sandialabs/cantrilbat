@@ -106,7 +106,8 @@ public:
                  const int id_x,
                  const double delta_x);
 
-    void determineBigMoleFractions();
+    //!  determine the biggest mole fractions in each phase
+    void determineBigMoleFractions(); 
 
     //! Nonlinear solver functional
     /*!

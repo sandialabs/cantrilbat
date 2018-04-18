@@ -398,7 +398,7 @@ public:
      */
     virtual void check_yvalNLS_init(bool doOthers) override;
 
-    //!   Calculate the integrated source terms and do other items now that we have a completed time step
+    //! Calculate the integrated source terms and do other items now that we have a completed time step
     /*!
      *  (virtual from Electrode_Integrator)
      *
