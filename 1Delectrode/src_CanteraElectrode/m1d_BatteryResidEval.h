@@ -385,6 +385,12 @@ public:
     initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted * const soln, Epetra_Vector_Ghosted * const solnDot,
                       double &t, double &delta_t, double& delta_t_np1) override;
 
+    //! Initialize post processors
+    /*!
+     *  
+     */
+    void initPostProcessors();
+
     //! Make an attempt to improve the initial guess for the electrolyte voltage  based on the boundary conditions
     /*!
      *  @param[in, out]      soln                Pointer to the solution vector. This is the input to the residual calculation.
@@ -633,6 +639,8 @@ public:
 
     //! Do an analysis of the polarization losses at the current global time step
     /*!
+     *  (virtual from BatteryResidEval)
+     *
      *  Part of the analysis is that we have to find the global extent of reaction of the anode and cathode in order to
      *  find a global open circuit potential.
      *
@@ -643,7 +651,7 @@ public:
      *  @param[in]           soln                Current value of the solution vectors
      *  @param[in]           solnDot_ptr         Current value of time derivative of the solution vectors.
      */
-    void 
+    virtual void 
     doPolarizationAnalysis(const int ifunc, const double t, const double deltaT, const Epetra_Vector_Ghosted& soln,
                            const Epetra_Vector_Ghosted* const solnDot_ptr);
 

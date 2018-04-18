@@ -229,6 +229,7 @@ void
 BatteryResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vector_Ghosted *soln,
 				    Epetra_Vector_Ghosted *solnDot, double &t, double &delta_t, double &delta_t_np1)
 {
+    initPostProcessors();
     //
     //   We obtain the cross-sectional area from the cathode. 
     //   However, we require the cross-sectional area to be consistent across inputs
@@ -241,6 +242,21 @@ BatteryResidEval::initialConditions(const bool doTimeDependentResid, Epetra_Vect
     //
     //  improveInitialConditions(soln);
     //
+}
+//==================================================================================================================================
+void
+BatteryResidEval::initPostProcessors()
+{
+    DomainLayout &DL = *DL_ptr_;
+    if (doPolarizationAnalysis_) {
+      for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
+        BulkDomain1D *d_ptr = DL.BulkDomain1D_List[iDom];
+        porousElectrode_dom1D* p_ptr = dynamic_cast<porousElectrode_dom1D*>(d_ptr);
+        if (p_ptr) {
+            p_ptr->initPolarizationAnalysis();
+        }
+      }
+    }
 }
 //==================================================================================================================================
 // Improve upon initial conditions by computing first order potential losses, equilibrium reaction voltages, etc.
@@ -509,7 +525,6 @@ BatteryResidEval::user_out(const int ievent,
 			   const Epetra_Vector_Ghosted * const ydot_n_ptr)
 {
     ProblemResidEval::user_out(ievent, time_current, delta_t_n, istep, y_n, ydot_n_ptr);
-    doPolarizationAnalysis_ = true; 
     if (doPolarizationAnalysis_) {
 
         doPolarizationAnalysis(ievent, time_current, delta_t_n, y_n, ydot_n_ptr);
