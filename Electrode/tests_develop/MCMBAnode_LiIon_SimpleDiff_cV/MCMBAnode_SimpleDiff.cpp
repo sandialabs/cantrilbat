@@ -175,6 +175,7 @@ int main(int argc, char **argv)
 
     electrodeA->printElectrode();
     electrodeA->setDeltaTSubcycle(0.01);
+    electrodeA->doPolarizationAnalysis_ = true;
 
     remove("soln.xml");
   
