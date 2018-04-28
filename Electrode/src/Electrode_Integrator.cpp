@@ -1739,7 +1739,8 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
     }
     if (doPolarizationAnalysis_) {
         // Create the polarization records for the current time step
-        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        bool dischargeDir = true;  // hard-coded for now
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_, dischargeDir);
         // Do an additional check to see that the current is fully accounted for
         double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
         if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
@@ -1748,17 +1749,17 @@ void Electrode_Integrator::calcSrcTermsOnCompletedStep()
     }
 }
 //==================================================================================================================================
-void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
+void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool removeLastStep)
 {
-    if (remove) {
-        for (size_t i = 0; i < m_NumTotSpecies; i++) {
+    if (removeLastStep) {
+        for (size_t i = 0; i < m_NumTotSpecies; ++i) {
             spMoleIntegratedSourceTerm_[i] -= spMoleIntegratedSourceTermLast_[i];
         }
 	if (doThermalPropertyCalculations_) {
 	    integratedThermalEnergySourceTerm_ -= integratedThermalEnergySourceTermLast_;
 	}
     } else {
-        for (size_t i = 0; i < m_NumTotSpecies; i++) {
+        for (size_t i = 0; i < m_NumTotSpecies; ++i) {
             spMoleIntegratedSourceTerm_[i] += spMoleIntegratedSourceTermLast_[i];
         }
 	if (doThermalPropertyCalculations_) {
@@ -1766,9 +1767,9 @@ void Electrode_Integrator::accumulateSrcTermsOnCompletedStep(bool remove)
             integratedThermalEnergySourceTerm_overpotential_ += integratedThermalEnergySourceTerm_overpotential_Last_;
             integratedThermalEnergySourceTerm_reversibleEntropy_ += integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 	}
-        if (doPolarizationAnalysis_) {
-              integratedPolarizationCalc();
-        }
+    }
+    if (doPolarizationAnalysis_) {
+        integratedPolarizationCalc(removeLastStep);
     }
 }
 //==================================================================================================================================
@@ -2315,6 +2316,9 @@ void Electrode_Integrator::printElectrode(int pSrc, bool subTimeStep)
     }
     for (iph = 0; iph < m; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
+    }
+    if (doPolarizationAnalysis_) {
+        printElectrodePolarization(subTimeStep);
     }
 
 }

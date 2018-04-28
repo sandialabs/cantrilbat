@@ -94,6 +94,8 @@ enum Polarization_Loss_Enum {
  *  cathode, (phi_soln - phi_metal).
  *
  *  Signs will be positive for charging polarization losses . 
+ *
+ *  Uses default copy constructors and assignment operaters
  */
 struct VoltPolPhenom
 {
@@ -124,22 +126,22 @@ struct VoltPolPhenom
      */
     int regionID;
 
-    //! Drop in voltage due to effect.
+    //! Drop in voltage due to the effect given by the ipolType enum value
     /*!
-     *  When indicating an effect, this will be the V_cathodeSide - V_anode_side. 
-     *  Therefore, when you add up all of the effects from Cathode to anode, you will get V_cathode - V_anode.
+     *  When indicating an effect, this will be the Phi_cathodeSide - Phi_anode_side. 
+     *  Therefore, when you add up all of the effects from the cathode to anode, you will get Phi_cathode - Phi_anode.
      *
      *  Thus, all polarization effects will be a negative voltage for polarization losses in normal operation.
  
-     *  When indicating OCV, this will be the voltage of the electrode (phiMetal - phiSoln) for the Cathode.
+     *  When indicating OCV, this will be the voltage of the electrode (phiMetal - phiSoln) for the cathode.
      *  It will be entered as - (phiMetal - phiSoln) for the anode.
-     *  When the two half-cells are added together, OCV = V_Cathode - V_anode = voltageDrop_Cathode + voltageDrop_anode.
+     *  When the two half-cells are added together, OCV = phi_Cathode - phi_anode = voltageDrop_Cathode + voltageDrop_anode.
      *
      *  Therefore the following relation will hold for battery discharge
      *        phi_Cathode - phi_Anode = OCV - sum(polarizationLosses)  = sum (voltageDrop_i)
+     *
      *  The following will hold for battery charging direction
      *        phi_Cathode - phi_Anode = OCV + sum(polarizationLosses)  = sum (voltageDrop_i)
-     * 
      */
     double voltageDrop;
 };
@@ -156,8 +158,19 @@ struct VoltPolPhenom
  *  The net result will be a surface reactions which change speciation in the bulk or adsorbate phases.
  *  Pre-production of these loops to eliminate these net-zero electron production cases should occur. I can delay development
  *  of this code until the situation occurs in practice.
+ *
+ *  Uses default copy constructors and assignment operaters
  */
 struct PolarizationSurfRxnResults {
+
+    // ----------------------------------------------------- Data ------------------------------------------------------------------
+
+    //! discharge direction boolean
+    /*!
+     *  This is true if we are analysing the polarization when the battery is being discharged.
+     *  This will be false when we are analysing the polarization when the battery is being charged.
+     */
+    bool dischargeDir_ = true;
 
     //! Domain number of the electrode object
     /*!
@@ -183,16 +196,38 @@ struct PolarizationSurfRxnResults {
     //! Total current through the surface that is using this particular reaction on this surface
     /*!
      *  Units: amps
+     *  @deprecated because I sould be using the elctronProd term instead
      */
-    double icurrSurf = 0.0;
+    double icurrSurf_ = 0.0;
+
+    //! Electron production rate for the surface and reaction id during the time step
+    /*!
+     *  This is proportional to the current of the electrode, which is defined as the net charge transfer from the the electrode
+     *  into the electrolyte.
+     *
+     *  Units: Coulomps
+     */
+    double electronProd_ = 0.0;
+
+    //! Time perioud that is encompassed by this step
+    /*!
+     *  Units: seconds
+     */
+    double deltaTime_ = 0.0;
 
     //! Vector of physical-based voltage losses
     std::vector<VoltPolPhenom> voltsPol_list;
 
     //! Value of the open circuit voltage for the surface reaction index
+    /*!
+     *  this is equal to the value of ( phi_metal - phi_lyte) which produces a net electron production of zero.
+     */
     double ocvSurfRxn = 0.0;
 
     //! Value of the open circuit voltage for the surface (assuming adsorbate coverage is at pseudo-equilibrium)
+    /*!
+     *   -> not used yet. don't have a working example
+     */
     double ocvSurf = 0.0;
 
     //! Adjustments to the ocvSurfRxn are made when we identify physical phenomena associated with the
@@ -216,22 +251,42 @@ struct PolarizationSurfRxnResults {
      */
     double phiMetal = 0.0;
 
+    //! Electric potential of the electrolyte at the electode
+    double phi_lyteAtElectrode = 0.0;
+
     //! Value of the electric potential that is associated with the middle of the domain.
     /*!
      *  This is one end of the comparison voltage.
      */
     double phi_lyteSpoint = 0.0;
 
+    //! Electric potential of the furthest point towards the anode CC
+    double phi_anode_point_ = 0.0;
+
+    //! Electric potential of the furthest point towards the cathode CC
+    double phi_cathode_point_ = 0.0;
+
     //! Value for the total voltage drops accounted for by the voltsPol_List
     /*!
      *  We'll be post-processing this structure to add in voltage drops
      *  The voltages are processed from cathode to the anode.
      *  When fully formed the following condition holds:
-     *         VoltageTotal = phi_Anode - phi_lyteSpoint
+     *         VoltageTotal = phi_Cathode_Point -  phi_Anode_Point  
+     *
+     *  The VoltageTotal value will agree with the formula for discharge
+     *
+     *          VoltageTotal = OCV_cath + (-OCV_anode) - Sum(PolarizationLosses)
+     *  
+     *  and the formulat for recharge
+     *
+     *          VoltageTotal = OCV_cath + (-OCV_anode) + Sum(PolarizationLosses)
+     *
      */
     double VoltageTotal = 0.0;
 
-    //! Default constructor
+    // -------------------------------------------------- Member Functions ---------------------------------------------------------
+
+    //! Default Constructor
     /*!
      *  @param[in]           electrodeDomainNumber  Domain number
      *  @param[in]           electrodeCellNumber  cell number
@@ -241,6 +296,8 @@ struct PolarizationSurfRxnResults {
      */
     PolarizationSurfRxnResults(int electrodeDomainNumber, int electrodeCellNumber, Electrode* ee, size_t surfIndex = npos, 
                                size_t rxnIndex = npos); 
+
+   void addOverPotentialPol(double overpotential, double nStoichElectrons,  int region, bool dischargeDir);
 
     //! Add the polarization losses due to the electrical conduction through the Electrode's solid portion to the current collector
     /*!
@@ -343,16 +400,12 @@ struct PolarizationSurfRxnResults {
      */
     void addLyteConcPol_Sep(double* mf_Lyte_SeparatorBdry, double* mf_Lyte_SeparatorMid, int region, bool dischargeDir);
 
-    //! Add the concentration polarization losses due to the ionic conduction through the electrolyte from the electrode
-    //! to the edge of the electrode - separator material interface.
+    //! Add the concentration polarization losses due to the ionic and neutral molecule conduction through the electrode to the
+    //! to electrode surface
     /*!
      *  This gets added to the Electrode object's records. This assigns the Polarization loss type,
      *  SOLID_DIFF_CONC_LOSS_PL.
      *
-     *  @param[in]           mf_Lyte_Electrode   pointer to the mole fractions of the electrolyte at the electrode object
-     *  @param[in]           mf_Lyte_Electrode   pointer to the mole fractions of the electrolyte at the electrode object
-     *                                            e electrode material - separator
-     *                                           material boundary.
      *  @param[in]           region              Region of the solid condition. Two possibilities
      *                                               - 0  anode
      *                                               - 2  cathode
@@ -360,17 +413,26 @@ struct PolarizationSurfRxnResults {
      *                                               True if discharging battery
      *                                               False if charging the battery
      */
-    void addSolidElectrodeConcPol(double* mf_OuterSurf_Electrode, double* mf_Average_Electrode, int region, bool dischargeDir);
+    void addSolidElectrodeConcPol(int region, bool dischargeDir);
 
     //! Add one PolarizationSurfRxnResults struct into another one
     /*!
-     *  Here, I've made the current additive. This has to be checked for compatibility.
+     *  We add the electron Production terms for different local time steps to create an additive result.
+     *  We also add the delta times.
      *
      *  @param[in]           sub                 Struct to be added into the current struct
      */
     void addSubStep(struct PolarizationSurfRxnResults& sub);
-
     
+    //! Subtract one PolarizationSurfRxnResults struct into another one
+    /*!
+     *  We subtract the electron Production terms for different local time steps to eliminate a previously added local step
+     *  We also subtract the delta times.
+     *
+     *  @param[in]           sub                 Struct to be added into the current struct
+     */
+    void subtractSubStep(struct PolarizationSurfRxnResults& sub);
+
     //! Once we have calculated all of the voltage losses, all records should have the same value of VoltageTotal
     /*!
      *  @param[in]            gvoltageTotal      Input voltage that this record will be checked against.
@@ -378,8 +440,29 @@ struct PolarizationSurfRxnResults {
      *  @return                                  true if the record is consistent
      */
     bool checkConsistency(const double gvoltageTotal);
-
 };
+
+//===================================================================================================================================
+//! Returns a string representing the polarization type
+/*!
+ *  @param[in]               plr                 Polarization type
+ *
+ *  @return                                      Returns a short string representing the polarization type
+ */
+std::string polString(enum Polarization_Loss_Enum plr);
+
+//===================================================================================================================================
+//! Report the total electron source in the structure
+/*!
+ *  This utility function adds up the electron sources in a vector of Polarization structures
+ *
+ *  @pararm[in]              polarSrc_list       Vector of Poliarization structures
+ *
+ *  @return                                      Returns a double with the total electron source 
+ *                                                 Units:  coulombs
+ */ 
+double totalElectronSource(const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list);
+
 //===================================================================================================================================
 }
 //----------------------------------------------------------------------------------------------------------------------------------

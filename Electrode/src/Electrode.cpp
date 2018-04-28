@@ -21,6 +21,7 @@
 #include "cantera/numerics/solveProb.h"
 #include "cantera/kinetics/ExtraGlobalRxn.h"
 #include "cantera/base/vec_functions.h"
+#include "cantera/base/zzcompare.h"
 #include "ApplBase_print.h"
 
 
@@ -3471,14 +3472,15 @@ size_t Electrode::solnPhaseIndex() const
 //==================================================================================================================================
 size_t Electrode::numSolnPhaseSpecies() const
 {
+    return NumSpeciesList_[solnPhase_];
     return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
 //==================================================================================================================================
 /*
- *  This routine is carried out at the end of every local time step, to create records of what electrons went through
- *  which reactions within the step
+ *  This routine carries out Polarization analysis at the end of every local time step, 
+ *  to create records of what electrons went through  which reactions within the local step
  */
-double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list)
+double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list, bool dischargeDir)
 {
     // Decide if electrode is in the anode or the cathode by its capacity type
     int region = 0;
@@ -3492,7 +3494,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
     // Clear the incoming record list. It will be filled up again.
     psr_list.clear();
 
-    // Whatever path we take, the volts taken through this electrode must be the same.
+    // Whatever path we take, the volts taken through this electrode must be the same -> phi_Metal - phi_lyteAtElectrode
     double volts = voltage();
 
     // Create a PolarizationSurfResults record for each reaction on each active surface in the problem
@@ -3500,6 +3502,7 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
      *  We will only look at the exit conditions. Then, we'll normalize by the total current over the interval
      *  The base class doesn't have many polarization modes accessible
      */
+    double totalEprod = 0.0;
     for (size_t iSurf = 0; iSurf < numSurfaces_; ++iSurf) {
         if (ActiveKineticsSurf_[iSurf]) {
             ReactingSurDomain* rsd = RSD_List_[iSurf];
@@ -3512,9 +3515,14 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
             size_t nr = rsd->nReactions();
 
             bool eok;
-            doublevalue nStoich, OCV, io, overPotential, beta, resistancePerArea;
+            doublevalue nStoich, OCV, io, overPotential, beta, resistancePerArea, netStoichE;
             size_t numErxn = 0;
-            for (size_t iRxn = 0; iRxn < nr; iRxn++) {
+            size_t kKin_Electron = kKinSpecElectron_sph_[iSurf];
+            // We're doing this calculation several ways at first to gain confidence.
+            const std::vector<doublevalue>& netSurfROP = rsd->calcNetSurfaceROP();
+            for (size_t iRxn = 0; iRxn < nr; ++iRxn) {
+                // Get the net stoichiometric coefficient for the electron
+                netStoichE = rsd->netStoichCoeff(kKin_Electron, iRxn);
                 eok = rsd->getExchangeCurrentDensityFormulation(iRxn, nStoich, OCV, io, overPotential, beta, resistancePerArea);
                 double ocvSurfRxn = OCV;
                 double ocvSurfRxn_local = ocvSurfRxn;
@@ -3527,30 +3535,54 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         //  and negative for cathode under discharge.
                         double icurrPerArea = rsd->calcCurrentDensity(overPotential, nStoich, OCV, beta, temperature_, resistancePerArea);
 
+                        double electronsProducedPerArea =  netStoichE * netSurfROP[iRxn] * deltaTsubcycle_;
+
                         // Create a psr record for the current reaction on the current surface
                         psr_list.emplace_back(electrodeDomainNumber_, electrodeCellNumber_, this, iSurf, iRxn);
                         PolarizationSurfRxnResults& psr = psr_list.back();
                         numErxn++;
+                        /*
+                         *  Add the OCV record onto VoltPolPhenom list first. Reverse the sign of the anode OCV half-cell reaction
+                         *  in order to have the full cell reaction represent the correct reaction and OCV value for the full-cell reaction
+                         */
                         VoltPolPhenom vpp(SURFACE_OCV_PL, region, OCV);
                         if (region == 0) {
                             vpp.voltageDrop = -OCV; 
                         }
                         psr.voltsPol_list.push_back(vpp);
+                        /*
+                         *  Add the overpotential term next. We'll use the same VoltPolPhenom variable, and then push it back to 
+                         *  a new record.
+                         *  The end result for the sign of this term should be positive for all cases (discharge vs charge 
+                         *  and anode vs cathode). This is checked and an error is thrown in these debugging stages.
+                         */
+                        vpp.ipolType = SURFACE_OVERPOTENTIAL_PL;
+                        double dsn = netStoichE / fabs(netStoichE);
+                        vpp.voltageDrop = overPotential * dsn;
+                        if (region == 2) {
+                            vpp.voltageDrop = -overPotential * dsn; 
+                        }
+                        if (vpp.voltageDrop < 0.0) {
+                           throw Electrode_Error("Electrode::polarizationAnalysisSurf()",
+                                                 "overPotential term is negative: %g. Expect it to be positive. Needs analysis.", 
+                                                 vpp.voltageDrop);
+                        }
+                        psr.voltsPol_list.push_back(vpp);
+
+                        /*
+                         *  Add a possible film resistance term next.
+                         *  We'll use the same VoltPolPhenom variable, and then push it back to a new record.
+                         *  The end result for the sign of this term should be positive for all cases (discharge vs charge 
+                         *  and anode vs cathode). This is checked and an error is thrown in these debugging stages.
+                         */
                         if (resistancePerArea != 0.0) {
                             double voltsRes = icurrPerArea * resistancePerArea;
                             vpp.ipolType = RESISTANCE_FILM_PL;
-                            vpp.voltageDrop = voltsRes;
+                            vpp.voltageDrop = fabs(voltsRes);
                             psr.voltsPol_list.push_back(vpp);
                             ocvSurfRxn_local -= voltsRes;
                             overPotential -= voltsRes;
                         }
-
-                        vpp.ipolType = SURFACE_OVERPOTENTIAL_PL;
-                        vpp.voltageDrop = overPotential;
-                        if (region == 0) {
-                            vpp.voltageDrop = -overPotential; 
-                        }
-                        psr.voltsPol_list.push_back(vpp);
 
                         psr.VoltageElectrode = volts;
                         psr.VoltageTotal = volts;
@@ -3559,10 +3591,26 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         }
                         psr.ocvSurf = ocvSurf;
                         psr.ocvSurfRxn = ocvSurfRxn_local;
-                        psr.icurrSurf = 0.5 * (surfaceAreaRS_final_[iSurf] + surfaceAreaRS_init_[iSurf]) * icurrPerArea;
+
+                        double sa = 0.5 * (surfaceAreaRS_final_[iSurf] + surfaceAreaRS_init_[iSurf]);
+                        psr.icurrSurf_ = sa * icurrPerArea;
+                        psr.electronProd_ = sa * electronsProducedPerArea;
+                        totalEprod +=  psr.electronProd_;
+                        psr.deltaTime_  = deltaTsubcycle_;
                         if (region == 2) {
-                            psr.icurrSurf = - psr.icurrSurf;
+                            psr.icurrSurf_ = - psr.icurrSurf_;
                         }
+
+                        psr.phiMetal = phaseVoltages_[metalPhase_];
+                        psr.phi_lyteAtElectrode =  phaseVoltages_[solnPhase_];
+                        if (region == 0) {
+                            psr.phi_anode_point_ = psr.phiMetal;
+                            psr.phi_cathode_point_ = psr.phi_lyteAtElectrode;
+                        } else if (region == 2) {
+                            psr.phi_anode_point_ = psr.phi_lyteAtElectrode;
+                            psr.phi_cathode_point_ = psr.phiMetal;
+                        }
+
                     }
                 }
             }
@@ -3573,70 +3621,40 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
         }
     }
 
-    // Now normalize it by the actual value of the total integrated current.
-    /*
-     *  Below we do a lot of cheating. We want the total integrated current through all channels allowed by the Electrode
-     *  object. Currently, we are not storring this information in all its details. Therefore, we assume that the
-     *  conditions at the end of the global time step can be used throughout the global time step, but using a
-     *  constant factor to get the integrated current correct throughout the time-step.
-     */
-    double intCurrentTotal = integratedCurrent();
-    if (fabs(intCurrentTotal) < 1.0e-200) {
-        for (size_t iRec = 0; iRec < psr_list.size(); iRec++) {
-            PolarizationSurfRxnResults& psr = psr_list[iRec];
-            psr.icurrSurf = 0.0;
-        }
-    } else {
-        if (psr_list.size() > 0) {
-            double icurrSum = 0.0;
-            size_t iRecMax = 0;
-            double iRmax = 0.0;
-            for (size_t iRec = 0; iRec < psr_list.size(); ++iRec) {
-                PolarizationSurfRxnResults& psr = psr_list[iRec];
-                icurrSum += psr.icurrSurf;
-                if (fabs(psr.icurrSurf) > iRmax) {
-                    iRecMax = iRec;
-                    iRmax = fabs(psr.icurrSurf);
-                }
-            }
-            // These should add up. Let's throw an error to see whenever they don't. Maybe we'll change this later.
-            if (fabs(icurrSum - intCurrentTotal) < 1.0E-10 * (fabs(icurrSum) +  fabs(intCurrentTotal) + 1.0E-50)) {
-               throw Electrode_Error("Electrode::polarizationAnalysSurf()", "Currents don't add up");
-            }
-            if (fabs(icurrSum) < 1.0E-100) {
-                PolarizationSurfRxnResults& psr = psr_list[iRecMax];
-                psr.icurrSurf += (intCurrentTotal - icurrSum);
-            } else {
-                double factor = intCurrentTotal / icurrSum;
-                for (size_t iRec = 0; iRec < psr_list.size(); ++iRec) {
-                    PolarizationSurfRxnResults& psr = psr_list[iRec];
-                    psr.icurrSurf *= factor;
-                }
-            }
-        } else {
-            throw Electrode_Error("Electrode::polarizationAnalysSurf()", "Current is zero but we didn't pick up any modes");
-        }
-    }
+    // Check that the total electrons produced found is equal to the Electrode Net result:
 
-    return intCurrentTotal;
+    if (fabs(totalEprod - spMoleIntegratedSourceTermLast_[kElectron_]) > 
+        1.0E-5 * fabs(totalEprod) + fabs(spMoleIntegratedSourceTermLast_[kElectron_]) + 1.0E-10) {
+        throw Electrode_Error("", "Failed to account for electrode production");
+    }
+    return totalEprod;
 }
 //==================================================================================================================================
-void Electrode::integratedPolarizationCalc()
+void Electrode::integratedPolarizationCalc( bool removeLastStep )
 {
     size_t i, j;
     bool found;
     for (i = 0; i <  polarSrc_list_Last_.size(); ++i) {
         struct PolarizationSurfRxnResults& psLast = polarSrc_list_Last_[i];
         found = false;
-        for (j = 0; j <  polarSrc_list_.size(); ++i) {
+        for (j = 0; j <  polarSrc_list_.size(); ++j) {
             struct PolarizationSurfRxnResults& ps = polarSrc_list_[j];
             if ((psLast.isurf_ == ps.isurf_) && (psLast.iRxnIndex_ == ps.iRxnIndex_) ) {
-                ps.addSubStep(psLast);
+                if (removeLastStep) {
+                    ps.subtractSubStep(psLast);
+                } else {
+                    ps.addSubStep(psLast);
+                }
                 found = true;
+                break;
             }
         }
         if (!found) {
-            polarSrc_list_.push_back(psLast);
+            if (removeLastStep) {
+               throw Electrode_Error("Electrode::integratedPolarizationCalc()", "tried to remove a last step but didn't find it");
+            } else {
+               polarSrc_list_.push_back(psLast);
+            }
         }
     }
 }
@@ -4022,7 +4040,7 @@ bool Electrode::compareLocalInterval(const Electrode* const eGuest, int nDigits)
         return false;
     }
 
-    bool goodComp = esmodel::doubleEqual(a1, a2, atol, nDigits);
+    bool goodComp = doubleEqual(a1, a2, atol, nDigits);
 
     printf("Electrode::compareLocalInterval NOT CODED YET\n");
     return goodComp;
@@ -4189,6 +4207,9 @@ bool Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
     integratedThermalEnergySourceTerm_overpotential_Last_ = 0.0;
     integratedThermalEnergySourceTerm_reversibleEntropy_ = 0.0;
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
+    if (doPolarizationAnalysis_) {
+        polarSrc_list_Last_.clear();
+    }
 
     /*
      *  Change the initial subcycle time delta here. Note, we should not change it during the integration steps
@@ -5444,8 +5465,12 @@ void Electrode::printElectrode(int pSrc, bool subTimeStep)
     if (numSurfaces_ > m_NumSurPhases) {
         m = numSurfaces_ + m_NumVolPhases;
     }
-    for (iph = 0; iph < m; iph++) {
+    for (iph = 0; iph < m; ++iph) {
         printElectrodePhase(iph, pSrc, subTimeStep);
+    }
+
+    if (doPolarizationAnalysis_) {
+        printElectrodePolarization(subTimeStep);
     }
     printf("   ==============================================================================================\n");
 }
@@ -5583,7 +5608,7 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
             }
             printf("\n");
             printf("                           spName                  SourceRateLastStep (kmol/m2/s) \n");
-            for (size_t k = 0; k < m_NumTotSpecies; k++) {
+            for (size_t k = 0; k < m_NumTotSpecies; ++k) {
                 std::string ss = speciesName(k);
                 printf("                           %-22s %10.3E\n", ss.c_str(), spNetProdPerArea[k]);
             }
@@ -5592,7 +5617,92 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
     printf("     ============================================================================================\n");
     delete[] netROP;
 }
-//====================================================================================================================
+//==================================================================================================================================
+void Electrode::printElectrodePolarization(bool subTimeStep)
+{
+    double srcTotalElectron, totalPolElectrons, vTotal, vPolPercent, vPolTotal;
+
+    // Do an analysis of the electrons and make sure that everything is account for.
+    const std::vector<struct PolarizationSurfRxnResults>* polarSrc_ptr = &polarSrc_list_;
+    if (subTimeStep == false) {
+        srcTotalElectron = spMoleIntegratedSourceTerm_[kElectron_];
+        totalPolElectrons =  totalElectronSource(polarSrc_list_);
+        if ( ! doubleEqual(srcTotalElectron, totalPolElectrons, 1.0E-30, 6)) {
+            throw Electrode_Error("Electrode::printElectrodePolarization(fullstep)", "We have a leak! %g %g",
+                                  srcTotalElectron , totalPolElectrons );
+        }
+ 
+    } else {
+        polarSrc_ptr = &polarSrc_list_Last_;
+        srcTotalElectron = spMoleIntegratedSourceTermLast_[kElectron_];
+        totalPolElectrons = totalElectronSource(polarSrc_list_Last_);
+        if ( ! doubleEqual(srcTotalElectron, totalPolElectrons, 1.0E-31, 6)) {
+            throw Electrode_Error("Electrode::printElectrodePolarization(substep)", "We have a leak! %g %g",
+                                  srcTotalElectron , totalPolElectrons);
+        }
+    }
+    const std::vector<struct PolarizationSurfRxnResults>& polarSrc_L = *polarSrc_ptr;
+
+    printf("     ============================================================================================\n");
+    printf("     Electrode Polarization Analysis:  Total electrons accounted for: %g \n ",  totalPolElectrons);
+    printf("                                       Number of records = %d\n", (int) polarSrc_L.size());
+    printf("\n"); 
+    printf("   ID     TotalBatVoltage     totalTime      OCV       PolLoss  %%PolLoss  Reason \n");
+    for (size_t i = 0; i <  polarSrc_L.size(); ++i) {
+        const struct PolarizationSurfRxnResults& ipol = polarSrc_L[i];
+        const struct VoltPolPhenom& vp = ipol.voltsPol_list[0];
+        printf("   %2d       % -10.3E         % -10.3E   % -10.3E      ",
+               (int) i, ipol.VoltageTotal , ipol.deltaTime_,   ipol.ocvSurfRxn ); 
+        vTotal = vp.voltageDrop;
+       
+        if (vp.ipolType !=  SURFACE_OCV_PL) {
+            vPolTotal = vp.voltageDrop;
+        } else {
+            vPolTotal = 0.0;
+        }
+        for (size_t j = 1; j < ipol.voltsPol_list.size(); ++j) {
+            const struct VoltPolPhenom& vp = ipol.voltsPol_list[j];
+            vTotal += vp.voltageDrop;
+            if (vp.ipolType !=  SURFACE_OCV_PL) {
+                vPolTotal += vp.voltageDrop;
+            } 
+        }
+        vPolPercent = 100.;
+        if (vPolTotal != 0.0) {
+            vPolPercent = vp.voltageDrop / vPolTotal;
+        }
+        if (vp.ipolType ==  SURFACE_OCV_PL) {
+            vPolPercent = 0.0;
+        }
+        printf("    % 10.3E % 10.2F    %2d  %s\n", vp.voltageDrop , vPolPercent,  vp.regionID, polString(vp.ipolType).c_str());
+        for (size_t j = 1; j < ipol.voltsPol_list.size(); ++j) {
+            const struct VoltPolPhenom& vp = ipol.voltsPol_list[j];
+            vPolPercent = 100.;
+            if (vPolTotal != 0.0) {
+                vPolPercent = vp.voltageDrop / vPolTotal;
+            }
+            if (vp.ipolType ==  SURFACE_OCV_PL) {
+                vPolPercent = 0.0;
+            }
+            printf("                                                                            ");
+            printf("    % 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop , vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
+            vTotal += vp.voltageDrop;
+        }
+        if (ipol.voltsPol_list.size() > 1) {
+            printf("                                                    total = % 10.3E \n", vTotal);
+        }
+    }
+    printf("     ============================================================================================\n");
+    
+ 
+   // Then take the total voltage from the ccurrent collector to the middle of the separator, or whatever this electrode takes
+   // into account.
+   // Then attribute it to a polarization phenomena
+
+    
+
+}
+//==================================================================================================================================
 // Determines the level of printing for each step.
 /*
  *   0 -> absolutely nothing is printed for a single call to integrate.

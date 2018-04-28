@@ -3075,7 +3075,8 @@ void Electrode_MP_RxnExtent::calcSrcTermsOnCompletedStep()
     }
     if (doPolarizationAnalysis_) {
         // Create the polarization records for the current time step
-        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        bool dischargeDir = true;
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_, dischargeDir);
         // Do an additional check to see that the current is fully accounted for
         double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
         if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
@@ -4336,6 +4337,10 @@ void Electrode_MP_RxnExtent::printElectrode(int pSrc, bool subTimeStep)
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
+    if (doPolarizationAnalysis_) {
+        printElectrodePolarization(subTimeStep);
+    }
+
 }
 //==================================================================================================================================
 void Electrode_MP_RxnExtent::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)

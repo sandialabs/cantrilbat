@@ -2372,7 +2372,8 @@ void Electrode_DiffTALE::calcSrcTermsOnCompletedStep()
     }
     if (doPolarizationAnalysis_) {
         // Create the polarization records for the current time step
-        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        bool dischargeDir = true; //hard-coded for now
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_, dischargeDir);
         // Do an additional check to see that the current is fully accounted for
         double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
         if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
@@ -4439,6 +4440,21 @@ double Electrode_DiffTALE::openCircuitVoltage(size_t isk, bool comparedToReferen
     return val;
 }
 //==================================================================================================================================
+double Electrode_DiffTALE::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list, bool dischargeDir)
+{
+    double electronProd = Electrode::polarizationAnalysisSurf(psr_list, dischargeDir);
+    // Decide if electrode is in the anode or the cathode by its capacity type
+    int region = 0;
+    if (capacityType() == CAPACITY_CATHODE_ECT) {
+        region = 2;
+    }
+    for (PolarizationSurfRxnResults& psr : psr_list) {
+        psr.addSolidElectrodeConcPol(region, dischargeDir);
+    }
+
+    return electronProd;
+}
+//==================================================================================================================================
 void Electrode_DiffTALE::printElectrode(int pSrc, bool subTimeStep)
 {
     vector<std::string> colNames;
@@ -4494,6 +4510,10 @@ void Electrode_DiffTALE::printElectrode(int pSrc, bool subTimeStep)
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
+    if (doPolarizationAnalysis_) {
+        printElectrodePolarization(subTimeStep);
+    }
+
     printf("   ==============================================================================================\n");
     delete [] netROP;
 }

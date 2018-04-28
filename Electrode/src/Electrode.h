@@ -1826,6 +1826,16 @@ public:
      */
     virtual void printElectrodePhase(size_t iph, int pSrc = 1,  bool subTimeStep = false);
 
+
+    //! print the Electrode polarization analysis
+    /*!
+     *  (virtual from Electrode class)
+     *
+     *  @param[in]  subTimeStep    Print out conditions from the most recent subTimeStep and not the global
+     *                             time step. The default is to print out the global values
+     */
+    virtual void printElectrodePolarization(bool subTimeStep = false);
+
     //! Return the number of extra print tables
     /*!
      *   @return                                 Returns the number of print tables
@@ -2025,7 +2035,7 @@ public:
 
     //! Return the global index of the phase corresponding to the currently active metal
     /*!
-     *   The phase may then be retrieved by a thermo(index) call.
+     *  The phase may then be retrieved by a thermo(index) call.
      *
      *  @return                              Returns the index of the metal phase in the PhaseList
      */
@@ -2042,25 +2052,29 @@ public:
     /*!
      *  @return                              Returns the number os species in the electrolyte phase
      */ 
-    virtual size_t numSolnPhaseSpecies() const;
+    size_t numSolnPhaseSpecies() const;
 
     //! Calculate the polarization analysis
     /*!
      *  (virtual from Electrode.h)
+     *
      *  Returns a vector of structures containing the polarization analysis for this electrode
      * 
-     *  @param[out]          psrr                Results of the analysis for the electrode object during the current
-     *                                           global time step.
+     *  @param[out]          psr_list            Reference to a vector containing the results of the analysis 
+     *                                           for the electrode object during the current global time step.
      *
-     *  @return                                  Returns the total current 
+     *  @param[in]           dischargeDir        True if we are discharging the battery. False otherwise.
+     *
+     *  @return                                  Returns the total electrons produced during the last local time step
+     *                                             (kmol)
      */
-    virtual double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psrr);
+    virtual double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list, bool dischargeDir);
 
     //! Sum up the polarization analysis calcs into a global time step result
     /*
      *  (virtual from Electrode)
      */
-    virtual void integratedPolarizationCalc();
+    virtual void integratedPolarizationCalc( bool removeLastStep = false );
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  --------------------------------------------------------
@@ -3388,6 +3402,7 @@ protected:
      */
     double integratedThermalEnergySourceTerm_reversibleEntropy_Last_;
 
+
     //! Name of the electrode to be used in printouts
     std::string electrodeName_;
 
@@ -3441,6 +3456,7 @@ protected:
     //! Global index within this object of the electron species
     /*!
      *  Indexing:  kGlob = global species index within the PhaseList
+     *  @todo change this to kGlob_Electron_
      */
     size_t kElectron_;
 
@@ -3449,7 +3465,7 @@ protected:
      *  Length is equal to the number of surfaces
      *
      *  A value of npos indicates that either there is no surface kinetics object or there
-     *  is no electron that participates in the surface reactions
+     *  is no electron that participates in the surface reactions within the surface kinetics object
      */
     std::vector<size_t> kKinSpecElectron_sph_;
 

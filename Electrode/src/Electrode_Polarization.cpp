@@ -30,7 +30,9 @@ PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber
     electrodeCellNumber_(electrodeCellNumber),
     ee_(ee),
     isurf_(surfIndex),
-    iRxnIndex_(rxnIndex)
+    iRxnIndex_(rxnIndex),
+    electronProd_(0.0),
+    deltaTime_ (0.0)
 {
     ocvSurfRxn = ee_->openCircuitVoltageRxn(isurf_, iRxnIndex_);
     ocvSurf = ocvSurfRxn;
@@ -43,11 +45,13 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
     // We assume that the reaction #, the surface id, the cell # and the domain # are all the same
    
     // Develop a weighting of currents.
-    double bef = fabs(icurrSurf) / (fabs(icurrSurf) + fabs(sub.icurrSurf) + 1.0E-100);
+    double bef = fabs(electronProd_) / (fabs(electronProd_) + fabs(sub.electronProd_) + 1.0E-100);
     double aft = 1.0 - bef;
 
-    // Add the currents.
-    icurrSurf += sub.icurrSurf;
+    // Add the currents. -> currents are deprecated
+    icurrSurf_ += sub.icurrSurf_;
+    electronProd_ += sub.electronProd_;
+    deltaTime_ += sub.deltaTime_;
 
     if (ocvSurfRxn != sub.ocvSurfRxn) {
         ocvSurfRxn = sub.ocvSurfRxn;
@@ -78,6 +82,45 @@ void PolarizationSurfRxnResults::addSubStep(struct PolarizationSurfRxnResults& s
 
 }
 //==================================================================================================================================
+void PolarizationSurfRxnResults::subtractSubStep(struct PolarizationSurfRxnResults& sub)
+{
+    // We assume that the reaction #, the surface id, the cell # and the domain # are all the same
+   
+
+    // subtract the charges 
+    icurrSurf_ -= sub.icurrSurf_;
+    electronProd_ -= sub.electronProd_;
+    deltaTime_ -= sub.deltaTime_;
+
+    if (fabs(VoltageElectrode  - sub.VoltageElectrode) > 0.00001) {
+        throw Electrode_Error("PolarizationSurfRxnResults::subtractSubStep()", "inconsistent voltages: %g %g\n",
+                             VoltageElectrode, sub.VoltageElectrode);
+    }
+}
+//==================================================================================================================================
+void PolarizationSurfRxnResults::addOverPotentialPol(double overpotential, double nStoichElectrons,  int region, bool dischargeDir)
+{
+    // this has to be first
+    double voltsS;
+    bool anodeDischargeDir = true;
+    if (region == 0) {
+       if (!dischargeDir) anodeDischargeDir = false;
+    } else if (region == 2) {
+       if (dischargeDir) anodeDischargeDir = false;
+    }
+    if (anodeDischargeDir) {
+        voltsS  = nStoichElectrons * overpotential;
+    } else {
+        voltsS  = - nStoichElectrons * overpotential;
+    }
+
+
+
+
+
+
+}
+//==================================================================================================================================
 // Add contribution for solid electronic conduction through the electrode's solid
 void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int region, bool dischargeDir)
 {
@@ -92,6 +135,11 @@ void PolarizationSurfRxnResults::addSolidPol(double phiCurrentCollector, int reg
         voltsS  = phiCurrentCollector - phiMetal;
     } else {
         voltsS  = phiMetal - phiCurrentCollector;
+    }
+    if (region == 0) {
+        phi_anode_point_ = phiCurrentCollector;
+    } else  if (region == 2) {
+        phi_cathode_point_ =  phiCurrentCollector;
     }
     VoltPolPhenom ess(ELECTRICAL_CONDUCTION_LOSS_PL, region, voltsS);
     bool found = false;
@@ -394,8 +442,10 @@ void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, 
 
 }
 //==================================================================================================================================
-void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_Electrode, double* mf_Average_Electrode,
-                                                          int region, bool dischargeDir)
+/*
+ *  Add polarization due to the solid phase conduction
+ */
+void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool dischargeDir)
 {
 
     Electrode_Types_Enum eT = ee_->electrodeType();
@@ -406,6 +456,10 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_E
     double signADD = 1.0;
     if (!dischargeDir) {
         signADD = -1.0;
+    }
+    double signAC = 1.0;
+    if (region == 0) {
+        signAC = -1.0;
     }
 
     // Fetch the ReactingSurDomain object for the current
@@ -425,10 +479,13 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_E
 
     double ocv_diff = ee_->openCircuitVoltage(isurf_);
 
-    double pLoss = 0.0;
-    double deltaV = ocv_diff - ocv_mixAvg;
-    deltaV *= signADD;
-    pLoss += deltaV;
+    double deltaV = ocv_mixAvg - ocv_diff;
+    double pLoss = deltaV * signAC * signADD;
+    if (pLoss < 0.0) {
+        throw Electrode_Error("PolarizationSurfRxnResults::addSolidElectrodeConcPol()",
+                              "Negative polarization contribution, investigate %g %g %g", 
+                              pLoss, ocv_diff, ocv_mixAvg);
+    }
 
     // Keep track of the adjustments in the effective OCV.
     ocvSurfRxnAdj += deltaV;
@@ -439,10 +496,28 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(double* mf_OuterSurf_E
         if (vp.ipolType == SOLID_DIFF_CONC_LOSS_PL) {
             found = true;
             vp = ess;
+            break;
         }
     }
     if (! found) {
         voltsPol_list.push_back(ess);
+    }
+    
+    // adjust the storred OCV -> we have to adjust the storred OCV because it was previously
+    // attributed to the OCV, but in fact it was diffusion resistance.
+    found = false;
+    for (VoltPolPhenom& vp : voltsPol_list) {
+        if (vp.ipolType == SURFACE_OCV_PL) {
+            found = true;
+            if (region == 0) {
+               deltaV = -deltaV;
+            }
+            vp.voltageDrop += deltaV;
+            break;
+        }
+    }
+    if (!found) {
+        throw Electrode_Error("PolarizationSurfRxnResults::addSolidElectrodeConcPol()", "logic error");
     }
 
     // Adjust the total voltage from cathode to anode    
@@ -476,11 +551,89 @@ bool PolarizationSurfRxnResults::checkConsistency(const double gvoltageTotal)
         res = false;
     }
 
-
-
     return res; 
 }
+//==================================================================================================================================
+std::string polString(enum Polarization_Loss_Enum plr)
+{
+   std::string s = "";
+   switch (plr) {
+   case UNKNOWN_PL:
+       s = "unknown";
+       break;
+   case SURFACE_OCV_PL:
+      s = "Surf_OCV"; 
+      break;
+    case SURFACE_OVERPOTENTIAL_PL:
+      s = "surf_overpotential";
+      break;
+    case CONC_LOSS_LYTE_PL:
+      s = "ConcLoss_Lyte";
+      break;
+    case VOLT_LOSS_LYTE_SEP_PL:
+      s = "VoltLoss_Lyte_Sep";
+      break;
+   case  CONC_LOSS_LYTE_SEP_PL:
+      s = "ConcLoss_Lyte_Sep";
+      break;
+    case VOLT_LOSS_LYTE_PL:
+      s = "VoltLoss_Lyte";
+      break;
+    case CONC_LOSS_BL_LYTE_PL:
+      s = "ConcLoss_LyteBL"; 
+      break;
+    case RESISTANCE_FILM_PL:
+      s = "Resistance_Film";
+      break;
+   case  ELECTRICAL_CONDUCTION_LOSS_PL:
+      s = "ElectCond_Electrode";
+      break;
+   case  ELECT_COND_COLLECTORS_LOSS_PL:
+      s = "ElectCond_Collectors";
+      break;
+   case  SOLID_DIFF_CONC_LOSS_PL:
+      s = "ConcLoss SolidDiff";
+      break;
+   case  CONC_LOSS_SOLID_FILM_PL:
+      s = "ConcLoss SEI";
+      break;
+   case  VOLT_LOSS_SOLID_FILM_PL:
+      s = "VoltLoss SEI";
+      break;
+    //! Other loss mechanisms not yet identified
+   case   OTHER_PL:
+      s = "other";
+      break;
+   default:
+      throw ZuzaxError("Electrode::pString()", "Unknown poltype %d", plr);
+      break;
+   }
 
+   return s;
+}
+//==================================================================================================================================
+double totalElectronSource(const std::vector<struct PolarizationSurfRxnResults>& polarSrc_list)
+{
+#ifdef DEBUG_MODE
+    double dt = 0.0;
+#endif
+    
+    double totalSrc = 0.0;
+    for (size_t i = 0; i < polarSrc_list.size(); ++i) {
+        const struct PolarizationSurfRxnResults& ipol = polarSrc_list[i];
+        totalSrc += ipol.electronProd_;
+#ifdef DEBUG_MODE
+        if (i == 0) {
+            dt = ipol.deltaTime_;
+        }  else {
+           if (fabs( dt - ipol.deltaTime_) > std::max(0.001 * dt , 1.0E-12)) {
+               printf("Caution delta times aren't the same: %g %g\n", dt, ipol.deltaTime_);
+           }
+        }
+#endif
+    }
+    return totalSrc;
+}
 //==================================================================================================================================
 } 
 //----------------------------------------------------------------------------------------------------------------------------------

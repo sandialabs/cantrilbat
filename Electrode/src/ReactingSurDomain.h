@@ -186,7 +186,6 @@ protected:
 
 public:
 
-
     //@}
 
     //! Returns a reference to the calculated limited production rates of species from this interfacial Kinetics class

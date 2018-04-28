@@ -471,6 +471,10 @@ void Electrode_RadialDiffRegions::printElectrode(int pSrc, bool subTimeStep)
         printElectrodePhase(iph, pSrc);
         printf("     ===============================================================\n");
     }
+    if (doPolarizationAnalysis_) {
+        printElectrodePolarization(subTimeStep);
+    }
+
     delete [] netROP;
 }
 //===================================================================================================================

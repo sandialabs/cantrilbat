@@ -2443,10 +2443,11 @@ void Electrode_SimpleDiff::calcSrcTermsOnCompletedStep()
     }
     if (doPolarizationAnalysis_) {
         // Create the polarization records for the current time step
-        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        bool dischargeDir = true; // hardcoded for now
+        double electProdAccounted = polarizationAnalysisSurf(polarSrc_list_Last_, dischargeDir);
         // Do an additional check to see that the current is fully accounted for
-        double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
-        if (fabs (icurrAccount - icurrLast) < 1.0E-10) {
+        double electProdTotal =  spMoleIntegratedSourceTermLast_[kElectron_];
+        if (fabs (electProdAccounted - electProdTotal) > 1.0E-15) {
             throw Electrode_Error("Electrode_Integrator::calcSrcTermsOnCompletedStep()", "Error in accounting for electrons");
         }
     }
@@ -4275,6 +4276,21 @@ double Electrode_SimpleDiff::openCircuitVoltage_MixtureAveraged(size_t isk, bool
     return val;
 }
 //===================================================================================================================================
+double Electrode_SimpleDiff::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list, bool dischargeDir)
+{
+     double electronProd = Electrode::polarizationAnalysisSurf(psr_list, dischargeDir);
+  // Decide if electrode is in the anode or the cathode by its capacity type
+    int region = 0;
+    if (capacityType() == CAPACITY_CATHODE_ECT) {
+        region = 2;
+    }
+    for (PolarizationSurfRxnResults& psr : psr_list) {
+        psr.addSolidElectrodeConcPol(region, dischargeDir);
+    }
+
+    return electronProd;
+}
+//===================================================================================================================================
 void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
 {
     std::vector<std::string> colNames;
@@ -4330,6 +4346,10 @@ void Electrode_SimpleDiff::printElectrode(int pSrc, bool subTimeStep)
     for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
         printElectrodePhase(iph, pSrc, subTimeStep);
     }
+    if (doPolarizationAnalysis_) {
+        printElectrodePolarization(subTimeStep);
+    }
+
     printf("   ==============================================================================================\n");
     delete [] netROP;
 }

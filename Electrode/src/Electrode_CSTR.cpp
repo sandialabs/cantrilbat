@@ -2709,7 +2709,8 @@ void Electrode_CSTR::calcSrcTermsOnCompletedStep()
     }
     if (doPolarizationAnalysis_) {
         // Create the polarization records for the current time step
-        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_);
+        bool dischargeDir = true;  // hardcoded for now
+        double icurrAccount = polarizationAnalysisSurf(polarSrc_list_Last_, dischargeDir);
         // Do an additional check to see that the current is fully accounted for
         double icurrLast = - spMoleIntegratedSourceTermLast_[kElectron_];
         if (fabs(icurrAccount - icurrLast) < 1.0E-10) {

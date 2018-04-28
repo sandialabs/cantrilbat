@@ -952,6 +952,24 @@ public:
      */
     virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false) override;
 
+    //! Calculate the polarization analysis
+    /*!
+     *  (virtual from Electrode.h)
+     *
+     *  Returns a vector of structures containing the polarization analysis for this electrode.
+     *  This child object adds the solid diffusion polarization term.
+     * 
+     *  @param[out]          psr_list            Results of the analysis for the electrode object during the current
+     *                                           global time step.
+     *
+     *  @param[in]           dischargeDir        True if we are discharging the battery. False otherwise.
+     *
+     *
+     *  @return                                  Returns the total electrons produced during the last local time step
+     *                                             (kmol)
+     */
+    virtual double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list, bool dischargeDir) override;
+
 #ifdef DEBUG_THERMAL
  
     double netElectrons();
