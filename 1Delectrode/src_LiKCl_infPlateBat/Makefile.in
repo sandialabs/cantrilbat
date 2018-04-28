@@ -162,7 +162,7 @@ install:
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	$(MAKE) .depends
 
 .depends: $(DEPENDS)
 	cat *.d > .depends

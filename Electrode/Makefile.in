@@ -1,18 +1,18 @@
 #/bin/sh
 
 all:
-	cd src;                                       $(MAKE) -j 8
+	cd src;                                       $(MAKE) 
 	cd src_tests;		                      $(MAKE)
 	cd tests;                                     $(MAKE) 
 	cd tests_develop;                             $(MAKE) 
 	cd examples;                                  $(MAKE) 
 
 allsrc:
-	cd src;	                                      $(MAKE) -j 8
+	cd src;	                                      $(MAKE)
 
 
 test:
-	cd src;			                      $(MAKE) -j 8
+	cd src;			                      $(MAKE) 
 	cd src_tests;	 	                      $(MAKE) -s test
 	cd tests;                                     $(MAKE) -s test
 	cd tests_develop;                             $(MAKE) -s test

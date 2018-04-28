@@ -1870,12 +1870,15 @@ BatteryResidEval::reportCathodeVoltage() const
 //==================================================================================================================================
 double
 BatteryResidEval::reportCathodeCurrentDensity() const {
+    double icurr = 0.0;
     DomainLayout &DL = *DL_ptr_;
     // we want the last surface, but be careful when we go to double tap batteries
     SurDomain1D *d_ptr = DL.SurDomain1D_List.back();
     SurDomain_CathodeCollector *c_ptr = dynamic_cast<SurDomain_CathodeCollector *>(d_ptr);
-    // The current is in units of amps / m2
-    double icurr = c_ptr->icurrCollector_;
+    if (c_ptr) { 
+        // The current is in units of amps / m2
+        icurr = c_ptr->icurrCollector_;
+    }
     return icurr;
 }
 //====================================================================================================================

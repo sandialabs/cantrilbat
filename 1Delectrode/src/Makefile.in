@@ -185,7 +185,7 @@ install:
 # depends target -> forces recalculation of dependencies
 depends:
 	$(RM) *.d .depends
-	@MAKE@ .depends
+	$(MAKE) .depends
 
 .depends: $(DEPENDS)
 	cat *.d > .depends
@@ -196,7 +196,7 @@ depends:
 test:
 ifeq ($(os_is_win), 1)
 else
-	@MAKE@ $(PROGRAM)
+	$(MAKE) $(PROGRAM)
 endif
 
 clean:
@@ -206,7 +206,7 @@ clean:
          fi )
 
 dist_clean:
-	@MAKE@ clean
+	$(MAKE) clean
 	for fff in $(M1D_HDRS) $(BE_HDRS) ; do \
            $(RM) $(CANTERA_APPS_INSTALL_DIR)/include/$$fff ; \
 	done
