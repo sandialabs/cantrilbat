@@ -1632,26 +1632,6 @@ ZZCantera::ReactingSurDomain* Electrode::reactingSurface(size_t iSurf)
     return RSD_List_[iSurf];
 }
 //==================================================================================================================================
-// Set the mole numbers in the electrolyte phase
-/*
- *  We set the mole numbers of the electrolyte phase separately from
- *  the rest of the phases.
- *
- *  We always make sure that mole numbers are positive by clipping. We
- *  always make sure that mole fractions sum to one.
- *
- *  If we are not following mole numbers in the electrode, we set the
- *  total moles to the internal constant, electrolytePseudoMoles_, while
- *  using this vector to set the mole fractions.
- *
- * @param electrolyteMoleNum vector of mole numbers of the species in the
- *                     electrolyte phase.
- *                     units = kmol
- *                     size = number of species in the electrolyte phase
- *
- * @param setInitial   Boolean indicating that we should set the initial values of the
- *                     electrolyte mole numbers as well.
- */
 void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial)
 {
     size_t istart = m_PhaseSpeciesStartIndex[solnPhase_];
@@ -1659,14 +1639,14 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
     size_t nsp = tp.nSpecies();
     AssertTrace(nsp == (m_PhaseSpeciesStartIndex[solnPhase_+1] - m_PhaseSpeciesStartIndex[solnPhase_]));
     double tmp = 0.0;
-    for (size_t k = 0; k < nsp; k++) {
+    for (size_t k = 0; k < nsp; ++k) {
         spMoles_final_[istart + k] = std::max(electrolyteMoleNum[k], 0.0);
         tmp += spMoles_final_[istart + k];
     }
     phaseMoles_final_[solnPhase_] = tmp;
 
     if (tmp > 1.0E-200) {
-        for (size_t k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; ++k) {
             spMf_final_[istart + k] = spMoles_final_[istart + k] / tmp;
         }
         /*
@@ -1674,7 +1654,7 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
          *         then we should set the moles. See the explanation in the Electrode.h file.
          */
         if (!followElectrolyteMoles_) {
-            for (size_t k = 0; k < nsp; k++) {
+            for (size_t k = 0; k < nsp; ++k) {
                 spMoles_final_[istart + k] *= electrolytePseudoMoles_ / tmp;
             }
             phaseMoles_final_[solnPhase_] = electrolytePseudoMoles_;
@@ -1684,24 +1664,20 @@ void Electrode::setElectrolyteMoleNumbers(const double* const electrolyteMoleNum
      *  Update the internal state
      */
     updateState();
-
     /*
      *  Set other states retroactively
      */
     if (setInitial) {
         if (pendingIntegratedStep_) {
-            throw Electrode_Error("Electrode::setElectrolyteMoleNumbers ERROR",
-                                  "Trying to set initial electroltye mole numbers");
+            throw Electrode_Error("Electrode::setElectrolyteMoleNumbers ERROR", "Trying to set initial electroltye mole numbers");
         }
-        for (size_t k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; ++k) {
             spMoles_init_[istart + k] = spMoles_final_[istart + k];
             spMoles_init_init_[istart + k] = spMoles_final_[istart + k];
         }
         phaseMoles_init_[solnPhase_] = phaseMoles_final_[solnPhase_];
         phaseMoles_init_init_[solnPhase_] = phaseMoles_final_[solnPhase_];
         phaseMoles_final_final_[solnPhase_] = phaseMoles_final_[solnPhase_];
-
-
         /*
          *  Set the init and the init_init state and the final_final state from the final state
          */

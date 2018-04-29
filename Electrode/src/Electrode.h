@@ -506,6 +506,8 @@ public:
 
     //! Return the total volume of solid material
     /*!
+     *  (virtual from Electrode)
+     *
      *  This is the main routine for calculating the solid volume. The solid volume is the volume of all material
      *  that is not defined as being in the electrolyte phase and the metal electron phase.
      * 
@@ -527,6 +529,8 @@ public:
 
     //! Returns the total moles in the electrode phases of the electrode
     /*!
+     *  (virtual from Electrode)
+     *
      *  @return                                  Total moles of the solid phase 
      *                                              Units: kmol
      */
@@ -534,6 +538,8 @@ public:
 
     //! Return a vector of the phase volumes for all phases in the electrode
     /*!
+     *  (virtual from Electrode)
+     *
      *  Note the vector is over surface phases as well. Currently, all surface phases have zero volume,
      *  but this may change in the future.
      *
@@ -552,6 +558,8 @@ public:
 
     //! Returns the total Heat Capacity of the material in the solid electrode at constant volume conditions
     /*!
+     *  (virtual from Electrode)
+     *
      *  @return                                  Returns the extensive heat capacity 
      *                                             Units: Joule K-1
      */
@@ -559,6 +567,8 @@ public:
 
     //! Returns the total extrinsic enthalpy of the material in the solid electrode at the current time
     /*!
+     *  (virtual from Electrode)
+     *
      *  @return                                  Returns the total extrinsic Enthalpy of solid material
      *                                              Units: Joule
      */
@@ -643,28 +653,28 @@ public:
 
     //! Set the mole numbers in the electrolyte phase
     /*!
-     *  We set the mole numbers of the electrolyte phase separately from
-     *  the rest of the phases.
+     *  (virtual from Electrode)
      *
-     *  We always make sure that mole numbers are positive by clipping. We
-     *  always make sure that mole fractions sum to one.
+     *  We set the mole numbers of the electrolyte phase separately from the rest of the phases.
+     *
+     *  We always make sure that mole numbers are positive by clipping. We always make sure that mole fractions sum to one.
      *
      *  If we are not following mole numbers in the electrolyte, we set the
-     *  total moles to the internal constant, electrolytePseudoMoles_, while
-     *  using this vector to set the mole fractions.
+     *  total moles to the internal constant, electrolytePseudoMoles_, while using this vector to set the mole fractions.
      *
-     * @param electrolyteMoleNum vector of mole numbers of the species in the
-     *                     electrolyte phase.
-     *                     units = kmol
-     *                     size = number of species in the electrolyte phase
-     * @param setInitial   Boolean indicating that we should set the initial values of the
-     *                     electrolyte mole numbers as well. We also set init_init and 
-     *                     final_final values too. 
+     *  @param[in]           electrolyteMoleNum  Vector of mole numbers of the species in the electrolyte phase.
+     *                                             Units:   kmol
+     *                                             Length:  Number of species in the electrolyte phase
+     *
+     *  @param[in]           setInitial          Boolean indicating that we should set the initial values of the
+     *                                           electrolyte mole numbers as well. We also set init_init and final_final values too
      */
     virtual void setElectrolyteMoleNumbers(const double* const electrolyteMoleNum, bool setInitial);
 
     //! Set the mole numbers in a single phase
     /*!
+     *  (virtual from Electrode)
+     *
      *  We set the mole numbers of a single phase separately from the rest of the phases.
      *
      *  We always make sure that mole numbers are positive by clipping. We
@@ -674,13 +684,12 @@ public:
      *  total moles to the internal constant, electrolytePseudoMoles_, while
      *  using this vector to set the mole fractions.
      *
-     * @param iph     Phase id.
-     * @param moleNum vector of mole numbers of the species in the
-     *                     electrolyte phase.
-     *                     units = kmol
-     *                     size = number of species in the electrolyte phase
+     *  @param[in]           iphGlob             Phase index within the PhaseList
+     *  @param[in]           moleNum             Vector of mole numbers of the species in the electrolyte phase.
+     *                                             Length:   number of species in the electrolyte phase
+     *                                             Units:    kmol
      */
-    virtual void setPhaseMoleNumbers(size_t iph, const double* const moleNum);
+    virtual void setPhaseMoleNumbers(size_t iphGlob, const double* const moleNum);
   
 protected:
 
@@ -725,6 +734,8 @@ public:
     //! Calculate the instantaneous time derivative of the species vector as determined by all source terms
     //! at the current _final_ conditions
     /*!
+     *  (virtual from Electrode)
+     *
      *  This is the rate of change in the moles of species defined in the electrode  at t_final.
      *  This calculation does not necessarily use an interval of time to calculate anything.
      *
@@ -739,6 +750,8 @@ public:
     //! Returns the instantaneous current and the net production rates of all species in the electrode object
     //! at the current _final_ conditions from one InterfacialKinetics object
     /*!
+     *  (virtual from Electrode)
+     *
      *  @param[in]           isk                 Surface index to get the net production rates from
      *  @param[out]          net                 Species net production rates
      *                                              Length: PhaseList::m_NumTotSpecies
@@ -805,6 +818,8 @@ public:
 
     //! Returns the reversible Entropy term leading to heat generation from a single surface for the current global time step
     /*!
+     *  (virtual from Electrode)
+     *
      *   (units = J / s ) 
      *   This is the term due to the reversible entropy production.
      *   @param[in]          isk                 Surface index         
@@ -816,6 +831,8 @@ public:
 
     //! Energy source term due to the Enthalpy formation from a single surface for the current global time step
     /*!
+     *  (virtual from Electrode)
+     *
      *  (units = J / s)
      *  @param[in]           isk                 Index of the ReactingSurDomain
      *

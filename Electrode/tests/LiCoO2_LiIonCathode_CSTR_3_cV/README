@@ -7,6 +7,7 @@ Additional Twists:
       We throw an exception using the printf format, and then catch it. Then, we do a calculation.
       Proved that everything looks good, and no leaks or memory trashing occurs.
 
+      Added Polarization analysis
 
 Aspects exercised:
       Simple CSTR model at constant voltage

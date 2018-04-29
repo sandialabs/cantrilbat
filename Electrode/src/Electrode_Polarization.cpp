@@ -442,7 +442,7 @@ void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, 
 }
 //==================================================================================================================================
 /*
- *  Add polarization due to the solid phase conduction
+ *  Add polarization due to the solid phase conduction - HKM checked
  */
 void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool dischargeDir)
 {
@@ -460,19 +460,6 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool disch
     if (region == 0) {
         signAC = -1.0;
     }
-
-    // Fetch the ReactingSurDomain object for the current
-    //ReactingSurDomain* rsd = ee->reactingSurface(isurf_);
-
-    // Fetch the number of stoichiometric electrons for the current reaction
-    //doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex_);
-    //size_t numKinSpecies = rsd->nKinSpecies();
-
-    // Get the phase number of the electrolyte within the Electrode object
-    //size_t lytePN = ee->solnPhaseIndex();
-    //size_t nspLyte = ee->numSolnPhaseSpecies();
-    //size_t lyte_KinP = rsd->solnPhaseIndex();
-    //size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
 
     double ocv_mixAvg = ee_->openCircuitVoltage_MixtureAveraged(iSurf_);
 

@@ -19,7 +19,7 @@
 #include "cantera/thermo/IonsFromNeutralVPSSTP.h"
 #include "cantera/numerics/ResidEval.h"
 #include "cantera/numerics/RootFind.h"
-#include "cantera/numerics/NonlinearSolver.h"
+#include "cantera/numerics/NonlinearSolver_JAC.h"
 
 #include "Electrode_input.h"
 #include "Electrode_CSTR_LiCoO2Cathode.h"
@@ -58,8 +58,8 @@ int main(int argc, char **argv)
   // printed usage
 
   vcs_nonideal::vcs_timing_print_lvl = 0;
-  NonlinearSolver::s_TurnOffTiming = true;
-  NonlinearSolver::s_print_NumJac = true;
+  NonlinearSolver_JAC::s_TurnOffTiming = true;
+  NonlinearSolver_JAC::s_print_NumJac = true;
 
   /*
    * Process the command line arguments
@@ -159,14 +159,11 @@ int main(int argc, char **argv)
     double molNum[10];
 
     electrodeC->setPhaseExistenceForReactingSurfaces(true);
- 
-    
     electrodeC->setVoltages(3.2, 0.0);
 
     double oc = electrodeC->openCircuitVoltageSSRxn(0, 0);
     oc = electrodeC->openCircuitVoltage(0);
     printf("oc[0] = %g\n", oc);
-
 
     int nT = 50;
     deltaT = 2.0E-2;
@@ -180,7 +177,8 @@ int main(int argc, char **argv)
     //electrodeC->enableExtraPrinting_ = 10;
 
     electrodeC->printCSVLvl_ = 3;
-
+    electrodeC->doPolarizationAnalysis_ = true;
+   
     // Special section to see if we can catch an error and continue
     try {
         throw Electrode_Error("sample error throw", " %s  %g %d Sample formatted string\n",
@@ -189,9 +187,9 @@ int main(int argc, char **argv)
         showErrors();
     }
   
-    FILE*fp = fopen("results.csv", "w");
+    FILE* fp = fopen("results.csv", "w");
     fprintf(fp, " timeStep, numSubSteps, Tinitial, Tfinal, startRE, finalRE,  amps\n");
-    for (int itimes = 0; itimes < nT; itimes++) {
+    for (int itimes = 0; itimes < nT; ++itimes) {
       Tinitial = Tfinal;
       electrodeC->resetStartingCondition(Tinitial);
       

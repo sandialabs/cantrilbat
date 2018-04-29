@@ -31,6 +31,9 @@ FeS2_MPNewman_DiffRate_cc3_test:
 LiCoO2_LiIonCathode_CSTR_3_cc_test:
 	cd LiCoO2_LiIonCathode_CSTR_3_cc &&                        $(MAKE) $(TASK)
 
+LiCoO2_LiIonCathode_CSTR_3_cV_test:
+	cd LiCoO2_LiIonCathode_CSTR_3_cV &&                        $(MAKE) $(TASK)
+
 MCMBAnode_LiIon_CSTR_2_cV_restart_test:
 	cd MCMBAnode_LiIon_CSTR_2_cV_restart &&                    $(MAKE) $(TASK)
 
@@ -92,6 +95,7 @@ TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test           \
              FeS2_4_cMPNewman_cc                      \
              FeS2_MPNewman_DiffRate_cc3_test          \
              LiCoO2_LiIonCathode_CSTR_3_cc_test       \
+             LiCoO2_LiIonCathode_CSTR_3_cV_test       \
              MCMBAnode_LiIon_CSTR_2_cV_restart_test   \
              MCMBAnode_LiIon_DiffTALE_cV_test         \
     	     MCMBAnode_LiIon_DiffTALE_cV_FastRxnToEquil_NVC \
@@ -109,7 +113,6 @@ TEST_LIST =  MCMBAnode_LiIon_CSTR_2_cV_test           \
              LiSi_5_Anode_Integrate_test \
              UnitTests_test \
              MCMB_Mao_test \
-
 
 
 #
