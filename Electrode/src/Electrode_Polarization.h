@@ -131,8 +131,9 @@ struct VoltPolPhenom
      *  When indicating an effect, this will be the Phi_cathodeSide - Phi_anode_side. 
      *  Therefore, when you add up all of the effects from the cathode to anode, you will get Phi_cathode - Phi_anode.
      *
-     *  Thus, all polarization effects will be a negative voltage for polarization losses in normal operation.
- 
+     *  Thus, all polarization effects will be a negative voltage for polarization losses in normal discharge operations
+     *  and a positive voltage for recharge operations.
+     * 
      *  When indicating OCV, this will be the voltage of the electrode (phiMetal - phiSoln) for the cathode.
      *  It will be entered as - (phiMetal - phiSoln) for the anode.
      *  When the two half-cells are added together, OCV = phi_Cathode - phi_anode = voltageDrop_Cathode + voltageDrop_anode.
@@ -185,13 +186,13 @@ struct PolarizationSurfRxnResults {
     Electrode* ee_;
 
     //!  Index of the reacting surface within the Electrode that the summary is for
-    size_t isurf_ = npos;
+    size_t iSurf_ = npos;
 
     //! Index of the surface reaction on that surface
     /*!
      *  Reaction index that is producing electrons
      */
-    size_t iRxnIndex_ = npos;
+    size_t iRxn_ = npos;
 
     //! Total current through the surface that is using this particular reaction on this surface
     /*!

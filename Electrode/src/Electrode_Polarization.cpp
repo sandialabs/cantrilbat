@@ -29,12 +29,12 @@ PolarizationSurfRxnResults::PolarizationSurfRxnResults(int electrodeDomainNumber
     electrodeDomainNumber_(electrodeDomainNumber),
     electrodeCellNumber_(electrodeCellNumber),
     ee_(ee),
-    isurf_(surfIndex),
-    iRxnIndex_(rxnIndex),
+    iSurf_(surfIndex),
+    iRxn_(rxnIndex),
     electronProd_(0.0),
     deltaTime_ (0.0)
 {
-    ocvSurfRxn = ee_->openCircuitVoltageRxn(isurf_, iRxnIndex_);
+    ocvSurfRxn = ee_->openCircuitVoltageRxn(iSurf_, iRxn_);
     ocvSurf = ocvSurfRxn;
     VoltageTotal = ocvSurfRxn;
 }
@@ -113,7 +113,6 @@ void PolarizationSurfRxnResults::addOverPotentialPol(double overpotential, doubl
     } else {
         voltsS  = - nStoichElectrons * overpotential;
     }
-
 
 
 
@@ -283,10 +282,10 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
 
 
     // Fetch the ReactingSurDomain object for the current
-    ReactingSurDomain* rsd = ee_->reactingSurface(isurf_);
+    ReactingSurDomain* rsd = ee_->reactingSurface(iSurf_);
 
     // Fetch the number of stoichiometric electrons for the current reaction
-    doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex_);
+    doublevalue nStoich = rsd->nStoichElectrons(iRxn_);
 
     // extract temperatures
     double T_Electrode =  state_Lyte_Electrode[0];
@@ -317,7 +316,7 @@ void PolarizationSurfRxnResults::addLyteConcPol(double* state_Lyte_Electrode, do
 
     // Get the vector of stoichiometric coefficients
 
-    rsd->getNetStoichCoeffVector(iRxnIndex_, netStoichVec.data());
+    rsd->getNetStoichCoeffVector(iRxn_, netStoichVec.data());
 
     size_t lyte_KinP = rsd->solnPhaseIndex();
     size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
@@ -370,10 +369,10 @@ void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, 
     }
 
     // Fetch the ReactingSurDomain object for the current
-    ReactingSurDomain* rsd = ee_->reactingSurface(isurf_);
+    ReactingSurDomain* rsd = ee_->reactingSurface(iSurf_);
 
     // Fetch the number of stoichiometric electrons for the current reaction
-    doublevalue nStoich = rsd->nStoichElectrons(iRxnIndex_);
+    doublevalue nStoich = rsd->nStoichElectrons(iRxn_);
 
     // extract temperatures
     double T_SepBdry = state_Lyte_SepBdry[0];
@@ -403,7 +402,7 @@ void PolarizationSurfRxnResults::addLyteConcPol_Sep(double* state_Lyte_SepBdry, 
 
     // Get the vector of stoichiometric coefficients
 
-    rsd->getNetStoichCoeffVector(iRxnIndex_, netStoichVec.data());
+    rsd->getNetStoichCoeffVector(iRxn_, netStoichVec.data());
 
     size_t lyte_KinP = rsd->solnPhaseIndex();
     size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
@@ -475,13 +474,18 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool disch
     //size_t lyte_KinP = rsd->solnPhaseIndex();
     //size_t kinStart = rsd->kineticsSpeciesIndex(lyte_KinP, 0);
 
-    double ocv_mixAvg = ee_->openCircuitVoltage_MixtureAveraged(isurf_);
+    double ocv_mixAvg = ee_->openCircuitVoltage_MixtureAveraged(iSurf_);
 
-    double ocv_diff = ee_->openCircuitVoltage(isurf_);
+    double ocv_diff = ee_->openCircuitVoltage(iSurf_);
 
-    double deltaV = ocv_mixAvg - ocv_diff;
+    double deltaV = ocv_diff - ocv_mixAvg;
     double pLoss = deltaV * signAC * signADD;
-    if (pLoss < 0.0) {
+    if (pLoss > 0.0 && dischargeDir) {
+        throw Electrode_Error("PolarizationSurfRxnResults::addSolidElectrodeConcPol()",
+                              "Negative polarization contribution, investigate %g %g %g", 
+                              pLoss, ocv_diff, ocv_mixAvg);
+    }
+    if (pLoss < 0.0 && dischargeDir == false) {
         throw Electrode_Error("PolarizationSurfRxnResults::addSolidElectrodeConcPol()",
                               "Negative polarization contribution, investigate %g %g %g", 
                               pLoss, ocv_diff, ocv_mixAvg);

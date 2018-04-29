@@ -377,14 +377,13 @@ void porousElectrode_dom1D::initPolarizationAnalysis()
     }
 }
 //==================================================================================================================================
-void porousElectrode_dom1D::doPolarizationAnalysis(double phi_CC_Wire, double ph_CC_Elect, 
+void porousElectrode_dom1D::doPolarizationAnalysis(bool dischargeDir, double phi_CC_Wire, double ph_CC_Elect, 
                                                    double phi_Elect_Sep, double phi_SepMid,  int region)
 {
-    bool dischargeDir = true;
-    for (int iCell = 0; iCell < NumLcCells; ++iCell) {
+    for (size_t iCell = 0; iCell < (size_t) NumLcCells; ++iCell) {
          Electrode* ee = Electrode_Cell_[iCell];
          if (ee->doPolarizationAnalysis_) {
-            (void) ee->polarizationAnalysisSurf(ee->polarSrc_list_Last_);
+            (void) ee->polarizationAnalysisSurf(ee->polarSrc_list_Last_, dischargeDir);
             for (size_t n = 0; n < ee->polarSrc_list_Last_.size(); ++n) {
                 PolarizationSurfRxnResults& psr = ee->polarSrc_list_Last_[n];
                 // Add contribution for addition of electrode's solid-phase conduction 

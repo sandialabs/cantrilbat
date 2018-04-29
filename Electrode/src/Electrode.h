@@ -2050,13 +2050,15 @@ public:
 
     //! Returns the number of species in the electrolyte soln phase
     /*!
+     *  (virtual from Electrode)
+     *
      *  @return                              Returns the number os species in the electrolyte phase
      */ 
-    size_t numSolnPhaseSpecies() const;
+    virtual size_t numSolnPhaseSpecies() const;
 
     //! Calculate the polarization analysis
     /*!
-     *  (virtual from Electrode.h)
+     *  (virtual from Electrode)
      *
      *  Returns a vector of structures containing the polarization analysis for this electrode
      * 
@@ -2073,8 +2075,11 @@ public:
     //! Sum up the polarization analysis calcs into a global time step result
     /*
      *  (virtual from Electrode)
+     *
+     *  @param[in]           removeLastStep      True if this called to remove the last record's contribution
+     *                                             Default = false
      */
-    virtual void integratedPolarizationCalc( bool removeLastStep = false );
+    virtual void integratedPolarizationCalc(bool removeLastStep = false);
 
     // -----------------------------------------------------------------------------------------------------------------
     // --------------------------- CAPACITY CALCULATION OUTPUT  --------------------------------------------------------
@@ -2091,6 +2096,8 @@ public:
 
     //! Returns the total capacity of the electrode in Amp seconds
     /*!
+     *  (virtual from Electrode)
+     *
      *  Returns the capacity of the electrode in Amps seconds.
      *  This is the same as the number of coulombs that can be delivered at any voltage.
      *  Note, this number differs from the capacity of electrodes that is usually quoted for
@@ -2117,6 +2124,8 @@ public:
 
     //! Initial capacity of the electrode in Amp seconds
     /*!
+     *  (virtual from Electrode)
+     *
      *  This is the initial capacity of the electrode before any degradation occurs. the default
      *  is to return the total capacity in all pateaus. The platNum is specified, it returns the
      *  capacity in a single plateau.
@@ -2134,6 +2143,8 @@ public:
 
     //! Amount of charge that the electrode has discharged up to this point (coulombs)
     /*!
+     *  (virtual from Electrode)
+     *
      *   We report the number in terms of Amp seconds = coulombs.
      *   Note the capacity discharged for cathodes will be defined as the negative of the electron
      *   source term, as this refers to the forward discharge of a cathode.
@@ -2152,10 +2163,15 @@ public:
     virtual double capacityDischarged(int platNum = -1) const;
 
     //! Reset the counters that keep track of the amount of discharge to date
+    /*!
+     *  (virtual from Electrode)
+     */
     virtual void resetCapacityDischargedToDate();
 
     //! Amount of charge that the electrode that has available to be discharged
     /*!
+     *  (virtual from Electrode)
+     *
      *  We report the number in terms of Amp seconds = coulombs. This accounts for loss mechanisms.
      *
      *        At all times the following relation holds:
@@ -2176,6 +2192,8 @@ public:
 
     //! Initial starting depth of discharge in coulombs
     /*!
+     *  (virtual from Electrode)
+     *
      *  When there is capacity lost, this number may be modified.
      *
      *  @param[in]           platNum             Plateau number. Default is -1 which treats all plateaus as a single entity.
@@ -2234,6 +2252,7 @@ public:
     //! Check on the accounting of the capacity, done at t_final
     /*!
      *  (virtual from Electrode) 
+     *
      *  This check should be as extensive as possible. It should be more extensive in the child routines. The
      *  parent routines does a cursory accounting.
      *
@@ -2245,12 +2264,16 @@ public:
 
     //! Experimental routine to enforce a balance on the electrode capacity given previous balance information
     /*! 
+     *  (virtual from Electrode) 
+     *
      *  This routine equalizes the capacity 
      */
     virtual void fixCapacityBalances_final();
 
     //! Calculate the relative extent of reaction from the current state of the object
     /*!
+     *  (virtual from Electrode) 
+     *
      *  Calculate the relative extent of reaction from the final state, spmoles_final.
      * 
      *  The relative extent of reaction is a dimensionless number that varies. It doesn't
@@ -2292,7 +2315,8 @@ public:
 
     //! Set the relative current capacity discharged per mole
     /*!
-     * (virtual function from Electrode)
+     * (virtual from Electrode)
+     *
      * ( this is a serial virtual function - not to be used in creation)
      *
      * This is roughly equal to the total number of electrons that has been discharged

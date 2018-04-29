@@ -743,14 +743,14 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
          *  of this process.
                */
         double sum = 0.0;
-        for (size_t k = 0; k < nSpecies; k++) {
+        for (size_t k = 0; k < nSpecies; ++k) {
             spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] = ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
             spMoles_init_[m_PhaseSpeciesStartIndex[iph] + k] = spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k];
             sum += ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
         }
 
         if (sum > 1.0E-300) {
-            for (size_t k = 0; k < nSpecies; k++) {
+            for (size_t k = 0; k < nSpecies; ++k) {
                 spMf_final_[kstart + k] = spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] / sum;
                 spMf_init_[kstart + k] = spMf_final_[kstart + k];
                 spMf_init_init_[kstart + k] = spMf_final_[kstart + k];
@@ -780,7 +780,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
     // HEWSON -- 12/1/10 -- this particular tolerance value
     // and all magic tolerance values throughout are subject to revision
     double tMoles = 0.0;
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; ++k) {
         tMoles += spMoles_final_[k];
     }
     molarAtol_ = tMoles * 1.0E-5;
@@ -827,7 +827,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
         size_t nElements = tp->nElements();
         size_t eElectron = tp->elementIndex("E");
         if (eElectron != npos) {
-            for (size_t k = 0; k < nSpecies; k++) {
+            for (size_t k = 0; k < nSpecies; ++k) {
                 if (tp->nAtoms(k, eElectron) == 1) {
                     int ifound = 1;
                     for (size_t e = 0; e < nElements; e++) {
@@ -880,7 +880,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
                     size_t nElements = tp->nElements();
                     size_t eElectron = tp->elementIndex("E");
                     if (eElectron != npos) {
-                        for (size_t k = 0; k < nSpecies; k++) {
+                        for (size_t k = 0; k < nSpecies; ++k) {
                             if (tp->nAtoms(k, eElectron) == 1) {
                                 int ifound = 1;
                                 for (size_t e = 0; e < nElements; e++) {
@@ -925,7 +925,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  Electrode object.
      */
     size_t mR = spMoles_final_.size();
-    for (size_t isk = 0; isk <  RSD_List_.size(); isk++) {
+    for (size_t isk = 0; isk <  RSD_List_.size(); ++isk) {
         ReactingSurDomain* rsd = RSD_List_[isk];
         if (rsd) {
             size_t nr = rsd->nReactions();
@@ -940,7 +940,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
      *  Determine if a ReactingSurDomain is external by looking up whether it has the electrolyte phase as
      *  a reactant or product
      */
-    for (size_t isk = 0; isk <  RSD_List_.size(); isk++) {
+    for (size_t isk = 0; isk <  RSD_List_.size(); ++isk) {
         ReactingSurDomain* rsd = RSD_List_[isk];
         if (rsd) {
             bool found = false;
@@ -1089,7 +1089,7 @@ int Electrode::electrode_model_create(ELECTRODE_KEY_INPUT* ei)
 
         double* vv = BG->CapZeroDoDCoeffPhases[iph];
         double* vl = BG->CapLeftCoeffPhases[iph];
-        for (size_t k = 0; k < nspPhase; k++) {
+        for (size_t k = 0; k < nspPhase; ++k) {
             size_t iGlobSpeciesIndex = kStart + k;
             capacityLeftSpeciesCoeff_[iGlobSpeciesIndex] = vl[k];
             capacityZeroDoDSpeciesCoeff_[iGlobSpeciesIndex] = vv[k];
@@ -1226,13 +1226,13 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
          *  later.
          */
         double sum = 0.0;
-        for (size_t k = 0; k < nSpecies; k++) {
+        for (size_t k = 0; k < nSpecies; ++k) {
             spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] = ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
             sum += ei->MoleNumber[m_PhaseSpeciesStartIndex[iph] + k];
         }
 
         if (sum > 0.0) {
-            for (size_t k = 0; k < nSpecies; k++) {
+            for (size_t k = 0; k < nSpecies; ++k) {
                 spMf_final_[kstart + k] = spMoles_final_[m_PhaseSpeciesStartIndex[iph] + k] / sum;
             }
             tphase->setMoleFractions(&(spMf_final_[kstart]));
@@ -1246,7 +1246,7 @@ int Electrode::setInitialConditions(ELECTRODE_KEY_INPUT* ei)
 
     /* set the absolute tolerance to 1e-5 the total number of moles */
     double tMoles = 0.0;
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; ++k) {
         tMoles += spMoles_final_[k];
     }
     molarAtol_ = tMoles * 1.0E-5;
@@ -1469,7 +1469,7 @@ void Electrode::resizeMoleNumbersToGeometry()
     }
     double ratio = targetSolidVol / currentSolidVol;
     double tMoles = 0.0;
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; ++k) {
         spMoles_final_[k] *= ratio;
         spMoles_init_[k] = spMoles_final_[k];
         spMoles_init_init_[k] = spMoles_final_[k];
@@ -1497,7 +1497,7 @@ void Electrode::resizeMoleNumbersToGeometry()
 
     size_t istart = m_PhaseSpeciesStartIndex[solnPhase_];
     size_t nspSoln = m_PhaseSpeciesStartIndex[solnPhase_ + 1] - m_PhaseSpeciesStartIndex[solnPhase_];
-    for (size_t kk = 0; kk < nspSoln; kk++) {
+    for (size_t kk = 0; kk < nspSoln; ++kk) {
         size_t k = istart + kk;
         spMoles_final_[k] *= ratio;
         spMoles_init_[k] = spMoles_final_[k];
@@ -2680,7 +2680,7 @@ void Electrode::getIntegratedSpeciesProductionRates(double* const net) const
     if (t_final_final_ > t_init_init_) {
         invDelT = 1.0 / (t_final_final_ - t_init_init_);
     }
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; ++k) {
         net[k] = invDelT * spMoleIntegratedSourceTerm_[k];
     }
 }
@@ -2732,7 +2732,7 @@ double Electrode::integratedCurrent() const
     if (pendingIntegratedStep_ != 1) {
         std::vector<double> net(m_NumTotSpecies, 0.0);
         double* netOne = &deltaG_[0];
-        for (size_t isk = 0; isk < numSurfaces_; isk++) {
+        for (size_t isk = 0; isk < numSurfaces_; ++isk) {
             if (ActiveKineticsSurf_[isk]) {
                 getNetSurfaceProductionRates(isk, netOne);
                 for (size_t k = 0; k < m_NumTotSpecies; ++k) {
@@ -2853,13 +2853,13 @@ void Electrode::getIntegratedPhaseMoleTransfer(double* const phaseMolesTransfere
         throw Electrode_Error(" Electrode::getIntegratedPhaseMoleTransfer", "no pending integration step");
     }
     double sum = 0.0;
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; ++iph) {
         phaseMolesTransfered[iph] = 0.0;
         ThermoPhase& tp = thermo(iph);
         //string pname = tp.id();
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
-        for (size_t ik = 0; ik < nsp; ik++) {
+        for (size_t ik = 0; ik < nsp; ++ik) {
             size_t k = istart + ik;
             phaseMolesTransfered[iph] += spMoleIntegratedSourceTerm_[k];
         }
@@ -3473,7 +3473,7 @@ size_t Electrode::solnPhaseIndex() const
 size_t Electrode::numSolnPhaseSpecies() const
 {
     return NumSpeciesList_[solnPhase_];
-    return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
+    // return phasePtr(phase_name(solnPhase_).c_str())->nSpecies();
 }
 //==================================================================================================================================
 /*
@@ -3559,10 +3559,15 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         vpp.ipolType = SURFACE_OVERPOTENTIAL_PL;
                         double dsn = netStoichE / fabs(netStoichE);
                         vpp.voltageDrop = overPotential * dsn;
-                        if (region == 2) {
+                        if (region == 0) {
                             vpp.voltageDrop = -overPotential * dsn; 
                         }
-                        if (vpp.voltageDrop < 0.0) {
+                        if (vpp.voltageDrop > 0.0 && dischargeDir) {
+                           throw Electrode_Error("Electrode::polarizationAnalysisSurf()",
+                                                 "overPotential term is positive: %g. Expect it to be negative. Needs analysis.", 
+                                                 vpp.voltageDrop);
+                        }
+                        if (vpp.voltageDrop < 0.0 && dischargeDir == false) {
                            throw Electrode_Error("Electrode::polarizationAnalysisSurf()",
                                                  "overPotential term is negative: %g. Expect it to be positive. Needs analysis.", 
                                                  vpp.voltageDrop);
@@ -3578,7 +3583,11 @@ double Electrode::polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResult
                         if (resistancePerArea != 0.0) {
                             double voltsRes = icurrPerArea * resistancePerArea;
                             vpp.ipolType = RESISTANCE_FILM_PL;
-                            vpp.voltageDrop = fabs(voltsRes);
+                            if (dischargeDir) {
+                                vpp.voltageDrop = - fabs(voltsRes);
+                            } else {
+                                vpp.voltageDrop = fabs(voltsRes);
+                            }
                             psr.voltsPol_list.push_back(vpp);
                             ocvSurfRxn_local -= voltsRes;
                             overPotential -= voltsRes;
@@ -3639,7 +3648,7 @@ void Electrode::integratedPolarizationCalc( bool removeLastStep )
         found = false;
         for (j = 0; j <  polarSrc_list_.size(); ++j) {
             struct PolarizationSurfRxnResults& ps = polarSrc_list_[j];
-            if ((psLast.isurf_ == ps.isurf_) && (psLast.iRxnIndex_ == ps.iRxnIndex_) ) {
+            if ((psLast.iSurf_ == ps.iSurf_) && (psLast.iRxn_ == ps.iRxn_) ) {
                 if (removeLastStep) {
                     ps.subtractSubStep(psLast);
                 } else {
@@ -4209,6 +4218,7 @@ bool Electrode::resetStartingCondition(double Tinitial, bool doAdvancementAlways
     integratedThermalEnergySourceTerm_reversibleEntropy_Last_ = 0.0;
     if (doPolarizationAnalysis_) {
         polarSrc_list_Last_.clear();
+        polarSrc_list_.clear();
     }
 
     /*
@@ -4264,17 +4274,17 @@ double Electrode::timeFinalFinal() const
 void Electrode::setInitStateFromFinal(bool setInitInit)
 {
     // reset surface quantities
-    for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
+    for (size_t i = 0; i < (size_t) numSurfaces_; ++i) {
         surfaceAreaRS_init_[i] = surfaceAreaRS_final_[i];
     }
     if (setInitInit) {
-        for (size_t i = 0; i < (size_t) numSurfaces_; i++) {
+        for (size_t i = 0; i < (size_t) numSurfaces_; ++i) {
             surfaceAreaRS_init_init_[i] = surfaceAreaRS_final_[i];
         }
     }
 
     // Reset total species quantities
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; ++k) {
         spMoles_init_[k] = spMoles_final_[k];
         spMf_init_[k] = spMf_final_[k];
         spMoles_final_final_[k] = spMoles_final_[k];
@@ -4371,7 +4381,7 @@ void Electrode::setInitInitStateFromFinalFinal()
     }
 
     // Reset total species quantities
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; ++k) {
         spMoles_init_[k] = spMoles_final_final_[k];
         spMf_init_[k] = spMf_final_final_[k];
         spMf_init_init_[k] = spMf_final_final_[k];
@@ -4506,7 +4516,7 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
     }
     // Reset total species quantities
     if (setFinal) {
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             spMoles_init_[k] = spMoles_init_init_[k];
             spMoles_final_[k] = spMoles_init_init_[k];
             spMf_init_[k] = spMf_init_init_[k];
@@ -4519,7 +4529,7 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
             chempotMolar_final_[k] = chempotMolar_init_init_[k];
         }
     } else {
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             spMoles_init_[k] = spMoles_init_init_[k];
             spMf_init_[k] = spMf_init_init_[k];
             enthalpyMolar_init_[k] = enthalpyMolar_init_init_[k];
@@ -4575,15 +4585,15 @@ void Electrode::setInitStateFromInitInit(bool setFinal)
  */
 void Electrode::setFinalFinalStateFromFinal()
 {
-    for (size_t i = 0; i < numSurfaces_; i++) {
+    for (size_t i = 0; i < numSurfaces_; ++i) {
         surfaceAreaRS_final_final_[i] = surfaceAreaRS_final_[i];
     }
 
-    for (size_t i = 0; i < m_NumTotPhases; i++) {
+    for (size_t i = 0; i < m_NumTotPhases; ++i) {
         phaseMoles_final_final_[i] = phaseMoles_final_[i];
     }
 
-    for (size_t k = 0; k < m_NumTotSpecies; k++) {
+    for (size_t k = 0; k < m_NumTotSpecies; ++k) {
         spMoles_final_final_[k] = spMoles_final_[k];
         spMf_final_final_[k] = spMf_final_[k];
     }
@@ -4865,7 +4875,7 @@ void Electrode::speciesProductionRates(double* const spMoleDot)
     //
     // Look over active kinetics surfaces
     //
-    for (size_t isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; ++isk) {
         if (ActiveKineticsSurf_[isk]) {
             /*
              *  For each Reacting surface
@@ -4880,11 +4890,11 @@ void Electrode::speciesProductionRates(double* const spMoleDot)
              */
             size_t nphRS = RSD_List_[isk]->nPhases();
             int kIndexKin = 0;
-            for (size_t kph = 0; kph < nphRS; kph++) {
+            for (size_t kph = 0; kph < nphRS; ++kph) {
                 size_t jph = RSD_List_[isk]->globalPhaseIndex_fromKP(kph);
                 int istart = m_PhaseSpeciesStartIndex[jph];
                 int nsp = m_PhaseSpeciesStartIndex[jph + 1] - istart;
-                for (int k = 0; k < nsp; k++) {
+                for (int k = 0; k < nsp; ++k) {
                     spMoleDot[istart + k] += rsSpeciesProductionRates[kIndexKin] * surfaceAreaRS_final_[isk];
                     kIndexKin++;
                 }
@@ -5001,7 +5011,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation(size_t isk)
         iCurr = rsd->getCurrentDensityRxn(&(iCurrDens[0]));
         const std::vector<double>& ROP = rsd->calcNetSurfaceROP();
 #ifdef DEBUG_THERMAL
-        for (int k = 0; k < m_NumTotSpecies; k++) {
+        for (int k = 0; k < m_NumTotSpecies; ++k) {
             printf("h %d = %20.9E\n", k, enthalpyMolar_final_[k]);
         }
 #endif
@@ -5055,7 +5065,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
         if (iph == metalPhase_ || iph == solnPhase_) {
-            for (size_t ik = 0; ik < nsp; ik++) {
+            for (size_t ik = 0; ik < nsp; ++ik) {
                 size_t k = istart + ik;
                 double cc = tp.charge(ik);
                 double deltaNH = enthalpyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
@@ -5072,7 +5082,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
                 }
             }
         } else {
-            for (size_t ik = 0; ik < nsp; ik++) {
+            for (size_t ik = 0; ik < nsp; ++ik) {
                 size_t k = istart + ik;
                 double cc = tp.charge(ik);
                 double deltaNH = enthalpyMolar_final_[k] * spMoles_final_[k] - enthalpyMolar_init_[k] * spMoles_init_[k];
@@ -5099,13 +5109,13 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep_Old()
 double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
 {
     double q = 0.0;
-    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; ++iph) {
         ThermoPhase& tp = thermo(iph);
         double phiPhase = phaseVoltages_[iph];
 
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
-        for (size_t ik = 0; ik < nsp; ik++) {
+        for (size_t ik = 0; ik < nsp; ++ik) {
             size_t k = istart + ik;
             double cc = tp.charge(ik);
 #ifdef DEBUG_THERMAL
@@ -5133,7 +5143,7 @@ double Electrode::thermalEnergySourceTerm_EnthalpyFormulation_SingleStep()
 double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep()
 {
     double q_alt = 0.0;
-    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; ++iph) {
         ThermoPhase& tp = thermo(iph);
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
@@ -5163,12 +5173,12 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old()
     //
     double q_alt = 0.0;
     double tt = temperature_;
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; ++iph) {
         ThermoPhase& tp = thermo(iph);
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
         if (iph == metalPhase_ || iph == solnPhase_) {
-            for (size_t ik = 0; ik < nsp; ik++) {
+            for (size_t ik = 0; ik < nsp; ++ik) {
                 size_t k = istart + ik;
                 double deltaNS = tt * entropyMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
 #ifdef DEBUG_THERMAL
@@ -5178,7 +5188,7 @@ double Electrode::thermalEnergySourceTerm_ReversibleEntropy_SingleStep_Old()
                 q_alt -= deltaNS;
             }
         } else {
-            for (size_t ik = 0; ik < nsp; ik++) {
+            for (size_t ik = 0; ik < nsp; ++ik) {
                 size_t k = istart + ik;
                 double deltaNS = tt * (entropyMolar_final_[k] * spMoles_final_[k] - entropyMolar_init_[k] * spMoles_init_[k]);
 #ifdef DEBUG_THERMAL
@@ -5201,14 +5211,14 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep_Old()
 {
     double q_alt = 0.0;
     double phiPhase = 0.0;
-    for (size_t iph = 0; iph < m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < m_NumTotPhases; ++iph) {
         ThermoPhase& tp = thermo(iph);
         phiPhase = phaseVoltages_[iph];
 
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
         if (iph == metalPhase_ || iph == solnPhase_) {
-            for (size_t ik = 0; ik < nsp; ik++) {
+            for (size_t ik = 0; ik < nsp; ++ik) {
                 size_t k = istart + ik;
                 double cc = tp.charge(ik);
                 double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
@@ -5225,7 +5235,7 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep_Old()
                 }
             }
         } else {
-            for (size_t ik = 0; ik < nsp; ik++) {
+            for (size_t ik = 0; ik < nsp; ++ik) {
                 size_t k = istart + ik;
                 double cc = tp.charge(ik);
                 double deltaNG = chempotMolar_final_[k] * spMoles_final_[k] - chempotMolar_init_[k] * spMoles_init_[k];
@@ -5251,12 +5261,12 @@ double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep_Old()
 double Electrode::thermalEnergySourceTerm_Overpotential_SingleStep()
 {
     double q_alt = 0.0;
-    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; iph++) {
+    for (size_t iph = 0; iph < (size_t) m_NumTotPhases; ++iph) {
         ThermoPhase& tp = thermo(iph);
         double phiPhase = phaseVoltages_[iph];
         size_t istart = m_PhaseSpeciesStartIndex[iph];
         size_t nsp = tp.nSpecies();
-        for (size_t ik = 0; ik < nsp; ik++) {
+        for (size_t ik = 0; ik < nsp; ++ik) {
             size_t k = istart + ik;
             double cc = tp.charge(ik);
             double deltaNG = chempotMolar_final_[k] * spMoleIntegratedSourceTermLast_[k];
@@ -5320,7 +5330,7 @@ double Electrode::getIntegratedSourceType(SOURCE_TYPES sourceType, size_t ksp)
  */
 void Electrode::setPhaseExistenceForReactingSurfaces(bool assumeStableSingleSpeciesPhases)
 {
-    for (size_t isk = 0; isk < numSurfaces_; isk++) {
+    for (size_t isk = 0; isk < numSurfaces_; ++isk) {
         /*
          *  Loop over phases in each InterfacialKinetics object, figuring out which phases have zero moles.
          *  Tell the ReactingSurDomain object which phases have zero moles and exist and which don't exist.
@@ -5565,7 +5575,7 @@ void Electrode::printElectrodePhase(size_t iph, int pSrc, bool subTimeStep)
     if (printLvl_ >= 3) {
         printf("\n");
         printf("                Name              MoleFrac_final kMoles_final kMoles_init SrcTermIntegrated(kmol)\n");
-        for (size_t k = 0; k < nsp; k++) {
+        for (size_t k = 0; k < nsp; ++k) {
             std::string sname = tp.speciesName(k);
             if (pSrc) {
                 if (subTimeStep) {
@@ -5644,15 +5654,21 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
     const std::vector<struct PolarizationSurfRxnResults>& polarSrc_L = *polarSrc_ptr;
 
     printf("     ============================================================================================\n");
-    printf("     Electrode Polarization Analysis:  Total electrons accounted for: %g \n ",  totalPolElectrons);
-    printf("                                       Number of records = %d\n", (int) polarSrc_L.size());
+    printf("     Electrode Polarization Analysis: ");
+    if (subTimeStep) {
+        printf("(local  step)"); 
+    } else {
+        printf("(global step)"); 
+    }
+    printf(" Total electrons accounted for: %g \n ",  totalPolElectrons);
+    printf("                                                   Number of records = %d\n", (int) polarSrc_L.size());
     printf("\n"); 
-    printf("   ID     TotalBatVoltage     totalTime      OCV       PolLoss  %%PolLoss  Reason \n");
+    printf("     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %%PolLoss  Rgn  Reason\n");
     for (size_t i = 0; i <  polarSrc_L.size(); ++i) {
         const struct PolarizationSurfRxnResults& ipol = polarSrc_L[i];
         const struct VoltPolPhenom& vp = ipol.voltsPol_list[0];
-        printf("   %2d       % -10.3E         % -10.3E   % -10.3E      ",
-               (int) i, ipol.VoltageTotal , ipol.deltaTime_,   ipol.ocvSurfRxn ); 
+        printf("       %2d %2d  % -10.3E % -10.3E % -10.3E % -10.3E   ",
+               (int) ipol.iSurf_, (int) ipol.iRxn_, ipol.VoltageTotal, ipol.electronProd_, ipol.deltaTime_, ipol.ocvSurfRxn); 
         vTotal = vp.voltageDrop;
        
         if (vp.ipolType !=  SURFACE_OCV_PL) {
@@ -5674,19 +5690,18 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
         if (vp.ipolType ==  SURFACE_OCV_PL) {
             vPolPercent = 0.0;
         }
-        printf("    % 10.3E % 10.2F    %2d  %s\n", vp.voltageDrop , vPolPercent,  vp.regionID, polString(vp.ipolType).c_str());
+        printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
         for (size_t j = 1; j < ipol.voltsPol_list.size(); ++j) {
             const struct VoltPolPhenom& vp = ipol.voltsPol_list[j];
             vPolPercent = 100.;
             if (vPolTotal != 0.0) {
-                vPolPercent = vp.voltageDrop / vPolTotal;
+                vPolPercent = 100.0 * vp.voltageDrop / vPolTotal;
             }
             if (vp.ipolType ==  SURFACE_OCV_PL) {
                 vPolPercent = 0.0;
             }
-            printf("                                                                            ");
-            printf("    % 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop , vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
-            vTotal += vp.voltageDrop;
+            printf("                                                            ");
+            printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
         }
         if (ipol.voltsPol_list.size() > 1) {
             printf("                                                    total = % 10.3E \n", vTotal);
@@ -5795,12 +5810,12 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpI, "  CapacityLeft ,");
         fprintf(fpI, "  Capacity ,");
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             std::string sss = speciesName(k);
             fprintf(fpI, " MN_%-20.20s,", sss.c_str());
         }
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             std::string sss = speciesName(k);
             fprintf(fpI, " SRC_%-20.20s,", sss.c_str());
         }
@@ -5840,12 +5855,12 @@ void Electrode::writeCSVData(int itype)
         fprintf(fpG, "  CapacityLeft ,");
         fprintf(fpG, "  Capacity ,");
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             std::string sss = speciesName(k);
             fprintf(fpG, " MN_%-20.20s,", sss.c_str());
         }
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             std::string sss = speciesName(k);
             fprintf(fpG, " SRC_%-20.20s,", sss.c_str());
         }
@@ -5904,11 +5919,11 @@ void Electrode::writeCSVData(int itype)
         cap = capacity();
         fprintf(fpI, "   %12.5E ,", cap);
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             fprintf(fpI, " %12.5E           ,", spMoles_final_[k]);
         }
 
-        for (size_t k = 0; k < m_NumTotSpecies; k++) {
+        for (size_t k = 0; k < m_NumTotSpecies; ++k) {
             fprintf(fpI, " %12.5E            ,", spMoleIntegratedSourceTermLast_[k]);
         }
 

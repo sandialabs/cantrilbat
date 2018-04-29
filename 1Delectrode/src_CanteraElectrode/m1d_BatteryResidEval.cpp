@@ -1516,11 +1516,10 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
      double phiSolid_Elect_CCC = soln[gindex_VoltageSolid_CCC];
 
      double phiLyte_SepMid =  (phiLyte_Anode_Sep + phiLyte_Sep_Cathode) / 2.0;
-   
 
      double phi_CCC_Wire = reportCathodeVoltage();
 
-
+     bool dischargeDir = true;
      // Loop over the domains gathering the information
 
      for (int iDom = 0; iDom < DL.NumBulkDomains; iDom++) {
@@ -1530,33 +1529,22 @@ void BatteryResidEval::doPolarizationAnalysis(const int ifunc, const double t, c
             Electrode_Capacity_Type_Enum  capType = p_ptr->capacityType();
             if (capType == CAPACITY_ANODE_ECT) {
                printf("this is an anode\n");
-               p_ptr->doPolarizationAnalysis(phi_Wire_ACC, phiSolid_ACC_Elect, phiLyte_Anode_Sep, phiLyte_SepMid, 0);
+               p_ptr->doPolarizationAnalysis(dischargeDir, phi_Wire_ACC, phiSolid_ACC_Elect, phiLyte_Anode_Sep, phiLyte_SepMid, 0);
 
             }
             if (capType == CAPACITY_CATHODE_ECT) {
                printf("this is a cathode\n");
-               p_ptr->doPolarizationAnalysis(phi_CCC_Wire, phiSolid_Elect_CCC, phiLyte_Sep_Cathode, phiLyte_SepMid, 0);
+               p_ptr->doPolarizationAnalysis(dischargeDir, phi_CCC_Wire, phiSolid_Elect_CCC, phiLyte_Sep_Cathode, phiLyte_SepMid, 0);
             }
   
         }
      }
 
-     
-
-     
-
-
-
      // Loop over the anode, filling in the missing pieces that are part of the anode
      
-     
-      // For each electrode in the anode
+     // For each electrode in the anode
 
-
-
-       //       void addSolidPol(double phiCurrentCollector, int region);
-
-
+     //       void addSolidPol(double phiCurrentCollector, int region);
 
 }
 //==================================================================================================================================

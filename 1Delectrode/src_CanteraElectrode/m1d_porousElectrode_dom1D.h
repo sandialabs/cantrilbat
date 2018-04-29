@@ -277,6 +277,7 @@ public:
     /*!
      *  (virtual from porousElectrode_dom1D)
      *
+     *  @param[in]         dischargeDir          True if we are doing the analysis in the discharge dir.
      *  @param[in]         phi_CC_Wire           Value of the Electric potential in the solid current collector
      *  @param[in]         phi_CC_Elect          Value of the Electric potential in the solid at the 
      *                                             current collector - Electrode interface
@@ -288,7 +289,7 @@ public:
      *                                                0 = anode
      *                                                2 = cathode
      */
-    virtual void doPolarizationAnalysis(double phi_CC_Wire, double phi_CC_Elect, double phi_Elect_Sep, 
+    virtual void doPolarizationAnalysis(bool dischargeDir, double phi_CC_Wire, double phi_CC_Elect, double phi_Elect_Sep, 
                                         double phi_SepMid,  int region);
 
 
