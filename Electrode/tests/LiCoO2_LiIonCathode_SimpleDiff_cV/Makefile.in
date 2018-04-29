@@ -89,23 +89,14 @@ CFLAGS = @CXXFLAGS@
 #
 CCFLAGS =  $(GDEFINES) $(INCLUDE_DIRS) $(LDEFINES) 
 #
-.c.o:
-	$(PURIFY) $(CC) $(CFLAGS) $(CCFLAGS) -c $<
 .cpp.o:
 	$(PURIFY) $(CXX) $(CXXFLAGS) $(CCFLAGS) -c $<
-
-.f:
-	$(F77) $(FFLAGS) -c $<
-	$(F77LDR) $(F77LDRFLAGS) $*.o -o $@
 
 
 ############################################################################
 # section to set up depends
 ###########################################################################
 DEPENDS = $(OBJ_ANODE:.o=.d) 
-
-.f.d:
-	echo "$*.o: $*.f" > $*.d
 
 .cpp.d:
 	@CXX_DEPENDS@ $(CXXFLAGS) $(CCFLAGS) -c $*.cpp > $*.d
@@ -133,6 +124,7 @@ runGood: $(PROGRAM) $(DATA) Makefile $(BLESSED_FILES)
 rebaseline:
 	cp LiCoO2_intResults_0_0.csv LiCoO2_intResults_blessed.csv
 	cp out.txt good_out.txt
+	cp soln_0_0.xml  soln_0_0_blessed.xml 
 
 ##############################################################################
 
@@ -165,6 +157,6 @@ clean:
 	$(RM) *~  diff_out.txt diff_csv.txt diff_xml.txt diff_summary.txt err_out.txt runInProgress.txt runBad runGood
 
 dist_clean:
-	@MAKE@ clean
+	$(MAKE) clean
 	$(RM)  out.txt LiCoO2_intResults_0_0.csv LiCoO2_globalResults_0_0.csv soln_0_0.xml
 

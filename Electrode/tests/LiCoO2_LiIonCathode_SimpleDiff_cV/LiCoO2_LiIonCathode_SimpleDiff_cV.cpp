@@ -1,7 +1,4 @@
 /*
- * $Id: LiCoO2_Cathode_3_cc.cpp 496 2013-01-07 21:15:37Z hkmoffa $
- */
-/*
  * Copywrite 2004 Sandia Corporation. Under the terms of Contract
  * DE-AC04-94AL85000, there is a non-exclusive license for use of this
  * work by or on behalf of the U.S. Government. Export of this program
@@ -169,7 +166,7 @@ int main(int argc, char **argv)
 
     electrodeC->setPhaseExistenceForReactingSurfaces(true);
     
-    electrodeC->setVoltages(3.9, 0.0);
+    electrodeC->setVoltages(3.8, 0.0);
 
     double oc = electrodeC->openCircuitVoltageSSRxn(0);
     oc = electrodeC->openCircuitVoltage(0);
@@ -177,10 +174,12 @@ int main(int argc, char **argv)
 
 
     int nT = 50;
-    deltaT = 2.0E-2;
+    deltaT = 2.0;
     electrodeC->printCSVLvl_ = 4;
 
     electrodeC->printElectrode();
+    electrodeC->doPolarizationAnalysis_ = true;
+
 
     electrodeC->setPrintLevel(2);
     //electrodeC->setPrintLevel(1);

@@ -479,7 +479,7 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool disch
     }
 
     // Keep track of the adjustments in the effective OCV.
-    ocvSurfRxnAdj += deltaV;
+    ocvSurfRxnAdj -= deltaV;
 
     VoltPolPhenom ess(SOLID_DIFF_CONC_LOSS_PL, region, pLoss);
     bool found = false;
@@ -500,10 +500,7 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool disch
     for (VoltPolPhenom& vp : voltsPol_list) {
         if (vp.ipolType == SURFACE_OCV_PL) {
             found = true;
-            if (region == 0) {
-               deltaV = -deltaV;
-            }
-            vp.voltageDrop += deltaV;
+            vp.voltageDrop -= deltaV;
             break;
         }
     }
@@ -511,12 +508,8 @@ void PolarizationSurfRxnResults::addSolidElectrodeConcPol(int region, bool disch
         throw Electrode_Error("PolarizationSurfRxnResults::addSolidElectrodeConcPol()", "logic error");
     }
 
-    // Adjust the total voltage from cathode to anode    
-    if (dischargeDir) {
-        VoltageTotal -= pLoss;
-    } else {
-        VoltageTotal += pLoss;
-    }
+    // Do not adjust the total voltage from cathode to anode, because we adjusted the OCV record
+
 }
 //==================================================================================================================================
 bool PolarizationSurfRxnResults::checkConsistency(const double gvoltageTotal)
