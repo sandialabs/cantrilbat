@@ -103,9 +103,6 @@ Electrode::Electrode() :
     CvPM_(0),
     spMoles_dot_(0),
     spMoles_predict_(0),
-    spMf_init_(0),
-    spMf_init_init_(0),
-    spMf_final_(0),
     spElectroChemPot_(0),
     phaseVoltages_(0),
     RSD_List_(0),
@@ -5639,11 +5636,12 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
     printf(" Total electrons accounted for: %g \n ",  totalPolElectrons);
     printf("                                                   Number of records = %d\n", (int) polarSrc_L.size());
     printf("\n"); 
-    printf("     Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %%PolLoss  Rgn  Reason\n");
+    printf("     DomN  CellN Surf Rxn  TotBatVolt  electProd  totTime     OCV_raw OCV_mod/PolLoss %%PolLoss  Rgn  Reason\n");
     for (size_t i = 0; i <  polarSrc_L.size(); ++i) {
         const struct PolarizationSurfRxnResults& ipol = polarSrc_L[i];
         const struct VoltPolPhenom& vp = ipol.voltsPol_list[0];
-        printf("       %2d %2d  % -10.3E % -10.3E % -10.3E % -10.3E   ",
+        printf("       %2d %4d   %2d   %2d  % -10.3E  % -10.3E % -10.3E % -10.3E   ",
+               (int) electrodeDomainNumber_, (int) electrodeCellNumber_,
                (int) ipol.iSurf_, (int) ipol.iRxn_, ipol.VoltageTotal, ipol.electronProd_, ipol.deltaTime_, ipol.ocvSurfRxn); 
         vTotal = vp.voltageDrop;
        
@@ -5676,11 +5674,11 @@ void Electrode::printElectrodePolarization(bool subTimeStep)
             if (vp.ipolType ==  SURFACE_OCV_PL) {
                 vPolPercent = 0.0;
             }
-            printf("                                                            ");
+            printf("                                                                         ");
             printf("% 10.3E % 10.2F  %2d  %s\n", vp.voltageDrop, vPolPercent, vp.regionID, polString(vp.ipolType).c_str());
         }
         if (ipol.voltsPol_list.size() > 1) {
-            printf("                                                    total = % 10.3E \n", vTotal);
+            printf("                                                                 total = % 10.3E \n", vTotal);
         }
     }
     printf("     ============================================================================================\n");

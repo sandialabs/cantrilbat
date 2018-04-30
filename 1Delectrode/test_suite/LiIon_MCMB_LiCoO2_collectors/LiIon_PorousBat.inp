@@ -180,6 +180,16 @@ Cathode Current Collector Thickness = 10.0E3 m
 Extra Resistance in Series with Cathode = 1.0
 !---------------------------------------------------------------------------------------------------------
 !
+!     Polarization Analysis - int (optional) (default = 0)
+!
+!   0 = Do not do any heat source tracking
+!   1 = Calculate the polarization losses at each time step,
+!        print them out, and have them available for external communication
+!
+!---------------------------------------------------------------------------------------------------------
+Polarization Analysis = 1
+!---------------------------------------------------------------------------------------------------------
+!
 ! DAKOTA INTERFACE (optional)
 ! 
 ! Turn on the interface with Dakota

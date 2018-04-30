@@ -1846,34 +1846,38 @@ public:
 
     //! print the Electrode polarization analysis
     /*!
-     *  (virtual from Electrode class)
+     *  (virtual from Electrode)
      *
-     *  @param[in]  subTimeStep    Print out conditions from the most recent subTimeStep and not the global
-     *                             time step. The default is to print out the global values
+     *  @param[in]           subTimeStep         Print out conditions from the most recent subTimeStep and not the global
+     *                                           time step. The default is to print out the global values
      */
     virtual void printElectrodePolarization(bool subTimeStep = false);
 
     //! Return the number of extra print tables
     /*!
-     *   @return                                 Returns the number of print tables
+     *  (virtual from Electrode)
+     *
+     *  @return                                  Returns the number of print tables
      */
     virtual int getNumPrintTables() const;
 
     //! Get the values that are printed in tables for the 1D code.
     /*!
-     *   @param itable    table id
-     *   @param colNames   string names of the header (length is the length of the column)
-     *   @param colValues    Value of the columns (length is the length of the column)
+     *  (virtual from Electrode)
+     *
+     *  @param[in]           itable              table id
+     *  @param[in]           colNames            string names of the header (length is the length of the column)
+     *  @param[in]           colValues           Value of the columns (length is the length of the column)
+     *
+     *  @deprecated this doesn't appear to be used
      */
-// Deprecate? this doesn't appear to be used
     virtual void getPrintTable(int itable, std::vector<std::string>& colNames, std::vector<double>& colValues) const;
 
     //! Toggle switch for Printing for the predictor corrector
     /*!
      *  To get printing from the predictor-corrector printing routines, both the general
      *  printing level must be high enough and this static routine should be turned on.
-     *  Also the ifdef DEBUG_PREDICTOR should be turned on if printing is desired at a
-     *  low level of printLvl_
+     *  Also the ifdef DEBUG_PREDICTOR should be turned on if printing is desired at a low level of printLvl_
      *  The environmental variable, ELECTRODE_TURN_OFF_PC_PRINTING, determines whether this flag is set or not
      *
      *   0 No printing 
@@ -1907,6 +1911,8 @@ public:
 
     //! Returns the standard state E0 for the electrode based on a single reaction (virtual)
     /*!
+     *  (virtual from Electrode)
+     *
      *  When there is more than a single reaction,  pick open circuit potential for reaction that is
      *  closest to equilibrium given the cell voltage since this one is the one for which open circuit is most relevant.
      *  Note that it will be possible for the standard state OCV to be computed for a different reaction relative to the
@@ -1925,61 +1931,65 @@ public:
 
     //! Returns the equilibrium OCV for the selected ReactingSurDomain, current conditions based on a single reaction
     /*!
-     *   When there is more than a single reaction, pick open circuit potential for a reaction that is
-     *   closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
+     *  (virtual from Electrode)
      *
-     *   @param[in]     isk                      Reacting surface domain id
-     *   @param[in]     iReaction                Explicit index of the reaction. If npos, then it attempts
+     *  When there is more than a single reaction, pick open circuit potential for a reaction that is
+     *  closest to equilibrium given the cell voltage, since this one is the one for which open circuit is most relevant.
+     *
+     *  @param[in]           isk                 Reacting surface domain id
+     *  @param[in]           iReaction           Explicit index of the reaction. If npos, then it attempts
      *                                           to pick the reaction that best represents the open circuit potential.
      *
-     *   @param[in]     comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
+     *  @param[in] comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.  
      *
-     *   @return                                 Returns the OCV (volts)
+     *  @return                                  Returns the OCV (volts)
      */
     virtual double openCircuitVoltageRxn(size_t isk, size_t iReaction = npos, bool comparedToReferenceElectrode = false) const;
 
     //! Returns the equilibrium OCV for the selected ReactingSurfaceDomain and current conditions (virtual)
     /*!
+     *  (virtual from Electrode)
+     *
      *  This routine uses a root finder to find the voltage at which there
      *  is zero net electron production.  It leaves the object unchanged. However, it
      *  does change the voltage of the phases during the calculation, so this is a non const function.
      *
      *  @param[in]           isk                 Reacting surface domain id
-     *  @param[in]           comparedToReferenceElectrode   Boolean indicating whether voltage is referenced to the solution at
-     *                                                      the current conditions (false) or compared to the voltage wrt the 
-     *                                                 reference electrode (true). The later is akin to using the standard 
-     *                                                 state thermo functions for the electrolyte species.
+     *  @param[in] comparedToReferenceElectrode  Boolean indicating whether voltage is referenced to the solution at
+     *                                           the current conditions (false) or compared to the voltage wrt the 
+     *                                           reference electrode (true). The later is akin to using the standard 
+     *                                           state thermo functions for the electrolyte species.
      *
-     *   @return                                 Returns the OCV (volts)
+     *  @return                                  Returns the OCV (volts)
      */
     virtual double openCircuitVoltage(size_t isk, bool comparedToReferenceElectrode = false);
 
     //! Get the open circuit potential at the mixture averaged conditions of the electrode
     /*!
      *  (virtual from Electrode)
+     *
      *  This routine creates a mixture averaged condition of the electrode (eliminating any diffusional processes within the
      *  electrode) before calculating the OCV. The result is the same as openCircuitVoltage() in the base class, where 
      *  the assumption of a well mixed electrode is used.
      *
-     *  @param[in]           isk                           Reacting surface domain id
-     *  @param[in]           comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false
-     *                                                     which means that the OCV refers to the phiMetal - phiElectrolyte at the
-     *                                                     electrode surface.
+     *  @param[in]           isk                 Reacting surface domain id
+     *  @param[in] comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false
+     *                                           which means that the OCV refers to the phiMetal - phiElectrolyte at the electrode surface.
      *
-     *   @return                                 Returns the OCV (volts)
+     *  @return                                  Returns the OCV (volts)
      */
     virtual double openCircuitVoltage_MixtureAveraged(size_t isk, bool comparedToReferenceElectrode = false);
 
     //! Returns the vector of OCV's for all reactions on the selected ReactingSurDomain for the
     //! current conditions.
     /*!
-     *   The reference electrode idea is under construction. It's hard to generalize. What it means
-     *   now is for the standard state gibbs free energy to be used in the solution. In some common cases this
-     *   produces the OCV vs. the reference electrode.
+     *  The reference electrode idea is under construction. It's hard to generalize. What it means
+     *  now is for the standard state gibbs free energy to be used in the solution. In some common cases this
+     *  produces the OCV vs. the reference electrode.
      *
-     *  @param[in]      isk                            Reacting surface domain id
-     *  @param[out]     ocv                            Vector of open circuit voltages (length number of reactions)
-     *  @param[in]      comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
+     *  @param[in]           isk                 Reacting surface domain id
+     *  @param[out]          ocv                 Vector of open circuit voltages (length number of reactions)
+     *  @param[in] comparedToReferenceElectrode  Boolean, if true compare to the reference electrode. Defaults to false.
      */
     void getOpenCircuitVoltages(size_t isk, double* const ocv, bool comparedToReferenceElectrode = false) const;
 
@@ -2024,10 +2034,10 @@ public:
 
     //! Calculate the OCV of the Electrode object using all permissible reacting surfaces assuming mixture averaged properties
     /*!
-     *  Note, I'ved added the "Total" keyword into the name to differentiate this routine from the other routines, which only
-     *  calculate the OCV for a single reacting surface.
      *  (virtual from Electrode)
      *
+     *  Note, I'ved added the "Total" keyword into the name to differentiate this routine from the other routines, which only
+     *  calculate the OCV for a single reacting surface.
      *  This is a preliminary implementation. It doesn't work in complicated situations
      *
      *  @param[in]     comparedToReferenceElectrode   Boolean, if true compare to the reference electrode. Defaults to false.
@@ -2061,7 +2071,7 @@ public:
     //! Return the index of the phase corresponding to the electrolyte solution within the PhaseList
     //! comprising the Electrode object
     /*!
-     *   @return                             Returns the index of the solution phase within the %PhaseList
+     *  @return                              Returns the index of the solution phase within the %PhaseList
      */
     size_t solnPhaseIndex() const;
 
@@ -2090,7 +2100,7 @@ public:
     virtual double polarizationAnalysisSurf(std::vector<PolarizationSurfRxnResults>& psr_list, bool dischargeDir);
 
     //! Sum up the polarization analysis calcs into a global time step result
-    /*
+    /*!
      *  (virtual from Electrode)
      *
      *  @param[in]           removeLastStep      True if this called to remove the last record's contribution
